@@ -1,0 +1,12 @@
+E:\work\BikeWalePro\Bikewale.Notifications\bin\Release\Bikewale.Notifications.dll
+E:\work\BikeWalePro\Bikewale.Notifications\bin\Release\Bikewale.Notifications.pdb
+E:\work\BikeWalePro\Bikewale.Notifications\bin\Release\Bikewale.Entities.dll
+E:\work\BikeWalePro\Bikewale.Notifications\bin\Release\Bikewale.Utility.dll
+E:\work\BikeWalePro\Bikewale.Notifications\bin\Release\Newtonsoft.Json.dll
+E:\work\BikeWalePro\Bikewale.Notifications\bin\Release\System.Net.Http.Formatting.dll
+E:\work\BikeWalePro\Bikewale.Notifications\bin\Release\Bikewale.Entities.pdb
+E:\work\BikeWalePro\Bikewale.Notifications\bin\Release\Bikewale.Utility.pdb
+E:\work\BikeWalePro\Bikewale.Notifications\bin\Release\System.Net.Http.Formatting.xml
+E:\work\BikeWalePro\Bikewale.Notifications\obj\Release\Bikewale.Notifications.csprojResolveAssemblyReference.cache
+E:\work\BikeWalePro\Bikewale.Notifications\obj\Release\Bikewale.Notifications.dll
+E:\work\BikeWalePro\Bikewale.Notifications\obj\Release\Bikewale.Notifications.pdb

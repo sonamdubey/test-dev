@@ -1,0 +1,517 @@
+﻿<%@ Page Language="C#" Inherits="Bikewale.New.comparebikes" AutoEventWireUp="false" Trace="false" %>
+<%@ Register TagPrefix="AddBike" TagName="AddBike" Src="~/controls/AddBikeToCompare.ascx" %>
+<%
+    title = "Compare " + pageTitle + "- BikeWale";
+    description = "BikeWale&reg; - Compare " + keyword + ". Compare Price, Mileage, Engine Power, Specifications, features and colors of bikes on BikeWale.";
+    keywords = "Compare bikes,Compare bike prices,Compare bike specifications,Compare bike mileage,Compare features,Compare colors,Compare " + pageTitle;
+    canonical = "http://www.bikewale.com/comparebikes/" + canonicalUrl + "/";
+    if (count == 2)
+    {
+        alternate = "http://www.bikewale.com/m/comparebikes/" + canonicalUrl + "/";
+    }
+    AdId = "1395986297721";
+    AdPath = "/1017752/BikeWale_New_";
+%>
+
+<!-- #include file="/includes/headNew.aspx" -->
+
+<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
+<PW:PopupWidget runat="server" ID="PopupWidget" />
+
+<style>
+    .container-border {border-top:1px solid #F3F2F2;}
+    .tab_inner_container .container-border th.mainth { border-right:1px solid #F3F2F2;}
+    .tab_inner_container .container-1 {border-left:1px solid #F3F2F2; border-right:1px solid #F3F2F2;}
+    .tab_inner_container .container-1 .repeater-1 { border-right:1px solid #F3F2F2; vertical-align:top;}
+    .tab_inner_container .container-1 .specs-title th { border-right:0px solid #F3F2F2;  }
+    .tab_inner_container .container-1 .repeater-2 { border-right:1px solid #F3F2F2;}     
+    .tab_inner_container .mainth {background:none;}
+    .tab_inner_container th { width:170px; border-right:0px;}
+    .tab_inner_container .maintd {border-right:0px;}
+    .container-1 table table th { border-right:0px;}
+    .tbl-compare td.headerSpecs { border-bottom:1px solid #FFFFFF;}
+    .tab_inner_container .tbl-compare td { height:51px; text-align:center; vertical-align:middle; padding:0px; }
+    .tab_inner_container .tbl-compare th { height:30px; text-align:center; vertical-align:middle; padding:0px; }
+    .tab_inner_container .tbl-compare .maintd td { vertical-align:top;}
+    .container-border td.maintd td {  border-bottom: 0px;}
+    .container-border td.maintd td div {  border-right: 0px;}
+    .container-border th.mainth { border-right:1px solid #F3F2F2; padding: 5px 5px; margin:0 0 5px 0;}
+    .container-border td.maintd { border-right:1px solid #F3F2F2; }
+    .container-border td.maintd:last-child { border-right:0px solid #F3F2F2; }
+    .container-border td.maintd table{ padding: 5px 5px; margin:0 0 5px 0;}
+    .container-border td.maintd { border-bottom:0px solid #F3F2F2; vertical-align:top;}
+    .tab_inner_container .container-1 .repeater-1 .tblColor td { vertical-align:top; border-bottom:0px;}
+    .tab_inner_container .container-1 .repeater-1 .tblColor th { border-right:0px;}
+    .tab_inner_container .container-1 .Colors td:last-child.repeater-1  { border-right:0px;}
+    .tab_inner_container .tbl-compare .specs-title th, .tab_inner_container .tbl-compare .specs-title td {text-align:left; padding-left:5px; }
+    .maintd .bikemain {border:0px solid red; overflow:hidden; }
+    .maintd .bikename { margin-bottom: 10px;text-align: center;}
+    .maintd .bikeclose {overflow:hidden; display:inline-block;  text-align: right; float:right;}
+    .sixcolum{ width:123px; }
+    .fivecolum{ width:149px; }
+    .fourcolum{ width:186px; }
+    .threecolum{ width:248px; }
+    .sixcolum img.second-img { width: 103px; height:auto; }
+    .fivecolum img.second-img { width: 128px; height:auto; }
+    .fourcolum img.second-img { width: 166px; height:auto; }
+    .threecolum img.second-img { width: 228px; height:auto; }
+    .featuredBike { background-color:#fffae8!important; }
+</style>
+         <div class="container_12">
+             <div class="grid_12">
+                <ul class="breadcrumb">
+                    <li>You are here: </li>
+                    <li><a href="/">Home</a></li>
+                    <li class="fwd-arrow">&rsaquo;</li>
+                    <li><a href="/comparebikes/">Compare Bikes in India</a></li>
+                    <li class="fwd-arrow">&rsaquo;</li>
+                    <li class="current"><strong>Bike Comparison</strong></li>
+                </ul><div class="clear"></div>
+             </div>     
+        
+         <div class="grid_12 margin-top10"><!--    Left Container starts here -->       
+		    <span id="spnError" class="error" runat="server"></span>
+		    <h1 class="red margin-bottom15">Bike Comparison - <asp:Literal id="ltrTitle" runat="server"></asp:Literal></h1>		    
+            <div class="padding-top20 featured-bike-tabs">
+                <ul class="featured-bike-tabs-inner padding-top20">
+                    <li id="liSpecs" class="fbike-active-tab first_tab">Specs</li>
+                    <li id="liFeatures">Features</li>
+                    <li id="liColors">Colours</li>                          
+                </ul>
+            </div> 	
+		    <div class="tab_inner_container">
+			    <table width="100%" class="tbl-compare" cellpadding="0" border="0" cellspacing="0">
+                    <tr>
+                        <td>&nbsp;</td>
+	                    <td class="container-1">
+                            <table width="100%" class="container-border" cellpadding="0" border="0" cellspacing="0">
+                                 <tr>
+                                     <th class="mainth">&nbsp;</th>
+                                     <asp:Repeater runat="server" ID="rptCommon">
+                                         <ItemTemplate>
+                                           <td class="maintd <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
+                                               <table class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>" cellpadding="0" border="0" cellspacing="0">
+                                                   <tr><td>
+                                                       <div class="bikeclose"><a class='delBike pointer right-float <%= !isFeatured ? ((count==2) ? "hide" : "") : ((count==3) ? "hide" : "") %>' versionId='<%# DataBinder.Eval(Container.DataItem,"BikeVersionId") %>'><img src="http://img.carwale.com/images/icons/delete.ico" /></a></div>
+                                                       <div class="clear"></div>
+                                                       <div class="bikemain">
+                                                           <div class="bikename"><strong><a href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName") +"-bikes/"+ DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/' title='<%# DataBinder.Eval(Container.DataItem,"Make") + " " + DataBinder.Eval(Container.DataItem,"Model") + " " + DataBinder.Eval(Container.DataItem,"Version") + " Details"%>'><%#DataBinder.Eval(Container.DataItem,"Make") + " " + DataBinder.Eval(Container.DataItem,"Model") + " " + DataBinder.Eval(Container.DataItem,"Version")%></a></strong></div>
+                                                        </div>
+                                                       </td>
+                                                   </tr>
+                                                   <tr><td><a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"HostURL").ToString()) ? Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/", DataBinder.Eval(Container.DataItem,"HostURL").ToString()) + DataBinder.Eval(Container.DataItem,"largePic") :  "http://img.carwale.com/bikewaleimg/common/nobike.jpg" %>" border="0"/></a></td></tr>
+                                                   <tr> <td><%#GetModelRatings( DataBinder.Eval(Container.DataItem,"BikeVersionId").ToString() ) %></td></tr>
+                                                   <tr>
+                                                       <td><strong>Price Rs. <%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></strong><br />
+                                                        <span class="<%#String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Price").ToString())?"hide":"" %>">Ex-Showroom, <%= ConfigurationManager.AppSettings["defaultName"].ToString() %></span>
+                                                        <%# DataBinder.Eval(Container.DataItem,"Price").ToString() == "" ? "" : "<div class='la' style='margin-top:5px;'><a class='fillPopupData' modelId='"+ DataBinder.Eval(Container.DataItem,"ModelId") +"' href=\"/pricequote/default.aspx?version=" + DataBinder.Eval(Container.DataItem,"BikeVersionId") + "\">Check On-Road Price</a></div>"%>
+                                                       </td>
+                                                   </tr>
+                                               </table>
+                                           </td>                                       
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                     <% if(isFeatured ? (count < 5) : (count < 4)){ %>
+                                     <td class="maintd">
+                                        <table cellpadding="0" border="0" cellspacing="0" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                            <tr>
+                                                <td>
+                                                    <AddBike:AddBike id="addBike" runat="server"></AddBike:AddBike>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <% } %>
+                                </tr>
+                                <tr class="Specs">
+                                    <td align="left" class="specs-title">
+                                        <table width="165" cellpadding="0" border="0" cellspacing="0">
+                                            <tr><th>Engine</th></tr>
+                                            <tr><td class="headerSpecs">Displacement (cc)</td></tr>
+                                            <tr><td class="headerSpecs">Cylinders</td></tr>    
+                                            <tr><td class="headerSpecs">Max Power</td></tr>    
+                                            <tr><td class="headerSpecs">Maximum Torque</td></tr>    
+                                            <tr><td class="headerSpecs">Bore (mm)</td></tr>    
+                                            <tr><td class="headerSpecs">Stroke (mm)</td></tr>    
+                                            <tr><td class="headerSpecs">Valves Per Cylinder</td></tr>   
+                                            <tr><td class="headerSpecs">Fuel Delivery System</td></tr>    
+                                            <tr><td class="headerSpecs">Fuel Type</td></tr>    
+                                            <tr><td class="headerSpecs">Ignition</td></tr>    
+                                            <tr><td class="headerSpecs">Spark Plugs (Per Cylinder)</td></tr>    
+                                            <tr><td class="headerSpecs">Cooling System</td></tr>    
+                                            <tr><th class="headerSpecs">Transmission</th></tr>    
+                                            <tr><td class="headerSpecs">Gearbox Type</td></tr>    
+                                            <tr><td class="headerSpecs">No Of Gears</td></tr>    
+                                            <tr><td class="headerSpecs">Transmission Type</td></tr>    
+                                            <tr><td class="headerSpecs">Clutch</td></tr>    
+                                            <tr><th class="headerSpecs">Performance</th></tr>
+                                            <tr><td class="headerSpecs">0 to 60 kmph (Seconds)</td></tr>
+                                            <tr><td class="headerSpecs">0 to 80 kmph (Seconds)</td></tr>
+                                            <tr><td class="headerSpecs">0 to 40 m (Seconds)</td></tr>
+                                            <tr><td class="headerSpecs">Top Speed (Kmph)</td></tr>
+                                            <tr><td class="headerSpecs">60 to 0 Kmph (Seconds, metres)</td></tr>
+                                            <tr><td class="headerSpecs">80 to 0 kmph (Seconds, metres)</td></tr>
+                                            <tr><th class="headerSpecs">Dimensions & Weight</th></tr>
+                                            <tr><td class="headerSpecs">Kerb Weight (Kg)</td></tr>
+                                            <tr><td class="headerSpecs">Overall Length (mm)</td></tr>
+                                            <tr><td class="headerSpecs">Overall Width (mm)</td></tr>
+                                            <tr><td class="headerSpecs">Overall Height (mm)</td></tr>
+                                            <tr><td class="headerSpecs">Wheelbase (mm)</td></tr>
+                                            <tr><td class="headerSpecs">Ground Clearance (mm)</td></tr>
+                                            <tr><td class="headerSpecs">Seat Height (mm)</td></tr>
+                                            <tr><th class="headerSpecs">Fuel Efficiency & Range</th></tr>
+                                            <tr><td class="headerSpecs">Fuel Tank Capacity (Litres)</td></tr>
+                                            <tr><td class="headerSpecs">Reserve Fuel Capacity (Litres)</td></tr>
+                                            <tr><td class="headerSpecs">FuelEfficiency Overall (Kmpl)</td></tr>
+                                            <tr><td class="headerSpecs">Fuel Efficiency Range (Km)</td></tr>
+                                            <tr><th class="headerSpecs">Chassis & Suspension</th></tr>
+                                            <tr><td class="headerSpecs">Chassis Type</td></tr>
+                                            <tr><td class="headerSpecs">Front Suspension</td></tr>
+                                            <tr><td class="headerSpecs">Rear Suspension</td></tr>
+                                            <tr><th class="headerSpecs">Braking</th></tr>
+                                            <tr><td class="headerSpecs">Brake Type</td></tr>
+                                            <tr><td class="headerSpecs">Front Disc</td></tr>
+                                            <tr><td class="headerSpecs">Front Disc/Drum Size (mm)</td></tr>
+                                            <tr><td class="headerSpecs">Rear Disc</td></tr>
+                                            <tr><td class="headerSpecs">Rear Disc/Drum Size (mm)</td></tr>
+                                            <tr><td class="headerSpecs">Calliper Type</td></tr>
+                                            <tr><th class="headerSpecs">Wheels & Tyres</th></tr>
+                                            <tr><td class="headerSpecs">Wheel Size (inches)</td></tr>
+                                            <tr><td class="headerSpecs">Front Tyre</td></tr>
+                                            <tr><td class="headerSpecs">Rear Tyre</td></tr>
+                                            <tr><td class="headerSpecs">Tubeless Tyres</td></tr>
+                                            <tr><td class="headerSpecs">Radial Tyres</td></tr>
+                                            <tr><td class="headerSpecs">Alloy Wheels</td></tr>
+                                            <tr><th class="headerSpecs">Electricals</th></tr>
+                                            <tr><td class="headerSpecs">Electric System</td></tr>
+                                            <tr><td class="headerSpecs">Battery</td></tr>
+                                            <tr><td class="headerSpecs">Headlight Type</td></tr>
+                                            <tr><td class="headerSpecs">Headlight Bulb Type</td></tr>
+                                            <tr><td class="headerSpecs">Brake/Tail Light</td>
+                                            <tr><td class="headerSpecs">Turn Signal</td></tr>
+                                            <tr><td class="headerSpecs">Pass Light</td></tr>
+                                        </table>
+                                    </td>
+                                        <asp:Repeater runat="server" ID="rptSpecs">
+                                            <ItemTemplate>
+                                            <td class="repeater-1 <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
+                                                <table cellpadding="0" border="0" cellspacing="0" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Displacement").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Cylinders").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"MaxPower").ToString()) != "--" ? DataBinder.Eval(Container.DataItem,"MaxPower").ToString() + " bhp " + ( ShowFormatedData(DataBinder.Eval(Container.DataItem,"MaxPowerRpm").ToString()) != "--" ? " @ " + DataBinder.Eval(Container.DataItem,"MaxPowerRpm").ToString()  + " rpm " : "" ): "--" %></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"MaximumTorque").ToString()) != "--" ? DataBinder.Eval(Container.DataItem,"MaximumTorque").ToString() + " Nm  " + (ShowFormatedData(DataBinder.Eval(Container.DataItem,"MaximumTorqueRpm").ToString()) != "--" ? " @ " + DataBinder.Eval(Container.DataItem,"MaximumTorqueRpm").ToString()  + " rpm " : "") : "--" %></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Bore").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Stroke").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"ValvesPerCylinder").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelDeliverySystem").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelType").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Ignition").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"SparkPlugsPerCylinder").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"CoolingSystem").ToString())%></td></tr>
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"GearboxType").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"NoOfGears").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"TransmissionType").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Clutch").ToString())%></td></tr>
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Performance_0_60_kmph").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Performance_0_80_kmph").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Performance_0_40_m").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"TopSpeed").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Performance_60_0_kmph").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Performance_80_0_kmph").ToString())%></td></tr>
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"KerbWeight").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"OverallLength").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"OverallWidth").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"OverallHeight").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Wheelbase").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"GroundClearance").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"SeatHeight").ToString())%></td></tr>
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelTankCapacity").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"ReserveFuelCapacity").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelEfficiencyOverall").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelEfficiencyRange").ToString())%></td></tr>
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"ChassisType").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FrontSuspension").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"RearSuspension").ToString())%></td></tr>
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"BrakeType").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"FrontDisc").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FrontDisc_DrumSize").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"RearDisc").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"RearDisc_DrumSize").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"CalliperType").ToString())%></td></tr>
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"WheelSize").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FrontTyre").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"RearTyre").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"TubelessTyres").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"RadialTyres").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"AlloyWheels").ToString())%></td></tr>
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"ElectricSystem").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Battery").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"HeadlightType").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"HeadlightBulbType").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Brake_Tail_Light").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"TurnSignal").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"PassLight").ToString())%></td></tr>
+                                                </table>
+                                            </td>                                       
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    <% if (isFeatured ? (count < 5) : (count < 4))
+                                       { %>
+                                     <td>
+                                        <table cellpadding="0" border="0" cellspacing="0" class="<%= !isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                        </table>
+                                    </td>
+                                    <% } %>
+                                </tr>
+                                <tr class="Features hide">
+                                    <td class="specs-title">
+                                        <table  width="165" cellpadding="0" border="0" cellspacing="0">
+                                            <tr><th>Features</th></tr>
+                                            <tr><td class="headerSpecs">Speedometer</td></tr>
+                                            <tr><td class="headerSpecs">Tachometer</td></tr>
+                                            <tr><td class="headerSpecs">Tachometer Type</td></tr>
+                                            <tr><td class="headerSpecs">Shift Light</td></tr>
+                                            <tr><td class="headerSpecs">Electric Start</td></tr>
+                                            <tr><td class="headerSpecs">Tripmeter</td></tr>
+                                            <tr><td class="headerSpecs">No Of Tripmeters</td></tr>
+                                            <tr><td class="headerSpecs">Tripmeter Type</td></tr>
+                                            <tr><td class="headerSpecs">Low Fuel Indicator</td></tr>
+                                            <tr><td class="headerSpecs">Low Oil Indicator</td></tr>
+                                            <tr><td class="headerSpecs">Low Battery Indicator</td></tr>
+                                            <tr><td class="headerSpecs">Fuel Gauge</td></tr>
+                                            <tr><td class="headerSpecs">Digital Fuel Gauges</td></tr>
+                                            <tr><td class="headerSpecs">Pillion Seat</td></tr>
+                                            <tr><td class="headerSpecs">Pillion Footrest</td></tr>
+                                            <tr><td class="headerSpecs">Pillion Backrest</td></tr>
+                                            <tr><td class="headerSpecs">Pillion Grabrail</td></tr>
+                                            <tr><td class="headerSpecs">Stand Alarm</td></tr>
+                                            <tr><td class="headerSpecs">Stepped Seat</td></tr>
+                                            <tr><td class="headerSpecs">Antilock Braking System</td></tr>
+                                            <tr><td class="headerSpecs">Killswitch</td></tr>
+                                            <tr><td class="headerSpecs">Clock</td></tr>
+                                            <tr><td class="headerSpecs">Colors</td></tr>
+                                        </table>
+                                    </td>
+                                    <asp:repeater runat="server" id="rptFeatures">
+                                        <itemtemplate>
+                                            <td class="repeater-1 <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
+                                                <table cellpadding="0" border="0" cellspacing="0" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Speedometer").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"Tachometer").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"TachometerType").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"ShiftLight").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"ElectricStart").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"Tripmeter").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"NoOfTripmeters").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"TripmeterType").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"LowFuelIndicator").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"LowOilIndicator").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"LowBatteryIndicator").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"FuelGauge").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"DigitalFuelGauge").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"PillionSeat").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"PillionFootrest").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"PillionBackrest").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"PillionGrabrail").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"StandAlarm").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"SteppedSeat").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"AntilockBrakingSystem").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"Killswitch").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"Clock").ToString())%></td></tr>
+                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Colors").ToString())%></td></tr>
+                                                </table>
+                                            </td>
+                                        </itemtemplate>
+                                    </asp:repeater>
+                                    <% if (isFeatured ? (count < 5) : (count < 4))
+                                       { %>
+                                     <td>
+                                        <table cellpadding="0" border="0" cellspacing="0" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                        </table>
+                                    </td>
+                                    <% } %>
+                                </tr>
+                                <tr class="Colors hide">
+                                    <td class="specs-title repeater-1">
+                                        <table class="tblColor" width="165" cellpadding="0" border="0" cellspacing="0">
+                                            <tr><th>Available Colors</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                        </table>
+                                    </td>
+                                    <asp:repeater runat="server" id="rptColors">
+                                        <itemtemplate>
+                                            <td class="repeater-1 <%# Container.ItemIndex == featuredBikeIndex ? "featuredBike" : ""  %>">
+                                                <table cellpadding="0" border="0" cellspacing="0" class="tblColor <%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                                    <tr><th>&nbsp;</th></tr>
+                                                    <tr><td><%# GetModelColors((DataBinder.Eval(Container.DataItem,"BikeVersionId").ToString()),Container.ItemIndex) %></td></tr>
+                                                </table>
+                                            </td>
+                                        </itemtemplate>
+                                    </asp:repeater>
+                                    <% if (isFeatured ? (count < 5) : (count < 4))
+                                       { %>
+                                     <td class="repeater-1">
+                                        <table cellpadding="0" border="0" cellspacing="0" class="tblColor <%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                            <tr><th>&nbsp;</th></tr>
+                                            <tr><td>&nbsp;</td></tr>
+                                        </table>
+                                    </td>
+                                    <% } %>
+                                </tr>
+                            </table>
+	                    </td>
+                    </tr>       
+                </table>              
+		    </div>	
+        </div><!--    Left Container ends here -->
+              </div>
+<div id="back-to-top" class="back-to-top"><a><span></span></a></div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var speed = 300;
+        //input parameter : id of element, scroll up speed
+        ScrollToTop("back-to-top", speed);
+
+        if ($("#tblCompare").length > 0) {
+            var featuredBikeIndex = '<%= featuredBikeIndex + 2 %>';
+            $("#tblCompare tr td:nth-child(" + featuredBikeIndex + ")").css({ "background-color": "#FCF8D0" });
+            $("#tblCompare tr:first td:nth-child(" + featuredBikeIndex + ")").html("Sponsored Bike").addClass("td-featured");
+        }
+
+        $("#liSpecs,#liFeatures, #liColors").click(function () {
+            $("#liSpecs,#liFeatures, #liColors").removeClass("fbike-active-tab");
+            $(this).addClass("fbike-active-tab");
+            $(".Specs,.Features,.Colors").addClass("hide");
+            $("." + $(this).attr('id').substring(2, $(this).attr('id').length)).removeClass("hide");
+        });
+
+        var featuredBike = $(".featuredBike").find('.bikeclose');
+        $(featuredBike).html('<span>sponsored</span>');
+
+        $("a.delBike").click(function () {
+            var verId = $(this).attr("versionId");
+            var basicUrl = (window.location.pathname).split('/')[2];
+            var versions = '<%= versions%>';
+            var makeModelList = new Array();
+            var VersionIdList = new Array();
+            var newBasicUrl = "";
+            var newQueryStr = "";
+            var Count = 0;
+            makeModelList = basicUrl.split("-vs-");
+            VersionIdList = versions.split(',');
+
+            for (var i = 0; i < makeModelList.length; i++) {
+                if (verId != VersionIdList[i]) {
+                    newBasicUrl += makeModelList[i] + "-vs-";
+                    newQueryStr += "bike" + (Count + 1) + "=" + VersionIdList[i] + "&";
+                    Count++;
+                }
+            }
+
+            newBasicUrl = newBasicUrl.substring(0, newBasicUrl.lastIndexOf("-vs-"));
+            newQueryStr = newQueryStr.substring(0, newQueryStr.length - 1);
+            window.location = "/comparebikes/" + newBasicUrl + "/?" + newQueryStr;;
+
+        });
+    });
+</script>
+<!-- #include file="/includes/footerInner.aspx" -->

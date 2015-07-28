@@ -1,0 +1,44 @@
+﻿
+html{height:100%; margin-top:1px;}
+body{margin:0; font:12px 'Helvetica Neue',Verdana,sans-serif; background-color:#CCCCCC;}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,label{margin:0;padding:0; color:#445566;}
+table{font:13px Verdana, Arial, sans-serif; color:#2f2f2f;}
+
+#primary-nav{}
+#primary-nav ul{list-style:none; width:100%; height:40px; padding:0; margin:0;}
+#primary-nav li{float:left; padding:10px 10px 0 10px;}
+#primary-nav a{text-decoration:none;}
+#primary-nav a:hover{ text-decoration:underline;}
+#primary-nav li.select{ background-color:#006bb8; color:#FFF; height:30px; font-weight:bold;}
+#primary-nav li.select a{ color:#FFFFFF;}
+#primary-nav li.sept{width:2px;}
+
+.clear { clear:both; }
+.redirect-rt { float:right; }
+.redirect-lt { float:left; }
+.hide { display:none; }
+.show { display:block; }
+
+
+/* Grid 1008 with 12 columns and 10px margin left and right */
+.container_12 {width: 1008px; margin: 0 auto; overflow: hidden; box-shadow: 0 3px 5px #333333; background-color:#fff; }
+
+.grid_1 {width: 64px;}
+.grid_2 {width: 148px;}
+.grid_3 {width: 232px;}
+.grid_4 {width: 316px;}
+.grid_5 {width: 400px;}
+.grid_6 {width: 484px;}
+.grid_7 {width: 568px;}
+.grid_8 {width: 652px;}
+.grid_9 {width: 736px;}
+.grid_10 {width: 820px;}
+.grid_11 {width: 904px;}
+.grid_12 {width: 988px;}
+
+.grid_1, .grid_2, .grid_3, .grid_4, .grid_5, .grid_6, 
+.grid_7, .grid_8, .grid_9, .grid_10, .grid_11, .grid_12 {display: inline; float: left; margin-left: 10px; margin-right: 10px;}
+
+.alpha { margin-left: 0; }
+.omega { margin-right: 0; }
+/*  Grid css end here... */

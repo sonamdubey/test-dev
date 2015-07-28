@@ -1,0 +1,28 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Bikewale.Entities.Customer;
+
+namespace Bikewale.Interfaces.Customer
+{
+    /// <summary>
+    /// Created By : Ashish G. Kamble on 25 Apr 2014
+    /// Summary : Interface have all functions of the customers related to authentication and other operations.
+    /// </summary>
+    /// <typeparam name="U"></typeparam>
+    public interface ICustomerAuthentication<T,U>
+    {
+        bool IsRegisteredUser(string email);
+        T AuthenticateUser(string email, string password);
+        T AuthenticateUser(string email);
+        
+        void UpdateCustomerMobileNumber(string mobile, string email, string name = null);
+        void UpdatePasswordSaltHash(U customerId, string passwordSalt, string passwordHash);
+
+        void SavePasswordRecoveryToken(U customerId, string token);
+        bool IsValidPasswordRecoveryToken(U customerId, string token);
+        void DeactivatePasswordRecoveryToken(U customerId);
+    }
+}

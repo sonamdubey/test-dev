@@ -1,0 +1,6 @@
+E:\work\BikeWalePro\BikeWaleOpr.UI\bin\BikewaleOpr.dll.config
+E:\work\BikeWalePro\BikeWaleOpr.UI\bin\BikewaleOpr.dll
+E:\work\BikeWalePro\BikeWaleOpr.UI\bin\BikewaleOpr.pdb
+E:\work\BikeWalePro\BikeWaleOpr.UI\obj\Release\BikeWaleOpr.csprojResolveAssemblyReference.cache
+E:\work\BikeWalePro\BikeWaleOpr.UI\obj\Release\BikewaleOpr.dll
+E:\work\BikeWalePro\BikeWaleOpr.UI\obj\Release\BikewaleOpr.pdb

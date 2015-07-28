@@ -1,0 +1,2081 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E3512B04-CD47-4E15-AB1D-CCFC92193273}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Bikewale</RootNamespace>
+    <AssemblyName>Bikewale</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ajax, Version=5.7.22.2, Culture=neutral">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Ajax.dll</HintPath>
+    </Reference>
+    <Reference Include="AjaxPro.2, Version=9.2.17.1, Culture=neutral, PublicKeyToken=4735ae9824c7d3ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\AjaxPro.2.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.BL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Carwale.BL.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.CMS, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Carwale.CMS.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.CoreDAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Carwale.CoreDAL.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.DAL, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Carwale.DAL.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.Entity, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Carwale.Entity.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Carwale.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.Notifications, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Carwale.Notifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Carwale.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Enyim.Caching, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Enyim.Caching.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\Libs\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+    </Reference>
+    <Reference Include="MSMQLibrary, Version=1.0.0.1, Culture=neutral, PublicKeyToken=14ca6d48bbc78a0c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\MSMQLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NReco.PdfGenerator">
+      <HintPath>..\Libs\NReco.PdfGenerator.dll</HintPath>
+    </Reference>
+    <Reference Include="PasswordHashingLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\PasswordHashingLib.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client">
+      <HintPath>..\Libs\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMqPublishing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.License">
+      <HintPath>..\packages\Spire.PDF.3.1.53\lib\net40\Spire.License.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.Pdf">
+      <HintPath>..\packages\Spire.PDF.3.1.53\lib\net40\Spire.Pdf.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.1.8.2\lib\net45\AspNet.ScriptManager.jQuery.dll</HintPath>
+    </Reference>
+    <Reference Include="AspNet.ScriptManager.jQuery.UI.Combined">
+      <HintPath>..\packages\AspNet.ScriptManager.jQuery.UI.Combined.1.8.24\lib\net45\AspNet.ScriptManager.jQuery.UI.Combined.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.MSAjax, Version=4.5.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.MSAjax.4.5.6\lib\net45\Microsoft.ScriptManager.MSAjax.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ScriptManager.WebForms, Version=4.5.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.ScriptManager.WebForms.4.5.6\lib\net45\Microsoft.ScriptManager.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Providers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OAuth.Consumer, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OAuth.Consumer.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OAuth.Consumer.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.Core.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OpenId.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.OpenId.RelyingParty, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.OpenId.RelyingParty.4.1.4.12333\lib\net40-full\DotNetOpenAuth.OpenId.RelyingParty.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetOpenAuth.AspNet, Version=4.0.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DotNetOpenAuth.AspNet.4.1.4.12333\lib\net40-full\DotNetOpenAuth.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Membership.OpenAuth, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.Membership.OpenAuth.1.0.1\lib\net45\Microsoft.AspNet.Membership.OpenAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Utils, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Web.Optimization.WebForms">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.WebForms.1.0.0\lib\net45\Microsoft.AspNet.Web.Optimization.WebForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.FriendlyUrls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>..\packages\Microsoft.AspNet.FriendlyUrls.Core.1.0.0\lib\net45\Microsoft.AspNet.FriendlyUrls.dll</HintPath>
+    </Reference>
+    <Reference Include="WURFL, Version=1.3.1.0, Culture=neutral, PublicKeyToken=816aeec277aa13b9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\WURFL.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BikeBooking\BillDeskResponse.aspx.cs">
+      <DependentUpon>BillDeskResponse.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BikeBooking\Common\BikeBookingOperations.cs" />
+    <Compile Include="BikeBooking\Common\CustomerDetailCookie.cs" />
+    <Compile Include="BikeBooking\Common\DealerPriceQuoteCookie.cs" />
+    <Compile Include="BikeBooking\Common\SendEmailSMSToDealerCustomer.cs" />
+    <Compile Include="BikeBooking\Common\TCApi_Inquiry.cs" />
+    <Compile Include="BikeBooking\RedirectToBillDesk.aspx.cs">
+      <DependentUpon>RedirectToBillDesk.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
+    <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
+    <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
+    <Compile Include="common\Ajax\AjaxCommon.cs" />
+    <Compile Include="common\Ajax\AjaxCompareBikes.cs" />
+    <Compile Include="common\Ajax\AjaxForum.cs" />
+    <Compile Include="common\Ajax\AjaxPriceQuote.cs" />
+    <Compile Include="common\Ajax\AjaxResearch.cs" />
+    <Compile Include="common\Ajax\AjaxSellBike.cs" />
+    <Compile Include="common\Ajax\AjaxUserReviews.cs" />
+    <Compile Include="common\BindControls.cs" />
+    <Compile Include="common\BWCommon.cs" />
+    <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
+    <Compile Include="common\BWSecurity\ScreenInput.cs" />
+    <Compile Include="common\Cities.cs" />
+    <Compile Include="common\Classified.cs" />
+    <Compile Include="common\CommonOpn.cs" />
+    <Compile Include="common\Configuration.cs" />
+    <Compile Include="common\CookiesCustomers.cs" />
+    <Compile Include="common\CookiesUserReviews.cs" />
+    <Compile Include="common\CurrentUser.cs" />
+    <Compile Include="common\CustomerDetails.cs" />
+    <Compile Include="common\Customers.cs" />
+    <Compile Include="common\CustomersLogin.cs" />
+    <Compile Include="common\CustomerVerification.cs" />
+    <Compile Include="common\Database.cs" />
+    <Compile Include="common\DeviceDetection.cs" />
+    <Compile Include="common\ErrorClass.cs" />
+    <Compile Include="common\FeaturedBike.cs" />
+    <Compile Include="common\FillControls.cs" />
+    <Compile Include="common\ImagingFunctions.cs" />
+    <Compile Include="common\ImagingOperations.cs" />
+    <Compile Include="common\Json.cs" />
+    <Compile Include="common\LocateDealers.cs" />
+    <Compile Include="common\MailerAds.cs" />
+    <Compile Include="common\Mails.cs" />
+    <Compile Include="common\Mails\ClassifiedMailContent.cs" />
+    <Compile Include="common\MakeModelVersion.cs" />
+    <Compile Include="common\ManageSeries.cs" />
+    <Compile Include="common\ManageVideos.cs" />
+    <Compile Include="common\ModelVersionDescription.cs" />
+    <Compile Include="common\RegisterCustomer.cs" />
+    <Compile Include="common\Security.cs" />
+    <Compile Include="common\SellInquiry.cs" />
+    <Compile Include="common\SMS\SMSCommon.cs" />
+    <Compile Include="common\SMS\SMSTypes.cs" />
+    <Compile Include="common\SourceIdCommon.cs" />
+    <Compile Include="common\StateCity.cs" />
+    <Compile Include="common\UrlRewrite.cs" />
+    <Compile Include="common\Validations.cs" />
+    <Compile Include="common\BWHttpClient.cs" />
+    <Compile Include="community\pms\CommonMessage.cs" />
+    <Compile Include="content\ComparisonTest\DefaultCT.aspx.cs">
+      <DependentUpon>DefaultCT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\ComparisonTest\ViewCT.aspx.cs">
+      <DependentUpon>ViewCT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\Features\DefaultF.aspx.cs">
+      <DependentUpon>DefaultF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\Features\ViewF.aspx.cs">
+      <DependentUpon>ViewF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\RepeaterPager.ascx.cs">
+      <DependentUpon>RepeaterPager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\RoadTest\DefaultRT.aspx.cs">
+      <DependentUpon>DefaultRT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\RoadTest\ViewRT.aspx.cs">
+      <DependentUpon>ViewRT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\TipsAdvices\DefaultTA.aspx.cs">
+      <DependentUpon>DefaultTA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\TipsAdvices\ViewTA.aspx.cs">
+      <DependentUpon>ViewTA.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\UserReviews\DefaultUR.aspx.cs">
+      <DependentUpon>DefaultUR.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\UserReviews\ListReviews.aspx.cs">
+      <DependentUpon>ListReviews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\UserReviews\RepeaterPagerReviews.ascx.cs">
+      <DependentUpon>RepeaterPagerReviews.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\UserReviews\ReviewDetails.aspx.cs">
+      <DependentUpon>ReviewDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\UserReviews\WriteReviews.aspx.cs">
+      <DependentUpon>WriteReviews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\AddBikeToCompare.ascx.cs">
+      <DependentUpon>AddBikeToCompare.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ArticlePhotoGallery.ascx.cs">
+      <DependentUpon>ArticlePhotoGallery.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\BikeBookingMinWidget.ascx.cs">
+      <DependentUpon>BikeBookingMinWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\BikeBookingWidget.ascx.cs">
+      <DependentUpon>BikeBookingWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\BikeRatings.ascx.cs">
+      <DependentUpon>BikeRatings.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\BikeReviews.ascx.cs">
+      <DependentUpon>BikeReviews.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\BikesInBudget.ascx.cs">
+      <DependentUpon>BikesInBudget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\BikeVideos.ascx.cs">
+      <DependentUpon>BikeVideos.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\BrowseBikeManufacturerMin.ascx.cs">
+      <DependentUpon>BrowseBikeManufacturerMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\BrowseBikes.ascx.cs">
+      <DependentUpon>BrowseBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\BrowseUserReviews.ascx.cs">
+      <DependentUpon>BrowseUserReviews.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ComparisonMin.ascx.cs">
+      <DependentUpon>ComparisonMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\DateControl.ascx.cs">
+      <DependentUpon>DateControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\DiscussIt.ascx.cs">
+      <DependentUpon>DiscussIt.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\FeaturedBike.ascx.cs">
+      <DependentUpon>FeaturedBike.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ForumsMin.ascx.cs">
+      <DependentUpon>ForumsMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\HomePageBanner.ascx.cs">
+      <DependentUpon>HomePageBanner.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\LinkPagerControl.ascx.cs">
+      <DependentUpon>LinkPagerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\LocateDealer.ascx.cs">
+      <DependentUpon>LocateDealer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\LoginControl.ascx.cs">
+      <DependentUpon>LoginControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\MakeModelSearch.ascx.cs">
+      <DependentUpon>MakeModelSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\NewBikeLaunches.ascx.cs">
+      <DependentUpon>NewBikeLaunches.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\NewsMin.ascx.cs">
+      <DependentUpon>NewsMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\NoFollowPagerControl.ascx.cs">
+      <DependentUpon>NoFollowPagerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\PopupWidget.ascx.cs">
+      <DependentUpon>PopupWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\PQPdfTemplate.ascx.cs">
+      <DependentUpon>PQPdfTemplate.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\PhotoGallaryMin.ascx.cs">
+      <DependentUpon>PhotoGallaryMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\RecentLaunchedBikesMin.ascx.cs">
+      <DependentUpon>RecentLaunchedBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\RegisterControl.ascx.cs">
+      <DependentUpon>RegisterControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\RepeaterPager.ascx.cs">
+      <DependentUpon>RepeaterPager.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\RepeaterPagerAdvanced.ascx.cs">
+      <DependentUpon>RepeaterPagerAdvanced.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\RepeaterPagerAjax.ascx.cs">
+      <DependentUpon>RepeaterPagerAjax.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\RepeaterPagerPhotoGallery.ascx.cs">
+      <DependentUpon>RepeaterPagerPhotoGallery.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\RepeaterPagerUsed.ascx.cs">
+      <DependentUpon>RepeaterPagerUsed.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\RichTextEditor.ascx.cs">
+      <DependentUpon>RichTextEditor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\RoadTest.ascx.cs">
+      <DependentUpon>RoadTest.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\RoadTestMin.ascx.cs">
+      <DependentUpon>RoadTestMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\SimilarBikes.ascx.cs">
+      <DependentUpon>SimilarBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\TipsAdvicesMin.ascx.cs">
+      <DependentUpon>TipsAdvicesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\TopUsedListedBike.ascx.cs">
+      <DependentUpon>TopUsedListedBike.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UpcomingBikeHome.ascx.cs">
+      <DependentUpon>UpcomingBikeHome.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UpcomingBikes.ascx.cs">
+      <DependentUpon>UpcomingBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UpcomingBikeSearch.ascx.cs">
+      <DependentUpon>UpcomingBikeSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UpcomingBikesMin.ascx.cs">
+      <DependentUpon>UpcomingBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UsedBikeSearch.ascx.cs">
+      <DependentUpon>UsedBikeSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UserFeedBack.ascx.cs">
+      <DependentUpon>UserFeedBack.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UserReviewsMin.ascx.cs">
+      <DependentUpon>UserReviewsMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\VideoCarousel.ascx.cs">
+      <DependentUpon>VideoCarousel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Entities\CMS\Articles\ArticleBase.cs" />
+    <Compile Include="Entities\CMS\Articles\ArticleDetails.cs" />
+    <Compile Include="Entities\CMS\Articles\ArticlePageDetails.cs" />
+    <Compile Include="Entities\CMS\Articles\ArticleSummary.cs" />
+    <Compile Include="Entities\CMS\Articles\CMSContent.cs" />
+    <Compile Include="Entities\CMS\Articles\ContentFilter.cs" />
+    <Compile Include="Entities\CMS\Articles\Image.cs" />
+    <Compile Include="Entities\CMS\Articles\Page.cs" />
+    <Compile Include="Entities\CMS\Articles\VehicleTag.cs" />
+    <Compile Include="Entities\CMS\Photos\CMSImage.cs" />
+    <Compile Include="Entities\CMS\Photos\ModelImage.cs" />
+    <Compile Include="Forums\common\ForumsCommon.cs" />
+    <Compile Include="Forums\common\UserTracking.cs" />
+    <Compile Include="Forums\CreateThreads.aspx.cs">
+      <DependentUpon>CreateThreads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Reply.aspx.cs">
+      <DependentUpon>Reply.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\Threads.aspx.cs">
+      <DependentUpon>Threads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Forums\ViewThreads.aspx.cs">
+      <DependentUpon>ViewThreads.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="memcache\BasicIdMapping.cs" />
+    <Compile Include="memcache\BikeMakes.cs" />
+    <Compile Include="memcache\BWMemcache.cs" />
+    <Compile Include="memcache\CitiMapping.cs" />
+    <Compile Include="memcache\Classified.cs" />
+    <Compile Include="memcache\MakeMapping.cs" />
+    <Compile Include="memcache\ModelMapping.cs" />
+    <Compile Include="memcache\NewBikeLaunches.cs" />
+    <Compile Include="memcache\SeriesMapping.cs" />
+    <Compile Include="mybikewale\buyerdetails.aspx.cs">
+      <DependentUpon>buyerdetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="mybikewale\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="mybikewale\MyListing.aspx.cs">
+      <DependentUpon>MyListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="mybikewale\RemoveFromListing.aspx.cs">
+      <DependentUpon>RemoveFromListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\bikebooking\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\content\Features\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\content\Features\viewF.aspx.cs">
+      <DependentUpon>viewF.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\content\RoadTest\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\content\RoadTest\viewRT.aspx.cs">
+      <DependentUpon>viewRT.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\content\userreviews\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\content\userreviews\ListReviews.aspx.cs">
+      <DependentUpon>ListReviews.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\content\userreviews\ReviewDetails.aspx.cs">
+      <DependentUpon>ReviewDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\BookBikeSlug.ascx.cs">
+      <DependentUpon>BookBikeSlug.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\CompareBikeMin.ascx.cs">
+      <DependentUpon>CompareBikeMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\ListPagerControl.ascx.cs">
+      <DependentUpon>ListPagerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\LocateDealer.ascx.cs">
+      <DependentUpon>LocateDealer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\MPopupWidget.ascx.cs">
+      <DependentUpon>MPopupWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\TopUserReviews.ascx.cs">
+      <DependentUpon>TopUserReviews.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\news\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\news\newsdetails.aspx.cs">
+      <DependentUpon>newsdetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\BikeMakes.aspx.cs">
+      <DependentUpon>BikeMakes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\BikeModels.aspx.cs">
+      <DependentUpon>BikeModels.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\BikeSeries.aspx.cs">
+      <DependentUpon>BikeSeries.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\compare\CompareBike.aspx.cs">
+      <DependentUpon>CompareBike.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\compare\CompareBikeDetails.aspx.cs">
+      <DependentUpon>CompareBikeDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\newbikedealers\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\newbikedealers\NewBikeDealerList.aspx.cs">
+      <DependentUpon>NewBikeDealerList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\newbikelaunch\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\upcomingbikes\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\pricequote\BookingSummary.aspx.cs">
+      <DependentUpon>BookingSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
+      <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\pricequote\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\pricequote\DetailedDealerQuotation.aspx.cs">
+      <DependentUpon>DetailedDealerQuotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\pricequote\PaymentConfirmation.aspx.cs">
+      <DependentUpon>PaymentConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\pricequote\PaymentFailure.aspx.cs">
+      <DependentUpon>PaymentFailure.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\pricequote\PriceQuoteCookie.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="m\pricequote\Quotation.aspx.cs">
+      <DependentUpon>Quotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\pricequote\RSAOfferClaim.aspx.cs">
+      <DependentUpon>RSAOfferClaim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Newsletter\Unsubscribe.aspx.cs">
+      <DependentUpon>Unsubscribe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\news.aspx.cs">
+      <DependentUpon>news.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\newsfeed.aspx.cs">
+      <DependentUpon>newsfeed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\RepeaterPagerNews.ascx.cs">
+      <DependentUpon>RepeaterPagerNews.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="News\Sitemap.aspx.cs">
+      <DependentUpon>Sitemap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\bikeseries.aspx.cs">
+      <DependentUpon>bikeseries.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\browsenewbikedealerdetails.aspx.cs">
+      <DependentUpon>browsenewbikedealerdetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\common\CompareBikes.cs" />
+    <Compile Include="new\common\ModelPhotoGallery.cs" />
+    <Compile Include="new\common\ParseSearchCriteria.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\compare\BikeComparison.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\compare\chooseBikesForComparison.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\compare\CompareBikes.aspx.cs">
+      <DependentUpon>CompareBikes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\EMILoan.aspx.cs">
+      <DependentUpon>EMILoan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\listnewbikedealersbycity.aspx.cs">
+      <DependentUpon>listnewbikedealersbycity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\locatenewbikedealers.aspx.cs">
+      <DependentUpon>locatenewbikedealers.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\models.aspx.cs">
+      <DependentUpon>models.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\newbikelaunch\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\photos\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\photos\othermodelsgallery.aspx.cs">
+      <DependentUpon>othermodelsgallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\photos\similargallery.aspx.cs">
+      <DependentUpon>similargallery.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\search.aspx.cs">
+      <DependentUpon>search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\search_result.aspx.cs">
+      <DependentUpon>search_result.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\Specs.aspx.cs">
+      <DependentUpon>Specs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\upcomingbikes\upcomingbikesfeed.aspx.cs">
+      <DependentUpon>upcomingbikesfeed.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\upcomingbikes\UpcomingBikesList.aspx.cs">
+      <DependentUpon>UpcomingBikesList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\versions.aspx.cs">
+      <DependentUpon>versions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\VersionSpecs.aspx.cs">
+      <DependentUpon>VersionSpecs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="PQCertificate.aspx.cs">
+      <DependentUpon>PQCertificate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\BookingSummary.aspx.cs">
+      <DependentUpon>BookingSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\DealerPriceQuote.aspx.cs">
+      <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\DetailedDealerQuotation.aspx.cs">
+      <DependentUpon>DetailedDealerQuotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\faq.aspx.cs">
+      <DependentUpon>faq.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\PaymentConfirmation.aspx.cs">
+      <DependentUpon>PaymentConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\PaymentFailure.aspx.cs">
+      <DependentUpon>PaymentFailure.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\quotation.aspx.cs">
+      <DependentUpon>quotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\RSAOfferClaim.aspx.cs">
+      <DependentUpon>RSAOfferClaim.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="rabbitmq\CommonRQ.cs" />
+    <Compile Include="rabbitmq\rabbitMQEnum.cs" />
+    <Compile Include="test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="used\bikedetails.aspx.cs">
+      <DependentUpon>bikedetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\BikesByMake.aspx.cs">
+      <DependentUpon>BikesByMake.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\BikesByModel.aspx.cs">
+      <DependentUpon>BikesByModel.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\BikesInCity.aspx.cs">
+      <DependentUpon>BikesInCity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\bikesold.aspx.cs">
+      <DependentUpon>bikesold.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\common\ClassifiedBuyerDetails.cs" />
+    <Compile Include="used\common\ClassifiedCookies.cs" />
+    <Compile Include="used\common\ClassifiedCrossSelling.cs" />
+    <Compile Include="used\common\ClassifiedInquiryDetails.cs" />
+    <Compile Include="used\common\ClassifiedInquiryPhotos.cs" />
+    <Compile Include="used\common\ClassifiedPurchaseInquiries.cs" />
+    <Compile Include="used\common\ClassifiedSellerDetails.cs" />
+    <Compile Include="used\common\MetaKeywordsUsed.cs" />
+    <Compile Include="used\common\ParseSearchCriteria.cs" />
+    <Compile Include="used\common\SearchCommon.cs" />
+    <Compile Include="used\common\SellBikeCommon.cs" />
+    <Compile Include="used\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\SearchResult.aspx.cs">
+      <DependentUpon>SearchResult.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\sell\confirmation.aspx.cs">
+      <DependentUpon>confirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\sell\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\sell\UploadBasic.aspx.cs">
+      <DependentUpon>UploadBasic.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\sell\UploadPhotos.aspx.cs">
+      <DependentUpon>UploadPhotos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\sell\UploadPreview.aspx.cs">
+      <DependentUpon>UploadPreview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\sell\verify.aspx.cs">
+      <DependentUpon>verify.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="used\ViewAlbum.aspx.cs">
+      <DependentUpon>ViewAlbum.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="users\changePassword.aspx.cs">
+      <DependentUpon>changePassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="users\EditCustomerDetails.aspx.cs">
+      <DependentUpon>EditCustomerDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="users\newssubscription.aspx.cs">
+      <DependentUpon>newssubscription.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="users\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="users\Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="users\ResetCustomerPassword.aspx.cs">
+      <DependentUpon>ResetCustomerPassword.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Videos\default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Videos\video.aspx.cs">
+      <DependentUpon>video.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Videos\VideoCategories.aspx.cs">
+      <DependentUpon>VideoCategories.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".htaccess" />
+    <Content Include="AboutUs.aspx" />
+    <Content Include="ads\Ad300x250.aspx" />
+    <Content Include="ads\Ad300x250BTF.aspx" />
+    <Content Include="ads\Ad320x50_Bottom_mobile.aspx" />
+    <Content Include="ads\Ad320x50_mobile.aspx" />
+    <Content Include="ads\Ad728x90.aspx" />
+    <Content Include="adtest\Default.aspx" />
+    <Content Include="AdvertiseWithUs.aspx" />
+    <Content Include="BikeBooking\BillDeskResponse.aspx" />
+    <Content Include="BikeBooking\RedirectToBillDesk.aspx" />
+    <Content Include="bikewaleimg\used\S146\146_20120918020514962_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S146\146_20120918020514962_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S146\146_20120918020514962_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S146\146_20120918020537917_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S146\146_20120918020537917_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S146\146_20120918020537917_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S146\146_20120918020554525_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S146\146_20120918020554525_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S146\146_20120918020554525_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S155\155_20120917035248317_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S155\155_20120917035248317_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S155\155_20120917035248317_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S156\156_20120917034041440_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S156\156_20120917034041440_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S156\156_20120917034041440_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S156\156_20120918023329601_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S156\156_20120918023329601_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S156\156_20120918023329601_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S161\161_20120921035728457_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S161\161_20120921035728457_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S161\161_20120921035728457_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S162\162_20120921034154967_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S162\162_20120921034154967_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S162\162_20120921034154967_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S178\178_20121109030059233_300x225.png" />
+    <Content Include="bikewaleimg\used\S178\178_20121109030059233_640x428.png" />
+    <Content Include="bikewaleimg\used\S178\178_20121109030059233_80x60.png" />
+    <Content Include="bikewaleimg\used\S180\180_20120927111933210_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S180\180_20120927111933210_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S180\180_20120927111933210_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009024920638_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009024920638_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009024920638_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025015258_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025015258_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025015258_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025019922_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025019922_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025019922_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025143931_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025143931_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025143931_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025227896_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025227896_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025227896_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025422833_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025422833_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025422833_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025427209_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025427209_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025427209_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025444357_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025444357_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025444357_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025448436_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025448436_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025448436_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025452576_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025452576_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025452576_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025658873_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025658873_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025658873_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025702941_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025702941_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025702941_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025706361_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025706361_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009025706361_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009113930376_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009113930376_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S199\199_20121009113930376_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S19\19_20120823080952036_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S19\19_20120823080952036_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S19\19_20120823080952036_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S19\19_20120823081030324_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S19\19_20120823081030324_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S19\19_20120823081030324_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S19\19_20120823081829631_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S19\19_20120823081829631_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S19\19_20120823081829631_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S208\208_20121009105555456_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S208\208_20121009105555456_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S208\208_20121009105555456_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S208\208_20121009105925433_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S208\208_20121009105925433_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S208\208_20121009105925433_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S21\21_20120823092443498_300x225.gif" />
+    <Content Include="bikewaleimg\used\S21\21_20120823092443498_640x428.gif" />
+    <Content Include="bikewaleimg\used\S21\21_20120823092443498_80x60.gif" />
+    <Content Include="bikewaleimg\used\S224\224_20121031040725053_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S224\224_20121031040725053_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S224\224_20121031040725053_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S224\224_20121031040729410_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S224\224_20121031040729410_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S224\224_20121031040729410_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S224\224_20121031040732401_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S224\224_20121031040732401_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S224\224_20121031040732401_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S226\226_20121109030741592_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S226\226_20121109030741592_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S226\226_20121109030741592_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S22\22_20120824110910484_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S22\22_20120824110910484_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S22\22_20120824110910484_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S22\22_20120824112317443_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S22\22_20120824112317443_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S22\22_20120824112317443_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S22\22_20120824112727392_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S22\22_20120824112727392_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S22\22_20120824112727392_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S230\230_20121120112326500_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S230\230_20121120112326500_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S230\230_20121120112326500_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S230\230_20121120112333556_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S230\230_20121120112333556_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S230\230_20121120112333556_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S230\230_20121121120956691_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S230\230_20121121120956691_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S230\230_20121121120956691_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S231\231_20121120112545768_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S231\231_20121120112545768_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S231\231_20121120112545768_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S231\231_20121120112549488_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S231\231_20121120112549488_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S231\231_20121120112549488_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128044643937_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128044643937_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128044643937_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128044656344_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128044656344_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128044656344_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128061225108_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128061225108_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128061225108_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128061233121_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128061233121_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S234\234_20130128061233121_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020000040_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020000040_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020000040_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020019050_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020019050_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020019050_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020035423_300x225.gif" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020035423_640x428.gif" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020035423_80x60.gif" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020038351_300x225.gif" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020038351_640x428.gif" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020038351_80x60.gif" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020042333_300x225.gif" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020042333_640x428.gif" />
+    <Content Include="bikewaleimg\used\S23\23_20120827020042333_80x60.gif" />
+    <Content Include="bikewaleimg\used\S23\23_20120906105037841_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S23\23_20120906105037841_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S23\23_20120906105037841_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S241\241_20130205075616551_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S241\241_20130205075616551_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S241\241_20130205075616551_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020749004_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020749004_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020749004_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020753210_300x225.gif" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020753210_640x428.gif" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020753210_80x60.gif" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020756253_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020756253_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020756253_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020759747_300x225.gif" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020759747_640x428.gif" />
+    <Content Include="bikewaleimg\used\S24\24_20120827020759747_80x60.gif" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082510845_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082510845_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082510845_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082514159_300x225.gif" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082514159_640x428.gif" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082514159_80x60.gif" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082516870_300x225.gif" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082516870_640x428.gif" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082516870_80x60.gif" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082519642_300x225.gif" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082519642_640x428.gif" />
+    <Content Include="bikewaleimg\used\S27\27_20120827082519642_80x60.gif" />
+    <Content Include="bikewaleimg\used\S28\28_20120828054955952_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S28\28_20120828054955952_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S28\28_20120828054955952_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828091343560_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828091343560_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828091343560_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828091415795_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828091415795_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828091415795_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828092038270_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828092038270_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828092038270_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828092443981_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828092443981_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828092443981_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828093532006_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828093532006_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S29\29_20120828093532006_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829103823294_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829103823294_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829103823294_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829104520190_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829104520190_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829104520190_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829105024170_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829105024170_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829105024170_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829112108543_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829112108543_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829112108543_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829112132636_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829112132636_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S30\30_20120829112132636_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S320\320_20131115114236448_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S320\320_20131115114236448_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S320\320_20131115114236448_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S32\32_20120906094919786_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S32\32_20120906094919786_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S32\32_20120906094919786_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S32\32_20120906094929920_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S32\32_20120906094929920_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S32\32_20120906094929920_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S33\33_20120906102443247_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S33\33_20120906102443247_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S33\33_20120906102443247_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S33\33_20120906105015908_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S33\33_20120906105015908_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S33\33_20120906105015908_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S440\440_20140109054031151_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S440\440_20140109054031151_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S440\440_20140109054031151_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S62\62_20120913053804016_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S62\62_20120913053804016_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S62\62_20120913053804016_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S87\87_20120924040638823_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S87\87_20120924040638823_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S87\87_20120924040638823_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022319144_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022319144_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022319144_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022437465_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022437465_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022437465_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022443177_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022443177_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022443177_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022511755_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022511755_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S88\88_20120918022511755_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915022412424_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915022412424_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915022412424_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915022525779_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915022525779_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915022525779_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915022551966_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915022551966_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915022551966_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915023021518_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915023021518_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915023021518_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915024533753_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915024533753_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915024533753_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915024922677_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915024922677_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915024922677_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031145142_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031145142_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031145142_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031150268_300x225.jpeg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031150268_640x428.jpeg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031150268_80x60.jpeg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031154648_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031154648_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031154648_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031159465_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031159465_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031159465_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031203436_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031203436_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S90\90_20120915031203436_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S93\93_20120913123333782_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S93\93_20120913123333782_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S93\93_20120913123333782_80x60.jpg" />
+    <Content Include="bikewaleimg\used\S93\93_20120913123500720_300x225.jpg" />
+    <Content Include="bikewaleimg\used\S93\93_20120913123500720_640x428.jpg" />
+    <Content Include="bikewaleimg\used\S93\93_20120913123500720_80x60.jpg" />
+    <Content Include="bin\Bikewale.dll" />
+    <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
+    <Content Include="bin\DotNetOpenAuth.AspNet.xml" />
+    <Content Include="bin\DotNetOpenAuth.Core.dll" />
+    <Content Include="bin\DotNetOpenAuth.Core.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.Consumer.xml" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.dll" />
+    <Content Include="bin\DotNetOpenAuth.OAuth.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.xml" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Newtonsoft.Json.xml" />
+    <Content Include="contactus.aspx" />
+    <Content Include="content\ComparisonTest\DefaultCT.aspx" />
+    <Content Include="content\ComparisonTest\ViewCT.aspx" />
+    <Content Include="content\Features\DefaultF.aspx" />
+    <Content Include="content\Features\ViewF.aspx" />
+    <Content Include="content\RepeaterPager.ascx" />
+    <Content Include="content\RoadTest\DefaultRT.aspx" />
+    <Content Include="content\RoadTest\ViewRT.aspx" />
+    <Content Include="content\TipsAdvices\DefaultTA.aspx" />
+    <Content Include="content\TipsAdvices\ViewTA.aspx" />
+    <Content Include="content\UserReviews\DefaultUR.aspx" />
+    <Content Include="content\UserReviews\ListReviews.aspx" />
+    <Content Include="content\UserReviews\RepeaterPagerReviews.ascx" />
+    <Content Include="content\UserReviews\ReviewDetails.aspx" />
+    <Content Include="content\UserReviews\ReviewMessage.aspx" />
+    <Content Include="content\UserReviews\WriteReviews.aspx" />
+    <Content Include="controls\AddBikeToCompare.ascx" />
+    <Content Include="controls\ArticlePhotoGallery.ascx" />
+    <Content Include="controls\BikeBookingMinWidget.ascx" />
+    <Content Include="controls\BikeBookingWidget.ascx" />
+    <Content Include="controls\BikeRatings.ascx" />
+    <Content Include="controls\BikeReviews.ascx" />
+    <Content Include="controls\BikesInBudget.ascx" />
+    <Content Include="controls\BikeVideos.ascx" />
+    <Content Include="controls\BrowseBikebyVersion.ascx" />
+    <Content Include="controls\BrowseBikeManufacturerMin.ascx" />
+    <Content Include="controls\BrowseBikes.ascx" />
+    <Content Include="controls\BrowseUserReviews.ascx" />
+    <Content Include="controls\CalculateEMIMin.ascx" />
+    <Content Include="controls\ComparisonMin.ascx" />
+    <Content Include="controls\ComparisonMinInner.ascx" />
+    <Content Include="controls\DateControl.ascx" />
+    <Content Include="controls\DiscussIt.ascx" />
+    <Content Include="controls\FeaturedBike.ascx" />
+    <Content Include="controls\ForumsMin.ascx" />
+    <Content Include="controls\HomePageBanner.ascx" />
+    <Content Include="controls\InstantBikePrice.ascx" />
+    <Content Include="controls\LinkPagerControl.ascx" />
+    <Content Include="controls\LocateDealer.ascx" />
+    <Content Include="controls\LoginControl.ascx" />
+    <Content Include="controls\loginStatus.ascx" />
+    <Content Include="controls\MakeModelSearch.ascx" />
+    <Content Include="controls\NewBikeLaunches.ascx" />
+    <Content Include="controls\NewsMin.ascx" />
+    <Content Include="controls\NoFollowPagerControl.ascx" />
+    <Content Include="controls\PopupWidget.ascx" />
+    <Content Include="controls\PQPdfTemplate.ascx" />
+    <Content Include="controls\PhotoGallaryMin.ascx" />
+    <Content Include="controls\RecentLaunchedBikesMin.ascx" />
+    <Content Include="controls\RegisterControl.ascx" />
+    <Content Include="controls\RepeaterPager.ascx" />
+    <Content Include="controls\RepeaterPagerAdvanced.ascx" />
+    <Content Include="controls\RepeaterPagerAjax.ascx" />
+    <Content Include="controls\RepeaterPagerPhotoGallery.ascx" />
+    <Content Include="controls\RepeaterPagerUsed.ascx" />
+    <Content Include="controls\RichTextEditor.ascx" />
+    <Content Include="controls\RoadTest.ascx" />
+    <Content Include="controls\RoadTestControl.ascx" />
+    <Content Include="controls\RoadTestMin.ascx" />
+    <Content Include="controls\SimilarBikes.ascx" />
+    <Content Include="controls\TipsAdvicesMin.ascx" />
+    <Content Include="controls\TopUsedListedBike.ascx" />
+    <Content Include="controls\UpcomingBikeHome.ascx" />
+    <Content Include="controls\UpcomingBikes.ascx" />
+    <Content Include="controls\UpcomingBikeSearch.ascx" />
+    <Content Include="controls\UpcomingBikesMin.ascx" />
+    <Content Include="controls\UsedBikeSearch.ascx" />
+    <Content Include="controls\UserFeedBack.ascx" />
+    <Content Include="controls\UserReviewsMin.ascx" />
+    <Content Include="controls\VideoCarousel.ascx" />
+    <Content Include="css\960.css" />
+    <Content Include="css\bw-pq-new.css" />
+    <Content Include="css\bw-pq.css" />
+    <Content Include="css\css-new-photos.css" />
+    <Content Include="css\css-research-photos.css" />
+    <Content Include="css\global.css" />
+    <Content Include="css\images\animated-overlay.gif" />
+    <Content Include="css\images\ui-bg_diagonals-thick_75_f3d8d8_40x40.png" />
+    <Content Include="css\images\ui-bg_dots-small_65_a6a6a6_2x2.png" />
+    <Content Include="css\images\ui-bg_flat_0_333333_40x100.png" />
+    <Content Include="css\images\ui-bg_flat_65_ffffff_40x100.png" />
+    <Content Include="css\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="css\images\ui-bg_glass_55_fbf8ee_1x400.png" />
+    <Content Include="css\images\ui-bg_highlight-hard_100_eeeeee_1x100.png" />
+    <Content Include="css\images\ui-bg_highlight-hard_100_f6f6f6_1x100.png" />
+    <Content Include="css\images\ui-bg_highlight-soft_15_cc0000_1x100.png" />
+    <Content Include="css\images\ui-icons_004276_256x240.png" />
+    <Content Include="css\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="css\jquery.ad-gallery.css" />
+    <Content Include="css\rsa.css" />
+    <Content Include="css\slideshow.css" />
+    <Content Include="css\style.css" />
+    <Content Include="css\style_carousal.css" />
+    <Content Include="css\used-cd.css" />
+    <Content Include="Default.aspx" />
+    <Content Include="editor\css\content.css" />
+    <Content Include="editor\css\content_old.css" />
+    <Content Include="editor\css\word.css" />
+    <Content Include="editor\lists\image_list.js" />
+    <Content Include="editor\lists\link_list.js" />
+    <Content Include="editor\lists\media_list.js" />
+    <Content Include="editor\lists\template_list.js" />
+    <Content Include="editor\tiny_mce\langs\en.js" />
+    <Content Include="editor\tiny_mce\license.txt" />
+    <Content Include="editor\tiny_mce\plugins\advhr\css\advhr.css" />
+    <Content Include="editor\tiny_mce\plugins\advhr\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\advhr\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\advhr\js\rule.js" />
+    <Content Include="editor\tiny_mce\plugins\advhr\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\advhr\rule.htm" />
+    <Content Include="editor\tiny_mce\plugins\advimage\css\advimage.css" />
+    <Content Include="editor\tiny_mce\plugins\advimage\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\advimage\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\advimage\image.htm" />
+    <Content Include="editor\tiny_mce\plugins\advimage\img\sample.gif" />
+    <Content Include="editor\tiny_mce\plugins\advimage\js\image.js" />
+    <Content Include="editor\tiny_mce\plugins\advimage\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\advlink\css\advlink.css" />
+    <Content Include="editor\tiny_mce\plugins\advlink\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\advlink\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\advlink\js\advlink.js" />
+    <Content Include="editor\tiny_mce\plugins\advlink\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\advlink\link.htm" />
+    <Content Include="editor\tiny_mce\plugins\advlist\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\advlist\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\autolink\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\autolink\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\autoresize\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\autoresize\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\autosave\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\autosave\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\autosave\langs\en.js" />
+    <Content Include="editor\tiny_mce\plugins\bbcode\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\bbcode\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\contextmenu\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\contextmenu\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\directionality\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\directionality\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\emotions\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\emotions\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\emotions\emotions.htm" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-cool.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-cry.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-embarassed.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-foot-in-mouth.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-frown.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-innocent.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-kiss.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-laughing.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-money-mouth.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-sealed.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-smile.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-surprised.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-tongue-out.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-undecided.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-wink.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\img\smiley-yell.gif" />
+    <Content Include="editor\tiny_mce\plugins\emotions\js\emotions.js" />
+    <Content Include="editor\tiny_mce\plugins\emotions\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\example\dialog.htm" />
+    <Content Include="editor\tiny_mce\plugins\example\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\example\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\example\img\example.gif" />
+    <Content Include="editor\tiny_mce\plugins\example\js\dialog.js" />
+    <Content Include="editor\tiny_mce\plugins\example\langs\en.js" />
+    <Content Include="editor\tiny_mce\plugins\example\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\example_dependency\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\example_dependency\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\fullpage\css\fullpage.css" />
+    <Content Include="editor\tiny_mce\plugins\fullpage\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\fullpage\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\fullpage\fullpage.htm" />
+    <Content Include="editor\tiny_mce\plugins\fullpage\js\fullpage.js" />
+    <Content Include="editor\tiny_mce\plugins\fullpage\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\fullscreen\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\fullscreen\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\fullscreen\fullscreen.htm" />
+    <Content Include="editor\tiny_mce\plugins\iespell\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\iespell\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\skins\clearlooks2\img\alert.gif" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\skins\clearlooks2\img\button.gif" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\skins\clearlooks2\img\buttons.gif" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\skins\clearlooks2\img\confirm.gif" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\skins\clearlooks2\img\corners.gif" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\skins\clearlooks2\img\horizontal.gif" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\skins\clearlooks2\img\vertical.gif" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\skins\clearlooks2\window.css" />
+    <Content Include="editor\tiny_mce\plugins\inlinepopups\template.htm" />
+    <Content Include="editor\tiny_mce\plugins\insertdatetime\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\insertdatetime\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\layer\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\layer\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\legacyoutput\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\legacyoutput\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\lists\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\lists\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\media\css\media.css" />
+    <Content Include="editor\tiny_mce\plugins\media\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\media\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\media\js\embed.js" />
+    <Content Include="editor\tiny_mce\plugins\media\js\media.js" />
+    <Content Include="editor\tiny_mce\plugins\media\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\media\media.htm" />
+    <Content Include="editor\tiny_mce\plugins\media\moxieplayer.swf" />
+    <Content Include="editor\tiny_mce\plugins\nonbreaking\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\nonbreaking\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\noneditable\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\noneditable\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\pagebreak\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\pagebreak\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\paste\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\paste\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\paste\js\pastetext.js" />
+    <Content Include="editor\tiny_mce\plugins\paste\js\pasteword.js" />
+    <Content Include="editor\tiny_mce\plugins\paste\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\paste\pastetext.htm" />
+    <Content Include="editor\tiny_mce\plugins\paste\pasteword.htm" />
+    <Content Include="editor\tiny_mce\plugins\preview\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\preview\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\preview\example.html" />
+    <Content Include="editor\tiny_mce\plugins\preview\jscripts\embed.js" />
+    <Content Include="editor\tiny_mce\plugins\preview\preview.html" />
+    <Content Include="editor\tiny_mce\plugins\print\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\print\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\save\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\save\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\searchreplace\css\searchreplace.css" />
+    <Content Include="editor\tiny_mce\plugins\searchreplace\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\searchreplace\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\searchreplace\js\searchreplace.js" />
+    <Content Include="editor\tiny_mce\plugins\searchreplace\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\searchreplace\searchreplace.htm" />
+    <Content Include="editor\tiny_mce\plugins\spellchecker\css\content.css" />
+    <Content Include="editor\tiny_mce\plugins\spellchecker\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\spellchecker\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\spellchecker\img\wline.gif" />
+    <Content Include="editor\tiny_mce\plugins\style\css\props.css" />
+    <Content Include="editor\tiny_mce\plugins\style\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\style\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\style\js\props.js" />
+    <Content Include="editor\tiny_mce\plugins\style\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\style\props.htm" />
+    <Content Include="editor\tiny_mce\plugins\tabfocus\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\tabfocus\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\table\cell.htm" />
+    <Content Include="editor\tiny_mce\plugins\table\css\cell.css" />
+    <Content Include="editor\tiny_mce\plugins\table\css\row.css" />
+    <Content Include="editor\tiny_mce\plugins\table\css\table.css" />
+    <Content Include="editor\tiny_mce\plugins\table\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\table\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\table\js\cell.js" />
+    <Content Include="editor\tiny_mce\plugins\table\js\merge_cells.js" />
+    <Content Include="editor\tiny_mce\plugins\table\js\row.js" />
+    <Content Include="editor\tiny_mce\plugins\table\js\table.js" />
+    <Content Include="editor\tiny_mce\plugins\table\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\table\merge_cells.htm" />
+    <Content Include="editor\tiny_mce\plugins\table\row.htm" />
+    <Content Include="editor\tiny_mce\plugins\table\table.htm" />
+    <Content Include="editor\tiny_mce\plugins\template\blank.htm" />
+    <Content Include="editor\tiny_mce\plugins\template\css\template.css" />
+    <Content Include="editor\tiny_mce\plugins\template\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\template\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\template\js\template.js" />
+    <Content Include="editor\tiny_mce\plugins\template\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\plugins\template\template.htm" />
+    <Content Include="editor\tiny_mce\plugins\visualchars\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\visualchars\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\wordcount\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\wordcount\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\abbr.htm" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\acronym.htm" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\attributes.htm" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\cite.htm" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\css\attributes.css" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\css\popup.css" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\del.htm" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\editor_plugin.js" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\editor_plugin_src.js" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\ins.htm" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\js\abbr.js" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\js\acronym.js" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\js\attributes.js" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\js\cite.js" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\js\del.js" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\js\element_common.js" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\js\ins.js" />
+    <Content Include="editor\tiny_mce\plugins\xhtmlxtras\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\about.htm" />
+    <Content Include="editor\tiny_mce\themes\advanced\anchor.htm" />
+    <Content Include="editor\tiny_mce\themes\advanced\charmap.htm" />
+    <Content Include="editor\tiny_mce\themes\advanced\color_picker.htm" />
+    <Content Include="editor\tiny_mce\themes\advanced\editor_template.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\editor_template_src.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\image.htm" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\colorpicker.jpg" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\flash.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\icons.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\iframe.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\pagebreak.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\quicktime.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\realmedia.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\shockwave.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\trans.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\video.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\img\windowsmedia.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\js\about.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\js\anchor.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\js\charmap.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\js\color_picker.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\js\image.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\js\link.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\js\source_editor.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\langs\en.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\langs\en_dlg.js" />
+    <Content Include="editor\tiny_mce\themes\advanced\link.htm" />
+    <Content Include="editor\tiny_mce\themes\advanced\shortcuts.htm" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\default\content.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\default\dialog.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\default\img\buttons.png" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\default\img\items.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\default\img\menu_arrow.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\default\img\menu_check.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\default\img\progress.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\default\img\tabs.gif" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\default\ui.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\highcontrast\content.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\highcontrast\dialog.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\highcontrast\ui.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\o2k7\content.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\o2k7\dialog.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\o2k7\img\button_bg.png" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\o2k7\img\button_bg_black.png" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\o2k7\img\button_bg_silver.png" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\o2k7\ui.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\o2k7\ui_black.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\skins\o2k7\ui_silver.css" />
+    <Content Include="editor\tiny_mce\themes\advanced\source_editor.htm" />
+    <Content Include="editor\tiny_mce\themes\simple\editor_template.js" />
+    <Content Include="editor\tiny_mce\themes\simple\editor_template_src.js" />
+    <Content Include="editor\tiny_mce\themes\simple\img\icons.gif" />
+    <Content Include="editor\tiny_mce\themes\simple\langs\en.js" />
+    <Content Include="editor\tiny_mce\themes\simple\skins\default\content.css" />
+    <Content Include="editor\tiny_mce\themes\simple\skins\default\ui.css" />
+    <Content Include="editor\tiny_mce\themes\simple\skins\o2k7\content.css" />
+    <Content Include="editor\tiny_mce\themes\simple\skins\o2k7\img\button_bg.png" />
+    <Content Include="editor\tiny_mce\themes\simple\skins\o2k7\ui.css" />
+    <Content Include="editor\tiny_mce\tiny_mce.js" />
+    <Content Include="editor\tiny_mce\tiny_mce_popup.js" />
+    <Content Include="editor\tiny_mce\tiny_mce_src.js" />
+    <Content Include="editor\tiny_mce\utils\editable_selects.js" />
+    <Content Include="editor\tiny_mce\utils\form_utils.js" />
+    <Content Include="editor\tiny_mce\utils\mctabs.js" />
+    <Content Include="editor\tiny_mce\utils\validate.js" />
+    <Content Include="favicon.ico" />
+    <Content Include="Feedback\Feedback.aspx" />
+    <Content Include="Finance\EMICalculator.aspx" />
+    <Content Include="fonts\WebRupee.V2.0.svg" />
+    <Content Include="Forums\CreateThreads.aspx" />
+    <Content Include="Forums\Default.aspx" />
+    <Content Include="Forums\NotAuthorized.aspx" />
+    <Content Include="Forums\Reply.aspx" />
+    <Content Include="Forums\Threads.aspx" />
+    <Content Include="Forums\ViewThreads.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="images\0.gif" />
+    <Content Include="images\1.gif" />
+    <Content Include="images\action-btn-bg.jpg" />
+    <Content Include="images\action-btn-rollover.jpg" />
+    <Content Include="images\ajax-loader.gif" />
+    <Content Include="images\arrow-left-test.png" />
+    <Content Include="images\arrow-right-test.png" />
+    <Content Include="images\blue_button.jpg" />
+    <Content Include="images\bmw-s1000r.jpg" />
+    <Content Include="images\body-texture-bg.jpg" />
+    <Content Include="images\brand-img.png" />
+    <Content Include="images\bw-logo.png" />
+    <Content Include="images\bw-m-logo.png" />
+    <Content Include="images\bw-sprite-new.png" />
+    <Content Include="images\bw-sprite.png" />
+    <Content Include="images\circleloader.gif" />
+    <Content Include="images\favicon.gif" />
+    <Content Include="images\favicon.ico" />
+    <Content Include="images\favicon.png" />
+    <Content Include="images\half.gif" />
+    <Content Include="images\icon-sprite.png" />
+    <Content Include="images\icons-sheet.png" />
+    <Content Include="images\light-grey-bg.jpg" />
+    <Content Include="images\light-sept.jpg" />
+    <Content Include="images\nav-bg-org.jpg" />
+    <Content Include="images\nav-bg-rollover.jpg" />
+    <Content Include="images\nav-sept.jpg" />
+    <Content Include="images\nav.png" />
+    <Content Include="images\pattern-bg.jpg" />
+    <Content Include="images\Pratikphoto.JPG" />
+    <Content Include="images\search-bg.jpg" />
+    <Content Include="images\shadow-header.jpg" />
+    <Content Include="images\spls-icons.png" />
+    <Content Include="images\sprite-2.png" />
+    <Content Include="images\tab-bg-org.jpg" />
+    <Content Include="images\tab-bg-rollover.jpg" />
+    <Content Include="images\white-shadow.png" />
+    <Content Include="includes\footer.aspx" />
+    <Content Include="includes\footerHome.aspx" />
+    <Content Include="includes\footerInner.aspx" />
+    <Content Include="includes\footermobile.aspx" />
+    <Content Include="includes\footermobile_home.aspx" />
+    <Content Include="includes\footermobile_noad.aspx" />
+    <Content Include="includes\gacode.aspx" />
+    <Content Include="includes\globalStaticFiles.aspx" />
+    <Content Include="includes\globalStaticFiles_mobile.aspx" />
+    <Content Include="includes\headermobile.aspx" />
+    <Content Include="includes\headermobile_home.aspx" />
+    <Content Include="includes\headermobile_noad.aspx" />
+    <Content Include="includes\headForums.aspx" />
+    <Content Include="includes\headHome.aspx" />
+    <Content Include="includes\headHomeNoAd.aspx" />
+    <Content Include="includes\headHome_test.aspx" />
+    <Content Include="includes\headMyBikeWale.aspx" />
+    <Content Include="includes\headNew.aspx" />
+    <Content Include="includes\headNews.aspx" />
+    <Content Include="includes\headSell.aspx" />
+    <Content Include="includes\headTools.aspx" />
+    <Content Include="includes\headUsed.aspx" />
+    <Content Include="includes\MenuList_Mobile.aspx" />
+    <Content Include="includes\PaymentHeaderMobile.aspx" />
+    <Content Include="includes\pgheader.aspx" />
+    <Content Include="Forums\ISAPI\ISAPI_Rewrite.dll" />
+    <Content Include="Forums\ISAPI\ISAPI_Rewrite_x64.dll" />
+    <Content Include="mybikewale\buyerdetails.aspx" />
+    <Content Include="mybikewale\Default.aspx" />
+    <Content Include="mybikewale\MyListing.aspx" />
+    <Content Include="mybikewale\RemoveFromListing.aspx" />
+    <Content Include="m\advertisewithus.aspx" />
+    <Content Include="m\bikebooking\Default.aspx" />
+    <Content Include="m\ContactUs.aspx" />
+    <Content Include="m\content\Features\Default.aspx" />
+    <Content Include="m\content\Features\viewF.aspx" />
+    <Content Include="m\content\RoadTest\Default.aspx" />
+    <Content Include="m\content\RoadTest\viewRT.aspx" />
+    <Content Include="m\content\userreviews\Default.aspx" />
+    <Content Include="m\content\userreviews\ListReviews.aspx" />
+    <Content Include="m\content\userreviews\ReviewDetails.aspx" />
+    <Content Include="m\controls\BookBikeSlug.ascx" />
+    <Content Include="m\controls\CompareBikeMin.ascx" />
+    <Content Include="m\controls\ListPagerControl.ascx" />
+    <Content Include="m\controls\LocateDealer.ascx" />
+    <Content Include="m\controls\MPopupWidget.ascx" />
+    <Content Include="m\controls\TopUserReviews.ascx" />
+    <Content Include="m\css\bw-new-style.css" />
+    <Content Include="m\css\design.css" />
+    <Content Include="m\css\jqm-demos.css" />
+    <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="m\css\new.css" />
+    <Content Include="m\css\style.css" />
+    <Content Include="m\Default.aspx" />
+    <Content Include="m\fonts\WebRupee.V2.0.svg" />
+    <Content Include="m\images\bike-01.jpg" />
+    <Content Include="m\images\bw-sprite.png" />
+    <Content Include="m\images\list-bullet.jpg" />
+    <Content Include="m\news\Default.aspx" />
+    <Content Include="m\news\newsdetails.aspx" />
+    <Content Include="m\new\BikeMakes.aspx" />
+    <Content Include="m\new\BikeModels.aspx" />
+    <Content Include="m\new\BikeSeries.aspx" />
+    <Content Include="m\new\compare\CompareBike.aspx" />
+    <Content Include="m\new\compare\CompareBikeDetails.aspx" />
+    <Content Include="m\new\Default.aspx" />
+    <Content Include="m\new\newbikedealers\Default.aspx" />
+    <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
+    <Content Include="m\new\newbikelaunch\Default.aspx" />
+    <Content Include="m\new\upcomingbikes\Default.aspx" />
+    <Content Include="m\pagenotfound.aspx" />
+    <Content Include="m\pricequote\BookingSummary.aspx" />
+    <Content Include="m\pricequote\DealerPriceQuote.aspx" />
+    <Content Include="m\pricequote\Default.aspx" />
+    <Content Include="m\pricequote\DetailedDealerQuotation.aspx" />
+    <Content Include="m\pricequote\PaymentConfirmation.aspx" />
+    <Content Include="m\pricequote\PaymentFailure.aspx" />
+    <Content Include="m\pricequote\Quotation.aspx" />
+    <Content Include="m\pricequote\rsa.aspx" />
+    <Content Include="m\pricequote\RSAOfferClaim.aspx" />
+    <Content Include="m\src\BikeBooking\BikeBooking.js" />
+    <Content Include="m\src\index.js" />
+    <Content Include="m\src\jquery-1.10.2.min.js" />
+    <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
+    <Content Include="src\framework\knockout.js" />
+    <Content Include="m\src\loadPhotos.js" />
+    <Content Include="m\src\m-carousel.js" />
+    <Content Include="m\src\placeholder.js" />
+    <Content Include="Newsletter\Unsubscribe.aspx" />
+    <Content Include="News\Default.aspx" />
+    <Content Include="News\news.aspx" />
+    <Content Include="News\newsfeed.aspx" />
+    <Content Include="News\RepeaterPagerNews.ascx" />
+    <Content Include="News\Sitemap.aspx" />
+    <Content Include="new\bikeseries.aspx" />
+    <Content Include="new\browsenewbikedealerdetails.aspx" />
+    <Content Include="new\compare\CompareBikes.aspx" />
+    <Content Include="new\compare\compareColors.aspx" />
+    <Content Include="new\compare\compareCommon.aspx" />
+    <Content Include="new\compare\compareFeatures.aspx" />
+    <Content Include="new\compare\compareSpecs.aspx" />
+    <Content Include="new\compare\default.aspx" />
+    <Content Include="new\default.aspx" />
+    <Content Include="new\EMILoan.aspx" />
+    <Content Include="new\listnewbikedealersbycity.aspx" />
+    <Content Include="new\locatenewbikedealers.aspx" />
+    <Content Include="new\models.aspx" />
+    <Content Include="new\newbikelaunch\Default.aspx" />
+    <Content Include="new\photos\Default.aspx" />
+    <Content Include="new\photos\othermodelsgallery.aspx" />
+    <Content Include="new\photos\similargallery.aspx" />
+    <Content Include="new\search.aspx" />
+    <Content Include="new\search_result.aspx" />
+    <Content Include="new\Specs.aspx" />
+    <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />
+    <Content Include="new\upcomingbikes\UpcomingBikesList.aspx" />
+    <Content Include="new\versions.aspx" />
+    <Content Include="new\VersionSpecs.aspx" />
+    <Content Include="obj\Release\BikeWaleWebsite.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Release\BikeWaleWebsite.dll" />
+    <Content Include="obj\Release\BikeWaleWebsite.pdb" />
+    <Content Include="pagenotfound.aspx" />
+    <Content Include="Partners.aspx" />
+    <Content Include="PQCertificate.aspx" />
+    <Content Include="pricequote\BookingSummary.aspx" />
+    <Content Include="pricequote\CancellationPolicy.aspx" />
+    <Content Include="pricequote\DealerPriceQuote.aspx" />
+    <Content Include="pricequote\default.aspx" />
+    <Content Include="pricequote\DetailedDealerQuotation.aspx" />
+    <Content Include="pricequote\faq.aspx" />
+    <Content Include="pricequote\PaymentConfirmation.aspx" />
+    <Content Include="pricequote\PaymentFailure.aspx" />
+    <Content Include="pricequote\quotation.aspx" />
+    <Content Include="pricequote\RSAOfferClaim.aspx" />
+    <Content Include="privacyPolicy.aspx" />
+    <Content Include="SiteMap.aspx" />
+    <Content Include="src\BikeBooking\BikeBooking.js" />
+    <Content Include="src\BikeWaleCommon.js" />
+    <Content Include="src\CalculateEMI.js" />
+    <Content Include="src\calender.js" />
+    <Content Include="src\classified\bikedetails.js" />
+    <Content Include="src\classified\sellbike.js" />
+    <Content Include="src\common\ad-gallery.js" />
+    <Content Include="src\common\bt.js" />
+    <Content Include="src\common\excanvas.js" />
+    <Content Include="src\common\jquery.colorbox-min.js" />
+    <Content Include="src\common\jquery.jcarousel.min.js" />
+    <Content Include="src\common\jquery.slideshow.js" />
+    <Content Include="src\common\process.js" />
+    <Content Include="src\framework\knockout-3.1.0.js" />
+    <Content Include="src\graybox.js" />
+    <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="src\knockout.js" />
+    <Content Include="src\new\photogallery\image-gallery.js" />
+    <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
+    <Content Include="src\new\search.js" />
+    <Content Include="src\pq\MetroCities.js" />
+    <Content Include="src\pq\price_quote.js" />
+    <Content Include="src\Research\photogallery\image-gallery.js" />
+    <Content Include="src\Research\photogallery\jquery.ad-gallery.js" />
+    <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\Used\search.js" />
+    <Content Include="TermsConditions.aspx" />
+    <Content Include="test.aspx" />
+    <Content Include="test\css\bw-new-style.css" />
+    <Content Include="test\css\design.css" />
+    <Content Include="test\css\jquery.mobile-1.4.2.min.css" />
+    <Content Include="test\css\style.css" />
+    <Content Include="test\fonts\WebRupee.V2.0.svg" />
+    <Content Include="test\images\bike-01.jpg" />
+    <Content Include="test\images\bw-sprite.png" />
+    <Content Include="test\images\list-bullet.jpg" />
+    <Content Include="test\js\index.js" />
+    <Content Include="test\js\jquery-1.10.2.min.js" />
+    <Content Include="test\js\jquery.mobile-1.4.2.min.js" />
+    <Content Include="Thankyou.aspx" />
+    <Content Include="url_mapping\map_cities.txt" />
+    <Content Include="url_mapping\map_makes.txt" />
+    <Content Include="url_mapping\map_models.txt" />
+    <Content Include="used\bikedetails.aspx" />
+    <Content Include="used\BikesByMake.aspx" />
+    <Content Include="used\BikesByModel.aspx" />
+    <Content Include="used\BikesInCity.aspx" />
+    <Content Include="used\bikesold.aspx" />
+    <Content Include="used\Default.aspx" />
+    <Content Include="used\Search.aspx" />
+    <Content Include="used\SearchResult.aspx" />
+    <Content Include="used\sell\confirmation.aspx" />
+    <Content Include="used\sell\default.aspx" />
+    <Content Include="used\sell\UploadBasic.aspx" />
+    <Content Include="used\sell\UploadPhotos.aspx" />
+    <Content Include="used\sell\UploadPreview.aspx" />
+    <Content Include="used\sell\verify.aspx" />
+    <Content Include="used\ViewAlbum.aspx" />
+    <Content Include="users\changePassword.aspx" />
+    <Content Include="users\EditCustomerDetails.aspx" />
+    <Content Include="users\newssubscription.aspx" />
+    <Content Include="users\ForgotPassword.aspx" />
+    <Content Include="users\Login.aspx" />
+    <Content Include="users\MyContactDetails.aspx" />
+    <Content Include="users\Register.aspx" />
+    <Content Include="users\registrationConfirmation.aspx" />
+    <Content Include="users\ResetCustomerPassword.aspx" />
+    <Content Include="Videos\default.aspx" />
+    <Content Include="Videos\video.aspx" />
+    <Content Include="Videos\VideoCategories.aspx" />
+    <Content Include="VisitorAgreement.aspx" />
+    <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
+    <Content Include="wkhtmltopdf\bin\wkhtmltopdf.exe" />
+    <Content Include="wkhtmltopdf\bin\wkhtmltox.dll" />
+    <Content Include="wurfl\web_browsers_patch.xml" />
+    <Content Include="wurfl\wurfl.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Forums\ISAPI\error.log" />
+    <Content Include="Forums\ISAPI\httpd.conf" />
+    <Content Include="m\.htaccess" />
+    <Content Include="m\fonts\Roboto-Regular.ttf" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Release\BikeWaleWebsite.csprojResolveAssemblyReference.cache" />
+    <Content Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+    <Content Include="test\fonts\WebRupee.V2.0.eot" />
+    <Content Include="test\fonts\WebRupee.V2.0.ttf" />
+    <Content Include="test\fonts\WebRupee.V2.0.woff" />
+    <Content Include="fonts\WebRupee.V2.0.eot" />
+    <Content Include="fonts\WebRupee.V2.0.ttf" />
+    <Content Include="fonts\WebRupee.V2.0.woff" />
+    <Content Include="m\fonts\WebRupee.V2.0.woff" />
+    <Content Include="m\fonts\WebRupee.V2.0.ttf" />
+    <Content Include="m\fonts\WebRupee.V2.0.eot" />
+    <Content Include="Absure Bike RSA.pdf" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <Content Include="wkhtmltopdf\include\wkhtmltox\dllbegin.inc" />
+    <Content Include="wkhtmltopdf\include\wkhtmltox\dllend.inc" />
+    <Content Include="wkhtmltopdf\include\wkhtmltox\image.h" />
+    <Content Include="wkhtmltopdf\include\wkhtmltox\pdf.h" />
+    <Content Include="wkhtmltopdf\lib\wkhtmltox.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="msmq\" />
+    <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="obj\Release\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
+      <Project>{3ca0d7b6-7e09-449c-a34d-c08ca8118876}</Project>
+      <Name>Bikewale.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
+      <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
+      <Name>Bikewale.Cache.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Cache\Bikewale.Cache.csproj">
+      <Project>{c5f8b7d6-4b62-4169-a73b-87215314d8cb}</Project>
+      <Name>Bikewale.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.DAL\Bikewale.DAL.csproj">
+      <Project>{e5cb4b6a-65e1-4af5-b989-1b2d4242d3fd}</Project>
+      <Name>Bikewale.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
+      <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
+      <Name>Bikewale.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Interfaces\Bikewale.Interfaces.csproj">
+      <Project>{12b0edcd-aa9e-41bb-bdc9-cef75952fd49}</Project>
+      <Name>Bikewale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
+      <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
+      <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
+      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Name>Bikewale.Utility</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>59591</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:84</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>http://localhost:80</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <servers defaultServer="">
+            <server name="SelfHostServer" exePath="" cmdArgs="" url="http://localhost:59591/" workingDir="" />
+          </servers>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

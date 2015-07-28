@@ -1,0 +1,38 @@
+﻿h1.main{color:#333!important; font-weight:normal!important;}
+h4.rollover-text{font-size:16px;font-weight:normal!important;padding-bottom:5px; color:#FFF; opacity=1; filter:alpha(opacity=100);}
+#mainContainer{width:950px;}
+/* Main Ajax based Image Gallery and Carousel*/
+#imageContent{width:100%; background-color:#161616;}
+#gallery {padding:0 10px 10px 10px; height: 475px; overflow: hidden;}
+#descriptions {position:relative; bottom:60px; height: 30px;background: #000;margin:10px 0;width: 580px;padding: 10px;overflow: hidden; opacity:0.65; filter:alpha(opacity=65); z-index:9999;}   
+#descriptions .ad-image-description {position: absolute; bottom:10px; color:#FFF; z-index:99999; opacity:1;filter:alpha(opacity=100);}
+#descriptions .ad-image-description .ad-description-title {display: block;}
+#imageInfo {width:300px; height:500px; float:left; padding:10px; color:#999; line-height:22px;}
+#imageInfo a {color:#999;cursor: pointer;text-decoration: underline; font-size:14px;}
+#imageInfo a:hover {color:#FFF;}
+#imageInfo span {color:#999; font-size:14px;}
+#imageInfo div {padding: 10px 0 10px 0;}
+#adContainer{width:300px; height:250px;padding:0;}
+#galleryHolder{width:600px;height: 400px;margin-bottom: 10px;}
+/* Repeater styles */
+.img-placer{width:180px; float:left;padding:10px 10px 10px 0px; *padding:7px; height:110px; }
+.imgBox{width:160px; height:100px;}
+.rollover-container{background-color:#000000; opacity:0.8; filter:Alpha(opacity=80); color:#FFFFFF; position:absolute; display:none; height:100px; width:160px; text-decoration:none;font-size:12px!important;}
+.loading {position:absolute; top:0; left:0; width:610px; height:250px; background:url(http://img.carwale.com/loader.gif) no-repeat #FFF center center; filter:alpha(opacity=80); opacity:0.8; z-index:99999; display:none;}
+.dgNavDivTop td{margin-right:20px; border-bottom: 1px dashed #CCC; border-top: 1px dashed #CCC; padding:3px 0;}
+span.pg {margin: 0 2px;padding: 2px 5px;}
+span.pgSel {color: #000;font-weight: bold;margin: 0 2px;padding: 2px 5px;}
+span.pgEnd {cursor: default;margin: 0 2px;padding: 2px 5px;}    
+.top-spacing{padding-top:10px;}
+.divider-line{border-bottom:1px solid #b2b2b1; padding-bottom:10px;}
+.rpt-img-container{width:610px; height:auto; border-top:2px solid #666; position:relative;}
+/* Menu */
+#menuarea {height:40px;}
+.menu {width:100%; margin:0 auto; padding:6px 0 0 10px; list-style-type:none;}
+.menu li {float:left; font-size:93%; text-align:center; padding: 0 2px 0 0;}
+.menu a {position:relative; display:block; text-decoration:none; float:left; padding:10px 20px 0 20px; height:34px; color:#a8a8a8; background-color:#2e2e2e;}
+.menu a:hover {color:#fff;height:34px; padding:10px 20px 0 20px;}    
+.menu a:hover span {background:url(http://img.carwale.com/adgallery/down-arrow.png) no-repeat; position:absolute; top: 44px; left:45%;width: 27px;height: 10px;margin:auto;z-index:99999;}
+.menu a:hover {background-position:0 0;} /*IE fix*/
+.menu .current a {color:#fff; height:34px; padding:10px 20px 0 20px;}    
+.menu .current span {background:url(http://img.carwale.com/adgallery/down-arrow.png) no-repeat; position:absolute; top: 44px; left:45%;width: 12px;height: 10px;margin:auto;z-index:99999;}    

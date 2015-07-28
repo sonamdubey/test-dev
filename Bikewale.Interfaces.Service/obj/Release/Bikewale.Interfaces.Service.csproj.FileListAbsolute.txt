@@ -1,0 +1,5 @@
+E:\work\BikeWalePro\Bikewale.Interfaces.Service\bin\Release\Bikewale.Interfaces.Service.dll
+E:\work\BikeWalePro\Bikewale.Interfaces.Service\bin\Release\Bikewale.Interfaces.Service.pdb
+E:\work\BikeWalePro\Bikewale.Interfaces.Service\obj\Release\Bikewale.Interfaces.Service.csprojResolveAssemblyReference.cache
+E:\work\BikeWalePro\Bikewale.Interfaces.Service\obj\Release\Bikewale.Interfaces.Service.dll
+E:\work\BikeWalePro\Bikewale.Interfaces.Service\obj\Release\Bikewale.Interfaces.Service.pdb

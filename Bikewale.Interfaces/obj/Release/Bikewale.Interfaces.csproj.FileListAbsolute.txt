@@ -1,0 +1,8 @@
+E:\work\BikeWalePro\Bikewale.Interfaces\bin\Release\Bikewale.Interfaces.dll
+E:\work\BikeWalePro\Bikewale.Interfaces\bin\Release\Bikewale.Interfaces.pdb
+E:\work\BikeWalePro\Bikewale.Interfaces\bin\Release\Bikewale.Entities.dll
+E:\work\BikeWalePro\Bikewale.Interfaces\bin\Release\Newtonsoft.Json.dll
+E:\work\BikeWalePro\Bikewale.Interfaces\bin\Release\Bikewale.Entities.pdb
+E:\work\BikeWalePro\Bikewale.Interfaces\obj\Release\Bikewale.Interfaces.csprojResolveAssemblyReference.cache
+E:\work\BikeWalePro\Bikewale.Interfaces\obj\Release\Bikewale.Interfaces.dll
+E:\work\BikeWalePro\Bikewale.Interfaces\obj\Release\Bikewale.Interfaces.pdb

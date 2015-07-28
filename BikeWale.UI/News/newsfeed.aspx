@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" ContentType="application/xml" AutoEventWireup="false" Inherits="Bikewale.News.NewsFeed" Trace="false" Debug="false" %>

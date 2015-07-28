@@ -1,0 +1,110 @@
+RewriteEngine On
+
+RewriteMap map_models txt:url_mapping/map_models.txt
+RewriteMap lowercase int:tolower
+RewriteMap map_makes txt:url_mapping/map_makes.txt
+RewriteMap map_cities txt:url_mapping/map_cities.txt
+
+RewriteRule (.*)-bikes/(.*)/user-reviews/(.*).html		/content/userreviews/reviewdetails.aspx?rid=$3 [NC,L]
+RewriteRule (.*)-bikes/(.*)/user-reviews-p(.*)-(.*)/		/content/userreviews/listreviews.aspx?bikem=$2&pn=$3&version=$4 [NC,L]
+RewriteRule (.*)-bikes/(.*)/user-reviews-p(.*)/			/content/userreviews/listreviews.aspx?bikem=$2&pn=$3 [NC,L]
+RewriteRule (.*)-bikes/(.*)/user-reviews/				/content/userreviews/listreviews.aspx?bikem=$2 [NC,L]
+RewriteRule ^user-reviews/            /content/userreviews/defaultur.aspx [NC,L]
+
+RewriteRule ^new/locate-dealers/$				/new/locatenewbikedealers.aspx [NC,L]
+RewriteRule ^new/(.*)-dealers/([0-9]+)-(.*).html	/new/browsenewbikedealerdetails.aspx?make=$1&cityId=$2 [NC,L]
+RewriteRule ^new/(.*)-dealers/$			/new/listnewbikedealersbycity.aspx?make=$1 [NC,L]
+
+
+RewriteRule	^upcoming-bikes/sort/([\d]+)/page/([\d]+)/		/new/upcomingbikes//upcomingbikeslist.aspx?sort=$1&pn=$2 [NC,L]
+RewriteRule	^upcoming-bikes/page/([\d]+)/				/new/upcomingbikes/upcomingbikeslist.aspx?pn=$1 [NC,L]
+RewriteRule	^upcoming-bikes/sort/([\d]+)/				/new/upcomingbikes/upcomingbikeslist.aspx?sort=$1 [NC,L]
+
+RewriteRule	(.*)-bikes/upcoming/sort/([\d]+)/page/([\d]+)/		/new/upcomingbikes/upcomingbikeslist.aspx?make=$1&sort=$2&pn=$3 [NC,L]
+RewriteRule	(.*)-bikes/upcoming/page/([\d]+)/				/new/upcomingbikes/upcomingbikeslist.aspx?make=$1&pn=$2 [NC,L]
+RewriteRule	(.*)-bikes/upcoming/sort/([\d]+)/				/new/upcomingbikes/upcomingbikeslist.aspx?make=$1&sort=$2 [NC,L]
+RewriteRule (.*)-bikes/upcoming/						/new/upcomingbikes/upcomingbikeslist.aspx?make=$1 [NC,L]
+RewriteRule 	^upcoming-bikes/feed/						/new/upcomingbikes/upcomingbikesfeed.aspx [NC,L]
+RewriteRule ^upcoming-bikes/	/new/upcomingbikes/upcomingbikeslist.aspx [NC,L]
+
+RewriteRule ^(.*)-bikes/(.*)/photos/(.*)-([\d]+).html		/new/photos/default.aspx?model=$2&imgid=$4 [NC,L]
+RewriteRule ^(.*)-bikes/(.*)/photos/			/new/photos/default.aspx?model=$2 [NC,L]
+
+RewriteRule ^new/compare/compareSpecs.aspx$	/new/compare/comparebikes.aspx [NC,L,QSA,R=301]
+RewriteRule ^new/compare/compareFeatures.aspx$ 	/new/compare/comparebikes.aspx [NC,L,QSA,R=301]
+RewriteRule ^new/compare/compareColors.aspx$ 	/new/compare/comparebikes.aspx [NC,L,QSA,R=301]
+RewriteRule ^new/compare/$ 	/comparebikes/ [NC,L,R=301]
+
+RewriteRule ^comparebikes/([a-zA-Z0-9]*)-(.*)-vs-([a-zA-Z0-9]*)-(.*)-vs-([a-zA-Z0-9]*)-(.*)-vs-([a-zA-Z0-9]*)-(.*)/$         /new/compare/comparebikes.aspx?mo=$2,$4,$6,$8	[NC,L,QSA]
+RewriteRule ^comparebikes/([a-zA-Z0-9]*)-(.*)-vs-([a-zA-Z0-9]*)-(.*)-vs-([a-zA-Z0-9]*)-(.*)/$         /new/compare/comparebikes.aspx?mo=$2,$4,$6 [NC,L,QSA]
+RewriteRule ^comparebikes/([a-zA-Z0-9]*)-(.*)-vs-([a-zA-Z0-9]*)-(.*)/$         /new/compare/comparebikes.aspx?mo=$2,$4 [NC,L,QSA]
+RewriteRule ^comparebikes/	new/compare/default.aspx	[NC,L]
+
+RewriteRule ^new-bikes-launches/page/([\d]+)/				/new/newbikelaunch/Default.aspx?pn=$1 [NC,L]
+RewriteRule ^new-bikes-launches/							/new/newbikelaunch/Default.aspx [NC,L]
+
+RewriteRule ^road-tests/(.*)-([\d]+)/p([\d]+)/   	 /road-tests/($1)-($2).html [R=301,NC,L]
+RewriteRule ^(.*)-bikes/(.*)/road-tests/page/([\d]+)/			/content/roadtest/defaultrt.aspx?make=$1&model=$2&pn=$3 [NC,L]
+RewriteRule ^(.*)-bikes/(.*)/road-tests/					/content/roadtest/defaultrt.aspx?make=$1&model=$2 [NC,L]
+RewriteRule ^(.*)-bikes/road-tests/page/([\d]+)/			/content/roadtest/defaultrt.aspx?make=$1&pn=$2 [NC,L]
+RewriteRule ^(.*)-bikes/road-tests/						/content/roadtest/defaultrt.aspx?make=$1 [NC,L]
+RewriteRule ^road-tests/page/(.*)/					/content/roadtest/defaultrt.aspx?pn=$1 [NC,L]
+RewriteRule ^road-tests/(.*)-([\d]+).html   	 /content/roadtest/viewrt.aspx?id=$2 [NC,L]
+RewriteRule ^road-tests/            /content/roadtest/defaultrt.aspx [NC,L]
+
+RewriteRule  ^(.*)-bikes/(.*)/(.*)-specs-(.*).html	/($1)-bikes/($2)/ [R=301,NC,L]
+RewriteRule ^(.*)-bikes/(.*)-series/ /new/bikeseries.aspx?series=$2 [NC,L]
+RewriteRule	^(.*)-bikes/(.*)/	/new/versions.aspx?model=$2 [NC,L]
+RewriteRule	^(.*)-bikes/$	/new/models.aspx?make=$1 [NC,L]
+
+# Feed URL redirection
+RewriteRule ^news/page/(.*)/feed/				/news/newsfeed.aspx?pn=$1 [NC,L]
+RewriteRule ^news/feed/							/news/newsfeed.aspx [NC,L]
+
+RewriteRule ^news/([\d]+)-(.*).html                        /news/news.aspx?id=$1&t=$2 [NC,L]  
+RewriteRule ^news/([\d]+)-(.*)/page/([\d]+)                /news/news.aspx?id=$1&t=$2&pn=$3 [NC,L]
+RewriteRule ^news/page/(.*)/					/news/default.aspx?pn=$1 [NC,L]
+
+RewriteRule ^comparos/(.*)-([\d]+).html                        /content/comparisontest/viewct.aspx?id=$2&t=$1 [NC,L]  
+RewriteRule ^comparos/(.*)-([\d]+)/page/([\d]+).html           /comparos/comparisontest/viewct.aspx?id=$1&t=$2&pn=$3 [NC,L]
+
+RewriteRule tipsadvices/(.*)-([\d]+)/p([\d])/			/content/tipsadvices/viewta.aspx?id=$2&pageId=$3 [NC,L]
+RewriteRule tipsadvices/(.*)-([\d]+)/					/content/tipsadvices/viewta.aspx?id=$2 [NC,L]
+RewriteRule ^tipsadvices/            /content/tipsadvices/defaultta.aspx [NC,L]
+RewriteRule ^tipsadvices/page/(.*)/					/content/roadtest/defaultta.aspx?pn=$1 [NC,L]
+
+RewriteRule	^forums/ViewForum-(.*)-p(.*)\.html	  /forums/threads.aspx?forum=$1&page=$2 [NC,L]
+RewriteRule	^forums/ViewForum-(.*)\.html		   /forums/threads.aspx?forum=$1 [NC,L]
+RewriteRule	^forums/Viewthread-(.*)\.html		 /forums/ViewThreads.aspx?thread=$1 [NC,L]
+RewriteRule	^forums/Viewthread-(.*)-p(.*)\.html	 /forums/ViewThreads.aspx?thread=$1&page=$2 [NC,L]
+
+RewriteRule features/(.*)-([\d]+)/p([\d]+)/			 /features/($1)-($2)/ [R=301,NC,L]
+RewriteRule features/(.*)-([\d]+)/					/content/features/viewf.aspx?id=$2 [NC,L]
+RewriteRule ^features/page/([\d]+)/					/content/features/defaultf.aspx?pn=$1 [NC,L]
+RewriteRule ^features/								/content/features/defaultf.aspx [NC,L]
+
+RewriteRule ^used-bikes-in-cochin/ 	used-bikes-in-kochi/ [NC,L,QSA,R=301]
+#RewriteRule ^used-bikes-in-(.*)/(.*)-(.*)-(.*)/		/used/bikedetails.aspx?bike=$4 [NC,L]
+RewriteRule ^used-bikes-in-(.*)/(.*)-(.*)-(.*)/			/used/bikes-in-($1)/($2)-($3)-($4)/	[R=301,NC,L]
+RewriteRule ^used/bikes-in-(.*)/(.*)-(.*)-(.*)/		/used/bikedetails.aspx?bike=$4 [NC,L]
+
+RewriteRule ^used/(.*)-(.*)-bikes-in-(.*)/page-([\d]+)/		/used/search.aspx?make=$1&model=$2&city=$3&pn=$4 [QSA,NC,L]
+RewriteRule ^used/(.*)-(.*)-bikes-in-(.*)/					/used/search.aspx?make=$1&model=$2&city=$3 [QSA,NC,L]
+RewriteRule ^used/(.*)-bikes-in-india/page-([\d]+)/			/used/search.aspx?make=$1&pn=$2	[QSA,NC,L]
+RewriteRule ^used/(.*)-bikes-in-india/						/used/search.aspx?make=$1	[QSA,NC,L]
+RewriteRule ^used/(.*)-bikes-in-(.*)/page-([\d]+)/			/used/search.aspx?make=$1&city=$2&pn=$3 [QSA,NC,L]
+RewriteRule ^used/(.*)-bikes-in-(.*)/						/used/search.aspx?make=$1&city=$2 [QSA,NC,L]
+RewriteRule ^used/bikes-in-india/page-([\d]+)/				/used/search.aspx?pn=$1 [QSA,NC,L]
+RewriteRule ^used/bikes-in-india/		/used/search.aspx [QSA,NC,L]
+RewriteRule ^used-bikes-in-(.*)/page-([\d]+)/			/used/bikes-in-($1)/page-($2)/ [R=301,NC,L]
+RewriteRule ^used/bikes-in-(.*)/page-([\d]+)/			/used/search.aspx?city=$1&pn=$2 [QSA,NC,L]
+RewriteRule ^used-bikes-in-(.*)/	/used/bikes-in-($1)/ [R=301,NC,L]
+RewriteRule ^used/bikes-in-(.*)/			/used/search.aspx?city=$1 [QSA,NC,L]
+
+RewriteRule ^mybikewale/myprofile/	/users/mycontactdetails.aspx [NC,L]
+RewriteRule ^mybikewale/editcontactdetails/	/users/EditCustomerDetails.aspx [NC,L]
+RewriteRule ^mybikewale/changepassword/		/users/changepassword.aspx [NC,L]
+RewriteRule ^mybikewale/myinquiries/		/mybikewale/mylisting.aspx [NC,L]
+
+
+

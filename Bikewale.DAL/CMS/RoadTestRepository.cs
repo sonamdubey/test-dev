@@ -1,0 +1,114 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Data;
+using System.Data.SqlClient;
+using System.Web;
+using Bikewale.Entities.CMS;
+using Bikewale.Interfaces.CMS;
+using Bikewale.CoreDAL;
+using Bikewale.Notifications;
+
+namespace Bikewale.DAL.CMS
+{
+    /// <summary>
+    /// Created By : Ashish G. Kamble on 13 May 2014
+    /// Summary : Class have methods to get the road test information.
+    /// </summary>
+    /// <typeparam name="T">CMSContentListEntity</typeparam>
+    /// <typeparam name="V">CMSContentDetailsEntity</typeparam>
+    public class RoadTestRepository<T, V> : CMSMainRepository<T, V> where T : CMSContentListEntity, new()
+                                                                    where V : CMSPageDetailsEntity, new()
+    {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="recordCount"></param>
+        /// <param name="filters"></param>
+        /// <returns></returns>
+        public override IList<T> GetContentList(int startIndex, int endIndex, out int recordCount, ContentFilter filters)
+        {
+            IList<T> objList = default(List<T>);
+            Database db = null;
+            recordCount = 0;
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "GetRoadTestList";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@startindex", SqlDbType.Int).Value = startIndex;
+                    cmd.Parameters.Add("@endindex", SqlDbType.Int).Value = endIndex;
+                    cmd.Parameters.Add("@CategoryId", SqlDbType.TinyInt).Value = EnumCMSContentType.RoadTest;
+
+                    if (filters.MakeId > 0)
+                        cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = filters.MakeId;
+
+                    if (filters.ModelId > 0)
+                        cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = filters.ModelId;
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            objList = new List<T>();
+
+                            while (dr.Read())
+                            {
+                                objList.Add(new T()
+                                {
+                                    ContentId = Convert.ToInt32(dr["BasicId"]),
+                                    AuthorName = Convert.ToString(dr["AuthorName"]),
+                                    Description = Convert.ToString(dr["Description"]),
+                                    DisplayDate = Convert.ToString(dr["DisplayDate"]),
+                                    //FacebookCommentCount = Convert.ToUInt32(dr["FacebookCommentCount"]),
+                                    HostUrl = Convert.ToString(dr["HostURL"]),
+                                    //IsSticky = Convert.ToBoolean(dr["IsSticky"]),
+                                    LargePicUrl = Convert.ToString(dr["ImagePathLarge"]),
+                                    RowNumber = Convert.ToInt32(dr["Row_No"]),
+                                    SmallPicUrl = Convert.ToString(dr["ImagePathThumbnail"]),
+                                    Title = Convert.ToString(dr["Title"]),
+                                    Views = Convert.ToUInt32(dr["Views"]),
+                                    ContentUrl = Convert.ToString(dr["Url"])
+                                });
+                            }
+
+                            if (dr.NextResult())
+                            {
+                                if (dr.Read())
+                                {
+                                    recordCount = Convert.ToInt32(dr["RecordCount"]);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objList;
+        }   // End of GetContentList        
+
+    }   // Class
+}   // namespace

@@ -1,0 +1,110 @@
+.setNoBorder {padding:10px 0px;}
+.setBorder {border-right:1px solid #b3b4c6;padding:10px 0px;}
+.box {border:1px solid #b3b4c6;background-color:#ffffff;border-radius:7px;-moz-border-radius:7px;-webkit-border-radius:7px;position:relative;overflow:hidden;padding:0px;}
+.box img {border : none;}
+.arr-small {color: hsl(0, 100%, 50%);font-size: 15px;}
+.margin-top-5 {margin-top:5px;}
+.margin-top-10 {margin-top:10px;}
+.margin-left-10 {margin-left : 10px;}
+.link-decoration {text-decoration : none!important;}
+a.normal {color:#252628!important;text-decoration:none;font-weight:normal!important;}
+/*.container {border-bottom:1px solid #DBDCDE;padding:10px 5px;}*/
+.container-last {padding:10px 5px;}
+.lightgray {color:#656565;}
+#br-cr {padding:10px 0px;}
+.padding5 {padding:5px;}
+.padding-top10 {padding-top:10px;}
+img { max-width:100%; }
+.link-shadow{background: -webkit-linear-gradient(#FAFAFA, #E8E8E8); /* For Safari 5.1 to 6.0 */
+background: -o-linear-gradient(#FAFAFA,#E8E8E8); /* For Opera 11.1 to 12.0 */
+background: -moz-linear-gradient(#FAFAFA,#E8E8E8); /* For Firefox 3.6 to 15 */
+background: linear-gradient(#FAFAFA,#E8E8E8); /* Standard syntax (must be last) */
+}
+
+.pghead {font-size: 19px;color: #333333;}
+.pgsubhead {font-size:18px;color: #353535;margin-top:10px;}
+.darkgray {color:#333333;}
+.new-line {margin-top:2px;}
+.new-line5 {margin-top:5px;}
+.new-line8 {margin-top:8px;}
+.new-line10 {margin-top:10px;}
+.new-line13 {margin-top:13px;}
+.new-line15 {margin-top:15px;}
+.margin-bottom10 { margin-bottom:10px; }
+a.normal {color:#252628!important;text-decoration:none;font-weight:normal!important;}
+/*.container {border-bottom:1px solid #DBDCDE;padding:10px 5px;}*/
+/*.container10-last {padding:10px 0px;}*/
+/*.container5 {border-bottom:1px solid #DBDCDE;padding:5px 0px;}*/
+.head-big {font-size:18px;color:#252628;}
+.container { border-bottom: 1px solid #DBDCDE; padding: 10px 5px;}
+.box .heading {font-size:16px;color:#1f1f21;line-height:18px;}
+.box .plus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://img.aeplcdn.com/bikewaleimg/images/icons-sheet.png");background-position: -2px -248px;}
+.box .minus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://img1.aeplcdn.com/bikewaleimg/images/icons-sheet.png");background-position: -2px -272px;}
+.box .sub-heading {font-size:13px;color:#242426;}
+.bot-rad-0 {border-bottom-left-radius:0px;-moz-border-radius-bottomleft:0px;-webkit-border-bottom-left-radius:0px;border-bottom-right-radius:0px;;-moz-border-radius-bottomright:0px;-webkit-border-bottom-right-radius:0px;border-bottom:0px;}
+.ext {border-top:0px;margin:0px;height:auto;padding:0px 5px;border-top-left-radius:0px;;-moz-border-radius-topleft:0px;-webkit-border-top-left-radius:0px;border-top-right-radius:0px;;-moz-border-radius-topright:0px;-webkit-border-top-right-radius:0px;}
+/*.container {border-bottom:1px solid #DBDCDE;padding:10px 5px;}*/
+.container10-last {padding:10px 0px;}
+.container5 {border-bottom:1px solid #DBDCDE;padding:5px 0px;}
+.box1 {border:1px solid #b3b4c6;background-color:#ffffff;padding:10px 10px;border-radius:7px;-moz-border-radius:7px;-webkit-border-radius:7px;position:relative;}
+.box1 .sub-heading {font-size:13px;color:#242426;}
+.box1 .heading {font-size:16px;color:#1f1f21;line-height:18px;}
+.box1 .plus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://img2.aeplcdn.com/bikewaleimg/images/icons-sheet.png");background-position: -2px -248px;}
+.box1 .minus {width:18px;height:18px;position:absolute;top:10px;right:5px;background-image: url("http://img3.aeplcdn.com/bikewaleimg/images/icons-sheet.png");background-position: -2px -272px;}
+.head-big {font-size:18px;color:#252628;}
+.head-big-desc {color:#5d5d5d;}
+.table {width:100%;border:0px;}
+.aro-par {vertical-align:middle;width:16px;}
+.aro-par-small {vertical-align:middle;width:8px;}
+.aro-big {width:16px;height:21px;background-image: url("http://img.aeplcdn.com/bikewaleimg/images/icons-sheet.png");background-position: -2px -93px;}
+.aro-small {width:8px;height:8px;background-image: url("http://img1.aeplcdn.com/bikewaleimg/images/icons-sheet.png");background-position: -2px -124px;}
+.f-10 {font-size:10px;}
+.f-11 {font-size:11px;}
+.f-12 {font-size:12px}
+.f-bold { font-weight:bold; }
+.hide { display:none; }
+.darkblue { color: #004585; }
+
+.error {color:red;}
+.arr-big{color:red;font-size:25px;}
+.leftArrowContainer {font-size:14px;background:url('http://img2.aeplcdn.com/bikewaleimg/images/arrow-left-test.png') no-repeat; background-position: left center; padding-left:25px;}
+.rightArrowContainer {font-size:14px;background:url('http://img3.aeplcdn.com/bikewaleimg/images/arrow-right-test.png') no-repeat;background-position:right center;padding-right:25px;}
+
+.prev {float:left;width:90px;height:35px;text-align:left;padding-left:5px;color: #353535;font-size: 18px;}
+.next {float:right;width:60px;height:35px;text-align:right;padding-right:5px;color: #353535;font-size: 18px;}
+
+.margin-bottom10 { margin-bottom:10px;}
+.box-bot {border:1px solid #b3b4c6;background-color:#ffffff;padding:5px 10px;position:relative;border-radius:7px;-moz-border-radius:7px;-webkit-border-radius:7px;}
+.box-bot .sub-heading {font-size:13px;color:#242426;}
+
+/*css for bike comparison page*/
+.compareBikeContainer {float:left;width:50%;}
+.compareBikeBox {text-align:center;padding:10px;margin:auto;}
+.compareBikeBorder-Rt {border-right:1px solid #b3b4c6;}
+.compareBikeBorder-Lt {border-left:1px solid #b3b4c6;}
+.divCompareBikeMenu {background-color:#26272b;color:white!important;font-size:14px;}
+.divCompareBikeMenu ul {list-style:none;padding:0px;margin:0px;}
+.divCompareBikeMenu .list{display:inline;float:left;text-align:center;}
+.divCompareBikeMenu .listActive{display:inline;float:left;text-align:center;background-color:#666769;border-bottom:2px solid red; }
+.divCompareBikeMenu .white {color:white!important;}
+.compareBikeItemBorder-Rt {border-right:1px solid #F2F2F2;}
+.compareBikeItemContainer {background-color:#f2f2f2;font-weight:bold;}
+.cc-sprite{background: url("http://img.aeplcdn.com/bikewaleimg/images/icons-sheet.png") no-repeat scroll 0 0 transparent;display: inline-block; }
+.grey-tick{background-position: 0 -1117px;height: 20px;width: 24px;}
+.grey-cross{background-position: 0 -1187px;height: 16px;width: 16px;}
+.grey-none{background-position: 0 -1213px;height: 16px;width: 16px;}
+.rightMinus {width:18px;height:18px;background-image: url('http://img1.aeplcdn.com/bikewaleimg/images/icons-sheet.png');background-position: -2px -272px; float:right;}
+.rightPlus {width:18px;height:18px;background-image: url('http://img2.aeplcdn.com/bikewaleimg/images/icons-sheet.png');background-position: -2px -248px; float:right;}
+.colorBox {height:40px;width:40px;margin:auto;text-shadow:none;}
+.subCategoryBorder {border-top:1px solid #F2F2F2;}
+.tagNew {position:absolute;top:-12px;left:-6px;height:37px;background-image: url('http://img3.aeplcdn.com/bikewaleimg/images/icons-sheet.png');background-position: 0px -1232px;width:42px;}
+.colorborderLt {border-left:1px solid #BBBBBB;}
+.colorborderRt {border-right:1px solid #BBBBBB;}
+.showroom {text-align:center;}
+.box2 {border:1px solid #b3b4c6;background-color:#ffffff;position:relative;overflow:hidden;padding:0px;}
+.box2 img {border : none;}
+.linkButton {background-image: url("http://img.aeplcdn.com/bikewaleimg/images/nav.png");background-position: 0 0;border-radius: 7px;color: #ffffff;height: 22px;line-height: 22px;padding: 3px 10px;text-align: center;text-decoration: none;}
+.colorDiv {vertical-align:top;}
+body { text-shadow:none;}
+
+.article-content p { margin-bottom: 10px; line-height: 1.8; }

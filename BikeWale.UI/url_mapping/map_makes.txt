@@ -1,0 +1,17 @@
+aprilia	2
+bajaj	1
+bmw	3
+ducati	4
+harleydavidson	5
+hero	6
+honda	7
+hyosung	8
+kawasaki	17
+ktm	9
+mahindra	10
+royalenfield	11
+suzuki	12
+tvs	15
+vespa	16
+yamaha	13
+yo	14

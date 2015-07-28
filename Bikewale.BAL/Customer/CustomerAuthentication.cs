@@ -1,0 +1,89 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.Practices.Unity;
+using Bikewale.Entities.Customer;
+using Bikewale.Interfaces.Customer;
+using Bikewale.DAL.Customer;
+
+namespace Bikewale.BAL.Customer
+{
+    /// <summary>
+    /// Created y : Ashish G. Kamble on 25 apr 2014
+    /// Summary : Class all functions related to the customer authentication and other related operations.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="U"></typeparam>
+    public class CustomerAuthentication<T,U> : ICustomerAuthentication<T,U> where T : CustomerEntity, new()
+    {
+        private readonly ICustomerRepository<T, U> customerRepository = null;
+
+        public CustomerAuthentication()
+        {
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<ICustomerRepository<T, U>, CustomerRepository<T, U>>();
+                customerRepository = container.Resolve<ICustomerRepository<T, U>>();
+            }
+        }
+
+        public bool IsRegisteredUser(string email)
+        {
+            bool isRegistered = false;
+            ICustomer<T, U> objCust = null;
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<ICustomer<T, U>, Customer<T, U>>();
+                objCust = container.Resolve<ICustomer<T, U>>();
+            }
+
+            CustomerEntity objCustEntity = objCust.GetByEmail(email);
+
+            isRegistered = objCustEntity.IsExist;
+
+            return isRegistered;
+        }
+
+        public T AuthenticateUser(string email, string password)
+        {
+            throw new NotImplementedException();
+        }
+
+        public T AuthenticateUser(string email)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateCustomerMobileNumber(string mobile, string email, string name = null)
+        {
+            customerRepository.UpdateCustomerMobileNumber(mobile, email, name);
+        }
+
+        public void UpdatePasswordSaltHash(U customerId, string passwordSalt, string passwordHash)
+        {
+            customerRepository.UpdatePasswordSaltHash(customerId, passwordHash, passwordHash);
+        }
+
+        public void SavePasswordRecoveryToken(U customerId, string token)
+        {
+            customerRepository.SavePasswordRecoveryToken(customerId, token);
+        }
+
+        public bool IsValidPasswordRecoveryToken(U customerId, string token)
+        {
+            bool isValidToken = false;
+
+            isValidToken = customerRepository.IsValidPasswordRecoveryToken(customerId, token);
+
+            return isValidToken;
+        }
+
+        public void DeactivatePasswordRecoveryToken(U customerId)
+        {
+            customerRepository.DeactivatePasswordRecoveryToken(customerId);
+        }
+    }
+}

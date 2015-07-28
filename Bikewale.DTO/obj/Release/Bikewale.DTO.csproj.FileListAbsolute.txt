@@ -1,0 +1,4 @@
+E:\work\BikeWalePro\Bikewale.DTO\bin\Release\Bikewale.DTO.dll
+E:\work\BikeWalePro\Bikewale.DTO\bin\Release\Bikewale.DTO.pdb
+E:\work\BikeWalePro\Bikewale.DTO\obj\Release\Bikewale.DTO.dll
+E:\work\BikeWalePro\Bikewale.DTO\obj\Release\Bikewale.DTO.pdb

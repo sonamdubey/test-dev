@@ -1,0 +1,29 @@
+﻿/*New Styles for Research Default Page*/
+.makeContainer {width:50%;float:left; border-bottom:1px solid #b3b4c6;}
+.makeImgContainer {margin:auto;height:53px;width:91px; background: url("http://img.aeplcdn.com/bikewaleimg/images/brand-img.png") no-repeat scroll transparent;}
+.makeTextContainer {text-align:center;height:10px;font-size:12px !important;color:#252628;font-weight:normal;}
+
+.aprilia {background-position: 0px 0px;} /*Aprillia*/
+.bajaj {background-position: -98px 0;}/*Bajaj*/
+.bmw {background-position: -203px 0;}/*bmw*/
+
+.ducati {background-position: -302px 0px;} /*Ducati*/
+.harley {background-position: -405px 0px;}/*Harley Davidson*/
+.honda {background-position: -705px 0;}/*Honda*/
+.hero-electric {background-position: -606px 0px;} /*Hero Electric*/
+
+.hero {background-position: -505px 0px;}/*Hero*/
+.hyosung {background-position: -808px 0px;}/*Hyosung	*/
+.indian {background-position: -909px 0;}/*Indian*/
+.kawasaki {background-position: -1009px 0;}/*Kawasaki*/
+.ktm {background-position : -1111px 0px;}
+.lml {background-position : -1212px 0px;}
+.mahindra {background-position : -1314px 0px;}
+.motoguzzi {background-position : -1415px 0px;}
+.royal-enfild {background-position : -1517px 0px;}
+.suzuki {background-position : -1615px 0px;}
+.triumph {background-position :-1717px 0px; }
+.tvs {background-position :-1815px 0px; }
+.vespa {background-position :-1918px 0px; }
+.yo {background-position :-2119px 0px; }
+.yamaha {background-position :-2019px 0px; }

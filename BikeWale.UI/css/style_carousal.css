@@ -1,0 +1,15 @@
+/*{width:278px; overflow:hidden;}*/
+/*.jcarousel-skin-tango{width:278px;}*/
+.jcarousel-skin-tango .jcarousel-direction-rtl {direction: rtl;}
+.jcarousel-skin-tango .jcarousel-container-horizontal {padding:0;}
+.jcarousel-skin-tango .jcarousel-clip {overflow: hidden;}
+.jcarousel-skin-tango .jcarousel-clip-horizontal {text-align:left;}
+/*.jcarousel-skin-tango .jcarousel-item{width:120px;}*/
+.jcarousel-skin-tango .jcarousel-item-horizontal{/*margin-left:0; margin-right:19px;*/}
+.jcarousel-skin-tango .jcarousel-direction-rtl .jcarousel-item-horizontal {/*margin-left:10px;margin-right:0;*/}
+.jcarousel-skin-tango .jcarousel-container a {color: #333333;font-weight: bold;text-decoration: none;font-size:11px;}
+.jcarousel-skin-tango .jcarousel-container a img{border:2px solid #e0e3ec;}
+.jcarousel-skin-tango .jcarousel-prev-horizontal {background:url(http://img.carwale.com/bikewaleimg/images/sprite-2.png); background-repeat:no-repeat; cursor:pointer; position:absolute; top:-28px; right:22px; width:23px; height:19px; display:inline-block;}
+.jcarousel-skin-tango .jcarousel-prev-horizontal:hover {background:url(http://img.carwale.com/bikewaleimg/images/sprite-2.png)  0px -19px; position:absolute;}
+.jcarousel-skin-tango .jcarousel-next-horizontal {background:url(http://img.carwale.com/bikewaleimg/images/sprite-2.png) -23px 0px; background-repeat:no-repeat; cursor:pointer; position:absolute; top:-28px; right:0px; width:23px; height:19px; display:inline-block;}
+.jcarousel-next-horizontal:hover{background:url(http://img.carwale.com/bikewaleimg/images/sprite-2.png) -23px -19px; position:absolute;}
