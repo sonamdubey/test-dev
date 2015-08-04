@@ -12,27 +12,27 @@
         </div>
         <h2 class="new-line10">West Zone</h2>
         <div class="box1 new-line5">
-            <span class="bold">Anand Mohan</span><br />
-            <span class="bFontCol">Mobile: +91 9833933784</span><br />
-            <span class="bFontCol">Email: <a href="mailto:anand@carwale.com" class="viewDetails">anand@carwale.com</a></span>
+            <span class="bold">Mohd. Kashif Chilmai</span><br />
+            <span class="bFontCol">Mobile: +91 9773405602</span><br />
+            <span class="bFontCol">Email: <a href="mailto:kashif.chilmai@carwale.com" class="viewDetails">kashif.chilmai@carwale.com</a></span>
         </div>
         <h2 class="new-line10">North Zone</h2>
         <div class="box1 new-line5">
-            <span class="bold">Vishant Jagwani</span><br />
-            <span class="bFontCol">Mobile: +91 9891393883</span><br />
-            <span class="bFontCol">Email: <a href="mailto:vishant@carwale.com" class="viewDetails">vishant@carwale.com</a></span>
+            <span class="bold">Rahul Gupta</span><br />
+            <span class="bFontCol">Mobile: +91 9810531466</span><br />
+            <span class="bFontCol">Email: <a href="mailto:rahul.gupta@carwale.com" class="viewDetails">rahul.gupta@carwale.com</a></span>
         </div>
         <h2 class="new-line10">South Zone</h2>
         <div class="box1 new-line5">
-            <span class="bold">Vishnukanth M.S</span><br />
-            <span class="bFontCol">Mobile: +91 9845201660</span><br />
-            <span class="bFontCol">Email: <a href="mailto:vishnu@carwale.com" class="viewDetails">vishnu@carwale.com</a></span>
+            <span class="bold">Amal Siby Marian</span><br />
+            <span class="bFontCol">Mobile: +91 9003105155</span><br />
+            <span class="bFontCol">Email: <a href="mailto:amal.siby@carwale.com" class="viewDetails">amal.siby@carwale.com</a></span>
         </div>
         <h2 class="new-line10">East Zone</h2>
         <div class="box1 new-line5">
-            <span class="bold">Sushil D'souza</span><br />
-            <span class="bFontCol">Mobile: +91 9820531220</span><br />
-            <span class="bFontCol">Email: <a href="mailto:gauri@carwale.com" class="viewDetails">sushil@carwale.com</a></span>
+            <span class="bold">Romita Choudhury</span><br />
+            <span class="bFontCol">Mobile: +91 8454831114</span><br />
+            <span class="bFontCol">Email: <a href="mailto:romita.choudhury@carwale.com" class="viewDetails">romita.choudhury@carwale.com</a></span>
         </div>  
     </div>
 </form>

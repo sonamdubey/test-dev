@@ -9,7 +9,7 @@
     AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
     AdId = "1398766000399";
 %>
-<!-- #include file="/includes/headermobile_home.aspx" -->
+<!-- #include file="/includes/headermobile_noad.aspx" -->
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" /> 
 <link href="../../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
 <script src="../../src/jquery-ui-1.10.4.custom.min.js"></script>
@@ -633,5 +633,5 @@
     });
 
 </script>
-<!-- #include file="/includes/footermobile_home.aspx" -->
+<!-- #include file="/includes/footermobile_noad.aspx" -->
 <!--<div class="bottom-info"></div>-->

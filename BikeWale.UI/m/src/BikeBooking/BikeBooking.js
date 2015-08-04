@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $("#getDealerDetails").click(function () {
+    $("#getDealerDetails,#dealerPriceQuote").click(function () {
         $.ajax({
             type: "POST",
             url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",

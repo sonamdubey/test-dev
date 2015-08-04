@@ -190,6 +190,7 @@ namespace Bikewale.Mobile.Content
                     listPager.PagerOutput = pagerOutput;
                     listPager.TotalPages = totalPages;
                     listPager.CurrentPageNo = curPageNo;
+                    listPager.BindPageNumbers();
 
                     //get next and prev page links for SEO
                     prevPageUrl = pagerOutput.PreviousPageUrl;

@@ -15,7 +15,7 @@
 <!-- #include file="/includes/headNew.aspx" -->
 <script type="text/javascript" src="/src/pq/price_quote.js?v=1.1"></script>
 <%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
-<link href="/css/bw-pq.css?23july2015" rel="stylesheet" />
+<link href="/css/bw-pq.css?30july2015" rel="stylesheet" />
 
  <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />

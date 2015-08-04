@@ -10,8 +10,7 @@
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", canonical = "",menu="";
     </script> 
-   <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->
-    </script>
+   <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->    
 </head>
 <body>
     <!-- #include file="/includes/gacode.aspx" --> 

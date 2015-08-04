@@ -9,7 +9,7 @@
     AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
     AdId = "1398766000399";
 %>
-<!-- #include file="/includes/headermobile_home.aspx" --> 
+<!-- #include file="/includes/headermobile_noad.aspx" -->
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
 <script type="text/javascript">
     var dealerId = '<%= dealerId%>';
@@ -29,39 +29,38 @@
 <style>
     .grey-bullet li{ background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bw-grey-bullet.png) no-repeat 0px 9px;display: block;list-style: square outside none;padding: 3px 0 3px 10px;}
 </style>
-<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/BikeBooking.js?23July2015"></script>
+<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/BikeBooking.js?29072005"></script>
 
 <div class="padding5">
     <form id="Form1" runat="server">
-    <h1>Dealer Price Quote</h1>
+    <h1 class="margin-top-10" style="margin-left:0px;"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Price Quote</h1>
     <div class="box1 box-top new-line5 bot-red new-line10">
-        <h2 class="margin-bottom10"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %></h2>
+        <%--<h1 class="margin-bottom10"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Price Quote</h1>--%>
         <div class="full-border bike-img">
             <img src="<%= ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+objPrice.LargePicUrl,objPrice.HostUrl) %>" alt="" title="" border="0" />
         </div>
-            <div class="<%= objColors.Count == 0 ?"hide":"" %>">
-                <div class="full-border new-line10 selection-box"><b>Color Options: </b>
-                    <table width="100%">
-                        <tr style="margin-bottom:5px;">
-                            <td class="break-line" colspan="2"></td>
-                        </tr>
-                    <asp:Repeater id="rptColors" runat="server">
-                        <ItemTemplate>
-                            <tr>
-                            <td  style="width:30px;"><div style="width:30px;height:20px;margin:0px 10px 0px 0px;border: 1px solid #a6a9a7;padding-top:5px;background-color:#<%# DataBinder.Eval(Container.DataItem,"ColorCode")%>"></div></td>
-                            <td><div class="new-line"><%# DataBinder.Eval(Container.DataItem,"ColorName") %></div></td>
-                                </tr>
-                        </ItemTemplate>
-                    </asp:Repeater>
-                    </table>
-                </div>
+        <div class="<%= objColors.Count == 0 ?"hide":"hide" %>">
+            <div class="full-border new-line10 selection-box"><b>Color Options: </b>
+                <table width="100%">
+                    <tr style="margin-bottom:5px;">
+                        <td class="break-line" colspan="2"></td>
+                    </tr>
+                <asp:Repeater id="rptColors" runat="server">
+                    <ItemTemplate>
+                        <tr>
+                        <td  style="width:30px;"><div style="width:30px;height:20px;margin:0px 10px 0px 0px;border: 1px solid #a6a9a7;padding-top:5px;background-color:#<%# DataBinder.Eval(Container.DataItem,"ColorCode")%>"></div></td>
+                        <td><div class="new-line"><%# DataBinder.Eval(Container.DataItem,"ColorName") %></div></td>
+                            </tr>
+                    </ItemTemplate>
+                </asp:Repeater>
+                </table>
             </div>
-                <div class="full-border new-line10 selection-box <%= versionList.Count>1 ?"":"hide" %>"><b>Variants: </b>
-                    <asp:DropDownList id="ddlVersion" runat="server" AutoPostBAck="true"></asp:DropDownList>
-                </div>
-            
+        </div>
+        <div class="<%= versionList.Count>1 ?"":"hide" %>">
+            <asp:DropDownList id="ddlVersion" runat="server" AutoPostBAck="true"></asp:DropDownList>
+        </div>            
         <!--Price Breakup starts here-->
-        <div class="new-line10">
+        <div class="new-line15" style="margin-top:20px;">
             <h2 class="f-bold">On Road Price Breakup</h2>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   
@@ -73,15 +72,17 @@
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
-                <tr align="left">
-                <td height="1" colspan="2" class="break-line"></td>
-                </tr>
+                <tr align="left"><td height="1" colspan="2" class="break-line"></td></tr>
                 <tr>
-                <td height="30" align="left">Total On Road Price</td>
-                <td height="30" align="right" class="f-bold"><span class="WebRupee">Rs.</span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></td>
+                    <td height="30" align="left" style="vertical-align:top; padding-top:5px;"><b>Total On Road Price</b></td>
+                    <td height="30" align="right" class="f-bold" style="padding-top:5px;">
+                        <div><span class="WebRupee">Rs.</span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></div>
+                        <div class="margin-top-5"><a id="dealerPriceQuote" class="blue" style="color:#0056cc!important; font-weight:normal; text-decoration:none;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Get Dealer Details</a></div>
+                    </td>
                 </tr>
-            </table>
-            <ul class="grey-bullet">
+                <tr align="left"><td height="1" colspan="2" class="break-line">&nbsp;</td></tr>
+            </table>            
+            <ul class="grey-bullet hide">
                 <asp:Repeater id="rptDisclaimer" runat="server">
                     <ItemTemplate>
                         <li><i><%# Container.DataItem %></i></li>
@@ -92,96 +93,32 @@
         <!--Price Breakup ends here-->
         <!--Exciting Offers section starts here-->                   
         <% if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
-        { %>
-        <div class="bw-offer-box break-line new-line10" id="divOffers"  style="background:#fff;">
-        <h2 class="f-bold" style="border:none; padding:0 0;">Limited Period Offers on Booking this Bike</h2>
-        <div class="margin-top5 margin-left5 new-line5">
+        { %>        
+        <div class="new-line10" id="divOffers"  style="background:#fff;">        
+            <h2 class="f-bold">Get Absolutely Free</h2>
+            <div class="margin-top5 margin-left5 new-line10">
                 <asp:Repeater ID="rptOffers" runat="server">
                     <HeaderTemplate>
-                            <ul>                                        
+                            <ul class="grey-bullet">                                        
                     </HeaderTemplate>
                     <ItemTemplate>                                 
                         <li style="<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "display:none;" : ""%>"><%# DataBinder.Eval(Container.DataItem,"OfferText")%> </li>
                     </ItemTemplate>
-                    <FooterTemplate>
-                            <%--<li>
-                            Get one Helmet from following options absolutely FREE!
-                            <div class="m-carousel m-fluid m-carousel-photos">            
-                                <div class="m-carousel-inner" style="transform: translate(-1059px, 0px);">
-                                    <div class="m-item">
-                                        <div class="mainH font14 text-center">
-                            	            <p class="margin-bottom10"><strong>Option 1: Vega Cruiser Helmet</strong></p>
-                                            <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg" class="margin-bottom10"/>
-                                	            <div class="centerContent margin-top-5">
-                                    	            <ul>
-                                        	            <li>Scratch & Crack Resistant</li>
-                                                        <li> Texture finish</li>
-                                                        <li>UV protection visor</li>
-                                                        <li>Color: Red, Size: M</li>
-                                                    </ul>
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <div class="m-item">
-                                        <div class="mainH font14 text-center">
-                            	            <p class="margin-bottom10"><strong>Option 2: Replay Flip-up Helmet</strong></p>
-                                            <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg" class="margin-bottom10"/>
-                                	            <div class="centerContent margin-top-5">
-                                    	            <ul>
-                                        	            <li>Dual Full-cum-open face</li>
-                                                        <li>Hard coated visor</li>
-                                                        <li>Superior paint finish</li>
-                                                        <li>Color: Matt Cherry Red,Size: M</li>
-                                                    </ul>
-                                                </div>
-                                        </div>
-                                    </div>
-                                    <div class="m-item">
-                                        <div class="mainH font14 text-center">
-                            	            <p class="margin-bottom10"><strong>Option 3: Vega Cliff Full Face Helmet</strong></p>
-                                            <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg" class="margin-bottom10"/>
-                                	            <div class="centerContent margin-top-5">
-                                    	            <ul>
-                                        	            <li>ABS shell</li>
-                                                        <li>Scratch resistant</li>
-                                                        <li>Lightweight & compact</li>
-                                                        <li>Color: Black, Size: M</li>
-                                                    </ul>
-                                                </div>
-                                        </div>
-                                    </div>
-                                </div>                    
-                                <div class="m-carousel-controls m-carousel-hud">
-                                    <a data-slide="prev" href="#" class="m-carousel-prev ui-link">Previous</a>
-                                    <a data-slide="next" href="#" class="m-carousel-next ui-link">Next</a>
-                                </div>
-                    
-                            </div>
-                            </li>--%>
-                            <li>Get a Helmet worth Rs. 1500 absolutely FREE on your bike purchase.</li>
-                            <li>Get one year of <a target="_blank" href="/Absure Bike RSA.pdf"  style="text-decoration:underline">Bike Roadside Assistance</a>  absolutely FREE.</li>
-                        </ul>
-                        <%--<p><a id="rsa" target="_blank" href="/m/pricequote/rsa.aspx" style="color: #0056cc !important;">How to avail above offers?</a></p>--%>
+                    <FooterTemplate>                            
+                            <li>Vega Helmet worth Rs. 1500</li>
+                            <li>1 year of <a target="_blank" style="text-decoration:underline" href="/Absure Bike RSA.pdf">Roadside Assistance</a>.</li>
+                        </ul>                        
                     </FooterTemplate>
                 </asp:Repeater>
-        </div>
-    </div>       
+            </div>
+        </div>       
     <%} %>        
            
     <!--Exciting Offers section ends here-->
+        <button type="button" data-role="none" id="getDealerDetails" class="rounded-corner5" style="margin-bottom:20px;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</button>
     </div>
-      </form>      
-    <!--Dealer PQ info starts here-->
-    <%--<div class="new-line10 dealer-pq-info font12">
-        <p>If you are looking to buy this bike, please check the detailed dealer price quote. You will get:</p>
-        <ul>
-            <li><b>Attractive offers and freebies</b></li>
-            <li><b>Details on Bank loan options</b></li>
-            <li><b>Details of required documents and next steps</b></li>
-        </ul>
-    </div>--%>
-    <!--Dealer PQ info ends here-->
-    <button data-role="none" id="getDealerDetails" class="rounded-corner5" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details & Book Now</button>
+      </form>
+    <%--<button data-role="none" id="getDealerDetails" class="rounded-corner5" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details & Book Now</button>--%>
 </div>
 
 <!--contact details starts here-->
@@ -265,5 +202,5 @@
     </div>
 
 
-<!-- #include file="/includes/footermobile_home.aspx" -->
+<!-- #include file="/includes/footermobile_noad.aspx" -->
 

@@ -13,6 +13,9 @@ p, span {_zoom:1; *zoom:1;}
 a { color:#5e5e5e; }
 img {border:0;}
 a:hover { color:#000; }
+.font14 { font-size:14px;}
+.font16 { font-size:16px;}
+.font22 { font-size:22px;}
 /*a:hover { color:#1e1e1e; }*/
 
 input[type="text"], input[type="submit"], input[type="reset"],input[type="button"], select, textarea{ font-family:Arial, Helvetica; font-size:12px; color:#6a6a6a; vertical-align:middle;}

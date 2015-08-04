@@ -4,7 +4,7 @@
     AdPath = "/1017752/Bikewale_PriceQuote_";
 %>
 <!-- #include file="/includes/pgheader.aspx" -->
-<link rel="stylesheet" href="/css/bw-pq.css?23july2015" type="text/css">
+<link rel="stylesheet" href="/css/bw-pq.css?30july2015" type="text/css">
 <link rel="stylesheet" href="/css/bw-pq-new.css?23july2015" type="text/css">
     <form runat="server">
         <div class="main-container">

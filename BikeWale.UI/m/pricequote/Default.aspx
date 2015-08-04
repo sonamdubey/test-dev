@@ -9,7 +9,7 @@
     AdId = "1398839030772";
     menu = "3";
 %>
-<!-- #include file="/includes/headermobile.aspx" -->
+<!-- #include file="/includes/headermobile_noad.aspx" -->
 <script type="text/javascript" src="/m/src/placeholder.js?v=1.0"></script>
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?23july2015"></script>
@@ -263,11 +263,12 @@
                     $("#imgLoaderArea").hide();
                     var responseJSON = eval('(' + response + ')');
                     var resObj = eval('(' + responseJSON.value + ')');
-                    if (resObj) {
+                    if (resObj && resObj.length > 0) {
                         isAreaShown = true;
                         $("#hdnIsAreaShown").val(isAreaShown);
                     }
                     else {
+                        isAreaShown = false;
                         $("#imgLoaderArea").hide();
                     }
                     //Added By - Ashwini Todkar on 6 Jan 2014
@@ -442,4 +443,4 @@
         MetroCities($("#ddlCity"));
     }
 </script>
-<!-- #include file="/includes/footermobile.aspx" -->
+<!-- #include file="/includes/footermobile_noad.aspx" -->

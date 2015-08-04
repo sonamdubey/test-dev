@@ -36,7 +36,7 @@ namespace Bikewale.BikeBooking
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
 
-        protected SimilarBikes ctrl_similarBikes;
+        protected SimilarBikesHorizontal ctrl_similarBikes;
         protected UInt64 totalPrice = 0;
         protected string pqId = string.Empty, areaId = string.Empty, BikeName = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;

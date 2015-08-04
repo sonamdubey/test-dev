@@ -2,7 +2,7 @@
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
 </script>
 <link rel="SHORTCUT ICON" href="<%= staticUrl != "" ? "http://img2.aeplcdn.com/bikewaleimg" : "" %>/images/favicon.png"  type="image/png"/>
-<link type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/style.css?24july2015" rel="stylesheet"/>
+<link type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/style.css?30july2015" rel="stylesheet"/>
 <link type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/960.css" rel="stylesheet"/>
 <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeWaleCommon.js?v=1.2"></script>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <title>Bike Booking FAQ's</title>
 <!-- #include file="/includes/globalStaticFiles.aspx"-->
-<link href="/css/bw-pq.css?23july2015" rel="stylesheet" />
+<link href="/css/bw-pq.css?30july2015" rel="stylesheet" />
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?23july2015" />
 </head>
 <body>

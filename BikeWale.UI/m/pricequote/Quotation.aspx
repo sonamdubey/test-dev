@@ -7,7 +7,7 @@
     AdId = "1398839030772";
     menu = "3";
 %>
-<!-- #include file="/includes/headermobile.aspx" --> 
+<!-- #include file="/includes/headermobile_noad.aspx" -->
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
 <form id="form1" runat="server">
     <div class="padding5">
@@ -60,4 +60,4 @@
         </div>
     </div>
 </form>
-<!-- #include file="/includes/footermobile.aspx" -->
+<!-- #include file="/includes/footermobile_noad.aspx" -->
