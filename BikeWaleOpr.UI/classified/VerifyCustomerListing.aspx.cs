@@ -17,7 +17,8 @@ namespace BikeWaleOpr.Classified
     {
         //asp control variable
         protected Repeater rptCustomerList;
-
+        protected TextBox txtProfileId;
+        protected Label lblErrorMessage;
         //custom control variable 
         protected LinkPagerControl linkPager;
 
@@ -35,6 +36,7 @@ namespace BikeWaleOpr.Classified
 
         void Page_Load(object Sender, EventArgs e)
         {
+            lblErrorMessage.Visible = false;
             ProcessQS();
             BindRepeater();
         }
@@ -46,6 +48,7 @@ namespace BikeWaleOpr.Classified
         protected void BindRepeater()
         {
             DataSet ds = null;
+            string inquiryId = String.Empty;
             try
             {
                     Pager objPager = new Pager();
@@ -56,13 +59,26 @@ namespace BikeWaleOpr.Classified
 
 
                     ClassifiedCommon cc = new ClassifiedCommon();
-                    ds = cc.CustomerListingDetail(startIndex, endIndex);
+                    if (IsPostBack)                    
+                    {
+                        startIndex = 0;
+                        endIndex = 20;
+                        inquiryId = txtProfileId.Text;
+                    }
+
+                    ds = cc.CustomerListingDetail(startIndex, endIndex, inquiryId);
 
                     recordCount = Convert.ToInt32(ds.Tables[0].Rows[0]["recordCount"]);
                     Trace.Warn("Record Count", recordCount.ToString());
 
                     totalPages = objPager.GetTotalPages(recordCount, pageSize);
-
+                    if (ds.Tables[1].Rows != null && ds.Tables[1].Rows.Count > 0)
+                    {
+                        lblErrorMessage.Visible = false;
+                    }
+                    else{
+                        lblErrorMessage.Visible = true;                        
+                    }
                     rptCustomerList.DataSource = ds.Tables[1];
                     rptCustomerList.DataBind(); // Data Bind
 

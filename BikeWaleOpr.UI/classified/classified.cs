@@ -17,7 +17,7 @@ namespace BikeWaleOpr.Classified
         /// Created By : Sanjay Soni ON 30/9/2014
         /// Description : To Retrieve All Listings from start Index to end Index
         /// </summary>
-        public DataSet CustomerListingDetail(int startIndex,int endIndex)
+        public DataSet CustomerListingDetail(int startIndex,int endIndex,string inquiryId = "")
         {
             Database db = null;
             DataSet ds = null;
@@ -30,7 +30,10 @@ namespace BikeWaleOpr.Classified
 
                     cmd.Parameters.Add("@StartIndex", SqlDbType.Int).Value = startIndex;
                     cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = endIndex;
-
+                    if (!String.IsNullOrEmpty(inquiryId))
+                    {
+                        cmd.Parameters.Add("@InquiryId", SqlDbType.Int).Value =Convert.ToUInt32(inquiryId);
+                    }
                     db = new Database();
                     ds = db.SelectAdaptQry(cmd);
                 }
