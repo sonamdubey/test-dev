@@ -1,22 +1,40 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.Classified.VerifyCustomerListing" Trace="false" %>
+
 <%@ Import Namespace="BikeWaleOpr.Classified" %>
 <%@ Register TagPrefix="Pager" TagName="Pager" Src="/controls/LinkPagerControl.ascx" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <title>Verify Customer Listings</title>
 <style>
-    #VerifyCustomerListings a {color : #FF9148; font-weight: bold;
+    #VerifyCustomerListings a {
+        color: #FF9148;
+        font-weight: bold;
     }
 </style>
 <div class="urh">
-		You are here &raquo; Classified &raquo; Verify Customer Listings
+    You are here &raquo; Classified &raquo; Verify Customer Listings
 </div>
-<div >
+<div>
     <!-- #Include file="classifiedMenu.aspx" -->
 </div>
-<div class="left"><b>Verify Customer Listings</b>
-    <table id="VerifyCustomerListings" class="margin-top10" cellpadding="5" border="1" style="text-align:center;font-size:11px;border-style:solid;border-collapse:collapse;">
+<form runat="server">
+<div>
+    <table>
+        <tr>
+            <td>Search by Profile Id:</td>
+            <td class="floatLeft margin-left10">
+                <asp:textbox id="txtProfileId" runat="server" width="95%" />
+            </td>
+            <td><asp:button id="btnSearch" text="Search" runat="server" /></td>
+            <td><asp:Label runat="server" ID="lblErrorMessage" class="errorMessage" Text="Profile Id not found."></asp:Label></td>
+        </tr>
+    </table>
+</div>
+</form>
+<div class="left">
+    <b>Verify Customer Listings</b>
+    <table id="VerifyCustomerListings" class="margin-top10" cellpadding="5" border="1" style="text-align: center; font-size: 11px; border-style: solid; border-collapse: collapse;">
         <tbody>
-            <tr class="dtHeader" >
+            <tr class="dtHeader">
                 <th>Customer Id</th>
                 <th>Email Id</th>
                 <th>Total Listings</th>
@@ -25,9 +43,9 @@
                 <th>Fake Listings</th>
                 <th>Mobile Unverified Listings</th>
                 <th>Sold Listings</th>
-                <th style="max-width:100px">IsFake customer?<input type="button" id="btnFakeCustomer" value="Mark Fake" /></th>                
+                <th style="max-width: 100px">IsFake customer?<input type="button" id="btnFakeCustomer" value="Mark Fake" /></th>
             </tr>
-            <asp:Repeater id="rptCustomerList" runat="server">
+            <asp:repeater id="rptCustomerList" runat="server">
                 <ItemTemplate>
                     <tr class="dtItem">
                         <td><%# DataBinder.Eval(Container.DataItem,"CustomerId")%></td>
@@ -41,14 +59,14 @@
                         <td><input type="checkbox" id="chkCustomer" CustomerId="<%# DataBinder.Eval( Container.DataItem, "CustomerId" ) %>" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "IsFake")) ? "checked" : "" %> /></td>
                     </tr>
                 </ItemTemplate>
-            </asp:Repeater>
+            </asp:repeater>
         </tbody>
     </table>
     <div class="margin-top10">
-        <Pager:Pager id="linkPager" runat="server"></Pager:Pager>
+        <Pager:Pager ID="linkPager" runat="server"></Pager:Pager>
     </div>
 </div>
-<div class="margin-top10"> </div>
+<div class="margin-top10"></div>
 
 <!-- #Include file="/includes/footerNew.aspx" -->
 <script>
@@ -70,7 +88,7 @@
                 });
             }
         }
-        else { alert("Please select a customer!")}
+        else { alert("Please select a customer!") }
     });
 
     ////function hidezero(customerId, listingType) {
