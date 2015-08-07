@@ -39,9 +39,9 @@ namespace Bikewale.Mobile.PriceQuote
     {
         protected DropDownList ddlMake, ddlModel, /*ddlVersion,*/ ddlCity, ddlArea;
         protected HiddenField hdnmodel;
-        protected TextBox txtMake, txtModel, txtVersion, txtCity, txtArea;
+        protected TextBox txtMake, txtModel, /*txtVersion,*/ txtCity, txtArea;
         protected string errMsg = "";
-        protected string makeId = String.Empty, modelId = String.Empty, versionId = String.Empty, modelName = string.Empty, makeName = string.Empty;
+        protected string makeId = String.Empty, modelId = String.Empty, versionId = "0", modelName = string.Empty, makeName = string.Empty;
         protected LinkButton btnSubmit;
         protected HtmlInputHidden hdnIsAreaShown;
 
@@ -74,12 +74,12 @@ namespace Bikewale.Mobile.PriceQuote
                             mmv.GetModelDetails(modelId);
                         }
 
-                        //if query string contains version then get version details
-                        if (!String.IsNullOrEmpty(versionId))
-                        {
-                            mmv.GetVersionDetails(versionId);
-                            modelId = mmv.ModelId;
-                        }
+                        ////if query string contains version then get version details
+                        //if (!String.IsNullOrEmpty(versionId))
+                        //{
+                        //    mmv.GetVersionDetails(versionId);
+                        //    modelId = mmv.ModelId;
+                        //}
 
                         if (!string.IsNullOrEmpty(mmv.MakeId))
                         {
@@ -98,12 +98,12 @@ namespace Bikewale.Mobile.PriceQuote
 
                                 //ddlVersion.SelectedValue = String.IsNullOrEmpty(versionId) ? "0" : versionId;
 
-                                DataTable dt = mmv.GetVersions(modelId, "New");
-                                if (dt != null && dt.Rows.Count > 0)
-                                {
-                                    versionId = Convert.ToString(dt.Rows[0]["Value"]);
-                                    txtVersion.Text = versionId;
-                                }
+                                //DataTable dt = mmv.GetVersions(modelId, "New");
+                                //if (dt != null && dt.Rows.Count > 0)
+                                //{
+                                //    versionId = Convert.ToString(dt.Rows[0]["Value"]);
+                                //    txtVersion.Text = versionId;
+                                //}
 
                                 ddlModel.Enabled = true;
                                 //ddlVersion.Enabled = true;
@@ -225,6 +225,7 @@ namespace Bikewale.Mobile.PriceQuote
                 PQOutputEntity objPQOutput = null;
                 try
                 {
+                    modelId = txtModel.Text;
                     using (IUnityContainer container = new UnityContainer())
                     {
                         // save price quote
@@ -236,7 +237,7 @@ namespace Bikewale.Mobile.PriceQuote
                         objPQEntity.ClientIP = CommonOpn.GetClientIP();
                         objPQEntity.SourceId = Convert.ToUInt16(Bikewale.Common.Configuration.MobileSourceId);
                         objPQEntity.VersionId = Convert.ToUInt32(versionId);
-                        objPQEntity.ModelId = Convert.ToUInt32(txtModel.Text);
+                        objPQEntity.ModelId = Convert.ToUInt32(modelId);
                         // If pqId exists then, set pqId
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
 
@@ -244,7 +245,7 @@ namespace Bikewale.Mobile.PriceQuote
                 }
                 catch (Exception ex)
                 {
-                    string selectedParams = " versionId : " + versionId + " : cityid : " + cityId;
+                    string selectedParams = string.Format("modelId : {0}, CityId : {1}", modelId, cityId); 
                     ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " " + selectedParams);
                     objErr.SendMail();
                 }
@@ -286,14 +287,12 @@ namespace Bikewale.Mobile.PriceQuote
         {
             try
             {
-                if (!String.IsNullOrEmpty(txtVersion.Text))
-                    versionId = txtVersion.Text.ToString();
-                else
-                    versionId = "0";
+                //if (!String.IsNullOrEmpty(txtVersion.Text))
+                //    versionId = txtVersion.Text.ToString();
+                //else
+                //    versionId = "0";
                 cityId = Convert.ToUInt32(String.IsNullOrEmpty(txtCity.Text) ? "0" : txtCity.Text);
                 areaId = Convert.ToUInt32(String.IsNullOrEmpty(txtArea.Text) ? "0" : txtArea.Text);
-
-                Trace.Warn("city : " + cityId + "version id :" + versionId);
             }
             catch (Exception ex)
             {
@@ -449,12 +448,12 @@ namespace Bikewale.Mobile.PriceQuote
                 hdnmodel.Value = modelId;
 
             }
-            if (!String.IsNullOrEmpty(Request.QueryString["version"]) && CommonOpn.CheckId(Request["version"]))
-            {
-                versionId = Request.QueryString["version"];
-                txtVersion.Text = versionId;
-                isQueryStringValid = true;
-            }
+            //if (!String.IsNullOrEmpty(Request.QueryString["version"]) && CommonOpn.CheckId(Request["version"]))
+            //{
+            //    versionId = Request.QueryString["version"];
+            //    txtVersion.Text = versionId;
+            //    isQueryStringValid = true;
+            //}
             return isQueryStringValid;
         }   // End of processQueryString method
 

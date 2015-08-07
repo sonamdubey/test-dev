@@ -21,7 +21,7 @@
     <form id="form1" runat="server">
     <asp:TextBox id="txtMake" runat="server" style="display:none;" Text="" data-role="none"/>
     <asp:TextBox id="txtModel" runat="server" style="display:none;" Text="" data-role="none"/>
-    <asp:TextBox id="txtVersion" runat="server" style="display:none;" Text="" data-role="none"/>
+    <%--<asp:TextBox id="txtVersion" runat="server" style="display:none;" Text="" data-role="none"/>--%>
     <asp:TextBox id="txtCity" runat="server" style="display:none;" Text="" data-role="none" />
     <asp:TextBox id="txtArea" runat="server" style="display:none;" Text="" data-role="none" />
     <asp:HiddenField ID="hdnmodel" runat="Server" Value="" />
@@ -263,11 +263,12 @@
                     $("#imgLoaderArea").hide();
                     var responseJSON = eval('(' + response + ')');
                     var resObj = eval('(' + responseJSON.value + ')');
-                    if (resObj) {
+                    if (resObj && resObj.length > 0) {
                         isAreaShown = true;
                         $("#hdnIsAreaShown").val(isAreaShown);
                     }
                     else {
+                        isAreaShown = false;
                         $("#imgLoaderArea").hide();
                     }
                     //Added By - Ashwini Todkar on 6 Jan 2014

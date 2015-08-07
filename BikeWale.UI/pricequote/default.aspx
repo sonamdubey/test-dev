@@ -51,9 +51,7 @@
                                             <asp:dropdownlist id="ddlModel" width="180" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake, event: { change: bindCities }" cssclass="drpClass" runat="server"><asp:ListItem Text="--Select Model--" Value="0" /></asp:dropdownlist>
                                             <input type="hidden" id="hdn_ddlModel" runat="server" />
                                             <span id="spnModel" class="error"></span></div>
-                                    </div>
-                                    <div class="clear"></div>
-                                    <input type="hidden" id="hdn_ddlVersion" runat="server" />
+                                    </div>                                    
                                     <div class="clear"></div>
                                     <div class="dotted-hr margin-top10 margin-bottom10"></div>
                                 </div>
