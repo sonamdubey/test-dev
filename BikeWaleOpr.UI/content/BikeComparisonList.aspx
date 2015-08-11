@@ -81,7 +81,7 @@
                 <table>
                     <tr>
                         <td colspan="2">
-                            <img id="imgCompPhoto" src="<%= String.IsNullOrEmpty(imgName) ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : BikeWaleOpr.ImagingOperations.GetPathToShowImages(imagePath + imgName, hostUrl)%>" height="110px"/>
+                            <img id="imgCompPhoto" src="<%= String.IsNullOrEmpty(originalImgPath) ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"310X174",originalImgPath)%>" height="110px"/>
                         </td>
                     </tr>
                     <tr>
@@ -118,7 +118,7 @@
     <ItemTemplate>
                <tr class="Font_11" id="delete_<%#DataBinder.Eval(Container.DataItem,"ID") %>">
                     <td height="20px"><%--<%# DataBinder.Eval(Container.DataItem,"ID") %>--%><%#Container.ItemIndex+1 %></td>   
-                    <td><img id="imgPhoto" src='<%# BikeWaleOpr.ImagingOperations.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"ImagePath").ToString() + DataBinder.Eval(Container.DataItem,"ImageName").ToString() , DataBinder.Eval(Container.DataItem,"HostURL").ToString()) %>' runat="server" /> </td>                                         
+                    <td><img id="imgPhoto" image-id='<%#DataBinder.Eval(Container.DataItem,"ID") %>' class='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsReplicated")) ? "": "checkImage" %>' src='<%# BikeWaleOpr.ImagingOperations.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"HostURL").ToString(),"310X174",DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString()) %>' runat="server" /> </td>                                         
                     <td><%# DataBinder.Eval(Container.DataItem,"Bike1") %></td>                
                     <td><%# DataBinder.Eval(Container.DataItem,"Bike2") %></td>                                          
                     <td><%# DataBinder.Eval(Container.DataItem,"EntryDate") %></td>                                                         
@@ -134,6 +134,7 @@
     </asp:Repeater>
 </div>
 <script type="text/javascript">
+    var refreshTime = 2000;
 
         if (document.getElementById('btnSave'))
             document.getElementById('btnSave').onclick = btnSave_Click;
@@ -286,6 +287,8 @@
                 if (!status && !isNull)
                     updatePriorities();
             });
+
+            setInterval(UpdatePendingMainImage, refreshTime)
         });
     
         function confirmDelete() {
@@ -358,6 +361,36 @@
             });
         }
 
-        
+        function UpdatePendingMainImage() {
+            var event = $(".checkImage");
+            var id = event.attr('image-id');
+            //alert(id);
+            CheckMainImageStatus(event, id);
+        }
+
+        function CheckMainImageStatus(event, mainImageId) {
+            var category = 'BIKECOMPARISIONLIST';
+            if (mainImageId != undefined) {
+                $.ajax({
+                    type: "POST", url: "/AjaxPro/BikeWaleOpr.Common.Ajax.ImageReplication,BikewaleOpr.ashx",
+                    data: '{"imageId":"' + mainImageId + '","Category":"' + category + '"}',
+                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "CheckImageStatusByCategory"); },
+                    success: function (response) {
+                        var ret_response = eval('(' + response + ')');
+                        //alert(ret_response.value);
+                        var obj_response = eval('(' + ret_response.value + ')');
+                        if (obj_response.Table.length > 0) {
+                            for (var i = 0; i < obj_response.Table.length; i++) {
+                                var imgUrlLarge = obj_response.Table[i].HostUrl + "/310X174/" + obj_response.Table[i].OriginalImagePath;
+
+                                event.attr('src', imgUrlLarge);
+                            }
+
+                        }
+                    }
+                });
+            }
+
+        }
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

@@ -186,7 +186,7 @@ namespace BikeWaleOpr.Common
             //get RabittMQ server ip address/host
             string hostUrl = ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString();
 
-            string imageUrl = "http://" + hostUrl + "/bikewaleimg/series/" + imageName + "_temp.jpg";
+            string imageUrl = "http://" + hostUrl + "/bw/series/" + imageName + "-" + seriesId + ".jpg";
 
             //RabbitMq Publish code here
             RabbitMqPublish rabbitmqPublish = new RabbitMqPublish();
@@ -199,9 +199,9 @@ namespace BikeWaleOpr.Common
             nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISWATERMARK).ToLower(), Convert.ToString(false));
             nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISCROP).ToLower(), Convert.ToString(false));
             nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMAIN).ToLower(), Convert.ToString(false));
-            nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(false));
-            rabbitmqPublish.PublishToQueue("BikeImage", nvc);
-
+            nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(true));
+            nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMASTER).ToLower(), "1");
+            rabbitmqPublish.PublishToQueue(ConfigurationManager.AppSettings["ImageQueueName"], nvc);
         }
 
         /// Written By : Ashwini Todkar on 25th Feb 2014
@@ -221,8 +221,7 @@ namespace BikeWaleOpr.Common
                     cmd.CommandText = "SaveBikeSeriesPhotos";
                     cmd.Parameters.Add("@Id", SqlDbType.Int).Value = seriesId;
                     cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100).Value = ConfigurationManager.AppSettings["imgHostURL"];
-                    cmd.Parameters.Add("@SmallPicUrl", SqlDbType.VarChar, 100).Value = "/bikewaleimg/series/" + imageName + "_116.jpg?" + CommonOpn.GetTimeStamp();
-                    cmd.Parameters.Add("@LargePicUrl", SqlDbType.VarChar, 100).Value = "/bikewaleimg/series/" + imageName + "_196.jpg?" + CommonOpn.GetTimeStamp();
+                    cmd.Parameters.Add("@OriginalImageUrl", SqlDbType.VarChar, 150).Value = "/bw/series/" + imageName + "-" + seriesId + ".jpg?" + CommonOpn.GetTimeStamp();
                     cmd.Parameters.Add("@IsReplicated", SqlDbType.Bit).Value = 0;
 
                     db.UpdateQry(cmd);

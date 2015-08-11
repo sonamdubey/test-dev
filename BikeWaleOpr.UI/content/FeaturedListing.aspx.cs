@@ -36,7 +36,7 @@ namespace BikeWaleOpr.Content
         public int serialNo = 0, count = 0;
 		public string visibleCount = "";
 		string updateData = "";
-        protected string smallImgPath = string.Empty, largeImgPath = string.Empty, imgPath = string.Empty, hostURL = string.Empty, timeStamp = CommonOpn.GetTimeStamp(), priorityList = string.Empty;
+        protected string originalImgPath = string.Empty, hostURL = string.Empty, timeStamp = CommonOpn.GetTimeStamp(), priorityList = string.Empty;
 		
 		public string SelectedModel
 		{
@@ -308,12 +308,9 @@ namespace BikeWaleOpr.Content
 		{
 			bool isUploaded = false;
 			string fullTempImagePath = "";
-			string realImagePath = "";
 			string imgPath = "";
-            string smallImage = "";
-            string largeImage = "";
 
-            imgPath = ImagingOperations.GetPathToSaveImages("\\bikewaleimg\\featured\\");
+            imgPath = ImagingOperations.GetPathToSaveImages("\\bw\\featured\\");
 			
 			//Check the image path is exist or not if not exist create it
 			Trace.Warn("imgPath=" + imgPath);
@@ -323,10 +320,12 @@ namespace BikeWaleOpr.Content
 				Directory.CreateDirectory(imgPath);
 			}
 
-            string tempImageName = GetSelectedBikeName() + imgName + "_Temp.jpg";
+            string tempImageName = GetSelectedBikeName().Replace('/','-').ToLower() + "-" + imgName + ".jpg";
             fullTempImagePath = imgPath + tempImageName;
             string hostUrl = ConfigurationManager.AppSettings["RabbitImgHostURL"];
-            string imageUrl = "http://" + hostUrl + "/bikewaleimg/featured/";
+            string imageUrl = "http://" + hostUrl + "/bw/featured/";
+
+            flphoto.PostedFile.SaveAs(fullTempImagePath);
             //rabbitmq publishing
             RabbitMqPublish rabbitmqPublish = new RabbitMqPublish();
             NameValueCollection nvc = new NameValueCollection();
@@ -339,35 +338,15 @@ namespace BikeWaleOpr.Content
             nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISCROP).ToLower(), Convert.ToString(false));
             nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMAIN).ToLower(), Convert.ToString(false));
             nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(false));
-            nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ONLYREPLICATE).ToLower(), Convert.ToString(true));
+            nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ONLYREPLICATE).ToLower(), Convert.ToString(true));            
+            nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl + tempImageName);
+            nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.IMAGETARGETPATH).ToLower(), "/bw/featured/" + tempImageName+"?" + timeStamp);
+            nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMASTER).ToLower(), "1");
+            rabbitmqPublish.PublishToQueue(ConfigurationManager.AppSettings["ImageQueueName"], nvc);
 
-            // Upload image as a temp image to resize later
-            flphoto.PostedFile.SaveAs(fullTempImagePath);
-            
-            smallImage = (GetSelectedBikeName() + "-" + imgName + "s.jpg").ToLower();
-            Trace.Warn("smallImage : ", smallImage);
-            realImagePath = imgPath + smallImage;
-            Trace.Warn("Real Image Path : ",realImagePath);
+            UpdateBikePhotoContent(imgName, hostUrl, "/bw/featured/", tempImageName + "?" + timeStamp);
 
-            //To replicate small image
-            ImagingFunctions.GenerateThumbnail(fullTempImagePath, realImagePath, 140, 80); // Image size : 140 x 80px
-            nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl + (GetSelectedBikeName() + "-" + imgName).ToLower() + "s.jpg");
-            nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.IMAGETARGETPATH).ToLower(), "/bikewaleimg/featured/" + (GetSelectedBikeName() + "-" + imgName).ToLower() + "s.jpg?" + timeStamp);
-            rabbitmqPublish.PublishToQueue("BikeImage", nvc);
-
-            largeImage = (GetSelectedBikeName() + "-" + imgName + "b.jpg").ToLower();
-            Trace.Warn("largeImage : ", largeImage);
-            realImagePath = imgPath + largeImage;
-
-            //To replicate large Image
-            ImagingFunctions.GenerateThumbnail(fullTempImagePath, realImagePath, 200, 125); // Image size : 200 x 125px
-            nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl + (GetSelectedBikeName() + "-" + imgName).ToLower() + "b.jpg");
-            nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.IMAGETARGETPATH).ToLower(), "/bikewaleimg/featured/" + (GetSelectedBikeName() + "-" + imgName).ToLower() + "b.jpg?" + timeStamp);
-            rabbitmqPublish.PublishToQueue("BikeImage", nvc);
-
-            UpdateBikePhotoContent(imgName, hostUrl, "/bikewaleimg/featured/", largeImage + "?" + timeStamp, smallImage + "?" + timeStamp);
-
-            DeleteTempImgs(fullTempImagePath);
+            //DeleteTempImgs(fullTempImagePath);
 
 			isUploaded = true;
 			
@@ -414,7 +393,7 @@ namespace BikeWaleOpr.Content
         /// <param name="imagePath"></param>
         /// <param name="largeImage"></param>
         /// <param name="smallImage"></param>
-        protected void UpdateBikePhotoContent(string id, string hostUrl, string imagePath, string largeImage, string smallImage)
+        protected void UpdateBikePhotoContent(string id, string hostUrl, string imagePath, string originalImagePath)
         {
             Database db = null;
 
@@ -432,12 +411,10 @@ namespace BikeWaleOpr.Content
                     cmd.Parameters["@Id"].Scale = 0;
                     cmd.Parameters["@Id"].Value = id;
                     cmd.Parameters.Add("@HostURL", SqlDbType.VarChar, 100).Value = hostUrl;
-                    cmd.Parameters.Add("@ImagePath", SqlDbType.VarChar, 100).Value = imagePath;
 
                     if (!String.IsNullOrEmpty(flphoto.PostedFile.FileName))
                     {
-                        cmd.Parameters.Add("@LargeImageName", SqlDbType.VarChar, 100).Value = largeImage;
-                        cmd.Parameters.Add("@SmallImageName", SqlDbType.VarChar, 100).Value = smallImage;
+                        cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 200).Value = imagePath + originalImagePath;
                     }
 
                     db.InsertQry(cmd);
@@ -551,14 +528,14 @@ namespace BikeWaleOpr.Content
 			int pageSizeM = dtgrdFeaturedListing.PageSize;
 												
 			sql = " SELECT FL.Id, (CMA.Name + ' ' + CMO.Name) AS BikeName, IsActive, IsVisible, "
-                + " IsModel, Description, EntryDateTime, FL.HostURL, ImagePath, SmallImageName,FL.DisplayPriority "
+                + " IsModel, Description, EntryDateTime, FL.HostURL, FL.OriginalImagePath, FL.DisplayPriority, FL.IsReplicated "
 				+ " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO "
 				+ " WHERE FL.BikeId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 1 "
 				
 				+ " UNION ALL "
 				
 				+ " SELECT FL.Id, (CMA.Name + ' ' + CMO.Name + ' ' + CV.Name) AS BikeName, IsActive, IsVisible, "
-                + " IsModel, Description, EntryDateTime, FL.HostURL, ImagePath, SmallImageName,FL.DisplayPriority "
+                + " IsModel, Description, EntryDateTime, FL.HostURL, FL.OriginalImagePath, FL.DisplayPriority, FL.IsReplicated "
 				+ " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO, BikeVersions AS CV "
 				+ " WHERE FL.BikeId = CV.Id AND CV.BikeModelId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 0 "
                 + " ORDER BY IsActive DESC, DisplayPriority";
@@ -630,7 +607,7 @@ namespace BikeWaleOpr.Content
 			if ( updateData != "" )
 			{
 				sql = " SELECT CMA.Id AS MakeId, CMO.Id AS ModelId, BikeId, IsActive, IsVisible,"
-                    + " IsModel, Description, FL.HostUrl as hostUrl, FL.ImagePath as imgPath, FL.SmallImageName as smallImgPath, FL.LargeImageName as largeImgPath "
+                    + " IsModel, Description, FL.HostUrl as hostUrl, FL.OriginalImagePath, FL.LargeImageName as largeImgPath "
 					+ " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO"
 					+ " WHERE FL.BikeId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 1"
 					+ " AND FL.Id = " + updateData + ""
@@ -638,7 +615,7 @@ namespace BikeWaleOpr.Content
 					+ " UNION ALL"
 				
 					+ " SELECT CMA.Id AS MakeId, CMO.Id AS ModelId, BikeId, IsActive, IsVisible,"
-                    + " IsModel, Description, FL.HostUrl as hostUrl, FL.ImagePath as imgPath, FL.SmallImageName as smallImgPath, FL.LargeImageName as largeImgPath "
+                    + " IsModel, Description, FL.HostUrl as hostUrl, FL.OriginalImagePath, FL.LargeImageName as largeImgPath "
 					+ " FROM Con_FeaturedListings AS FL, BikeMakes AS CMA, BikeModels AS CMO, BikeVersions AS CV"
 					+ " WHERE FL.BikeId = CV.Id AND CV.BikeModelId = CMO.Id AND CMO.BikeMakeId = CMA.Id AND FL.IsModel = 0"
 					+ " AND FL.Id = " + updateData + "";
@@ -704,9 +681,7 @@ namespace BikeWaleOpr.Content
 						{
 							chkIsVisible.Checked = false;
 						}
-                        smallImgPath =  dr["smallImgPath"].ToString();
-                        largeImgPath =  dr["largeImgPath"].ToString();
-                        imgPath = dr["imgPath"].ToString();
+                        originalImgPath = dr["OriginalImagePath"].ToString();
                         hostURL = dr["hostUrl"].ToString();
 
                        // imgFLPhoto.Src = BikeWaleOpr.ImagingOperations.GetPathToShowImages(imgPath + smallImgPath, hostUrl);

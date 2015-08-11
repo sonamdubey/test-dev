@@ -42,6 +42,20 @@ namespace BikeWaleOpr
             return "http://" + hostUrl + relativePath;
         }
 
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 10 Aug 2015
+        /// Summary : To get path to show image
+        /// </summary>
+        /// <param name="hostUrl"></param>
+        /// <param name="imgSize"></param>
+        /// <param name="relativePath"></param>
+        /// <returns></returns>
+        public static string GetPathToShowImages(string hostUrl,string imgSize,string relativePath)
+        {
+
+            return hostUrl + imgSize + relativePath;
+        }
+
         public static void SaveImageContent(HtmlInputFile fil, string relativePath)
         {
             string imgPath = "";

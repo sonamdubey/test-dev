@@ -17,15 +17,11 @@
     <div>
         <table id="imgTable" class="tableViw margin10">
             <tr>
-                <th>Small Image</th>
-                <th>Large Image</th>
+                <th>Original Image</th>
             </tr>
             <tr>
                 <td  class="border" style="padding:10px;">
-                    <img id="imgSmall" image-id="<%=seriesId %>" src='<%= !String.IsNullOrEmpty(smallPicUrl) ? BikeWaleOpr.ImagingOperations.GetPathToShowImages(smallPicUrl,hostUrl) : "http://img.carwale.com/bikewaleimg/common/nobike.jpg"%>'/>
-                </td>
-                <td  class="border" style="padding:10px;">
-                    <img id="imgLarge" image-id="<%=seriesId %>" src='<%=!String.IsNullOrEmpty(largePicUrl) ? BikeWaleOpr.ImagingOperations.GetPathToShowImages(largePicUrl,hostUrl) : "http://img.carwale.com/bikewaleimg/common/nobike.jpg" %>'/>
+                    <img id="imgSmall" image-id="<%=seriesId %>" src='<%= !String.IsNullOrEmpty(originalImagePath) ? BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"227X128",originalImagePath) : "http://img.carwale.com/bikewaleimg/common/nobike.jpg"%>'/>
                 </td>
             </tr>
         </table>
@@ -55,11 +51,7 @@
 
         function UpdatePendingMainImage() {
             var id = $(".border").find('img').attr('image-id');
-            //var pending = $("#imgTable").find(".imgRow").attr('pending');
-            //if (pending == 'true') {
-             //   alert("hi");
             CheckMainImageStatus(id);
-          //  }
         }
 
         function CheckMainImageStatus(mainImageId) {
@@ -73,12 +65,9 @@
                     var obj_response = eval('(' + ret_response.value + ')');
                     if (obj_response.Table.length > 0) {
                         for (var i = 0; i < obj_response.Table.length; i++) {
-                            var imgUrlLarge = "http://" + obj_response.Table[i].HostUrl  + obj_response.Table[i].LargePicUrl;
-                            var imgUrlSmall = "http://" + obj_response.Table[i].HostUrl + obj_response.Table[i].SmallPicUrl;
+                            var imgUrlLarge = obj_response.Table[i].HostUrl + "227X128" + obj_response.Table[i].OriginalImagePath;
 
-                            //$("#div1").attr("pending", "false");
-                            $("#imgSmall").attr('src', imgUrlSmall);
-                            $("#imgLarge").attr('src', imgUrlLarge);
+                            $("#imgSmall").attr('src', imgUrlLarge);
                         }
 
                     }

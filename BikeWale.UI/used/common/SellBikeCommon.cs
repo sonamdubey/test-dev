@@ -24,7 +24,7 @@ namespace Bikewale.Used
         /// <param name="isDealer"></param>
         /// <param name="isMain"></param>
         /// <returns></returns>
-        public string SaveBikePhotos(string inquiryId, string imageUrlFull, string imageUrlThumb, string imageUrlThumbSmall, string description, bool isDealer, bool isMain)
+        public string SaveBikePhotos(string inquiryId, string originalImageName, string description, bool isDealer, bool isMain)
         {
             string photoId = "";
 
@@ -44,17 +44,11 @@ namespace Bikewale.Used
                 prm = cmd.Parameters.Add("@InquiryId", SqlDbType.BigInt);
                 prm.Value = inquiryId;
 
-                prm = cmd.Parameters.Add("@ImageUrlFull", SqlDbType.VarChar, 100);
-                prm.Value = imageUrlFull;
-
-                prm = cmd.Parameters.Add("@ImageUrlThumb", SqlDbType.VarChar, 100);
-                prm.Value = imageUrlThumb;
-
-                prm = cmd.Parameters.Add("@ImageUrlThumbSmall", SqlDbType.VarChar, 100);
-                prm.Value = imageUrlThumbSmall;
-
                 prm = cmd.Parameters.Add("@Description", SqlDbType.VarChar, 200);
                 prm.Value = description;
+
+                prm = cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 300);
+                prm.Value = originalImageName;
 
                 prm = cmd.Parameters.Add("@IsDealer", SqlDbType.Bit);
                 prm.Value = isDealer;

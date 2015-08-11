@@ -6,6 +6,8 @@
     title =  objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " Price Quote ";
 	description =  objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " price quote";
     keywords = "";
+    ShowTargeting = "1";
+    TargetedModel = objPrice.objModel.ModelName;
     AdId = "1395986297721";
     AdPath = "/1017752/Bikewale_PriceQuote_";
     //canonical = "http://www.bikewale.com/pricequote/";
