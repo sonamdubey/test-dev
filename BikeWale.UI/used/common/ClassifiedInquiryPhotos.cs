@@ -68,8 +68,20 @@ namespace Bikewale.Used
                     FrontImageDescription = row[0]["Description"].ToString();
                     DirectoryPath = row[0]["DirectoryPath"].ToString();
                     HostUrl = row[0]["HostUrl"].ToString();
+                    OriginalImagePath = row[0]["OriginalImagePath"].ToString();
 				}
-
+                else
+                {
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        FrontImageMidThumb = ds.Tables[0].Rows[0]["ImageUrlThumb"].ToString();
+                        FrontImageLarge = ds.Tables[0].Rows[0]["ImageUrlFull"].ToString();
+                        FrontImageDescription = ds.Tables[0].Rows[0]["Description"].ToString();
+                        DirectoryPath = ds.Tables[0].Rows[0]["DirectoryPath"].ToString();
+                        HostUrl = ds.Tables[0].Rows[0]["HostUrl"].ToString();
+                        OriginalImagePath = ds.Tables[0].Rows[0]["OriginalImagePath"].ToString();
+                    }
+                }
                 if (ds.Tables[0].Rows.Count > 0)
                 {
                     rptPhotos.DataSource = ds;
@@ -223,5 +235,7 @@ namespace Bikewale.Used
             get { return _HostUrl; }
             set { _HostUrl = value; }
         }
+
+        public string OriginalImagePath { get; set; }
 	}
 }

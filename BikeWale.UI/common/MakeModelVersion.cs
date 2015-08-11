@@ -35,7 +35,7 @@ namespace Bikewale.Common
         public string ModelMappingName { get; set; }
         public string MakeMappingName { get; set; }
         public string SeriesId { get; set; }
-
+        public string OriginalImagePath { get; set; }
         /// <summary>
         /// Getting makes only by providing only request type
         /// </summary>
@@ -77,7 +77,7 @@ namespace Bikewale.Common
         /// <param name="MakeId"></param>
         /// <param name="RequestType">Pass value as New or Used or Upcoming or PriceQuote</param>
         /// <returns></returns>
-        
+
         public DataTable GetModels(string MakeId, string RequestType)
         {
             DataTable dt = null;
@@ -100,11 +100,11 @@ namespace Bikewale.Common
                     {
                         dt = ds.Tables[0];
                     }
-                    
+
                 }
                 catch (SqlException ex)
                 {
-                    HttpContext.Current.Trace.Warn(ex.Message + " : Make Id : " + MakeId  + ", Request Type : " + RequestType + ex.Source);
+                    HttpContext.Current.Trace.Warn(ex.Message + " : Make Id : " + MakeId + ", Request Type : " + RequestType + ex.Source);
                     ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                     objErr.SendMail();
                 }
@@ -233,7 +233,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@SeriesId", SqlDbType.Int).Direction = ParameterDirection.Output;
-
+                    cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
                     conn.Open();
                     cmd.ExecuteNonQuery();
 
@@ -256,6 +256,7 @@ namespace Bikewale.Common
                         ModelMappingName = cmd.Parameters["@MaskingName"].Value.ToString();
                         MakeMappingName = cmd.Parameters["@MakeMaskingName"].Value.ToString();
                         SeriesId = cmd.Parameters["@SeriesId"].Value.ToString();
+                        OriginalImagePath = cmd.Parameters["@OriginalImagePath"].Value.ToString();
                     }
                 }
             }
@@ -313,7 +314,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add("@ModelId", SqlDbType.Int).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@Model", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@Version", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                    cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 20).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@LargePic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@SmallPic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@MinPrice", SqlDbType.Int).Direction = ParameterDirection.Output;
@@ -321,6 +322,7 @@ namespace Bikewale.Common
                     cmd.Parameters.Add("@Bike", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                     cmd.Parameters.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
+                    cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
                     conn.Open();
                     cmd.ExecuteNonQuery();
 
@@ -340,6 +342,7 @@ namespace Bikewale.Common
                         MaxPrice = cmd.Parameters["@MaxPrice"].Value.ToString();
                         ModelMappingName = cmd.Parameters["@MaskingName"].Value.ToString();
                         MakeMappingName = cmd.Parameters["@MakeMaskingName"].Value.ToString();
+                        OriginalImagePath = cmd.Parameters["@OriginalImagePath"].Value.ToString();
                     }
                 }
             }
@@ -438,6 +441,21 @@ namespace Bikewale.Common
             return fullImagePath;
         }   // End of GetModelImage function
 
+        public static string GetModelImage(string hostUrl, string imagePath, string size)
+        {
+            string fullImagePath = string.Empty;
+
+            if (String.IsNullOrEmpty(hostUrl) || String.IsNullOrEmpty(imagePath))
+            {
+                fullImagePath = "http://img.carwale.com/bikewaleimg/common/nobike.jpg";
+            }
+            else
+            {
+                fullImagePath = Bikewale.Utility.Image.GetPathToShowImages(imagePath, hostUrl, size);
+            }
+            return fullImagePath;
+        }
+
         /// <summary>
         ///     Written By : Ashish G. Kamble on 27 sept 2012
         ///     If price is not available show N/A else show original price
@@ -463,16 +481,16 @@ namespace Bikewale.Common
             Database db = null;
 
             try
-            {            
+            {
                 using (SqlCommand cmd = new SqlCommand("GetPricequoteBuyingPreferences"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     db = new Database();
-                    ds = db.SelectAdaptQry(cmd);              
+                    ds = db.SelectAdaptQry(cmd);
 
                     if (ds != null && ds.Tables[0].Rows.Count > 0)
                     {
-                        return ds.Tables[0];   
+                        return ds.Tables[0];
                     }
                 }
             }

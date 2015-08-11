@@ -13,7 +13,8 @@
 	    <itemtemplate>
 		    <div class="nl-bike">
 			    <a href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/'>
-				    <div class="nl-image" style="background-image: url('<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/", DataBinder.Eval(Container.DataItem,"HostUrl").ToString() ) + DataBinder.Eval(Container.DataItem,"SmallPic").ToString() %>');" title="<%# DataBinder.Eval(Container.DataItem,"Make") %> <%# DataBinder.Eval(Container.DataItem,"Model") %>"></div>
+				    <%--<div class="nl-image" style="background-image: url('<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/", DataBinder.Eval(Container.DataItem,"HostUrl").ToString() ) + DataBinder.Eval(Container.DataItem,"SmallPic").ToString() %>');" title="<%# DataBinder.Eval(Container.DataItem,"Make") %> <%# DataBinder.Eval(Container.DataItem,"Model") %>"></div>--%>
+                    <div class="nl-image" style="background-image: url('<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem,"HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>');" title="<%# DataBinder.Eval(Container.DataItem,"Make") %> <%# DataBinder.Eval(Container.DataItem,"Model") %>"></div>
 			    </a>
 			    <div class="nl-links">
 				    <a href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/'><%# DataBinder.Eval(Container.DataItem,"Make") %> <%# DataBinder.Eval(Container.DataItem,"Model") %></a>

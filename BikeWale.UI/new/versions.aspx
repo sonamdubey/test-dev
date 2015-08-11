@@ -120,7 +120,8 @@
                 <% if (isPhotoAvailable) { %>
                 <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName %>/photos/" title="<%= MakeMaskingName + " " + ModelMaskingName%>">
                     <% } %>
-                    <img itemprop="photo" src="<%=MakeModelVersion.GetModelImage(hostURL,imageUrl) %>" class="padding-5 border-light" title="<%=model%>" alt="<%=model%>" />
+                    <%--<img itemprop="photo" src="<%=MakeModelVersion.GetModelImage(hostURL,imageUrl) %>" class="padding-5 border-light" title="<%=model%>" alt="<%=model%>" />--%>
+                    <img itemprop="photo" src="<%=MakeModelVersion.GetModelImage(hostURL,imageUrl,Bikewale.Utility.ImageSize._210x118) %>" class="padding-5 border-light" title="<%=model%>" alt="<%=model%>" />
                     <% if (isPhotoAvailable) { %>
                 </a>
                 <% } %>
@@ -167,7 +168,8 @@
                 <% if (isPhotoAvailable) { %>
                 <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName %>/photos/" title="<%= MakeMaskingName + " " + ModelMaskingName%>">
                     <% } %>
-                    <img  src="<%=MakeModelVersion.GetModelImage(hostURL,imageUrl) %>" class="padding-5 border-light" title="<%=model%>" alt="<%=model%>" />
+                    <%--<img  src="<%=MakeModelVersion.GetModelImage(hostURL,imageUrl) %>" class="padding-5 border-light" title="<%=model%>" alt="<%=model%>" />--%>
+                    <img  src="<%=MakeModelVersion.GetModelImage(hostURL,imageUrl,Bikewale.Utility.ImageSize._210x118) %>" class="padding-5 border-light" title="<%=model%>" alt="<%=model%>" />
                     <% if (isPhotoAvailable) { %>
                 </a>
                 <% } %>
@@ -220,7 +222,8 @@
                 <% if (isPhotoAvailable) { %>
                 <a href="/<%= MakeMaskingName%>-bikes/<%= ModelMaskingName %>/photos/" title="<%= MakeMaskingName + " " + ModelMaskingName%>">
                     <% } %>
-                    <img itemprop="photo" src="<%=MakeModelVersion.GetModelImage(hostURL,imageUrl) %>" class="padding-5 border-light" title="<%=model%>" alt="<%=model%>" />
+                    <%--<img itemprop="photo" src="<%=MakeModelVersion.GetModelImage(hostURL,imageUrl) %>" class="padding-5 border-light" title="<%=model%>" alt="<%=model%>" />--%>
+                    <img itemprop="photo" src="<%=MakeModelVersion.GetModelImage(hostURL,imageUrl,Bikewale.Utility.ImageSize._210x118) %>" class="padding-5 border-light" title="<%=model%>" alt="<%=model%>" />
                     <% if (isPhotoAvailable) { %>
                 </a>
                 <% } %>

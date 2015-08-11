@@ -12,8 +12,9 @@
                             </headertemplate>
                                 <itemtemplate>
                                     <li class="jcarousel-item jcarousel-item-horizontal jcarousel-item-1 jcarousel-item-1-horizontal" jcarouselindex="1">
-                                        <a rel="gallery" class="pics cboxElement" href="<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"ImagePathLarge").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString())%>">
-                                            <img border="0" src='<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"ImagePathLarge").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString())%>' alt="<%#Eval("AltImageName") %>" title="<%#Eval("ImageTitle") %>" class="thumb">
+                                        <a rel="gallery" class="pics cboxElement" href="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._476x268)%>">
+                                            <%--<img border="0" src='<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"ImagePathLarge").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString())%>' alt="<%#Eval("AltImageName") %>" title="<%#Eval("ImageTitle") %>" class="thumb">--%>
+                                            <img border="0" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._476x268)%>' alt="<%#Eval("AltImageName") %>" title="<%#Eval("ImageTitle") %>" class="thumb">
                                         </a>
                                     </li>
                                 </itemtemplate>

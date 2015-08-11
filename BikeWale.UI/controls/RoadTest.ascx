@@ -7,7 +7,8 @@
                 <div class="<%= ControlWidth.ToLower() == "grid_2" ? "grid_2 alpha margin-top15" :"grid_3" %>">
                     <div style='height:270px;' class="<%= ControlWidth.ToLower() == "grid_2" ?  "content-block-inner" : "border-light border-radius5 content-block" %>">
                         <a href="<%# GetLink(DataBinder.Eval( Container.DataItem, "BasicId" ).ToString(), DataBinder.Eval( Container.DataItem, "ArticleUrl" ).ToString()) %>">
-                            <img alt="<%# DataBinder.Eval( Container.DataItem, "Title" ) %>" title="<%# DataBinder.Eval( Container.DataItem, "Title" ) %>" src="http://<%# DataBinder.Eval( Container.DataItem, "HostUrl").ToString() %><%# DataBinder.Eval( Container.DataItem, "SmallPicUrl").ToString() %>" width="<%= ImageWidth %>" hspace="0" vspace="0" border="0" />
+                            <%--<img alt="<%# DataBinder.Eval( Container.DataItem, "Title" ) %>" title="<%# DataBinder.Eval( Container.DataItem, "Title" ) %>" src="http://<%# DataBinder.Eval( Container.DataItem, "HostUrl").ToString() %><%# DataBinder.Eval( Container.DataItem, "SmallPicUrl").ToString() %>" width="<%= ImageWidth %>" hspace="0" vspace="0" border="0" />--%>
+                            <img alt="<%# DataBinder.Eval( Container.DataItem, "Title" ) %>" title="<%# DataBinder.Eval( Container.DataItem, "Title" ) %>" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval( Container.DataItem, "OriginalImgUrl").ToString(),DataBinder.Eval( Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" width="<%= ImageWidth %>" hspace="0" vspace="0" border="0" />
                         </a>
                         <h3 class="margin-top5">
                             <a href="<%# GetLink(DataBinder.Eval( Container.DataItem, "BasicId" ).ToString(), DataBinder.Eval( Container.DataItem, "ArticleUrl" ).ToString()) %>"><%# DataBinder.Eval( Container.DataItem, "Title" ) %></a>                            

@@ -138,14 +138,14 @@ namespace Bikewale.DAL.BikeData
                         cmd.Parameters.Add("@ModelId", SqlDbType.Int).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Model", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Version", SqlDbType.VarChar, 30).Direction = ParameterDirection.Output;
-                        cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 20).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@LargePic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@SmallPic", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Price", SqlDbType.Int).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Bike", SqlDbType.VarChar, 100).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@MaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@MakeMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
-
+                        cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
                         conn.Open();
                         cmd.ExecuteNonQuery();
 
@@ -166,6 +166,7 @@ namespace Bikewale.DAL.BikeData
                             t.Price = Convert.ToInt64(cmd.Parameters["@Price"].Value);
                             t.ModelBase.MaskingName = cmd.Parameters["@MaskingName"].Value.ToString();
                             t.MakeBase.MaskingName = cmd.Parameters["@MakeMaskingName"].Value.ToString();
+                            t.OriginalImagePath = cmd.Parameters["@OriginalImagePath"].Value.ToString();
                         }
                     }
                 }
@@ -449,7 +450,7 @@ namespace Bikewale.DAL.BikeData
                             objBike.MinPrice = Convert.ToInt32(dr["MinPrice"]);
                             objBike.MaxPrice = Convert.ToInt32(dr["MaxPrice"]);
                             objBike.VersionPrice = Convert.ToInt32(dr["VersionPrice"]);
-
+                            objBike.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                             objSimilarBikes.Add(objBike);
                         }
                     }

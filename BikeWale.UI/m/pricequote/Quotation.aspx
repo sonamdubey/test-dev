@@ -20,7 +20,8 @@
                 </div>
             
             <div class="full-border bike-img">
-            	<img src="<%= ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+objVersionDetails.LargePicUrl,objVersionDetails.HostUrl) %>" alt="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" title="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" border="0" />
+            	<%--<img src="<%= ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+objVersionDetails.LargePicUrl,objVersionDetails.HostUrl) %>" alt="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" title="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" border="0" />--%>
+                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objVersionDetails.OriginalImagePath,objVersionDetails.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" alt="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" title="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" border="0" />
             </div>
           <%--  <div class="rounded-corner5 new-line10 selection-box">
             	<div class="selected-input-text floatleft">401107 (Mira Road,Thane)</div>

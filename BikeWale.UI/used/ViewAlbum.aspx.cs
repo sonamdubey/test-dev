@@ -80,7 +80,7 @@ namespace Bikewale.Used
 			{
 				string whomBike = CommonOpn.CheckIsDealerFromProfileNo(profileNo) == true ? "1" : "0";	//1 for dealer Bike and 0 for customer Bike
 
-                sql = " SELECT ImageUrlThumb, ImageUrlThumbSmall, ImageUrlFull, IsMain, DirectoryPath, HostUrl FROM BikePhotos With(NoLock) "
+                sql = " SELECT ImageUrlThumb, ImageUrlThumbSmall, ImageUrlFull, IsMain, DirectoryPath, HostUrl, OriginalImagePath FROM BikePhotos With(NoLock) "
 					+ " WHERE IsDealer = @whomBike AND IsActive = 1 AND IsApproved = 1 AND InquiryId = @inquiryId";
 				Trace.Warn(sql);
 				SqlParameter [] param ={new SqlParameter("@whomBike", whomBike), new SqlParameter("@inquiryId", inquiryId)};

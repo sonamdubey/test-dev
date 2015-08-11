@@ -40,7 +40,8 @@ namespace Bikewale.Controls
             {
                 if (!String.IsNullOrEmpty(PQDetails.objQuotation.LargePicUrl))
                 {
-                    ImgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + PQDetails.objQuotation.LargePicUrl, PQDetails.objQuotation.HostUrl);
+                    //ImgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + PQDetails.objQuotation.LargePicUrl, PQDetails.objQuotation.HostUrl);
+                    ImgPath = Bikewale.Utility.Image.GetPathToShowImages(PQDetails.objQuotation.OriginalImagePath, PQDetails.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
 
                     BikeName = PQDetails.objQuotation.objMake.MakeName + " " + PQDetails.objQuotation.objModel.ModelName + " " + PQDetails.objQuotation.objVersion.VersionName;
 

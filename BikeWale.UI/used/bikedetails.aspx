@@ -108,9 +108,11 @@
         </div>
         <div id="scrollable_imgs" runat="server" class="scrollable-img margin-top15">
             <div class="thumb_preview">
-                <a id="profile_link" rel="slide" title="<%= objPhotos.FrontImageDescription %>" href="<%= GetImagePath( objPhotos.FrontImageLarge, objPhotos.DirectoryPath, objPhotos.HostUrl ) %>">
+                <%--<a id="profile_link" rel="slide" title="<%= objPhotos.FrontImageDescription %>" href="<%= GetImagePath( objPhotos.FrontImageLarge, objPhotos.DirectoryPath, objPhotos.HostUrl ) %>">--%>
+                <a id="profile_link" rel="slide" title="<%= objPhotos.FrontImageDescription %>" href="<%= GetOriginalImagePath( objPhotos.OriginalImagePath, objPhotos.HostUrl, Bikewale.Utility.ImageSize._642x361 ) %>">
                     <img id="inlarge" style="position: absolute; border: 0; z-index: 1001; margin-top: 1px; margin-left: 1px;" class="hide" alt="inlarge" src="http://img.carwale.com/used/inlarge.gif" />
-                    <img id="front_img" border="0" alt="<%= objInquiry.ModelYearOnly + " " + objInquiry.BikeName %>" src="<%= GetImagePath( objPhotos.FrontImageMidThumb, objPhotos.DirectoryPath, objPhotos.HostUrl ) %>" /></a>
+                    <%--<img id="front_img" border="0" alt="<%= objInquiry.ModelYearOnly + " " + objInquiry.BikeName %>" src="<%= GetImagePath( objPhotos.FrontImageMidThumb, objPhotos.DirectoryPath, objPhotos.HostUrl ) %>" /></a>--%>
+                    <img id="front_img" border="0" alt="<%= objInquiry.ModelYearOnly + " " + objInquiry.BikeName %>" src="<%= GetOriginalImagePath( objPhotos.OriginalImagePath, objPhotos.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" width="300" height="222" /></a>
             </div>
             <div class="img-desc hide">
                 <img alt="loading..." title="click to inlarge this image" style="margin-right: 5px;" src="http://img.carwale.com/sell/m01.gif" align="left" border="0" /><span id="img_description"><%= objPhotos.FrontImageDescription %></span><div class="clear"></div>
@@ -122,8 +124,10 @@
                             <asp:repeater id="rptPhotos" runat="server">
 							    <itemtemplate>
 								    <%= GetPageItemContainer() %>
-								    <a class="img_thumb" href="<%# GetImagePath( DataBinder.Eval( Container.DataItem, "ImageUrlThumb" ).ToString(), DataBinder.Eval( Container.DataItem, "DirectoryPath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString() )%>"><img alt="loading.." title="click to view" src="<%# GetImagePath( DataBinder.Eval( Container.DataItem, "ImageUrlThumbSmall" ).ToString(), DataBinder.Eval( Container.DataItem, "DirectoryPath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString() )%>" border="0" /></a>
-								    <a rel="slide" name="front<%# DataBinder.Eval( Container.DataItem, "IsMain" ).ToString() == "True" ? "1" : "0"%>" class="aslide" title="<%# DataBinder.Eval( Container.DataItem, "Description" ) %>" href="<%# GetImagePath( DataBinder.Eval( Container.DataItem, "ImageUrlFull" ).ToString(), DataBinder.Eval( Container.DataItem, "DirectoryPath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString() )%>"></a>
+								    <%--<a class="img_thumb" href="<%# GetImagePath( DataBinder.Eval( Container.DataItem, "ImageUrlThumb" ).ToString(), DataBinder.Eval( Container.DataItem, "DirectoryPath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString() )%>"><img alt="loading.." title="click to view" src="<%# GetImagePath( DataBinder.Eval( Container.DataItem, "ImageUrlThumbSmall" ).ToString(), DataBinder.Eval( Container.DataItem, "DirectoryPath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString() )%>" border="0" /></a>--%>
+                                    <a class="img_thumb" href="<%# GetOriginalImagePath( DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString(),Bikewale.Utility.ImageSize._310x174 )%>"><img alt="loading.." title="click to view" src="<%# GetOriginalImagePath( DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString(),Bikewale.Utility.ImageSize._110x61 )%>" border="0" width="80" height="59"/></a>
+								    <%--<a rel="slide" name="front<%# DataBinder.Eval( Container.DataItem, "IsMain" ).ToString() == "True" ? "1" : "0"%>" class="aslide" title="<%# DataBinder.Eval( Container.DataItem, "Description" ) %>" href="<%# GetImagePath( DataBinder.Eval( Container.DataItem, "ImageUrlFull" ).ToString(), DataBinder.Eval( Container.DataItem, "DirectoryPath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString() )%>"></a>--%>
+                                    <a rel="slide" name="front<%# DataBinder.Eval( Container.DataItem, "IsMain" ).ToString() == "True" ? "1" : "0"%>" class="aslide" title="<%# DataBinder.Eval( Container.DataItem, "Description" ) %>" href="<%# GetOriginalImagePath( DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString(), DataBinder.Eval( Container.DataItem, "HostUrl" ).ToString(),Bikewale.Utility.ImageSize._642x361 )%>"></a>
 							    </itemtemplate>
 						    </asp:repeater>
                         </div>

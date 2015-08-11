@@ -31,7 +31,8 @@
             <ItemTemplate>
                 <div id="div_<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>" class="grey-bg content-block border-light margin-top10">
                     <div class="grid_2 alpha omega">
-                        <img src="<%# GetImagePath(DataBinder.Eval(Container.DataItem, "ImageUrlThumbSmall").ToString(), DataBinder.Eval(Container.DataItem, "DirectoryPath").ToString(), DataBinder.Eval(Container.DataItem, "HostURL").ToString())%>" title="<%# DataBinder.Eval(Container.DataItem, "Bike") %>" />
+                        <%--<img src="<%# GetImagePath(DataBinder.Eval(Container.DataItem, "ImageUrlThumbSmall").ToString(), DataBinder.Eval(Container.DataItem, "DirectoryPath").ToString(), DataBinder.Eval(Container.DataItem, "HostURL").ToString())%>" title="<%# DataBinder.Eval(Container.DataItem, "Bike") %>" />--%>
+                        <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem, "HostURL").ToString(),Bikewale.Utility.ImageSize._110x61)%>" title="<%# DataBinder.Eval(Container.DataItem, "Bike") %>" />
                         <div class="margin-top5">Profile : S<%# DataBinder.Eval(Container.DataItem, "InquiryId") %></div>
                         <%--<div class="margin-top5"><a href="/used/bikedetails.aspx?bike=S<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>">View Bike Details</a></div>--%>
                         <div class="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString() == "1" ?  "margin-top5" : "hide" %> <%= isFake ? "hide" : "" %>"><a href="/used/bikes-in-<%# DataBinder.Eval( Container.DataItem, "CityMaskingName" ).ToString() %>/<%# DataBinder.Eval( Container.DataItem, "MakeMaskingName" ).ToString() %>-<%# DataBinder.Eval( Container.DataItem, "ModelMaskingName" ).ToString() %>-S<%# DataBinder.Eval( Container.DataItem, "InquiryId" ) %>/">View Bike Details</a></div>

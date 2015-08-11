@@ -346,9 +346,10 @@ namespace Bikewale.New
 
             mmv.GetVersionDetails(versionId);
 
-            imageUrl = "/bikewaleimg/models/" + mmv.LargePic;
+            //imageUrl = "/bikewaleimg/models/" + mmv.LargePic;
+            imageUrl = mmv.OriginalImagePath;
             hostURL = mmv.HostUrl;
-            imagePath = MakeModelVersion.GetModelImage(hostURL, imageUrl);
+            imagePath = MakeModelVersion.GetModelImage(hostURL, imageUrl,Bikewale.Utility.ImageSize._210x118);
             Trace.Warn("image path : ", imagePath);
             Trace.Warn("mmv.MaxPrice : ", mmv.MinPrice);
             Trace.Warn("versionId : ", versionId);

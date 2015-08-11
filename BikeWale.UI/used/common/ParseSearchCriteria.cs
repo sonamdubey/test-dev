@@ -107,7 +107,7 @@ namespace Bikewale.Used
                 + " LL.Seller, Ll.SellerType,LL.EntryDate, "
                 + " LL.MakeName, LL.ModelName, LL.VersionName, LL.LastUpdated, LL.AreaName, "
                 + " LL.Price, LL.Kilometers, LL.MakeYear BikeYear, LL.Color, LL.CityName City, LL.CityId, ISNULL(LL.PhotoCount, 0) AS PhotoCount , LL.FrontImagePath, "
-                + " CertificationId, Vs.BikeFuelType, Vs.BikeTransmission, LL.AdditionalFuel, LL.HostUrl ";
+                + " CertificationId, Vs.BikeFuelType, Vs.BikeTransmission, LL.AdditionalFuel, LL.HostUrl, LL.OriginalImagePath ";
         }
 
 

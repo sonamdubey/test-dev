@@ -203,6 +203,12 @@ namespace Bikewale.Used
             return Bikewale.Common.ImagingFunctions.GetPathToShowImages(directoryPath, hostUrl) + imgName;
         }
 
+        protected string GetOriginalImagePath(string imgName, string hostUrl, string size)
+        {
+            Trace.Warn("hostUrl : ", hostUrl);
+            return Bikewale.Utility.Image.GetPathToShowImages(imgName, hostUrl,size);
+        }
+
         public string GetPageItemContainer()
         {
             string returnItem = "";

@@ -94,7 +94,8 @@ namespace Bikewale.PriceQuote
                 if (versionId > 0)
                 {
                     mmv.GetVersionDetails(versionId.ToString());
-                    imgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + mmv.LargePic, mmv.HostUrl);
+                    //imgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + mmv.LargePic, mmv.HostUrl);
+                    imgPath = Bikewale.Utility.Image.GetPathToShowImages(mmv.OriginalImagePath, mmv.HostUrl, Bikewale.Utility.ImageSize._210x118);
 
                     // Added By Sadhana Upadhyay on 6th Aug 2014 to show news and similar bike widget
                     ctrl_similarBikes.VersionId = mmv.VersionId;

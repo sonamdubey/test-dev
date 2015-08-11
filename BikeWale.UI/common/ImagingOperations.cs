@@ -40,6 +40,11 @@ namespace Bikewale
             return "http://" + hostUrl + relativePath;
         }
 
+        public static string GetPathToShowImages(string relativePath, string hostUrl,string size)
+        {
+            return String.Format("{0}/{1}/{2}",hostUrl,size,relativePath);
+        }
+
         public static void SaveImageContent(HtmlInputFile fil, string relativePath)
         {
             string imgPath = "";

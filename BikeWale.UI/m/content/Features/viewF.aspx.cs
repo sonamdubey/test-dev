@@ -222,5 +222,13 @@ namespace Bikewale.Mobile.Content
 
             return imgUrl;
         }
+
+        protected string GetImageUrl(string hostUrl, string imagePath,string size)
+        {
+            string imgUrl = String.Empty;
+            imgUrl = Bikewale.Utility.Image.GetPathToShowImages(imagePath, hostUrl, size);
+
+            return imgUrl;
+        }
     }
 }

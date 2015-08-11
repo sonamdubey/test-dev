@@ -213,7 +213,7 @@ namespace Bikewale.DAL.BikeData
                                 objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objModel.ModelRank = Convert.ToUInt16(dr["ModelRank"]);
                                 objModel.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
-
+                                objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objList.Add(objModel);
                             }
                         }

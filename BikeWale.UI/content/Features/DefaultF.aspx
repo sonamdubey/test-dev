@@ -41,7 +41,8 @@
 							    <%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
 						    </div><div class="clear"></div>
                             <div class="margin-top10">
-							    <%# DataBinder.Eval(Container.DataItem,"SmallPicUrl").ToString() != "" ? "<a class='cbBox' href='" + "http://" + DataBinder.Eval(Container.DataItem, "HostURL").ToString() + DataBinder.Eval(Container.DataItem,"LargePicUrl") + "'><img class='alignright size-thumbnail img-border-news' src='" + "http://" + DataBinder.Eval(Container.DataItem, "HostURL").ToString() + DataBinder.Eval(Container.DataItem,"SmallPicUrl") +"' align='right' border='0' /></a>" : "" %>
+							    <%--<%# DataBinder.Eval(Container.DataItem,"SmallPicUrl").ToString() != "" ? "<a class='cbBox' href='" + "http://" + DataBinder.Eval(Container.DataItem, "HostURL").ToString() + DataBinder.Eval(Container.DataItem,"LargePicUrl") + "'><img class='alignright size-thumbnail img-border-news' src='" + "http://" + DataBinder.Eval(Container.DataItem, "HostURL").ToString() + DataBinder.Eval(Container.DataItem,"SmallPicUrl") +"' align='right' border='0' /></a>" : "" %>--%>
+                                <%# DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString() != "" ? "<a class='cbBox' href='" + Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval( Container.DataItem, "OriginalImgUrl" ).ToString(),DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() ,Bikewale.Utility.ImageSize._210x118) + "'><img class='alignright size-thumbnail img-border-news' src='" + Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval( Container.DataItem, "OriginalImgUrl" ).ToString(),DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() ,Bikewale.Utility.ImageSize._144x81) +"' align='right' border='0' /></a>" : "" %>
 							    <%# DataBinder.Eval(Container.DataItem,"Description") %>							
 						    </div><div class="clear"></div>
                             <div class="margin-top10 item-footer">

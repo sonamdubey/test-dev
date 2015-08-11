@@ -455,9 +455,11 @@ namespace Bikewale.New
         {
             mmv.GetModelDetails(modelId.ToString());
 
-            imageUrl = "/bikewaleimg/models/" + mmv.LargePic;
+            //imageUrl = "/bikewaleimg/models/" + mmv.LargePic;
+            imageUrl = mmv.OriginalImagePath;
             hostURL = mmv.HostUrl;
-            imagePath = MakeModelVersion.GetModelImage(hostURL, imageUrl);
+            //imagePath = MakeModelVersion.GetModelImage(hostURL, imageUrl);
+            imagePath = MakeModelVersion.GetModelImage(hostURL, imageUrl, "210x118");
             
             estimatedPrice = CommonOpn.FormatPrice(mmv.MinPrice, mmv.MaxPrice);
 
@@ -468,15 +470,18 @@ namespace Bikewale.New
             MakeMaskingName = mmv.MakeMappingName;
             seriesId = mmv.SeriesId;
             
-            logoUrl = Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + mmv.LargePic, mmv.HostUrl);
-
+            //logoUrl = Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + mmv.LargePic, mmv.HostUrl);
+            logoUrl = Bikewale.Utility.Image.GetPathToShowImages(mmv.OriginalImagePath, mmv.HostUrl, Bikewale.Utility.ImageSize._210x118);
+            
             if (string.IsNullOrEmpty(mmv.LargePic))
                 fbLogoUrl = "";
             else
                 fbLogoUrl = logoUrl;
 
             hostURL = mmv.HostUrl;
-            imagePath = "/bikewaleimg/models/" + mmv.LargePic;
+            
+            //imagePath = "/bikewaleimg/models/" + mmv.LargePic;
+            imagePath = mmv.OriginalImagePath;
             estimatedPrice = String.IsNullOrEmpty(mmv.MinPrice) ? " - N/A" : CommonOpn.FormatNumeric(mmv.MinPrice);
 
             formattedPrice = String.IsNullOrEmpty(mmv.MinPrice) ? "" : CommonOpn.FormatNumeric(mmv.MinPrice);
@@ -497,7 +502,7 @@ namespace Bikewale.New
         void UpcomingModel(string modelId)
         {
             string sql = "";
-            sql = " SELECT ECL.ID, ECL.ExpectedLaunch, ECL.EstimatedPriceMin, ECL.EstimatedPriceMax, ECL.HostURL, ECL.LargePicImagePath "	            
+            sql = " SELECT ECL.ID, ECL.ExpectedLaunch, ECL.EstimatedPriceMin, ECL.EstimatedPriceMax, ECL.HostURL, ECL.LargePicImagePath, ECL.OriginalImagePath "	            
                 + " FROM ExpectedBikeLaunches AS ECL "
                 + " LEFT JOIN BikeSynopsis Csy ON ECL.BikeModelId = Csy.ModelId AND Csy.IsActive = 1 "
                 + " WHERE ECL.BikeModelId=@ModelId";
@@ -521,11 +526,14 @@ namespace Bikewale.New
                     estimatedPrice = CommonOpn.FormatPrice(dr["EstimatedPriceMin"].ToString().Replace(".00", ""), dr["EstimatedPriceMax"].ToString().Replace(".00", ""));
                     hostURL = dr["HostURL"].ToString();
                     Trace.Warn("+++",dr["HostURL"].ToString());
-                    imageUrl = dr["LargePicImagePath"].ToString();
+                    //imageUrl = dr["LargePicImagePath"].ToString();
+                    imageUrl = dr["OriginalImagePath"].ToString();
 
-                    logoUrl = Bikewale.Common.ImagingFunctions.GetPathToShowImages(dr["LargePicImagePath"].ToString(), dr["HostURL"].ToString());
+                    //logoUrl = Bikewale.Common.ImagingFunctions.GetPathToShowImages(dr["LargePicImagePath"].ToString(), dr["HostURL"].ToString());
+                    logoUrl = Bikewale.Utility.Image.GetPathToShowImages(dr["OriginalImagePath"].ToString(), dr["HostURL"].ToString(), Bikewale.Utility.ImageSize._210x118);
 
-                    if (string.IsNullOrEmpty(dr["LargePicImagePath"].ToString()))
+                    //if (string.IsNullOrEmpty(dr["LargePicImagePath"].ToString()))
+                    if (string.IsNullOrEmpty(dr["OriginalImagePath"].ToString()))
                         fbLogoUrl = "";
                     else
                         fbLogoUrl = logoUrl;

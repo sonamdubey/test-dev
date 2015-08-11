@@ -21,7 +21,8 @@
                 <asp:Repeater Id="rptFeaturedArticles" runat="server">
                     <itemtemplate>
                         <div class="m-item">
-                            <img src="<%# ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "LargePicUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString()) %>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString() %>" />
+                            <%--<img src="<%# ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "LargePicUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString()) %>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString() %>" />--%>
+                            <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString() %>" />
                             <div class="title-text">
                                 <a href="<%# GetFeaturedArticlesLink(DataBinder.Eval(Container.DataItem, "ArticleUrl").ToString(), Convert.ToInt32(DataBinder.Eval(Container.DataItem, "BasicId")), Convert.ToUInt16(DataBinder.Eval(Container.DataItem, "CategoryId"))) %>">
                                     <%# DataBinder.Eval(Container.DataItem, "Title").ToString() %>

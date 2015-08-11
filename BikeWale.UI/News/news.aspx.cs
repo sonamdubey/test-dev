@@ -26,7 +26,7 @@ namespace Bikewale.News
         bool _isContentFount = true;
         protected ArticleDetails objArticle = null;
 
-        protected string articleUrl = string.Empty, articleTitle = string.Empty, HostUrl = string.Empty, basicId = string.Empty, smallPicUrl = string.Empty, authorName = string.Empty, nextPageArticle = string.Empty, prevPageArticle = string.Empty;
+        protected string articleUrl = string.Empty, articleTitle = string.Empty, HostUrl = string.Empty, basicId = string.Empty, smallPicUrl = string.Empty, authorName = string.Empty, nextPageArticle = string.Empty, prevPageArticle = string.Empty, originalImgUrl = string.Empty;
         protected string displayDate = string.Empty, mainImgCaption = string.Empty, largePicUrl = string.Empty, content = string.Empty, prevPageUrl = string.Empty, nextPageUrl = string.Empty, hostUrl = string.Empty;
         protected bool isMainImageSet = false;
 
@@ -119,7 +119,7 @@ namespace Bikewale.News
             prevPageUrl = "/news/" + objArticle.PrevArticle.BasicId + "-" + objArticle.PrevArticle.ArticleUrl + ".html";
             nextPageUrl = "/news/" + objArticle.NextArticle.BasicId + "-" + objArticle.NextArticle.ArticleUrl + ".html";
             isMainImageSet = objArticle.IsMainImageSet;
-
+            originalImgUrl = objArticle.OriginalImgUrl;
         }
 
         /// <summary>
@@ -129,7 +129,8 @@ namespace Bikewale.News
         protected String GetMainImagePath()
         {
             String mainImgUrl = String.Empty;
-            mainImgUrl = ImagingFunctions.GetPathToShowImages(objArticle.LargePicUrl, objArticle.HostUrl);
+            //mainImgUrl = ImagingFunctions.GetPathToShowImages(objArticle.LargePicUrl, objArticle.HostUrl);
+            mainImgUrl = ImagingFunctions.GetPathToShowImages(objArticle.OriginalImgUrl, objArticle.HostUrl,Bikewale.Utility.ImageSize._210x118);
 
             return mainImgUrl;
         }

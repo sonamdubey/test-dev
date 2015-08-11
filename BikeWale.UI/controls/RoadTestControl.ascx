@@ -6,7 +6,8 @@
             <div class="margin-top10">
                 <div class="grid_2 alpha">
                     <a href='<%# GetLink(DataBinder.Eval( Container.DataItem, "BasicId" ).ToString(), DataBinder.Eval( Container.DataItem, "ArticleUrl" ).ToString()) %>'>
-                        <img alt="<%# DataBinder.Eval( Container.DataItem, "Title")%>" title="<%# DataBinder.Eval( Container.DataItem, "Title" ) %>" src="http://<%# DataBinder.Eval( Container.DataItem, "HostUrl").ToString() %><%# DataBinder.Eval( Container.DataItem, "SmallPicUrl").ToString() %>" width="<%= ImageWidth %>" style="border:1px solid #E5E4E4;" hspace="0" vspace="0" border="0" />
+                        <%--<img alt="<%# DataBinder.Eval( Container.DataItem, "Title")%>" title="<%# DataBinder.Eval( Container.DataItem, "Title" ) %>" src="http://<%# DataBinder.Eval( Container.DataItem, "HostUrl").ToString() %><%# DataBinder.Eval( Container.DataItem, "SmallPicUrl").ToString() %>" width="<%= ImageWidth %>" style="border:1px solid #E5E4E4;" hspace="0" vspace="0" border="0" />--%>
+                        <img alt="<%# DataBinder.Eval( Container.DataItem, "Title")%>" title="<%# DataBinder.Eval( Container.DataItem, "Title" ) %>" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval( Container.DataItem, "OriginalImgUrl").ToString(),DataBinder.Eval( Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" width="<%= ImageWidth %>" style="border:1px solid #E5E4E4;" hspace="0" vspace="0" border="0" />
                     </a>
                 </div>
                 <div class="grid_6 omega">

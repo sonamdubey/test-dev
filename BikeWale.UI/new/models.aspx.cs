@@ -284,14 +284,14 @@ namespace Bikewale.New
         /// <param name="bikeModel"></param>
         /// <param name="minPrice"></param>
         /// <param name="hostUrl"></param>
-        /// <param name="smallPic"></param>
+        /// <param name="originalImagePath"></param>
         /// <param name="modelReviewCount"></param>
         /// <param name="modelMappingName"></param>
         /// <param name="makeMappingname"></param>
         /// <param name="seriesMappingName"></param>
         /// <param name="modelCount"></param>
         /// <returns></returns>
-        public string GetSeriesRow(string seriesRank, string seriesId, string bikeSeries, string bikeModel, string minPrice, string hostUrl, string smallPic, string modelReviewCount, string modelMappingName, string makeMappingname, string seriesMappingName,string modelCount,string modelId,string reviewRate)
+        public string GetSeriesRow(string seriesRank, string seriesId, string bikeSeries, string bikeModel, string minPrice, string hostUrl, string originalImagePath, string modelReviewCount, string modelMappingName, string makeMappingname, string seriesMappingName,string modelCount,string modelId,string reviewRate)
         {
             StringBuilder sb = new StringBuilder();
             string strShowPrice = string.Empty;
@@ -314,7 +314,8 @@ namespace Bikewale.New
 
                     Trace.Warn("++rate", modelReviewRate.ToString());
                     Trace.Warn("++img ", CommonOpn.GetRateImage(modelReviewRate));
-                    string imgSrc = smallPic == "" ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : MakeModelVersion.GetModelImage(hostUrl, smallPic);
+                    //string imgSrc = originalImagePath == "" ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : MakeModelVersion.GetModelImage(hostUrl, originalImagePath);
+                    string imgSrc = originalImagePath == "" ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : MakeModelVersion.GetModelImage(hostUrl, originalImagePath, Bikewale.Utility.ImageSize._110x61);
 
                     sb.Append("<tr id='series_" + seriesId + "' class='series-row'>");
                     sb.Append("<td valign='top'><a href='/" + makeMappingname + "-bikes/" + modelMappingName + "/'><img alt='" + bikeSeries + "' title='" + bikeSeries + "' src='" + imgSrc + "' /></a></td>");
@@ -326,7 +327,8 @@ namespace Bikewale.New
                 }
                 else
                 {
-                    string imgSrc = smallPic == "" ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : MakeModelVersion.GetModelImage(hostUrl, smallPic);
+                    //string imgSrc = originalImagePath == "" ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : MakeModelVersion.GetModelImage(hostUrl, originalImagePath);
+                    string imgSrc = originalImagePath == "" ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : MakeModelVersion.GetModelImage(hostUrl, originalImagePath, Bikewale.Utility.ImageSize._110x61);
 
                     sb.Append("<tr id='series_" + seriesId + "' class='series-row'>");
                     sb.Append("<td valign='top' rowspan='" + modelCountValue + "'><a href='/" + makeMappingname + "-bikes/" + seriesMappingName + "-series/'><img alt='" + bikeSeries + "' title='" + bikeSeries + "' src='" + imgSrc + "' /></a></td>");

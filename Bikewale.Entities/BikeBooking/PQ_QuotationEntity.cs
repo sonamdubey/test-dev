@@ -21,5 +21,6 @@ namespace Bikewale.Entity.BikeBooking
         public string HostUrl { get; set; }
         public string LargePicUrl { get; set; }
         public string SmallPicUrl { get; set; }
+        public string OriginalImagePath { get; set; }
     }
 }

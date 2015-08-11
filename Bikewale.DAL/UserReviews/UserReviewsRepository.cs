@@ -679,7 +679,7 @@ namespace Bikewale.DAL.UserReviews
                             objRating.ReviewEntity.Disliked = Convert.ToUInt16(dr["Disliked"]);
                             objRating.ReviewEntity.Viewed = Convert.ToUInt16(dr["Viewed"]);
                             objRating.ReviewEntity.WrittenBy = dr["CustomerName"].ToString();
-
+                            objRating.OriginalImagePath = dr["OriginalImagePath"].ToString();
                             //Get Previous review page details                           
                             if (dr.NextResult())
                             {

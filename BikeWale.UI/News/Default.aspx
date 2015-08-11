@@ -53,7 +53,8 @@
                         <div style="border-top: 1px solid #f0f0f0;"></div>
                         <div class="margin-top10">
 						<div class="grid_5 alpha"><%# DataBinder.Eval(Container.DataItem,"Description") %></div>
-              			<div class="grid_3 omega"><%#"<a href='/news/" + DataBinder.Eval(Container.DataItem,"BasicId") + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"SmallPicUrl").ToString(), DataBinder.Eval(Container.DataItem,"HostUrl").ToString()) + "' align='right' border='0' /></a>" %></div>
+              			<%--<div class="grid_3 omega"><%#"<a href='/news/" + DataBinder.Eval(Container.DataItem,"BasicId") + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"SmallPicUrl").ToString(), DataBinder.Eval(Container.DataItem,"HostUrl").ToString()) + "' align='right' border='0' /></a>" %></div>--%>
+                            <div class="grid_3 omega"><%#"<a href='/news/" + DataBinder.Eval(Container.DataItem,"BasicId") + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem,"HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) + "' align='right' border='0' /></a>" %></div>
                         </div><div class="clear"></div>
                         <div class="margin-top10">
 						    <div class="grid_7 alpha readmore">

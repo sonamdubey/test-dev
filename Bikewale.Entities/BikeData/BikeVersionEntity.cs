@@ -17,7 +17,7 @@ namespace Bikewale.Entities.BikeData
         public string SmallPicUrl { get; set; }
         public string LargePicUrl { get; set; }
         public Int64 Price { get; set; }
-
+        public string OriginalImagePath { get; set; }
         private BikeMakeEntityBase objmakeBase = new BikeMakeEntityBase();
         public BikeMakeEntityBase MakeBase { get { return objmakeBase; } set { objmakeBase = value; } }
 

@@ -24,6 +24,7 @@ namespace Bikewale.Entities.BikeData
         public Int64 MinPrice { get; set; }
         public Int64 MaxPrice { get; set; }
         public double ReviewRate { get; set; }
-        public int ReviewCount { get; set; }        
+        public int ReviewCount { get; set; }
+        public string OriginalImagePath { get; set; }
     }
 }

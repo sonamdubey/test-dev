@@ -55,7 +55,8 @@
 			            <tr>
 				            <td>
 					            <a href='/<%# previousUrl + DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%# DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/photos/'>
-					            <img title="<%=make%> <%# DataBinder.Eval(Container.DataItem,"Model") %> Photos" border="0" src='<%# MakeModelVersion.GetModelImage(DataBinder.Eval(Container.DataItem, "HostURL").ToString(),"/bikewaleimg/models/" + DataBinder.Eval(Container.DataItem,"SmallPic")) %>' alt='<%=make%> <%# DataBinder.Eval(Container.DataItem,"Model") %> Photos' /></a>
+					            <%--<img title="<%=make%> <%# DataBinder.Eval(Container.DataItem,"Model") %> Photos" border="0" src='<%# MakeModelVersion.GetModelImage(DataBinder.Eval(Container.DataItem, "HostURL").ToString(),"/bikewaleimg/models/" + DataBinder.Eval(Container.DataItem,"SmallPic")) %>' alt='<%=make%> <%# DataBinder.Eval(Container.DataItem,"Model") %> Photos' /></a>--%>
+                                    <img title="<%=make%> <%# DataBinder.Eval(Container.DataItem,"Model") %> Photos" border="0" src='<%# MakeModelVersion.GetModelImage(DataBinder.Eval(Container.DataItem, "HostURL").ToString(),DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(),Bikewale.Utility.ImageSize._110x61) %>' alt='<%=make%> <%# DataBinder.Eval(Container.DataItem,"Model") %> Photos' /></a>
 				            </td>
 				            <td>
 					            <a class="href-title" href='/<%# previousUrl + DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%# DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/'><%= make %> <%# DataBinder.Eval(Container.DataItem,"Model") %></a>

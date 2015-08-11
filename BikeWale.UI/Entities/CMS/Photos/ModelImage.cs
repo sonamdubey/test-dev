@@ -41,6 +41,9 @@ namespace Bikewale.Entity.CMS.Photos
         public BikeMakeEntityBase MakeBase { get; set; }
         [DataMember]
         public BikeModelEntityBase ModelBase { get; set; }
+
+        [DataMember]
+        public string OriginalImgPath{ get; set; }
     }
 
 }

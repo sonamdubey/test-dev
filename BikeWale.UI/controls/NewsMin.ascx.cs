@@ -128,7 +128,8 @@ namespace Bikewale.Controls
             views = _objArticle.Views.ToString();
             title = _objArticle.Title;
             url = _objArticle.ArticleUrl;
-            imagePathCustom = _objArticle.SmallPicUrl;
+            //imagePathCustom = _objArticle.SmallPicUrl;
+            imagePathCustom = _objArticle.OriginalImgUrl;
             hostUrl = _objArticle.HostUrl;
         }
         
