@@ -85,7 +85,7 @@ namespace BikeWaleOpr.Content
 				if ( chk.Checked )
 				{
                     UpdateVersions(lt.Text, out originalImgPath);
-                    SavePhoto(lt.Text, originalImgPath);
+                    SavePhoto(lt.Text, originalImgPath.Split('?')[0]);
 				}
 			}
 			
@@ -154,6 +154,7 @@ namespace BikeWaleOpr.Content
 
                         cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100).Value = ConfigurationManager.AppSettings["imgHostURL"];
                         cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
+                        cmd.Parameters.Add("@TimeStamp", SqlDbType.VarChar, 20).Value = timeStamp;
                         cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
 
                         conn.Open();
@@ -236,7 +237,7 @@ namespace BikeWaleOpr.Content
 		{
 			string sql = "";
 
-            sql = " SELECT VE.ID, VE.Name, VE.SmallPic, VE.LargePic, VE.HostURL, Ve.IsReplicated,VE.OriginalImagePath, "
+            sql = " SELECT VE.ID, VE.Name, VE.SmallPic, VE.LargePic, VE.HostURL, Ve.IsReplicated,VE.OriginalImagePath,VE.IsReplicated, "
 				+ " (SELECT SmallPic FROM BikeModels WHERE Id=Ve.BikeModelId ) AS ModelSmall, "
 				+ " (SELECT LargePic FROM BikeModels WHERE Id=Ve.BikeModelId ) AS ModelLarge "
 				+ " FROM BikeVersions Ve WHERE VE.IsDeleted =0 AND Ve.BikeModelId=" + qryStrModel;
