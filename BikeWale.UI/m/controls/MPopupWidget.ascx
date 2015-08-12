@@ -113,11 +113,12 @@ function isValidInfoPopup() {
 }
 
 function getPriceQuotePopup() {
+    var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
     if (isValidInfoPopup()) {
         $.ajax({
             type: 'POST',
             url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
-            data: '{"cityId":"' + viewModelPopup.selectedCity() + '", "areaId":"' + viewModelPopup.selectedArea() + '", "modelId":"' + selectedModel + '", "isMobileSource":true}',
+            data: '{"cityId":"' + cityId + '", "areaId":"' + areaId + '", "modelId":"' + selectedModel + '", "isMobileSource":true}',
             dataType: 'json',
             beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
             success: function (json) {
