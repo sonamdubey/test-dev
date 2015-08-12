@@ -26,7 +26,7 @@
     <!-- #include file="globalStaticFiles.aspx"-->
     <script src="http://st2.aeplcdn.com/src/jquery.jcarousel.min.js" type="text/javascript"></script>
     <script language="c#" runat="server">	    
-	    private string title = "", description = "", keywords = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMake="", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "", alternate="";	    
+	    private string title = "", description = "", keywords = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMake="",TargetedModels ="", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "", alternate="";	    
     </script>
     <script type='text/javascript'>
         var googletag = googletag || {};
@@ -51,6 +51,7 @@
             <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");
             googletag.pubads().setTargeting("Series", "<%= TargetedSeries %>");
             googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");
+            googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels %>");
             <% } %>
             googletag.pubads().collapseEmptyDivs();
             googletag.pubads().enableSingleRequest();

@@ -21,7 +21,7 @@ namespace Bikewale.Mobile.New
 	public class CompareBikeDetails : System.Web.UI.Page
 	{
         protected int count = 0, totalComp = 3, version1 = 0, version2 = 0;
-        protected string versions = string.Empty;
+        protected string versions = string.Empty, targetedModels = string.Empty;
         protected DataSet ds = null;
         protected DataTable bikeDetails = null, bikeSpecs = null, bikeFeatures = null;
         protected override void OnInit(EventArgs e)
@@ -133,8 +133,7 @@ namespace Bikewale.Mobile.New
             {
                 container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
                          .RegisterType<ICacheManager, MemcacheManager>()
-                         .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                        ;
+                         .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
                 var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
 
                 objResponse = objCache.GetModelMaskingResponse(maskingName);
@@ -155,12 +154,20 @@ namespace Bikewale.Mobile.New
                 ds = cb.GetComparisonBikeListByVersion(versions);
                 if (ds != null)
                 {
-                    Trace.Warn("hi");
                     bikeDetails = ds.Tables[0];
                     bikeSpecs = ds.Tables[1];
                     bikeFeatures = ds.Tables[2];
                 }
                 count = bikeDetails.Rows.Count;
+
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    targetedModels += ds.Tables[0].Rows[i]["Model"] + ",";
+                }
+                if (targetedModels.Length > 2)
+                {
+                    targetedModels = targetedModels.Substring(0, targetedModels.Length - 1).ToLower();
+                }
             }
             catch (Exception ex)
             {
