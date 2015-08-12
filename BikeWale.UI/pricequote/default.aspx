@@ -66,7 +66,7 @@
                                         <input type="hidden" id="hdn_ddlCity" runat="server" data-bind=""/><span id="spnCity" class="error" runat="server" /></div>
                                 </div>
                                 <div class="clear"></div>
-                                <div class="input-box input-box-margin hide" id="divAreaChosen">
+                                <div class="input-box input-box-margin hide" id="divAreaChosen"  data-bind="visible: areas().length > 0">
                                     <select data-placeholder="Search an Area.." class="chosen-select" style="width: 180px" tabindex="2" data-bind="options: areas, optionsText: 'AreaName', optionsValue: 'AreaId', value: selectedArea, optionsCaption: '--Select Area--'" id="ddlArea">
                                         <option value=""></option>
                                     </select>
@@ -103,6 +103,7 @@
     <input type="hidden" id="hdnIsAreaShown" runat="server" />
 </form>
 <script type="text/javascript">
+    var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var isAreaShown = false;
 
     var viewModel = {
@@ -264,11 +265,33 @@
             success: function (response) {
 
                 var responseJSON = eval('(' + response + ')');
-                var resObj = eval('(' + responseJSON.value + ')');
+                var cities = eval('(' + responseJSON.value + ')');
 
-                viewModel.cities(resObj);
+                if (cities && cities.length > 0) {
+                    var initIndex = 0;
+                    for (var i = 0; i < cities.length; i++) {
+                        if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
+                            var currentCity = cities[i];
+                            cities.splice(cities.indexOf(currentCity), 1);
+                            cities.splice(initIndex++, 0, currentCity);
+                        }
+                    }
+                    cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
+                    viewModel.cities(cities);
+                    $("#ddlCity option[value=0]").prop("disabled", "disabled");
+                    if ($("#ddlCity option:last-child").val() == "0") {
+                        $("#ddlCity option:last-child").remove();
+                    }
+                    if ($("#ddlCity option:first-child").next().val() == "0") {
+                        $("#ddlCity option[value=0]").remove();
+                    }
+                    UpdateArea();
+                }
+                else {
+                    viewModel.cities([]);
+                    viewModel.areas([]);
+                }
 
-                MetroCities($("#ddlCity"));
             },
             error: function (response) {
                 alert(response);

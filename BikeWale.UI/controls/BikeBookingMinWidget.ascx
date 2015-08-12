@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.BikeBookingMinWidget" %>
-<div class="margin-top10 grey-bg" id="dvBikeBookingMinWidget">
+<div class="margin-top10 grey-bg hide" id="dvBikeBookingMinWidget" >
     <div class="content-block bookbike-hrz-box">
         <h2 class="margin-bottom10">Book <%= Model %> Online</h2>
         <p class="red-text font11 hide">Please select following fields</p>
