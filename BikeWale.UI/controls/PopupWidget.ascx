@@ -66,6 +66,7 @@ function FillCitiesPopup(modelId) {
                     $("#ddlCitiesPopup option[value=0]").remove();
                 }
                 $('#ddlCitiesPopup').trigger("chosen:updated");
+                cityChangedPopup();
             }
             else {
                 viewModelPopup.bookingCities([]);

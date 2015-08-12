@@ -61,6 +61,7 @@ function FillCitiesPopup(modelId) {
                 if ($("#ddlCitiesPopup option:first-child").next().val() == "0") {
                     $("#ddlCitiesPopup option[value=0]").remove();
                 }
+                cityChangedPopup();
             }
             else {
                 viewModelPopup.bookingCities([]);
