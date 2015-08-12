@@ -122,7 +122,7 @@
                                                             </div>
                                                     </div>
                                                 </div>
-                                                <div class="m-item">
+                                                <div class="m-item hide">
                                                     <div class="mainH font14 text-center">
                             	                        <p class="margin-bottom10"><strong>Option 2: Replay Flip-up Helmet</strong></p>
                                                         <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg" class="margin-bottom10"/>
