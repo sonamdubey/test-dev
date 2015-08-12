@@ -28,7 +28,7 @@ namespace Bikewale.New
         protected AddBikeToCompare addBike;
 
         DataSet ds = null;
-        protected string versions = string.Empty, featuredBikeId = string.Empty, spotlightUrl = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, reWriteURL = string.Empty;
+        protected string versions = string.Empty, featuredBikeId = string.Empty, spotlightUrl = string.Empty, title = string.Empty, pageTitle = string.Empty, keyword = string.Empty, canonicalUrl = string.Empty, reWriteURL = string.Empty, targetedModels = string.Empty;
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
         protected bool isFeatured = false;
@@ -106,6 +106,7 @@ namespace Bikewale.New
                     keyword += ds.Tables[0].Rows[i]["Bike"].ToString() + " and ";
                     canonicalUrl += ds.Tables[0].Rows[i]["MakeMaskingName"] + "-" + ds.Tables[0].Rows[i]["ModelMaskingName"] + "-vs-";
                     Trace.Warn("Bike Name : ", title);
+                    targetedModels += ds.Tables[0].Rows[i]["Model"] + ",";
                 }
 
                 if (title.Length > 2)
@@ -113,6 +114,7 @@ namespace Bikewale.New
                     title = title.Substring(0, title.Length - 3);
                     keyword = keyword.Substring(0, keyword.Length - 5);
                     canonicalUrl = canonicalUrl.Substring(0, canonicalUrl.Length - 4);
+                    targetedModels = targetedModels.Substring(0, targetedModels.Length - 1).ToLower();
                 }
 
                 if (isFeatured)
