@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="options-content" helmetId="2">
+                        <div class="options-content hide" helmetId="2">
                     	    <div class="option-title" data-id="option2">
                         	    <span class="floatleft bw-sprite unchecked-radio-icon"></span>
                     		    <span class="floatleft offer-title"><b>Replay Dream Plain Flip-up Helmet (Size: M)</b></span>

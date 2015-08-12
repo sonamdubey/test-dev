@@ -52,7 +52,7 @@
                                 <div class="center-align offer-pic"><img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg"></div>                                
                                 <div class="clear"></div>
                             </li>
-                            <li class="offer-box-2" offerId="2">
+                            <li class="offer-box-2" offerId="2" style="display:none;">
                                 <div data-id="offer1" class="offer-1-title">
                                     <span class="bw-sprite unchecked-radio"></span>
                                     <label for="offer">Replay Plain Flip-up Helmet (Size: M) </label>
