@@ -9,6 +9,8 @@
         AdPath = "/1017752/Bikewale_Mobile_NewBikes";
         AdId = "1398766302464";
         menu = "11";
+        ShowTargeting = "1";
+        TargetedModels = targetedModels;
     }
 %>
 

@@ -11,6 +11,8 @@
     }
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
+    ShowTargeting = "1";
+    TargetedModels = targetedModels;
 %>
 
 <!-- #include file="/includes/headNew.aspx" -->
@@ -56,6 +58,7 @@
     .fourcolum img.second-img { width: 166px; height:auto; }
     .threecolum img.second-img { width: 228px; height:auto; }
     .featuredBike { background-color:#fffae8!important; }
+    .blue {color: #0056cc;cursor: pointer;text-decoration: none;}
 </style>
          <div class="container_12">
              <div class="grid_12">
@@ -95,7 +98,8 @@
                                                        <div class="bikeclose"><a class='delBike pointer right-float <%= !isFeatured ? ((count==2) ? "hide" : "") : ((count==3) ? "hide" : "") %>' versionId='<%# DataBinder.Eval(Container.DataItem,"BikeVersionId") %>'><img src="http://img.carwale.com/images/icons/delete.ico" /></a></div>
                                                        <div class="clear"></div>
                                                        <div class="bikemain">
-                                                           <div class="bikename"><strong><a href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName") +"-bikes/"+ DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/' title='<%# DataBinder.Eval(Container.DataItem,"Make") + " " + DataBinder.Eval(Container.DataItem,"Model") + " " + DataBinder.Eval(Container.DataItem,"Version") + " Details"%>'><%#DataBinder.Eval(Container.DataItem,"Make") + " " + DataBinder.Eval(Container.DataItem,"Model") + " " + DataBinder.Eval(Container.DataItem,"Version")%></a></strong></div>
+                                                           <div class="bikename"><strong><a class="blue" href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName") +"-bikes/"+ DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/' title='<%# DataBinder.Eval(Container.DataItem,"Make") + " " + DataBinder.Eval(Container.DataItem,"Model") + " " + DataBinder.Eval(Container.DataItem,"Version") + " Details"%>'><%#DataBinder.Eval(Container.DataItem,"Make") + " " + DataBinder.Eval(Container.DataItem,"Model")%></a></strong></div>
+                                                           <div class="margin-bottom10" style="margin-top:-10px;"><%# DataBinder.Eval(Container.DataItem,"Version") %></div>
                                                         </div>
                                                        </td>
                                                    </tr>
@@ -104,7 +108,7 @@
                                                    <tr>
                                                        <td><strong>Price Rs. <%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></strong><br />
                                                         <span class="<%#String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Price").ToString())?"hide":"" %>">Ex-Showroom, <%= ConfigurationManager.AppSettings["defaultName"].ToString() %></span>
-                                                        <%# DataBinder.Eval(Container.DataItem,"Price").ToString() == "" ? "" : "<div class='la' style='margin-top:5px;'><a class='fillPopupData' modelId='"+ DataBinder.Eval(Container.DataItem,"ModelId") +"' href=\"/pricequote/default.aspx?version=" + DataBinder.Eval(Container.DataItem,"BikeVersionId") + "\">Check On-Road Price</a></div>"%>
+                                                        <%# DataBinder.Eval(Container.DataItem,"Price").ToString() == "" ? "" : "<div class='la' style='margin-top:5px;'><a class='fillPopupData blue' modelId='"+ DataBinder.Eval(Container.DataItem,"ModelId") +"' href=\"/pricequote/default.aspx?version=" + DataBinder.Eval(Container.DataItem,"BikeVersionId") + "\">Check On-Road Price</a></div>"%>
                                                        </td>
                                                    </tr>
                                                </table>

@@ -21,7 +21,7 @@
     <%if(!String.IsNullOrEmpty(relPrevPageUrl)) { %><link rel="prev" href="<%= relPrevPageUrl %>" /><% } %>
     <%if(!String.IsNullOrEmpty(relNextPageUrl)){ %><link rel="next" href="<%= relNextPageUrl %>" /><% }%>
     <script language="c#" runat="server">	    
-	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMakes="", AdModel_300x250=""
+	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMakes="",TargetedModels="", AdModel_300x250=""
         ,AdSeries_300x250="", canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "";
     </script> 
     <script type='text/javascript'>
@@ -48,6 +48,7 @@
         <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");
         googletag.pubads().setTargeting("Series", "<%= TargetedSeries %>");
         googletag.pubads().setTargeting("Make", "<%= TargetedMakes %>");
+        googletag.pubads().setTargeting("CompareBike-M", "<%= TargetedModels %>");
         <% } %>        
         googletag.pubads().collapseEmptyDivs();
         googletag.pubads().enableSingleRequest();
