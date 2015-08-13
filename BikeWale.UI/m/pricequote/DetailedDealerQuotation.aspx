@@ -110,7 +110,7 @@
                                             <div class="m-carousel-inner" style="transform: translate(-1059px, 0px);">
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
-                            	                        <p class="margin-bottom10"><strong>Option 1: Vega Cruiser Helmet</strong></p>
+                            	                        <p class="margin-bottom10"><strong>Option 1: Vega / Studds Open Face Helmet (Size: M)</strong></p>
                                                         <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
@@ -138,7 +138,7 @@
                                                 </div>
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
-                            	                        <p class="margin-bottom10"><strong>Option 2: Vega Cliff Full Face Helmet</strong></p>
+                            	                        <p class="margin-bottom10"><strong>Option 2: Vega / Studds Full Face Helmet (Size: M)</strong></p>
                                                         <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
