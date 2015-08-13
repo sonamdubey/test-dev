@@ -199,7 +199,7 @@
                                             	<ul>
                                                 	<li>
                                                     	<div class="offer-pic"><img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg"></div>
-                                                        <p class="margin-top10"><strong>Vega Cruiser Open Face Helmet (Size: M)</strong></p>
+                                                        <p class="margin-top10"><strong>Vega / Studds Open Face Helmet (Size: M)</strong></p>
                                                         <div class="item-specification margin-top10">
                                                         	<ul>
                                                             	<li>- Scratch & Crack Resistant</li>
@@ -223,7 +223,7 @@
                                                     </li>
                                                     <li>
                                                     	<div class="offer-pic"><img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg"></div>
-                                                        <p class="margin-top10"><strong>Vega Cliff Full Face Helmet (Size: M)</strong></p>
+                                                        <p class="margin-top10"><strong>Vega / Studds Full Face Helmet (Size: M)</strong></p>
                                                         <div class="item-specification margin-top10">
                                                         	<ul>
                                                             	<li>- ABS shell</li>
