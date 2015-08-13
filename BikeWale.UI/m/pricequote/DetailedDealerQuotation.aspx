@@ -138,7 +138,7 @@
                                                 </div>
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
-                            	                        <p class="margin-bottom10"><strong>Option 3: Vega Cliff Full Face Helmet</strong></p>
+                            	                        <p class="margin-bottom10"><strong>Option 2: Vega Cliff Full Face Helmet</strong></p>
                                                         <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
