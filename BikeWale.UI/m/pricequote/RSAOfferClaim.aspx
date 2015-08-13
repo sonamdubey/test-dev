@@ -25,7 +25,7 @@
                 	    <div class="options-content" helmetId="1">
                     	    <div class="option-title" data-id="option1">
                         	    <span class="floatleft bw-sprite unchecked-radio-icon"></span>
-                    		    <span class="floatleft offer-title"><b>Vega Cruiser Open Face Helmet (Size: M)</b></span>
+                    		    <span class="floatleft offer-title"><b>Vega / Studds Open Face Helmet (Size: M)</b></span>
                     		    <div class="clear"></div>
                     	    </div>
                             <div class="option-details">
@@ -61,7 +61,7 @@
                         <div class="options-content" helmetId="3">
                     	    <div class="option-title" data-id="option3">
                         	    <span class="floatleft bw-sprite unchecked-radio-icon"></span>
-                    		    <span class="floatleft offer-title"><b>Vega Cliff Full Face Helmet (Size: M)</b></span>
+                    		    <span class="floatleft offer-title"><b>Vega / Studds Full Face Helmet (Size: M)</b></span>
                     		    <div class="clear"></div>
                     	    </div>
                             <div class="option-details">
