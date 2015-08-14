@@ -16,7 +16,7 @@
                             </div>
 	                    </div>	            
                         <%--<div class="imgBox"><img style="border:1px solid #e5e5e5;" src='<%#  ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + DataBinder.Eval(Container.DataItem,"ImagePathLarge").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString())%>' width="160" height="88"/></div>--%>
-                            <div class="imgBox"><img style="border:1px solid #e5e5e5;" src='<%#  Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._160x89)%>' width="160" height="88"/></div>
+                            <div class="imgBox"><img style="border:1px solid #e5e5e5;" src='<%#  Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._160x89)%>' width="160" height="88"/></div>
 	                    </a>
                     </div>
                 <!--div style="padding:10px;float:left;"></div-->
