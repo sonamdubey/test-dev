@@ -53,7 +53,7 @@ namespace BikeWaleOpr
         public static string GetPathToShowImages(string hostUrl,string imgSize,string relativePath)
         {
 
-            return hostUrl + imgSize + relativePath;
+            return hostUrl + "/" + imgSize + "/" + relativePath;
         }
 
         public static void SaveImageContent(HtmlInputFile fil, string relativePath)
