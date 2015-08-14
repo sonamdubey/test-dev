@@ -10,7 +10,16 @@ namespace Bikewale.Utility
     {
         public static string GetPathToShowImages(string originalImagePath, string hostUrl, string size)
         {
-            return String.Format("{0}/{1}/{2}", hostUrl, size, originalImagePath);
+            string imgUrl = String.Empty;
+            if (!String.IsNullOrEmpty(originalImagePath) && !String.IsNullOrEmpty(hostUrl))
+            {
+                imgUrl = String.Format("{0}/{1}/{2}", hostUrl, size, originalImagePath);
+            }
+            else
+            {
+                imgUrl = "http://img.carwale.com/bikewaleimg/common/nobike.jpg";
+            }
+            return imgUrl;
         }
     }
 
