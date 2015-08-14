@@ -2,8 +2,6 @@
 <style>
     @media screen and (min-width:315px) {
         .compareImageContainer {width:300px;margin:auto;}
-        .compareImageContainer img { width:300px;height:101px;}
-    
     }
 
     @media screen and (max-width:329px) {

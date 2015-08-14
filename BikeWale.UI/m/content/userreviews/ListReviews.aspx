@@ -31,7 +31,7 @@
 				    <tr>
 					    <td style="width:100px;vertical-align:top;margin-left:5px;">
                             <%--<img alt="<%= objModelEntity.MakeBase.MaskingName + " " + objModelEntity.ModelName %> Reviews" title="<%= objModelEntity.MakeBase.MaskingName + " " + objModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objModelEntity.HostUrl, "/bikewaleimg/models/" + objModelEntity.LargePicUrl) %>" width="100">--%>
-                            <img alt="<%= objModelEntity.MakeBase.MaskingName + " " + objModelEntity.ModelName %> Reviews" title="<%= objModelEntity.MakeBase.MaskingName + " " + objModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objModelEntity.HostUrl, objModelEntity.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>" width="100">
+                            <img alt="<%= objModelEntity.MakeBase.MaskingName + " " + objModelEntity.ModelName %> Reviews" title="<%= objModelEntity.MakeBase.MaskingName + " " + objModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objModelEntity.HostUrl, objModelEntity.OriginalImagePath,Bikewale.Utility.ImageSize._640x348) %>" width="100">
                             <div class="darkgray"><b><%=!objModelEntity.New && objModelEntity.Used ? "Last Recorded Price: " : "Starts At: " %> </b></div>
                             <div class="darkgray"><b>Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(objModelEntity.MinPrice.ToString()) %></b></div>
                         </td>
