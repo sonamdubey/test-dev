@@ -25,7 +25,8 @@ namespace BikeWaleOpr
             }
             else 
             {
-                physicalPath = HttpContext.Current.Request["APPL_PHYSICAL_PATH"].ToLower().Replace("bikewaleopr", "carwaleimg") + relativePath;    
+                //physicalPath = HttpContext.Current.Request["APPL_PHYSICAL_PATH"].ToLower().Replace("bikewaleopr", "carwaleimg") + relativePath;   
+                physicalPath = ConfigurationManager.AppSettings["imgPathFolder"] + relativePath;
             }
             return physicalPath;
         }

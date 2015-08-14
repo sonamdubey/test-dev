@@ -389,7 +389,8 @@ namespace Bikewale.Common
             }
             else
             {
-                physicalPath = HttpContext.Current.Request["APPL_PHYSICAL_PATH"].ToLower().Replace("bikewale", "carwaleimg") + relativePath;
+                //physicalPath = HttpContext.Current.Request["APPL_PHYSICAL_PATH"].ToLower().Replace("bikewale", "carwaleimg") + relativePath;
+                physicalPath = ConfigurationManager.AppSettings["imgPathFolder"] + relativePath;
             }
             return physicalPath;
         }
