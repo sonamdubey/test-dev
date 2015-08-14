@@ -65,7 +65,7 @@
                     var obj_response = eval('(' + ret_response.value + ')');
                     if (obj_response.Table.length > 0) {
                         for (var i = 0; i < obj_response.Table.length; i++) {
-                            var imgUrlLarge = obj_response.Table[i].HostUrl + "227X128" + obj_response.Table[i].OriginalImagePath;
+                            var imgUrlLarge = obj_response.Table[i].HostUrl + "/227X128" + obj_response.Table[i].OriginalImagePath;
 
                             $("#imgSmall").attr('src', imgUrlLarge);
                         }
