@@ -130,7 +130,7 @@ namespace Bikewale.News
         {
             String mainImgUrl = String.Empty;
             //mainImgUrl = ImagingFunctions.GetPathToShowImages(objArticle.LargePicUrl, objArticle.HostUrl);
-            mainImgUrl = ImagingFunctions.GetPathToShowImages(objArticle.OriginalImgUrl, objArticle.HostUrl,Bikewale.Utility.ImageSize._210x118);
+            mainImgUrl = ImagingFunctions.GetPathToShowImages(objArticle.OriginalImgUrl, objArticle.HostUrl,Bikewale.Utility.ImageSize._640x348);
 
             return mainImgUrl;
         }
