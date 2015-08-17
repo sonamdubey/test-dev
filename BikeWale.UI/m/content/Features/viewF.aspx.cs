@@ -164,10 +164,13 @@ namespace Bikewale.Mobile.Content
             pageTitle = objFeature.Title;
             displayDate = Convert.ToDateTime(objFeature.DisplayDate).ToString("dd-MMM-yyyy");
 
-            if (objFeature.TagsList.Count > 0)
+            if (objFeature.TagsList != null && objFeature.TagsList.Count > 0)
             {
-                modelName = objFeature.VehiclTagsList[0].ModelBase.ModelName;
-                modelUrl = "/m/" + UrlRewrite.FormatSpecial(objFeature.VehiclTagsList[0].MakeBase.MakeName) + "-bikes/" + objFeature.VehiclTagsList[0].ModelBase.MaskingName + "/";
+                if (objFeature.VehiclTagsList != null && objFeature.VehiclTagsList.Count > 0)
+                {
+                    modelName = objFeature.VehiclTagsList[0].ModelBase.ModelName;
+                    modelUrl = "/m/" + UrlRewrite.FormatSpecial(objFeature.VehiclTagsList[0].MakeBase.MakeName) + "-bikes/" + objFeature.VehiclTagsList[0].ModelBase.MaskingName + "/";
+                }
             }
         }
 
@@ -211,8 +214,11 @@ namespace Bikewale.Mobile.Content
           //  rptPages.DataSource = objFeature.PageList;
           //  rptPages.DataBind();
 
-            rptPageContent.DataSource = objFeature.PageList;
-            rptPageContent.DataBind();
+            if (objFeature.PageList != null)
+            {
+                rptPageContent.DataSource = objFeature.PageList;
+                rptPageContent.DataBind();
+            }
         }
 
         protected string GetImageUrl(string hostUrl, string imagePath)
