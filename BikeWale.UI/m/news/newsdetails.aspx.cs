@@ -139,7 +139,8 @@ namespace Bikewale.Mobile.Content
         protected String GetMainImagePath()
         {
             String mainImgUrl = String.Empty;
-            mainImgUrl = ImagingFunctions.GetPathToShowImages( objNews.LargePicUrl, objNews.HostUrl);
+            //mainImgUrl = ImagingFunctions.GetPathToShowImages( objNews.LargePicUrl, objNews.HostUrl);
+            mainImgUrl = Bikewale.Utility.Image.GetPathToShowImages(objNews.OriginalImgUrl, objNews.HostUrl, Bikewale.Utility.ImageSize._640x348);
 
             return mainImgUrl;
         }

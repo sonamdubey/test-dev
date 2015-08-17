@@ -26,7 +26,7 @@
                     <div class="padding5 margin10" style="border: 1px solid #DBDBCE;overflow:hidden;width:180px;float:left;">
                         <input type="checkbox" id="chkVPhotos_<%# DataBinder.Eval(Container.DataItem,"PhotoId") %>" photoId="<%# DataBinder.Eval(Container.DataItem,"PhotoId") %>"/>
                          <div id='divImg_<%# DataBinder.Eval( Container.DataItem, "PhotoId" ).ToString()%>'>
-                             <img class='img-border' id="img1" width="160" src='<%# "http://" + DataBinder.Eval(Container.DataItem, "HostUrl").ToString() + DataBinder.Eval( Container.DataItem, "DirectoryPath" ) + DataBinder.Eval( Container.DataItem, "ImageUrlThumb" ) %>' style='margin:auto; display:block;' />
+                            <img class='img-border' id="img1" width="160" src='<%# BikeWaleOpr.ImagingOperations.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "HostUrl").ToString(), "227X128",DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString()) %>' style='margin:auto; display:block;' />
                              <div style="margin:5px 0;"><b>Description : </b> <%# String.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "Description" ).ToString()) ? "N/A" : DataBinder.Eval( Container.DataItem, "Description" ).ToString() %></div>
                          </div>
                     </div>
@@ -46,7 +46,7 @@
                     <div class="padding5 margin-left10" style="border: 1px solid #DBDBCE;overflow:hidden;width:180px;float:left;">
                         <input type="checkbox" id="chkUPhotos_<%# DataBinder.Eval(Container.DataItem,"PhotoId") %>" photoId="<%# DataBinder.Eval(Container.DataItem,"PhotoId") %>"/>
                         <div id='divImg_<%# DataBinder.Eval( Container.DataItem, "PhotoId" ).ToString()%>'> 
-                            <img class='img-border' id="img1" width="160" src='<%# "http://" + DataBinder.Eval(Container.DataItem, "HostUrl").ToString() + DataBinder.Eval( Container.DataItem, "DirectoryPath" ) + DataBinder.Eval( Container.DataItem, "ImageUrlThumb" ) %>' style='margin:auto; display:block;' />
+                            <img class='img-border' id="img1" width="160" src='<%# BikeWaleOpr.ImagingOperations.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "HostUrl").ToString(), "227X128",DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString()) %>' style='margin:auto; display:block;' />
                             <div style="margin:5px 0;"><b>Description : </b> <%# String.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "Description" ).ToString()) ? "N/A" : DataBinder.Eval( Container.DataItem, "Description" ).ToString() %></div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                      <div class="padding5 margin-left10" style="border: 1px solid #DBDBCE;overflow:hidden;width:180px;float:left;">
                          <input type="checkbox" id="chkFPhotos_<%# DataBinder.Eval(Container.DataItem,"PhotoId") %>" photoId="<%# DataBinder.Eval(Container.DataItem,"PhotoId") %>"/>
                           <div id='divImg_<%# DataBinder.Eval( Container.DataItem, "PhotoId" ).ToString()%>'>
-                        <img class='img-border' id="img1" width="160" src='<%# "http://" + DataBinder.Eval(Container.DataItem, "HostUrl").ToString() + DataBinder.Eval( Container.DataItem, "DirectoryPath" ) + DataBinder.Eval( Container.DataItem, "ImageUrlThumb" ) %>' style='margin:auto; display:block;' />
+                        <img class='img-border' id="img1" width="160" src='<%# BikeWaleOpr.ImagingOperations.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "HostUrl").ToString(), "227X128",DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString()) %>' style='margin:auto; display:block;' />
                             <div style="margin:5px 0;"><b>Description : </b> <%# String.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "Description" ).ToString()) ? "N/A" : DataBinder.Eval( Container.DataItem, "Description" ).ToString() %></div>
                         </div>
                     </div>

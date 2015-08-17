@@ -71,7 +71,7 @@ namespace Bikewale.Controls
         {
             string sql = "";
 
-            sql = " SELECT Top 3 MK.Name MakeName,MK.MaskingName AS MakeMaskingName, Mo.Name AS ModelName,Mo.MaskingName AS ModelMaskingName,  ECL.ExpectedLaunch, ECL.PhotoName, EstimatedPriceMin, EstimatedPriceMax, Mo.HostUrl, Mo.SmallPic, CS.SmallDescription as Description"
+            sql = " SELECT Top 3 MK.Name MakeName,MK.MaskingName AS MakeMaskingName, Mo.Name AS ModelName,Mo.MaskingName AS ModelMaskingName,  ECL.ExpectedLaunch, ECL.PhotoName, EstimatedPriceMin, EstimatedPriceMax, Mo.HostUrl, Mo.SmallPic, CS.SmallDescription as Description, Mo.OriginalImagePath"
                 + " FROM ExpectedBikeLaunches ECL With(NoLock) "
                 + " INNER JOIN BikeModels Mo With(NoLock) ON ECL.BikeModelId = Mo.ID "
                 + " INNER JOIN BikeMakes MK With(NoLock) ON MK.ID = Mo.BikeMakeId "

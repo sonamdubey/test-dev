@@ -14,7 +14,7 @@ namespace Bikewale.Entities.BikeData
         public ulong EstimatedPriceMax { get; set; }
         public string HostUrl { get; set; }
         public string LargePicImagePath { get; set; }
-
+        public string OriginalImagePath { get; set; }
         private BikeMakeEntityBase objmakeBase = new BikeMakeEntityBase();
         public BikeMakeEntityBase MakeBase { get { return objmakeBase; } set { objmakeBase = value; } }
 

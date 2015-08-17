@@ -200,7 +200,7 @@ namespace Bikewale.Content
                     HostUrl = objBike.HostUrl;
                     IsNew = objBike.IsNew;
                     IsUsed = objBike.IsUsed;
-
+                    OriginalImagePath = objBike.OriginalImagePath;
                     Trace.Warn("MakeName : " + MakeName + "ModelName : " + ModelName + " LargePic : " + LargePic);
                 }
                 else
@@ -224,7 +224,7 @@ namespace Bikewale.Content
                     HostUrl = objBike.HostUrl;
                     IsNew = objBike.IsNew;
                     IsUsed = objBike.IsUsed;
-
+                    OriginalImagePath = objBike.OriginalImagePath;
                     Trace.Warn("MakeName : " + MakeName + "ModelName : " + ModelName + " LargePic : " + LargePic);
                 }
 
@@ -506,6 +506,18 @@ namespace Bikewale.Content
                     return "";
             }
             set { ViewState["BikeName"] = value; }
+        }
+
+        public string OriginalImagePath
+        {
+            get
+            {
+                if (ViewState["OriginalImagePath"] != null)
+                    return ViewState["OriginalImagePath"].ToString();
+                else
+                    return "";
+            }
+            set { ViewState["OriginalImagePath"] = value; }
         }
 
         public string LargePic

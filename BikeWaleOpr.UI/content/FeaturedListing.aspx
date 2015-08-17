@@ -67,8 +67,8 @@
 						<tr>
 							<td valign="top">
                                 <div class="divImgShow">
-                                    <% if(!String.IsNullOrEmpty(smallImgPath)){ %>
-                                    <img id="imgFLPhoto" src="<%=BikeWaleOpr.ImagingOperations.GetPathToShowImages(imgPath + smallImgPath, hostURL) %>" />
+                                    <% if(!String.IsNullOrEmpty(originalImgPath)){ %>
+                                    <img id="imgFLPhoto" src="<%=BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostURL,"227X128",originalImgPath) %>" />
                                     <%} else { %>
                                     <img src="http://img.carwale.com/bikewaleimg/common/nobike.jpg" width="140" height="80"/>
                                     <% } %>
@@ -143,24 +143,6 @@
 								</itemtemplate>
 							</asp:TemplateColumn>
 							
-							<%--<asp:TemplateColumn HeaderText="Is RoadTest">
-								<itemtemplate>
-									<%#GetString(DataBinder.Eval(Container.DataItem,"ShowRoadTest").ToString())%> 
-								</itemtemplate>
-							</asp:TemplateColumn>
-							
-							<asp:TemplateColumn HeaderText="Show Research">
-								<itemtemplate>
-									<%#GetString(DataBinder.Eval(Container.DataItem,"ShowResearch").ToString())%> 
-								</itemtemplate>
-							</asp:TemplateColumn>
-							
-							<asp:TemplateColumn HeaderText="Show Price">
-								<itemtemplate>
-									<%#GetString(DataBinder.Eval(Container.DataItem,"ShowPrice").ToString())%> 
-								</itemtemplate>
-							</asp:TemplateColumn>--%>
-							
 							<asp:TemplateColumn HeaderText="Is Visible">
 								<itemtemplate>
 									<%#GetString(DataBinder.Eval(Container.DataItem,"IsVisible").ToString())%> 
@@ -175,7 +157,7 @@
 							
 							<asp:TemplateColumn HeaderText="Image">
 								<itemtemplate>
-                                    <img src="<%# ImagingOperations.GetPathToShowImages( DataBinder.Eval(Container.DataItem,"ImagePath").ToString() + DataBinder.Eval(Container.DataItem,"SmallImageName").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString())%>" width="75" height="50" alt="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" />
+                                    <img class="<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsReplicated")) ? "" : "checkImage" %>" image-id='<%# DataBinder.Eval( Container.DataItem, "ID" ) %>' src="<%# ImagingOperations.GetPathToShowImages( DataBinder.Eval(Container.DataItem,"HostURL").ToString(),"144X81",DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString())%>" width="144" alt="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" />
 									<%--<img src="<%# GetImage( DataBinder.Eval(Container.DataItem,"Id").ToString())%>" width="75" height="50" alt="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" />--%>
 								</itemtemplate>
 							</asp:TemplateColumn>
@@ -209,6 +191,7 @@
 </div>
 
 <script language="javascript">
+    var refreshTime = 2000;
 
 	if(document.getElementById("btnSave"))
 	{
@@ -371,6 +354,8 @@
 	        if (!status)
 	            updatePriorities();
 	    });
+
+	    setInterval(UpdatePendingMainImage, refreshTime)
 	});
 
 	function updatePriorities() {
@@ -425,6 +410,37 @@
 	            window.location.replace("/content/featuredlisting.aspx");
 	        }
 	    });
+	}
+
+	function UpdatePendingMainImage() {
+	    var event = $(".checkImage");
+	    var id = event.attr('image-id');
+	    //alert(id);
+	    CheckMainImageStatus(event, id);
+	}
+
+	function CheckMainImageStatus(event, mainImageId) {
+	    var category = 'FEATUREDLISTING';
+	    if (mainImageId != undefined) {
+	        $.ajax({
+	            type: "POST", url: "/AjaxPro/BikeWaleOpr.Common.Ajax.ImageReplication,BikewaleOpr.ashx",
+	            data: '{"imageId":"' + mainImageId + '","Category":"' + category + '"}',
+	            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "CheckImageStatusByCategory"); },
+	            success: function (response) {
+	                var ret_response = eval('(' + response + ')');
+	                //alert(ret_response.value);
+	                var obj_response = eval('(' + ret_response.value + ')');
+	                if (obj_response.Table.length > 0) {
+	                    for (var i = 0; i < obj_response.Table.length; i++) {
+	                        var imgUrlLarge = obj_response.Table[i].HostUrl + "/144X81/" + obj_response.Table[i].OriginalImagePath;
+
+	                        event.attr('src', imgUrlLarge);
+	                    }
+
+	                }
+	            }
+	        });
+	    }
 	}
 	
 </script>

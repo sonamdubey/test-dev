@@ -10,7 +10,7 @@
         </a>
     </div>
     <a href="/comparebikes/<%=makeMaskingName1%>-<%=modelMaskingName1%>-vs-<%= makeMaskingName2%>-<%= modelMaskingName2%>/">
-        <img id="imgCompBike" src="<%=imageUrl %>" border="0" width="300" height="100"/>
+        <img id="imgCompBike" src="<%=imageUrl %>" border="0" width="300" />
     </a>        
     <div class="grid_2 alpha omega margin-top10 right-align" style="border-right:1px solid #E2E2E2;">
         <div class="margin-right10"><%= Bikewale.Common.CommonOpn.GetRateImage(review1) %></div>

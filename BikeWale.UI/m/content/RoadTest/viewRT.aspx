@@ -75,7 +75,7 @@
 			            <itemtemplate>
 				            <div style="width:50%;float:left;margin-top:10px;">
 					            <div style="margin:auto;width:80px;border:1px solid #DBDCDE;padding:3px;" onClick="ShowLargePhotos(this);" class="thumbDiv">
-						            <img style="width:100%;max-width:100%;height:auto;" title="<%#DataBinder.Eval(Container.DataItem, "ImageName").ToString()%>" alt="<%#DataBinder.Eval(Container.DataItem, "ImageName").ToString()%>" src='<%# GetImageUrl(DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),DataBinder.Eval(Container.DataItem, "ImagePathLarge").ToString()) %>'>
+						            <img style="width:100%;max-width:100%;height:auto;" title="<%#DataBinder.Eval(Container.DataItem, "ImageName").ToString()%>" alt="<%#DataBinder.Eval(Container.DataItem, "ImageName").ToString()%>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._640x348) %>'>
 					            </div>
 				            </div>
 			            </itemtemplate>

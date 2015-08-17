@@ -46,13 +46,13 @@
                             <li class="offer-box-1" offerId="1">
                                 <div data-id="offer1" class="offer-1-title">
                                     <span class="bw-sprite unchecked-radio"></span>
-                                    <label for="offer">Vega Cruiser Open Face Helmet (Size: M) </label>
+                                    <label for="offer">Vega / Studds Open Face Helmet (Size: M) </label>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="center-align offer-pic"><img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg"></div>                                
                                 <div class="clear"></div>
                             </li>
-                            <li class="offer-box-2" offerId="2">
+                            <li class="offer-box-2" offerId="2" style="display:none;">
                                 <div data-id="offer1" class="offer-1-title">
                                     <span class="bw-sprite unchecked-radio"></span>
                                     <label for="offer">Replay Plain Flip-up Helmet (Size: M) </label>
@@ -64,7 +64,7 @@
                             <li class="offer-box-3" offerId="3">
                                 <div data-id="offer1" class="offer-1-title">
                                     <span class="bw-sprite unchecked-radio"></span>
-                                    <label for="offer">Vega Cliff Full Face Helmet (Size: M) </label>
+                                    <label for="offer">Vega / Studds Full Face Helmet (Size: M)</label>
                                     <div class="clear"></div>
                                 </div>
                                 <div class="center-align offer-pic"><img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg"></div>                                

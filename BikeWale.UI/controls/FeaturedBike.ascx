@@ -4,7 +4,7 @@
         <div <%#ControlWidth== "grid_2" ? "class='grid_2 alpha margin-top15'" :"class='grid_3'" %> >
             <div style='height:270px;' <%#ControlWidth== "grid_2" ? "class='content-block-inner'" :"class='border-light border-radius5 content-block'" %> >
                 <a href="/<%#DataBinder.Eval( Container.DataItem, "MakeMaskingName" ).ToString()+"-bikes/"+DataBinder.Eval( Container.DataItem, "MaskingName" ).ToString() %>/">
-                    <img alt="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" title="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" src="http://<%# DataBinder.Eval( Container.DataItem, "HostUrl").ToString() %><%# DataBinder.Eval( Container.DataItem, "ImagePath").ToString() %>" width="<%= ImageWidth %>" hspace="0" vspace="0" border="0" />
+                    <img alt="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" title="<%# DataBinder.Eval( Container.DataItem, "BikeName" ) %>" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval( Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval( Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._210x118) %>" width="<%= ImageWidth %>" hspace="0" vspace="0" border="0" />
                 </a>                
                 <h3 class="margin-top5">
                     <a href="/<%# DataBinder.Eval( Container.DataItem, "MakeMaskingName" ).ToString()+"-bikes/"+DataBinder.Eval( Container.DataItem, "MaskingName" ).ToString() %>/"><%# DataBinder.Eval( Container.DataItem, "BikeName" ) %></a>

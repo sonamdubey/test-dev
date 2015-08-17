@@ -44,9 +44,9 @@
 						        <tr>
                                     <td width="100">
                                         <div style="float:left;" id='dtlstPhotos_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1" ? "hide" : "show" %>'> 
-                                            <img class='img-border' id="imgUpload" src="<%# ImagingFunctions.GetPathToShowImages("/bikewaleimg/used/S" + inquiryId + "/" + DataBinder.Eval( Container.DataItem, "ImageUrlThumbSmall").ToString(), DataBinder.Eval( Container.DataItem, "HostURL").ToString() ) %>" />
+                                            <img class='img-border' id="imgUpload" src="<%# (ImagingFunctions.GetPathToShowImages("/144X81/"+DataBinder.Eval( Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval( Container.DataItem, "HostURL").ToString() )).Replace("http://http://","http://") %>" />
                                         </div>
-                                        <div style="float:left;" id ='dtlstPhotosPending_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='pending <%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "show" : "hide" %>' pending="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "true" : "false" %>">
+                                        <div style="float:left;width:144px;" id ='dtlstPhotosPending_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='pending <%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "show" : "hide" %>' pending="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "true" : "false" %>">
                                             <p style="color:#555555;font-weight:bold;">
                                             Processing...
                                             <img  align="center" src='http://img.aeplcdn.com/loader.gif'/>
@@ -119,7 +119,7 @@
                     for (var i = 0; i < obj_response.Table.length; i++) {
 
                         imageList = imageList.replace(obj_response.Table[i].Id + ',', '');
-                        var imgUrl = "http://" + obj_response.Table[i].HostUrl + obj_response.Table[i].DirectoryPath + obj_response.Table[i].ImageUrlThumbSmall;
+                        var imgUrl = obj_response.Table[i].HostUrl +"/144X81/"+ obj_response.Table[i].DirectoryPath + obj_response.Table[i].OriginalImagePath;
                         if (pendingList.indexOf(obj_response.Table[i].Id) > -1)
                             pendingList.splice(pendingList.indexOf(obj_response.Table[i].Id), 1);
 

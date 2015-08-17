@@ -36,8 +36,11 @@
 			<asp:Label ID="lblDetails" runat="server" />
 			<asp:DataList ID="dlstPhoto" DataKeyField="ID" runat="server" RepeatDirection="Horizontal" RepeatColumns="3" ItemStyle-VerticalAlign="top">
 				<itemtemplate>
-					<a rel="slidePhoto" target="_blank" href="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathLarge" ).ToString() %>" title="<b><%# DataBinder.Eval( Container.DataItem, "Caption" ) %></b>" />
+					<%--<a rel="slidePhoto" target="_blank" href="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathLarge" ).ToString() %>" title="<b><%# DataBinder.Eval( Container.DataItem, "Caption" ) %></b>" />
 						<img alt="<%# DataBinder.Eval( Container.DataItem, "Name" ) %>" border="0" style="margin:0px 45px 10px 0px;cursor:pointer;" src="<%# "http://" + DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() + DataBinder.Eval( Container.DataItem, "ImagePathThumbNail" ).ToString() %>" title="Click to view larger photo" />
+					</a>--%>
+                    <a rel="slidePhoto" target="_blank" href="<%# Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString(),DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() ,"310x174") %>" title="<b><%# DataBinder.Eval( Container.DataItem, "Caption" ) %></b>" />
+						<img alt="<%# DataBinder.Eval( Container.DataItem, "Name" ) %>" border="0" style="margin:0px 45px 10px 0px;cursor:pointer;" src="<%# Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString(),DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() ,Bikewale.Utility.ImageSize._310x174) %>" title="Click to view larger photo" />
 					</a>
 				</itemtemplate>
 			</asp:DataList>

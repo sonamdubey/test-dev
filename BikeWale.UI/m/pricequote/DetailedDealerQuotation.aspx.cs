@@ -236,7 +236,8 @@ namespace Bikewale.Mobile.BikeBooking
                 if (_objPQ != null)
                 {
                     
-                    ImgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + _objPQ.objQuotation.LargePicUrl, _objPQ.objQuotation.HostUrl);
+                    //ImgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + _objPQ.objQuotation.LargePicUrl, _objPQ.objQuotation.HostUrl);
+                    ImgPath = Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath, _objPQ.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
                     BikeName = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName + " " + _objPQ.objQuotation.objVersion.VersionName;
                     MakeModel = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName;
                     //hide book a bike button from page when booking amount is 0

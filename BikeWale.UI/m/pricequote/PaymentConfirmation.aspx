@@ -26,7 +26,8 @@
                 <span class="f-bold"><%= objCustomer.objColor.ColorName %></span>
             </div>
             <div class="full-border bike-img margin-top-10">
-            	<img src="<%= Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+_objPQ.objQuotation.LargePicUrl,_objPQ.objQuotation.HostUrl) %>" alt="" title="" border="0" />
+            	<%--<img src="<%= Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+_objPQ.objQuotation.LargePicUrl,_objPQ.objQuotation.HostUrl) %>" alt="" title="" border="0" />--%>
+                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath,_objPQ.objQuotation.HostUrl,Bikewale.Utility.ImageSize._640x348) %>" alt="" title="" border="0" />
             </div>
             <div class="offer-div margin-top-10">
                 <div class="f-bold">Exclusive Offers on Online Booking</div>

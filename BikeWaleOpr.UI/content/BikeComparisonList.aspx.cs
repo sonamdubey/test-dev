@@ -24,7 +24,7 @@ namespace BikeWaleOpr.Content
         protected HtmlInputHidden hdn_drpModel1, hdn_drpVersion1, hdn_drpModel2, hdn_drpVersion2;
         protected HtmlInputFile filPhoto;
         protected HtmlInputCheckBox chkIsActive;
-        protected string cId = string.Empty, hostUrl = string.Empty, imagePath = string.Empty, imgName = string.Empty, timeStamp = CommonOpn.GetTimeStamp();
+        protected string cId = string.Empty, hostUrl = string.Empty, originalImgPath = string.Empty, timeStamp = CommonOpn.GetTimeStamp();
         public string hostURL = string.Empty;
 
         public string SelectedVersion1
@@ -297,9 +297,7 @@ namespace BikeWaleOpr.Content
 
                             hostUrl = dr["HostURL"].ToString();
                             hostURL = dr["HostURL"].ToString();
-                            imagePath = dr["ImagePath"].ToString();
-                            imgName = dr["ImageName"].ToString();
-                            Trace.Warn(hostUrl + imagePath + imgName);
+                            originalImgPath = dr["OriginalImagePath"].ToString();
                             chkIsActive.Checked = Convert.ToBoolean(dr["IsActive"].ToString());
                         }
                     }
@@ -418,13 +416,15 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Created By : Sadhana Upadhyay on 11th Feb 2014
         /// Summary : To save Compare Bike Image using RabbitMQ
+        /// Modified By : Sadhana Upadhyay on 11 Aug 2015
+        /// Summary : To change image saving logic for IPC
         /// </summary>
         /// <param name="cId"></param>
         /// <returns></returns>
         void UploadImage(string cId)
         {
             CommonOpn co = new CommonOpn();
-            string imgPath = ImagingOperations.GetPathToSaveImages("\\bikewaleimg\\bikecomparison\\");
+            string imgPath = ImagingOperations.GetPathToSaveImages("\\bw\\bikecomparison\\");
             
 
             try
@@ -434,30 +434,32 @@ namespace BikeWaleOpr.Content
                     Directory.CreateDirectory(imgPath);
                 }
 
-                // Trace.Warn("Saving Path : " + galleryPath + drpVersion.SelectedValue + "_" + drpVersion1.SelectedValue + ".jpg");
                 string imageName = (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg").Replace(" ","").ToLower();
                 // upload file for temporary purpose
                 Trace.Warn("Inside RabbitMQ");
                 //rabbitmq code here 
                 string hostUrl = ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString();
-                string imageUrl = "http://" + hostUrl + "/bikewaleimg/bikecomparison/" + imageName;
+                string imageUrl = "http://" + hostUrl + "/bw/bikecomparison/" + imageName;
+                //Save Original image
+                ImagingOperations.SaveImageContent(filPhoto, "/bw/bikecomparison/" + imageName);
+
                 RabbitMqPublish rabbitmqPublish = new RabbitMqPublish();
                 NameValueCollection nvc = new NameValueCollection();
                 //add items to nvc
-                ImagingOperations.SaveImageContent(filPhoto, "/bikewaleimg/bikecomparison/" + imageName);
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ID).ToLower(), cId);
-                Trace.Warn("Compare Id : " + cId);
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CATEGORY).ToLower(), "BikeComparisionList");
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CUSTOMSIZEWIDTH).ToLower(), "-1");
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.CUSTOMSIZEHEIGHT).ToLower(), "-1");
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISWATERMARK).ToLower(), Convert.ToString(false));
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISCROP).ToLower(), Convert.ToString(false));
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMAIN).ToLower(), Convert.ToString(false));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(false));
+                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(true));
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ONLYREPLICATE).ToLower(), Convert.ToString(true));
-                nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl);
-                nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.IMAGETARGETPATH).ToLower(), "/bikewaleimg/bikecomparison/" + imageName + "?" + timeStamp);
-                rabbitmqPublish.PublishToQueue("BikeImage", nvc);
+                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl);
+                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.IMAGETARGETPATH).ToLower(), "/bw/bikecomparison/" + imageName + "?" + timeStamp);
+                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMASTER).ToLower(), "1");
+
+                rabbitmqPublish.PublishToQueue(ConfigurationManager.AppSettings["ImageQueueName"], nvc);
 
                 SaveBikeComparePhoto(cId);
             }
@@ -471,6 +473,8 @@ namespace BikeWaleOpr.Content
         /// <summary>
         /// Created By : Sadhana Upadhyay on 19th Feb 2014
         /// Summary : To save Bike Comparison photo
+        /// MOdified BY : Sadhana Upadhyay on 11 Aug 2015
+        /// Summary : To save Bike photo to IPC
         /// </summary>
         void SaveBikeComparePhoto(string photoId)
         {
@@ -494,7 +498,7 @@ namespace BikeWaleOpr.Content
                     prm.Value = (drpMake1.SelectedItem.Text + "_" + drpModel1.SelectedItem.Text + "_vs_" + drpMake2.SelectedItem.Text + "_" + drpModel2.SelectedItem.Text + ".jpg?").Replace(" ", "").ToLower() + timeStamp;
 
                     prm = cmd.Parameters.Add("@ImagePath", SqlDbType.VarChar, 50);
-                    prm.Value = "/bikewaleimg/bikecomparison/";
+                    prm.Value = "/bw/bikecomparison/";
 
                     prm = cmd.Parameters.Add("@IsReplicated", SqlDbType.Bit);
                     prm.Value = 0;

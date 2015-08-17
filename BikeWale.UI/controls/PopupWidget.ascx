@@ -31,9 +31,9 @@ var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
 var pageId;
 // knockout popupData binding
 var viewModelPopup = {
-    selectedCity: ko.observable(),
+    selectedCity: ko.observable(0),
     bookingCities: ko.observableArray([]),
-    selectedArea: ko.observable(),
+    selectedArea: ko.observable(0),
     bookingAreas: ko.observableArray([])
 };
 
@@ -62,7 +62,11 @@ function FillCitiesPopup(modelId) {
                 if ($("#ddlCitiesPopup option:last-child").val() == "0") {
                     $("#ddlCitiesPopup option:last-child").remove();
                 }
+                if ($("#ddlCitiesPopup option:first-child").next().val() == "0") {
+                    $("#ddlCitiesPopup option[value=0]").remove();
+                }
                 $('#ddlCitiesPopup').trigger("chosen:updated");
+                cityChangedPopup();
             }
             else {
                 viewModelPopup.bookingCities([]);
@@ -90,7 +94,7 @@ function cityChangedPopup() {
                 }                       
                 else
                 {
-                    viewModelPopup.selectedArea=ko.observable(0);
+                    viewModelPopup.selectedArea(0);
                     viewModelPopup.bookingAreas([]);
                     $('#ddlAreaPopup').trigger("chosen:updated");
                 }                       
@@ -125,20 +129,21 @@ function isValidInfoPopup() {
 }
 
 function getPriceQuotePopup() {
+    var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
     if (isValidInfoPopup()) {
         $.ajax({
             type: 'POST',
             url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
-            data: '{"cityId":"' + viewModelPopup.selectedCity() + '", "areaId":"' + viewModelPopup.selectedArea() + '", "modelId":"' + selectedModel + '", "isMobileSource":false}',
+            data: '{"cityId":"' + cityId + '", "areaId":"' + areaId + '", "modelId":"' + selectedModel + '", "isMobileSource":false}',
             dataType: 'json',
             beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
             success: function (json) {
                 var jsonObj = $.parseJSON(json.value);
-                if (jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {                    
+                if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                     gtmCodeAppender(pageId, "Successful submission - DealerPQ", "Model : " + selectedModel + ', City : ' + viewModelPopup.selectedCity() + ', Area : ' + viewModelPopup.selectedArea());
                     window.location = "/pricequote/dealerpricequote.aspx";
                 }
-                else if (jsonObj.quoteId > 0) {                    
+                else if (jsonObj != undefined && jsonObj.quoteId > 0) {
                     gtmCodeAppender(pageId, "Successful submission - BikeWalePQ", "Model : " + selectedModel + ', City : ' + viewModelPopup.selectedCity() + ', Area : ' + viewModelPopup.selectedArea());
                     window.location = "/pricequote/quotation.aspx";
                 } else {

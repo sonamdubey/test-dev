@@ -57,7 +57,7 @@ namespace Bikewale.New
                                 dt.Rows[index]["EstimatedPriceMin"].ToString(),
                                 dt.Rows[index]["EstimatedPriceMax"].ToString(),
                                 //Bikewale.Common.ImagingFunctions.GetImagePath("/cars/") + dt.Rows[index]["LargePic"].ToString(),
-                                Bikewale.Common.ImagingFunctions.GetPathToShowImages(dt.Rows[index]["LargePicImagePath"].ToString(), dt.Rows[index]["HostURL"].ToString()),
+                                Bikewale.Utility.Image.GetPathToShowImages(dt.Rows[index]["OriginalImagePath"].ToString(), dt.Rows[index]["HostURL"].ToString(), Bikewale.Utility.ImageSize._210x118),
                                 dt.Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""), "", ""
                                 //dt.Rows[index]["UpdatedDate"].ToString(),
                                 //dt.Rows[index]["CWConfidenceText"].ToString()

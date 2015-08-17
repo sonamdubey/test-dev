@@ -45,6 +45,7 @@
     <Compile Include="BWHttpClient.cs" />
     <Compile Include="Distance.cs" />
     <Compile Include="Format.cs" />
+    <Compile Include="Image.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

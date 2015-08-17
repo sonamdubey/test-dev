@@ -116,7 +116,7 @@ namespace Bikewale.New
         private void FetchUpcomingBikes(string makeId, string makeName, string sort)
         {
             SqlCommand cmd = new SqlCommand();
-            SelectClause = " MK.Name MakeName,MK.MaskingName AS MakeMaskingName , Mo.Name AS ModelName,Mo.MaskingName as ModelMaskingName, ECL.ExpectedLaunch, ECL.EstimatedPriceMin, ECL.EstimatedPriceMax, ECL.HostURL, ECL.LargePicImagePath, Csy.SmallDescription AS Description ";
+            SelectClause = " MK.Name MakeName,MK.MaskingName AS MakeMaskingName , Mo.Name AS ModelName,Mo.MaskingName as ModelMaskingName, ECL.ExpectedLaunch, ECL.EstimatedPriceMin, ECL.EstimatedPriceMax, ECL.HostURL, ECL.LargePicImagePath, Csy.SmallDescription AS Description, ECL.OriginalImagePath ";
             FromClause = " ExpectedBikeLaunches ECL With(NoLock) "
                 + " LEFT JOIN BikeSynopsis Csy With(NoLock) ON ECL.BikeModelId = Csy.ModelId AND Csy.IsActive = 1 "
                 + " INNER JOIN BikeModels Mo With(NoLock) ON ECL.BikeModelId = Mo.ID "
@@ -153,7 +153,7 @@ namespace Bikewale.New
             {
                 SqlCommand cmd = new SqlCommand();
 
-                SelectClause = " MK.Name MakeName, MK.MaskingName AS MakeMaskingName, Mo.Name AS ModelName,Mo.MaskingName as ModelMaskingName, ECL.ExpectedLaunch, ECL.EstimatedPriceMin, ECL.EstimatedPriceMax, ECL.HostURL, ECL.LargePicImagePath, Csy.SmallDescription AS Description ";
+                SelectClause = " MK.Name MakeName, MK.MaskingName AS MakeMaskingName, Mo.Name AS ModelName,Mo.MaskingName as ModelMaskingName, ECL.ExpectedLaunch, ECL.EstimatedPriceMin, ECL.EstimatedPriceMax, ECL.HostURL, ECL.LargePicImagePath, Csy.SmallDescription AS Description, ECL.OriginalImagePath ";
                 FromClause = " ExpectedBikeLaunches ECL With(NoLock) "
                     + " LEFT JOIN BikeSynopsis Csy With(NoLock) ON ECL.BikeModelId = Csy.ModelId AND Csy.IsActive = 1 "
                     + " INNER JOIN BikeModels Mo With(NoLock) ON ECL.BikeModelId = Mo.ID "

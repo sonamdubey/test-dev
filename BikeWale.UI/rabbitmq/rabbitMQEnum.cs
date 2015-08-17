@@ -7,6 +7,8 @@ namespace Bikewale.RabbitMQ
     /// <summary>
     /// Created By : Sadhana Upadhyay on 31th Dec 2013
     /// Summary : ImageKey for rabbitMQ variable
+    /// Modified By : Sadhana Upadhyay on 11 Aug 2015
+    /// Summary : Added Two paramere ISMASTER, ASPECTRATIO
     /// </summary>
     public enum ImageKeys
     {
@@ -34,7 +36,11 @@ namespace Bikewale.RabbitMQ
         [Description("imagetargetpath")]
         IMAGETARGETPATH,
         [Description("onlyreplicate")]
-        ONLYREPLICATE
+        ONLYREPLICATE,
+        [Description("ismaster")]
+        ISMASTER,
+        [Description("aspectratio")]
+        ASPECTRATIO
     }
 
     /// <summary>

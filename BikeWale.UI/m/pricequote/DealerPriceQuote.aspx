@@ -37,7 +37,8 @@
     <div class="box1 box-top new-line5 bot-red new-line10">
         <%--<h1 class="margin-bottom10"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Price Quote</h1>--%>
         <div class="full-border bike-img">
-            <img src="<%= ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+objPrice.LargePicUrl,objPrice.HostUrl) %>" alt="" title="" border="0" />
+            <%--<img src="<%= ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+objPrice.LargePicUrl,objPrice.HostUrl) %>" alt="" title="" border="0" />--%>
+            <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPrice.OriginalImagePath,objPrice.HostUrl,Bikewale.Utility.ImageSize._640x348) %>" alt="" title="" border="0" />
         </div>
         <div class="<%= objColors.Count == 0 ?"hide":"hide" %>">
             <div class="full-border new-line10 selection-box"><b>Color Options: </b>

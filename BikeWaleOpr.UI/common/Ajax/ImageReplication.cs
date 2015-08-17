@@ -145,5 +145,35 @@ namespace BikeWaleOpr.Common.Ajax
             }
             return json;
         }   // End of checkImageStatus_SeriesPhotos
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 10 Aug 2015
+        /// Summary : To check Status of image Where replicated or not
+        /// </summary>
+        /// <param name="imageId"></param>
+        /// <param name="Category"></param>
+        /// <returns></returns>
+        [AjaxPro.AjaxMethod()]
+        public string CheckImageStatusByCategory(string imageId,string Category)
+        {
+            string json = string.Empty;
+            BikeCommonRQ bikeRQ = new BikeCommonRQ();
+
+            try
+            {
+                ImageCategories imageType = (ImageCategories)Enum.Parse(typeof(ImageCategories), Category, true);
+
+                DataSet ds = bikeRQ.CheckImageStatus(imageId, imageType);
+
+                if (ds.Tables.Count > 0)
+                    json = JSON.GetJSONString(ds.Tables[0]);
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "ImageReplication.checkImageStatus_BikeVersion");
+                objErr.SendMail();
+            }
+            return json;
+        }
     }   //End of class
 }   //End of namespace

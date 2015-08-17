@@ -141,23 +141,24 @@ namespace Bikewale.New
         /// <param name="modelReviewRate">Model review rating given by the users (out of 5)</param>
         /// <param name="minPrice">Minimum price of the Model</param>
         /// <param name="maxPrice">Maximum price of the model</param>
-        /// <param name="smallPic">Thumb image of the model</param>
+        /// <param name="originalImagePath">Thumb image of the model</param>
         /// <param name="modelReviewCount">Model review count</param>
         /// <param name="makeName">Name of the Make like Maruti-Suzuki</param>
         /// <param name="modelName">Name of the Model like Swift</param>
         /// <returns></returns>
         public string GetModelRow(string modelRank, string modelId, string modelCount, string bikeModel, string modelReviewRate,
-                                   string minPrice, string maxPrice, string hostUrl, string smallPic, string modelReviewCount, string makeName, string modelMappingName,string makeMappingname)
+                                   string minPrice, string maxPrice, string hostUrl, string originalImagePath, string modelReviewCount, string makeName, string modelMappingName,string makeMappingname)
         {
             StringBuilder sb = new StringBuilder();
 
             if (modelRank == "1")
             {
-               
-                string imgSrc = smallPic == "" ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : MakeModelVersion.GetModelImage(hostUrl,"/bikewaleimg/models/" + smallPic);
+
+                string imgSrc = originalImagePath == "" ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : MakeModelVersion.GetModelImage(hostUrl, originalImagePath, Bikewale.Utility.ImageSize._110x61);
                 Trace.Warn("Bike Model :: ",bikeModel);
                 Trace.Warn("Bike Model Name:::", modelMappingName);
                 Trace.Warn("Bike Make Name:::", makeMappingname);
+                Trace.Warn("imgSrc",imgSrc);
                 sb.Append("<tr id='mod_" + modelId + "' class='model-row version-row dt_body'>");
                 sb.Append("<td><img alt='" + bikeModel + "' title='" + bikeModel + "' src='" + imgSrc + "' /></td>");
                 sb.Append("<td><a class='href-title' href='/" + makeMappingname + "-bikes/" + modelMappingName + "/'>" + bikeModel);

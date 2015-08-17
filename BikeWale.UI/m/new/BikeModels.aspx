@@ -149,7 +149,8 @@
                         <tbody>
                             <tr>
                                 <td style="width: 100px; vertical-align: top;">
-                                    <img itemprop="photo" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= MakeModelVersion.GetModelImage(objModelEntity.HostUrl, "/bikewaleimg/models/" + objModelEntity.SmallPicUrl) %>" width="90" />
+                                    <%--<img itemprop="photo" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= MakeModelVersion.GetModelImage(objModelEntity.HostUrl, "/bikewaleimg/models/" + objModelEntity.SmallPicUrl) %>" width="90" />--%>
+                                    <img itemprop="photo" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= MakeModelVersion.GetModelImage(objModelEntity.HostUrl, objModelEntity.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>" width="90" />
                                 </td>
                                 <td valign="top">
                                     <div class="darkgray"><%=objModelEntity.New ? "Ex-Showroom Price: " : "Last Recorded Price: " %><%= Bikewale.Common.Configuration.GetDefaultCityName %></div>
@@ -213,7 +214,8 @@
                         <tbody>
                             <tr>
                                 <td style="width: 100px; vertical-align: top;">
-                                    <img itemprop="photo" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= MakeModelVersion.GetModelImage(objModelEntity.HostUrl, "/bikewaleimg/models/" + objModelEntity.SmallPicUrl) %>" width="90" />
+                                    <%--<img itemprop="photo" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= MakeModelVersion.GetModelImage(objModelEntity.HostUrl, "/bikewaleimg/models/" + objModelEntity.SmallPicUrl) %>" width="90" />--%>
+                                    <img itemprop="photo" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= MakeModelVersion.GetModelImage(objModelEntity.HostUrl, objModelEntity.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>" width="90" />
                                 </td>
                                 <td valign="top">
                                     <div class="darkgray"><%=objModelEntity.New ? "Ex-Showroom Price: " : "Last Recorded Price: " %><%= Bikewale.Common.Configuration.GetDefaultCityName %></div>
@@ -263,7 +265,8 @@
                               { %>
                             <tr>
                                 <td style="width: 100px; vertical-align: top;">
-                                    <img title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= Bikewale.Common.ImagingFunctions.GetPathToShowImages(objUpcomingBike.LargePicImagePath,objUpcomingBike.HostUrl) %>" width="90" />
+                                    <%--<img title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= Bikewale.Common.ImagingFunctions.GetPathToShowImages(objUpcomingBike.LargePicImagePath,objUpcomingBike.HostUrl) %>" width="90" />--%>
+                                    <img title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= Bikewale.Utility.Image.GetPathToShowImages(objUpcomingBike.OriginalImagePath,objUpcomingBike.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" width="90" />
                                 </td>
                                 <td valign="top">
                                     <div class="darkgray">Expected Launch:</div>

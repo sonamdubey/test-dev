@@ -37,7 +37,8 @@
     <div class="grid_8  margin-top10">  
         <h1><a href="/<%=  MakeMaskingName %>-bikes/<%= ModelMaskingName %>/"><%= BikeName %> </a>User Reviews</h1>     
 		<div class="grid_3 alpha margin-top10 margin-top15">
-			<img src="<%= Bikewale.Common.MakeModelVersion.GetModelImage(HostUrl, "/bikewaleimg/models/" + LargePic) %>" title="<%= BikeName %>"/>
+			<%--<img src="<%= Bikewale.Common.MakeModelVersion.GetModelImage(HostUrl, "/bikewaleimg/models/" + LargePic) %>" title="<%= BikeName %>"/>--%>
+            <img src="<%= Bikewale.Common.MakeModelVersion.GetModelImage(HostUrl, OriginalImagePath,Bikewale.Utility.ImageSize._210x118) %>" title="<%= BikeName %>"/>
 			<div style="margin-top:5px; line-height:17px;">
 				<span class="text-highlight"><%=!IsNew && IsUsed ? "Last Recorded Price Rs.":"Starts at Rs." %> <%= CommonOpn.FormatPrice( ModelStartPrice ) %></span><br />
 				<span class="margin-top5"><a title="<%= MakeName%> <%= ModelName%> details" href='/<%= MakeMaskingName %>-bikes/<%= ModelMaskingName %>/'><%= ModelName %> Details</a><% if (IsNew && IsUsed) { %><span class="text-grey"> | </span><a class="fillPopupData" href="/pricequote/default.aspx?model=<%= modelId %>" modelId="<%= modelId %>">On Road Price</a><% } %></span>

@@ -14,6 +14,7 @@ using Ajax;
 using Bikewale.RabbitMQ;
 using System.Collections.Specialized;
 using RabbitMqPublishing;
+using System.Configuration;
 
 namespace Bikewale.Used
 {
@@ -167,6 +168,12 @@ namespace Bikewale.Used
             }
 		}
 		
+        /// <summary>
+        /// Modified By : Sadhana Upadhyay on 11 Aug 2015
+        /// Summary : To save Bike Image 
+        /// </summary>
+        /// <param name="inquiryId"></param>
+        /// <returns></returns>
 		bool UploadPhotoFile(string inquiryId)
 		{
 			bool isCompleted;
@@ -195,7 +202,7 @@ namespace Bikewale.Used
 			try
 			{
                 //FolderPath = Server.MapPath("~/bikewaleimg/used/").ToLower() + "S" + inquiryId + @"\\";
-                FolderPath = ImagingFunctions.GetPathToSaveImages("\\bikewaleimg\\used\\S" + inquiryId + @"\\");
+                FolderPath = ImagingFunctions.GetPathToSaveImages("\\bw\\used\\S" + inquiryId + @"\\");
                 Trace.Warn("FolderPath", FolderPath);
 
                 Trace.Warn("host : ", Request.ServerVariables["HTTP_HOST"]);
@@ -227,10 +234,11 @@ namespace Bikewale.Used
 
 				fileInput2.PostedFile.SaveAs(FileSavedLocation);
 
-                SellBikeCommon objSell = new SellBikeCommon();
-                photoId = objSell.SaveBikePhotos(inquiryId, LargeImgName, MediumImgName, ThumbImgName, "", false, false);
+                string dirPath = "/bw/used/S" + inquiryId + "/";
 
-                string dirPath = "/bikewaleimg/used/S" + inquiryId + "/";
+                SellBikeCommon objSell = new SellBikeCommon();
+                photoId = objSell.SaveBikePhotos(inquiryId, dirPath + OriginalImageName, "", false, false);
+
                 string imageUrl = BikeCommonRQ.UploadImageToCommonDatabase(photoId, FileNameTime + FileExtension, ImageCategories.BIKEWALESELLER, dirPath);
 
                 Trace.Warn("before rabbitmq");
@@ -246,27 +254,10 @@ namespace Bikewale.Used
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISWATERMARK).ToLower(), Convert.ToString(false));
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISCROP).ToLower(), Convert.ToString(false));
                 nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMAIN).ToLower(), Convert.ToString(false));
-                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(false));
-                rabbitmqPublish.PublishToQueue("BikeImage", nvc);
+                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(true));
+                nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMASTER).ToLower(), "1");
+                rabbitmqPublish.PublishToQueue(ConfigurationManager.AppSettings["ImageQueueName"], nvc);
 
-                //RabbitMq publish code 
-				
-				// Create image of 640x428				
-                //Bikewale.Common.ImagingFunctions.ResizeImage(FileSavedLocation, LargeImgPath, 640, 428);
-				
-                //// Create 300x225 Size
-                //Bikewale.Common.ImagingFunctions.ResizeImage(FileSavedLocation, MediumImgPath, 300, 225);
-				
-                //// Create Thumb Size
-                //Bikewale.Common.ImagingFunctions.ResizeImage(FileSavedLocation, ThumbImgPath, 80, 60);
-				
-                //File.Delete(FileSavedLocation); 
-				
-                //Trace.Warn("ThumbImgName : " + ThumbImgName + " MediumImgName " + MediumImgName + " LargeImgName " + LargeImgName);
-
-                //SellBikeCommon objSell = new SellBikeCommon();				
-                //photoId = objSell.SaveBikePhotos(inquiryId, LargeImgName, MediumImgName, ThumbImgName, "", false, false);
-				
 				BindPhotos();
 				
 				isCompleted = true;
@@ -297,38 +288,12 @@ namespace Bikewale.Used
             return checkStatus; 
         }
 
-
-		// File path properties	
-		string ThumbImgPath
-		{
-			get{ return FolderPath + ThumbImgName; }
-		}
-				
-		string MediumImgPath
-		{
-			get{ return FolderPath + MediumImgName; }	
-		}
-				
-		string LargeImgPath
-		{
-			get{ return FolderPath + LargeImgName; }			
-		}
-		
 		// File name properties
-		string ThumbImgName
-		{
-			get{ return FileNameTime + "_80x60" + FileExtension; }
-		}
-				
-		string MediumImgName
-		{
-			get{ return FileNameTime + "_300x225" + FileExtension; }	
-		}
-				
-		string LargeImgName
-		{
-			get{ return FileNameTime + "_640x428" + FileExtension; }			
-		}
+        //Added By : Sadhana Upadhyay on 30 July 2015 for Original image path
+        string OriginalImageName
+        {
+            get { return FileNameTime + FileExtension; }
+        }
 		
 		string _fileExtension = "";
 		string FileExtension

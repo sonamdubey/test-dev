@@ -57,8 +57,8 @@
                         <asp:Repeater ID="rptPhotos" runat="server">
 	                        <itemtemplate>
                                 <li>
-                                    <a rel="slide" href='<%# ImagingFunctions.GetPathToShowImages( DataBinder.Eval(Container.DataItem, "DirectoryPath").ToString() + DataBinder.Eval(Container.DataItem, "ImageUrlFull").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString()) %>'>
-				                        <img alt="Loading..." src='<%# ImagingFunctions.GetPathToShowImages( DataBinder.Eval(Container.DataItem, "DirectoryPath").ToString() + DataBinder.Eval(Container.DataItem, "ImageUrlThumbSmall").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString() ) %>' border="0" />
+                                    <a rel="slide" href='<%# Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>'>
+				                        <img alt="Loading..." src='<%# ImagingFunctions.GetPathToShowImages( DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174 ) %>' border="0" />
 			                        </a>
                                 </li>
 	                        </itemtemplate>

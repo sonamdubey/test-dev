@@ -62,7 +62,7 @@ namespace Bikewale.News
 
             if (_slug != string.Empty && _subCat == string.Empty)
             {
-                selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet, I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail ";
+                selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet, I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
                 selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
                 fromClause = " Con_EditCms_Tags CT With(NoLock) "
                         + " Inner Join Con_EditCms_BasicTags BT With(NoLock) On BT.TagId = CT.Id "
@@ -76,7 +76,7 @@ namespace Bikewale.News
             }
             else if (_slug == string.Empty && _subCat != string.Empty)
             {
-                selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet ,  I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail";
+                selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet ,  I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
                 selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
                 fromClause = " Con_EditCms_SubCategories SC With(NoLock) "
                             + " Inner Join Con_EditCms_BasicSubCategories BSC With(NoLock) On BSC.SubCategoryId = SC.Id "
@@ -90,7 +90,7 @@ namespace Bikewale.News
             }
             else
             {
-                selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet,  I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail ";
+                selectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url, CB.MainImageSet,  I.HostUrl, I.ImagePathLarge, I.ImagePathThumbnail,I.OriginalImgPath ";
                 selectClause = selectClause + ", (Select top 1 CPC.Data From Con_EditCms_Pages AS CP, Con_EditCms_PageContent AS CPC With(NoLock) WHERE CP.BasicId = CB.Id and CPC.PageId = CP.Id) as Content";
                 fromClause = " Con_EditCms_Basic AS CB With(NoLock) "
                            + " LEFT JOIN Con_EditCms_Images AS I With(NoLock) ON I.BasicId = CB.Id AND I.IsMainImage = 1 ";
@@ -217,8 +217,8 @@ namespace Bikewale.News
                     ds.Tables[0].Rows[index]["Views"].ToString(),
                     //Bikewale.Common.ImagingFunctions.GetImagePath("/bikewaleimg/ec/") + ds.Tables[0].Rows[index]["BasicId"].ToString() + "/img/m/" + ds.Tables[0].Rows[index]["BasicId"].ToString() + "_m",
                     //Bikewale.Common.ImagingFunctions.GetImagePath("/bikewaleimg/ec/") + ds.Tables[0].Rows[index]["BasicId"].ToString() + "/img/m/" + ds.Tables[0].Rows[index]["BasicId"].ToString() + "_l",
-                    Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathThumbnail"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
-                    Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathLarge"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
+                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._310x174),
+                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._642x361),
                     ds.Tables[0].Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
                     ds.Tables[0].Rows[index]["Content"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
                     relatedItem2,
@@ -235,8 +235,10 @@ namespace Bikewale.News
                     ds.Tables[0].Rows[index]["AuthorName"].ToString(),
                     ds.Tables[0].Rows[index]["DisplayDate"].ToString(),
                     ds.Tables[0].Rows[index]["Views"].ToString(),
-                    Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathThumbnail"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
-                    Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathLarge"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
+                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathThumbnail"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
+                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathLarge"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
+                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._310x174),
+                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._642x361),
                     ds.Tables[0].Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
                     ds.Tables[0].Rows[index]["Content"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
                     relatedItem1,
@@ -253,8 +255,10 @@ namespace Bikewale.News
                     ds.Tables[0].Rows[index]["AuthorName"].ToString(),
                     ds.Tables[0].Rows[index]["DisplayDate"].ToString(),
                     ds.Tables[0].Rows[index]["Views"].ToString(),
-                    Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathThumbnail"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
-                    Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathLarge"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
+                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathThumbnail"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
+                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathLarge"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
+                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._310x174),
+                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._642x361),
                     ds.Tables[0].Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
                     ds.Tables[0].Rows[index]["Content"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
                     relatedItem1,
@@ -271,8 +275,10 @@ namespace Bikewale.News
                     ds.Tables[0].Rows[index]["AuthorName"].ToString(),
                     ds.Tables[0].Rows[index]["DisplayDate"].ToString(),
                     ds.Tables[0].Rows[index]["Views"].ToString(),
-                    Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathThumbnail"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
-                    Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathLarge"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
+                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathThumbnail"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
+                    //Bikewale.Common.ImagingFunctions.GetPathToShowImages(ds.Tables[0].Rows[index]["ImagePathLarge"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString()),
+                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._310x174),
+                    Bikewale.Utility.Image.GetPathToShowImages(ds.Tables[0].Rows[index]["OriginalImgPath"].ToString(), ds.Tables[0].Rows[index]["HostUrl"].ToString(), Bikewale.Utility.ImageSize._642x361),
                     ds.Tables[0].Rows[index]["Description"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
                     ds.Tables[0].Rows[index]["Content"].ToString().Replace("\n", "").Replace("\r", "").Replace("\t", ""),
                     relatedItem1,

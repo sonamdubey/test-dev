@@ -43,7 +43,8 @@
 		    <%}%>
 		    on <%= entryDate %></div>      
         <div class="grid_3 alpha margin-bottom15 margin-top15">
-            <img src="<%= Bikewale.Common.MakeModelVersion.GetModelImage(HostUrl, "/bikewaleimg/models/" + LargePic) %>" title="<%=BikeMake%> <%=BikeModel%>" />
+            <%--<img src="<%= Bikewale.Common.MakeModelVersion.GetModelImage(HostUrl, "/bikewaleimg/models/" + LargePic) %>" title="<%=BikeMake%> <%=BikeModel%>" />--%>
+            <img src="<%= Bikewale.Common.MakeModelVersion.GetModelImage(HostUrl,OriginalImagePath,Bikewale.Utility.ImageSize._210x118) %>" title="<%=BikeMake%> <%=BikeModel%>" />
 		    <div class="margin-top10">
 			    <span class="text-highlight"><%=!IsNew && IsUsed ? "Last Recorded Price Rs: " : "Start at Rs: " %> <%= CommonOpn.FormatPrice( ModelStartPrice ) %></span><br />
 			    <span><a title="<%= BikeMake %> <%= BikeModel %> details" href='/<%= MakeMaskingName%>-Bikes/<%= ModelMaskingName %>/'><%=BikeModel%> Details</a><% if(IsNew && IsUsed) { %><span class="text-grey"> | </span><a href="/pricequote/default.aspx?model=<%= ModelId %>" class="fillPopupData" modelId="<%= ModelId %>">Check on Road Price</a><% } %></span>

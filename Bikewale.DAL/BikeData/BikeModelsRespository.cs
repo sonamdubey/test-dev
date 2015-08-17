@@ -148,7 +148,8 @@ namespace Bikewale.DAL.BikeData
                         cmd.Parameters.Add("@SeriesMaskingName", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@ReviewCount", SqlDbType.Int).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@ReviewRate", SqlDbType.Float).Direction = ParameterDirection.Output;
-
+                        cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
+                        
                         conn.Open();
                         cmd.ExecuteNonQuery();
 
@@ -176,7 +177,7 @@ namespace Bikewale.DAL.BikeData
                             t.ModelSeries.MaskingName = Convert.ToString(cmd.Parameters["@SeriesMaskingName"].Value);
                             t.ReviewCount = Convert.ToInt32(cmd.Parameters["@ReviewCount"].Value);
                             t.ReviewRate = Convert.ToDouble(cmd.Parameters["@ReviewRate"].Value);
-
+                            t.OriginalImagePath= Convert.ToString(cmd.Parameters["@OriginalImagePath"].Value);
                         }
                     }
                 }
@@ -349,7 +350,8 @@ namespace Bikewale.DAL.BikeData
                                 EstimatedPriceMin = Convert.ToUInt64(dr["EstimatedPriceMin"]),
                                 EstimatedPriceMax = Convert.ToUInt64(dr["EstimatedPriceMax"]),
                                 HostUrl = Convert.ToString(dr["HostURL"]),
-                                LargePicImagePath = Convert.ToString(dr["LargePicImagePath"])
+                                LargePicImagePath = Convert.ToString(dr["LargePicImagePath"]),
+                                OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
                             };
                         }
                     }
@@ -436,7 +438,7 @@ namespace Bikewale.DAL.BikeData
                                 objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objModel.ModelBase.ModelName = Convert.ToString(dr["ModelName"]);
                                 objModel.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-
+                                objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objModelList.Add(objModel);
 
                                 recordCount = Convert.ToInt32(dr["RecordCount"]);
@@ -517,7 +519,7 @@ namespace Bikewale.DAL.BikeData
                                 objModels.LaunchDate = Convert.ToDateTime(dr["LaunchDate"]);
                                 objModels.BasicId = Convert.ToUInt64(dr["BasicId"]);
                                 objModels.RoadTestUrl = dr["RoadTestUrl"].ToString();
-
+                                objModels.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
                                 objModelList.Add(objModels);
 
                                 recordCount = Convert.ToInt16(dr["RecordCount"]);

@@ -110,8 +110,9 @@ namespace Bikewale.Controls
 
                         if (value != null)
                         {
-                            selectedImagePath = Bikewale.Common.ImagingFunctions.GetPathToShowImages(value.ImagePathLarge, value.HostUrl);
-
+                            //selectedImagePath = Bikewale.Common.ImagingFunctions.GetPathToShowImages(value.ImagePathLarge, value.HostUrl);
+                            selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(value.OriginalImgPath, value.HostUrl, Bikewale.Utility.ImageSize._640x348);
+                            //OriginalImagePath
                             selectedImageCategoryName = value.ImageCategory;
                             selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : "";
                         }
@@ -119,8 +120,8 @@ namespace Bikewale.Controls
                     else // first image not selected
                     {
                         // Retrive the first image from list
-                        selectedImagePath = Bikewale.Common.ImagingFunctions.GetPathToShowImages(_objImageList[0].ImagePathLarge, _objImageList[0].HostUrl);
-
+                        //selectedImagePath = Bikewale.Common.ImagingFunctions.GetPathToShowImages(_objImageList[0].ImagePathLarge, _objImageList[0].HostUrl);
+                        selectedImagePath = Bikewale.Utility.Image.GetPathToShowImages(_objImageList[0].OriginalImgPath, _objImageList[0].HostUrl, Bikewale.Utility.ImageSize._640x348);
                         selectedImageCategoryName = _objImageList[0].ImageCategory;
                         selectedImageCategory = selectedImageCategoryName != string.Empty ? " - " + selectedImageCategoryName : "";
                     }

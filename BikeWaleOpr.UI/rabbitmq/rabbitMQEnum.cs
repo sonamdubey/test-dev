@@ -36,7 +36,11 @@ namespace BikeWaleOpr.RabbitMQ
         [Description("onlyreplicate")]
         ONLYREPLICATE,
         [Description("isspecialimage")]
-        ISSPECIALIMAGE
+        ISSPECIALIMAGE,
+        [Description("ismaster")]
+        ISMASTER,
+        [Description("aspectratio")]
+        ASPECTRATIO
     }
 
     /// <summary>

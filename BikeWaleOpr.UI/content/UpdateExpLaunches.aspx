@@ -129,23 +129,11 @@
                 <strong>Upload Photos: </strong> &nbsp;&nbsp;
                 <div>
                     <div style="display:inline;">
-                        <div style="width:200px;display:inline-block;border:1px solid #DBDBDC;padding:5px;">
-                            <div id ="div1" pending="<%= isReplicated =="0"? "true" : "false" %>">
-                        <% if(smallPicImgPath != string.Empty) { %>
-                            <img id="imgSmallPicPath" image-id="<%=Id %>" src="<%= isReplicated =="0"? "http://img.aeplcdn.com/loader.gif" : BikeWaleOpr.ImagingOperations.GetPathToShowImages(smallPicImgPath, hostUrl)%>" style="margin-left:30px;"/>
-                        <% } else { %>
-                            <img src="http://img.carwale.com/bikewaleimg/common/nobike.jpg" width="140px" height="80px" style="margin-left:30px;"/>
-                        <% } %>
-                        </div>
-                        </div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="file" id="filSmall" runat="server" />
-                        <div style="margin-bottom:15px;">Small Pic &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Size : 140 x 80px</div>
-                    </div>
-                    <div style="display:inline;">
-                        <div style="width:200px;display:inline-block;border:1px solid #DBDBDC;padding:5px;">
+                        <div style="width:237px;display:inline-block;border:1px solid #DBDBDC;padding:5px;">
                             <div id ="divMainImageRepTable" pending="<%= isReplicated =="0"? "true" : "false" %>">
-                                <% if(largePicImgPath != string.Empty){ %>
-                                    <img id="imgLargePicPath" image-id="<%=Id %>" src="<%= isReplicated =="0"? "http://img.aeplcdn.com/loader.gif" :  BikeWaleOpr.ImagingOperations.GetPathToShowImages(largePicImgPath, hostUrl)%>"/>
+                                <% if (originalImgPath != string.Empty)
+                                   { %>
+                                    <img id="imgLargePicPath" image-id="<%=Id %>" src="<%= isReplicated =="0"? "http://img.aeplcdn.com/loader.gif" :  BikeWaleOpr.ImagingOperations.GetPathToShowImages(hostUrl,"227X128",originalImgPath)%>"/>
                                  <% } else { %>
                                 <img src="http://img.carwale.com/bikewaleimg/common/nobike.jpg" height="125px" width="200px" />
                                 <% } %>
@@ -157,7 +145,7 @@
                                 
                             <% } %>--%>
                         </div>
-                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="file" id="filLarge" runat="server" /><div>Large Pic&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Size : 200 x 125px</div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<input type="file" id="filLarge" runat="server" /><div>Original Image
                     </div>
                 </div>
             </div>
@@ -192,8 +180,7 @@
 
                     if (obj_response.Table.length > 0) {
                         for (var i = 0; i < obj_response.Table.length; i++) {
-                            var imgUrlLarge = "http://" + obj_response.Table[i].HostUrl + obj_response.Table[i].LargePicImagePath;
-                            var imgUrlSmall = "http://" + obj_response.Table[i].HostUrl + obj_response.Table[i].SmallPicImagePath;
+                            var imgUrlLarge = obj_response.Table[i].HostUrl + "227X128" + obj_response.Table[i].OriginalImagePath;
 
                             $("#divMainImageRepTable").attr("pending", "false");
                             $("#imgLargePicPath").attr('src', imgUrlLarge);

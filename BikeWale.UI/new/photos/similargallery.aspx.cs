@@ -126,7 +126,8 @@ namespace Bikewale.New.PhotoGallery
 
         private string GetSelectClause()
         {
-            return " CB.Id, Case CB.CategoryId When 8 Then ('Road Test: ' + CMa.Name + ' ' + CMo.Name) When 1 Then CB.Title When 3 Then CB.Title Else CB.Title End As ArticleTitle, ('http://' + CB.HostURL + '/ec/' + CONVERT(VarChar, CB.Id) + '/img/m/' + CONVERT(VarChar, CB.Id) + '_m.jpg') As MainImage, CMa.Name as MakeName,CMa.MaskingName AS MakeMaskingName, CMo.Name As ModelName,CMo.MaskingName AS ModelMaskingName,  CB.EntryDate ";
+            //return " CB.Id, Case CB.CategoryId When 8 Then ('Road Test: ' + CMa.Name + ' ' + CMo.Name) When 1 Then CB.Title When 3 Then CB.Title Else CB.Title End As ArticleTitle, ('http://' + CB.HostURL + '/ec/' + CONVERT(VarChar, CB.Id) + '/img/m/' + CONVERT(VarChar, CB.Id) + '_m.jpg') As MainImage, CMa.Name as MakeName,CMa.MaskingName AS MakeMaskingName, CMo.Name As ModelName,CMo.MaskingName AS ModelMaskingName,  CB.EntryDate ";
+            return " CB.Id, Case CB.CategoryId When 8 Then ('Road Test: ' + CMa.Name + ' ' + CMo.Name) When 1 Then CB.Title When 3 Then CB.Title Else CB.Title End As ArticleTitle, ('http://' + CB.HostURL + '/800x600/' + CONVERT(VarChar, CB.Id) + '/img/m/' + CONVERT(VarChar, CB.Id) + '.jpg') As MainImage, CMa.Name as MakeName,CMa.MaskingName AS MakeMaskingName, CMo.Name As ModelName,CMo.MaskingName AS ModelMaskingName,  CB.EntryDate ";
         }
 
         private string GetFromClause()

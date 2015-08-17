@@ -33,7 +33,7 @@ namespace Bikewale.Common
         public bool IsUsed { get; set; }
         public string ModelBasePrice { get; set; }
         public string ModelHighendPrice { get; set; }
-
+        public string OriginalImagePath { get; set; }
         public string DefaultCity {get { return System.Configuration.ConfigurationManager.AppSettings["DefaultCity"]; } }
         /// <summary>
         /// Modified By : Suresh Prajapati on 22 Aug 2014
@@ -77,7 +77,7 @@ namespace Bikewale.Common
                     IsUsed = Convert.ToBoolean(dr["Used"]);
                     ModelBasePrice = dr["MinPrice"].ToString();
                     ModelHighendPrice = dr["MaxPrice"].ToString();
-                    
+                    OriginalImagePath = dr["OriginalImagePath"].ToString();
                 }
                 //if (LargePic != string.Empty)
                 //    LargePic = ImagingFunctions.GetImagePathCWImg("/bikes/", HostUrl) + LargePic;
@@ -148,6 +148,7 @@ namespace Bikewale.Common
                     IsUsed = Convert.ToBoolean(dr["Used"]);
                     ModelBasePrice = dr["MinPrice"].ToString();
                     ModelHighendPrice = dr["MaxPrice"].ToString();
+                    OriginalImagePath = dr["OriginalImagePath"].ToString();
                 }                
                 //if (LargePic != string.Empty)
                 //    LargePic = ImagingFunctions.GetImagePathCWImg("/bikes/", HostUrl) + LargePic;

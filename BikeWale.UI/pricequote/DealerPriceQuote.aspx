@@ -6,6 +6,8 @@
     title =  objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " Price Quote ";
 	description =  objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " price quote";
     keywords = "";
+    ShowTargeting = "1";
+    TargetedModel = objPrice.objModel.ModelName;
     AdId = "1395986297721";
     AdPath = "/1017752/Bikewale_PriceQuote_";
     //canonical = "http://www.bikewale.com/pricequote/";
@@ -147,7 +149,8 @@
 			        <tr>
                         <td style="width:100px;vertical-align:top;">
                              <div class="show-pq-pic">
-                             	<img alt="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" src="<%= ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+ objPrice.LargePicUrl,objPrice.HostUrl) %>" title="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" />
+                             	<%--<img alt="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" src="<%= ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+ objPrice.LargePicUrl,objPrice.HostUrl) %>" title="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" />--%>
+                                 <img alt="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPrice.OriginalImagePath,objPrice.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" title="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" />
                                  <%--<div class="margin-top5 dotted-hr margin-bottom5" style="margin-right:10px;"></div>--%>
                                 <div class="hide">
                                     <div class="<%= objColors.Count == 0 ? "hide" : "" %>" style="float:left; margin-right:3px; padding-top:3px;">Color: </div>

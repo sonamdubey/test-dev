@@ -42,33 +42,31 @@ namespace Bikewale.DAL.BikeData
                     db = new Database();
 
                     using (SqlDataReader dr = db.SelectQry(cmd))
-                    {
-                        if (dr != null)
+                    {                        
+                        objList = new List<BikeModelEntity>();
+
+                        while (dr.Read())
                         {
-                            objList = new List<BikeModelEntity>();
+                            BikeModelEntity objModel = new BikeModelEntity();
 
-                            while (dr.Read())
-                            {
-                                BikeModelEntity objModel = new BikeModelEntity();
+                            objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                            objModel.ModelName = Convert.ToString(dr["ModelName"]);
+                            objModel.MinPrice = Convert.ToInt64(dr["MinPrice"]);
+                            objModel.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
+                            objModel.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
+                            objModel.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
+                            objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                            objModel.ModelSeries.MaskingName = Convert.ToString(dr["SeriesMaskingName"]);
+                            objModel.ModelSeries.SeriesName = Convert.ToString(dr["SeriesName"]);
+                            objModel.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
+                            objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                            objModel.HostUrl = Convert.ToString(dr["HostURL"]);
+                            objModel.SmallPicUrl = Convert.ToString(dr["SmallPic"]);
+                            objModel.LargePicUrl = Convert.ToString(dr["LargePic"]);
+                            objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
 
-                                objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
-                                objModel.ModelName = Convert.ToString(dr["ModelName"]);
-                                objModel.MinPrice = Convert.ToInt64(dr["MinPrice"]);
-                                objModel.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
-                                objModel.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
-                                objModel.ReviewCount = Convert.ToInt32(dr["ReviewCount"]);
-                                objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
-                                objModel.ModelSeries.MaskingName = Convert.ToString(dr["SeriesMaskingName"]);
-                                objModel.ModelSeries.SeriesName = Convert.ToString(dr["SeriesName"]);
-                                objModel.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
-                                objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
-                                objModel.HostUrl = Convert.ToString(dr["HostURL"]);
-                                objModel.SmallPicUrl = Convert.ToString(dr["SmallPic"]);
-                                objModel.LargePicUrl = Convert.ToString(dr["LargePic"]);
-
-                                objList.Add(objModel);
-                            }
-                        }
+                            objList.Add(objModel);
+                        }                        
                     }
                 }
             }

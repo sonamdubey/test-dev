@@ -62,6 +62,18 @@ namespace Bikewale.Content
             set { ViewState["LargePic"] = value; }
         }
 
+        public string OriginalImagePath
+        {
+            get
+            {
+                if (ViewState["OriginalImagePath"] != null)
+                    return ViewState["OriginalImagePath"].ToString();
+                else
+                    return "";
+            }
+            set { ViewState["OriginalImagePath"] = value; }
+        }
+
 
         public string BikeMake
         {
@@ -411,6 +423,7 @@ namespace Bikewale.Content
                     HostUrl = dr["HostURL"].ToString();
                     IsNew = Convert.ToBoolean(dr["New"]);
                     IsUsed = Convert.ToBoolean(dr["Used"]);
+                    OriginalImagePath = dr["OriginalImagePath"].ToString();
                     Trace.Warn("IsNew : "+IsNew+" "+"IsUsed : "+IsUsed);
                     if (reviewerId == CurrentUser.Id)
                         userLoggedIn = true;

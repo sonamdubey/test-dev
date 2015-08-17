@@ -43,7 +43,7 @@ namespace Bikewale.New
 
             string sql = string.Empty, selectClause = string.Empty, fromClause = string.Empty, whereClause = string.Empty, imageCount = string.Empty;
 
-            selectClause = "CEI.Id, CEI.BasicId, ImageCategoryId, CP.Name As CategoryName, CEI.Caption, CEI.HostURL, CEI.ImagePathThumbnail, CEI.ImagePathLarge, Case CP.MainCategory When 1 Then 'Interior' When 2 Then 'Exterior' End As MainCategory, "
+            selectClause = "CEI.Id, CEI.BasicId, ImageCategoryId, CP.Name As CategoryName, CEI.Caption, CEI.HostURL, CEI.ImagePathThumbnail, CEI.ImagePathLarge, CEI.OriginalImagePath,Case CP.MainCategory When 1 Then 'Interior' When 2 Then 'Exterior' End As MainCategory, "
                 + " Case CB.CategoryId When 8 Then ('Road Test: ' + CMa.Name + ' ' + CMo.Name) When 1 Then CB.Title When 3 Then CB.Title Else CB.Title End As ArticleTitle, CB.Description, "
                 + " Case CB.CategoryId When 1 Then ('/news/' + Convert(VarChar,CB.Id) + '-' +CB.Url + '.html') When 2 Then ('/research/comparos/' + CB.Url + '-' + Convert(VarChar,CB.Id) + '/') When 3 Then ('/research/' + [dbo].[ParseURL](CMa.Name) + '-bikes/' + [dbo].[ParseURL](CMo.Name) +'/buying-used-' + Convert(VarChar,CB.Id) + '/') When 5 Then ('/research/tipsadvice/' + CB.Url + '-' + Convert(VarChar,CB.Id) + '/') When 6 Then ('/research/features/' + CB.Url + '-' + Convert(VarChar,CB.Id) + '/') When 8 Then ('/research/' + [dbo].[ParseURL](CMa.Name) + '-bikes/' + [dbo].[ParseURL](CMo.Name) +'/roadtest-' + Convert(VarChar,CB.Id) + '/' )  End As ArticleUrl  ";
 
@@ -79,8 +79,10 @@ namespace Bikewale.New
                 {
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {                        
-                        largeImage = "http://" + row["HostURL"].ToString() + row["ImagePathLarge"].ToString();
-                        thumbImage = "http://" + row["HostURL"].ToString() + row["ImagePathThumbnail"].ToString();
+                        //largeImage = "http://" + row["HostURL"].ToString() + row["ImagePathLarge"].ToString();
+                        //thumbImage = "http://" + row["HostURL"].ToString() + row["ImagePathThumbnail"].ToString();
+                        largeImage = Bikewale.Utility.Image.GetPathToShowImages(row["OriginalImagePath"].ToString(), row["HostURL"].ToString(), Bikewale.Utility.ImageSize._210x118);
+                        thumbImage = Bikewale.Utility.Image.GetPathToShowImages(row["OriginalImagePath"].ToString(), row["HostURL"].ToString(), Bikewale.Utility.ImageSize._110x61);
                         imageTitle = makeName + " " + modelName + (row["CategoryName"].ToString() != string.Empty ? (" - " + row["CategoryName"].ToString()) : "") + (row["MainCategory"].ToString() != string.Empty ? (" (" + row["MainCategory"].ToString() + ") ") : "");
                         imageAltText = row["Caption"].ToString();
                         articleId = row["BasicId"].ToString();

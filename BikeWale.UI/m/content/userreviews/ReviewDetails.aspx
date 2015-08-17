@@ -28,7 +28,8 @@
 		        <table style="width:100%;" cellpadding="0" cellspacing="0">
 				    <tr>
 					    <td style="width:100px;vertical-align:top;margin-left:5px;">
-                            <img alt="<%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" title=" <%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objReview.HostUrl, "/bikewaleimg/models/" + objReview.LargePicUrl) %>" width="100">
+                            <%--<img alt="<%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" title=" <%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objReview.HostUrl, "/bikewaleimg/models/" + objReview.LargePicUrl) %>" width="100">--%>
+                            <img alt="<%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" title=" <%=  objReview.BikeEntity.MakeEntity.MakeName + " " + objReview.BikeEntity.ModelEntity.ModelName %> Reviews" src="<%= Bikewale.Common.MakeModelVersion.GetModelImage( objReview.HostUrl, objReview.OriginalImagePath,Bikewale.Utility.ImageSize._640x348) %>" width="100">
                             <div class="darkgray"><b><%=!objReview.New && objReview.Used ? "Last Recorded Price: " : "Starts At: " %></b></div>
                             <div class="darkgray"><b>Rs. <%= Bikewale.Common.CommonOpn.FormatNumeric(objReview.BikeEntity.Price.ToString())%></b></div>
                         </td>

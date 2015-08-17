@@ -103,7 +103,8 @@ namespace Bikewale.Controls
         {
             bike1 = objRow["Bike1"].ToString();
             bike2 = objRow["Bike2"].ToString();
-            imageUrl = ImagingOperations.GetPathToShowImages(objRow["ImagePath"].ToString() + objRow["ImageName"].ToString(), objRow["HostURL"].ToString());
+            //imageUrl = ImagingOperations.GetPathToShowImages(objRow["ImagePath"].ToString() + objRow["ImageName"].ToString(), objRow["HostURL"].ToString());
+            imageUrl = Bikewale.Utility.Image.GetPathToShowImages(objRow["OriginalImagePath"].ToString(), objRow["HostURL"].ToString(), Bikewale.Utility.ImageSize._310x174);
             versionId1 = objRow["VersionId1"].ToString();
             versionId2 = objRow["VersionId2"].ToString();
             price1 = objRow["Price1"].ToString();

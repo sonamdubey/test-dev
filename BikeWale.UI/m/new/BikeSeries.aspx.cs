@@ -98,10 +98,10 @@ namespace Bikewale.Mobile
                     IBikeSeries<BikeSeriesEntity, int> objSeries = container.Resolve<IBikeSeries<BikeSeriesEntity, int>>();
 
                     List<BikeModelEntity> objModelList = objSeries.GetModelsList(Convert.ToInt32(seriesId));
-
+                    Trace.Warn("objModelList : ", objModelList.Count.ToString());
                     rptModels.DataSource = objModelList;
                     rptModels.DataBind();
-
+                    Trace.Warn("objModelList complete ");
                     for (int i = 0; i < objModelList.Count; i++)
                     {
                         if (!String.IsNullOrEmpty(objModelList[i].MinPrice.ToString()))

@@ -24,8 +24,7 @@
 					<tr>
 						<th>&nbsp;</th>
 						<th>Version Name</th>
-						<th>Small Pic</th>
-						<th>Large Pic</th>
+						<th>Original Pic</th>
 						<th>Model Photo</th>
 					</tr>
 			</headertemplate>
@@ -38,13 +37,7 @@
 						<td style="color:#cc0000;font-weight:bold;padding-right:15px;"><%# DataBinder.Eval( Container.DataItem, "Name" ) %></td>
 						<td>
                             <div id ="div1">
-                                <img id="imgSmall" image-id="<%= verId%>" src='<%# !String.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "SmallPic" ).ToString()) ? "http://" + DataBinder.Eval( Container.DataItem, "HostURL") + "/bikewaleimg/models/" + DataBinder.Eval( Container.DataItem, "SmallPic" ) : "http://img.carwale.com/bikewaleimg/common/nobike.jpg"%>'/>
-                            </div>
-                        </td>
-                            
-						<td>
-                            <div id ="div1">
-                                <img id="imgLarge" image-id="<%= verId%>" src='<%# !String.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "LargePic" ).ToString()) ? "http://" + DataBinder.Eval( Container.DataItem, "HostURL") + "/bikewaleimg/models/" + DataBinder.Eval( Container.DataItem, "LargePic" ) : "http://img.carwale.com/bikewaleimg/common/nobike.jpg"%>'/>
+                                <img id="imgSmall" class='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsReplicated")) ? "": "checkImage" %>'  image-id="<%= verId%>" src='<%# !String.IsNullOrEmpty(DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString()) ? BikeWaleOpr.ImagingOperations.GetPathToShowImages(DataBinder.Eval( Container.DataItem, "HostURL").ToString(),"227X128" , DataBinder.Eval( Container.DataItem, "OriginalImagePath" ).ToString()) : "http://img.carwale.com/bikewaleimg/common/nobike.jpg"%>'/>
                             </div>
                         </td>
 						<td><input type="radio" id="optModel" value="<%# DataBinder.Eval( Container.DataItem, "id" ) %>" <%# DataBinder.Eval( Container.DataItem, "SmallPic" ).ToString() == DataBinder.Eval( Container.DataItem, "ModelSmall" ).ToString() ? "checked" : "" %> name="optModel" /></td>
@@ -57,7 +50,6 @@
 		<br>
 		<asp:Panel ID="pnlAdd" CssClass="panel" runat="server" Visible="false">
 			<div style="padding-bottom:5px;font-weight:bold; color:#FF3300">Upload Photos</div>
-			Small Pic <input type="file" id="filSmall" runat="server" /><br />
 			Large Pic <input type="file" id="filLarge" runat="server" /><br />
 			<span id="err" class="error"></span>
 			<input ID="chkAll" onClick="checkAll(this)" type="checkbox" /> Check All
@@ -67,6 +59,7 @@
 	</form>
 </div>
 <script type="text/javascript">
+    var refreshTime = 2000;
 
 	function checkAll( chk )
 	{
@@ -139,12 +132,47 @@
 		}
 	}
 	
-	document.getElementById('btnFind').onclick = checkFind;
 	if ( document.getElementById('btnSave') )
 	{
 		document.getElementById('btnSave').onclick = checkSave;
 		document.getElementById('btnUpdateModel').onclick = checkUpdateModel;
 	}
+
+
+	function UpdatePendingMainImage() {
+	    var event = $(".checkImage");
+	    var id = event.attr('image-id');
+	    //alert(id);
+	    CheckMainImageStatus(event, id);
+	}
+
+	function CheckMainImageStatus(event, mainImageId) {
+	    var category = 'BIKEVERSION';
+	    if (mainImageId != undefined) {
+	        $.ajax({
+	            type: "POST", url: "/AjaxPro/BikeWaleOpr.Common.Ajax.ImageReplication,BikewaleOpr.ashx",
+	            data: '{"imageId":"' + mainImageId + '","Category":"' + category + '"}',
+	            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "CheckImageStatusByCategory"); },
+	            success: function (response) {
+	                var ret_response = eval('(' + response + ')');
+	                //alert(ret_response.value);
+	                var obj_response = eval('(' + ret_response.value + ')');
+	                if (obj_response.Table.length > 0) {
+	                    for (var i = 0; i < obj_response.Table.length; i++) {
+	                        var imgUrlLarge = obj_response.Table[i].HostUrl + "/310X174/" + obj_response.Table[i].OriginalImagePath;
+
+	                        event.attr('src', imgUrlLarge);
+	                    }
+
+	                }
+	            }
+	        });
+	    }
+	}
+
+	$(document).ready(function () {
+	    setInterval(UpdatePendingMainImage, refreshTime)
+	});
  </script>
 </body>
 </html>

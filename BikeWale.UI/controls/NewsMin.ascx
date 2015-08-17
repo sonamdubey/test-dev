@@ -4,7 +4,7 @@
     <h2>Bike News</h2>
     <div class="margin-bottom10" style="border-bottom:2px solid #fff; padding-bottom:10px;">
         <div class="margin-bottom10"><a href="/news/<%=basicId %>-<%=url%>.html"><b><%=title%></b></a></div>
-        <a class="<%= RecordCount > 0 ? "" : "hide" %>" href="/news/<%=basicId %>-<%=url%>.html"><img class="margin-bottom10" src="<%= Bikewale.Common.ImagingFunctions.GetPathToShowImages(imagePathCustom,hostUrl) %>" width="278" style="border:1px solid #E5E4E4;"/></a>
+        <a class="<%= RecordCount > 0 ? "" : "hide" %>" href="/news/<%=basicId %>-<%=url%>.html"><img class="margin-bottom10" src="<%= Bikewale.Utility.Image.GetPathToShowImages(imagePathCustom,hostUrl,Bikewale.Utility.ImageSize._310x174) %>" width="278" style="border:1px solid #E5E4E4;"/></a>
         <% if(isExpandable == "1") {%>
 			<p>
 				<%= TruncateDesc(description) %> <span class="text-grey"> <%= GetPubDate(displayDate) %></span>

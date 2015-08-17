@@ -437,14 +437,14 @@ namespace Bikewale.Controls
 		
 		string modelHead = string.Empty;
 		public string GetModelRow( string modelId, string modelCount, string bikeModel, string modelReviewRate, 
-								   string minPrice, string maxPrice, string smallPic, string modelReviewCount, string makeName, string modelName, string MakeMaskingName,string ModelMaskingName )
+								   string minPrice, string maxPrice, string hostUrl,string originalImagePath, string modelReviewCount, string makeName, string modelName, string MakeMaskingName,string ModelMaskingName )
 		{
 			StringBuilder sb = new StringBuilder();
 			
 			if( modelHead == string.Empty )
 			{
 				sb.Append("<tr id='mod_"+ modelId +"' class='model-row fearured dt_body'>");
-					sb.Append("<td><img class='img-border' alt='"+ bikeModel +"' title='"+ bikeModel +"' src='http://img.carwale.com/bikewaleimg/models/" + smallPic + "' /></td>");
+                sb.Append("<td><img class='img-border' alt='" + bikeModel + "' title='" + bikeModel + "' src='" + Bikewale.Utility.Image.GetPathToShowImages(originalImagePath, hostUrl, Bikewale.Utility.ImageSize._110x61) + "' /></td>");
                     sb.Append("<td><a class='href-title' href='" + (spotlightUrl == "" ? ("/" + MakeMaskingName + "-models/" + ModelMaskingName) : spotlightUrl) + "/'>" + bikeModel);
                     sb.Append("</a><p class='text-grey'><a id='" + modelId + "' class='text-grey viewVersions'><span id='modShowIcon' class='icon-sheet2 right-arrow2'></span><span id='modShow' class='show' >View " + (modelCount) + " versions.</span><span id='modHide' class='hide' >Hide versions.</span></a></p>");
 					sb.Append("</td>");

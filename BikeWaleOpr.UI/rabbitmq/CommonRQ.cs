@@ -142,7 +142,7 @@ namespace BikeWaleOpr.RabbitMQ
                     cmd.CommandText = "IMG_CheckPhotosStatus";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@PhotoId", SqlDbType.VarChar).Value = imageId;
-                    cmd.Parameters.Add("@CategoryId", SqlDbType.Int).Value = imgC;
+                    cmd.Parameters.Add("@CategoryId", SqlDbType.Int).Value = (int)imgC;
 
                     ds = db.SelectAdaptQry(cmd);
                 }

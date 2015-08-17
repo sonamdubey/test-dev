@@ -21,7 +21,7 @@ namespace BikeWaleOpr.Content
         #region Variable Declaration
         protected Button btnSave;
         protected HtmlInputFile filPhoto;
-        protected string seriesId = string.Empty, seriesName = string.Empty, hostUrl = string.Empty, smallPicUrl = string.Empty, largePicUrl = string.Empty, makeMaskingName =string.Empty;
+        protected string seriesId = string.Empty, seriesName = string.Empty, hostUrl = string.Empty, originalImagePath = string.Empty, makeMaskingName = string.Empty;
         protected string seriesMaskingName = string.Empty, isReplicated = string.Empty;
         #endregion
 
@@ -51,7 +51,7 @@ namespace BikeWaleOpr.Content
                 ManageBikeSeries ms = new ManageBikeSeries();
                 
                 string imgName = makeMaskingName + '-' + seriesMaskingName;
-                string imgPath = ImagingOperations.GetPathToSaveImages("\\bikewaleimg\\series\\");
+                string imgPath = ImagingOperations.GetPathToSaveImages("\\bw\\series\\");
 
                 //check for directory ,if not exists then it create series directory
                 if (!Directory.Exists(imgPath))
@@ -59,7 +59,7 @@ namespace BikeWaleOpr.Content
                     Directory.CreateDirectory(imgPath);
                 }
 
-                ImagingOperations.SaveImageContent(filPhoto, "/bikewaleimg/series/" + imgName + "_temp.jpg");
+                ImagingOperations.SaveImageContent(filPhoto, "/bw/series/" + imgName + "-" + seriesId + ".jpg");
                 //string imageName = makeMaskingName + '-' + seriesMaskingName ;
                 ms.SaveSeriesPhoto(seriesId, imgName);
                 //UploadPhoto(seriesId);
@@ -96,7 +96,7 @@ namespace BikeWaleOpr.Content
 
                 //rabbitmq code here 
 
-                ImagingOperations.SaveImageContent(filPhoto, "/bikewaleimg/series/" + imageName);
+                ImagingOperations.SaveImageContent(filPhoto, "/bw/series/" + imageName);
             }
             catch (Exception ex)
             {
@@ -127,8 +127,7 @@ namespace BikeWaleOpr.Content
                 {
                     seriesName = dt.Rows[0]["Name"].ToString();
                     hostUrl = dt.Rows[0]["HostUrl"].ToString();
-                    smallPicUrl = dt.Rows[0]["SmallPic"].ToString();
-                    largePicUrl = dt.Rows[0]["LargePic"].ToString();
+                    originalImagePath = dt.Rows[0]["OriginalImagePath"].ToString();
                     isReplicated = dt.Rows[0]["IsReplicated"].ToString();
                     makeMaskingName = dt.Rows[0]["MakeMaskingName"].ToString();
                     seriesMaskingName = dt.Rows[0]["SeriesMaskingName"].ToString();

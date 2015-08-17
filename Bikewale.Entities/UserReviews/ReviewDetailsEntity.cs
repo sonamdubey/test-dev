@@ -18,6 +18,7 @@ namespace Bikewale.Entities.UserReviews
 
         public string HostUrl { get; set; }
         public string LargePicUrl { get; set; }
+        public string OriginalImagePath { get; set; }
         public bool New { get; set; }   //Added by Suresh Prajapati on 20 Aug 2014
         public bool Used { get; set; }  //Added by Suresh Prajapati on 20 Aug 2014
         public uint NextReviewId { get; set; }

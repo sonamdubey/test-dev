@@ -66,7 +66,7 @@ namespace Bikewale.New
         {
             return " BV.ID  AS VersionId, MO.ID AS ModelId, MA.Name + ' ' + MO.Name AS BikeModel, MO.MaskingName AS ModelMappingName, MA.ID AS MakeId, " 
 		            + " Ma.Name MakeName,MA.MaskingName AS MakeMaskingName, Mo.Name ModelName, BV.Name VersionName, MA.Name + ' ' + MO.Name + ' ' + BV.Name AS Bike, "
-                    + " MO.HostUrl, MO.SmallPic, SD.Displacement, SD.FuelType, SD.MaxPower AS Power, SD.FuelEfficiencyOverall, "
+                    + " MO.HostUrl, MO.SmallPic, SD.Displacement, SD.FuelType, SD.MaxPower AS Power, SD.FuelEfficiencyOverall, MO.OriginalImagePath,"
 		            + " SD.TransmissionType, "
 		            + " ROW_NUMBER() OVER( PARTITION BY MO.ID ORDER BY SP.Price ) AS ModelRank, "
 		            + " COUNT(MO.ID) OVER( PARTITION BY MO.ID ) AS ModelCount, "

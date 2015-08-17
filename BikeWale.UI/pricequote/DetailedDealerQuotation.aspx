@@ -28,7 +28,7 @@
 <style>
     .colours { list-style : outside none none; display:inline;}
     .colours li {float :left;}
-    .map-box {width:276px;height:170px;}    
+    .map-box {width:276px;height:170px;}   
 </style>
     
     <!--bw color popup ends here-->
@@ -147,7 +147,7 @@
                                             	<ul>
                                                 	<li>
                                                     	<div class="offer-pic"><img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg"></div>
-                                                        <p class="margin-top10"><strong>Vega Cruiser Open Face Helmet (Size: M)</strong></p>
+                                                        <p class="margin-top10"><strong>Vega / Studds Open Face Helmet (Size: M)</strong></p>
                                                         <div class="item-specification margin-top10">
                                                         	<ul>
                                                             	<li>- Scratch & Crack Resistant</li>
@@ -157,7 +157,7 @@
                                                             </ul>
                                                         </div>
                                                     </li>
-                                                    <li>
+                                                    <li style="display:none;">
                                                     	<div class="offer-pic"><img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg"></div>
                                                         <p class="margin-top10"><strong>Replay Dream Plain Flip-up Helmet (Size: M)</strong></p>
                                                         <div class="item-specification margin-top10">
@@ -171,7 +171,7 @@
                                                     </li>
                                                     <li>
                                                     	<div class="offer-pic"><img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg"></div>
-                                                        <p class="margin-top10"><strong>Vega Cliff Full Face Helmet (Size: M)</strong></p>
+                                                        <p class="margin-top10"><strong>Vega / Studds Full Face Helmet (Size: M)</strong></p>
                                                         <div class="item-specification margin-top10">
                                                         	<ul>
                                                             	<li>- ABS shell</li>

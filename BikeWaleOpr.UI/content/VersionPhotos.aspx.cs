@@ -12,6 +12,7 @@ using System.Configuration;
 using RabbitMqPublishing;
 using System.Collections.Specialized;
 using BikeWaleOpr.RabbitMQ;
+using System.IO;
 
 
 namespace BikeWaleOpr.Content
@@ -23,7 +24,7 @@ namespace BikeWaleOpr.Content
 		protected Repeater rptFeatures;
 		protected Label lblBike;
 		protected Panel pnlAdd;
-		protected HtmlInputFile filSmall, filLarge;
+		protected HtmlInputFile filLarge;
         protected string verId = string.Empty, isReplicated = string.Empty;
         string timeStamp=CommonOpn.GetTimeStamp();
 		
@@ -42,19 +43,7 @@ namespace BikeWaleOpr.Content
 		}
 		
 		void Page_Load( object Sender, EventArgs e )
-		{
-            //CommonOpn op = new CommonOpn();
-			
-            //if( HttpContext.Current.User.Identity.IsAuthenticated != true) 
-            //        Response.Redirect("../users/Login.aspx?ReturnUrl=../Contents/VersionPhotosStep1.aspx");
-				
-            //if ( Request.Cookies["Customer"] == null )
-            //    Response.Redirect("../Users/Login.aspx?ReturnUrl=../Contents/VersionPhotosStep1.aspx");
-				
-            //int pageId = 38;
-            //if ( !op.verifyPrivilege( pageId ) )
-            //    Response.Redirect("../NotAuthorized.aspx");
-			
+		{			
 			if( Request.QueryString["model"] != null && Request.QueryString["model"].ToString() != "")
 			{
 				qryStrModel = Request.QueryString["model"].ToString();
@@ -86,7 +75,7 @@ namespace BikeWaleOpr.Content
 		void btnSave_Click( object Sender, EventArgs e )
 		{
 			Trace.Warn( "Uploading Photos..." );
-
+            string originalImgPath=string.Empty;
 					
 			for ( int i=0; i < rptFeatures.Items.Count; i++ )
 			{
@@ -95,8 +84,8 @@ namespace BikeWaleOpr.Content
 				
 				if ( chk.Checked )
 				{
-                    UpdateVersions(lt.Text);
-					SavePhoto( lt.Text );
+                    UpdateVersions(lt.Text, out originalImgPath);
+                    SavePhoto(lt.Text, originalImgPath.Split('?')[0]);
 				}
 			}
 			
@@ -112,28 +101,25 @@ namespace BikeWaleOpr.Content
         /// <param name="e"></param>
 		void btnUpdateModel_Click( object sender, EventArgs e )
 		{
-			Trace.Warn( "Updating Model Photo..." );
-			string sql = "";
 			Database db = new Database();
 			
 			if ( Request.Form["optModel"] == null || !CommonOpn.CheckId( Request.Form["optModel"] ) )
 				return;
-													
-			sql = "UPDATE BikeModels SET IsReplicated = 1, "
-				+ " SmallPic='" + Request.Form["optModel"] + "s.jpg?" + timeStamp + "',  "
-				+ " LargePic='" + Request.Form["optModel"] + "b.jpg?" + timeStamp + "', "
-				+ " HostURL = '" + ConfigurationManager.AppSettings["imgHostURL"] + "'"
-				+ " WHERE ID=" + qryStrModel;
-
-            
-			
-			Trace.Warn("Model query : "+sql);		
 							
 			try
 			{
-				db.UpdateQry( sql );
-				
-				BindRepeater();	
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "SaveModelPhotos";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = Request.Form["optModel"];
+                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = qryStrModel;
+
+                    db.UpdateQry(cmd);
+
+                    BindRepeater();
+                }
 			}
 			catch(SqlException err)
 			{
@@ -144,22 +130,39 @@ namespace BikeWaleOpr.Content
 			
 		} // btnUpdateModel_Click	
 
-        void UpdateVersions(string versionId)
+        void UpdateVersions(string versionId, out string originalImagePath)
         {
 
-            string sql = "";
+            originalImagePath = string.Empty;
             Database db = new Database();
 
-            sql = "UPDATE BikeVersions SET IsReplicated = 0,"
-                + " SmallPic='" + versionId + "s.jpg?" + timeStamp + "', "
-                + " LargePic='" + versionId + "b.jpg?" + timeStamp + "', "
-                + " HostURL = '" + ConfigurationManager.AppSettings["imgHostURL"] + "'"
-                + " WHERE ID=" + versionId;
+            //sql = "UPDATE BikeVersions SET IsReplicated = 0,"
+            //    + " SmallPic='" + versionId + "s.jpg?" + timeStamp + "', "
+            //    + " LargePic='" + versionId + "b.jpg?" + timeStamp + "', "
+            //    + " HostURL = '" + ConfigurationManager.AppSettings["imgHostURL"] + "'"
+            //    + " WHERE ID=" + versionId;
 
-            Trace.Warn("update : " + sql);
             try
             {
-                db.UpdateQry(sql);
+                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "SaveVersionPhotos";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+
+                        cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100).Value = ConfigurationManager.AppSettings["imgHostURL"];
+                        cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
+                        cmd.Parameters.Add("@TimeStamp", SqlDbType.VarChar, 20).Value = timeStamp;
+                        cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+
+                        originalImagePath = cmd.Parameters["@OriginalImagePath"].Value.ToString();
+                    }
+                }
             }
             catch (SqlException err)
             {
@@ -177,15 +180,21 @@ namespace BikeWaleOpr.Content
                 db.CloseConnection();
             }
         }
-		
-		void SavePhoto( string versionId )
-		{
-			Trace.Warn( "Saving File..." );
+
+        void SavePhoto(string versionId,string originalImagePath)
+        {
             verId = versionId;
             string hostUrl = ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString();
-            Trace.Warn("host Url : "+ hostUrl);
-            string imageUrl = "http://" + hostUrl + "/bikewaleimg/models/" + versionId;
+            string imageUrl = "http://" + hostUrl + originalImagePath;
 
+            string dirPath = ImagingOperations.GetPathToSaveImages((originalImagePath.Substring(0, originalImagePath.LastIndexOf('/') + 1)).Replace("/", "\\"));
+
+            if(!Directory.Exists(dirPath))
+            {
+                Directory.CreateDirectory(dirPath);
+            }
+
+            ImagingOperations.SaveImageContent(filLarge, originalImagePath.Replace("/","\\"));
             //rabbitmq publishing
             RabbitMqPublish rabbitmqPublish = new RabbitMqPublish();
             NameValueCollection nvc = new NameValueCollection();
@@ -197,26 +206,12 @@ namespace BikeWaleOpr.Content
             nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISWATERMARK).ToLower(), Convert.ToString(false));
             nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISCROP).ToLower(), Convert.ToString(false));
             nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ISMAIN).ToLower(), Convert.ToString(false));
-            nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(false));
+            nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.SAVEORIGINAL).ToLower(), Convert.ToString(true));
             nvc.Add(BikeCommonRQ.GetDescription(ImageKeys.ONLYREPLICATE).ToLower(), Convert.ToString(true));
-
-            if (!String.IsNullOrEmpty(filSmall.Value))
-            {
-                ImagingOperations.SaveImageContent(filSmall, "/bikewaleimg/models/" + versionId + "s.jpg");
-                nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl + "s.jpg");
-                nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.IMAGETARGETPATH).ToLower(), "/bikewaleimg/models/" + versionId + "s.jpg?" + timeStamp);
-                rabbitmqPublish.PublishToQueue("BikeImage", nvc);
-            }
-
-
-            if (!String.IsNullOrEmpty(filLarge.Value))
-            {
-                ImagingOperations.SaveImageContent(filLarge, "/bikewaleimg/models/" + versionId + "b.jpg");
-                nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl + "b.jpg");
-                nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.IMAGETARGETPATH).ToLower(), "/bikewaleimg/models/" + versionId + "b.jpg?" + timeStamp);
-                rabbitmqPublish.PublishToQueue("BikeImage", nvc);
-            }  
-		}
+            nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.LOCATION).ToLower(), imageUrl);
+            nvc.Set(BikeCommonRQ.GetDescription(ImageKeys.IMAGETARGETPATH).ToLower(), imageUrl);
+            rabbitmqPublish.PublishToQueue(ConfigurationManager.AppSettings["ImageQueueName"], nvc);
+        }
 		
         //public string  GetDisplayImagePath()
         //{
@@ -242,10 +237,10 @@ namespace BikeWaleOpr.Content
 		{
 			string sql = "";
 
-            sql = " SELECT VE.ID, VE.Name, VE.SmallPic, VE.LargePic, VE.HostURL, Ve.IsReplicated, "
+            sql = " SELECT VE.ID, VE.Name, VE.SmallPic, VE.LargePic, VE.HostURL, Ve.IsReplicated,VE.OriginalImagePath,VE.IsReplicated, "
 				+ " (SELECT SmallPic FROM BikeModels WHERE Id=Ve.BikeModelId ) AS ModelSmall, "
 				+ " (SELECT LargePic FROM BikeModels WHERE Id=Ve.BikeModelId ) AS ModelLarge "
-				+ " FROM BikeVersions Ve WHERE Ve.BikeModelId=" + qryStrModel;
+				+ " FROM BikeVersions Ve WHERE VE.IsDeleted =0 AND Ve.BikeModelId=" + qryStrModel;
 			
 			Trace.Warn(sql);
 			

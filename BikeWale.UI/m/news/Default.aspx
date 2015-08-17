@@ -23,7 +23,8 @@
 		                <div class="box1 new-line15" >
                             <table cellspacing="0" cellpadding="0" style="width:100%;overflow:visible;">
 				                <tr>
-					                <td style="width:100px;vertical-align:top;"><img style="width:100%;max-width:100%;height:auto;" alt='<%# DataBinder.Eval(Container.DataItem,"Title") %>' title="<%# DataBinder.Eval(Container.DataItem,"Title") %>" src='<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"LargePicUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString()) %>'></td>
+					                <%--<td style="width:100px;vertical-align:top;"><img style="width:100%;max-width:100%;height:auto;" alt='<%# DataBinder.Eval(Container.DataItem,"Title") %>' title="<%# DataBinder.Eval(Container.DataItem,"Title") %>" src='<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"LargePicUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString()) %>'></td>--%>
+                                    <td style="width:100px;vertical-align:top;"><img style="width:100%;max-width:100%;height:auto;" alt='<%# DataBinder.Eval(Container.DataItem,"Title") %>' title="<%# DataBinder.Eval(Container.DataItem,"Title") %>" src='<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>'></td>
 					                <td valign="top" style="padding-left:10px;">
 			                            <div class="sub-heading">
 				                            <%# DataBinder.Eval(Container.DataItem,"Title") %>&nbsp;&nbsp;<span class="arr-small">&raquo;</span>

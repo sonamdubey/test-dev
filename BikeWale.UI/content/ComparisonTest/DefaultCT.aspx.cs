@@ -66,7 +66,7 @@ namespace Bikewale.Content
         {
             SelectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, CB.Url," +
                             "CEI.IsMainImage, CEI.HostURL, CEI.ImagePathThumbnail, CEI.ImagePathLarge, Cmo.Name As ModelName," +
-                            "Cma.Name As MakeName, SC.Name As SubCategory ";
+                            "Cma.Name As MakeName, SC.Name As SubCategory , CEI.OriginalImagePath";
             FromClause = " Con_EditCms_Basic AS CB With(NoLock) Join Con_EditCms_Bikes CC With(NoLock) On CC.BasicId = CB.Id And CC.IsActive = 1 Join " +
                            " BikeModels Cmo With(NoLock) On Cmo.ID = CC.ModelId Join BikeMakes Cma On Cma.ID = CC.MakeId Left Join " +
                            " Con_EditCms_Images CEI With(NoLock) On CEI.BasicId = CB.Id And CEI.IsMainImage = 1 And CEI.IsActive = 1 " +
@@ -101,7 +101,7 @@ namespace Bikewale.Content
         private void FillComparisonTests()
         {
             SelectClause = " CB.Id AS BasicId, CB.AuthorName, CB.Description, CB.DisplayDate, CB.Views, CB.Title, "+
-                           " CB.Url, CEI.IsMainImage, CEI.HostURL, CEI.ImagePathThumbnail, CEI.ImagePathLarge ";
+                           " CB.Url, CEI.IsMainImage, CEI.HostURL, CEI.ImagePathThumbnail, CEI.ImagePathLarge, CEI.OriginalImagePath ";
             FromClause = " Con_EditCms_Basic AS CB With(NoLock) Left Join Con_EditCms_Images CEI With(NoLock) On CEI.BasicId = CB.Id And CEI.IsMainImage = 1 And CEI.IsActive = 1 ";
             WhereClause = " CB.CategoryId = @CategoryId AND CB.IsActive = 1 AND CB.IsPublished = 1";
             OrderByClause = " DisplayDate Desc ";
