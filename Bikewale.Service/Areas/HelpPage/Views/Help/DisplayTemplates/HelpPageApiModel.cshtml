@@ -11,57 +11,84 @@
 <div>
     <p>@description.Documentation</p>
 
-    <h2>Request Information</h2>
 
-    <h3>URI Parameters</h3>
-    @Html.DisplayFor(m => m.UriParameters, "Parameters")
 
-    <h3>Body Parameters</h3>
+    <div class="data-holder">
 
-    <p>@Model.RequestDocumentation</p>
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#requestInfo" aria-controls="requestInfo" role="tab" data-toggle="tab">Request Information</a></li>
+            <li role="presentation"><a href="#responseInfo" aria-controls="requestInfo" role="tab" data-toggle="tab">Response Information</a></li>
+            <li role="presentation"><a href="#responseFormat" aria-controls="responseFormat" role="tab" data-toggle="tab">Response Formats</a></li>
+           
+        </ul>
 
-    @if (Model.RequestModelDescription != null)
-    {
-        @Html.DisplayFor(m => m.RequestModelDescription.ModelType, "ModelDescriptionLink", new { modelDescription = Model.RequestModelDescription })
-        if (Model.RequestBodyParameters != null)
-        {
-            @Html.DisplayFor(m => m.RequestBodyParameters, "Parameters")
-        }
-    }
-    else
-    {
-        <p>None.</p>
-    }
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="requestInfo">
+                <h3>URI Parameters</h3>
+                @Html.DisplayFor(m => m.UriParameters, "Parameters")
 
-    @if (Model.SampleRequests.Count > 0)
-    {
-        <h3>Request Formats</h3>
-        @Html.DisplayFor(m => m.SampleRequests, "Samples")
-    }
+                <h3>Body Parameters</h3>
 
-    <h2>Response Information</h2>
+                <p>@Model.RequestDocumentation</p>
 
-    <h3>Resource Description</h3>
+                @if (Model.RequestModelDescription != null)
+                {
+                    @Html.DisplayFor(m => m.RequestModelDescription.ModelType, "ModelDescriptionLink", new { modelDescription = Model.RequestModelDescription })
+                    if (Model.RequestBodyParameters != null)
+                    {
+                        @Html.DisplayFor(m => m.RequestBodyParameters, "Parameters")
+                    }
+                }
+                else
+                {
+                    <p>None.</p>
+                }
 
-    <p>@description.ResponseDescription.Documentation</p>
+                @if (Model.SampleRequests.Count > 0)
+                {
+                    <h3>Request Formats</h3>
+                    @Html.DisplayFor(m => m.SampleRequests, "Samples")
+                }
+            </div>
 
-    @if (Model.ResourceDescription != null)
-    {
-        @Html.DisplayFor(m => m.ResourceDescription.ModelType, "ModelDescriptionLink", new { modelDescription = Model.ResourceDescription })
-        if (Model.ResourceProperties != null)
-        {
-            @Html.DisplayFor(m => m.ResourceProperties, "Parameters")
-        }
-    }
-    else
-    {
-        <p>None.</p>
-    }
+            <div role="tabpanel" class="tab-pane" id="responseInfo">
+                <h3>Resource Description</h3>
 
-    @if (Model.SampleResponses.Count > 0)
-    {
-        <h3>Response Formats</h3>
-        @Html.DisplayFor(m => m.SampleResponses, "Samples")
-    }
+                <p>@description.ResponseDescription.Documentation</p>
+
+                @if (Model.ResourceDescription != null)
+                {
+                    @Html.DisplayFor(m => m.ResourceDescription.ModelType, "ModelDescriptionLink", new { modelDescription = Model.ResourceDescription })
+                    if (Model.ResourceProperties != null)
+                    {
+                        @Html.DisplayFor(m => m.ResourceProperties, "Parameters")
+                    }
+                }
+                else
+                {
+                    <p>None.</p>
+                }
+            </div>
+
+            <div role="tabpanel" class="tab-pane" id="responseFormat">
+                @if (Model.SampleResponses.Count > 0)
+                {
+                    <h3>Response Formats</h3>
+                    @Html.DisplayFor(m => m.SampleResponses, "Samples")
+                }
+            </div>
+
+           
+        </div>
+
+    </div>
+
+  
+
+   
+
+   
 
 </div>
