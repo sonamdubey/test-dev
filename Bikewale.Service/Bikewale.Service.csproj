@@ -28,6 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>App_Data\Bikewale.Service.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -39,7 +40,13 @@
     <DocumentationFile>App_Data\Bikewale.Service.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\Libs\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
@@ -138,6 +145,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\Make\MakeListController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -180,7 +188,46 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="AutoMappers\Make\" />
+    <Folder Include="Controllers\Area\" />
+    <Folder Include="Controllers\City\" />
+    <Folder Include="Controllers\Model\" />
+    <Folder Include="Controllers\State\" />
+    <Folder Include="Controllers\Version\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
+      <Project>{3ca0d7b6-7e09-449c-a34d-c08ca8118876}</Project>
+      <Name>Bikewale.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Cache\Bikewale.Cache.csproj">
+      <Project>{c5f8b7d6-4b62-4169-a73b-87215314d8cb}</Project>
+      <Name>Bikewale.Cache</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.DAL\Bikewale.DAL.csproj">
+      <Project>{e5cb4b6a-65e1-4af5-b989-1b2d4242d3fd}</Project>
+      <Name>Bikewale.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.DTO\Bikewale.DTO.csproj">
+      <Project>{a6404f19-b267-4e37-b186-d8fc010ad2ce}</Project>
+      <Name>Bikewale.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
+      <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
+      <Name>Bikewale.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Interfaces\Bikewale.Interfaces.csproj">
+      <Project>{12b0edcd-aa9e-41bb-bdc9-cef75952fd49}</Project>
+      <Name>Bikewale.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
+      <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
+      <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
+      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Name>Bikewale.Utility</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
