@@ -81,7 +81,7 @@ namespace Bikewale.BookingSMS
         /// <returns>Formatted SMS string</returns>
         private string FormatSMS(CustomSMSEntity sms)
         {
-            string smsMessage = String.Format("Avail your FREE Vega Helmet %26 1-year RSA on buying {0} from {1} ({2}) at {3}.", sms.BikeName, sms.DealerName, sms.DealerContact, ConfigurationManager.AppSettings["RemindOfferPageShortUrl"]);
+            string smsMessage = String.Format("Avail your FREE Vega Helmet %26 1-year RSA from BikeWale on purchase {0} from {1} ({2}). If already purchased, claim your offer here - {3}.", sms.BikeName, sms.DealerName, sms.DealerContact, ConfigurationManager.AppSettings["RemindOfferPageShortUrl"]);
             return smsMessage;
         }
 

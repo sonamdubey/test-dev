@@ -384,7 +384,7 @@ namespace Bikewale.Common
 
                 //message = "Dear " + customerName + ", Thank you for showing interest in " + BikeName + ". Dealer details: " + dealerName + ", " + dealerContactNo + ", " + dealerAddress;
 
-                message = String.Format("Avail your FREE Vega Helmet %26 1-year RSA on buying {0} from {1}({2}) at {3}. Dealer Address: {4}", BikeName, dealerName, dealerContactNo, ConfigurationManager.AppSettings["LeadConfirmOfferPageShortUrl"], dealerAddress);
+                message = String.Format("Avail your FREE Vega Helmet %26 1-year RSA from BikeWale on purchase of {0} from {1}({2}) Dealer Address: {3}.", BikeName, dealerName, dealerContactNo, dealerAddress);
                 SMSCommon sc = new SMSCommon();
                 sc.ProcessSMS(customerMobile, message, esms, pageUrl);
             }
