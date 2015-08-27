@@ -291,9 +291,9 @@ namespace Bikewale.BAL.BikeBooking
         /// <param name="versionId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public List<AreaEntityBase> GetAreaList(uint modelId, uint cityId)
+        public List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId)
         {
-            List<AreaEntityBase> objArea = null;
+            List<Bikewale.Entities.Location.AreaEntityBase> objArea = null;
 
             objArea = dealerPQRepository.GetAreaList(modelId, cityId);
 

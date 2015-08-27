@@ -782,9 +782,9 @@ namespace Bikewale.DAL.BikeBooking
         /// <param name="versionId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public List<AreaEntityBase> GetAreaList(uint modelId, uint cityId)
+        public List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId)
         {
-            List<AreaEntityBase> objArea = null;
+            List<Bikewale.Entities.Location.AreaEntityBase> objArea = null;
             Database db = null;
             try
             {
@@ -803,9 +803,9 @@ namespace Bikewale.DAL.BikeBooking
                     {
                         if (dr != null)
                         {
-                            objArea = new List<AreaEntityBase>();
+                            objArea = new List<Bikewale.Entities.Location.AreaEntityBase>();
                             while (dr.Read())
-                                objArea.Add(new AreaEntityBase()
+                                objArea.Add(new Bikewale.Entities.Location.AreaEntityBase()
                                 {
                                     AreaId = Convert.ToUInt32(dr["Value"]),
                                     AreaName = dr["Text"].ToString()

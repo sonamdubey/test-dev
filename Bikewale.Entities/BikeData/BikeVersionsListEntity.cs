@@ -16,5 +16,7 @@ namespace Bikewale.Entities.BikeData
         public string VersionName { get; set; }
         public string ModelName { get; set; }
         public UInt64 Price { get; set; }
+      //  public string MaskingName { get; set; }
+
     }
 }

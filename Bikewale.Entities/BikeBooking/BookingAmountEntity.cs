@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Bikewale.Entities.BikeData;
 
-namespace Bikewale.Entity.BikeBooking
+namespace Bikewale.Entities.BikeBooking
 {
     /// <summary>
     /// Created By : Ashwini Todkar 17 Dec 2014

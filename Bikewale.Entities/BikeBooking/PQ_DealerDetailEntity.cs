@@ -1,11 +1,11 @@
-﻿using Bikewale.Entity.BikeBooking;
+﻿using Bikewale.Entities.BikeBooking;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.Entity.BikeBooking
+namespace Bikewale.Entities.BikeBooking
 {
     /// <summary>
     /// Written By : Ashwini Todkar on 28 Oct 2014

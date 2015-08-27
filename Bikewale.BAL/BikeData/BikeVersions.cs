@@ -54,6 +54,13 @@ namespace Bikewale.BAL.BikeData
             return objVersion;
         }
 
+        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId,bool isNew)
+        {
+            List<BikeVersionMinSpecs> objMVSpecsMin = null;
+            objMVSpecsMin = versionRepository.GetVersionMinSpecs(modelId, isNew);
+            return objMVSpecsMin;
+        }
+
         public U Add(T t)
         {
             throw new NotImplementedException();

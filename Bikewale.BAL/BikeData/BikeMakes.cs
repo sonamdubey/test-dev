@@ -56,6 +56,15 @@ namespace Bikewale.BAL.BikeData
             throw new NotImplementedException();
         }
 
+        public BikeMakeEntityBase GetMakeDetails(string makeId)
+        {
+            BikeMakeEntityBase objMakeList = null;
+
+            objMakeList = makesRepository.GetMakeDetails(makeId);
+
+            return objMakeList;
+        }
+
         public U Add(T t)
         {
             throw new NotImplementedException();

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Bikewale.Entity.BikeBooking
+namespace Bikewale.Entities.BikeBooking
 {
     /// <summary>
     /// Created By : Sadhana Upadhyay on 24th Oct 2014

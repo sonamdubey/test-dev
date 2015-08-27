@@ -8,6 +8,6 @@ namespace Bikewale.DTO.Make
 {
     public class MakeList
     {
-        public IEnumerable<MakeBase> make { get; set; }
+        public IEnumerable<MakeBase> Make { get; set; }
     }
 }

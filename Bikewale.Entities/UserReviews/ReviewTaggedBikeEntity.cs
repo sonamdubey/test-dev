@@ -10,10 +10,6 @@ namespace Bikewale.Entities.UserReviews
     public class ReviewTaggedBikeEntity
     {
 
-        //public BikeMakeEntityBase MakeEntity { get; set; }
-        //public BikeModelEntityBase ModelEntity { get; set; }
-        //public BikeVersionEntityBase VersionEntity { get; set; }
-
         private BikeMakeEntityBase objmakeBase = new BikeMakeEntityBase();
         public BikeMakeEntityBase MakeEntity { get { return objmakeBase; } set { objmakeBase = value; } }
 

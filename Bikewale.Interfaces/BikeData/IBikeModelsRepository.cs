@@ -24,6 +24,10 @@ namespace Bikewale.Interfaces.BikeData
         List<UpcomingBikeEntity> GetUpcomingBikesList(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy, out int recordCount);
         List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int startIndex, int endIndex, out int recordCount);
 
+        BikeModelPageEntity GetModelPage(U modelId, bool isNew);
+        BikeSpecificationEntity MVSpecsFeatures(int versionId);
+        List<MostPopularBikesBase> GetMostPopularBikes(sbyte topCount, int? makeId = null);
+
         Hashtable GetMaskingNames();
         Hashtable GetOldMaskingNames();
     }

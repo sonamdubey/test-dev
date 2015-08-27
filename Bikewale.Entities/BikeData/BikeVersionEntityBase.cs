@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
-    [Serializable]
+
     public class BikeVersionEntityBase
     {
         public int VersionId { get; set; }
         public string VersionName { get; set; }
+
     }
 }
