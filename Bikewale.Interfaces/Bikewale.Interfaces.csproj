@@ -35,6 +35,9 @@
     </Reference>
     <Reference Include="Nest">
       <HintPath>..\Libs\Nest.dll</HintPath>
+	</Reference>
+    <Reference Include="Carwale.Entity">
+      <HintPath>..\Libs\Carwale.Entity.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoComplete\IAutoSuggest.cs" />
+    <Compile Include="BikeBooking\IBikeBooking.cs" />
     <Compile Include="BikeBooking\IDealerPriceQuote.cs" />
     <Compile Include="BikeData\IBikeMakes.cs" />
     <Compile Include="BikeData\IBikeModelMaskingCacheRepository.cs" />
@@ -55,12 +59,14 @@
     <Compile Include="BikeData\IBikeSeries.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />
+    <Compile Include="Compare\IBikeCompare.cs" />
     <Compile Include="Customer\ICustomer.cs" />
     <Compile Include="Customer\ICustomerAuthentication.cs" />
     <Compile Include="Customer\ICustomerRepository.cs" />
     <Compile Include="Dealer\IDealer.cs" />
     <Compile Include="Feedback\IFeedback.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Location\IArea.cs" />
     <Compile Include="Location\ICity.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />

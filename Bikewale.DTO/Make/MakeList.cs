@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ namespace Bikewale.DTO.Make
 {
     public class MakeList
     {
-        public IEnumerable<MakeBase> make { get; set; }
+        [JsonProperty("makes")]
+        public IEnumerable<MakeBase> Makes { get; set; }
     }
 }

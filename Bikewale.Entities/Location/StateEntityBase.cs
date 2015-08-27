@@ -11,7 +11,6 @@ namespace Bikewale.Entities.Location
     /// Modified By : Ashwini Todkar on 24th Oct 2014
     /// Summary : added serializable attribute and json properties
     /// </summary>
-    [Serializable]
     public class StateEntityBase
     {
         [JsonProperty("stateId")]

@@ -41,7 +41,7 @@ namespace Bikewale.Service.Controllers.Make
                     objDTOMakeList = new MakeList();
                     
                     Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    objDTOMakeList.make = Mapper.Map<List<BikeMakeEntityBase>, List<MakeBase>>(objMakeList);
+                    objDTOMakeList.Makes = Mapper.Map<List<BikeMakeEntityBase>, List<MakeBase>>(objMakeList);
 
                     return Request.CreateResponse(HttpStatusCode.OK, objDTOMakeList);
                 }

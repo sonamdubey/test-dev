@@ -11,7 +11,6 @@ namespace Bikewale.Entity.BikeBooking
     /// Created By : Sadhana Upadhyay on 24th Oct 2014
     /// Summary : Entity for Area
     /// </summary>
-    [Serializable]
     public class AreaEntityBase
     {
         [JsonProperty("areaId")]

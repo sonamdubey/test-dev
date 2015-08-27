@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BikeBooking\DealerPriceQuoteRepository.cs" />
+    <Compile Include="BikeBooking\ModelRepository.cs" />
     <Compile Include="BikeData\BikeMakesRespository.cs" />
     <Compile Include="BikeData\BikeModelsRespository.cs" />
     <Compile Include="BikeData\BikeSeriesRespository.cs" />
@@ -52,10 +53,13 @@
     <Compile Include="CMS\FeaturesRepository.cs" />
     <Compile Include="CMS\NewsRepository.cs" />
     <Compile Include="CMS\RoadTestRepository.cs" />
+    <Compile Include="Compare\BikeCompareRepository.cs" />
     <Compile Include="Customer\CustomerRespository.cs" />
     <Compile Include="Dealer\DealersRepository.cs" />
     <Compile Include="Feedback\FeedbackRepository.cs" />
+    <Compile Include="Location\AreaRepository.cs" />
     <Compile Include="Location\CityRepository.cs" />
+    <Compile Include="Location\StateRepository.cs" />
     <Compile Include="MobileVerification\MobileVerificationRespository.cs" />
     <Compile Include="PhotoGallery\ModelPhotosRespository.cs" />
     <Compile Include="PriceQuote\PriceQuoteRespository.cs" />
@@ -78,6 +82,10 @@
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
+      <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
+      <Name>Bikewale.Utility</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

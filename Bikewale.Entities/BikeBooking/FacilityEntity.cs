@@ -10,7 +10,6 @@ namespace Bikewale.Entity.BikeBooking
     /// <summary>
     /// Written By : Ashwini Todkar on 29 Oct 2014
     /// </summary>
-    [Serializable]
     public class FacilityEntity
     {
         [JsonProperty("facility")]

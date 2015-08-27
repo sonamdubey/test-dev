@@ -48,7 +48,9 @@
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntityBase.cs" />
+    <Compile Include="BikeBooking\BookingResults.cs" />
     <Compile Include="BikeBooking\CalculatedEMI.cs" />
+    <Compile Include="BikeBooking\Consumers.cs" />
     <Compile Include="BikeBooking\EMI.cs" />
     <Compile Include="BikeBooking\FacilityEntity.cs" />
     <Compile Include="BikeBooking\NewBikeDealers.cs" />
@@ -90,6 +92,13 @@
     <Compile Include="CMS\CMSPageEntity.cs" />
     <Compile Include="CMS\ContentFilter.cs" />
     <Compile Include="CMS\EnumCMSContentType.cs" />
+    <Compile Include="Compare\BikeColor.cs" />
+    <Compile Include="Compare\BikeCompareEntity.cs" />
+    <Compile Include="Compare\BikeDetails.cs" />
+    <Compile Include="Compare\BikeEntityBase.cs" />
+    <Compile Include="Compare\BikeFeature.cs" />
+    <Compile Include="Compare\BikeSpecification.cs" />
+    <Compile Include="Compare\TopBikeCompareBase.cs" />
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Customer\CustomerEntityBase.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />

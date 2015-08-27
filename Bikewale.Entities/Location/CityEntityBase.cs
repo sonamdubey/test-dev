@@ -12,16 +12,15 @@ namespace Bikewale.Entities.Location
     /// Modified By : Ashwini Todkar on 24th Oct 2014
     /// Summary : added serializable attribute and json properties
     /// </summary>
-    [Serializable, DataContract]
     public class CityEntityBase
     {
-        [JsonProperty("cityId"), DataMember]
+        [JsonProperty("cityId")]
         public uint CityId { get; set; }
 
-        [JsonProperty("cityName"), DataMember]
+        [JsonProperty("cityName")]
         public string CityName { get; set; }
 
-        [JsonProperty("cityMaskingName"), DataMember]
+        [JsonProperty("cityMaskingName")]
         public string CityMaskingName { get; set; }
     }
 }

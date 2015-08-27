@@ -57,7 +57,7 @@ namespace Bikewale.Ajax
                         container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
                         ICustomer<CustomerEntity, UInt32> objCustomer = container.Resolve<ICustomer<CustomerEntity, UInt32>>();
 
-                        RegisterCustomer rc = new RegisterCustomer();
+                        Bikewale.Common.RegisterCustomer rc = new Bikewale.Common.RegisterCustomer();
                         password = rc.GenerateRandomPassword();
                         salt = rc.GenerateRandomSalt();
                         hash = rc.GenerateHashCode(password, salt);

@@ -12,8 +12,7 @@ namespace Bikewale.Entity.BikeBooking
 {
     /// <summary>
     /// Written By : Ashwini Todkar on 28 Oct 2014
-    /// </summary>
-    [Serializable]
+    /// </summary>    
     public class OfferEntity
     {
         public BikeModelEntityBase objModel { get; set; }
