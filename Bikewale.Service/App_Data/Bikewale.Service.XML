@@ -489,6 +489,61 @@
             <param name="inputText">String</param>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.BikeBooking.Area.BBAreaListController">
+            <summary>
+            BikeBooking Area List Controller
+            Author  : Sumit Kate
+            Created on  : 20 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.Area.BBAreaListController.Get(System.UInt16)">
+            <summary>
+            Gets the list of Areas of a City
+            </summary>
+            <param name="cityId">City Id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.BikeBooking.City.BBCityListController">
+            <summary>
+            BikeBooking City List controller
+            Author  :   Sumit Kate
+            Created On  : 20 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.City.BBCityListController.Get">
+            <summary>
+            Bikebooking City List
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.BikeBooking.Make.BBMakeListController">
+            <summary>
+            BikeBooking Make list controller
+            Author  : Sumit Kate
+            Created On  :   20 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.Make.BBMakeListController.Get(System.UInt32)">
+            <summary>
+            List of Bikebooking Makes
+            </summary>
+            <param name="cityId">City id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.BikeBooking.Model.BBModelListController">
+            <summary>
+            BikeBooking Model List controller
+            Author  :   Sumit Kate
+            Created On  :   20 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.Model.BBModelListController.Get(System.UInt16)">
+            <summary>
+            Returns the Model List for a make
+            </summary>
+            <param name="makeId">Make Id</param>
+            <returns></returns>
+        </member>
         <member name="M:Bikewale.Service.Controllers.BikeData.FeaturedBikeController.Get(System.UInt32)">
             <summary>
             Created By : Sadhana Upadhyay on 21 aUG 2015
@@ -528,11 +583,272 @@
             <param name="curPageNo">Current Page No (Optional)</param>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.BookingSummary.BookingSummaryController">
+            <summary>
+            Booking Summary Controller
+            Author  :   Sumit Kate
+            Created On  :   25 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BookingSummary.BookingSummaryController.Get(System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            Gets the Booking Summary information
+            </summary>
+            <param name="pqId">Price Quote Id</param>
+            <param name="versionId">Bike Version Id</param>
+            <param name="dealerId">Dealer Id</param>
+            <param name="cityId">City Id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Compare.BikeCompareController">
+            <summary>
+            Bike Compare controller
+            Author  :   Sumit Kate
+            Created On  :   26 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Compare.BikeCompareController.Get(System.String)">
+            <summary>
+            Gets the Bike Comparision details
+            </summary>
+            <param name="versionList">Bike version list(comma separated values)</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Compare.BikeCompareListController">
+            <summary>
+            Bike Compare List Controller
+            Author  :   Sumit Kate
+            Created On : 27 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Compare.BikeCompareListController.Get(System.UInt16)">
+            <summary>
+            Gets the Top 'n' Bike Compare List
+            </summary>
+            <param name="topCount">Top count</param>
+            <returns></returns>
+        </member>
         <member name="M:Bikewale.Service.Controllers.Make.MakeListController.Get(Bikewale.Entities.BikeData.EnumBikeType)">
             <summary>
             
             </summary>
             <param name="requestType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController">
+            <summary>
+            Price Quote Area List Controller
+            Author : Sumit Kate
+            Created : 20 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController.Get(System.UInt32,System.UInt32)">
+            <summary>
+            List of Price Quote Areas
+            </summary>
+            <param name="modelId">Model ID</param>
+            <param name="cityId">City Id</param>
+            <returns>Area List</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.BikePQController">
+            <summary>
+            Bikewale Price Quote Controller
+            Author  :   Sumit Kate
+            Created On  :   25 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.BikePQController.Get(System.UInt64)">
+            <summary>
+            Gets the BikeWale Price Quote from the Price Quote Id
+            </summary>
+            <param name="pqId">Price Quote Id</param>
+            <returns>BikeWale Price Quote</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.City.PQCityListController">
+            <summary>
+            Price Quote City Controller
+            Author : Sumit Kate
+            Created On : 20 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.City.PQCityListController.Get(System.UInt32)">
+            <summary>
+            Returns the Price Quote City List by Model Id
+            </summary>
+            <param name="modelId">Model Id. Should be Positive Integer</param>
+            <returns>List of Cities</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.DealerPriceQuoteController">
+            <summary>
+            Dealer Price Quote Controller
+            Author  :   Sumit Kate
+            Created on  :   24 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.DealerPriceQuoteController.Get(System.UInt32,System.UInt32)">
+            <summary>
+            Gets the Dealer price Quote availability for given version and city
+            </summary>
+            <param name="versionId">bike version id</param>
+            <param name="cityId">city id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.DealerPriceQuoteController.Post(Bikewale.DTO.PriceQuote.DealerPriceQuote.DPQuotationInput)">
+            <summary>
+            Generates the dealer price quote
+            </summary>
+            <param name="input">Required parameters to generate the dealer price quote</param>
+            <returns>Dealer Price Quotation</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.DetailedDealerQuotationController">
+            <summary>
+            Detailed dealer quatation controller
+            Author  :   Sumit Kate
+            Created On  : 24 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.DetailedDealerQuotationController.Get(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Gets Detailed Dealer Quotation
+            </summary>
+            <param name="versionId">Bike version</param>
+            <param name="dealerId">Dealer Id</param>
+            <param name="cityId">City Id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.DPQMobileVerifiedController">
+            <summary>
+            Mobile Verified Controller
+            Author  :   Sumit Kate
+            Created On  : 21 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.DPQMobileVerifiedController.Post(Bikewale.DTO.PriceQuote.DPQMobileVerifiedInput)">
+            <summary>
+            Updates the mobile number verification for a generated Price Quote
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.Make.PQMakeListController">
+            <summary>
+            Price Quote Make List
+            Author  : Sumit Kate
+            Created on : 20 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Make.PQMakeListController.Get">
+            <summary>
+            Gets Makes List
+            </summary>
+            <returns>Make List</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController">
+            <summary>
+            Mobile Verification Controller
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.Post(Bikewale.DTO.PriceQuote.PQMobileVerificationInput)">
+            <summary>
+            Mobile Verification method
+            </summary>
+            <param name="input">Mobile Verification Input</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.MobileVerification.ResendVerificationCodeController">
+            <summary>
+            Resend Mobile Verification Code Controller
+            Author  :   Sumit Kate
+            Created on : 24 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.MobileVerification.ResendVerificationCodeController.Post(Bikewale.DTO.PriceQuote.MobileVerification.PQResendMobileVerificationInput)">
+            <summary>
+            Verified the resend mobile verification code
+            </summary>
+            <param name="customerName"></param>
+            <param name="customerMobile"></param>
+            <param name="customerEmail"></param>
+            <param name="url"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.Model.PQModelListController">
+            <summary>
+            Price Quote Model List Controller
+            Author  :   Sumit Kate
+            Created on  :   20 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Model.PQModelListController.Get(System.Int32)">
+            <summary>
+            Returns the List of Models of a Model
+            </summary>
+            <param name="makeId">Bike Make</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.PQBikeColorController">
+            <summary>
+            Price Quote Bike Color Controller
+            Author  :   Sumit Kate
+            Created On  : 21 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.PQBikeColorController.Post(Bikewale.DTO.PriceQuote.PQBikeColorInput)">
+            <summary>
+            To update the Bike Color
+            </summary>
+            <param name="input">PQBikeColorInput Entity</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController">
+            <summary>
+            Price Quote Customer Detail Controller
+            Author  :   Sumit Kate
+            Created On  :   21 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post(Bikewale.DTO.PriceQuote.PQCustomerDetailInput)">
+            <summary>
+            Saves the Customer details if it is a new customer.
+            generated the OTP for the non verified customer
+            </summary>
+            <param name="input">Customer details with price quote details</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Get(System.UInt32)">
+            <summary>
+            Gets the customer details for a generated price quote
+            </summary>
+            <param name="pqId">Price quote</param>
+            <returns>Customer Details</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.PriceQuoteController">
+            <summary>
+            Price Quote Controller
+            Author  :   Sumit Kate
+            Created On  :   21 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post(Bikewale.DTO.PriceQuote.PQInput)">
+            <summary>
+            Bikewale Price Quote and Dealer Price Quote
+            </summary>
+            <param name="input">Entity contains the required details to get the price quote details</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController">
+            <summary>
+            Price Quote Version List controller
+            Author  :   Sumit Kate
+            Created On  :   20 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController.Get(System.UInt32,System.Nullable{System.Int32})">
+            <summary>
+            Gets the Version list for given model and city
+            </summary>
+            <param name="modelId">model Id</param>
+            <param name="cityId">city id</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.SampleController">
@@ -545,6 +861,233 @@
             This is GET for Sample Controller
             </summary>
             <returns>List of Strings</returns>
+        </member>
+        <member name="M:Bikewale.Service.TCAPI.AutoBizAdaptor.PushInquiryInAB(System.String,System.UInt32,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+             Written By : Ashish G. Kamble
+            Summary : Function to push the inquiry to the autobiz. Lead should be pushed only if mobile number is verified.
+            </summary>
+            <param name="branchId">Dealer id</param>
+            <param name="pqId">Price quote Id</param>
+            <param name="customerName">Name of the customer</param>
+            <param name="customerMobile">mobile no of the customer</param>
+            <param name="customerEmail">email id of the customer</param>
+            <param name="versionId">bike version id</param>
+            <param name="cityId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.#ctor">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.CheckService">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginCheckService(System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndCheckService(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.AddBuyerInquiry(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginAddBuyerInquiry(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndAddBuyerInquiry(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.AddSellerInquiry(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginAddSellerInquiry(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndAddSellerInquiry(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.AddNewCarInquiry(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginAddNewCarInquiry(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndAddNewCarInquiry(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.AddOtherInquiries(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginAddOtherInquiries(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndAddOtherInquiries(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.FetchIpAddress(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginFetchIpAddress(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndFetchIpAddress(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.InsertBuyerInquiry(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginInsertBuyerInquiry(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndInsertBuyerInquiry(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.InsertSellerInquiry(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginInsertSellerInquiry(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndInsertSellerInquiry(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.InsertNewCarInquiry(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginInsertNewCarInquiry(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndInsertNewCarInquiry(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.InsertOtherInquiries(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginInsertOtherInquiries(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndInsertOtherInquiries(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.GetNewCarMakes(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginGetNewCarMakes(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndGetNewCarMakes(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.GetNewCarModel(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginGetNewCarModel(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndGetNewCarModel(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.GetCarVersion(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginGetCarVersion(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndGetCarVersion(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.GetInquirySource(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginGetInquirySource(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndGetInquirySource(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.GetDealerCities(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginGetDealerCities(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndGetDealerCities(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.GetTaskListDetails(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginGetTaskListDetails(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndGetTaskListDetails(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.ChangeInquiryDisposition(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginChangeInquiryDisposition(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndChangeInquiryDisposition(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.InquiriesFollowUp(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginInquiriesFollowUp(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndInquiriesFollowUp(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.UpdateCustomerDetails(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginUpdateCustomerDetails(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndUpdateCustomerDetails(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.LeadFollowupLoad(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginLeadFollowupLoad(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndLeadFollowupLoad(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.FetchLeadDispositions(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginFetchLeadDispositions(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndFetchLeadDispositions(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.ChangeEagerness(System.String,System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginChangeEagerness(System.String,System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndChangeEagerness(System.IAsyncResult)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.SaveOtherRequests(System.String)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.BeginSaveOtherRequests(System.String,System.AsyncCallback,System.Object)">
+            <remarks/>
+        </member>
+        <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndSaveOtherRequests(System.IAsyncResult)">
+            <remarks/>
         </member>
     </members>
 </doc>

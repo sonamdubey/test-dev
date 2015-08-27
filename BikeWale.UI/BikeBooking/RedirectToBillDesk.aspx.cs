@@ -1,4 +1,4 @@
-﻿using Carwale.Utility;
+﻿using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -29,7 +29,7 @@ namespace Bikewale.BikeBooking
         {
             if (Request.QueryString["msg"] != null && Request.QueryString["msg"] != "")
             {
-                msg =CarwaleSecurity.Decrypt(Request.QueryString["msg"].ToString());
+                msg =Carwale.Utility.CarwaleSecurity.Decrypt(Request.QueryString["msg"].ToString());
                 submit = 1;
             }
             Trace.Warn("msg" + msg);

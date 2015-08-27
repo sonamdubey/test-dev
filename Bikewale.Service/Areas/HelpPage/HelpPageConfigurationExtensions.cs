@@ -222,11 +222,7 @@ namespace Bikewale.Service.Areas.HelpPage
             string modelId = ApiModelPrefix + apiDescriptionId;
             if (!config.Properties.TryGetValue(modelId, out model))
             {
-<<<<<<< HEAD
-                apiDescriptionId = apiDescriptionId.Replace("&","%26");
-=======
                 apiDescriptionId = apiDescriptionId.Replace("&", "%26");
->>>>>>> Feature-101653928-Price-Quote-API
                 Collection<ApiDescription> apiDescriptions = config.Services.GetApiExplorer().ApiDescriptions;
                 ApiDescription apiDescription = apiDescriptions.FirstOrDefault(api => String.Equals(api.GetFriendlyId(), apiDescriptionId, StringComparison.OrdinalIgnoreCase));
                 if (apiDescription != null)
