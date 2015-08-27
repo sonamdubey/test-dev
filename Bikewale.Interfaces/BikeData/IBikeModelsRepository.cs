@@ -26,5 +26,7 @@ namespace Bikewale.Interfaces.BikeData
 
         Hashtable GetMaskingNames();
         Hashtable GetOldMaskingNames();
+
+        List<FeaturedBikeEntity> GetFeaturedBikes(uint topRecords);
     }
 }

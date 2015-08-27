@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.Classified.VerifyCustomerListing" Trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.Classified.VerifyCustomerListing" Trace="true" %>
 
 <%@ Import Namespace="BikeWaleOpr.Classified" %>
 <%@ Register TagPrefix="Pager" TagName="Pager" Src="/controls/LinkPagerControl.ascx" %>

@@ -30,8 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,10 +44,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoComplete\BikeList.cs" />
+    <Compile Include="AutoComplete\Payload.cs" />
+    <Compile Include="AutoComplete\SuggestionList.cs" />
+    <Compile Include="BikeData\BikeDiscription.cs" />
+    <Compile Include="BikeData\FeaturedBike.cs" />
+    <Compile Include="BikeData\FeaturedBikeList.cs" />
+    <Compile Include="BikeData\LaunchedBike.cs" />
+    <Compile Include="BikeData\LaunchedBikeList.cs" />
+    <Compile Include="BikeData\SimilarBike.cs" />
+    <Compile Include="BikeData\SimilarBikeList.cs" />
+    <Compile Include="BikeData\UpcomingBike.cs" />
+    <Compile Include="BikeData\UpcomingBikeList.cs" />
     <Compile Include="Make\MakeBase.cs" />
     <Compile Include="Make\MakeList.cs" />
+    <Compile Include="Model\ModelDetail.cs" />
+    <Compile Include="Model\ModelBase.cs" />
+    <Compile Include="Model\ModelList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Series\SeriesBase.cs" />
+    <Compile Include="Version\VersionBase.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

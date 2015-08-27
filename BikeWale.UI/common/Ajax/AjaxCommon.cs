@@ -275,6 +275,8 @@ namespace Bikewale.Ajax
         /// <summary>
         /// Created By : Sadhana Upadhyay on 21 Jan 2015
         /// Summary : To save customer Feedback
+        /// Modified By : Sadhana Upadhyay on 26 Aug 2015
+        /// Summary : To send Email to multiple People
         /// </summary>
         /// <param name="feedbackType"></param>
         /// <param name="feedbackComment"></param>
@@ -284,7 +286,7 @@ namespace Bikewale.Ajax
         public bool SaveCustomerFeedback(ushort feedbackType, string feedbackComment, ushort platformId ,string pageUrl)
         {
             bool isSaved = false;
-            string feedbackEmailTo = ConfigurationManager.AppSettings["feedbackEmailTo"];
+            string[] feedbackEmailTo = ConfigurationManager.AppSettings["feedbackEmailTo"].Split(';');
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -297,7 +299,7 @@ namespace Bikewale.Ajax
                     if (isSaved)
                     {
                         ComposeEmailBase objEmail = new FeedbackMailer(pageUrl, feedbackComment);
-                        objEmail.Send(feedbackEmailTo, "BikeWale User Feedback");
+                        objEmail.Send(feedbackEmailTo[0], "BikeWale User Feedback", "", feedbackEmailTo, null);
                     }
                 }
             }

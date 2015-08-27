@@ -43,17 +43,26 @@
     <Reference Include="AutoMapper">
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Practices.Unity">
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Nest, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Libs\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -111,6 +120,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Bikewale.Service.XML" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -145,6 +155,11 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
+    <Compile Include="Controllers\BikeData\FeaturedBikeController.cs" />
+    <Compile Include="Controllers\BikeData\NewLaunchedBikeController.cs" />
+    <Compile Include="Controllers\BikeData\SimilarBikeController.cs" />
+    <Compile Include="Controllers\BikeData\UpcomingBikeController.cs" />
     <Compile Include="Controllers\Make\MakeListController.cs" />
     <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Global.asax.cs">
@@ -187,22 +202,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="AutoMappers\Make\" />
-    <Folder Include="Controllers\Area\" />
-    <Folder Include="Controllers\City\" />
-    <Folder Include="Controllers\Model\" />
-    <Folder Include="Controllers\State\" />
-    <Folder Include="Controllers\Version\" />
+    <Folder Include="Models\" />
+    <Folder Include="Views\AutoSuggest\" />
+    <Folder Include="Views\BikeDiscover\" />
+    <Folder Include="Views\FeaturedBike\" />
+    <Folder Include="Views\NewLaunchedBike\" />
+    <Folder Include="Views\SimilarBike\" />
+    <Folder Include="Views\UpcomingBike\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
       <Project>{3ca0d7b6-7e09-449c-a34d-c08ca8118876}</Project>
       <Name>Bikewale.BAL</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Bikewale.Cache\Bikewale.Cache.csproj">
-      <Project>{c5f8b7d6-4b62-4169-a73b-87215314d8cb}</Project>
-      <Name>Bikewale.Cache</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.DAL\Bikewale.DAL.csproj">
       <Project>{e5cb4b6a-65e1-4af5-b989-1b2d4242d3fd}</Project>

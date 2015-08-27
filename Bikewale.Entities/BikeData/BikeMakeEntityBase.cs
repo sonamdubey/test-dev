@@ -15,8 +15,7 @@ namespace Bikewale.Entities.BikeData
         [JsonProperty(PropertyName = "makeId")]
         public int MakeId { get; set; }
 
-        [DataMember]
-        [JsonProperty(PropertyName = "makeName")]
+        [JsonProperty(PropertyName = "makeName"), DataMember]
         public string MakeName { get; set; }
 
         [DataMember]

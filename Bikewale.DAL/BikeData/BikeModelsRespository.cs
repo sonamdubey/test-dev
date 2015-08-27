@@ -656,6 +656,76 @@ namespace Bikewale.DAL.BikeData
              }
             return ht;
          }
-       
+
+        #region GetFeaturedBikes Method
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 19 Aug 2015
+        /// Summary : To get Featured Bikes
+        /// </summary>
+        /// <param name="topRecords"></param>
+        /// <returns></returns>
+        public List<FeaturedBikeEntity> GetFeaturedBikes(uint topRecords)
+        {
+            Database db = null;
+            List<FeaturedBikeEntity> objFeatured = null;
+
+            try
+            {
+                using(SqlCommand cmd=new SqlCommand())
+                {
+                    cmd.CommandText = "GetFeaturedBikeMin_New";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@TopCount", SqlDbType.TinyInt).Value = topRecords;
+
+                    db=new Database();
+                    using(SqlDataReader dr=db.SelectQry(cmd))
+                    {
+                        if(dr!=null)
+                        {
+                            objFeatured = new List<FeaturedBikeEntity>();
+                            while(dr.Read())
+                            {
+                                FeaturedBikeEntity featuredBike = new FeaturedBikeEntity();
+
+                                featuredBike.BikeName = dr["BikeName"].ToString();
+                                featuredBike.Discription = dr["Description"].ToString();
+                                featuredBike.HostUrl = dr["HostUrl"].ToString();
+                                featuredBike.OriginalImagePath = dr["OriginalImagePath"].ToString();
+                                featuredBike.Priority = Convert.ToUInt16(dr["DisplayPriority"]);
+                                featuredBike.MakeBase = new BikeMakeEntityBase()
+                                {
+                                    MakeId = Convert.ToInt32(dr["MakeId"]),
+                                    MakeName = dr["MakeName"].ToString(),
+                                    MaskingName = dr["MakeMaskingName"].ToString()
+                                };
+
+                                featuredBike.ModelBase = new BikeModelEntityBase()
+                                {
+                                    ModelId = Convert.ToInt32(dr["ModelId"]),
+                                    ModelName = dr["ModelName"].ToString(),
+                                    MaskingName = dr["ModelMaskingName"].ToString()
+                                };
+
+                                objFeatured.Add(featuredBike);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Sql Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
+                objErr.SendMail();
+            }
+
+            return objFeatured;
+        }
+        #endregion
     }   // class
 }   // namespace
