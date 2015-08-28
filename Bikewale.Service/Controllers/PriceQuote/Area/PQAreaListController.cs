@@ -21,6 +21,12 @@ namespace Bikewale.Service.Controllers.PriceQuote.Area
     /// </summary>
     public class PQAreaListController : ApiController
     {
+        private readonly IDealerPriceQuote _dealerRepository = null;
+        public PQAreaListController(IDealerPriceQuote dealerRepository)
+        {
+            _dealerRepository = dealerRepository;
+        }
+
         /// <summary>
         /// List of Price Quote Areas
         /// </summary>
@@ -28,37 +34,30 @@ namespace Bikewale.Service.Controllers.PriceQuote.Area
         /// <param name="cityId">City Id</param>
         /// <returns>Area List</returns>
         [ResponseType(typeof(PQAreaList))]
-        public HttpResponseMessage Get(uint modelId, uint cityId)
+        public IHttpActionResult Get(uint modelId, uint cityId)
         {
             List<AreaEntityBase> objAreaList = null;
             PQAreaList objDTOAreaList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objAreaList = _dealerRepository.GetAreaList(modelId, cityId);
+                if (objAreaList != null && objAreaList.Count > 0)
                 {
-                    container.RegisterType<IDealerPriceQuote, DealerPriceQuoteRepository>();
-                    IDealerPriceQuote dealerRepository = container.Resolve<IDealerPriceQuote>();
-
-                    objAreaList = dealerRepository.GetAreaList(modelId, cityId);
-
-                    if (objAreaList != null && objAreaList.Count > 0)
-                    {
-                        // Auto map the properties
-                        objDTOAreaList = new PQAreaList();
-                        objDTOAreaList.Areas = PQAreaEntityToDTO.ConvertAreaList(objAreaList);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOAreaList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    // Auto map the properties
+                    objDTOAreaList = new PQAreaList();
+                    objDTOAreaList.Areas = PQAreaListMapper.Convert(objAreaList);
+                    return Ok(objDTOAreaList);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

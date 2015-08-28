@@ -19,37 +19,36 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
     /// </summary>
     public class PQMobileVerificationController : ApiController
     {
+        private readonly IDealerPriceQuote _objDealer = null;
+        private readonly IMobileVerificationRepository _mobileVerRespo = null;
+
+        public PQMobileVerificationController(IDealerPriceQuote objDealer, IMobileVerificationRepository mobileVerRespo)
+        {
+            _objDealer = objDealer;
+            _mobileVerRespo = mobileVerRespo;
+        }
         /// <summary>
         /// Mobile Verification method
         /// </summary>
         /// <param name="input">Mobile Verification Input</param>
         /// <returns></returns>
         [ResponseType(typeof(PQMobileVerificationOutput))]
-        public HttpResponseMessage Post([FromBody]PQMobileVerificationInput input)
+        public IHttpActionResult Post([FromBody]PQMobileVerificationInput input)
         {
             PQMobileVerificationOutput output = null;
             bool isSuccess = false;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
                 {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    container.RegisterType<IMobileVerificationRepository, Bikewale.BAL.MobileVerification.MobileVerification>();
-                    IMobileVerificationRepository mobileVerRespo = container.Resolve<IMobileVerificationRepository>();
-
-                    if (!mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
+                    if (_mobileVerRespo.VerifyMobileVerificationCode(input.CustomerMobile, input.CwiCode, ""))
                     {
-                        if (mobileVerRespo.VerifyMobileVerificationCode(input.CustomerMobile, input.CwiCode, ""))
-                        {
-                            isSuccess = objDealer.UpdateIsMobileVerified(input.PQId);
+                        isSuccess = _objDealer.UpdateIsMobileVerified(input.PQId);
 
-                            // if mobile no is verified push lead to autobiz
-                            if (isSuccess)
-                            {
-                                AutoBizAdaptor.PushInquiryInAB(input.BranchId, input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail, input.VersionId, input.CityId);
-                            }
+                        // if mobile no is verified push lead to autobiz
+                        if (isSuccess)
+                        {
+                            AutoBizAdaptor.PushInquiryInAB(input.BranchId, input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail, input.VersionId, input.CityId);
                         }
                     }
                 }
@@ -57,19 +56,19 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                 {
                     output = new PQMobileVerificationOutput();
                     output.IsSuccess = isSuccess;
-                    return Request.CreateResponse(HttpStatusCode.OK, output);
+                    return Ok(output);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotModified, "Mobile number verification not succeeded.");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
-            }            
+                return InternalServerError();
+            }
         }
     }
 }

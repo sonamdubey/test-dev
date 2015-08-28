@@ -25,6 +25,12 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
     /// </summary>
     public class PQVersionListController : ApiController
     {
+        private readonly IBikeVersions<BikeVersionEntity, uint> _objVersion = null;
+
+        public PQVersionListController(IBikeVersions<BikeVersionEntity, uint> objVersion)
+        {
+            _objVersion = objVersion;
+        }
         /// <summary>
         /// Gets the Version list for given model and city
         /// </summary>
@@ -32,37 +38,32 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
         /// <param name="cityId">city id</param>
         /// <returns></returns>
         [ResponseType(typeof(PQVersionList))]
-        public HttpResponseMessage Get(uint modelId, int? cityId = null)
+        public IHttpActionResult Get(uint modelId, int? cityId = null)
         {
             List<BikeVersionsListEntity> objVersionList = null;
             PQVersionList objDTOVersionList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objVersionList = _objVersion.GetVersionsByType(EnumBikeType.PriceQuote, Convert.ToInt32(modelId), cityId);
+
+                if (objVersionList != null && objVersionList.Count > 0)
                 {
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
-                    IBikeVersions<BikeVersionEntity, uint> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
-                    objVersionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, Convert.ToInt32(modelId), cityId);
+                    // Auto map the properties
+                    objDTOVersionList = new PQVersionList();
+                    objDTOVersionList.Versions = PQVersionListMapper.Convert(objVersionList);
 
-                    if (objVersionList != null && objVersionList.Count > 0)
-                    {
-                        // Auto map the properties
-                        objDTOVersionList = new PQVersionList();
-                        objDTOVersionList.Versions = PQVersionEntityToDTO.VersionList(objVersionList);
-
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOVersionList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    return Ok(objDTOVersionList);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

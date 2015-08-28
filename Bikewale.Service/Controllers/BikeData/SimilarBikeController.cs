@@ -7,6 +7,7 @@ using Bikewale.DTO.Version;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.BikeData;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -19,8 +20,18 @@ using System.Web.Mvc;
 
 namespace Bikewale.Service.Controllers.BikeData
 {
+    /// <summary>
+    /// Similar Bike Controller
+    /// Created By : Sadhana Upadhyay on 25 Aug 2015
+    /// </summary>
     public class SimilarBikeController : ApiController
     {
+        private readonly IBikeVersions<BikeVersionEntity, int> _objVersion = null;
+
+        public SimilarBikeController(IBikeVersions<BikeVersionEntity, int> objVersion)
+        {
+            _objVersion = objVersion;
+        }
         /// <summary>
         /// Created By : Sadhana Upadhyay on 25 Aug 2015
         /// Summary : To get Alternative/Similar bikes Lisr
@@ -29,38 +40,28 @@ namespace Bikewale.Service.Controllers.BikeData
         /// <param name="topCount">Top Count (Optional)</param>
         /// <param name="deviation">Deviation (Optional)</param>
         /// <returns></returns>
-        public HttpResponseMessage Get(int versionId, uint topCount, uint? deviation =null)
+        public IHttpActionResult Get(int versionId, uint topCount, uint? deviation = null)
         {
-            SimilarBikeList objSimilar=new SimilarBikeList();
+            SimilarBikeList objSimilar = new SimilarBikeList();
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();
-                    IBikeVersions<BikeVersionEntity, int> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
 
-                    uint percentDeviation = deviation.HasValue ? deviation.Value : 15;
+                uint percentDeviation = deviation.HasValue ? deviation.Value : 15;
 
-                    List<SimilarBikeEntity> objSimilarBikes = objVersion.GetSimilarBikesList(versionId, topCount, percentDeviation);
+                List<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, percentDeviation);
+                                
+                objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
+                if (objSimilarBikes != null && objSimilarBikes.Count > 0)
+                    return Ok(objSimilar);
+                else
+                    return NotFound();
 
-                    Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
-                    Mapper.CreateMap<SimilarBikeEntity, SimilarBike>();
-
-                    objSimilar.SimilarBike = Mapper.Map<List<SimilarBikeEntity>, List<SimilarBike>>(objSimilarBikes);
-
-                    if (objSimilarBikes != null && objSimilarBikes.Count > 0)
-                        return Request.CreateResponse(HttpStatusCode.OK, objSimilar);
-                    else
-                        return Request.CreateResponse(HttpStatusCode.NoContent);
-                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.BikeDiscover.GetFeaturedBikeList");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

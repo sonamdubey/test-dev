@@ -24,6 +24,13 @@ namespace Bikewale.Service.Controllers.BookingSummary
     /// </summary>
     public class BookingSummaryController : ApiController
     {
+        private readonly IDealerPriceQuote _objDealer = null;
+
+        public BookingSummaryController(IDealerPriceQuote objDealer)
+        {
+            _objDealer = objDealer;
+        }
+
         /// <summary>
         /// Gets the Booking Summary information
         /// </summary>
@@ -33,7 +40,7 @@ namespace Bikewale.Service.Controllers.BookingSummary
         /// <param name="cityId">City Id</param>
         /// <returns></returns>
         [ResponseType(typeof(BookingSummaryBase))]
-        public HttpResponseMessage Get(uint pqId, uint versionId, uint dealerId, uint cityId)
+        public IHttpActionResult Get(uint pqId, uint versionId, uint dealerId, uint cityId)
         {
             PQ_DealerDetailEntity dealerDetailEntity = null;
             PQCustomerDetail objCustomer = null;
@@ -47,16 +54,11 @@ namespace Bikewale.Service.Controllers.BookingSummary
                 string _requestType = "application/json";
 
                 #region Customer Details
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
+                objCustomer = _objDealer.GetCustomerDetails(pqId);
 
-                    objCustomer = objDealer.GetCustomerDetails(pqId);
-                }
                 if (objCustomer != null)
                 {
-                    dtoCustomer = BookingSummaryEntityToDTO.ConvertCustomer(objCustomer);
+                    dtoCustomer = PQCustomerMapper.Convert(objCustomer);
                 }
                 #endregion
 
@@ -64,17 +66,9 @@ namespace Bikewale.Service.Controllers.BookingSummary
                 string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", versionId, dealerId, cityId);
 
                 dealerDetailEntity = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, dealerDetailEntity);
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    objCustomer = objDealer.GetCustomerDetails(pqId);
-                }
-
                 if (dealerDetailEntity != null)
                 {
-                    dtoQuotation = BookingSummaryEntityToDTO.ConvertDetailEntity(dealerDetailEntity);
+                    dtoQuotation = DDQDealerDetailBaseMapper.Convert(dealerDetailEntity);
                 }
                 #endregion
 
@@ -87,18 +81,18 @@ namespace Bikewale.Service.Controllers.BookingSummary
 
                 if (bookingSummary != null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, bookingSummary);
+                    return Ok(bookingSummary);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "Booking summary not found.");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BookingSummary.BookingSummaryController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

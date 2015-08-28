@@ -26,6 +26,11 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// </summary>
     public class DealerPriceQuoteController : ApiController
     {
+        private readonly IDealerPriceQuote _objDealer = null;
+        public DealerPriceQuoteController(IDealerPriceQuote objDealer)
+        {
+            _objDealer = objDealer;
+        }
         /// <summary>
         /// Gets the Dealer price Quote availability for given version and city
         /// </summary>
@@ -33,31 +38,26 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="cityId">city id</param>
         /// <returns></returns>
         [ResponseType(typeof(bool))]
-        public HttpResponseMessage Get(uint versionId, uint cityId)
+        public IHttpActionResult Get(uint versionId, uint cityId)
         {
             bool isDealerPricesAvailable = false;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                isDealerPricesAvailable = _objDealer.IsDealerPriceAvailable(versionId, cityId);
+                if (isDealerPricesAvailable)
                 {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-                    isDealerPricesAvailable = objDealer.IsDealerPriceAvailable(versionId, cityId);
-                    if (isDealerPricesAvailable)
-                    {
-                        return Request.CreateResponse(HttpStatusCode.OK, isDealerPricesAvailable);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    return Ok(isDealerPricesAvailable);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.DealerPriceQuoteController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
 
@@ -67,7 +67,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="input">Required parameters to generate the dealer price quote</param>
         /// <returns>Dealer Price Quotation</returns>
         [ResponseType(typeof(DPQuotationOutput))]
-        public HttpResponseMessage Post([FromBody]DPQuotationInput input)
+        public IHttpActionResult Post([FromBody]DPQuotationInput input)
         {
             PQ_QuotationEntity objPrice = null;
             DPQuotationOutput output = null;
@@ -81,19 +81,19 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                 if (objPrice != null)
                 {
-                    output = PriceQuoteEntityToCTO.ConvertDPQuotation(objPrice);
-                    return Request.CreateResponse(HttpStatusCode.OK, output);
+                    output = DPQuotationOutputMapper.Convert(objPrice);
+                    return Ok(output);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No dealer price quote found");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.DealerPriceQuoteController.Post");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

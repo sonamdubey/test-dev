@@ -21,6 +21,11 @@ namespace Bikewale.Service.Controllers.BikeBooking.Model
     /// </summary>
     public class BBModelListController : ApiController
     {
+        private readonly ModelRepository _repository = null;
+        public BBModelListController(ModelRepository repository)
+        {
+            _repository = repository;
+        }
         /// <summary>
         /// Returns the Model List for a make
         /// </summary>
@@ -31,16 +36,14 @@ namespace Bikewale.Service.Controllers.BikeBooking.Model
         {
             IEnumerable<BikeModelEntityBase> objModelList = null;
             BBModelList objDTOModelList = null;
-
-            ModelRepository repository = new ModelRepository();
             try
             {
-                objModelList = repository.GetModelByMake("PRICEQUOTE", makeId);
+                objModelList = _repository.GetModelByMake("PRICEQUOTE", makeId);
 
                 if (objModelList != null)
                 {
                     objDTOModelList = new BBModelList();
-                    objDTOModelList.Models = ModelEntityToDTO.Convert(objModelList);
+                    objDTOModelList.Models = BBModelListMapper.Convert(objModelList);
 
                     return Request.CreateResponse(HttpStatusCode.OK, objDTOModelList);
                 }

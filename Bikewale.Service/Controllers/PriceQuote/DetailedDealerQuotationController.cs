@@ -45,7 +45,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
             if (dealerDetailEntity != null)
             {
-                output = PriceQuoteEntityToCTO.ConvertDealerDetail(dealerDetailEntity);
+                output = DDQDealerDetailBaseMapper.Convert(dealerDetailEntity);
                 return Request.CreateResponse(HttpStatusCode.OK, output);
             }
             else

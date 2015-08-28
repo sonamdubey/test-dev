@@ -25,45 +25,43 @@ namespace Bikewale.Service.Controllers.PriceQuote.Model
     /// </summary>
     public class PQModelListController : ApiController
     {
+        private readonly IBikeModels<BikeModelEntity, int> _modelsRepository = null;
+
+        public PQModelListController(IBikeModels<BikeModelEntity, int> modelsRepository)
+        {
+            _modelsRepository = modelsRepository;
+        }
         /// <summary>
         /// Returns the List of Models of a Model
         /// </summary>
         /// <param name="makeId">Bike Make</param>
         /// <returns></returns>
         [ResponseType(typeof(PQModelList))]
-        public HttpResponseMessage Get(int makeId)
+        public IHttpActionResult Get(int makeId)
         {
             List<BikeModelEntityBase> objModelList = null;
             PQModelList objDTOModelList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objModelList = _modelsRepository.GetModelsByType(EnumBikeType.PriceQuote, makeId);
+
+                if (objModelList != null && objModelList.Count > 0)
                 {
-                    IBikeModels<BikeModelEntity, int> ModelsRepository = null;
-
-                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-                    ModelsRepository = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-
-                    objModelList = ModelsRepository.GetModelsByType(EnumBikeType.PriceQuote, makeId);
-
-                    if (objModelList != null && objModelList.Count > 0)
-                    {
-                        // Auto map the properties
-                        objDTOModelList = new PQModelList();
-                        objDTOModelList.Models = PQModelEntityToDTO.ConvertModelList(objModelList);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOModelList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    // Auto map the properties
+                    objDTOModelList = new PQModelList();
+                    objDTOModelList.Models = PQModelListMapper.Convert(objModelList);
+                    return Ok(objDTOModelList);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Model.PQModelListController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

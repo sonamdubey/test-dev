@@ -8,6 +8,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.BikeData;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -20,8 +21,20 @@ using System.Web.Mvc;
 
 namespace Bikewale.Service.Controllers.BikeData
 {
+    /// <summary>
+    /// Upcoming Bike Controller
+    /// Created By : Sadhana Upadhyay on 25 Aug 2015
+    /// </summary>
     public class UpcomingBikeController : ApiController
     {
+        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        private readonly IPager _objPager = null;
+        public UpcomingBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager)
+        {
+            _modelRepository = modelRepository;
+            _objPager = objPager;
+        }
+
         #region GetUpcomingBikeList Method
         /// <summary>
         /// Created By : Sadhana Upadhyay on 25 Aug 2015
@@ -33,53 +46,39 @@ namespace Bikewale.Service.Controllers.BikeData
         /// <param name="modelId">Model Id(Optional)</param>
         /// <param name="curPageNo">Current Page No (Optional)</param>
         /// <returns></returns>
-        public HttpResponseMessage Get(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo=null)
+        public IHttpActionResult Get(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
         {
             UpcomingBikeList upcomingBikes = new UpcomingBikeList();
+            int recordCount = 0;
+            int startIndex = 0, endIndex = 0, currentPageNo = 0;
             try
-            {
-                using (IUnityContainer container = new UnityContainer())
+            {                
+                currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
+
+                _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
+
+                UpcomingBikesListInputEntity inputParams = new UpcomingBikesListInputEntity()
                 {
-                    int recordCount = 0;
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    IBikeModelsRepository<BikeModelEntity, int> modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+                    StartIndex = startIndex,
+                    EndIndex = endIndex,
+                    MakeId = makeId.HasValue ? makeId.Value : 0,
+                    ModelId = modelId.HasValue ? modelId.Value : 0
+                };
 
-                    container.RegisterType<IPager, Pager>();
-                    IPager objPager = container.Resolve<IPager>();
+                List<UpcomingBikeEntity> objUpcoming = _modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
+                                
+                upcomingBikes.UpcomingBike = UpcomingBikeListMapper.Convert(objUpcoming);
+                if (objUpcoming != null && objUpcoming.Count > 0)
+                    return Ok(upcomingBikes);
+                else
+                    return NotFound();
 
-                    int startIndex = 0, endIndex = 0, currentPageNo=0;
-                    currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
-
-                    objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
-
-                    UpcomingBikesListInputEntity inputParams = new UpcomingBikesListInputEntity()
-                    {
-                        StartIndex = startIndex,
-                        EndIndex = endIndex,
-                        MakeId = makeId.HasValue ? makeId.Value : 0,
-                        ModelId = modelId.HasValue ? modelId.Value : 0
-                    };
-
-                    List<UpcomingBikeEntity> objUpcoming = modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
-
-                    Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    Mapper.CreateMap<BikeDescriptionEntity, BikeDiscription>();
-                    Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
-
-                    upcomingBikes.UpcomingBike = Mapper.Map<List<UpcomingBikeEntity>, List<UpcomingBike>>(objUpcoming);
-
-                    if (objUpcoming != null && objUpcoming.Count > 0)
-                        return Request.CreateResponse(HttpStatusCode.OK, upcomingBikes);
-                    else
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "no data found");
-                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.BikeDiscover.GetUpcomingBikeList");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
         #endregion

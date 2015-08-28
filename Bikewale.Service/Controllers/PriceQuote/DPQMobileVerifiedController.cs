@@ -19,40 +19,40 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// </summary>
     public class DPQMobileVerifiedController : ApiController
     {
+        private readonly IDealerPriceQuote _objDealer = null;
+        public DPQMobileVerifiedController(IDealerPriceQuote objDealer)
+        {
+            _objDealer = objDealer;
+        }
         /// <summary>
         /// Updates the mobile number verification for a generated Price Quote
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
         [ResponseType(typeof(DPQMobileVerifiedOutput))]
-        public HttpResponseMessage Post([FromBody]DPQMobileVerifiedInput input)
+        public IHttpActionResult Post([FromBody]DPQMobileVerifiedInput input)
         {
             bool isSuccess = false;
             DPQMobileVerifiedOutput output = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                isSuccess = _objDealer.UpdateIsMobileVerified(input.PQId);
+                if (isSuccess)
                 {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-                    isSuccess = objDealer.UpdateIsMobileVerified(input.PQId);
-                    if (isSuccess)
-                    {
-                        output = new DPQMobileVerifiedOutput();
-                        output.IsSuccess = isSuccess;
-                        return Request.CreateResponse(HttpStatusCode.OK, output);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NotModified, "Mobile Verification failed.");
-                    }
+                    output = new DPQMobileVerifiedOutput();
+                    output.IsSuccess = isSuccess;
+                    return Ok(output);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.DPQMobileVerifiedController.Post");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

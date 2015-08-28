@@ -1,6 +1,7 @@
 ﻿using Bikewale.DAL.Compare;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Compare;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -19,33 +20,39 @@ namespace Bikewale.Service.Controllers.Compare
     /// </summary>
     public class BikeCompareListController : ApiController
     {
+        private readonly IBikeCompare _bikeCompare = null;
+        public BikeCompareListController(IBikeCompare bikeCompare)
+        {
+            _bikeCompare = bikeCompare;
+        }
+
         /// <summary>
         /// Gets the Top 'n' Bike Compare List
         /// </summary>
         /// <param name="topCount">Top count</param>
         /// <returns></returns>
         [ResponseType(typeof(IEnumerable<TopBikeCompareBase>))]
-        public HttpResponseMessage Get(UInt16 topCount)
+        public IHttpActionResult Get(UInt16 topCount)
         {
             IEnumerable<TopBikeCompareBase> topBikeComapreList = null;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                IBikeCompare bikeCompare = null;
-
-                container.RegisterType<IBikeCompare, BikeCompareRepository>();
-                bikeCompare = container.Resolve<IBikeCompare>();
-
-                topBikeComapreList = bikeCompare.CompareList(topCount);
+                topBikeComapreList = _bikeCompare.CompareList(topCount);
                 if (topBikeComapreList != null)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, topBikeComapreList);
+                    return Ok(topBikeComapreList);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                    return NotFound();
                 }
             }
-
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.Compare.BikeCompareListController.Get");
+                objErr.SendMail();
+                return InternalServerError();
+            }
         }
     }
 }

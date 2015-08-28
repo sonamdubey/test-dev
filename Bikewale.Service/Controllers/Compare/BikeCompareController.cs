@@ -19,39 +19,37 @@ namespace Bikewale.Service.Controllers.Compare
     /// </summary>
     public class BikeCompareController : ApiController
     {
+        private readonly IBikeCompare _bikeCompare = null;
+        public BikeCompareController(IBikeCompare bikeCompare)
+        {
+            _bikeCompare = bikeCompare;
+        }
+
         /// <summary>
         /// Gets the Bike Comparision details
         /// </summary>
         /// <param name="versionList">Bike version list(comma separated values)</param>
         /// <returns></returns>
-        public HttpResponseMessage Get(string versionList)
+        public IHttpActionResult Get(string versionList)
         {
             BikeCompareEntity compareEntity = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                compareEntity = _bikeCompare.DoCompare(versionList);
+                if (compareEntity != null)
                 {
-                    IBikeCompare bikeCompare = null;
-
-                    container.RegisterType<IBikeCompare, BikeCompareRepository>();
-                    bikeCompare = container.Resolve<IBikeCompare>();
-
-                    compareEntity = bikeCompare.DoCompare(versionList);
-                    if (compareEntity != null)
-                    {
-                        return Request.CreateResponse(HttpStatusCode.OK, compareEntity);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    return Ok(compareEntity);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.Compare.BikeCompareController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

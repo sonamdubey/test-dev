@@ -18,11 +18,23 @@ using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using AutoMapper;
 using Bikewale.DTO.Series;
+using Bikewale.Service.AutoMappers.BikeData;
 
 namespace Bikewale.Service.Controllers.BikeData
 {
+    /// <summary>
+    /// New Launched Bike Controller
+    /// Created By : Sadhana Upadhyay on 25 Aug 2015
+    /// </summary>
     public class NewLaunchedBikeController : ApiController
     {
+        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        private readonly IPager _objPager = null;
+        public NewLaunchedBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager)
+        {
+            _modelRepository = modelRepository;
+            _objPager = objPager;
+        }
         /// <summary>
         /// Created By : Sadhana Upadhyay on 25 Aug 2015
         /// Summary : To get Recently Launched Bike
@@ -30,45 +42,31 @@ namespace Bikewale.Service.Controllers.BikeData
         /// <param name="pageSize">No. of Record</param>
         /// <param name="curPageNo">Current Page No. (Optional)</param>
         /// <returns></returns>
-        public HttpResponseMessage Get(int pageSize,int? curPageNo = null)
+        public IHttpActionResult Get(int pageSize, int? curPageNo = null)
         {
+            int recordCount = 0;
             try
             {
                 LaunchedBikeList objLaunched = new LaunchedBikeList();
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    int recordCount = 0;
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    IBikeModelsRepository<BikeModelEntity, int> modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+                int startIndex = 0, endIndex = 0, currentPageNo = 1;
+                currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
 
-                    container.RegisterType<IPager, Pager>();
-                    IPager objPager = container.Resolve<IPager>();
+                _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
 
-                    int startIndex = 0, endIndex = 0, currentPageNo = 1;
-                    currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
+                List<NewLaunchedBikeEntity> objRecent = _modelRepository.GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
+                                
+                objLaunched.LaunchedBike = LaunchedBikeListMapper.Convert(objRecent);
 
-                    objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
-
-                    List<NewLaunchedBikeEntity> objRecent = modelRepository.GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
-
-                    Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-                    Mapper.CreateMap<NewLaunchedBikeEntity, LaunchedBike>();
-
-                    objLaunched.LaunchedBike = Mapper.Map<List<NewLaunchedBikeEntity>, List<LaunchedBike>>(objRecent);
-
-                    if (objRecent != null && objRecent.Count > 0)
-                        return Request.CreateResponse(HttpStatusCode.OK, objLaunched);
-                    else
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "no data found");
-                }
+                if (objRecent != null && objRecent.Count > 0)
+                    return Ok(objLaunched);
+                else
+                    return NotFound();
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.BikeDiscover.GetRecentlyLaunchedBikeList");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

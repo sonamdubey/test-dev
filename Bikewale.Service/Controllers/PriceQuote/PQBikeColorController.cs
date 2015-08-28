@@ -19,41 +19,40 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// </summary>
     public class PQBikeColorController : ApiController
     {
+        private readonly IDealerPriceQuote _objDealer = null;
+        public PQBikeColorController(IDealerPriceQuote objDealer)
+        {
+            _objDealer = objDealer;
+        }
         /// <summary>
         /// To update the Bike Color
         /// </summary>
         /// <param name="input">PQBikeColorInput Entity</param>
         /// <returns></returns>
         [ResponseType(typeof(PQBikeColorOutput))]
-        public HttpResponseMessage Post([FromBody] PQBikeColorInput input)
+        public IHttpActionResult Post([FromBody] PQBikeColorInput input)
         {
             PQBikeColorOutput output = null;
             bool isUpdated = false;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                isUpdated = _objDealer.UpdatePQBikeColor(input.ColorId, input.PQId);
+                if (isUpdated)
                 {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    isUpdated = objDealer.UpdatePQBikeColor(input.ColorId, input.PQId);
-                    if (isUpdated)
-                    {
-                        output = new PQBikeColorOutput();
-                        output.IsUpdated = isUpdated;
-                        return Request.CreateResponse(HttpStatusCode.OK, output);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NotModified);
-                    }
+                    output = new PQBikeColorOutput();
+                    output.IsUpdated = isUpdated;
+                    return Ok(output);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQBikeColorController.Post");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

@@ -20,58 +20,53 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
     /// </summary>
     public class ResendVerificationCodeController : ApiController
     {
+        private readonly IMobileVerificationRepository _mobileVerRespo = null;
+        private readonly IMobileVerification _mobileVerification = null;
+
+        public ResendVerificationCodeController(IMobileVerificationRepository mobileVerRespo, IMobileVerification mobileVerification)
+        {
+            _mobileVerRespo = mobileVerRespo;
+            _mobileVerification = mobileVerification;
+        }
         /// <summary>
         /// Verified the resend mobile verification code
         /// </summary>
-        /// <param name="customerName"></param>
-        /// <param name="customerMobile"></param>
-        /// <param name="customerEmail"></param>
-        /// <param name="url"></param>
+        /// <param name="input">entity</param>
         /// <returns></returns>
         [ResponseType(typeof(PQResendMobileVerificationOutput))]
-        public HttpResponseMessage Post([FromBody]PQResendMobileVerificationInput input)
+        public IHttpActionResult Post([FromBody]PQResendMobileVerificationInput input)
         {
             PQResendMobileVerificationOutput output = null;
             bool isSuccess = false;
             MobileVerificationEntity mobileVer = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
                 {
-                    container.RegisterType<IMobileVerificationRepository, Bikewale.BAL.MobileVerification.MobileVerification>();
-                    IMobileVerificationRepository mobileVerRespo = container.Resolve<IMobileVerificationRepository>();
+                    mobileVer = _mobileVerification.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
 
-                    container.RegisterType<IMobileVerification, Bikewale.BAL.MobileVerification.MobileVerification>();
-                    IMobileVerification mobileVerificetion = container.Resolve<IMobileVerification>();
+                    SMSTypes st = new SMSTypes();
+                    st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.Source);
 
-                    if (!mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
-                    {
-                        mobileVer = mobileVerificetion.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
-
-                        SMSTypes st = new SMSTypes();
-                        st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.Source);
-
-                        isSuccess = true;
-                    }
-
+                    isSuccess = true;
                 }
                 output = new PQResendMobileVerificationOutput();
                 output.IsSuccess = isSuccess;
                 if (isSuccess)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, output);
+                    return Ok(output);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.MobileVerification.ResendVerificationCodeController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
-            }            
+                return InternalServerError();
+            }
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Bikewale.Service.Controllers.BikeBooking.Make
         /// <param name="cityId">City id</param>
         /// <returns></returns>
         [ResponseType(typeof(BBMakeList))]
-        public HttpResponseMessage Get(uint cityId)
+        public IHttpActionResult Get(uint cityId)
         {
             string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
             string _requestType = "application/json";
@@ -39,18 +39,18 @@ namespace Bikewale.Service.Controllers.BikeBooking.Make
                 {
                     objDTOMakeList = new BBMakeList();
                     objDTOMakeList.Makes = lstMake;
-                    return Request.CreateResponse(HttpStatusCode.OK, objDTOMakeList);
+                    return Ok(objDTOMakeList);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.Make.BBMakeListController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

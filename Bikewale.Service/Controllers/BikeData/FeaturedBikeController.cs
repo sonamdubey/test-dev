@@ -6,6 +6,7 @@ using Bikewale.DTO.Model;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.BikeData;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -18,9 +19,17 @@ using System.Web.Mvc;
 
 namespace Bikewale.Service.Controllers.BikeData
 {
+    /// <summary>
+    /// Featured Bike Controller
+    /// Created By : Sadhana Upadhyay on 21 Aug 2015
+    /// </summary>
     public class FeaturedBikeController : ApiController
     {
-        // GET: FeaturedBike
+        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        public FeaturedBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
+        {
+            _modelRepository = modelRepository;
+        }
         #region GetFeaturedBikeList Method
         /// <summary>
         /// Created By : Sadhana Upadhyay on 21 aUG 2015
@@ -28,35 +37,25 @@ namespace Bikewale.Service.Controllers.BikeData
         /// </summary>
         /// <param name="topCount">Top Count</param>
         /// <returns></returns>
-        public HttpResponseMessage Get(uint topCount)
+        public IHttpActionResult Get(uint topCount)
         {
             FeaturedBikeList FeaturedList = new FeaturedBikeList();
+            List<FeaturedBikeEntity> objFeature = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    IBikeModelsRepository<BikeModelEntity, int> modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+                objFeature = _modelRepository.GetFeaturedBikes(topCount);                
+                FeaturedList.FeaturedBike = FeaturedBikeListMapper.Convert(objFeature);
+                if (objFeature != null && objFeature.Count > 0)
+                    return Ok(FeaturedList);
+                else
+                    return NotFound();
 
-                    List<FeaturedBikeEntity> objFeature = modelRepository.GetFeaturedBikes(topCount);
-
-                    Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    Mapper.CreateMap<FeaturedBikeEntity, FeaturedBike>();
-
-                    FeaturedList.FeaturedBike = Mapper.Map<List<FeaturedBikeEntity>, List<FeaturedBike>>(objFeature);
-
-                    if (objFeature != null && objFeature.Count > 0)
-                        return Request.CreateResponse(HttpStatusCode.OK, FeaturedList);
-                    else
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "no data found");
-                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.BikeDiscover.GetFeaturedBikeList");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
         #endregion

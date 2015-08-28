@@ -32,6 +32,25 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// </summary>
     public class PQCustomerDetailController : ApiController
     {
+        private readonly ICustomerAuthentication<CustomerEntity, UInt32> _objAuthCustomer = null;
+        private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
+        private readonly IDealerPriceQuote _objDealer = null;
+        private readonly IMobileVerificationRepository _mobileVerRespo = null;
+        private readonly IMobileVerification _mobileVerificetion = null;
+
+        public PQCustomerDetailController(
+            ICustomerAuthentication<CustomerEntity, UInt32> objAuthCustomer,
+            ICustomer<CustomerEntity, UInt32> objCustomer,
+            IDealerPriceQuote objDealer,
+            IMobileVerificationRepository mobileVerRespo,
+            IMobileVerification mobileVerificetion)
+        {
+            _objAuthCustomer = objAuthCustomer;
+            _objCustomer = objCustomer;
+            _objDealer = objDealer;
+            _mobileVerRespo = mobileVerRespo;
+            _mobileVerificetion = mobileVerificetion;
+        }
         /// <summary>
         /// Saves the Customer details if it is a new customer.
         /// generated the OTP for the non verified customer
@@ -39,7 +58,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
         [ResponseType(typeof(PQCustomerDetailOutput))]
-        public HttpResponseMessage Post([FromBody]PQCustomerDetailInput input)
+        public IHttpActionResult Post([FromBody]PQCustomerDetailInput input)
         {
             PQCustomerDetailOutput output = null;
             bool isSuccess = false;
@@ -50,75 +69,53 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail))
                 {
-                    container.RegisterType<ICustomerAuthentication<CustomerEntity, UInt32>, CustomerAuthentication<CustomerEntity, UInt32>>();
-                    ICustomerAuthentication<CustomerEntity, UInt32> objAuthCustomer = container.Resolve<ICustomerAuthentication<CustomerEntity, UInt32>>();
+                    RegisterCustomer rc = new RegisterCustomer();
+                    password = rc.GenerateRandomPassword();
+                    salt = rc.GenerateRandomSalt();
+                    hash = rc.GenerateHashCode(password, salt);
 
-                    if (!objAuthCustomer.IsRegisteredUser(input.CustomerEmail))
+                    objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, PasswordSalt = salt, PasswordHash = hash, ClientIP = input.ClientIP };
+                    UInt32 CustomerId = _objCustomer.Add(objCust);
+                }
+
+                isSuccess = _objDealer.SaveCustomerDetail(input.DealerId, input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail);
+
+                if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
+                {
+                    mobileVer = _mobileVerificetion.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
+                    isVerified = false;
+
+                    SMSTypes st = new SMSTypes();
+                    st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.PageUrl);
+                }
+                else
+                {
+                    isVerified = _objDealer.UpdateIsMobileVerified(input.PQId);
+                    // If customer is mobile verified push lead to autobiz
+                    if (isVerified)
                     {
-                        container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
-                        ICustomer<CustomerEntity, UInt32> objCustomer = container.Resolve<ICustomer<CustomerEntity, UInt32>>();
-
-                        RegisterCustomer rc = new RegisterCustomer();
-                        password = rc.GenerateRandomPassword();
-                        salt = rc.GenerateRandomSalt();
-                        hash = rc.GenerateHashCode(password, salt);
-
-                        objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, PasswordSalt = salt, PasswordHash = hash, ClientIP = input.ClientIP };
-                        UInt32 CustomerId = objCustomer.Add(objCust);
-                    }
-
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    isSuccess = objDealer.SaveCustomerDetail(input.DealerId, input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail);
-
-                    //DealerPriceQuoteCookie.CreateDealerPriceQuoteCookie(PriceQuoteCookie.PQId, false, false);
-                    //CustomerDetailCookie.CreateCustomerDetailCookie(customerName, customerEmail, customerMobile);
-
-                    container.RegisterType<IMobileVerificationRepository, Bikewale.BAL.MobileVerification.MobileVerification>();
-                    IMobileVerificationRepository mobileVerRespo = container.Resolve<IMobileVerificationRepository>();
-
-                    if (!mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
-                    {
-                        container.RegisterType<IMobileVerification, Bikewale.BAL.MobileVerification.MobileVerification>();
-                        IMobileVerification mobileVerificetion = container.Resolve<IMobileVerification>();
-
-                        mobileVer = mobileVerificetion.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
-                        isVerified = false;
-
-                        SMSTypes st = new SMSTypes();
-                        st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.PageUrl);
-                    }
-                    else
-                    {
-                        isVerified = objDealer.UpdateIsMobileVerified(input.PQId);
-
-                        // If customer is mobile verified push lead to autobiz
-                        if (isVerified)
-                        {
-                            AutoBizAdaptor.PushInquiryInAB(input.DealerId.ToString(), input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail, input.VersionId, input.CityId);
-                        }
+                        AutoBizAdaptor.PushInquiryInAB(input.DealerId.ToString(), input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail, input.VersionId, input.CityId);
                     }
                 }
                 if (isVerified)
                 {
                     output = new PQCustomerDetailOutput();
                     output.IsSuccess = isVerified;
-                    return Request.CreateResponse(HttpStatusCode.Created, output);
+                    return Ok(output);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotModified, "Not Modified");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Post");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
-            }            
+                return InternalServerError();
+            }
         }
 
         /// <summary>
@@ -127,34 +124,28 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="pqId">Price quote</param>
         /// <returns>Customer Details</returns>
         [ResponseType(typeof(PQCustomer))]
-        public HttpResponseMessage Get(uint pqId)
+        public IHttpActionResult Get(uint pqId)
         {
             PQCustomerDetail entity = null;
             PQCustomer output = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-
-                    entity = objDealer.GetCustomerDetails(pqId);
-                }
+                entity = _objDealer.GetCustomerDetails(pqId);
                 if (entity != null)
                 {
-                    output = PriceQuoteEntityToCTO.ConvertCustomerDetail(entity);
-                    return Request.CreateResponse(HttpStatusCode.OK, output);
+                    output = PQCustomerMapper.Convert(entity);
+                    return Ok(output);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "Customer not found.");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

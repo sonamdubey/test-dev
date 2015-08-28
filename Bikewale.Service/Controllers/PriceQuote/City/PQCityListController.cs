@@ -21,43 +21,43 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
     /// </summary>
     public class PQCityListController : ApiController
     {
+        private readonly ICity _cityRepository = null;
+
+        public PQCityListController(ICity cityRepository)
+        {
+            _cityRepository = cityRepository;
+        }
         /// <summary>
         /// Returns the Price Quote City List by Model Id
         /// </summary>
         /// <param name="modelId">Model Id. Should be Positive Integer</param>
         /// <returns>List of Cities</returns>
         [ResponseType(typeof(PQCityList))]
-        public HttpResponseMessage Get(uint modelId)
+        public IHttpActionResult Get(uint modelId)
         {
             List<CityEntityBase> objCityList = null;
             PQCityList objDTOCityList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objCityList = _cityRepository.GetPriceQuoteCities(modelId);
+
+                if (objCityList != null && objCityList.Count > 0)
                 {
-                    container.RegisterType<ICity, CityRepository>();
-                    ICity cityRepository = container.Resolve<ICity>();
-
-                    objCityList = cityRepository.GetPriceQuoteCities(modelId);
-
-                    if (objCityList != null && objCityList.Count > 0)
-                    {
-                        // Auto map the properties
-                        objDTOCityList = new PQCityList();
-                        objDTOCityList.Cities = PQCityEntityToDTO.ConvertCityList(objCityList);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOCityList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    // Auto map the properties
+                    objDTOCityList = new PQCityList();
+                    objDTOCityList.Cities = PQCityListMapper.Convert(objCityList);
+                    return Ok(objDTOCityList);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.City.PQCityListController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

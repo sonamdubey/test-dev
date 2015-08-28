@@ -21,44 +21,41 @@ namespace Bikewale.Service.Controllers.PriceQuote.Make
     /// </summary>
     public class PQMakeListController : ApiController
     {
+        private readonly IBikeMakes<BikeMakeEntity, int> _makesRepository = null;
+
+        public PQMakeListController(IBikeMakes<BikeMakeEntity, int> makesRepository)
+        {
+            _makesRepository = makesRepository;
+        }
         /// <summary>
         /// Gets Makes List
         /// </summary>
         /// <returns>Make List</returns>
         [ResponseType(typeof(PQMakeList))]
-        public HttpResponseMessage Get()
+        public IHttpActionResult Get()
         {
             List<BikeMakeEntityBase> objMakeList = null;
             PQMakeList objDTOMakeList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objMakeList = _makesRepository.GetMakesByType(EnumBikeType.PriceQuote);
+                if (objMakeList != null && objMakeList.Count > 0)
                 {
-                    IBikeMakes<BikeMakeEntity, int> makesRepository = null;
-
-                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                    makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-
-                    objMakeList = makesRepository.GetMakesByType(EnumBikeType.PriceQuote);
-
-                    if (objMakeList != null && objMakeList.Count > 0)
-                    {
-                        // Auto map the properties
-                        objDTOMakeList = new PQMakeList();
-                        objDTOMakeList.Makes = PQMakeEntityToDTO.ConvertMakeList(objMakeList);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOMakeList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    // Auto map the properties
+                    objDTOMakeList = new PQMakeList();
+                    objDTOMakeList.Makes = PQMakeListMapper.Convert(objMakeList);
+                    return Ok(objDTOMakeList);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Make.PQMakeListController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

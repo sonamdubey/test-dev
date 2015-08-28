@@ -21,41 +21,41 @@ namespace Bikewale.Service.Controllers.BikeBooking.Area
     /// </summary>
     public class BBAreaListController : ApiController
     {
+        private readonly IArea _repository = null;
+        public BBAreaListController(IArea repository)
+        {
+            _repository = repository;
+        }
         /// <summary>
         /// Gets the list of Areas of a City
         /// </summary>
         /// <param name="cityId">City Id</param>
         /// <returns></returns>
         [ResponseType(typeof(BBAreaList))]
-        public HttpResponseMessage Get(UInt16 cityId)
+        public IHttpActionResult Get(UInt16 cityId)
         {
             IEnumerable<AreaEntityBase> objAreaList = null;
             BBAreaList objDTOAreaList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IArea, AreaRepository>();
-                    IArea repository = container.Resolve<IArea>();
-                    objAreaList = repository.GetAreasByCity(cityId);
+                objAreaList = _repository.GetAreasByCity(cityId);
 
-                    if (objAreaList != null)
-                    {
-                        objDTOAreaList = new BBAreaList();
-                        objDTOAreaList.Areas = AreaEntityToDTO.Convert(objAreaList);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOAreaList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                if (objAreaList != null)
+                {
+                    objDTOAreaList = new BBAreaList();
+                    objDTOAreaList.Areas = BBAreaListMapper.Convert(objAreaList);
+                    return Ok(objDTOAreaList);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.Area.BBAreaListController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

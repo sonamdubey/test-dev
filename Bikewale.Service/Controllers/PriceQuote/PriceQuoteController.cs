@@ -23,49 +23,46 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// </summary>
     public class PriceQuoteController : ApiController
     {
+        private readonly IDealerPriceQuote _objIPQ = null;
+        public PriceQuoteController(IDealerPriceQuote objIPQ)
+        {
+            _objIPQ = objIPQ;
+        }
         /// <summary>
         /// Bikewale Price Quote and Dealer Price Quote
         /// </summary>
         /// <param name="input">Entity contains the required details to get the price quote details</param>
         /// <returns></returns>
         [ResponseType(typeof(PQOutputEntity))]
-        public HttpResponseMessage Post([FromBody]PQInput input)
+        public IHttpActionResult Post([FromBody]PQInput input)
         {
             string response = string.Empty;
             Bikewale.DTO.PriceQuote.PQOutput objPQ = null;
             PQOutputEntity objPQOutput = null;
-
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
+                objPQEntity.CityId = input.CityId;
+                objPQEntity.AreaId = input.AreaId > 0 ? input.AreaId : 0;
+                objPQEntity.ClientIP = input.ClientIP;
+                objPQEntity.SourceId = Convert.ToUInt16(input.SourceType);
+                objPQEntity.ModelId = input.ModelId;
+                objPQOutput = _objIPQ.ProcessPQ(objPQEntity);
+                if (objPQOutput != null)
                 {
-                    // save price quote
-                    container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-                    IDealerPriceQuote objIPQ = container.Resolve<IDealerPriceQuote>();
-
-                    PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
-                    objPQEntity.CityId = input.CityId;
-                    objPQEntity.AreaId = input.AreaId > 0 ? input.AreaId : 0;
-                    objPQEntity.ClientIP = input.ClientIP;
-                    objPQEntity.SourceId = Convert.ToUInt16(input.SourceType);
-                    objPQEntity.ModelId = input.ModelId;
-                    objPQOutput = objIPQ.ProcessPQ(objPQEntity);
-                    if (objPQOutput != null)
-                    {
-                        objPQ = PriceQuoteEntityToCTO.ConvertPQOutputEntity(objPQOutput);
-                        return Request.CreateResponse(HttpStatusCode.OK, objPQ);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    objPQ = PQOutputMapper.Convert(objPQOutput);
+                    return Ok(objPQ);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

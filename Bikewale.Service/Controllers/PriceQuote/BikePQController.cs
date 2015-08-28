@@ -22,40 +22,39 @@ namespace Bikewale.Service.Controllers.PriceQuote
     /// </summary>
     public class BikePQController : ApiController
     {
+        private readonly IPriceQuote _objPriceQuote = null;
+        public BikePQController(IPriceQuote objPriceQuote)
+        {
+            _objPriceQuote = objPriceQuote;
+        }
         /// <summary>
         /// Gets the BikeWale Price Quote from the Price Quote Id
         /// </summary>
         /// <param name="pqId">Price Quote Id</param>
         /// <returns>BikeWale Price Quote</returns>
         [ResponseType(typeof(PQBikePriceQuoteOutput))]
-        public HttpResponseMessage Get(UInt64 pqId)
-        {
-            IPriceQuote objPriceQuote = null;
+        public IHttpActionResult Get(UInt64 pqId)
+        {            
             BikeQuotationEntity quotation = null;
             PQBikePriceQuoteOutput bwPriceQuote = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-                    objPriceQuote = container.Resolve<IPriceQuote>();
-                    quotation = objPriceQuote.GetPriceQuoteById(pqId);
-                }
+                quotation = _objPriceQuote.GetPriceQuoteById(pqId);
                 if (quotation != null)
                 {
-                    bwPriceQuote = PriceQuoteEntityToCTO.ConvertBikePriceQuote(quotation);
-                    return Request.CreateResponse(HttpStatusCode.OK, bwPriceQuote);
+                    bwPriceQuote = PQBikePriceQuoteOutputMapper.Convert(quotation);
+                    return Ok(bwPriceQuote);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, "Price Quote not found");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.BikePQController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }
