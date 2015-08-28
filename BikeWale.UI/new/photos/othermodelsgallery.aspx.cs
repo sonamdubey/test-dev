@@ -16,8 +16,8 @@ using System.Net.Http.Headers;
 using Bikewale.Interfaces.Pager;
 using Microsoft.Practices.Unity;
 using Bikewale.BAL.Pager;
-using Bikewale.Entity.CMS.Articles;
-using Bikewale.Entity.CMS.Photos;
+using Bikewale.Entities.CMS.Articles;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Entities.Pager;
 
 namespace Bikewale.New.PhotoGallery

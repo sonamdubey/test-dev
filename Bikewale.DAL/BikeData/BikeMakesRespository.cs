@@ -244,6 +244,91 @@ namespace Bikewale.DAL.BikeData
         {
             throw new NotImplementedException();
         }
-        
+
+        /// <summary>
+        /// Getting makes only by providing only request type
+        /// </summary>
+        /// <param name="RequestType">Pass value as New or Used or Upcoming or PriceQuote or ALL</param>
+        /// <returns></returns>
+        public DataTable GetMakes(string RequestType)
+        {
+            DataTable dt = null;
+            Database db = null;
+
+            using (SqlCommand cmd = new SqlCommand("GetBikeMakes"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = RequestType;
+                try
+                {
+                    db = new Database();
+                    dt = db.SelectAdaptQry(cmd).Tables[0];
+                }
+                catch (SqlException ex)
+                {
+                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    objErr.SendMail();
+                }
+                catch (Exception ex)
+                {
+                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    objErr.SendMail();
+                }
+            }
+            return dt;
+        }
+
+        /// <summary>
+        ///     Get Makeid and make name from the make id
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public BikeMakeEntityBase GetMakeDetails(string makeId)
+        {
+            // Validate the makeId
+            if (!CommonOpn.IsNumeric(makeId))
+                return null;
+
+            string sql = "";
+            BikeMakeEntityBase makeDetails = new BikeMakeEntityBase();
+
+            sql = " SELECT Name AS MakeName, ID AS MakeId , MaskingName FROM BikeMakes With(NoLock) "
+                + " WHERE ID = @makeId ";
+
+            SqlDataReader dr = null;
+            Database db = new Database();
+            SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
+
+            try
+            {
+                dr = db.SelectQry(sql, param);
+
+                if (dr.Read())
+                {
+                    makeDetails.MakeName = Convert.ToString(dr["MakeName"]);
+                    makeDetails.MakeId = Convert.ToInt32(dr["MakeId"]); 
+                    makeDetails.MaskingName = Convert.ToString(dr["MaskingName"]);
+                }
+
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (dr != null)
+                {
+                    dr.Close();
+                }
+                db.CloseConnection();
+            }
+
+            return makeDetails;
+        }   // End of getMakeDetails
+
     }
 }

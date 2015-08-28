@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 using System.Configuration;
 using Bikewale.Entities.CMS;
 

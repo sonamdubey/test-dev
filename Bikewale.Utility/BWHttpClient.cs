@@ -10,6 +10,7 @@ namespace Bikewale.Utility
 {
     public class BWHttpClient
     {
+
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Oct 2014
         /// Summary    : Method to get data from web api
@@ -23,10 +24,8 @@ namespace Bikewale.Utility
         public static async Task<T> GetApiResponse<T>(string hostUrl, string requestType, string apiUrl, T responseType)
         {
             T objTask = responseType;
-            try
+            using (var client = new HttpClient())
             {
-                using (var client = new HttpClient())
-                {
                     // New code:       
                     //sets the base URI for HTTP requests
                     client.BaseAddress = new Uri(hostUrl);
@@ -45,19 +44,11 @@ namespace Bikewale.Utility
                         if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status
                             objTask = await _response.Content.ReadAsAsync<T>();
                     }
-                }
-            }
-            catch (HttpRequestException ex)
-            {
+            }           
 
-            }
-            catch (Exception err)
-            {
-
-            }
             return objTask;
         }
-
+        
         /// <summary>
         /// Created By : Sadhana Upadhyay on 11 Nov 2014
         /// Summary : Method to get data from web api synchronously

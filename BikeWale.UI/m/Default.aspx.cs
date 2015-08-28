@@ -9,7 +9,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.BAL.CMS;
 using System.Data.SqlClient;
 using Bikewale.Common;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 using System.Configuration;
 
 namespace Bikewale.Mobile

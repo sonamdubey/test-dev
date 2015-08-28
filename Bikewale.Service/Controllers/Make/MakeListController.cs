@@ -11,46 +11,75 @@ using Bikewale.DAL.BikeData;
 using Bikewale.DTO.Make;
 using AutoMapper;
 using System.Web.Http.Description;
+using Bikewale.Service.AutoMappers.Make;
+using Bikewale.Notifications;
+
 
 namespace Bikewale.Service.Controllers.Make
 {
+    /// <summary>
+    /// To Get List of Makes 
+    /// Author : Sushil Kumar
+    /// Created On : 24th August 2015
+    /// </summary>
     public class MakeListController : ApiController
     {
+        private readonly IBikeMakes<BikeMakeEntity, int> _makesRepository;
+
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="makesRepository"></param>
+        public MakeListController(IBikeMakes<BikeMakeEntity, int> makesRepository)
+        {
+            _makesRepository = makesRepository;
+        }
+
+        #region Makes List
+        /// <summary>
+        ///  To get List of Makes based on request Type 
+        /// </summary>
         /// <param name="requestType"></param>
-        /// <returns></returns>
+        /// <returns>Makes List</returns>
         [ResponseType(typeof(MakeList))]
         public HttpResponseMessage Get(EnumBikeType requestType)
         {
             List<BikeMakeEntityBase> objMakeList = null;
             MakeList objDTOMakeList = null;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                IBikeMakes<BikeMakeEntity, int> makesRepository = null;
+                //using (IUnityContainer container = new UnityContainer())
+                //{
+                //    IBikeMakes<BikeMakeEntity, int> makesRepository = null;
 
-                container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                //    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                //    makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
 
-                objMakeList = makesRepository.GetMakesByType(requestType);
+                    objMakeList = _makesRepository.GetMakesByType(requestType);
 
-                if (objMakeList != null && objMakeList.Count > 0)
-                {
-                    // Auto map the properties
-                    objDTOMakeList = new MakeList();
-                    
-                    Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    objDTOMakeList.Makes = Mapper.Map<List<BikeMakeEntityBase>, List<MakeBase>>(objMakeList);
-
-                    return Request.CreateResponse(HttpStatusCode.OK, objDTOMakeList);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                }
+                    if (objMakeList != null && objMakeList.Count > 0)
+                    {
+                        objDTOMakeList = new MakeList();
+                        
+                        objDTOMakeList.Makes = MakeEntityToDTO.ConvertMakeEntityList(objMakeList);
+                        
+                        return Request.CreateResponse(HttpStatusCode.OK, objDTOMakeList);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                    }
+                //}
             }
-        }   // Get
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Make.MakeController");
+                objErr.SendMail();
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+            }
+        }   // Get 
+        #endregion
 
+        
     }    // Class
 }   // Namespace

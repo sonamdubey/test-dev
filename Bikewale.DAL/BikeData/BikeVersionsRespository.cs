@@ -10,6 +10,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.CoreDAL;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
+using System.Diagnostics;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -109,6 +110,63 @@ namespace Bikewale.DAL.BikeData
         {
             throw new NotImplementedException();
         }
+
+        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId,bool isNew)
+        {
+           Database db = null;
+           List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
+            try
+            {
+                db = new Database();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "GetVersions";
+
+                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;                    
+                    cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
+
+                    using(SqlDataReader dr = db.SelectQry(cmd))
+                    {                                           
+                        
+                        if(dr!=null)
+                        {
+                            while(dr.Read())
+                            {
+                                objMinSpecs.Add( new BikeVersionMinSpecs(){
+                                   VersionId  = Convert.ToUInt32(dr["ID"]),
+                                   VersionName = Convert.ToString(dr["Version"]),
+                                   ModelName =Convert.ToString(dr["Model"]),
+                                   Price  = Convert.ToUInt64(dr["VersionPrice"]),
+                                   BrakeType  = Convert.ToString(dr["BrakeType"]),
+                                   AlloyWheels  = Convert.ToBoolean(dr["AlloyWheels"]),
+                                   ElectricStart  = Convert.ToBoolean(dr["ElectricStart"]),
+                                   AntilockBrakingSystem  = Convert.ToBoolean(dr["AntilockBrakingSystem"])
+                                }) ;
+                            }
+                        }
+                    }
+                }                 
+            
+            }
+            catch (SqlException ex)
+            {                     
+                //ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                //objErr.SendMail();
+            }
+            catch (Exception ex)
+            {   
+              //  ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+              //  objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objMinSpecs;
+        }   // End of GetVersionsMinSpecs method
+
 
         /// <summary>
         /// Summary : Function to get all details of a particular version.
@@ -519,5 +577,7 @@ namespace Bikewale.DAL.BikeData
             }
             return objColors;
         }
+
+
     }   // class
 }   // namespace

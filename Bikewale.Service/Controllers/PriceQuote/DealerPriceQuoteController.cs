@@ -2,7 +2,6 @@
 using Bikewale.DTO.PriceQuote.DealerPriceQuote;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using Bikewale.Entity.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote;
@@ -16,6 +15,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Bikewale.Entities.BikeBooking;
 
 namespace Bikewale.Service.Controllers.PriceQuote
 {

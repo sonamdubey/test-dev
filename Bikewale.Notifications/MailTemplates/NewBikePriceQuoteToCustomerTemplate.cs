@@ -1,4 +1,4 @@
-﻿using Bikewale.Entity.BikeBooking;
+﻿using Bikewale.Entities.BikeBooking;
 using System;
 using System.Collections.Generic;
 using System.Linq;

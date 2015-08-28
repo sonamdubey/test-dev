@@ -9,7 +9,7 @@ using Bikewale.Common;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Configuration;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 using System.Net.Http.Formatting;
 using Newtonsoft.Json;
 using System.Threading.Tasks;

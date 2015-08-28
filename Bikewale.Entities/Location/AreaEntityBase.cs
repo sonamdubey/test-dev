@@ -11,6 +11,7 @@ namespace Bikewale.Entities.Location
         public UInt32 AreaId { get; set; }
         public string AreaName { get; set; }
         public string PinCode { get; set; }
+        public string AreaMaskingName { get; set; }
         public double Longitude { get; set; }
         public double Latitude { get; set; }
     }

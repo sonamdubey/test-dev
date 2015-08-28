@@ -1,5 +1,5 @@
 ﻿using Bikewale.Common;
-using Bikewale.Entity.CMS.Photos;
+using Bikewale.Entities.CMS.Photos;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

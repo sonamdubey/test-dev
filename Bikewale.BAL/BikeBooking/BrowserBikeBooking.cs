@@ -1,5 +1,4 @@
 ﻿using Bikewale.Entities.BikeBooking;
-using Bikewale.Entity.BikeBooking;
 using Bikewale.Notifications;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;

@@ -11,9 +11,9 @@ using Bikewale.Memcache;
 using System.Net.Http;
 using System.Configuration;
 using System.Net.Http.Headers;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Controls;
-using Bikewale.Entity.CMS.Photos;
+using Bikewale.Entities.CMS.Photos;
 
 namespace Bikewale.Content
 {

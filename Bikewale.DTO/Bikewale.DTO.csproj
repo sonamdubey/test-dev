@@ -58,9 +58,6 @@
     <Compile Include="BikeData\UpcomingBikeList.cs" />
     <Compile Include="Make\MakeBase.cs" />
     <Compile Include="Make\MakeList.cs" />
-    <Compile Include="Model\ModelDetail.cs" />
-    <Compile Include="Model\ModelBase.cs" />
-    <Compile Include="Model\ModelList.cs" />
     <Compile Include="BikeBooking\Area\BBAreaBase.cs" />
     <Compile Include="BikeBooking\Area\BBAreaList.cs" />
     <Compile Include="BikeBooking\City\BBCityBase.cs" />
@@ -72,6 +69,7 @@
     <Compile Include="BikeBooking\Version\BBVersionBase.cs" />
     <Compile Include="BikeBooking\Version\BBVersionList.cs" />
     <Compile Include="BookingSummary\BookingSummaryBase.cs" />
+    <Compile Include="Model\ModelDetail.cs" />
     <Compile Include="PriceQuote\Area\PQAreaBase.cs" />
     <Compile Include="PriceQuote\Area\PQAreaList.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteInput.cs" />
@@ -125,9 +123,49 @@
     <Compile Include="PriceQuote\PQSources.cs" />
     <Compile Include="PriceQuote\Version\PQVersionBase.cs" />
     <Compile Include="PriceQuote\Version\PQVersionList.cs" />
+    <Compile Include="Area\AreaBase.cs" />
+    <Compile Include="Area\AreaList.cs" />
+    <Compile Include="City\CityBase.cs" />
+    <Compile Include="City\CityList.cs" />
+    <Compile Include="CMS\Articles\CMSArticleBase.cs" />
+    <Compile Include="CMS\Articles\CMSArticleDetails.cs" />
+    <Compile Include="CMS\Articles\CMSArticlePageDetails.cs" />
+    <Compile Include="CMS\Articles\CMSArticleSummary.cs" />
+    <Compile Include="CMS\Articles\CMSContent.cs" />
+    <Compile Include="CMS\Articles\CMSContentFilter.cs" />
+    <Compile Include="CMS\Articles\CMSImage.cs" />
+    <Compile Include="CMS\Articles\CMSPage.cs" />
+    <Compile Include="CMS\Articles\CMSVehicleTag.cs" />
+    <Compile Include="CMS\Photos\CMSImageList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CMS\Photos\CMSModelImageBase.cs" />
+    <Compile Include="Model\ModelBase.cs" />
+    <Compile Include="Model\ModelDescription.cs" />
+    <Compile Include="Model\ModelDetails.cs" />
+    <Compile Include="Model\ModelList.cs" />
+    <Compile Include="Model\ModelPage.cs" />
+    <Compile Include="UserReviews\FilterByBase.cs" />
+    <Compile Include="UserReviews\ReviewDetails.cs" />
+    <Compile Include="UserReviews\Review.cs" />
+    <Compile Include="UserReviews\ReviewBase.cs" />
+    <Compile Include="UserReviews\ReviewRating.cs" />
+    <Compile Include="UserReviews\ReviewRatingBase.cs" />
+    <Compile Include="UserReviews\ReviewsListEntity.cs" />
+    <Compile Include="UserReviews\ReviewTaggedBike.cs" />
+    <Compile Include="Version\ModelVersionList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Series\SeriesBase.cs" />
+    <Compile Include="Series\SeriesList.cs" />
+    <Compile Include="State\StateBase.cs" />
+    <Compile Include="State\StateList.cs" />
     <Compile Include="Version\VersionBase.cs" />
+    <Compile Include="Version\VersionDetails.cs" />
+    <Compile Include="Version\VersionList.cs" />
+    <Compile Include="Version\VersionMinSpecs.cs" />
+    <Compile Include="Version\VersionSpecifications.cs" />
+    <Compile Include="Widgets\MostPopularBikes.cs" />
+    <Compile Include="Widgets\MostPopularBikesList.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

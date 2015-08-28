@@ -18,5 +18,6 @@ namespace Bikewale.Interfaces.BikeData
         List<BikeMakeEntityBase> GetMakesByType(EnumBikeType requestType);
         List<BikeModelsListEntity> GetModelsList(U makeId);       
         BikeDescriptionEntity GetMakeDescription(U makeId);
+        BikeMakeEntityBase GetMakeDetails(string makeId);
     }
 }

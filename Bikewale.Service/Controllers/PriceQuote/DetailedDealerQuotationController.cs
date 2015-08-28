@@ -2,7 +2,7 @@
 using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
-using Bikewale.Entity.BikeBooking;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Utility;
 using System;

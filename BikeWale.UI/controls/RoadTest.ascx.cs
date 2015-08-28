@@ -7,7 +7,7 @@ using Bikewale.Common;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 using System.Configuration;
 using Bikewale.Entities.CMS;
 using System.Collections.Generic;

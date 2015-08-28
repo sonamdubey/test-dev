@@ -1,4 +1,3 @@
-﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,5 +13,6 @@ namespace Bikewale.DTO.Version
 
         [JsonProperty("versionName")]
         public string VersionName { get; set; }
+
     }
 }

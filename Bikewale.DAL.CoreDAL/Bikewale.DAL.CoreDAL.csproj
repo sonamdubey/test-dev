@@ -41,10 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommonOpn.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
+      <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>
+      <Name>Bikewale.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>

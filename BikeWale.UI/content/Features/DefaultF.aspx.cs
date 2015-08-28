@@ -11,7 +11,7 @@ using Bikewale.Controls;
 using System.Configuration;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Entities.CMS;
 using Microsoft.Practices.Unity;

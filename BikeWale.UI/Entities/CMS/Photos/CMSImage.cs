@@ -1,11 +1,11 @@
-﻿using Bikewale.Entity.CMS.Photos;
+﻿using Bikewale.Entities.CMS.Photos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.Entity.CMS.Photos
+namespace Bikewale.Entities.CMS.Photos
 {
     [Serializable]
     public class CMSImage

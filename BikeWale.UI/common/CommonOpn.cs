@@ -18,7 +18,7 @@ using System.Globalization;
 using System.Net;
 using Bikewale.Entities.CMS;
 using System.Collections.Generic;
-using Bikewale.Entity.BikeBooking;
+using Bikewale.Entities.BikeBooking;
 
 namespace Bikewale.Common 
 {

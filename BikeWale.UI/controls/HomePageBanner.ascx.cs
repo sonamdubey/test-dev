@@ -11,7 +11,7 @@ using Bikewale.Interfaces.CMS;
 using Bikewale.Entities.CMS;
 using Bikewale.BAL.CMS;
 using System.Net.Http;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 using System.Threading.Tasks;
 using System.Configuration;
 using System.Net.Http.Headers;

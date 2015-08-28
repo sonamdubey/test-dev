@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Bikewale.Entities.Location;
 
-namespace Bikewale.Entity.BikeBooking
+namespace Bikewale.Entities.BikeBooking
 {
     public class NewBikeDealers
     {

@@ -3,7 +3,7 @@ using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
-using Bikewale.Entity.BikeBooking;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Mobile.PriceQuote;

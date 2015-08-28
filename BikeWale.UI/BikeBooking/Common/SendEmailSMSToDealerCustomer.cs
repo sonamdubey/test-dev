@@ -1,5 +1,5 @@
 ﻿using Bikewale.Common;
-using Bikewale.Entity.BikeBooking;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates;
 using System;

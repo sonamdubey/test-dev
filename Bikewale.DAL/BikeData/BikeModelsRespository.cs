@@ -11,6 +11,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Entities.BikeData;
 using Bikewale.Notifications;
 using System.Collections;
+using Bikewale.DAL.BikeData;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -101,6 +102,41 @@ namespace Bikewale.DAL.BikeData
         public List<T> GetAll()
         {
             throw new NotImplementedException();
+        }
+
+        public BikeModelPageEntity GetModelPage(U modelId,bool isNew)
+        {    
+            BikeModelPageEntity modelPage = new BikeModelPageEntity();
+
+            try 
+	       {	     
+		        modelPage.modelDetails = GetById(modelId);
+                modelPage.modelDesc = GetModelSynopsis(modelId);
+                modelPage.modelVersion = GetVersionsList(modelId, isNew);
+                modelPage.versionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.modelVersion[0].VersionId));
+	        }
+	       catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("GetModelDescription sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetModelDescription ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return modelPage;
+            
+        }
+
+
+        public BikeSpecificationEntity MVSpecsFeatures(int versionId)
+        {
+            var mv = new BikeVersionsRepository<BikeVersionEntity, int>();
+            return mv.GetSpecifications(versionId);
         }
 
         /// <summary>
@@ -239,6 +275,7 @@ namespace Bikewale.DAL.BikeData
                                 version.VersionName = Convert.ToString(dr["VersionName"]);
                                 version.ModelName = Convert.ToString(dr["ModelName"]);
                                 version.Price = Convert.ToUInt64(dr["Price"]);
+                                
 
                                 objList.Add(version);
                             }
@@ -547,6 +584,77 @@ namespace Bikewale.DAL.BikeData
 
             return objModelList;
         }
+
+
+        public List<MostPopularBikesBase> GetMostPopularBikes(sbyte topCount, int? makeId = null)
+        {
+            List<MostPopularBikesBase> objList = null;
+            Database db = null;
+            MostPopularBikesBase objData = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "GetMostPopularBikes";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = topCount;
+
+                    if (makeId.HasValue)
+                        cmd.Parameters.AddWithValue("@MakeId", makeId);
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            objList = new List<MostPopularBikesBase>();
+
+                            while (dr.Read())
+                            {
+                                objData = new MostPopularBikesBase();
+                                objData.objMake = new BikeMakeEntityBase();
+                                objData.objModel = new BikeModelEntityBase();
+                                objData.objVersion = new BikeVersionsListEntity();
+                                objData.objMake.MakeName = Convert.ToString(dr["Make"]);
+                                objData.objModel.ModelName = Convert.ToString(dr["Model"]);
+                                objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objData.objModel.ModelName = Convert.ToString(dr["ModelMaskingName"]);
+                                objData.objVersion.VersionId = Convert.ToUInt32(dr["VersionId"]);
+                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.BikeName = Convert.ToString(dr["BikeName"]);
+                                objData.HostURL = Convert.ToString(dr["HostUrl"]);
+                                objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objData.VersionPrice = Convert.ToInt64(dr["VersionPrice"]);
+                                objList.Add(objData);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException err)
+            {
+                HttpContext.Current.Trace.Warn("SQL Exception in GetModelsList", err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objList;
+        }
+        
 
         /// <summary>
         /// Created By : Suresh Prajapati on 24th Sep-14

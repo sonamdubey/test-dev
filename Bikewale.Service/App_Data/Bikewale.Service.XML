@@ -4,6 +4,17 @@
         <name>Bikewale.Service</name>
     </assembly>
     <members>
+        <member name="T:Bikewale.Service.WebApiConfig">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.WebApiConfig.Register(System.Web.Http.HttpConfiguration)">
+            <summary>
+            
+            </summary>
+            <param name="config"></param>
+        </member>
         <member name="M:Bikewale.Service.Areas.HelpPage.ApiDescriptionExtensions.GetFriendlyId(System.Web.Http.Description.ApiDescription)">
             <summary>
             Generates an URI-friendly ID for the <see cref="T:System.Web.Http.Description.ApiDescription"/>. E.g. "Get-Values-id_name" instead of "GetValues/{id}?name={name}"
@@ -481,9 +492,14 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
-        <member name="M:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController.Get(System.String,System.Nullable{System.Int32})">
+        <member name="T:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController">
             <summary>
+            Auto Suggest Controller
             Created By : Sadhana Upadhyay on 25 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController.Get(System.String,System.Nullable{System.Int32})">
+            <summary>        
             Summary : Auto Suggest Api for Make And Model
             </summary>
             <param name="inputText">String</param>
@@ -537,12 +553,24 @@
             Created On  :   20 Aug 2015
             </summary>
         </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.Model.BBModelListController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="repository"></param>
+        </member>
         <member name="M:Bikewale.Service.Controllers.BikeBooking.Model.BBModelListController.Get(System.UInt16)">
             <summary>
             Returns the Model List for a make
             </summary>
             <param name="makeId">Make Id</param>
             <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.BikeData.FeaturedBikeController">
+            <summary>
+            Featured Bike Controller
+            Created By : Sadhana Upadhyay on 21 Aug 2015
+            </summary>
         </member>
         <member name="M:Bikewale.Service.Controllers.BikeData.FeaturedBikeController.Get(System.UInt32)">
             <summary>
@@ -551,6 +579,12 @@
             </summary>
             <param name="topCount">Top Count</param>
             <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.BikeData.NewLaunchedBikeController">
+            <summary>
+            New Launched Bike Controller
+            Created By : Sadhana Upadhyay on 25 Aug 2015
+            </summary>
         </member>
         <member name="M:Bikewale.Service.Controllers.BikeData.NewLaunchedBikeController.Get(System.Int32,System.Nullable{System.Int32})">
             <summary>
@@ -561,6 +595,12 @@
             <param name="curPageNo">Current Page No. (Optional)</param>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.BikeData.SimilarBikeController">
+            <summary>
+            Similar Bike Controller
+            Created By : Sadhana Upadhyay on 25 Aug 2015
+            </summary>
+        </member>
         <member name="M:Bikewale.Service.Controllers.BikeData.SimilarBikeController.Get(System.Int32,System.UInt32,System.Nullable{System.UInt32})">
             <summary>
             Created By : Sadhana Upadhyay on 25 Aug 2015
@@ -570,6 +610,12 @@
             <param name="topCount">Top Count (Optional)</param>
             <param name="deviation">Deviation (Optional)</param>
             <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.BikeData.UpcomingBikeController">
+            <summary>
+            Upcoming Bike Controller
+            Created By : Sadhana Upadhyay on 25 Aug 2015
+            </summary>
         </member>
         <member name="M:Bikewale.Service.Controllers.BikeData.UpcomingBikeController.Get(Bikewale.Entities.BikeData.EnumUpcomingBikesFilter,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
@@ -626,13 +672,6 @@
             Gets the Top 'n' Bike Compare List
             </summary>
             <param name="topCount">Top count</param>
-            <returns></returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.Make.MakeListController.Get(Bikewale.Entities.BikeData.EnumBikeType)">
-            <summary>
-            
-            </summary>
-            <param name="requestType"></param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController">
@@ -766,10 +805,7 @@
             <summary>
             Verified the resend mobile verification code
             </summary>
-            <param name="customerName"></param>
-            <param name="customerMobile"></param>
-            <param name="customerEmail"></param>
-            <param name="url"></param>
+            <param name="input">entity</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Model.PQModelListController">
@@ -851,6 +887,218 @@
             <param name="cityId">city id</param>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.Area.AreaListController">
+            <summary>
+            To Get List of Areas
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Area.AreaListController.Get(System.String)">
+            <summary>
+            GEt List of Areas based on city
+            </summary>
+            <param name="cityId"></param>
+            <returns>Areas List</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.City.CityListController">
+            <summary>
+            To Get List of Cities
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.City.CityListController.Get(Bikewale.Entities.BikeData.EnumBikeType)">
+            <summary>
+            To get Cities Based on request Type for DropDowns only
+            </summary>
+            <param name="requestType">Used/All (Irrespective of Pricequotes)</param>
+            <returns>Cities List</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.City.CityListController.Get(System.String,Bikewale.Entities.BikeData.EnumBikeType)">
+            <summary>
+            To get Cities Based on state and request Type
+            </summary>
+            <param name="requestType"></param>
+            <returns>State's Cities</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.Int32)">
+            <summary>
+            EditCMS Api to get List of ModelImages
+            </summary>
+            <param name="modelId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.String,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="basicId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="basicId"></param>
+            <param name="articlePhotos"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.String,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="basicId"></param>
+            <param name="article"></param>
+            <param name="news"></param>
+            <param name="all"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Edit CMS Api to get List of other model images list
+            </summary>
+            <param name="modelId"></param>
+            <param name="pageSize"></param>
+            <param name="pageNumber"></param>
+            <param name="startIndex"></param>
+            <param name="endIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.UInt32,System.Boolean,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="categoryId"></param>
+            <param name="makeId"></param>
+            <param name="modelId"></param>
+            <param name="posts"></param>
+            <param name="recent"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="CategoryId"></param>
+            <param name="makeId"></param>
+            <param name="modelId"></param>
+            <param name="startIndex"></param>
+            <param name="endIndex"></param>
+            <param name="pageSize"></param>
+            <param name="pageNumber"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Make.MakeController">
+            <summary>
+            To Get Make Details 
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Make.MakeController.Get(System.String)">
+            <summary>
+             To get make Details based on MakeId  for DropDown
+            </summary>
+            <param name="makeId"></param>
+            <returns>Make Details </returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Make.MakeListController">
+            <summary>
+            To Get List of Makes 
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Make.MakeListController.#ctor(Bikewale.Interfaces.BikeData.IBikeMakes{Bikewale.Entities.BikeData.BikeMakeEntity,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="makesRepository"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Make.MakeListController.Get(Bikewale.Entities.BikeData.EnumBikeType)">
+            <summary>
+             To get List of Makes based on request Type 
+            </summary>
+            <param name="requestType"></param>
+            <returns>Makes List</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Model.ModelController">
+            <summary>
+            To Get Model Details and other required Information related to the Models
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32)">
+            <summary>
+             To get Required Model Details 
+            </summary>
+            <param name="modelId"></param>
+            <returns>Required Model Details </returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Nullable{System.Boolean})">
+            <summary>
+             To get Long/Short Model's Description (Synopsis) 
+            </summary>
+            <param name="modelId"></param>
+            <returns>Model Synopsis</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Boolean)">
+            <summary>
+            To get all new versions based on Models 
+            </summary>
+            <param name="requestType"></param>
+            <param name="modelId"></param>
+            <returns>List of Model's New Versions </returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+            <summary>
+             To get Model's Specifications and Features based on VersionId 
+            </summary>
+            <param name="versionId">Model's Version ID</param>
+            <param name="specs"></param>
+            <param name="features"></param>
+            <returns>Model's Specs and Features</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.UInt32,System.Boolean,System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
+            <summary>
+            To get complete Model Page with Specs,Features,description and Details
+            For the Specs and Features Default version selected is the one with maximum pricequotes
+            </summary>
+            <param name="modelId"></param>
+            <returns>Complete Model Page</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Model.ModelListController">
+            <summary>
+            To Get List of Models
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelListController.Get(System.Int32)">
+            <summary>
+            To Minimum Model Details for Dropdowns 
+            </summary>
+            <param name="modelId"></param>
+            <returns>Minimum Model Details</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelListController.Get(System.SByte,System.Nullable{System.Int32})">
+            <summary>
+             To Get Most popular Bikes List
+            </summary>
+            <param name="totalCount">No. of records to be fetched</param>
+            <param name="makeId">Optional (To return Models List Based on MakeID)</param>
+            <returns>Most Popular bikes based on totalCount and MakeId(Optional)</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelListController.Get(Bikewale.Entities.BikeData.EnumBikeType,System.Int32)">
+            <summary>
+             To get list of Models based on request type and makeId  for dropdowns only !
+            </summary>
+            <param name="requestType"></param>
+            <param name="makeId"></param>
+            <returns>Models List for Dropdowns</returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.SampleController">
             <summary>
             This is a sample controller
@@ -861,6 +1109,164 @@
             This is GET for Sample Controller
             </summary>
             <returns>List of Strings</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Series.SeriesListController">
+            <summary>
+            To Get List of Series 
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Series.SeriesListController.Get(System.Int32)">
+            <summary>
+             To get List of Series 
+            </summary>
+            <param name="seriesId"></param>
+            <returns>Series List</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Series.SeriesListController.Get(Bikewale.Entities.BikeData.EnumBikeType,System.Int32)">
+            <summary>
+            To get list of series based on request Type 
+            </summary>
+            <param name="requestType"></param>
+            <param name="seriesId"></param>
+            <returns>Series List Based on RequestType</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.State.StateListController">
+            <summary>
+            To Get List of States
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.State.StateListController.Get">
+            <summary>
+             To get List of States currently Bikewale is Serving
+            </summary>
+            <returns>State's List</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.UserReviews.UserReviewsController.Get(System.UInt32)">
+            <summary>
+            
+            </summary>
+            <param name="reviewId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.UserReviews.UserReviewsController.Get(System.UInt32,System.Nullable{System.Boolean})">
+            <summary>
+            
+            </summary>
+            <param name="reviewId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.UserReviews.UserReviewsController.Put(System.UInt32)">
+            <summary>
+            
+            </summary>
+            <param name="reviewId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.UserReviews.UserReviewsController.Put(System.UInt32,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="reviewId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.UserReviews.UserReviewsController.Put(System.UInt32,System.String,System.String)">
+            <summary>
+            
+            </summary>
+            <param name="reviewId"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.UserReviews.UserReviewsListController.Get">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.UserReviews.UserReviewsListController.Get(System.UInt16)">
+            <summary>
+            
+            </summary>
+            <param name="totalRecords"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.UserReviews.UserReviewsListController.Get(System.UInt32,System.UInt32,System.UInt32,System.UInt32,Bikewale.Entities.UserReviews.FilterBy,System.UInt32@)">
+            <summary>
+            
+            </summary>
+            <param name="totalRecords"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.UserReviews.UserReviewsListTypeController.Get(Bikewale.Entities.UserReviews.FilterBy,System.UInt16)">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Version.VersionController">
+            <summary>
+            To Get Version Details
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Version.VersionController.Get(System.UInt32)">
+            <summary>
+            To get versions Details for DropDowns
+            </summary>
+            <param name="versionId"></param>
+            <returns>Version Minimum Details</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Version.VersionController.Get(System.UInt32,System.Nullable{System.Boolean})">
+            <summary>
+             To Get Version's Specifications  adn 
+            </summary>
+            <param name="requestType"></param>
+            <param name="makeId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Version.VersionListController">
+            <summary>
+            To Get List of Versions
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Version.VersionListController.Get(System.UInt32,System.Boolean)">
+            <summary>
+            
+            </summary>
+            <param name="modelId"></param>
+            <param name="isNew"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Version.VersionListController.Get(Bikewale.Entities.BikeData.EnumBikeType,System.Int32,System.Nullable{System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="requestType"></param>
+            <param name="makeId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Feedback.FeedbackController">
+            <summary>
+            Feedback Submission
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Feedback.FeedbackController.POST(System.String,System.UInt16,System.UInt16,System.String)">
+            <summary>
+            Save User FeedBack
+            </summary>
+            <param name="feedbackComment"></param>
+            <param name="feedbackType"></param>
+            <param name="platformId"></param>
+            <param name="pageUrl"></param>
+            <returns>True/False</returns>
         </member>
         <member name="M:Bikewale.Service.TCAPI.AutoBizAdaptor.PushInquiryInAB(System.String,System.UInt32,System.String,System.String,System.String,System.String,System.String)">
             <summary>
@@ -1088,6 +1494,48 @@
         </member>
         <member name="M:Bikewale.Service.TCClientInq.Proxy.TCApi_Inquiry.EndSaveOtherRequests(System.IAsyncResult)">
             <remarks/>
+        </member>
+        <member name="T:Bikewale.Service.UnityConfiguration.UnityBootstrapper">
+            <summary>
+            Created By : Ashish G. Kamble on 27 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.UnityConfiguration.UnityBootstrapper.Initialize">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.UnityConfiguration.UnityResolver">
+            <summary>
+            Created By : Ashish G. Kamble on 27 Aug 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.UnityConfiguration.UnityResolver.#ctor(Microsoft.Practices.Unity.IUnityContainer)">
+            <summary>
+            
+            </summary>
+            <param name="container"></param>
+        </member>
+        <member name="M:Bikewale.Service.UnityConfiguration.UnityResolver.GetService(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="serviceType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.UnityConfiguration.UnityResolver.GetServices(System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="serviceType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.UnityConfiguration.UnityResolver.BeginScope">
+            <summary>
+            
+            </summary>
+            <returns></returns>
         </member>
     </members>
 </doc>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.Entity.BikeBooking
+namespace Bikewale.Entities.BikeBooking
 {
     public class PQParameterEntity
     {

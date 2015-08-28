@@ -1,7 +1,7 @@
 ﻿using Bikewale.BAL.CMS;
 using Bikewale.Common;
 using Bikewale.Entities.CMS;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 using Bikewale.Interfaces.CMS;
 using Bikewale.Memcache;
 using Microsoft.Practices.Unity;

@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Bikewale.Interfaces.BikeData;
 
 namespace Bikewale.Service.Controllers.BikeBooking.Model
 {
@@ -21,8 +22,13 @@ namespace Bikewale.Service.Controllers.BikeBooking.Model
     /// </summary>
     public class BBModelListController : ApiController
     {
-        private readonly ModelRepository _repository = null;
-        public BBModelListController(ModelRepository repository)
+        private readonly IBikeModelsRepository<BikeModelEntity, int> _repository = null;
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="repository"></param>
+        public BBModelListController(IBikeModelsRepository<BikeModelEntity, int> repository)
         {
             _repository = repository;
         }
@@ -32,31 +38,31 @@ namespace Bikewale.Service.Controllers.BikeBooking.Model
         /// <param name="makeId">Make Id</param>
         /// <returns></returns>
         [ResponseType(typeof(BBModelList))]
-        public HttpResponseMessage Get(UInt16 makeId)
+        public IHttpActionResult Get(UInt16 makeId)
         {
             IEnumerable<BikeModelEntityBase> objModelList = null;
             BBModelList objDTOModelList = null;
             try
             {
-                objModelList = _repository.GetModelByMake("PRICEQUOTE", makeId);
+                objModelList = _repository.GetModelsByType(EnumBikeType.PriceQuote, makeId);
 
                 if (objModelList != null)
                 {
                     objDTOModelList = new BBModelList();
                     objDTOModelList.Models = BBModelListMapper.Convert(objModelList);
 
-                    return Request.CreateResponse(HttpStatusCode.OK, objDTOModelList);
+                    return Ok(objDTOModelList);
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BikeBooking.Model.BBModelListController.Get");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "some error occured.");
+                return InternalServerError();
             }
         }
     }

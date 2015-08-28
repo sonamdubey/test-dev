@@ -18,7 +18,7 @@ using Bikewale.Common;
 using System.Net.Http;
 using System.Configuration;
 using System.Net.Http.Headers;
-using Bikewale.Entity.CMS.Photos;
+using Bikewale.Entities.CMS.Photos;
 
 namespace Bikewale.Controls
 {

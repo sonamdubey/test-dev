@@ -15,7 +15,7 @@ using Bikewale.Mobile.Controls;
 using System.Net.Http;
 using System.Configuration;
 using System.Net.Http.Headers;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 
 namespace Bikewale.Mobile.Content
 {

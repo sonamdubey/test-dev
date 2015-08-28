@@ -17,7 +17,7 @@ using Bikewale.Entities.CMS;
 using Bikewale.BAL.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Entities.BikeData;
-using Bikewale.Entity.CMS.Photos;
+using Bikewale.Entities.CMS.Photos;
 using System.Configuration;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Cache.Core;

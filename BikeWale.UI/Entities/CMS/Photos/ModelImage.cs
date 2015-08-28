@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Bikewale.Entities.BikeData;
 using System.Runtime.Serialization;
 
-namespace Bikewale.Entity.CMS.Photos
+namespace Bikewale.Entities.CMS.Photos
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
