@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
+
     public class BikeVersionEntityBase
     {
         public int VersionId { get; set; }

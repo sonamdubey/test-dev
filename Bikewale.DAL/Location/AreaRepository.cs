@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 using System;
+=======
+﻿using System;
+>>>>>>> Feature-DropDownApi
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +15,10 @@ using Bikewale.CoreDAL;
 using System.Web;
 using Bikewale.Notifications;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Feature-DropDownApi
 namespace Bikewale.DAL.Location
 {
     public class AreaRepository : IArea
@@ -33,7 +41,10 @@ namespace Bikewale.DAL.Location
                     cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
 
                     db = new Database();
+<<<<<<< HEAD
 
+=======
+>>>>>>> Feature-DropDownApi
                     objAreaList = new List<AreaEntityBase>();
                     using (SqlDataReader dr = db.SelectQry(cmd))
                     {
@@ -64,6 +75,7 @@ namespace Bikewale.DAL.Location
             }
             return objAreaList;
         }   // End of GetAreas method
+<<<<<<< HEAD
 
         /// <summary>
         /// Created By Sumit Kate
@@ -113,5 +125,7 @@ namespace Bikewale.DAL.Location
             }
             return lstArea;
         }
+=======
+>>>>>>> Feature-DropDownApi
     }
 }

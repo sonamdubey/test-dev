@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 namespace Bikewale.DTO.Series
 {
     public class SeriesBase
+<<<<<<< HEAD
     {
         [JsonProperty("seriesId")]
         public int SeriesId { get; set; }
@@ -16,6 +17,16 @@ namespace Bikewale.DTO.Series
         public string SeriesName { get; set; }
 
         [JsonProperty("maskingName")]
+=======
+
+    {   [JsonProperty("seriesId")]
+        public int SeriesId { get; set; }
+
+         [JsonProperty("seriesName")]
+        public string SeriesName { get; set; }
+
+         [JsonProperty("maskingName")]
+>>>>>>> Feature-DropDownApi
         public string MaskingName { get; set; }
     }
 }

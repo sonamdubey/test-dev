@@ -1,3 +1,11 @@
+<<<<<<< HEAD
+=======
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+>>>>>>> Feature-DropDownApi
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
 using Bikewale.CoreDAL;
@@ -5,8 +13,11 @@ using System.Data.SqlClient;
 using System.Data;
 using System.Web;
 using Bikewale.Notifications;
+<<<<<<< HEAD
 using System.Collections.Generic;
 using System;
+=======
+>>>>>>> Feature-DropDownApi
 
 namespace Bikewale.DAL.Location
 {

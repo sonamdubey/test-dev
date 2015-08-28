@@ -1,4 +1,4 @@
-﻿using System.Runtime.Serialization;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,16 +8,15 @@ using Newtonsoft.Json;
 
 namespace Bikewale.DTO.Make
 {
-    [Serializable, DataContract]
     public class MakeBase
     {
-        [JsonProperty(PropertyName = "makeId"), DataMember]
+        [JsonProperty("makeId")]
         public int MakeId { get; set; }
 
-        [JsonProperty(PropertyName = "makeName"), DataMember]
+        [JsonProperty("makeName")]
         public string MakeName { get; set; }
 
-        [JsonProperty(PropertyName = "maskingName"), DataMember]
+        [JsonProperty("maskingName")]
         public string MaskingName { get; set; }
     }
 }
