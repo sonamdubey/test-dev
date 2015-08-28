@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Bikewale.DTO.CMS.Articles
 {
-    [Serializable]
     public class CMSContent
     {
         public IList<CMSArticleSummary> Articles { get; set; }
