@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace Bikewale.DTO.CMS.Articles
 {
-    /// <summary>
-    /// Created By : Ashwini Todkar on 17 Sept 2014
-    /// </summary>
-    [Serializable]
     public class CMSArticlePageDetails : CMSArticleSummary
     {
         public List<CMSPage> PageList { get; set; }
