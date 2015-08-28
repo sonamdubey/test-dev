@@ -45,7 +45,7 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     // Auto map the properties
                     objDTOModel = new ModelDetails();
-                    objDTOModel = ModelEntityToDTO.ConvertModelEntity(objModel);
+                    //objDTOModel = ModelEntityToDTO.ConvertModelEntity(objModel);
 
                     return Request.CreateResponse(HttpStatusCode.OK, objDTOModel);
                 }

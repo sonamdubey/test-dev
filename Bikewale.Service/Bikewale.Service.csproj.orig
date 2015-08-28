@@ -66,7 +66,11 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+<<<<<<< HEAD
       <HintPath>..\Libs\System.Net.Http.Formatting.dll</HintPath>
+=======
+      <HintPath>C:\Users\sushil.kumar\Documents\Visual Studio 2013\Projects\Training\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+>>>>>>> Feature-DropDownApi
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
@@ -154,9 +158,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+<<<<<<< HEAD
     <Compile Include="AutoMappers\AutoComplete\SuggestionListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\Area\AreaEntityToDTO.cs" />
     <Compile Include="AutoMappers\Bikebooking\Area\BBAreaListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Model\BBModelListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\Model\ModelEntityToDTO.cs" />
     <Compile Include="AutoMappers\BikeData\FeaturedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\LaunchedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\SimilarBikeListMapper.cs" />
@@ -164,19 +171,23 @@
     <Compile Include="AutoMappers\BookingSummary\BookingSummaryEntityToDTO.cs" />
     <Compile Include="AutoMappers\BookingSummary\DDQDealerDetailBaseMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\PQCustomerMapper.cs" />
+    <Compile Include="AutoMappers\PriceQuote\Area\PQAreaEntityToDTO.cs" />
     <Compile Include="AutoMappers\PriceQuote\Area\PQAreaListMapper.cs" />
+    <Compile Include="AutoMappers\PriceQuote\City\PQCityEntityToDTO.cs" />
     <Compile Include="AutoMappers\PriceQuote\City\PQCityListMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\DDQDealerDetailBaseMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\DPQuotationOutputMapper.cs" />
+    <Compile Include="AutoMappers\PriceQuote\Make\PQMakeEntityToDTO.cs" />
     <Compile Include="AutoMappers\PriceQuote\Make\PQMakeListMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\MobileVerification\PQMobVerfyEntityToDTO.cs" />
+    <Compile Include="AutoMappers\PriceQuote\Model\PQModelEntityToDTO.cs" />
     <Compile Include="AutoMappers\PriceQuote\Model\PQModelListMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PQBikePriceQuoteOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PQCustomerMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PQOutputMapper.cs" />
-    <Compile Include="AutoMappers\PriceQuote\PriceQuoteMapper.cs" />
+    <Compile Include="AutoMappers\PriceQuote\PriceQuoteEntityToCTO.cs" />
+    <Compile Include="AutoMappers\PriceQuote\Version\PQVersionEntityToDTO.cs" />
     <Compile Include="AutoMappers\PriceQuote\Version\PQVersionListMapper.cs" />
-    <Compile Include="AutoMappers\Videos\VideosMapper.cs" />
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
     <Compile Include="Controllers\BikeBooking\City\BBCityListController.cs" />
@@ -189,7 +200,6 @@
     <Compile Include="Controllers\BookingSummary\BookingSummaryController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />
-    <Compile Include="Controllers\Model\ModelPageController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />
     <Compile Include="Controllers\PriceQuote\BikePQController.cs" />
     <Compile Include="Controllers\PriceQuote\City\PQCityListController.cs" />
@@ -204,15 +214,17 @@
     <Compile Include="Controllers\PriceQuote\PQCustomerDetailController.cs" />
     <Compile Include="Controllers\PriceQuote\PriceQuoteController.cs" />
     <Compile Include="Controllers\PriceQuote\Version\PQVersionListController.cs" />
-    <Compile Include="AutoMappers\Area\AreaListMapper.cs" />
-    <Compile Include="AutoMappers\City\CityListMapper.cs" />
-    <Compile Include="AutoMappers\CMS\CMSMapper.cs" />
-    <Compile Include="AutoMappers\Make\MakeListMapper.cs" />
-    <Compile Include="AutoMappers\Model\ModelMapper.cs" />
-    <Compile Include="AutoMappers\Series\SeriesListMapper.cs" />
-    <Compile Include="AutoMappers\State\StateListMapper.cs" />
-    <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
-    <Compile Include="AutoMappers\Version\VersionListMapper.cs" />
+=======
+>>>>>>> Feature-DropDownApi
+    <Compile Include="AutoMappers\Area\AreaEntityToDTO.cs" />
+    <Compile Include="AutoMappers\City\CityEntityToDTO.cs" />
+    <Compile Include="AutoMappers\CMS\CMSEntityToDTO.cs" />
+    <Compile Include="AutoMappers\Make\MakeEntityToDTO.cs" />
+    <Compile Include="AutoMappers\Model\ModelEntityToDTO.cs" />
+    <Compile Include="AutoMappers\Series\SeriesEntityToDTO.cs" />
+    <Compile Include="AutoMappers\State\StateEntityToDTO.cs" />
+    <Compile Include="AutoMappers\UserReviews\UserReviewsEntityToDTO.cs" />
+    <Compile Include="AutoMappers\Version\VersionEntityToDTO.cs" />
     <Compile Include="Controllers\Area\AreaListController.cs" />
     <Compile Include="Controllers\City\CityListController.cs" />
     <Compile Include="Controllers\CMS\CMSController.cs" />
@@ -228,7 +240,6 @@
     <Compile Include="Controllers\UserReviews\UserReviewsListTypeController.cs" />
     <Compile Include="Controllers\Version\VersionController.cs" />
     <Compile Include="Controllers\Version\VersionListController.cs" />
-    <Compile Include="Controllers\VideosController.cs" />
     <Compile Include="Feedback\FeedbackController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -274,11 +285,13 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="APISecurity\" />
-    <Folder Include="AutoMappers\UsedBikes\" />
-    <Folder Include="Controllers\UsedBikes\" />
   </ItemGroup>
+=======
+  <ItemGroup />
+>>>>>>> Feature-DropDownApi
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
       <Project>{3ca0d7b6-7e09-449c-a34d-c08ca8118876}</Project>

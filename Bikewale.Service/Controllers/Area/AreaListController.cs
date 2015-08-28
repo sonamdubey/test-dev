@@ -25,12 +25,12 @@ namespace Bikewale.Service.Controllers.Area
     public class AreaListController : ApiController
     {
         /// <summary>
-        /// GEt List of Areas based on city
+        /// Get List of Areas based on city
         /// </summary>
         /// <param name="cityId"></param>
         /// <returns>Areas List</returns>
         [ResponseType(typeof(AreaList))]
-        public HttpResponseMessage Get(string cityId)
+        public IHttpActionResult Get(string cityId)
         {
             List<AreaEntityBase> objAreaList = null;
             AreaList objDTOAreaList = null;
@@ -48,13 +48,13 @@ namespace Bikewale.Service.Controllers.Area
                     if (objAreaList != null && objAreaList.Count > 0)
                     {
                         objDTOAreaList = new AreaList();
-                        objDTOAreaList.Area = AreaEntityToDTO.ConvertAreaList(objAreaList);
+                        objDTOAreaList.Area = AreaListMapper.Convert(objAreaList);
 
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOAreaList);
+                        return Ok(objDTOAreaList);
                     }
                     else
                     {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                        return NotFound();
                     }
                 }
             }
@@ -62,9 +62,9 @@ namespace Bikewale.Service.Controllers.Area
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Area.AreaListController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
-        }   // Get
+        }   // Get Areas
 
     }
 }

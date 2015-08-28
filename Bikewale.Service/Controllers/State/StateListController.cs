@@ -47,7 +47,7 @@ namespace Bikewale.Service.Controllers.State
                     if (objStateList != null && objStateList.Count > 0)
                     {
                         objDTOStateList = new StateList();
-                        objDTOStateList.State = StateEntityToDTO.ConvertStateEntityBase(objStateList);
+                        objDTOStateList.State = StateListMapper.ConvertStateEntityBase(objStateList);
 
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOStateList);
                     }

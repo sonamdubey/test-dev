@@ -31,7 +31,7 @@ namespace Bikewale.Service.Controllers.City
         /// <param name="requestType">Used/All (Irrespective of Pricequotes)</param>
         /// <returns>Cities List</returns>
         [ResponseType(typeof(CityList))]
-        public HttpResponseMessage Get(EnumBikeType requestType)
+        public IHttpActionResult Get(EnumBikeType requestType)
         {
             List<CityEntityBase> objCityList = null;
             CityList objDTOCityList = null;
@@ -49,12 +49,12 @@ namespace Bikewale.Service.Controllers.City
                     if (objCityList != null && objCityList.Count > 0)
                     {
                         objDTOCityList = new CityList();
-                        objDTOCityList.City = CityEntityToDTO.ConvertCityList(objCityList);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOCityList);
+                        objDTOCityList.City = CityListMapper.Convert(objCityList);
+                        return Ok(objDTOCityList);
                     }
                     else
                     {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                        return NotFound();
                     }
                 }
             }
@@ -62,7 +62,7 @@ namespace Bikewale.Service.Controllers.City
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.City.CityListController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
         }   // Get Cities 
         #endregion

@@ -49,7 +49,7 @@ namespace Bikewale.Service.Controllers.Series
                     if (objModelsList != null && objModelsList.Count > 0)
                     {
                         objDTOSeriesList = new ModelList();
-                        objDTOSeriesList.Model = SeriesEntityToDTO.ConvertModelList(objModelsList);
+                        objDTOSeriesList.Model = SeriesListMapper.Convert(objModelsList);
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOSeriesList);
                     }
                     else
@@ -92,7 +92,7 @@ namespace Bikewale.Service.Controllers.Series
                     if (objModelsList != null && objModelsList.Count > 0)
                     {
                         objDTOSeriesList = new ModelList();
-                        objDTOSeriesList.Model = SeriesEntityToDTO.ConvertModelList(objModelsList);
+                        objDTOSeriesList.Model = SeriesListMapper.Convert(objModelsList);
 
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOSeriesList);
                     }

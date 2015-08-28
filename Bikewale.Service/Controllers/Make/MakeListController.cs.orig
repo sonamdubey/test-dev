@@ -24,10 +24,15 @@ namespace Bikewale.Service.Controllers.Make
     /// </summary>
     public class MakeListController : ApiController
     {
+<<<<<<< HEAD
         private readonly IBikeMakes<BikeMakeEntity, int> _makesRepository;
 
+=======
+
+        #region Makes List
+>>>>>>> Feature-DropDownApi
         /// <summary>
-        /// 
+        ///  To get List of Makes based on request Type 
         /// </summary>
         /// <param name="makesRepository"></param>
         public MakeListController(IBikeMakes<BikeMakeEntity, int> makesRepository)
@@ -47,6 +52,7 @@ namespace Bikewale.Service.Controllers.Make
             List<BikeMakeEntityBase> objMakeList = null;
             MakeList objDTOMakeList = null;
             try
+<<<<<<< HEAD
             {
                 //using (IUnityContainer container = new UnityContainer())
                 //{
@@ -61,7 +67,7 @@ namespace Bikewale.Service.Controllers.Make
                     {
                         objDTOMakeList = new MakeList();
                         
-                        objDTOMakeList.Makes = MakeListMapper.Convert(objMakeList);
+                        objDTOMakeList.Makes = MakeEntityToDTO.ConvertMakeEntityList(objMakeList);
                         
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOMakeList);
                     }
@@ -77,6 +83,36 @@ namespace Bikewale.Service.Controllers.Make
                 objErr.SendMail();
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
             }
+=======
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    IBikeMakes<BikeMakeEntity, int> makesRepository = null;
+
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
+                    makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+
+                    objMakeList = makesRepository.GetMakesByType(requestType);
+
+                    if (objMakeList != null && objMakeList.Count > 0)
+                    {
+                        objDTOMakeList = new MakeList();
+                        objDTOMakeList.Make = MakeEntityToDTO.ConvertMakeEntityList(objMakeList);
+                        return Request.CreateResponse(HttpStatusCode.OK, objDTOMakeList);
+                    }
+                    else
+                    {
+                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Make.MakeController");
+                objErr.SendMail();
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+            }
+>>>>>>> Feature-DropDownApi
         }   // Get 
         #endregion
 

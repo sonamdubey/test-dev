@@ -60,7 +60,7 @@ namespace Bikewale.Service.Controllers.Model
                         //Mapper.CreateMap<BikeModelEntity, ModelDetails>();
                         //Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
                         //objDTOModel = Mapper.Map<BikeModelEntity, ModelDetails>(objModel);
-                        objDTOModel = ModelEntityToDTO.ConvertModelEntity(objModel);
+                        objDTOModel = ModelMapper.Convert(objModel);
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOModel);
                     }
                     else
@@ -104,7 +104,7 @@ namespace Bikewale.Service.Controllers.Model
                         {
                             // Auto map the properties
                             objDTOModelDesc = new ModelDescription();
-                            objDTOModelDesc = ModelEntityToDTO.ConvertModelDescription(objModelDesc);
+                            objDTOModelDesc = ModelMapper.Convert(objModelDesc);
                             return Request.CreateResponse(HttpStatusCode.OK, objDTOModelDesc);
                         }
                         else
@@ -148,7 +148,7 @@ namespace Bikewale.Service.Controllers.Model
                         if (mvEntityList != null && mvEntityList.Count > 0)
                         {
                             mvList = new List<ModelVersionList>();
-                            mvList = ModelEntityToDTO.ConvertVersionList(mvEntityList);
+                            mvList = ModelMapper.Convert(mvEntityList);
                             return Request.CreateResponse(HttpStatusCode.OK, mvList);
                         }
                         else
@@ -197,7 +197,7 @@ namespace Bikewale.Service.Controllers.Model
 
                         //Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
                         //objDTOVersionSpecs = Mapper.Map<BikeSpecificationEntity, VersionSpecifications>(objVersionSpecs);
-                        objDTOVersionSpecs = ModelEntityToDTO.ConvertSpecificationEntity(objVersionSpecs);
+                        objDTOVersionSpecs = ModelMapper.Convert(objVersionSpecs);
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOVersionSpecs);
                     }
                     else
@@ -243,7 +243,7 @@ namespace Bikewale.Service.Controllers.Model
                     {
                         // Auto map the properties
                         objDTOModelPage = new ModelPage();
-                        objDTOModelPage = ModelEntityToDTO.ConvertModelPage(objModelPage);
+                        objDTOModelPage = ModelMapper.Convert(objModelPage);
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOModelPage);
                     }
                     else

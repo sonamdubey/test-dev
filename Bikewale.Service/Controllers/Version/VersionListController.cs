@@ -47,7 +47,7 @@ namespace Bikewale.Service.Controllers.Version
                 if (objMVSpecsList != null && objMVSpecsList.Count > 0)
                 {
                     objDTOMVSpecsList = new   List<VersionMinSpecs>();  
-                    objDTOMVSpecsList = VersionEntityToDTO.ConvertVersionMinSpecsList(objMVSpecsList);
+                    objDTOMVSpecsList = VersionListMapper.Convert(objMVSpecsList);
                     return Request.CreateResponse(HttpStatusCode.OK, objDTOMVSpecsList);
                 }
                 else
@@ -84,7 +84,7 @@ namespace Bikewale.Service.Controllers.Version
                     if (objVersionList != null && objVersionList.Count > 0)
                     {
                         objDTOVersionList = new VersionList();
-                        objDTOVersionList.Version = VersionEntityToDTO.ConvertVersionsListEntityList(objVersionList);
+                        objDTOVersionList.Version = VersionListMapper.Convert(objVersionList);
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOVersionList);
                     }
                     else

@@ -52,7 +52,7 @@ namespace Bikewale.Service.Controllers.Model
                         if (objModel != null)
                         {
                             objDTOModel = new ModelBase();
-                            objDTOModel = ModelEntityToDTO.ConvertModelEntityBase(objModel);
+                            objDTOModel = ModelMapper.Convert(objModel);
                             return Request.CreateResponse(HttpStatusCode.OK, objDTOModel);
                         }
                         else
@@ -147,7 +147,7 @@ namespace Bikewale.Service.Controllers.Model
                     if (objModelList != null && objModelList.Count > 0)
                     {
                         objDTOModelList = new ModelList();
-                        objDTOModelList.Model = ModelEntityToDTO.ConvertModelEntityBaseList(objModelList);
+                        objDTOModelList.Model = ModelMapper.Convert(objModelList);
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOModelList);
                     }
                     else

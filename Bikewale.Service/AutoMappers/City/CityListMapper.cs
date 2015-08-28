@@ -8,9 +8,9 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.City
 {
-    public class CityEntityToDTO
+    public class CityListMapper
     {
-        internal static IEnumerable<DTO.City.CityBase> ConvertCityList(List<Entities.Location.CityEntityBase> objCityList)
+        internal static IEnumerable<DTO.City.CityBase> Convert(List<Entities.Location.CityEntityBase> objCityList)
         {
             Mapper.CreateMap<CityEntityBase, CityBase>();
             return Mapper.Map<List<CityEntityBase>, List<CityBase>>(objCityList);

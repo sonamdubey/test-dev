@@ -47,7 +47,7 @@ namespace Bikewale.Service.Controllers.Make
                     if (objMake != null)
                     {
                         objDTOMakeBase = new MakeBase();
-                        objDTOMakeBase = MakeEntityToDTO.ConvertMakeEntity(objMake);
+                        objDTOMakeBase = MakeListMapper.Convert(objMake);
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOMakeBase);
                     }
                     else

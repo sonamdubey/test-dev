@@ -11,9 +11,9 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.Model
 {
-    public class ModelEntityToDTO
+    public class ModelMapper
     {
-        internal static DTO.Model.ModelDetails ConvertModelEntity(Entities.BikeData.BikeModelEntity objModel)
+        internal static DTO.Model.ModelDetails Convert(Entities.BikeData.BikeModelEntity objModel)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -22,25 +22,25 @@ namespace Bikewale.Service.AutoMappers.Model
             return Mapper.Map<BikeModelEntity, ModelDetails>(objModel);
         }
 
-        internal static ModelDescription ConvertModelDescription(BikeDescriptionEntity objModelDesc)
+        internal static ModelDescription Convert(BikeDescriptionEntity objModelDesc)
         {
             Mapper.CreateMap<BikeDescriptionEntity, ModelDescription>();
             return Mapper.Map<BikeDescriptionEntity, ModelDescription>(objModelDesc);
         }
 
-        internal static List<DTO.Version.ModelVersionList> ConvertVersionList(List<BikeVersionsListEntity> mvEntityList)
+        internal static List<DTO.Version.ModelVersionList> Convert(List<BikeVersionsListEntity> mvEntityList)
         {
             Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
             return Mapper.Map<List<BikeVersionsListEntity>, List<ModelVersionList>>(mvEntityList);
         }
 
-        internal static DTO.Version.VersionSpecifications ConvertSpecificationEntity(BikeSpecificationEntity objVersionSpecs)
+        internal static DTO.Version.VersionSpecifications Convert(BikeSpecificationEntity objVersionSpecs)
         {
             Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
             return Mapper.Map<BikeSpecificationEntity, VersionSpecifications>(objVersionSpecs);
         }
 
-        internal static ModelPage ConvertModelPage(BikeModelPageEntity objModelPage)
+        internal static ModelPage Convert(BikeModelPageEntity objModelPage)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -53,13 +53,13 @@ namespace Bikewale.Service.AutoMappers.Model
             return Mapper.Map<BikeModelPageEntity, ModelPage>(objModelPage);
         }
 
-        internal static ModelBase ConvertModelEntityBase(BikeModelEntityBase objModel)
+        internal static ModelBase Convert(BikeModelEntityBase objModel)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             return Mapper.Map<BikeModelEntityBase, ModelBase>(objModel);
         }
 
-        internal static IEnumerable<ModelBase> ConvertModelEntityBaseList(List<BikeModelEntityBase> objModelList)
+        internal static IEnumerable<ModelBase> Convert(List<BikeModelEntityBase> objModelList)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             return Mapper.Map<List<BikeModelEntityBase>, List<ModelBase>>(objModelList);

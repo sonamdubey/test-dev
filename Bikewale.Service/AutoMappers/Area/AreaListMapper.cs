@@ -8,9 +8,9 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.Area
 {
-    public class AreaEntityToDTO
+    public class AreaListMapper
     {
-        internal static IEnumerable<DTO.Area.AreaBase> ConvertAreaList(List<Entities.Location.AreaEntityBase> objAreaList)
+        internal static IEnumerable<DTO.Area.AreaBase> Convert(List<Entities.Location.AreaEntityBase> objAreaList)
         {
             Mapper.CreateMap<AreaEntityBase, AreaBase>();
             return Mapper.Map<List<AreaEntityBase>, List<AreaBase>>(objAreaList);

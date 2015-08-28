@@ -118,6 +118,19 @@
     <Compile Include="Dealer\NewBikeDealerEntity.cs" />
     <Compile Include="Dealer\NewBikeDealersListEntity.cs" />
     <Compile Include="Dealer\NewBikeDealersMakeEntity.cs" />
+    <Compile Include="EditCMS\Articles\ArticleBase.cs" />
+    <Compile Include="EditCMS\Articles\ArticleDetails.cs" />
+    <Compile Include="EditCMS\Articles\ArticlePageDetails.cs" />
+    <Compile Include="EditCMS\Articles\ArticleSummary.cs" />
+    <Compile Include="EditCMS\Articles\CMSContent.cs" />
+    <Compile Include="EditCMS\Articles\ContentFilter.cs" />
+    <Compile Include="EditCMS\Articles\Image.cs" />
+    <Compile Include="EditCMS\Articles\Page.cs" />
+    <Compile Include="EditCMS\Articles\VehicleTag.cs" />
+    <Compile Include="EditCMS\Photos\BikeMakeEntityBase.cs" />
+    <Compile Include="EditCMS\Photos\BikeModelEntityBase.cs" />
+    <Compile Include="EditCMS\Photos\CMSImage.cs" />
+    <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="Location\AreaEntityBase.cs" />
     <Compile Include="Location\CityEntityBase.cs" />
@@ -133,6 +146,7 @@
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsedBikes\PopularUsedBikesEntity.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />
@@ -141,6 +155,8 @@
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
+    <Compile Include="Videos\BikeVideoEntity.cs" />
+    <Compile Include="Videos\EnumVideosCategory.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

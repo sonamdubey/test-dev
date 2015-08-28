@@ -8,15 +8,15 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.Make
 {
-    public class MakeEntityToDTO
+    public class MakeListMapper
     {
-        internal static DTO.Make.MakeBase ConvertMakeEntity(Entities.BikeData.BikeMakeEntityBase objMake)
+        internal static DTO.Make.MakeBase Convert(Entities.BikeData.BikeMakeEntityBase objMake)
         {
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             return Mapper.Map<BikeMakeEntityBase, MakeBase>(objMake);
         }
 
-        internal static IEnumerable<MakeBase> ConvertMakeEntityList(List<BikeMakeEntityBase> objMakeList)
+        internal static IEnumerable<MakeBase> Convert(List<BikeMakeEntityBase> objMakeList)
         {
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
             return Mapper.Map<List<BikeMakeEntityBase>, List<MakeBase>>(objMakeList);

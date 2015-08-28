@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.State
 {
-    public class StateEntityToDTO
+    public class StateListMapper
     {
         internal static IEnumerable<DTO.State.StateBase> ConvertStateEntityBase(List<Entities.Location.StateEntityBase> objStateList)
         {

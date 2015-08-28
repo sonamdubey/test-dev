@@ -14,9 +14,9 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.CMS
 {
-    public class CMSEntityToDTO
+    public class CMSMapper
     {
-        internal static List<DTO.CMS.Photos.CMSModelImageBase> ConvertModelImageList(List<Entities.CMS.Photos.ModelImage> objImageList)
+        internal static List<DTO.CMS.Photos.CMSModelImageBase> Convert(List<Entities.CMS.Photos.ModelImage> objImageList)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -24,7 +24,7 @@ namespace Bikewale.Service.AutoMappers.CMS
             return Mapper.Map<List<ModelImage>, List<CMSModelImageBase>>(objImageList);
         }
 
-        internal static DTO.CMS.Articles.CMSArticlePageDetails ConvertArticlePageDetails(Entities.CMS.Articles.ArticlePageDetails objFeaturedArticles)
+        internal static DTO.CMS.Articles.CMSArticlePageDetails Convert(Entities.CMS.Articles.ArticlePageDetails objFeaturedArticles)
         {
             Mapper.CreateMap<ArticlePageDetails, CMSArticlePageDetails>();
             Mapper.CreateMap<ArticleBase, CMSArticleBase>();
@@ -36,7 +36,7 @@ namespace Bikewale.Service.AutoMappers.CMS
             return Mapper.Map<ArticlePageDetails, CMSArticlePageDetails>(objFeaturedArticles);
         }
 
-        internal static CMSArticleDetails ConvertArticleDetails(ArticleDetails objNews)
+        internal static CMSArticleDetails Convert(ArticleDetails objNews)
         {
             Mapper.CreateMap<ArticleDetails, CMSArticleDetails>();
             Mapper.CreateMap<ArticleBase, CMSArticleBase>();
@@ -47,14 +47,14 @@ namespace Bikewale.Service.AutoMappers.CMS
             return Mapper.Map<ArticleDetails, CMSArticleDetails>(objNews);
         }
 
-        internal static List<CMSArticleSummary> ConvertArticleSummaryList(List<ArticleSummary> objRecentArticles)
+        internal static List<CMSArticleSummary> Convert(List<ArticleSummary> objRecentArticles)
         {
             Mapper.CreateMap<ArticleBase, CMSArticleBase>();
             Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
             return Mapper.Map<List<ArticleSummary>, List<CMSArticleSummary>>(objRecentArticles);
         }
 
-        internal static List<CMSContent> ConvertCMSContentList(List<CMSContentBase> objFeaturedArticles)
+        internal static List<CMSContent> Convert(List<CMSContentBase> objFeaturedArticles)
         {
             Mapper.CreateMap<CMSContentBase, CMSContent>();
             Mapper.CreateMap<ArticleBase, CMSArticleBase>();
@@ -63,7 +63,7 @@ namespace Bikewale.Service.AutoMappers.CMS
             return Mapper.Map<List<CMSContentBase>, List<CMSContent>>(objFeaturedArticles);
         }
 
-        internal static CMSImageList ConvertModelImage(CMSImage objPhotos)
+        internal static CMSImageList Convert(CMSImage objPhotos)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();

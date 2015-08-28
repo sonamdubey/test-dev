@@ -64,6 +64,7 @@
     <Compile Include="PhotoGallery\ModelPhotosRespository.cs" />
     <Compile Include="PriceQuote\PriceQuoteRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsedBikes\UsedBikesRepository.cs" />
     <Compile Include="UserReviews\UserReviewsRepository.cs" />
   </ItemGroup>
   <ItemGroup>

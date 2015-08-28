@@ -72,7 +72,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                     //Mapper.CreateMap<ReviewsListEntity, ReviewsList>();
                     //objDTOUserReview = Mapper.Map<List<ReviewsListEntity>, List<ReviewsList>>(objUserReview);
 
-                    objDTOUserReview = UserReviewsEntityToDTO.ConvertReviewsListEntity(objUserReview);
+                    objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
                     return Request.CreateResponse(HttpStatusCode.OK, objUserReview);
                 }

@@ -15,7 +15,7 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.PriceQuote
 {
-    public class PriceQuoteEntityToCTO
+    public class PriceQuoteMapper
     {
         internal static DTO.PriceQuote.BikeQuotation.PQBikePriceQuoteOutput ConvertBikePriceQuote(Entities.PriceQuote.BikeQuotationEntity quotation)
         {

@@ -10,6 +10,9 @@ namespace Bikewale.Interfaces.Location
     public interface IArea
     {
         List<AreaEntityBase> GetAreas(string cityId);
+<<<<<<< HEAD
         IEnumerable<AreaEntityBase> GetAreasByCity(UInt16 cityId);
+=======
+>>>>>>> Feature-DropDownApi
     }
 }

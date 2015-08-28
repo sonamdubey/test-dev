@@ -57,7 +57,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                     //Mapper.CreateMap<ReviewDetailsEntity, ReviewDetails>();
                     //objDTOUserReview = Mapper.Map<ReviewDetailsEntity, ReviewDetails>(objUserReview);
 
-                    objDTOUserReview = UserReviewsEntityToDTO.ConvertReviewDetailsEntity(objUserReview);
+                    objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
                     return Request.CreateResponse(HttpStatusCode.OK, objUserReview);
                 }
@@ -96,7 +96,7 @@ namespace Bikewale.Service.Controllers.UserReviews
                     //Mapper.CreateMap<ReviewRatingEntity, ReviewRating>();
                     //objDTOURRating = Mapper.Map<ReviewRatingEntity, ReviewRating>(objURRating);
 
-                    objDTOURRating = UserReviewsEntityToDTO.ConvertReviewRatingEntity(objURRating);
+                    objDTOURRating = UserReviewsMapper.Convert(objURRating);
 
                     return Request.CreateResponse(HttpStatusCode.OK, objURRating);
                 }

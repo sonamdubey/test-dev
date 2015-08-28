@@ -9,6 +9,6 @@ namespace Bikewale.Interfaces.UsedBikes
 {
     public interface IUsedBikes 
     {
-        public IEnumerable<PopularUsedBikesEntity> GetPopularUsedBikes(uint totalCount, int? city = null);
+        IEnumerable<PopularUsedBikesEntity> GetPopularUsedBikes(uint totalCount, int? city = null);
     }
 }

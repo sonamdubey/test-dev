@@ -12,9 +12,9 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.UserReviews
 {
-    public class UserReviewsEntityToDTO
+    public class UserReviewsMapper
     {
-        public static ReviewDetails ConvertReviewDetailsEntity(ReviewDetailsEntity entity)
+        public static ReviewDetails Convert(ReviewDetailsEntity entity)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -28,13 +28,13 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             return Mapper.Map<ReviewDetailsEntity, ReviewDetails>(entity);
         }
 
-        internal static ReviewRating ConvertReviewRatingEntity(ReviewRatingEntity objURRating)
+        internal static ReviewRating Convert(ReviewRatingEntity objURRating)
         {
             Mapper.CreateMap<ReviewRatingEntity, ReviewRating>();
             return Mapper.Map<ReviewRatingEntity, ReviewRating>(objURRating);
         }
 
-        internal static List<ReviewTaggedBike> ConvertReviewTaggedBikeEntityList(List<ReviewTaggedBikeEntity> objUserReview)
+        internal static List<ReviewTaggedBike> Convert(List<ReviewTaggedBikeEntity> objUserReview)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -48,7 +48,7 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             return Mapper.Map<List<ReviewTaggedBikeEntity>, List<ReviewTaggedBike>>(objUserReview);
         }
 
-        internal static List<Review> ConvertReviewEntity(List<ReviewEntity> objUserReview)
+        internal static List<Review> Convert(List<ReviewEntity> objUserReview)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
@@ -61,7 +61,7 @@ namespace Bikewale.Service.AutoMappers.UserReviews
             return Mapper.Map<List<ReviewEntity>, List<Review>>(objUserReview);
         }
 
-        internal static List<ReviewsList> ConvertReviewsListEntity(List<ReviewsListEntity> objUserReview)
+        internal static List<ReviewsList> Convert(List<ReviewsListEntity> objUserReview)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();

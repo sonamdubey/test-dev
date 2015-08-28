@@ -674,6 +674,13 @@
             <param name="topCount">Top count</param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.Get(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="modelId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController">
             <summary>
             Price Quote Area List Controller
@@ -896,7 +903,7 @@
         </member>
         <member name="M:Bikewale.Service.Controllers.Area.AreaListController.Get(System.String)">
             <summary>
-            GEt List of Areas based on city
+            Get List of Areas based on city
             </summary>
             <param name="cityId"></param>
             <returns>Areas List</returns>
@@ -1250,6 +1257,30 @@
             <param name="requestType"></param>
             <param name="makeId"></param>
             <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.VideosController">
+            <summary>
+            Bikewale Videos Api : List of Videos and Details 
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.VideosController.Get(Bikewale.Service.Controllers.EnumVideosCategory,System.UInt32,System.UInt32)">
+            <summary>
+             To get list of Videos based on Categories defined in Enum
+            </summary>
+            <param name="categoryId"></param>
+            <param name="pageNo">Min:0</param>
+            <param name="pageSize">Total Records to be Fetched</param>
+            <returns>Categorized Videos List</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.VideosController.Get(System.Boolean,System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+             To get Videos List based on Make or Model (Classes of Videos)
+            </summary>
+            <param name="classType">Boolean : True for Make,False for Models</param>
+            <param name="classId">Make/Model Id</param>
+            <param name="pageNo"></param>
+            <param name="pageSize"></param>
+            <returns>Model's/Make's Videos List</returns>
         </member>
         <member name="T:Bikewale.Service.Feedback.FeedbackController">
             <summary>

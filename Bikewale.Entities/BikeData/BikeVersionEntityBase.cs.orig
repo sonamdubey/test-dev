@@ -1,18 +1,19 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
-namespace Bikewale.DTO.Version
+namespace Bikewale.Entities.BikeData
 {
-    public class VersionBase
-    {
-        [JsonProperty("versionId")]
-        public int VersionId { get; set; }
+<<<<<<< HEAD
+=======
 
-        [JsonProperty("versionName")]
+>>>>>>> Feature-DropDownApi
+    public class BikeVersionEntityBase
+    {
+        public int VersionId { get; set; }
         public string VersionName { get; set; }
+
     }
 }

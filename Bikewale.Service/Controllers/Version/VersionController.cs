@@ -49,7 +49,7 @@ namespace Bikewale.Service.Controllers.Version
                     {
                         // Auto map the properties
                         objDTOVersionList = new VersionDetails();  
-                        objDTOVersionList = VersionEntityToDTO.ConvertVersionEntity(objVersion);
+                        objDTOVersionList = VersionListMapper.Convert(objVersion);
 
                         return Request.CreateResponse(HttpStatusCode.OK, objVersion);
                     }
@@ -95,7 +95,7 @@ namespace Bikewale.Service.Controllers.Version
                     {
                         // Auto map the properties
                         objDTOVersionList = new VersionSpecifications();
-                        objDTOVersionList = VersionEntityToDTO.ConvertSpecificationEntity(objSpecs);
+                        objDTOVersionList = VersionListMapper.Convert(objSpecs);
 
                         return Request.CreateResponse(HttpStatusCode.OK, objSpecs);
                     }
