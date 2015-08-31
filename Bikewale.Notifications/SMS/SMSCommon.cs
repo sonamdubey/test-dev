@@ -201,7 +201,7 @@ namespace Bikewale.Notifications
 
         string ParseMobileNumber(string input)
         {
-            return CommonValidators.ParseMobileNumber(input);
+            return Bikewale.Utility.CommonValidators.ParseMobileNumber(input);
         }
     }
 }
