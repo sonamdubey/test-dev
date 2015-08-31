@@ -215,7 +215,7 @@
     <Compile Include="AutoMappers\Version\VersionListMapper.cs" />
     <Compile Include="Controllers\Area\AreaListController.cs" />
     <Compile Include="Controllers\City\CityListController.cs" />
-    <Compile Include="Controllers\CMS\CMSController.cs" />
+    <None Include="Controllers\CMS\CMSController.cs.old" />
     <Compile Include="Controllers\Make\MakeController.cs" />
     <Compile Include="Controllers\Make\MakeListController.cs" />
     <Compile Include="Controllers\Model\ModelController.cs" />
@@ -228,8 +228,8 @@
     <Compile Include="Controllers\UserReviews\UserReviewsListTypeController.cs" />
     <Compile Include="Controllers\Version\VersionController.cs" />
     <Compile Include="Controllers\Version\VersionListController.cs" />
-    <Compile Include="Controllers\VideosController.cs" />
-    <Compile Include="Feedback\FeedbackController.cs" />
+    <Compile Include="Controllers\Videos\VideosController.cs" />
+    <Compile Include="Controllers\Feedback\FeedbackController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -265,6 +265,7 @@
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Search.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\SearchApiDoc.cshtml" />
+    <Compile Include="Controllers\CMS\CMSController.cs" />
     <None Include="Properties\PublishProfiles\Offline.pubxml" />
     <None Include="Properties\PublishProfiles\WebApi.pubxml" />
     <None Include="Web.Debug.config">

@@ -82,6 +82,7 @@
     <Compile Include="Model\ModelDetails.cs" />
     <Compile Include="Model\ModelList.cs" />
     <Compile Include="Model\ModelPage.cs" />
+    <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
     <Compile Include="Version\ModelVersionList.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteInput.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteOutput.cs" />
