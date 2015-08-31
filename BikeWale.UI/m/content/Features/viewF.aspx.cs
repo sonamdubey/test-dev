@@ -30,7 +30,7 @@ namespace Bikewale.Mobile.Content
         protected int BasicId = 0, pageId = 1;
         protected String baseUrl = String.Empty, pageTitle = String.Empty, modelName = String.Empty , modelUrl = String.Empty;
         protected String data = String.Empty, nextPageUrl = String.Empty, prevPageUrl = String.Empty, author = String.Empty, displayDate = string.Empty , url = string.Empty;
-        private CMSPageDetailsEntity pageDetails = null;
+        //private CMSPageDetailsEntity pageDetails = null;
         protected Repeater rptPhotos;
        // private IPager objPager = null;
         protected ArticlePageDetails objFeature = null;

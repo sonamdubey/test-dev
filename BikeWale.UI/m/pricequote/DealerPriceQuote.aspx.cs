@@ -22,7 +22,6 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.BAL.BikeData;
-using Bikewale.Entities.BikeBooking;
 
 namespace Bikewale.Mobile.BikeBooking
 {

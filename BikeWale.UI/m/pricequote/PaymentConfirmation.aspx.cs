@@ -1,7 +1,6 @@
 ﻿using Bikewale.BikeBooking;
 using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
 using Microsoft.Practices.Unity;
 using System;

@@ -27,6 +27,12 @@ namespace Bikewale.Service.Controllers.Model
     public class ModelListController : ApiController
     {
 
+        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        public ModelListController(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
+        {
+            _modelRepository = modelRepository;
+        }
+    
         #region Minimum Model Details
         /// <summary>
         /// To Minimum Model Details for Dropdowns 
@@ -34,39 +40,30 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="modelId"></param>
         /// <returns>Minimum Model Details</returns>
         [ResponseType(typeof(ModelBase))]
-        public HttpResponseMessage Get(int modelId)
+        public IHttpActionResult Get(int modelId)
         {
             BikeModelEntityBase objModel = null;
             ModelBase objDTOModel = null;
             using (IUnityContainer container = new UnityContainer())
                 try
-                {
+                {   
+                    objModel = _modelRepository.GetById(modelId);
+
+                    if (objModel != null)
                     {
-                        IBikeModelsRepository<BikeModelEntity, int> modelRepository = null;
-
-                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                        modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-
-                        objModel = modelRepository.GetById(modelId);
-
-                        if (objModel != null)
-                        {
-                            objDTOModel = new ModelBase();
-                            objDTOModel = ModelMapper.Convert(objModel);
-                            return Request.CreateResponse(HttpStatusCode.OK, objDTOModel);
-                        }
-                        else
-                        {
-                            return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                        }
+                        objDTOModel = new ModelBase();
+                        objDTOModel = ModelMapper.Convert(objModel);
+                        return Ok(objDTOModel);
                     }
                 }
                 catch (Exception ex)
                 {
                     ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelListController");
                     objErr.SendMail();
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                    return InternalServerError();
                 }
+
+            return NotFound();
         }   // Get 
         #endregion     
 
@@ -78,46 +75,34 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="makeId">Optional (To return Models List Based on MakeID)</param>
         /// <returns>Most Popular bikes based on totalCount and MakeId(Optional)</returns>
         [ResponseType(typeof(IEnumerable<MostPopularBikesList>))]
-        public HttpResponseMessage Get(sbyte totalCount, int? makeId = null)
+        public IHttpActionResult Get(sbyte totalCount, int? makeId = null)
         {
             List<MostPopularBikesBase> objModelList = null;
             MostPopularBikesList objDTOModelList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objModelList = _modelRepository.GetMostPopularBikes(totalCount, makeId);
+
+                if (objModelList != null && objModelList.Count > 0)
                 {
-                    IBikeModelsRepository<BikeModelEntity, int> modelRepository = null;
+                    // Auto map the properties
+                    objDTOModelList = new MostPopularBikesList();
+                    Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+                    Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+                    Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+                    Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
+                    objDTOModelList.PopularBikes = Mapper.Map<List<MostPopularBikesBase>, List<MostPopularBikes>>(objModelList);
 
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-
-                    objModelList = modelRepository.GetMostPopularBikes(totalCount, makeId);
-
-                    if (objModelList != null && objModelList.Count > 0)
-                    {
-                        // Auto map the properties
-                        objDTOModelList = new MostPopularBikesList();
-                        Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                        Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                        Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-                        Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
-                        objDTOModelList.PopularBikes = Mapper.Map<List<MostPopularBikesBase>, List<MostPopularBikes>>(objModelList);
-
-                        // objDTOModelList.Model = ModelEntityToDTO.ConvertModelEntityBaseList(objModelList);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOModelList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    return Ok(objDTOModelList);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelListController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+            return NotFound();
         }   // Get Most Popular bikes  
         #endregion
 
@@ -129,39 +114,28 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="makeId"></param>
         /// <returns>Models List for Dropdowns</returns>
         [ResponseType(typeof(ModelList))]
-        public HttpResponseMessage Get(EnumBikeType requestType, int makeId)
+        public IHttpActionResult Get(EnumBikeType requestType, int makeId)
         {
             List<BikeModelEntityBase> objModelList = null;
             ModelList objDTOModelList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    IBikeModelsRepository<BikeModelEntity, int> modelRepository = null;
-
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-
-                    objModelList = modelRepository.GetModelsByType(requestType, makeId);
+                 objModelList = _modelRepository.GetModelsByType(requestType, makeId);
 
                     if (objModelList != null && objModelList.Count > 0)
                     {
                         objDTOModelList = new ModelList();
                         objDTOModelList.Model = ModelMapper.Convert(objModelList);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOModelList);
+                        return Ok(objDTOModelList);
                     }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
-                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelListController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+            return NotFound();
         }   // Get Models list  
         #endregion
 

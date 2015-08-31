@@ -37,7 +37,15 @@ namespace Bikewale.Service.Controllers.CMS
     {
         string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        string _requestType = "application/json";          
+        string _requestType = "application/json"; 
+        
+ 
+        private readonly IPager _pager = null;
+        public CMSController(IPager pager)
+        {
+            _pager = pager;
+        }
+
 
         #region ModelImages List Api
         /// <summary>
@@ -215,24 +223,18 @@ namespace Bikewale.Service.Controllers.CMS
                 string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
 
                 CMSImage objPhotos = null;
-                IPager objPager = null;
-                using (IUnityContainer container = new UnityContainer())
+
+                _pager.GetStartEndIndex(Convert.ToInt32(pageSize), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
+
+
+                string _apiUrl = "webapi/image/othermodelphotolist/?applicationid=2&startindex=" + startIndex + "&endindex=" + endIndex + "&modelid=" + modelId + "&categoryidlist=" + contentTypeList;
+                objPhotos = BWHttpClient.GetApiResponseSync<CMSImage>(_cwHostUrl, _requestType, _apiUrl, objPhotos);
+
+                if (objPhotos != null)
                 {
-                    container.RegisterType<IPager, Pager>();
-                    objPager = container.Resolve<IPager>();
-
-                    objPager.GetStartEndIndex(Convert.ToInt32(pageSize), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
-
-
-                    string _apiUrl = "webapi/image/othermodelphotolist/?applicationid=2&startindex=" + startIndex + "&endindex=" + endIndex + "&modelid=" + modelId + "&categoryidlist=" + contentTypeList;
-                    objPhotos = BWHttpClient.GetApiResponseSync<CMSImage>(_cwHostUrl, _requestType, _apiUrl, objPhotos);
-
-                    if (objPhotos != null)
-                    {
-                        CMSImageList objCMSModelImageList = new CMSImageList();
-                        objCMSModelImageList = CMSMapper.Convert(objPhotos);
-                        return Ok(objPhotos);
-                    }
+                    CMSImageList objCMSModelImageList = new CMSImageList();
+                    objCMSModelImageList = CMSMapper.Convert(objPhotos);
+                    return Ok(objPhotos);
                 }
             }
             catch (Exception ex)
@@ -304,54 +306,47 @@ namespace Bikewale.Service.Controllers.CMS
         /// <param name="pageSize"></param>
         /// <param name="pageNumber"></param>
         /// <returns>Category Content List</returns>
-        [ResponseType(typeof(IEnumerable<CMSContent>))]
+        [ResponseType(typeof(IEnumerable<Bikewale.DTO.CMS.Articles.CMSContent>))]
         public IHttpActionResult Get(EnumCMSContentType CategoryId, string makeId, string modelId, int startIndex, int endIndex, int? pageSize, int? pageNumber)
         {
-            List<CMSContentBase> objFeaturedArticles = null;
+            List<Bikewale.Entities.CMS.Articles.CMSContent> objFeaturedArticles = null;
             try
             {
-                IPager objPager = null;
-                using (IUnityContainer container = new UnityContainer())
+                _pager.GetStartEndIndex(Convert.ToInt32(pageSize), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
+
+                string apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=";
+                if (CategoryId != EnumCMSContentType.RoadTest)
                 {
-                    container.RegisterType<IPager, Pager>();
-                    objPager = container.Resolve<IPager>();
-
-                    objPager.GetStartEndIndex(Convert.ToInt32(pageSize), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
-
-                    string apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=";
-                    if (CategoryId != EnumCMSContentType.RoadTest)
+                    apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex;
+                }
+                else
+                {
+                    if (String.IsNullOrEmpty(makeId))
                     {
                         apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex;
                     }
                     else
                     {
-                        if (String.IsNullOrEmpty(makeId))
+                        if (String.IsNullOrEmpty(modelId))
                         {
-                            apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex;
+                            apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex + "&makeid=" + makeId;
                         }
                         else
                         {
-                            if (String.IsNullOrEmpty(modelId))
-                            {
-                                apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex + "&makeid=" + makeId;
-                            }
-                            else
-                            {
-                                apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex + "&makeid=" + makeId + "&modelid=" + modelId;
+                            apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex + "&makeid=" + makeId + "&modelid=" + modelId;
 
-                            }
                         }
                     }
+                }
 
-                    objFeaturedArticles = BWHttpClient.GetApiResponseSync<List<CMSContentBase>>(_cwHostUrl, _requestType, apiUrl, objFeaturedArticles);
+                objFeaturedArticles = BWHttpClient.GetApiResponseSync<List<Bikewale.Entities.CMS.Articles.CMSContent>>(_cwHostUrl, _requestType, apiUrl, objFeaturedArticles);
 
-                    if (objFeaturedArticles != null && objFeaturedArticles.Count > 0)
-                    {
-                        List<CMSContent> objCMSFArticles = new List<CMSContent>();
-                        objCMSFArticles = CMSMapper.Convert(objFeaturedArticles);  
-                        return Ok(objFeaturedArticles);
+                if (objFeaturedArticles != null && objFeaturedArticles.Count > 0)
+                {
+                    List<Bikewale.DTO.CMS.Articles.CMSContent> objCMSFArticles = new List<Bikewale.DTO.CMS.Articles.CMSContent>();
+                    objCMSFArticles = CMSMapper.Convert(objFeaturedArticles);  
+                    return Ok(objFeaturedArticles);
 
-					}
 				}
             }
             catch (Exception ex)

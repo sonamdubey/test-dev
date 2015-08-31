@@ -16,11 +16,18 @@ using Bikewale.DTO.Make;
 using Bikewale.DTO.Version;
 using Bikewale.Service.Controllers.Version;
 using Bikewale.Service.AutoMappers.Model;
+using Bikewale.Notifications;
 
 namespace Bikewale.Service.Controllers.Model
 {
     public class ModelPageController : ApiController
     {
+        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
+        {
+            _modelRepository = modelRepository;
+        }
+
         #region Model Details
         /// <summary>
         /// 
@@ -28,32 +35,29 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="modelId"></param>
         /// <returns></returns>
         [ResponseType(typeof(ModelDetails))]
-        public HttpResponseMessage Get(int modelId)
+        public IHttpActionResult Get(int modelId)
         {
             BikeModelEntity objModel = null;
             ModelDetails objDTOModel = null;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                IBikeModelsRepository<BikeModelEntity, int> modelRepository = null;
-
-                container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-
-                objModel = modelRepository.GetById(modelId);
+                objModel = _modelRepository.GetById(modelId);
 
                 if (objModel != null)
                 {
                     // Auto map the properties
                     objDTOModel = new ModelDetails();
-                    //objDTOModel = ModelEntityToDTO.ConvertModelEntity(objModel);
 
-                    return Request.CreateResponse(HttpStatusCode.OK, objDTOModel);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                    return Ok(objDTOModel);
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Make.MakeController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return NotFound();
         }   // Get 
         #endregion
     }

@@ -16,148 +16,129 @@ using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System.Web.Http.Description;
 using Bikewale.Service.AutoMappers.UserReviews;
+using Bikewale.Notifications;
 
 namespace Bikewale.Service.Controllers.UserReviews
 {
+    /// <summary>
+    /// To List of User Reviews based on tagging and pagination
+    /// Author : Sushil Kumar
+    /// Created On : 24th August 2015
+    /// </summary>
     public class UserReviewsListController : ApiController
     {
+        
+        private readonly IUserReviews _userReviewsRepo = null;
+        public UserReviewsListController(IUserReviews userReviewsRepo)
+        {
+            _userReviewsRepo = userReviewsRepo;
+        }
 
         #region Get Reviewed Bike List
         /// <summary>
-        /// 
+        /// To get all reviewed Bikes List
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(IEnumerable<ReviewTaggedBike>))]
-        public HttpResponseMessage Get()
+        public IHttpActionResult Get()
         {
             List<ReviewTaggedBikeEntity> objUserReview = null;
             List<ReviewTaggedBike> objDTOUserReview = null;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                IUserReviews userReviewsRepo = null;
-
-                container.RegisterType<IUserReviews, UserReviewsRepository>();
-                userReviewsRepo = container.Resolve<IUserReviews>();
-
-                objUserReview = userReviewsRepo.GetReviewedBikesList();
+                objUserReview = _userReviewsRepo.GetReviewedBikesList();
 
                 if (objUserReview != null)
                 {
                     // Auto map the properties
                     objDTOUserReview = new List<ReviewTaggedBike>();
-
-                    Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
-                    Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
-                    Mapper.CreateMap<ReviewEntity, Review>();
-                    Mapper.CreateMap<ReviewRatingEntity, ReviewRating>();
-                    Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
-                    Mapper.CreateMap<ReviewEntityBase, ReviewBase>();
-                    Mapper.CreateMap<ReviewDetailsEntity, ReviewDetails>();
-                    objDTOUserReview = Mapper.Map<List<ReviewTaggedBikeEntity>, List<ReviewTaggedBike>>(objUserReview);
-                    return Request.CreateResponse(HttpStatusCode.OK, objUserReview);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                    objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
+                    return Ok(objUserReview);
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+
+            return NotFound();
         }   // Get 
         #endregion
 
         #region Get Most Reviewed Bike List
         /// <summary>
-        /// 
+        ///  To get Most Reviewed Bikes 
         /// </summary>
-        /// <param name="totalRecords"></param>
-        /// <returns></returns>
+        /// <param name="totalRecords">Number of records to be fetched</param>
+        /// <returns>List of Bikes with Reviews</returns>
         [ResponseType(typeof(IEnumerable<ReviewTaggedBike>))]
-        public HttpResponseMessage Get(ushort totalRecords)
+        public IHttpActionResult Get(ushort totalRecords)
         {
             List<ReviewTaggedBikeEntity> objUserReview = null;
             List<ReviewTaggedBike> objDTOUserReview = null;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                IUserReviews userReviewsRepo = null;
-
-                container.RegisterType<IUserReviews, UserReviewsRepository>();
-                userReviewsRepo = container.Resolve<IUserReviews>();
-
-                objUserReview = userReviewsRepo.GetMostReviewedBikesList(totalRecords);
+                objUserReview = _userReviewsRepo.GetMostReviewedBikesList(totalRecords);
 
                 if (objUserReview != null)
                 {
                     // Auto map the properties
                     objDTOUserReview = new List<ReviewTaggedBike>();
-
-                    //Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    //Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    //Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
-                    //Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
-                    //Mapper.CreateMap<ReviewEntity, Review>();
-                    //Mapper.CreateMap<ReviewRatingEntity, ReviewRating>();
-                    //Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
-                    //Mapper.CreateMap<ReviewEntityBase, ReviewBase>();
-                    //Mapper.CreateMap<ReviewDetailsEntity, ReviewDetails>();
-                    //objDTOUserReview = Mapper.Map<List<ReviewTaggedBikeEntity>, List<ReviewTaggedBike>>(objUserReview);
-
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
-                    return Request.CreateResponse(HttpStatusCode.OK, objUserReview);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                    return Ok(objUserReview);
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+
+            return NotFound();
         }   // Get 
         #endregion
 
         #region Get Bike Reviews List wth Paging
         /// <summary>
-        /// 
+        /// To get review bike list with pagination
         /// </summary>
+        /// <param name="startIndex"></param>
+        /// <param name="endIndex"></param>
+        /// <param name="modelId"></param>
+        /// <param name="versionId"></param>
+        /// <param name="filter"></param>
         /// <param name="totalRecords"></param>
-        /// <returns></returns>
+        /// <returns>List of Reviewed Bikes</returns>
         [ResponseType(typeof(IEnumerable<Review>))]
-        public HttpResponseMessage Get(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter, out uint totalRecords)
+        public IHttpActionResult Get(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter, uint totalRecords)
         {
             List<ReviewEntity> objUserReview = null;
             List<Review> objDTOUserReview = null;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                IUserReviews userReviewsRepo = null;
-
-                container.RegisterType<IUserReviews, UserReviewsRepository>();
-                userReviewsRepo = container.Resolve<IUserReviews>();
-
-                objUserReview = userReviewsRepo.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter,out totalRecords);
+               objUserReview = _userReviewsRepo.GetBikeReviewsList(startIndex, endIndex, modelId, versionId, filter, out totalRecords);
 
                 if (objUserReview != null)
                 {
                     // Auto map the properties
                     objDTOUserReview = new List<Review>();
-
-                    //Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    //Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    //Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
-                    //Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
-                    //Mapper.CreateMap<ReviewEntity, Review>();
-                    //Mapper.CreateMap<ReviewRatingEntity, ReviewRating>();
-                    //Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
-                    //Mapper.CreateMap<ReviewEntityBase, ReviewBase>();
-                    //objDTOUserReview = Mapper.Map<List<ReviewEntity>, List<Review>>(objUserReview);
-
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
-                    return Request.CreateResponse(HttpStatusCode.OK, objUserReview);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                    return Ok(objUserReview);
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+
+            return NotFound();
         }   // Get 
         #endregion
     }

@@ -22,6 +22,14 @@ namespace Bikewale.Service.Controllers.UsedBikes
     /// </summary>
     public class PopularUsedBikesController : ApiController
     {
+        
+        
+        private readonly  IUsedBikes _usedBikesRepo = null;
+        public PopularUsedBikesController(IUsedBikes usedBikesRepo)
+        {
+            _usedBikesRepo = usedBikesRepo;
+        }
+        
         #region Popular Used Bikes List
         /// <summary>
         /// To get popular used bikes 
@@ -36,25 +44,13 @@ namespace Bikewale.Service.Controllers.UsedBikes
             IEnumerable<PopularUsedBikesBase> objDTOUsedBikesList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objUsedBikesList = _usedBikesRepo.GetPopularUsedBikes(topCount, cityId);
+
+                if (objUsedBikesList != null)
                 {
-                    IUsedBikes usedBikesRepo = null;
-
-                    container.RegisterType<IUsedBikes, UsedBikesRepository>();
-                    usedBikesRepo = container.Resolve<IUsedBikes>();
-
-                    objUsedBikesList = usedBikesRepo.GetPopularUsedBikes(topCount, cityId);
-
-                    if (objUsedBikesList != null)
-                    {
-                        objDTOUsedBikesList = new List<PopularUsedBikesBase>();
-                        objDTOUsedBikesList = PopularUsedBikesMapper.Convert(objUsedBikesList);
-                        return Ok(objDTOUsedBikesList);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
+                    objDTOUsedBikesList = new List<PopularUsedBikesBase>();
+                    objDTOUsedBikesList = PopularUsedBikesMapper.Convert(objUsedBikesList);
+                    return Ok(objDTOUsedBikesList);
                 }
             }
             catch (Exception ex)
@@ -63,6 +59,7 @@ namespace Bikewale.Service.Controllers.UsedBikes
                 objErr.SendMail();
                 return InternalServerError();
             }
+            return NotFound();
         }   // Get PopularUsedBikes 
         #endregion
 

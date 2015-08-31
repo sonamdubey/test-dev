@@ -24,46 +24,41 @@ namespace Bikewale.Service.Controllers.Series
     /// </summary>
     public class SeriesListController : ApiController
     {
+        
+        private readonly IBikeSeries<BikeSeriesEntity, int> _seriesRepository = null;
+        public SeriesListController(IBikeSeries<BikeSeriesEntity, int> seriesRepository)
+        {
+            _seriesRepository = seriesRepository;
+        }
+        
         /// <summary>
-        ///  To get List of Series 
+        ///  To get List of models for the given series id
         /// </summary>
         /// <param name="seriesId"></param>
         /// <returns>Series List</returns>
-        [ResponseType(typeof(SeriesList))]
-        public HttpResponseMessage Get(int seriesId)
+        [ResponseType(typeof(ModelList))]
+        public IHttpActionResult Get(int seriesId)
         {
             List<BikeModelEntityBase> objModelsList = null;
             ModelList objDTOSeriesList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objModelsList = _seriesRepository.GetModelsListBySeriesId(seriesId);
+
+                if (objModelsList != null && objModelsList.Count > 0)
                 {
-                    IBikeSeries<BikeSeriesEntity, int> seriesRepository = null;
-
-                    container.RegisterType<IBikeSeries<BikeSeriesEntity, int>, BikeSeriesRepository<BikeSeriesEntity, int>>();
-                    seriesRepository = container.Resolve<IBikeSeries<BikeSeriesEntity, int>>();
-
-
-                    objModelsList = seriesRepository.GetModelsListBySeriesId(seriesId);
-
-                    if (objModelsList != null && objModelsList.Count > 0)
-                    {
-                        objDTOSeriesList = new ModelList();
-                        objDTOSeriesList.Model = SeriesListMapper.Convert(objModelsList);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOSeriesList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    objDTOSeriesList = new ModelList();
+                    objDTOSeriesList.Model = SeriesListMapper.Convert(objModelsList);
+                    return Ok(objDTOSeriesList);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Series.SeriesListController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+            return NotFound();
         }   // Get Series List
 
         /// <summary>
@@ -73,41 +68,29 @@ namespace Bikewale.Service.Controllers.Series
         /// <param name="seriesId"></param>
         /// <returns>Series List Based on RequestType</returns>
         [ResponseType(typeof(SeriesList))]
-        public HttpResponseMessage Get(EnumBikeType requestType,int seriesId)
+        public IHttpActionResult Get(EnumBikeType requestType,int seriesId)
         {
             List<BikeModelEntity> objModelsList = null;
             ModelList objDTOSeriesList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objModelsList = _seriesRepository.GetModelsList(seriesId);
+
+                if (objModelsList != null && objModelsList.Count > 0)
                 {
-                    IBikeSeries<BikeSeriesEntity, int> seriesRepository = null;
+                    objDTOSeriesList = new ModelList();
+                    objDTOSeriesList.Model = SeriesListMapper.Convert(objModelsList);
 
-                    container.RegisterType<IBikeSeries<BikeSeriesEntity, int>, BikeSeriesRepository<BikeSeriesEntity, int>>();
-                    seriesRepository = container.Resolve<IBikeSeries<BikeSeriesEntity, int>>();
-
-
-                    objModelsList = seriesRepository.GetModelsList(seriesId);
-
-                    if (objModelsList != null && objModelsList.Count > 0)
-                    {
-                        objDTOSeriesList = new ModelList();
-                        objDTOSeriesList.Model = SeriesListMapper.Convert(objModelsList);
-
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOSeriesList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    return Ok(objDTOSeriesList);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Series.SeriesListController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+            return NotFound();
         }   // Get Series List by RequestType
 
 

@@ -561,17 +561,6 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Entities\CMS\Articles\ArticleBase.cs" />
-    <Compile Include="Entities\CMS\Articles\ArticleDetails.cs" />
-    <Compile Include="Entities\CMS\Articles\ArticlePageDetails.cs" />
-    <Compile Include="Entities\CMS\Articles\ArticleSummary.cs" />
-    <Compile Include="Entities\CMS\Articles\CMSContent.cs" />
-    <Compile Include="Entities\CMS\Articles\ContentFilter.cs" />
-    <Compile Include="Entities\CMS\Articles\Image.cs" />
-    <Compile Include="Entities\CMS\Articles\Page.cs" />
-    <Compile Include="Entities\CMS\Articles\VehicleTag.cs" />
-    <Compile Include="Entities\CMS\Photos\CMSImage.cs" />
-    <Compile Include="Entities\CMS\Photos\ModelImage.cs" />
     <Compile Include="Forums\common\ForumsCommon.cs" />
     <Compile Include="Forums\common\UserTracking.cs" />
     <Compile Include="Forums\CreateThreads.aspx.cs">

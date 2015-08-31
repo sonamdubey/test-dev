@@ -1,7 +1,210 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
 This file is used by the publish/package process of your Web project. You can customize the behavior of this process
 by editing this MSBuild file. In order to learn more about this please visit http://go.microsoft.com/fwlink/?LinkID=208121. 
 -->
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\work\APIPublish</_PublishTargetUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <File Include="App_Data/Bikewale.Service.XML">
+      <publishTime>08/31/2015 14:07:01</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/HelpPage.css">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/Api.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/ControllerHelp.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/ApiGroup.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/CollectionModelDescription.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/ComplexTypeModelDescription.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/DictionaryModelDescription.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/EnumTypeModelDescription.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/HelpPageApiModel.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/ImageSample.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/InvalidSample.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/KeyValuePairModelDescription.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/ModelDescriptionLink.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/Parameters.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/Samples.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/SimpleTypeModelDescription.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/DisplayTemplates/TextSample.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/Error.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/Index.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/ResourceModel.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/Search.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Help/SearchApiDoc.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Shared/_Layout.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/Web.config">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Areas/HelpPage/Views/_ViewStart.cshtml">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="bin/AutoMapper.dll">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="bin/Bikewale.BAL.dll">
+      <publishTime>08/31/2015 14:07:00</publishTime>
+    </File>
+    <File Include="bin/Bikewale.Cache.Core.dll">
+      <publishTime>08/27/2015 15:40:05</publishTime>
+    </File>
+    <File Include="bin/Bikewale.Cache.dll">
+      <publishTime>08/31/2015 14:07:00</publishTime>
+    </File>
+    <File Include="bin/Bikewale.DAL.CoreDAL.dll">
+      <publishTime>08/31/2015 14:04:35</publishTime>
+    </File>
+    <File Include="bin/Bikewale.DAL.dll">
+      <publishTime>08/31/2015 14:06:59</publishTime>
+    </File>
+    <File Include="bin/Bikewale.DTO.dll">
+      <publishTime>08/31/2015 14:04:34</publishTime>
+    </File>
+    <File Include="bin/Bikewale.Entities.dll">
+      <publishTime>08/31/2015 14:04:34</publishTime>
+    </File>
+    <File Include="bin/Bikewale.Interfaces.dll">
+      <publishTime>08/31/2015 14:04:34</publishTime>
+    </File>
+    <File Include="bin/Bikewale.Notifications.dll">
+      <publishTime>08/31/2015 14:04:34</publishTime>
+    </File>
+    <File Include="bin/Bikewale.Service.dll">
+      <publishTime>08/31/2015 14:07:01</publishTime>
+    </File>
+    <File Include="bin/Bikewale.Service.XML">
+      <publishTime>08/31/2015 14:07:01</publishTime>
+    </File>
+    <File Include="bin/Bikewale.Utility.dll">
+      <publishTime>08/31/2015 14:04:34</publishTime>
+    </File>
+    <File Include="bin/Carwale.BL.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/Carwale.DAL.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/Carwale.Entity.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/Carwale.Interfaces.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/Carwale.Notifications.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/Carwale.Utility.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/Elasticsearch.Net.dll">
+      <publishTime>08/28/2015 16:46:33</publishTime>
+    </File>
+    <File Include="bin/Enyim.Caching.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/log4net.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Practices.Unity.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/Microsoft.Web.Infrastructure.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/Nest.dll">
+      <publishTime>08/28/2015 16:46:33</publishTime>
+    </File>
+    <File Include="bin/Newtonsoft.Json.dll">
+      <publishTime>08/27/2015 15:53:49</publishTime>
+    </File>
+    <File Include="bin/PasswordHashingLib.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/RabbitMqPublishing.dll">
+      <publishTime>08/26/2015 10:59:33</publishTime>
+    </File>
+    <File Include="bin/System.Net.Http.Formatting.dll">
+      <publishTime>08/28/2015 16:46:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Helpers.dll">
+      <publishTime>08/27/2015 15:53:49</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.dll">
+      <publishTime>08/28/2015 16:46:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Http.WebHost.dll">
+      <publishTime>08/28/2015 16:46:33</publishTime>
+    </File>
+    <File Include="bin/System.Web.Mvc.dll">
+      <publishTime>08/27/2015 15:53:49</publishTime>
+    </File>
+    <File Include="bin/System.Web.Razor.dll">
+      <publishTime>08/27/2015 15:53:49</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Deployment.dll">
+      <publishTime>08/27/2015 15:53:49</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.dll">
+      <publishTime>08/27/2015 15:53:49</publishTime>
+    </File>
+    <File Include="bin/System.Web.WebPages.Razor.dll">
+      <publishTime>08/27/2015 15:53:49</publishTime>
+    </File>
+    <File Include="Global.asax">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="packages.config">
+      <publishTime>08/26/2015 11:18:02</publishTime>
+    </File>
+    <File Include="Web.config">
+      <publishTime>08/31/2015 14:04:37</publishTime>
+    </File>
+  </ItemGroup>
 </Project>

@@ -18,10 +18,13 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Interfaces.Customer;
+using Bikewale.Interfaces.Feedback;
 using Bikewale.Interfaces.Location;
 using Bikewale.Interfaces.MobileVerification;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Interfaces.UsedBikes;
+using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 
 namespace Bikewale.Service.UnityConfiguration
@@ -44,8 +47,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IArea, AreaRepository>();            
             container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
             container.RegisterType<IPager, Pager>();
-            container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();
-            container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
+            container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();            
             container.RegisterType<IBikeCompare, BikeCompareRepository>();
             container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
             container.RegisterType<ICity, CityRepository>();
@@ -56,6 +58,11 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
             container.RegisterType<ICustomerAuthentication<CustomerEntity, UInt32>, CustomerAuthentication<CustomerEntity, UInt32>>();
             container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
+            container.RegisterType<IFeedback>();
+            container.RegisterType<IBikeSeries<BikeSeriesEntity, int>>();
+            container.RegisterType<IState>();
+            container.RegisterType<IUsedBikes>();
+            container.RegisterType<IUserReviews>();
 
             return container;
         }

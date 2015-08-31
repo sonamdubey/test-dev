@@ -16,71 +16,71 @@ using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
 using System.Web.Http.Description;
 using Bikewale.Service.AutoMappers.UserReviews;
+using Bikewale.Notifications;
 
 namespace Bikewale.Service.Controllers.UserReviews
 {
+    /// <summary>
+    /// User Reviews List based on differnt Categories
+    /// Author : Sushil Kumar
+    /// Created On : 24th August 2015
+    /// </summary>
     public class UserReviewsListTypeController : ApiController
     {
+        
+        private readonly IUserReviews _userReviewsRepo = null;
+        public UserReviewsListTypeController(IUserReviews userReviewsRepo)
+        {
+            _userReviewsRepo = userReviewsRepo;
+        }
+        
         #region Get Most Read Reviews
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(IEnumerable<ReviewsList>))]
-        public HttpResponseMessage Get(FilterBy type, ushort totalRecords)
+        public IHttpActionResult Get(FilterBy type, ushort totalRecords)
         {
             List<ReviewsListEntity> objUserReview = null;
             List<ReviewsList> objDTOUserReview = null;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                IUserReviews userReviewsRepo = null;
-
-                container.RegisterType<IUserReviews, UserReviewsRepository>();
-                userReviewsRepo = container.Resolve<IUserReviews>();
-
+            try
+            {                
                 //getRecords based on the review type
                 switch (type)
                 {
                     case FilterBy.MostRead:
-                        objUserReview = userReviewsRepo.GetMostReadReviews(totalRecords);
+                        objUserReview = _userReviewsRepo.GetMostReadReviews(totalRecords);
                         break;
                     case FilterBy.MostHelpful:
-                        objUserReview = userReviewsRepo.GetMostHelpfulReviews(totalRecords);
+                        objUserReview = _userReviewsRepo.GetMostHelpfulReviews(totalRecords);
                         break;
                     case FilterBy.MostRecent:
-                        objUserReview = userReviewsRepo.GetMostRecentReviews(totalRecords);
+                        objUserReview = _userReviewsRepo.GetMostRecentReviews(totalRecords);
                         break;
                     case FilterBy.MostRated:
-                        objUserReview = userReviewsRepo.GetMostRatedReviews(totalRecords);
+                        objUserReview = _userReviewsRepo.GetMostRatedReviews(totalRecords);
                         break;
                     default:
                         break;
                 }
-               
-
                 if (objUserReview != null)
                 {
                     // Auto map the properties
                     objDTOUserReview = new List<ReviewsList>();
-
-                    //Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    //Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    //Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
-                    //Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
-                    //Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
-                    //Mapper.CreateMap<ReviewEntityBase, ReviewBase>();  
-                    //Mapper.CreateMap<ReviewsListEntity, ReviewsList>();
-                    //objDTOUserReview = Mapper.Map<List<ReviewsListEntity>, List<ReviewsList>>(objUserReview);
-
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
-                    return Request.CreateResponse(HttpStatusCode.OK, objUserReview);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                    return Ok(objUserReview);
                 }
             }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsListController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+
+            return NotFound();
         }   // Get 
         #endregion
     }

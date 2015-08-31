@@ -23,46 +23,43 @@ namespace Bikewale.Service.Controllers.State
     /// </summary>
     public class StateListController : ApiController
     {
+
+        private readonly IState _statesRepository = null;
+        public StateListController(IState statesRepository)
+        {
+            _statesRepository = statesRepository;
+        }
+
+
         #region State's List
         /// <summary>
         ///  To get List of States currently Bikewale is Serving
         /// </summary>
         /// <returns>State's List</returns>
         [ResponseType(typeof(StateList))]
-        public HttpResponseMessage Get()
+        public IHttpActionResult Get()
         {
             List<StateEntityBase> objStateList = null;
             StateList objDTOStateList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objStateList = _statesRepository.GetStates();
+
+                if (objStateList != null && objStateList.Count > 0)
                 {
-                    IState statesRepository = null;
+                    objDTOStateList = new StateList();
+                    objDTOStateList.State = StateListMapper.Convert(objStateList);
 
-                    container.RegisterType<IState, StateRepository>();
-                    statesRepository = container.Resolve<IState>();
-
-                    objStateList = statesRepository.GetStates();
-
-                    if (objStateList != null && objStateList.Count > 0)
-                    {
-                        objDTOStateList = new StateList();
-                        objDTOStateList.State = StateListMapper.ConvertStateEntityBase(objStateList);
-
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOStateList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    return Ok(objDTOStateList);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.State.StateListController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+            return NotFound();
         }   // Get State List 
         #endregion
 

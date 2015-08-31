@@ -16,189 +16,183 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Bikewale.Notifications;
 
 namespace Bikewale.Service.Controllers.UserReviews
 {
+    /// <summary>
+    /// To Get Detailed User Reviews
+    /// And To Update Review Status to Helpful/Abuse/ViewCount
+    /// Author : Sushil Kumar
+    /// Created On : 26th August 2015
+    /// </summary>
     public class UserReviewsController : ApiController
     {
+        
+        private readonly IUserReviews _userReviewsRepo = null;
+        public UserReviewsController(IUserReviews userReviewsRepo)
+        {
+            _userReviewsRepo = userReviewsRepo;
+        }
+        
         #region User Reviews Details
         /// <summary>
-        /// 
+        /// To get review Details 
         /// </summary>
         /// <param name="reviewId"></param>
-        /// <returns></returns>
+        /// <returns>Review Details</returns>
         [ResponseType(typeof(ReviewDetails))]
-        public HttpResponseMessage Get(uint reviewId)
+        public IHttpActionResult Get(uint reviewId)
         {
             ReviewDetailsEntity objUserReview = null;
             ReviewDetails objDTOUserReview = null;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                IUserReviews userReviewsRepo= null;
-
-                container.RegisterType<IUserReviews, UserReviewsRepository>();
-                userReviewsRepo = container.Resolve<IUserReviews>();
-
-                objUserReview = userReviewsRepo.GetReviewDetails(reviewId);
+            try 
+	        {	        
+		        objUserReview = _userReviewsRepo.GetReviewDetails(reviewId);
 
                 if (objUserReview != null)
                 {
                     // Auto map the properties
                     objDTOUserReview = new ReviewDetails();
-
-                    //Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    //Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    //Mapper.CreateMap<BikeVersionEntityBase, VersionBase>();
-                    //Mapper.CreateMap<ReviewTaggedBikeEntity, ReviewTaggedBike>();
-                    //Mapper.CreateMap<ReviewEntity, Review>();
-                    //Mapper.CreateMap<ReviewRatingEntity, ReviewRating>();
-                    //Mapper.CreateMap<ReviewRatingEntityBase, ReviewRatingBase>();
-                    //Mapper.CreateMap<ReviewEntityBase, ReviewBase>();
-                    //Mapper.CreateMap<ReviewDetailsEntity, ReviewDetails>();
-                    //objDTOUserReview = Mapper.Map<ReviewDetailsEntity, ReviewDetails>(objUserReview);
-
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
-                    return Request.CreateResponse(HttpStatusCode.OK, objUserReview);
+                    return Ok(objUserReview);
                 }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                }
+	        }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                objErr.SendMail();
+                return InternalServerError();
             }
-        }   // Get 
+            return NotFound();
+        }   // Get review details
         #endregion
 
         #region Get User Review Ratings
         /// <summary>
-        /// 
+        /// To get Review Ratings based on Model Id
         /// </summary>
-        /// <param name="reviewId"></param>
-        /// <returns></returns>
+        /// <param name="modelId">Model Id should be positive</param>
+        /// <param name="review">Optional</param>
+        /// <returns>User Review rating</returns>
         [ResponseType(typeof(ReviewRating))]
-        public HttpResponseMessage Get(uint modelId,bool?review)
+        public IHttpActionResult Get(uint modelId,bool?review)
         {
             ReviewRatingEntity objURRating = null;
             ReviewRating objDTOURRating = null;
-            using (IUnityContainer container = new UnityContainer())
+          try 
+	      {	        
+		    objURRating = _userReviewsRepo.GetBikeRatings(modelId);
+
+            if (objURRating != null)
             {
-                IUserReviews userReviewsRepo = null;
+                // Auto map the properties
+                objDTOURRating = new ReviewRating();
+                objDTOURRating = UserReviewsMapper.Convert(objURRating);
 
-                container.RegisterType<IUserReviews, UserReviewsRepository>();
-                userReviewsRepo = container.Resolve<IUserReviews>();
-
-                objURRating = userReviewsRepo.GetBikeRatings(modelId);
-
-                if (objURRating != null)
-                {
-                    // Auto map the properties
-                    objDTOURRating = new ReviewRating();
-                    //Mapper.CreateMap<ReviewRatingEntity, ReviewRating>();
-                    //objDTOURRating = Mapper.Map<ReviewRatingEntity, ReviewRating>(objURRating);
-
-                    objDTOURRating = UserReviewsMapper.Convert(objURRating);
-
-                    return Request.CreateResponse(HttpStatusCode.OK, objURRating);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                }
+                return Ok(objURRating);
             }
-        }   // Get 
+	      }
+	      catch (Exception ex)
+          {
+              ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+              objErr.SendMail();
+              return InternalServerError();
+          }
+            return NotFound();
+        }   // Get user review ratings
         #endregion
 
         #region Update Reviews View Count
         /// <summary>
-        /// 
+        /// Update Reviews View Count for reviewId
         /// </summary>
-        /// <param name="reviewId"></param>
-        /// <returns></returns>
+        /// <param name="reviewId">Should be Positive</param>
+        /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public HttpResponseMessage Put(uint reviewId)
+        public IHttpActionResult Put(uint reviewId)
         {
             bool objURRating = false;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                IUserReviews userReviewsRepo = null;
-
-                container.RegisterType<IUserReviews, UserReviewsRepository>();
-                userReviewsRepo = container.Resolve<IUserReviews>();
-
-                objURRating = userReviewsRepo.UpdateViews(reviewId);
+                objURRating = _userReviewsRepo.UpdateViews(reviewId);
 
                 if (objURRating)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, objURRating);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
+                    return Ok(objURRating);
                 }
             }
-        }   // Get 
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+
+            return (IHttpActionResult)Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
+        }   // Update user review views count
         #endregion
 
         #region Is Helpful  User Review 
         /// <summary>
-        /// 
+        ///  To Change review status to helpful
         /// </summary>
         /// <param name="reviewId"></param>
-        /// <returns></returns>
+        /// <param name="isHelpful">Optional (use as '&isHelpful')</param>
+        /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public HttpResponseMessage Put(uint reviewId,bool isHelpful)
+        public IHttpActionResult Put(uint reviewId,bool isHelpful)
         {
             bool objURHelpful = false;
-            using (IUnityContainer container = new UnityContainer())
-            {
-                IUserReviews userReviewsRepo = null;
-
-                container.RegisterType<IUserReviews, UserReviewsRepository>();
-                userReviewsRepo = container.Resolve<IUserReviews>();
-
-                objURHelpful = userReviewsRepo.UpdateReviewUseful(reviewId, isHelpful);
+            try
+            {       
+                objURHelpful = _userReviewsRepo.UpdateReviewUseful(reviewId, isHelpful);
 
                 if (objURHelpful)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, objURHelpful);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
+                    return Ok(objURHelpful);
                 }
             }
-        }   // Get 
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return (IHttpActionResult)Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
+        }   // Update is Helpful 
         #endregion
 
         #region Abuse User Review
         /// <summary>
-        /// 
+        /// To Update isAbuse status of review
         /// </summary>
         /// <param name="reviewId"></param>
-        /// <returns></returns>
+        /// <param name="comment"></param>
+        /// <param name="userId"></param>
+        /// <returns>Boolean</returns>
         [ResponseType(typeof(Boolean))]
-        public HttpResponseMessage Put(uint reviewId, string comment,string userId)
+        public IHttpActionResult Put(uint reviewId, string comment,string userId)
         {
             bool objURAbuse = false;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                IUserReviews userReviewsRepo = null;
-
-                container.RegisterType<IUserReviews, UserReviewsRepository>();
-                userReviewsRepo = container.Resolve<IUserReviews>();
-
-                objURAbuse = userReviewsRepo.AbuseReview(reviewId, comment, userId);
+                objURAbuse = _userReviewsRepo.AbuseReview(reviewId, comment, userId);
 
                 if (objURAbuse)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, objURAbuse);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
+                    return Ok(objURAbuse);
                 }
             }
-        }   // Get 
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UserReviews.UserReviewsController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return (IHttpActionResult)Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
+        }   // Upadate Isabuse
         #endregion
     }
 }

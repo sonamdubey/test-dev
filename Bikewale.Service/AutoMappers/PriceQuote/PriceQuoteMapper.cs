@@ -17,13 +17,13 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
 {
     public class PriceQuoteMapper
     {
-        internal static DTO.PriceQuote.BikeQuotation.PQBikePriceQuoteOutput ConvertBikePriceQuote(Entities.PriceQuote.BikeQuotationEntity quotation)
+        internal static DTO.PriceQuote.BikeQuotation.PQBikePriceQuoteOutput Convert(Entities.PriceQuote.BikeQuotationEntity quotation)
         {
             Mapper.CreateMap<BikeQuotationEntity, PQBikePriceQuoteOutput>();
             return Mapper.Map<BikeQuotationEntity, PQBikePriceQuoteOutput>(quotation);
         }
 
-        internal static DTO.PriceQuote.DealerPriceQuote.DPQuotationOutput ConvertDPQuotation(Entities.BikeBooking.PQ_QuotationEntity objPrice)
+        internal static DTO.PriceQuote.DealerPriceQuote.DPQuotationOutput Convert(Entities.BikeBooking.PQ_QuotationEntity objPrice)
         {
             Mapper.CreateMap<BikeMakeEntityBase, DPQMakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, DPQModelBase>();
@@ -38,7 +38,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             return Mapper.Map<PQ_QuotationEntity, DPQuotationOutput>(objPrice);
         }
 
-        internal static DTO.PriceQuote.DetailedDealerQuotation.DDQDealerDetailBase ConvertDealerDetail(PQ_DealerDetailEntity dealerDetailEntity)
+        internal static DTO.PriceQuote.DetailedDealerQuotation.DDQDealerDetailBase Convert(PQ_DealerDetailEntity dealerDetailEntity)
         {
             Mapper.CreateMap<BikeMakeEntityBase, DDQMakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, DDQModelBase>();
@@ -57,7 +57,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             return Mapper.Map<PQ_DealerDetailEntity, DDQDealerDetailBase>(dealerDetailEntity);
         }
 
-        internal static DTO.PriceQuote.CustomerDetails.PQCustomer ConvertCustomerDetail(Entities.BikeBooking.PQCustomerDetail entity)
+        internal static DTO.PriceQuote.CustomerDetails.PQCustomer Convert(Entities.BikeBooking.PQCustomerDetail entity)
         {
             Mapper.CreateMap<CustomerEntityBase, PQCustomerBase>();
             Mapper.CreateMap<VersionColor, PQColor>();
@@ -65,7 +65,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             return Mapper.Map<PQCustomerDetail, PQCustomer>(entity);
         }
 
-        internal static DTO.PriceQuote.PQOutput ConvertPQOutputEntity(PQOutputEntity objPQOutput)
+        internal static DTO.PriceQuote.PQOutput Convert(PQOutputEntity objPQOutput)
         {
             Mapper.CreateMap<PQOutputEntity, Bikewale.DTO.PriceQuote.PQOutput>();
             return Mapper.Map<PQOutputEntity, Bikewale.DTO.PriceQuote.PQOutput>(objPQOutput);

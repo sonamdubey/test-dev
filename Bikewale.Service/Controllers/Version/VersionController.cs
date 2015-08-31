@@ -23,94 +23,81 @@ namespace Bikewale.Service.Controllers.Version
     /// </summary>
     public class VersionController : ApiController
     {
+        
+        private readonly  IBikeVersions<BikeVersionEntity, uint> _versionRepository = null;
+        public VersionController(IBikeVersions<BikeVersionEntity, uint> versionRepository)
+        {
+            _versionRepository = versionRepository;
+        }
+                
         #region Version Details
         /// <summary>
-        /// To get versions Details for DropDowns
+        /// To get versions Details for Dropdowns
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns>Version Minimum Details</returns>
         [ResponseType(typeof(VersionDetails))]
-        public HttpResponseMessage Get(uint versionId)
+        public IHttpActionResult Get(uint versionId)
         {
             BikeVersionEntity objVersion = null;
             VersionDetails objDTOVersionList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objVersion = _versionRepository.GetById(versionId);
+
+                if (objVersion != null)
                 {
-                    IBikeVersions<BikeVersionEntity, uint> versionRepository = null;
+                    // Auto map the properties
+                    objDTOVersionList = new VersionDetails();  
+                    objDTOVersionList = VersionListMapper.Convert(objVersion);
 
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>();
-                    versionRepository = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
-
-                    objVersion = versionRepository.GetById(versionId);
-
-                    if (objVersion != null)
-                    {
-                        // Auto map the properties
-                        objDTOVersionList = new VersionDetails();  
-                        objDTOVersionList = VersionListMapper.Convert(objVersion);
-
-                        return Request.CreateResponse(HttpStatusCode.OK, objVersion);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    return Ok(objVersion);
                 }
+
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+
+            return NotFound();
         }   // Get 
         #endregion
 
         #region Versions Specifications
         /// <summary>
-        ///  To Get Version's Specifications  adn 
+        ///  To Get Version's Specifications  and Features 
         /// </summary>
         /// <param name="requestType"></param>
         /// <param name="makeId"></param>
         /// <returns></returns>
         [ResponseType(typeof(VersionSpecifications))]
-        public HttpResponseMessage Get(uint versionId, bool? specs)
+        public IHttpActionResult Get(uint versionId, bool? specs)
         {
             BikeSpecificationEntity objSpecs = null;
             VersionSpecifications objDTOVersionList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objSpecs = _versionRepository.GetSpecifications(versionId);
+
+                if (objSpecs != null)
                 {
-                    IBikeVersions<BikeVersionEntity, uint> versionRepository = null;
+                    // Auto map the properties
+                    objDTOVersionList = new VersionSpecifications();
+                    objDTOVersionList = VersionListMapper.Convert(objSpecs);
 
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersionsRepository<BikeVersionEntity, uint>>();
-                    versionRepository = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
-
-                    objSpecs = versionRepository.GetSpecifications(versionId);
-
-                    if (objSpecs != null)
-                    {
-                        // Auto map the properties
-                        objDTOVersionList = new VersionSpecifications();
-                        objDTOVersionList = VersionListMapper.Convert(objSpecs);
-
-                        return Request.CreateResponse(HttpStatusCode.OK, objSpecs);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    return Ok(objSpecs);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+            return NotFound();
         }   // Get  Versions Specifications
         #endregion
 

@@ -27,6 +27,11 @@ namespace Bikewale.Service.Controllers.Model
     /// </summary>
     public class ModelController : ApiController
     {
+         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+         public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
+        {
+            _modelRepository = modelRepository;
+        }
 
         #region Model Details 
         /// <summary>
@@ -35,46 +40,30 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="modelId"></param>
         /// <returns>Required Model Details </returns>
         [ResponseType(typeof(ModelDetails))]
-        public HttpResponseMessage Get(int modelId)
+        public IHttpActionResult Get(int modelId)
         {
             BikeModelEntity objModel = null;
             ModelDetails objDTOModel = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objModel = _modelRepository.GetById(modelId);
+
+                if (objModel != null)
                 {
-                    IBikeModelsRepository<BikeModelEntity, int> modelRepository = null;
-
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-
-                    objModel = modelRepository.GetById(modelId);
-
-                    if (objModel != null)
-                    {
-                        // Auto map the properties
-                        objDTOModel = new ModelDetails();
-
-                        //Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                        //Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                        //Mapper.CreateMap<BikeModelEntity, ModelDetails>();
-                        //Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
-                        //objDTOModel = Mapper.Map<BikeModelEntity, ModelDetails>(objModel);
-                        objDTOModel = ModelMapper.Convert(objModel);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOModel);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    // Auto map the properties
+                    objDTOModel = new ModelDetails();
+                    objDTOModel = ModelMapper.Convert(objModel);
+                    return Ok(objDTOModel);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+
+            return NotFound();
         }   // Get 
         #endregion
 
@@ -85,39 +74,32 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="modelId"></param>
         /// <returns>Model Synopsis</returns>
         [ResponseType(typeof(ModelDescription))]
-        public HttpResponseMessage Get(int modelId,bool? description)
+        public IHttpActionResult Get(int modelId,bool? description)
         {
             BikeDescriptionEntity objModelDesc = null;
             ModelDescription objDTOModelDesc = null;
                try
                 {
-                   using (IUnityContainer container = new UnityContainer())
+                   
+                    objModelDesc = _modelRepository.GetModelSynopsis(modelId);
+
+                    if (objModelDesc != null)
                     {
-                        IBikeModelsRepository<BikeModelEntity, int> modelRepository = null;
-
-                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                        modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-
-                        objModelDesc = modelRepository.GetModelSynopsis(modelId);
-
-                        if (objModelDesc != null)
-                        {
-                            // Auto map the properties
-                            objDTOModelDesc = new ModelDescription();
-                            objDTOModelDesc = ModelMapper.Convert(objModelDesc);
-                            return Request.CreateResponse(HttpStatusCode.OK, objDTOModelDesc);
-                        }
-                        else
-                        {
-                            return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                        }
+                        // Auto map the properties
+                        objDTOModelDesc = new ModelDescription();
+                        objDTOModelDesc = ModelMapper.Convert(objModelDesc);
+                        return Ok(objDTOModelDesc);
+                    }
+                    else
+                    {
+                        return NotFound();
                     }
                 }
                 catch (Exception ex)
                 {
                     ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
                     objErr.SendMail();
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                    return InternalServerError();
                 }
         }   // Get 
         #endregion
@@ -130,38 +112,30 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="modelId"></param>
         /// <returns>List of Model's New Versions </returns>
         [ResponseType(typeof(List<ModelVersionList>))]
-        public HttpResponseMessage Get(int modelId, bool isNew)
+        public IHttpActionResult Get(int modelId, bool isNew)
         {
             List<BikeVersionsListEntity> mvEntityList = null;
             List<ModelVersionList> mvList = null;
            try
                 {
-                    using (IUnityContainer container = new UnityContainer())
+                    mvEntityList = _modelRepository.GetVersionsList(modelId, isNew);    
+                        
+                    if (mvEntityList != null && mvEntityList.Count > 0)
                     {
-                        IBikeModelsRepository<BikeModelEntity, int> modelRepository = null; 
-                        
-                        container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                        modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                       
-                        mvEntityList = modelRepository.GetVersionsList(modelId, isNew);    
-                        
-                        if (mvEntityList != null && mvEntityList.Count > 0)
-                        {
-                            mvList = new List<ModelVersionList>();
-                            mvList = ModelMapper.Convert(mvEntityList);
-                            return Request.CreateResponse(HttpStatusCode.OK, mvList);
-                        }
-                        else
-                        {
-                            return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                        }
+                        mvList = new List<ModelVersionList>();
+                        mvList = ModelMapper.Convert(mvEntityList);
+                        return Ok(mvList);
+                    }
+                    else
+                    {
+                        return NotFound();
                     }
                 }
                 catch (Exception ex)
                 {
                     ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
                     objErr.SendMail();
-                    return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                    return InternalServerError();
                 }
         }   // Get 
         #endregion
@@ -175,42 +149,31 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="features"></param>
         /// <returns>Model's Specs and Features</returns>
         [ResponseType(typeof(VersionSpecifications))]
-        public HttpResponseMessage Get(int versionId,bool? specs,bool? features)
+        public IHttpActionResult Get(int versionId,bool? specs,bool? features)
         {
             BikeSpecificationEntity objVersionSpecs = null;
             VersionSpecifications objDTOVersionSpecs = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objVersionSpecs = _modelRepository.MVSpecsFeatures(versionId);
+
+                if (objVersionSpecs != null)
                 {
-                    IBikeModelsRepository<BikeModelEntity, int> modelRepository = null;
-
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
-                    modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-
-                    objVersionSpecs = modelRepository.MVSpecsFeatures(versionId);
-
-                    if (objVersionSpecs != null)
-                    {
-                        // Auto map the properties
-                        objDTOVersionSpecs = new VersionSpecifications();
-
-                        //Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
-                        //objDTOVersionSpecs = Mapper.Map<BikeSpecificationEntity, VersionSpecifications>(objVersionSpecs);
-                        objDTOVersionSpecs = ModelMapper.Convert(objVersionSpecs);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOVersionSpecs);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    // Auto map the properties
+                    objDTOVersionSpecs = new VersionSpecifications();
+                    objDTOVersionSpecs = ModelMapper.Convert(objVersionSpecs);
+                    return Ok(objDTOVersionSpecs);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
 
         }   // Get  Specs and Features
@@ -224,39 +187,31 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
         [ResponseType(typeof(ModelPage))]
-        public HttpResponseMessage Get(uint modelId,bool isNew,bool?specs,bool?features)
+        public IHttpActionResult Get(int modelId,bool isNew,bool?specs,bool?features)
         {
             BikeModelPageEntity objModelPage = null;
             ModelPage objDTOModelPage = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    IBikeModelsRepository<BikeModelEntity, uint> modelRepository = null;
-
-                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, uint>, BikeModelsRepository<BikeModelEntity, uint>>();
-                    modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, uint>>();
-
-                    objModelPage = modelRepository.GetModelPage(modelId, isNew);
+               objModelPage = _modelRepository.GetModelPage(modelId, isNew);
 
                     if (objModelPage != null)
                     {
                         // Auto map the properties
                         objDTOModelPage = new ModelPage();
                         objDTOModelPage = ModelMapper.Convert(objModelPage);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOModelPage);
+                        return Ok(objDTOModelPage);
                     }
                     else
                     {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
+                        return NotFound();
                     }
-                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
         }   // Get  Model Page
         #endregion   

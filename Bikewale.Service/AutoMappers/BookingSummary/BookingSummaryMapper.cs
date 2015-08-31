@@ -12,9 +12,9 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.BookingSummary
 {
-    public class BookingSummaryEntityToDTO
+    public class BookingSummaryMapper
     {
-        internal static DTO.PriceQuote.CustomerDetails.PQCustomer ConvertCustomer(Entities.BikeBooking.PQCustomerDetail objCustomer)
+        internal static DTO.PriceQuote.CustomerDetails.PQCustomer Convert(Entities.BikeBooking.PQCustomerDetail objCustomer)
         {
             Mapper.CreateMap<CustomerEntityBase, PQCustomerBase>();
             Mapper.CreateMap<VersionColor, PQColor>();
@@ -22,7 +22,7 @@ namespace Bikewale.Service.AutoMappers.BookingSummary
             return Mapper.Map<PQCustomerDetail, PQCustomer>(objCustomer);
         }
 
-        internal static DTO.PriceQuote.DetailedDealerQuotation.DDQDealerDetailBase ConvertDetailEntity(Entities.BikeBooking.PQ_DealerDetailEntity dealerDetailEntity)
+        internal static DTO.PriceQuote.DetailedDealerQuotation.DDQDealerDetailBase Convert(Entities.BikeBooking.PQ_DealerDetailEntity dealerDetailEntity)
         {
             Mapper.CreateMap<BikeMakeEntityBase, DDQMakeBase>();
             Mapper.CreateMap<BikeModelEntityBase, DDQModelBase>();

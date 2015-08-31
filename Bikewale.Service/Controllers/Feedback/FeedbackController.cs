@@ -13,12 +13,18 @@ using System.Web.Http.Description;
 namespace Bikewale.Service.Feedback
 {
     /// <summary>
-    /// Feedback Submission
     /// Author : Sushil Kumar
     /// Created On : 24th August 2015
+    /// Summary : Feedback for the website   
     /// </summary>
     public class FeedbackController : ApiController
     {
+
+        private readonly IFeedback _feedback = null;
+        public FeedbackController(IFeedback feedback)
+        {
+            _feedback = feedback;
+        }
 
         /// <summary>
         /// Save User FeedBack
@@ -29,36 +35,27 @@ namespace Bikewale.Service.Feedback
         /// <param name="pageUrl"></param>
         /// <returns>True/False</returns>
         [ResponseType(typeof(Boolean))]
-        public HttpResponseMessage POST(string feedbackComment, ushort feedbackType, ushort platformId, string pageUrl)
+        public IHttpActionResult POST(string feedbackComment, ushort feedbackType, ushort platformId, string pageUrl)
         {
             bool isSaved = false;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+
+                isSaved = _feedback.SaveCustomerFeedback(feedbackComment, feedbackType, platformId, pageUrl);
+
+                if (isSaved)
                 {
-                    IFeedback userFeedback = null;
-
-                    container.RegisterType<IFeedback, FeedbackRepository>();
-                    userFeedback = container.Resolve<IFeedback>();
-
-                    isSaved = userFeedback.SaveCustomerFeedback(feedbackComment, feedbackType, platformId, pageUrl);
-
-                    if (isSaved)
-                    {
-                        return Request.CreateResponse(HttpStatusCode.OK, isSaved);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
-                    }
+                    return Ok(isSaved);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+
+            return (IHttpActionResult)Request.CreateResponse(HttpStatusCode.NotModified, "Oops ! Something Went Wrong");
         }//post completed
     }
 }

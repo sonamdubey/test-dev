@@ -161,7 +161,7 @@
     <Compile Include="AutoMappers\BikeData\LaunchedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\SimilarBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\UpcomingBikeListMapper.cs" />
-    <Compile Include="AutoMappers\BookingSummary\BookingSummaryEntityToDTO.cs" />
+    <Compile Include="AutoMappers\BookingSummary\BookingSummaryMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\DDQDealerDetailBaseMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\PQCustomerMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Area\PQAreaListMapper.cs" />
@@ -169,13 +169,14 @@
     <Compile Include="AutoMappers\PriceQuote\DDQDealerDetailBaseMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\DPQuotationOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Make\PQMakeListMapper.cs" />
-    <Compile Include="AutoMappers\PriceQuote\MobileVerification\PQMobVerfyEntityToDTO.cs" />
+    <Compile Include="AutoMappers\PriceQuote\MobileVerification\PQMobVerifyMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Model\PQModelListMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PQBikePriceQuoteOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PQCustomerMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PQOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PriceQuoteMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Version\PQVersionListMapper.cs" />
+    <Compile Include="AutoMappers\UsedBikes\PopularUsedBikesMapper.cs" />
     <Compile Include="AutoMappers\Videos\VideosMapper.cs" />
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
@@ -189,7 +190,6 @@
     <Compile Include="Controllers\BookingSummary\BookingSummaryController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />
-    <Compile Include="Controllers\Model\ModelPageController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />
     <Compile Include="Controllers\PriceQuote\BikePQController.cs" />
     <Compile Include="Controllers\PriceQuote\City\PQCityListController.cs" />
@@ -220,9 +220,9 @@
     <Compile Include="Controllers\Make\MakeListController.cs" />
     <Compile Include="Controllers\Model\ModelController.cs" />
     <Compile Include="Controllers\Model\ModelListController.cs" />
-    <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\Series\SeriesListController.cs" />
     <Compile Include="Controllers\State\StateListController.cs" />
+    <Compile Include="Controllers\UsedBikes\PopularUsedBikesController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsListController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsListTypeController.cs" />
@@ -277,8 +277,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APISecurity\" />
-    <Folder Include="AutoMappers\UsedBikes\" />
-    <Folder Include="Controllers\UsedBikes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">

@@ -24,6 +24,14 @@ namespace Bikewale.Service.Controllers.City
     /// </summary>
     public class CityListController : ApiController
     {
+        
+        
+        private readonly ICity _city = null;
+        public CityListController(ICity city)
+        {
+            _city = city;
+        }
+        
         #region All Cities
         /// <summary>
         /// To get Cities Based on request Type for DropDowns only
@@ -37,25 +45,17 @@ namespace Bikewale.Service.Controllers.City
             CityList objDTOCityList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objCityList = _city.GetAllCities(requestType);
+
+                if (objCityList != null && objCityList.Count > 0)
                 {
-                    ICity citysRepository = null;
-
-                    container.RegisterType<ICity, CityRepository>();
-                    citysRepository = container.Resolve<ICity>();
-
-                    objCityList = citysRepository.GetAllCities(requestType);
-
-                    if (objCityList != null && objCityList.Count > 0)
-                    {
-                        objDTOCityList = new CityList();
-                        objDTOCityList.City = CityListMapper.Convert(objCityList);
-                        return Ok(objDTOCityList);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
+                    objDTOCityList = new CityList();
+                    objDTOCityList.City = CityListMapper.Convert(objCityList);
+                    return Ok(objDTOCityList);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)

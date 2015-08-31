@@ -23,82 +23,77 @@ namespace Bikewale.Service.Controllers.Version
     /// </summary>
     public class VersionListController : ApiController
     {                                 
+        
+        private readonly  IBikeVersions<BikeVersionEntity, uint> _versionRepository = null;
+        public VersionListController(IBikeVersions<BikeVersionEntity, uint> versionRepository)
+        {
+            _versionRepository = versionRepository;
+        }
+        
         #region List of Models Version with MinSpecs
         /// <summary>
-        /// 
+        /// Versions List with minimum specs details
         /// </summary>
         /// <param name="modelId"></param>
         /// <param name="isNew"></param>
-        /// <returns></returns>
+        /// <returns>Versions List</returns>
         [ResponseType(typeof(IEnumerable<VersionMinSpecs>))]
-        public HttpResponseMessage Get(uint modelId, bool isNew)
+        public IHttpActionResult Get(uint modelId, bool isNew)
         {
             List<BikeVersionMinSpecs> objMVSpecsList = null;
             List<VersionMinSpecs> objDTOMVSpecsList = null;
-            using (IUnityContainer container = new UnityContainer())
+            try
             {
-                IBikeVersions<BikeVersionEntity, int> versionRepository = null;
-
-                container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersionsRepository<BikeVersionEntity, int>>();
-                versionRepository = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
-
-                objMVSpecsList = versionRepository.GetVersionMinSpecs(modelId, isNew);
+                objMVSpecsList = _versionRepository.GetVersionMinSpecs(modelId, isNew);
 
                 if (objMVSpecsList != null && objMVSpecsList.Count > 0)
                 {
-                    objDTOMVSpecsList = new   List<VersionMinSpecs>();  
+                    objDTOMVSpecsList = new List<VersionMinSpecs>();
                     objDTOMVSpecsList = VersionListMapper.Convert(objMVSpecsList);
-                    return Request.CreateResponse(HttpStatusCode.OK, objDTOMVSpecsList);
-                }
-                else
-                {
-                    return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                }
-            }
-        }   // Get 
-        #endregion
-        
-        #region List of Models Version
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="requestType"></param>
-        /// <param name="makeId"></param>
-        /// <returns></returns>
-        [ResponseType(typeof(VersionList))]
-        public HttpResponseMessage Get(EnumBikeType requestType, int modelId, int? cityId = null)
-        {
-            List<BikeVersionsListEntity> objVersionList = null;
-            VersionList objDTOVersionList = null;
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    IBikeVersions<BikeVersionEntity, int> versionRepository = null;
-
-                    container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersionsRepository<BikeVersionEntity, int>>();
-                    versionRepository = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
-
-                    objVersionList = versionRepository.GetVersionsByType(requestType, modelId, cityId);
-
-                    if (objVersionList != null && objVersionList.Count > 0)
-                    {
-                        objDTOVersionList = new VersionList();
-                        objDTOVersionList.Version = VersionListMapper.Convert(objVersionList);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOVersionList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    return Ok(objDTOMVSpecsList);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionListController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+            return NotFound();
+        }   // Get 
+        #endregion
+        
+        #region List of Models Version
+        /// <summary>
+        /// List of Versions based on models and requesttype
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <param name="modelId"></param>
+        /// <param name="cityId"></param>
+        /// <returns>Versions List</returns>
+        [ResponseType(typeof(VersionList))]
+        public IHttpActionResult Get(EnumBikeType requestType, int modelId, int? cityId = null)
+        {
+            List<BikeVersionsListEntity> objVersionList = null;
+            VersionList objDTOVersionList = null;
+            try
+            {
+                objVersionList = _versionRepository.GetVersionsByType(requestType, modelId, cityId);
+
+                if (objVersionList != null && objVersionList.Count > 0)
+                {
+                    objDTOVersionList = new VersionList();
+                    objDTOVersionList.Version = VersionListMapper.Convert(objVersionList);
+                    return Ok(objDTOVersionList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Version.VersionListController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return NotFound();
         }   // Get 
         #endregion                 
 

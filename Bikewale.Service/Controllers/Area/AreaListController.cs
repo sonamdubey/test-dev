@@ -24,6 +24,13 @@ namespace Bikewale.Service.Controllers.Area
     /// </summary>
     public class AreaListController : ApiController
     {
+        
+        private readonly IArea _area = null;
+        public AreaListController(IArea area)
+        {
+            _area = area;
+        }
+
         /// <summary>
         /// Get List of Areas based on city
         /// </summary>
@@ -36,26 +43,18 @@ namespace Bikewale.Service.Controllers.Area
             AreaList objDTOAreaList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objAreaList = _area.GetAreas(cityId);
+
+                if (objAreaList != null && objAreaList.Count > 0)
                 {
-                    IArea citysRepository = null;
+                    objDTOAreaList = new AreaList();
+                    objDTOAreaList.Area = AreaListMapper.Convert(objAreaList);
 
-                    container.RegisterType<IArea, AreaRepository>();
-                    citysRepository = container.Resolve<IArea>();
-
-                    objAreaList = citysRepository.GetAreas(cityId);
-
-                    if (objAreaList != null && objAreaList.Count > 0)
-                    {
-                        objDTOAreaList = new AreaList();
-                        objDTOAreaList.Area = AreaListMapper.Convert(objAreaList);
-
-                        return Ok(objDTOAreaList);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
+                    return Ok(objDTOAreaList);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)

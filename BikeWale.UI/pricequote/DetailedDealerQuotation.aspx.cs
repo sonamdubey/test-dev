@@ -19,7 +19,6 @@ using System.Diagnostics;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.BAL.BikeData;
-using Bikewale.Entities.BikeBooking;
 using Carwale.BL.PaymentGateway;
 using System.Text;
 

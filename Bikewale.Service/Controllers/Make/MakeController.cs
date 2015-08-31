@@ -23,46 +23,42 @@ namespace Bikewale.Service.Controllers.Make
     /// </summary>
     public class MakeController : ApiController
     {
+
+        private readonly IBikeMakes<BikeMakeEntity, int> _bikeMakes = null;
+        public MakeController(IBikeMakes<BikeMakeEntity, int> bikeMakes)
+        {
+            _bikeMakes = bikeMakes;
+        }
+        
         /// <summary>
         ///  To get make Details based on MakeId  for DropDown
         /// </summary>
         /// <param name="makeId"></param>
         /// <returns>Make Details </returns>
         [ResponseType(typeof(MakeBase))]
-        public HttpResponseMessage Get(string makeId)
+        public IHttpActionResult Get(string makeId)
         {
             BikeMakeEntityBase objMake = null;
             MakeBase objDTOMakeBase = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                objMake = _bikeMakes.GetMakeDetails(makeId);
+
+                if (objMake != null)
                 {
-                    IBikeMakes<BikeMakeEntity, int> makesRepository = null;
-
-                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                    makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-
-                    objMake = makesRepository.GetMakeDetails(makeId);
-
-                    if (objMake != null)
-                    {
-                        objDTOMakeBase = new MakeBase();
-                        objDTOMakeBase = MakeListMapper.Convert(objMake);
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOMakeBase);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
+                    objDTOMakeBase = new MakeBase();
+                    objDTOMakeBase = MakeListMapper.Convert(objMake);
+                    return Ok(objDTOMakeBase);
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Make.MakeController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
-        }
+            return NotFound();
+        }//get make details
         
     }
 }

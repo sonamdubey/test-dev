@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Bikewale.Service.AutoMappers.PriceQuote.MobileVerification
 {
-    public class PQMobVerfyEntityToDTO
+    public class PQMobVerifyMapper
     {
     }
 }

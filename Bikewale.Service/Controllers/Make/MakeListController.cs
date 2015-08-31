@@ -42,41 +42,30 @@ namespace Bikewale.Service.Controllers.Make
         /// <param name="requestType"></param>
         /// <returns>Makes List</returns>
         [ResponseType(typeof(MakeList))]
-        public HttpResponseMessage Get(EnumBikeType requestType)
+        public IHttpActionResult Get(EnumBikeType requestType)
         {
             List<BikeMakeEntityBase> objMakeList = null;
             MakeList objDTOMakeList = null;
             try
-            {
-                //using (IUnityContainer container = new UnityContainer())
-                //{
-                //    IBikeMakes<BikeMakeEntity, int> makesRepository = null;
+            {       
+                objMakeList = _makesRepository.GetMakesByType(requestType);
 
-                //    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>();
-                //    makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
-
-                    objMakeList = _makesRepository.GetMakesByType(requestType);
-
-                    if (objMakeList != null && objMakeList.Count > 0)
-                    {
-                        objDTOMakeList = new MakeList();
+                if (objMakeList != null && objMakeList.Count > 0)
+                {
+                    objDTOMakeList = new MakeList();
                         
-                        objDTOMakeList.Makes = MakeListMapper.Convert(objMakeList);
+                    objDTOMakeList.Makes = MakeListMapper.Convert(objMakeList);
                         
-                        return Request.CreateResponse(HttpStatusCode.OK, objDTOMakeList);
-                    }
-                    else
-                    {
-                        return Request.CreateResponse(HttpStatusCode.NoContent, "No Data Found");
-                    }
-                //}
+                    return Ok(objDTOMakeList);
+                }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Make.MakeController");
                 objErr.SendMail();
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "OOps ! Some error occured.");
+                return InternalServerError();
             }
+            return NotFound();
         }   // Get 
         #endregion
 
