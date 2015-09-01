@@ -1,0 +1,52 @@
+@charset "utf-8";
+/* CSS Document */
+.booking-online-box { height:140px; padding:65px 20px 20px;}
+.booking-online-pic {width:130px; height:92px; margin:0 auto; position:relative; top:35px; border:1px solid #ddd\9; -moz-box-shadow:0px 2px 5px #ccc; -o-box-shadow:0px 2px 5px #ccc; -webkit-box-shadow:0px 2px 5px #ccc; -ms-box-shadow:0px 2px 5px #ccc; box-shadow:0px 2px 5px #ccc;}
+
+/* booking comforts sprite */
+.bookingcomforts-sprite { background:url(../images/booking-comforts-sprite.png) no-repeat; display:inline-block;}
+.get-price-icon { background-position:0 0; width:64px; height:44px; position:relative; top:22px;}
+.get-deal-icon { background-position:-74px 0; width:80px; height:57px; position:relative; top:18px;}
+.save-visit-icon { background-position:-164px 0; width:73px; height:59px; position:relative; top:18px;}
+.buying-asst-icon { background-position:-247px 0; width:71px; height:46px; position:relative; top:22px;}
+
+/* discover your bike css */
+.brand-budget-mileage-style-wrapper { background:#fff; padding-bottom:30px; }
+.bw-tabs-data ul li:hover { cursor: pointer; }
+.brand-type-container ul li, .style-type-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:230px; height:155px; margin:0 5px 15px; text-align:center; font-size:18px; border:1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.brand-type { width:230px; height:100px; display:block; margin:0 auto; padding-top:20px; }
+.brand-type-title, .style-type-title { margin-top:10px; display:block; }
+.brand-type-container a, .style-type-container a { text-decoration:none; color:#82888b; display: inline-block; }
+.brand-type-container ul li:hover, .style-type-container ul li:hover { border: 1px solid #4d5057;}
+.brand-type-container ul li:hover span.brand-type-title, .style-type-container ul li:hover span.style-type-title {color:#4d5057; font-weight: bold; }
+.budget-container ul li:hover a, .mileage-container ul li:hover a { color:#4d5057;}
+
+
+.brandlogosprite { background: url(../images/brand-type-sprite.png) no-repeat; display: inline-block; }
+.brand-bajaj, .brand-hero, .brand-honda, .brand-yamaha { height:70px; }
+.brand-bajaj { width: 134px; background-position: 0 0; }
+.brand-hero { width: 60px; background-position: -144px 0; }
+.brand-honda { width: 70px; background-position: -212px 0; }
+.brand-yamaha { width: 125px; background-position: -292px 0; }
+
+/* budget-container and mileage-container */
+.budget-container ul li, .mileage-container ul li { text-align: center; display: inline-block; *display:inline; *zoom:1; }
+.budget-container ul li a, .mileage-container ul li a { display:inline-block; *display:inline; *zoom:1; width:230px; height:155px; margin:0 5px 30px; text-align:center; background:#fff; color:#82888b; font-size:18px; border: 1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.budget-container ul li a span.budget-title-box , .budget-container ul li a span.budget-amount-box, .mileage-container ul li a span.mileage-title-box , .mileage-container ul li a span.mileage-amount-box { display:block; }
+.budget-container ul li a:hover, .mileage-container ul li a:hover { border: 1px solid #4d5057; text-decoration:none; }
+.budget-container ul li a span.budget-title-box, .mileage-container ul li a span.mileage-title-box { padding-top: 40px; padding-bottom: 5px; }
+
+
+/* style-container */
+.style-type { width:230px; height:90px; display:block; margin:0 auto; padding-top:30px; }
+.styletypesprite { background: url(../images/style-type-sprite.png) no-repeat; display: inline-block;  }
+.style-scooters, .style-street, .style-cruiser, .style-sports { width:75px; height:45px; }
+.style-scooters { background-position: 0 0; }
+.style-street { background-position: 0 -52px; }
+.style-cruiser { background-position: 0 -105px; }
+.style-sports { background-position: 0 -155px; }
+
+
+/*  */
+.popular-used-bikes-container .jcarousel ul li:hover .bikes-avaiable-count span{ color:#0288d1; }
+

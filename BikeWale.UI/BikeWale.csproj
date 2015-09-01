@@ -253,6 +253,7 @@
       <DependentUpon>RedirectToBillDesk.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
@@ -453,6 +454,10 @@
       <DependentUpon>NewsMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\News_new.ascx.cs">
+      <DependentUpon>News_new.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\NoFollowPagerControl.ascx.cs">
       <DependentUpon>NoFollowPagerControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -559,6 +564,10 @@
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="default_new.aspx.cs">
+      <DependentUpon>default_new.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\common\ForumsCommon.cs" />
@@ -1391,6 +1400,7 @@
     <Content Include="controls\MakeModelSearch.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
     <Content Include="controls\NewsMin.ascx" />
+    <Content Include="controls\News_new.ascx" />
     <Content Include="controls\NoFollowPagerControl.ascx" />
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
@@ -1419,11 +1429,13 @@
     <Content Include="controls\UserReviewsMin.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="css\960.css" />
+    <Content Include="css\bw-common-style.css" />
     <Content Include="css\bw-pq-new.css" />
     <Content Include="css\bw-pq.css" />
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
     <Content Include="css\global.css" />
+    <Content Include="css\home.css" />
     <Content Include="css\images\animated-overlay.gif" />
     <Content Include="css\images\ui-bg_diagonals-thick_75_f3d8d8_40x40.png" />
     <Content Include="css\images\ui-bg_dots-small_65_a6a6a6_2x2.png" />
@@ -1445,6 +1457,7 @@
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
     <Content Include="Default.aspx" />
+    <Content Include="default_new.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
     <Content Include="editor\css\word.css" />
@@ -1708,6 +1721,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Feedback\Feedback.aspx" />
     <Content Include="Finance\EMICalculator.aspx" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\WebRupee.V2.0.svg" />
     <Content Include="Forums\CreateThreads.aspx" />
     <Content Include="Forums\Default.aspx" />
@@ -1754,6 +1768,7 @@
     <Content Include="images\tab-bg-rollover.jpg" />
     <Content Include="images\white-shadow.png" />
     <Content Include="includes\footer.aspx" />
+    <Content Include="includes\footerBW.aspx" />
     <Content Include="includes\footerHome.aspx" />
     <Content Include="includes\footerInner.aspx" />
     <Content Include="includes\footermobile.aspx" />
@@ -1762,6 +1777,7 @@
     <Content Include="includes\gacode.aspx" />
     <Content Include="includes\globalStaticFiles.aspx" />
     <Content Include="includes\globalStaticFiles_mobile.aspx" />
+    <Content Include="includes\headBW.aspx" />
     <Content Include="includes\headermobile.aspx" />
     <Content Include="includes\headermobile_home.aspx" />
     <Content Include="includes\headermobile_noad.aspx" />
@@ -1837,6 +1853,8 @@
     <Content Include="m\src\index.js" />
     <Content Include="m\src\jquery-1.10.2.min.js" />
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
+    <Content Include="src\common.js" />
+    <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
     <Content Include="m\src\loadPhotos.js" />
     <Content Include="m\src\m-carousel.js" />
@@ -1904,11 +1922,14 @@
     <Content Include="src\common\process.js" />
     <Content Include="src\framework\knockout-3.1.0.js" />
     <Content Include="src\graybox.js" />
+    <Content Include="src\home.js" />
+    <Content Include="src\html5.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="src\knockout.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\new\search.js" />
+    <Content Include="src\Plugins.js" />
     <Content Include="src\pq\MetroCities.js" />
     <Content Include="src\pq\price_quote.js" />
     <Content Include="src\Research\photogallery\image-gallery.js" />
@@ -1992,6 +2013,10 @@
     <Content Include="m\fonts\WebRupee.V2.0.ttf" />
     <Content Include="m\fonts\WebRupee.V2.0.eot" />
     <Content Include="Absure Bike RSA.pdf" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\FontAwesome.otf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

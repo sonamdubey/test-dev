@@ -271,7 +271,7 @@ namespace Bikewale.DAL.BikeData
                             {
                                 BikeVersionsListEntity version = new BikeVersionsListEntity();
 
-                                version.VersionId = Convert.ToUInt32(dr["VersionId"]);
+                                version.VersionId = Convert.ToInt32(dr["VersionId"]);
                                 version.VersionName = Convert.ToString(dr["VersionName"]);
                                 version.ModelName = Convert.ToString(dr["ModelName"]);
                                 version.Price = Convert.ToUInt64(dr["Price"]);
@@ -622,7 +622,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
                                 objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
                                 objData.objModel.ModelName = Convert.ToString(dr["ModelMaskingName"]);
-                                objData.objVersion.VersionId = Convert.ToUInt32(dr["VersionId"]);
+                                objData.objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
                                 objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
                                 objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);

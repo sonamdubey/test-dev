@@ -61,7 +61,7 @@ namespace Bikewale.DAL.BikeData
                         {
                             objVersionsList.Add(new BikeVersionsListEntity()
                             {
-                                VersionId = Convert.ToUInt32(dr["VersionId"]),
+                                VersionId = Convert.ToInt32(dr["VersionId"]),
                                 VersionName = dr["VersionName"].ToString(),
                                 Price = Convert.ToUInt64(dr["Price"])
                             });
@@ -134,7 +134,7 @@ namespace Bikewale.DAL.BikeData
                             while(dr.Read())
                             {
                                 objMinSpecs.Add( new BikeVersionMinSpecs(){
-                                   VersionId  = Convert.ToUInt32(dr["ID"]),
+                                   VersionId  = Convert.ToInt32(dr["ID"]),
                                    VersionName = Convert.ToString(dr["Version"]),
                                    ModelName =Convert.ToString(dr["Model"]),
                                    Price  = Convert.ToUInt64(dr["VersionPrice"]),
