@@ -10,7 +10,7 @@ namespace Bikewale.DTO.Version
     public class ModelVersionList
     {
         [JsonProperty("versionId")]
-        public uint VersionId { get; set; }
+        public int VersionId { get; set; }
 
         [JsonProperty("versionName")]
         public string VersionName { get; set; }
