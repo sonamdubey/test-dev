@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entity.BikeBooking
 {
-    [Serializable]
     public class PQ_Price
     {
         public UInt32 CategoryId { get; set; }

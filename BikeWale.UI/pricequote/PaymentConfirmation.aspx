@@ -129,10 +129,10 @@
                     <div id="div_ShowPQ">
                     	<h2 class="payment-pg-heading">Booked Bike</h2>
                         	<p class="margin-top10"><strong><%= bikeName%></strong></p>
-                        	<p><strong>Color: <%= objCustomer.objColor.ColorName %></strong></p>
+                        	<%--<p><strong>Color: <%= objCustomer.objColor.ColorName %></strong></p>--%>
                                 
                                 <div class="bw-offer-box margin-top10">
-                                    <h2>Exclusive BikeWale Offer</h2>
+                                    <h2><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Exclusive Offers for BikeWale Customers"%></h2>
                                     <div class="margin-top5">
                                         <asp:Repeater ID="rptOffers" runat="server">
                                             <HeaderTemplate>
@@ -141,18 +141,35 @@
                                             <ItemTemplate>
                                                     <%--
                                                         <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%>   <%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "<a id=\"rsa\" class=\"blue\">How to avail the offer?</a>" : ""  %></li>--%>
-                                                <li><%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() != "3" ? DataBinder.Eval(Container.DataItem,"OfferText") : ""%> </li>
+                                                <%-- Start 102155010 --%>
+                                                <%--<li><%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() != "3" ? DataBinder.Eval(Container.DataItem,"OfferText") : ""%> </li>--%>
+                                                <%
+                                                    if (IsInsuranceFree)
+                                                    {
+                                                        %>
+                                                <li>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
+                                                <%
+                                                    }
+                                                    else
+                                                    {%>
+                                                <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                                                       <% 
+                                                    }
+                                                     %>                                                
+                                                <%-- End 102155010 --%>
                                             </ItemTemplate>
                                             <FooterTemplate>
-                                                        <li>Get one year of <a target="_blank" href="/Absure Bike RSA.pdf">Bike Roadside Assistance</a>  absolutely FREE. <a id="rsa" class="blue">How to avail the offer?</a></li>
-                                                   <%-- <li><a href="/Absure Bike RSA.pdf" target="_blank">Get RSA Details</a></li>--%>
+                                                <%-- Start 102155010 --%>
+                                                        <%--<li>Get one year of <a target="_blank" href="/Absure Bike RSA.pdf">Bike Roadside Assistance</a>  absolutely FREE. <a id="rsa" class="blue">How to avail the offer?</a></li>--%>
+                                                   <%-- <li><a href="/Absure Bike RSA.pdf" target="_blank">Get RSA Details</a></li>--%>                                                
+                                                <%-- End 102155010 --%>
                                                     </ul>
                                             </FooterTemplate>
                                         </asp:Repeater>
                                     </div>
                                 </div>
                     </div>
-                	<p class="margin-top10">Balance Amount Payable at Dealership: <span class="WebRupee">Rs.</span> <%=totalPrice - Convert.ToUInt32(Bikewale.Common.CommonOpn.FormatPrice(_objPQ.objBookingAmt.Amount.ToString())) %></p>
+                	<p class="margin-top10">Balance Amount Payable at Dealership: <span class="WebRupee">Rs.</span> <%=totalPrice - Convert.ToUInt32(Bikewale.Common.CommonOpn.FormatPrice(_objPQ.objBookingAmt.Amount.ToString())) - insuranceAmount %></p>
                 </div>
             <!--Get pq code ends here-->
             <!--next steps starts here-->
@@ -181,7 +198,7 @@
                 <!--steps end here-->
         		</div>
             <!--next steps ends here-->
-            <div class="mid-box margin-top15 center-align margin-bottom20"><input type="submit" class="action-btn" id="btnPrintReceipt" value="Print Receipt" name="btnPrintReceipt" onClick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Print_Receipt' });"></div>
+            <div class="mid-box margin-top15 center-align margin-bottom20"><input type="submit" class="action-btn" id="btnPrintReceipt" value="Print Receipt" name="btnPrintReceipt" onClick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Print_Receipt' });"></div>
         </div>
         
         <div class="grid_4 right-grid">
@@ -247,7 +264,7 @@
         $('#blackOut-window, .rsa-popup,.bw-popup').hide();
 
         $('#btnPrintReceipt').click(function () {
-              window.print();
+            window.print();
             //printWindow = window.open("", "mywindow", "location=0,status=0,scrollbars=1");
             //printWindow.document.write("<div style='width:100%;text-align:left;'>");
             //printWindow.document.write("<input type='button' id='btnPrint' value='Print' style='width:100px' onclick='window.print()' />");

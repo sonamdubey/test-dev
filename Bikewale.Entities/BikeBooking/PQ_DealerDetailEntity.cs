@@ -11,7 +11,6 @@ namespace Bikewale.Entity.BikeBooking
     /// Written By : Ashwini Todkar on 28 Oct 2014
     /// </summary>
     
-    [Serializable]
     public class PQ_DealerDetailEntity
     {
         public NewBikeDealers objDealer { get; set; }

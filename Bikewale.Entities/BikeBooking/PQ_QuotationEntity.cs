@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entity.BikeBooking
 {
-    [Serializable]
     public class PQ_QuotationEntity
     {
         public List<PQ_Price> PriceList { get; set; }

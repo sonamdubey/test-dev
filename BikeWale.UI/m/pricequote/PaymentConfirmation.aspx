@@ -21,31 +21,48 @@
         	<h2 class="margin-bottom10 f-bold">Booked Bike</h2>
             <div class="break-line margin-bottom10"></div>
         	<h2 class="margin-bottom10 f-bold"><%= bikeName %></h2>
-            <div>
+            <%--<div>
                 <span>Color:</span>
                 <span class="f-bold"><%= objCustomer.objColor.ColorName %></span>
-            </div>
+            </div>--%>
             <div class="full-border bike-img margin-top-10">
-            	<%--<img src="<%= Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+_objPQ.objQuotation.LargePicUrl,_objPQ.objQuotation.HostUrl) %>" alt="" title="" border="0" />--%>
-                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath,_objPQ.objQuotation.HostUrl,Bikewale.Utility.ImageSize._640x348) %>" alt="" title="" border="0" />
+            	<img src="<%= Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath,_objPQ.objQuotation.HostUrl,Bikewale.Utility.ImageSize._640x348) %>" alt="" title="" border="0" />
             </div>
             <div class="offer-div margin-top-10">
-                <div class="f-bold">Exclusive Offers on Online Booking</div>
+                <div class="f-bold"><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Exclusive Offers on Online Booking"%></div>
                 <asp:Repeater ID="rptOffers" runat="server">
                     <HeaderTemplate>
                             <ul>                                        
                     </HeaderTemplate>
                     <ItemTemplate>
                         <%--  <li><%# DataBinder.Eval(Container.DataItem,"OfferText") %> <%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "<a id=\"rsa\" class=\"blue\">How to avail the offer?</a>" : ""  %></li>--%>
-                        <li class="<%#DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() != "3" ? "" : "hide" %>"><%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() != "3" ? DataBinder.Eval(Container.DataItem,"OfferText") : ""%> </li>
+                        <%-- Start 102155010 --%>
+                        <%--<li class="<%#DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() != "3" ? "" : "hide" %>"><%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() != "3" ? DataBinder.Eval(Container.DataItem,"OfferText") : ""%> </li>--%>
+                        <%
+                            if (IsInsuranceFree)
+                            {
+                                %>
+                        <li>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
+                        <%
+                            }
+                            else
+                            {%>
+                        <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                               <% 
+                            }
+                             %>  
+
+                        <%-- End 102155010 --%>
                     </ItemTemplate>
                     <FooterTemplate>
-                            <li>Get one year of <a target="_blank" href="/Absure Bike RSA.pdf"  style="text-decoration:underline">Bike Roadside Assistance</a>  absolutely FREE. <a id="rsa" target="_blank" href="/m/pricequote/rsa.aspx" style="color: #0056cc !important;">How to avail the offer?</a></li>
+                        <%-- Start 102155010 --%>
+                            <%--<li>Get one year of <a target="_blank" href="/Absure Bike RSA.pdf"  style="text-decoration:underline">Bike Roadside Assistance</a>  absolutely FREE. <a id="rsa" target="_blank" href="/m/pricequote/rsa.aspx" style="color: #0056cc !important;">How to avail the offer?</a></li>--%>
+                        <%-- End 102155010 --%>
                         </ul>
                     </FooterTemplate>
                 </asp:Repeater>
             </div>
-            <div class="text-center font12 margin-top-10">Balance Amount Payable at Dealership: <span class="WebRupee">Rs.</span><%=totalPrice - Convert.ToUInt32(Bikewale.Common.CommonOpn.FormatPrice(_objPQ.objBookingAmt.Amount.ToString())) %></div>
+            <div class="text-center font12 margin-top-10">Balance Amount Payable at Dealership: <span class="WebRupee">Rs.</span><%=totalPrice - Convert.ToUInt32(Bikewale.Common.CommonOpn.FormatPrice(_objPQ.objBookingAmt.Amount.ToString())) - insuranceAmount %></div>
             <%--<button id="btnPrint" data-role="none" class="rounded-corner5" onClick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel %>', act: 'Click Button Get_Dealer_Details' ,lab:'Clicked on Print_Receipt'});">Print Receipt</button>--%>
         </div>
         <div class="box1 new-line10">

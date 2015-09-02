@@ -8,7 +8,6 @@ using Bikewale.Entities.Location;
 
 namespace Bikewale.Entity.BikeBooking
 {
-    [Serializable]
     public class NewBikeDealers
     {
         [JsonProperty("dealerId")]
