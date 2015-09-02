@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace BikeWaleOpr.Entities
 {
@@ -9,13 +10,13 @@ namespace BikeWaleOpr.Entities
     /// Created By : Sadhana Upadhyay on 24th Oct 2014
     /// Summary : Entity for State
     /// </summary>
-    [Serializable]
+    [Serializable,DataContract]
     public class StateEntityBase
     {
-        [JsonProperty("stateId")]
+        [JsonProperty("stateId"),DataMember]
         public uint StateId { get; set; }
 
-        [JsonProperty("stateName")]
+        [JsonProperty("stateName"),DataMember]
         public string StateName { get; set; }
     }
 }

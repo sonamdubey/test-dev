@@ -6,8 +6,6 @@
     title =  objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " Price Quote ";
 	description =  objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " price quote";
     keywords = "";
-    ShowTargeting = "1";
-    TargetedModel = objPrice.objModel.ModelName;
     AdId = "1395986297721";
     AdPath = "/1017752/Bikewale_PriceQuote_";
     //canonical = "http://www.bikewale.com/pricequote/";
@@ -82,7 +80,7 @@
             <p>A verification code will be sent to the above Mobile Number. You will need the code for further Verification Process.</p>
         </div>
         <div class="mid-box margin-top15 center-align">
-        	<input type="submit" name="btnNext" value="Next" id="btnNext" class="action-btn" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });">
+        	<input type="submit" name="btnNext" value="Next" id="btnNext" class="action-btn" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });">
         </div>
     </div>
 </div>
@@ -113,7 +111,7 @@
             </p>
         </div>
         <div class="mid-box margin-top15 center-align">
-        	<input type="submit" name="btnSavePriceQuote" value="Verify" id="btnSavePriceQuote" class="action-btn" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Verified Mobile Number' });">
+        	<input type="submit" name="btnSavePriceQuote" value="Verify" id="btnSavePriceQuote" class="action-btn" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Verified Mobile Number' });">
        </div>
     </div>
 </div>
@@ -149,8 +147,7 @@
 			        <tr>
                         <td style="width:100px;vertical-align:top;">
                              <div class="show-pq-pic">
-                             	<%--<img alt="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" src="<%= ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+ objPrice.LargePicUrl,objPrice.HostUrl) %>" title="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" />--%>
-                                 <img alt="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPrice.OriginalImagePath,objPrice.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" title="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" />
+                             	<img alt="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPrice.OriginalImagePath,objPrice.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" title="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" />
                                  <%--<div class="margin-top5 dotted-hr margin-bottom5" style="margin-right:10px;"></div>--%>
                                 <div class="hide">
                                     <div class="<%= objColors.Count == 0 ? "hide" : "" %>" style="float:left; margin-right:3px; padding-top:3px;">Color: </div>
@@ -177,19 +174,58 @@
                                 <%--<a href="<%="/" + objPrice.objMake.MaskingName + "-bikes/" + objPrice.objModel.MaskingName + "/" %>"><h2><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %></h2></a>--%>
                                 <asp:Repeater id="rptPriceList" runat="server">
                                     <ItemTemplate>
-                                        <tr class="font14">
+                                        <%-- Start 102155010 --%>
+                                        <%--<tr class="font14">
                                             <td width="370">
                                                  <%# DataBinder.Eval(Container.DataItem,"CategoryName") %>
                                             </td>
                                             <td width="100" class="numeri-cell" align="right"><span class="WebRupee">Rs.</span><span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span></td>
+                                        </tr>--%>
+                                        <tr class="font14">
+                                            <td width="370">
+                                                 <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
+                                            </td>
+                                            <td width="100" class="numeri-cell" align="right"><span class="WebRupee">Rs.</span><span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span></td>
                                         </tr>
+                                        <%-- End 102155010 --%>
                                     </ItemTemplate>
                                 </asp:Repeater>
                                 <tr><td colspan="2"><div class="dotted-hr"></div><td></tr>
-                                <tr>
+                                <%-- Start 102155010 --%>
+                                <%--<tr>
                                     <td class="price2 font14">Total On Road Price</td>
                                     <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><b><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></b></td>
+                                </tr>--%>                                
+                                <%
+                       if (IsInsuranceFree)
+                       {
+                           %>
+                                <tr>
+                                    <td class="font14">Total On Road Price</td>
+                                    <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><span style="text-decoration: line-through"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span></td>
                                 </tr>
+                                <tr>
+                                    <td class="font14">Minus Insurance</td>
+                                    <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><%= CommonOpn.FormatPrice(insuranceAmount.ToString()) %></td>
+                                </tr>
+                                <tr>
+                                    <td class="price2 font14">BikeWale On Road (after insurance offer)</td>
+                                    <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><b><%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></b></td>
+                                </tr>
+                                <%
+                       }
+                       else
+                       {
+                           %>
+                           <tr>
+                                    <td class="price2 font14">Total On Road Price</td>
+                                    <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><b><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></b></td>
+                           </tr>
+
+                    <%
+                       }
+                                     %>                                
+                                <%-- End 102155010 --%>
                                 <tr>
                                     <td colspan="2" align="right"><a id="dealerPriceQuote" class="blue font14" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Get Dealer Details</a></td>
                                 </tr>
@@ -281,20 +317,25 @@
                 <%if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
                   { %>
                 <div id="divOffers" style="background:#fff;">                    
-                    <h2>Get Absolutely Free</h2>
+                    <h2><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Get Absolutely Free"%></h2>
                     <div class="margin-top5 margin-left5 font14">
                           <asp:Repeater ID="rptOffers" runat="server">
                                 <HeaderTemplate>
                                         <ul>                                        
                                 </HeaderTemplate>
                                 <ItemTemplate>                                        
-                                        <li style="<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "display:none;" : ""%>"><%# DataBinder.Eval(Container.DataItem,"OfferText")%> </li>
-                                </ItemTemplate>
-                                <FooterTemplate>                                    
-                                        <li>Vega Helmet worth Rs. 1500</li>
-                                        <li>1 year of <a target="_blank" href="/Absure Bike RSA.pdf">Roadside Assistance</a>.</li>
-                                        </ul>
-                                </FooterTemplate>
+                                    <%-- Start 102155010 --%>
+                                        <%--<li style="<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "display:none;" : ""%>"><%# DataBinder.Eval(Container.DataItem,"OfferText")%> </li>--%>
+                                    <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                                    <%-- End 102155010 --%>
+                                </ItemTemplate>                                                            
+                                <FooterTemplate>                                                                        
+                                    <%-- Start 102155010 --%>
+                                        <%--<li>Vega Helmet worth Rs. 1500</li>
+                                        <li>1 year of <a target="_blank" href="/Absure Bike RSA.pdf">Roadside Assistance</a>.</li>--%>
+                                    <%-- End 102155010 --%>
+                                    </ul>
+                                </FooterTemplate>                              
                             </asp:Repeater>
                     <div style="text-align:center;" class="mid-box margin-top15 action-btn">
                         <a class="action-btn" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</a>

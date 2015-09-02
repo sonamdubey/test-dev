@@ -11,7 +11,6 @@ namespace Bikewale.Entity.BikeBooking
     /// Written By : Ashwini Todkar on 15 dec 2014
     /// </summary>
     /// 
-    [Serializable]
     public class BookingAmountEntityBase
     {
         [JsonPropertyAttribute("id")]

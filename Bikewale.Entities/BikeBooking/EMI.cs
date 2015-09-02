@@ -11,7 +11,6 @@ namespace Bikewale.Entity.BikeBooking
     /// Written by Ashwini Todkar on 29 Oct 2014
     /// </summary>
     
-    [Serializable]
     public class EMI
     {
         [JsonProperty("id")]
