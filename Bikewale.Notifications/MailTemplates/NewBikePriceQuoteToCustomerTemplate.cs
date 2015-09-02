@@ -31,16 +31,18 @@ namespace Bikewale.Notifications.MailTemplates
         public uint TotalPrice { get; set; }
         public List<OfferEntity> OfferList { get; set; }
         public DateTime Date { get; set; }
-
-        public NewBikePriceQuoteToCustomerTemplate(string bikeName,string bikeImage,string dealerName,string dealerEmailId,string dealerMobileNo,
-            string organization,string website,string address,string customerName,DateTime date,List<PQ_Price> priceList,List<OfferEntity> offerList,string pinCode,string stateName,string cityName,uint totalPrice)
+        public string ModelId { get; set; }
+        public string DealerId { get; set; }
+        public uint InsuranceAmount { get; set; }
+        public NewBikePriceQuoteToCustomerTemplate(string bikeName, string bikeImage, string dealerName, string dealerEmailId, string dealerMobileNo,
+            string organization, string website, string address, string customerName, DateTime date, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, uint insuranceAmount)
         {
             BikeName = bikeName;
             BikeImage = bikeImage;
             DealerName = dealerName;
             DealerEmailId = DealerEmailId;
             DealerMobileNo = dealerMobileNo;
-           
+
             Organization = organization;
             Website = website;
             Address = address;
@@ -52,16 +54,15 @@ namespace Bikewale.Notifications.MailTemplates
             PinCode = pinCode;
             StateName = stateName;
             CityName = cityName;
+            InsuranceAmount = insuranceAmount;
         }
 
         public override StringBuilder ComposeBody()
         {
             StringBuilder sb = null;
-            
             try
             {
                 sb = new StringBuilder();
-
                 sb.Append("<div style=\"max-width:670px; margin:0 auto; border:1px solid #d8d8d8; font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#333333; background:#eeeeee;padding:10px; word-wrap:break-word\">");
                 //sb.Append("<div style=\" font-size:11px; float:left;\"><a target=\"_blank\" href=\"#\" style=\"text-decoration:none; color:#034fb6;\">Click here</a> to view in your browser</div>");
                 sb.Append("<div style=\"clear:both;\"></div><div style=\"margin:5px 0 0; background:#fff;\"><div style=\"padding:7px; border-top:7px solid #333333;\">");
@@ -94,23 +95,51 @@ namespace Bikewale.Notifications.MailTemplates
                     sb.Append("<div style=\"padding:10px 0; text-align:center;\"><div style=\" display:inline-block; max-width:190px; border:1px solid #e3e3e3; background:#f5f5f5; padding:5px;\">");
                     sb.Append("<img src=\"" + BikeImage + "\" width=\"100%\" border=\"0\"></div><div style=\"padding:10px 10px 10px 5px; display:inline-block; vertical-align:top;\">");
                     sb.Append("<div style=\"font-size:14px; font-weight:bold; color:#333; text-align:left;\">On Road Price Breakup</div><table><tbody>");
-
-                    foreach (var list in PriceList)
+                    if (InsuranceAmount > 0)
                     {
-                        sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">" + list.CategoryName + "</td><td align=\"right\" style=\"color:#333;\">" + Format.FormatPrice(list.Price.ToString()) + "</td></tr>");
+                        foreach (var list in PriceList)
+                        {
+                            if (list.CategoryName.ToUpper().Contains("INSURANCE"))
+                            {
+                                sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">" + list.CategoryName + " Free" + "</td><td align=\"right\" style=\"color:#333;text-decoration: line-through;\">" + Format.FormatPrice(list.Price.ToString()) + "</td></tr>");
+                            }
+                            else
+                            {
+                                sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">" + list.CategoryName + "</td><td align=\"right\" style=\"color:#333;\">" + Format.FormatPrice(list.Price.ToString()) + "</td></tr>");
+                            }
+                        }
+                        sb.Append("<tr><td colspan=\"2\"><div style=\"border-top:1px solid #eaeaea; margin-top:5px;\"></div></td></tr>");
+                        sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">Total On Road Price</td><td align=\"right\" style=\"color:#333;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" border=\"0\" style=\"margin-right:5px;text-decoration: line-through;\">" + Format.FormatPrice(TotalPrice.ToString()) + "</td></tr>");
+                        sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">Minus Insurance</td><td align=\"right\" style=\"color:#333;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" border=\"0\" style=\"margin-right:5px;\">" + Format.FormatPrice(InsuranceAmount.ToString()) + "</td></tr>");
+                        sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">BikeWale On Road (after insurance offer)</td><td align=\"right\" style=\"color:#333; font-weight:bold;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" border=\"0\" style=\"margin-right:5px;\">" + Format.FormatPrice((TotalPrice - InsuranceAmount).ToString()) + "</td></tr>");
+                        sb.Append("</tbody></table></div></div>");
                     }
-
-                    sb.Append("<tr><td colspan=\"2\"><div style=\"border-top:1px solid #eaeaea; margin-top:5px;\"></div></td></tr>");
-                    sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">Total On Road Price</td><td align=\"right\" style=\"color:#333; font-weight:bold;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" border=\"0\" style=\"margin-right:5px;\">" + Format.FormatPrice(TotalPrice.ToString()) + "</td></tr>");
-                    sb.Append("</tbody></table></div></div>");
+                    else
+                    {
+                        foreach (var list in PriceList)
+                        {
+                            sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">" + list.CategoryName + "</td><td align=\"right\" style=\"color:#333;\">" + Format.FormatPrice(list.Price.ToString()) + "</td></tr>");
+                        }
+                        sb.Append("<tr><td colspan=\"2\"><div style=\"border-top:1px solid #eaeaea; margin-top:5px;\"></div></td></tr>");
+                        sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">Total On Road Price</td><td align=\"right\" style=\"color:#333; font-weight:bold;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" border=\"0\" style=\"margin-right:5px;\">" + Format.FormatPrice(TotalPrice.ToString()) + "</td></tr>");
+                        sb.Append("</tbody></table></div></div>");
+                    }
                 }
                 if (OfferList != null && OfferList.Count > 0)
                 {
                     sb.Append("<div style=\"padding:10px 0 0;\"><div style=\"font-size:14px; font-weight:bold; color:#333333;\">Exciting Offers for BikeWale Customers</div>");
 
-                    foreach (var offer in OfferList)
+                    if (InsuranceAmount == 0)
                     {
-                        sb.Append("<div style=\"margin-top:5px;\"><div style=\"float:left; margin-right:10px;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/offers.png\" border=\"0\"></div><div style=\"padding-top:7px;\">" + offer.OfferText);                        
+                        foreach (var offer in OfferList)
+                        {
+                            sb.Append("<div style=\"margin-top:5px;\"><div style=\"float:left; margin-right:10px;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/offers.png\" border=\"0\"></div><div style=\"padding-top:7px;\">" + offer.OfferText);
+                            sb.Append("</div></div><div style=\"clear:both;\"></div>");
+                        }
+                    }
+                    else
+                    {
+                        sb.Append("<div style=\"margin-top:5px;\"><div style=\"float:left; margin-right:10px;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/offers.png\" border=\"0\"></div><div style=\"padding-top:7px;\">" + "Book Your Bike at BikeWale and Get Insurance Absolutely Free at the Dealership");
                         sb.Append("</div></div><div style=\"clear:both;\"></div>");
                     }
                 }

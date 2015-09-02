@@ -10,7 +10,6 @@ namespace Bikewale.Entities.BikeBooking
     /// <summary>
     /// Created By : Ashwini Todkar 17 Dec 2014
     /// </summary>
-    [Serializable]
     public class BookingAmountEntity
     {
         public BookingAmountEntityBase objBookingAmountEntityBase { get; set; }

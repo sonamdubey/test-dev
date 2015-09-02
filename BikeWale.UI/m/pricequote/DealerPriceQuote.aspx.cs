@@ -32,14 +32,15 @@ namespace Bikewale.Mobile.BikeBooking
 
         protected PQ_QuotationEntity objPrice = null;
         protected UInt64 totalPrice = 0;
-        protected string pqId = string.Empty,areaId=string.Empty, MakeModel = string.Empty;
+        protected string pqId = string.Empty, areaId = string.Empty, MakeModel = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;
         private bool isPriceAvailable = false;
         protected List<VersionColor> objColors = null;
-
+        protected UInt32 insuranceAmount = 0;
         protected CustomerEntity objCustomer = new CustomerEntity();
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
+        protected bool IsInsuranceFree = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -64,7 +65,7 @@ namespace Bikewale.Mobile.BikeBooking
                     versionId = Convert.ToUInt32(PriceQuoteCookie.VersionId);
 
                     BindVersion();
-                    
+
                     GetDealerPriceQuote(cityId, versionId, dealerId);
                     GetVersionColors(versionId);
                     PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, areaId, versionId.ToString(), dealerId.ToString());
@@ -80,21 +81,21 @@ namespace Bikewale.Mobile.BikeBooking
             }
         }
 
-        protected async void GetDealerPriceQuote(uint cityId,uint versionId,uint dealerId)
+        protected async void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
         {
             try
             {
                 string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
                 string requestType = "application/json";
                 string api = "/api/DealerPriceQuote/GetDealerPriceQuote/?cityid=" + cityId + "&versionid=" + versionId + "&dealerid=" + dealerId;
-            
+
                 objPrice = await BWHttpClient.GetApiResponse<PQ_QuotationEntity>(abHostUrl, requestType, api, objPrice);
                 if (objPrice != null)
                 {
                     //Added By : Ashwini Todkar on 1 Dec 2014
                     if (objPrice.PriceList != null && objPrice.PriceList.Count > 0)
                     {
-                        MakeModel =  objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName;
+                        MakeModel = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName;
 
                         rptPriceList.DataSource = objPrice.PriceList;
                         rptPriceList.DataBind();
@@ -105,7 +106,14 @@ namespace Bikewale.Mobile.BikeBooking
                         }
 
                         dealerId = objPrice.PriceList[0].DealerId;
-
+                        foreach (var price in objPrice.PriceList)
+                        {
+                            Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), objPrice.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
+                        }
+                        if (insuranceAmount > 0)
+                        {
+                            IsInsuranceFree = true;
+                        }
                         isPriceAvailable = true;
                     }
 
@@ -165,12 +173,12 @@ namespace Bikewale.Mobile.BikeBooking
             }
         }
 
-        
+
         /// <summary>
         /// Created By : Sadhana Upadhyay on 2 Dec 2014
         /// Summary : To Fill version dropdownlist
         /// </summary>
-        protected void BindVersion() 
+        protected void BindVersion()
         {
             try
             {
@@ -203,7 +211,7 @@ namespace Bikewale.Mobile.BikeBooking
 
         protected void SavePriceQuote()
         {
-            PQOutputEntity objPQOutput = null; 
+            PQOutputEntity objPQOutput = null;
             uint cityId = Convert.ToUInt32(PriceQuoteCookie.CityId), areaId = Convert.ToUInt32(PriceQuoteCookie.AreaId);
             uint selectedVersionId = Convert.ToUInt32(ddlVersion.SelectedValue);
             try

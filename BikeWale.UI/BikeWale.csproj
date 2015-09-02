@@ -282,6 +282,7 @@
     <Compile Include="common\CustomersLogin.cs" />
     <Compile Include="common\CustomerVerification.cs" />
     <Compile Include="common\Database.cs" />
+    <Compile Include="common\DealerOfferHelper.cs" />
     <Compile Include="common\DeviceDetection.cs" />
     <Compile Include="common\ErrorClass.cs" />
     <Compile Include="common\FeaturedBike.cs" />
@@ -572,13 +573,12 @@
       <DependentUpon>VideosControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
+    <Compile Include="Default_old.aspx.cs">
+      <DependentUpon>Default_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="default_new.aspx.cs">
-      <DependentUpon>default_new.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="default.aspx.cs">
+      <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="Forums\common\ForumsCommon.cs" />
     <Compile Include="Forums\common\UserTracking.cs" />
@@ -1494,8 +1494,8 @@
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
-    <Content Include="Default.aspx" />
-    <Content Include="default_new.aspx" />
+    <Content Include="Default_old.aspx" />
+    <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
     <Content Include="editor\css\content_old.css" />
     <Content Include="editor\css\word.css" />

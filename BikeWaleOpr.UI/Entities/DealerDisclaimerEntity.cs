@@ -9,7 +9,6 @@ using System.Web;
 /// </summary>
 namespace BikeWaleOpr.Entities
 {
-    [Serializable]
 	public class DealerDisclaimerEntity
     {
         [JsonProperty("disclaimerId")]

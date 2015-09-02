@@ -25,8 +25,8 @@ namespace Bikewale.Notifications.MailTemplates
         public string DealerName { get; set; }
         public string DealerAddress { get; set; }
         public string DealerMobile { get; set; }
-
-        public PreBookingConfirmationToCustomer(string customerName,List<OfferEntity> offerList,string bookingReferenceNo,uint preBookingAmount,string makeName,string modelName,string dealerName,string dealerAddress,string dealerMobile,DateTime date)
+        public uint InsuranceAmount { get; set; }
+        public PreBookingConfirmationToCustomer(string customerName, List<OfferEntity> offerList, string bookingReferenceNo, uint preBookingAmount, string makeName, string modelName, string dealerName, string dealerAddress, string dealerMobile, DateTime date, uint insuranceAmount = 0)
         {
             CustomerName = customerName;
             OfferList = offerList;
@@ -38,12 +38,13 @@ namespace Bikewale.Notifications.MailTemplates
             DealerMobile = dealerMobile;
             DealerAddress = dealerAddress;
             Date = date;
+            InsuranceAmount = insuranceAmount;
         }
 
         public override StringBuilder ComposeBody()
         {
             StringBuilder sb = null;
-            
+
             try
             {
                 sb = new StringBuilder();
@@ -57,7 +58,13 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append("<p style=\"margin:7px 0;\">Your BikeWale Pre-Booking Reference Number is <span style=\" font-size:14px; font-weight:bold;\">" + BookingReferenceNo + "</span>.</p>");
                 sb.Append("<p style=\"margin:7px 0;\">You have just secured the following offers that come with purchase:</p></div>");
 
-                if(OfferList!=null && OfferList.Count>0)
+                if (InsuranceAmount > 0)
+                {
+                    sb.Append("<div style=\"background: none repeat scroll 0 0 #fef5e6;border: 2px dotted #f5b048; margin: 0 0 10px; padding: 10px;\"><div style=\"font-size:14px; font-weight:bold;\">Exclusive BikeWale Offer</div>");
+                    sb.AppendFormat("<p style=\" margin:10px 0 5px;\"><span>Free Insurance for 1 year worth Rs. {0} at the dealership</p>", InsuranceAmount);
+                    sb.Append("</div>");
+                }
+                else
                 {
                     sb.Append("<div style=\"background: none repeat scroll 0 0 #fef5e6;border: 2px dotted #f5b048; margin: 0 0 10px; padding: 10px;\"><div style=\"font-size:14px; font-weight:bold;\">Exclusive BikeWale Offer</div>");
                     foreach (var item in OfferList)
@@ -80,7 +87,7 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append("</div></div></div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bottom-shadow.png) center center #eeeeee no-repeat; height:9px; width:100%\"></div>");
                 sb.Append("<div style=\"padding:5px 0px;width:100%\"><div style=\" width:110px; margin:0 auto\"><div style=\" float:left; padding-right:5px;\"><a href=\"https://twitter.com/Bikewale\" target=\"_blank\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/BW-RSA-t-icon.jpg\" alt=\"Twitter\" title=\"Twitter\" border=\"0\" /></a></div>");
                 sb.Append("<div style=\"float:left; padding-right:5px;\"><a href=\"https://www.facebook.com/Bikewale.Official\" target=\"_blank\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/BW-RSA-f-icon.jpg\" alt=\"Facebook\" title=\"Facebook\" border=\"0\" /></a></div><div style=\"clear:both;\"></div>");
-                sb.Append("</div><div style=\"clear:both;\"></div></div><div style=\"font-size:11px;\">This newsletter is to attempt to keep you updated with the latest launches. If you are not interested anymore, Please <a style=\"text-decoration:none; color:#034fb6;\" target=\"_blank\" href=\"http://www.bikewale.com/newsletter/unsubscribe.aspx\">unsubscribe here</a>.</div></div>");                
+                sb.Append("</div><div style=\"clear:both;\"></div></div><div style=\"font-size:11px;\">This newsletter is to attempt to keep you updated with the latest launches. If you are not interested anymore, Please <a style=\"text-decoration:none; color:#034fb6;\" target=\"_blank\" href=\"http://www.bikewale.com/newsletter/unsubscribe.aspx\">unsubscribe here</a>.</div></div>");
             }
             catch (Exception ex)
             {
