@@ -19,29 +19,35 @@
     <form runat="server">
         <div class="box1 new-line10">
             <h2 class="margin-bottom10 f-bold <%=_objPQ.objOffers.Count>0?"":"hide" %>"><%= BikeName %></h2>
-            <%if(!String.IsNullOrEmpty(objCustomer.objColor.ColorName)) {%>
-            <h4 class="f-bold">Color : <%= objCustomer.objColor.ColorName %></h4>
-            <% } %>
+            <%-- Start 102155010 --%>
+            <%--<%if(!String.IsNullOrEmpty(objCustomer.objColor.ColorName)) {%>            
+            <h4 class="f-bold">Color : <%= objCustomer.objColor.ColorName %></h4>            
+            <% } %>--%>
+            <%-- End 102155010 --%>
                     <!--Exciting Offers section starts here-->
                     <% if (_objPQ.objOffers != null && _objPQ.objOffers.Count > 0){ %>
                      <div class="bw-offer-box break-line new-line10 <%=_objPQ.objOffers.Count>0?"":"hide" %>" id="divOffers">
-                        <h2 class="f-bold">Exclusive Offers for BikeWale Customers</h2>
+                        <h2 class="f-bold"><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Exclusive Offers for BikeWale Customers"%></h2>
                         <div class="margin-top5 margin-left5 new-line10">
                               <asp:Repeater ID="rptOffers" runat="server">
                                     <HeaderTemplate>
                                             <ul>                                        
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                     <li style="<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "display:none;" : ""%>"><%# DataBinder.Eval(Container.DataItem,"OfferText")%> </li>
+                                        <%-- Start 102155010 --%>
+                                     <%--<li style="<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "display:none;" : ""%>"><%# DataBinder.Eval(Container.DataItem,"OfferText")%> </li>--%>
+                                        <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                                        <%-- End 102155010 --%>
                                     </ItemTemplate>
                                     <FooterTemplate>
-                                        <li>
+                                        <%-- Start 102155010 --%>
+                                        <%--<li>
                                         Get one Helmet from following options absolutely FREE!
                                         <div class="m-carousel m-fluid m-carousel-photos">            
                                             <div class="m-carousel-inner" style="transform: translate(-1059px, 0px);">
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
-                            	                        <p class="margin-bottom10"><strong>Option 1: Vega / Studds Open Face Helmet (Size: M)</strong></p>
+                            	                        <p class="margin-bottom10"><strong>Option 1: Vega Cruiser Helmet</strong></p>
                                                         <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
@@ -53,7 +59,7 @@
                                                             </div>
                                                     </div>
                                                 </div>
-                                                <div class="m-item hide">
+                                                <div class="m-item">
                                                     <div class="mainH font14 text-center">
                             	                        <p class="margin-bottom10"><strong>Option 2: Replay Flip-up Helmet</strong></p>
                                                         <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg" class="margin-bottom10"/>
@@ -69,7 +75,7 @@
                                                 </div>
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
-                            	                        <p class="margin-bottom10"><strong>Option 2: Vega / Studds Full Face Helmet (Size: M)</strong></p>
+                            	                        <p class="margin-bottom10"><strong>Option 3: Vega Cliff Full Face Helmet</strong></p>
                                                         <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
@@ -89,7 +95,8 @@
                     
                                         </div>
                                         </li>
-                                           <li>Get one year of <a target="_blank" href="/Absure Bike RSA.pdf"  style="text-decoration:underline">Bike Roadside Assistance</a>  absolutely FREE. <a id="rsa" target="_blank" href="/m/pricequote/rsa.aspx" style="color: #0056cc !important;">How to avail the offer?</a></li>
+                                           <li>Get one year of <a target="_blank" href="/Absure Bike RSA.pdf"  style="text-decoration:underline">Bike Roadside Assistance</a>  absolutely FREE. <a id="rsa" target="_blank" href="/m/pricequote/rsa.aspx" style="color: #0056cc !important;">How to avail the offer?</a></li>--%>
+                                        <%-- End 102155010 --%>
                                         </ul>
                                     </FooterTemplate>
                                 </asp:Repeater>
@@ -101,7 +108,11 @@
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                     <td height="40" align="left">Total On-Road Price <br /><a id="viewBreakup" class="blue-text font12">View breakup</a></td>
+                    <% if(insuranceAmount == 0){ %>
                     <td height="40" align="right" class="f-bold"><span class="WebRupee">Rs.</span><%=TotalPrice %></td>
+                        <%}else{ %>
+                    <td height="40" align="right" class="f-bold"><span class="WebRupee">Rs.</span><%=TotalPrice - insuranceAmount %></td>
+                        <%} %>
                     </tr>
                     <tr>
                     <td height="40" align="left">Booking Amount <br /><a id="cancellationLink" class="blue-text font12">Hassle-free Cancellation</a></td>
@@ -109,7 +120,14 @@
                     </tr>
                     <tr>
                     <td height="40" align="left">Remaining Amount <br /><span class="font12">(To be paid at the dealership)</span></td>
+                    <%-- Start 102155010 --%>
+                    <% if(insuranceAmount == 0){ %>
                     <td height="40" align="right" class="f-bold"><span class="WebRupee">Rs.</span><script>document.write('<%=TotalPrice %>' - '<%=BooingAmt %>');</script></td>
+                        <%}
+                                  else{ %>
+                    <td height="40" align="right" class="f-bold"><span class="WebRupee">Rs.</span><script>document.write('<%=TotalPrice %>' - '<%=BooingAmt %>' - '<%=insuranceAmount %>');</script></td>
+                        <%} %>
+                                <%-- End 102155010 --%>
                     </tr>
                 </table>
             </div>
@@ -184,19 +202,56 @@
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="margin-top-10">
                 <asp:Repeater id="rptPrice" runat="server">
                     <ItemTemplate>
-                        <tr>
+                        <%-- Start 102155010 --%>
+                        <%--<tr>
                             <td height="30" align="left"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %></td>
                             <td height="30" align="right"><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
+                        </tr>--%>
+                        <tr>
+                            <td height="30" align="left"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
+                            <td height="30" align="right"><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                         </tr>
+                        <%-- End 102155010 --%>
                     </ItemTemplate>
                 </asp:Repeater>
                 <tr align="left">
                     <td height="1" colspan="2" class="break-line"></td>
                 </tr>
+                <%-- Start 102155010 --%>
+                <%--<tr>
+                    <td height="30" align="left">Total On Road Price</td>
+                    <td height="30" align="right" class="f-bold"><span class="WebRupee">Rs.</span><%= TotalPrice %></td>
+                </tr>--%>                
+                                <%
+                       if (IsInsuranceFree)
+                       {
+                           %>
+                <tr>
+                    <td height="30" align="left">Total On Road Price</td>
+                    <td height="30" align="right"><span class="WebRupee">Rs.</span><span style="text-decoration: line-through"><%= TotalPrice %></span></td>
+                </tr>
+                <tr>
+                    <td height="30" align="left">Minus Insurance</td>
+                    <td height="30" align="right"><span class="WebRupee">Rs.</span><%= insuranceAmount %></td>
+                </tr>
+                <tr>
+                    <td height="30" align="left">BikeWale On Road (after insurance offer)</td>
+                    <td height="30" align="right" class="f-bold"><span class="WebRupee">Rs.</span><%= TotalPrice - insuranceAmount %></td>
+                </tr>
+                
+                        <%
+                       }
+                       else
+                       {
+                           %>
                 <tr>
                     <td height="30" align="left">Total On Road Price</td>
                     <td height="30" align="right" class="f-bold"><span class="WebRupee">Rs.</span><%= TotalPrice %></td>
                 </tr>
+                <%
+                       }
+                                     %>                                
+                                <%-- End 102155010 --%>
             </table>
             <ul class="grey-bullet">
                 <asp:Repeater id="rptDisclaimer" runat="server">
@@ -425,7 +480,7 @@
 
         //push tags
         $("#btnMakePayment").click(function () {
-            dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking -<%= MakeModel.Replace("'","")%>', act: 'Click Button Get_Dealer_Details' ,lab: 'Clicked on Make_Payment'});
+            dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking -<%= MakeModel.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Make_Payment' });
         });
 
         //For Price Quote popup
@@ -473,26 +528,26 @@
             $(".faq-popup").hide();
         });
 
-    //    $(".edit-data").hide();
-    //    $(".contact-details").find("button").hide();
-    //    $(".edit-btn").click(function () {
-    //        $(this).hide();
-    //        $(".contact-details").find("button").show();
-    //        $(".edit-data").show();
-    //        $(".done-data").hide();
-    //        $("#editName").val($("#name").text());
-    //        $("#editMob").val($("#mob").text());
-    //        $("#editEmail").val($("#email").text());
-    //    });
-    //    $(".contact-details button").click(function () {
-    //        $(this).hide();
-    //        $(".edit-btn").show();
-    //        $(".edit-data").hide();
-    //        $(".done-data").show();
-    //        $("#name").text($("#editName").val());
-    //        $("#mob").text($("#editMob").val());
-    //        $("#email").text($("#editEmail").val());
-    //    });
+        //    $(".edit-data").hide();
+        //    $(".contact-details").find("button").hide();
+        //    $(".edit-btn").click(function () {
+        //        $(this).hide();
+        //        $(".contact-details").find("button").show();
+        //        $(".edit-data").show();
+        //        $(".done-data").hide();
+        //        $("#editName").val($("#name").text());
+        //        $("#editMob").val($("#mob").text());
+        //        $("#editEmail").val($("#email").text());
+        //    });
+        //    $(".contact-details button").click(function () {
+        //        $(this).hide();
+        //        $(".edit-btn").show();
+        //        $(".edit-data").hide();
+        //        $(".done-data").show();
+        //        $("#name").text($("#editName").val());
+        //        $("#mob").text($("#editMob").val());
+        //        $("#email").text($("#editEmail").val());
+        //    });
     });
 </script>
 </div>

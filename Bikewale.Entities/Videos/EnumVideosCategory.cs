@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Bikewale.Service.Controllers
+namespace Bikewale.Entities.Videos
 {
     public enum EnumVideosCategory
     {

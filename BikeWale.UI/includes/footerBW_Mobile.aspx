@@ -1,0 +1,35 @@
+﻿<footer class="bg-footer padding-top30 padding-bottom15"><!-- Footer section code starts here -->
+        <div class="container">
+        	<div class="grid-12 text-center">
+                <div>
+                    <a href="javascript:void(0)" class="bwmsprite bw-logo"></a>              
+                </div>
+                <div class="margin-top15">
+                    <ul>
+                        <li><a href="/aboutus.aspx">About Us</a></li>
+                        <li><a href="/forums/">Forums</a></li>
+                        <li><a href="/sitemap.aspx">Sitemap</a></li>
+                    </ul>
+                </div>
+                <div class="margin-top15 margin-bottom15">
+                	<a href="javascript:void(0)" target="_blank" class="text-white">View Desktop Version</a>
+                </div>
+                
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="border-solid-top text-white font11 margin-top5 padding-top10 grid-12">
+                    <div class="grid-4 alpha text-left opacity50">&copy; BikeWale India</div>
+                    <div class="grid-8 omega text-right">
+                        <a href="http://www.bikewale.com/visitoragreement.aspx" class="text-white">Visitor Agreement </a>&
+                        <a href="http://www.bikewale.com/privacypolicy.aspx" class="text-white">Privacy Policy</a>
+                    </div>
+                </div>
+            	<div class="clear"></div>
+    </footer> <!-- Ends here -->
+   	<!-- all other js plugins -->
+    <script type="text/javascript" src="/m/src/Plugins.js"></script>
+    <script type="text/javascript" src="/m/src/common.js"></script>
+    <script type="text/javascript" src="/m/src/home.js"></script>
+</body>
+</html>

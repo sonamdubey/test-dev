@@ -31,14 +31,15 @@ namespace Bikewale.BikeBooking
         protected Repeater rptQuote, rptOffers, rptDisclaimer;
         protected Button btnMakePayment;
 
-        protected string BikeName = string.Empty, cityId = string.Empty, versionId = string.Empty, dealerId = string.Empty, organization = string.Empty, address = string.Empty, color = string.Empty, MakeModel =string.Empty;
+        protected string BikeName = string.Empty, cityId = string.Empty, versionId = string.Empty, dealerId = string.Empty, organization = string.Empty, address = string.Empty, color = string.Empty, MakeModel = string.Empty;
         protected UInt32 TotalPrice = 0, BooingAmt = 0;
         protected uint PqId = 0;
         protected PQCustomerDetail objCustomer = null;
         //protected bool isMailSend = false, isSMSSend = false;
         protected uint numOfDays = 0;
         uint exShowroomCost = 0;
-
+        protected UInt32 insuranceAmount = 0;
+        protected bool IsInsuranceFree = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -67,13 +68,13 @@ namespace Bikewale.BikeBooking
                 else
                 {
                     Response.Redirect("/pricequote/", true);
-                } 
+                }
             }
             else
             {
                 Response.Redirect("/pricequote/", true);
-            } 
-          
+            }
+
         }
 
         /// <summary>
@@ -131,9 +132,16 @@ namespace Bikewale.BikeBooking
                             TotalPrice = TotalPrice - exShowroomCost;
 
                         BooingAmt = _objPQ.objBookingAmt.Amount;
-                        
-                    }
 
+                    }
+                    foreach (var price in _objPQ.objQuotation.PriceList)
+                    {
+                        Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), _objPQ.objQuotation.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
+                    }
+                    if (insuranceAmount > 0)
+                    {
+                        IsInsuranceFree = true;
+                    }
                     if (_objPQ.objOffers != null && _objPQ.objOffers.Count > 0)
                     {
 
@@ -191,7 +199,7 @@ namespace Bikewale.BikeBooking
                 IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
                 objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteCookie.PQId));
-                if (objCustomer.objColor != null )
+                if (objCustomer.objColor != null)
                     color = objCustomer.objColor.ColorName;
             }
         }
@@ -208,7 +216,7 @@ namespace Bikewale.BikeBooking
 
             if (objCustomer.objCustomerBase.CustomerId.ToString() != "" && objCustomer.objCustomerBase.CustomerId > 0)
             {
-                Trace.Warn("Inside begin tarns" + objCustomer.objCustomerBase.CustomerId.ToString() );
+                Trace.Warn("Inside begin tarns" + objCustomer.objCustomerBase.CustomerId.ToString());
                 var transaction = new TransactionDetails()
                 {
                     CustomerID = objCustomer.objCustomerBase.CustomerId,
@@ -221,7 +229,7 @@ namespace Bikewale.BikeBooking
                     CustomerName = objCustomer.objCustomerBase.CustomerName,
                     CustEmail = objCustomer.objCustomerBase.CustomerEmail,
                     CustMobile = objCustomer.objCustomerBase.CustomerMobile,
-                    CustCity = objCustomer.objCustomerBase.cityDetails.CityName ,
+                    CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
                     PlatformId = 1,  //Desktop
                     ApplicationId = 2, //Carwale
                     RequestToPGUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/RedirectToBillDesk.aspx",

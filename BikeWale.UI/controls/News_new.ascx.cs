@@ -12,7 +12,7 @@ using Bikewale.Entity.CMS.Articles;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     public class News_new : System.Web.UI.UserControl
     {

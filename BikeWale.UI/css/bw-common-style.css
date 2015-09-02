@@ -172,7 +172,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 
 @-moz-document url-prefix() {
     .findBtn .btn-md {
-        padding: 8px 20px 9px;
+        padding: 8px 20px 8px;
     }
 
     .viewBtn .btn-xs {
@@ -217,7 +217,6 @@ footer ul li a:hover { text-decoration: underline; }
 .cardWrapper { width:100%; height:100%; overflow:hidden; display:inline-block; }
 
 .front, .back { height: 330px; background: #fff; overflow:hidden; display: inline-block; border-radius: 3px; border:1px solid #ccc; -webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; -ms-backface-visibility: hidden; backface-visibility: hidden; }
-.front:hover, .back:hover { box-shadow:0px 0px 5px #ccc; }
 .contentWrapper, .formWrapper { position:relative; overflow:hidden; background:#fff; }
 .imageWrapper { width:310px; height:174px; overflow: hidden; text-align: center; }
 .imageWrapper a { display: block; }
@@ -290,8 +289,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 /* sprite classes */
 .bwsprite { background: url(../images/bwsprite.png?v1=19082015) no-repeat; display: inline-block; }
-.bw-circle-icon { background: url(../images/cw-circle-icon.png) no-repeat; display: inline-block; }
-.nav-icon { background-position: 0 0; width: 24px; height: 19px; cursor: pointer; position: relative; top: -1px; }
+.bw-circle-icon { background: url(../images/bw-circle-icon.png) no-repeat; display: inline-block; }
+.nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
 .bw-logo { background-position: -34px 0; width: 165px; height: 27px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
@@ -389,6 +388,34 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .login-password-icon { background-position:-150px -220px; }
 .login-logout-icon { background-position:-150px -250px; }
 
+/* Brand sprite */
+.brandlogosprite { background: url(../images/brand-type-sprite.png) no-repeat; display: inline-block; }
+.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-enfeild, .brand-guzzi, .brand-harley, .brand-hero-elec, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-royal { height:50px; }
+
+.brand-aprilia { width: 87px; background-position: 0 0; }
+.brand-honda { width: 56px; background-position: -96px 0; }
+.brand-bajaj { width: 88px; background-position: -162px 0; }
+.brand-hyosung { width: 100px; background-position: -260px 0; }
+.brand-suzuki { width: 67px; background-position: -370px 0; }
+.brand-benelli { width: 125px; background-position: -447px 0; }
+.brand-indian { width: 122px; background-position: -582px 0; }
+.brand-triumph { width: 121px; background-position: -714px 0; }
+.brand-bmw { width: 44px; background-position: -845px 0; }
+.brand-kawasaki { width: 86px; background-position: -899px 0; }
+.brand-tvs { width: 118px; background-position: -995px 0; }
+.brand-ducati { width: 43px; background-position: -1123px 0; }
+.brand-ktm { width: 99px; background-position: -1176px 0; }
+.brand-vespa { width: 117px; background-position: -1285px 0; }
+.brand-harley { width: 59px; background-position: -1412px 0; }
+.brand-lml { width: 122px; background-position: -1481px 0; }
+.brand-yamaha { width: 122px; background-position: -1613px 0; }
+.brand-hero { width: 63px; background-position: -1745px 0; }
+.brand-mahindra { width: 102px; background-position: -1818px 0; }
+.brand-yo { width: 127px; background-position: -1930px 0; }
+.brand-hero-elec { width: 89px; background-position: -2067px 0; }
+.brand-guzzi { width: 82px; background-position: -2166px 0; }
+.brand-royal { width: 121px; background-position: -2258px 0; }
+
 
 /* common properties */
 .leftfloat{float:left;}
@@ -470,6 +497,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .margin-top25 { margin-top: 25px; }
 .margin-top30 { margin-top: 30px; }
 .margin-top40 { margin-top: 40px; }
+.margin-top45 { margin-top: 45px; }
 .margin-top50 { margin-top: 50px; }
 .margin-top60 { margin-top: 60px; }
 .margin-top70 { margin-top: 70px; }
@@ -499,6 +527,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .margin-bottom20 { margin-bottom: 20px; }
 .margin-bottom25 { margin-bottom: 25px; }
 .margin-bottom30 { margin-bottom: 30px; }
+.margin-bottom35 { margin-bottom: 35px; }
 .margin-bottom40 { margin-bottom: 40px; }
 .margin-bottom50 { margin-bottom: 50px; }
 .margin-bottom60 { margin-bottom: 60px; }

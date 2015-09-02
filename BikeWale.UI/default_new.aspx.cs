@@ -4,13 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.controls;
+using Bikewale.Controls;
 
 namespace Bikewale
 {
     public class default_new : System.Web.UI.Page
     {
         protected News_new ctrlNews;
+        protected ExpertReviews ctrlExpertReviews;
+        protected VideosControl ctrlVideos;
 
         protected override void OnInit(EventArgs e)
         {
@@ -20,6 +22,9 @@ namespace Bikewale
         protected void Page_Load(object sender, EventArgs e)
         {
             ctrlNews.TotalRecords = 3;
+            ctrlExpertReviews.TotalRecords = 3;
+            ctrlVideos.TotalRecords = 3;
+            
         }
     }
 }

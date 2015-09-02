@@ -52,21 +52,58 @@
                                     <table  width="100%" border="0" cellspacing="0" cellpadding="0">                
                             </HeaderTemplate>
                             <ItemTemplate>
-                                    <tr>
+                                <%-- Start 102155010 --%>
+                                    <%--<tr>
                                 <td height="30" align="left">
                                     <%# DataBinder.Eval(Container.DataItem,"CategoryName") %>
                                 </td>
                                 <td height="30" align="right"><span class="WebRupee">Rs.</span><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
+                            </tr>--%>
+                                <tr>
+                                <td height="30" align="left">
+                                    <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
+                                </td>
+                                <td height="30" align="right"><span class="WebRupee">Rs.</span><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                             </tr>
+                                <%-- End 102155010 --%>
                             </ItemTemplate>
                             <FooterTemplate>
                                     <tr align="left">
                                         <td height="1" colspan="2" class="break-line"></td>
                                     </tr>
-                                    <tr>
+                                <%-- Start 102155010 --%>
+                                    <%--<tr>
+                                        <td height="30" align="left">Total On Road Price</td>
+                                        <td height="30" align="right" class="f-bold"><span class="WebRupee">Rs.</span><%=CommonOpn.FormatPrice( TotalPrice.ToString()) %></td>
+                                    </tr>--%>
+                                <%
+                       if (IsInsuranceFree)
+                       {
+                           %>
+                                <tr>
+                                        <td height="30" align="left">Total On Road Price</td>
+                                        <td height="30" align="right"><span class="WebRupee">Rs.</span><span style="text-decoration: line-through"><%=CommonOpn.FormatPrice( TotalPrice.ToString()) %></span></td>
+                                </tr>
+                                <tr>
+                                        <td height="30" align="left">Minus Insurance</td>
+                                        <td height="30" align="right"><span class="WebRupee">Rs.</span><%=CommonOpn.FormatPrice(insuranceAmount.ToString()) %></td>
+                                </tr>
+                                <tr>
+                                        <td height="30" align="left"><b>BikeWale On Road (after insurance offer)</b></td>
+                                        <td height="30" align="right" class="f-bold"><span class="WebRupee">Rs.</span><%=CommonOpn.FormatPrice((TotalPrice - insuranceAmount).ToString()) %></td>
+                                    </tr>
+                                <%
+                       }
+                       else
+                       {%>
+                           <tr>
                                         <td height="30" align="left">Total On Road Price</td>
                                         <td height="30" align="right" class="f-bold"><span class="WebRupee">Rs.</span><%=CommonOpn.FormatPrice( TotalPrice.ToString()) %></td>
                                     </tr>
+                       <%}
+                                     %>                                
+                                <%-- End 102155010 --%>
+
                                    <tr align="left">
                                         <td height="1" colspan="2" class="break-line"></td>
                                     </tr>
@@ -94,23 +131,27 @@
                  <% if (_objPQ.objOffers != null && _objPQ.objOffers.Count > 0)
                    { %>
                 <div class="bw-offer-box break-line new-line10" id="divOffers">
-                    <h2 class="f-bold">Exclusive Offers for BikeWale Customers</h2>
+                    <h2 class="f-bold"><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Exclusive Offers for BikeWale Customers"%></h2>                    
                     <div class="margin-top5 margin-left5 new-line10">
                           <asp:Repeater ID="rptOffers" runat="server">
                                 <HeaderTemplate>
                                         <ul>                                        
                                 </HeaderTemplate>
-                                <ItemTemplate>                                 
-                                 <li style="<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "display:none;" : ""%>"><%# DataBinder.Eval(Container.DataItem,"OfferText")%> </li>
+                                <ItemTemplate>   
+                                    <%-- Start 102155010 --%>                              
+                                 <%--<li style="<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "display:none;" : ""%>"><%# DataBinder.Eval(Container.DataItem,"OfferText")%> </li>--%>
+                                    <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                                    <%-- End 102155010 --%>
                                 </ItemTemplate>
                                 <FooterTemplate>
-                                        <li>
+                                    <%-- Start 102155010 --%>
+                                        <%--<li>
                                         Get one Helmet from following options absolutely FREE!
                                         <div class="m-carousel m-fluid m-carousel-photos">            
                                             <div class="m-carousel-inner" style="transform: translate(-1059px, 0px);">
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
-                            	                        <p class="margin-bottom10"><strong>Option 1: Vega / Studds Open Face Helmet (Size: M)</strong></p>
+                            	                        <p class="margin-bottom10"><strong>Option 1: Vega Cruiser Helmet</strong></p>
                                                         <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
@@ -122,7 +163,7 @@
                                                             </div>
                                                     </div>
                                                 </div>
-                                                <div class="m-item hide">
+                                                <div class="m-item">
                                                     <div class="mainH font14 text-center">
                             	                        <p class="margin-bottom10"><strong>Option 2: Replay Flip-up Helmet</strong></p>
                                                         <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg" class="margin-bottom10"/>
@@ -138,7 +179,7 @@
                                                 </div>
                                                 <div class="m-item">
                                                     <div class="mainH font14 text-center">
-                            	                        <p class="margin-bottom10"><strong>Option 2: Vega / Studds Full Face Helmet (Size: M)</strong></p>
+                            	                        <p class="margin-bottom10"><strong>Option 3: Vega Cliff Full Face Helmet</strong></p>
                                                         <img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg" class="margin-bottom10"/>
                                 	                        <div class="centerContent margin-top-5">
                                     	                        <ul>
@@ -160,12 +201,14 @@
                                         </li>
                                        <li>Get one year of <a target="_blank" href="/Absure Bike RSA.pdf"  style="text-decoration:underline">Bike Roadside Assistance</a>  absolutely FREE.</li>
                                     </ul>
-                                    <p><a id="rsa" target="_blank" href="/m/pricequote/rsa.aspx" style="color: #0056cc !important;">How to avail above offers?</a></p>
+                                    <p><a id="rsa" target="_blank" href="/m/pricequote/rsa.aspx" style="color: #0056cc !important;">How to avail above offers?</a></p>--%>
+                                    <%-- End 102155010 --%>
+                                    </ul>
                                 </FooterTemplate>
                             </asp:Repeater>
                     </div>
                     <div class="new-line10" runat="server" id="divBookBike" visible="false">
-                        <button data-role="none" id="btnBookBike" type="button" class="rounded-corner5 margin-bottom10" onClick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Prebook_to_avail_offer' });">Pre-Book to Avail Offer</button>                     
+                        <button data-role="none" id="btnBookBike" type="button" class="rounded-corner5 margin-bottom10" onClick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Prebook_to_avail_offer' });">Book to Avail Offer</button>                     
                     </div>
                     <div class="new-line10" runat="server" id="divBikeBooked" visible="false" style="text-align:center;">
                       You have already booked this bike.                
@@ -452,7 +495,7 @@
 
         $("#btnSavePdf").click(function () {
             dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%= MakeModel%>', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Download_PDF' });
-                });
+        });
 
         var date = null;
 
@@ -479,7 +522,7 @@
 
         var latitude = '<%=lattitude %>';
         var longitude = '<%=longitude%>';
-       
+
         if (latitude > 0 && longitude > 0) {
             var myCenter = new google.maps.LatLng(latitude, longitude);
 
@@ -505,13 +548,12 @@
             $("#divgMap").addClass("hide");
         }
 
-        $("#closeBox").click(function () {         
+        $("#closeBox").click(function () {
             document.body.style.overflow = "visible";
 
         });
 
-        $("#btnBookApp").click(function ()
-        {
+        $("#btnBookApp").click(function () {
 
             if (date == null) {
                 alert("Please Select date.");
@@ -529,9 +571,9 @@
         });
 
         function BookAnAppointment(pqid, date) {
-       
-            var appDate = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":0" ;   //"2009/02/26 18:37:58";
-       
+
+            var appDate = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":0";   //"2009/02/26 18:37:58";
+
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
@@ -541,8 +583,8 @@
                     if (response) {
                         var responseJSON = eval('(' + response + ')');
                         var resObj = eval('(' + responseJSON.value + ')');
-                    
-                        if (resObj) {                     
+
+                        if (resObj) {
                             alert("Your Appointment has been sheduled successfully.");
                             $(".book-app-details").hide();
                         }
@@ -560,13 +602,13 @@
                 altField: "#" + $(this).attr("id"),
                 showOtherMonths: true,
                 dateFormat: "dd/mm/yy",
-                timeFormat:  "HH:mm",
+                timeFormat: "HH:mm",
                 changeMonth: true, changeYear: true,
                 onSelect: function (dateText, inst) {
                     date = $(this).datepicker('getDate'),
                     day = date.getDate(),
                     month = date.getMonth() + 1,
-                    year = date.getFullYear();                
+                    year = date.getFullYear();
                 }
             });
         });
@@ -591,9 +633,10 @@
         //$("#btnBookBike").click(function () {
         //    location.href = "/m/pricequote/BookingSummary.aspx";
         //});
-        $("#btnBookBike").click(function () {
-            $(".color-popup").show();
-        });
+        <%-- Start 102155010 --%>
+        //$("#btnBookBike").click(function () {
+        //    $(".color-popup").show();
+        //});
         $(".color-popup").find(".close-btn").click(function () {
             $(".color-popup").hide();
         });
@@ -602,7 +645,7 @@
             $(this).find('.bw-sprite').addClass("color-tick");
         });
 
-        $("#btnConfirmColor").click(function () {
+        <%--$("#btnConfirmColor").click(function () {
             var colorId = $(".color-palette li").find('.color-tick').attr('color-id');
             var pqId = '<%= pqId%>';
 
@@ -629,7 +672,11 @@
             {
                 alert("Please select color to proceed.");
             }
+        });--%>
+        $("#btnBookBike").click(function () {
+            location.href = "/m/pricequote/BookingSummary.aspx";
         });
+        <%-- End 102155010 --%>
     });
 
 </script>

@@ -1220,7 +1220,7 @@
             Created On : 24th August 2015
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(Bikewale.Service.Controllers.EnumVideosCategory,System.UInt32,System.UInt32)">
+        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(Bikewale.Entities.Videos.EnumVideosCategory,System.UInt32,System.UInt32)">
             <summary>
              To get list of Videos based on Categories defined in Enum
             </summary>
@@ -1229,7 +1229,7 @@
             <param name="pageSize">Total Records to be Fetched</param>
             <returns>Categorized Videos List</returns>
         </member>
-        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(System.Boolean,System.UInt32,System.UInt32,System.UInt32)">
+        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(System.UInt32,System.UInt32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
              To get Videos List based on Make or Model (Classes of Videos)
             </summary>
