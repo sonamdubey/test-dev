@@ -22,7 +22,8 @@ namespace Bikewale.Service.Videos.Controllers
     /// </summary>
     public class VideosController : ApiController
     {
-        string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+        //string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+        string _cwHostUrl = "http://172.16.1.73";
         string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         string _requestType = "application/json";
 
@@ -34,13 +35,12 @@ namespace Bikewale.Service.Videos.Controllers
         /// <param name="pageNo">Min:0</param>
         /// <param name="pageSize">Total Records to be Fetched</param>
         /// <returns>Categorized Videos List</returns>
-        [ResponseType(typeof(IEnumerable<VideosList>))]
+        [ResponseType(typeof(VideosList))]
         public IHttpActionResult Get(EnumVideosCategory categoryId,uint pageNo,uint pageSize)
         {              
             try
-            {                     
-
-                string _apiUrl = String.Format("/api/v1/categoryId/{0}/?appId={1}&pageNo={2}&pageSize={3}",categoryId, _applicationid, pageNo, pageSize);
+            {
+                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId={1}&pageNo={2}&pageSize={3}", (int)categoryId, _applicationid, pageNo, pageSize);
                 
                 List<BikeVideoEntity> objVideosList = null;
 
@@ -75,28 +75,41 @@ namespace Bikewale.Service.Videos.Controllers
         /// <param name="pageNo"></param>
         /// <param name="pageSize"></param>
         /// <returns>Model's/Make's Videos List</returns>
-        [ResponseType(typeof(IEnumerable<VideosList>))]
-        public IHttpActionResult Get(bool classType,uint classId, uint pageNo, uint pageSize)
+        [ResponseType(typeof(VideosList))]
+        public IHttpActionResult Get(uint pageNo, uint pageSize, int? makeId = null , int? modelId = null)
         {
             try
             {
-                string className = (classType) ? "make" : "model";
-                
-                string _apiUrl = String.Format("/api/v1/{0}/{1}/?appId={2}&pageNo={3}&pageSize={4}",className,classId,_applicationid,pageNo,pageSize);
-                
-                List<BikeVideoEntity> objVideosList = null;
+                string _apiUrl = string.Empty;
 
-                objVideosList = BWHttpClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
-                if (objVideosList != null && objVideosList.Count > 0)
+                if (modelId.HasValue && modelId > 0)
                 {
-                    VideosList videoDTOList = new VideosList();
-                    videoDTOList.Videos = VideosMapper.Convert(objVideosList);
-                    return Ok(videoDTOList);
+                    _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", modelId, pageNo, pageSize);
                 }
-                else
+                else if(makeId.HasValue && makeId > 0)
                 {
-                    return NotFound();
+                    _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", makeId, pageNo, pageSize);
                 }
+
+                if (modelId.HasValue || makeId.HasValue)
+                {
+                    List<BikeVideoEntity> objVideosList = null;
+
+                    objVideosList = BWHttpClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
+
+                    if (objVideosList != null && objVideosList.Count > 0)
+                    {
+                        VideosList videoDTOList = new VideosList();
+                        videoDTOList.Videos = VideosMapper.Convert(objVideosList);
+                        return Ok(videoDTOList);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+
+                return NotFound();
             }
             catch (Exception ex)
             {

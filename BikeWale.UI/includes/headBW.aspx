@@ -22,7 +22,7 @@
     <nav id="nav"> <!-- nav code starts here -->
         <ul class="navUL">
             <li>
-                <a href="#">
+                <a href="/">
                     <span class="bwsprite home-icon"></span>
                     <span class="navbarTitle">Home</span>
                 </a>
@@ -34,12 +34,12 @@
                     <span class="nav-drop fa fa-angle-down"></span>
                 </a>
                 <ul class="nestedUL">
-                    <li><a href="#">Find New Bikes</a></li>
-                    <li><a href="#">Compare Bikes</a></li>
-                    <li><a href="#">Check On-Road Price</a></li>
-                    <li><a href="#">Locate Dealer</a></li>
-                    <li><a href="#">Upcoming Bikes</a></li>
-                    <li><a href="#">New Launches</a></li>
+                    <li><a href="/new/">Find New Bikes</a></li>
+                    <li><a href="/comparebikes/">Compare Bikes</a></li>
+                    <li><a href="/pricequote/">Check On-Road Price</a></li>
+                    <li><a href="/new/locate-dealers/">Locate Dealer</a></li>
+                    <li><a href="/upcoming-bikes/">Upcoming Bikes</a></li>
+                    <li><a href="/new-bikes-launches/">New Launches</a></li>
                 </ul>
             </li>
             <li>
@@ -49,18 +49,18 @@
                     <span class="nav-drop fa fa-angle-down"></span>
                 </a>
                 <ul class="nestedUL">
-                    <li><a href="#">Find Used Bikes</a></li>
-                    <li><a href="#">All Used Bikes</a></li>
+                    <li><a href="/used/">Find Used Bikes</a></li>
+                    <li><a href="/used/bikes-in-india/">All Used Bikes</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="/used/sell/">
                     <span class="bwsprite sellBikes-icon"></span>
                     <span class="navbarTitle">Sell Your Bike</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="/pricequote/rsaofferclaim.aspx">
                     <span class="bwsprite sellBikes-icon"></span>
                     <span class="navbarTitle">Claim Your Offer</span>
                 </a>
@@ -72,20 +72,20 @@
                     <span class="nav-drop fa fa-angle-down"></span>
                 </a>
                 <ul class="nestedUL">
-                    <li><a href="#">News</a></li>
-                    <li><a href="#">Expert Reviews</a></li>
-                    <li><a href="#">User Reviews</a></li>
-                    <li><a href="#">Features</a></li>
+                    <li><a href="/news/">News</a></li>
+                    <li><a href="/road-tests/">Expert Reviews</a></li>
+                    <li><a href="/user-reviews/">User Reviews</a></li>
+                    <li><a href="/features/">Features</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#">
+                <a href="/finance/emicalculator.aspx">
                     <span class="bwsprite forum-icon"></span>
                     <span class="navbarTitle">Tools</span>
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="/mybikewale/">
                     <span class="bwsprite myBikeWale-icon"></span>
                     <span class="navbarTitle">My BikeWale</span>
                 </a>
@@ -274,4 +274,5 @@
         </div>
         <div class="clear"></div>
     </div> <!-- ends here -->
-    <div class="clear"></div>
+    <div class="clear"></div>
+

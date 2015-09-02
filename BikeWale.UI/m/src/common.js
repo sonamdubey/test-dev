@@ -1,43 +1,119 @@
-// JavaScript Document
 $(document).ready(function() {
 	var availableTags = [
+		"Bajaj Suzuki 800",
+		"Bajaj Suzuki 500",
 		"Bajaj 1",
 		"Bajaj 2",
 		"Bajaj 3",
 		"Bajaj 4",
-		"Bajaj 5"
-	];
+		"Bajaj 5",
+		"Bajaj 6",
+		"Bajaj 7",
+	];	
 	
+	 $('.globalcity-close-btn').click(function () {
+        CloseCityPopUp();
+    });
+	
+	function CloseCityPopUp() {
+		var globalLocation = $("#globalcity-popup");
+		/*
+		if (!isCookieExists('_CustCityMaster')) {
+			SetCookieInDays('_CustCityMaster', 'Select City');
+			SetCookieInDays('_CustCityIdMaster', '-1');
+		}
+		
+		function isCookieExists(cookiename) {
+		var coockieVal = $.cookie(cookiename);
+		if (coockieVal == undefined || coockieVal == null)
+			return false;
+		return true;
+		}
+		*/
+		globalLocation.hide();
+		globalLocation.removeClass("show").addClass("hide");
+		unlockPopup();
+	}
 	$("#globalCity").autocomplete({
 		source: function(request, response) {
 			dataListDisplay(availableTags,request, response);
 		},minLength: 1
 	}).css({'width':'179px'});
-	
-	$("#globalCityPopUp").autocomplete({
-		source: function(request, response) {
-			dataListDisplay(availableTags,request, response);
-		},minLength: 1
-	}).css({'width':'350px'});
-	
 	$("#newBikeList").autocomplete({
 		source: function(request, response) {
 			dataListDisplay(availableTags,request, response);
 		},minLength: 1
-	}).css({'width':'469px'});
+	}).css({'width':'100%'});
+	// global city popup autocomplete
+	$("#globalCityPopUp").autocomplete({
+		source: function(request, response) {
+			dataListDisplay(availableTags,request, response);
+		},minLength: 1
+	}).autocomplete("widget").addClass("globalCity-autocomplete").css({'z-index':'11'});
 	
-	$("#makemodelFinalPrice").autocomplete({
+	$("#getFinalPrice").autocomplete({
+		source: function(request, response) {
+			dataListDisplay(availableTags,request, response);
+		},minLength: 1
+	});
+	
+	$("#citySelectionFinalPrice").autocomplete({
 		source: function(request, response) {
 			dataListDisplay(availableTags,request, response);
 		},minLength: 1
 	}).css({'width':'365px'});
 	
+	
+	
+	$(".blackOut-window").mouseup(function(e){
+		var globalSearchPopup = $(".global-search-popup"); 
+        if(e.target.id !== globalSearchPopup.attr('id') && !globalSearchPopup.has(e.target).length)		
+        {
+		    globalSearchPopup.hide();
+			unlockPopup();
+        }
+    });
+	/*$("#gs-close").click(function(){
+		$(".global-search-popup").hide(); 
+		unlockPopup();        
+    });
+	$("#gs-text-clear").click( function(){
+		$("#globalSearchPopup").focus();
+	});*/
+	// globalcity-popup code 
+	$(".global-location").click( function(){
+		$("#globalcity-popup").show();
+		lockPopup();
+	});
+	$(".blackOut-window").mouseup(function(e){
+		var globalLocation = $("#globalcity-popup"); 
+        if(e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length)		
+        {
+		    globalLocation.hide();
+			unlockPopup();
+        }
+    });
+	
+	/*$(".card").flip({
+		axis: 'y',
+		trigger: 'manual',
+		reverse: true
+	});
+	
+	$(".infoBtn").click(function(){
+		$(this).parents("li").flip(true).siblings().flip(false);	
+	});
+	
+	$(".closeBtn").click(function(){
+		$(this).parents("li").flip(false);	
+	});*/
+	
 	// nav bar code starts
 	$(".navbarBtn").click(function(){
 		navbarShow();
 	});
-	
 	function navbarShow() {
+		//$('body').addClass('lock-browser-scroll');
 		$("#nav").addClass('open').animate({'left':'0px'});
 		$(".blackOut-window").show();
 	}	
@@ -49,13 +125,14 @@ $(document).ready(function() {
 			unlockPopup();
         }
     }); 
-	$(".navUL > li > a").click(function(){		
+	$(".navUL > li > a").click(function(e){
+		
 		if(!$(this).hasClass("open")) {
 			var a = $(".navUL li a");
 			a.removeClass("open").next("ul").slideUp(350);
 			$(this).addClass("open").next("ul").slideDown(350);
 			
-			if($(this).siblings().size() === 0) {
+			if($(this).siblings().size() == 0) {
 				navbarHide();
 			}
 			
@@ -72,17 +149,13 @@ $(document).ready(function() {
 	}); // nav bar code ends here
 	
 	function navbarHide(){
+		//$('body').addClass('lock-browser-scroll');
 		$("#nav").removeClass('open').animate({'left':'-300px'});
 		$(".blackOut-window").hide();
 	}
-	function navbarHideOnESC() {
-		$("#nav").removeClass('open').animate({ 'left': '-300px' });
-		$(".blackOut-window").hide();
-	}
-	
 	// login code starts 
 	$("#firstLogin").click(function(){
-		$(".blackOut-window").show();
+		lockPopup();
 		$(".loginPopUpWrapper").animate({right:'0'});
 	});
 	$(".blackOut-window").mouseup(function(e){
@@ -93,126 +166,58 @@ $(document).ready(function() {
 			unlockPopup();
         }
     });
-	
-	$(".loginCloseBtn").click(function () {
-        unlockPopup();
-        $(".loginPopUpWrapper").animate({ right: '-400px' });
-        $(".loggedinProfileWrapper").animate({ right: '-280px' });
-        loginSignupSwitch();
-    });
-    $("#forgotpass").click(function () {
-        $("#forgotpassbox").toggleClass("hide show");
-    });
-    $("button.loginBtnSignUp").click(function () {
-        $("div.loginStage").hide();
-        $("div.signUpStage").show();
-    });
-    $("#btnSignUpBack").click(function () {
-        $("div.signUpStage").hide();
-        $("div.loginStage").show();
-    });
-    $("#btnSignUpBack").click(function () {
-        loginSignupSwitch();
-    });
-    function loginSignupSwitch() {
-        $(".loginStage").show();
-        $(".signUpStage").hide();
-    }
-	
-	//user logged in code
-	$("#userLoggedin").click(function(){
-		$(".blackOut-window").show();
-		$(".loggedinProfileWrapper").animate({right:'0'});
-	});
-	$(".afterLoginCloseBtn").click(function(){
+	$(".loginCloseBtn").click(function(){
 		unlockPopup();
-		$(".loggedinProfileWrapper").animate({right:'-280px'});
+		$(".loginPopUpWrapper").animate({right:'-400px'});
+		loginSignupSwitch();
+	});	
+	$("#forgotpass").click(function(){
+		$("#forgotpassbox").toggleClass("hide show");
+	});
+	$(".loginBtnSignUp").click(function(){
+		$(".loginStage").hide();
+		$(".signUpStage").show();
+	});
+	$(".signupBtnLogin").click(function(){
 		loginSignupSwitch();
 	});
-	$(".blackOut-window").mouseup(function(e){
-		var loggedIn = $(".loggedinProfileWrapper");
-        if(e.target.id !== loggedIn.attr('id') && !loggedIn.has(e.target).length)
-        {
-            loggedIn.animate({'right':'-280px'});
-			unlockPopup();
-        }
-    });
-	
-	function headerOnScroll() {
-		if ($(window).scrollTop() > 40) {
-			$('#header').addClass('header-fixed-with-bg');
-		} else {
-			$('#header').removeClass('header-fixed-with-bg');
-		}
+	function loginSignupSwitch(){
+		$(".loginStage").show();
+		$(".signUpStage").hide();
 	}
-
-	// for landing pages header scroll with bg effect
-    if (typeof (landingPage) != "undefined" && landingPage == true) {
-        $('#header').removeClass('header-fixed').addClass('header-landing');
-        headerOnScroll();
-        $(window).scroll(headerOnScroll);
-    }
-
-	
-	//global city popup
-	$(".gl-default-stage").click( function(){
-		$(".blackOut-window").show();
-		$(".globalcity-popup").removeClass("hide").addClass("show");
-	});
-	
-	$(".blackOut-window").mouseup(function(e){
-		var globalLocation = $("#globalcity-popup"); 
-        if(e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length)		
-        {
-		    globalLocation.removeClass("show").addClass("hide");
-			unlockPopup();
-        }
-    });
-	$(".globalcity-close-btn").click(function(){
-		$(".globalcity-popup").removeClass("show").addClass("hide");
-		unlockPopup();
-	});
-	
-	function CloseCityPopUp() {
-		var globalLocation = $("#globalcity-popup");
-		globalLocation.removeClass("show").addClass("hide");
-		unlockPopup();
-	}
-	
-	$(document).keydown(function (e) {
-		// ESCAPE key pressed
-		if (e.keyCode == 27) {
-			CloseCityPopUp();
-			navbarHideOnESC();
-			loginHideOnESC();
-		}
-	});
-	
-	function loginHideOnESC() {
-		$(".loginPopUpWrapper").animate({ right: '-400px' });
-		$(".loggedinProfileWrapper").animate({
-			right: '-280px'
-		});
-	}
-		
 	function lockPopup() {
-		$('body').addClass('lock-browser-scroll');
-		$(".blackOut-window").show();
+		//$('body').addClass('lock-browser-scroll');
+		$(".blackOut-window").show();		
 	}
-	
 	function unlockPopup() {
-		$('body').removeClass('lock-browser-scroll');
+		//$('body').removeClass('lock-browser-scroll');
 		$(".blackOut-window").hide();
-	}
+	}	
 	
+	// lang changer code
+    $(".changer-default").click( function(){
+		$(".lang-changer-option").show();
+	});
+	$(".lang-changer-option li a").click( function(){
+		var langTxt = $(this).text();
+		$("#LangName").text(langTxt);
+		$(".lang-changer-option").hide();
+	}); // ends	
 	// Common BW tabs code
-	$(".bw-tabs li").live('click', function () {
+	/*$(".bw-tabs li").live('click',function() {
 		var panel = $(this).closest(".bw-tabs-panel");
 		panel.find(".bw-tabs li").removeClass("active");
 		$(this).addClass("active");
 		var panelId = $(this).attr("data-tabs");
 		panel.find(".bw-tabs-data").hide();
 		$("#" + panelId).show();
+	});*/ // ends
+	// Common CW select box tabs code
+	$(".bw-tabs select").change( function (){
+		var panel = $(this).closest(".bw-tabs-panel");
+		var panelId = $(this).val();
+		panel.find(".bw-tabs-data").hide();
+		$('#' + panelId).show();
 	}); // ends
 	/* jCarousel custom methods */
 	$(function () {
@@ -222,14 +227,14 @@ $(document).ready(function() {
 		}).on('jcarouselcontrol:inactive', function () {
 			$(this).addClass('inactive');
 		}).jcarouselControl({
-			target: '-=3'
+			target: '-=1'
 		});
 		$('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
 			$(this).removeClass('inactive');
 		}).on('jcarouselcontrol:inactive', function () {
 			$(this).addClass('inactive');
 		}).jcarouselControl({
-			target: '+=3'
+			target: '+=1'
 		});
 		$('.jcarousel-pagination').on('jcarouselpagination:active', 'a', function () {
 			$(this).addClass('active');
@@ -257,6 +262,9 @@ $(document).ready(function() {
 	function dataListDisplay(availableTags,request,response){
 		var results = $.ui.autocomplete.filter(availableTags, request.term);
 		response(results.slice(0, 5));
-	}		
-	
+	}	
 });
+
+
+
+

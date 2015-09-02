@@ -1,20 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.BindViewModels.Controls;
-using Bikewale.Entities.CMS;
-using Bikewale.Entity.CMS.Articles;
-using Bikewale.Notifications;
-using Bikewale.Utility;
 
-namespace Bikewale.Controls
+namespace Bikewale.Mobile.Controls
 {
-    public class News_new : System.Web.UI.UserControl
+    public class NewsWidget : System.Web.UI.UserControl
     {
         protected Repeater rptNews;
 
@@ -38,7 +32,7 @@ namespace Bikewale.Controls
             BindNewsControl.TotalRecords = this.TotalRecords;
             BindNewsControl.MakeId = this.MakeId;
             BindNewsControl.ModelId = this.ModelId;
-            
+
             BindNewsControl.BindNews(rptNews);
 
             this.FetchedRecordsCount = BindNewsControl.FetchedRecordsCount;

@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.default_new" %>
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
 <!-- #include file="/includes/headBW.aspx" -->
 <header class="home-top-banner">    	
         <div class="container">
@@ -590,65 +592,14 @@
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
                             <li class="active" data-tabs="ctrlNews">News</li>
-                            <li data-tabs="Reviews">Reviews</li>
-                            <li data-tabs="Videos">Videos</li>
+                            <li data-tabs="ctrlExpertReviews">Reviews</li>
+                            <li data-tabs="ctrlVideos">Videos</li>
                         </ul>
                     </div>
                     <BW:News runat="server" ID="ctrlNews"/>
-                    <div class="bw-tabs-data hide" id="Reviews"><!-- Reviews data code starts here-->
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="img-preview">
-                                    <a href="#"><img src="http://imgd1.aeplcdn.com//640x348//bw/ec/19881/Harley-Davidson-Street-750-Front-56351.jpg?wm=0" title="Hyundai Creta" alt="Hyundai Creta"></a>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Harley-Davidson recalls Street 750 and Street 500</a></h2>
-                                <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                <p class="margin-bottom15 font14 line-height">Harley-Davidson has recalled over 10,500 Street 750 and the Street 500 in the US. The recall covers Street 750 motorcycles manufactured between May 12, 2014, and June 24, 2015.</p>
-                                <div class="margin-bottom15">
-                                	<a href="#" class="margin-right25 font14">Read More</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="img-preview">
-                                    <a href="#"><img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19874/Harley-Davidson-Road-King-First-Look-Review-56330.jpg?wm=0" title="Hyundai Creta" alt="Hyundai Creta"></a>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Harley-Davidson recalls Street 750 and Street 500</a></h2>
-                                <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                <p class="margin-bottom15 font14 line-height">Harley-Davidson has recalled over 10,500 Street 750 and the Street 500 in the US. The recall covers Street 750 motorcycles manufactured between May 12, 2014, and June 24, 2015.</p>
-                                <div class="margin-bottom15">
-                                	<a href="#" class="margin-right25 font14">Read More</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="img-preview">
-                                    <a href="#"><img src="http://imgd1.aeplcdn.com//640x348//bw/ec/19881/Harley-Davidson-Street-750-Front-56351.jpg?wm=0" title="Hyundai Creta" alt="Hyundai Creta"></a>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Harley-Davidson recalls Street 750 and Street 500</a></h2>
-                                <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                <p class="margin-bottom15 font14 line-height">Harley-Davidson has recalled over 10,500 Street 750 and the Street 500 in the US. The recall covers Street 750 motorcycles manufactured between May 12, 2014, and June 24, 2015.</p>
-                                <div class="margin-bottom15">
-                                	<a href="#" class="margin-right25 font14">Read More</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom50 text-center">
-                        	<a href="#" class="font16">View more reviews</a>
-                        </div>
-                    </div><!-- Ends here-->
-                    <div class="bw-tabs-data hide" id="Videos"><!-- Videos data code starts here-->
+                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>                    
+                    <BW:Videos runat="server" ID="ctrlVideos"/>  
+                    <%--<div class="bw-tabs-data hide" id="Videos"><!-- Videos data code starts here-->
                         <div class="padding-bottom30">
                             <div class="grid-4 alpha">
                                 <div class="yt-iframe-preview">
@@ -695,10 +646,11 @@
                         <div class="padding-bottom50 text-center">
                         	<a href="#" class="font16">View more videos</a>
                         </div>
-                    </div><!-- Ends here-->
+                    </div><!-- Ends here-->--%>
                 </div>        
             </div>
             <div class="clear"></div>
         </div>
     </section>
-    <!-- Ends here --><!-- #include file="/includes/footerBW.aspx" -->
+    <!-- Ends here -->
+<!-- #include file="/includes/footerBW.aspx" -->

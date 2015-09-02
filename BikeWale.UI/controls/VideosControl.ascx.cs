@@ -1,22 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.BindViewModels.Controls;
-using Bikewale.Entities.CMS;
-using Bikewale.Entity.CMS.Articles;
-using Bikewale.Notifications;
-using Bikewale.Utility;
 
 namespace Bikewale.Controls
-{
-    public class News_new : System.Web.UI.UserControl
+{    
+    public class VideosControl : System.Web.UI.UserControl
     {
-        protected Repeater rptNews;
+        protected Repeater rptVideos;
 
         public int TotalRecords { get; set; }
         public int? MakeId { get; set; }
@@ -30,18 +24,18 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindNews();
+            BindVideos();
         }
 
-        private void BindNews()
+        protected void BindVideos()
         {
-            BindNewsControl.TotalRecords = this.TotalRecords;
-            BindNewsControl.MakeId = this.MakeId;
-            BindNewsControl.ModelId = this.ModelId;
-            
-            BindNewsControl.BindNews(rptNews);
+            BindVideosControl.TotalRecords = this.TotalRecords;
+            BindVideosControl.MakeId = this.MakeId;
+            BindVideosControl.ModelId = this.ModelId;
 
-            this.FetchedRecordsCount = BindNewsControl.FetchedRecordsCount;
+            BindVideosControl.BindVideos(rptVideos);
+
+            this.FetchedRecordsCount = BindVideosControl.FetchedRecordsCount;
         }
     }
 }
