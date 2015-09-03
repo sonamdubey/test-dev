@@ -16,7 +16,7 @@ namespace Bikewale.Common
     {
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Oct 2014
-        /// Summary    : Method to get data from web api
+        /// Summary    : PopulateWhere to get data from web api
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="hostUrl"></param>
@@ -69,7 +69,7 @@ namespace Bikewale.Common
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 11 Nov 2014
-        /// Summary : Method to get data from web api synchronously
+        /// Summary : PopulateWhere to get data from web api synchronously
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="hostUrl"></param>
@@ -147,7 +147,7 @@ namespace Bikewale.Common
 
         /// <summary>
         /// Written By : Ashwini Todkar on 8 Nov 2014
-        /// Method to call delete api synchronously
+        /// PopulateWhere to call delete api synchronously
         /// </summary>
         /// <param name="hostUrl"></param>
         /// <param name="requestType"></param>

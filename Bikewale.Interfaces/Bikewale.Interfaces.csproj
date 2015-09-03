@@ -71,6 +71,9 @@
     <Compile Include="Location\IState.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
+    <Compile Include="NewBikeSearch\IProcessFilter.cs" />
+    <Compile Include="NewBikeSearch\ISearchQuery.cs" />
+    <Compile Include="NewBikeSearch\ISearchResult.cs" />
     <Compile Include="Pager\IPager.cs" />
     <Compile Include="PhotoGallery\IModelPhotos.cs" />
     <Compile Include="PriceQuote\IPriceQuote.cs" />

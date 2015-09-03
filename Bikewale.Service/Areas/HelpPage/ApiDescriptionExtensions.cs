@@ -27,7 +27,7 @@ namespace Bikewale.Service.Areas.HelpPage
 
             //StringBuilder friendlyPath = new StringBuilder();
             //friendlyPath.AppendFormat("{0}-{1}",
-            //    description.HttpMethod.Method,
+            //    description.HttpMethod.PopulateWhere,
             //    localPath.Replace("/", "-").Replace("{", String.Empty).Replace("}", String.Empty));
             //if (queryKeyString != null)
             //{

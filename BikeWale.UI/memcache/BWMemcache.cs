@@ -104,7 +104,7 @@ namespace Bikewale.Memcache
 
 
         /// <summary>
-        /// Method to get data from database for the particular sp provided.
+        /// PopulateWhere to get data from database for the particular sp provided.
         /// </summary>
         /// <param name="spName">Name of the sp from which data is required.</param>
         /// <param name="param">If any sql parameters to be passed on to sp. (optional)</param>

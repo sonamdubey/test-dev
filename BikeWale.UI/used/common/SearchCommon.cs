@@ -104,7 +104,7 @@ namespace Bikewale.Used
 
         /// <summary>
         /// Written By : Ashwini Todkar on 4 April 2014
-        /// Summary    : Method to get city wise used bikes count from live listing  
+        /// Summary    : PopulateWhere to get city wise used bikes count from live listing  
         /// </summary>
         /// <returns>city name,city masking name,city id and bike count</returns>
         public DataSet GetUsedBikeByCityWithCount()
@@ -144,7 +144,7 @@ namespace Bikewale.Used
 
         /// <summary>
         /// Written By : Ashwini Todkar on 4 April 2014
-        /// Summary    : Method to get model wise used bikes count and its details from live listing  
+        /// Summary    : PopulateWhere to get model wise used bikes count and its details from live listing  
         /// </summary>
         /// <returns>model name,make name,make masking name,model masking name,model id and model count</returns>
         public DataSet GetUsedBikeModelsWithCount()
@@ -184,7 +184,7 @@ namespace Bikewale.Used
 
         /// <summary>
         /// Written By : Ashwini Todkar on 4 April 2014
-        /// Summary    : Method to get make wise used bikes count and details from live listing  
+        /// Summary    : PopulateWhere to get make wise used bikes count and details from live listing  
         /// </summary>
         /// <returns>make name,make masking name,make id and bike count</returns>
         public DataSet GetUsedBikeMakesWithCount()

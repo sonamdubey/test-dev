@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Search" Trace="false" Debug="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Search" Trace="true" Debug="false" %>
 <%@ Import Namespace="System.Data" %>
 
 <!-- #include file="/includes/headNew.aspx" -->

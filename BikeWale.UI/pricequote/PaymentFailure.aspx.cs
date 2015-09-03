@@ -65,7 +65,7 @@ namespace Bikewale.PriceQuote
 
         /// <summary>
         /// Written By : Ashwini Todkar on 15 Dec 2014
-        /// Summary    : Method to get dealer price quote, offers, facilities, contact details 
+        /// Summary    : PopulateWhere to get dealer price quote, offers, facilities, contact details 
         /// </summary>
         private void GetDetailedQuote()
         {

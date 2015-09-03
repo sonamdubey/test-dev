@@ -15,7 +15,7 @@ namespace Bikewale.BAL.Customer
     /// </summary>
     public class RegisterCustomer
     {
-        #region GenerateRandomPassword Method
+        #region GenerateRandomPassword PopulateWhere
         /// <summary>
         ///     Written By : Ashish G.Kamble on 29 Oct 2012
         ///     Summary : Function will generate the random password. This function will be used during automate customer registration.
@@ -41,7 +41,7 @@ namespace Bikewale.BAL.Customer
         }   // End of GenerateRandomPassword 
         #endregion
 
-        #region GenerateRandomSalt Method
+        #region GenerateRandomSalt PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 29 Oct 2012
         ///     Summary : Function will create the salt for hashing the password.
@@ -66,10 +66,10 @@ namespace Bikewale.BAL.Customer
             }
 
             return salt;
-        }   // End of GenerateRandomSalt Method 
+        }   // End of GenerateRandomSalt PopulateWhere 
         #endregion
 
-        #region GenerateHashCode Method
+        #region GenerateHashCode PopulateWhere
         /// <summary>
         ///     Written By : Ashish G.Kamble on 29 Oct 2012
         ///     Summary : Function will generate random hash code from the given salt and password.

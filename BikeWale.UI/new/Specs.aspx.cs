@@ -293,7 +293,7 @@ namespace Bikewale.New
         }
 
         /// <summary>
-        ///     Method will check whether value is true or false and return whether value is available or not
+        ///     PopulateWhere will check whether value is true or false and return whether value is available or not
         /// </summary>
         /// <param name="featureValue"></param>
         /// <returns></returns>

@@ -12,7 +12,7 @@ namespace Bikewale.Common
     public class RegisterCustomer
     {
 
-        #region RegisterUser Method
+        #region RegisterUser PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 28/8/2012
         ///     Summary : Function will register customer and return the customer id. If customer is already a registered customer returns registered id.
@@ -20,8 +20,8 @@ namespace Bikewale.Common
         ///     Summary : To capture Client IP.
         /// </summary>
         /// <param name="name">name of the customer. </param>
-        /// <param name="email">Email of the customer. This field can not be empty.</param>
-        /// <param name="mobile">Mobile no of the customer. This field can not be empty.</param>
+        /// <param name="email">Email of the customer. This Budget can not be empty.</param>
+        /// <param name="mobile">Mobile no of the customer. This Budget can not be empty.</param>
         /// <param name="phone">Phone number of the customer is optional.</param>
         /// <param name="password">Password of the customer is optional.</param>
         /// <param name="cityId">CityId of the customer is optional.</param>
@@ -121,7 +121,7 @@ namespace Bikewale.Common
         } 
         #endregion
 
-        #region IsRegisterdCustomer Method
+        #region IsRegisterdCustomer PopulateWhere
         /// <summary>
         ///     Summary : Function to check whether customer is registered user or not.
         ///     Modified By : Ashish G. Kamble on 8 Nov 2012
@@ -171,7 +171,7 @@ namespace Bikewale.Common
         } 
         #endregion
 
-        #region GenerateRandomPassword Method
+        #region GenerateRandomPassword PopulateWhere
         /// <summary>
         ///     Written By : Ashish G.Kamble on 29 Oct 2012
         ///     Summary : Function will generate the random password. This function will be used during automate customer registration.
@@ -197,7 +197,7 @@ namespace Bikewale.Common
         }   // End of GenerateRandomPassword 
         #endregion
 
-        #region GenerateRandomSalt Method
+        #region GenerateRandomSalt PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 29 Oct 2012
         ///     Summary : Function will create the salt for hashing the password.
@@ -222,10 +222,10 @@ namespace Bikewale.Common
             }
 
             return salt;
-        }   // End of GenerateRandomSalt Method 
+        }   // End of GenerateRandomSalt PopulateWhere 
         #endregion
 
-        #region GenerateHashCode Method
+        #region GenerateHashCode PopulateWhere
         /// <summary>
         ///     Written By : Ashish G.Kamble on 29 Oct 2012
         ///     Summary : Function will generate random hash code from the given salt and password.
@@ -253,7 +253,7 @@ namespace Bikewale.Common
         }   // End of GenerateHashCode 
         #endregion
 
-        #region IsValidPassword Method
+        #region IsValidPassword PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 29 Oct 2012
         ///     Summary : Function will check whether the user given password matches the password for the given user in database or not.
@@ -288,7 +288,7 @@ namespace Bikewale.Common
         }   // End of IsValidPassword 
         #endregion
 
-        #region GetSaltHash Method
+        #region GetSaltHash PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 29 Oct 2012
         ///     Summary : Function will return the salt, hash and customerid stored in the database for the given email id
@@ -355,7 +355,7 @@ namespace Bikewale.Common
         }   // End of GetSaltHash method 
         #endregion
 
-        #region UpdatePassword Method
+        #region UpdatePassword PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 29 Oct 2012
         ///     Summary : function will update the salt and hash for given customerid.
@@ -400,7 +400,7 @@ namespace Bikewale.Common
         }   // End of UpdatePassword method 
         #endregion
 
-        #region EncryptPasswordToken Method
+        #region EncryptPasswordToken PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 5 Nov 2012
         ///     Summary : Function will create alphanumeric token from email id.
@@ -416,7 +416,7 @@ namespace Bikewale.Common
         } 
         #endregion
 
-        #region DecryptPasswordToken Method
+        #region DecryptPasswordToken PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 6 Nov 2012
         ///     Summary : Function will decrypt the token to give original value
@@ -434,7 +434,7 @@ namespace Bikewale.Common
         } 
         #endregion
 
-        #region SaveToken Method
+        #region SaveToken PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 5 Nov 2012
         ///     Summary : Function will save the token into the database for current userId.
@@ -481,7 +481,7 @@ namespace Bikewale.Common
         }   // End of SaveToken method 
         #endregion
 
-        #region IsValidPasswordRecoveryToken Method
+        #region IsValidPasswordRecoveryToken PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 6 Nov 2012
         ///     Summary : Function will check whether the token is valid for the current user or not.
@@ -543,7 +543,7 @@ namespace Bikewale.Common
         }   // End of IsValidPasswordRecoveryToken method 
         #endregion
 
-        #region UpdatePasswordRecoveryTokenStatus Method
+        #region UpdatePasswordRecoveryTokenStatus PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 6 Nov 2012
         ///     Summary : Function will update the status of the token to inactive for the given customer.
@@ -586,7 +586,7 @@ namespace Bikewale.Common
         }   // End of UpdatePasswordRecoveryTokenStatus method 
         #endregion
 
-        #region SendCustomerPassword Method
+        #region SendCustomerPassword PopulateWhere
         /// <summary>
         ///     Written By : Ashish G. Kamble on 2 Nov 2012
         ///     Summary : Function will send customer an email with link to recover the password.
@@ -624,7 +624,7 @@ namespace Bikewale.Common
         }   // End of SendCustomerPassword method 
         #endregion
 
-        #region SendCustomerPassword Old Method Commented By : Ashish G. Kamble
+        #region SendCustomerPassword Old PopulateWhere Commented By : Ashish G. Kamble
         //public bool SendCustomerPassword(string email)
         //{
         //    bool retVal = false;
@@ -770,6 +770,6 @@ namespace Bikewale.Common
                 db.CloseConnection();
             }
             return isFake;
-        }   //End of IsFakeCustomer Method
+        }   //End of IsFakeCustomer PopulateWhere
     }   // End of class
 }   // End of namespace

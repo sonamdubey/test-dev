@@ -50,6 +50,8 @@
     <Compile Include="BikeData\BikeDiscription.cs" />
     <Compile Include="Area\AreaBase.cs" />
     <Compile Include="Area\AreaList.cs" />
+    <Compile Include="BikeData\BikeMakeDropdownDTO.cs" />
+    <Compile Include="BikeData\ModelDetails.cs" />
     <Compile Include="City\CityBase.cs" />
     <Compile Include="City\CityList.cs" />
     <Compile Include="BikeData\FeaturedBike.cs" />
@@ -75,6 +77,9 @@
     <Compile Include="BikeBooking\Version\BBVersionList.cs" />
     <Compile Include="BookingSummary\BookingSummaryBase.cs" />
     <Compile Include="Model\ModelDetail.cs" />
+    <Compile Include="NewBikeSearch\Pager.cs" />
+    <Compile Include="NewBikeSearch\SearchOutput.cs" />
+    <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
     <Compile Include="PriceQuote\Area\PQAreaBase.cs" />
     <Compile Include="PriceQuote\Area\PQAreaList.cs" />
     <Compile Include="Model\ModelBase.cs" />

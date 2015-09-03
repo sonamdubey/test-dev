@@ -49,7 +49,7 @@ namespace Bikewale.Mobile.Content
         }
         /// <summary>
         /// Written By : Ashwini Todkar on 30 Sept 2014
-        /// Summary    : Method to get features list from web api asynchronously
+        /// Summary    : PopulateWhere to get features list from web api asynchronously
         /// </summary>
         private async void GetFeaturesList()
         {

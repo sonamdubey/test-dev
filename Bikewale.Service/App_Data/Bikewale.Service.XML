@@ -498,7 +498,7 @@
             Created By : Sadhana Upadhyay on 25 Aug 2015
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController.Get(System.String,System.Nullable{System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController.Get(System.String,Bikewale.Entities.AutoComplete.AutoSuggestEnum,System.Nullable{System.Int32})">
             <summary>        
             Summary : Auto Suggest Api for Make And Model
             </summary>
@@ -645,6 +645,37 @@
             <param name="dealerId">Dealer Id</param>
             <param name="cityId">City Id</param>
             <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.CMS.CMSListController">
+            <summary>
+            Edit CMS List Controller :  Operations related to list of content 
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.UInt32)">
+            <summary>
+            To get Recent Categories Content List
+            </summary>
+            <param name="categoryId"></param>
+            <param name="makeId"></param>
+            <param name="modelId"></param>
+            <param name="posts"></param>
+            <param name="recent"></param>
+            <returns>Recent Articles List Summary</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+             To get content of Specified category
+            </summary>
+            <param name="CategoryId"></param>
+            <param name="makeId"></param>
+            <param name="modelId"></param>
+            <param name="startIndex"></param>
+            <param name="endIndex"></param>
+            <param name="pageSize"></param>
+            <param name="pageNumber"></param>
+            <returns>Category Content List</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.Compare.BikeCompareController">
             <summary>
@@ -1566,7 +1597,7 @@
             <param name="all"></param>
             <returns>News Details</returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.Int32,System.Int32,System.Int32)">
             <summary>
             Edit CMS Api to get List of other model images list
             </summary>
@@ -1576,30 +1607,6 @@
             <param name="startIndex"></param>
             <param name="endIndex"></param>
             <returns></returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.UInt32,System.Boolean,System.Boolean)">
-            <summary>
-            To get Recent Categories Content List
-            </summary>
-            <param name="categoryId"></param>
-            <param name="makeId"></param>
-            <param name="modelId"></param>
-            <param name="posts"></param>
-            <param name="recent"></param>
-            <returns>Recent Articles List Summary</returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-             To get content of Specified category
-            </summary>
-            <param name="CategoryId"></param>
-            <param name="makeId"></param>
-            <param name="modelId"></param>
-            <param name="startIndex"></param>
-            <param name="endIndex"></param>
-            <param name="pageSize"></param>
-            <param name="pageNumber"></param>
-            <returns>Category Content List</returns>
         </member>
     </members>
 </doc>

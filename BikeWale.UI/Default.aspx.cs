@@ -10,9 +10,9 @@ namespace Bikewale
 {
     public class Default : System.Web.UI.Page
     {
-        protected News_new ctrlNews;
-        protected ExpertReviews ctrlExpertReviews;
-        protected VideosControl ctrlVideos;
+        //protected News_new ctrlNews;
+        //protected ExpertReviews ctrlExpertReviews;
+        //protected VideosControl ctrlVideos;
 
         protected override void OnInit(EventArgs e)
         {
@@ -21,9 +21,9 @@ namespace Bikewale
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ctrlNews.TotalRecords = 3;
-            ctrlExpertReviews.TotalRecords = 3;
-            ctrlVideos.TotalRecords = 3;
+            //ctrlNews.TotalRecords = 3;
+            //ctrlExpertReviews.TotalRecords = 3;
+            //ctrlVideos.TotalRecords = 3;
             
         }
     }

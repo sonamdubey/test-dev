@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Default" %>
-<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
+<%--<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
-<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>--%>
 <!-- #include file="/includes/headBW.aspx" -->
 <header class="home-top-banner">    	
         <div class="container">
@@ -16,7 +16,7 @@
                                 <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
                             </div>
                             <div class="findBtn">
-                                <button class="btn btn-orange btn-md font18">Search</button>
+                                <button id="btnSearch" class="btn btn-orange btn-md font18">Search</button>
                             </div>
                             <div class="clear"></div>
                          </div>
@@ -596,9 +596,9 @@
                             <li data-tabs="ctrlVideos">Videos</li>
                         </ul>
                     </div>
-                    <BW:News runat="server" ID="ctrlNews"/>
+                    <%--<BW:News runat="server" ID="ctrlNews"/>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>                    
-                    <BW:Videos runat="server" ID="ctrlVideos"/>  
+                    <BW:Videos runat="server" ID="ctrlVideos"/>  --%>
                     <%--<div class="bw-tabs-data hide" id="Videos"><!-- Videos data code starts here-->
                         <div class="padding-bottom30">
                             <div class="grid-4 alpha">

@@ -724,7 +724,7 @@ namespace Bikewale.Common
 
         /// <summary>
         /// Written By : Ashwini Todkar on 16 Oct 2014
-        /// Summary    : Method to save EMI Assistance requests to database
+        /// Summary    : PopulateWhere to save EMI Assistance requests to database
         /// MOdified By : Sadhana on 17 Oct 2014
         /// Summary : to trim name , email,phone no
         /// </summary>

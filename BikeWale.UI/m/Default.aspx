@@ -11,8 +11,8 @@
                 <div class="text-white margin-top15 text-center font14">Get Exclusive Offers on your Bike Purchase</div>
                 <div class="new-used-search new-bikes-search margin-top30 position-rel">
                      <input type="text" placeholder="Search your bike here" id="newBikeList" class="rounded-corner2">
-                     <button class="btn btn-orange btn-search"><span class="fa fa-search"></span></button>
-                     <span style="display:block" class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black"></span>
+                     <button id="btnSearch" class="btn btn-orange btn-search"><span class="fa fa-search"></span></button>
+                     <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black"></span>
                 </div>
         	</div>
         </div>

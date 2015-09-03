@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.search_result" Trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.search_result" Trace="true" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" src="/Controls/RepeaterPagerAjax.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="System.Data" %>

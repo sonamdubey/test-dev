@@ -110,7 +110,7 @@ namespace Bikewale.Service.Areas.HelpPage.Controllers
 
     public class SearchDoc
     {
-        [Display(Name = "HTTP Method")]
+        [Display(Name = "HTTP PopulateWhere")]
         public string method { get; set; }
         [Display(Name = "Web API Url")]
         public string Url { get; set; }
