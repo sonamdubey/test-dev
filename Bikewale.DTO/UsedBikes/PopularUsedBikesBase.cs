@@ -23,5 +23,8 @@ namespace Bikewale.DTO.UsedBikes
 
         [JsonProperty("originalImagePath")]
         public string OriginalImagePath { get; set; }
+
+        [JsonProperty("makeMaskingName")]
+        public string MakeMaskingName { get; set; }
     }
 }

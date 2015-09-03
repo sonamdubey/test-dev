@@ -35,7 +35,7 @@ namespace Bikewale.DAL.UsedBikes
 
                 if(cityId.HasValue)
                 {
-                    cmd.Parameters.Add("@CityId",SqlDbType.Int).Value = cityId;
+                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId.Value;
                 }
 
                 try
@@ -53,7 +53,8 @@ namespace Bikewale.DAL.UsedBikes
                                 TotalBikes = Convert.ToUInt32(dr["MakewiseCount"]),
                                 AvgPrice = Convert.ToDouble(dr["AvgPrice"]),
                                 HostURL = Convert.ToString(dr["HostURL"]),                     
-                                OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]) 
+                                OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
+                                MakeMaskingName = Convert.ToString(dr["MakeMaskingName"])
                             });
                         }
                     }

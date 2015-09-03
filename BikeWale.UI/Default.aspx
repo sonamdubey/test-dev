@@ -3,6 +3,7 @@
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <!-- #include file="/includes/headBW.aspx" -->
 <header class="home-top-banner">    	
         <div class="container">
@@ -341,7 +342,7 @@
     </section>
     <!-- Ends here -->
     <section class="bg-light-grey"><!--  Used Bikes code starts here -->
-        <div class="container">
+        <%--<div class="container">
         	<div class="grid-12">
                 <h2 class="text-bold text-center margin-top50 margin-bottom30">Popular used bikes in Mumbai</h2>
                 <div class="jcarousel-wrapper popular-used-bikes-container">
@@ -490,7 +491,8 @@
                 </div>
         	</div>
             <div class="clear"></div>
-        </div>
+        </div>--%>
+        <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
     </section>
     <!-- Ends here -->
     <section><!--  News Bikes code starts here -->
