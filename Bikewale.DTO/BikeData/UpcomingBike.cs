@@ -10,34 +10,34 @@ using System.Threading.Tasks;
 
 namespace Bikewale.DTO.BikeData
 {
-    [Serializable, DataContract]
+
     public class UpcomingBike
     {
-        [JsonProperty(PropertyName = "id"), DataMember]
+        [JsonProperty(PropertyName = "id")]
         public uint ExpectedLaunchId { get; set; }
 
-        [JsonProperty(PropertyName = "launchDate"), DataMember]
+        [JsonProperty(PropertyName = "launchDate")]
         public string ExpectedLaunchDate { get; set; }
 
-        [JsonProperty(PropertyName = "minPrice"), DataMember]
+        [JsonProperty(PropertyName = "minPrice")]
         public ulong EstimatedPriceMin { get; set; }
 
-        [JsonProperty(PropertyName = "maxPrice"), DataMember]
+        [JsonProperty(PropertyName = "maxPrice")]
         public ulong EstimatedPriceMax { get; set; }
 
-        [JsonProperty(PropertyName = "hostUrl"), DataMember]
+        [JsonProperty(PropertyName = "hostUrl")]
         public string HostUrl { get; set; }
 
-        [JsonProperty(PropertyName = "imagePath"), DataMember]
+        [JsonProperty(PropertyName = "imagePath")]
         public string OriginalImagePath { get; set; }
 
-        [JsonProperty(PropertyName = "makeBase"), DataMember]
+        [JsonProperty(PropertyName = "makeBase")]
         public MakeBase MakeBase { get; set; }
 
-        [JsonProperty(PropertyName = "modelBase"), DataMember]
+        [JsonProperty(PropertyName = "modelBase")]
         public ModelBase ModelBase { get; set; }
 
-        [JsonProperty(PropertyName = "bikeDesc"), DataMember]
+        [JsonProperty(PropertyName = "bikeDesc")]
         public BikeDiscription BikeDescription { get; set; }
     }
 }

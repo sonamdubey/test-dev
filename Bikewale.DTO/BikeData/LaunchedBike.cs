@@ -15,5 +15,8 @@ namespace Bikewale.DTO.BikeData
 
         [JsonProperty("launchDate")]
         public DateTime LaunchDate { get; set; }
+
+        [JsonProperty("specs")]
+        public MinSpecs Specs { get; set; }
     }
 }

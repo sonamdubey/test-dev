@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.Make;
+﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using System;
@@ -19,6 +20,7 @@ namespace Bikewale.DTO.Widgets
         public string OriginalImagePath { get; set; }
         public int ReviewCount { get; set; }
         public double ModelRating { get; set; }
-        public Int64 VersionPrice { get; set; }    
+        public Int64 VersionPrice { get; set; }
+        public MinSpecs Specs { get; set; }
     }
 }
