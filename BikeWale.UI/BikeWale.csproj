@@ -253,8 +253,13 @@
       <DependentUpon>RedirectToBillDesk.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="BindViewModels\Controls\BindBikeCompareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
@@ -409,8 +414,16 @@
       <DependentUpon>BrowseUserReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\CompareBikesMin.ascx.cs">
+      <DependentUpon>CompareBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\ComparisonMin.ascx.cs">
       <DependentUpon>ComparisonMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ComparisonMin_old.ascx.cs">
+      <DependentUpon>ComparisonMin_old.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\DateControl.ascx.cs">
@@ -449,12 +462,28 @@
       <DependentUpon>LoginControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\LoginControlNew.ascx.cs">
+      <DependentUpon>LoginControlNew.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\LoginStatusNew.ascx.cs">
+      <DependentUpon>LoginStatusNew.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\MakeModelSearch.ascx.cs">
       <DependentUpon>MakeModelSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\MostPopularBikes_new.ascx.cs">
+      <DependentUpon>MostPopularBikes_new.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\NewBikeLaunches.ascx.cs">
       <DependentUpon>NewBikeLaunches.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\NewLaunchedBikes_new.ascx.cs">
+      <DependentUpon>NewLaunchedBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\NewsMin.ascx.cs">
@@ -467,6 +496,10 @@
     </Compile>
     <Compile Include="controls\NoFollowPagerControl.ascx.cs">
       <DependentUpon>NoFollowPagerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\PopularUsedBikes.ascx.cs">
+      <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\PopupWidget.ascx.cs">
@@ -553,6 +586,10 @@
       <DependentUpon>UpcomingBikesMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UpcomingBikes_new.ascx.cs">
+      <DependentUpon>UpcomingBikes_new.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\UsedBikeSearch.ascx.cs">
       <DependentUpon>UsedBikeSearch.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -579,6 +616,7 @@
     </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Forums\common\ForumsCommon.cs" />
     <Compile Include="Forums\common\UserTracking.cs" />
@@ -677,6 +715,14 @@
       <DependentUpon>CompareBikeMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\CompareBikeMin_old.ascx.cs">
+      <DependentUpon>CompareBikeMin_old.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\CompareBikesMin.ascx.cs">
+      <DependentUpon>CompareBikesMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\ExpertReviewsWidget.ascx.cs">
       <DependentUpon>ExpertReviewsWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -689,12 +735,28 @@
       <DependentUpon>LocateDealer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\MMostPopularBikes.ascx.cs">
+      <DependentUpon>MMostPopularBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\MNewLaunchedBikes.ascx.cs">
+      <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\MPopupWidget.ascx.cs">
       <DependentUpon>MPopupWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\MUpcomingBikes.ascx.cs">
+      <DependentUpon>MUpcomingBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\NewsWidget.ascx.cs">
       <DependentUpon>NewsWidget.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\PopularUsedBikes.ascx.cs">
+      <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\TopUserReviews.ascx.cs">
@@ -1421,8 +1483,10 @@
     <Content Include="controls\BrowseBikes.ascx" />
     <Content Include="controls\BrowseUserReviews.ascx" />
     <Content Include="controls\CalculateEMIMin.ascx" />
+    <Content Include="controls\CompareBikesMin.ascx" />
     <Content Include="controls\ComparisonMin.ascx" />
     <Content Include="controls\ComparisonMinInner.ascx" />
+    <Content Include="controls\ComparisonMin_old.ascx" />
     <Content Include="controls\DateControl.ascx" />
     <Content Include="controls\DiscussIt.ascx" />
     <Content Include="controls\ExpertReviews.ascx" />
@@ -1433,12 +1497,17 @@
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\LocateDealer.ascx" />
     <Content Include="controls\LoginControl.ascx" />
+    <Content Include="controls\LoginControlNew.ascx" />
     <Content Include="controls\loginStatus.ascx" />
+    <Content Include="controls\LoginStatusNew.ascx" />
     <Content Include="controls\MakeModelSearch.ascx" />
+    <Content Include="controls\MostPopularBikes_new.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
+    <Content Include="controls\NewLaunchedBikes_new.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\News_new.ascx" />
     <Content Include="controls\NoFollowPagerControl.ascx" />
+    <Content Include="controls\PopularUsedBikes.ascx" />
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
     <Content Include="controls\PhotoGallaryMin.ascx" />
@@ -1461,6 +1530,7 @@
     <Content Include="controls\UpcomingBikes.ascx" />
     <Content Include="controls\UpcomingBikeSearch.ascx" />
     <Content Include="controls\UpcomingBikesMin.ascx" />
+    <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewsMin.ascx" />
@@ -1873,11 +1943,17 @@
     <Content Include="m\content\userreviews\ReviewDetails.aspx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
     <Content Include="m\controls\CompareBikeMin.ascx" />
+    <Content Include="m\controls\CompareBikeMin_old.ascx" />
+    <Content Include="m\controls\CompareBikesMin.ascx" />
     <Content Include="m\controls\ExpertReviewsWidget.ascx" />
     <Content Include="m\controls\ListPagerControl.ascx" />
     <Content Include="m\controls\LocateDealer.ascx" />
+    <Content Include="m\controls\MMostPopularBikes.ascx" />
+    <Content Include="m\controls\MNewLaunchedBikes.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
+    <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
+    <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />

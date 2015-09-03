@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.controls;
+using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 
 namespace Bikewale.New

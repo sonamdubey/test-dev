@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-=======
 ﻿using Bikewale.DTO.UsedBikes;
 using Bikewale.Notifications;
 using Bikewale.Utility;
@@ -13,13 +7,11 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
->>>>>>> 4f232a094c5e8b40e931296725a061c1cbb3398b
 
 namespace Bikewale.BindViewModels.Controls
 {
     public class BindUsedBikesControl
     {
-<<<<<<< HEAD
         /// <summary>
         /// Total records requested
         /// </summary>
@@ -27,11 +19,8 @@ namespace Bikewale.BindViewModels.Controls
         /// <summary>
         /// Total Fetched records
         /// </summary>
-        public static int FetchedRecordCount { get; set; }               
-=======
-        public static int TotalRecords { get; set; }
+        public static int FetchedRecordsCount { get; set; }               
         public static int? CityId { get; set; }
-        public static int FetchedRecordsCount { get; set; }
 
         public static void BindRepeater(Repeater repeater)
         {
@@ -80,6 +69,5 @@ namespace Bikewale.BindViewModels.Controls
             }
             return popularUsedBikes;
         }
->>>>>>> 4f232a094c5e8b40e931296725a061c1cbb3398b
     }
 }
