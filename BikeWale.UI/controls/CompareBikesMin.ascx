@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.ComparisonMin" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.CompareBikesMin" %>
 <div class="container">
     <h2 class="text-bold text-center margin-top50 margin-bottom30">Compare now</h2>
     <div class="grid-6 margin-top20">
@@ -9,9 +9,7 @@
                 </a>
             </h3>
             <div class="bike-preview margin-bottom10">
-                <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2)%>/">
-                    <img src="<%= TopCompareImage %>" title="<%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>" alt="<%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>">
-                </a>
+                <img src="<%= TopCompareImage %>" title="CompareBike" alt="CompareBike">
             </div>
             <div>
                 <div class="grid-6 alpha border-solid-right">

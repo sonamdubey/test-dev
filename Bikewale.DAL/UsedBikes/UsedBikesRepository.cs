@@ -31,11 +31,11 @@ namespace Bikewale.DAL.UsedBikes
             using (SqlCommand cmd = new SqlCommand("PopularUsedBikes"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@TotalCount", totalCount);
+                cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
 
                 if(cityId.HasValue)
                 {
-                    cmd.Parameters.AddWithValue("@CityId",cityId);
+                    cmd.Parameters.Add("@CityId",SqlDbType.Int).Value = cityId;
                 }
 
                 try

@@ -7,9 +7,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
-    public class ComparisonMin : System.Web.UI.UserControl
+    public class CompareBikesMin : System.Web.UI.UserControl
     {
         protected Repeater rptCompareBike;
 

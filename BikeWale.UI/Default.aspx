@@ -2,6 +2,7 @@
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
 <!-- #include file="/includes/headBW.aspx" -->
 <header class="home-top-banner">    	
         <div class="container">
@@ -336,99 +337,7 @@
     </section>
     <!--  Ends here -->
     <section class="margin-bottom50"><!--  Compare section code starts here -->
-        <div class="container">
-        	<h2 class="text-bold text-center margin-top50 margin-bottom30">Compare now</h2>
-        	<div class="grid-6 margin-top20">
-            	<div class="border-solid-right">
-                	<h3 class="font16 text-center padding-bottom15">
-                    	<a href="#">Suzuki Gixxer SF Vs Pulsar AS 200</a>
-                    </h3>
-                	<div class="bike-preview margin-bottom10">
-                        <img src="http://imgd1.aeplcdn.com//310x174//bw/bikecomparison/kawasaki_ninja300_vs_yamaha_yzf-r3.jpg?20151708125625" title="IMG title" alt="IMG title">
-                    </div>
-                    <div>
-                    	<div class="grid-6 alpha border-solid-right">
-                        	<div class="content-inner-block-5 text-center">
-                                <div class="font18 margin-bottom5">
-                                	<span class="fa fa-rupee"></span> 49,000
-                                </div>
-                                <div>
-                                    <p class="margin-bottom10">
-                                        <img src="images/ratings/1.png">
-                                        <img src="images/ratings/1.png">
-                                        <img src="images/ratings/1.png">
-                                        <img src="images/ratings/1.png">
-                                        <img src="images/ratings/0.png">
-                                    </p>
-									<p class="font14"><a href="#" class="margin-left5"><span>3009</span> reviews</a></p>
-                                </div>
-                        	</div>
-                        </div>
-                        <div class="grid-6 omega">
-                        	<div class="content-inner-block-5 text-center">
-                                <div class="font18 margin-bottom5">
-                                	<span class="fa fa-rupee"></span> 49,000
-                                </div>
-                                <div>
-                                    <p class="margin-bottom5">
-                                        <img src="images/ratings/1.png" alt="Rate">
-                                        <img src="images/ratings/1.png" alt="Rate">
-                                        <img src="images/ratings/half.png" alt="Rate">
-                                        <img src="images/ratings/0.png" alt="Rate">
-                                        <img src="images/ratings/0.png" alt="Rate">
-                                    </p>
-                                    <p class="font14"><a href="#" class="margin-left5">Write reviews</a></p>
-                                </div>
-                        	</div>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="grid-6 margin-top20">
-            	<div class="compare-list-home">
-                	<ul>
-                    	<li>
-                        	<p class="font16 text-center padding-bottom15">
-                                <a href="#">Honda Unicorn vs Bajaj Pulsar 180 DTSi</a>
-                            </p>
-                            <div class="font16 text-light-grey">
-                            	<span class="margin-right50">
-                                	<span class="fa fa-rupee"></span> <span>49,000</span>
-                                </span>
-                                <span class="fa fa-rupee"></span> <span>49,000</span>
-                            </div>
-                        </li>
-                        <li>
-                        	<p class="font16 text-center padding-bottom15">
-                                <a href="#">Bajaj Discover 150F vs Suzuki Gixxer</a>
-                            </p>
-                            <div class="font16 text-light-grey">
-                            	<span class="margin-right50">
-                                	<span class="fa fa-rupee"></span> <span>49,000</span>
-                                </span>
-                                <span class="fa fa-rupee"></span> <span>49,000</span>
-                            </div>
-                        </li>
-                        <li>
-                        	<p class="font16 text-center padding-bottom15">
-                                <a href="#">Hero Impulse vs KTM Duke 200</a>
-                            </p>
-                            <div class="font16 text-light-grey">
-                            	<span class="margin-right50">
-                                	<span class="fa fa-rupee"></span> <span>49,000</span>
-                                </span>
-                                <span class="fa fa-rupee"></span> <span>49,000</span>
-                            </div>
-                        </li>
-                    </ul>
-                    <div class="text-center margin-top20">
-                    	<a href="#" class="btn btn-orange">View more comparisons</a>
-                    </div>
-                </div>
-            </div>            
-            <div class="clear"></div>
-        </div>
+        <BW:CompareBikes ID="ctrlCompareBikes" runat="server"/>
     </section>
     <!-- Ends here -->
     <section class="bg-light-grey"><!--  Used Bikes code starts here -->
