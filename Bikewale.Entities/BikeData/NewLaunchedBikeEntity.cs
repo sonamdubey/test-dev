@@ -11,6 +11,6 @@ namespace Bikewale.Entities.BikeData
         public uint BikeLaunchId { get; set; }
         public DateTime LaunchDate { get; set; }
         public ulong BasicId { get; set; }
-        public string RoadTestUrl { get; set; }
+        public MinSpecsEntity Specs { get; set; }
     }
 }

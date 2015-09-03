@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.m.controls.MPopupWidget" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>
 <!--bw popup code starts here-->
 <div id="blackOut-window" class="hide"></div>
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">

@@ -19,7 +19,7 @@ namespace Bikewale.Service.AutoMappers.BikeData
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
             Mapper.CreateMap<NewLaunchedBikeEntity, LaunchedBike>();
-
+            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
             return Mapper.Map<List<NewLaunchedBikeEntity>, List<LaunchedBike>>(objRecent);
         }
     }
