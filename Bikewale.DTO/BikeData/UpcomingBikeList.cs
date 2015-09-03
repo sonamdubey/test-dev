@@ -8,10 +8,9 @@ using System.Threading.Tasks;
 
 namespace Bikewale.DTO.BikeData
 {
-    [Serializable, DataContract]
     public class UpcomingBikeList
     {
-        [JsonProperty(PropertyName = "upcomingBike"), DataMember]
+        [JsonProperty(PropertyName = "upcomingBike")]
         public IEnumerable<UpcomingBike> UpcomingBike { get; set; }
     }
 }

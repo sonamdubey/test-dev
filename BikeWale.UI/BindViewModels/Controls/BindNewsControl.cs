@@ -12,7 +12,7 @@ using Bikewale.Utility;
 namespace Bikewale.BindViewModels.Controls
 {
     public static class BindNewsControl
-    {
+    {        
         public static int TotalRecords { get; set; }
         public static int? MakeId { get; set; }
         public static int? ModelId { get; set; }

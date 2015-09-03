@@ -50,6 +50,7 @@
     <Compile Include="BikeData\BikeDiscription.cs" />
     <Compile Include="Area\AreaBase.cs" />
     <Compile Include="Area\AreaList.cs" />
+    <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="City\CityBase.cs" />
     <Compile Include="City\CityList.cs" />
     <Compile Include="BikeData\FeaturedBike.cs" />

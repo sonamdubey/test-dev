@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Mobile.Controls;
+using Bikewale.m.controls;
 
 namespace Bikewale.Mobile
 {
@@ -13,7 +14,7 @@ namespace Bikewale.Mobile
         protected NewsWidget ctrlNews;
         protected ExpertReviewsWidget ctrlExpertReviews;
         protected VideosWidget ctrlVideos;
-
+        protected CompareBikesMin ctrlCompareBikes;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -24,6 +25,7 @@ namespace Bikewale.Mobile
             ctrlNews.TotalRecords = 3;
             ctrlExpertReviews.TotalRecords = 3;
             ctrlVideos.TotalRecords = 3;
+            ctrlCompareBikes.TotalRecords = 1;
         }
     }
 }

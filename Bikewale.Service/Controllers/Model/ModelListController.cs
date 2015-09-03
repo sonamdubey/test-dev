@@ -39,8 +39,9 @@ namespace Bikewale.Service.Controllers.Model
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns>Minimum Model Details</returns>
+        [Obsolete("Unused")]
         [ResponseType(typeof(ModelBase))]
-        public IHttpActionResult Get(int modelId)
+        private IHttpActionResult Get(int modelId)
         {
             BikeModelEntityBase objModel = null;
             ModelBase objDTOModel = null;
@@ -74,8 +75,8 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="totalCount">No. of records to be fetched</param>
         /// <param name="makeId">Optional (To return Models List Based on MakeID)</param>
         /// <returns>Most Popular bikes based on totalCount and MakeId(Optional)</returns>
-        [ResponseType(typeof(IEnumerable<MostPopularBikesList>))]
-        public IHttpActionResult Get(sbyte totalCount, int? makeId = null)
+        [ResponseType(typeof(MostPopularBikesList))]
+        public IHttpActionResult Get(sbyte? totalCount=null, int? makeId = null)
         {
             List<MostPopularBikesBase> objModelList = null;
             MostPopularBikesList objDTOModelList = null;
@@ -87,12 +88,7 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     // Auto map the properties
                     objDTOModelList = new MostPopularBikesList();
-                    Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-                    Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-                    Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
-                    Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
-                    objDTOModelList.PopularBikes = Mapper.Map<List<MostPopularBikesBase>, List<MostPopularBikes>>(objModelList);
-
+                    objDTOModelList.PopularBikes = ModelMapper.Convert(objModelList); 
                     return Ok(objDTOModelList);
                 }
             }

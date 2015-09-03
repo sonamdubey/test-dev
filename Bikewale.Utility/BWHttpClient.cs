@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -83,6 +84,7 @@ namespace Bikewale.Utility
                     {
                         if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
                             objTask = _response.Content.ReadAsAsync<T>().Result;
+                       
                     }
                 }
             }

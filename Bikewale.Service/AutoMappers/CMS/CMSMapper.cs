@@ -47,11 +47,11 @@ namespace Bikewale.Service.AutoMappers.CMS
             return Mapper.Map<ArticleDetails, CMSArticleDetails>(objNews);
         }
 
-        internal static List<CMSArticleSummary> Convert(List<ArticleSummary> objRecentArticles)
+        internal static List<CMSArticleSummary> Convert(List<Entity.CMS.Articles.ArticleSummary> objRecentArticles)
         {
             Mapper.CreateMap<ArticleBase, CMSArticleBase>();
             Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
-            return Mapper.Map<List<ArticleSummary>, List<CMSArticleSummary>>(objRecentArticles);
+            return Mapper.Map<List<Entity.CMS.Articles.ArticleSummary>, List<CMSArticleSummary>>(objRecentArticles);
         }
 
         internal static List<Bikewale.DTO.CMS.Articles.CMSContent> Convert(List<Bikewale.Entities.CMS.Articles.CMSContent> objFeaturedArticles)

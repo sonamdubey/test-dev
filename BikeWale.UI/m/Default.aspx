@@ -2,6 +2,7 @@
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW"  %>
+<%@ Register Src="/m/controls/CompareBikesMin.ascx" TagName="CompareBike" TagPrefix="BW" %>
 <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
     	<div class="container">
@@ -508,56 +509,7 @@
         </div>
     </section><!-- Get Final Price code Ends here -->
     <section><!--  Compare section code starts here -->
-        <div class="container bg-white">
-        	<h2 class="text-center padding-top30 margin-bottom20">Compare Now</h2>
-        	<div class="grid-12 margin-bottom10">
-            	<h3 class="font16 text-center padding-top20 padding-bottom15">
-                    <a href="javascript:void(0)" class="text-grey">Hyundai Santa fe Vs Hyundai Creta</a>
-                </h3>
-                <div class="bike-preview margin-bottom25">
-                    <img src="http://imgd1.aeplcdn.com//310x174//bw/bikecomparison/kawasaki_ninja300_vs_yamaha_yzf-r3.jpg?20151708125625" title="IMG title" alt="IMG title">
-                </div>
-                
-                <div class="clear">
-                <div class="grid-6 alpha">
-                    <div class="content-inner-block-15 beta gamma">
-                        <div class="font16 margin-bottom10 padding-left10">
-                            <span class="fa fa-rupee"></span> <strong class="font18">49,000</strong>
-                        </div>
-                        <div>
-                            <span class="margin-bottom10">
-                                <img src="http://img.carwale.com/images/ratings/1.png"><img src="http://img.carwale.com/images/ratings/1.png"><img src="http://img.carwale.com/images/ratings/1.png"><img src="http://img.carwale.com/images/ratings/half.png"><img src="http://img.carwale.com/images/ratings/0.png">
-                            </span>
-                        </div>
-                        <div>
-                                <a class="margin-left5" href="/hyundai-bikes/creta/userreviews/"><span>8</span> reviews</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="grid-6 omega border-left1">
-                    <div class="content-inner-block-15 beta gamma">
-                        <div class="font16 margin-bottom10 padding-left10">
-                            <span class="fa fa-rupee"></span> <strong class="font18">49,000</strong>
-                        </div>
-                        <div>
-                            <span class="margin-bottom10">
-                                <img src="http://img.carwale.com/images/ratings/1.png"><img src="http://img.carwale.com/images/ratings/1.png"><img src="http://img.carwale.com/images/ratings/1.png"><img src="http://img.carwale.com/images/ratings/1.png"><img src="http://img.carwale.com/images/ratings/0.png">
-                            </span>
-                        </div>
-                        <div>
-<a class="margin-left5" href="/marutisuzuki-bikes/s-cross/userreviews/">write reviews</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-                
-                <div class="font16 text-center padding-top20 padding-bottom15">
-                    <a href="javascript:void(0)">View more Comparisons</a>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
+        <BW:CompareBike ID="ctrlCompareBikes" runat="server"/>
     </section><!-- Compare code Ends here -->
     <section class="bg-light-grey"> <!-- Used bikes code starts here -->
         <div class="container">
@@ -671,5 +623,6 @@
             	
             </div><!--Bottom Ad banner code ends here -->
         </div>
-    </section>
+    </section>
+
 <!-- #include file="/includes/footerBW_Mobile.aspx" -->

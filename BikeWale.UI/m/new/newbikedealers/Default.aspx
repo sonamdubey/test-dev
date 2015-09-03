@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.New_Default" %>
 <%@ Register TagPrefix="NBD" TagName="NewBikeDealers" Src="/m/controls/LocateDealer.ascx" %>
 <%
     title = "New Bike Dealers in India - Locate Authorized Showrooms - BikeWale";
