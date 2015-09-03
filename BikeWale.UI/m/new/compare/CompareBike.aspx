@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.New.CompareBike" Trace="false" %>
-<%@ Register TagPrefix="CB" TagName="CompareBike" Src="/m/controls/CompareBikeMin.ascx" %>
+<%@ Register TagPrefix="CB" TagName="CompareBike" Src="/m/controls/CompareBikeMin_old.ascx" %>
 <%
     title = "Compare Bikes | New Bike Comparisons in India - BikeWale";
     keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison india";
