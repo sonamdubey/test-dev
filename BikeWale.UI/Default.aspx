@@ -2,7 +2,7 @@
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
-<%@ Register Src="~/controls/CompareBikesMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
 <!-- #include file="/includes/headBW.aspx" -->
 <header class="home-top-banner">    	
         <div class="container">

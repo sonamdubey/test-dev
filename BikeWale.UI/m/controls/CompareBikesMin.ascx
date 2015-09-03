@@ -8,7 +8,9 @@
             </a>
         </h3>
         <div class="bike-preview margin-bottom25">
-            <img src="<%= TopCompareImage %>" title="CompareBike" alt="CompareBike">
+            <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2)%>">
+                <img src="<%= TopCompareImage %>" title="<%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>" alt="<%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>">
+            </a>
         </div>
 
         <div class="clear">

@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.m.controls
 {
-    public partial class CompareBikesMin : System.Web.UI.UserControl
+    public class CompareBikesMin : System.Web.UI.UserControl
     {
         public int TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
@@ -45,8 +45,8 @@ namespace Bikewale.m.controls
             }
             else
             {
-                this.Bike1ReviewText = "Write reviews";
-                this.Bike1ReviewLink = String.Format("/m/content/userreviews/writereviews.aspx?bikem={0}", this.TopRecord.ModelId1);
+                this.Bike1ReviewText = "Not yet reviewed";
+                //this.Bike1ReviewLink = String.Format("/m/content/userreviews/writereviews.aspx?bikem={0}", this.TopRecord.ModelId1);
             }
 
             if (this.TopRecord.ReviewCount2 > 0)
@@ -56,8 +56,8 @@ namespace Bikewale.m.controls
             }
             else
             {
-                this.Bike2ReviewText = "Write reviews";
-                this.Bike2ReviewLink = String.Format("/m/content/userreviews/writereviews.aspx?bikem={0}", this.TopRecord.ModelId2);
+                this.Bike2ReviewText = "Not yet reviewed";
+                //this.Bike2ReviewLink = String.Format("/m/content/userreviews/writereviews.aspx?bikem={0}", this.TopRecord.ModelId2);
             }
         }
 

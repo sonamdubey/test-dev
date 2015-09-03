@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
-    public partial class CompareBikesMin : System.Web.UI.UserControl
+    public class CompareBikesMin : System.Web.UI.UserControl
     {
         protected Repeater rptCompareBike;
 
