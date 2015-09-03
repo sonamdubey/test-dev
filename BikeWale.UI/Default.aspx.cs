@@ -14,7 +14,7 @@ namespace Bikewale
         protected News_new ctrlNews;
         protected ExpertReviews ctrlExpertReviews;
         protected VideosControl ctrlVideos;
-        protected CompareBikesMin ctrlCompareBikes;
+        protected ComparisonMin ctrlCompareBikes;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
