@@ -64,7 +64,7 @@ namespace Bikewale.m.controls
         protected string FormatComparisonUrl(string make1MaskName, string model1MaskName, string make2MaskName, string model2MaskName)
         {
             string url = String.Empty;
-            url = String.Format("/m/comparebikes/{0}-{1}-vs-{2}-{3}", make1MaskName, model1MaskName, make2MaskName, model2MaskName);
+            url = String.Format("/m/comparebikes/{0}-{1}-vs-{2}-{3}/", make1MaskName, model1MaskName, make2MaskName, model2MaskName);
             return url;
         }
 
@@ -73,6 +73,15 @@ namespace Bikewale.m.controls
             string anchorText = String.Empty;
             anchorText = String.Format("{0} vs {1}", bike1, bike2);
             return anchorText;
+        }
+
+        protected string FormatAnchorTag(string reviewLink, string reviewText)
+        {
+            if (!reviewText.Equals("Not yet reviewed"))
+            {
+                return String.Format("<a class=\"margin-left5\" href=\"{0}\">{1}</a>", reviewLink, reviewText);
+            }
+            return string.Empty;
         }
     }
 }

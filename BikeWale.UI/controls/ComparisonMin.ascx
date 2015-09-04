@@ -17,11 +17,11 @@
                 <div class="grid-6 alpha border-solid-right">
                     <div class="content-inner-block-5 text-center">
                         <div class="font18 margin-bottom5">
-                            <span class="fa fa-rupee"></span><%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price1.ToString()) %>
+                            <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price1.ToString()) %>
                         </div>
                         <div>
                             <p class="margin-bottom10">
-                                <%= Bikewale.Utility.ReviewRating.GetRateImage(Convert.ToDouble(TopRecord.Review1)) %>
+                                <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review1)) %>
                             </p>
                             <p class="font14"><a href="<%= Bike1ReviewLink %>" class="margin-left5"><%= Bike1ReviewText %></a></p>
                         </div>
@@ -30,11 +30,11 @@
                 <div class="grid-6 omega">
                     <div class="content-inner-block-5 text-center">
                         <div class="font18 margin-bottom5">
-                            <span class="fa fa-rupee"></span><%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price2.ToString()) %>
+                            <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price2.ToString()) %>
                         </div>
                         <div>
                             <p class="margin-bottom5">
-                                <%= Bikewale.Utility.ReviewRating.GetRateImage(Convert.ToDouble(TopRecord.Review2)) %>
+                                <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review2)) %>
                             </p>
                             <p class="font14"><a href="<%= Bike2ReviewLink %>" class="margin-left5"><%= Bike2ReviewText %></a></p>
                         </div>
@@ -57,9 +57,9 @@
                             </p>
                             <div class="font16 text-light-grey">
                                 <span class="margin-right50">
-                                    <span class="fa fa-rupee"></span><span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price1").ToString()) %></span>
+                                    <span class="fa fa-rupee"></span> <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price1").ToString()) %></span>
                                 </span>
-                                <span class="fa fa-rupee"></span><span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price2").ToString()) %></span>
+                                <span class="fa fa-rupee"></span> <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price2").ToString()) %></span>
                             </div>
                         </li>
                     </ItemTemplate>

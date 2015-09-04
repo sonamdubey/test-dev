@@ -66,7 +66,7 @@ namespace Bikewale.BindViewModels.Controls
             string apiUrl = String.Empty;
             try
             {
-                hostURL = ConfigurationManager.AppSettings["cwApiHostUrl"];
+                hostURL = ConfigurationManager.AppSettings["bwHostUrl"];
                 apiUrl = String.Format("/api/BikeCompareList/?topCount={0}", TotalRecords);
 
                 topBikeCompares = BWHttpClient.GetApiResponseSync<IEnumerable<TopBikeCompareBase>>(hostURL, requestType, apiUrl, topBikeCompares);

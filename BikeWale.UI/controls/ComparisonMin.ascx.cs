@@ -67,7 +67,7 @@ namespace Bikewale.controls
         protected string FormatComparisonUrl(string make1MaskName, string model1MaskName, string make2MaskName, string model2MaskName)
         {
             string url = String.Empty;
-            url = String.Format("/comparebikes/{0}-{1}-vs-{2}-{3}", make1MaskName, model1MaskName, make2MaskName, model2MaskName);
+            url = String.Format("/comparebikes/{0}-{1}-vs-{2}-{3}/", make1MaskName, model1MaskName, make2MaskName, model2MaskName);
             return url;
         }
 
