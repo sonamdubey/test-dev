@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Bikewale.Mobile.Controls;
 
 namespace Bikewale.Mobile.New
 {
@@ -15,6 +16,10 @@ namespace Bikewale.Mobile.New
         protected MUpcomingBikes mctrlUpcomingBikes;
         protected MNewLaunchedBikes mctrlNewLaunchedBikes;
         protected MMostPopularBikes mctrlMostPopularBikes;
+        protected NewsWidget ctrlNews;
+        protected ExpertReviewsWidget ctrlExpertReviews;
+        protected VideosWidget ctrlVideos;
+        protected CompareBikesMin ctrlCompareBikes;
 
         protected override void OnInit(EventArgs e)
         {
@@ -36,6 +41,11 @@ namespace Bikewale.Mobile.New
             //To get Upcoming Bike List Details 
             mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
             mctrlUpcomingBikes.pageSize = 6;
+
+            ctrlNews.TotalRecords = 3;
+            ctrlExpertReviews.TotalRecords = 3;
+            ctrlVideos.TotalRecords = 3;
+            ctrlCompareBikes.TotalRecords = 1;
         }
 	}
 }

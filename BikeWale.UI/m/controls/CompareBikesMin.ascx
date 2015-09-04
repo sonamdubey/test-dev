@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.controls.CompareBikesMin" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.CompareBikesMin" %>
 <div class="container bg-white">
     <h2 class="text-center padding-top30 margin-bottom20">Compare Now</h2>
     <div class="grid-12 margin-bottom10">
@@ -21,7 +21,7 @@
                     </div>
                     <div>
                         <span class="margin-bottom10">
-                            <%= Bikewale.Utility.ReviewRating.GetRateImage(Convert.ToDouble(TopRecord.Review1)) %>
+                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review1)) %>
                         </span>
                     </div>
                     <div>
@@ -36,7 +36,7 @@
                     </div>
                     <div>
                         <span class="margin-bottom10">
-                            <%= Bikewale.Utility.ReviewRating.GetRateImage(Convert.ToDouble(TopRecord.Review2)) %>
+                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review2)) %>
                         </span>
                     </div>
                     <div>

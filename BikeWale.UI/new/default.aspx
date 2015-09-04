@@ -4,6 +4,9 @@
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/NewLaunchedBikes_new.ascx" TagName="NewLaunchedBikes" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
 
 <!-- #include file="/includes/headBW.aspx" -->
 
@@ -31,7 +34,7 @@
                     <div class="brand-type-container">
                             <ul class="text-center">
                                 <li>
-                                    <a href="#">
+                                    <a href="/aprilia-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-aprilia"></span>
                                         </span>
@@ -39,7 +42,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/honda-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-honda"></span>
                                         </span>
@@ -47,7 +50,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/royalenfield-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-royal"></span>
                                         </span>
@@ -55,7 +58,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/bajaj-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-bajaj"></span>
                                         </span>
@@ -63,7 +66,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/hyosung-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-hyosung"></span>
                                         </span>
@@ -71,7 +74,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/suzuki-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-suzuki"></span>
                                         </span>
@@ -79,7 +82,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/benelli-bikes/">
                                         <span class="brand-type">
                                            	<span class="brandlogosprite brand-benelli"></span>
                                         </span>
@@ -87,7 +90,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/indian-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-indian"></span>
                                         </span>
@@ -95,7 +98,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/triumph-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-triumph"></span>
                                         </span>
@@ -103,7 +106,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/bmw-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-bmw"></span>
                                         </span>
@@ -115,7 +118,7 @@
                             </div>
                             <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide text-center">
                                 <li>
-                                    <a href="#">
+                                    <a href="/ducati-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-ducati"></span>
                                         </span>
@@ -123,7 +126,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/harleydavidson-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-harley"></span>
                                         </span>
@@ -131,7 +134,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/hero-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-hero"></span>
                                         </span>
@@ -139,7 +142,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/heroelectric-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-hero-elec"></span>
                                         </span>
@@ -147,7 +150,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/kawasaki-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-kawasaki"></span>
                                         </span>
@@ -155,7 +158,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/ktm-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-ktm"></span>
                                         </span>
@@ -163,7 +166,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/lml-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-lml"></span>
                                         </span>
@@ -171,7 +174,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/mahindra-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-mahindra"></span>
                                         </span>
@@ -179,7 +182,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/motoguzzi-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-guzzi"></span>
                                         </span>
@@ -187,7 +190,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/tvs-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-tvs"></span>
                                         </span>
@@ -195,7 +198,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/vespa-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-vespa"></span>
                                         </span>
@@ -203,7 +206,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/yamaha-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-yamaha"></span>
                                         </span>
@@ -211,13 +214,15 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/yo-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-yo"></span>
                                         </span>
                                         <span class="brand-type-title">Yo</span>
                                     </a>
                                 </li>
+                                
+                                
                             </ul>
                         </div>
                     <div class="view-brandType text-center padding-top10 padding-bottom30">
@@ -431,7 +436,8 @@
 
     
     <section class="container"><!--  Compare section code starts here -->
-    	<div class="grid-12">
+        <BW:CompareBikes ID="ctrlCompareBikes" runat="server"/>
+    	<%--<div class="grid-12">
             <h2 class="text-bold text-center margin-top50 margin-bottom30">Compare now</h2>
             <div class="content-box-shadow padding-bottom20">
                 <div class="grid-6 margin-top20">
@@ -526,7 +532,7 @@
                 <div class="clear"></div>
             </div>
         </div>
-        <div class="clear"></div>
+        <div class="clear"></div>--%>
     </section>
     
     <section class="container"><!--  Tools you may need section code starts here -->
@@ -665,165 +671,14 @@
                 <div class="bw-tabs-panel content-box-shadow margin-bottom30">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
-                            <li class="active" data-tabs="News">News</li>
-                            <li data-tabs="Reviews">Reviews</li>
-                            <li data-tabs="Videos">Videos</li>
+                            <li class="active" data-tabs="ctrlNews">News</li>
+                            <li data-tabs="ctrlExpertReviews">Reviews</li>
+                            <li data-tabs="ctrlVideos">Videos</li>
                         </ul>
                     </div>
-                    <div class="bw-tabs-data" id="News"><!-- News data code starts here-->
-                    	<div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="img-preview">
-                                    <a href="#"><img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19895/Harley-Davidson-India-56381.jpg?wm=2" title="Acura NSX" alt="Acura NSX"></a>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Yamaha MT-03 specs and photos revealed</a></h2>
-                                <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                <p class="margin-bottom15 font14 line-height">Yamaha’s plans of launching the MT-03 was more of an open secret, but the company had refused to comment on it. Now though, the company has officially...</p>
-                                <div class="margin-bottom15">
-                                	<a href="#" class="margin-right25 font14">Read full story</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="img-preview">
-                                    <a href="#"><img src="http://imgd1.aeplcdn.com//640x348//bw/ec/19895/Harley-Davidson-India-56380.jpg?wm=2" title="Acura NSX" alt="Acura NSX"></a>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Yamaha MT-03 specs and photos revealed</a></h2>
-                                <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                <p class="margin-bottom15 font14 line-height">Yamaha’s plans of launching the MT-03 was more of an open secret, but the company had refused to comment on it. Now though, the company has officially...</p>
-                                <div class="margin-bottom15">
-                                	<a href="#" class="margin-right25 font14">Read full story</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="img-preview">
-                                    <a href="#"><img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19895/Harley-Davidson-India-56381.jpg?wm=2" title="Acura NSX" alt="Acura NSX"></a>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Yamaha MT-03 specs and photos revealed</a></h2>
-                                <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                <p class="margin-bottom15 font14 line-height">Yamaha’s plans of launching the MT-03 was more of an open secret, but the company had refused to comment on it. Now though, the company has officially...</p>
-                                <div class="margin-bottom15">
-                                	<a href="#" class="margin-right25 font14">Read full story</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom50 text-center">
-                        	<a href="#" class="font16">View more news</a>
-                        </div>
-                    </div><!-- Ends here-->
-                    <div class="bw-tabs-data hide" id="Reviews"><!-- Reviews data code starts here-->
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="img-preview">
-                                    <a href="#"><img src="http://imgd1.aeplcdn.com//640x348//bw/ec/19881/Harley-Davidson-Street-750-Front-56351.jpg?wm=0" title="Hyundai Creta" alt="Hyundai Creta"></a>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Harley-Davidson recalls Street 750 and Street 500</a></h2>
-                                <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                <p class="margin-bottom15 font14 line-height">Harley-Davidson has recalled over 10,500 Street 750 and the Street 500 in the US. The recall covers Street 750 motorcycles manufactured between May 12, 2014, and June 24, 2015.</p>
-                                <div class="margin-bottom15">
-                                	<a href="#" class="margin-right25 font14">Read More</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="img-preview">
-                                    <a href="#"><img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19874/Harley-Davidson-Road-King-First-Look-Review-56330.jpg?wm=0" title="Hyundai Creta" alt="Hyundai Creta"></a>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Harley-Davidson recalls Street 750 and Street 500</a></h2>
-                                <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                <p class="margin-bottom15 font14 line-height">Harley-Davidson has recalled over 10,500 Street 750 and the Street 500 in the US. The recall covers Street 750 motorcycles manufactured between May 12, 2014, and June 24, 2015.</p>
-                                <div class="margin-bottom15">
-                                	<a href="#" class="margin-right25 font14">Read More</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="img-preview">
-                                    <a href="#"><img src="http://imgd1.aeplcdn.com//640x348//bw/ec/19881/Harley-Davidson-Street-750-Front-56351.jpg?wm=0" title="Hyundai Creta" alt="Hyundai Creta"></a>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Harley-Davidson recalls Street 750 and Street 500</a></h2>
-                                <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                <p class="margin-bottom15 font14 line-height">Harley-Davidson has recalled over 10,500 Street 750 and the Street 500 in the US. The recall covers Street 750 motorcycles manufactured between May 12, 2014, and June 24, 2015.</p>
-                                <div class="margin-bottom15">
-                                	<a href="#" class="margin-right25 font14">Read More</a>
-                                </div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom50 text-center">
-                        	<a href="#" class="font16">View more reviews</a>
-                        </div>
-                    </div><!-- Ends here-->
-                    <div class="bw-tabs-data hide" id="Videos"><!-- Videos data code starts here-->
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="yt-iframe-preview">
-                                	<iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
-                                <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
-                                <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span> Views <span>398</span></div>
-                                <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>120</span></div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="yt-iframe-preview">
-                                	<iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
-                                <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
-                                <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span> Views <span>398</span></div>
-                                <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>120</span></div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="yt-iframe-preview">
-                                	<iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
-                                <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
-                                <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span> Views <span>398</span></div>
-                                <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>120</span></div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        
-                        <div class="padding-bottom50 text-center">
-                        	<a href="#" class="font16">View more videos</a>
-                        </div>
-                    </div><!-- Ends here-->
+                    <BW:News runat="server" ID="ctrlNews"/>
+                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>                    
+                    <BW:Videos runat="server" ID="ctrlVideos"/>
                 </div>        
             </div>
             <div class="clear"></div>

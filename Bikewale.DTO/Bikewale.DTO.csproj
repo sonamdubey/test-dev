@@ -62,6 +62,9 @@
     <Compile Include="BikeData\UpcomingBike.cs" />
     <Compile Include="BikeData\UpcomingBikeList.cs" />
     <Compile Include="CMS\Photos\CMSModelImageBase.cs" />
+    <Compile Include="Customer\AuthenticatedCustomer.cs" />
+    <Compile Include="Customer\Customer.cs" />
+    <Compile Include="Customer\CustomerBase.cs" />
     <Compile Include="Make\MakeBase.cs" />
     <Compile Include="Make\MakeList.cs" />
     <Compile Include="BikeBooking\Area\BBAreaBase.cs" />

@@ -32,7 +32,7 @@
   <ItemGroup>
     <Reference Include="Elasticsearch.Net">
       <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
-	</Reference>
+    </Reference>
     <Reference Include="Carwale.BL">
       <HintPath>..\Libs\Carwale.BL.dll</HintPath>
     </Reference>
@@ -66,7 +66,7 @@
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
-	</Reference>
+    </Reference>
     <Reference Include="PasswordHashingLib">
       <HintPath>..\Libs\PasswordHashingLib.dll</HintPath>
     </Reference>
@@ -75,6 +75,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />

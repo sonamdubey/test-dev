@@ -25,10 +25,10 @@ namespace Bikewale.BindViewModels.Controls
             UpcomingBikeList objBikeList = null;
             
             try
-            {                
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwApiHostUrl"];
+            {
+                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = String.Format("api/UpcomingBike?sortBy={0}&pageSize={1}", sortBy, pageSize);
+                string _apiUrl = String.Format("api/UpcomingBike/?sortBy={0}&pageSize={1}", sortBy, pageSize);
 
 
                 if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)

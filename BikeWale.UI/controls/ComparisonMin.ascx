@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <p class="margin-bottom10">
-                                <%= Bikewale.Utility.ReviewRating.GetRateImage(Convert.ToDouble(TopRecord.Review1)) %>
+                                <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review1)) %>
                             </p>
                             <p class="font14"><a href="<%= Bike1ReviewLink %>" class="margin-left5"><%= Bike1ReviewText %></a></p>
                         </div>
@@ -34,7 +34,7 @@
                         </div>
                         <div>
                             <p class="margin-bottom5">
-                                <%= Bikewale.Utility.ReviewRating.GetRateImage(Convert.ToDouble(TopRecord.Review2)) %>
+                                <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review2)) %>
                             </p>
                             <p class="font14"><a href="<%= Bike2ReviewLink %>" class="margin-left5"><%= Bike2ReviewText %></a></p>
                         </div>

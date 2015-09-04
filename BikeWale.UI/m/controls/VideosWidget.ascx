@@ -33,7 +33,7 @@
         <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
         <p class="text-center jcarousel-pagination margin-bottom30"></p>
     </div>
-    <div class="text-center margin-bottom40 clear">
+    <%--<div class="text-center margin-bottom40 clear">
         <a class="font16" href="javascript:void(0)">View more videos</a>
-    </div>
+    </div>--%>
     </div>

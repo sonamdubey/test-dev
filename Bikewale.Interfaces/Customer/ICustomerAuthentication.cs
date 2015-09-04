@@ -15,7 +15,7 @@ namespace Bikewale.Interfaces.Customer
     public interface ICustomerAuthentication<T,U>
     {
         bool IsRegisteredUser(string email);
-        T AuthenticateUser(string email, string password);
+        T AuthenticateUser(string email, string password, bool? createAuthTicket = null);
         T AuthenticateUser(string email);
         
         void UpdateCustomerMobileNumber(string mobile, string email, string name = null);
@@ -24,5 +24,7 @@ namespace Bikewale.Interfaces.Customer
         void SavePasswordRecoveryToken(U customerId, string token);
         bool IsValidPasswordRecoveryToken(U customerId, string token);
         void DeactivatePasswordRecoveryToken(U customerId);
+
+        string GenerateAuthenticationToken(string custId, string custName, string custEmail);
     }
 }

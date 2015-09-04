@@ -8,8 +8,7 @@ namespace Bikewale.Entities.CMS.Articles
 {
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
-    /// </summary>
-    [Serializable]
+    /// </summary>    
     public class ContentFilter
     {
         public int MakeId { get; set; }

@@ -9,7 +9,7 @@
                     </div>
                 </div>
                 <div class="grid-8 omega">
-                    <h2 class="margin-bottom10 font20"><a href="#" class="text-black"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a></h2>
+                    <h2 class="margin-bottom10 font20"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %><%--<a href="#" class="text-black"><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></a>--%></h2>
                     <p class="margin-bottom10 text-light-grey font14">Updated on <span><%# Bikewale.Utility.FormatDate.GetDDMMYYYY(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString()) %></span></p>
                     <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span> Views <span><%# DataBinder.Eval(Container.DataItem,"Views").ToString() %></span></div>
                     <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span><%# DataBinder.Eval(Container.DataItem,"Likes").ToString() %></span></div>
@@ -18,7 +18,7 @@
             </div>
         </ItemTemplate>
     </asp:Repeater>                        
-    <div class="padding-bottom50 text-center">
+    <%--<div class="padding-bottom50 text-center">
         <a href="#" class="font16">View more videos</a>
-    </div>
+    </div>--%>
 </div><!-- Ends here-->
