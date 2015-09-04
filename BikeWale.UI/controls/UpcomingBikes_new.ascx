@@ -21,13 +21,13 @@
                                 <%# DataBinder.Eval(Container.DataItem, "MakeBase.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "ModelBase.ModelName").ToString() %>
                                 </a></h3>
                         </div>
-                        <div class="margin-bottom10 font20">
-                            <span class="fa fa-rupee"></span>
-                            <span class="font22"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "EstimatedPriceMin").ToString()) %>  </span><span class="font16">onwards</span>
+                        <div class="margin-bottom10 font20 ">
+                            <span class="fa fa-rupee" style="display:<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "EstimatedPriceMin"))=="0")?"none":"inline-block"%>"></span>
+                            <span class="font22"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "EstimatedPriceMin")) %> </span><span class="font16">onwards</span>
                         </div>
-                        <div class="font12 text-light-grey margin-bottom10">Expected Price</div>
+                        <div class="font12 text-light-grey margin-bottom10 <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "EstimatedPriceMin"))=="0")?"hide":""%>">Expected Price</div>
                         <div class="border-solid-top margin-top10 margin-bottom10"></div>
-                        <p class="font16"><%# Bikewale.Utility.FormatDate.Truncate(Convert.ToString(DataBinder.Eval(Container.DataItem, "ExpectedLaunchDate")),11) %> <span class="text-light-grey">(Expected Launch)</span></p>
+                        <p class="font16"><%# ShowLaunchDate(DataBinder.Eval(Container.DataItem, "ExpectedLaunchDate")) %><span class="text-light-grey">(Expected Launch)</span></p>
                     </div>
                 </div>
             </li>
