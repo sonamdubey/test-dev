@@ -49,7 +49,7 @@ namespace Bikewale.Controls
 
         /// <summary>
         /// Written By : Ashwini Todkar on 30 Sept 2014
-        /// Method to get featured and recent articles from web api
+        /// PopulateWhere to get featured and recent articles from web api
         /// </summary>
         protected async void BindFeaturedArticles()
         {
@@ -87,7 +87,7 @@ namespace Bikewale.Controls
 
         /// <summary>
         /// Written By : Ashwini Todkar on 30 Sept 2014
-        /// Summary    : Method to get most recent article list from web api
+        /// Summary    : PopulateWhere to get most recent article list from web api
         /// </summary>
         /// <param name="_contentList"></param>
         /// <returns></returns>
@@ -107,7 +107,7 @@ namespace Bikewale.Controls
 
         /// <summary>
         /// Written By : Ashwini Todkar on 30 Sept 2014
-        /// Summary    : Method to get featured article list from web api
+        /// Summary    : PopulateWhere to get featured article list from web api
         /// </summary>
         /// <param name="_contentList"></param>
         /// <returns></returns>
@@ -128,7 +128,7 @@ namespace Bikewale.Controls
 
         /// <summary>
         /// Written By : Ashwini Todkar on 30 Sept 2014
-        /// Summary    : Method to get catagory list in string format
+        /// Summary    : PopulateWhere to get catagory list in string format
         /// </summary>
         /// <returns></returns>
         private string GetContentTypes()

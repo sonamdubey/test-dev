@@ -164,6 +164,7 @@
     <Compile Include="AutoMappers\BookingSummary\BookingSummaryMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\DDQDealerDetailBaseMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\PQCustomerMapper.cs" />
+    <Compile Include="AutoMappers\NewBikeSearch\SearchOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Area\PQAreaListMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\City\PQCityListMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\DDQDealerDetailBaseMapper.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Controllers\CMS\CMSListController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />
+    <Compile Include="Controllers\NewBikeSearch\NewBikeSearchController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />
     <Compile Include="Controllers\PriceQuote\BikePQController.cs" />
     <Compile Include="Controllers\PriceQuote\City\PQCityListController.cs" />
@@ -278,6 +280,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APISecurity\" />
+    <Folder Include="AutoMappers\UsedBikes\" />
+    <Folder Include="Controllers\NewFolder1\" />
+    <Folder Include="Controllers\UsedBikes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">

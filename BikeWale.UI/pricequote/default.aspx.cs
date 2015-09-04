@@ -241,7 +241,7 @@ namespace Bikewale.PriceQuote
         }
 
         /// <summary>
-        ///     Method to bind models drop down list on change of make
+        ///     PopulateWhere to bind models drop down list on change of make
         /// </summary>
         /// <param name="makeId"></param>
         protected bool BindModelsDropdownList(string makeId)
@@ -275,7 +275,7 @@ namespace Bikewale.PriceQuote
         }   // End of BindModelsDropdownList method
 
         /// <summary>
-        ///     Method to bind cities drop down list for the selected model 
+        ///     PopulateWhere to bind cities drop down list for the selected model 
         /// </summary>
         protected void BindCitiesDropdownList(string modelId)
         {
@@ -307,7 +307,7 @@ namespace Bikewale.PriceQuote
 
         #region Commented
         /// <summary>
-        ///     Method to bind versions drop down list on change of model
+        ///     PopulateWhere to bind versions drop down list on change of model
         /// </summary>
         /// <param name="modelId"></param>
         [Obsolete("As Version drop down is removed from the page. This method has been marked with Obsolete attribute.", true)]
@@ -347,7 +347,7 @@ namespace Bikewale.PriceQuote
 
 
         /// <summary>
-        ///  Method to check query string exist or not
+        ///  PopulateWhere to check query string exist or not
         /// </summary>
         /// <returns></returns>
         private bool ProcessQueryString()
@@ -373,7 +373,7 @@ namespace Bikewale.PriceQuote
 
 
         /// <summary>
-        /// Method to validate mobile number
+        /// PopulateWhere to validate mobile number
         /// </summary>
         /// <param name="mobile"></param>
         /// <returns></returns>
@@ -386,7 +386,7 @@ namespace Bikewale.PriceQuote
         }
 
         /// <summary>
-        /// Method to validate email
+        /// PopulateWhere to validate email
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>

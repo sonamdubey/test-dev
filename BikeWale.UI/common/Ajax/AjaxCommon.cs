@@ -26,11 +26,11 @@ namespace Bikewale.Ajax
     {
         /// <summary>
         ///  Written By : Ashish G. Kamble on 8/2/2012
-        ///  Method to get model id and model name to fill the drop down list
+        ///  PopulateWhere to get model id and model name to fill the drop down list
         /// </summary>
         /// <param name="requestType">Pass value as New or Used or Upcoming or PQ</param>
         /// <param name="makeId"></param>
-        /// <returns>Method will return model id and model name in json format</returns>
+        /// <returns>PopulateWhere will return model id and model name in json format</returns>
         [AjaxPro.AjaxMethod()]
         public string GetModels(string requestType, string makeId)
         {
@@ -51,11 +51,11 @@ namespace Bikewale.Ajax
 
         /// <summary>
         ///  Written By : Ashish G. Kamble on 8/2/2012
-        ///  Method to get version id and version name to fill the drop down list
+        ///  PopulateWhere to get version id and version name to fill the drop down list
         /// </summary>
         /// <param name="requestType">Pass value as New or Used or Upcoming or PQ</param>
         /// <param name="modelId"></param>
-        /// <returns>Method will return version id and version name in json format</returns>
+        /// <returns>PopulateWhere will return version id and version name in json format</returns>
         [AjaxPro.AjaxMethod()]
         public string GetVersions(string requestType, string modelId)
         {
@@ -174,11 +174,11 @@ namespace Bikewale.Ajax
 
         /// <summary>
         ///  Written By : Ashwini Todkar on 11/Oct/2013
-        ///  Method to get model id and model Mapping name to fill the drop down list
+        ///  PopulateWhere to get model id and model Mapping name to fill the drop down list
         /// </summary>
         /// <param name="requestType">Pass value as New or Used or Upcoming or PQ</param>
         /// <param name="makeId"></param>
-        /// <returns>Method will return model id and model mapping name in json format</returns>
+        /// <returns>PopulateWhere will return model id and model mapping name in json format</returns>
         [AjaxPro.AjaxMethod()]
         public string GetModelsWithMappingName(string requestType, string makeId)
         {
@@ -223,7 +223,7 @@ namespace Bikewale.Ajax
 
         /// <summary>
         /// Written By : Ashwini Todkar on 17 Oct 2014
-        /// Summary    : Method to save emi request and register customer tif user is new else update customer details
+        /// Summary    : PopulateWhere to save emi request and register customer tif user is new else update customer details
         /// </summary>
         /// <param name="custName">Customer Name</param>
         /// <param name="email">Customer Email</param>

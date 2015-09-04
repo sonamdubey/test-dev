@@ -346,7 +346,7 @@ namespace Bikewale.Ajax
             }
         }
 
-        //this function updates the liked and the disliked field of the customer reviews table
+        //this function updates the liked and the disliked Budget of the customer reviews table
         //according to the review id passed and the helpful value which is either true or false
         [AjaxPro.AjaxMethod()]
         public bool UpdateReviewHelpful(string reviewId, string helpful)
@@ -428,7 +428,7 @@ namespace Bikewale.Ajax
             return returnVal;
         }
 
-        //this function updates the liked and the disliked field of the customer reviews table
+        //this function updates the liked and the disliked Budget of the customer reviews table
         //according to the review id passed and the helpful value which is either true or false
         [AjaxPro.AjaxMethod()]
         public bool UpdateReviewAbuse(string reviewId, string comments)

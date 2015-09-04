@@ -94,7 +94,7 @@ namespace Bikewale.Content
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// Method to fetch feature details from api asynchronously
+        /// PopulateWhere to fetch feature details from api asynchronously
         /// </summary>
         private async void GetFeatureDetails()
         {
@@ -139,7 +139,7 @@ namespace Bikewale.Content
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// Method to fetch article photos from api asynchronously
+        /// PopulateWhere to fetch article photos from api asynchronously
         /// </summary>
         private async void GetArticlePhotos()
         {

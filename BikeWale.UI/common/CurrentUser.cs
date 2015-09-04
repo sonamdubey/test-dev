@@ -17,7 +17,7 @@ namespace Bikewale.Common
 	public class CurrentUser
 	{
         ///<summary>
-        /// This Method gets the current user id as logged in. 
+        /// This PopulateWhere gets the current user id as logged in. 
         ///if no user is logged in then it returns -1
         ///</summary>
         public static string Id
@@ -75,7 +75,7 @@ namespace Bikewale.Common
 
 
         ///<summary>
-        /// This Method gets the current user email as logged in. 
+        /// This PopulateWhere gets the current user email as logged in. 
         ///if no user is logged in then it returns ""
         ///</summary>
         public static string Email
@@ -95,7 +95,7 @@ namespace Bikewale.Common
         }
 
         ///<summary>
-        /// This Method gets the current user name as logged in. 
+        /// This PopulateWhere gets the current user name as logged in. 
         ///if no user is logged in then it returns ""
         ///</summary>
         public static string Name
@@ -113,7 +113,7 @@ namespace Bikewale.Common
         }
 
         ///<summary>
-        /// This Method gets the current user name as logged in. 
+        /// This PopulateWhere gets the current user name as logged in. 
         ///if no user is logged in then it returns ""
         ///</summary>
         public static bool EmailVerified
@@ -242,7 +242,7 @@ namespace Bikewale.Common
                     // create fresh session.
                     StartSession(cd.Name, userIdTemp, cd.Email);
 
-                    //update the isemailverified field of the customer
+                    //update the isemailverified Budget of the customer
                     sql = " Update Customers Set IsVerified = 1 Where Id = @userIdTemp";
                     SqlParameter[] param = { new SqlParameter("@userIdTemp", userIdTemp) };
                     db.UpdateQry(sql, param);

@@ -38,7 +38,7 @@ namespace Bikewale.Used
 
         /// <summary>
         ///     Written By : Ashish G. Kamble on 29/8/2012
-        ///     Method to fill cities dropdownlist
+        ///     PopulateWhere to fill cities dropdownlist
         /// </summary>
         protected void FillCity()
         {
@@ -73,7 +73,7 @@ namespace Bikewale.Used
 
         /// <summary>
         ///     Written By : Ashwini Todkar on 31/oct/2013
-        ///     Method to fill make dropdownlist
+        ///     PopulateWhere to fill make dropdownlist
         /// </summary>
         private void FillMake()
         {

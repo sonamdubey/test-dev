@@ -945,7 +945,7 @@ namespace Bikewale.New
 		}
 
         /// <summary>
-        ///     Method will return formatted color html for the particular version
+        ///     PopulateWhere will return formatted color html for the particular version
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>

@@ -241,6 +241,8 @@
                 	<span class="position-abt pos-right15 pos-top15 cwmsprite cross-sm-dark-grey cur-pointer"></span>
                     <input type="text" class="form-control padding-right30" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp">
                     <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                    <span class="bwsprite error-icon hide"></span>
+                    <div class="bw-blackbg-tooltip hide">No city found. Try a different search.</div>
                 </div>
             </div>
             <div>

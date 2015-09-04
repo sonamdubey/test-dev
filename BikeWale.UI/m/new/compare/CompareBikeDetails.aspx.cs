@@ -121,7 +121,7 @@ namespace Bikewale.Mobile.New
 
         /// <summary>
         /// Written By : Ashwini Todkar on 22 Jan 2014
-        /// Method to check masking name of model is changed or not
+        /// PopulateWhere to check masking name of model is changed or not
         /// </summary>
         /// <param name="maskingName"></param>
         /// <returns></returns>

@@ -124,7 +124,7 @@ namespace Bikewale.News
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// Method to bind link pager control 
+        /// PopulateWhere to bind link pager control 
         /// </summary>
         /// <param name="objPager"> Pager instance </param>
         /// <param name="recordCount"> total news available</param>
@@ -164,7 +164,7 @@ namespace Bikewale.News
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// Method to get relative next and previous page url links for SEO 
+        /// PopulateWhere to get relative next and previous page url links for SEO 
         /// </summary>
         /// <param name="totalPages"></param>
         private void CreatePrevNextUrl(int totalPages)
@@ -191,7 +191,7 @@ namespace Bikewale.News
             }
         }
 
-        //Method to create Pager instance
+        //PopulateWhere to create Pager instance
         private IPager GetPager()
         {
             IPager _objPager = null;

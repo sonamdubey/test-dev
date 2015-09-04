@@ -2023,6 +2023,7 @@
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\Plugins.js" />
+    <Content Include="src\autocomplete.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />

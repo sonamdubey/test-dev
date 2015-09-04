@@ -311,7 +311,7 @@ namespace Bikewale.Common
 		}
 		
 		//this function binds the dropdownlist with the datareader
-		//takes as input the sql string, dropdownlist name, the text field and the value field
+		//takes as input the sql string, dropdownlist name, the text Budget and the value Budget
 		public void FillDropDown(string sql, DropDownList drp, string text, string value)
 		{
 			SqlDataReader dataReader = null;
@@ -339,7 +339,7 @@ namespace Bikewale.Common
 		}
 		
 		//this function binds the dropdownlist with the datareader
-		//takes as input the sql string, dropdownlist name, the text field and the value field
+		//takes as input the sql string, dropdownlist name, the text Budget and the value Budget
 		public void FillDropDown(string sql, DropDownList drp, string text, string value, SqlParameter [] param)
 		{
 			SqlDataReader dataReader = null;
@@ -366,7 +366,7 @@ namespace Bikewale.Common
 		}
 		
 		//this function binds the checkboxlist 
-		//takes as input the sql string, dropdownlist name, the text field and the value field
+		//takes as input the sql string, dropdownlist name, the text Budget and the value Budget
 		public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value)
 		{
 			SqlDataReader dataReader = null;
@@ -393,7 +393,7 @@ namespace Bikewale.Common
 		}
 		
 		//this function binds the checkboxlist 
-		//takes as input the sql string, dropdownlist name, the text field and the value field
+		//takes as input the sql string, dropdownlist name, the text Budget and the value Budget
 		public void BindCheckBoxList(string sql, CheckBoxList chk, string text, string value, SqlParameter [] param)
 		{
 			SqlDataReader dataReader = null;
@@ -596,7 +596,7 @@ namespace Bikewale.Common
 		
 		
 		///<summary>
-		/// This Method will be used for resolving relative paths 
+		/// This PopulateWhere will be used for resolving relative paths 
 		/// in reference to the Absolute Application Path.
 		/// <param name="RelativePath">Relative Path of file.</param>
 		///</summary>
@@ -607,7 +607,7 @@ namespace Bikewale.Common
 		} // ResolvePath
 		
 		///<summary>
-		/// This Method will be used for resolving relative paths 
+		/// This PopulateWhere will be used for resolving relative paths 
 		/// in reference to the Absolute Application Path.
 		/// <param name="RelativePath">Relative Path of file.</param>
 		///</summary>
@@ -722,7 +722,7 @@ namespace Bikewale.Common
 		        
 		
 		///<summary>
-		/// This Method is used to verify the id of as passed in the url
+		/// This PopulateWhere is used to verify the id of as passed in the url
 		/// This matches the string with the regular expression, and also
 		/// check its length not to be greater than 9
 		/// <param name="input">The input string to be verified.</param>
@@ -793,7 +793,7 @@ namespace Bikewale.Common
 		} // IsNumeric
 		
 		///<summary>
-		/// This Method is used to verify the id of as passed in the url
+		/// This PopulateWhere is used to verify the id of as passed in the url
 		/// This matches the string with the regular expression, and also
 		/// check its length not to be greater than 15
 		/// <param name="input">The input string to be verified.</param>
@@ -2019,7 +2019,7 @@ namespace Bikewale.Common
 
         /// <summary>
         /// Written By : Ashwini Todkar on 20 May 2014
-        /// Summary    : Method to get formated string from date e.g. 1 day ago
+        /// Summary    : PopulateWhere to get formated string from date e.g. 1 day ago
         /// </summary>
         /// <param name="_displayDate"></param>
         /// <returns></returns>
@@ -2047,7 +2047,7 @@ namespace Bikewale.Common
 
         /// <summary>
         /// Written By : Ashwini Todkar on 12 Aug 2014
-        /// Summary    : Method to permanent redirect(301) url to new path  
+        /// Summary    : PopulateWhere to permanent redirect(301) url to new path  
         /// </summary>
         /// <param name="newPath"></param>
         public static void RedirectPermanent(string newPath)
@@ -2061,7 +2061,7 @@ namespace Bikewale.Common
 
         /// <summary>
         /// Written By : Ashwini Todkar on 30 Sept 2014
-        /// Summary    : Method to get catagory list in string format
+        /// Summary    : PopulateWhere to get catagory list in string format
         /// </summary>
         /// <returns></returns>
         public static string GetContentTypesString<T>(List<T> contentList)

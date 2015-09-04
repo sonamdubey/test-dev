@@ -51,7 +51,7 @@ namespace Bikewale.Mobile.Content
         }
 
         /// <summary>
-        /// Method to process query string and get carwale new basicid against bikewale basicid
+        /// PopulateWhere to process query string and get carwale new basicid against bikewale basicid
         /// </summary>
         private void ProcessQS()
         {
@@ -82,7 +82,7 @@ namespace Bikewale.Mobile.Content
         }
 
         /// <summary>
-        ///  Method to set news details from carwale api asynchronously
+        ///  PopulateWhere to set news details from carwale api asynchronously
         /// </summary>
         /// <param name="_basicId"></param>
         private async void GetNewsDetails(int _basicId)
@@ -116,7 +116,7 @@ namespace Bikewale.Mobile.Content
         }
 
         /// <summary>
-        /// Method to set news details
+        /// PopulateWhere to set news details
         /// </summary>
         private void GetNewsData()
         {

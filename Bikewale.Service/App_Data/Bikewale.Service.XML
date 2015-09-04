@@ -498,7 +498,7 @@
             Created By : Sadhana Upadhyay on 25 Aug 2015
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController.Get(System.String,System.Nullable{System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController.Get(System.String,Bikewale.Entities.AutoComplete.AutoSuggestEnum,System.Nullable{System.Int32})">
             <summary>        
             Summary : Auto Suggest Api for Make And Model
             </summary>

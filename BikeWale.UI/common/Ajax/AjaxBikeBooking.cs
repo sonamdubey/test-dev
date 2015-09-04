@@ -295,7 +295,7 @@ namespace Bikewale.Ajax
 
         /// <summary>
         /// Written By : Ashwini Todkar on 3 Oct 2014
-        /// Method to set shecdule appointmnet date
+        /// PopulateWhere to set shecdule appointmnet date
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns>if a valid user then returns true else false</returns>

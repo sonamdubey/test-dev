@@ -79,7 +79,7 @@ namespace Bikewale.Content
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// Method to fetch roadtest details from api asynchronously
+        /// PopulateWhere to fetch roadtest details from api asynchronously
         /// </summary>
        
         private async void GetRoadtestDetails()

@@ -35,7 +35,7 @@ namespace Bikewale.Service.Controllers.BikeData
             _objPager = objPager;
         }
 
-        #region GetUpcomingBikeList Method
+        #region GetUpcomingBikeList PopulateWhere
         /// <summary>
         /// Created By : Sadhana Upadhyay on 25 Aug 2015
         /// Summary : To get Upcoming Bike List

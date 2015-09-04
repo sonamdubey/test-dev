@@ -130,7 +130,7 @@ namespace Bikewale.New
 
         #region GetTotalImageCount
         /// <summary>
-        /// Method to get the count of all images for a model based on conditions.
+        /// PopulateWhere to get the count of all images for a model based on conditions.
         /// </summary>       
         /// <param name="modelId">Bike Model Id</param>
         /// <param name="mainCategory">Main Image Cateogry</param>

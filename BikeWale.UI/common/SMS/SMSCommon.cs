@@ -124,7 +124,7 @@ namespace Bikewale.Common
         }
 
         /// <summary>
-        /// Method to update the database with the details of the SMS data sent.
+        /// PopulateWhere to update the database with the details of the SMS data sent.
         /// </summary>
         /// <param name="currentId">Id for which the sms was just sent</param>
         /// <param name="retMsg">The return message from the provider that is received after the SMS is sent</param>

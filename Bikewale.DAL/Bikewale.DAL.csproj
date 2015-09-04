@@ -33,7 +33,11 @@
     <Reference Include="Bikewale.Notifications">
       <HintPath>..\BikeWale.UI\bin\Bikewale.Notifications.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -61,6 +65,9 @@
     <Compile Include="Location\CityRepository.cs" />
     <Compile Include="Location\StateRepository.cs" />
     <Compile Include="MobileVerification\MobileVerificationRespository.cs" />
+    <Compile Include="NewBikeSearch\ProcessFilter.cs" />
+    <Compile Include="NewBikeSearch\SearchQuery.cs" />
+    <Compile Include="NewBikeSearch\SearchResult.cs" />
     <Compile Include="PhotoGallery\ModelPhotosRespository.cs" />
     <Compile Include="PriceQuote\PriceQuoteRespository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -30,7 +30,7 @@ namespace Bikewale.Service.Controllers.BikeData
         {
             _modelRepository = modelRepository;
         }
-        #region GetFeaturedBikeList Method
+        #region GetFeaturedBikeList PopulateWhere
         /// <summary>
         /// Created By : Sadhana Upadhyay on 21 aUG 2015
         /// Summary : Get Featured Bike list

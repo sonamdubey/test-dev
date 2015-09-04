@@ -227,7 +227,7 @@ namespace Bikewale.BikeBooking
 
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
-        /// Method save quote certificate as pdf
+        /// PopulateWhere save quote certificate as pdf
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -240,7 +240,7 @@ namespace Bikewale.BikeBooking
 
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
-        /// Summary    : Method to get availability of bike with dealer e.g. in stock or waiting
+        /// Summary    : PopulateWhere to get availability of bike with dealer e.g. in stock or waiting
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="versionId"></param>
@@ -257,7 +257,7 @@ namespace Bikewale.BikeBooking
 
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
-        /// Summary    : Method to get dealer price quote, offers, facilities, contact details 
+        /// Summary    : PopulateWhere to get dealer price quote, offers, facilities, contact details 
         /// </summary>
         private void GetDetailedQuote()
         {

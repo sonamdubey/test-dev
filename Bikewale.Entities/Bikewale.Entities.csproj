@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoComplete\AutoSuggestEnum.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
@@ -138,6 +139,13 @@
     <Compile Include="Location\CityEntityBase.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
+    <Compile Include="NewBikeSearch\FilterEnum.cs" />
+    <Compile Include="NewBikeSearch\FilterInput.cs" />
+    <Compile Include="NewBikeSearch\InputBaseEntity.cs" />
+    <Compile Include="NewBikeSearch\PagingUrl.cs" />
+    <Compile Include="NewBikeSearch\RideStyleEnum.cs" />
+    <Compile Include="NewBikeSearch\SearchOutputEntity.cs" />
+    <Compile Include="NewBikeSearch\SearchOutputEntityBase.cs" />
     <Compile Include="Pager\PagerEntity.cs" />
     <Compile Include="Pager\PagerOutputEntity.cs" />
     <Compile Include="Pager\PagerUrlList.cs" />

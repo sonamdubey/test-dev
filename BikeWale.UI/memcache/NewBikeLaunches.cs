@@ -16,7 +16,7 @@ namespace Bikewale.Memcache
     {
         /// <summary>
         /// Written By : ashwini todkar
-        /// Summary    : Method to retrieve new bike launches details
+        /// Summary    : PopulateWhere to retrieve new bike launches details
         /// </summary>
         /// <param name="TopCount">Optional parameter.</param>
         /// <returns></returns>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Bikewale.BAL.AutoComplete;
 using Bikewale.DTO.AutoComplete;
+using Bikewale.Entities.AutoComplete;
 using Bikewale.Interfaces.AutoComplete;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.AutoComplete;
@@ -33,14 +34,14 @@ namespace Bikewale.Service.Controllers.AutoComplete
         /// </summary>
         /// <param name="inputText">String</param>
         /// <returns></returns>
-        public IHttpActionResult Get(string inputText, int? noOfRecords = null)
+        public IHttpActionResult Get(string inputText, AutoSuggestEnum source, int? noOfRecords = null)
         {
             try
             {
                 BikeList objBikes = new BikeList();
                 int noOfSuggestion = noOfRecords.HasValue ? noOfRecords.Value : 10;
 
-                List<SuggestOption> objSuggestion = _autoSuggest.GetAutoSuggestResult(inputText, noOfSuggestion);
+                List<SuggestOption> objSuggestion = _autoSuggest.GetAutoSuggestResult(HttpContext.Current.Server.UrlDecode(inputText), noOfSuggestion, source);
 
                 objBikes.Bikes = SuggestionListMapper.Convert(objSuggestion);
                 if (objSuggestion != null && objSuggestion.Count > 0)

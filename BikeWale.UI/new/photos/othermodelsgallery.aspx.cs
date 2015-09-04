@@ -167,7 +167,7 @@ namespace Bikewale.New.PhotoGallery
             }
         }
 
-        //Method to create Pager instance
+        //PopulateWhere to create Pager instance
         private IPager GetPager()
         {
             IPager _objPager = null;
