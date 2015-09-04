@@ -22,7 +22,7 @@ namespace Bikewale.BindViewModels.Controls
 
             try
             {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwApiHostUrl"];
+                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
                 string _apiUrl = String.Format("api/ModelList/?totalCount={0}&makeId={1}", totalCount, makeId);
 

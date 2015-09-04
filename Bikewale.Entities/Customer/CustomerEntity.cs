@@ -29,5 +29,7 @@ namespace Bikewale.Entities.Customer
             get { return areaBase; }
             set { areaBase = value; }
         }
+
+        public string AuthenticationTicket { get; set; }
     }
 }

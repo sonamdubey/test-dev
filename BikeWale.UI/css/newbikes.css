@@ -25,11 +25,16 @@
 /* style-container */
 .style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }
 .styletypesprite { background: url(../images/style-type-sprite.png) no-repeat; display: inline-block;  }
-.style-scooters, .style-street, .style-cruiser, .style-sports { width:75px; height:45px; }
+.style-scooters, .style-street, .style-cruiser, .style-sports, .style-scooters-dark, .style-street-dark, .style-cruiser-dark, .style-sports-dark { width:77px; height:44px; }
 .style-scooters { background-position: 0 0; }
-.style-street { background-position: 0 -52px; }
-.style-cruiser { background-position: 0 -105px; }
-.style-sports { background-position: 0 -155px; }
+.style-scooters-dark { background-position: 0 -54px; }
+.style-street { background-position: 0 -108px; }
+.style-street-dark { background-position: 0 -162px; }
+.style-cruiser { background-position: 0 -216px; }
+.style-cruiser-dark { background-position: 0 -270px; }
+.style-sports { background-position: 0 -324px; }
+.style-sports-dark { background-position: 0 -378px; }
+
 
 /* discover bikes */
 .newbike-discover-bike-container { background-color: #fff; }
@@ -41,17 +46,26 @@
 /* tools you may required */
 .tools-may-need-wrapper { background:#fff; }
 .final-price-logo {  margin:0 auto; }
-.final-price-search-container, .locate-dealer-search-container, .calculate-emi-search-container { margin:0 auto; width:760px; height: 45px; }
-.final-price-search, .locate-dealer-search, .calculate-emi-tool-search { width:588px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; height: 45px; }
-.final-price-bikeSelect, .locate-dealer-bikeSelect { width:290px; height:45px; float:left; }
-.final-price-bikeSelect input[type="text"], .locate-dealer-bikeSelect input[type="text"] { width:290px; height: 43px; }
-.final-price-citySelect, .locate-dealer-citySelect, .interest-rate-boxSelect { border-left:1px solid #ccc; height:44px; width:296px; float:left; }
-.final-price-citySelect select, .locate-dealer-citySelect select { width: 296px; border: none; color:#555; height: 43px; }
+.final-price-search-container { margin:0 auto; width:750px; height: 45px; }
+.final-price-search { min-width:420px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; height: 45px; }
+.final-price-bikeSelect { width:250px; height:45px; float:left; }
+.final-price-bikeSelect input[type="text"] { width:250px; height: 43px; }
+.final-price-city-area-container { width: 322px; height:45px; float:left; }
+.final-price-citySelect { border-left:1px solid #ccc; height:44px; width:322px; float:left; }
+.final-price-citySelect select { width: 321px; border: none; color:#555; height: 43px; }
+.final-price-areaSelect { border-left:1px solid #ccc; height:44px; width:161px; float:left; }
+.final-price-areaSelect select { width: 160px; border: none; color:#555; height: 43px; }
+
+.locate-dealer-search-container, .calculate-emi-search-container { margin:0 auto; width:750px; height: 45px; }
+.locate-dealer-search, .calculate-emi-tool-search { width:588px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; height: 45px; }
+.locate-dealer-bikeSelect { width:290px; height:45px; float:left; }
+.locate-dealer-bikeSelect input[type="text"] { width:290px; height: 43px; }
+.locate-dealer-citySelect, .interest-rate-boxSelect { border-left:1px solid #ccc; height:44px; width:296px; float:left; }
+.locate-dealer-citySelect select { width: 296px; border: none; color:#555; height: 43px; }
 .get-final-price-btn, .locate-dealer-btn, .calculate-btn { float:left; }
 
-.loan-amount-box, .interest-rate-boxSelect { width:290px; height:45px; float:left; }
-.loan-amount-box input[type="text"] { width:290px; height: 43px; }
-.interest-rate-boxSelect select { width: 296px; border: none; color:#555; height: 43px; }
+.loan-amount-box, .interest-rate-boxSelect { width:293px; height:45px; float:left; }
+.loan-amount-box input[type="text"], .interest-rate-boxSelect input[type="text"] { width:293px; height: 43px; }
 
 /* News-Reviews-Videos New Bikes */
 .newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }

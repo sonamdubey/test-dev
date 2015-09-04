@@ -643,13 +643,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="includes\footerBW_Mobile.aspx.cs">
-      <DependentUpon>footerBW_Mobile.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="includes\footerBW_Mobile.aspx.designer.cs">
-      <DependentUpon>footerBW_Mobile.aspx</DependentUpon>
-    </Compile>
     <Compile Include="memcache\BasicIdMapping.cs" />
     <Compile Include="memcache\BikeMakes.cs" />
     <Compile Include="memcache\BWMemcache.cs" />
@@ -770,9 +763,6 @@
     <Compile Include="m\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
     <Compile Include="m\Default_old.aspx.cs">
       <DependentUpon>Default_old.aspx</DependentUpon>

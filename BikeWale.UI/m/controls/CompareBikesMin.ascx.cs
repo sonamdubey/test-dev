@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.m.controls
+namespace Bikewale.Mobile.Controls
 {
     public class CompareBikesMin : System.Web.UI.UserControl
     {

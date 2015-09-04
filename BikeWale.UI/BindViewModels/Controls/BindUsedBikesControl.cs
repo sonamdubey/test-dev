@@ -49,8 +49,8 @@ namespace Bikewale.BindViewModels.Controls
             string apiUrl = String.Empty;
             try
             {
-                hostURL = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                apiUrl = String.Format("api/PopularUsedBikes?topCount={0}&cityId={1}", topCount, cityId.HasValue ? cityId.Value.ToString() : "");
+                hostURL = ConfigurationManager.AppSettings["bwHostUrl"];
+                apiUrl = String.Format("api/PopularUsedBikes/?topCount={0}&cityId={1}", topCount, cityId.HasValue ? cityId.Value.ToString() : "");
 
                 popularUsedBikes = BWHttpClient.GetApiResponseSync<IEnumerable<PopularUsedBikesBase>>(hostURL, requestType, apiUrl, popularUsedBikes);
                 if (popularUsedBikes != null && popularUsedBikes.Count() > 0)

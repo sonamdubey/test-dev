@@ -1,26 +1,28 @@
-﻿<!doctype html>
+﻿
+<!doctype html>
 <html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>New Bike Prices, New bikes in India, Upcoming bikes, Used bikes - BikeWale</title>
+<title>BikeWale - New Bikes</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 <meta name="keywords" content="" />
-<meta name="description" content="BikeWale is India's most authoritative source of new bike pricing. Focused around bike buyers, BikeWale promises to help you buy the right car at the right price." />
+<meta name="description" content="BikeWale is India's most authoritative source of new bike pricing. Focused around bike buyers, BikeWale promises to help you buy the right bike at the right price." />
 <link rel="canonical" href="http://www.bikewale.com" />
 <link rel="alternate" type="text/html" media="handheld" href="http://bikewale.com/m/" title="Mobile/PDA" />
 <link rel="SHORTCUT ICON" href="http://img2.aeplcdn.com/v2/icons/bikewale.png?v=1.1" />
 <link href="/m/css/bwm-common-style.css" rel="stylesheet" type="text/css">
-<link href="/m/css/home.css" rel="stylesheet" type="text/css">
+<link href="/m/css/bwm-newbikes.css" rel="stylesheet" type="text/css">
+<!--<link href="/m/css/home.css" rel="stylesheet" type="text/css">-->
 <script type="text/javascript" src="/m/src/frameworks.js"></script>
 <!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
-    <script src="/m/src/html5.js"></script>
+    <script src="/m/src/js/html5.js"></script>
 <![endif]-->
 </head>
 <body class="bg-light-grey">
 	<div class="blackOut-window"></div>
-<!-- #include file="/includes/Navigation_Mobile.aspx" -->
+    <!-- #include file="/includes/Navigation_Mobile.aspx" -->
     <div class="loginPopUpWrapper" id="loginPopUpWrapper"><!-- login code starts here -->
         <div class="loginBoxContent" id="Testlogin-box">
             <div class="loginCloseBtn position-abt pos-top10 pos-left10 infoBtn bwmsprite cross-md-dark-grey cur-pointer"></div>
@@ -120,9 +122,7 @@
                 <div class="margin-bottom20 position-rel">
                 	<span class="position-abt pos-right15 pos-top15 bwmsprite cross-sm-dark-grey cur-pointer"></span>
                     <input type="text" class="form-control padding-right30" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp">
-                    <span id="loaderMakeModel" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
-                    <span class="bwmsprite error-icon"></span>
-                    <div class="bw-blackbg-tooltip">No city found. Try a different search.</div>
+                    <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:block"></span>
                 </div>
             </div>
             <div>
@@ -144,7 +144,7 @@
     </div> <!-- global-search-popup code ends here -->
     <header>
     	<div class="header-fixed"> <!-- Fixed Header code starts here -->
-        	<a href="/m/" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
+        	<a href="javascript:void(0)" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
             <div class="leftfloat">
                 <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>                
             </div>
@@ -156,3 +156,4 @@
             <div class="clear"></div>
         </div> <!-- ends here -->
     	<div class="clear"></div>
+        

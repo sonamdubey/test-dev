@@ -7,8 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bikewale.Entities.CMS.Photos
-{
-    [Serializable]
+{    
     public class CMSImage
     {
         [DataMember]

@@ -93,7 +93,7 @@
                         <div class="brand-type-container">
                             <ul class="text-center">
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/aprilia-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-aprilia"></span>
                                         </span>
@@ -101,7 +101,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/honda-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-honda"></span>
                                         </span>
@@ -109,7 +109,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/royalenfield-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-royal"></span>
                                         </span>
@@ -117,7 +117,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/bajaj-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-bajaj"></span>
                                         </span>
@@ -128,7 +128,7 @@
                             <ul class="brand-style-moreBtn brandTypeMore hide text-center">
                                 
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/hyosung-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-hyosung"></span>
                                         </span>
@@ -136,7 +136,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/suzuki-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-suzuki"></span>
                                         </span>
@@ -144,7 +144,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/benelli-bikes/">
                                         <span class="brand-type">
                                            	<span class="brandlogosprite brand-benelli"></span>
                                         </span>
@@ -152,7 +152,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/indian-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-indian"></span>
                                         </span>
@@ -160,7 +160,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/triumph-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-triumph"></span>
                                         </span>
@@ -168,7 +168,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/bmw-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-bmw"></span>
                                         </span>
@@ -176,7 +176,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/kawasaki-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-kawasaki"></span>
                                         </span>
@@ -184,7 +184,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/tvs-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-tvs"></span>
                                         </span>
@@ -192,7 +192,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/ducati-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-ducati"></span>
                                         </span>
@@ -200,7 +200,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/ktm-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-ktm"></span>
                                         </span>
@@ -208,7 +208,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/vespa-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-vespa"></span>
                                         </span>
@@ -216,7 +216,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/harleydavidson-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-harley"></span>
                                         </span>
@@ -224,7 +224,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/lml-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-lml"></span>
                                         </span>
@@ -232,7 +232,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/yamaha-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-yamaha"></span>
                                         </span>
@@ -240,7 +240,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/hero-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-hero"></span>
                                         </span>
@@ -248,7 +248,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/mahindra-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-mahindra"></span>
                                         </span>
@@ -256,7 +256,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/yo-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-yo"></span>
                                         </span>
@@ -264,7 +264,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/heroelectric-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-hero-elec"></span>
                                         </span>
@@ -272,7 +272,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/m/motoguzzi-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-guzzi"></span>
                                         </span>
@@ -510,90 +510,7 @@
     </section><!-- Get Final Price code Ends here -->
     <section><!--  Compare section code starts here -->
         <BW:CompareBike ID="ctrlCompareBikes" runat="server"/>
-    </section><!-- Compare code Ends here -->
-    <section class="bg-light-grey"> <!-- Used bikes code starts here -->
-        <div class="container">
-        	<div class="grid-12">
-                <h2 class="text-center margin-top40 margin-bottom30">Used Bikes in Mumbai</h2>
-                <div class="jcarousel-wrapper">
-                    <div class="jcarousel">
-                        <ul>
-                            <li class="front">
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="javascript:void(0)">
-                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19889/Yamaha-MT-03-Front-three-quarter-56371.jpg?wm=0" title="img title" alt="img title">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom10">
-                                            <h3><a href="javascript:void(0)" title="Hyundai i20 Active">Bajaj Pulsar 150</a></h3>
-                                        </div>
-                                        <div class="margin-bottom10 font24">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font25">1.15 Crores</span>
-                                        </div>
-                                        <div class="font14 text-light-grey">
-                                        	<span>28</span> Bikes Available
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="front">
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="javascript:void(0)">
-                                            <img src="http://imgd8.aeplcdn.com/642x361//bikewaleimg/used/S32487/32487_20150713124853159_640x428.jpeg" title="img title" alt="img title">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom10">
-                                            <h3><a href="javascript:void(0)" title="Hyundai i20 Active">Bajaj Pulsar 150</a></h3>
-                                        </div>
-                                        <div class="margin-bottom10 font24">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font25">1.15 Crores</span>
-                                        </div>
-                                        <div class="font14 text-light-grey">
-                                        	<span>28</span> Bikes Available
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="front">
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="javascript:void(0)">
-                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19889/Yamaha-MT-03-Front-three-quarter-56371.jpg?wm=0" title="img title" alt="img title">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom10">
-                                            <h3><a href="javascript:void(0)" title="Hyundai i20 Active">Bajaj Pulsar 150</a></h3>
-                                        </div>
-                                        <div class="margin-bottom10 font24">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font25">1.15 Crores</span>
-                                        </div>
-                                        <div class="font14 text-light-grey">
-                                        	<span>28</span> Bikes Available
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                    <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                    <p class="text-center jcarousel-pagination margin-bottom30"></p>
-                </div>
-                <div class="text-center margin-bottom40">
-                    <a class="font16" href="javascript:void(0)">View More used Bikes</a>
-                </div>
-        	</div>
-            <div class="clear"></div>
-        </div>
-    </section><!-- Used bikes code Ends here -->
+    </section><!-- Compare code Ends here -->    
     <section><!--  News, reviews and videos code starts here -->
         <div class="container bg-white">
         	<div class="grid-12">
@@ -602,9 +519,9 @@
                     <div class="bw-tabs margin-bottom15">
                     	<div class="form-control-box">                        	
                             <select class="form-control">
-                                <option class="active" data-tabs="ctrlNews">News</option>
-                                <option data-tabs="ctrlExpertReviews">Reviews</option>
-                                <option data-tabs="ctrlVideos">Videos</option>
+                                <option class="active" value="ctrlNews">News</option>
+                                <option value="ctrlExpertReviews">Reviews</option>
+                                <option value="ctrlVideos">Videos</option>
                             </select>
                         </div>
                     </div>
@@ -624,5 +541,5 @@
             </div><!--Bottom Ad banner code ends here -->
         </div>
     </section>
-
+<script type="text/javascript" src="/m/src/home.js"></script>
 <!-- #include file="/includes/footerBW_Mobile.aspx" -->

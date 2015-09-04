@@ -21,7 +21,7 @@ namespace Bikewale.BindViewModels.Controls
 
             try
             {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwApiHostUrl"];
+                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
                 string _apiUrl = String.Format("api/NewLaunchedBike/?pageSize={0}&curPageNo={1}",pageSize,curPageNo);
 

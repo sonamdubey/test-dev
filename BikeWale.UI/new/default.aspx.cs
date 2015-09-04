@@ -16,6 +16,9 @@ namespace Bikewale.New
         protected UpcomingBikes_new ctrlUpcomingBikes;
         protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
         protected MostPopularBikes_new ctrlMostPopularBikes;
+        protected ExpertReviews ctrlExpertReviews;
+        protected VideosControl ctrlVideos;
+        protected ComparisonMin ctrlCompareBikes;        
 
         protected override void OnInit(EventArgs e)
         {
@@ -37,6 +40,11 @@ namespace Bikewale.New
             //To get Upcoming Bike List Details 
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
             ctrlUpcomingBikes.pageSize = 6;
+
+            ctrlNews.TotalRecords = 3;
+            ctrlExpertReviews.TotalRecords = 3;
+            ctrlVideos.TotalRecords = 3;
+            ctrlCompareBikes.TotalRecords = 4;            
         }
     }
 }

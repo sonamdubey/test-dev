@@ -1,0 +1,12 @@
+@charset "utf-8";
+/* CSS Document */
+.brand-bikes-list-container li { width:298px; height:400px; margin-right:15px; margin-bottom:15px; }
+.brand-bikes-list-container li.front, .upcoming-brand-bikes-container li.front { border:none;}
+.brand-bikes-list-container li .imageWrapper, .upcoming-brand-bikes-container li .imageWrapper { width:298px; }
+
+.upcoming-brand-bikes-container li { width:298px; height:auto; }
+.upcoming-brand-bikes-container .jcarousel { width: 934px; overflow: hidden; left: 20px; }
+
+/* News-Reviews-Videos New Bikes */
+.newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }
+.newBikes-latest-updates-container .grid-8 { padding-right:10px; !important }

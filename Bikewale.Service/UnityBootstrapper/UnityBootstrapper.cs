@@ -61,7 +61,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
             container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-            container.RegisterType<ICustomerAuthentication<CustomerEntity, UInt32>, CustomerAuthentication<CustomerEntity, UInt32>>();
+            container.RegisterType<ICustomerAuthentication<CustomerEntity, UInt64>, CustomerAuthentication<CustomerEntity, UInt64>>();
             container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
 
             container.RegisterType<IFeedback,FeedbackRepository>();

@@ -79,7 +79,31 @@
                         <div class="brand-type-container">
                             <ul class="text-center">
                                 <li>
-                                    <a href="#">
+                                    <a href="/aprilia-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-aprilia"></span>
+                                        </span>
+                                        <span class="brand-type-title">Aprilia</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/honda-bikes/">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-honda"></span>
+                                        </span>
+                                        <span class="brand-type-title">Hero</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/royalenfield-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-royal"></span>
+                                        </span>
+                                        <span class="brand-type-title">Royal Enfield</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/bajaj-bikes/">
                                         <span class="brand-type">
                                             <span class="brandlogosprite brand-bajaj"></span>
                                         </span>
@@ -87,55 +111,163 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/hyosung-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-hero"></span>
+                                             <span class="brandlogosprite brand-hyosung"></span>
+                                        </span>
+                                        <span class="brand-type-title">Hyosung</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/suzuki-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-suzuki"></span>
+                                        </span>
+                                        <span class="brand-type-title">Suzuki</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/benelli-bikes/">
+                                        <span class="brand-type">
+                                           	<span class="brandlogosprite brand-benelli"></span>
+                                        </span>
+                                        <span class="brand-type-title">Benelli</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/indian-bikes/">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-indian"></span>
+                                        </span>
+                                        <span class="brand-type-title">Indian</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/triumph-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-triumph"></span>
+                                        </span>
+                                        <span class="brand-type-title">Triumph</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/bmw-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-bmw"></span>
+                                        </span>
+                                        <span class="brand-type-title">BMW</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="brand-bottom-border border-solid-top margin-left20 margin-right20 hide">
+                            </div>
+                            <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide text-center">
+                                <li>
+                                    <a href="/ducati-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-ducati"></span>
+                                        </span>
+                                        <span class="brand-type-title">Ducati</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/harleydavidson-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-harley"></span>
+                                        </span>
+                                        <span class="brand-type-title">Harley</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/hero-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-hero"></span>
                                         </span>
                                         <span class="brand-type-title">Hero</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/heroelectric-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-honda"></span>
+                                            <span class="brandlogosprite brand-hero-elec"></span>
                                         </span>
-                                        <span class="brand-type-title">Honda</span>
+                                        <span class="brand-type-title">Hero Electric</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/kawasaki-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-yamaha"></span>
+                                             <span class="brandlogosprite brand-kawasaki"></span>
+                                        </span>
+                                        <span class="brand-type-title">Kawasaki</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/ktm-bikes/">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-ktm"></span>
+                                        </span>
+                                        <span class="brand-type-title">KTM</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/lml-bikes/">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-lml"></span>
+                                        </span>
+                                        <span class="brand-type-title">LML</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/mahindra-bikes/">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-mahindra"></span>
+                                        </span>
+                                        <span class="brand-type-title">Mahindra</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/motoguzzi-bikes/">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-guzzi"></span>
+                                        </span>
+                                        <span class="brand-type-title">Moto Guzzi</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/tvs-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-tvs"></span>
+                                        </span>
+                                        <span class="brand-type-title">TVS</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/vespa-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-vespa"></span>
+                                        </span>
+                                        <span class="brand-type-title">Vespa</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/yamaha-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-yamaha"></span>
                                         </span>
                                         <span class="brand-type-title">Yamaha</span>
                                     </a>
                                 </li>
-                            </ul>
-                            <ul class="brand-style-moreBtn brandTypeMore hide text-center">
                                 <li>
-                                    <a href="#">
+                                    <a href="/yo-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-honda"></span>
+                                            <span class="brandlogosprite brand-yo"></span>
                                         </span>
-                                        <span class="brand-type-title">Honda</span>
+                                        <span class="brand-type-title">Yo</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="brand-type">
-                                             <span class="brandlogosprite brand-hero"></span>
-                                        </span>
-                                        <span class="brand-type-title">Hero</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-bajaj"></span>
-                                        </span>
-                                        <span class="brand-type-title">Bajaj</span>
-                                    </a>
-                                </li>
+                                
+                                
                             </ul>
                         </div>
                         <div class="view-brandType text-center padding-top10 padding-bottom30">
@@ -341,157 +473,7 @@
         <BW:CompareBikes ID="ctrlCompareBikes" runat="server"/>
     </section>
     <!-- Ends here -->
-    <section class="bg-light-grey"><!--  Used Bikes code starts here -->
-        <%--<div class="container">
-        	<div class="grid-12">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30">Popular used bikes in Mumbai</h2>
-                <div class="jcarousel-wrapper popular-used-bikes-container">
-                    <div class="jcarousel used-bike-carousel">
-                        <ul>
-                            <li class="front">
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="#">
-                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19889/Yamaha-MT-03-Front-three-quarter-56371.jpg?wm=0" title="img title" alt="img title">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom15">
-                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
-                                        </div>
-                                        <div class="margin-bottom10 font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font22">1,60,000</span>
-                                            <span class="font16">onwards</span>
-                                        </div>
-                                        <div class="font16 text-light-grey bikes-avaiable-count">
-											<span>28 Bikes Avaiable</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="front">
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="#">
-                                            <img src="http://imgd8.aeplcdn.com/642x361//bikewaleimg/used/S32487/32487_20150713124853159_640x428.jpeg" title="img title" alt="img title">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom20">
-                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
-                                        </div>
-                                        <div class="margin-bottom15 font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font22">50,000</span>
-                                            <span class="font16">onwards</span>
-                                        </div>
-                                        <div class="font16 text-light-grey bikes-avaiable-count">
-											<span>28 Bikes Avaiable</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="front">
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="#">
-                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19889/Yamaha-MT-03-Front-three-quarter-56371.jpg?wm=0" title="img title" alt="img title">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom20">
-                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
-                                        </div>
-                                        <div class="margin-bottom15 font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font22">1,60,000</span>
-                                            <span class="font16">onwards</span>
-                                        </div>
-                                        <div class="font16 text-light-grey bikes-avaiable-count">
-											<span>28 Bikes Avaiable</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="front">
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="#">
-                                            <img src="http://imgd8.aeplcdn.com/642x361//bikewaleimg/used/S32487/32487_20150713124853159_640x428.jpeg" title="img title" alt="img title">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom20">
-                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
-                                        </div>
-                                        <div class="margin-bottom15 font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font22">75,000</span>
-                                            <span class="font16">onwards</span>
-                                        </div>
-                                        <div class="font16 text-light-grey bikes-avaiable-count">
-											<span>28 Bikes Avaiable</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="front">
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="#">
-                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19889/Yamaha-MT-03-Front-three-quarter-56371.jpg?wm=0" title="img title" alt="img title">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom20">
-                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
-                                        </div>
-                                        <div class="margin-bottom15 font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font22">1,60,000</span>
-                                            <span class="font16">onwards</span>
-                                        </div>
-                                        <div class="font16 text-light-grey bikes-avaiable-count">
-											<span>28 Bikes Avaiable</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="front">
-                                <div class="contentWrapper">
-                                    <div class="imageWrapper">
-                                        <a href="#">
-                                            <img src="http://imgd8.aeplcdn.com/642x361//bikewaleimg/used/S32487/32487_20150713124853159_640x428.jpeg" title="img title" alt="img title">
-                                        </a>
-                                    </div>
-                                    <div class="bikeDescWrapper">
-                                        <div class="bikeTitle margin-bottom20">
-                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
-                                        </div>
-                                        <div class="margin-bottom15 font20">
-                                            <span class="fa fa-rupee"></span>
-                                            <span class="font22">50,000</span>
-                                            <span class="font16">onwards</span>
-                                        </div>
-                                        <div class="font16 text-light-grey bikes-avaiable-count">
-											<span>28 Bikes Avaiable</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
-                    <!--<p class="jcarousel-pagination"></p> -->
-                </div>
-                <div class="text-center margin-bottom30">
-                    <a class="font16" href="#">View complete list</a>
-                </div>
-        	</div>
-            <div class="clear"></div>
-        </div>--%>
+    <section class="bg-light-grey"><!--  Used Bikes code starts here -->        
         <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
     </section>
     <!-- Ends here -->
@@ -509,55 +491,7 @@
                     </div>
                     <%--<BW:News runat="server" ID="ctrlNews"/>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>                    
-                    <BW:Videos runat="server" ID="ctrlVideos"/>  --%>
-                    <%--<div class="bw-tabs-data hide" id="Videos"><!-- Videos data code starts here-->
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="yt-iframe-preview">
-                                	<iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
-                                <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
-                                <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span> Views <span>398</span></div>
-                                <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>120</span></div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="yt-iframe-preview">
-                                	<iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
-                                <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
-                                <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span> Views <span>398</span></div>
-                                <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>120</span></div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        <div class="padding-bottom30">
-                            <div class="grid-4 alpha">
-                                <div class="yt-iframe-preview">
-                                	<iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
-                                </div>
-                            </div>
-                            <div class="grid-8 omega">
-                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
-                                <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
-                                <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span> Views <span>398</span></div>
-                                <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>120</span></div>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                        
-                        <div class="padding-bottom50 text-center">
-                        	<a href="#" class="font16">View more videos</a>
-                        </div>
-                    </div><!-- Ends here-->--%>
+                    <BW:Videos runat="server" ID="ctrlVideos"/>                      
                 </div>        
             </div>
             <div class="clear"></div>

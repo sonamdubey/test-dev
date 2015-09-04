@@ -65,10 +65,13 @@
     <Compile Include="Distance.cs" />
     <Compile Include="Format.cs" />
     <Compile Include="FormatDate.cs" />
+    <Compile Include="FormatMinSpecs.cs" />
     <Compile Include="Image.cs" />
     <Compile Include="Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReviewsRating.cs" />
     <Compile Include="SqlReaderConvertor.cs" />
+    <Compile Include="UrlFormatter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
