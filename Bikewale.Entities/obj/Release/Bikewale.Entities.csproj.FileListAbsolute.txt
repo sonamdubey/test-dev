@@ -1,6 +1,0 @@
-E:\work\BikeWalePro\Bikewale.Entities\bin\Release\Bikewale.Entities.dll
-E:\work\BikeWalePro\Bikewale.Entities\bin\Release\Bikewale.Entities.pdb
-E:\work\BikeWalePro\Bikewale.Entities\bin\Release\Newtonsoft.Json.dll
-E:\work\BikeWalePro\Bikewale.Entities\obj\Release\Bikewale.Entities.csprojResolveAssemblyReference.cache
-E:\work\BikeWalePro\Bikewale.Entities\obj\Release\Bikewale.Entities.dll
-E:\work\BikeWalePro\Bikewale.Entities\obj\Release\Bikewale.Entities.pdb

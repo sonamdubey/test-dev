@@ -1,5 +1,0 @@
-2015-05-21 11:24:20,269 [16548] ERROR ErrorLog -    at System.Data.ProviderBase.FieldNameLookup.GetOrdinal(String fieldName)
-   at System.Data.SqlClient.SqlDataReader.GetOrdinal(String name)
-   at System.Data.SqlClient.SqlDataReader.get_Item(String name)
-   at BikeBookingInquiries.PushInquiryToAutoBiz.GetUnpushedABInquiries() in e:\work\BikeWalePro\BikeBookingInquiries\BikeBookingInquiries\PushInquiryToAutoBiz.cs:line 76
-
