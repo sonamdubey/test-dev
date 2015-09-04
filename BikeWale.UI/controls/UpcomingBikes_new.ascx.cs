@@ -39,5 +39,42 @@ namespace Bikewale.controls
             BindUpcomingBikesControl.BindUpcomingBikes(rptUpcomingBikes); 
             this.FetchedRecordsCount = BindUpcomingBikesControl.FetchedRecordsCount;
         }
+
+
+        protected string ShowEstimatedPrice(object estimatedPrice)
+        {
+            string price = String.Empty;
+            if (estimatedPrice != null)
+            {
+                price = Bikewale.Utility.Format.FormatPrice(estimatedPrice.ToString());
+                if (price == "N/A")
+                {
+                    price = "Price unavailable";
+                }
+                else
+                {
+                    price += " Onwards";
+                }
+            }
+            return price;
+        }
+
+        protected string ShowLaunchDate(object launchDate)
+        {
+            string ldate = String.Empty;
+            if (launchDate != null)
+            {
+                ldate = Bikewale.Utility.FormatDate.Truncate(Convert.ToString(launchDate), 11);
+                if (ldate.Trim() != "")
+                {
+                    ldate += "<span class='font14 text-light-grey'> (Expected launch)</span>";
+                }
+                else
+                {
+                    ldate = "Launch date unavailable";
+                }
+            }
+            return ldate;
+        }
     }
 }

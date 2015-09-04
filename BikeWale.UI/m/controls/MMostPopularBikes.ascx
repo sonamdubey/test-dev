@@ -34,7 +34,7 @@
                             <div class="grid-12 alpha <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">
                                 <div class="padding-left5 padding-right5 ">                                                                
                                     <div>
-                                         <span class="font16 text-light-grey">Not rated yet  </span><a href="/content/userreviews/writereviews.aspx?bikem=<%# DataBinder.Eval(Container.DataItem,"objModel.ModelId") %>"><span class="margin-left10 font16 ">Write a review</span></a>
+                                         <span class="font16 text-light-grey">Not rated yet  </span>
                                     </div>
                                 </div>
                             </div>
