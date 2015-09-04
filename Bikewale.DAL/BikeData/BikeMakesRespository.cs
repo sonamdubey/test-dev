@@ -242,7 +242,51 @@ namespace Bikewale.DAL.BikeData
 
         public BikeDescriptionEntity GetMakeDescription(U makeId)
         {
-            throw new NotImplementedException();
+            BikeDescriptionEntity objMake = null;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "GetMakeSynopsis";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objMake = new BikeDescriptionEntity()
+                            {
+                                Name = Convert.ToString("MakeName"),
+                                SmallDescription = Convert.ToString(dr["Description"]),
+                                FullDescription = Convert.ToString(dr["Description"])
+                            };
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("GetMakeDescription sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetMakeDescription ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objMake;
         }
 
         /// <summary>

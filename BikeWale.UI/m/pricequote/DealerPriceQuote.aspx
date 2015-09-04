@@ -15,7 +15,7 @@
     var dealerId = '<%= dealerId%>';
     var pqId = '<%= pqId%>';
     var ABHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]%>';
-    
+
     var versionId = '<%= versionId%>';
     var cityId = '<%= cityId%>';
     var Customername = "", email = "", mobileNo = "";
@@ -37,7 +37,6 @@
     <div class="box1 box-top new-line5 bot-red new-line10">
         <%--<h1 class="margin-bottom10"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Price Quote</h1>--%>
         <div class="full-border bike-img">
-            <%--<img src="<%= ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+objPrice.LargePicUrl,objPrice.HostUrl) %>" alt="" title="" border="0" />--%>
             <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPrice.OriginalImagePath,objPrice.HostUrl,Bikewale.Utility.ImageSize._640x348) %>" alt="" title="" border="0" />
         </div>
         <div class="<%= objColors.Count == 0 ?"hide":"hide" %>">
@@ -67,20 +66,65 @@
                   
                 <asp:Repeater ID="rptPriceList" runat="server">
                     <ItemTemplate>
-                        <tr>
+                        <%-- Start 102155010 --%>
+                        <%--<tr>
                             <td height="30" align="left"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %></td>
                             <td height="30" align="right"><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
+                        </tr>--%>
+                        <tr>
+                            <td height="30" align="left"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
+                            <td height="30" align="right"><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                         </tr>
+                        <%-- End 102155010 --%>
                     </ItemTemplate>
                 </asp:Repeater>
                 <tr align="left"><td height="1" colspan="2" class="break-line"></td></tr>
+                <%-- Start 102155010 --%>
+                <%--<tr>
+                    <td height="30" align="left" style="vertical-align:top; padding-top:5px;"><b>Total On Road Price</b></td>
+                    <td height="30" align="right" class="f-bold" style="padding-top:5px;">
+                        <div><span class="WebRupee">Rs.</span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></div>
+                        <div class="margin-top-5"><a id="dealerPriceQuote" class="blue" style="color:#0056cc!important; font-weight:normal; text-decoration:none;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Get Dealer Details</a></div>
+                    </td>
+                </tr>--%>                
+                <%
+                    if (IsInsuranceFree)
+                    {
+                        %>
                 <tr>
+                    <td height="30" align="left" style="vertical-align:top; padding-top:5px;">Total On Road Price</td>
+                    <td height="30" align="right" style="padding-top:5px;">
+                        <div><span class="WebRupee">Rs.</span><span style="text-decoration: line-through"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span></div>                        
+                    </td>
+                </tr>
+                <tr>
+                    <td height="30" align="left" style="vertical-align:top; padding-top:5px;">Minus Insurance</td>
+                    <td height="30" align="right" style="padding-top:5px;">
+                        <div><span class="WebRupee">Rs.</span><%= CommonOpn.FormatPrice(insuranceAmount.ToString()) %></div>                        
+                    </td>
+                </tr>
+                <tr>
+                    <td height="30" align="left" style="vertical-align:top; padding-top:5px;"><b>BikeWale On Road (after insurance offer)</b></td>
+                    <td height="30" align="right" class="f-bold" style="padding-top:5px;">
+                        <div><span class="WebRupee">Rs.</span><%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></div>                        
+                        <div class="margin-top-5"><a id="dealerPriceQuote" class="blue" style="color:#0056cc!important; font-weight:normal; text-decoration:none;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Get Dealer Details</a></div>
+                    </td>
+                </tr>
+                <%
+                    }
+                    else
+                    {%>
+                        <tr>
                     <td height="30" align="left" style="vertical-align:top; padding-top:5px;"><b>Total On Road Price</b></td>
                     <td height="30" align="right" class="f-bold" style="padding-top:5px;">
                         <div><span class="WebRupee">Rs.</span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></div>
                         <div class="margin-top-5"><a id="dealerPriceQuote" class="blue" style="color:#0056cc!important; font-weight:normal; text-decoration:none;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Get Dealer Details</a></div>
                     </td>
                 </tr>
+        <%
+                    }
+                     %>
+                <%-- End 102155010 --%>
                 <tr align="left"><td height="1" colspan="2" class="break-line">&nbsp;</td></tr>
             </table>            
             <ul class="grey-bullet hide">
@@ -96,18 +140,23 @@
         <% if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
         { %>        
         <div class="new-line10" id="divOffers"  style="background:#fff;">        
-            <h2 class="f-bold">Get Absolutely Free</h2>
+            <h2 class="f-bold"><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Get Absolutely Free"%></h2>
             <div class="margin-top5 margin-left5 new-line10">
                 <asp:Repeater ID="rptOffers" runat="server">
                     <HeaderTemplate>
                             <ul class="grey-bullet">                                        
                     </HeaderTemplate>
-                    <ItemTemplate>                                 
-                        <li style="<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "display:none;" : ""%>"><%# DataBinder.Eval(Container.DataItem,"OfferText")%> </li>
+                    <ItemTemplate>            
+                        <%-- Start 102155010 --%>                     
+                        <%--<li style="<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "display:none;" : ""%>"><%# DataBinder.Eval(Container.DataItem,"OfferText")%> </li>--%>
+                        <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                        <%-- End 102155010 --%>
                     </ItemTemplate>
-                    <FooterTemplate>                            
-                            <li>Vega Helmet worth Rs. 1500</li>
-                            <li>1 year of <a target="_blank" style="text-decoration:underline" href="/Absure Bike RSA.pdf">Roadside Assistance</a>.</li>
+                    <FooterTemplate>             
+                        <%-- Start 102155010 --%>               
+                            <%--<li>Vega Helmet worth Rs. 1500</li>
+                            <li>1 year of <a target="_blank" style="text-decoration:underline" href="/Absure Bike RSA.pdf">Roadside Assistance</a>.</li>--%>
+                        <%-- End 102155010 --%>
                         </ul>                        
                     </FooterTemplate>
                 </asp:Repeater>

@@ -14,7 +14,7 @@
     <RootNamespace>Bikewale.Service</RootNamespace>
     <AssemblyName>Bikewale.Service</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -61,16 +61,12 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-<<<<<<< HEAD
       <HintPath>..\Libs\System.Net.Http.Formatting.dll</HintPath>
-=======
-      <HintPath>C:\Users\sushil.kumar\Documents\Visual Studio 2013\Projects\Training\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
->>>>>>> Feature-DropDownApi
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.DynamicData" />
@@ -94,25 +90,25 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\Libs\System.Web.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <HintPath>..\Libs\System.Web.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <HintPath>..\Libs\System.Web.WebPages.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <HintPath>..\Libs\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\Libs\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
@@ -158,36 +154,30 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-<<<<<<< HEAD
     <Compile Include="AutoMappers\AutoComplete\SuggestionListMapper.cs" />
-    <Compile Include="AutoMappers\Bikebooking\Area\AreaEntityToDTO.cs" />
     <Compile Include="AutoMappers\Bikebooking\Area\BBAreaListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Model\BBModelListMapper.cs" />
-    <Compile Include="AutoMappers\Bikebooking\Model\ModelEntityToDTO.cs" />
     <Compile Include="AutoMappers\BikeData\FeaturedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\LaunchedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\SimilarBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\UpcomingBikeListMapper.cs" />
-    <Compile Include="AutoMappers\BookingSummary\BookingSummaryEntityToDTO.cs" />
+    <Compile Include="AutoMappers\BookingSummary\BookingSummaryMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\DDQDealerDetailBaseMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\PQCustomerMapper.cs" />
-    <Compile Include="AutoMappers\PriceQuote\Area\PQAreaEntityToDTO.cs" />
     <Compile Include="AutoMappers\PriceQuote\Area\PQAreaListMapper.cs" />
-    <Compile Include="AutoMappers\PriceQuote\City\PQCityEntityToDTO.cs" />
     <Compile Include="AutoMappers\PriceQuote\City\PQCityListMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\DDQDealerDetailBaseMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\DPQuotationOutputMapper.cs" />
-    <Compile Include="AutoMappers\PriceQuote\Make\PQMakeEntityToDTO.cs" />
     <Compile Include="AutoMappers\PriceQuote\Make\PQMakeListMapper.cs" />
-    <Compile Include="AutoMappers\PriceQuote\MobileVerification\PQMobVerfyEntityToDTO.cs" />
-    <Compile Include="AutoMappers\PriceQuote\Model\PQModelEntityToDTO.cs" />
+    <Compile Include="AutoMappers\PriceQuote\MobileVerification\PQMobVerifyMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Model\PQModelListMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PQBikePriceQuoteOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PQCustomerMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\PQOutputMapper.cs" />
-    <Compile Include="AutoMappers\PriceQuote\PriceQuoteEntityToCTO.cs" />
-    <Compile Include="AutoMappers\PriceQuote\Version\PQVersionEntityToDTO.cs" />
+    <Compile Include="AutoMappers\PriceQuote\PriceQuoteMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Version\PQVersionListMapper.cs" />
+    <Compile Include="AutoMappers\UsedBikes\PopularUsedBikesMapper.cs" />
+    <Compile Include="AutoMappers\Videos\VideosMapper.cs" />
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
     <Compile Include="Controllers\BikeBooking\City\BBCityListController.cs" />
@@ -198,6 +188,7 @@
     <Compile Include="Controllers\BikeData\SimilarBikeController.cs" />
     <Compile Include="Controllers\BikeData\UpcomingBikeController.cs" />
     <Compile Include="Controllers\BookingSummary\BookingSummaryController.cs" />
+    <Compile Include="Controllers\CMS\CMSListController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />
@@ -214,33 +205,32 @@
     <Compile Include="Controllers\PriceQuote\PQCustomerDetailController.cs" />
     <Compile Include="Controllers\PriceQuote\PriceQuoteController.cs" />
     <Compile Include="Controllers\PriceQuote\Version\PQVersionListController.cs" />
-=======
->>>>>>> Feature-DropDownApi
-    <Compile Include="AutoMappers\Area\AreaEntityToDTO.cs" />
-    <Compile Include="AutoMappers\City\CityEntityToDTO.cs" />
-    <Compile Include="AutoMappers\CMS\CMSEntityToDTO.cs" />
-    <Compile Include="AutoMappers\Make\MakeEntityToDTO.cs" />
-    <Compile Include="AutoMappers\Model\ModelEntityToDTO.cs" />
-    <Compile Include="AutoMappers\Series\SeriesEntityToDTO.cs" />
-    <Compile Include="AutoMappers\State\StateEntityToDTO.cs" />
-    <Compile Include="AutoMappers\UserReviews\UserReviewsEntityToDTO.cs" />
-    <Compile Include="AutoMappers\Version\VersionEntityToDTO.cs" />
+    <Compile Include="AutoMappers\Area\AreaListMapper.cs" />
+    <Compile Include="AutoMappers\City\CityListMapper.cs" />
+    <Compile Include="AutoMappers\CMS\CMSMapper.cs" />
+    <Compile Include="AutoMappers\Make\MakeListMapper.cs" />
+    <Compile Include="AutoMappers\Model\ModelMapper.cs" />
+    <Compile Include="AutoMappers\Series\SeriesListMapper.cs" />
+    <Compile Include="AutoMappers\State\StateListMapper.cs" />
+    <Compile Include="AutoMappers\UserReviews\UserReviewsMapper.cs" />
+    <Compile Include="AutoMappers\Version\VersionListMapper.cs" />
     <Compile Include="Controllers\Area\AreaListController.cs" />
     <Compile Include="Controllers\City\CityListController.cs" />
-    <Compile Include="Controllers\CMS\CMSController.cs" />
+    <None Include="Controllers\CMS\CMSController.cs.old" />
     <Compile Include="Controllers\Make\MakeController.cs" />
     <Compile Include="Controllers\Make\MakeListController.cs" />
     <Compile Include="Controllers\Model\ModelController.cs" />
     <Compile Include="Controllers\Model\ModelListController.cs" />
-    <Compile Include="Controllers\SampleController.cs" />
     <Compile Include="Controllers\Series\SeriesListController.cs" />
     <Compile Include="Controllers\State\StateListController.cs" />
+    <Compile Include="Controllers\UsedBikes\PopularUsedBikesController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsListController.cs" />
     <Compile Include="Controllers\UserReviews\UserReviewsListTypeController.cs" />
     <Compile Include="Controllers\Version\VersionController.cs" />
     <Compile Include="Controllers\Version\VersionListController.cs" />
-    <Compile Include="Feedback\FeedbackController.cs" />
+    <Compile Include="Controllers\Videos\VideosController.cs" />
+    <Compile Include="Controllers\Feedback\FeedbackController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -276,6 +266,7 @@
     <Content Include="Areas\HelpPage\Views\Help\ResourceModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Search.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\SearchApiDoc.cshtml" />
+    <Compile Include="Controllers\CMS\CMSController.cs" />
     <None Include="Properties\PublishProfiles\Offline.pubxml" />
     <None Include="Properties\PublishProfiles\WebApi.pubxml" />
     <None Include="Web.Debug.config">
@@ -285,13 +276,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-<<<<<<< HEAD
   <ItemGroup>
     <Folder Include="APISecurity\" />
   </ItemGroup>
-=======
-  <ItemGroup />
->>>>>>> Feature-DropDownApi
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
       <Project>{3ca0d7b6-7e09-449c-a34d-c08ca8118876}</Project>
@@ -341,7 +328,11 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>58667</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:58667/</IISUrl>
+<<<<<<< HEAD
+          <IISUrl>http://localhost:9012</IISUrl>
+=======
+          <IISUrl>http://localhost:8090</IISUrl>
+>>>>>>> 69d60185de2cf5b4566c88e45fd3eaae43dd064a
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

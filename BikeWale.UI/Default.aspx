@@ -1,220 +1,567 @@
-﻿<%@ Page Language="C#" Trace="false" Inherits="Bikewale.Default" EnableEventValidation="false" Async="true"  %>
-<%--<%@ Register TagPrefix="FM" TagName="ForumsMin" Src="/controls/forumsmin.ascx" %>
-<%@ Register TagPrefix="TA" TagName="TipsAdvicesMin" Src="/controls/TipsAdvicesMin.ascx" %>
-<%@ Register TagPrefix="CM" TagName="ComparisonMin" Src="/controls/comparisonmin.ascx" %>--%>
-<%@ Register TagPrefix="FB" TagName="FeaturedBike" Src="/controls/featuredbike.ascx" %>
-<%@ Register TagPrefix="UB" TagName="UpcomingBikesMin" Src="/controls/UpcomingBikesMin.ascx" %>
-<%@ Register TagPrefix="UL" TagName="TopUsedListedBike" Src="/controls/TopUsedListedBike.ascx"%>
-<%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
-<%@ Register TagPrefix="LD" TagName="LocateDealer" Src="/controls/locatedealer.ascx" %>
-<%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
-<%@ Register TagPrefix="BB" TagName="BrowseBikes" Src="/controls/browsebikes.ascx" %>
-<%@ Register TagPrefix="B" TagName="HomePageBanner" Src="/controls/homepagebanner.ascx" %>
-<%@ Register TagPrefix="RT" TagName="RoadTest" Src="/controls/RoadTest.ascx" %>
-<%@ Register TagPrefix="LB" TagName="LaunchedBikes" Src="/controls/RecentLaunchedBikesMin.ascx" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<%
-    title 			= "New Bikes, Used Bikes, Bike Prices, Reviews & Photos in India";
-    keywords		= "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price";
-	description 	= "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";  
-    AdPath="/1017752/BikeWale_HomePage_";
-    AdId="1395985604192";
-    alternate   ="http://www.bikewale.com/m/";
-%>
-<!-- #include file="/includes/headhome.aspx" -->
-<PW:PopupWidget runat="server" ID="PopupWidget" />
-
-<!--BW Gallery code start here -->
-<style type="text/javascript">
-    /* Targeted IDs*/
-    #featured-bike img, #upcoming-bike img, #road-test img{ width: 196px;}
-</style>
-<form id="form1" runat="server">
-    <div class="gallery-container">
-        <div class="container_12"> 
-            <div class="block-spacing">
-                <div class="grid_8">
-                    <!-- Browse code start here -->
-                    <div class="light-grey-bg content-block border-radius5">
-                        <BB:BrowseBikes runat="server" ID="BrowseBikes" VersionRequired="false"/>                   
-                        <div class="clear"></div>
-                    </div>                        
-                    <!-- Browse code end here -->
-                    <div class="margin-top20">
-                        <ul class="gallery-tabs">
-                            <li id="lifeatured-data" class="active-tab">Featured</li>
-                            <li id="linews-data">News</li>
-                            <li id="liroad-test-data">Road Tests</li>                            
-                        </ul>
-                        <div class="gallery-border"></div>
-                    </div>
-                
-                    <div class="light-grey-bg content-block margin-top10" style="height:270px;">                    
-                        <div id="featured-data">
-                            <!-- BikeWale_FeaturedBike_600x270 -->
-                            <%--<div id='div-gpt-ad-<%= AdId %>-2' style='width:600px; height:270px;'>
-                            <script type='text/javascript'>
-                                googletag.cmd.push(function () { googletag.display('div-gpt-ad-<%= AdId %>-2'); });
-                            </script>
-                            </div>--%>
-                            <B:HomePageBanner runat="server" ID="FeaturedBanner"/>
-                        </div>
-                        <div id="news-data" class="hide">
-                            <B:HomePageBanner runat="server" ID="NewsBanner" Category="1"/>
-                        </div>
-                        <div id="road-test-data" class="hide">
-                            <B:HomePageBanner runat="server" ID="RoadTestBanner" Category="8"/>
-                        </div>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Default" %>
+<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
+<!-- #include file="/includes/headBW.aspx" -->
+<header class="home-top-banner">    	
+        <div class="container">
+        	<div class="welcome-box">
+                <h1 class="text-uppercase margin-bottom10">BOOK YOUR DREAM BIKE</h1>
+                <p class="font20">Get Exclusive Offers, Discounts and Freebies on your Bike Purchase</p>
+                <div class="margin-top60">
+                    <div>
+                    	<div class="bike-search-container">
+                            <div class="bike-search new-bike-search position-rel">
+                               	<input type="text" placeholder="Search your bike here Ex. Bajaj" id="newBikeList">
+                                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                            </div>
+                            <div class="findBtn">
+                                <button class="btn btn-orange btn-md font18">Search</button>
+                            </div>
+                            <div class="clear"></div>
+                         </div>
                     </div>
                 </div>
-                <div class="grid_4">
-                    <div class="light-grey-bg content-block border-radius5 padding-bottom20">
-                        <BP:InstantBikePrice runat="server" ID="InstantBikePrice" />
-                    </div>
-                    <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20">
-                        <LD:LocateDealer runat="server" id="LocateDealer" />
-                    </div>
-                    <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20">
-                        <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
-                    </div>                        
-                </div>
-			    <div class="clear"></div>
             </div>
         </div>
-    </div>
-    <!--BW Gallery code end here -->
-        
-    <!--Content code start here -->
-    <div class="container_12 margin-top10">
-        <div class="grid_4">
-            <div class="v-liner">
-                <h2>Buy Used Bikes</h2>            
-                <div class="margin-top5 margin-left5 left-float">                           
-                    <asp:DropDownList id="ddlUsedCities" runat="server" CssClass="brand"></asp:DropDownList>                                                     
+    </header>
+    <section class="bg-light-grey"><!--  Booking online code starts here -->
+        <div class="container">
+        	<div class="grid-12 alpha omega">
+                <h2 class="text-bold text-center margin-top50">Comforts of booking online</h2>
+            	<div class="grid-3 text-center">
+                	<div class="booking-online-pic bg-white text-center">
+                    	<div class="bookingcomforts-sprite get-price-icon"></div>
+                    </div>
+                	<div class="bg-white font20 booking-online-box">Get real prices upfront</div>
                 </div>
-                <div class="action-btn right-float margin-top5"><a id="btnSearchUsedGo">Find</a></div>
-                <script type="text/javascript">
-                    $("#btnSearchUsedGo").click(function () {
-                        if ($("#ddlUsedCities").val() == "-1") {
-                            alert("Please select city");
-                            return false;
-                        }
-                        else {
-                           var city= $("#ddlUsedCities").val();
-                            //window.location = "/used/search.aspx?#city=" + city + "&dist=50";
-                           var city = $("#ddlUsedCities option:selected").val().split('_')[1];
-                           window.location = "/used/bikes-in-" + city + '/';
-                        }
-                    });
-                </script>
+                <div class="grid-3 text-center">
+                	<div class="booking-online-pic bg-white text-center">
+                    	<div class="bookingcomforts-sprite get-deal-icon"></div>
+                    </div>
+                    <div class="bg-white font20 booking-online-box">Get best deals & offers</div>
+                </div>
+                <div class="grid-3 text-center">
+                	<div class="booking-online-pic bg-white text-center">
+                    	<div class="bookingcomforts-sprite save-visit-icon"></div>
+                    </div>
+                    <div class="bg-white font20 booking-online-box">Save on<br /> dealer visits</div>
+                </div>
+                <div class="grid-3 text-center">
+                	<div class="booking-online-pic bg-white text-center">
+                    	<div class="bookingcomforts-sprite buying-asst-icon"></div>
+                    </div>
+                    <div class="bg-white font20 booking-online-box">Complete<br /> buying assistance</div>
+                </div>
                 <div class="clear"></div>
-                <div class="dotted-line margin-top10"></div>
-                <UL:TopUsedListedBike runat="server" ID="TopUsedListedBike" TopRecords="7" /> 
+                <p class="font16 text-center margin-top20 margin-bottom30"><a href="#">Get more details</a></p>
             </div>
+            <div class="clear"></div>
         </div>
-        <div class="grid_4">
-            <div class="margin-right10">
-                <h2>Sell Your Bike Now</h2>
-                <p class="black-text">Sell your bike easy and fast!</p>
-                <div class="dotted-line margin-top5"></div>
-                <div id="sybh-list" class="padding-top10">                      
-                    <div><a class="person" style="text-decoration:none; cursor:default;" title="BikeWale team works with you to get you best price for your bike">Get Expert Help</a></div>
-                    <div class="sep"></div>                        
-                    <div><a class="timer" style="text-decoration:none; cursor:default;" title="Your bike is listed for sale until it is sold">Unlimited Time Period</a></div>
-                    <div class="sep"></div>
-                    <div><a class="watch" style="text-decoration:none; cursor:default;" title="BikeWale is committed to give your bike maximum exposure">Maximum Visibility</a></div>
-                    <div class="sep"></div>
-                    <div><a class="award" style="text-decoration:none; cursor:default;" title="Buyers' mobile numbers are verified before they are sent to you">Genuine Buyers</a></div>
-                    <div class="sep"></div>              
+    </section>
+    <!--  Ends here -->
+    <section class="bg-white"><!--  Discover your bike code starts here -->
+        <div class="container">
+        	<div class="grid-12">
+                <h2 class="text-bold text-center margin-top50 margin-bottom30">Discover your bike</h2>
+                <div class="bw-tabs-panel brand-budget-mileage-style-wrapper">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul class="brand-budget-mileage-style-UL">
+                            <li class="active" data-tabs="discoverBrand">Brand</li>
+                            <li data-tabs="discoverBudget">Budget</li>
+                            <li data-tabs="discoverMileage">Mileage</li>
+                            <li data-tabs="discoverStyle">Style</li>
+                        </ul>
+                    </div>
+                    <div class="bw-tabs-data" id="discoverBrand">
+                        <div class="brand-type-container">
+                            <ul class="text-center">
+                                <li>
+                                    <a href="#">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-bajaj"></span>
+                                        </span>
+                                        <span class="brand-type-title">Bajaj</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-hero"></span>
+                                        </span>
+                                        <span class="brand-type-title">Hero</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-honda"></span>
+                                        </span>
+                                        <span class="brand-type-title">Honda</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-yamaha"></span>
+                                        </span>
+                                        <span class="brand-type-title">Yamaha</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="brand-style-moreBtn brandTypeMore hide text-center">
+                                <li>
+                                    <a href="#">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-honda"></span>
+                                        </span>
+                                        <span class="brand-type-title">Honda</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-hero"></span>
+                                        </span>
+                                        <span class="brand-type-title">Hero</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-bajaj"></span>
+                                        </span>
+                                        <span class="brand-type-title">Bajaj</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="view-brandType text-center padding-top10 padding-bottom30">
+                            <a href="#" id="view-brandType" class="view-more-btn font16">View <span>More</span> Brands</a>
+                        </div>
+                	</div>
+                    <div class="bw-tabs-data hide" id="discoverBudget">
+                        <div class="budget-container margin-bottom20">
+                            <ul class="text-center">
+                                <li>
+                                    <a href="#">
+                                    	<span class="budget-title-box font16">
+                                            Upto
+                                        </span>
+                                        <span class="budget-amount-box font20">
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font24">50,000</span>
+                                        </span>   
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                    	<span class="budget-title-box font16">
+                                            Between
+                                        </span>
+                                        <span class="budget-amount-box font20">
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font24">50,000 - </span>
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font24">1</span>
+                                            <span class="budget-amount-text-box font16">Lakhs</span>
+                                        </span>   
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                    	<span class="budget-title-box font16">
+                                            Between
+                                        </span>
+                                        <span class="budget-amount-box font20">
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font24">1</span>
+                                            <span class="budget-amount-text-box font16">Lakhs</span>
+                                            <span class="font24"> - </span>
+                                            <span class="fa fa-rupee"></span>
+                                            <span>1.5</span>
+                                            <span class="budget-amount-text-box font16">Lakhs</span>
+                                        </span>   
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                    	<span class="budget-title-box font16">
+                                            Above
+                                        </span>
+                                        <span class="budget-amount-box font20">
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font24">2</span>
+                                            <span class="budget-amount-text-box font16">Lakhs</span>
+                                        </span>   
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                	</div>
+                    <div class="bw-tabs-data hide" id="discoverMileage">
+                        <div class="mileage-container margin-bottom20">
+                            <ul class="text-center">
+                                <li>
+                                    <a href="#">
+                                    	<span class="mileage-title-box font16">
+                                            Above
+                                        </span>
+                                        <span class="mileage-amount-box font24">
+                                            <span>60 <span class="font16">Kmpl</span></span>
+                                        </span>   
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                    	<span class="mileage-title-box font16">
+                                            Between
+                                        </span>
+                                        <span class="mileage-amount-box font24">
+                                            <span>60</span>
+                                            <span class="mileage-amount-text-box font16">Kmpl</span>
+                                            <span> - 40</span>
+                                            <span class="mileage-amount-text-box font16">Kmpl</span>
+                                        </span>   
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                    	<span class="mileage-title-box font16">
+                                            Between
+                                        </span>
+                                        <span class="mileage-amount-box font24">
+                                            <span>40</span>
+                                            <span class="mileage-amount-text-box font16">Kmpl</span>
+                                            <span> - 20</span>
+                                            <span class="mileage-amount-text-box font16">Kmpl</span>
+                                        </span>   
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                    	<span class="mileage-title-box font16">
+                                            Upto
+                                        </span>
+                                        <span class="mileage-amount-box font24">
+                                            <span>20</span>
+                                            <span class="mileage-amount-text-box font16">Kmpl</span>
+                                        </span>  
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                	</div>
+                    <div class="bw-tabs-data hide" id="discoverStyle">
+                        <div class="style-type-container margin-bottom35">
+                            <ul class="text-center">
+                                <li>
+                                    <a href="#">
+                                        <span class="style-type">
+                                            <span class="styletypesprite style-scooters"></span>
+                                        </span>
+                                        <span class="style-type-title">Scooters</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="style-type">
+                                             <span class="styletypesprite style-street"></span>
+                                        </span>
+                                        <span class="style-type-title">Street</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="style-type">
+                                            <span class="styletypesprite style-cruiser"></span>
+                                        </span>
+                                        <span class="style-type-title">Cruiser</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="style-type">
+                                             <span class="styletypesprite style-sports"></span>
+                                        </span>
+                                        <span class="style-type-title">Sports</span>
+                                    </a>
+                                </li>
+                            </ul>
+                    	</div>
+                	</div>
+                </div>        
+        	</div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <!--  Ends here -->
+    <section class="home-getFinalPrice-banner"><!--  Get Final Price code starts here -->
+        <div class="container">
+        	<div class="grid-5 leftfloat">
+            	<div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70">
+                	<h2 class="text-bold margin-bottom20">On road price</h2>
+                    <div class="form-control-box margin-bottom20">
+                    	<input class="form-control" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice">
+                        <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
+                        <span class="bwsprite error-icon"></span>
+                        <div class="bw-blackbg-tooltip">Please search a make</div>
+                   	</div>
+                    <div class="form-control-box margin-bottom20 finalPriceCitySelect">
+                        <select class="form-control">
+                            <option>Select city</option>
+                            <option>Mumbai</option>
+                            <option>Navi Mumbai</option>
+                            <option>Delhi</option>
+                            <option>Banglore</option>
+                            <option>Kolkata</option>
+                        </select>
+                    </div>
+                    <div class="form-control-box margin-bottom20 finalPriceAreaSelect hide">
+                        <select class="form-control">
+                            <option>Select area</option>
+                            <option>Mumbai</option>
+                            <option>Navi Mumbai</option>
+                            <option>Delhi</option>
+                            <option>Banglore</option>
+                            <option>Kolkata</option>
+                        </select>
+                    </div>                    
+                    <button class="btn btn-orange margin-bottom20">Get price quote</button>
+                    <p>Its private, no need to share your number and email</p>
                 </div>
-                <div class="action-btn margin-top10 center-align"><a href="/used/sell/">Sell My Bike Now</a></div>
-                <div class="shadow-white"></div>
             </div>
+            <div class="clear"></div>
         </div>
-        <div class="grid_4">
-            <div><!-- BikeWale_HP/BikeWale_HP_300x250 -->
-                <!-- #include file="/ads/Ad300x250.aspx" -->
-            </div>
-        </div>
-    </div>
-    <!--Content code end here -->
-        
-    <!--2 Content code start here -->
-    <div class="featured-bike-container"></div>
-    <div class="container_12 margin-top10">
-        <div class="grid_12 padding-top10 featured-bike-tabs">
-            <ul class="featured-bike-tabs padding-top10">
-                <li id="lifeatured-bike" class="fbike-active-tab">Featured Bikes</li>
-                <li id="liupcoming-bike">Upcoming New Bikes</li>   
-                <li id="liroad-test">Road Tests</li> 
-                <li id="lilaunched-bikes">New Launches</li>           
-            </ul>
-        </div>      
-        <div class="padding-top10" id="featured-bike">              
-            <FB:FeaturedBike runat="server" ID="FeaturedBike" TopRecords="4" ControlWidth="grid_3" ImageWidth="196px;"/>
-        </div>
-        <div class="padding-top10 hide" id="upcoming-bike">      
-            <UB:UpcomingBikesMin runat="server" ID="UpcomingBikesMin" TopRecords="4" ControlWidth="grid_3" ImageWidth="196px;"/>        
-        </div>  
-        <div class="padding-top10 hide" id="road-test">   
-            <RT:RoadTest id="ucRoadTestMin" runat="server" TopRecords="4" ControlWidth="grid_3" ImageWidth="196px;"></RT:RoadTest>
-        </div>
-        <div class="padding-top10 hide" id="launched-bikes">
-            <LB:LaunchedBikes  ID="launchedBike" runat="server"/>
-        </div>
-        <div class="clear"></div>    
-    </div>
-    <!--2 Content code end here -->
-        
-    <!--3 Content code start here -->
-    <%--<div class="articles-container margin-top15 margin-bottom15 hide">
-        <div class="container_12 hide">
-            <div class="grid_4 grey-bg">
-                <div class="content-block">
-                    <CM:ComparisonMin runat="server" ID="ComparisonMin" TopRecords="6" />
+    </section>
+    <!--  Ends here -->
+    <section class="margin-bottom50"><!--  Compare section code starts here -->
+        <BW:CompareBikes ID="ctrlCompareBikes" runat="server"/>
+    </section>
+    <!-- Ends here -->
+    <section class="bg-light-grey"><!--  Used Bikes code starts here -->
+        <%--<div class="container">
+        	<div class="grid-12">
+                <h2 class="text-bold text-center margin-top50 margin-bottom30">Popular used bikes in Mumbai</h2>
+                <div class="jcarousel-wrapper popular-used-bikes-container">
+                    <div class="jcarousel used-bike-carousel">
+                        <ul>
+                            <li class="front">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="#">
+                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19889/Yamaha-MT-03-Front-three-quarter-56371.jpg?wm=0" title="img title" alt="img title">
+                                        </a>
+                                    </div>
+                                    <div class="bikeDescWrapper">
+                                        <div class="bikeTitle margin-bottom15">
+                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
+                                        </div>
+                                        <div class="margin-bottom10 font20">
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font22">1,60,000</span>
+                                            <span class="font16">onwards</span>
+                                        </div>
+                                        <div class="font16 text-light-grey bikes-avaiable-count">
+											<span>28 Bikes Avaiable</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="front">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="#">
+                                            <img src="http://imgd8.aeplcdn.com/642x361//bikewaleimg/used/S32487/32487_20150713124853159_640x428.jpeg" title="img title" alt="img title">
+                                        </a>
+                                    </div>
+                                    <div class="bikeDescWrapper">
+                                        <div class="bikeTitle margin-bottom20">
+                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
+                                        </div>
+                                        <div class="margin-bottom15 font20">
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font22">50,000</span>
+                                            <span class="font16">onwards</span>
+                                        </div>
+                                        <div class="font16 text-light-grey bikes-avaiable-count">
+											<span>28 Bikes Avaiable</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="front">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="#">
+                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19889/Yamaha-MT-03-Front-three-quarter-56371.jpg?wm=0" title="img title" alt="img title">
+                                        </a>
+                                    </div>
+                                    <div class="bikeDescWrapper">
+                                        <div class="bikeTitle margin-bottom20">
+                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
+                                        </div>
+                                        <div class="margin-bottom15 font20">
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font22">1,60,000</span>
+                                            <span class="font16">onwards</span>
+                                        </div>
+                                        <div class="font16 text-light-grey bikes-avaiable-count">
+											<span>28 Bikes Avaiable</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="front">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="#">
+                                            <img src="http://imgd8.aeplcdn.com/642x361//bikewaleimg/used/S32487/32487_20150713124853159_640x428.jpeg" title="img title" alt="img title">
+                                        </a>
+                                    </div>
+                                    <div class="bikeDescWrapper">
+                                        <div class="bikeTitle margin-bottom20">
+                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
+                                        </div>
+                                        <div class="margin-bottom15 font20">
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font22">75,000</span>
+                                            <span class="font16">onwards</span>
+                                        </div>
+                                        <div class="font16 text-light-grey bikes-avaiable-count">
+											<span>28 Bikes Avaiable</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="front">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="#">
+                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19889/Yamaha-MT-03-Front-three-quarter-56371.jpg?wm=0" title="img title" alt="img title">
+                                        </a>
+                                    </div>
+                                    <div class="bikeDescWrapper">
+                                        <div class="bikeTitle margin-bottom20">
+                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
+                                        </div>
+                                        <div class="margin-bottom15 font20">
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font22">1,60,000</span>
+                                            <span class="font16">onwards</span>
+                                        </div>
+                                        <div class="font16 text-light-grey bikes-avaiable-count">
+											<span>28 Bikes Avaiable</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="front">
+                                <div class="contentWrapper">
+                                    <div class="imageWrapper">
+                                        <a href="#">
+                                            <img src="http://imgd8.aeplcdn.com/642x361//bikewaleimg/used/S32487/32487_20150713124853159_640x428.jpeg" title="img title" alt="img title">
+                                        </a>
+                                    </div>
+                                    <div class="bikeDescWrapper">
+                                        <div class="bikeTitle margin-bottom20">
+                                            <h3><a href="#" title="Hyundai i20 Active">Royal Enfield Thunderbird 500</a></h3>
+                                        </div>
+                                        <div class="margin-bottom15 font20">
+                                            <span class="fa fa-rupee"></span>
+                                            <span class="font22">50,000</span>
+                                            <span class="font16">onwards</span>
+                                        </div>
+                                        <div class="font16 text-light-grey bikes-avaiable-count">
+											<span>28 Bikes Avaiable</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                    <!--<p class="jcarousel-pagination"></p> -->
                 </div>
-            </div>
-            <div class="grid_4 white-bg">
-                <div class="content-block">
-                    <TA:TipsAdvicesMin runat="server" ID="TipsAdvicesMin" />
+                <div class="text-center margin-bottom30">
+                    <a class="font16" href="#">View complete list</a>
                 </div>
+        	</div>
+            <div class="clear"></div>
+        </div>--%>
+        <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
+    </section>
+    <!-- Ends here -->
+    <section><!--  News Bikes code starts here -->
+        <div class="container">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
+                <div class="bw-tabs-panel">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            <li class="active" data-tabs="ctrlNews">News</li>
+                            <li data-tabs="ctrlExpertReviews">Reviews</li>
+                            <li data-tabs="ctrlVideos">Videos</li>
+                        </ul>
+                    </div>
+                    <BW:News runat="server" ID="ctrlNews"/>
+                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>                    
+                    <BW:Videos runat="server" ID="ctrlVideos"/>  
+                    <%--<div class="bw-tabs-data hide" id="Videos"><!-- Videos data code starts here-->
+                        <div class="padding-bottom30">
+                            <div class="grid-4 alpha">
+                                <div class="yt-iframe-preview">
+                                	<iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
+                                </div>
+                            </div>
+                            <div class="grid-8 omega">
+                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
+                                <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
+                                <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span> Views <span>398</span></div>
+                                <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>120</span></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="padding-bottom30">
+                            <div class="grid-4 alpha">
+                                <div class="yt-iframe-preview">
+                                	<iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
+                                </div>
+                            </div>
+                            <div class="grid-8 omega">
+                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
+                                <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
+                                <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span> Views <span>398</span></div>
+                                <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>120</span></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="padding-bottom30">
+                            <div class="grid-4 alpha">
+                                <div class="yt-iframe-preview">
+                                	<iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
+                                </div>
+                            </div>
+                            <div class="grid-8 omega">
+                                <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
+                                <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
+                                <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span> Views <span>398</span></div>
+                                <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span>120</span></div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        
+                        <div class="padding-bottom50 text-center">
+                        	<a href="#" class="font16">View more videos</a>
+                        </div>
+                    </div><!-- Ends here-->--%>
+                </div>        
             </div>
-            <div class="grid_4 grey-bg">
-                <div class="content-block">
-                     <FM:ForumsMin runat="server" ID="ForumsMin" TopRecords="6" />
-                </div>
-            </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
-    </div>    --%>
-</form>
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("a.person,a.timer,a.watch,a.award").bt({ contentSelector: "$(this).attr('title')", positions: ['top', 'bottom', 'left'], fill: '#ffffee', strokeWidth: 1, strokeStyle: '#666666', width: '300px', cssClass: 'f-small', spikeLength: 7 });
-
-        $("#lifeatured-data,#linews-data,#liroad-test-data").click(function () {
-            $("#liroad-test-data,#linews-data,#lifeatured-data").removeClass("active-tab");
-            $(this).addClass("active-tab");
-            $("#news-data,#road-test-data,#featured-data").addClass("hide");
-            var bannerdiv = $(this).attr('id').substring(2, $(this).attr('id').length);
-            $("#" + bannerdiv).removeClass("hide");
-            $("#" + bannerdiv).children().children().children("ul.bike-img-list").children('li').addClass("hide");
-            $("#" + bannerdiv).children().children().children("ul.bike-img-list").children('li').first().removeClass("hide");
-        });
-       
-        $("#lifeatured-bike,#liupcoming-bike, #liroad-test , #lilaunched-bikes").click(function () {
-            $("#liupcoming-bike,#lifeatured-bike,#liroad-test, #lilaunched-bikes").removeClass("fbike-active-tab");
-            $(this).addClass("fbike-active-tab");           
-            $("#featured-bike,#upcoming-bike,#road-test,#launched-bikes").addClass("hide");
-            $("#" + $(this).attr('id').substring(2, $(this).attr('id').length)).removeClass("hide");
-        });        
-    });
-
-    function SelectBannerImage(obj) {       
-        var BasicId = $(obj).attr("id").substring(13, $(obj).attr("id").length);
-        $('li[name*="banner-"]').addClass("hide");
-        $("#banner-full-" + BasicId).removeClass("hide");
-    }
-</script>
-<!--3 Content code end here -->
- <!-- #include file="/includes/footerInner.aspx" -->       
+    </section>
+    <!-- Ends here -->
+<!-- #include file="/includes/footerBW.aspx" -->

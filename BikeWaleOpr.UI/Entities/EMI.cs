@@ -8,9 +8,7 @@ namespace Bikewale.Entities.BikeBooking
 {
     /// <summary>
     /// Written by Ashwini Todkar on 29 Oct 2014
-    /// </summary>
-    
-    [Serializable]
+    /// </summary>    
     public class EMI
     {        
         [JsonProperty("tenure")]
@@ -22,7 +20,7 @@ namespace Bikewale.Entities.BikeBooking
         [JsonProperty("rateOfInterest")]
         public float RateOfInterest { get; set; }
 
-        [JsonProperty("laonProvider")]
+        [JsonProperty("loanProvider")]
         public string LoanProvider { get; set; }
     }
 }

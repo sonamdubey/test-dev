@@ -9,5 +9,6 @@ namespace Bikewale.DTO.Widgets
     public class MostPopularBikesList
     {
         public List<MostPopularBikes> PopularBikes { get; set; }
+
     }
 }

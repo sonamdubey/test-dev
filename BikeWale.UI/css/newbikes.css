@@ -1,0 +1,59 @@
+@charset "utf-8";
+/* CSS Document */
+/* top banner */
+.new-bikes-top-banner { background:#161209 url(../images/new-bikes-banner.jpg) no-repeat center top; height: 285px; padding-top: 1px; }
+
+/* discover your bike css */
+.brand-budget-mileage-style-wrapper { background:#fff; }
+.bw-tabs-data ul li:hover { cursor: pointer; }
+.brand-type-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:180px; height:85px; margin:0 5px 30px; text-align:center; font-size:18px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.style-type-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:226px; height:155px; margin:0 5px 15px; text-align:center; font-size:18px; border:1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.brand-type { width:180px; height:50px; display:block; margin:0 auto; }
+.brand-type-title, .style-type-title { margin-top:10px; display:block; }
+.brand-type-container a, .style-type-container a { text-decoration:none; color:#82888b; display: inline-block; }
+.style-type-container ul li:hover { border: 1px solid #4d5057;}
+.brand-type-container ul li:hover span.brand-type-title, .style-type-container ul li:hover span.style-type-title {color:#4d5057; font-weight: bold; }
+
+/* budget-container and mileage-container */
+.budget-container ul li, .mileage-container ul li { text-align: center; display: inline-block; *display:inline; *zoom:1; }
+.budget-container ul li:hover a, .mileage-container ul li:hover a { color:#4d5057;}
+.budget-container ul li a, .mileage-container ul li a { display:inline-block; *display:inline; *zoom:1; width:226px; height:155px; margin:0 5px 30px; text-align:center; background:#fff; color:#82888b; font-size:18px; border: 1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.budget-container ul li a span.budget-title-box , .budget-container ul li a span.budget-amount-box, .mileage-container ul li a span.mileage-title-box , .mileage-container ul li a span.mileage-amount-box { display:block; }
+.budget-container ul li a:hover, .mileage-container ul li a:hover { border: 1px solid #4d5057; text-decoration:none; }
+.budget-container ul li a span.budget-title-box, .mileage-container ul li a span.mileage-title-box { padding-top: 40px; padding-bottom: 5px; }
+
+/* style-container */
+.style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }
+.styletypesprite { background: url(../images/style-type-sprite.png) no-repeat; display: inline-block;  }
+.style-scooters, .style-street, .style-cruiser, .style-sports { width:75px; height:45px; }
+.style-scooters { background-position: 0 0; }
+.style-street { background-position: 0 -52px; }
+.style-cruiser { background-position: 0 -105px; }
+.style-sports { background-position: 0 -155px; }
+
+/* discover bikes */
+.newbike-discover-bike-container { background-color: #fff; }
+.newbike-discover-bike-container .jcarousel { width:934px; overflow:hidden; left:20px;}
+.newbike-discover-bike-container .jcarousel .imageWrapper { width: 298px; }
+.discover-bike-carousel .jcarousel li { width:298px; height:auto; }
+.discover-bike-carousel .jcarousel li.front { border:none;}
+
+/* tools you may required */
+.tools-may-need-wrapper { background:#fff; }
+.final-price-logo {  margin:0 auto; }
+.final-price-search-container, .locate-dealer-search-container, .calculate-emi-search-container { margin:0 auto; width:760px; height: 45px; }
+.final-price-search, .locate-dealer-search, .calculate-emi-tool-search { width:588px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; height: 45px; }
+.final-price-bikeSelect, .locate-dealer-bikeSelect { width:290px; height:45px; float:left; }
+.final-price-bikeSelect input[type="text"], .locate-dealer-bikeSelect input[type="text"] { width:290px; height: 43px; }
+.final-price-citySelect, .locate-dealer-citySelect, .interest-rate-boxSelect { border-left:1px solid #ccc; height:44px; width:296px; float:left; }
+.final-price-citySelect select, .locate-dealer-citySelect select { width: 296px; border: none; color:#555; height: 43px; }
+.get-final-price-btn, .locate-dealer-btn, .calculate-btn { float:left; }
+
+.loan-amount-box, .interest-rate-boxSelect { width:290px; height:45px; float:left; }
+.loan-amount-box input[type="text"] { width:290px; height: 43px; }
+.interest-rate-boxSelect select { width: 296px; border: none; color:#555; height: 43px; }
+
+/* News-Reviews-Videos New Bikes */
+.newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }
+.newBikes-latest-updates-container .grid-8 { padding-right:10px; !important }
+

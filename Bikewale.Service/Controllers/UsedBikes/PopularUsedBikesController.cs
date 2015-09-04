@@ -21,9 +21,7 @@ namespace Bikewale.Service.Controllers.UsedBikes
     /// Created On : 28th August 2015
     /// </summary>
     public class PopularUsedBikesController : ApiController
-    {
-        
-        
+    { 
         private readonly  IUsedBikes _usedBikesRepo = null;
         public PopularUsedBikesController(IUsedBikes usedBikesRepo)
         {

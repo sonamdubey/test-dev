@@ -1,0 +1,26 @@
+﻿@charset "utf-8";
+/* CSS Document */
+header { background:#161209 url(http://imgd1.aeplcdn.com/0x0/cw/static/landing-banners/m/new-cars-banner.jpg) no-repeat left top; background-size: cover;}
+.newbikes-banner-div { height: 130px; }
+
+/* Brand - Budget - Body type */
+.brand-type-container ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:90px; height:70px; margin:0 0 15px; text-align:center; }
+.brand-type-title { display:block; text-transform:capitalize; }
+.brand-type-container a { text-decoration:none; color:#565a5c; display: inline-block; }
+.brand-type-container ul li:hover span.brand-type-title { font-weight: bold; }
+
+/* compare bikes */
+.compare-bikes-container { background-color: #fff; }
+
+/* tools you may need */
+.tools-need-container ul li a { display: table; text-decoration: none; }
+.tools-need-container ul li a span.tools-need-logo { display: table-cell; vertical-align:top; width:92px; height:92px; overflow:hidden; }
+.tools-need-container ul li a span.tools-need-desc { display: table-cell; color: #565a5c; padding-left:20px; }
+.tools-need-container ul li a span.tools-need-text { display: block; margin-top: 20px; }
+
+/* tools logo required */
+/*.newbikes-sprite { background: ../images/newbikes-sprite.png) no-repeat; display: inline-block; }
+.final-price-logo, .locate-dealer-logo, .user-review-logo { width:92px; height:92px; }
+.final-price-logo { background-position: 0 -154px; }
+.locate-dealer-logo { background-position: 0 -255px; }
+.user-review-logo { background-position:0 -356px; }*/

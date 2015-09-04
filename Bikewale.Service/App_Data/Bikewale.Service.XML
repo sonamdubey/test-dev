@@ -646,6 +646,37 @@
             <param name="cityId">City Id</param>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.CMS.CMSListController">
+            <summary>
+            Edit CMS List Controller :  Operations related to list of content 
+            Author : Sushil Kumar
+            Created On : 24th August 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.UInt32)">
+            <summary>
+            To get Recent Categories Content List
+            </summary>
+            <param name="categoryId"></param>
+            <param name="makeId"></param>
+            <param name="modelId"></param>
+            <param name="posts"></param>
+            <param name="recent"></param>
+            <returns>Recent Articles List Summary</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+             To get content of Specified category
+            </summary>
+            <param name="CategoryId"></param>
+            <param name="makeId"></param>
+            <param name="modelId"></param>
+            <param name="startIndex"></param>
+            <param name="endIndex"></param>
+            <param name="pageSize"></param>
+            <param name="pageNumber"></param>
+            <returns>Category Content List</returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.Compare.BikeCompareController">
             <summary>
             Bike Compare controller
@@ -1016,7 +1047,7 @@
             <param name="modelId"></param>
             <returns>Minimum Model Details</returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelListController.Get(System.SByte,System.Nullable{System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.Model.ModelListController.Get(System.Nullable{System.SByte},System.Nullable{System.Int32})">
             <summary>
              To Get Most popular Bikes List
             </summary>
@@ -1220,7 +1251,7 @@
             Created On : 24th August 2015
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(Bikewale.Service.Controllers.EnumVideosCategory,System.UInt32,System.UInt32)">
+        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(Bikewale.Entities.Videos.EnumVideosCategory,System.UInt32,System.UInt32)">
             <summary>
              To get list of Videos based on Categories defined in Enum
             </summary>
@@ -1229,7 +1260,7 @@
             <param name="pageSize">Total Records to be Fetched</param>
             <returns>Categorized Videos List</returns>
         </member>
-        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(System.Boolean,System.UInt32,System.UInt32,System.UInt32)">
+        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(System.UInt32,System.UInt32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
              To get Videos List based on Make or Model (Classes of Videos)
             </summary>
@@ -1566,7 +1597,7 @@
             <param name="all"></param>
             <returns>News Details</returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.Int32,System.Int32,System.Int32)">
             <summary>
             Edit CMS Api to get List of other model images list
             </summary>
@@ -1576,30 +1607,6 @@
             <param name="startIndex"></param>
             <param name="endIndex"></param>
             <returns></returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.UInt32,System.Boolean,System.Boolean)">
-            <summary>
-            To get Recent Categories Content List
-            </summary>
-            <param name="categoryId"></param>
-            <param name="makeId"></param>
-            <param name="modelId"></param>
-            <param name="posts"></param>
-            <param name="recent"></param>
-            <returns>Recent Articles List Summary</returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-             To get content of Specified category
-            </summary>
-            <param name="CategoryId"></param>
-            <param name="makeId"></param>
-            <param name="modelId"></param>
-            <param name="startIndex"></param>
-            <param name="endIndex"></param>
-            <param name="pageSize"></param>
-            <param name="pageNumber"></param>
-            <returns>Category Content List</returns>
         </member>
     </members>
 </doc>

@@ -188,6 +188,7 @@
     <Compile Include="Controllers\BikeData\SimilarBikeController.cs" />
     <Compile Include="Controllers\BikeData\UpcomingBikeController.cs" />
     <Compile Include="Controllers\BookingSummary\BookingSummaryController.cs" />
+    <Compile Include="Controllers\CMS\CMSListController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />

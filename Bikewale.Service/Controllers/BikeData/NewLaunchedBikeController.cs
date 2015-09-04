@@ -19,6 +19,7 @@ using Bikewale.DTO.Model;
 using AutoMapper;
 using Bikewale.DTO.Series;
 using Bikewale.Service.AutoMappers.BikeData;
+using System.Web.Http.Description;
 
 namespace Bikewale.Service.Controllers.BikeData
 {
@@ -42,6 +43,7 @@ namespace Bikewale.Service.Controllers.BikeData
         /// <param name="pageSize">No. of Record</param>
         /// <param name="curPageNo">Current Page No. (Optional)</param>
         /// <returns></returns>
+        [ResponseType(typeof(LaunchedBikeList))]
         public IHttpActionResult Get(int pageSize, int? curPageNo = null)
         {
             int recordCount = 0;

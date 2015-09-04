@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace Bikewale.DTO.Model
 {
-    public class ModelDetail
+    public class ModelDetail  : ModelBase
     {
         [JsonProperty("makeBase")]
         public MakeBase MakeBase { get; set; }

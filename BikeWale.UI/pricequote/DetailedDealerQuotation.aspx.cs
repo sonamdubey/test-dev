@@ -32,8 +32,8 @@ namespace Bikewale.BikeBooking
         protected PQ_DealerDetailEntity _objPQ = null;
         protected Repeater rptQuote, rptOffers, rptFacility, rptColors, rptDisclaimer, rptPopupColors;
         protected SimilarBikes ctrl_similarBikes;
-        protected string ImgPath = string.Empty, BikeName = string.Empty, cityId = string.Empty, versionId = string.Empty, dealerId = string.Empty, contactNo = string.Empty,organization = string.Empty, address = string.Empty, MakeModel =string.Empty;
-        protected double lattitude =0,longitude = 0;
+        protected string ImgPath = string.Empty, BikeName = string.Empty, cityId = string.Empty, versionId = string.Empty, dealerId = string.Empty, contactNo = string.Empty, organization = string.Empty, address = string.Empty, MakeModel = string.Empty;
+        protected double lattitude = 0, longitude = 0;
         protected UInt32 TotalPrice = 0;
         protected CalculatedEMI objCEMI = null;
         protected uint PqId = 0;
@@ -47,7 +47,8 @@ namespace Bikewale.BikeBooking
         protected List<VersionColor> objColors = null;
         uint exShowroomCost = 0;
         bool isDealerNotified = false;
-       
+        protected UInt32 insuranceAmount = 0;
+        protected bool IsInsuranceFree = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -86,7 +87,7 @@ namespace Bikewale.BikeBooking
         //    PQPdfTemplate.RenderControl(h_textw);//Name of the Panel
 
         //    Trace.Warn("html : " + h_textw.ToString());
-        
+
         //    Document doc = new Document(PageSize.A4, 20, 20, 20, 20);
         //    FontFactory.GetFont("Verdana", 20);
         //    PdfWriter.GetInstance(doc, Response.OutputStream);
@@ -99,7 +100,7 @@ namespace Bikewale.BikeBooking
         //    html_worker.Parse(s_tr);
         //    doc.Close();
         //    Response.Write(doc);
- 
+
         //}
 
         protected void Page_Load(object sender, EventArgs e)
@@ -132,7 +133,7 @@ namespace Bikewale.BikeBooking
             }
             else
                 Response.Redirect("/pricequote/", true);
-     
+
             //SendSMSnEmail();
         }
 
@@ -275,7 +276,6 @@ namespace Bikewale.BikeBooking
                 if (_objPQ != null)
                 {
                     //_objPQ.objQuotation.HostUrl + _objPQ.objQuotation.LargePicUrl + _objPQ.objQuotation.objMake.MakeName + _objPQ.objQuotation.objModel.ModelName + _objPQ.objQuotation.objVersion.VersionName +
-                    //ImgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + _objPQ.objQuotation.LargePicUrl, _objPQ.objQuotation.HostUrl);
                     ImgPath = Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath, _objPQ.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
                     BikeName = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName + " " + _objPQ.objQuotation.objVersion.VersionName;
                     MakeModel = _objPQ.objQuotation.objMake.MakeName + " " + _objPQ.objQuotation.objModel.ModelName;
@@ -290,7 +290,7 @@ namespace Bikewale.BikeBooking
                             divBikeBooked.Visible = true;
                             divBookBike.Visible = false;
                         }
-                     
+
                     }
 
                     if (_objPQ.objQuotation.PriceList != null && _objPQ.objQuotation.PriceList.Count > 0)
@@ -298,7 +298,14 @@ namespace Bikewale.BikeBooking
                         rptQuote.DataSource = _objPQ.objQuotation.PriceList;
                         rptQuote.DataBind();
 
-                    
+                        foreach (var price in _objPQ.objQuotation.PriceList)
+                        {
+                            Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), _objPQ.objQuotation.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
+                        }
+                        if (insuranceAmount > 0)
+                        {
+                            IsInsuranceFree = true;
+                        }
 
                         bool isShowroomPriceAvail = false, isBasicAvail = false;
 
@@ -321,11 +328,11 @@ namespace Bikewale.BikeBooking
                             if (item.CategoryId == 2 && !isShowroomPriceAvail)
                                 exShowroomCost += item.Price;
 
-                           TotalPrice += item.Price;
+                            TotalPrice += item.Price;
                         }
 
                         if (isBasicAvail && isShowroomPriceAvail)
-                            TotalPrice = TotalPrice- exShowroomCost;
+                            TotalPrice = TotalPrice - exShowroomCost;
 
                         if (_objPQ.objEmi != null && TotalPrice > 0)
                         {
@@ -336,7 +343,7 @@ namespace Bikewale.BikeBooking
 
                     if (_objPQ.objOffers != null && _objPQ.objOffers.Count > 0)
                     {
-              
+
                         rptOffers.DataSource = _objPQ.objOffers;
                         rptOffers.DataBind();
                     }
@@ -350,8 +357,8 @@ namespace Bikewale.BikeBooking
 
                     if (_objPQ.objFacilities != null && _objPQ.objFacilities.Count > 0)
                     {
-                    
-                        rptFacility.DataSource = _objPQ.objFacilities; 
+
+                        rptFacility.DataSource = _objPQ.objFacilities;
                         rptFacility.DataBind();
                     }
 
@@ -372,11 +379,11 @@ namespace Bikewale.BikeBooking
 
                         if (!DealerPriceQuoteCookie.IsSMSSend && !DealerPriceQuoteCookie.IsMailSend)
                         {
-                            SendEmailSMSToDealerCustomer.SendEmailToCustomer(BikeName, ImgPath, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Organization, _objPQ.objDealer.Address, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, _objPQ.objQuotation.PriceList, _objPQ.objOffers, _objPQ.objDealer.objArea.PinCode, _objPQ.objDealer.objState.StateName, _objPQ.objDealer.objCity.CityName, TotalPrice);
-                            SendEmailSMSToDealerCustomer.SMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, BikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address + "" + address);
+                            SendEmailSMSToDealerCustomer.SendEmailToCustomer(BikeName, ImgPath, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Organization, _objPQ.objDealer.Address, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, _objPQ.objQuotation.PriceList, _objPQ.objOffers, _objPQ.objDealer.objArea.PinCode, _objPQ.objDealer.objState.StateName, _objPQ.objDealer.objCity.CityName, TotalPrice, insuranceAmount);
+                            SendEmailSMSToDealerCustomer.SMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, BikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address + "" + address, _objPQ.objBookingAmt.Amount, insuranceAmount);
                             if (!IsDealerNotified())
                             {
-                                SendEmailSMSToDealerCustomer.SendEmailToDealer(_objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName,_objPQ.objQuotation.objVersion.VersionName, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName, _objPQ.objQuotation.PriceList, Convert.ToInt32(TotalPrice), _objPQ.objOffers);
+                                SendEmailSMSToDealerCustomer.SendEmailToDealer(_objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, _objPQ.objQuotation.objVersion.VersionName, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName, _objPQ.objQuotation.PriceList, Convert.ToInt32(TotalPrice), _objPQ.objOffers, insuranceAmount);
                                 SendEmailSMSToDealerCustomer.SMSToDealer(_objPQ.objDealer.MobileNo, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, BikeName, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName);
                             }
                             DealerPriceQuoteCookie.CreateDealerPriceQuoteCookie(PriceQuoteCookie.PQId, true, true);

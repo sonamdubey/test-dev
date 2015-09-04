@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Series;
 using Bikewale.DTO.Version;
+using Bikewale.DTO.Widgets;
 using Bikewale.Entities.BikeData;
 using System;
 using System.Collections.Generic;
@@ -63,6 +65,17 @@ namespace Bikewale.Service.AutoMappers.Model
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
             return Mapper.Map<List<BikeModelEntityBase>, List<ModelBase>>(objModelList);
+        }
+
+        internal static List<DTO.Widgets.MostPopularBikes> Convert(List<MostPopularBikesBase> objModelList)
+        {
+            Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
+            Mapper.CreateMap<BikeVersionsListEntity, VersionBase>();
+            Mapper.CreateMap<MinSpecsEntity,MinSpecs>();
+            Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
+            return Mapper.Map<List<MostPopularBikesBase>, List<MostPopularBikes>>(objModelList);
+
         }
     }
 }

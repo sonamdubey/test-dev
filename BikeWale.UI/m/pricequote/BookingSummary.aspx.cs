@@ -31,12 +31,13 @@ namespace Bikewale.Mobile.BikeBooking
         protected Repeater rptQuote, rptOffers, rptPrice, rptDisclaimer;
         protected Button btnMakePayment;
         protected string BikeName = string.Empty, cityId = string.Empty, versionId = string.Empty, dealerId = string.Empty, organization = string.Empty, address = string.Empty, MakeModel = string.Empty;
-        protected UInt32 TotalPrice = 0, BooingAmt = 0 ;
+        protected UInt32 TotalPrice = 0, BooingAmt = 0;
         protected uint PqId = 0;
         protected PQCustomerDetail objCustomer = null;
         protected uint numOfDays = 0;
         uint exShowroomCost = 0;
-
+        protected UInt32 insuranceAmount = 0;
+        protected bool IsInsuranceFree = false;
 
         protected override void OnInit(EventArgs e)
         {
@@ -71,7 +72,7 @@ namespace Bikewale.Mobile.BikeBooking
                     CustomerName = objCustomer.objCustomerBase.CustomerName,
                     CustEmail = objCustomer.objCustomerBase.CustomerEmail,
                     CustMobile = objCustomer.objCustomerBase.CustomerMobile,
-                    CustCity = objCustomer.objCustomerBase.cityDetails.CityName ,
+                    CustCity = objCustomer.objCustomerBase.cityDetails.CityName,
                     PlatformId = 2,  //Mobile
                     ApplicationId = 2, //bikewale
 
@@ -132,7 +133,7 @@ namespace Bikewale.Mobile.BikeBooking
                 else
                 {
                     Response.Redirect("/m/pricequote/", true);
-                } 
+                }
             }
             else
             {
@@ -189,6 +190,15 @@ namespace Bikewale.Mobile.BikeBooking
                                 exShowroomCost += item.Price;
 
                             TotalPrice += item.Price;
+                        }
+
+                        foreach (var price in _objPQ.objQuotation.PriceList)
+                        {
+                            Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), _objPQ.objQuotation.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
+                        }
+                        if (insuranceAmount > 0)
+                        {
+                            IsInsuranceFree = true;
                         }
 
                         if (isBasicAvail && isShowroomPriceAvail)

@@ -26,6 +26,9 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Interfaces.UsedBikes;
 using Bikewale.Interfaces.UserReviews;
 using Microsoft.Practices.Unity;
+using Bikewale.DAL.UsedBikes;
+using Bikewale.DAL.Feedback;
+using Bikewale.DAL.UserReviews;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -58,11 +61,11 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
             container.RegisterType<ICustomerAuthentication<CustomerEntity, UInt32>, CustomerAuthentication<CustomerEntity, UInt32>>();
             container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
-            container.RegisterType<IFeedback>();
+            container.RegisterType<IFeedback,FeedbackRepository>();
             container.RegisterType<IBikeSeries<BikeSeriesEntity, int>>();
-            container.RegisterType<IState>();
-            container.RegisterType<IUsedBikes>();
-            container.RegisterType<IUserReviews>();
+            container.RegisterType<IState,StateRepository>();
+            container.RegisterType<IUsedBikes, UsedBikesRepository>();
+            container.RegisterType<IUserReviews, UserReviewsRepository>();
 
             return container;
         }

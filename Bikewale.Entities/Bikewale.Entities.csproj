@@ -66,6 +66,7 @@
     <Compile Include="BikeData\BikeDescriptionEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
+    <Compile Include="BikeData\BikeMakePageEntity.cs" />
     <Compile Include="BikeData\BikeModelEntity.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
     <Compile Include="BikeData\BikeModelPageEntity.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="BikeData\EnumBikeData.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\FeaturedBikeEntity.cs" />
+    <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
     <Compile Include="BikeData\MostPopularBikesBase.cs" />
     <Compile Include="BikeData\NewLaunchedBikeEntity.cs" />
