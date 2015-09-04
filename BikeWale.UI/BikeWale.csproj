@@ -434,6 +434,10 @@
       <DependentUpon>DiscussIt.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\EMICalculatorMin.ascx.cs">
+      <DependentUpon>EMICalculatorMin.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\ExpertReviews.ascx.cs">
       <DependentUpon>ExpertReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -456,6 +460,10 @@
     </Compile>
     <Compile Include="controls\LocateDealer.ascx.cs">
       <DependentUpon>LocateDealer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\LocateDealer_New.ascx.cs">
+      <DependentUpon>LocateDealer_New.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\LoginControl.ascx.cs">
@@ -962,12 +970,6 @@
       <DependentUpon>VersionSpecs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
-    <Compile Include="obj\Release\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
-    <Compile Include="obj\Release\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
-    <Compile Include="obj\Release\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="PQCertificate.aspx.cs">
       <DependentUpon>PQCertificate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1479,6 +1481,7 @@
     <Content Include="controls\ComparisonMin_old.ascx" />
     <Content Include="controls\DateControl.ascx" />
     <Content Include="controls\DiscussIt.ascx" />
+    <Content Include="controls\EMICalculatorMin.ascx" />
     <Content Include="controls\ExpertReviews.ascx" />
     <Content Include="controls\FeaturedBike.ascx" />
     <Content Include="controls\ForumsMin.ascx" />
@@ -1486,6 +1489,7 @@
     <Content Include="controls\InstantBikePrice.ascx" />
     <Content Include="controls\LinkPagerControl.ascx" />
     <Content Include="controls\LocateDealer.ascx" />
+    <Content Include="controls\LocateDealer_New.ascx" />
     <Content Include="controls\LoginControl.ascx" />
     <Content Include="controls\LoginControlNew.ascx" />
     <Content Include="controls\loginStatus.ascx" />
@@ -2050,9 +2054,6 @@
     <Content Include="new\upcomingbikes\UpcomingBikesList.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\VersionSpecs.aspx" />
-    <Content Include="obj\Release\BikeWaleWebsite.csproj.FileListAbsolute.txt" />
-    <Content Include="obj\Release\BikeWaleWebsite.dll" />
-    <Content Include="obj\Release\BikeWaleWebsite.pdb" />
     <Content Include="pagenotfound.aspx" />
     <Content Include="Partners.aspx" />
     <Content Include="PQCertificate.aspx" />
@@ -2153,9 +2154,6 @@
     <Content Include="Forums\ISAPI\httpd.conf" />
     <Content Include="m\.htaccess" />
     <Content Include="m\fonts\Roboto-Regular.ttf" />
-    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
-    <Content Include="obj\Release\BikeWaleWebsite.csprojResolveAssemblyReference.cache" />
-    <Content Include="obj\Release\DesignTimeResolveAssemblyReferencesInput.cache" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config">
@@ -2262,7 +2260,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59591</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011</IISUrl>
+          <IISUrl>http://localhost:84</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://localhost:80</CustomServerUrl>
