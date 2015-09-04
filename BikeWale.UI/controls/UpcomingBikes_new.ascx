@@ -23,11 +23,11 @@
                         </div>
                         <div class="margin-bottom10 font20 ">
                             <span class="fa fa-rupee" style="display:<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "EstimatedPriceMin"))=="0")?"none":"inline-block"%>"></span>
-                            <span class="font22"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "EstimatedPriceMin")) %> </span><span class="font16">onwards</span>
+                            <span class="font22"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "EstimatedPriceMin")) %> </span>
                         </div>
                         <div class="font12 text-light-grey margin-bottom10 <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "EstimatedPriceMin"))=="0")?"hide":""%>">Expected Price</div>
                         <div class="border-solid-top margin-top10 margin-bottom10"></div>
-                        <p class="font16"><%# ShowLaunchDate(DataBinder.Eval(Container.DataItem, "ExpectedLaunchDate")) %><span class="text-light-grey">(Expected Launch)</span></p>
+                        <p class="font16"><%# ShowLaunchDate(DataBinder.Eval(Container.DataItem, "ExpectedLaunchDate")) %>
                     </div>
                 </div>
             </li>

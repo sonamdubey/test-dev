@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Default" %>
-<%--<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
-<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>--%>
+<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
 <!-- #include file="/includes/headBW.aspx" -->
@@ -489,7 +489,7 @@
                             <li data-tabs="ctrlVideos">Videos</li>
                         </ul>
                     </div>
-                    <%--<BW:News runat="server" ID="ctrlNews"/>
+                    <BW:News runat="server" ID="ctrlNews"/>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>                    
                     <BW:Videos runat="server" ID="ctrlVideos"/>                      
                 </div>        

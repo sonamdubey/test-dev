@@ -18,6 +18,11 @@ namespace Bikewale.Utility
             StringBuilder sb = new StringBuilder();
             int absVal = (int)Math.Floor(value);
 
+            if (value == 0.0d)
+            {
+                return "Not rated yet";
+            }
+
             int i;
             for (i = 0; i < absVal; i++)
                 sb.Append(oneImg);

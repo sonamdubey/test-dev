@@ -52,7 +52,6 @@
     <Compile Include="Area\AreaList.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\BikeMakeDropdownDTO.cs" />
-    <Compile Include="BikeData\ModelDetails.cs" />
     <Compile Include="City\CityBase.cs" />
     <Compile Include="City\CityList.cs" />
     <Compile Include="BikeData\FeaturedBike.cs" />

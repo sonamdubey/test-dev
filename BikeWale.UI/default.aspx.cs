@@ -11,9 +11,9 @@ namespace Bikewale
 {
     public class Default : System.Web.UI.Page
     {
-        //protected News_new ctrlNews;
-        //protected ExpertReviews ctrlExpertReviews;
-        //protected VideosControl ctrlVideos;
+        protected News_new ctrlNews;
+        protected ExpertReviews ctrlExpertReviews;
+        protected VideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
         protected PopularUsedBikes ctrlPopularUsedBikes;
 
@@ -24,9 +24,9 @@ namespace Bikewale
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //ctrlNews.TotalRecords = 3;
-            //ctrlExpertReviews.TotalRecords = 3;
-            //ctrlVideos.TotalRecords = 3;
+            ctrlNews.TotalRecords = 3;
+            ctrlExpertReviews.TotalRecords = 3;
+            ctrlVideos.TotalRecords = 3;
             ctrlCompareBikes.TotalRecords = 4;
             ctrlPopularUsedBikes.TotalRecords = 6;            
         }
