@@ -1,7 +1,0 @@
-E:\work\BikeWalePro\Bikewale.Cache.Core\bin\Debug\Bikewale.Cache.Core.dll
-E:\work\BikeWalePro\Bikewale.Cache.Core\bin\Debug\Bikewale.Cache.Core.pdb
-E:\work\BikeWalePro\Bikewale.Cache.Core\bin\Debug\Enyim.Caching.dll
-E:\work\BikeWalePro\Bikewale.Cache.Core\bin\Debug\log4net.dll
-E:\work\BikeWalePro\Bikewale.Cache.Core\obj\Debug\Bikewale.Cache.Core.dll
-E:\work\BikeWalePro\Bikewale.Cache.Core\obj\Debug\Bikewale.Cache.Core.pdb
-E:\work\BikeWalePro\Bikewale.Cache.Core\obj\Debug\Bikewale.Cache.Core.csprojResolveAssemblyReference.cache

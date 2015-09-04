@@ -11,7 +11,7 @@ namespace Bikewale
     public class Global : System.Web.HttpApplication
     {
         protected void Application_Start(object sender, EventArgs e)
-        {            
+        {
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
             GlobalConfiguration.Configuration.EnsureInitialized(); 
         }
