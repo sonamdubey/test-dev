@@ -17,30 +17,30 @@
             <div class="grid-6 alpha">
                 <div class="content-inner-block-15 beta gamma">
                     <div class="font16 margin-bottom10 padding-left10">
-                        <span class="fa fa-rupee"></span><strong class="font18"><%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price1.ToString()) %></strong>
+                        <span class="fa fa-rupee"></span> <strong class="font18"><%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price1.ToString()) %></strong>
                     </div>
                     <div>
                         <span class="margin-bottom10">
-                            <%= Bikewale.Utility.ReviewRating.GetRateImage(Convert.ToDouble(TopRecord.Review1)) %>
+                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review1)) %>
                         </span>
                     </div>
                     <div>
-                        <a class="margin-left5" href="<%= Bike1ReviewLink %>"><%= Bike1ReviewText %></a>
+                        <%= FormatAnchorTag(Bike1ReviewLink,Bike1ReviewText) %>                        
                     </div>
                 </div>
             </div>
             <div class="grid-6 omega border-left1">
                 <div class="content-inner-block-15 beta gamma">
                     <div class="font16 margin-bottom10 padding-left10">
-                        <span class="fa fa-rupee"></span><strong class="font18"><%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price2.ToString()) %></strong>
+                        <span class="fa fa-rupee"></span> <strong class="font18"><%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price2.ToString()) %></strong>
                     </div>
                     <div>
                         <span class="margin-bottom10">
-                            <%= Bikewale.Utility.ReviewRating.GetRateImage(Convert.ToDouble(TopRecord.Review2)) %>
+                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review2)) %>
                         </span>
                     </div>
                     <div>
-                        <a class="margin-left5" href="<%= Bike2ReviewLink %>"><%= Bike2ReviewText %></a>
+                        <%= FormatAnchorTag(Bike2ReviewLink,Bike2ReviewText) %>                        
                     </div>
                 </div>
             </div>
