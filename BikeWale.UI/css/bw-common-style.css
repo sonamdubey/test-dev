@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document reset properties */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
 html { height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; line-height: 1.42857143; -webkit-overflow-scrolling: touch; }
@@ -10,8 +10,8 @@ a { color: #0288d1; text-decoration: none; }
 a:hover { text-decoration: underline; }
 article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary { display: block }
 *, :after, :before, .global-search input[type="text"], #globalCity-input input[type="text"] { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-h1 { font-size: 34px; font-weight: 600; }
-h2 { font-size: 28px; color: #2a2a2a; font-weight: 400; }
+h1 { font-size: 22px; font-weight: 600; }
+h2 { font-size: 20px; color: #2a2a2a; font-weight: 400; }
 h3 { font-size: 18px; font-weight: 600; }
 h4 { font-size: 16px; }
 h5 { font-size: 14px; }
@@ -121,8 +121,8 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .globalcity-popup-data { padding: 20px 20px 30px; }
 .cityPopup-box { background: #565a5c; width: 70px; height: 70px; line-height: 2; display: inline-block; }
 .globalcity-input-box { width: 350px; margin: 0 auto; }
-.globalcity-close-btn.cross-lg-lgt-grey, .faqsCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
-.globalcity-close-btn.cross-lg-lgt-grey:hover, .faqsCloseBtn.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
+.globalcity-close-btn.cross-lg-lgt-grey, .faqsCloseBtn.cross-lg-lgt-grey, .bw-popup .popup-close-btn { background-position: -36px -226px; }
+.globalcity-close-btn.cross-lg-lgt-grey:hover, .faqsCloseBtn.cross-lg-lgt-grey:hover, .popup-close-btn:hover { background-position: -36px -252px; }
 
 /* global-location classes */
 .global-location { position: relative; float: left; color: #fff; margin-right: 20px; }
@@ -137,7 +137,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 
 /* welcome box home page classes */
 .welcome-box { text-align: center; margin-top: 120px; color: #fff; }
-.welcome-box h1 { font-weight: 600; }
+.welcome-box h1 { font-size:34px; font-weight: 600; }
 .bw-tabs { display: block; }
 .bw-tabs-flex { display: table; width: 100%; }
 .bw-tabs-flex ul { border-bottom: 1px solid #cccccc; margin-bottom: 25px; }
@@ -324,7 +324,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .myBikeWale-icon { background-position: 0 -277px; top: 6px; }
 .insurance-icon { background-position: 0 -214px; }
 
-.cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey { width: 16px; height: 16px; }
+.cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey, .popup-close-btn { width: 16px; height: 16px; }
 .cross-lg-white { background-position: -36px -200px; }
 .cross-lg-lgt-grey { background-position: -36px -226px; }
 .cross-lg-dark-grey { background-position: -36px -252px; }

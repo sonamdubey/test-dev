@@ -3,29 +3,33 @@
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/CompareBikesMin.ascx" TagName="CompareBike" TagPrefix="BW" %>
-<!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <section>
-    	<div class="container">
-        	<div class="banner-home content-inner-block-10">
-            	<!-- Top banner code starts here -->
-            	<h1 class="text-uppercase text-white text-center padding-top30">BOOK YOUR DREAM BIKE</h1>
+<!doctype html>
+<html>
+<head>
+    <!-- #include file="/includes/headscript_mobile.aspx" -->
+</head>
+<body class="bg-light-grey">
+    <!-- #include file="/includes/headBW_Mobile.aspx" -->
+    <section>
+        <div class="container">
+            <div class="banner-home content-inner-block-10">
+                <!-- Top banner code starts here -->
+                <h1 class="text-uppercase text-white text-center padding-top30">BOOK YOUR DREAM BIKE</h1>
                 <div class="text-white margin-top15 text-center font14">Get Exclusive Offers on your Bike Purchase</div>
                 <div class="new-used-search new-bikes-search margin-top30 position-rel">
-                     <input type="text" placeholder="Search your bike here" id="newBikeList" class="rounded-corner2">
-                     <button id="btnSearch" class="btn btn-orange btn-search"><span class="fa fa-search"></span></button>
-                     <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black"></span>
+                        <input type="text" placeholder="Search your bike here" id="newBikeList" class="rounded-corner2">
+                        <button id="btnSearch" class="btn btn-orange btn-search"><span class="fa fa-search"></span></button>
+                        <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black"></span>
                 </div>
-        	</div>
+            </div>
         </div>
     </section>
-        
-    </header>
     
     <section class="bg-light-grey">
     
         <div class="container">
         <div class="grid-12 margin-bottom20">
-            <h2 class="text-center margin-top40 padding-left30 padding-right30">Comforts of booking online</h2>
+            <h2 class="text-center margin-top30 padding-left30 padding-right30">Comforts of booking online</h2>
             <div class="jcarousel-wrapper bike-booking-online-wrapper">
                 <div class="jcarousel">
                     <ul>
@@ -76,7 +80,7 @@
     <section><!--  Upcoming, New Launches and Top Selling code starts here -->
         <div class="container bg-white">
         	<div class="grid-12">
-                <h2 class="text-center margin-top40 margin-bottom20">Discover your bike</h2>
+                <h2 class="text-center margin-top30 margin-bottom20">Discover your bike</h2>
                 <div class="bw-tabs-panel padding-bottom20">
                     <div class="bw-tabs margin-bottom15">
                     	<div class="form-control-box">
@@ -105,7 +109,8 @@
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-honda"></span>
                                         </span>
-                                        <span class="brand-type-title">Hero</span>
+                                        <span class="brand-type-title">Honda
+                                        </span>
                                     </a>
                                 </li>
                                 <li>
@@ -124,9 +129,6 @@
                                         <span class="brand-type-title">Bajaj</span>
                                     </a>
                                 </li>
-                            </ul>
-                            <ul class="brand-style-moreBtn brandTypeMore hide text-center">
-                                
                                 <li>
                                     <a href="/m/hyosung-bikes/">
                                         <span class="brand-type">
@@ -143,6 +145,10 @@
                                         <span class="brand-type-title">Suzuki</span>
                                     </a>
                                 </li>
+                            </ul>
+                            <ul class="brand-style-moreBtn brandTypeMore hide text-center">
+                                
+                                
                                 <li>
                                     <a href="/m/benelli-bikes/">
                                         <span class="brand-type">
@@ -471,7 +477,7 @@
     <section class="home-getFinalPrice-banner"><!--  Get Final Price code starts here -->
         <div class="container">
         	<div class="grid-12">
-                	<h2 class="margin-top40 margin-bottom20 text-white text-center">On Road Price</h2>
+                	<h2 class="margin-top30 margin-bottom20 text-white text-center">On Road Price</h2>
                     <div class="form-control-box margin-bottom20">
                     	<input class="form-control border-red" type="text" placeholder="Type to select bike" id="getFinalPrice">
                         <span style="display:block" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black"></span>
@@ -514,7 +520,7 @@
     <section><!--  News, reviews and videos code starts here -->
         <div class="container bg-white">
         	<div class="grid-12">
-                <h2 class="text-center margin-top40 margin-bottom30">Latest Updates</h2>
+                <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
                 <div class="bw-tabs-panel">
                     <div class="bw-tabs margin-bottom15">
                     	<div class="form-control-box">                        	
@@ -541,5 +547,9 @@
             </div><!--Bottom Ad banner code ends here -->
         </div>
     </section>
-<script type="text/javascript" src="/m/src/home.js"></script>
 <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+<!-- all other js plugins -->    
+<!-- #include file="/includes/footerscript_Mobile.aspx" -->
+<script type="text/javascript" src="/m/src/home.js"></script>
+</body>
+</html>

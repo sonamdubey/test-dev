@@ -8,15 +8,18 @@
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/EMICalculatorMin.ascx" TagName="EmiCalc" TagPrefix="BW" %>
-<%@ Register Src="~/controls/LocateDealer_New.ascx" TagName="LocateDealer" TagPrefix="BW" %>
-<!-- #include file="/includes/headBW.aspx" -->
-
-<header class="new-bikes-top-banner">
-    <div class="container">
-        <div class="welcome-box">
-            <h1 class="text-uppercase margin-bottom10">NEW BIKES</h1>
-            <p class="font20">View every bike under one roof</p>
+<html>
+<head>
+    <!-- #include file="/includes/headscript.aspx" -->
+</head>
+<body class="bg-white">
+    <!-- #include file="/includes/headBW.aspx" -->
+    <header class="new-bikes-top-banner">    	
+        <div class="container">
+            <div class="welcome-box">
+                <h1 class="text-uppercase margin-bottom10">NEW BIKES</h1>
+                <p class="font20">View every bike under one roof</p>
+            </div>
         </div>
     </div>
 </header>
@@ -683,8 +686,30 @@
             </div>
         </div>
         <div class="clear"></div>
-    </div>
-</section>
-
+    </section>
+	
+    <section class="container"><!--  News Bikes latest updates code starts here -->
+        <div class="newBikes-latest-updates-container">
+            <div class="grid-12">
+                <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
+                <div class="bw-tabs-panel content-box-shadow margin-bottom30">
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul>
+                            <li class="active" data-tabs="ctrlNews">News</li>
+                            <li data-tabs="ctrlExpertReviews">Reviews</li>
+                            <li data-tabs="ctrlVideos">Videos</li>
+                        </ul>
+                    </div>
+                    <BW:News runat="server" ID="ctrlNews"/>
+                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>                    
+                    <BW:Videos runat="server" ID="ctrlVideos"/>
+                </div>        
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
 
 <!-- #include file="/includes/footerBW.aspx" -->
+<!-- #include file="/includes/footerscript.aspx" -->
+</body>
+</html>
