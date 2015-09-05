@@ -5,11 +5,7 @@
         	</div>
             <!-- inner-section code ends here-->
         </div>
-         
         
-		<!-- nav-panel code starts here-->
-		<!-- #include file="MenuList_Mobile.aspx"-->
-        <!-- nav-panel code ends here-->
     </div> 
     <div id="divForPopup" style="display:none;"></div>
     <!-- #include file="/includes/footerBW_Mobile.aspx" -->

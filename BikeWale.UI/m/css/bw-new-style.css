@@ -1,8 +1,4 @@
-body { font-size:14px; color:#333; }
-
 /*-------------------------------------Common classes-----------------------------------------------*/
-h1 { font-size:16px; font-weight:bold; border-bottom:2px solid #c62000; padding:10px 10px 10px 0px; }
-h2 { font-size:14px; }
 .margin-left5 { margin-left: 5px; }
 .margin-right5 { margin-right: 5px; }
 .margin-top20 { margin-top: 20px; }
@@ -22,7 +18,7 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus, in
 #doc-registration ol li { margin-top:10px; }
 #doc-registration ol { list-style-type:decimal; margin-left:15px; }
 #doc-registration ul li { margin-top:5px; }
-button, input[type="button"], input[type="submit"], input[type="reset"] { background:#c62000; border:none; font-weight:bold; color:#fff; width:100%; padding:10px 0px; margin-top:10px; }
+button, input[type="button"], input[type="submit"], input[type="reset"] { background:#c62000; border:none; font-weight:normal; color:#fff; width:100%; padding:10px 0px; margin-top:10px; }
 .input-div { background:#fff; margin-top:10px; border:1px solid #eaeaea; text-align:center; }
 .input-icon-div { float:left; border-right:1px solid #eaeaea; padding:10px; width:20px; }
 .input-div input[type="text"], .input-div input[type="tel"], .input-div input[type="email"] { border:none; margin:7px 0px 0px 5px; color:#333; background:none; box-shadow:none; -moz-box-shadow:none; -webkit-box-shadow:none; -o-box-shadow:none; -ms-box-shadow:none; }
@@ -121,9 +117,7 @@ html>body .WebRupee {margin-right:3px; *margin-right:0;}
 .bottom-btns .ui-input-btn input[type="submit"] {background-color:#000;}
 /*-------------- Helmet offer--------------------*/
 .red-text { color:#c62000;}
-.inner-section h1 { font-size:16px; border:none; padding:0; margin-left:10px;}
 .box1 { border:none; border-radius:0; padding:5px; margin-bottom:20px; box-shadow:0 5px 5px 2px #ccc; -moz-box-shadow:0 5px 5px 2px #ccc; -o-box-shadow:0 5px 5px 2px #ccc; -ms-box-shadow:0 5px 5px 2px #ccc; -webkit-box-shadow:0 5px 5px 2px #ccc;}
-.box1 h2 { padding:0px 10px 10px 0; font-size:16px; font-weight:bold; border-bottom: 2px solid #c62000}
 .box1 .inner-box li, .option-details li { margin-bottom:5px; list-style-type:disc; margin-left:10px;}
 .option-details li { margin-left:20px;}
 .plus-text { text-align:center; margin-bottom:20px; position:relative;}
