@@ -18,7 +18,7 @@ input[type="text"]:focus, input[type="tel"]:focus, input[type="email"]:focus, in
 #doc-registration ol li { margin-top:10px; }
 #doc-registration ol { list-style-type:decimal; margin-left:15px; }
 #doc-registration ul li { margin-top:5px; }
-button, input[type="button"], input[type="submit"], input[type="reset"] { background:#c62000; border:none; font-weight:normal; color:#fff; width:100%; padding:10px 0px; margin-top:10px; }
+/*button, input[type="button"], input[type="submit"], input[type="reset"] { background:#c62000; border:none; font-weight:normal; color:#fff; width:100%; padding:10px 0px; margin-top:10px; }*/
 .input-div { background:#fff; margin-top:10px; border:1px solid #eaeaea; text-align:center; }
 .input-icon-div { float:left; border-right:1px solid #eaeaea; padding:10px; width:20px; }
 .input-div input[type="text"], .input-div input[type="tel"], .input-div input[type="email"] { border:none; margin:7px 0px 0px 5px; color:#333; background:none; box-shadow:none; -moz-box-shadow:none; -webkit-box-shadow:none; -o-box-shadow:none; -ms-box-shadow:none; }

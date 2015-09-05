@@ -3,9 +3,9 @@
 <div id="blackOut-window" class="hide"></div>
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
 	<div class="popup-inner-container">
-    	<div class="bw-sprite close-btn floatright"></div>
-    	<h1>Select Location</h1>
-        <div class="popup-inner-container" id="popupContent">
+    	<div class="bwmsprite close-btn position-abt pos-top10 pos-right10"></div>
+    	<p class="font20 margin-bottom15 margin-top15 text-capitalize">Select Location</p>
+        <div class="padding-top10" id="popupContent">
             <div><i><span class="red">*</span>All fields are mandatory</i></div>
          <div>
                 <select id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }" ></select> 
