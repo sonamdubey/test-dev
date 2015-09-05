@@ -5,10 +5,10 @@
 <div id="blackOut-window" class="hide"></div>
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
     <div class="popup-inner-container" stopBinding: true>
-        <div class="bw-sprite close-btn right-float"></div>
-        <h2>Select Location</h2>
-        <div class="popup-inner-container" id="popupContent">
-            <div><span><span class="red">*</span>All fields are mandatory</span></div>
+        <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+        <p class="font20 margin-top15 text-capitalize text-center">Select Location</p>
+        <div class="padding-top10" id="popupContent">
+            <div class="text-center"><span><span class="red">*</span>All fields are mandatory</span></div>
 
             <div>
                 <select data-placeholder="--Select City--" class="chosen-select"  id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }" ></select> 
@@ -17,7 +17,7 @@
                 <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', event: { change: areaChangedPopup }"></select>
             </div>
             <div class="center-align">
-                <input id="btnDealerPricePopup" class="action-btn margin-top10" type="button" value="Get Price Quote" data-bind="event: { click: getPriceQuotePopup }">
+                <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top10" type="button" value="Get Price Quote" data-bind="event: { click: getPriceQuotePopup }">
                 <div id="errMsgPopup" class="red-text margin-top10 hide"></div>
             </div>
         </div> 
