@@ -1,4 +1,4 @@
-﻿@charset "utf-8";
+@charset "utf-8";
 /* CSS Document reset properties */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
 html { height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; line-height: 1.42857143; -webkit-overflow-scrolling: touch; }
@@ -139,7 +139,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 
 .home-tabs { background: #fff; display: inline-block; overflow: hidden; border: 1px solid #cccccc; margin: 30px 0; }
 .home-tabs li { color: #ccc; display: inline-block; padding: 6px 20px; font-size: 16px; cursor: pointer; }
-.home-tabs li.active { background: #4d5057; color: #fff; cursor: default; }
+.home-tabs li.active { background: #333333; color: #fff; cursor: default; }
 .bw-tabs-inner-margin10 ul { margin-bottom: 10px; }
 .bw-tabs-inner-margin15 ul { margin-bottom: 15px; }
 .bw-tabs-inner-margin20 ul { margin-bottom: 20px; }
@@ -170,7 +170,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 /* city popup classes */
 .globalcity-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
 .globalcity-popup-data { padding: 20px 20px 30px; }
-.cityPopup-box { background: #4d5057; width: 65px; height: 65px; line-height: 2; display: inline-block; }
+.cityPopup-box { background: #333333; width: 65px; height: 65px; line-height: 2; display: inline-block; }
 .globalcity-close-btn.cross-lg-lgt-grey { background-position: -36px -226px; }
 .globalcity-close-btn.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
 ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
@@ -241,7 +241,7 @@ footer ul li a:hover { text-decoration: underline; }
 .breadcrumb li { display: inline-block; margin-right: 5px; }
 .breadcrumb li span.fa-angle-right { font-size: 18px; vertical-align: top; }
 /* nav classes */
-.header-fixed { background: #000;  padding:15px 10px; height:50px; z-index: 3; }
+.header-fixed { background: #333333; padding:15px 10px; height:50px; z-index: 3; }
 .header-fixed-inner { padding-top: 65px; }
 #nav, .loginPopUpWrapper { background: #fff; width:240px; position: fixed; top: 0; right: 0; bottom: 0; left: -240px; overflow-y: scroll; z-index: 10; }
 .navUL { padding-top: 20px; }
@@ -269,8 +269,8 @@ footer ul li a:hover { text-decoration: underline; }
 .gplusLoginBtn { background:#D44936; }
 a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
-.banner-home { height: 268px; background: #161209 url(../images/home-top-banner.jpg) no-repeat scroll right top; background-size:cover; }
-.newbikes-banner-div { height:130px; background:#161209 url(http://imgd1.aeplcdn.com/0x0/cw/static/landing-banners/m/new-cars-banner.jpg) no-repeat left top; background-size: cover; }
+.banner-home { height: 268px; background: #161209 url(../images/home-top-banner.jpg) no-repeat scroll right top;  background-size: cover; }
+.newbikes-banner-div { background:#161209 url(http://imgd1.aeplcdn.com/0x0/cw/static/landing-banners/m/new-cars-banner.jpg) no-repeat left top; background-size: cover; height:130px;}
 
 /* sprite classes */
 .bwmsprite { background: url(../images/bwmsprite.png) no-repeat; display: inline-block; }
@@ -633,8 +633,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .bw-blackbg-tooltip-search-error {right:-150px; top:50px; width:357px;}
 .bw-blackbg-tooltip-search-error:before {right:177px; top:-5px;}
 /* old classes added below */
-#filter-div, #sort-by-div, #divForPopup, .popup_layer { background: #f5f5f5;  position: fixed; overflow-x:hidden; overflow-y:scroll; z-index:10000; top:0; right:0; bottom:0; left:0; width:100%; -webkit-overflow-scrolling: touch; }
-.ui-corner-top { background: #4d5057; color: #fff; font-size: 16px; height: 48px; overflow:hidden; }
+#filter-div, #divForPopup, .popup_layer { background: #f5f5f5;  position: fixed; overflow-x:hidden; overflow-y:scroll; z-index:10000; top:0; right:0; bottom:0; left:0; width:100%; -webkit-overflow-scrolling: touch; }
+.ui-corner-top { background: #333333; color: #fff; font-size: 16px; height: 48px; overflow:hidden; }
 .filterBackArrow { color: #fff; font-size: 20px; font-weight: normal; padding: 8px 15px; float: left; }
 .filterBackArrow .fa-angle-left { font-size:30px; }
 .filterTitle { float: left; font-size: 18px; margin-top: 12px; }
@@ -652,7 +652,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 .bwm-sliders.ui-widget-content { background: #ccc; border-radius: 3px; height: 7px; margin: 20px 15px 10px 4px; }
 .bwm-sliders.ui-widget-content a { color: #333333; }
-.bwm-sliders .ui-widget-header { background: #4d5057; height: 7px; }
+.bwm-sliders .ui-widget-header { background: #333333; height: 7px; }
 .bwm-sliders .ui-widget-header a { color: #ffffff; }
 .bwm-sliders.ui-slider .ui-state-focus { outline: none; }
 
