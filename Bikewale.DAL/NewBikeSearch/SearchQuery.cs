@@ -54,7 +54,8 @@ namespace Bikewale.DAL.NewBikeSearch
 		                        ,ISNULL(MO.ReviewRate, 0) MoReviewRate
 		                        ,ISNULL(MO.ReviewCount, 0) MoReviewCount
 		                        ,ISNULL(BV.ReviewRate, 0) VsReviewRate
-		                        ,ISNULL(BV.ReviewCount, 0) VsReviewCount ";
+		                        ,ISNULL(BV.ReviewCount, 0) VsReviewCount
+                                ,ISNULL(MPB.ModelwisePQCount, 0) ModelwisePQCount ";
             }
             catch(Exception ex)
             {
@@ -74,7 +75,8 @@ namespace Bikewale.DAL.NewBikeSearch
                             + " INNER JOIN BikeMakes AS MA WITH (NOLOCK) ON MA.ID = MO.BikeMakeId "
                             + " LEFT JOIN NewBikeSpecifications AS SD WITH (NOLOCK) ON SD.BikeVersionId = BV.ID "
                             + " LEFT JOIN NewBikeShowroomPrices AS SP WITH (NOLOCK) ON SP.BikeVersionId = BV.ID "
-                            + " AND SP.CityId = " + ConfigurationManager.AppSettings["defaultCity"];
+                            + " AND SP.CityId = " + ConfigurationManager.AppSettings["defaultCity"]
+                            + " LEFT JOIN MostPopularBikes MPB WITH(NOLOCK) ON MPB.ModelId = MO.ID AND MPB.RowNum = 1 ";
             }
             catch(Exception ex)
             {
@@ -101,15 +103,15 @@ namespace Bikewale.DAL.NewBikeSearch
                 switch (sortCriteria)
                 {
                     case "1":
-                        retVal = "MinPrice " + (sortOrder == "1" ? "DESC" : "ASC");
+                        retVal = " MinPrice " + (sortOrder == "1" ? " DESC " : " ASC ");
                         break;
 
                     case "2":
-                        retVal = "MoReviewCount " + (sortOrder == "0" ? "DESC" : "ASC");
+                        retVal = " MoReviewCount " + (sortOrder == "0" ? " DESC " : " ASC ");
                         break;
 
                     default:
-                        retVal = "MinPrice";
+                        retVal = " ModelwisePQCount DESC ";
                         break;
                 }
             }
