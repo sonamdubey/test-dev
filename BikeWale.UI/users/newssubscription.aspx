@@ -13,7 +13,7 @@
         </ul><div class="clear"></div>
     </div>
 	<div id="content" class="grid_8">
-        <h2 class="margin-top10">BikeWale News Subscription</h2>		
+        <h2 class="margin-top10 margin-bottom5">BikeWale News Subscription</h2>		
 		<!--My Profile Content-->
 		<div  id="tb1">
 			<table border="0" width="100%" cellspacing="0" cellpadding="5" >	

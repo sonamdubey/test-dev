@@ -8,9 +8,9 @@
 <style type="text/css">
     ul.ul-normal li { margin-left:10px; }
 </style>
-<div class="container_12 margin-top15">
-    <div class="grid_12">
-        <h1>BikeWale Site Map</h1>
+<div class="container_12">
+    <div class="grid_12 margin-top10">
+        <h1 class="black-text">BikeWale Site Map</h1>
         <div class="grid_4 alpha margin-top15">
             <h3><a class="black-text" href="/new/">New Bikes</a></h3>
             <ul class="ul-normal">
