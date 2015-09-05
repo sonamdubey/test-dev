@@ -35,7 +35,7 @@
     <section class="bg-light-grey"><!--  Booking online code starts here -->
         <div class="container">
         	<div class="grid-12 alpha omega">
-                <h2 class="text-bold text-center margin-top50">Comforts of booking online</h2>
+                <h2 class="text-bold text-center margin-top50 font28">Comforts of booking online</h2>
             	<div class="grid-3 text-center">
                 	<div class="booking-online-pic bg-white text-center">
                     	<div class="bookingcomforts-sprite get-price-icon"></div>
@@ -70,7 +70,7 @@
     <section class="bg-white"><!--  Discover your bike code starts here -->
         <div class="container">
         	<div class="grid-12">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30">Discover your bike</h2>
+                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Discover your bike</h2>
                 <div class="bw-tabs-panel brand-budget-mileage-style-wrapper">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul class="brand-budget-mileage-style-UL">
@@ -439,7 +439,7 @@
         <div class="container">
         	<div class="grid-5 leftfloat">
             	<div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70">
-                	<h2 class="text-bold margin-bottom20">On road price</h2>
+                	<h2 class="text-bold margin-bottom20 font28">On road price</h2>
                     <div class="form-control-box margin-bottom20">
                     	<input class="form-control" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice">
                         <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
@@ -485,7 +485,7 @@
     <section><!--  News Bikes code starts here -->
         <div class="container">
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
+                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Latest updates from the industry</h2>
                 <div class="bw-tabs-panel">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
@@ -505,5 +505,6 @@
     <!-- Ends here -->
 <!-- #include file="/includes/footerBW.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js"></script>
 </body>
 </html>

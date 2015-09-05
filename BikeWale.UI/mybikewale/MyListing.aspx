@@ -60,7 +60,7 @@
                     <div class="margin-top10">                                        
                         <div class="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString() == "1" ?  "left-float" : "hide" %>"><a target="_blank" href="/used/sell/default.aspx?id=<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>">Edit bike details</a> | <a target="_blank" href="/used/sell/uploadbasic.aspx?id=<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>">Upload bike photos</a> | <a class="pointer" onclick="removeBike('<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>')">Remove from listing</a></div>                        
                         
-                        <div id="div_status <%= isFake ? "hide" : "" %>"" class="left-float" style="margin-left:140px; color:#f00;">
+                        <div id="div_status <%= isFake ? "hide" : "" %>"" class="right-float" style="color:#f00;">
                             <%# GetStatus(DataBinder.Eval(Container.DataItem, "StatusId").ToString(),Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsApproved")),DataBinder.Eval(Container.DataItem, "InquiryId").ToString()) %>
                         </div>
                     <div class="clear"></div>

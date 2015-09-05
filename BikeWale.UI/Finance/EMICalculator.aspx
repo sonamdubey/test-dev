@@ -27,11 +27,11 @@
                 txtloanamount.Value = loanAmount;
             }
             rate = "12";
-            //if (Request.QueryString["rt"] != null)
-            //{
-            //    rate = Request.QueryString["rt"];
-            //    interestRate.Value = rate;
-            //}
+            if (Request.QueryString["rt"] != null)
+            {
+                rate = Request.QueryString["rt"];
+                interestRate.Value = rate;
+            }
 
             //if (Request.QueryString["loantype"] != null)
             //	loanType = Request.QueryString["loantype"];
