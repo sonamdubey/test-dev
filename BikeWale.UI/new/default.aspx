@@ -7,12 +7,15 @@
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
-
-<!-- #include file="/includes/headBW.aspx" -->
-
-        <header class="new-bikes-top-banner">    	
+<html>
+<head>
+    <!-- #include file="/includes/headscript.aspx" -->
+</head>
+<body class="bg-white">
+    <!-- #include file="/includes/headBW.aspx" -->
+    <header class="new-bikes-top-banner">    	
         <div class="container">
-        	<div class="welcome-box">
+            <div class="welcome-box">
                 <h1 class="text-uppercase margin-bottom10">NEW BIKES</h1>
                 <p class="font20">View every bike under one roof</p>
             </div>
@@ -684,6 +687,7 @@
             <div class="clear"></div>
         </div>
     </section>
-   
-
 <!-- #include file="/includes/footerBW.aspx" -->
+<!-- #include file="/includes/footerscript.aspx" -->
+</body>
+</html>

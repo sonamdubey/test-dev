@@ -6,7 +6,13 @@
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW"  %>
-<!-- #include file="/includes/headNewBW_Mobile.aspx" -->        
+<!doctype html>
+<html>
+<head>
+    <!-- #include file="/includes/headscript_mobile.aspx" -->
+</head>
+<body class="bg-light-grey">
+    <!-- #include file="/includes/headBW_Mobile.aspx" -->      
 <section>
     	<div class="container">
         	<div class="newbikes-banner-div"><!-- Top banner code starts here -->
@@ -275,5 +281,9 @@
             <div class="clear"></div>
         </div>
     </section>
+<!-- #include file="/includes/footerBW_Mobile.aspx" -->
+<!-- all other js plugins -->    
+<!-- #include file="/includes/footerscript_Mobile.aspx" -->
 <script type="text/javascript" src="/m/src/bwm-newbikes.js"></script>
- <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+</body>
+</html>

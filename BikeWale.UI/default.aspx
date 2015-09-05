@@ -4,6 +4,11 @@
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
+<html>
+<head>
+    <!-- #include file="/includes/headscript.aspx" -->
+</head>
+<body class="bg-white">
 <!-- #include file="/includes/headBW.aspx" -->
 <header class="home-top-banner">    	
         <div class="container">
@@ -499,3 +504,6 @@
     </section>
     <!-- Ends here -->
 <!-- #include file="/includes/footerBW.aspx" -->
+<!-- #include file="/includes/footerscript.aspx" -->
+</body>
+</html>

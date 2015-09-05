@@ -3,23 +3,27 @@
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/CompareBikesMin.ascx" TagName="CompareBike" TagPrefix="BW" %>
-<!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <section>
-    	<div class="container">
-        	<div class="banner-home content-inner-block-10">
-            	<!-- Top banner code starts here -->
-            	<h1 class="text-uppercase text-white text-center padding-top30">BOOK YOUR DREAM BIKE</h1>
+<!doctype html>
+<html>
+<head>
+    <!-- #include file="/includes/headscript_mobile.aspx" -->
+</head>
+<body class="bg-light-grey">
+    <!-- #include file="/includes/headBW_Mobile.aspx" -->
+    <section>
+        <div class="container">
+            <div class="banner-home content-inner-block-10">
+                <!-- Top banner code starts here -->
+                <h1 class="text-uppercase text-white text-center padding-top30">BOOK YOUR DREAM BIKE</h1>
                 <div class="text-white margin-top15 text-center font14">Get Exclusive Offers on your Bike Purchase</div>
                 <div class="new-used-search new-bikes-search margin-top30 position-rel">
-                     <input type="text" placeholder="Search your bike here" id="newBikeList" class="rounded-corner2">
-                     <button id="btnSearch" class="btn btn-orange btn-search"><span class="fa fa-search"></span></button>
-                     <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black"></span>
+                        <input type="text" placeholder="Search your bike here" id="newBikeList" class="rounded-corner2">
+                        <button id="btnSearch" class="btn btn-orange btn-search"><span class="fa fa-search"></span></button>
+                        <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black"></span>
                 </div>
-        	</div>
+            </div>
         </div>
     </section>
-        
-    </header>
     
     <section class="bg-light-grey">
     
@@ -541,5 +545,9 @@
             </div><!--Bottom Ad banner code ends here -->
         </div>
     </section>
-<script type="text/javascript" src="/m/src/home.js"></script>
 <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+<!-- all other js plugins -->    
+<!-- #include file="/includes/footerscript_Mobile.aspx" -->
+<script type="text/javascript" src="/m/src/home.js"></script>
+</body>
+</html>
