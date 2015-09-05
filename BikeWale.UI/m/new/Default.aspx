@@ -10,6 +10,7 @@
 <html>
 <head>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <link href="/m/css/bwm-newbikes.css" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey">
     <!-- #include file="/includes/headBW_Mobile.aspx" -->      
@@ -26,7 +27,7 @@
     <section class="container"><!-- Brand section code starts here -->
     	<div class="grid-12">
         	<div class="bg-white brand-wrapper content-box-shadow margin-minus30">
-            	<h2 class="content-inner-block-10 text-uppercase text-center margin-top20 margin-bottom20">Brand</h2>
+            	<h2 class="content-inner-block-10 text-uppercase text-center margin-top30 margin-bottom20">Brand</h2>
                 <div class="brand-type-container">
                     <ul class="text-center">
                         <li>
@@ -183,7 +184,7 @@
     <section><!--  Upcoming, New Launches and Top Selling code starts here -->
         <div class="container">
             <div class="grid-12">
-                <h2 class="text-center margin-top40 margin-bottom30">Discover your bike</h2>
+                <h2 class="text-center margin-top30 margin-bottom20">Discover your bike</h2>
                 <div class="bw-tabs-panel">
                     <div class="bw-tabs margin-bottom15">
                         <div class="form-control-box">
@@ -213,7 +214,7 @@
     
 	<section class="container"><!-- Tools you may need code starts here -->
     	<div class="grid-12">
-        	<h2 class="text-center margin-top40 margin-bottom30">Tool you may need</h2>
+        	<h2 class="text-center margin-top30 margin-bottom20">Tool you may need</h2>
             <div class="tools-need-container margin-bottom30 text-center">
                 <ul>
                 	<li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
@@ -261,7 +262,7 @@
     <section><!--  News, reviews and videos code starts here -->
         <div class="container">
         	<div class="grid-12">
-                <h2 class="text-center margin-top20 margin-bottom30">Latest Updates</h2>
+                <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
                 <div class="bw-tabs-panel">
                     <div class="bw-tabs margin-bottom15">
                     	<div class="form-control-box">
