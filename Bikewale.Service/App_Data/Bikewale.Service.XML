@@ -646,6 +646,26 @@
             <param name="cityId">City Id</param>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.City.DealerCityController">
+            <summary>
+            Dealer City Controller
+            Author  :   Sumit Kate
+            Created :   04 Sept 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.City.DealerCityController.#ctor(Bikewale.Interfaces.Dealer.IDealer)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="objDealer"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.City.DealerCityController.Get(System.UInt32)">
+            <summary>
+            Makewise Dealer City List
+            </summary>
+            <param name="makeId">Make Id</param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.CMS.CMSListController">
             <summary>
             Edit CMS List Controller :  Operations related to list of content 

@@ -217,7 +217,7 @@
             <div class="tools-need-container margin-bottom30 text-center">
                 <ul>
                 	<li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
-                    	<a href="javascript:void(0)">
+                    	<a href="/m/pricequote/">
                         	<span class="tools-need-logo">
                             	<span class="bwm-circle-icon getfinalprice-icon"></span>
                             </span>
@@ -229,7 +229,7 @@
                         </a>
                     </li>
                     <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
-                    	<a href="javascript:void(0)">
+                    	<a href="/m/new/locate-dealers/">
                         	<span class="tools-need-logo">
                             	<span class="bwm-circle-icon locatedealer-icon"></span>
                             </span>
@@ -240,7 +240,7 @@
                             </span>
                         </a>
                     </li>
-                    <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
+                    <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20 hide">
                     	<a href="javascript:void(0)">
                         	<span class="tools-need-logo">
                             	<span class="bwm-circle-icon checkcarvalue-icon"></span>
