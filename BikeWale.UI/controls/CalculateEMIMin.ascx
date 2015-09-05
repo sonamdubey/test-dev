@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#"%>
-<h1>Calculate Loan EMI</h1>
+<h3>Calculate Loan EMI</h3>
 <p>Bike loan EMI calculation was never this easy</p>
 <div class="left-float margin-top10 margin-right10 padding-bottom20">
     <input type="text" id="txtLoanAmount" maxlength="10" value="Enter loan amount" />

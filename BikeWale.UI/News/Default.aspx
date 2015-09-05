@@ -32,12 +32,12 @@
         </ul><div class="clear"></div>
     </div>
     <div id="content" class="grid_8 margin-top10">        
-        <h1>Bike News <span>Latest Indian Bikes News and Views</span></h1>        
+        <h1 class="black-text">Bike News <span>Latest Indian Bikes News and Views</span></h1>        
         <asp:Repeater ID="rptNews" runat="server">
 				<itemtemplate>
 					<div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class="margin-bottom15">
 						<div class="anchor-title">
-                            <h2><a href="/news/<%# DataBinder.Eval(Container.DataItem,"BasicId") %>-<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>.html" rel="bookmark" title="Permanent Link to <%# DataBinder.Eval(Container.DataItem,"Title") %>">									    
+                            <h2 class="font18"><a href="/news/<%# DataBinder.Eval(Container.DataItem,"BasicId") %>-<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>.html" rel="bookmark" title="Permanent Link to <%# DataBinder.Eval(Container.DataItem,"Title") %>">									    
 								<%# DataBinder.Eval(Container.DataItem,"Title") %>
 							</a></h2>
                         </div>		
@@ -60,7 +60,7 @@
 						    <div class="grid_7 alpha readmore">
                                 <a href="/news/<%# DataBinder.Eval(Container.DataItem,"BasicId") %>-<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>.html">Read the rest of this entry &raquo;</a>                            
 						    </div>                            
-						    <div class="grid_1 omega black-text"><%# DataBinder.Eval(Container.DataItem,"Views") %> views</div>
+						    <div class="grid_1 omega black-text font11"><%# DataBinder.Eval(Container.DataItem,"Views") %> views</div>
                             <div class="clear"></div>
                         </div>
 					</div>

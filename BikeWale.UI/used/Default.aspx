@@ -68,7 +68,7 @@
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
-                            <td><div class="action-btn">
+                            <td><div>
                                 <input type="button" id="btnSearchUsedBike" runat="server" value="Find Used Bike" class="action-btn" onclick="SearchByCriteria()" />                                
                                 </div>
                                 <div id="process_img" class="hide text-highlight">Redirecting Please wait...</div>

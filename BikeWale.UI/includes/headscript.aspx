@@ -1,4 +1,7 @@
-﻿<meta charset="utf-8">
+﻿<script runat="server">	
+    string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+</script>
+<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="keywords" content="new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price" />
 <meta name="description" content="BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values." />
