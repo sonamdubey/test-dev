@@ -189,9 +189,11 @@
     <Compile Include="Controllers\BikeData\SimilarBikeController.cs" />
     <Compile Include="Controllers\BikeData\UpcomingBikeController.cs" />
     <Compile Include="Controllers\BookingSummary\BookingSummaryController.cs" />
+    <Compile Include="Controllers\City\DealerCityController.cs" />
     <Compile Include="Controllers\CMS\CMSListController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />
+    <Compile Include="Controllers\Make\DealerMakesController.cs" />
     <Compile Include="Controllers\NewBikeSearch\NewBikeSearchController.cs" />
     <Compile Include="Controllers\Customer\AuthenticateController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />
@@ -281,9 +283,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APISecurity\" />
-    <Folder Include="AutoMappers\UsedBikes\" />
     <Folder Include="Controllers\NewFolder1\" />
-    <Folder Include="Controllers\UsedBikes\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">

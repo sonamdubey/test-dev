@@ -79,6 +79,8 @@
     <Compile Include="BikeBooking\Version\BBVersionBase.cs" />
     <Compile Include="BikeBooking\Version\BBVersionList.cs" />
     <Compile Include="BookingSummary\BookingSummaryBase.cs" />
+    <Compile Include="Make\NewBikeDealersMakeBase.cs" />
+    <Compile Include="Make\NewBikedealersMakeList.cs" />
     <Compile Include="Model\ModelDetail.cs" />
     <Compile Include="NewBikeSearch\Pager.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
