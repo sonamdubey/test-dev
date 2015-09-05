@@ -49,7 +49,7 @@
 <link rel="canonical" href=<%= canonical %> />
 <script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <form id="Form1" method="post" runat="server">
-    <div class="container_12">
+    <div class="container_12 margin-bottom20">
         <div class="grid_12"><ul class="breadcrumb"><li>You are here: </li><li><a href="/">Home</a></li><li>&rsaquo; <a title="Indian Bike News" href="/road-tests/">Road Tests</a></li><li class="current">&rsaquo; <strong><%= articleTitle%></strong></li></ul><div class="clear"></div></div>	
         <div class="grid_8 margin-top10">            
 		    <h1 class="hd1"><%= articleTitle%></h1>
@@ -150,6 +150,7 @@
    </div>
 </form>
 <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -175,5 +176,5 @@
         //});
     });
 </script>
-<!-- #include file="/includes/footerinner.aspx" -->
+<!-- #include file="/includes/footerInner.aspx" -->
 
