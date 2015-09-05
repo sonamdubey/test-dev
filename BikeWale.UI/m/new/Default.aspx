@@ -67,7 +67,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul id="more-brand-nav" class="text-center hide">
+                    <ul id="more-brand-nav" class="text-center border-top1 padding-top25 hide">
                         <li>
                             <a href="/m/benelli-bikes/">
                                 <span class="brandlogosprite brand-benelli"></span>
