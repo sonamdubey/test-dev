@@ -6,8 +6,8 @@
 %>
 <!-- #include file="/includes/headhome.aspx" -->
    
-<div class="container_12 margin-top15">    
-	<div class="grid_10 format-content">
+<div class="container_12">    
+	<div class="grid_10 format-content margin-top10">
        <h1>Privacy Policy</h1>
 		<p>
 			Privacy of your personal information is very important to us. We do not  disclose your personal information to third 

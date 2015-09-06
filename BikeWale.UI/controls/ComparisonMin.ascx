@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.ComparisonMin" %>
 <div class="container">
-    <h2 class="text-bold text-center margin-top50 margin-bottom30">Compare now</h2>
+    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Compare now</h2>
     <div class="grid-6 margin-top20">
         <div class="border-solid-right">
             <h3 class="font16 text-center padding-bottom15">

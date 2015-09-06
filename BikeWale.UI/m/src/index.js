@@ -650,7 +650,7 @@ $.fn.viewSourceCode = function() {
 	});
 };
 
-$( document ).on( "pagebeforecreate", "[data-role='page']", function() {
+$(document).on("pagebeforecreate", "[data-role='page']", function () {
 	$( this ).find( "[data-demo-html], [data-demo-js], [data-demo-css], [data-demo-php]" ).viewSourceCode();
 	SyntaxHighlighter.defaults['toolbar'] = false;
 	SyntaxHighlighter.defaults['auto-links'] = false;

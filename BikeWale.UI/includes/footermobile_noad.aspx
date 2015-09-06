@@ -5,22 +5,9 @@
         	</div>
             <!-- inner-section code ends here-->
         </div>
-    
-        <div data-role="footer" data-tap-toggle="false">
-            <div class="quick-links">
-            	<ul>
-                	<li><a href="/m/">Home</a></li>
-                    <li><a href="/m/contactus.aspx">Contact Us</a></li>
-                    <li><a href="/m/advertisewithus.aspx">Advertise</a></li>
-                    <li><a href="/">Full site</a></li>
-                </ul>
-                <div class="clear"></div>
-            </div>
-        </div>
         
-		<!-- nav-panel code starts here-->
-		<!-- #include file="MenuList_Mobile.aspx"-->
-        <!-- nav-panel code ends here-->
     </div> 
+    <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+    <!-- #include file="/includes/footerscript_mobile.aspx" -->
 </body>
 </html>
