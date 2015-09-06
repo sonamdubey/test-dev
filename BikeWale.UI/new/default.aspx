@@ -414,7 +414,7 @@
 <section class="container">
     <!--  Discover bikes section code starts here -->
     <div class="grid-12">
-        <h2 class="text-bold text-center margin-top50 margin-bottom30">Discover your bike</h2>
+        <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Discover your bike</h2>
         <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
             <div class="bw-tabs bw-tabs-flex">
                 <ul>
@@ -541,7 +541,7 @@
 <section class="container">
     <!--  Tools you may need section code starts here -->
     <div class="grid-12">
-        <h2 class="text-bold text-center margin-top50 margin-bottom30">Tools you may need</h2>
+        <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Tools you may need</h2>
         <div class="bw-tabs-panel tools-may-need-wrapper content-box-shadow">
             <div class="bw-tabs bw-tabs-flex">
                 <ul class="tools-may-need-UL">
@@ -667,6 +667,7 @@
     <div class="clear"></div>
 </section>
 
+            <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Latest updates from the industry</h2>
     <section class="container"><!--  News Bikes latest updates code starts here -->
         <div class="newBikes-latest-updates-container">
             <div class="grid-12">

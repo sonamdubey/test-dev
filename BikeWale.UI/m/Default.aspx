@@ -146,7 +146,7 @@
                                     </a>
                                 </li>
                             </ul>
-                            <ul class="brand-style-moreBtn brandTypeMore hide text-center">
+                            <ul class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center hide">
                                 
                                 
                                 <li>
