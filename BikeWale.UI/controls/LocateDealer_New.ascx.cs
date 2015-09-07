@@ -28,29 +28,5 @@ namespace Bikewale.controls
         {
                         
         }
-
-        private void FillMakes()
-        {
-            NewBikeDealersMakeList makes = null;
-            try
-            {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = "api/DealerMakes/";
-
-                makes = BWHttpClient.GetApiResponseSync<NewBikeDealersMakeList>(_bwHostUrl, _requestType, _apiUrl, makes);
-
-                if (makes != null && makes.Makes!=null && makes.Makes.Count() > 0)
-                {
-                    cmbMake.DataSource = makes.Makes;
-                    cmbMake.DataBind();
-                }
-            }
-            catch (Exception err)
-            {                
-                ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
     }
 }
