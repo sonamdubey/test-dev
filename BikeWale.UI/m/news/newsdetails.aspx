@@ -18,7 +18,7 @@
     .socialplugins li{float:left;width:84px;}
 </style>
 
-<div class="padding5">
+<div class="padding10">
     <div id="br-cr">
         <a href="/m/" class="normal">Home</a> &rsaquo; 
         <a href="/m/news/" class="normal">News</a> &rsaquo; 

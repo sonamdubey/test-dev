@@ -105,7 +105,7 @@
                 </div>
             </div>
             <div>
-            	<button class="btn btn-orange btn-full-width font18 text-uppercase">Confirm city</button>
+            	<button class="btn btn-orange btn-full-width font18">Confirm city</button>
             </div>
         </div>
         <div class="clear"></div>

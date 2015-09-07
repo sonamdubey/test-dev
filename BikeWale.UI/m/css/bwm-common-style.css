@@ -66,8 +66,8 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 	-o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
-.form-control:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
-	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
+.form-control:focus, input[type="text"]:focus, input[type="number"]:focus, input[type="search"]:focus, textarea:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(102,175,233,.6);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(102,175,233,.6); }
 select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  background:#fff url(../images/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; padding-right: 30px;  background: #fff\0; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
