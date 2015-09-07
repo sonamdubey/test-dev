@@ -751,7 +751,7 @@ legend, .ui-input-text input, .ui-input-search input {
 	background-color: #f3f3f3;
 	border-color: #bbb;
 	color: #333;
-	text-shadow: 0 1px 0 #f3f3f3
+	/*text-shadow: 0 1px 0 #f3f3f3*/
 }
 .ui-body-a, .ui-page-theme-a .ui-body-inherit, html .ui-bar-a .ui-body-inherit, html .ui-body-a .ui-body-inherit, html body .ui-group-theme-a .ui-body-inherit, html .ui-panel-page-container-a {
 	background-color: #fff;

@@ -12,7 +12,6 @@
 <!-- #include file="/includes/headermobile_home.aspx" -->
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<div class="grid-12">
     <form id="form1" runat="server">
     <!-- offer claim starts here -->
     <h1>Bike Purchase Offer Claim</h1>
@@ -360,5 +359,4 @@
         });
     </script>
 </form>
-</div>
 <!-- #include file="/includes/footermobile_home.aspx" -->
