@@ -9,7 +9,6 @@ namespace Bikewale.Entity.CMS.Articles
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
     /// </summary>
-    [Serializable]
     public class Page
     {
         public ulong pageId { get; set; }
