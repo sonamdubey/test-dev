@@ -66,7 +66,7 @@
 	p, li { font-weight:bold; font-size:12px;color:#666666; }
 </style>  
 <div class="container_12">    
-    <div class="min-height content-block">
+    <div class="content-block">
 		<h1>Page Not Found</h1>
 		<h3>Requested page couldn't be found on <a href="/" title="Visit BikeWale home page">BikeWale</a></h3>
 		<div class="text-highlight padding-top10">Possible causes for this inconvenience are:

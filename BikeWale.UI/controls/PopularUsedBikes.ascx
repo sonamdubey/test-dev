@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.PopularUsedBikes" %>
 <div class="container">
     <div class="grid-12">
-        <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= FormatControlHeader() %></h2>
+        <h2 class="text-bold text-center margin-top50 margin-bottom30 font28"><%= FormatControlHeader() %></h2>
         <div class="jcarousel-wrapper popular-used-bikes-container">
             <div class="jcarousel used-bike-carousel">
                 <ul>

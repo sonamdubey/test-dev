@@ -1013,13 +1013,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rabbitmq\CommonRQ.cs" />
     <Compile Include="rabbitmq\rabbitMQEnum.cs" />
-    <Compile Include="test.aspx.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="test.aspx.designer.cs">
-      <DependentUpon>test.aspx</DependentUpon>
-    </Compile>
     <Compile Include="used\bikedetails.aspx.cs">
       <DependentUpon>bikedetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1898,6 +1891,8 @@
     <Content Include="includes\footermobile.aspx" />
     <Content Include="includes\footermobile_home.aspx" />
     <Content Include="includes\footermobile_noad.aspx" />
+    <Content Include="includes\footerscript.aspx" />
+    <Content Include="includes\footerscript_mobile.aspx" />
     <Content Include="includes\gacode.aspx" />
     <Content Include="includes\globalStaticFiles.aspx" />
     <Content Include="includes\globalStaticFiles_mobile.aspx" />
@@ -1913,6 +1908,8 @@
     <Content Include="includes\headMyBikeWale.aspx" />
     <Content Include="includes\headNew.aspx" />
     <Content Include="includes\headNews.aspx" />
+    <Content Include="includes\headscript.aspx" />
+    <Content Include="includes\headscript_mobile.aspx" />
     <Content Include="includes\headSell.aspx" />
     <Content Include="includes\headTools.aspx" />
     <Content Include="includes\headUsed.aspx" />
@@ -2099,7 +2096,6 @@
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="TermsConditions.aspx" />
-    <Content Include="test.aspx" />
     <Content Include="test\css\bw-new-style.css" />
     <Content Include="test\css\design.css" />
     <Content Include="test\css\jquery.mobile-1.4.2.min.css" />
@@ -2260,7 +2256,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59591</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:84</IISUrl>
+          <IISUrl>http://localhost:9011</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>http://localhost:80</CustomServerUrl>

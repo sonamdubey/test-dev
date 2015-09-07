@@ -4,6 +4,11 @@
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
 <%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
+<html>
+<head>
+    <!-- #include file="/includes/headscript.aspx" -->
+</head>
+<body class="bg-white">
 <!-- #include file="/includes/headBW.aspx" -->
 <header class="home-top-banner">    	
         <div class="container">
@@ -30,7 +35,7 @@
     <section class="bg-light-grey"><!--  Booking online code starts here -->
         <div class="container">
         	<div class="grid-12 alpha omega">
-                <h2 class="text-bold text-center margin-top50">Comforts of booking online</h2>
+                <h2 class="text-bold text-center margin-top50 font28">Comforts of booking online</h2>
             	<div class="grid-3 text-center">
                 	<div class="booking-online-pic bg-white text-center">
                     	<div class="bookingcomforts-sprite get-price-icon"></div>
@@ -65,7 +70,7 @@
     <section class="bg-white"><!--  Discover your bike code starts here -->
         <div class="container">
         	<div class="grid-12">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30">Discover your bike</h2>
+                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Discover your bike</h2>
                 <div class="bw-tabs-panel brand-budget-mileage-style-wrapper">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul class="brand-budget-mileage-style-UL">
@@ -79,103 +84,19 @@
                         <div class="brand-type-container">
                             <ul class="text-center">
                                 <li>
-                                    <a href="/aprilia-bikes/">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-aprilia"></span>
-                                        </span>
-                                        <span class="brand-type-title">Aprilia</span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="/honda-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-honda"></span>
+                                            <span class="brandlogosprite brand-honda"></span>
                                         </span>
-                                        <span class="brand-type-title">Hero</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/royalenfield-bikes/">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-royal"></span>
-                                        </span>
-                                        <span class="brand-type-title">Royal Enfield</span>
+                                        <span class="brand-type-title">Honda</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/bajaj-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-bajaj"></span>
+                                             <span class="brandlogosprite brand-bajaj"></span>
                                         </span>
                                         <span class="brand-type-title">Bajaj</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/hyosung-bikes/">
-                                        <span class="brand-type">
-                                             <span class="brandlogosprite brand-hyosung"></span>
-                                        </span>
-                                        <span class="brand-type-title">Hyosung</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/suzuki-bikes/">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-suzuki"></span>
-                                        </span>
-                                        <span class="brand-type-title">Suzuki</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/benelli-bikes/">
-                                        <span class="brand-type">
-                                           	<span class="brandlogosprite brand-benelli"></span>
-                                        </span>
-                                        <span class="brand-type-title">Benelli</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/indian-bikes/">
-                                        <span class="brand-type">
-                                             <span class="brandlogosprite brand-indian"></span>
-                                        </span>
-                                        <span class="brand-type-title">Indian</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/triumph-bikes/">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-triumph"></span>
-                                        </span>
-                                        <span class="brand-type-title">Triumph</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/bmw-bikes/">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-bmw"></span>
-                                        </span>
-                                        <span class="brand-type-title">BMW</span>
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="brand-bottom-border border-solid-top margin-left20 margin-right20 hide">
-                            </div>
-                            <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide text-center">
-                                <li>
-                                    <a href="/ducati-bikes/">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-ducati"></span>
-                                        </span>
-                                        <span class="brand-type-title">Ducati</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/harleydavidson-bikes/">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-harley"></span>
-                                        </span>
-                                        <span class="brand-type-title">Harley</span>
                                     </a>
                                 </li>
                                 <li>
@@ -187,19 +108,35 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/heroelectric-bikes/">
+                                    <a href="/tvs-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-hero-elec"></span>
+                                            <span class="brandlogosprite brand-tvs"></span>
                                         </span>
-                                        <span class="brand-type-title">Hero Electric</span>
+                                        <span class="brand-type-title">TVS</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/kawasaki-bikes/">
+                                    <a href="/royalenfield-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-kawasaki"></span>
+                                             <span class="brandlogosprite brand-royal"></span>
                                         </span>
-                                        <span class="brand-type-title">Kawasaki</span>
+                                        <span class="brand-type-title">Royal Enfield</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/yamaha-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-yamaha"></span>
+                                        </span>
+                                        <span class="brand-type-title">Yamaha</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/suzuki-bikes/">
+                                        <span class="brand-type">
+                                           	<span class="brandlogosprite brand-suzuki"></span>
+                                        </span>
+                                        <span class="brand-type-title">Suzuki</span>
                                     </a>
                                 </li>
                                 <li>
@@ -211,6 +148,90 @@
                                     </a>
                                 </li>
                                 <li>
+                                    <a href="/mahindra-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-mahindra"></span>
+                                        </span>
+                                        <span class="brand-type-title">Mahindra</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/harleydavidson-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-harley"></span>
+                                        </span>
+                                        <span class="brand-type-title">Harley Davidson</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="brand-bottom-border border-solid-top margin-left20 margin-right20 hide">
+                            </div>
+                            <ul class="brand-style-moreBtn padding-top25 brandTypeMore hide text-center">
+                                <li>
+                                    <a href="/aprilia-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-aprilia"></span>
+                                        </span>
+                                        <span class="brand-type-title">Aprilia</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/benelli-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-benelli"></span>
+                                        </span>
+                                        <span class="brand-type-title">Benelli</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/bmw-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-bmw"></span>
+                                        </span>
+                                        <span class="brand-type-title">BMW</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/ducati-bikes/">
+                                        <span class="brand-type">
+                                            <span class="brandlogosprite brand-ducati"></span>
+                                        </span>
+                                        <span class="brand-type-title">Ducati</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/heroelectric-bikes/">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-hero-elec"></span>
+                                        </span>
+                                        <span class="brand-type-title">Hero Electric</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/hyosung-bikes/">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-hyosung"></span>
+                                        </span>
+                                        <span class="brand-type-title">Hyosung</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/indian-bikes/">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-indian"></span>
+                                        </span>
+                                        <span class="brand-type-title">Indian</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/kawasaki-bikes/">
+                                        <span class="brand-type">
+                                             <span class="brandlogosprite brand-kawasaki"></span>
+                                        </span>
+                                        <span class="brand-type-title">Kawasaki</span>
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="/lml-bikes/">
                                         <span class="brand-type">
                                              <span class="brandlogosprite brand-lml"></span>
@@ -219,27 +240,19 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/mahindra-bikes/">
-                                        <span class="brand-type">
-                                             <span class="brandlogosprite brand-mahindra"></span>
-                                        </span>
-                                        <span class="brand-type-title">Mahindra</span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a href="/motoguzzi-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-guzzi"></span>
+                                            <span class="brandlogosprite brand-guzzi"></span>
                                         </span>
                                         <span class="brand-type-title">Moto Guzzi</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/tvs-bikes/">
+                                    <a href="/triumph-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-tvs"></span>
+                                            <span class="brandlogosprite brand-triumph"></span>
                                         </span>
-                                        <span class="brand-type-title">TVS</span>
+                                        <span class="brand-type-title">Triumph</span>
                                     </a>
                                 </li>
                                 <li>
@@ -248,14 +261,6 @@
                                             <span class="brandlogosprite brand-vespa"></span>
                                         </span>
                                         <span class="brand-type-title">Vespa</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="/yamaha-bikes/">
-                                        <span class="brand-type">
-                                            <span class="brandlogosprite brand-yamaha"></span>
-                                        </span>
-                                        <span class="brand-type-title">Yamaha</span>
                                     </a>
                                 </li>
                                 <li>
@@ -278,7 +283,7 @@
                         <div class="budget-container margin-bottom20">
                             <ul class="text-center">
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#budget=0-50000">
                                     	<span class="budget-title-box font16">
                                             Upto
                                         </span>
@@ -289,7 +294,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#budget=50000-100000">
                                     	<span class="budget-title-box font16">
                                             Between
                                         </span>
@@ -303,7 +308,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#budget=100000-150000">
                                     	<span class="budget-title-box font16">
                                             Between
                                         </span>
@@ -319,7 +324,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#budget=200000">
                                     	<span class="budget-title-box font16">
                                             Above
                                         </span>
@@ -337,7 +342,7 @@
                         <div class="mileage-container margin-bottom20">
                             <ul class="text-center">
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#mileage=1">
                                     	<span class="mileage-title-box font16">
                                             Above
                                         </span>
@@ -347,7 +352,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#mileage=2">
                                     	<span class="mileage-title-box font16">
                                             Between
                                         </span>
@@ -360,7 +365,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#mileage=3">
                                     	<span class="mileage-title-box font16">
                                             Between
                                         </span>
@@ -373,7 +378,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#mileage=4">
                                     	<span class="mileage-title-box font16">
                                             Upto
                                         </span>
@@ -390,7 +395,7 @@
                         <div class="style-type-container margin-bottom35">
                             <ul class="text-center">
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#ridestyle=5">
                                         <span class="style-type">
                                             <span class="styletypesprite style-scooters"></span>
                                         </span>
@@ -398,7 +403,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#ridestyle=3">
                                         <span class="style-type">
                                              <span class="styletypesprite style-street"></span>
                                         </span>
@@ -406,7 +411,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#ridestyle=1">
                                         <span class="style-type">
                                             <span class="styletypesprite style-cruiser"></span>
                                         </span>
@@ -414,7 +419,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="/new/search.aspx#ridestyle=2">
                                         <span class="style-type">
                                              <span class="styletypesprite style-sports"></span>
                                         </span>
@@ -434,7 +439,7 @@
         <div class="container">
         	<div class="grid-5 leftfloat">
             	<div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70">
-                	<h2 class="text-bold margin-bottom20">On road price</h2>
+                	<h2 class="text-bold margin-bottom20 font28">On road price</h2>
                     <div class="form-control-box margin-bottom20">
                     	<input class="form-control" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice">
                         <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
@@ -480,7 +485,7 @@
     <section><!--  News Bikes code starts here -->
         <div class="container">
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
+                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Latest updates from the industry</h2>
                 <div class="bw-tabs-panel">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
@@ -499,3 +504,7 @@
     </section>
     <!-- Ends here -->
 <!-- #include file="/includes/footerBW.aspx" -->
+<!-- #include file="/includes/footerscript.aspx" -->
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js"></script>
+</body>
+</html>

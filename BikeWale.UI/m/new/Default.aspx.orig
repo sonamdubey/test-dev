@@ -60,6 +60,11 @@
                                 <span class="brand-type-title">Royal Enfield</span>
                             </a>
                         </li>
+<<<<<<< HEAD
+=======
+                    </ul>
+                    <ul id="more-brand-nav" class="text-center border-top1 padding-top25 hide">
+>>>>>>> 7207c84c480b9dc19ae01c8cabac3cd5e10ef08b
                         <li>
                             <a href="/m/yamaha-bikes/">
                                 <span class="brandlogosprite brand-yamaha"></span>

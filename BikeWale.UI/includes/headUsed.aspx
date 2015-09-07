@@ -10,7 +10,7 @@
     <% if( canonical != "" ) { %><link rel="canonical" href="<%=canonical%>" /><% } %>
     <% if( prevPageUrl != "" ) { %><link rel="prev" href="<%= prevPageUrl %>" /><% } %>
     <% if( nextPageUrl != "" ) { %><link rel="next" href="<%= nextPageUrl %>" /><% } %>
-    <!-- #include file="globalStaticFiles.aspx"-->
+    <!-- #include file="globalStaticFiles.aspx"-->    
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", canonical = "", prevPageUrl = "", nextPageUrl = "", AdId = "", AdPath = "";
     </script>
@@ -60,100 +60,9 @@
         } )();
     </script>
 </head>
-<body>
+<body class="header-fixed-inner">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
-    	<!--Top nav code start here -->
-    	<div class="top-nav">
-        	<div class="container_12">
-            	<div class="grid_9">
-                    <ul class="left-float">
-                    	<li><a href="http://www.carwale.com">CarWale</a></li>
-                        <li>|</li>
-                        <li><a href="/aboutus.aspx">About Us</a></li>
-                        <li>|</li>                        
-                        <%--<li><a class="hide" href="/advertisewithus.aspx">Advertise with Us</a></li>                       
-                        <li>|</li>
-                        <li><a class="hide" href="/contactus.aspx">Contact Us</a></li>
-                        <li>|</li>   --%>                      
-                    </ul>
-                    <div class="left-float margin-left10">                        	
-                        <fb:like href="https://www.facebook.com/pages/BikeWale/471265026228033" layout="button_count" show-faces="false" action="like" colorscheme="light" />
-                    </div>
-                    <div class="left-float margin-left10">                            
-                        <a href="https://twitter.com/bikewale" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @twitter</a>    
-                    </div>
-                    <div class="left-float margin-left10 hide">
-                        <div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com"></div>
-                    </div>
-                </div>
-                <BikeWale:LoginStatus Id="ctrl_LoginStatus" runat="server" />
-            </div>
-        </div>
-        <!--Top nav code end here -->
+    	<!-- #include file="/includes/headBW.aspx" -->        
         
-        <!--Header code start here -->
-        <div class="header-container">
-            <div class="container_12">
-                <div class="grid_12 margin-top5">
-                    <!-- logo code start here -->
-                    <div class="bw-logo  left-float"><a href="/"></a></div>
-                    <!-- logo code end here -->
-                    <!-- Ad Slot code start here -->
-                    <div class="ad-slot left-float">
-                       <!-- #include file="/ads/Ad728x90.aspx" -->
-                    </div>
-                    <!-- Ad Slot code end here -->
-                </div>
-            </div>
-            <div class="container_12">
-            	<!-- Primary Navigation start here -->
-                <div class=" grid_12 primary-nav-container">
-                	<ul>
-                    	<li><a href="/">Home</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <li><a href="/new/">New Bikes</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <li class="active"><a href="/used/">Used Bikes</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <li><a href="/used/sell/">Sell Bike</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <%--<li><a href="/forums/">Forum</a></li>--%>
-                        <li><a href="/finance/emicalculator.aspx">Tools</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <li><a href="/news/">News</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <li><a href="/mybikewale/">My BikeWale</a></li>
-                        <li class="pri-nav-sept"></li>
-                       <%-- <li><a href="/autoexpo/2014/" class="ae-link">AutoExpo 2014</a></li>--%>
-                    </ul>
-                </div>
-                <!-- Primary Navigation end here -->
-            </div>
-        </div>
-        <div class="container_12">
-            <div id="sub-nav" class="grid_12">
-                 <ul id="sub-nav-list">
-                    <li><b style="color:#000;">Bikes For Sale In : </b></li>    
-                    <li><a href="/used/bikes-in-india/">India</a></li>
-                    <li class="sub-nav-sept"></li>               
-                    <li><a href="/used/bikes-in-mumbai/">Mumbai</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/used/bikes-in-newdelhi/">New Delhi</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/used/bikes-in-bangalore/">Bangalore</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/used/bikes-in-pune/">Pune</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/used/bikes-in-chennai/">Chennai</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/used/bikes-in-hyderabad/">Hyderabad</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/used/bikes-in-kolkata/">Kolkata</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/used/bikes-in-ahmedabad/">Ahmedabad</a></li>
-                </ul>
-            </div>
-        </div>
-        <!--Header code end here -->
         
