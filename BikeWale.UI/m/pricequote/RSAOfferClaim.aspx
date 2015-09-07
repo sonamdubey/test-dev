@@ -12,10 +12,11 @@
 <!-- #include file="/includes/headermobile_home.aspx" -->
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
+<div class="grid-12">
     <form id="form1" runat="server">
     <!-- offer claim starts here -->
     <h1>Bike Purchase Offer Claim</h1>
-    <div class="padding5 margin-bottom10">	    
+    <div class="margin-bottom10">	    
 	    <div class="<%= isOfferClaimed ? "hide" : "" %>" id="div_GetPQ">
     	    <!-- new box starts here -->
 		    <div class="box1 new-line10">
@@ -83,7 +84,7 @@
             </div>
             <!-- plus circle starts here -->
             <div class="plus-text">
-                <div><span>+</span></div>
+                <div><span><var>+</var></span></div>
             </div>
             <!-- plus circle ends here -->
             <!-- new box starts here -->
@@ -103,7 +104,7 @@
             <!-- new box starts here -->
 		    <div class="box1 new-line10">
         	    <h2>Avail Both Offers</h2>
-        	    <div class="padding5 inner-box">
+        	    <div class="inner-box">
             	    <p>Please provide following information about your bike purchase to claim your free gifts. Upon verification of your purchase, we will ship the gift directly to your address.</p>
                     <p class="font12 lightgray new-line10">All * marked fields are required.</p>
             	    <div class="new-line10">
@@ -165,7 +166,7 @@
                     	    <p><b>Any Comments (optional)</b></p>                            
                             <asp:TextBox id="txtComments" rows="2" columns="60" textmode="MultiLine"  runat="server" placeholder="As Per Registration"></asp:TextBox>
                         </div>
-                        <div class="avail-offer-form" data-role="none">                    	    
+                        <div class="avail-offer-form margin-top20" data-role="none">                    	    
                             <asp:Button class="rounded-corner5" id="btnSubmit" Text="Claim Offer" runat="server" data-role="none" />
                         </div>
                     </div>
@@ -359,4 +360,5 @@
         });
     </script>
 </form>
+</div>
 <!-- #include file="/includes/footermobile_home.aspx" -->

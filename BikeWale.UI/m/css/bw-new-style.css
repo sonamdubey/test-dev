@@ -117,25 +117,27 @@ html>body .WebRupee {margin-right:3px; *margin-right:0;}
 .bottom-btns .ui-input-btn input[type="submit"] {background-color:#000;}
 /*-------------- Helmet offer--------------------*/
 .red-text { color:#c62000;}
-.box1 { border:none; border-radius:0; padding:5px; margin-bottom:20px; box-shadow:0 5px 5px 2px #ccc; -moz-box-shadow:0 5px 5px 2px #ccc; -o-box-shadow:0 5px 5px 2px #ccc; -ms-box-shadow:0 5px 5px 2px #ccc; -webkit-box-shadow:0 5px 5px 2px #ccc;}
+.box1 { border:none; border-radius:0; padding:10px; margin-bottom:20px; box-shadow:0 5px 5px 2px #ccc; -moz-box-shadow:0 5px 5px 2px #ccc; -o-box-shadow:0 5px 5px 2px #ccc; -ms-box-shadow:0 5px 5px 2px #ccc; -webkit-box-shadow:0 5px 5px 2px #ccc;}
+.box1 h2 {margin-top:10px;}
 .box1 .inner-box li, .option-details li { margin-bottom:5px; list-style-type:disc; margin-left:10px;}
 .option-details li { margin-left:20px;}
 .plus-text { text-align:center; margin-bottom:20px; position:relative;}
 .plus-text div { padding:0 10px; position:relative; display:inline-block; background:#f2f2f2; *background:none;}
-.plus-text span{ font-size:24px; color:#c62000; display:inline-block; position:relative; width:30px; height:30px; border:1px solid #9b9b9b; border-radius:50%;}
+.plus-text span{ font-size:24px; color:#c62000; display:inline-block; position:relative; width:30px; height:30px; border:1px solid #9b9b9b; border-radius:50%; position:relative;}
+.plus-text span var { position:absolute; font-style:normal; top:-3px; left:0; right:0;}
 .plus-text:before { content:""; border-top:1px solid #9b9b9b; position:absolute; top:16px; left:0; width:100%;}
 .avail-offer-form { margin-bottom:10px;}
 .options-content { border:1px solid #ccc; border-top:none; position:relative;}
 .options-content:first-child { border-top:1px solid #ccc;}
 .option-title { cursor:pointer; padding:10px 5px;}
 .option-details { display:none; padding:5px;}
-.offer-title { width: 250px; margin-left:5px;}
+.offer-title { width: 235px; margin-left:8px;}
 .bwm-offer-pic { width:100px; height:79px; overflow:hidden; margin:10px auto;}
 .bwm-offer-pic img { width:100px;}
 /* bw sprite new classes */
-/*.bw-sprite { background:url('http://img2.aeplcdn.com/bikewaleimg/images/bw-sprite.png?june252015') no-repeat; display:inline-block;}*/
-.unchecked-radio-icon { background-position:-3px -271px; width:14px; height:14px;}
-.checked-radio-icon { background-position:-26px -271px; width:14px; height:14px;}
+
+.unchecked-radio-icon { background:url(../images/radio-unchecked.png) no-repeat center center; width:15px; height:15px;}
+.checked-radio-icon { background:url(../images/radio-checked.png) no-repeat center center; width:15px; height:15px;}
 .carouselH {max-width: 285px; margin: 0 auto;}
 .centerContent {text-align: left; margin-left: 60px;}
 .mainH { padding-top: 5px;}
