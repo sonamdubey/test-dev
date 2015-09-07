@@ -6,6 +6,12 @@
 <!doctype html>
 <html>
 <head>
+    <%
+        title = "New Bikes, Used Bikes, Bike Prices, Reviews & Photos in India";
+        keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price";
+        description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
+        canonical = "http://www.bikewale.com";
+     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
 </head>
 <body class="bg-light-grey">

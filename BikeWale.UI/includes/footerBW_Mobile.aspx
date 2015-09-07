@@ -6,13 +6,16 @@
                 </div>
                 <div class="margin-top15">
                     <ul>
-                        <li><a href="/aboutus.aspx">About Us</a></li>
-                        <li><a href="/forums/">Forums</a></li>
-                        <li><a href="/sitemap.aspx">Sitemap</a></li>
+                        <li><a href="/m/contactus.aspx">Contact Us</a></li>
+                        <li><a href="/m/advertisewithus.aspx">Advertise with Us</a></li>
+                        <li><a href="http://www.carwale.com/m/">Carwale.com</a></li>
+                        <%--<li><a href="/m/aboutus.aspx">About Us</a></li>--%>
+                        <%--<li><a href="/forums/">Forums</a></li>--%>
+                        <%--<li><a href="/m/sitemap.aspx">Sitemap</a></li>--%>
                     </ul>
                 </div>
                 <div class="margin-top15 margin-bottom15">
-                	<a href="javascript:void(0)" target="_blank" class="text-white">View Desktop Version</a>
+                	<a href="/?site=desktop" target="_blank" class="text-white">View Desktop Version</a>
                 </div>
                 
             </div>
