@@ -1961,8 +1961,10 @@
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
+    <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-common-style.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\bwm-search.css" />
     <Content Include="m\css\design.css" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\jqm-demos.css" />
@@ -1987,6 +1989,8 @@
     <Content Include="m\images\home-top-ad-banner.jpg" />
     <Content Include="m\images\home-top-banner.jpg" />
     <Content Include="m\images\honda-vs-bajaj.jpg" />
+    <Content Include="m\images\inputChecked.png" />
+    <Content Include="m\images\inputUnchecked.png" />
     <Content Include="m\images\list-bullet.jpg" />
     <Content Include="m\images\newcars-sprite.png" />
     <Content Include="m\images\pqlanding-top-banner.jpg" />

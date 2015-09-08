@@ -4,7 +4,7 @@
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
 	<div class="popup-inner-container">
     	<div class="bwmsprite close-btn position-abt pos-top10 pos-right10"></div>
-    	<p class="font20 margin-bottom15 margin-top15 text-capitalize">Select Location</p>
+    	<p class="font20 margin-bottom10 text-capitalize">Select Location</p>
         <div class="padding-top10" id="popupContent">
             <div><i><span class="red">*</span>All fields are mandatory</i></div>
          <div>
@@ -13,7 +13,7 @@
             <div  data-bind="visible: bookingAreas().length > 0" >
                 <select  class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--'"></select>
             </div> 
-            <div class="center-align">                
+            <div class="center-align margin-top20">                
                 <a id="btnDealerPricePopup" class="bwm-btn" data-bind="event: { click: getPriceQuotePopup }"> Get Price Quote</a>
                 <div id="errMsgPopup" class="red-text margin-top10 hide"></div>
             </div>            

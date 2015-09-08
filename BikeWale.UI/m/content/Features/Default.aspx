@@ -29,7 +29,7 @@
 			                            <div class="sub-heading">
 				                            <%# DataBinder.Eval(Container.DataItem,"Title") %>&nbsp;&nbsp;<span class="arr-small">&raquo;</span>
 			                            </div>
-			                            <div class="lightgray new-line" style="font-size:13px;">
+			                            <div class="lightgray new-line" style="font-size:13px;margin-bottom:10px;">
 				                            by <%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
 			                            </div>
                                         <div style="border:1px solid #b3b4c6;background-color:#ffffff;width:100px;position:absolute;right:-1px;bottom:-10px;padding:2px 2px;font-size:13px;" class="lightgray">
