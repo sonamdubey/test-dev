@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.controls
 {
-    public partial class AlternativeBikes : System.Web.UI.UserControl
+    public class AlternativeBikes : System.Web.UI.UserControl
     {
         public Repeater rptAlternateBikes;
         public int VersionId { get; set; }

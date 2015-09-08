@@ -11,6 +11,8 @@
         keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price";
         description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
         canonical = "http://www.bikewale.com";
+        AdPath = "/1017752/Bikewale_Mobile_Homepage";
+        AdId = "1398766000399";
      %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
 </head>
