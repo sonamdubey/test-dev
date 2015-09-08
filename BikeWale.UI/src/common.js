@@ -185,7 +185,7 @@ $(document).ready(function () {
         loginSignupSwitch();
     });
     $("#forgotpass").click(function () {
-        $("#forgotpassbox").toggleClass("hide show");
+        $("#forgotpassdiv").toggleClass("hide show");
     });
     $("button.loginBtnSignUp").click(function () {
         $("div.loginStage").hide();
@@ -528,11 +528,10 @@ function isCookieExists(cookiename) {
     return true;
 }
 
-
-function toggleErrorMsg(element, error, msg) {
+function toggleErrorMsg(element, error, msg) {    
     if (error) {
         element.parent().find('.error-icon').removeClass('hide');
-        element.parent().find('.bw-blackbg-tooltip').text(msg).removeClass('hide');
+        element.parent().find('.bw-blackbg-tooltip').text(msg).removeClass('hide');        
         element.addClass('border-red')
     }
     else {
@@ -542,7 +541,8 @@ function toggleErrorMsg(element, error, msg) {
     }
 }
 
-function showHideMatchError(element,error) {
+
+function showHideMatchError(element, error) {    
     if (error) {
         element.parent().find('.error-icon').removeClass('hide');
         element.parent().find('.bw-blackbg-tooltip').removeClass('hide');

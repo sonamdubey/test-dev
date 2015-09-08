@@ -43,7 +43,7 @@ namespace Bikewale.DAL.Customer
                         cmd.Parameters.Add("@CustomerCityId", SqlDbType.Int).Value = String.IsNullOrEmpty(t.cityDetails.CityId.ToString()) ? Convert.DBNull : t.cityDetails.CityId;
                         cmd.Parameters.Add("@PasswordSalt", SqlDbType.VarChar, 10).Value = t.PasswordSalt;
                         cmd.Parameters.Add("@PasswordHash", SqlDbType.VarChar, 64).Value = t.PasswordHash;
-                        cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = t.ClientIP;
+                        cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = string.IsNullOrEmpty(t.ClientIP) ? Convert.DBNull : t.ClientIP;
                         cmd.Parameters.Add("@CustomerId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
 
                         con.Open();
