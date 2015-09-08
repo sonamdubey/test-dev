@@ -18,7 +18,6 @@
 </div>
 <body>
     <div class="left">
-        <form id="form1" runat="server">
             <div>
                 <div>
                     <fieldset>

@@ -13,7 +13,6 @@
     AdSeries_300x250 = "1";
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
-    <form id="form1" runat="server">
     <div class="padding5">
         <div id="br-cr" itemtype="http://data-vocabulary.org/Breadcrumb">
             <a itemprop='url' href='/m/' class="normal"><span itemprop="title">Home</span></a> &rsaquo; 
@@ -55,5 +54,4 @@
             </div>
         </div>
     </div>
-    </form>
 <!-- #include file="/includes/footermobile.aspx" -->

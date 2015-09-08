@@ -31,7 +31,6 @@
     .article-content p iframe { width:620px !important; }
 	
 </style>
-<form id="form1" runat="server">
 <div class="container_12">
     <div class="grid_12"><ul class="breadcrumb"><li>You are here: </li><li><a href="/">Home</a></li><li>&rsaquo; <a title="Indian Bike News" href="/news/">Bike News</a></li><li class="current">&rsaquo; <strong><%= articleTitle%></strong></li></ul><div class="clear"></div></div>
 	<div class="grid_8 margin-top10">    

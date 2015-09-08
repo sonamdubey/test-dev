@@ -18,7 +18,6 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
         <h1>Manage Dealer Area Mapping</h1>
     <div style="padding:10px;">
         

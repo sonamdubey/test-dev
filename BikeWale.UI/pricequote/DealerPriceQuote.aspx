@@ -116,7 +116,6 @@
     </div>
 </div>
 <!--bw verification popup ends starts here-->
-<form runat="server">
 <div class="main-container">
 	<div class="container_12">
         <div class="grid_12">
@@ -365,7 +364,6 @@
         $('.rsa-popup').hide();
     });
 </script>    
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->
 
 

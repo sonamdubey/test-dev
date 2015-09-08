@@ -11,7 +11,6 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 
-    <form id="form1" runat="server">
 
     <div class="padding5">
         <div id="br-cr"><a href="/m/new/" class="normal">New Bikes</a> &rsaquo; <span class="lightgray">Book Your Bike</span></div>
@@ -60,7 +59,6 @@
             <a href="#" data-role="button" data-rel="back" data-theme="c" data-mini="true">OK</a>
         </div>
     </div>        
-    </form>
 <script type="text/javascript">
 
     // knockout data binding

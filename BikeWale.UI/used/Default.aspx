@@ -21,7 +21,6 @@
     .tabs-container li a.first{border-left: 0px;}
     .tabs-container li a.active-tab{color:#898585!important; text-decoration:none; font-weight:bold;}
 </style>
-<form id="form1" runat="server">
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -143,7 +142,6 @@
             </div>        
         </div>
     </div>
-</form>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#ddlCity option[value='-1']").attr("disabled", "disabled");

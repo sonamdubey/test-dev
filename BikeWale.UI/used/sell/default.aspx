@@ -9,7 +9,6 @@
 %>
 <!-- #include file="/includes/headSell.aspx" -->
 <script type="text/javascript" src="/src/classified/sellbike.js?v=1.3"></script>
-<form id="form1" runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -270,7 +269,6 @@
         <!-- #include file="/ads/Ad300x250.aspx" -->
     </div><!--    Right Container ends here -->
 </div>
-</form>
 <script type="text/javascript">
     $(document).ready(function () {
 

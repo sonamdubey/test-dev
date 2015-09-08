@@ -36,7 +36,7 @@ namespace Bikewale.Utility
                 str += "<span><span>" + fuelEffecient + "</span><span class='text-light-grey'> Kmpl</span>, </span>";
 
             if (maxpower != "0")
-                str += "<span><span>" + maxpower + "</span><span class='text-light-grey'> bhp @ </span></span>";
+                str += "<span><span>" + maxpower + "</span><span class='text-light-grey'> bhp</span></span>";
 
             if (maxtorque != "0")
                 str += "<span><span>" + maxtorque + "</span><span class='text-light-grey'> rpm</span></span>";

@@ -11,7 +11,6 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<form id="Form1" runat="server">
     <div class="padding5">
         <div id="br-cr">
             <a href="/m/new/" class="normal">New Bikes</a> &rsaquo; 
@@ -23,5 +22,4 @@
                 <NBD:NewBikeDealers ID="NewBikeDealers1" runat="server" HeaderText="Search Dealers by City & Manufacturer"></NBD:NewBikeDealers>
         </div>
     </div>
-</form>
 <!-- #include file="/includes/footermobile.aspx" -->

@@ -15,7 +15,6 @@
     .rptrTable a {text-decoration:underline;cursor:pointer;}
 </style>
 <div class="left">
-    <form id="form1" runat="server">
         <div>
             <fieldset>
                 <legend>Add New States</legend>

@@ -214,7 +214,6 @@
                 </div>
             </div>
             <!--cancellation popup ends here-->
-    <form runat="server">
 	<div class="container_12">
     	<div class="grid_8 margin-top10">
         	<h1 class="margin-bottom5">Pre-Book to Avail Offer</h1>
@@ -391,7 +390,6 @@
                 <!--Dealer detailes div ends here-->
             </div>
     </div>
-    </form>
 </div>
 <script type="text/ecmascript">
     $(document).ready(function () {

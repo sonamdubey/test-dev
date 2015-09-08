@@ -7,6 +7,7 @@
     <!-- #include file="/includes/headscript.aspx" -->
 </head>
 <body class="bg-white">
+<form runat="server">
 <!-- #include file="/includes/headBW.aspx" -->
     <link href="/css/new/search.css" rel="stylesheet" type="text/css">
     <section class="bg-white">
@@ -343,5 +344,6 @@
 <!-- #include file="/includes/footerscript.aspx" -->
 <script type="text/javascript" src="/src/framework/knockout.js"></script>
 <script type="text/javascript" src="/src/new/search.js"></script>
+</form>
 </body>
 </html>

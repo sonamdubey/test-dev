@@ -4,7 +4,6 @@
     AdId = "1398766000399";    
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
-<form id="form1" runat="server">
     <div class="padding5">
         <h1>Contact BikeWale</h1>
         <div class="box1 new-line5">
@@ -17,5 +16,4 @@
             Email: contact@bikewale.com
         </div>
     </div>
-</form>
 <!-- #include file="/includes/footermobile.aspx" -->

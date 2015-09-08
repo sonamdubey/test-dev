@@ -16,7 +16,6 @@
     AdPath = "/1017752/BikeWale_New_"; 
 %>
 <!-- #include file="/includes/headNew.aspx" -->
-<form id="form1" runat="server">
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -75,7 +74,6 @@
             </div> 
         </div>
     </div>
-</form>
 <%--<script type="text/javascript" language="javascript">
     $("a[rel='slide']").colorbox({ width: "700px", height: "500px" });
 </script>--%>

@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.WriteReviews" Trace="false" ValidateRequest="false" %>
 <%@ Register TagPrefix="BW" TagName="RTE" src="/Controls/RichTextEditor.ascx" %>
 <!-- #include file="/includes/headnew.aspx" -->
-    <form id="form1" runat="server">
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -165,7 +164,6 @@
 	        </table>
         </div>
     </div>
-    </form>
 <script language="javascript">
     var displayVersion = '<%= displayVersion %>';
 </script>

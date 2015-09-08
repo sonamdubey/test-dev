@@ -18,7 +18,6 @@
         height : 40px;
     }
 </style>
-    <form id="form1" runat="server">
     <asp:TextBox id="txtMake" runat="server" style="display:none;" Text="" data-role="none"/>
     <asp:TextBox id="txtModel" runat="server" style="display:none;" Text="" data-role="none"/>
     <%--<asp:TextBox id="txtVersion" runat="server" style="display:none;" Text="" data-role="none"/>--%>
@@ -76,7 +75,6 @@
         </div>
     </div>
         <input type="hidden" id="hdnIsAreaShown" runat="server" />
-    </form>
 <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false"  class="ui-corner-all">
     <div data-role="header" data-theme="a" class="ui-corner-top" style="background-color:#000">
         <h1 style="color:#fff;">Error !!</h1>

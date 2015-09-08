@@ -9,7 +9,6 @@
 	var responseCount = 0;
 	nextStepUrl = "/used/sell/confirmation.aspx";
 </script>
-<form runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -66,7 +65,6 @@
         </div>
     </div><!-- grid_8 -->
 </div>
-</form>
 <script type="text/javascript">
     var pendingList = new Array();
     var refreshTime = 2000;

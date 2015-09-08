@@ -16,7 +16,6 @@
         $("a.cbBox").colorbox({ rel: "nofollow" });
     });
 </script>
-<form id="form1" runat="server">
 <div class="container_12">
     <div class="grid_12"><ul class="breadcrumb"><li>You are here: </li><li><a href="/">Home</a></li><li class="fwd-arrow">&rsaquo;</li><li><a href="/new/">New</a></li><li class="fwd-arrow">&rsaquo;</li><li class="current"><strong>Bike Tips And Advices</strong></li></ul><div class="clear"></div></div>    
     <div id="content" class="grid_8 margin-top10">        
@@ -65,7 +64,6 @@
         </div>
     </div>  
 </div>
-</form>
 <script language="javascript">
     $("a[rel='slide']").colorbox({ width: "700px", height: "500px" });
 </script>
