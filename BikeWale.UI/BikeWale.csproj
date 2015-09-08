@@ -262,6 +262,7 @@
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
@@ -618,6 +619,10 @@
     </Compile>
     <Compile Include="controls\UserFeedBack.ascx.cs">
       <DependentUpon>UserFeedBack.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UserReviewsList.ascx.cs">
+      <DependentUpon>UserReviewsList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\UserReviewsMin.ascx.cs">
@@ -1555,6 +1560,7 @@
     <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
+    <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UserReviewsMin.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />
