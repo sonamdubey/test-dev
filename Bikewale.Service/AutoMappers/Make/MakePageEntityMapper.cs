@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
@@ -21,6 +22,7 @@ namespace Bikewale.Service.AutoMappers.Make
             Mapper.CreateMap<MostPopularBikesBase, MostPopularBikes>();
             Mapper.CreateMap<BikeDescriptionEntity,BikeDescription>();
             Mapper.CreateMap<BikeMakePageEntity, MakePage>();
+            Mapper.CreateMap<MinSpecsEntity, MinSpecs>();
             return Mapper.Map<BikeMakePageEntity, MakePage>(entity);
         }
     }

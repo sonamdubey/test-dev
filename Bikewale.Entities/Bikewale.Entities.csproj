@@ -64,6 +64,7 @@
     <Compile Include="BikeBooking\PQ_Price.cs" />
     <Compile Include="BikeBooking\PQ_QuotationEntity.cs" />
     <Compile Include="BikeBooking\RSAOfferClaimEntity.cs" />
+    <Compile Include="BikeData\BikeModelColor.cs" />
     <Compile Include="BikeData\BikeDescriptionEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />

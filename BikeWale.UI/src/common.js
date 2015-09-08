@@ -6,26 +6,12 @@ $(document).ready(function () {
     $('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
     
-	var availableTags = [
-		"Bajaj 1",
-		"Bajaj 2",
-		"Bajaj 3",
-		"Bajaj 4",
-		"Bajaj 5"
-	];
-	
-	$("#globalCity").autocomplete({
-		source: function(request, response) {
-			dataListDisplay(availableTags,request, response);
-		},minLength: 1
-	}).css({'width':'179px'});
-	
 	CheckGlobalCookie();
 
 	$("#globalCityPopUp").bw_autocomplete({
 	    width: 350,
 	    source: 3,
-	    recordCount: 10,
+	    recordCount: 8,
 	    onClear: function () {
 	        objCity = new Object();
 	    },
@@ -54,7 +40,7 @@ $(document).ready(function () {
 	        else
 	            showHideMatchError(element,true);
 	    }
-	});
+	}).autocomplete("widget").addClass("globalCity-auto-desktop").css({ 'position': 'fixed' });
 
 	$('#newBikeList').on('keypress', function (e) {
 	    var id = $('#newBikeList')
@@ -67,6 +53,18 @@ $(document).ready(function () {
 	        else {
 	            window.location.href = '/new/';
 	        }
+	});
+
+	$('#btnSearch').on('click', function (e) {
+	    var id = $('#newBikeList')
+	    var searchVal = id.val();
+	    var placeHolder = id.attr('placeholder');
+	    if (btnFindBikeNewNav() || searchVal == placeHolder || searchVal == "") {
+	        return false;
+	    }
+	    else {
+	        window.location.href = '/new/';
+	    }
 	});
 
 	function btnFindBikeNewNav() {
@@ -117,12 +115,6 @@ $(document).ready(function () {
 	        return false;
 	    }
 	});
-	
-	$("#makemodelFinalPrice").autocomplete({
-		source: function(request, response) {
-			dataListDisplay(availableTags,request, response);
-		},minLength: 1
-	}).css({'width':'365px'});
 	
 	// nav bar code starts
 	$(".navbarBtn").click(function(){
@@ -250,6 +242,7 @@ $(document).ready(function () {
 	$(".gl-default-stage").click( function(){
 		$(".blackOut-window").show();
 		$(".globalcity-popup").removeClass("hide").addClass("show");
+		CheckGlobalCookie();
 	});
 	
 	$(".blackOut-window").mouseup(function(e){
@@ -263,6 +256,8 @@ $(document).ready(function () {
 	$(".globalcity-close-btn").click(function(){
 		$(".globalcity-popup").removeClass("show").addClass("hide");
 		unlockPopup();
+		if (!isCookieExists("location"))
+		    SetCookieInDays("location", "0", 365);
 	});
 	
 	function CloseCityPopUp() {
@@ -297,14 +292,15 @@ $(document).ready(function () {
 		$(".blackOut-window").hide();
 	}
 	
-	// Common BW tabs code
 	$(".bw-tabs li").live('click', function () {
-		var panel = $(this).closest(".bw-tabs-panel");
-		panel.find(".bw-tabs li").removeClass("active");
-		$(this).addClass("active");
-		var panelId = $(this).attr("data-tabs");
-		panel.find(".bw-tabs-data").hide();
-		$("#" + panelId).show();
+	    var panel = $(this).closest(".bw-tabs-panel");
+	    if (!$(this).hasClass("active")) {
+	        panel.find(".bw-tabs li").removeClass("active");
+	        $(this).addClass("active");
+	    }
+	    else {
+	        $(this).removeClass("active");
+	    }
 	}); // ends
 	/* jCarousel custom methods */
 	$(function () {
@@ -440,9 +436,10 @@ $(document).ready(function () {
                         year = '';
 
                     cacheProp = reqTerm + '_' + year;
-                    if (!(cacheProp in cache) && reqTerm.length > 1) {
+                    if (!(cacheProp in cache) && reqTerm.length > 0) {
                         var indexToHit = options.source;
-                        var path = "/api/AutoSuggest?source=" + indexToHit + "&inputText=" + encodeURIComponent(reqTerm);
+                        var count = options.recordCount;
+                        var path = "/api/AutoSuggest?source=" + indexToHit + "&inputText=" + encodeURIComponent(reqTerm) + "&noofrecords=" + count;
 
                         cache[cacheProp] = new Array();
                         $.ajax({
@@ -460,6 +457,7 @@ $(document).ready(function () {
                             error: function (error) {
                                 result = undefined;
                                 options.afterfetch(result, reqTerm);
+                                response(cache[cacheProp]);
                             }
                         });
                     }
@@ -530,6 +528,7 @@ function isCookieExists(cookiename) {
     return true;
 }
 
+
 function toggleErrorMsg(element, error, msg) {
     if (error) {
         element.parent().find('.error-icon').removeClass('hide');
@@ -574,6 +573,12 @@ function CheckGlobalCookie()
     {
         var cityName = getCookie(cookieName).split("_")[1];
         showGlobalCity(cityName);
+        showHideMatchError($("#globalCityPopUp"), false);
         $("#globalCityPopUp").val(cityName);
+    }
+    else
+    {
+        $(".blackOut-window").show();
+        $(".globalcity-popup").removeClass("hide").addClass("show");
     }
 }

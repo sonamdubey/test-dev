@@ -74,5 +74,18 @@ namespace Bikewale.Utility
             }
         }
 
+
+        public static Int64 ToNullableInt64(object reader)
+        {
+            Int64 retVal = 0;
+            if (!Convert.IsDBNull(reader))
+            {
+                return Convert.ToInt64(reader);
+            }
+            else
+            {
+                return retVal;
+            }
+        }
     }
 }

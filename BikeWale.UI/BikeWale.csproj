@@ -256,6 +256,7 @@
     <Compile Include="BindViewModels\Controls\BindAlternativeBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCompareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
@@ -496,6 +497,10 @@
       <DependentUpon>NewBikeLaunches.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\NewBikesOnRoadPrice.ascx.cs">
+      <DependentUpon>NewBikesOnRoadPrice.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\NewLaunchedBikes_new.ascx.cs">
       <DependentUpon>NewLaunchedBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -510,6 +515,10 @@
     </Compile>
     <Compile Include="controls\NoFollowPagerControl.ascx.cs">
       <DependentUpon>NoFollowPagerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\OnRoadPricequote.ascx.cs">
+      <DependentUpon>OnRoadPricequote.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\PopularUsedBikes.ascx.cs">
@@ -754,6 +763,13 @@
       <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\MOnRoadPricequote.ascx.cs">
+      <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\MOnRoadPricequote.ascx.designer.cs">
+      <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
+    </Compile>
     <Compile Include="m\controls\MPopupWidget.ascx.cs">
       <DependentUpon>MPopupWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -952,8 +968,12 @@
       <DependentUpon>similargallery.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\search.aspx.cs">
-      <DependentUpon>search.aspx</DependentUpon>
+    <Compile Include="new\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\search_old.aspx.cs">
+      <DependentUpon>search_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\search_result.aspx.cs">
@@ -1508,10 +1528,12 @@
     <Content Include="controls\MakeModelSearch.ascx" />
     <Content Include="controls\MostPopularBikes_new.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
+    <Content Include="controls\NewBikesOnRoadPrice.ascx" />
     <Content Include="controls\NewLaunchedBikes_new.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\News_new.ascx" />
     <Content Include="controls\NoFollowPagerControl.ascx" />
+    <Content Include="controls\OnRoadPricequote.ascx" />
     <Content Include="controls\PopularUsedBikes.ascx" />
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
@@ -1565,6 +1587,7 @@
     <Content Include="css\images\ui-icons_ffffff_256x240.png" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
+    <Content Include="css\new\search.css" />
     <Content Include="css\rsa.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\style.css" />
@@ -1960,6 +1983,7 @@
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
+    <Content Include="m\controls\MOnRoadPricequote.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
@@ -2037,6 +2061,7 @@
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\Plugins.js" />
+    <Content Include="new\Search.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
@@ -2067,7 +2092,7 @@
     <Content Include="new\photos\Default.aspx" />
     <Content Include="new\photos\othermodelsgallery.aspx" />
     <Content Include="new\photos\similargallery.aspx" />
-    <Content Include="new\search.aspx" />
+    <Content Include="new\search_old.aspx" />
     <Content Include="new\search_result.aspx" />
     <Content Include="new\Specs.aspx" />
     <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />

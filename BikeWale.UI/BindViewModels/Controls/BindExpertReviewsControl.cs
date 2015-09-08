@@ -27,6 +27,8 @@ namespace Bikewale.BindViewModels.Controls
         /// </summary>
         public static void BindExpertReviews(Repeater rptr)
         {
+            FetchedRecordsCount = 0;
+
             try
             {
                 List<ArticleSummary> _objArticleList = null;

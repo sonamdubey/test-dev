@@ -1,14 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Mobile.controls.MMostPopularBikes" %>
-
-
 <!-- Most Popular Bikes Starts here-->
-<div class="bw-tabs-data " id="mctrlMostPopularBikes" >     
-    <asp:Repeater ID="rptMostPopularBikes" runat="server">
-        <HeaderTemplate>
-            <div class="jcarousel-wrapper discover-bike-carousel">
-                <div class="jcarousel">
-                    <ul>
-        </HeaderTemplate>
+<asp:Repeater ID="rptMostPopularBikes" runat="server">
         <ItemTemplate>
             <li class="card">
                 <div class="front">
@@ -19,16 +11,16 @@
                         </a>
                     </div>
                     <div class="bikeDescWrapper">
-                        <div class="bikeTitle margin-bottom10">
+                        <div class="bikeTitle">
                             <h3><a href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# DataBinder.Eval(Container.DataItem, "objMake.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %>"><%# DataBinder.Eval(Container.DataItem, "objMake.MakeName").ToString() + " " + DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %></a></h3>
                         </div>
-                        <div class="margin-bottom10 font20">
+                        <div class="font22 text-grey margin-bottom5">
                             <span class="fa fa-rupee"></span>
-                            <span class="font22"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "VersionPrice").ToString()) %></span><span class="font16"> onwards</span>
+                            <span class="font24"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "VersionPrice").ToString()) %></span><span class="font16"> onwards</span>
                         </div>
-                        <div class="font12 text-light-grey margin-bottom10">Ex-showroom, Delhi</div>
-                        <div class="font14 margin-bottom10">
-                            <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaximumTorque"))) %>                             
+                        <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, Delhi</div>
+                        <div class="font13 margin-bottom10">
+                            <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>                             
                         </div>
                         <div class="padding-top5 clear">
                             <div class="grid-12 alpha <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">
@@ -53,20 +45,12 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-white margin-top10">Get on road price</a>
+                            <a href="javascript:void(0)"  modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?"":"hide" %> btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
                         </div> 
                     </div>
                 </div>
                 </div>
             </li>
         </ItemTemplate>
-        <FooterTemplate>
-            </ul>
-              </div>
-                <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                <p class="text-center jcarousel-pagination"></p>
-             </div>  
-        </FooterTemplate>
     </asp:Repeater>
-</div> <!--- New Launched Bikes Ends Here-->
+<!--- Most Popular Bikes Ends Here-->

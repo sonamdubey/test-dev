@@ -17,6 +17,12 @@ using Bikewale.DTO.Version;
 using Bikewale.Service.Controllers.Version;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Notifications;
+using Bikewale.Entities.CMS.Photos;
+using Bikewale.Entities.CMS;
+using Bikewale.Utility;
+using System.Configuration;
+using Bikewale.DTO.CMS.Photos;
+using Bikewale.Service.AutoMappers.CMS;
 
 namespace Bikewale.Service.Controllers.Model
 {
@@ -27,13 +33,16 @@ namespace Bikewale.Service.Controllers.Model
     /// </summary>
     public class ModelController : ApiController
     {
-         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
-         public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
+        private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+        private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
+        private string _requestType = "application/json";
+        private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        public ModelController(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
         {
             _modelRepository = modelRepository;
         }
 
-        #region Model Details 
+        #region Model Details
         /// <summary>
         ///  To get Required Model Details 
         /// </summary>
@@ -74,33 +83,33 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="modelId"></param>
         /// <returns>Model Synopsis</returns>
         [ResponseType(typeof(ModelDescription))]
-        public IHttpActionResult Get(int modelId,bool? description)
+        public IHttpActionResult Get(int modelId, bool? description)
         {
             BikeDescriptionEntity objModelDesc = null;
             ModelDescription objDTOModelDesc = null;
-               try
-                {
-                   
-                    objModelDesc = _modelRepository.GetModelSynopsis(modelId);
+            try
+            {
 
-                    if (objModelDesc != null)
-                    {
-                        // Auto map the properties
-                        objDTOModelDesc = new ModelDescription();
-                        objDTOModelDesc = ModelMapper.Convert(objModelDesc);
-                        return Ok(objDTOModelDesc);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
-                }
-                catch (Exception ex)
+                objModelDesc = _modelRepository.GetModelSynopsis(modelId);
+
+                if (objModelDesc != null)
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
-                    objErr.SendMail();
-                    return InternalServerError();
+                    // Auto map the properties
+                    objDTOModelDesc = new ModelDescription();
+                    objDTOModelDesc = ModelMapper.Convert(objModelDesc);
+                    return Ok(objDTOModelDesc);
                 }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
         }   // Get 
         #endregion
 
@@ -116,27 +125,27 @@ namespace Bikewale.Service.Controllers.Model
         {
             List<BikeVersionsListEntity> mvEntityList = null;
             List<ModelVersionList> mvList = null;
-           try
+            try
+            {
+                mvEntityList = _modelRepository.GetVersionsList(modelId, isNew);
+
+                if (mvEntityList != null && mvEntityList.Count > 0)
                 {
-                    mvEntityList = _modelRepository.GetVersionsList(modelId, isNew);    
-                        
-                    if (mvEntityList != null && mvEntityList.Count > 0)
-                    {
-                        mvList = new List<ModelVersionList>();
-                        mvList = ModelMapper.Convert(mvEntityList);
-                        return Ok(mvList);
-                    }
-                    else
-                    {
-                        return NotFound();
-                    }
+                    mvList = new List<ModelVersionList>();
+                    mvList = ModelMapper.Convert(mvEntityList);
+                    return Ok(mvList);
                 }
-                catch (Exception ex)
+                else
                 {
-                    ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
-                    objErr.SendMail();
-                    return InternalServerError();
+                    return NotFound();
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
         }   // Get 
         #endregion
 
@@ -149,7 +158,7 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="features"></param>
         /// <returns>Model's Specs and Features</returns>
         [ResponseType(typeof(VersionSpecifications))]
-        public IHttpActionResult Get(int versionId,bool? specs,bool? features)
+        public IHttpActionResult Get(int versionId, bool? specs, bool? features)
         {
             BikeSpecificationEntity objVersionSpecs = null;
             VersionSpecifications objDTOVersionSpecs = null;
@@ -177,7 +186,7 @@ namespace Bikewale.Service.Controllers.Model
             }
 
         }   // Get  Specs and Features
-        #endregion  
+        #endregion
 
         #region Model Page Complete
         /// <summary>
@@ -187,25 +196,41 @@ namespace Bikewale.Service.Controllers.Model
         /// <param name="modelId"></param>
         /// <returns>Complete Model Page</returns>
         [ResponseType(typeof(ModelPage))]
-        public IHttpActionResult Get(int modelId,bool isNew,bool?specs,bool?features)
+        public IHttpActionResult Get(int modelId, bool isNew, bool? specs, bool? features)
         {
             BikeModelPageEntity objModelPage = null;
             ModelPage objDTOModelPage = null;
+            List<EnumCMSContentType> categorList = null;
+            List<ModelImage> objImageList = null;
             try
             {
-               objModelPage = _modelRepository.GetModelPage(modelId, isNew);
+                objModelPage = _modelRepository.GetModelPage(modelId, isNew);
 
-                    if (objModelPage != null)
+                if (objModelPage != null)
+                {
+                    // Auto map the properties
+                    objDTOModelPage = new ModelPage();
+                    objDTOModelPage = ModelMapper.Convert(objModelPage);
+
+                    categorList = new List<EnumCMSContentType>();
+                    categorList.Add(EnumCMSContentType.PhotoGalleries);                    
+                    string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+                    string _apiUrl = String.Format("webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
+                    
+                    objImageList = BWHttpClient.GetApiResponseSync<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, objImageList);
+                    if (objImageList != null && objImageList.Count > 0)
                     {
                         // Auto map the properties
-                        objDTOModelPage = new ModelPage();
-                        objDTOModelPage = ModelMapper.Convert(objModelPage);
-                        return Ok(objDTOModelPage);
+                        List<CMSModelImageBase> objCMSModels = new List<CMSModelImageBase>();
+                        objCMSModels = CMSMapper.Convert(objImageList);
+                        objDTOModelPage.Photos = objCMSModels;
                     }
-                    else
-                    {
-                        return NotFound();
-                    }
+                    return Ok(objDTOModelPage);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             catch (Exception ex)
             {
@@ -214,9 +239,9 @@ namespace Bikewale.Service.Controllers.Model
                 return InternalServerError();
             }
         }   // Get  Model Page
-        #endregion   
-        
+        #endregion
 
-    }     
+
+    }
 
 }

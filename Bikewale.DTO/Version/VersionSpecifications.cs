@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.DTO.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -86,6 +87,6 @@ namespace Bikewale.DTO.Version
         public bool AntilockBrakingSystem { get; set; }
         public bool Killswitch { get; set; }
         public bool Clock { get; set; }
-        public string Colors { get; set; }	
+        public string Colors { get; set; }
     }
 }

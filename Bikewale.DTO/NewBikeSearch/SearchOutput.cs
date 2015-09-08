@@ -14,5 +14,11 @@ namespace Bikewale.DTO.NewBikeSearch
 
         [JsonProperty("pageUrl")]
         public Pager PageUrl { get; set; }
+
+        [JsonProperty("totalCount")]
+        public int TotalCount { get; set; }
+
+        [JsonProperty("curPageNo")]
+        public int CurrentPageNo { get; set; }
     }
 }
