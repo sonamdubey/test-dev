@@ -31,6 +31,11 @@ namespace Bikewale.BAL.Customer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool IsRegisteredUser(string email)
         {
             bool isRegistered = false;
@@ -49,6 +54,14 @@ namespace Bikewale.BAL.Customer
             return isRegistered;
         }
 
+        /// <summary>
+        /// Written By : Ashish G. kamble on 8 Sept 2015
+        /// Summary : Function to generate the authentication ticket
+        /// </summary>
+        /// <param name="custId"></param>
+        /// <param name="custName"></param>
+        /// <param name="custEmail"></param>
+        /// <returns>Returns authenticated ticket</returns>
         public string GenerateAuthenticationToken(string custId, string custName, string custEmail)
         {
             string authTicket = string.Empty;
@@ -78,6 +91,14 @@ namespace Bikewale.BAL.Customer
             return authTicket;
         }
 
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 8 Sept 2015
+        /// Summary : Function to authenticate the customer with bikewale database. authentication ticket creation is optional
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="createAuthTicket"></param>
+        /// <returns></returns>
         public T AuthenticateUser(string email, string password, bool? createAuthTicket = null)
         {
             ICustomer<T, U> objCust = null;

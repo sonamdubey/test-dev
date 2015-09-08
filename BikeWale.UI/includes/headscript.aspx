@@ -14,3 +14,6 @@
 <!--[if lt IE 9]>
     <script src="/src/html5.js"></script>
 <![endif]-->
+<script type="text/javascript">
+    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
+</script>

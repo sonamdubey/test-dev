@@ -17,15 +17,16 @@ namespace Bikewale.Service.Controllers.Customer
     /// Created By : Ashish G. Kamble on 3 Sept 2015
     /// Summary : Controller have methods to authenticate the user.
     /// </summary>
+    [Route("api/customer/authenticate/")]
     public class AuthenticateController : ApiController
     {
-        private readonly ICustomerAuthentication<CustomerEntity, UInt64> _authenticate = null;
+        private readonly ICustomerAuthentication<CustomerEntity, UInt32> _authenticate = null;
 
         /// <summary>
         /// 
         /// </summary>
         /// <param name="authenticate"></param>
-        public AuthenticateController(ICustomerAuthentication<CustomerEntity, UInt64> authenticate)
+        public AuthenticateController(ICustomerAuthentication<CustomerEntity, UInt32> authenticate)
         {
             _authenticate = authenticate;
         }
