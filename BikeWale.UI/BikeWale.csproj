@@ -253,6 +253,7 @@
       <DependentUpon>RedirectToBillDesk.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="BindViewModels\Controls\BindAlternativeBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindBikeCompareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
@@ -372,6 +373,10 @@
     </Compile>
     <Compile Include="controls\AddBikeToCompare.ascx.cs">
       <DependentUpon>AddBikeToCompare.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\AlternativeBikes.ascx.cs">
+      <DependentUpon>AlternativeBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\ArticlePhotoGallery.ascx.cs">
@@ -1017,6 +1022,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="rabbitmq\CommonRQ.cs" />
     <Compile Include="rabbitmq\rabbitMQEnum.cs" />
+    <Compile Include="test.aspx.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="test.aspx.designer.cs">
+      <DependentUpon>test.aspx</DependentUpon>
+    </Compile>
     <Compile Include="used\bikedetails.aspx.cs">
       <DependentUpon>bikedetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1460,6 +1472,7 @@
     <Content Include="content\UserReviews\ReviewMessage.aspx" />
     <Content Include="content\UserReviews\WriteReviews.aspx" />
     <Content Include="controls\AddBikeToCompare.ascx" />
+    <Content Include="controls\AlternativeBikes.ascx" />
     <Content Include="controls\ArticlePhotoGallery.ascx" />
     <Content Include="controls\BikeBookingMinWidget.ascx" />
     <Content Include="controls\BikeBookingWidget.ascx" />
@@ -1953,8 +1966,10 @@
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
+    <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-common-style.css" />
     <Content Include="m\css\bwm-newbikes.css" />
+    <Content Include="m\css\bwm-search.css" />
     <Content Include="m\css\design.css" />
     <Content Include="m\css\home.css" />
     <Content Include="m\css\jqm-demos.css" />
@@ -1979,6 +1994,8 @@
     <Content Include="m\images\home-top-ad-banner.jpg" />
     <Content Include="m\images\home-top-banner.jpg" />
     <Content Include="m\images\honda-vs-bajaj.jpg" />
+    <Content Include="m\images\inputChecked.png" />
+    <Content Include="m\images\inputUnchecked.png" />
     <Content Include="m\images\list-bullet.jpg" />
     <Content Include="m\images\newcars-sprite.png" />
     <Content Include="m\images\pqlanding-top-banner.jpg" />
@@ -2102,6 +2119,7 @@
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="TermsConditions.aspx" />
+    <Content Include="test.aspx" />
     <Content Include="test\css\bw-new-style.css" />
     <Content Include="test\css\design.css" />
     <Content Include="test\css\jquery.mobile-1.4.2.min.css" />

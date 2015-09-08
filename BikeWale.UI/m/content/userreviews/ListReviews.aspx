@@ -81,8 +81,8 @@
         </div>
         <%if(totalReviews > 0) { %>   
         <div>
-            <div class="new-line5">
-                <h2>All Reviews (<%= totalReviews %>)</h2>
+            <div>
+                <h2 class="margin-top30 margin-bottom20">All Reviews (<%= totalReviews %>)</h2>
             </div>
             <div id="allReviews" class="box new-line5" style="padding:0px 5px;">
                 <asp:Repeater id="rptUserReviews" runat="server">

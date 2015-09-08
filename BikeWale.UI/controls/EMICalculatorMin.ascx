@@ -8,7 +8,7 @@
         <div class="calculate-emi-tool-search">
             <div class="loan-amount-box">
                 <div class="form-control-box">
-                    <input class="form-control rounded-corner0 border-no" type="text" placeholder="Enter loan amount" id="txtLoanAmount">
+                    <input class="form-control rounded-corner0 border-no" type="text" maxlength="8" placeholder="Enter loan amount" id="txtLoanAmount">
                     <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                     <span class="bwsprite error-icon hide" id="sprErrLoanAmount"></span>
                     <div class="bw-blackbg-tooltip hide" id="errMsgLoanAmount"></div>
@@ -16,7 +16,7 @@
             </div>
             <div class="interest-rate-boxSelect">
                 <div class="form-control-box">
-                    <input class="form-control rounded-corner0 border-no" type="text" placeholder="Rate of Interest" id="txtRateOfInterest" value="<%= rateOfInterest %>" />
+                    <input class="form-control rounded-corner0 border-no" type="text" maxlength="5" placeholder="Rate of Interest" id="txtRateOfInterest" value="<%= rateOfInterest %>" />
                     <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                     <span class="bwsprite error-icon hide" id="sprErrRateOfInterest"></span>
                     <div class="bw-blackbg-tooltip hide" id="errMsgRateOfInterest"></div>
@@ -32,16 +32,20 @@
     </div>
 </div>
 <script type="text/javascript">
+    $(document).ready(function () {
+        $("#txtLoanAmount").val(0);
+    });
     $("#btnCalcEmi").click(function () {
         var re = /^[0-9]*$/;
         var reRateOfInterest = /^([0-9]{1,2}){1}(\.[0-9]{1,2})?$/;
         var loanAmt = $("#txtLoanAmount").val();
         var rateOfInterest = $("#txtRateOfInterest").val();
-
-        if (!reRateOfInterest.test(rateOfInterest) && !(parseFloat(rateOfInterest) < 100)) {
+        var isValid = true;
+        if (!reRateOfInterest.test(rateOfInterest) && !(parseFloat(rateOfInterest) < 30)) {
             $("#sprErrRateOfInterest").removeClass('hide');
             $("#errMsgRateOfInterest").removeClass('hide');
             $('#errMsgRateOfInterest').html("Please enter valid rate of interest");
+            return false;
         }
 
         if (loanAmt == "" || loanAmt == "Enter loan amount") {
@@ -62,10 +66,11 @@
         } else {
             $("#sprErrLoanAmount").addClass('hide');
             $("#errMsgLoanAmount").addClass('hide');
-            if (!reRateOfInterest.test(rateOfInterest) && !(parseFloat(rateOfInterest) < 100)) {
+            if (!reRateOfInterest.test(rateOfInterest) && isNaN(rateOfInterest) && !(parseFloat(rateOfInterest) > 30) && parseFloat(rateOfInterest) <= 0) {
                 $("#sprErrRateOfInterest").removeClass('hide');
                 $("#errMsgRateOfInterest").removeClass('hide');
                 $('#errMsgRateOfInterest').html("Please enter valid rate of interest");
+                return false;
             }
             else {
                 window.location = "/finance/emicalculator.aspx?la=" + loanAmt + "&rt=" + rateOfInterest;

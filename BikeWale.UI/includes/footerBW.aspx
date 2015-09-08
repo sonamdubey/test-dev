@@ -21,7 +21,7 @@
                 	<li><a href="/aboutus.aspx">About Us</a></li>
                     <%--<li><a href="#">Careers</a></li>--%>
                     <li><a href="/advertisewithus.aspx">Advertise with us</a></li>
-                    <li><a href="/forums/">Forums</a></li>
+                    <%--<li><a href="/forums/">Forums</a></li>--%>
                     <li><a href="/sitemap.aspx">Sitemap</a></li>
             </ul>
         </div>
