@@ -92,7 +92,7 @@
                 </table>
             </div>
         </div>
-        <h2 class="new-line5">Full Review</h2>
+        <h2 class="margin-top30 margin-bottom20">Full Review</h2>
         <div class="box1 new-line10" style="font-size:14px; line-height:18px;">
              <%= objReview.ReviewEntity.Comments %>
         </div>

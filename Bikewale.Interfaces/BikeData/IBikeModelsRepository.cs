@@ -26,11 +26,26 @@ namespace Bikewale.Interfaces.BikeData
 
         BikeModelPageEntity GetModelPage(U modelId, bool isNew);
         BikeSpecificationEntity MVSpecsFeatures(int versionId);
-        List<MostPopularBikesBase> GetMostPopularBikes(sbyte? topCount=null, int? makeId = null);
+
+        /// <summary>
+        /// To Get Overall Most Popular Bikes
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        List<MostPopularBikesBase> GetMostPopularBikes(int? topCount=null, int? makeId = null);
+        /// <summary>
+        /// To get Most popular Bikes based on MakeId
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        List<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId);
 
         Hashtable GetMaskingNames();
         Hashtable GetOldMaskingNames();
 
         List<FeaturedBikeEntity> GetFeaturedBikes(uint topRecords);
+
+        
     }
 }

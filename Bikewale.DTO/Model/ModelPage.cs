@@ -16,9 +16,14 @@ namespace Bikewale.DTO.Model
         public ModelDetails ModelDetails { get; set; }
 
         [JsonProperty("versionList")]
-        public List<Bikewale.DTO.Version.ModelVersionList> ModelVersions { get; set; }
+        public List<Bikewale.DTO.Version.VersionMinSpecs> ModelVersions { get; set; }
 
         [JsonProperty("modelVersionSpecs")]
         public Version.VersionSpecifications ModelVersionSpecs { get; set; }
+
+        [JsonProperty("photos")]
+        public List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> Photos { get; set; }
+        [JsonProperty("modelColors")]
+        public IEnumerable<ModelColor> ModelColors { get; set; }
     }
 }

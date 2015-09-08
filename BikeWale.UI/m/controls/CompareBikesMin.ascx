@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.CompareBikesMin" %>
-<div class="container bg-white">
+<div class="container ">
     <h2 class="text-center padding-top30 margin-bottom10">Compare Now test</h2>
     <div class="grid-12">
         <h3 class="font16 text-center padding-top20 padding-bottom15">

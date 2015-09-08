@@ -33,5 +33,25 @@ namespace Bikewale.controls
             BindNewLaunchedBikesControl.BindNewlyLaunchedBikes(rptNewLaunchedBikes);
             this.FetchedRecordsCount = BindNewLaunchedBikesControl.FetchedRecordsCount;
         }
+
+        protected string ShowEstimatedPrice(object estimatedPrice)
+        {
+            string price = String.Empty;
+            if (estimatedPrice != null)
+            {
+                price = Bikewale.Utility.Format.FormatPrice(estimatedPrice.ToString());
+                if (price == "N/A")
+                {
+                    price = "Price unavailable";
+                }
+                else
+                {
+                    price += " <span class='font16'> Onwards</span>";
+                }
+            }
+            return price;
+        }
+
+
     }
 }

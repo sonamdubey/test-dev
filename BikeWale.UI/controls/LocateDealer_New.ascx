@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.LocateDealer_New" %>
-<div class="locate-dealer-container text-center margin-bottom50">
+<div class="locate-dealer-container text-center margin-bottom50" id="NBLocateDealer">
     <div class="margin-bottom40">
         <span class="bw-circle-icon locate-dealer-logo"></span>
     </div>
@@ -28,7 +28,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var viewModel = new ViewModelLD();
-        ko.applyBindings(viewModel);
+        ko.applyBindings(viewModel, $('#NBLocateDealer')[0]);
     });
     function ViewModelLD() {
         var self = this;

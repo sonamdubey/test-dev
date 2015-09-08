@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 
 namespace Bikewale.DTO.BikeData
 {
-    public class SimilarBike
+    public class SimilarBike : MinSpecs
     {
         [JsonProperty("minPrice")]
         public int MinPrice { get; set; }
@@ -26,6 +26,12 @@ namespace Bikewale.DTO.BikeData
 
         [JsonProperty("imagePath")]
         public string OriginalImagePath { get; set; }
+
+        [JsonProperty("reviewRate")]
+        public Double ReviewRate { get; set; }
+
+        [JsonProperty("reviewCount")]
+        public UInt16 ReviewCount { get; set; }
 
         [JsonProperty("makeBase")]
         public MakeBase MakeBase { get; set; }

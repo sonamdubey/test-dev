@@ -42,7 +42,7 @@ namespace Bikewale.Service.Controllers.Make
         /// <param name="totalBikeCount">total popular bike count</param>
         /// <returns></returns>
         [ResponseType(typeof(MakePage))]
-        public IHttpActionResult Get(int makeId,sbyte totalBikeCount)
+        public IHttpActionResult Get(int makeId)
         {
             BikeMakePageEntity entity = null;            
             BikeDescriptionEntity description = null;
@@ -51,7 +51,7 @@ namespace Bikewale.Service.Controllers.Make
 
             try
             {
-                objModelList = _modelRepository.GetMostPopularBikes(totalBikeCount, makeId);
+                objModelList = _modelRepository.GetMostPopularBikesByMake(makeId);
                 description = _makesRepository.GetMakeDescription(makeId);
                 if (objModelList != null && objModelList.Count() > 0 && description != null)
                 {

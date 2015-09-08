@@ -23,6 +23,7 @@ namespace Bikewale.BindViewModels.Controls
         {
             try
             {
+                FetchedRecordsCount = 0;
                 VideosList objVideos = null;
 
                 string _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];

@@ -64,17 +64,7 @@
     <div id="divParentPageContainer" data-role="page" style="position:relative;">
         <div role="main">
         	<!-- Header code starts here-->
-            <div class="header">
-            	<div class="icon-placer">
-                	<a href="#nav-panel">
-                    	<span class="bw-sprite nav-icon"></span>
-                    </a>
-                </div>
-                <div class="bw-logo-placer">
-                	<a href="/m/" class="bw-logo"></a>
-                </div>
-                <div class="clear"></div>
-            </div>
+            <!-- #include file="/includes/headBW_Mobile.aspx" --> 
             <!-- Header code ends here-->
             <!-- inner-section code starts here-->
             <div class="inner-section">

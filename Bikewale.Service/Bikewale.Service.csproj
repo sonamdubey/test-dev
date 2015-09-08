@@ -217,6 +217,7 @@
     <Compile Include="Controllers\PriceQuote\MobileVerification\PQMobileVerificationController.cs" />
     <Compile Include="Controllers\PriceQuote\MobileVerification\ResendVerificationCodeController.cs" />
     <Compile Include="Controllers\PriceQuote\Model\PQModelListController.cs" />
+    <Compile Include="Controllers\PriceQuote\OnRoadPriceController.cs" />
     <Compile Include="Controllers\PriceQuote\PQBikeColorController.cs" />
     <Compile Include="Controllers\PriceQuote\PQCustomerDetailController.cs" />
     <Compile Include="Controllers\PriceQuote\PriceQuoteController.cs" />

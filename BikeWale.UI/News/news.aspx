@@ -26,6 +26,9 @@
     .next-prev-link:hover a span.prev-arrow { background-position:-13px -610px; }
     .next-prev-link p:last-child a { text-decoration:underline;font-size: 11px;display:block; color:#666}
     .next-prev-link p:first-child {padding-bottom:5px; }
+
+    .article-content img { width:100%; }
+    .article-content p iframe { width:620px !important; }
 	
 </style>
 <form id="form1" runat="server">

@@ -1,33 +1,36 @@
 ﻿@charset "utf-8";
 /* CSS Document */
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,300,400,700);
 html{height:100%; margin-top:1px;}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote{margin:0;padding:0;}
-body{background-image:url(http://img.aeplcdn.com/bikewaleimg/images/body-texture-bg.jpg); margin:0px; padding:0px; font-family:"Segoe UI", "Segoe Print", "Segoe Script", "Segoe UI Light", Verdana, Arial, Helvetica; font-size:12px; color:#737373; font-size-adjust:inherit;}
+body { background: #f5f5f5; margin:0px; padding:0px; font-family:'Open Sans', sans-serif, Arial; font-size:12px; color:#737373; font-size-adjust:inherit; }
 ul{list-style:none;}
 li{display:inline;}
+/*
 h1{font-size:19px; color:#191919; _zoom:1; *zoom:1;}
 h2{font-size:16px; color:#191919;}
 h3{font-size:14px; color:#191919;}
+*/
 h1 span{font-size:12px; color:#737373}
 p, span {_zoom:1; *zoom:1;}
 a { color:#0288d1; }
 img {border:0;}
-a:hover { color:#000; }
 .font14 { font-size:14px;}
 .font16 { font-size:16px;}
 .font22 { font-size:22px;}
 /*a:hover { color:#1e1e1e; }*/
 
-input[type="text"], input[type="submit"], input[type="reset"],input[type="button"], select, textarea{ font-family:Arial, Helvetica; vertical-align:middle;}
-input.search{border:1px solid #FFF!important; height:20px!important; margin-top:3px; padding:0 5px;}
-select, select.brand, select.small-brand{width:130px; height:25px;  border:1px solid #9d9b9b; padding:4px; border-radius:5px; -moz-border-radius:5px; /* For FF */ -webkit-border-radius:5px; /* For Safari and Chrome */ -o-border-radius:5px; /* For Opera */ -ms-border-radius:5px; /* For IE */}
+.container_12 input[type="text"], .container_12 input[type="submit"], .container_12 input[type="reset"], 
+.container_12 input[type="button"], .container_12 select, .container_12 textarea{ font-family:Arial, Helvetica; font-size:12px; color:#6a6a6a; vertical-align:middle;}
+.container_12 input.search{border:1px solid #FFF!important; height:20px!important; margin-top:3px; padding:0 5px;}
+.container_12 select, .container_12 select.brand, .container_12 select.small-brand{width:130px; height:25px;  border:1px solid #9d9b9b; padding:4px; border-radius:5px; -moz-border-radius:5px; /* For FF */ -webkit-border-radius:5px; /* For Safari and Chrome */ -o-border-radius:5px; /* For Opera */ -ms-border-radius:5px; /* For IE */}
 select.brand:hover, select.small-brand:hover, select:hover{border:1px solid #9d9b9b;}
-input[type="text"], input[type="password"]{border:1px solid #CCC; height:26px; width:170px; padding:0 5px; border-radius:5px; -moz-border-radius:5px; /* For FF */ -webkit-border-radius:5px; /* For Safari and Chrome */ -o-border-radius:5px; /* For Opera */ -ms-border-radius:5px; /* For IE */}
-select.small-brand{width:100px;}
+.container_12 input[type="text"], .container_12 input[type="password"]{border:1px solid #CCC; height:26px; width:170px; padding:0 5px; border-radius:5px; -moz-border-radius:5px; /* For FF */ -webkit-border-radius:5px; /* For Safari and Chrome */ -o-border-radius:5px; /* For Opera */ -ms-border-radius:5px; /* For IE */}
+.container_12 select.small-brand{width:100px;}
 .city-code {width:50px!important;}
-input[type="text"].yearField, select.monthField, select.dayField { width: 120px; }
+.container_12 input[type="text"].yearField, .container_12 select.monthField, .container_12 select.dayField { width: 120px; }
 
-.main-container{width:998px; margin-left:auto; margin-right:auto; border-left:1px solid #e6e6e6; border-right:1px solid #e6e6e6; background-color:#FFF;}
+.main-container { margin-left:auto; margin-right:auto; }
 .bw-logo a{background-image:url(http://img2.aeplcdn.com/bikewaleimg/images/bw-logo.png); background-repeat:no-repeat; width:192px; height:56px; display:block; margin-right:20px; margin-top:20px; }
 .ad-slot { width: 728px; height: 90px; }
 
@@ -45,11 +48,11 @@ input[type="text"].yearField, select.monthField, select.dayField { width: 120px;
 
 /*.discussion-link a{color:#d22500; text-decoration:none!important; font-size:11px; background-color:#FFF; padding:2px 8px; margin-left:5px; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; -ms-border-radius:3px; -o-border-radius:3px;}*/
 .discussion-link a:hover{color:#fff; background-color:#d22500;}
-
+/*
 #footer-inner {background-color: #f3f2f2;}
 .footer-link li a{color:#5e5e5e; text-decoration:none; font-size:13px; display:block;}
 .footer-link li a:hover{text-decoration:underline;}
-
+*/
 
 /*All ul styling css */
 .no-std-ul-list li{list-style:none; display:block; margin-bottom:6px;}
@@ -60,6 +63,7 @@ input[type="text"].yearField, select.monthField, select.dayField { width: 120px;
 .std-ul-list li a, .ul-hrz-col2 li a{text-decoration:none; color:#5e5e5e;}
 .std-ul-list li a:hover, ul-hrz-col2 li a:hover{text-decoration:underline;}
 
+
 .ul-normal { list-style:none; }
 .ul-normal li{ padding:5px 0!important; display:block;}
 
@@ -69,12 +73,18 @@ input[type="text"].yearField, select.monthField, select.dayField { width: 120px;
 -webkit-border-fit:border;
 }
 .action-btn a{color:#fff; text-decoration:none;}
+.action-btn a:hover{text-decoration:none;}
 /*input.action-btn { border: none;}
 .action-btn a, input.action-btn{background-image:url(http://img3.aeplcdn.com/bikewaleimg/images/action-btn-bg.jpg); background-repeat:repeat-x; background-position:top; background-color:#d52700; display:inline-block; text-decoration:none; font-family:"Segoe UI", "Segoe Script", Verdana; color:#fff; font-weight:bold; padding:5px 20px 4px 20px; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; -ms-border-radius:3px; -o-border-radius:3px; cursor:pointer;}
 .action-btn a:hover, input.action-btn:hover{box-shadow:2px 1px 2px #999; color:#ddd; cursor:pointer;}
 .action-btn a:active,  input.action-btn:active{background-image:url(http://img1.aeplcdn.com/bikewaleimg/images/action-btn-rollover.jpg); color:#ddd; cursor:pointer;}*/
 
+/*
 input.buttons, a.buttons{-moz-border-radius:5px;background:url(http://img2.aeplcdn.com/images/used/icons/grey.gif) repeat-x scroll 30% 30%; border:1px solid #AEAEAE; color:#5B5B5B!important; display:inline-block;font-family:Arial;font-weight:bold; margin:0; padding:3px 5px; text-align: center;text-decoration:none; overflow:visible; width:auto; cursor:pointer; font-family:"Segoe UI", "Segoe Script", Verdana; border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px; -ms-border-radius:3px; -o-border-radius:3px;}
+*/
+input.buttons, a.buttons { display: inline-block; padding: 8px; background:#d52700; color:#fff; font-size: 16px; line-height: 1.42857143; text-align: center; white-space: nowrap; border: 1px solid transparent; border-radius: 2px;
+	outline: none; text-decoration: none; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-image: none;  
+-webkit-border-fit:border; }
 a.buttons:hover{text-decoration:none;}
 
 
@@ -84,7 +94,7 @@ border-top-right-radius:3px; -moz-border-top-right-radius:3px; -webkit-border-to
 
 .border-radius5{border-radius:5px; -moz-border-radius:5px; -webkit-border-radius:5px; -ms-border-radius:5px; -o-border-radius:5px;}
 
-/* Navigation classes */
+/* Navigation classes 
 .top-nav{background-color:#000; padding:10px;}
 .top-nav ul{margin:0px; padding:0px;}
 .top-nav li a{color:#c1c1c1; text-decoration:none; padding:5px; font-weight:bold;}
@@ -106,12 +116,12 @@ border-top-right-radius:3px; -moz-border-top-right-radius:3px; -webkit-border-to
 
 .primary-nav-container li.pri-nav-sept{background-image:url(http://img.aeplcdn.com/bikewaleimg/images/nav-sept.jpg); background-repeat:no-repeat; background-position:center; width:2px; height:35px;}
 .primary-nav-container li a.ae-link { background:#D52700; }
-/*
+
 #sub-nav { background-color:#e5e4e4; border-bottom-left-radius:3px; -moz-border-bottom-left-radius:3px; -webkit-border-bottom-left-radius:3px; -ms-border-bottom-left-radius:3px; -o-border-bottom-left-radius:3px; border-bottom-right-radius:3px; -moz-border-bottom-right-radius:3px; -webkit-border-bottom-right-radius:3px; -ms-border-bottom-right-radius:3px; -o-border-bottom-right-radius:3px; }
 #sub-nav-list li{ float:left; padding:5px 15px;}
 #sub-nav-list li.sub-nav-sept{border-right:1px solid #999; height:18px; text-shadow: 2px 2px 2px #262626; margin:5px 0; padding:0;}
 #sub-nav-list li a{ text-decoration:none; color:#737373; font-weight:bold;}
-*/
+
 
 #sub-nav { _position:relative; background-color:#e5e4e4; _z-index:999; 
            border-bottom-left-radius:3px; -moz-border-bottom-left-radius:3px; -webkit-border-bottom-left-radius:3px; -ms-border-bottom-left-radius:3px; -o-border-bottom-left-radius:3px; border-bottom-right-radius:3px; -moz-border-bottom-right-radius:3px; -webkit-border-bottom-right-radius:3px; -ms-border-bottom-right-radius:3px; -o-border-bottom-right-radius:3px; }
@@ -119,7 +129,7 @@ border-top-right-radius:3px; -moz-border-top-right-radius:3px; -webkit-border-to
 #sub-nav-list li.sub-nav-sept{border-right:1px solid #999; height:16px; _height:auto; *height:auto; text-shadow: 2px 2px 2px #262626; margin:5px 0; padding:0;}
 #sub-nav-list li a{ text-decoration:none; color:#737373; font-weight:bold;}
 #sub-nav-list li a:hover{color:#383838;}
-
+*/
 
 
 
@@ -496,3 +506,6 @@ div#sybh-list div a.feedback-tab:hover { background-position:-2px -402px; }
 .ui-menu li.ui-menu-item a:hover, .ui-menu li.ui-menu-item a.ui-state-focus {background: #ebebeb;}
 .ui-helper-hidden-accessible {display: none;}
 /* autocomplete classes ends here */
+
+/* override classes for inner pages */
+.container_12, .container_16, .container_24 { background: #fff; padding-bottom:10px; margin-bottom: 20px; }

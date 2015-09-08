@@ -1,12 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.UpcomingBikes_new" %>
     <!-- Upcoming Bikes Starts here-->
-<div class="bw-tabs-data hide" id="ctrlUpcomingBikes">
     <asp:Repeater ID="rptUpcomingBikes" runat="server">
-        <HeaderTemplate>
-            <div class="jcarousel-wrapper discover-bike-carousel">
-                <div class="jcarousel">
-                    <ul>
-        </HeaderTemplate>
         <ItemTemplate>
             <li class="front">
                 <div class="contentWrapper">
@@ -32,12 +26,5 @@
                 </div>
             </li>
         </ItemTemplate>
-        <FooterTemplate>
-            </ul>
-            </div>
-            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
-            </div>
-        </FooterTemplate>
     </asp:Repeater>
-</div><!-- Ends here-->
+<!-- Ends here-->

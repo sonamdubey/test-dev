@@ -86,6 +86,6 @@ namespace Bikewale.Entities.BikeData
 	    public bool AntilockBrakingSystem { get; set; }
 	    public bool Killswitch { get; set; }
 	    public bool Clock { get; set; }
-	    public string Colors { get; set; }	
+	    public string Colors { get; set; }
     }
 }

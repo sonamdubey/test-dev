@@ -31,8 +31,8 @@
     	         <input type="button" value="Go" data-theme="b" id="btnSubmit" data-mini="true" data-role="button" data-inline="true" class="ui-corner-all">
             </div>
         </div>
-        <div class="new-line10">
-            <h2>Most Reviewed Bikes</h2>
+        <div>
+            <h2 class="margin-top30 margin-bottom20">Most Reviewed Bikes</h2>
         </div>
         <div id="mostReviewed" class="box new-line5" style="padding:0px 5px;">
             <asp:Repeater id="rptMostReviewed" runat="server">
@@ -47,8 +47,8 @@
                 </itemtemplate>
             </asp:Repeater>
         </div>
-        <div class="new-line10">
-            <h2>Most Read Bikes</h2>
+        <div>
+            <h2 class="margin-top30 margin-bottom20">Most Read Bikes</h2>
         </div>
         <div  id="divMostRead" class="box new-line5" style="padding:0px 5px;">          
         <asp:Repeater id="rptMostRead" runat="server">
@@ -70,8 +70,8 @@
 	        </itemtemplate>
 	    </asp:Repeater>
       </div>
-         <div class="new-line10">
-            <h2>Most Helpful</h2>
+         <div>
+            <h2 class="margin-top30 margin-bottom20">Most Helpful</h2>
         </div>
         <div id="mostHelpful" class="box new-line5" style="padding:0px 5px;">
             <asp:Repeater id="rptMostHelpful" runat="server">
@@ -93,8 +93,8 @@
                 </itemtemplate>
             </asp:Repeater>
         </div>
-        <div class="new-line10">
-            <h2>Most Recent</h2>
+        <div>
+            <h2 class="margin-top30 margin-bottom20">Most Recent</h2>
         </div>
         <div id="mostRecent" class="box new-line5" style="padding:0px 5px;">
             <asp:Repeater id="rptMostRecent" runat="server">
@@ -116,8 +116,8 @@
                 </itemtemplate>
             </asp:Repeater>
         </div>
-         <div class="new-line10">
-            <h2>Most Rated</h2>
+         <div>
+            <h2 class="margin-top30 margin-bottom20">Most Rated</h2>
         </div>
         <div id="mostRated" class="box new-line5" style="padding:0px 5px;">
             <asp:Repeater id="rptMostRated" runat="server">

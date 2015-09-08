@@ -18,6 +18,8 @@ namespace Bikewale.BindViewModels.Controls
 
         public static void BindMostPopularBikes(Repeater rptr)
         {
+            FetchedRecordsCount = 0;
+
             MostPopularBikesList objBikeList = null;
 
             try

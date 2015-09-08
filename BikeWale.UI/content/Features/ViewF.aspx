@@ -38,6 +38,8 @@
     #gallery .jcarousel-skin-tango .jcarousel-next-horizontal { background: #282626 url("http://img.carwale.com/adgallery/ad_scroll_forward.png") no-repeat center center; right: 10px; }
     #gallery .jcarousel-skin-tango .jcarousel-prev-horizontal { background: #282626 url("http://img.carwale.com/adgallery/ad_scroll_back.png") no-repeat  center center; left: 0px; }
 
+    .article-content img { width:100%; }
+
  </style>
 <script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <form id="form1" runat="server">
@@ -160,4 +162,4 @@
         ScrollToTop("back-to-top", speed);
     });
 </script>
-<!-- #include file="/includes/footerinner.aspx" -->>
+<!-- #include file="/includes/footerinner.aspx" -->
