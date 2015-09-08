@@ -595,7 +595,7 @@ namespace Bikewale.DAL.BikeData
         }
 
 
-        public List<MostPopularBikesBase> GetMostPopularBikes(sbyte? topCount = null, int? makeId = null)
+        public List<MostPopularBikesBase> GetMostPopularBikes(int? topCount = null, int? makeId = null)
         {
             List<MostPopularBikesBase> objList = null;
             Database db = null;
@@ -640,7 +640,79 @@ namespace Bikewale.DAL.BikeData
                                 objData.BikeName = Convert.ToString(dr["BikeName"]);
                                 objData.HostURL = Convert.ToString(dr["HostUrl"]);
                                 objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
-                                objData.VersionPrice = Convert.ToInt64(dr["VersionPrice"]);
+                                 objData.VersionPrice = SqlReaderConvertor.ToNullableInt64(dr["VersionPrice"]);
+                                objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                                objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                                objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableUInt16(dr["MaxPower"]);
+                                objList.Add(objData);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException err)
+            {
+                HttpContext.Current.Trace.Warn("SQL Exception in GetModelsList", err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("Exception in GetModelsList", err.Message);
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objList;
+        }
+
+
+        public List<MostPopularBikesBase> GetMostPopularBikesByMake(int makeId)
+        {
+            List<MostPopularBikesBase> objList = null;
+            Database db = null;
+            MostPopularBikesBase objData = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "GetMostPopularBikesByMake";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@MakeId", makeId);
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            objList = new List<MostPopularBikesBase>();
+
+                            while (dr.Read())
+                            {
+                                objData = new MostPopularBikesBase();
+                                objData.objMake = new BikeMakeEntityBase();
+                                objData.objModel = new BikeModelEntityBase();
+                                objData.objVersion = new BikeVersionsListEntity();
+                                objData.Specs = new MinSpecsEntity();
+                                objData.objMake.MakeName = Convert.ToString(dr["Make"]);
+                                objData.objModel.ModelName = Convert.ToString(dr["Model"]);
+                                objData.objMake.MakeId = Convert.ToInt32(dr["MakeId"]);
+                                objData.objModel.ModelId = Convert.ToInt32(dr["ModelId"]);
+                                objData.objMake.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objData.objModel.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                                objData.objVersion.VersionId = Convert.ToInt32(dr["VersionId"]);
+                                objData.ModelRating = Convert.ToDouble(dr["ReviewRate"]);
+                                objData.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                                objData.BikeName = Convert.ToString(dr["BikeName"]);
+                                objData.HostURL = Convert.ToString(dr["HostUrl"]);
+                                objData.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                                objData.VersionPrice = SqlReaderConvertor.ToNullableInt64(dr["VersionPrice"]);
                                 objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);

@@ -66,6 +66,7 @@
     <Compile Include="Customer\AuthenticatedCustomer.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerBase.cs" />
+    <Compile Include="Make\BikeDescription.cs" />
     <Compile Include="Make\MakeBase.cs" />
     <Compile Include="Make\MakeList.cs" />
     <Compile Include="BikeBooking\Area\BBAreaBase.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="BikeBooking\Version\BBVersionBase.cs" />
     <Compile Include="BikeBooking\Version\BBVersionList.cs" />
     <Compile Include="BookingSummary\BookingSummaryBase.cs" />
+    <Compile Include="Make\MakePage.cs" />
     <Compile Include="Make\NewBikeDealersMakeBase.cs" />
     <Compile Include="Make\NewBikedealersMakeList.cs" />
     <Compile Include="Model\ModelDetail.cs" />

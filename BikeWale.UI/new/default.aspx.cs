@@ -27,15 +27,12 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //To get News List
-            //ctrlNews.TotalRecords = 3;
 
             //to get Most Popular Bikes
             ctrlMostPopularBikes.totalCount = 6;
 
             //To get Upcoming Bike List Details 
             ctrlNewLaunchedBikes.pageSize = 6;
-            //ctrlNewLaunchedBikes.curPageNo = null;
 
             //To get Upcoming Bike List Details 
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;

@@ -1,20 +1,25 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>  
+
 <!--bw popup code starts here-->
-<div id="blackOut-window" class="hide"></div>
+
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
 	<div class="popup-inner-container">
     	<div class="bwmsprite close-btn position-abt pos-top10 pos-right10"></div>
     	<p class="font20 margin-bottom10 text-capitalize">Select Location</p>
         <div class="padding-top10" id="popupContent">
-            <div><i><span class="red">*</span>All fields are mandatory</i></div>
+            <div class="margin-bottom20"><i><span class="red">*</span>All fields are mandatory</i></div>
          <div>
                 <select id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }" ></select> 
-            </div>
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select City</div>   
+         </div>
             <div  data-bind="visible: bookingAreas().length > 0" >
                 <select  class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--'"></select>
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div> 
-            <div class="center-align margin-top20">                
-                <a id="btnDealerPricePopup" class="bwm-btn" data-bind="event: { click: getPriceQuotePopup }"> Get Price Quote</a>
+            <div class="center-align margin-top20 text-center">                
+                <a id="btnDealerPricePopup" class="btn btn-white" data-bind="event: { click: getPriceQuotePopup }"> Get Price Quote</a>
                 <div id="errMsgPopup" class="red-text margin-top10 hide"></div>
             </div>            
         </div>
@@ -25,6 +30,10 @@
 var selectedModel = 0;
 var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
 var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
+var preSelectedCityId = 0;
+var preSelectedCityName = "";
+popupcity = $('#ddlCitiesPopup');
+popupArea = $('#ddlAreaPopup');
 // knockout popupData binding
 var viewModelPopup = {
     selectedCity: ko.observable(),
@@ -32,6 +41,18 @@ var viewModelPopup = {
     selectedArea: ko.observable(),
     bookingAreas: ko.observableArray([])
 };
+
+function checkCookies(cookieName) {
+    c = document.cookie.split('; ');
+    for (i = c.length - 1; i >= 0; i--) {
+        C = c[i].split('=');
+        if (C[0] == "location") {
+            var cData = (String(C[1])).split('_');
+            preSelectedCityId = parseInt(cData[0]);
+            preSelectedCityName = cData[1];
+        }
+    }
+}
 
 function FillCitiesPopup(modelId) {
     $.ajax({
@@ -44,6 +65,7 @@ function FillCitiesPopup(modelId) {
             var cities = JSON.parse(obj.value);
             if (cities)
             {
+                checkCookies();
                 var initIndex = 0;
                 for (var i = 0; i < cities.length; i++) {
                     if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
@@ -99,7 +121,8 @@ function cityChangedPopup() {
 function isValidInfoPopup() {
     isValid = true;
     var errMsg = "Missing fields:";
-    if (viewModelPopup.selectedCity() == undefined) {
+
+    if (viewModelPopup.selectedCity() == undefined) { 
         errMsg += "City,";
         isValid = false;
     }
@@ -109,6 +132,7 @@ function isValidInfoPopup() {
     }
     if (!isValid) {
         errMsg = errMsg.substring(0, errMsg.length - 1);
+        gtmCodeAppender(pageId, "Error in submission", errMsg);
     }
     return isValid;
 }
@@ -152,15 +176,15 @@ $(function(){
         var str = $(this).attr('modelId');
         var modelIdPopup = parseInt(str, 10);
         selectedModel = modelIdPopup;
-        $('#blackOut-window,#popupWrapper').show();
+        $('.blackOut-window,#popupWrapper').fadeIn(100);
         FillCitiesPopup(modelIdPopup);
     });
 
-    $('#popupWrapper .close-btn').click(function () {
-        $("#blackOut-window").hide();
-        $('.bw-popup').hide();
+    $('#popupWrapper .close-btn,.blackOut-window').click(function () {
+        $('.blackOut-window,.bw-popup').fadeOut(100);
         $('a.fillPopupData').removeClass('ui-btn-active');
     });
+    
 
     ko.applyBindings(viewModelPopup, $("#popupContent")[0]);
 

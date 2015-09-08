@@ -12,7 +12,6 @@ namespace Bikewale.Mobile.New
 {
 	public class Default : System.Web.UI.Page
 	{
-       // protected News_new ctrlNews;
         protected MUpcomingBikes mctrlUpcomingBikes;
         protected MNewLaunchedBikes mctrlNewLaunchedBikes;
         protected MMostPopularBikes mctrlMostPopularBikes;
@@ -28,8 +27,6 @@ namespace Bikewale.Mobile.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //To get News List
-           // mctrlNews.TotalRecords = 3;
 
             //to get Most Popular Bikes
            mctrlMostPopularBikes.totalCount = 6;

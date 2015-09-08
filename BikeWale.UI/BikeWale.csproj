@@ -255,6 +255,7 @@
     </Compile>
     <Compile Include="BindViewModels\Controls\BindBikeCompareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
@@ -490,6 +491,10 @@
       <DependentUpon>NewBikeLaunches.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\NewBikesOnRoadPrice.ascx.cs">
+      <DependentUpon>NewBikesOnRoadPrice.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\NewLaunchedBikes_new.ascx.cs">
       <DependentUpon>NewLaunchedBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -504,6 +509,10 @@
     </Compile>
     <Compile Include="controls\NoFollowPagerControl.ascx.cs">
       <DependentUpon>NoFollowPagerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\OnRoadPricequote.ascx.cs">
+      <DependentUpon>OnRoadPricequote.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\PopularUsedBikes.ascx.cs">
@@ -743,6 +752,13 @@
     <Compile Include="m\controls\MNewLaunchedBikes.ascx.cs">
       <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\MOnRoadPricequote.ascx.cs">
+      <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\MOnRoadPricequote.ascx.designer.cs">
+      <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
     </Compile>
     <Compile Include="m\controls\MPopupWidget.ascx.cs">
       <DependentUpon>MPopupWidget.ascx</DependentUpon>
@@ -1490,10 +1506,12 @@
     <Content Include="controls\MakeModelSearch.ascx" />
     <Content Include="controls\MostPopularBikes_new.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
+    <Content Include="controls\NewBikesOnRoadPrice.ascx" />
     <Content Include="controls\NewLaunchedBikes_new.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\News_new.ascx" />
     <Content Include="controls\NoFollowPagerControl.ascx" />
+    <Content Include="controls\OnRoadPricequote.ascx" />
     <Content Include="controls\PopularUsedBikes.ascx" />
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
@@ -1941,6 +1959,7 @@
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
+    <Content Include="m\controls\MOnRoadPricequote.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
