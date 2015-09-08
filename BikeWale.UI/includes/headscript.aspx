@@ -44,6 +44,3 @@
 <!--[if lt IE 9]>
     <script src="/src/html5.js"></script>
 <![endif]-->
-<script language="c#" runat="server">	    
-	    private bool isHeaderFix = true;
-</script>
