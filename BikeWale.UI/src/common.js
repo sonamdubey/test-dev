@@ -291,8 +291,9 @@ $(document).ready(function () {
 		$('body').removeClass('lock-browser-scroll');
 		$(".blackOut-window").hide();
 	}
-	
-	$(".bw-tabs li").live('click', function () {
+
+    // Common BW tabs code
+	$(".more-filter-item-data .bw-tabs li").live('click', function () {
 	    var panel = $(this).closest(".bw-tabs-panel");
 	    if (!$(this).hasClass("active")) {
 	        panel.find(".bw-tabs li").removeClass("active");
@@ -301,7 +302,17 @@ $(document).ready(function () {
 	    else {
 	        $(this).removeClass("active");
 	    }
-	}); // ends
+	});
+
+	$(".bw-tabs li").live('click', function () {
+	    var panel = $(this).closest(".bw-tabs-panel");
+	    panel.find(".bw-tabs li").removeClass("active");
+	    $(this).addClass("active");
+	    var panelId = $(this).attr("data-tabs");
+	    panel.find(".bw-tabs-data").hide();
+	    $("#" + panelId).show();
+	});
+
 	/* jCarousel custom methods */
 	$(function () {
 		var jcarousel = $('.jcarousel').jcarousel();
