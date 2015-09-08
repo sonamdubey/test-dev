@@ -20,7 +20,6 @@
     #tblContactDetails span { font-weight:bold; }    
     #tblContactDetails td { color:#000; }
 </style>
-<form id="Form1" runat="server">
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -66,6 +65,5 @@
             
         </div>
     </div>
-</form>
 <!-- #include file="/includes/footerinner.aspx" -->
 <!-- Footer ends here -->

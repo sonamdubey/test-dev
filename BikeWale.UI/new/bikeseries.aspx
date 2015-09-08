@@ -25,7 +25,6 @@
 
 
 <div class="container_12">
-<form id="Form1" runat="server">
     <div class="grid_12">
         <ul class="breadcrumb" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
             <li>You are here: </li>
@@ -104,6 +103,5 @@
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
         </div>
     </div><!--    Right Container ends here -->
-</form>
 </div>
 <!-- #include file="/includes/footerInner.aspx" -->

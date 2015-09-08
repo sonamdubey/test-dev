@@ -29,7 +29,6 @@
     /* Targeted IDs*/
     #featured-bike img, #upcoming-bike img, #road-test img{ width: 196px;}
 </style>
-<form id="form1" runat="server">
     <div class="gallery-container">
         <div class="container_12"> 
             <div class="block-spacing">
@@ -187,7 +186,6 @@
         </div>
         <div class="clear"></div>
     </div>    --%>
-</form>
 <script type="text/javascript">
     $(document).ready(function () {
         $("a.person,a.timer,a.watch,a.award").bt({ contentSelector: "$(this).attr('title')", positions: ['top', 'bottom', 'left'], fill: '#ffffee', strokeWidth: 1, strokeStyle: '#666666', width: '300px', cssClass: 'f-small', spikeLength: 7 });

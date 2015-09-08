@@ -14,7 +14,6 @@
 <style type="text/css">
     img {border:none!important;margin:0px !important;padding:0px !important;}
 </style>
-<form id="form1" runat="server">
     <div class="padding5">
         <div id="br-cr">
             <a href="/m/new/" class="normal">New Bikes</a> &rsaquo;  
@@ -107,6 +106,5 @@
         <%} %>
         <Pager:Pager id="listPager" runat="server"></Pager:Pager>
     </div>
-</form>
 <!-- #include file="/includes/footermobile.aspx" -->
 

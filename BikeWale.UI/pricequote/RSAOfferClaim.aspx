@@ -21,7 +21,6 @@
     }
 
 </style>
-<form runat="server">
 <div class="main-container">
     <div class="container_12">
         <div class="grid_12">
@@ -259,7 +258,6 @@
         </div><!-- Right Container ends here  -->
     </div>
 </div>
-</form>
 <script type="text/javascript">
     $("#btnSubmit").click(function () {
         var isError = false;

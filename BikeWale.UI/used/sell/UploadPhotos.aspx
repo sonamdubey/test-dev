@@ -7,7 +7,6 @@
 <!-- #include file="/includes/headUsed.aspx" -->
 <script language="javascript" src="/src/flash_upload/swfobject.js?v=1.0" type="text/javascript"></script>
 <script language="javascript" src="/src/flash_upload/jquery.uploadify.v2.1.0.js?v=1.0" type="text/javascript"></script>
-<form runat="server">
 <div class="grid_8">	
 	<div class="sell_block moz-round">
 		<h2 class="hd2-red">Actual Bike Photos</h2>
@@ -26,7 +25,6 @@
 		</div>
 	</div>	
 </div>
-</form>
 <script language="javascript">	
 	var imgUrl = '<%= ImagingFunctions.GetImagePath("/bikewaleimg/used/ucp/") %>';
 	var inquiryId = '<%= inquiryId %>';

@@ -13,6 +13,7 @@
    <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->    
 </head>
 <body>
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
     <div data-role="page" style="position:relative;">
         <div role="main">

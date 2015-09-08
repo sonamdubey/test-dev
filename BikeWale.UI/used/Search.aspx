@@ -25,7 +25,6 @@
     .sel_parama_hover span{background-color:#cc0000; color:#fff; padding:0 3px; margin-left:5px; cursor:pointer;}
     #app_filters li {display:block;}    
 </style>
-<form id="form1" runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -228,5 +227,4 @@
 </div>
 
 
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->

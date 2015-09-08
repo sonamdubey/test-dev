@@ -18,6 +18,7 @@
     <!-- #include file="/includes/headscript_mobile.aspx" -->
 </head>
 <body class="bg-light-grey">
+    <form runat="server">
     <!-- #include file="/includes/headBW_Mobile.aspx" -->
     <section>
         <div class="container">
@@ -523,5 +524,6 @@
 <!-- all other js plugins -->    
 <!-- #include file="/includes/footerscript_Mobile.aspx" -->
 <script type="text/javascript" src="/m/src/home.js"></script>
+</form>
 </body>
 </html>

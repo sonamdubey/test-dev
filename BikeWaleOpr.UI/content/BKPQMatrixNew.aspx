@@ -11,7 +11,6 @@
 	You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Price Quote Matrix Daily
 </div>
 
-<form id="Form1" runat="server">				
 	<table width="100%" style="font-size:12px;">
 		<tr>
 			<td width="190px" >

@@ -414,9 +414,7 @@
                 </ul>
             </div>
             <div class="bottom-btns">
-                    <form id="Form1" runat="server">
                         <asp:Button type="submit" Text="Save this Price Certificate" id="btnSavePdf" runat="server" data-role="none"  visible="false" data-theme="b" data-mini="true" class="rounded-corner5"  />
-                    </form>
                  <%--   <div style="display:none">
                         <PQ:pdf runat="server" ID="PQPdfTemplate"/>
                 </div>--%>

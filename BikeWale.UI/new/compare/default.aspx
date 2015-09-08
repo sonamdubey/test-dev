@@ -1,5 +1,5 @@
 ﻿<%@ Page Inherits="Bikewale.New.ComparisonChoose" trace="false" Debug="false" AutoEventWireUp="false" Language="C#" EnableEventValidation="false" %>
-<%@ Register TagPrefix="uc" TagName="CompareCarsMin" Src="~/controls/ComparisonMin.ascx" %>
+<%@ Register TagPrefix="uc" TagName="CompareCarsMin" Src="~/controls/ComparisonMin_old.ascx" %>
 <%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
 <%@ Register TagPrefix="uc" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%@ Register TagPrefix="uc" TagName="BrowseUserReviews" Src="~/controls/BrowseUserReviews.ascx" %>
@@ -13,7 +13,6 @@
     AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/headNew.aspx" -->
-<form runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -122,7 +121,6 @@
         </div>
     </div><!--    Right Container ends here -->
 </div>
-</form>			
 <script type="text/javascript">
     $(document).ready(function(){
         $("select[id^='cmbMake']").change(function(){

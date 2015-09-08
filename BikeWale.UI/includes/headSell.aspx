@@ -10,6 +10,7 @@
     <!-- #include file="globalStaticFiles.aspx"-->
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "";	    
+        private bool isHeaderFix = true;
     </script>
     <script type='text/javascript'>
         var googletag = googletag || {};
@@ -59,6 +60,7 @@
     </script>--%>
 </head>
 <body class="header-fixed-inner">
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
     	<!-- #include file="/includes/headBW.aspx" -->

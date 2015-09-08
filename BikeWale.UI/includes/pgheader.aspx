@@ -12,7 +12,8 @@
 
     <!-- #include file="globalStaticFiles.aspx"-->
     <script language="c#" runat="server">	    
-	    private string title = "", description = "", keywords = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMake="", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "", alternate="";	    
+	    private string title = "", description = "", keywords = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMake="", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "", alternate="";
+        private bool isHeaderFix = true;
     </script>
     <script type='text/javascript'>
         var googletag = googletag || {};
@@ -45,6 +46,7 @@
     </script>
 </head>
 <body>
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
         <!--Header code start here -->

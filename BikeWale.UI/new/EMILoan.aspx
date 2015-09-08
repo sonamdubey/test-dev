@@ -13,7 +13,6 @@
     <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 </head>
 <body>
-    <form id="form1" runat="server">
     <div id="divMain">
         <div class="right-float"><span><span class="red">*</span>All fields are mandatory</span></div>
         <div class="clear"></div>
@@ -181,6 +180,5 @@
                 return retVal;
             }
     </script>
-    </form>
 </body>
 </html>

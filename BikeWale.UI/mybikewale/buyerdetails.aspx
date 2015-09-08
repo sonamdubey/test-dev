@@ -5,7 +5,6 @@
 %>
 <!-- #include file="/includes/headmybikewale.aspx" -->
 <div class="container_12">
-    <form id="form1" runat="server">
         <div class="grid_12">
             <ul class="breadcrumb">
                 <li>You are here: </li>
@@ -54,6 +53,5 @@
                 <!-- #include file="/ads/Ad300x250.aspx" -->
             </div>
         </div>
-    </form>
 </div>
 <!-- #include file="/includes/footerinner.aspx" -->

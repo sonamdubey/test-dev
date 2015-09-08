@@ -9,7 +9,6 @@
     <script src="src/framework/knockout-3.1.0.js"></script>
 </head>
 <body>
-    <form id="form1" runat="server">
     <div>
         Makes List : <ul data-bind="foreach: objData">
             <li data-bind="text: MakeName"></li>
@@ -18,7 +17,6 @@
         The name is <span data-bind="text: personLName"></span>
         The full name is <span data-bind="text: FullName"></span>--%>
     </div>
-    </form>
     <script type="text/javascript">
         $.getJSON("http://localhost:84/api/BikeMakes/Get", function (data) {
             //objData = ko.mapping.fromJSON(data);

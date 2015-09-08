@@ -15,7 +15,6 @@
 
 <div class="left">
 	<h3>Expected Bike Launches</h3>
-	<form id="Form1" runat="server">
     <br />
 	<span id="spnError" class="dvRed" runat="server"></span>
 	<asp:DataGrid ID="dtgrdLaunches" runat="server" 

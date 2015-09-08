@@ -10,7 +10,6 @@
     .sel_parama_hover span{background-color:#cc0000; color:#fff; padding:0 3px; margin-left:5px; cursor:pointer;}
     #app_filt li {display:block;}    
 </style>
-    <form id="form1" runat="server">
         <div class="container_12 margin-top15">
         <h1 class="grid_12">Search New Bikes <span>Find new bikes by budget, make-model</span></h1>       
         <div class="grid_4 margin-top15"><!--    Left Container starts here -->
@@ -97,7 +96,6 @@
         </div><!--    Right Container ends here -->
         <div class="clear"></div>
             </div>
-    </form>
  <script type="text/javascript">
      var qs_params = '<%= Request.ServerVariables["QUERY_STRING"] %>';
      if (qs_params.length == 0) {

@@ -11,7 +11,6 @@
 	var responseCount = 0;
 	nextStepUrl = "/used/sell/confirmation.aspx";
 </script>
-<form runat="server">
 <div class="sell_container">
 	<div class="sell_block moz-round">
 		<h2 class="hd2-red"><span><a title="Add photos to your listing" href="uploadphotos.aspx">Add <%= objPhotos.ClassifiedImageCount != 0 ? "More" : "" %> Photos</a></span> Bike Photos Preview <span class="price2">+</span></h2>		
@@ -33,7 +32,6 @@
 		<div id="done" class="mid-box" align="right"><a class="buttons" onclick="javascript:mDone();">I'm Done</a></div>			
 	</div>	
 </div>
-</form>
 <script language="javascript">
 	$(".front-img").bt({fill: '#FCF5A9',strokeWidth: 1,strokeStyle: '#D3D3D3',spikeLength:20,shadow: true,positions:['right']});
 </script>
