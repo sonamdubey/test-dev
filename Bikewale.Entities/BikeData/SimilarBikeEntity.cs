@@ -9,7 +9,7 @@ namespace Bikewale.Entities.BikeData
     /// <summary>
     /// Created By : Sadhana Upadhyay on 5th Aug 2014
     /// </summary>
-    public class SimilarBikeEntity
+    public class SimilarBikeEntity : MinSpecsEntity
     {
         public int MinPrice { get; set; }
         public int MaxPrice { get; set; }
@@ -18,6 +18,10 @@ namespace Bikewale.Entities.BikeData
         public string SmallPicUrl { get; set; }
         public string LargePicUrl { get; set; }
         public string OriginalImagePath { get; set; }
+        
+        public Double ReviewRate { get; set; }
+
+        public UInt16 ReviewCount { get; set; }
         private BikeMakeEntityBase objmakeBase = new BikeMakeEntityBase();
         public BikeMakeEntityBase MakeBase { get { return objmakeBase; } set { objmakeBase = value; } }
 
