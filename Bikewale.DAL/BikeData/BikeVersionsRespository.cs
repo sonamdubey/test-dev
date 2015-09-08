@@ -11,6 +11,7 @@ using Bikewale.CoreDAL;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
 using System.Diagnostics;
+using Bikewale.Utility;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -509,6 +510,12 @@ namespace Bikewale.DAL.BikeData
                             objBike.MaxPrice = Convert.ToInt32(dr["MaxPrice"]);
                             objBike.VersionPrice = Convert.ToInt32(dr["VersionPrice"]);
                             objBike.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                            objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                            objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                            objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                            objBike.MaxPower = SqlReaderConvertor.ToNullableUInt16(dr["MaxPower"]);
+                            objBike.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                            objBike.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
                             objSimilarBikes.Add(objBike);
                         }
                     }
