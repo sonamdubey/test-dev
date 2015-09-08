@@ -11,5 +11,7 @@ namespace Bikewale.Entities.NewBikeSearch
     {
         public List<SearchOutputEntityBase> SearchResult { get; set; }
         public PagingUrl PageUrl { get; set; }
+        public int TotalCount { get; set; }
+        public int CurrentPageNo { get; set; }
     }
 }

@@ -40,7 +40,7 @@ $(document).ready(function () {
 	        else
 	            showHideMatchError(element,true);
 	    }
-	});
+	}).autocomplete("widget").addClass("globalCity-auto-desktop").css({ 'position': 'fixed' });
 
 	$('#newBikeList').on('keypress', function (e) {
 	    var id = $('#newBikeList')
@@ -298,14 +298,15 @@ $(document).ready(function () {
 		$(".blackOut-window").hide();
 	}
 	
-	// Common BW tabs code
 	$(".bw-tabs li").live('click', function () {
-		var panel = $(this).closest(".bw-tabs-panel");
-		panel.find(".bw-tabs li").removeClass("active");
-		$(this).addClass("active");
-		var panelId = $(this).attr("data-tabs");
-		panel.find(".bw-tabs-data").hide();
-		$("#" + panelId).show();
+	    var panel = $(this).closest(".bw-tabs-panel");
+	    if (!$(this).hasClass("active")) {
+	        panel.find(".bw-tabs li").removeClass("active");
+	        $(this).addClass("active");
+	    }
+	    else {
+	        $(this).removeClass("active");
+	    }
 	}); // ends
 	/* jCarousel custom methods */
 	$(function () {

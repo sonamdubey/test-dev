@@ -55,6 +55,7 @@ namespace Bikewale.DAL.NewBikeSearch
 		                        ,ISNULL(MO.ReviewCount, 0) MoReviewCount
 		                        ,ISNULL(BV.ReviewRate, 0) VsReviewRate
 		                        ,ISNULL(BV.ReviewCount, 0) VsReviewCount
+                                ,ISNULL(SD.MaximumTorque,0) MaximumTorque
                                 ,ISNULL(MPB.ModelwisePQCount, 0) ModelwisePQCount ";
             }
             catch(Exception ex)
@@ -107,7 +108,7 @@ namespace Bikewale.DAL.NewBikeSearch
                         break;
 
                     case "2":
-                        retVal = " MoReviewCount " + (sortOrder == "0" ? " DESC " : " ASC ");
+                        retVal = " FuelEfficiencyOverall " + (sortOrder == "0" ? " DESC " : " ASC ");
                         break;
 
                     default:
@@ -373,7 +374,7 @@ namespace Bikewale.DAL.NewBikeSearch
                     clause = " SD.Displacement BETWEEN 250 AND 500 ";
                     break;
                 case "6":
-                    clause = " SD.Displacement >= 500000 ";
+                    clause = " SD.Displacement >= 500 ";
                     break;
                 default:
                     break;
@@ -389,16 +390,16 @@ namespace Bikewale.DAL.NewBikeSearch
             switch (id)
             {
                 case "1":
-                    clause = " SD.FuelEfficiencyOverall >= 70 ";
+                    clause = " SD.FuelEfficiencyOverall >= 60 ";
                     break;
                 case "2":
-                    clause = " SD.FuelEfficiencyOverall BETWEEN 50 AND 70 ";
+                    clause = " SD.FuelEfficiencyOverall BETWEEN 60 AND 40 ";
                     break;
                 case "3":
-                    clause = " SD.FuelEfficiencyOverall BETWEEN 30 AND 50 ";
+                    clause = " SD.FuelEfficiencyOverall BETWEEN 40 AND 20 ";
                     break;
                 case "4":
-                    clause = " SD.FuelEfficiencyOverall <= 30 ";
+                    clause = " SD.FuelEfficiencyOverall <= 20 ";
                     break;
                 default:
                     break;
@@ -411,7 +412,7 @@ namespace Bikewale.DAL.NewBikeSearch
             string searchResultQuery = string.Empty;
             try
             {
-                searchResultQuery = " WITH CTE_BikeModels AS ( SELECT DENSE_RANK() OVER (ORDER BY MO.MinPrice) AS DenseRank "
+                searchResultQuery = " WITH CTE_BikeModels AS ( SELECT DENSE_RANK() OVER (ORDER BY " + GetDenseRankClause() + " , MinPrice, MaxPrice) AS DenseRank "
                                     + " ,ROW_NUMBER() OVER (PARTITION BY MO.ID ORDER BY SP.Price) AS ModelRank, "
                                     + GetSelectClause()
                                     + " FROM " + GetFromClause() + " Where " + GetWhereClause() + " ) SELECT * FROM CTE_BikeModels "
@@ -424,6 +425,38 @@ namespace Bikewale.DAL.NewBikeSearch
                 objError.SendMail();
             }
             return searchResultQuery;
+        }
+
+        public string GetDenseRankClause()
+        {
+            string retVal = "";
+            string sortCriteria = string.Empty, sortOrder = string.Empty;
+            try
+            {
+                sortCriteria = filterInputs.sc;
+                sortOrder = filterInputs.so;
+
+                switch (sortCriteria)
+                {
+                    case "1":
+                        retVal = " MO.MinPrice " + (sortOrder == "1" ? " DESC " : " ASC ");
+                        break;
+
+                    case "2":
+                        retVal = " SD.FuelEfficiencyOverall " + (sortOrder == "0" ? " DESC " : " ASC ");
+                        break;
+
+                    default:
+                        retVal = " MPB.ModelwisePQCount DESC ";
+                        break;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objError = new ErrorClass(ex, "Bikewale.BAL.NewBikeSearch.SearchQuery.GetOrderByClause");
+                objError.SendMail();
+            }
+            return retVal;
         }
     }
 }

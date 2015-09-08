@@ -26,7 +26,7 @@
         </div>
         <div class="clear"></div>
     </div>
-    <div id="header" class="header-fixed"> <!-- Fixed Header code starts here -->
+    <div id="header" class='<%= isHeaderFix ? "header-fixed": "header-not-fixed" %>'> <!-- Fixed Header code starts here -->
         <div class="leftfloat">
             <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
             <a href="/" class="bwsprite bw-logo"></a>
