@@ -8,9 +8,10 @@ namespace Bikewale.Entities.BikeData
 {
     public class BikeModelPageEntity
     {
-        public BikeDescriptionEntity modelDesc { get; set; }
-        public BikeModelEntity modelDetails { get; set; }
-        public List<BikeVersionsListEntity> modelVersion { get; set; }
-        public BikeSpecificationEntity versionSpecs { get; set; }
+        public BikeDescriptionEntity ModelDesc { get; set; }
+        public BikeModelEntity ModelDetails { get; set; }
+        public List<BikeVersionMinSpecs> ModelVersions { get; set; }
+        public BikeSpecificationEntity ModelVersionSpecs { get; set; }
+        public IEnumerable<BikeModelColor> ModelColors { get; set; }
     }
 }

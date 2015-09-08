@@ -45,13 +45,15 @@ namespace Bikewale.Service.AutoMappers.Model
         internal static ModelPage Convert(BikeModelPageEntity objModelPage)
         {
             Mapper.CreateMap<BikeModelEntityBase, ModelBase>();
-            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();
-            Mapper.CreateMap<BikeModelPageEntity, ModelPage>();
+            Mapper.CreateMap<BikeMakeEntityBase, MakeBase>();            
             Mapper.CreateMap<BikeSeriesEntityBase, SeriesBase>();
             Mapper.CreateMap<BikeDescriptionEntity, ModelDescription>();
-            Mapper.CreateMap<BikeModelEntity, ModelDetails>();
-            Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
+            Mapper.CreateMap<BikeModelEntity, ModelDetails>();            
             Mapper.CreateMap<BikeSpecificationEntity, VersionSpecifications>();
+            Mapper.CreateMap<BikeVersionsListEntity, ModelVersionList>();
+            Mapper.CreateMap<BikeVersionMinSpecs, VersionMinSpecs>();
+            Mapper.CreateMap<BikeModelPageEntity, ModelPage>();
+            Mapper.CreateMap<BikeModelColor,ModelColor>();
             return Mapper.Map<BikeModelPageEntity, ModelPage>(objModelPage);
         }
 
