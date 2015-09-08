@@ -10,7 +10,6 @@
 <!-- #include file="/includes/headNew.aspx" -->
 <link href="../css/video.css" rel="stylesheet" />
 <div class="container_12">
-    <form id="form1" runat="server">
         <div class="grid_12">
             <ul class="breadcrumb">
                 <li>You are here: </li>
@@ -125,7 +124,6 @@
                  <!-- #include file="/ads/Ad300x250BTF.aspx" -->
         </div><!-- Right Container ends here -->
         <div class="clear"></div>
-    </form>
 </div>
 <!-- #include file="/includes/footerInner.aspx" -->
 

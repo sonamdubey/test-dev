@@ -14,7 +14,6 @@
 	#main { padding:20px; }	
     .ul-hrz-col2 li { font-size:13px;color:#666666; background-image: url("http://img.carwale.com/bikewaleimg/images/icon-sprite.png"); background-position: 0 -111px; background-repeat: no-repeat; display: block; list-style: square outside none; padding: 3px 0 3px 10px; }
 </style>
-<form id="form1" runat="server">
     <div class="padding5">
         <h1>Page Not Found</h1>
         <h2 class="new-line15">Requested page couldn't be found on <a href="/" title="Visit BikeWale home page">BikeWale</a></h2>
@@ -28,5 +27,4 @@
         </div>		
 		<div class="new-line10">Please try visiting the page again within few minutes.</div>
     </div>
-</form>
 <!-- #include file="/includes/footermobile_noad.aspx" -->

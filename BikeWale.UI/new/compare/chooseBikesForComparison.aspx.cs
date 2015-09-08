@@ -13,11 +13,12 @@ using System.Web.UI.HtmlControls;
 using Bikewale.Common;
 //using BikeWale.Controls;
 using Ajax;
+using Bikewale.controls;
 
 namespace Bikewale.New
 {
 	public class ComparisonChoose : Page
-	{
+	{        
 		protected int featuredBikeIndex  = 0; // this variable not used any where in this page.
 		protected HtmlGenericControl spnError;
 		protected DropDownList cmbMake, cmbMake1, cmbMake2, cmbMake3;
@@ -48,7 +49,7 @@ namespace Bikewale.New
 		void Page_Load( object Sender, EventArgs e )
 		{
             DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-            dd.DetectDevice();
+            dd.DetectDevice();            
 
             compareBikes = optNew.Checked ? "new" : "all";
 

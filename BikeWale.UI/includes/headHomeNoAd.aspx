@@ -9,7 +9,8 @@
     <title><%= title %></title>
    <!-- #include file="globalStaticFiles.aspx"-->
     <script language="c#" runat="server">	    
-	    private string title = "", description = "", keywords = "";	    
+	    private string title = "", description = "", keywords = "";
+        private bool isHeaderFix = true;	    
     </script>        
     <script type="text/javascript">
         //facebook like button script
@@ -33,6 +34,7 @@
     </script>
 </head>
 <body class="header-fixed-inner">
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
     	<!-- #include file="/includes/headBW.aspx" -->  

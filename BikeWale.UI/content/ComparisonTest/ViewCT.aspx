@@ -6,7 +6,6 @@
     AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/headNew.aspx" -->
-<form id="form1" runat="server">
 <div class="container_12 margin-top15">
     <div class="grid_8">		
 		<h1><%= ArticleTitle%></h1>
@@ -81,7 +80,6 @@
         </div>
     </div>
 </div>
-</form>
 <script language="javascript" type="text/javascript">
     $(document).ready(function () {
         $("a[rel='slidePhoto']").colorbox();

@@ -14,7 +14,6 @@
 <style>
     a {text-decoration:none !important;}
 </style>
-<form id="Form1" runat="server">
     <input type="hidden" id="hdnMake1" runat="server" />
 <input type="hidden" id="hdnMake2" runat="server" />
 <input type="hidden" id="hdnModel1" runat="server" />
@@ -122,7 +121,6 @@
     </div>
 
 
-</form>
 <script type="text/javascript">
     
     $(document).ready(function () {

@@ -8,7 +8,6 @@
     AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/headNew.aspx" -->
-<form id="form1" runat="server">
 <div class="container_12 margin-top15">
     <div id="Div1" class="grid_8">
         <h1>Comparison Tests</h1>
@@ -62,5 +61,4 @@
         </div>
     </div>
 </div>
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->

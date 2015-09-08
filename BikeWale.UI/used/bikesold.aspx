@@ -5,7 +5,6 @@
     AdPath = "/1017752/BikeWale_UsedBikes_HomePage_";
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
-    <form id="form1" runat="server">
         <div class="container_12">
             <div class="grid_12">
                 <ul class="breadcrumb">
@@ -30,5 +29,4 @@
                 <!-- #include file="/ads/Ad300x250.aspx" -->
             </div><!--    Right Container ends here -->
         </div>
-    </form>
 <!-- #include file="/includes/footerInner.aspx" -->

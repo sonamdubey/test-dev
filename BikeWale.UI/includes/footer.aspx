@@ -28,6 +28,5 @@
         </div>
         <!--footer code end here -->               
     </div>
-    </form>
 </body>
 </html>

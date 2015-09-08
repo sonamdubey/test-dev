@@ -20,7 +20,6 @@
  <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
 
-<form runat="server">
 <div class="main-container">
 	<div class="container_12">
         <div class="grid_12">
@@ -108,7 +107,7 @@
         </div>
     </div>
 </div>
-    </form>
+    
 <script type="text/javascript">
     $(document).ready(function () {
         makeMapName = '<%= mmv.MakeMappingName%>';

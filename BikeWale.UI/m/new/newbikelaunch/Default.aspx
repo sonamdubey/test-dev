@@ -12,7 +12,6 @@
     menu = "5";
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
-<form id="Form1" runat="server">
 <div class="padding5">
     <div id="br-cr">
         <a href="/m/" class="normal">Home</a> &rsaquo; 
@@ -50,5 +49,4 @@
     </div>
     <Pager:Pager id="listPager" runat="server"></Pager:Pager>
     </div>
-    </form>
 <!-- #include file="/includes/footermobile.aspx" -->

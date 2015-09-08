@@ -6,7 +6,6 @@
 <!-- #include file="/includes/pgheader.aspx" -->
 <link rel="stylesheet" href="/css/bw-pq.css?30july2015" type="text/css">
 <link rel="stylesheet" href="/css/bw-pq-new.css?23july2015" type="text/css">
-    <form runat="server">
         <div class="main-container">
 	        <div class="container_12">
     	        <div class="grid_8 margin-top10">
@@ -19,7 +18,6 @@
         	        </div>
             </div>
         </div>
-    </form>
 <script type="text/ecmascript">
     $(document).ready(function () {
         $("#btnMakePayment").click(function () {

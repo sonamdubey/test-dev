@@ -24,6 +24,7 @@
     <script src="http://st2.aeplcdn.com/src/jquery.jcarousel.min.js" type="text/javascript"></script>
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "",alternate = "";	    
+        private bool isHeaderFix = true;
     </script>
     <script type='text/javascript'>
         var googletag = googletag || {};
@@ -76,6 +77,7 @@
     </script>
 </head>
 <body class="header-fixed-inner">
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
     	<!-- #include file="/includes/headBW.aspx" -->  

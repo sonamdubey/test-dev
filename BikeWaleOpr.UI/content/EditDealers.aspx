@@ -10,7 +10,6 @@
 <script type="text/javascript" src="/src/AjaxFunctions.js"></script>
     <div class="left">
 	<h3>Find Dealer Details</h3><br />
-        <form id="Form1" runat="server">
         <fieldset style="white-space:nowrap;width:970px;">
 		<legend>Enter delear details</legend>
 		<table>

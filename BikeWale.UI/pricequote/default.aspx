@@ -16,7 +16,6 @@
 <script type="text/javascript" src="/src/pq/price_quote.js?v=1.2"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?23july2015"></script>
-<form id="form1" runat="server">
     <div class="main-container">
         <div class="container_12">
             <div class="grid_12">
@@ -101,7 +100,6 @@
         </div>
     </div>
     <input type="hidden" id="hdnIsAreaShown" runat="server" />
-</form>
 <script type="text/javascript">
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var isAreaShown = false;

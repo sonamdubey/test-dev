@@ -17,7 +17,6 @@
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
-<form id="form1" runat="server">
 <div class="container_12 margin-bottom20 padding-bottom20">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -81,7 +80,6 @@
     </div>
 </div>
       
-</form>
 </div>
 <%--<script type="text/javascript" language="javascript">
     $("a[rel='slide']").colorbox({ width: "700px", height: "500px" });

@@ -20,7 +20,6 @@
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
 
-    <form id="form1" runat="server">
         <div class="container_12">
             <div class="grid_12">
                 <ul class="breadcrumb">
@@ -92,7 +91,6 @@
                 </div>
             </div><!--    Right Container ends here -->
         </div>
-    </form>
     <script type="text/javascript">
         $(document).ready(function () {
             if ($("#cmbMake").val().split('_')[0] > 0) {

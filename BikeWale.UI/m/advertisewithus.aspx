@@ -4,7 +4,6 @@
     AdId = "1398766000399";    
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
-<form id="form1" runat="server">
     <div class="padding5">
         <h1>Advertise with Us</h1>
         <div class="new-line5 lightgray f-12">
@@ -35,5 +34,4 @@
             <span class="bFontCol">Email: <a href="mailto:romita.choudhury@carwale.com" class="viewDetails">romita.choudhury@carwale.com</a></span>
         </div>  
     </div>
-</form>
 <!-- #include file="/includes/footermobile.aspx" -->

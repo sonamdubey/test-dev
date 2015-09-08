@@ -15,7 +15,6 @@
         </ul><div class="clear"></div>
     </div>
 	<div class="grid_12 margin-top10">                
-		<form id="Form1" runat="server">
 			<asp:Repeater ID="rptParent" runat="server">
 				<headertemplate><table class="tbl-std"></headertemplate>
 				<itemtemplate>
@@ -90,7 +89,6 @@
 					</div>
 				</div>
 			</div>	
-		</form>
 	</div>
 </div>
 

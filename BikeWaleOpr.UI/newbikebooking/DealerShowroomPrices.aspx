@@ -14,7 +14,6 @@
 </style>
 <div>
     <h1>Add Showroom Prices</h1>
-    <form id="Form1" runat="server">
         <div style="background-color: #f4f3f3; padding: 10px; margin-top: 10px;">
             Make-Model-City                    
             <asp:dropdownlist id="cmbMake" runat="server"></asp:dropdownlist>

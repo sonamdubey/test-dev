@@ -8,7 +8,6 @@
 	.button{ height:30px; text-align:left; padding:5px;font-weight:bold; font-size:14px;font-family:trebuchet ms; cursor:pointer;color:#FFFFFF;}
     .bold { font-weight: bold; }
 </style>
-<form id="form1" runat="server">
    <div style="height:350px;">
              <div style="margin:130px auto 0 auto; width:300px;">                 
                     <table  class="loginTable" width="270" border="0" cellspacing="0" cellpadding="5">

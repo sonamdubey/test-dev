@@ -1956,6 +1956,8 @@
     <Content Include="includes\headTools.aspx" />
     <Content Include="includes\headUsed.aspx" />
     <Content Include="includes\MenuList_Mobile.aspx" />
+    <Content Include="includes\Navigation.aspx" />
+    <Content Include="includes\Navigation_Mobile.aspx" />
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
     <Content Include="Forums\ISAPI\ISAPI_Rewrite.dll" />

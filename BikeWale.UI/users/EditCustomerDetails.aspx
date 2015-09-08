@@ -1,7 +1,6 @@
 <%@ Page Inherits="Bikewale.MyBikeWale.EditCustomerDetails" AutoEventWireUp="false" Language="C#" EnableEventValidation="false" Trace="false" Debug="false" %>
 <%@ Import NameSpace="Bikewale.Common" %>
 <!-- #include file="/Includes/headMyBikeWale.aspx" -->
-<form id="Form1" runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -113,7 +112,6 @@
 		</div>				
 	</div>
 </div>
-</form>
 <script type="text/javascript">	
 	$(document).ready(function () {
 	    $("#drpState").change(function () {	drpState_Change($(this)); });	

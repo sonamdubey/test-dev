@@ -22,7 +22,7 @@ namespace Bikewale.BindViewModels.Controls
             {
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = String.Format("api/SimilarBike/?versionId={0}&topCount={1}&deviation={2}", VersionId, TopCpunt,Deviation);
+                string _apiUrl = String.Format("/api/SimilarBike/?versionId={0}&topCount={1}&deviation={2}", VersionId, TopCpunt,Deviation);
 
                 similarBikeList = BWHttpClient.GetApiResponseSync<SimilarBikeList>(_bwHostUrl, _requestType, _apiUrl, similarBikeList);
 
