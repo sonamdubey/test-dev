@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.m.controls
+namespace Bikewale.Mobile.controls
 {
     public class PopularUsedBikes : System.Web.UI.UserControl
     {

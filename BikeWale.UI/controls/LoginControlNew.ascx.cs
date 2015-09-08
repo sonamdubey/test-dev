@@ -7,6 +7,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Common;
+using Bikewale.Entities.Customer;
 using Bikewale.UI.Entities.Customer;
 
 namespace Bikewale.Controls
