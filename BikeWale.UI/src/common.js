@@ -116,12 +116,6 @@ $(document).ready(function () {
 	    }
 	});
 	
-	$("#makemodelFinalPrice").autocomplete({
-		source: function(request, response) {
-			dataListDisplay(availableTags,request, response);
-		},minLength: 1
-	}).css({'width':'365px'});
-	
 	// nav bar code starts
 	$(".navbarBtn").click(function(){
 		navbarShow();
@@ -533,6 +527,7 @@ function isCookieExists(cookiename) {
         return false;
     return true;
 }
+
 
 function toggleErrorMsg(element, error, msg) {
     if (error) {

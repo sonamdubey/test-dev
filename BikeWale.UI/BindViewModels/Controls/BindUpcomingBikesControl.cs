@@ -22,6 +22,8 @@ namespace Bikewale.BindViewModels.Controls
 
         public static void BindUpcomingBikes(Repeater rptr)
         {
+            FetchedRecordsCount = 0;
+
             UpcomingBikeList objBikeList = null;
             
             try

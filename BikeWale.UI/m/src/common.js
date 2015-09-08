@@ -130,12 +130,7 @@ $(document).ready(function () {
                 showHideMatchError(element,true);
         }
     }).autocomplete("widget").addClass("globalCity-autocomplete").css({'z-index':'11'});
-	
-	$("#getFinalPrice").autocomplete({
-		source: function(request, response) {
-			dataListDisplay(availableTags,request, response);
-		},minLength: 1
-	});
+
 	
 	$("#citySelectionFinalPrice").autocomplete({
 		source: function(request, response) {

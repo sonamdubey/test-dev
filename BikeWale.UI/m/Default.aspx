@@ -2,7 +2,8 @@
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW"  %>
-<%@ Register Src="/m/controls/CompareBikesMin.ascx" TagName="CompareBike" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/CompareBikesMin.ascx" TagName="CompareBike" TagPrefix="BW" %> 
+<%@ Register Src="/m/controls/MOnRoadPricequote.ascx" TagName="MOnRoadPricequote" TagPrefix="BW" %>
 <!doctype html>
 <html>
 <head>
@@ -481,44 +482,7 @@
         </div>
     </section><!-- Upcoming, new launches Ends here -->
     <section class="home-getFinalPrice-banner"><!--  Get Final Price code starts here -->
-        <div class="container">
-        	<div class="grid-12">
-                	<h2 class="margin-top30 margin-bottom20 text-white text-center">On Road Price</h2>
-                    <div class="form-control-box margin-bottom20">
-                    	<input class="form-control border-red" type="text" placeholder="Type to select bike" id="getFinalPrice">
-                        <span style="display:block" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black"></span>
-                        <span class="bwmsprite error-icon"></span>
-                        <div class="bw-blackbg-tooltip">Please select your locality</div>
-                   	</div>
-                    <div class="form-control-box margin-bottom30">
-                        <select class="form-control">
-                            <option>Select City</option>
-                            <option>Mumbai</option>
-                            <option>Navi Mumbai</option>
-                            <option>Delhi</option>
-                            <option>Banglore</option>
-                            <option>Kolkata</option>
-                        </select>
-                        <span class="bwmsprite error-icon hide"></span>
-                        <div class="bw-blackbg-tooltip hide">Please select your locality</div>
-                    </div>
-                    <div class="form-control-box hide margin-bottom30">
-                        <select class="form-control">
-                            <option>Select Area</option>
-                            <option>Mumbai</option>
-                            <option>Navi Mumbai</option>
-                            <option>Delhi</option>
-                            <option>Banglore</option>
-                            <option>Kolkata</option>
-                        </select>
-                        <span class="bwmsprite error-icon hide"></span>
-                        <div class="bw-blackbg-tooltip hide">Please select your locality</div>
-                    </div>
-                    <button class="btn btn-orange btn-full-width margin-bottom30">Get final price</button>
-                    <p class="text-white text-center padding-left30 padding-right30">Its private, no need to share your number and email</p>
-            </div>
-            <div class="clear"></div>
-        </div>
+        <BW:MOnRoadPricequote ID="MOnRoadPricequote" runat="server"/> 
     </section><!-- Get Final Price code Ends here -->
     <section><!--  Compare section code starts here -->
         <BW:CompareBike ID="ctrlCompareBikes" runat="server"/>

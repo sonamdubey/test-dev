@@ -17,6 +17,8 @@ namespace Bikewale.BindViewModels.Controls
 
         public static void BindNewlyLaunchedBikes(Repeater rptr)
         {
+            FetchedRecordsCount = 0;
+
             LaunchedBikeList objBikeList = null;
 
             try

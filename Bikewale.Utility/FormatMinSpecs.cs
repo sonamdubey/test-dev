@@ -8,7 +8,7 @@ namespace Bikewale.Utility
 {
     public static class FormatMinSpecs
     {
-        public static string GetMinSpecs(string displacement, string fuelEffecient, string maxpower, string maxtorque)
+        public static string GetMinSpecs(string displacement, string fuelEffecient, string maxpower)
         {
             string str=String.Empty;
             if (displacement != "0")
@@ -20,13 +20,12 @@ namespace Bikewale.Utility
             if (maxpower != "0")
                 str += "<span><span>" + maxpower + "</span><span class='text-light-grey'> bhp @ </span></span>";
 
-            if (maxtorque != "0")
-                str += "<span><span>" + maxtorque + "</span><span class='text-light-grey'> rpm</span></span>";
-
             if (str != "")
                 return str;
             else
                 return "Specs Unavailable";
         }
+
+
     }
 }

@@ -744,6 +744,29 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.Make.MakePageController">
+            <summary>
+            Make Page Controller
+            Author  :   Sumit Kate
+            Created :   03 Sept 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Make.MakePageController.#ctor(Bikewale.Interfaces.BikeData.IBikeMakes{Bikewale.Entities.BikeData.BikeMakeEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="makesRepository"></param>
+            <param name="modelRepository"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Make.MakePageController.Get(System.Int32)">
+            <summary>
+            Returns the Make page data which includes
+            Make name, Description(small and large) and popular bikes
+            </summary>
+            <param name="makeId">make id</param>
+            <param name="totalBikeCount">total popular bike count</param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.Customer.AuthenticateController">
             <summary>
             Created By : Ashish G. Kamble on 3 Sept 2015

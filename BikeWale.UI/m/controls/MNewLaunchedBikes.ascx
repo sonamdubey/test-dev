@@ -1,12 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Mobile.controls.MNewLaunchedBikes" %>
 
-<!-- New Launched Bikes Starts here-->
-<div class="bw-tabs-data hide" id="mctrlNewLaunchedBikes" >     
+<!-- New Launched Bikes Starts here-->  
     <asp:Repeater ID="rptNewLaunchedBikes" runat="server">
-        <HeaderTemplate>
-            <div class="jcarousel-wrapper discover-bike-carousel">
-                <div class="jcarousel">                    <ul>
-        </HeaderTemplate>
         <ItemTemplate>
             <li class="card">
             <div class="front">
@@ -26,7 +21,7 @@
                         </div>
                         <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, Delhi</div>
                         <div class="font13 margin-bottom10">
-                            <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaximumTorque"))) %>                             
+                            <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>                             
                         </div>
                           <div class="padding-top5 clear">
                             <div class="grid-6 alpha">
@@ -53,20 +48,12 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <a href="javascript:void(0)" class="btn btn-sm btn-white margin-top10">Get on road price</a>
+                            <a href="javascript:void(0)" modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?"":"hide" %> ">Get on road price</a>
                         </div>
                     </div>
                 </div>
             </div>
           </li>
-        </ItemTemplate>
-        <FooterTemplate>
-            </ul>
-              </div>
-                <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                <p class="text-center jcarousel-pagination"></p>
-             </div>  
-        </FooterTemplate>
+        </ItemTemplate>          
     </asp:Repeater>
-</div> <!--- New Launched Bikes Ends Here-->
+ <!--- New Launched Bikes Ends Here-->

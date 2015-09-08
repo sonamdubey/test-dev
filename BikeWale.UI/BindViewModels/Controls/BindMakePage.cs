@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 ﻿
 using Bikewale.DTO.Make;
+=======
+﻿using Bikewale.DTO.Make;
+>>>>>>> Feature-New-Merge
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -21,6 +25,10 @@ namespace Bikewale.BindViewModels.Controls
 
         public static void BindMostPopularBikes(Repeater rptr)
         {
+<<<<<<< HEAD
+=======
+            FetchedRecordsCount = 0;
+>>>>>>> Feature-New-Merge
             MakePage objBikeList = null;
             Make = new MakeBase();
             BikeDesc = new BikeDescription();
@@ -31,7 +39,11 @@ namespace Bikewale.BindViewModels.Controls
                 string _apiUrl = String.Format("api/MakePage/?makeId={0}", makeId);
 
                 objBikeList = BWHttpClient.GetApiResponseSync<MakePage>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
+<<<<<<< HEAD
                 FetchedRecordsCount = 0;
+=======
+                
+>>>>>>> Feature-New-Merge
                 if (objBikeList != null && objBikeList.PopularBikes != null && objBikeList.PopularBikes.Count() > 0)
                 {
                     FetchedRecordsCount = objBikeList.PopularBikes.Count();

@@ -5,9 +5,9 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
-    public partial class PopupWidget : System.Web.UI.UserControl
+    public partial class OnRoadPricequote : System.Web.UI.UserControl
     {
 
         protected override void OnInit(EventArgs e)
@@ -17,9 +17,10 @@ namespace Bikewale.controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-                      
+           
         }
-  
+
+
 
     }
 }

@@ -24,6 +24,8 @@ namespace Bikewale.BindViewModels.Controls
 
         public static void BindRepeater(Repeater repeater)
         {
+            FetchedRecordsCount = 0;
+
             IEnumerable<PopularUsedBikesBase> popularUsedBikes = null;
             try
             {
