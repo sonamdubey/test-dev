@@ -1,18 +1,45 @@
-﻿<script runat="server">	
+﻿<script language="c#" runat="server">	
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+	private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate="";
+    private ushort feedbackTypeId = 0; 	 
+    private bool isHeaderFix = true;   
 </script>
+
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="keywords" content="new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price" />
-<meta name="description" content="BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values." />
-<meta name="alternate" content="http://www.bikewale.com/m/" />
-<title>New Bikes, Used Bikes, Bike Prices, Reviews & Photos in India</title>
-<link rel="canonical" href="http://www.bikewale.com" />
-<link rel="alternate" type="text/html" media="handheld" href="http://bikewale.com/m/" title="Mobile/PDA" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
+<meta name="keywords" content="<%= keywords %>" />
+<meta name="description" content="<%= description %>" />
+<meta name="alternate" content="<%= alternate %>" />
+<title><%= title %></title>
 <link rel="SHORTCUT ICON" href="#" />
 <link href="/css/bw-common-style.css" rel="stylesheet" type="text/css">
 <link href="/css/home.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/src/frameworks.js"></script>
+<script type='text/javascript'>
+    var googletag = googletag || {};
+    googletag.cmd = googletag.cmd || [];
+    (function () {
+        var gads = document.createElement('script');
+        gads.async = true;
+        gads.type = 'text/javascript';
+        var useSSL = 'https:' == document.location.protocol;
+        gads.src = (useSSL ? 'https:' : 'http:') +
+        '//www.googletagservices.com/tag/js/gpt.js?v=1.0';
+        var node = document.getElementsByTagName('script')[0];
+        node.parentNode.insertBefore(gads, node);
+    })();
+</script>
+<script type='text/javascript'>
+    googletag.cmd.push(function () {
+        googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
+            googletag.defineSlot('<%= AdPath%>728x90', [728, 90], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
+            googletag.defineSlot('/1017752/BikeWale_FeaturedBike_600x270', [600, 270], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
+            googletag.pubads().collapseEmptyDivs();
+            googletag.pubads().enableSingleRequest();
+            googletag.enableServices();
+        });
+</script>
 <!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
     <script src="/src/html5.js"></script>
