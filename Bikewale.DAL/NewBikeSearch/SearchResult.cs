@@ -72,6 +72,7 @@ namespace Bikewale.DAL.NewBikeSearch
                                 objList.BikeModel.ModelId = Convert.ToInt32(dr["ModelId"]);
                                 objList.BikeModel.ModelName = dr["ModelName"].ToString();
                                 objList.BikeModel.MaskingName = dr["ModelMappingName"].ToString();
+                                objList.MaximumTorque = Convert.ToSingle(dr["MaximumTorque"]);
                                 objList.BikeModel.MakeBase = new BikeMakeEntityBase()
                                 {
                                     MakeId = Convert.ToInt32(dr["MakeId"]),
@@ -82,6 +83,8 @@ namespace Bikewale.DAL.NewBikeSearch
                                 objList.BikeModel.MaxPrice = Convert.ToInt64(dr["MaxPrice"]);
                                 objList.BikeModel.ReviewCount = Convert.ToInt32(dr["MoReviewCount"]);
                                 objList.BikeModel.ReviewRate = Convert.ToDouble(dr["MoReviewRate"]);
+                                objList.FinalPrice = Format.FormatPrice(dr["MinPrice"].ToString());
+                                objList.AvailableSpecs = FormatMinSpecs.GetMinSpecs(dr["Displacement"].ToString(), dr["FuelEfficiencyOverall"].ToString(), dr["Power"].ToString(), dr["MaximumTorque"].ToString());
 
                                 objSearchList.Add(objList);
                             }
@@ -93,6 +96,8 @@ namespace Bikewale.DAL.NewBikeSearch
 
                     objSearch.PageUrl = GetPrevNextUrl(filterInputs, input);
                     objSearch.SearchResult = objSearchList;
+                    objSearch.TotalCount = totalRecordCount;
+                    objSearch.CurrentPageNo = Convert.ToInt32(filterInputs.PageNo);
                 }
             }
             catch(Exception ex)

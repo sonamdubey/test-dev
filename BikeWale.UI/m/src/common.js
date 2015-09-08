@@ -28,6 +28,8 @@ $(document).ready(function () {
 		globalLocation.hide();
 		globalLocation.removeClass("show").addClass("hide");
 		unlockPopup();
+		if (!isCookieExists("location"))
+		    SetCookieInDays("location", "0", 365);
 	}
 	$("#globalCity").autocomplete({
 		source: function(request, response) {
@@ -160,7 +162,8 @@ $(document).ready(function () {
 	});*/
 	// globalcity-popup code 
 	$(".global-location").click( function(){
-		$("#globalcity-popup").show();
+	    $("#globalcity-popup").show();
+	    CheckGlobalCookie()
 		lockPopup();
 	});
 	$(".blackOut-window").mouseup(function(e){
@@ -263,14 +266,6 @@ $(document).ready(function () {
 		$(".loginStage").show();
 		$(".signUpStage").hide();
 	}
-	function lockPopup() {
-		//$('body').addClass('lock-browser-scroll');
-		$(".blackOut-window").show();		
-	}
-	function unlockPopup() {
-		//$('body').removeClass('lock-browser-scroll');
-		$(".blackOut-window").hide();
-	}	
 	
 	// lang changer code
     $(".changer-default").click( function(){
@@ -431,7 +426,7 @@ $(document).ready(function () {
                         year = '';
 
                     cacheProp = reqTerm + '_' + year;
-                    if (!(cacheProp in cache) && reqTerm.length > 1) {
+                    if (!(cacheProp in cache) && reqTerm.length > 0) {
                         $(".fa-spinner").show();
                         var indexToHit = options.source;
                         var count = options.recordCount;
@@ -454,6 +449,7 @@ $(document).ready(function () {
                             error: function (error) {
                                 result = undefined;
                                 options.afterfetch(result, reqTerm);
+                                response(cache[cacheProp]);
                             }
                         });
                     }
@@ -553,8 +549,23 @@ function CheckGlobalCookie() {
     if (isCookieExists(cookieName)) {
         var cityName = getCookie(cookieName).split("_")[1];
         showGlobalCity(cityName);
+        $(".fa-spinner").hide();
+        showHideMatchError($("#globalCityPopUp"), false);
         $("#globalCityPopUp").val(cityName);
     }
+    else
+    {
+        showHideMatchError($("#globalCityPopUp"), false);
+        $("#globalcity-popup").show();
+        lockPopup();
+    }
+}
+
+function lockPopup() {
+    $(".blackOut-window").show();
+}
+function unlockPopup() {
+    $(".blackOut-window").hide();
 }
 
 

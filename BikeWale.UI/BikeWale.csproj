@@ -947,8 +947,12 @@
       <DependentUpon>similargallery.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\search.aspx.cs">
-      <DependentUpon>search.aspx</DependentUpon>
+    <Compile Include="new\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\search_old.aspx.cs">
+      <DependentUpon>search_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\search_result.aspx.cs">
@@ -1559,6 +1563,7 @@
     <Content Include="css\images\ui-icons_ffffff_256x240.png" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
+    <Content Include="css\new\search.css" />
     <Content Include="css\rsa.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\style.css" />
@@ -2031,6 +2036,7 @@
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\Plugins.js" />
+    <Content Include="new\Search.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
@@ -2061,7 +2067,7 @@
     <Content Include="new\photos\Default.aspx" />
     <Content Include="new\photos\othermodelsgallery.aspx" />
     <Content Include="new\photos\similargallery.aspx" />
-    <Content Include="new\search.aspx" />
+    <Content Include="new\search_old.aspx" />
     <Content Include="new\search_result.aspx" />
     <Content Include="new\Specs.aspx" />
     <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />

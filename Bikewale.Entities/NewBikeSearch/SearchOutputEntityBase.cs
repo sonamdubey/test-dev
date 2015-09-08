@@ -15,6 +15,9 @@ namespace Bikewale.Entities.NewBikeSearch
         public string Power { get; set; }
         public ushort FuelEfficiency { get; set; }
         public ushort KerbWeight { get; set; }
+        public float MaximumTorque { get; set; }
+        public string FinalPrice { get; set; }
+        public string AvailableSpecs { get; set; }
         public BikeModelEntity BikeModel { get; set; }
     }
 }
