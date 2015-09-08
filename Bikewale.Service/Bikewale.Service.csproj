@@ -164,6 +164,7 @@
     <Compile Include="AutoMappers\BookingSummary\BookingSummaryMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\DDQDealerDetailBaseMapper.cs" />
     <Compile Include="AutoMappers\BookingSummary\PQCustomerMapper.cs" />
+    <Compile Include="AutoMappers\Make\MakePageEntityMapper.cs" />
     <Compile Include="AutoMappers\NewBikeSearch\SearchOutputMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\Area\PQAreaListMapper.cs" />
     <Compile Include="AutoMappers\PriceQuote\City\PQCityListMapper.cs" />
@@ -194,6 +195,7 @@
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />
     <Compile Include="Controllers\Make\DealerMakesController.cs" />
+    <Compile Include="Controllers\Make\MakePageController.cs" />
     <Compile Include="Controllers\NewBikeSearch\NewBikeSearchController.cs" />
     <Compile Include="Controllers\Customer\AuthenticateController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />
@@ -206,6 +208,7 @@
     <Compile Include="Controllers\PriceQuote\MobileVerification\PQMobileVerificationController.cs" />
     <Compile Include="Controllers\PriceQuote\MobileVerification\ResendVerificationCodeController.cs" />
     <Compile Include="Controllers\PriceQuote\Model\PQModelListController.cs" />
+    <Compile Include="Controllers\PriceQuote\OnRoadPriceController.cs" />
     <Compile Include="Controllers\PriceQuote\PQBikeColorController.cs" />
     <Compile Include="Controllers\PriceQuote\PQCustomerDetailController.cs" />
     <Compile Include="Controllers\PriceQuote\PriceQuoteController.cs" />
