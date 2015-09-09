@@ -497,6 +497,9 @@
       <DependentUpon>NewBikeLaunches.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\NewBikesOnRoadPrice.ascx.cs">
+      <DependentUpon>NewBikesOnRoadPrice.ascx</DependentUpon>
+    </Compile>
     <Compile Include="controls\NewLaunchedBikes_new.ascx.cs">
       <DependentUpon>NewLaunchedBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -512,6 +515,9 @@
     <Compile Include="controls\NoFollowPagerControl.ascx.cs">
       <DependentUpon>NoFollowPagerControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\OnRoadPricequote.ascx.cs">
+      <DependentUpon>OnRoadPricequote.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\PopularUsedBikes.ascx.cs">
       <DependentUpon>PopularUsedBikes.ascx</DependentUpon>
@@ -612,6 +618,9 @@
     <Compile Include="controls\UserFeedBack.ascx.cs">
       <DependentUpon>UserFeedBack.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UserReviewsList.ascx.cs">
+      <DependentUpon>UserReviewsList.ascx</DependentUpon>
     </Compile>
     <Compile Include="controls\UserReviewsMin.ascx.cs">
       <DependentUpon>UserReviewsMin.ascx</DependentUpon>
@@ -1517,10 +1526,12 @@
     <Content Include="controls\MakeModelSearch.ascx" />
     <Content Include="controls\MostPopularBikes_new.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
+    <Content Include="controls\NewBikesOnRoadPrice.ascx" />
     <Content Include="controls\NewLaunchedBikes_new.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\News_new.ascx" />
     <Content Include="controls\NoFollowPagerControl.ascx" />
+    <Content Include="controls\OnRoadPricequote.ascx" />
     <Content Include="controls\PopularUsedBikes.ascx" />
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
@@ -1547,6 +1558,7 @@
     <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
+    <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UserReviewsMin.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />

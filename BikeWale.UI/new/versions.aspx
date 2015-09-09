@@ -7,9 +7,9 @@
     <% isHeaderFix = false; %>
     <link href="/css/model.css" rel="stylesheet" type="text/css">
 </head>
-<body class="bg-light-grey">
-    <!-- #include file="/includes/headBW.aspx" -->
+<body class="bg-light-grey">    
     <form runat="server">
+        <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-white">
             <div class="container">
                 <div class="grid-12">
