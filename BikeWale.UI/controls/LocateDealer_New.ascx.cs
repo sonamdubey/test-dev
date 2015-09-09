@@ -28,8 +28,7 @@ namespace Bikewale.controls
         {
                         
         }
-
-        private void FillMakes()
+private void FillMakes()
         {
             NewBikeDealersMakeList makes = null;
             try
