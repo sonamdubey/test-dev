@@ -727,6 +727,10 @@
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\AlternativeBikes.ascx.cs">
+      <DependentUpon>AlternativeBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\BookBikeSlug.ascx.cs">
       <DependentUpon>BookBikeSlug.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -816,6 +820,10 @@
     </Compile>
     <Compile Include="m\new\BikeModels.aspx.cs">
       <DependentUpon>BikeModels.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\BikeModels_old.aspx.cs">
+      <DependentUpon>BikeModels_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\BikeSeries.aspx.cs">
@@ -1867,6 +1875,63 @@
     <Content Include="Forums\Threads.aspx" />
     <Content Include="Forums\ViewThreads.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="images\0.gif" />
+    <Content Include="images\1.gif" />
+    <Content Include="images\action-btn-bg.jpg" />
+    <Content Include="images\action-btn-rollover.jpg" />
+    <Content Include="images\ajax-loader.gif" />
+    <Content Include="images\arrow-left-test.png" />
+    <Content Include="images\arrow-right-test.png" />
+    <Content Include="images\blue_button.jpg" />
+    <Content Include="images\body-texture-bg.jpg" />
+    <Content Include="images\booking-comforts-sprite.png" />
+    <Content Include="images\brand-img.png" />
+    <Content Include="images\brand-type-sprite.png" />
+    <Content Include="images\bw-circle-icon.png" />
+    <Content Include="images\bw-logo.png" />
+    <Content Include="images\bw-m-logo.png" />
+    <Content Include="images\bw-sprite-new.png" />
+    <Content Include="images\bw-sprite.png" />
+    <Content Include="images\bwsprite.png" />
+    <Content Include="images\circleloader.gif" />
+    <Content Include="images\dropArrowBg.png" />
+    <Content Include="images\favicon.gif" />
+    <Content Include="images\favicon.ico" />
+    <Content Include="images\favicon.png" />
+    <Content Include="images\footer.jpg" />
+    <Content Include="images\get-final-price-banner.jpg" />
+    <Content Include="images\half.gif" />
+    <Content Include="images\header-seperator.png" />
+    <Content Include="images\home-top-banner.jpg" />
+    <Content Include="images\icon-sprite.png" />
+    <Content Include="images\icons-sheet.png" />
+    <Content Include="images\inputChecked.png" />
+    <Content Include="images\inputUnchecked.png" />
+    <Content Include="images\light-grey-bg.jpg" />
+    <Content Include="images\light-sept.jpg" />
+    <Content Include="images\nav-bg-org.jpg" />
+    <Content Include="images\nav-bg-rollover.jpg" />
+    <Content Include="images\nav-sept.jpg" />
+    <Content Include="images\nav.png" />
+    <Content Include="images\new-bikes-banner.jpg" />
+    <Content Include="images\pattern-bg.jpg" />
+    <Content Include="images\Pratikphoto.JPG" />
+    <Content Include="images\ratings\0.png" />
+    <Content Include="images\ratings\1.png" />
+    <Content Include="images\ratings\half.png" />
+    <Content Include="images\rsa-logo.png" />
+    <Content Include="images\search-bg.jpg" />
+    <Content Include="images\seperator-m.png" />
+    <Content Include="images\seperator.png" />
+    <Content Include="images\shadow-header.jpg" />
+    <Content Include="images\spls-icons.png" />
+    <Content Include="images\sprite-2.png" />
+    <Content Include="images\style-type-sprite.png" />
+    <Content Include="images\tab-bg-org.jpg" />
+    <Content Include="images\tab-bg-rollover.jpg" />
+    <Content Include="images\user-profile-banner.jpg" />
+    <Content Include="images\v-seperator.png" />
+    <Content Include="images\white-shadow.png" />
     <Content Include="includes\images\0.gif" />
     <Content Include="includes\images\1.gif" />
     <Content Include="includes\images\action-btn-bg.jpg" />
@@ -1976,6 +2041,7 @@
     <Content Include="m\content\userreviews\Default.aspx" />
     <Content Include="m\content\userreviews\ListReviews.aspx" />
     <Content Include="m\content\userreviews\ReviewDetails.aspx" />
+    <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
     <Content Include="m\controls\CompareBikeMin.ascx" />
     <Content Include="m\controls\CompareBikeMin_old.ascx" />
@@ -1995,6 +2061,7 @@
     <Content Include="m\css\bw-new-style.css" />
     <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-common-style.css" />
+    <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\bwm-search.css" />
     <Content Include="m\css\design.css" />
@@ -2033,6 +2100,7 @@
     <Content Include="m\news\newsdetails.aspx" />
     <Content Include="m\new\BikeMakes.aspx" />
     <Content Include="m\new\BikeModels.aspx" />
+    <Content Include="m\new\BikeModels_old.aspx" />
     <Content Include="m\new\BikeSeries.aspx" />
     <Content Include="m\new\compare\CompareBike.aspx" />
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
@@ -2052,6 +2120,7 @@
     <Content Include="m\pricequote\rsa.aspx" />
     <Content Include="m\pricequote\RSAOfferClaim.aspx" />
     <Content Include="m\src\BikeBooking\BikeBooking.js" />
+    <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
@@ -2228,6 +2297,7 @@
     <Content Include="m\fonts\fontawesome-webfont.ttf" />
     <Content Include="m\fonts\fontawesome-webfont.woff" />
     <Content Include="m\fonts\FontAwesome.otf" />
+    <Content Include="images\ratings\Thumbs.db" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
