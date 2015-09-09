@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.controls.PopularUsedBikes" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.controls.PopularUsedBikes" %>
 <div class="container">
     <div class="grid-12">
         <h2 class="text-center margin-top40 margin-bottom30"><%= FormatControlHeader() %></h2>

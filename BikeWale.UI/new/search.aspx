@@ -342,7 +342,7 @@
 
 <!-- #include file="/includes/footerBW.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
-    <script src="/src/framework/knockout.js"></script>
+<script type="text/javascript" src="/src/framework/knockout.js"></script>
 <script type="text/javascript" src="/src/new/search.js"></script>
 </form>
 </body>
