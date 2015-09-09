@@ -14,10 +14,12 @@ namespace Bikewale.BindViewModels.Controls
         public static int VersionId { get; set; }
         public static int TopCpunt { get; set; }
         public static int? Deviation { get; set; }
+        public static int FetchedRecordsCount { get; set; }
 
         public static void BindAlternativeBikes(Repeater rptAlternativeBikes)
         {
             SimilarBikeList similarBikeList = null;
+            FetchedRecordsCount = 0;
             try
             {
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
@@ -28,7 +30,7 @@ namespace Bikewale.BindViewModels.Controls
 
                 if (similarBikeList != null && similarBikeList.SimilarBike.ToList().Count > 0)
                 {
-                    //FetchedRecordsCount = objBikeList.PopularBikes.ToList().Count;
+                    FetchedRecordsCount = similarBikeList.SimilarBike.ToList().Count;
                     rptAlternativeBikes.DataSource = similarBikeList.SimilarBike.ToList();
                     rptAlternativeBikes.DataBind();
                 }

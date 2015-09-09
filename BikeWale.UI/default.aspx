@@ -45,8 +45,8 @@
     </header>
     <section class="bg-light-grey">
         <!--  Booking online code starts here -->
-        <div class="container">
-            <div class="grid-12 alpha omega">
+        <div class="container ">
+            <div class="grid-12 alpha omega margin-bottom30">
                 <h2 class="text-bold text-center margin-top50 font28">Comforts of booking online</h2>
                 <div class="grid-3 text-center">
                     <div class="booking-online-pic bg-white text-center">
@@ -64,18 +64,21 @@
                     <div class="booking-online-pic bg-white text-center">
                         <div class="bookingcomforts-sprite save-visit-icon"></div>
                     </div>
-                    <div class="bg-white font20 booking-online-box">Save on<br />
-                        dealer visits</div>
+                    <div class="bg-white font20 booking-online-box">
+                        Save on<br />
+                        dealer visits
+                    </div>
                 </div>
                 <div class="grid-3 text-center">
                     <div class="booking-online-pic bg-white text-center">
                         <div class="bookingcomforts-sprite buying-asst-icon"></div>
                     </div>
-                    <div class="bg-white font20 booking-online-box">Complete<br />
-                        buying assistance</div>
+                    <div class="bg-white font20 booking-online-box">
+                        Complete<br />
+                        buying assistance
+                    </div>
                 </div>
                 <div class="clear"></div>
-                <p class="font16 text-center margin-top20 margin-bottom30"><a href="#">Get more details</a></p>
             </div>
             <div class="clear"></div>
         </div>
@@ -451,7 +454,7 @@
         <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
     </section>
     <!-- Ends here -->
-    <section class="bg-light-grey">
+    <section class="bg-light-grey if">
         <!--  Used Bikes code starts here -->
         <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
     </section>

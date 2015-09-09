@@ -4,7 +4,7 @@
     <div class="grid-6 margin-top20">
         <div class="border-solid-right">
             <h3 class="font16 text-center padding-bottom15">
-                <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2)%>/">
+                <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2)%>">
                     <%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>
                 </a>
             </h3>

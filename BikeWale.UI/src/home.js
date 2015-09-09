@@ -1,6 +1,5 @@
 // JavaScript Document
 $("a.view-more-btn").click(function(e){
-	e.preventDefault();
 	var a,b,c;
 	a = $(this).parent().parent().find("ul.brand-style-moreBtn");
 	b = $(this).find("span");
@@ -8,6 +7,8 @@ $("a.view-more-btn").click(function(e){
 	a.slideToggle();
 	b.text(b.text() === "More" ? "Less" : "More");
 	c.slideToggle();
+	e.preventDefault();
+	e.stopPropagtion();
 });
 $("ul.brand-budget-mileage-style-UL li").click(function(){
 	var a,b;

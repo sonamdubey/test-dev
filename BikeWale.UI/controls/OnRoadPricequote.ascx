@@ -4,20 +4,15 @@
 <style>
     
 /*PopupWidget Styling*/
-.bw-popup, .bw-contact-popup { background:#fff; width:454px; position:fixed; left:50%; top:50%; z-index:999; margin-left:-220px; margin-top:-150px;  border-radius:2px; }
-.bw-contact-popup { max-width:454px;}
-.bw-popup-sm { width:300px; position:fixed; top:50%; left:52%;}
-.popup-inner-container { padding:20px 20px 30px;}
-.popup-inner-container h2{ padding-bottom:10px; border-bottom:2px solid #c62000;}
-.bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;} 
+#OnRoadContent .bw-popup, .bw-contact-popup { background:#fff; width:454px; position:fixed; left:50%; top:50%; z-index:999; margin-left:-220px; margin-top:-150px;  border-radius:2px; }
+#OnRoadContent .bw-contact-popup { max-width:454px;}
+#OnRoadContent .bw-popup-sm { width:300px; position:fixed; top:50%; left:52%;}
+#OnRoadContent .popup-inner-container { padding:20px 20px 30px;}
+#OnRoadContent .popup-inner-container h2{ padding-bottom:10px; border-bottom:2px solid #c62000;}
+#OnRoadContent .bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;} 
 
-/*All action btn css */
-.action-btn { display:inline-block;padding: 8px 42px; background:#d52700; color:#fff; font-size: 16px; line-height: 1.42857143; text-align: center; white-space: nowrap; border: 1px solid transparent; border-radius: 2px;
-	outline: none; text-decoration: none; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-image: none;  
--webkit-border-fit:border;
-}
-.action-btn a{color:#fff; text-decoration:none;}
-.action-btn a:hover{text-decoration:none;}    
+/*#OnRoadContent div.chosenError { border:1px solid #F00;} 
+#OnRoadContent div.chosenError div b {background-image:none;}*/
 </style>
 
 <div class="container">
@@ -32,7 +27,7 @@
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please enter make/model name</div>
             </div>
-            <div class="form-control-box margin-bottom20 finalPriceCitySelect ">
+            <div class="form-control-box margin-bottom20 finalPriceCitySelect " >
                 <select data-placeholder="--Select City--" class="form-control" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedOnRoad }"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
@@ -60,10 +55,13 @@
     var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var pageId;
+    $onRoadContent = $('#OnRoadContent');
     onRoadcity  = $('#ddlCitiesOnRoad');
     onRoadArea = $('#ddlAreaOnRoad');
     onRoadMakeModel = $('#makemodelFinalPrice');
     mname = "";
+
+   
     
     // knockout OnRoadData binding
     var viewModelOnRoad = {
@@ -127,7 +125,7 @@
                 }
             }
         });
-    }  
+    }
 
     function cityChangedOnRoad() {
         gtmCodeAppender(pageId, "City Selected", null);
@@ -158,7 +156,8 @@
 
     function areaChangedOnRoad() {
         gtmCodeAppender(pageId, "Area Selected", null);
-    }  
+    }
+
 
 
     function isValidInfoOnRoad() {
@@ -167,6 +166,7 @@
         showHideMatchError(onRoadMakeModel, false);
         showHideMatchError(onRoadcity, false);
         showHideMatchError(onRoadArea, false);
+        $(onRoadcity).next().removeClass("chosenError");
         mname = onRoadMakeModel.val();
 
         if (selectedModel <= 0 || (mname == "" || mname.length < 2 || mname == "Search Make and Model"))
@@ -174,12 +174,11 @@
             showHideMatchError(onRoadMakeModel, true);
             errMsg += "Make/Model,";
             isValid = false;
+            $(onRoadcity).next().addClass("chosenError");
         }
-        
-        
 
-        if (viewModelOnRoad.selectedCity() == undefined) {
-            showHideMatchError(onRoadcity, true);
+        if (viewModelOnRoad.selectedCity() == undefined ) {
+            showHideMatchError(onRoadcity, true);              
             errMsg += "City,";
             isValid = false;
         }

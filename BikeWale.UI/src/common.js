@@ -2,9 +2,11 @@
 var focusedMakeModel = null, focusedCity = null;
 var objBikes = new Object();
 var objCity = new Object();
+var globalCityId = 0;
 $(document).ready(function () {
     $('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
+   
     
 	CheckGlobalCookie();
 
@@ -21,6 +23,7 @@ $(document).ready(function () {
 	        city.maskingName = ui.item.payload.cityMaskingName;
 	        var CookieValue = city.cityId + "_" + ui.item.label, oneYear = 365;
 	        SetCookieInDays("location", CookieValue, oneYear);
+	        globalCityId = city.cityId;
 	        CloseCityPopUp();
 	        showGlobalCity(ui.item.label);
 	    },
@@ -43,7 +46,7 @@ $(document).ready(function () {
 	}).autocomplete("widget").addClass("globalCity-auto-desktop").css({ 'position': 'fixed' });
 
 	$('#newBikeList').on('keypress', function (e) {
-	    var id = $('#newBikeList')
+	    var id = $('#newBikeList');
 	    var searchVal = id.val();
 	    var placeHolder = id.attr('placeholder');
 	    if (e.keyCode == 13)
@@ -56,15 +59,14 @@ $(document).ready(function () {
 	});
 
 	$('#btnSearch').on('click', function (e) {
-	    var id = $('#newBikeList')
+	    var id = $('#newBikeList');
 	    var searchVal = id.val();
 	    var placeHolder = id.attr('placeholder');
-	    if (btnFindBikeNewNav() || searchVal == placeHolder || searchVal == "") {
+	    if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
+	        window.location.href += '/new/';
 	        return false;
 	    }
-	    else {
-	        window.location.href = '/new/';
-	    }
+	   
 	});
 
 	function btnFindBikeNewNav() {
@@ -249,21 +251,25 @@ $(document).ready(function () {
 		var globalLocation = $("#globalcity-popup"); 
         if(e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length)		
         {
-		    globalLocation.removeClass("show").addClass("hide");
-			unlockPopup();
+            CloseCityPopUp();
         }
     });
 	$(".globalcity-close-btn").click(function(){
-		$(".globalcity-popup").removeClass("show").addClass("hide");
-		unlockPopup();
-		if (!isCookieExists("location"))
-		    SetCookieInDays("location", "0", 365);
+	    CloseCityPopUp();
 	});
 	
 	function CloseCityPopUp() {
 		var globalLocation = $("#globalcity-popup");
 		globalLocation.removeClass("show").addClass("hide");
 		unlockPopup();
+		if (!isCookieExists("location"))
+		    SetCookieInDays("location", "0", 365);
+	}
+
+	function popupHideOnESC()
+	{
+	    $('.bw-popup').fadeOut(100);
+	    unlockPopup();
 	}
 	
 	$(document).keydown(function (e) {
@@ -272,7 +278,23 @@ $(document).ready(function () {
 			CloseCityPopUp();
 			navbarHideOnESC();
 			loginHideOnESC();
+			popupHideOnESC();
 		}
+	});
+
+	$('#btnGlobalCityPopup').on('click', function () {
+	    ele = $('#globalCityPopUp');
+	    if (globalCityId > 0 && ($(ele).val()) != "")
+	    {
+	        showHideMatchError(ele, false);
+	        CloseCityPopUp();
+	    }
+	    else
+	    {
+	        showHideMatchError(ele, true);
+
+	    } 
+	    return false;
 	});
 	
 	function loginHideOnESC() {
@@ -582,7 +604,9 @@ function CheckGlobalCookie()
     var cookieName = "location";
     if(isCookieExists(cookieName))
     {
-        var cityName = getCookie(cookieName).split("_")[1];
+        var locationCookie = getCookie(cookieName).split("_");
+        var cityName = locationCookie[1];
+        globalCityId = parseInt(locationCookie[0]);
         showGlobalCity(cityName);
         showHideMatchError($("#globalCityPopUp"), false);
         $("#globalCityPopUp").val(cityName);
@@ -592,4 +616,17 @@ function CheckGlobalCookie()
         $(".blackOut-window").show();
         $(".globalcity-popup").removeClass("hide").addClass("show");
     }
+}
+
+//function to attach ajax spinner
+function attachAjaxLoader(element)
+{
+    var $loading = $(element).hide();
+    $(document)
+      .ajaxStart(function () {
+          $loading.show();
+      })
+      .ajaxStop(function () {
+          $loading.hide();
+      });
 }

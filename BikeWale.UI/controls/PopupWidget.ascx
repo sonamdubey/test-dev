@@ -261,7 +261,7 @@
             FillCitiesPopup(modelIdPopup);
         });
 
-        $('#popupWrapper .close-btn,.blackOut-window').click(function () {
+        $('#popupWrapper .close-btn,.blackOut-window').mouseup(function () {
             $('.blackOut-window,#popupWrapper').fadeOut(100);
         });
              

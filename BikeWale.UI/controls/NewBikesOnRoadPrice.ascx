@@ -24,7 +24,7 @@
             </div>
         </div>
         <div class="final-price-city-area-container">
-            <div class="final-price-citySelect"  >
+            <div class="final-price-citySelect" >
                 <div class="form-control-box">
                     <select data-placeholder="--Select City--" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedOnRoad }"></select> 
                     <span class="bwsprite error-icon hide"></span>
@@ -274,7 +274,18 @@
         else $(ele).width(322);
     }
 
-    $(function () {
+   $(function () {
+
+       $("#finalPriceBikeSelect").on('blur', function () {
+           if(viewModelOnRoad.selectedCity != undefined)
+           {
+
+           }
+           else
+           {
+
+           }
+       });
 
         $("#finalPriceBikeSelect").bw_autocomplete({
             width: 250,
