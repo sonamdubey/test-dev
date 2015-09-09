@@ -59,7 +59,7 @@
             return false;
         }
         else {
-            toggleErrorMsg(loanAmount, true, "Please enter loan amount atleast 5000 or greater");
+            
             if (!reRateOfInterest.test(rateOfInterest) && isNaN(rateOfInterest) && !(parseFloat(rateOfInterest) > 30) && parseFloat(rateOfInterest) <= 0) {
                 toggleErrorMsg(loanAmount, true, "Please enter valid rate of interest");
                 return false;
