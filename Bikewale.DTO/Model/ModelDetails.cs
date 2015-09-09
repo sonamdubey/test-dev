@@ -47,7 +47,7 @@ namespace Bikewale.DTO.Model
         [JsonProperty("originalImagePath")]
         public string OriginalImagePath { get; set; }
 
-        [JsonProperty("eviewRate")]
+        [JsonProperty("reviewRate")]
         public double ReviewRate { get; set; }
 
         [JsonProperty("reviewCount")]

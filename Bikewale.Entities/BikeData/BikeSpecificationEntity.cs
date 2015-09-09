@@ -87,5 +87,7 @@ namespace Bikewale.Entities.BikeData
 	    public bool Killswitch { get; set; }
 	    public bool Clock { get; set; }
 	    public string Colors { get; set; }
+        public float MaxPowerRPM { get; set; }
+        public float MaximumTorqueRPM { get; set; }
     }
 }

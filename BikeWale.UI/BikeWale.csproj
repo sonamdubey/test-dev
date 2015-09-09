@@ -981,6 +981,10 @@
       <DependentUpon>versions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\versions_old.aspx.cs">
+      <DependentUpon>versions_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\VersionSpecs.aspx.cs">
       <DependentUpon>VersionSpecs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1569,6 +1573,7 @@
     <Content Include="css\images\ui-icons_ffffff_256x240.png" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
+    <Content Include="css\model.css" />
     <Content Include="css\new\search.css" />
     <Content Include="css\rsa.css" />
     <Content Include="css\slideshow.css" />
@@ -2047,6 +2052,7 @@
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\new\bwm-search.js" />
     <Content Include="m\src\Plugins.js" />
+    <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\common.js" />
@@ -2083,7 +2089,7 @@
     <Content Include="new\Specs.aspx" />
     <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />
     <Content Include="new\upcomingbikes\UpcomingBikesList.aspx" />
-    <Content Include="new\versions.aspx" />
+    <Content Include="new\versions_old.aspx" />
     <Content Include="new\VersionSpecs.aspx" />
     <Content Include="pagenotfound.aspx" />
     <Content Include="Partners.aspx" />
@@ -2119,6 +2125,7 @@
     <Content Include="src\html5.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="src\knockout.js" />
+    <Content Include="src\model.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\new\search.js" />
