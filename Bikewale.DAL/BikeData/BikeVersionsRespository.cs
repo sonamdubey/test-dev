@@ -353,6 +353,9 @@ namespace Bikewale.DAL.BikeData
                         cmd.Parameters.Add("@Killswitch", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Clock", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Colors", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@MaxPowerRPM",SqlDbType.Float).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@MaximumTorqueRPM", SqlDbType.Float).Direction = ParameterDirection.Output;
+                        
                         cmd.Parameters.Add("@RowCount", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
 
                         conn.Open();
@@ -440,6 +443,8 @@ namespace Bikewale.DAL.BikeData
                             objSpecs.AntilockBrakingSystem = Convert.ToBoolean(cmd.Parameters["@AntilockBrakingSystem"].Value);
                             objSpecs.Killswitch = Convert.ToBoolean(cmd.Parameters["@Killswitch"].Value);
                             objSpecs.Clock = Convert.ToBoolean(cmd.Parameters["@Clock"].Value);
+                            objSpecs.MaxPowerRPM = Convert.ToSingle(cmd.Parameters["@MaxPowerRPM"].Value);
+                            objSpecs.MaximumTorqueRPM = Convert.ToSingle(cmd.Parameters["@MaximumTorqueRPM"].Value);
                             objSpecs.Colors = Convert.ToString(cmd.Parameters["@Colors"].Value);
                         }
                     }
