@@ -5,6 +5,7 @@
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ComparisonMin.ascx" TagName="CompareBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/PopularUsedBikes.ascx" TagName="PopularUsedBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/OnRoadPriceQuote.ascx" TagName="OnRoadPriceQuote" TagPrefix="BW" %>
 <html>
 <head>
     <%
@@ -18,6 +19,7 @@
     <!-- #include file="/includes/headscript.aspx" -->
 </head>
 <body class="bg-white">
+<form runat="server">
     <!-- #include file="/includes/headBW.aspx" -->
     <header class="home-top-banner">
         <div class="container">
@@ -441,45 +443,9 @@
     </section>
     <!--  Ends here -->
     <section class="home-getFinalPrice-banner">
-        <!--  Get Final Price code starts here -->
-        <div class="container">
-            <div class="grid-5 leftfloat">
-                <div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70">
-                    <h2 class="text-bold margin-bottom20 font28">On road price</h2>
-                    <div class="form-control-box margin-bottom20">
-                        <input class="form-control" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice">
-                        <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
-                        <span class="bwsprite error-icon"></span>
-                        <div class="bw-blackbg-tooltip">Please search a make</div>
-                    </div>
-                    <div class="form-control-box margin-bottom20 finalPriceCitySelect">
-                        <select class="form-control">
-                            <option>Select city</option>
-                            <option>Mumbai</option>
-                            <option>Navi Mumbai</option>
-                            <option>Delhi</option>
-                            <option>Banglore</option>
-                            <option>Kolkata</option>
-                        </select>
-                    </div>
-                    <div class="form-control-box margin-bottom20 finalPriceAreaSelect hide">
-                        <select class="form-control">
-                            <option>Select area</option>
-                            <option>Mumbai</option>
-                            <option>Navi Mumbai</option>
-                            <option>Delhi</option>
-                            <option>Banglore</option>
-                            <option>Kolkata</option>
-                        </select>
-                    </div>
-                    <button class="btn btn-orange margin-bottom20">Get price quote</button>
-                    <p>Its private, no need to share your number and email</p>
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
+      <BW:OnRoadPriceQuote ID="ctrlOnRoadPriceQuote" runat="server"/>
     </section>
-    <!--  Ends here -->
+
     <section class="margin-bottom50">
         <!--  Compare section code starts here -->
         <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
@@ -515,5 +481,6 @@
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js"></script>
+</form>
 </body>
 </html>

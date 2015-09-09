@@ -1,5 +1,4 @@
-﻿
-using Bikewale.DTO.Make;
+﻿using Bikewale.DTO.Make;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -28,10 +27,10 @@ namespace Bikewale.BindViewModels.Controls
             {
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = String.Format("api/MakePage/?makeId={0}", makeId);
+                string _apiUrl = String.Format("/api/MakePage/?makeId={0}", makeId);
 
                 objBikeList = BWHttpClient.GetApiResponseSync<MakePage>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
-                FetchedRecordsCount = 0;
+
                 if (objBikeList != null && objBikeList.PopularBikes != null && objBikeList.PopularBikes.Count() > 0)
                 {
                     FetchedRecordsCount = objBikeList.PopularBikes.Count();

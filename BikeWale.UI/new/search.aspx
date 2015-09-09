@@ -1,109 +1,349 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Search" Trace="true" Debug="false" %>
-<%@ Import Namespace="System.Data" %>
-
-<!-- #include file="/includes/headNew.aspx" -->
-<script type="text/javascript" src="/src/new/search.js?v=1.1"></script>
-<style type="text/css">
-    .sel_parama{border:1px solid #DFDFDF; color:#445566!important; padding:1px 1px 1px 5px; margin:3px; display:inline-block; text-decoration:none!important; border-radius:3px; cursor:pointer;}
-    .sel_parama span{background-color:#DFDFDF; color:#445566; padding:0 3px; margin-left:5px; cursor:pointer;}
-    .sel_parama_hover{border:1px solid #cc0000; color:#445566!important; padding:1px 1px 1px 5px; margin:3px; display:inline-block; text-decoration:none!important; border-radius:3px; cursor:pointer;}
-    .sel_parama_hover span{background-color:#cc0000; color:#fff; padding:0 3px; margin-left:5px; cursor:pointer;}
-    #app_filt li {display:block;}    
-</style>
-    <form id="form1" runat="server">
-        <div class="container_12 margin-top15">
-        <h1 class="grid_12">Search New Bikes <span>Find new bikes by budget, make-model</span></h1>       
-        <div class="grid_4 margin-top15"><!--    Left Container starts here -->
-            <div id="parms" class="grey-bg">
-                <div class="content-block">
-                    <h3>Budget</h3>
-                    <ul id="budget" class="ul-params">
-                        <li><a name="1" rel="nofollow" class="filter unchecked" href="search.aspx?budget=1">Up 55,000</a></li>
-                        <li><a name="2" rel="nofollow" class="filter unchecked" href="search.aspx?budget=2">55,000-70,000</a></li>
-                        <li><a name="3" rel="nofollow" class="filter unchecked" href="search.aspx?budget=3">70,000-80,000</a></li>
-                        <li><a name="4" rel="nofollow" class="filter unchecked" href="search.aspx?budget=4">80,000-1,40,000</a></li>
-                        <li><a name="5" rel="nofollow" class="filter unchecked" href="search.aspx?budget=5">1,40,000-2,50,000</a></li>
-                        <li><a name="6" rel="nofollow" class="filter unchecked" href="search.aspx?budget=6">2,50,000-5,00,000</a></li>
-                        <li><a name="7" rel="nofollow" class="filter unchecked" href="search.aspx?budget=7">5,00,000 and above</a></li>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Search" %>
+<html>
+<head>
+    <%
+        isHeaderFix = false;
+     %>
+    <!-- #include file="/includes/headscript.aspx" -->
+</head>
+<body class="bg-white">
+<form runat="server">
+<!-- #include file="/includes/headBW.aspx" -->
+    <link href="/css/new/search.css" rel="stylesheet" type="text/css">
+    <section class="bg-white">
+    	<div class="container">
+            <div class="grid-12">
+                <div class="padding-bottom15 text-center">
+                    
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    
+    <section class="bg-light-grey padding-top10">
+    	<div class="container">
+        	<div class="grid-12">
+                <div class="breadcrumb margin-bottom15">
+                    <!-- breadcrumb code starts here -->
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><span class="fa fa-angle-right margin-right10"></span>New Bikes</li>
                     </ul>
-                    <div class="parms-sept"></div>
-                    <h3>Make(s)</h3>                    
-                    <ul id="make" class="ul-params">
-                        <asp:repeater id="rptMakes" enableviewstate="false" runat="server"><itemtemplate><li><a rel="nofollow" class="filter unchecked" name="<%# ((DataRowView)Container.DataItem)["Value"] %>" href="search.aspx?make=<%# ((DataRowView)Container.DataItem)["Value"] %>"><%# ((DataRowView)Container.DataItem)["Text"] %></a></li></itemtemplate></asp:repeater>
-                    </ul>
-                    <div class="clear"></div>                   
-                    <div class="parms-sept"></div>
-                    <h3>Transmission</h3>
-                    <ul id="transmission" class="ul-params">
-                        <li><a name="1" rel="nofollow" class="filter unchecked" href="search.aspx?transmission=1">Automatic</a></li>
-                        <li><a name="2" rel="nofollow" class="filter unchecked" href="search.aspx?transmission=2">Manual</a></li>
-                    </ul>
-                    <div class="parms-sept"></div>
-                    <h3>Body Types</h3>
-                    <div class="ul-params">
-                        <ul id="bs" class="ul-horz ul-bs">
-                            <li>
-                                <div class="body-style Cruiser" title="Cruiser"></div>
-                                <a name="1" rel="nofollow" href="search.aspx?bs=1" class="filter unchecked">Cruiser</a></li>
-                            <li>
-                                <div class="body-style Fully faired" title="Fully faired"></div>
-                                <a name="2" rel="nofollow" href="search.aspx?bs=2" class="filter unchecked">Fully faired</a></li>
-                            <li>
-                                <div class="body-style Naked" title="Naked"></div>
-                                <a name="3" rel="nofollow" href="search.aspx?bs=3" class="filter unchecked">Naked</a></li>
-                            <li>
-                                <div class="body-style Semi-faired" title="Semi-faired"></div>
-                                <a name="4" rel="nofollow" href="search.aspx?bs=4" class="filter unchecked">Semi-faired</a></li>
-                            <li>
-                                <div class="body-style Scooter" title="Scooter"></div>
-                                <a name="5" rel="nofollow" href="search.aspx?bs=5" class="filter unchecked">Scooter</a></li>
-                        </ul>
+                    <div class="clear"></div>
+                </div>
+                <h1 class="font30 text-black margin-top10">Search New Bikes</h1>
+                <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    
+    <section>
+    	<div class="container">
+        	<div class="grid-12">
+            	<div id="filter-container">
+                	<div class="filter-container content-box-shadow">
+                        <div class="grid-10">
+                        	<div class="grid-3 alpha">
+                            	<div class="filter-div rounded-corner2">
+                                	<div class="filter-select-title">
+                                        <span class="hide">Select brand</span>
+                                        <span class="leftfloat filter-select-btn default-text">Select brand</span>
+                                        <span class="clear"></span>
+                                    </div>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                </div>
+                                <div id="filter-select-brand" name="bike" class="filter-selection-div filter-brand-list list-items hide">
+                                	<span class="top-arrow"></span>
+                                	<ul class="content-inner-block-10">
+                                    	<li class="uncheck" filterId="2"><span>Aprilia</span></li>
+                                        <li class="uncheck" filterId="7"><span>Honda</span></li>
+                                        <li class="uncheck" filterId="11"><span>Royal Enfield</span></li>
+                                        <li class="uncheck" filterId="1"><span>Bajaj</span></li>
+                                        <li class="uncheck" filterId="8"><span>Hyosung</span></li>
+                                        <li class="uncheck" filterId="12"><span>Suzuki</span></li>
+                                        <li class="uncheck" filterId="40"><span>Benelli</span></li>
+                                        <li class="uncheck" filterId="34"><span>Indian</span></li>
+                                        <li class="uncheck" filterId="22"><span>Triumph</span></li>
+                                    </ul>
+                                    <div class="clear"></div>
+                                    <div class="border-solid-top margin-left10 margin-right10"></div>
+                                    <ul class="content-inner-block-10">
+                                    	<li class="uncheck" filterId="3"><span>BMW</span></li>
+                                        <li class="uncheck" filterId="17"><span>Kawasaki</span></li>
+                                        <li class="uncheck" filterId="15"><span>TVS</span></li>
+                                        <li class="uncheck" filterId="4"><span>Ducati</span></li>
+                                        <li class="uncheck" filterId="9"><span>KTM</span></li>
+                                        <li class="uncheck" filterId="16"><span>Vespa</span></li>
+                                        <li class="uncheck" filterId="5"><span>Harley Davidson</span></li>
+                                        <li class="uncheck" filterId="19"><span>LML</span></li>
+                                        <li class="uncheck" filterId="13"><span>Yamaha</span></li>
+                                        <li class="uncheck" filterId="6"><span>Hero</span></li>
+                                        <li class="uncheck" filterId="10"><span>Mahindra</span></li>
+                                        <li class="uncheck" filterId="14"><span>Yo</span></li>
+                                        <li class="uncheck" filterId="39"><span>Hero Electric</span></li>
+                                        <li class="uncheck" filterId="20"><span>Moto Guzzi</span></li>
+                                    </ul>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <div class="grid-3 alpha">
+                            	<div class="rounded-corner2 budget-box">
+                                	<div id="minMaxContainer" class="filter-select-title">
+                                        <span class="hide">Select budget</span>
+                                        <span class="leftfloat default-text" id="budgetBtn">Select budget</span>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                        <span class="clear"></span>
+                                    </div>
+                                </div>
+                                <div name="budget" id="budgetListContainer" class="hide">
+                                    <div id="userBudgetInput">
+                                        <input type="text" class="priceBox" id="minInput" placeholder="Min" maxlength="7">
+                                        <div class="bw-blackbg-tooltip bw-blackbg-tooltip-min text-center hide">Min budget should be filled.</div>
+                                        <input type="text" class="priceBox" id="maxInput" placeholder="Max" maxlength="7">
+                                        <div class="bw-blackbg-tooltip bw-blackbg-tooltip-max text-center hide">Max budget should be greater than Min budget.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid-3 alpha">
+                            	<div class="filter-div rounded-corner2">
+                                	<div id="filter-select-mileage" class="filter-select-title">
+                                        <span class="hide">Select mileage</span>
+                                        <span class="leftfloat filter-select-btn default-text">Select mileage</span>
+                                        <span class="clear"></span>
+                                    </div>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                </div>
+                                <div name="mileage" class="filter-selection-div filter-mileage-list list-items hide">
+                                	<span class="top-arrow"></span>
+                                	<ul class="content-inner-block-10">
+                                    	<li class="uncheck" filterId="1"><span>60 kmpl +</span></li>
+                                        <li class="uncheck" filterId="2"><span>60 - 40 kmpl</span></li>
+                                        <li class="uncheck" filterId="3"><span>40 - 20 kmpl</span></li>
+                                        <li class="uncheck" filterId="4"><span>20 - 0 kmpl</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="grid-3 alpha">
+                            	<div class="filter-div rounded-corner2">
+                                	<div id="filter-select-displacement" class="filter-select-title">
+                                        <span class="hide">Select displacement</span>
+                                        <span class="leftfloat filter-select-btn default-text">Select displacement</span>
+                                        <span class="clear"></span>
+                                    </div>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                </div>
+                                <div name="displacement" class="filter-selection-div filter-displacement-list list-items hide">
+                                	<span class="top-arrow"></span>
+                                	<ul class="content-inner-block-10">
+                                    	<li class="uncheck" filterId="1"><span>Up to 110 cc</span></li>
+                                        <li class="uncheck" filterId="2"><span>110-150 cc</span></li>
+                                        <li class="uncheck" filterId="3"><span>150-200 cc</span></li>
+                                        <li class="uncheck" filterId="4"><span>200-250 cc</span></li>
+                                        <li class="uncheck" filterId="5"><span>250-500 cc</span></li>
+                                        <li class="uncheck" filterId="6"><span>500 cc and more</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="grid-2">
+                            <div class="rightfloat">
+                               	<div class="more-filters-btn position-rel rounded-corner2">
+                                	<span class="font14">Filters</span>
+                                    <div class="filter-count-container">
+                                    	<div class="filter-counter">0</div>
+                                        <span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                	</div>
+                    <div class="more-filters-container content-box-shadow hide">
+                        <div class="grid-3 padding-top10">
+                        	<div class="more-filter-ride">
+                            	
+                                <div class="more-filter-item-title">
+                                	<h3>Ride Style</h3>
+                                </div>
+                                
+                                <div class="filter-div rounded-corner2">
+                                	<div id="filter-style-displacement" class="filter-select-title">
+                                        <span class="hide">Select ride style</span>
+                                        <span class="leftfloat filter-select-btn default-text">Select ride style</span>
+                                        <span class="clear"></span>
+                                    </div>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                </div>
+                                <div name="ridestyle" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
+                                    <span class="top-arrow"></span>
+                                	<ul class="content-inner-block-10">
+                                    	<li class="uncheck" filterId="1"><span>Cruisers</span></li>
+                                        <li class="uncheck" filterId="2"><span>Sports</span></li>
+                                        <li class="uncheck" filterId="3"><span>Street</span></li>
+                                        <li class="uncheck" filterId="5"><span>Scooters</span></li>
+                                    </ul>
+                                </div>
+                            </div>      
+                        </div>
+                        <div class="grid-2 padding-top10">
+                       		<div class="more-filter-abs">
+                            	<div class="more-filter-item-title">
+                                	<h3>ABS</h3>
+                                </div>
+                                <div name="AntiBreakingSystem" class="more-filter-item-data margin-top10">
+                                	<div class="bw-tabs-panel">
+                                    	<div class="bw-tabs home-tabs">
+                                            <ul>
+                                                <li filterid="1" class="first" data-tabs="yes">Yes</li>
+                                                <li filterid="2" data-tabs="no" class="second">No</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>    
+                        </div>
+                        <div class="grid-2 padding-top10">
+                        	<div class="more-filter-brakes">
+                            	<div class="more-filter-item-title">
+                                	<h3>Brakes</h3>
+                                </div>
+                                <div name="braketype" class="more-filter-item-data margin-top10">
+                                	<div class="bw-tabs-panel">
+                                    	<div class="bw-tabs home-tabs">
+                                            <ul>
+                                                <li filterid="2" class="first" data-tabs="disc">Disc</li>
+                                                <li filterid="1"  data-tabs="drum" class="second">Drum</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>      
+                        </div>
+                        <div class="grid-2 padding-top10">
+                        	<div class="more-filter-wheels">
+                            	<div class="more-filter-item-title">
+                                	<h3>Wheels</h3>
+                                </div>
+                                <div name="alloywheel" class="more-filter-item-data margin-top10">
+                                	<div class="bw-tabs-panel">
+                                    	<div class="bw-tabs home-tabs">
+                                            <ul>
+                                                <li filterid="1" class="first" data-tabs="alloy">Alloy</li>
+                                                <li filterid="2" data-tabs="spoke" class="second">Spoke</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>      
+                        </div>
+                        <div class="grid-3 padding-top10">
+                       		<div class="more-filter-start-type">
+                            	<div class="more-filter-item-title">
+                                	<h3>Start type</h3>
+                                </div>
+                                <div name="starttype" class="more-filter-item-data margin-top10">
+                                	<div class="bw-tabs-panel">
+                                    	<div class="bw-tabs home-tabs">
+                                            <ul>
+                                                <li filterid="1" class="first" data-tabs="electric">Electric</li>
+                                                <li filterid="2" data-tabs="kick" class="second">Kick</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>     
+                        </div>
+                        <div class="clear"></div>
+                        <div class="padding-left10 margin-top10 margin-bottom10">
+                        	<button class="filter-done-btn btn btn-orange margin-right15">Done</button>
+                        	<button id="btnReset" class="filter-reset-btn btn btn-grey">Reset</button>  
+                            <div class="clear"></div>                          
+                        </div>
+                    </div>
+            	</div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <section>
+    	<div class="container margin-bottom20 margin-top10">
+        	<div class="grid-12">
+            	<div class="search-result-container content-box-shadow rounded-corner2">
+                	<div class="search-count-container border-solid-bottom padding-top10 padding-bottom10">
+                    	<div class="leftfloat grid-8">
+                        	<h2><span id="bikecount"></span></h2>
+                        </div>
+                        <div class="rightfloat padding-right10 grid-3">
+                            <div class="form-control-box">
+                                <select id="sort" class="form-control">
+                                    <option so="" sc="" value="" >Popular</option>
+                                    <option so="0" sc="1" value="so=0&sc=1" >Price :Low to High</option>
+                                    <option so="1" sc="1" value="so=1&sc=1">Price :High to Low</option>
+                                    <option so="0" sc="2" value="so=0&sc=2" >Mileage :High to Low</option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="clear"></div>
                     </div>
-                    <div class="parms-sept"></div>
-                    <h3>Displacement</h3>
-                    <ul id="ep" class="ul-params">
-                        <li><a rel="nofollow" name="1" class="filter unchecked" href="search.aspx?ep=1">Up to 110 cc</a></li>
-                        <li><a rel="nofollow" name="2" class="filter unchecked" href="search.aspx?ep=2">110-150 cc</a></li>
-                        <li><a rel="nofollow" name="3" class="filter unchecked" href="search.aspx?ep=3">150-200 cc</a></li>
-                        <li><a rel="nofollow" name="4" class="filter unchecked" href="search.aspx?ep=4">200-250 cc</a></li>
-                        <li><a rel="nofollow" name="5" class="filter unchecked" href="search.aspx?ep=5">250-500 cc</a></li>
-                        <li><a rel="nofollow" name="6" class="filter unchecked" href="search.aspx?ep=6">500 cc and more</a></li>
-                    </ul>
+                    <div class="search-bike-list content-inner-block-10">
+                    	<div class="grid-12 margin-top20 margin-bottom10">
+                        	<ul id="divSearchResult" data-bind="template: { name: 'listingTemp', foreach: searchResult }">
+                                
+                            </ul>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                    <div id="NoBikeResults" class="hide">
+                        <span>Oops... no result found</span>
+                    </div>
+                    <script type="text/html" id="listingTemp">
+                        <li>
+                            <div class="contentWrapper">
+                                <div class="imageWrapper">
+                                    <a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' }">
+                                        <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
+                                    </a>
+                                </div>
+                                <div class="bikeDescWrapper">
+                                    <div class="bikeTitle margin-bottom10">
+                                        <h3><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName"></a></h3>
+                                    </div>
+                                    <div class="font20">
+                                        <span class="fa fa-rupee"></span>
+                                        <span class="font22" data-bind="text: price"></span> <span class="font16">onwards</span>
+                                    </div>
+                                    <div class="font12 text-light-grey margin-bottom10">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
+                                    <div class="font14 margin-bottom10">
+                                        <span><span data-bind="html: availSpecs"> </span></span>
+                                    </div>
+                                    <div class="leftfloat">
+                                        <p class=" inline-block border-solid-right padding-right10" >
+                                            <span data-bind="html: AppendCertificationStar(bikemodel.reviewRate())"></span>
+                                        </p>
+                                    </div>
+                                    <div class="leftfloat margin-left10 font16 text-light-grey">
+                                        <span data-bind="text: bikemodel.reviewCount() + ' Reviews'"> </span>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <a data-bind="attr: { modelId: bikemodel.modelId }" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
+                                </div>
+                            </div>
+                        </li>
+                    </script>
                 </div>
-            </div>	        
-        </div><!--    Left Container ends here -->
-        <div class="grid_8 margin-top15"><!--    Right Container starts here -->         
-            <div id="res_msg" visible="false" class="grey-bg content-block">
-	            <h3>Oops! No bikes matching your criteria.</h3>
-	            <p>Try broadening your search criteria</p>
             </div>
-            <div id="app_filt" class="grey-bg content-block">
-			    <span>You have selected&nbsp;&nbsp;<a onClick="javascript:removeSelection();" class="text-highlight pointer">Remove all selections</a></span>
-			    <ul id="app_filters" class="margin-top5">
-				    <li id="_budget" class="hide"><span>Budget: </span></li>
-                    <li id="_make" class="hide"><span>Make(s): </span></li>
-                    <li id="_fuel" class="hide"><span>Fuel Types: </span></li>
-				    <li id="_transmission" class="hide"><span>Transmission: </span></li>
-				    <li id="_bs" class="hide"><span>Body Types: </span></li>
-				    <li id="_seat" class="hide"><span>Seating Capacity: </span></li>				
-				    <li id="_ep" class="hide"><span>Engine Power: </span></li>
-				    <li id="_feature" class="hide"><span>Important Features: </span></li>				
-			    </ul>
-			    <div class="hr-sep margin-bottom15"></div>
-			    <div class="clear"></div>
-		    </div><div class="clear"></div>        
-            <div id="searchRes" class="margin-top10"></div>
-        </div><!--    Right Container ends here -->
-        <div class="clear"></div>
-            </div>
-    </form>
- <script type="text/javascript">
-     var qs_params = '<%= Request.ServerVariables["QUERY_STRING"] %>';
-     if (qs_params.length == 0) {
+           	<div class="clear"></div>
+        </div>
+    </section>
+    
 
-         $("#dvDefaultMsg").show();
-         $("#divSelectedCriteria").hide();
-     }
- </script>
-<!-- #include file="/includes/footerInner.aspx" -->
+<!-- #include file="/includes/footerBW.aspx" -->
+<!-- #include file="/includes/footerscript.aspx" -->
+<script type="text/javascript" src="/src/framework/knockout.js"></script>
+<script type="text/javascript" src="/src/new/search.js"></script>
+</form>
+</body>
+</html>

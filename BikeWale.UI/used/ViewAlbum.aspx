@@ -41,7 +41,6 @@
     <title>View Photographs for Bike Profile #<%= profileNo%></title>	
 </head>
 <body style="background:none;">
-<form runat="server">
 <div id="cw-body">    
     <div class="content-block">
         <h2 class="left-float">Photographs for Bike Profile #<%= profileNo %></h2>
@@ -69,7 +68,6 @@
         </div> 
     </div>  
 </div>
-</form>
 <script type="text/javascript">
     $('.ad-gallery').adGallery({ slideshow: {enable: false }});    
 </script>	

@@ -14,7 +14,6 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
         <h1 class="margin-left10">Manage Booking Amount :</h1>
         <fieldset class="margin-left10 margin-top10 padding10">
 	        <legend >Add New Booking Amount</legend>            

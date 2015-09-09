@@ -5,7 +5,6 @@
     description = "bikewale.com city wise used bikes listing.";
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
-<form id="form1" runat="server">
     <div  class="container_12">
          <div class="grid_12">
             <ul class="breadcrumb">
@@ -29,5 +28,4 @@
         </asp:repeater>
             </div>
     </div>
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->

@@ -29,7 +29,7 @@
         </div>
     </div>
 </div>
-<div class="grid_4 margin-bottom15">
+<div class="grid_4 margin-bottom15 alpha">
     <asp:Repeater ID="rptComparison" runat="server">
         <HeaderTemplate>
             <ul class="no-std-ul-list">

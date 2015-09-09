@@ -1,6 +1,6 @@
 ﻿<script language="c#" runat="server">	
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-	private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate="";
+    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "";
     private ushort feedbackTypeId = 0; 	 
     private bool isHeaderFix = true;   
 </script>
@@ -32,15 +32,24 @@
 </script>
 <script type='text/javascript'>
     googletag.cmd.push(function () {
-        googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
-            googletag.defineSlot('<%= AdPath%>728x90', [728, 90], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
-            googletag.defineSlot('/1017752/BikeWale_FeaturedBike_600x270', [600, 270], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
-            googletag.pubads().collapseEmptyDivs();
-            googletag.pubads().enableSingleRequest();
-            googletag.enableServices();
-        });
+        googletag.defineSlot('<%= AdPath%>728x90', [728, 90], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
+        googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());                    
+        googletag.defineSlot('<%= AdPath%>_300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());                    
+        <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>
+            googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");
+            googletag.pubads().setTargeting("Series", "<%= TargetedSeries %>");
+            googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");
+            googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels %>");
+        <% } %>
+        googletag.pubads().collapseEmptyDivs();
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+    });
 </script>
 <!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
     <script src="/src/html5.js"></script>
 <![endif]-->
+<script type="text/javascript">
+    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
+</script>

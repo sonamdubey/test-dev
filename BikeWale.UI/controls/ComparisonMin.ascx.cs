@@ -39,28 +39,31 @@ namespace Bikewale.controls
             this.TopRecord = BindBikeCompareControl.FetchTopRecord();
             this.FetchedRecordsCount = BindBikeCompareControl.FetchedRecordCount;
 
-            this.TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(TopRecord.OriginalImagePath, TopRecord.HostURL, Bikewale.Utility.ImageSize._310x174);
+            if (FetchedRecordsCount > 0)
+            {
+                this.TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(TopRecord.OriginalImagePath, TopRecord.HostURL, Bikewale.Utility.ImageSize._310x174);
 
-            if (this.TopRecord.ReviewCount1 > 0)
-            {
-                this.Bike1ReviewText = String.Format("{0} reviews", this.TopRecord.ReviewCount1);
-                this.Bike1ReviewLink = String.Format("/{0}-bikes/{1}/user-reviews/", this.TopRecord.MakeMaskingName1, this.TopRecord.ModelMaskingName1);
-            }
-            else
-            {
-                this.Bike1ReviewText = "Write reviews";
-                this.Bike1ReviewLink = String.Format("/content/userreviews/writereviews.aspx?bikem={0}", this.TopRecord.ModelId1);
-            }
+                if (this.TopRecord.ReviewCount1 > 0)
+                {
+                    this.Bike1ReviewText = String.Format("{0} reviews", this.TopRecord.ReviewCount1);
+                    this.Bike1ReviewLink = String.Format("/{0}-bikes/{1}/user-reviews/", this.TopRecord.MakeMaskingName1, this.TopRecord.ModelMaskingName1);
+                }
+                else
+                {
+                    this.Bike1ReviewText = "Write reviews";
+                    this.Bike1ReviewLink = String.Format("/content/userreviews/writereviews.aspx?bikem={0}", this.TopRecord.ModelId1);
+                }
 
-            if (this.TopRecord.ReviewCount2 > 0)
-            {
-                this.Bike2ReviewText = String.Format("{0} reviews", this.TopRecord.ReviewCount2);
-                this.Bike2ReviewLink = String.Format("/{0}-bikes/{1}/user-reviews/", this.TopRecord.MakeMaskingName2, this.TopRecord.ModelMaskingName2);
-            }
-            else
-            {
-                this.Bike2ReviewText = "Write reviews";
-                this.Bike2ReviewLink = String.Format("/content/userreviews/writereviews.aspx?bikem={0}", this.TopRecord.ModelId2);
+                if (this.TopRecord.ReviewCount2 > 0)
+                {
+                    this.Bike2ReviewText = String.Format("{0} reviews", this.TopRecord.ReviewCount2);
+                    this.Bike2ReviewLink = String.Format("/{0}-bikes/{1}/user-reviews/", this.TopRecord.MakeMaskingName2, this.TopRecord.ModelMaskingName2);
+                }
+                else
+                {
+                    this.Bike2ReviewText = "Write reviews";
+                    this.Bike2ReviewLink = String.Format("/content/userreviews/writereviews.aspx?bikem={0}", this.TopRecord.ModelId2);
+                }
             }
         }
 

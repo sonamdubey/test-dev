@@ -89,13 +89,15 @@
 			retVal = false;
 		}
 
-       if ($("#txtDesignation").val().trim() == "")
+
+       if ($("#txtDesignation").val().trim() == "")
 		{
 		    $("#spnDesignation").html("Enter Designation");
 			retVal = false;
 		}
 
-        if ($("#txtBriefProfile").val().trim() == "")
+
+        if ($("#txtBriefProfile").val().trim() == "")
 		{
 		    $("#spnBriefProfile").html("Enter Brief Profile");
 			retVal = false;
@@ -107,10 +109,12 @@
 			retVal = false;
 		}
 
-       if ($("#inpPhoto").val() == "") 
+
+       if ($("#inpPhoto").val() == "") 
        {
            $("#spnPhoto").html("Please browse photo"); 
-           retVal = false;       }	
+           retVal = false;
+       }	
 			
 		return retVal;
 	}

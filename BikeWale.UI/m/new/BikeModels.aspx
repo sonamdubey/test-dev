@@ -1,8 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.BikeModels" Trace="false" %>
-
 <%@ Register TagPrefix="UR" TagName="Reviews" Src="/m/controls/TopUserReviews.ascx" %>
 <%@ Register TagPrefix="PW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
-
 <%@ Import Namespace="Bikewale.Common" %>
 <%
     title = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
@@ -15,9 +13,6 @@
     TargetedModel = objModelEntity.ModelName.Trim();
     AdModel_300x250 = "1";
 %>
-
-
-
 <!-- #include file="/includes/headermobile.aspx" -->
 
 <PW:MPopupWidget runat="server" ID="MPopupWidget" />
@@ -95,7 +90,6 @@
     }
 </style>
 
-<form id="form1" runat="server">
     <div data-role="popup" id="requestEmi" class="ui-content new-line15" style="height: 100%;">
         <h3 class="pgsubhead">Free Bike Loan Assistance</h3>
         <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right" id="closeBox">Close</a>

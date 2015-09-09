@@ -33,6 +33,7 @@ using Bikewale.Interfaces.NewBikeSearch;
 using Bikewale.DAL.NewBikeSearch;
 using Bikewale.BAL.Dealer;
 using Bikewale.Interfaces.Dealer;
+using Bikewale.DAL.Customer;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -63,8 +64,9 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
             container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
             container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-            container.RegisterType<ICustomerAuthentication<CustomerEntity, UInt64>, CustomerAuthentication<CustomerEntity, UInt64>>();
+            container.RegisterType<ICustomerAuthentication<CustomerEntity, UInt32>, CustomerAuthentication<CustomerEntity, UInt32>>();
             container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
+            container.RegisterType<ICustomerRepository<CustomerEntity, UInt32>, CustomerRepository<CustomerEntity, UInt32>>();
             container.RegisterType<IDealer, Dealer>();
             container.RegisterType<IFeedback,FeedbackRepository>();
             container.RegisterType<IBikeSeries<BikeSeriesEntity, int>>();

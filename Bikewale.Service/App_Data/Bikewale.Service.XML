@@ -725,6 +725,31 @@
             <param name="topCount">Top count</param>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.Customer.CustomerController">
+            <summary>
+            Created By : Ashish G. Kamble on 7 Sept 2015
+            Summary : Class have CRUD operations related to the customers
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Customer.CustomerController.#ctor(Bikewale.Interfaces.Customer.ICustomerRepository{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.Customer.ICustomerAuthentication{Bikewale.Entities.Customer.CustomerEntity,System.UInt32})">
+            <summary>
+            
+            </summary>
+            <param name="customerRepository"></param>
+            <param name="authenticate"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Customer.CustomerController.POST(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Written By : Ashish G. Kamble on 8 Sept 2015
+            Summary : Function to register the customer with bikewale. All fields are mandatory
+            </summary>
+            <param name="name"></param>
+            <param name="email"></param>
+            <param name="mobile"></param>
+            <param name="password"></param>
+            <param name="clientIP"></param>
+            <returns>Returns registered customers data.</returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.Make.DealerMakesController">
             <summary>
             Author  :   Sumit Kate
@@ -744,13 +769,36 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.Make.MakePageController">
+            <summary>
+            Make Page Controller
+            Author  :   Sumit Kate
+            Created :   03 Sept 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Make.MakePageController.#ctor(Bikewale.Interfaces.BikeData.IBikeMakes{Bikewale.Entities.BikeData.BikeMakeEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            Constructor
+            </summary>
+            <param name="makesRepository"></param>
+            <param name="modelRepository"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Make.MakePageController.Get(System.Int32)">
+            <summary>
+            Returns the Make page data which includes
+            Make name, Description(small and large) and popular bikes
+            </summary>
+            <param name="makeId">make id</param>
+            <param name="totalBikeCount">total popular bike count</param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.Customer.AuthenticateController">
             <summary>
             Created By : Ashish G. Kamble on 3 Sept 2015
             Summary : Controller have methods to authenticate the user.
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Customer.AuthenticateController.#ctor(Bikewale.Interfaces.Customer.ICustomerAuthentication{Bikewale.Entities.Customer.CustomerEntity,System.UInt64})">
+        <member name="M:Bikewale.Service.Controllers.Customer.AuthenticateController.#ctor(Bikewale.Interfaces.Customer.ICustomerAuthentication{Bikewale.Entities.Customer.CustomerEntity,System.UInt32})">
             <summary>
             
             </summary>
@@ -911,6 +959,32 @@
             Returns the List of Models of a Model
             </summary>
             <param name="makeId">Bike Make</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController">
+            <summary>
+            On Road Price Controller
+            Author  :   Sumit Kate
+            Created :   08 Sept 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.PriceQuote.IPriceQuote)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="objIPQ"></param>
+            <param name="objPriceQuote"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.Get(System.UInt32,System.UInt32,System.String,Bikewale.DTO.PriceQuote.PQSources,System.Nullable{System.UInt32})">
+            <summary>
+            Gets the On Road Price Quote
+            Includes the Bike Wale price quote and Dealer price quote
+            </summary>
+            <param name="cityId">city id</param>
+            <param name="modelId">model id</param>
+            <param name="clientIP">client ip</param>
+            <param name="sourceType">source type</param>
+            <param name="areaId">area id(optional)</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.PQBikeColorController">
@@ -1346,6 +1420,23 @@
             <param name="platformId"></param>
             <param name="pageUrl"></param>
             <returns>True/False</returns>
+        </member>
+        <member name="T:Bikewale.Service.CustomActionResults.NoContent`1">
+            <summary>
+            Created By : Ashish G. Kamble on 7 Sept 2015
+            Summary : Function to return the no content found status with the message.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Bikewale.Service.WebApiApplication">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.WebApiApplication.Application_Start">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:Bikewale.Service.TCAPI.AutoBizAdaptor.PushInquiryInAB(System.String,System.UInt32,System.String,System.String,System.String,System.String,System.String)">
             <summary>

@@ -17,13 +17,15 @@ namespace Bikewale.BindViewModels.Controls
 
         public static void BindNewlyLaunchedBikes(Repeater rptr)
         {
+            FetchedRecordsCount = 0;
+
             LaunchedBikeList objBikeList = null;
 
             try
             {
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = String.Format("api/NewLaunchedBike/?pageSize={0}&curPageNo={1}",pageSize,curPageNo);
+                string _apiUrl = String.Format("/api/NewLaunchedBike/?pageSize={0}&curPageNo={1}",pageSize,curPageNo);
 
                 objBikeList = BWHttpClient.GetApiResponseSync<LaunchedBikeList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
 

@@ -44,6 +44,5 @@
             </asp:Repeater>
         </div>
         <Pager:Pager id="listPager" runat="server"></Pager:Pager>
-    </form>
 </div>
 <!-- #include file="/includes/footermobile.aspx" -->

@@ -262,6 +262,7 @@
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
@@ -826,6 +827,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\upcomingbikes\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -948,8 +953,12 @@
       <DependentUpon>similargallery.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\search.aspx.cs">
-      <DependentUpon>search.aspx</DependentUpon>
+    <Compile Include="new\Search.aspx.cs">
+      <DependentUpon>Search.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\search_old.aspx.cs">
+      <DependentUpon>search_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\search_result.aspx.cs">
@@ -1565,6 +1574,7 @@
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
     <Content Include="css\model.css" />
+    <Content Include="css\new\search.css" />
     <Content Include="css\rsa.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\style.css" />
@@ -1933,6 +1943,8 @@
     <Content Include="includes\headTools.aspx" />
     <Content Include="includes\headUsed.aspx" />
     <Content Include="includes\MenuList_Mobile.aspx" />
+    <Content Include="includes\Navigation.aspx" />
+    <Content Include="includes\Navigation_Mobile.aspx" />
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
     <Content Include="Forums\ISAPI\ISAPI_Rewrite.dll" />
@@ -1977,6 +1989,7 @@
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\new.css" />
+    <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
@@ -2014,6 +2027,7 @@
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
+    <Content Include="m\new\Search.aspx" />
     <Content Include="m\new\upcomingbikes\Default.aspx" />
     <Content Include="m\pagenotfound.aspx" />
     <Content Include="m\pricequote\BookingSummary.aspx" />
@@ -2036,8 +2050,10 @@
     <Content Include="m\src\jquery-1.10.2.min.js" />
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
+    <Content Include="m\src\new\bwm-search.js" />
     <Content Include="m\src\Plugins.js" />
     <Content Include="new\versions.aspx" />
+    <Content Include="new\Search.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
@@ -2068,7 +2084,7 @@
     <Content Include="new\photos\Default.aspx" />
     <Content Include="new\photos\othermodelsgallery.aspx" />
     <Content Include="new\photos\similargallery.aspx" />
-    <Content Include="new\search.aspx" />
+    <Content Include="new\search_old.aspx" />
     <Content Include="new\search_result.aspx" />
     <Content Include="new\Specs.aspx" />
     <Content Include="new\upcomingbikes\upcomingbikesfeed.aspx" />
@@ -2202,6 +2218,7 @@
     <Content Include="m\fonts\fontawesome-webfont.ttf" />
     <Content Include="m\fonts\fontawesome-webfont.woff" />
     <Content Include="m\fonts\FontAwesome.otf" />
+    <Content Include="ClassDiagram1.cd" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2258,6 +2275,10 @@
     <ProjectReference Include="..\Bikewale.Service\Bikewale.Service.csproj">
       <Project>{ad048b21-3cd3-406c-ba62-86260f6de6e6}</Project>
       <Name>Bikewale.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.UI.Entities\Bikewale.UI.Entities.csproj">
+      <Project>{115cad90-615e-4e59-89d5-45f4696fce59}</Project>
+      <Name>Bikewale.UI.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>

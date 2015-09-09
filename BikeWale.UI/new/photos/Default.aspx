@@ -52,7 +52,6 @@
                     <li class="current"><strong>Photos</strong></li>
                 </ul><div class="clear"></div>
             </div>
-        <form id="Form1" runat="server">
             <div class="grid_12">       
                 <PG:PhotoGallary id="photoGallary" runat="server"></PG:PhotoGallary>
             </div>
@@ -75,6 +74,5 @@
                 <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                 <!-- #include file="/ads/Ad300x250.aspx" -->
 		    </div>     
-        </form>      
     </div>
 <!-- #include file="/includes/footerInner.aspx" -->

@@ -13,7 +13,6 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
     <div>
         <table id="imgTable" class="tableViw margin10">
             <tr>

@@ -13,6 +13,7 @@
     </script>
 </head>
 <body>
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
     	<!--Top nav code start here -->

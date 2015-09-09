@@ -408,11 +408,9 @@
                 <p><i>Please read other <a target="_blank" href="/termsconditions.aspx" class="blue">Important Terms & Conditions</a></i></p>
             </div>
 
-            <form id="Form1" runat="server">
                 <div class="mid-box margin-top15 center-align">
                     <input type="button" value="Save this Price Certificate" id="btnSavePdf" class="action-btn" onclick="CallToAction();return false;" />
                 </div>
-            </form>
             <%--          <div style="display:none">
                  <PQ:pdf runat="server" ID="PQPdfTemplate"/>
                 <PQT:Test runat="server" id="Test" />

@@ -10,7 +10,6 @@
 %>
 <!-- #include file="/includes/PaymentHeaderMobile.aspx" -->
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
-<form runat="server">
     <div class="padding5">
         <h1>Sorry! Your Payment Failed</h1>
         <div class="box1 new-line10">
@@ -19,7 +18,6 @@
         </div>
         <asp:Button data-role="none" id="btnTryAgain" runat="server" class="rounded-corner5" Text="Try Paying Again" />
     </div>
-</form>
 </div>
             <!-- inner-section code ends here-->
 </div>

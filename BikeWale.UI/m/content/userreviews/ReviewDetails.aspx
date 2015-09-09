@@ -12,7 +12,6 @@
 <style>
     img {border:none;}
 </style>
-<form id="form1" runat="server">
     <div class="padding5">
        <div id="br-cr">
             <a href="/m/new/" class="normal">New Bikes</a> &rsaquo;  
@@ -141,5 +140,4 @@
     </table>
 
 </div>
-</form>
 <!-- #include file="/includes/footermobile.aspx" -->

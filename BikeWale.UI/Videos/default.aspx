@@ -8,7 +8,6 @@
 <link href="../css/video.css" rel="stylesheet" />
 
 <div class="container_12">
-    <form id="form1" runat="server">
         <div class="grid_12">
             <ul class="breadcrumb">
                 <li>You are here: </li>
@@ -81,7 +80,6 @@
         <div class="grid_4 column">
              <!-- #include file="/ads/Ad300x250BTF.aspx" -->
         </div><!-- Right Container ends here -->
-    </form>
 </div>
 <script type="text/javascript">
 

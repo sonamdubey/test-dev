@@ -24,6 +24,8 @@ namespace Bikewale.BindViewModels.Controls
 
         public static void BindRepeater(Repeater repeater)
         {
+            FetchedRecordsCount = 0;
+
             IEnumerable<PopularUsedBikesBase> popularUsedBikes = null;
             try
             {
@@ -50,7 +52,7 @@ namespace Bikewale.BindViewModels.Controls
             try
             {
                 hostURL = ConfigurationManager.AppSettings["bwHostUrl"];
-                apiUrl = String.Format("api/PopularUsedBikes/?topCount={0}&cityId={1}", topCount, cityId.HasValue ? cityId.Value.ToString() : "");
+                apiUrl = String.Format("/api/PopularUsedBikes/?topCount={0}&cityId={1}", topCount, cityId.HasValue ? cityId.Value.ToString() : "");
 
                 popularUsedBikes = BWHttpClient.GetApiResponseSync<IEnumerable<PopularUsedBikesBase>>(hostURL, requestType, apiUrl, popularUsedBikes);
                 if (popularUsedBikes != null && popularUsedBikes.Count() > 0)

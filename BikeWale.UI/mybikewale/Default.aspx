@@ -7,7 +7,6 @@
     AdPath = "/1017752/BikeWale_MyBikeWale_";
 %>
 <!-- #include file="/includes/headMyBikeWale.aspx" -->
-<form id="form1" runat="server">
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -31,5 +30,4 @@
             </div>
         </div>
     </div>
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->

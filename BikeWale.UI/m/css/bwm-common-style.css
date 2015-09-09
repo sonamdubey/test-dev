@@ -171,9 +171,10 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .globalcity-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
 .globalcity-popup-data { padding: 20px 20px 30px; }
 .cityPopup-box { background: #333333; width: 65px; height: 65px; line-height: 2; display: inline-block; }
-.globalcity-close-btn.cross-lg-lgt-grey { background-position: -36px -226px; }
-.globalcity-close-btn.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
+.globalcity-close-btn.cross-lg-lgt-grey, .bw-popup .close-btn { background-position: -36px -226px; }
+.globalcity-close-btn.cross-lg-lgt-grey:hover, .bw-popup .close-btn:hover { background-position: -36px -252px; }
 ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
+.bw-popup .close-btn {width:16px; height:16px;}
 
 /* global-search-popup classes */
 .global-search-popup { position:fixed; left: 5px; top: 5px; right: 5px; z-index: 10; }
@@ -211,10 +212,10 @@ footer ul li a:hover { text-decoration: underline; }
 .upComingbikes li { height: 400px; }
 .comparebikesHomePage li { width: 976px; }
 .jcarousel-pagination a { 
-	text-decoration: none; display: inline-block; height: 13px; width: 13px; line-height: 10px; background: #f8f6f6; border: 1px solid #ccc;
+	text-decoration: none; display: inline-block; height: 13px; width: 13px; line-height: 10px; background: #fff; border: 1px solid #818181;
 	border-radius: 15px; text-indent: -9999px; margin: 5px; cursor: pointer; }
-.jcarousel-pagination a:hover { background: #d9d9d9; }
-.jcarousel-pagination a.active { background: #d9d9d9; cursor: default; border: 1px solid #cccccc; }
+.jcarousel-pagination a:hover { background: #4d5057; }
+.jcarousel-pagination a.active { background: #4d5057; cursor: default; border: 1px solid #4d5057; }
 
 
 .cardWrapper { width:100%; height:100%; overflow:hidden; display:inline-block; }
@@ -614,7 +615,13 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .pq-no-mobile { background-position: -611px 0; }
 .pq-no-email { background-position: -712px 0; }
 
+    /* old popup css */
 
+.bw-popup { background:#fff; position:fixed; top:0; bottom:0; width:100%; height:100%; overflow-y: auto; z-index: 999;max-height: 400px; }
+.popup-inner-container { padding:20px; }
+.bw-popup h1 { font-size:16px; font-weight:bold; border-bottom:2px solid #c62000!important; padding:10px 10px 10px 0px!important; margin-left:0px!important; }
+.bw-popup h2 { font-size:14px; }
+.bw-popup select {border:1px solid #333; outline:inherit; width:100%;}
 /* ***************************************************************************
  *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome *  
  	License - http://fontawesome.io/license (Font: SIL OFL 1.1, CSS: MIT License) */ 
@@ -670,8 +677,8 @@ fieldset { border: 0; border-collapse:collapse; }
 .border-left1{border-left:1px solid #e2e2e2;}
 .border-top1{border-top:1px solid #e2e2e2;}
 footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
-.unchecked { background: url("../images/inputUnchecked.png") no-repeat 0 center; }
-.checked { background: url("../images/inputChecked.png") no-repeat 0 center; }
+.unchecked { background: url("/m/images/inputUnchecked.png") no-repeat 0 center; }
+.checked { background: url("/m/images/inputChecked.png") no-repeat 0 center; }
 
 
 .clearfix:before,

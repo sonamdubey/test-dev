@@ -1,13 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.controls.MUpcomingBikes" %>
 
 <!-- Mobile Upcoming Bikes Starts here-->
-<div class="bw-tabs-data hide" id="mctrlUpcomingBikes">
     <asp:Repeater ID="rptUpcomingBikes" runat="server">
-        <HeaderTemplate>
-         <div class="jcarousel-wrapper upComingBikes">
-                            <div class="jcarousel">
-                                <ul>
-        </HeaderTemplate>
         <ItemTemplate>
         <li class="card">
             <div class="front">
@@ -35,12 +29,5 @@
             </div>
         </li> 
         </ItemTemplate>
-        <FooterTemplate>
-            </div>
-                            <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                            <p class="text-center jcarousel-pagination"></p>
-                        </div>
-        </FooterTemplate>
     </asp:Repeater>
-</div><!-- Ends here-->
+<!-- Ends here-->

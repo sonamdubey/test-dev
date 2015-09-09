@@ -165,9 +165,49 @@ namespace Bikewale.Common
             DeleteAuctionCookie();
         }
 
+        public static void StartSession(string userName, string userId, string email, bool rememberMe)
+        {
+            //create a ticket and add it to the cookie
+            FormsAuthenticationTicket ticket;
+            //now add the id and the role to the ticket, concat the id and role, separated by ',' 
+            ticket = new FormsAuthenticationTicket(
+                        1,
+                        userName,
+                        DateTime.Now,
+                        DateTime.Now.AddDays(365),
+                        false,
+                        userId + ":" + email
+                    );
+
+            //add the ticket into the cookie
+            HttpCookie objCookie;
+            objCookie = new HttpCookie("_bikewale");
+            objCookie.Value = FormsAuthentication.Encrypt(ticket);
+
+            if (rememberMe)
+            {
+                objCookie.Expires = DateTime.Now.AddYears(1);
+            }
+
+            HttpContext.Current.Response.Cookies.Add(objCookie);
+
+            // delete auction cookie if not exists
+            // it will be reassign
+            DeleteAuctionCookie();
+        }
+
         public static void EndSession()
         {
             FormsAuthentication.SignOut();
+
+            // Added by : Ashish G. Kamble on 5 Sept 2015. Remove remember me cookie
+            HttpCookie rememberMe = HttpContext.Current.Request.Cookies.Get("RememberMe");
+
+            if (rememberMe != null)
+            {
+                rememberMe.Expires = DateTime.Now.AddDays(-1);
+                HttpContext.Current.Response.Cookies.Add(rememberMe);
+            }
 
             //also clear the cookie for the contact information
             CommonOpn op = new CommonOpn();

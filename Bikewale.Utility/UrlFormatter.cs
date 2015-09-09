@@ -10,7 +10,7 @@ namespace Bikewale.Utility
     {
         public static string BikePageUrl(string makeMaskingName,string modelMaskingName)
         {
-            return String.Format("/{0}-bikes/{1}",makeMaskingName,modelMaskingName);
+            return String.Format("/{0}-bikes/{1}/",makeMaskingName,modelMaskingName);
         }
     }
 }

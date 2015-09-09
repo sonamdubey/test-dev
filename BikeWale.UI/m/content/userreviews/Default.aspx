@@ -10,7 +10,6 @@
     %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-    <form id="form1" runat="server">
 <%--    <input type="hidden" id="hdnMake" runat="server"/>
     <input type="hidden" id="hdnModel" runat="server" />--%>
     <div class="padding5">
@@ -140,7 +139,6 @@
             </asp:Repeater>
         </div>
     </div>
-    </form>
     <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false"  class="ui-corner-all">
         <div data-role="header" data-theme="a" class="ui-corner-top" style="background-color:#000">
             <h1 style="color:#fff;">Error !!</h1>

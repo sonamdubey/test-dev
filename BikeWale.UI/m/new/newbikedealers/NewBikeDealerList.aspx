@@ -14,7 +14,6 @@
     .borBot{border-bottom:1px solid #b3b4c6;padding-bottom:10px;}
     .hide {display:none;}
 </style>
-<form runat="server">
     <div class="padding5">
         <div id="br-cr">
             <a href="/m/new/" class="normal">New Bikes</a> &rsaquo; 
@@ -38,6 +37,5 @@
         </div>
         <%} %>
     </div>
-</form>
 <!-- #include file="/includes/footermobile.aspx" -->
 

@@ -18,13 +18,15 @@ namespace Bikewale.BindViewModels.Controls
 
         public static void BindMostPopularBikes(Repeater rptr)
         {
+            FetchedRecordsCount = 0;
+
             MostPopularBikesList objBikeList = null;
 
             try
             {
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = String.Format("api/ModelList/?totalCount={0}&makeId={1}", totalCount, makeId);
+                string _apiUrl = String.Format("/api/ModelList/?totalCount={0}&makeId={1}", totalCount, makeId);
 
                 objBikeList = BWHttpClient.GetApiResponseSync<MostPopularBikesList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
 

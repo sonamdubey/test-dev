@@ -8,7 +8,6 @@
 <style type="text/css">
 .ul-hrz-makes li { width:150px; float:left; padding:5px 0; }
 </style>
-<form id="form1" runat="server">
     <div  class="container_12">
          <div class="grid_12">
             <ul class="breadcrumb">
@@ -32,5 +31,4 @@
         </asp:repeater>
             </div>
     </div>
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->

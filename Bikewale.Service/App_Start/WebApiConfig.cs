@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using System.Web.Mvc;
 using Bikewale.Service.UnityConfiguration;
+using System.Web.Http.Cors;
 
 namespace Bikewale.Service
 {
@@ -21,6 +22,10 @@ namespace Bikewale.Service
             config.DependencyResolver = new UnityResolver(UnityBootstrapper.Initialize());
             
             // Web API configuration and services
+            // Enable CORS
+            var cors = new EnableCorsAttribute(origins: "*", headers: "*", methods: "*");
+
+            config.EnableCors(cors);
                                                    
             // Web API routes
             config.MapHttpAttributeRoutes();

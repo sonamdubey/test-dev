@@ -21,7 +21,6 @@
         selectedFeaturedVersion = "";
     });	
 </script>
-<form id="Form1" runat="server">
 <div class="urh">
 	You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Add Compare Featured Bike
 </div>
