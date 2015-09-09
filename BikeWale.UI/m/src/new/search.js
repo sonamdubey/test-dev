@@ -120,10 +120,6 @@ $(".dropdown .form-control").on('click', function () {
 	  }
   });
 
-  /*$(".dropdown ul li").on('click', function () {
-	  $(".dropdown ul").hide();
-  });*/
-
   $(document).bind('click', function (e) {
 	  var $clicked = $(e.target);
 	  if (!$clicked.parents().hasClass("dropdown")) $(".dropdown ul").hide();
@@ -171,6 +167,7 @@ $(".dropdown .form-control").on('click', function () {
   $('.checkOption').click(function(){
 	  $(this).siblings().removeClass('optionSelected');
 	  $(this).toggleClass('optionSelected');
+	  $.applyToggelFilter($(this).parent().attr('name'), $(this).attr('filterid'), $(this));
   });
   
   //back button function
@@ -183,7 +180,6 @@ $(function () {
     $(window).bind('hashchange', function (e) {
         pagiFlag = false;
         hash = location.hash.substring(1);
-        //console.log('#'+hash);
         var filterPopname = $('div.filterBackArrow[popupname="filterpopup"]:visible');
         var popname = $('div.filterBackArrow[popupname!="filterpopup"]:visible');
         if (hash == 'back') {
@@ -363,8 +359,7 @@ $.applyToggelFilter = function (name, value, node) {
     var tempQS = '';
     var curValue = $.getFilterFromQS(name).replace(/ /g, '+');
 
-    if (!node.find('li[filterid=' + value + ']').hasClass(checked)) {
-        node.removeClass(checked);
+    if (node.hasClass(checked)) {
         tempQS = $.removeFilterFromQS(name);
         tempQS = $.appendToQS(tempQS, name, value);
     }
@@ -373,4 +368,21 @@ $.applyToggelFilter = function (name, value, node) {
     }
 
     $.pushState(tempQS);
+};
+
+$.removePageNoParam = function () {
+    if ($.getFilterFromQS('pageno').length > 0) {
+        var completeQS = $.removeFilterFromQS('pageno');
+        $.pageNo = 1;
+        window.location.hash = completeQS;
+    }
+};
+
+$.appendToQS = function (temp, name, value) {
+    if (temp.length > 0)
+        temp += "&" + name + "=" + value;
+    else
+        temp += name + "=" + value;
+
+    return temp;
 };

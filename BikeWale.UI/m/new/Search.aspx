@@ -75,7 +75,7 @@
                                     <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                     <div class="imageWrapper">
                                         <a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' }">
-                                            <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
+                                            <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/227X128/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
                                         </a>
                                     </div>
                                         <div class="bikeDescWrapper">
@@ -244,7 +244,7 @@
                         	    <div class="grid-5 alpha">
                             	    <h3>ABS</h3>
                                 </div>
-                                <div class="grid-7 omega">
+                                <div name="AntiBreakingSystem" class="grid-7 omega">
                             	    <span filterid="1" class="form-control grid-6 checkOption">Yes</span>
                             	    <span filterid="2" class="form-control grid-6 checkOption">No</span>                                
                                 </div>
@@ -254,7 +254,7 @@
                         	    <div class="grid-5 alpha">
                             	    <h3>Brakes</h3>
                                 </div>
-                                <div class="grid-7 omega">
+                                <div name="braketype" class="grid-7 omega">
                             	    <span filterid="2" class="form-control grid-6 checkOption">Disc</span>
                             	    <span filterid="1" class="form-control grid-6 checkOption">Drum</span>                                
                                 </div>
@@ -264,7 +264,7 @@
                         	    <div class="grid-5 alpha">
                             	    <h3>Wheels</h3>
                                 </div>
-                                <div class="grid-7 omega">
+                                <div name="alloywheel" class="grid-7 omega">
                             	    <span filterid="1" class="form-control grid-6 checkOption">Alloy</span>
                             	    <span filterid="2" class="form-control grid-6 checkOption">Spoke</span>                                
                                 </div>
@@ -274,7 +274,7 @@
                         	    <div class="grid-5 alpha">
                             	    <h3>Start type</h3>
                                 </div>
-                                <div class="grid-7 omega">
+                                <div name="starttype" class="grid-7 omega">
                             	    <span filterid="1" class="form-control grid-6 checkOption">Electric</span>
                             	    <span filterid="2" class="form-control grid-6 checkOption">Kick</span>                                
                                 </div>

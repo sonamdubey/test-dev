@@ -497,6 +497,10 @@
       <DependentUpon>NewBikeLaunches.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\NewBikesOnRoadPrice.ascx.cs">
+      <DependentUpon>NewBikesOnRoadPrice.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\NewLaunchedBikes_new.ascx.cs">
       <DependentUpon>NewLaunchedBikes_new.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -511,6 +515,10 @@
     </Compile>
     <Compile Include="controls\NoFollowPagerControl.ascx.cs">
       <DependentUpon>NoFollowPagerControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\OnRoadPricequote.ascx.cs">
+      <DependentUpon>OnRoadPricequote.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\PopularUsedBikes.ascx.cs">
@@ -611,6 +619,10 @@
     </Compile>
     <Compile Include="controls\UserFeedBack.ascx.cs">
       <DependentUpon>UserFeedBack.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\UserReviewsList.ascx.cs">
+      <DependentUpon>UserReviewsList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\UserReviewsMin.ascx.cs">
@@ -1513,10 +1525,12 @@
     <Content Include="controls\MakeModelSearch.ascx" />
     <Content Include="controls\MostPopularBikes_new.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
+    <Content Include="controls\NewBikesOnRoadPrice.ascx" />
     <Content Include="controls\NewLaunchedBikes_new.ascx" />
     <Content Include="controls\NewsMin.ascx" />
     <Content Include="controls\News_new.ascx" />
     <Content Include="controls\NoFollowPagerControl.ascx" />
+    <Content Include="controls\OnRoadPricequote.ascx" />
     <Content Include="controls\PopularUsedBikes.ascx" />
     <Content Include="controls\PopupWidget.ascx" />
     <Content Include="controls\PQPdfTemplate.ascx" />
@@ -1543,6 +1557,7 @@
     <Content Include="controls\UpcomingBikes_new.ascx" />
     <Content Include="controls\UsedBikeSearch.ascx" />
     <Content Include="controls\UserFeedBack.ascx" />
+    <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UserReviewsMin.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />
@@ -1938,8 +1953,6 @@
     <Content Include="includes\headTools.aspx" />
     <Content Include="includes\headUsed.aspx" />
     <Content Include="includes\MenuList_Mobile.aspx" />
-    <Content Include="includes\Navigation.aspx" />
-    <Content Include="includes\Navigation_Mobile.aspx" />
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
     <Content Include="Forums\ISAPI\ISAPI_Rewrite.dll" />
@@ -2046,6 +2059,7 @@
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\new\bwm-search.js" />
+    <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
     <Content Include="new\Search.aspx" />
     <Content Include="src\autocomplete.js" />

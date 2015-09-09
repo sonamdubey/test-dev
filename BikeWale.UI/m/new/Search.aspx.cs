@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Notifications;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,22 @@ namespace Bikewale.Mobile.New
 {
 	public partial class Search : System.Web.UI.Page
 	{
+        protected override void OnInit(EventArgs e)
+        {
+            this.Load += new EventHandler(Page_Load);
+        }
+
 		protected void Page_Load(object sender, EventArgs e)
 		{
+            try
+            {
 
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.New.Page_Load");
+                objErr.SendMail();
+            }
 		}
 	}
 }

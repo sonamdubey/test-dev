@@ -118,10 +118,10 @@
                                 <div name="mileage" class="filter-selection-div filter-mileage-list list-items hide">
                                 	<span class="top-arrow"></span>
                                 	<ul class="content-inner-block-10">
-                                    	<li class="uncheck" filterId="1"><span>60 kmpl +</span></li>
-                                        <li class="uncheck" filterId="2"><span>60 - 40 kmpl</span></li>
-                                        <li class="uncheck" filterId="3"><span>40 - 20 kmpl</span></li>
-                                        <li class="uncheck" filterId="4"><span>20 - 0 kmpl</span></li>
+                                    	<li class="uncheck" filterId="1"><span>70 kmpl +</span></li>
+                                        <li class="uncheck" filterId="2"><span>70 - 50 kmpl</span></li>
+                                        <li class="uncheck" filterId="3"><span>50 - 30 kmpl</span></li>
+                                        <li class="uncheck" filterId="4"><span>30 - 0 kmpl</span></li>
                                     </ul>
                                 </div>
                             </div>
