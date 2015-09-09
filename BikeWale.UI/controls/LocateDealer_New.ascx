@@ -3,7 +3,7 @@
     <div class="margin-bottom40">
         <span class="bw-circle-icon locate-dealer-logo"></span>
     </div>
-    <p class="font16 margin-bottom30">Find a car dealer near your current location</p>
+    <p class="font16 margin-bottom30">Find a bike dealer near your current location</p>
     <div class="locate-dealer-search-container">
         <div class="locate-dealer-search">
             <div class="locate-dealer-bikeSelect">

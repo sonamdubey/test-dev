@@ -23,6 +23,7 @@ namespace Bikewale.BindViewModels.Controls
             MakePage objBikeList = null;
             Make = new MakeBase();
             BikeDesc = new BikeDescription();
+            FetchedRecordsCount = 0;
             try
             {
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];

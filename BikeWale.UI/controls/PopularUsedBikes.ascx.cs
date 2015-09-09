@@ -12,7 +12,8 @@ namespace Bikewale.controls
     {
         protected Repeater rptPopularUsedBikes;
         public int TotalRecords { get; set; }
-        public int FetchedRecordsCount { get; set; }
+        protected int FetchedRecordsCount { get; set; }
+        
 
         protected string cityName = String.Empty;
         protected static int? cityId = null;
@@ -33,6 +34,7 @@ namespace Bikewale.controls
             BindUsedBikesControl.TotalRecords = TotalRecords;
             BindUsedBikesControl.CityId = cityId;
             BindUsedBikesControl.BindRepeater(rptPopularUsedBikes);
+            this.FetchedRecordsCount = BindUsedBikesControl.FetchedRecordsCount;
         }
         private void CheckCityCookie(out int? cityId, out string cityName)
         {
@@ -53,12 +55,13 @@ namespace Bikewale.controls
             return String.Format("Popular used bikes in {0}", !String.IsNullOrEmpty(cityName) ? cityName : "India");
         }
 
-        protected string FormatUsedBikeUrl(string makeMaskingName)
+        protected string FormatUsedBikeUrl(string makeMaskingName, string cityMaskingName)
         {
             string url = String.Empty;
+            cityName = cityMaskingName.Trim();
             if (cityId.HasValue)
             {
-                url = String.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityName);
+                url = String.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityMaskingName.Trim());
             }
             else
             {

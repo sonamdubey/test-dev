@@ -17,11 +17,11 @@
                     <input type="text" class="form-control padding-right30" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp">
                     <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none"></span>
                     <span class="bwsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">No city found. Try a different search.</div>
+                    <div class="bw-blackbg-tooltip hide">Please enter your city</div>
                 </div>
             </div>
             <div>
-            	<button class="btn btn-orange font18 text-uppercase">Confirm city</button>
+            	<a id="btnGlobalCityPopup" class="btn btn-orange font18 text-uppercase">Confirm city</a>
             </div>
         </div>
         <div class="clear"></div>
