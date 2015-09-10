@@ -1,985 +1,653 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.BikeModels" Trace="false" %>
-<%@ Register TagPrefix="UR" TagName="Reviews" Src="/m/controls/TopUserReviews.ascx" %>
-<%@ Register TagPrefix="PW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
-<%@ Import Namespace="Bikewale.Common" %>
-<%
-    title = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
-    description = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " Price in India - Rs." + formattedPrice + ". Check out " + objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
-    canonical = "http://www.bikewale.com/" + objModelEntity.MakeBase.MaskingName + "-bikes/" + objModelEntity.MaskingName + "/";
-    AdPath = "/1017752/Bikewale_Mobile_Model";
-    AdId = "1398837216327";
-    menu = "2";
-    ShowTargeting = "1";
-    TargetedModel = objModelEntity.ModelName.Trim();
-    AdModel_300x250 = "1";
-%>
-<!-- #include file="/includes/headermobile.aspx" -->
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.BikeModels" %>
+<%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW"  %>
+<%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
+<%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW"  %>
+<%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>    
+    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <link href="/m/css/bwm-model.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<form id="form1" runat="server">
+    <!-- #include file="/includes/headBW_Mobile.aspx" -->
+    <section>
+    	<div class="container margin-bottom20 bg-white clearfix">
+                <div class="padding-bottom30">
+                	<h1 class="padding-top25 padding-bottom20 padding-left20 padding-right20"><%= bikeName %></h1>
+                	<div class="jcarousel-wrapper model">
+                        <div class="jcarousel">
+                            <ul>
+                                <asp:Repeater ID="rptModelPhotos" runat="server">                                    
+                                    <HeaderTemplate>
+                                        <li>
+                                            <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>">
+                                        </li>
+                                    </HeaderTemplate>
+                                    <ItemTemplate>
+                                        <li>
+                                            <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>">
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>                          
+                        </div>
+                        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
+                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
+                        <p class="text-center jcarousel-pagination margin-bottom30"></p>
 
-<PW:MPopupWidget runat="server" ID="MPopupWidget" />
-
-<script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<script type="text/javascript" src="/m/src/placeholder.js?v=1.0"></script>
-<style type="text/css">
-    .modelColorBox {
-        margin: auto;
-        width: 80px;
-        height: 20px;
-        border: 1px solid #C1C1C1;
-    }
-
-    .fullWidth {
-        width: 100%;
-        max-width: 100%;
-        height: auto;
-    }
-
-    .linkButtonBigBlue {
-        height: 35px;
-        background-image: url('/m/images/nav_blue.jpg');
-        border-radius: 7px;
-        -moz-border-radius: 7px;
-        -webkit-border-radius: 7px;
-        text-align: center;
-        line-height: 35px;
-        color: #ffffff;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    .linkButtonBigBlueNew {
-        height: 35px;
-        background-image: url('/m/images/blue_button.jpg');
-        border-radius: 7px;
-        -moz-border-radius: 7px;
-        -webkit-border-radius: 7px;
-        text-align: center;
-        line-height: 35px;
-        color: #ffffff;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    .linkButtonBigRed {
-        height: 35px;
-        background-image: url('/m/images/red_button.jpg');
-        border-radius: 7px;
-        -moz-border-radius: 7px;
-        -webkit-border-radius: 7px;
-        text-align: center;
-        line-height: 35px;
-        color: #ffffff;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 14px;
-    }
-
-    .tblData {
-        width: 100%;
-    }
-
-        .tblData td {
-            border-bottom: 1px solid #DEDEDE;
-            padding: 8px 5px;
-        }
-
-    .socialplugins li {
-        float: left;
-        width: 84px;
-    }
-</style>
-
-    <div data-role="popup" id="requestEmi" class="ui-content new-line15" style="height: 100%;">
-        <h3 class="pgsubhead">Free Bike Loan Assistance</h3>
-        <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right" id="closeBox">Close</a>
-        <div class="box1">
-            <div style="float: right"><span class="f-10"><font color="red">*</font><i>All fields are mandatory</i></span></div>
-            <div style="clear: both"></div>
-            <div class="new-line15">
-                <asp:textbox id="txtName" runat="server" placeholder="Your Name*" />
-            </div>
-            <div class="new-line15">
-                <asp:textbox id="txtEmail" runat="server" type="email" placeholder="Your Email*" />
-            </div>
-            <div class="new-line15">
-                <input id="numMobile" type="Tel" placeholder="Mobile No.*" maxlength="10" />
-            </div>
-            <asp:dropdownlist id="ddlStates" runat="server" class="textAlignLeft" />
-            <select id="ddlCity" class="textAlignLeft">
-                <option value="0">--Select City--</option>
-            </select>
-            <asp:button text="Submit" data-theme="b" id="btnSubmit" data-role="button" class="ui-corner-all" runat="server" />
-            <div>
-                <p class="f-10">
-                    By clicking on the button above, I agree with BikeWale <a href="/visitoragreement.aspx" target="_blank">Visitor Agreement</a> and privacy policy. By providing your contact details you agree to be contacted for assistance in your bike buying by us and/or any of our partners including dealers, bike manufacturers, banks like HDFC bank etc. 
+                    </div>
+                    
+                    <div class="margin-top20 padding-left10 padding-right10">
+                    	<p class="leftfloat margin-right10 rating-wrap">
+                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
+                        </p>
+                        <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %>border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
+                        	<%= modelPage.ModelDetails.ReviewCount %> Reviews
+                        </a>                        
+                        <div class="clear"></div>
+                    </div>
+                    
+                </div>
+                
+                <div class="grid-12 bg-white">
+                	<div class="bike-price-container font22 margin-bottom15">
+                        <span class="fa fa-rupee"></span>
+                        <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10"><%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
+					</div>
+                	<div id="city-list-container" class="city-list-container margin-bottom10">
+                    	<div class="text-left margin-bottom15">
+                        	<p class="font14 offer-error">Select City for accurate on-road price</p>
+                        </div>
+                        <ul>
+                        	<li><span>Mumbai</span></li>
+                            <li><span>Delhi</span></li>
+                            <li><span>Banglore</span></li>
+                            <li><span>Pune</span></li>
+                            <li><span>Chennai</span></li>
+                            <li class="city-other-btn"><span>Others</span></li>
+                        </ul>
+                    </div>
+                    <div id="city-area-select-container" class="city-area-select-container margin-bottom20 hide">
+                    	<div class="city-select-text text-left margin-bottom15 hide">
+                            <p class="font14">Select city for accurate on-road price</p>
+                        </div>
+                        <div class="area-select-text text-left margin-bottom15 hide">
+                            <p class="font14">Select area for on-road price and exclusive offers</p>
+                        </div>
+                        <div class="city-onRoad-price-container font14 margin-bottom15 hide">
+                        	<p class="margin-bottom10">On-road price in <span>Andheri</span>, <span>Mumbai</span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
+                            <p class="font12 margin-bottom15">(Ex-showroom + RTO + Insurance + Handling charges)</p>
+                            <button class="btn btn-orange btn-full-width">Book now and avail offers</button>
+                        </div>	
+                        <div class="city-area-wrapper">
+                            <div class="city-select">
+                                <select class="form-control">
+                                    <option value="" disabled selected>Select City</option>
+                                    <option value="Mumbai">Mumbai</option>
+                                    <option value="Banglore">Banglore</option>
+                                    <option value="Pune">Pune</option>
+                                    <option value="Delhi">Delhi</option>
+                                </select>
+                            </div>
+                            <div class="area-select margin-top20 hide">
+                                <select class="form-control">
+                                    <option value="" disabled selected>Select Area</option>
+                                    <option value="area1">area 1</option>
+                                    <option value="area2">area 2</option>
+                                    <option value="area3">area 3</option>
+                                    <option value="area4">area 4</option>
+                                </select>
+                            </div>
+                            <div class="clear"></div>
+                    	</div>
+                    </div>
+                    <div class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
+                    	<div class="available-offers-container content-inner-block-10">
+                        	<h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Avaiable Offers</h4>
+                            <div class="offer-list-container">
+                            	<ul>
+                                	<li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                                    <li>Maecenas rhoncus placerat mauris, id mattis arcu hendrerit in.</li>
+                                    <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
+                            <button class="btn btn-md btn-orange unveil-offer-btn">Show Offers</button>
+                        </div>
+                        <div class="notify-btn-container position-abt pos-left0 pos-top0 hide">
+							<div class="margin-top50 margin-left40">
+                                <input type="text" placeholder="Notify me" class="notify-input">
+                                <button class="btn btn-orange btn-xs">Notify me</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           </div>
+    </section>
+    
+    <section>
+    	<div class="container bg-white clearfix <%= String.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription) ? "hide" : "" %>">
+        	<div class="grid-12">
+                <h2 class="text-center margin-top30 margin-bottom20">Overview</h2>  
+                <div class="overview-box">
+                    <%--<div class="odd btmAftBorder">
+                        <span class="font22"><%= modelPage.ModelVersionSpecs.Displacement %> <small class="font16 text-medium-grey">cc</small></span>
+                        <span class="font14">Capacity</span>
+                    </div>
+                    <div class="even btmAftBorder">
+                        <span class="font22"><%= modelPage.ModelVersionSpecs.FuelEfficiencyOverall %> <small class="font16 text-medium-grey">kmpl</small></span>
+                        <span class="font14">Mileage</span>
+                    </div>
+                    <div class="odd">
+                        <span class="font22"><%= modelPage.ModelVersionSpecs.MaxPower %> <small class="font16 text-medium-grey">PS</small></span>
+                        <span class="font14">Max power</span>
+                    </div>
+                    <div class="even">
+                        <span class="font22"><%= modelPage.ModelVersionSpecs.KerbWeight %> <small class="font16 text-medium-grey">kgs</small></span>
+                        <span class="font14">Weight</span>
+                    </div>--%>
+                </div>    
+                <p class="font14 margin-bottom20">
+                    <%= modelPage.ModelDesc.SmallDescription %> <a href="javascript:void(0)" id="showFullDisc">Read more</a>
+                </p>  	
+                
+                <p class="font14 margin-bottom20 hide">
+                    <%= modelPage.ModelDesc.FullDescription %> <a href="javascript:void(0)" id="showSmallDisc">Show less</a>
                 </p>
-            </div>
-            <div>
-                <span id="spnError" class="error"><%=errMsg %></span>
+                <div class="border-top1"></div>
             </div>
         </div>
-    </div>
-    <div class="padding5">
-        <div id="br-cr" itemscope itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a itemprop='url' href='/m/' class="normal"><span itemprop="title">Home</span></a> &rsaquo; 
-        <a itemprop='url' href='/m/<%= objModelEntity.MakeBase.MaskingName %>-bikes/' class="normal"><span itemprop="title"><%= objModelEntity.MakeBase.MakeName %></span></a> &rsaquo; 
-            <%--        <%if (modelCount > 1)
-          { %>       
-            <a itemprop="url" href='/m/<%= objModelEntity.MakeBase.MaskingName %>-bikes/<%= objModelEntity.ModelSeries.MaskingName %>-series/' class="normal"><span itemprop="title"><%= objModelEntity.ModelSeries.SeriesName %></span></a> &rsaquo;      
-        <%} %>--%>
-            <span class="lightgray" itemprop="title"><%= objModelEntity.ModelName %></span>
-        </div>
-        <%if (!objModelEntity.Futuristic)
-          {
-              if (objModelEntity.ReviewCount > 0)
-              {%>
-        <div itemtype="http://data-vocabulary.org/Review-aggregate" itemscope>
-            <h1 itemprop="itemreviewed"><%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %> Bikes<% if (!objModelEntity.New && objModelEntity.Used)
-                                                                                                                         { %><span style="color: #ff0000;"> (Discontinued)</span><% } %></h1>
-            <div id="divModel" class="box1 new-line5">
-                <div class="container10" style="text-decoration: none;">
-                    <table style="width: 100%;" cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <td style="width: 100px; vertical-align: top;">
-                                    <%--<img itemprop="photo" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= MakeModelVersion.GetModelImage(objModelEntity.HostUrl, "/bikewaleimg/models/" + objModelEntity.SmallPicUrl) %>" width="90" />--%>
-                                    <img itemprop="photo" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= MakeModelVersion.GetModelImage(objModelEntity.HostUrl, objModelEntity.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>" width="90" />
-                                </td>
-                                <td valign="top">
-                                    <div class="darkgray"><%=objModelEntity.New ? "Ex-Showroom Price: " : "Last Recorded Price: " %><%= Bikewale.Common.Configuration.GetDefaultCityName %></div>
-                                    <div class="darkgray new-line">
-                                        <h2><b>Rs. <%= CommonOpn.FormatPrice(objModelEntity.MinPrice.ToString()) %></b></h2>
-                                        <span class="<%= (objModelEntity.MinPrice == 0) || (!objModelEntity.New && objModelEntity.Used) ? "hide" : "f-12" %>"><a id="emiCalculator" href="#requestEmi" data-rel="popup" data-position-to="window" style="text-decoration: underline">Get EMI Assistance</a></span>
-                                    </div>
-                                    <div class="darkgray new-line5">Avg User Rating</div>
-                                    <div class="darkgray new-line">
-                                        <div><%= CommonOpn.GetRateImage( objModelEntity.ReviewRate) %></div>
-                                        <div itemprop='rating' itemscope itemtype='http://data-vocabulary.org/Rating'>
-                                            <span itemprop='value'><%=objModelEntity.ReviewRate%></span> /
-                                    <span itemprop='best'>5</span>
-                                        </div>
-                                        <div>
-                                            <% if (objModelEntity.ReviewCount > 0)
-                                               {%>
-                                        Based on <a id="review" href='/m/<%=objModelEntity.MakeBase.MaskingName %>-bikes/<%= objModelEntity.MaskingName %>/user-reviews/' class="normal" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %> Reviews"><span itemprop='votes' style="position: relative; top: 2px;"><%= objModelEntity.ReviewCount %> reviews</span></a>
-                                            <% }
-                                               else
-                                               {%>
-                                            <span itemprop='votes' style="position: relative; top: 2px;"><%= objModelEntity.ReviewCount %> reviews</span>
-                                            <%} %>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <ul class="socialplugins  new-line10">
-                                        <li>
-                                            <fb:like href="http://www.bikewale.com/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName %>/" send="false" layout="button_count" show_faces="false"></fb:like>
+    </section>
+    
+    <section>
+    	<div class="container bg-white clearfix">
+        	<div class="grid-12">
+                <h2 class="text-center margin-top30 margin-bottom20">Specifications</h2>  
+                
+                
+                <div class="bw-tabs bw-tabs-panel clearfix">
+                    <select class="form-control margin-bottom30">
+                        <option value="summary">Summary</option>
+                        <option value="engineTransmission">Engine &amp; Transmission </option>
+                        <option value="brakeWheels">Brakes, Wheels and Suspension</option>
+                        <option value="dimensions">Dimensions and Chassis</option>
+                        <option value="fuelEffiency">Fuel effieciency and Performance</option>
+                    </select>
+                    
+                    <div class="leftfloat bw-horz-tabs-data font16">
+                            <div class="bw-tabs-data" id="summary">
+                                <ul>
+                                    <li>
+                                        <div class="text-light-grey">Displacement (cc)</div>
+                                        <div class="text-bold">CC</div>
                                         </li>
-                                        <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName %>/" data-via='<%= title %>' data-lang="en">Tweet</a></li>
-                                        <li>
-                                            <div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName %>/"></div>
+                                    <li>
+                                        <div class="text-light-grey">Cylinders</div>
+                                        <div class="text-bold">1</div>
                                         </li>
-                                        <li style="clear: both;"></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                    <li>
+                                        <div class="text-light-grey">Max Power</div>
+                                        <div class="text-bold">25 bhp @ 8500 rpm</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Maximum Torque</div>
+                                        <div class="text-bold">23 Nm @ 7000 rpm</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Bore (mm)</div>
+                                        <div class="text-bold">76</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Stroke (mm)</div>
+                                        <div class="text-bold">55</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Valves Per</div>
+                                        <div class="text-bold">4</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Fuel Delivery System</div>
+                                        <div class="text-bold">Fuel Injection</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Fuel Type</div>
+                                        <div class="text-bold">Petrol</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Ignition</div>
+                                        <div class="text-bold">Digital ECU Based</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Spark Plugs</div>
+                                        <div class="text-bold">1</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Cooling System</div>
+                                        <div class="text-bold">Liquid Cooled</div>
+                                        </li>
+                                    <div class="clear"></div>
+                                </ul>
+                            </div>
+                            <div class="bw-tabs-data hide" id="engineTransmission">
+                            	<ul>
+                                    <li>
+                                        <div class="text-light-grey">Displacement (cc)</div>
+                                        <div class="text-bold">CC</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Max Power</div>
+                                        <div class="text-bold">25 bhp @ 8500 rpm</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Maximum Torque</div>
+                                        <div class="text-bold">23 Nm @ 7000 rpm</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Cylinders</div>
+                                        <div class="text-bold">1</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">No. of gears</div>
+                                        <div class="text-bold">5</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Bore (mm)</div>
+                                        <div class="text-bold">76</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Stroke (mm)</div>
+                                        <div class="text-bold">55</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Valves Per</div>
+                                        <div class="text-bold">4</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Fuel Delivery System</div>
+                                        <div class="text-bold">Fuel Injection</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Fuel Type</div>
+                                        <div class="text-bold">Petrol</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Ignition</div>
+                                        <div class="text-bold">Digital ECU Based</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Spark Plugs</div>
+                                        <div class="text-bold">1</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Cooling System</div>
+                                        <div class="text-bold">Liquid Cooled</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Gearbox Type</div>
+                                        <div class="text-bold">Manual</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Transmission Type</div>
+                                        <div class="text-bold">Chain Drive</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Clutch</div>
+                                        <div class="text-bold">Wet Multi-disc</div>
+                                        </li>
+                                    <div class="clear"></div>
+                                </ul>
+                            </div>
+                            <div class="bw-tabs-data hide" id="brakeWheels">
+                            	<ul>
+                                    <li>
+                                        <div class="text-light-grey">Brake Type</div>
+                                        <div class="text-bold">Disc</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Front Disc</div>
+                                        <div class="text-bold">Yes</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Rear Disc</div>
+                                        <div class="text-bold">-</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Alloy Wheels</div>
+                                        <div class="text-bold">Yes</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Tubeless Tyres</div>
+                                        <div class="text-bold">Yes</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Front Disc/Drum Size</div>
+                                        <div class="text-bold">300 mm</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Rear Disc/Drum Size</div>
+                                        <div class="text-bold">230 mm</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Valves Per</div>
+                                        <div class="text-bold">4</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Calliper Type</div>
+                                        <div class="text-bold">Four piston radially</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Wheel Size (inches)</div>
+                                        <div class="text-bold">71 in</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Front Tyre</div>
+                                        <div class="text-bold">110/70 x 17</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Radial Tyres</div>
+                                        <div class="text-bold">Yes</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Front Suspension</div>
+                                        <div class="text-bold">Inverted Telescopic</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Gearbox Type</div>
+                                        <div class="text-bold">Manual</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Rear Suspension</div>
+                                        <div class="text-bold">Swing Arm, Mono</div>
+                                        </li>
+                                    <div class="clear"></div>
+                                </ul>
+                            </div>
+                            <div class="bw-tabs-data hide" id="dimensions">
+                            	<ul>
+                                    <li>
+                                        <div class="text-light-grey">Kerb Weight</div>
+                                        <div class="text-bold">154 kgs</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Chassis Type</div>
+                                        <div class="text-bold">Tubular space fra</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Overall Length</div>
+                                        <div class="text-bold">-</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Overall Width</div>
+                                        <div class="text-bold">Yes</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Overall Height</div>
+                                        <div class="text-bold">Yes</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Wheelbase</div>
+                                        <div class="text-bold">1355</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Ground Clearance</div>
+                                        <div class="text-bold">177</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Seat Height</div>
+                                        <div class="text-bold">820</div>
+                                        </li>
+                                    <div class="clear"></div>
+                                </ul>
+                            </div>
+                            <div class="bw-tabs-data hide" id="fuelEffiency">
+                            	<ul>
+                                    <li>
+                                        <div class="text-light-grey">Fuel Efficiency</div>
+                                        <div class="text-bold">50 kmpl</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Fuel Tank Capacity</div>
+                                        <div class="text-bold">14 litres</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Overall Length</div>
+                                        <div class="text-bold">-</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Top Speed</div>
+                                        <div class="text-bold">250 kpmh</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Reserve Fuel Capacity</div>
+                                        <div class="text-bold">1.5 L</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Fuel Efficiency Range</div>
+                                        <div class="text-bold">100 kms</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">Ground Clearance</div>
+                                        <div class="text-bold">177</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">0 to 60 kmph</div>
+                                        <div class="text-bold">-</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">0 to 60 kmph</div>
+                                        <div class="text-bold">-</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">0 to 80 kmph</div>
+                                        <div class="text-bold">-</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">0 to 40 m</div>
+                                        <div class="text-bold">-</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">60 to 0 kmph</div>
+                                        <div class="text-bold">-</div>
+                                        </li>
+                                    <li>
+                                        <div class="text-light-grey">80 to 0 kmph</div>
+                                        <div class="text-bold">-</div>
+                                        </li>
+                                    <div class="clear"></div>
+                                </ul>
+                            </div>
+                        </div>
+                    
                 </div>
-                <div class='<%=objModelEntity.New ? "new-line10" : "hide" %>'>
-                    <a class="fillPopupData" modelId="<%= modelId %>" href="/m/pricequote/default.aspx?model=<%= modelId %>" data-role="button" data-theme="b" data-mini="true" style="color: #fff !important;">
-                        Check On-Road Price
-                    </a>
+                <!-- bw-tabs ends here -->
+                
+                <!-- features code starts here -->
+                <div class="bw-tabs-data margin-bottom20" id="features">
+                	<div class="border-top1"></div>
+                    <h2 class="text-center margin-top30 margin-bottom20 text-center">Features</h2>
+                    <div class="bw-horz-tabs-data font16">
+                    	<ul class="bw-tabs-data">
+                        	<li>
+                            	<div class="text-light-grey">Speedometer</div>
+                                <div class="text-bold">Digital</div>
+                            </li>
+                            <li>
+                            	<div class="text-light-grey">Fuel Guage</div>
+                                <div class="text-bold">Yes</div>
+                            </li>
+                            <li>
+                            	<div class="text-light-grey">Tachometer Type</div>
+                                <div class="text-bold">Analog</div>
+                            </li>
+                            <li>
+                            	<div class="text-light-grey">Digital Fuel Guage</div>
+                                <div class="text-bold">No</div>
+                            </li>
+                            <li>
+                            	<div class="text-light-grey">Tripmeter</div>
+                                <div class="text-bold">No</div>
+                            </li>
+                            <li>
+                            	<div class="text-light-grey">Electric Start</div>
+                                <div class="text-bold">Yes</div>
+                            </li>
+                            <div class="clear"></div>
+                        </ul>
+                        <ul class="more-features bw-tabs-data hide">
+                        	<li>
+                            	<div class="text-light-grey">Speedometer</div>
+                                <div class="text-bold">Digital</div>
+                            </li>
+                            <li>
+                            	<div class="text-light-grey">Fuel Guage</div>
+                                <div class="text-bold">Yes</div>
+                            </li>
+                            <li>
+                            	<div class="text-light-grey">Tachometer Type</div>
+                                <div class="text-bold">Analog</div>
+                            </li>
+                            <li>
+                            	<div class="text-light-grey">Digital Fuel Guage</div>
+                                <div class="text-bold">No</div>
+                            </li>
+                            <li>
+                            	<div class="text-light-grey">Tripmeter</div>
+                                <div class="text-bold">No</div>
+                            </li>
+                            <li>
+                            	<div class="text-light-grey">Electric Start</div>
+                                <div class="text-bold">Yes</div>
+                            </li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+                    <div class="or-text"><div class="more-features-btn"><span>+</span></div></div>
                 </div>
-            </div>
-        </div>
-        <%}
-              else
-              { %>
-        <div>
-            <h1><%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %> Bikes<% if (!objModelEntity.New && objModelEntity.Used)
-                                                                                                 { %><span style="color: #ff0000;"> (Discontinued)</span><% } %></h1>
-            <div id="divModelNotRated" class="box1 new-line5">
-                <div class="container10" style="text-decoration: none;">
-                    <table style="width: 100%;" cellpadding="0" cellspacing="0">
-                        <tbody>
-                            <tr>
-                                <td style="width: 100px; vertical-align: top;">
-                                    <%--<img itemprop="photo" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= MakeModelVersion.GetModelImage(objModelEntity.HostUrl, "/bikewaleimg/models/" + objModelEntity.SmallPicUrl) %>" width="90" />--%>
-                                    <img itemprop="photo" title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= MakeModelVersion.GetModelImage(objModelEntity.HostUrl, objModelEntity.OriginalImagePath,Bikewale.Utility.ImageSize._110x61) %>" width="90" />
-                                </td>
-                                <td valign="top">
-                                    <div class="darkgray"><%=objModelEntity.New ? "Ex-Showroom Price: " : "Last Recorded Price: " %><%= Bikewale.Common.Configuration.GetDefaultCityName %></div>
-                                    <div class="darkgray new-line">
-                                        <h2><b>Rs. <%= CommonOpn.FormatPrice(objModelEntity.MinPrice.ToString()) %></b></h2>
-                                        <span class="<%= (objModelEntity.MinPrice == 0) || (!objModelEntity.New && objModelEntity.Used) ? "hide" : "f-12" %>"><a id="emiCalculator" href="#requestEmi" data-rel="popup" data-position-to="window" style="text-decoration: underline">Get EMI Assistance</a></span>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <ul class="socialplugins  new-line10">
-                                        <li>
-                                            <fb:like href="http://www.bikewale.com/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName %>/" send="false" layout="button_count" show_faces="false"></fb:like>
-                                        </li>
-                                        <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName %>/" data-via='<%= title %>' data-lang="en">Tweet</a></li>
-                                        <li>
-                                            <div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName %>/"></div>
-                                        </li>
-                                        <li style="clear: both;"></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                
+                
+                <!-- variant code starts here -->
+                <div class="bw-tabs-data" id="variants">
+                	<h2 class="text-center margin-top30 margin-bottom20 text-center <%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? "" : "hide" %>">Variants</h2>
+                    <asp:Repeater ID="rptVarients" runat="server">
+                        <ItemTemplate>
+                        <div>
+                    	    <div class="border-solid content-inner-block-10 margin-bottom20">
+                        	    <div class="grid-8 alpha">
+                            	    <h3 class="font16 margin-bottom10"><%# DataBinder.Eval(Container.DataItem, "VersionName") %></h3>
+                            	    <%--<p class="font14">220 CC, 38 Kmpl, 103 bhp @ 11000 rpm</p>--%>
+                                    <p class="font14"><%# DataBinder.Eval(Container.DataItem, "BrakeType") %>, <%# DataBinder.Eval(Container.DataItem, "AlloyWheels") %>, <%# DataBinder.Eval(Container.DataItem, "ElectricStart") %>, <%# DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem") %></p>
+                                </div>
+                                <div class="grid-4 alpha omega">
+                            	    <p class="font16 margin-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></p>
+                            	    <p class="font12 text-light-grey">Ex-showroom, <%= Bikewale.Common.Configuration.GetDefaultCityName %></p>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                    <div class="clear"></div>
                 </div>
-                <div class='<%=objModelEntity.New ? "new-line10" : "hide" %>'>
-                    <a class="fillPopupData" modelId="<%= modelId %>" href="/m/pricequote/default.aspx?model=<%= modelId %>" data-role="button" data-theme="b" data-mini="true" style="color: #fff !important;">
-                        Check On-Road Price
-                    </a>
+				
+                <!-- colours code starts here -->
+                <div class="colours-wrap margin-bottom20 <%= modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0 ? "" : "hide" %>">
+                    <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
+                    <div class="jcarousel-wrapper">
+                        <div class="jcarousel">
+                            <ul class="text-center">
+                                <asp:Repeater ID="rptColors" runat="server">
+                                    <ItemTemplate>
+                                    <li class="available-colors">
+                                        <div class="color-box" style="background-color: #<%# DataBinder.Eval(Container.DataItem, "HexCode")%>;"></div>
+                                        <p class="font16 text-medium-grey"><%# DataBinder.Eval(Container.DataItem, "ColorName") %></p>
+                                    </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                                <%--<li class="available-colors">
+                                    <div class="color-box blue"></div>
+                                    <p class="font16 text-medium-grey">Dazzling Blue</p>
+                                </li>
+                                <li class="available-colors">
+                                    <div class="color-box red"></div>
+                                    <p class="font16 text-medium-grey">Dazzling Red</p>
+                                </li>
+                                <li class="available-colors">
+                                    <div class="color-box blue"></div>
+                                    <p class="font16 text-medium-grey">Californoia Blue</p>
+                                </li>
+                                <li class="available-colors">
+                                    <div class="color-box red"></div>
+                                    <p class="font16 text-medium-grey">Dazzling Red</p>
+                                </li>
+                                <li class="available-colors">
+                                    <div class="color-box red"></div>
+                                    <p class="font16 text-medium-grey">Dazzling Red</p>
+                                </li>--%>
+                            </ul>
+                         </div>
+                         <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
+                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
+                        <p class="text-center jcarousel-pagination"></p>
+
+                      </div>
                 </div>
+               
             </div>
         </div>
-
-        <% }
-          }
-          else
-          { %>
-        <div>
-            <h1><%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %> Bikes<span style="color: #ff0000;"> (Upcoming)</span></h1>
-            <div id="divFuturistic" class="box1 new-line5">
-                <div class="container10" style="text-decoration: none;">
-                    <table style="width: 100%;" cellpadding="0" cellspacing="0">
-                        <tbody>
-
-                            <%if (objUpcomingBike != null)
-                              { %>
-                            <tr>
-                                <td style="width: 100px; vertical-align: top;">
-                                    <%--<img title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= Bikewale.Common.ImagingFunctions.GetPathToShowImages(objUpcomingBike.LargePicImagePath,objUpcomingBike.HostUrl) %>" width="90" />--%>
-                                    <img title="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" alt="<%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName %>" src="<%= Bikewale.Utility.Image.GetPathToShowImages(objUpcomingBike.OriginalImagePath,objUpcomingBike.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" width="90" />
-                                </td>
-                                <td valign="top">
-                                    <div class="darkgray">Expected Launch:</div>
-                                    <div class="darkgray new-line"><b><%= objUpcomingBike.ExpectedLaunchDate %></b></div>
-                                    <div class="darkgray new-line5">Expected Price:</div>
-                                    <div class="darkgray new-line"><b>Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(objUpcomingBike.EstimatedPriceMin.ToString(),objUpcomingBike.EstimatedPriceMax.ToString()) %></b></div>
-                                </td>
-                            </tr>
-                            <%} %>
-                            <tr>
-                                <td colspan="2">
-                                    <ul class="socialplugins  new-line10">
-                                        <li>
-                                            <fb:like href="http://www.bikewale.com/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName %>/" send="false" layout="button_count" show_faces="false"></fb:like>
-                                        </li>
-                                        <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName %>/" data-via='<%= title %>' data-lang="en">Tweet</a></li>
-                                        <li>
-                                            <div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/<%= objModelEntity.MakeBase.MaskingName%>-bikes/<%= objModelEntity.MaskingName %>/"></div>
-                                        </li>
-                                        <li style="clear: both;"></li>
-                                    </ul>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+    </section>
+    
+    <section><!--  News, reviews and videos code starts here -->
+        <div class="container">
+        	<div class="grid-12">
+                <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
+                <div class="bw-tabs-panel">
+                    <div class="bw-tabs margin-bottom15">
+                    	<div class="form-control-box">                        	
+                            <select class="form-control">
+                                <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlNews">News</option>
+                                <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>"  value="ctrlExpertReviews">Reviews</option>
+                                <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
+                            </select>
+                        </div>
+                    </div>
+                    <BW:News runat="server" ID="ctrlNews"/>
+                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>
+                    <BW:Videos runat="server" ID="ctrlVideos"/>                    
+                </div>        
+        	</div>
+            <div class="clear"></div>
         </div>
-        <%} %>
+    </section>
 
-        <div class="box1 new-line5">
-            <!-- Bikewale_Mobile_Model_300x250 -->
-            <div id='div-gpt-ad-1398837216327-2' style='width: 300px; height: 250px;'>
-                <script type='text/javascript'>
-                    googletag.cmd.push(function () { googletag.display('div-gpt-ad-1398837216327-2'); });
-                </script>
-            </div>
-        </div>
-        <%if (!objModelEntity.Futuristic && versionCount > 0)
-          {%>
-        <h2 class="pgsubhead"><%= objModelEntity.ModelName %> Versions</h2>
-        <div id="divVersions" class="box1 new-line5" style="padding: 0px 5px;">
-            <asp:repeater id="rptVersions" runat="server">
-            <itemtemplate>
-	        <div class="container">
-		        <div class="sub-heading">
-			        <b><%# DataBinder.Eval(Container.DataItem, "VersionName") %></b>
-		        </div>
-		        <div class="darkgray new-line5">
-			       <%=objModelEntity.New ? "Ex-Showroom Price: " : "Last Recorded Price: " %><b>Rs. <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem, "Price").ToString()) %></b>
-		        </div>
-	        </div>
-            </itemtemplate>
-        </asp:repeater>
-        </div>
-        <% } %>
-        <% if (!objModelEntity.Futuristic && !String.IsNullOrEmpty(objDesc.SmallDescription))
-           { %>
-        <h2 class="pgsubhead"><%= objModelEntity.ModelName %> Review</h2>
-        <div id="divShortSynopsis" class="box1 new-line5">
-            <div id="divShortDescContent">
-                <%= objDesc.SmallDescription %>
-            </div>
-            <div class="new-line5 darkblue">
-                <span id="spnShortSynopsis">Read full review&nbsp;&nbsp;<span class="arr-small">&raquo;</span></span>
-            </div>
-        </div>
-        <div id="divFullSynopsis" class="box1 new-line5" style="display: none;">
-            <div>
-                <%= objDesc.FullDescription %>
-            </div>
-            <div class="new-line5 darkblue">
-                <span id="spnFullSynopsis">Hide full review&nbsp;&nbsp;<span class="arr-small">&raquo;</span></span>
-            </div>
-        </div>
-        <% } %>
-        <% if (!String.IsNullOrEmpty(objDesc.FullDescription) && objModelEntity.Futuristic)
-           { %>
-        <h2 class="pgsubhead"><%= objModelEntity.ModelName %> Review</h2>
-        <div id="divFullSyn" class="box1 new-line5">
-            <div>
-                <%= objDesc.FullDescription %>
-            </div>
-        </div>
-        <% } %>
-
-        <% if (!objModelEntity.Futuristic && versionCount > 0)
-           { %>
-        <% if (objSpecs != null)
-           { %><h2 class="pgsubhead"><%= objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " " + versionName %> Specifications</h2>
-        <% } %>
-        <% if ((int)ViewState["VersionCount"] > 1)
-           { %>
-        <span id="changeVer" class="ui-btn ui-icon-carat-d ui-btn-icon-right ui-corner-all ui-mini ui-btn-inline ui-btn-a normal">Change Version</span>
-        <div class="hide" id="divDrpVersion">
-            <asp:dropdownlist id="drpVersion" runat="server" autopostback="true"></asp:dropdownlist>
-        </div>
-        <% } %>
-        <% if (objSpecs != null)
-           { %>
-        <a class="normal" id="Features">
-            <div class="box1 new-line5">
-                <table class="table" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td>
-                            <div class="head-big ui-icon ui-icon-carat-d ui-icon-shadow ui-btn-icon-right">Features</div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </a>
-        <div class="box1 new-line5" id="divFeatures">
-            <table cellspacing="0" class="tblData">
-                <tr>
-                    <td style="width: 200px;">Speedometer</td>
-                    <td><%= ShowNotAvailable(objSpecs.Speedometer) %></td>
-                </tr>
-                <tr>
-                    <td>Tachometer</td>
-                    <td><%=GetFeatures(objSpecs.Tachometer.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Tachometer Type</td>
-                    <td><%= ShowNotAvailable(objSpecs.TachometerType) %></td>
-                </tr>
-                <tr>
-                    <td>Shift Light</td>
-                    <td><%=GetFeatures(objSpecs.ShiftLight.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Electric Start</td>
-                    <td><%=GetFeatures(objSpecs.ElectricStart.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Tripmeter</td>
-                    <td><%=GetFeatures(objSpecs.Tripmeter.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>No Of Tripmeters</td>
-                    <td><%=ShowNotAvailable(objSpecs.NoOfTripmeters) %></td>
-                </tr>
-                <tr>
-                    <td>Tripmeter Type</td>
-                    <td><%=ShowNotAvailable(objSpecs.TripmeterType) %></td>
-                </tr>
-                <tr>
-                    <td>Low Fuel Indicator</td>
-                    <td><%=GetFeatures(objSpecs.LowFuelIndicator.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Low Oil Indicator</td>
-                    <td><%=GetFeatures(objSpecs.LowOilIndicator.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Low Battery Indicator</td>
-                    <td><%=GetFeatures(objSpecs.LowBatteryIndicator.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Fuel Gauge</td>
-                    <td><%=GetFeatures(objSpecs.FuelGauge.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Digital Fuel Gauge</td>
-                    <td><%=GetFeatures(objSpecs.DigitalFuelGauge.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Pillion Seat</td>
-                    <td><%=GetFeatures(objSpecs.PillionSeat.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Pillion Footrest</td>
-                    <td><%=GetFeatures(objSpecs.PillionFootrest.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Pillion Backrest</td>
-                    <td><%=GetFeatures(objSpecs.PillionBackrest.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Pillion Grabrail</td>
-                    <td><%=GetFeatures(objSpecs.PillionGrabrail.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Stand Alarm</td>
-                    <td><%=GetFeatures(objSpecs.StandAlarm.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Stepped Seat</td>
-                    <td><%=GetFeatures(objSpecs.SteppedSeat.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Antilock Braking System</td>
-                    <td><%=GetFeatures(objSpecs.AntilockBrakingSystem.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Killswitch</td>
-                    <td><%=GetFeatures(objSpecs.Killswitch.ToString()) %></td>
-                </tr>
-                <tr>
-                    <td>Clock</td>
-                    <td><%=GetFeatures(objSpecs.Clock.ToString()) %></td>
-                </tr>
-            </table>
-        </div>
-        <a class="normal" id="Specs">
-            <div class="box1 new-line5">
-                <table class="table" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td>
-                            <div class="head-big ui-icon ui-icon-carat-d ui-icon-shadow ui-btn-icon-right">Specification</div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </a>
-        <div class="box1 new-line5 hide" id="divSpecs">
-            <div class="box1 new-line5 bot-rad-0">
-                <div><b>Engine</b></div>
-            </div>
-            <div class="box-bot" style="padding: 0px 5px;">
-                <table class="tblData">
-                    <tr>
-                        <td style="width: 200px;">Displacement (cc)</td>
-                        <td><%=ShowNotAvailable(objSpecs.Displacement.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Cylinders</td>
-                        <td><%=ShowNotAvailable(objSpecs.Cylinders.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Max Power</td>
-                        <td><%=ShowNotAvailable(objSpecs.MaxPower.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Maximum Torque</td>
-                        <td><%=ShowNotAvailable(objSpecs.MaximumTorque.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Bore (mm)</td>
-                        <td><%=ShowNotAvailable(objSpecs.Bore.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Stroke (mm)</td>
-                        <td><%=ShowNotAvailable(objSpecs.Stroke.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Valves Per Cylinder</td>
-                        <td><%=ShowNotAvailable(objSpecs.ValvesPerCylinder.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Fuel Delivery System</td>
-                        <td><%=ShowNotAvailable(objSpecs.FuelDeliverySystem) %></td>
-                    </tr>
-                    <tr>
-                        <td>Fuel Type</td>
-                        <td><%=ShowNotAvailable(objSpecs.FuelType) %></td>
-                    </tr>
-                    <tr>
-                        <td>Ignition</td>
-                        <td><%=ShowNotAvailable(objSpecs.Ignition) %></td>
-                    </tr>
-                    <tr>
-                        <td>Spark Plugs (Per Cylinder)</td>
-                        <td><%=ShowNotAvailable(objSpecs.SparkPlugsPerCylinder) %></td>
-                    </tr>
-                    <tr>
-                        <td>Cooling System</td>
-                        <td><%=ShowNotAvailable(objSpecs.CoolingSystem) %></td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="box1 new-line5 bot-rad-0">
-                <div><b>Transmission</b></div>
-            </div>
-            <div class="box-bot" style="padding: 0px 5px;">
-                <table class="tblData">
-                    <tr>
-                        <td style="width: 200px;">Gearbox Type</td>
-                        <td><%=ShowNotAvailable(objSpecs.GearboxType) %></td>
-                    </tr>
-                    <tr>
-                        <td>No Of Gears</td>
-                        <td><%=ShowNotAvailable(objSpecs.NoOfGears.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Transmission Type</td>
-                        <td><%=ShowNotAvailable(objSpecs.TransmissionType) %></td>
-                    </tr>
-                    <tr>
-                        <td>Clutch</td>
-                        <td><%=ShowNotAvailable(objSpecs.Clutch) %></td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="box1 new-line5 bot-rad-0">
-                <div><b>Dimensions &amp; Weight</b></div>
-            </div>
-            <div class="box-bot" style="padding: 0px 5px;">
-                <table class="tblData">
-                    <tr>
-                        <td style="width: 200px;">Kerb Weight (Kg)</td>
-                        <td><%=ShowNotAvailable(objSpecs.KerbWeight.ToString())%></td>
-                    </tr>
-                    <tr>
-                        <td>Overall Length (mm)</td>
-                        <td><%=ShowNotAvailable(objSpecs.OverallLength.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Overall Width (mm)</td>
-                        <td><%=ShowNotAvailable(objSpecs.OverallWidth.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Overall Height (mm)</td>
-                        <td><%=ShowNotAvailable(objSpecs.OverallHeight.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Wheelbase (mm)</td>
-                        <td><%=ShowNotAvailable(objSpecs.Wheelbase.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Ground Clearance (mm)</td>
-                        <td><%=ShowNotAvailable(objSpecs.GroundClearance.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Seat Height (mm)</td>
-                        <td><%=ShowNotAvailable(objSpecs.SeatHeight.ToString()) %></td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="box1 new-line5 bot-rad-0">
-                <div><b>Fuel Efficiency &amp; Range</b></div>
-            </div>
-            <div class="box-bot" style="padding: 0px 5px;">
-                <table class="tblData">
-                    <tr>
-                        <td style="width: 200px;">Fuel Tank Capacity (Litres)</td>
-                        <td><%=ShowNotAvailable(objSpecs.FuelTankCapacity.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Reserve Fuel Capacity (Litres)</td>
-                        <td><%=ShowNotAvailable(objSpecs.ReserveFuelCapacity.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>FuelEfficiency Overall (Kmpl)</td>
-                        <td><%=ShowNotAvailable(objSpecs.FuelEfficiencyOverall.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Fuel Efficiency Range (Km)</td>
-                        <td><%=ShowNotAvailable(objSpecs.FuelEfficiencyRange.ToString()) %></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="box1 new-line5 bot-rad-0">
-                <div><b>Chassis&nbsp;&amp; Suspension</b></div>
-            </div>
-            <div class="box-bot" style="padding: 0px 5px;">
-                <table class="tblData">
-                    <tr>
-                        <td style="width: 200px;">Chassis Type</td>
-                        <td><%=ShowNotAvailable(objSpecs.ChassisType) %></td>
-                    </tr>
-                    <tr>
-                        <td>Front Suspension</td>
-                        <td><%=ShowNotAvailable(objSpecs.FrontSuspension) %></td>
-                    </tr>
-                    <tr>
-                        <td>Rear Suspension</td>
-                        <td><%=ShowNotAvailable(objSpecs.RearSuspension) %></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="box1 new-line5 bot-rad-0">
-                <div><b>Braking</b></div>
-            </div>
-            <div class="box-bot" style="padding: 0px 5px;">
-                <table class="tblData">
-                    <tr>
-                        <td style="width: 200px;">Brake Type</td>
-                        <td><%=ShowNotAvailable(objSpecs.BrakeType) %></td>
-                    </tr>
-                    <tr>
-                        <td>Front Disc</td>
-                        <td><%=GetFeatures(objSpecs.FrontDisc.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Front Disc/Drum Size (mm)</td>
-                        <td><%=ShowNotAvailable(objSpecs.FrontDisc_DrumSize.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Rear Disc</td>
-                        <td><%=GetFeatures(objSpecs.RearDisc.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Rear Disc/Drum Size (mm)</td>
-                        <td><%=ShowNotAvailable(objSpecs.RearDisc_DrumSize.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Calliper Type</td>
-                        <td><%=ShowNotAvailable(objSpecs.CalliperType) %></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="box1 new-line5 bot-rad-0">
-                <div><b>Wheels &amp; Tyres</b></div>
-            </div>
-            <div class="box-bot" style="padding: 0px 5px;">
-                <table class="tblData">
-                    <tr>
-                        <td style="width: 200px;">Wheel Size (inches)</td>
-                        <td><%=ShowNotAvailable(objSpecs.WheelSize.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Front Tyre</td>
-                        <td><%=ShowNotAvailable(objSpecs.FrontTyre) %></td>
-                    </tr>
-                    <tr>
-                        <td>Rear Tyre</td>
-                        <td><%=ShowNotAvailable(objSpecs.RearTyre) %></td>
-                    </tr>
-                    <tr>
-                        <td>Tubeless Tyres</td>
-                        <td><%=GetFeatures(objSpecs.TubelessTyres.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Radial Tyres</td>
-                        <td><%=GetFeatures(objSpecs.RadialTyres.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Alloy Wheels</td>
-                        <td><%=GetFeatures(objSpecs.AlloyWheels.ToString()) %></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="box1 new-line5 bot-rad-0">
-                <div><b>Electricals</b></div>
-            </div>
-            <div class="box-bot" style="padding: 0px 5px;">
-                <table class="tblData">
-                    <tr>
-                        <td style="width: 200px;">Electric System</td>
-                        <td><%=ShowNotAvailable(objSpecs.ElectricSystem) %></td>
-                    </tr>
-                    <tr>
-                        <td>Battery</td>
-                        <td><%=ShowNotAvailable(objSpecs.Battery) %></td>
-                    </tr>
-                    <tr>
-                        <td>Headlight Type</td>
-                        <td><%=ShowNotAvailable(objSpecs.HeadlightType) %></td>
-                    </tr>
-                    <tr>
-                        <td>Headlight Bulb Type</td>
-                        <td><%=ShowNotAvailable(objSpecs.HeadlightBulbType) %></td>
-                    </tr>
-                    <tr>
-                        <td>Brake/Tail Light</td>
-                        <td><%=ShowNotAvailable(objSpecs.Brake_Tail_Light) %></td>
-                    </tr>
-                    <tr>
-                        <td>Turn Signal</td>
-                        <td><%=ShowNotAvailable(objSpecs.TurnSignal) %></td>
-                    </tr>
-                    <tr>
-                        <td>Pass Light</td>
-                        <td><%=GetFeatures(objSpecs.PassLight.ToString()) %></td>
-                    </tr>
-                </table>
-            </div>
-            <div class="box1 new-line5 bot-rad-0">
-                <div><b>Performance</b></div>
-            </div>
-            <div class="box-bot" style="padding: 0px 5px;">
-                <table class="tblData">
-                    <tr>
-                        <td style="width: 200px;">0 to 60 kmph (Seconds)</td>
-                        <td><%=ShowNotAvailable(objSpecs.Performance_0_60_kmph.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>0 to 80 kmph (Seconds)</td>
-                        <td><%=ShowNotAvailable(objSpecs.Performance_0_80_kmph.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>0 to 40 m (Seconds)</td>
-                        <td><%=ShowNotAvailable(objSpecs.Performance_0_40_m.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>Top Speed (Kmph)</td>
-                        <td><%=ShowNotAvailable(objSpecs.TopSpeed.ToString()) %></td>
-                    </tr>
-                    <tr>
-                        <td>60 to 0 Kmph (Seconds, metres)</td>
-                        <td><%=ShowNotAvailable(objSpecs.Performance_60_0_kmph) %></td>
-                    </tr>
-                    <tr>
-                        <td>80 to 0 kmph (Seconds, metres)</td>
-                        <td><%=ShowNotAvailable(objSpecs.Performance_80_0_kmph)%></td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-
-        <a class="normal" id="Colors">
-            <div class="box1 new-line5">
-                <table class="table" cellpadding="0" cellspacing="0">
-                    <tr>
-                        <td>
-                            <div class="head-big ui-icon ui-icon-carat-d ui-icon-shadow ui-btn-icon-right">Colors</div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </a>
-        <div class="box1 new-line5 hide" id="divColors">
-            <table>
-                <tr>
-                    <td><%=ShowNotAvailable(objSpecs.Colors) %></td>
-                </tr>
-            </table>
-        </div>
-        <% } %>
-        <% } %>
-
-        <UR:Reviews ID="reviewList" runat="server"></UR:Reviews>
-    </div>
-
-    <script type="text/javascript">
-        $(function () { $('.m-carousel').carousel(); });
-        $(document).ready(function () {
-            customerName = '';
-            customerEmail = '';
-            customerMobile = '';
-            customerCity = '';
-            customerState = '';
-            modelId = '<%= modelId%>';
-
-            $("#ddlCity").val("0").attr("disabled", true);
-
-            $("#Specs,#Features,#Colors").click(function () {
-                if ($("#div" + $(this).attr("id")).hasClass("hide")) {
-                    $("#divSpecs,#divFeatures,#divColors").addClass("hide").slideUp();
-                    $("#div" + $(this).attr("id")).slideDown();
-                    $("#div" + $(this).attr("id")).removeClass("hide");
-                }
-                else {
-                    $("#div" + $(this).attr("id")).addClass("hide");
-                    $("#div" + $(this).attr("id")).slideUp();
-
-                }
-            });
-
-            $("#spnShortSynopsis").click(function () {
-                $("#divShortSynopsis").hide();
-                $("#divFullSynopsis").show();
-            });
-
-            $("#spnFullSynopsis").click(function () {
-                $("#divFullSynopsis").hide();
-                $("#divShortSynopsis").show();
-            });
-
-            $("#changeVer").click(function () {
-                if ($("#divDrpVersion").hasClass("hide"))
-                    $("#divDrpVersion").removeClass("hide");
-                else
-                    $("#divDrpVersion").addClass("hide");
-            });
-
-            $("#drpVersion").selectmenu('refresh', true);
-
-        });
-
-        $("#closeBox").click(function () {
-            $("#spnError").html("");
-            document.body.style.overflow = "visible";
-
-        });
-
-        $("#emiCalculator").click(function () {
-            document.body.style.overflow = "hidden";
-        });
-
-        $("#ddlStates").change(function () {
-            stateId = $(this).val();
-
-            $("#ddlCity").val(0);
-            $("#ddlCity").selectmenu("refresh", true);
-
-            if (stateId <= 0) {
-                $("#ddlCity").val("0").attr("disabled", true);
-
-            }
-            else {
-
-                $("#ddlCity").val("0").attr("disabled", false);
-                FillCities(stateId);
-            }
-        });
-
-        $("#btnSubmit").click(function () {
-            $("spnError").html("");
-
-            if (validateDetails()) {
-                SaveEMIRequest();
-                document.body.style.overflow = "visible";
-                $("#spnError").html("");
-                $("#requestEmi").popup("close");
-
-                return true;
-            }
-            else
-                return false;
-        });
-
-        function SaveEMIRequest() {
-            $.ajax({
-                type: "POST",
-                url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
-                data: '{"custName":"' + customerName + '", "email":"' + customerEmail + '", "mobile":"' + customerMobile + '", "modelId":"' + modelId + '", "selectedCityId":"' + customerCity + '", "leadtype":"' + '' + '"}',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "SaveEMIAssistaneRequest"); },
-                success: function (response) {
-                    //var responseJSON = eval('(' + response + ')');
-                    //var resObj = eval('(' + responseJSON.value + ')');
-                    alert("Your EMI request has been submitted successfully");
-                }
-            });
-        }
-
-        function validateDetails() {
-
-            var retVal = true;
-            var errorMsg = "";
-
-            var reEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/;
-            var reMobile = /^[0-9]*$/;
-            var name = /^[a-zA-Z& ]+$/;
-
-            // $("#hdnMobile").val($("#numMobile").val());
-
-            customerName = $("#txtName").val().trim();
-
-            if (customerName == "") {
-                retVal = false;
-                errorMsg += "Please enter your Name<br>";
-            }
-            else if (!name.test(customerName)) {
-                retVal = false;
-                errorMsg += "Please enter valid Name<br>";
-            }
-
-            var _email = $("#txtEmail").val().trim().toString().toLowerCase();
-            customerEmail = _email;
-            if (_email == "") {
-                retVal = false;
-                errorMsg += "Please enter your Email<br>";
-            }
-            else if (!reEmail.test(_email)) {
-                retVal = false;
-                errorMsg += "Invalid Email<br>";
-            }
-
-
-            var _custMobile = $("#numMobile").val().trim();
-            customerMobile = _custMobile;
-            if (_custMobile == "") {
-                retVal = false;
-                errorMsg += "Please enter your Mobile Number<br>";
-            }
-            else if (!reMobile.test(_custMobile)) {
-                retVal = false;
-                errorMsg += "Mobile Number should be numeric<br>";
-            }
-            else if (_custMobile.length != 10) {
-                retVal = false;
-                errorMsg += "Mobile Number should be of 10 digits<br>";
-            }
-
-            customerState = $("#ddlStates").val();
-            if (customerState <= 0) {
-                retVal = false;
-                errorMsg += "Please select State<br>";
-            }
-
-
-            customerCity = $("#ddlCity").val();
-            if (customerCity <= 0) {
-                retVal = false;
-                errorMsg += "Please select City<br>";
-            }
-
-            if (retVal == false) {
-                $("#spnError").html(errorMsg);
-            }
-
-            return retVal;
-        }
-
-        function FillCities(stateId) {
-            var requestType = 'ALL';
-            $.ajax({
-                type: "POST",
-                url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
-                data: '{"requestType":"' + requestType + '", "stateId":"' + stateId + '"}',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetCities"); },
-                success: function (response) {
-
-                    var responseJSON = eval('(' + response + ')');
-                    var resObj = eval('(' + responseJSON.value + ')');
-
-                    var dependentCmbs = new Array();
-                    bindDropDownList(resObj, $("#ddlCity"), "", dependentCmbs, "--Select City--");
-                },
-            });
-        }
-    </script>
-
-
-
+    
+    <section>
+    	<div class="container margin-bottom30">
+        	<div class="grid-12">
+    		<!-- Most Popular Bikes Starts here-->
+			<h2 class="margin-top30px margin-bottom20 text-center"><%= bikeName %> alternatives</h2>
+            
+            <div class="jcarousel-wrapper discover-bike-carousel">
+                <div class="jcarousel">
+                <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+              </div>
+                <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
+                <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
+                <p class="text-center jcarousel-pagination"></p>
+             </div>  
+        
+			</div>
+            <div class="clear"></div>
+    	</div>
+    </section>
+    <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
+    <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+    <!-- all other js plugins -->
+    <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+    <script type="text/javascript" src="/m/src/bwm-model.js"></script>
 </form>
-<!-- #include file="/includes/footermobile.aspx" -->
-
+</body>
+</html>

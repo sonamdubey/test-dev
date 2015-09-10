@@ -40,7 +40,7 @@
             </li>
             <li>
                 <a href="/pricequote/rsaofferclaim.aspx">
-                    <span class="bwsprite sellBikes-icon"></span>
+                    <span class="bwsprite claim-offer-icon"></span>
                     <span class="navbarTitle">Claim Your Offer</span>
                 </a>
             </li>

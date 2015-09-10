@@ -42,6 +42,7 @@
                 <a href="/visitoragreement.aspx" class="text-white">Visitor Agreement </a>&
                 <a href="/privacypolicy.aspx" class="text-white">Privacy Policy</a>
             </div>
+            <div class="clear"></div>
         </div>
         <div class="clear"></div>
     </div>

@@ -41,13 +41,13 @@
                                             <h2>Select Bike</h2>
                                         </div>
                                         <div class="input-box">
-                                            <asp:dropdownlist id="ddlMake" width="180" cssclass="drpClass"  data-bind=" value: selectedMake, event: { change: ddlMake_Change }, optionsCaption: '--Select Make--'" runat="server"></asp:dropdownlist>
+                                            <asp:dropdownlist id="ddlMake" width="200" cssclass="drpClass"  data-bind=" value: selectedMake, event: { change: ddlMake_Change }, optionsCaption: '--Select Make--'" runat="server"></asp:dropdownlist>
                                             <span id="spnMake" class="error"></span></div>
                                     </div>
                                     <div class="clear"></div>
                                     <div class="input-box input-box-margin">
                                         <div>
-                                            <asp:dropdownlist id="ddlModel" width="180" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake, event: { change: bindCities }" cssclass="drpClass" runat="server"><asp:ListItem Text="--Select Model--" Value="0" /></asp:dropdownlist>
+                                            <asp:dropdownlist id="ddlModel" width="200" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake, event: { change: bindCities }" cssclass="drpClass" runat="server"><asp:ListItem Text="--Select Model--" Value="0" /></asp:dropdownlist>
                                             <input type="hidden" id="hdn_ddlModel" runat="server" />
                                             <span id="spnModel" class="error"></span></div>
                                     </div>                                    
@@ -61,12 +61,12 @@
                                         <h2>Select Location</h2>
                                     </div>
                                     <div class="input-box">
-                                        <asp:dropdownlist id="ddlCity" width="180" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--'" runat="server"><asp:ListItem Text="--Select City--" Value="0" /></asp:dropdownlist>
+                                        <asp:dropdownlist id="ddlCity" width="200" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--'" runat="server"><asp:ListItem Text="--Select City--" Value="0" /></asp:dropdownlist>
                                         <input type="hidden" id="hdn_ddlCity" runat="server" data-bind=""/><span id="spnCity" class="error" runat="server" /></div>
                                 </div>
                                 <div class="clear"></div>
                                 <div class="input-box input-box-margin hide" id="divAreaChosen"  data-bind="visible: areas().length > 0">
-                                    <select data-placeholder="Search an Area.." class="chosen-select" style="width: 180px" tabindex="2" data-bind="options: areas, optionsText: 'AreaName', optionsValue: 'AreaId', value: selectedArea, optionsCaption: '--Select Area--'" id="ddlArea">
+                                    <select data-placeholder="Search an Area.." class="chosen-select" style="width: 200px" tabindex="2" data-bind="options: areas, optionsText: 'AreaName', optionsValue: 'AreaId', value: selectedArea, optionsCaption: '--Select Area--'" id="ddlArea">
                                         <option value=""></option>
                                     </select>
                                     <input type="hidden" id="hdn_ddlArea" runat="server" /><span id="spnArea" class="error" runat="server" />
@@ -83,7 +83,7 @@
                                 </div>
                             </div>
                             <div style="margin-left: 180px;" class="mid-box margin-top15">
-                                <asp:button id="btnSavePriceQuote" class="action-btn" text="Get Price Quote" runat="server" />
+                                <asp:button id="btnSavePriceQuote" class="action-btn text_white" text="Get Price Quote" runat="server" />
                             </div>
                         </div>
                     </div>
@@ -338,4 +338,7 @@
         }
     }
 </script>
+<style type="text/css">
+    #ddlArea_chosen { width:200px !important; }
+</style>
 <!-- #include file="/includes/footerInner.aspx" -->

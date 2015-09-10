@@ -23,7 +23,9 @@
     .sel_parama span{background-color:#DFDFDF; color:#445566; padding:0 3px; margin-left:5px; cursor:pointer;}
     .sel_parama_hover{border:1px solid #cc0000; color:#445566!important; padding:1px 1px 1px 5px; margin:3px; display:inline-block; text-decoration:none!important; border-radius:3px; cursor:pointer;}
     .sel_parama_hover span{background-color:#cc0000; color:#fff; padding:0 3px; margin-left:5px; cursor:pointer;}
-    #app_filters li {display:block;}    
+    #app_filters li {display:block;} 
+    #btnShowinterst { color:#fff; }
+    #buyer_form input { border:1px solid #ccc; padding:5px; }
 </style>
 <div class="container_12">
     <div class="grid_12">
@@ -159,10 +161,10 @@
 <div id="contact" class="hide">
     <a id="closeBox" class="gb-close right-float" title="Close"></a>
     <a id="backToVerification" class="gb-back hide" title="Back"></a>
-    <div id="buyer_form" style="height:220px;">
+    <div id="buyer_form" style="height:260px;">
 		<h2 id="form_title" class="hd2" style="margin-top:5px;">Interested? Get Seller Details</h2>
 		<p id="byline_text" class="text-grey" style="margin-bottom:5px;">For privacy concerns, We hide owner details. Please fill this form to get owner's details.</p>
-		<table class="tbl-default" width="100%" border="0" cellspacing="0" cellpadding="0">
+		<table class="tbl-default padding-bottom20" width="100%" border="0" cellspacing="0" cellpadding="0">
 		<tr>
 		  <td>Your Name</td>
 		  <td><input type="text" id="txtName" size="27" class="text" /></td>

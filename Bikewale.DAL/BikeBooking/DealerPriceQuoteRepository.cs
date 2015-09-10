@@ -13,6 +13,8 @@ using Bikewale.Entities.Customer;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Location;
+using System.Configuration;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.DAL.BikeBooking
 {
@@ -832,6 +834,179 @@ namespace Bikewale.DAL.BikeBooking
         public PQOutputEntity ProcessPQ(Entities.PriceQuote.PriceQuoteParametersEntity PQParams)
         {
             throw new NotImplementedException();
+        }
+        public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
+        {
+            BookingPageDetailsEntity entity = null;
+            Database db = null;
+            SqlDataReader reader = null;
+            List<DealerPriceCategoryItemEntity> DealerPriceCategoryItemEntities = null;
+            List<BikeDealerPriceDetail> BikeDealerPriceDetails = null;
+            List<string> disclaimers = null;
+            List<DealerOfferEntity> offers = null;
+            DealerDetails objDealerDetails = null;
+            try
+            {
+                db = new Database(ConfigurationManager.AppSettings["connectionstring"]);
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "BW_GetVarientsPriceDetail";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
+                    cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
+                    using (reader = db.SelectQry(cmd))
+                    {
+                        if (reader != null && reader.HasRows)
+                        {
+                            #region Price Breakup for all Versions
+                            DealerPriceCategoryItemEntities = new List<DealerPriceCategoryItemEntity>();
+                            while (reader.Read())
+                            {
+                                DealerPriceCategoryItemEntities.Add(
+                                    new DealerPriceCategoryItemEntity()
+                                    {
+                                        DealerId = Convert.ToUInt32(reader["DealerId"]),
+                                        ItemId = Convert.ToUInt32(reader["ItemId"]),
+                                        ItemName = Convert.ToString(reader["ItemName"]),
+                                        Price = Convert.ToUInt32(reader["Price"]),
+                                        VersionId = Convert.ToUInt32(reader["VersionId"])
+                                    }
+                                );
+                            }
+                            #endregion
+                            #region Version Price Details
+                            if (reader.NextResult())
+                            {
+                                BikeDealerPriceDetails = new List<BikeDealerPriceDetail>();
+                                while (reader.Read())
+                                {
+                                    BikeDealerPriceDetails.Add(
+                                        new BikeDealerPriceDetail()
+                                        {
+                                            BookingAmount = Convert.ToUInt32(reader["BookingAmount"]),
+                                            HostUrl = Convert.ToString(reader["HostURL"]),
+                                            ImagePath = Convert.ToString(reader["OriginalImagePath"]),
+                                            Make = new BikeMakeEntityBase()
+                                            {
+                                                MakeId = Convert.ToInt32(reader["MakeId"]),
+                                                MakeName = Convert.ToString(reader["MakeName"]),
+                                                MaskingName = Convert.ToString(reader["MakeMaskingName"])
+                                            },
+                                            MinSpec = new BikeVersionMinSpecs()
+                                            {
+                                                VersionId = Convert.ToInt32(reader["VersionId"]),
+                                                VersionName = Convert.ToString(reader["VersionName"]),
+                                                Price = Convert.ToUInt64(reader["OnRoadPrice"]),
+                                                ModelName = Convert.ToString(reader["ModelName"]),
+                                                ElectricStart = Convert.IsDBNull(reader["ElectricStart"]) ? false : Convert.ToBoolean(reader["ElectricStart"]),
+                                                BrakeType = Convert.IsDBNull(reader["BreakType"]) ? String.Empty : Convert.ToString(reader["BreakType"]),
+                                                AntilockBrakingSystem = Convert.IsDBNull(reader["ABS"]) ? false : Convert.ToBoolean(reader["ABS"]),
+                                                AlloyWheels = Convert.IsDBNull(reader["AlloyWheels"]) ? false : Convert.ToBoolean(reader["AlloyWheels"])
+                                            },
+                                            Model = new BikeModelEntityBase()
+                                            {
+                                                MaskingName = Convert.ToString(reader["ModelMaskingName"]),
+                                                ModelId = Convert.ToInt32(reader["ModelId"]),
+                                                ModelName = Convert.ToString(reader["ModelName"])
+                                            },
+                                            NoOfWaitingDays = Convert.ToUInt32(reader["NumOfDays"]),
+                                            OnRoadPrice = Convert.ToUInt32(reader["OnRoadPrice"]),
+                                        }
+                                        );
+                                }
+                            }
+                            #endregion
+                            if (reader.NextResult())
+                            {
+                                disclaimers = new List<string>();
+                                while (reader.Read())
+                                {
+                                    disclaimers.Add(Convert.ToString(reader["Disclaimer"]));
+                                }
+                            }
+                            #region Dealer Offer Entity
+                            if (reader.NextResult())
+                            {
+                                offers = new List<DealerOfferEntity>();
+                                while (reader.Read())
+                                {
+                                    offers.Add(
+                                        new DealerOfferEntity()
+                                        {
+                                            Id = Convert.ToUInt32(reader["OfferCategoryId"]),
+                                            Text = Convert.ToString(reader["OfferText"]),
+                                            Type = Convert.ToString(reader["OfferType"]),
+                                            Value = Convert.ToUInt32(reader["OfferValue"])
+                                        }
+                                        );
+                                }
+                            }
+                            #endregion
+                            #region Dealer Details
+                            if (reader.NextResult())
+                            {
+                                if (reader.Read())
+                                {
+                                    objDealerDetails = new DealerDetails()
+                                    {
+                                        Address1 = Convert.ToString(reader["Address1"]),
+                                        Address2 = Convert.ToString(reader["Address2"]),
+                                        Area = Convert.ToString(reader["AreaName"]),
+                                        City = Convert.ToString(reader["CityName"]),
+                                        ContactHours = Convert.ToString(reader["ContactHours"]),
+                                        EmailId = Convert.ToString(reader["EmailId"]),
+                                        FaxNo = Convert.ToString(reader["FaxNo"]),
+                                        FirstName = Convert.ToString(reader["FirstName"]),
+                                        Id = Convert.ToUInt32(reader["Id"]),
+                                        LastName = Convert.ToString(reader["LastName"]),
+                                        Lattitude = Convert.ToString(reader["Lattitude"]),
+                                        Longitude = Convert.ToString(reader["Longitude"]),
+                                        MobileNo = Convert.ToString(reader["MobileNo"]),
+                                        Organization = Convert.ToString(reader["Organization"]),
+                                        PhoneNo = Convert.ToString(reader["PhoneNo"]),
+                                        Pincode = Convert.ToString(reader["Pincode"]),
+                                        State = Convert.ToString(reader["StateName"]),
+                                        WebsiteUrl = Convert.ToString(reader["WebsiteUrl"])
+                                    };
+                                }
+                            }
+                            #endregion
+                            entity = new BookingPageDetailsEntity();
+                            entity.Dealer = objDealerDetails;
+                            entity.Disclaimers = disclaimers;
+                            entity.Offers = offers;
+                            BikeDealerPriceDetails.ForEach(
+                                version => version.PriceList =
+                                    (from price in DealerPriceCategoryItemEntities
+                                     where price.VersionId == version.MinSpec.VersionId
+                                     select new DealerVersionPriceItemEntity()
+                                     {
+                                         DealerId = price.DealerId,
+                                         ItemId = price.ItemId,
+                                         ItemName = price.ItemName,
+                                         Price = price.Price
+                                     }).ToList());
+
+                            entity.Varients = BikeDealerPriceDetails;
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqEx)
+            {
+                HttpContext.Current.Trace.Warn("FetchBookingPageDetails sqlex : " + sqEx.Message + sqEx.Source);
+                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("FetchBookingPageDetails ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return entity;
         }
     }   //End of class
 }   //End of namespace

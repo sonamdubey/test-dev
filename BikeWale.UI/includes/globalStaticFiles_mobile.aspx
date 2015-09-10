@@ -10,10 +10,9 @@
 <script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/m-carousel.js?v=1.0"></script>
 <script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js?23june2015"></script>
 <script type="text/javascript">
-	$(function () { $('.m-carousel').carousel(); });
-</script>
-<script type="text/javascript">
+    $(function () { $('.m-carousel').carousel(); });
     $(document).ready(function () {
         $.mobile.ajaxEnabled = false;
     });
+    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
 </script>
