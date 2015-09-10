@@ -96,6 +96,11 @@
     <Compile Include="Model\ModelDetails.cs" />
     <Compile Include="Model\ModelList.cs" />
     <Compile Include="Model\ModelPage.cs" />
+    <Compile Include="PriceQuote\BikeBooking\BikeDealerPriceDetailDTO.cs" />
+    <Compile Include="PriceQuote\BikeBooking\BookingPageDetailsDTO.cs" />
+    <Compile Include="PriceQuote\BikeBooking\DealerDetailsDTO.cs" />
+    <Compile Include="PriceQuote\BikeBooking\DealerOfferDTO.cs" />
+    <Compile Include="PriceQuote\BikeBooking\DealerVersionPriceItemDTO.cs" />
     <Compile Include="PriceQuote\PQOnRoad.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
     <Compile Include="Version\ModelVersionList.cs" />

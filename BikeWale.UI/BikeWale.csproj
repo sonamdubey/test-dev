@@ -813,7 +813,6 @@
       <DependentUpon>BikeModels.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-  
     <Compile Include="m\new\BikeSeries.aspx.cs">
       <DependentUpon>BikeSeries.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2035,7 +2034,6 @@
     <Content Include="m\news\newsdetails.aspx" />
     <Content Include="m\new\BikeMakes.aspx" />
     <Content Include="m\new\BikeModels.aspx" />
-    <Content Include="m\new\BikeModels_old.aspx" />
     <Content Include="m\new\BikeSeries.aspx" />
     <Content Include="m\new\compare\CompareBike.aspx" />
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
