@@ -72,7 +72,7 @@
         if (isValid)
         {
             path = "/finance/emicalculator.aspx?la=" + loanAmt + "&rt=" + rateOfInterestVal;
-           window.location = path;
+           window.location.href += path;
         }
         else {
             return isValid;
