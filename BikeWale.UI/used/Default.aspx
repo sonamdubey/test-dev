@@ -16,10 +16,12 @@
     .col {float: left;padding-bottom: 5px;width: 100px;}
     .tabs-container{border:1px solid #bfbfbf; overflow:hidden; margin-left:20px;}
     .tabs-container li a{border-left: 1px solid #bfbfbf; color:#5e5e5e; padding:11px 18px; cursor:pointer; font-weight:bold;}
-    .tabs-container li{font-weight:bold;  float:left; padding:10px 0px; }
+    .tabs-container li{font-weight:bold;  float:left; padding:10px 0px; background:#f5f5f5;}
     .tabs-container li:hover {background-color:#E2E2E2 ; font-weight:bold;  float:left;}
     .tabs-container li a.first{border-left: 0px;}
-    .tabs-container li a.active-tab{color:#898585!important; text-decoration:none; font-weight:bold;}
+    .tabs-container li a.active-tab{color:#898585!important; text-decoration:none; font-weight:bold; background:#fff;}
+    .tabs-container li a:hover { text-decoration:none; }
+    .find-used-bikes-container td select { width:195px; }
 </style>
     <div class="container_12">
         <div class="grid_12">
@@ -36,7 +38,7 @@
                 <div class="content-block">
                     <h2 class="hd2">Find Used Bikes</h2>
 		            <p class="margin-top5">Thousands of used bikes listed for sale</p>
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tbl-default margin-top10">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tbl-default margin-top10 find-used-bikes-container">
                         <tr>
                             <td>Your City</td>
                             <td><asp:DropDownList ID="ddlCity" runat="server" ></asp:DropDownList></td>                    
@@ -68,7 +70,7 @@
                         <tr>
                             <td>&nbsp;</td>
                             <td><div>
-                                <input type="button" id="btnSearchUsedBike" runat="server" value="Find Used Bike" class="action-btn" onclick="SearchByCriteria()" />                                
+                                <input type="button" id="btnSearchUsedBike" runat="server" value="Find Used Bike" class="action-btn text_white" onclick="SearchByCriteria()" />                                
                                 </div>
                                 <div id="process_img" class="hide text-highlight">Redirecting Please wait...</div>
                             </td>
@@ -80,7 +82,7 @@
                         <%--<input type="text" id="txtlocateProfile" style="width:100px;" />&nbsp;<a id="btnLocateProfile" class="buttons">Go</a>--%>
                     
                         <input name="txtProfileId" type="text" value="Profile Id" id="txtProfileId" placeholder="Profile Id" style="width:90px;" /><span class="error">*</span>
-                        <input name="btnSearchProfileId" type="button" id="btnSearchProfileId" value="Go" class="buttons" onclick="SearchByProfile()"  />
+                        <input name="btnSearchProfileId" type="button" id="btnSearchProfileId" value="Go" class="buttons text_white btn-xs" onclick="SearchByProfile()"  />
                         <div id="spn_txtProfile" class="error"></div>
                     </div>
                     <div class="margin-top10"></div>

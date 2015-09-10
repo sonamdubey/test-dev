@@ -49,7 +49,7 @@ input[type="text"]#bw-date { width:100%; position:relative; z-index:99; backgrou
 #ui-datepicker-div { z-index:9999 !important; }
 /*Contact detail popup*/
 .input-div { background:#fff; border:1px solid #eaeaea; text-align:center; width:300px; border-radius:5px; margin:5px 0 10px 0;  }
-.input-icon-div{ border-right:1px solid #eaeaea; padding:5px; float:left; width:20px; }
+.input-icon-div{ border-right:1px solid #eaeaea; padding:5px; float:left; width:31px; }
 .input-div input{ border:none; margin:3px 0 0;}
 input:focus { outline:none; } 
 input[type="checkbox"]#userAgreement { position:relative; top:2px; }

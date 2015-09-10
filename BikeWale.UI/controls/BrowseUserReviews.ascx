@@ -9,8 +9,8 @@
         <asp:ListItem Selected="true" Text="--Select Model--" Value="0"></asp:ListItem>
         </asp:DropDownList>
     </li>
-    <li><div class="action-btn margin-left10"><a onclick="viewReviews();">Read Reviews</a></div></li>
-    <li>or browse <a href="/user-reviews/">Bike Reviews</a></li>
+    <li><div class="action-btn margin-left10 btn-xs"><a onclick="viewReviews();">Read Reviews</a></div></li>
+    <li class="padding-top10 padding-left5">or browse <a href="/user-reviews/">Bike Reviews</a></li>
 </ul><div class="clear"></div>
 <input type="hidden" id="hdn_drpModel" runat="server" />
 <script type="text/javascript">

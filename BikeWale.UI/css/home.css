@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 .booking-online-box { height:140px; padding:65px 20px 20px;}
 .booking-online-pic {width:130px; height:92px; margin:0 auto; position:relative; top:35px; border:1px solid #ddd\9; -moz-box-shadow:0px 2px 5px #ccc; -o-box-shadow:0px 2px 5px #ccc; -webkit-box-shadow:0px 2px 5px #ccc; -ms-box-shadow:0px 2px 5px #ccc; box-shadow:0px 2px 5px #ccc;}
@@ -28,16 +28,6 @@
 .budget-container ul li a span.budget-title-box , .budget-container ul li a span.budget-amount-box, .mileage-container ul li a span.mileage-title-box , .mileage-container ul li a span.mileage-amount-box { display:block; }
 .budget-container ul li a:hover, .mileage-container ul li a:hover { border: 1px solid #4d5057; text-decoration:none; }
 .budget-container ul li a span.budget-title-box, .mileage-container ul li a span.mileage-title-box { padding-top: 40px; padding-bottom: 5px; }
-
-
-/* style-container */
-.style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }
-.styletypesprite { background: url(../images/style-type-sprite.png) no-repeat; display: inline-block;  }
-.style-scooters, .style-street, .style-cruiser, .style-sports { width:75px; height:45px; }
-.style-scooters { background-position: 0 0; }
-.style-street { background-position: 0 -52px; }
-.style-cruiser { background-position: 0 -105px; }
-.style-sports { background-position: 0 -155px; }
 
 
 /*  */

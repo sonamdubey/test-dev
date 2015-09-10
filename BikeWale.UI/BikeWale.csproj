@@ -1580,6 +1580,7 @@
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
     <Content Include="css\model.css" />
+    <Content Include="css\newbikes.css" />
     <Content Include="css\new\search.css" />
     <Content Include="css\rsa.css" />
     <Content Include="css\slideshow.css" />
@@ -2062,6 +2063,7 @@
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="src\autocomplete.js" />
+    <Content Include="src\brand.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
@@ -2133,6 +2135,7 @@
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="src\knockout.js" />
     <Content Include="src\model.js" />
+    <Content Include="src\newbikes.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\new\search.js" />
@@ -2142,6 +2145,7 @@
     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test\css\bw-new-style.css" />

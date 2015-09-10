@@ -17,7 +17,7 @@
 	</tr>
 	<tr>
 		<td>&nbsp;</td>
-		<td><asp:Button ID="butLogin" CssClass="action-btn" Text="Login" runat="server" /></td>
+		<td><asp:Button ID="butLogin" CssClass="action-btn text_white" Text="Login" runat="server" /></td>
 	</tr>	
 </table>
 <script type="text/javascript">
