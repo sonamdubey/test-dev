@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.UsedBikeSearch" %>
-<div class="margin-top15 margin-left10" style="border:1px solid #E2E2E2;">                
+<div class="margin-top40 margin-left10" style="border:1px solid #E2E2E2;">                
     <div>
         <h2 class="left-float margin-top15">Used Bikes By</h2>  
         <ul class="tabs-container left-float margin-top10" id="tab-list">                

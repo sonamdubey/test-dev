@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 /* top banner */
 .new-bikes-top-banner { background:#161209 url(../images/new-bikes-banner.jpg) no-repeat center top; height: 285px; padding-top: 1px; }
@@ -21,20 +21,6 @@
 .budget-container ul li a span.budget-title-box , .budget-container ul li a span.budget-amount-box, .mileage-container ul li a span.mileage-title-box , .mileage-container ul li a span.mileage-amount-box { display:block; }
 .budget-container ul li a:hover, .mileage-container ul li a:hover { border: 1px solid #4d5057; text-decoration:none; }
 .budget-container ul li a span.budget-title-box, .mileage-container ul li a span.mileage-title-box { padding-top: 40px; padding-bottom: 5px; }
-
-/* style-container */
-.style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }
-.styletypesprite { background: url(../images/style-type-sprite.png) no-repeat; display: inline-block;  }
-.style-scooters, .style-street, .style-cruiser, .style-sports, .style-scooters-dark, .style-street-dark, .style-cruiser-dark, .style-sports-dark { width:77px; height:44px; }
-.style-scooters { background-position: 0 0; }
-.style-scooters-dark { background-position: 0 -54px; }
-.style-street { background-position: 0 -108px; }
-.style-street-dark { background-position: 0 -162px; }
-.style-cruiser { background-position: 0 -216px; }
-.style-cruiser-dark { background-position: 0 -270px; }
-.style-sports { background-position: 0 -324px; }
-.style-sports-dark { background-position: 0 -378px; }
-
 
 /* discover bikes */
 .newbike-discover-bike-container { background-color: #fff; }
@@ -67,7 +53,4 @@
 .loan-amount-box, .interest-rate-boxSelect { width:293px; height:45px; float:left; }
 .loan-amount-box input[type="text"], .interest-rate-boxSelect input[type="text"] { width:293px; height: 43px; }
 
-/* News-Reviews-Videos New Bikes */
-.newBikes-latest-updates-container .grid-4 { padding-left:10px; !important }
-.newBikes-latest-updates-container .grid-8 { padding-right:10px; !important }
 

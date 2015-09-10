@@ -1,44 +1,31 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.PopupWidget" %>
 <!--bw popup code starts here-->
 <link href="/css/chosen.min.css" rel="stylesheet" />
-<style>
-    
-/*PopupWidget Styling*/
-.bw-popup, .bw-contact-popup { background:#fff; width:454px; position:fixed; left:50%; top:50%; z-index:999; margin-left:-220px; margin-top:-150px;  border-radius:2px; }
-.bw-contact-popup { max-width:454px;}
-.bw-popup-sm { width:300px; position:fixed; top:50%; left:52%;}
-.popup-inner-container { padding:20px 20px 30px;}
-.popup-inner-container h2{ padding-bottom:10px; border-bottom:2px solid #c62000;}
-.bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;} 
 
-/*All action btn css */
-.action-btn { display:inline-block;padding: 8px 42px; background:#d52700; color:#fff; font-size: 16px; line-height: 1.42857143; text-align: center; white-space: nowrap; border: 1px solid transparent; border-radius: 2px;
-	outline: none; text-decoration: none; vertical-align: middle; -ms-touch-action: manipulation; touch-action: manipulation; cursor: pointer; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; background-image: none;  
--webkit-border-fit:border;
-}
-.action-btn a{color:#fff; text-decoration:none;}
-.action-btn a:hover{text-decoration:none;}
-
-</style>
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
     <div class="popup-inner-container" stopBinding: true>
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-        <p class="font20 margin-top15 text-capitalize text-center">Select Location</p>
+        <div class="cityPop-icon-container">
+            <div class="cityPopup-box rounded-corner50 margin-bottom20">
+                <span class="bwsprite cityPopup-icon margin-top10"></span>
+            </div>
+        </div>
+        <p class="font20 margin-top15 text-capitalize text-center">Please Tell Us Your Location</p>
+        <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Get on-road prices by just sharing your location!</p>
         <div class="padding-top10" id="popupContent">
-            <div class="text-center margin-bottom10"><span><span class="red">*</span>All fields are mandatory</span></div>
-
             <div>
                 <select data-placeholder="--Select City--" class="chosen-select"  id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }" ></select> 
                  <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
-            <div data-bind="visible: bookingAreas().length > 0" style="margin-top:5px">
+            <div data-bind="visible: bookingAreas().length > 0" style="margin-top:10px">
                 <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', event: { change: areaChangedPopup }"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
-                <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top10" style="display:block;margin-right:auto;margin-left:auto;" type="button" value="Get Price Quote" data-bind="event: { click: getPriceQuotePopup }">
-                <div id="errMsgPopup" class="red-text margin-top10 hide"></div>
+                <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top10" style="display:block;margin-right:auto;margin-left:auto;" type="button" value="Confirm Location" data-bind="event: { click: getPriceQuotePopup }">
+                <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
+            </div>
         </div> 
     </div>
 </div>

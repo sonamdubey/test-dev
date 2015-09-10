@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.EMICalculatorMin" %>
 <div class="calculate-emi-container text-center margin-bottom50">
     <div class="margin-bottom40">
-        <span class="bw-circle-icon user-review-logo"></span>
+        <span class="bw-circle-icon emi-calc-logo"></span>
     </div>
     <p class="font16 margin-bottom30">Instant calculate loan EMI</p>
     <div class="calculate-emi-search-container">
