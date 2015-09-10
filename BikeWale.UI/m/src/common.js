@@ -81,9 +81,9 @@ $(document).ready(function () {
         var searchVal = id.val();
         var placeHolder = id.attr('placeholder');
         if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
-            window.location.href += '/m/new/';
+            window.location.href += '/new/';
             return false;
-        }
+        } 
     });
 
     function btnFindBikeNewNav() {
@@ -156,8 +156,8 @@ $(document).ready(function () {
 
 	$(".global-location").click( function(){
 	    $("#globalcity-popup").show();
-	    CheckGlobalCookie()
-		lockPopup();
+	    lockPopup();
+	    CheckGlobalCookie();
 	});
 	$(".blackOut-window").mouseup(function(e){
 		var globalLocation = $("#globalcity-popup"); 
@@ -329,17 +329,17 @@ $(document).ready(function () {
 	}
 
 
-	$('#btnGlobalCityPopup').on('click', function (e) {
-	    ele = $('#globalCityPopUp').val();
-
-	    if (globalCityId > 0 && ele != "") {
+	$('#btnGlobalCityPopup').on('click', function () {
+	    ele = $('#globalCityPopUp');
+	    if (globalCityId > 0 && ($(ele).val()) != "") {
 	        showHideMatchError(ele, false);
 	        CloseCityPopUp();
-	    }                                               
+	    }
 	    else {
 	        showHideMatchError(ele, true);
-	        return false;
+	        unlockPopup();
 	    }
+	    return false;
 	});
 
 });

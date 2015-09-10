@@ -6,7 +6,7 @@ var globalCityId = 0;
 $(document).ready(function () {
     $('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
-   
+    var blackOut = $(".blackOut-window")[0];
     
 	CheckGlobalCookie();
 
@@ -241,7 +241,7 @@ $(document).ready(function () {
 
 	
 	//global city popup
-	$(".gl-default-stage").click( function(){
+	$("#header div.gl-default-stage").click( function(){
 		$(".blackOut-window").show();
 		$(".globalcity-popup").removeClass("hide").addClass("show");
 		CheckGlobalCookie();
@@ -306,7 +306,7 @@ $(document).ready(function () {
 	}
 		
 	function lockPopup() {
-		$('body').addClass('lock-browser-scroll');
+	    $('body').addClass('lock-browser-scroll');
 		$(".blackOut-window").show();
 	}
 	

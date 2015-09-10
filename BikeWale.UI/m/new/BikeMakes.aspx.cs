@@ -39,7 +39,11 @@ namespace Bikewale.Mobile
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-                //Function to process and validate Query String  
+            //device detection
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            dd.DetectDevice(); 
+            
+            //Function to process and validate Query String  
              if (ProcessQueryString())
                 {
                     // ltrDefaultCityName.Text = Bikewale.Common.Configuration.GetDefaultCityName;
