@@ -14,7 +14,6 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<form runat="server">
 <div class="padding5">
     <div id="br-cr"><a href="/m/" class="normal">Home</a> &rsaquo; <span class="lightgray">Road Test</span></div>
     <div class="box1 new-line5 hide" onClick="BoxClicked(this);" type="expando">
@@ -72,7 +71,6 @@
     </div>  
     <Pager:Pager ID="listPager" runat="server" />  
 </div>
-</form>
 <script language="javascript" type="text/javascript">
     function BoxClicked(box)
     {	

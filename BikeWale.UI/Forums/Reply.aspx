@@ -34,7 +34,6 @@
         </ul><div class="clear"></div>
     </div>
 	<div class="grid_12 margin-top10">		
-		<form id="Form1" runat="server">
 			<asp:Label ID="lblMessage" runat="server" EnableViewState="false" CssClass="error" Font-Bold="true" />
 			<table class="writePost" width="100%" border="0" cellpadding="3" cellspacing="0">
 				<tr>
@@ -108,7 +107,6 @@
 				</asp:Repeater>
 			</div>
 		
-		</form>
 	</div>
 </div>
 <iframe id="ifrKeepAlive" src="/keepalive.html" frameBorder="no" width="0" height="0" runat="server"></iframe>

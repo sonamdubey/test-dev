@@ -14,8 +14,7 @@
 
 <!doctype html>
 <html>
-<head>
-    <!-- #include file="/includes/headBW.aspx" -->
+<head>    
      <%
         title = "New Bikes - Bikes Reviews, Photos, Specs, Features, Tips & Advices - BikeWale";
         keywords = "new bikes, new bikes prices, new bikes comparisons, bikes dealers, on-road price, bikes research, bikes india, Indian bikes, bike reviews, bike photos, specs, features, tips & advices";
@@ -28,7 +27,8 @@
     <link href="../css/newbikes.css" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-white">
-
+    <form runat="server">
+    <!-- #include file="/includes/headBW.aspx" -->
     <header class="new-bikes-top-banner">
         <div class="container">
             <div class="welcome-box">
@@ -541,5 +541,6 @@
     <BW:PopupWidget Id="NBPopupWidget" runat="server" />
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
+    </form>
 </body>
 </html>

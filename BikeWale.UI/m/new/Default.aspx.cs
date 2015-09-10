@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Mobile.Controls;
+using Bikewale.Common;
 
 namespace Bikewale.Mobile.New
 {
@@ -27,6 +28,9 @@ namespace Bikewale.Mobile.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            //device detection
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            dd.DetectDevice();
 
             //to get Most Popular Bikes
            mctrlMostPopularBikes.totalCount = 6;

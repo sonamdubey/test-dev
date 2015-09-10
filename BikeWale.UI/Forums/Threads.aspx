@@ -22,7 +22,6 @@
 		<table width="100%">
 			<tr>
 				<td valign="top">
-					<form id="Form1" runat="server">
 						<asp:Label ID="lblMessage" runat="server" EnableViewState="false" CssClass="error" />						
 						<div id="divForum" runat="server">
 							<div class="grey-bg margin-top10 footerStrip" id="divStripTop" Visible="false" align="right" runat="server"></div>							
@@ -102,7 +101,6 @@
 							<div class="grey-bg footerStrip" id="divStrip" align="right" Visible="false" runat="server"></div>
 						</div>				
 						<input type="button" value="Create New Thread" style="margin-top:5px;" onclick="location='CreateThreads.aspx?forum=<%=forumId%>'" class="buttons" />
-					</form>
 				</td>
 			</tr>
 		</table>

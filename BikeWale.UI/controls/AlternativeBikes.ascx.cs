@@ -12,6 +12,7 @@ namespace Bikewale.controls
     {
         public Repeater rptAlternateBikes;
         public int VersionId { get; set; }
+        protected int FetchedRecordsCount { get; set; }
 
         private int _topCount = 6;
         public int TopCount 
@@ -39,6 +40,7 @@ namespace Bikewale.controls
             BindAlternativeBikesControl.TopCpunt = TopCount;
             BindAlternativeBikesControl.Deviation = Deviation;
             BindAlternativeBikesControl.BindAlternativeBikes(rptAlternateBikes);
+            this.FetchedRecordsCount = BindAlternativeBikesControl.FetchedRecordsCount;
         }
     }
 }

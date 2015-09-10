@@ -42,7 +42,6 @@
 
     var compareCaption = "";
 </script>
-<form id="form1" runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -300,5 +299,4 @@
     </div>
     <!--    Right Container ends here -->
 </div>
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->

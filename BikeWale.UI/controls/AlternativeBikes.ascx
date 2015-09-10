@@ -1,13 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.AlternativeBikes" %>
 
-<!-- Most Popular Bikes Starts here-->
-<div class="bw-tabs-data" id="ctrlMostPopularBikes" >     
-    <asp:Repeater ID="rptAlternateBikes" runat="server">
-        <HeaderTemplate>
-            <div class="jcarousel-wrapper discover-bike-carousel">
-             <div class="jcarousel" data-jcarousel="true">
-                <ul style="left: 0px; top: 0px;">
-        </HeaderTemplate>
+<!-- Alternative Bikes Starts here-->
+    
+    <asp:Repeater ID="rptAlternateBikes" runat="server">        
         <ItemTemplate>
             <li class="front">
                 <div class="contentWrapper">
@@ -46,13 +41,6 @@
                     </div>
                 </div>
             </li>
-        </ItemTemplate>
-        <FooterTemplate>
-            </ul>
-            </div>
-            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev inactive" data-jcarouselcontrol="true"></a></span>
-            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next " data-jcarouselcontrol="true"></a></span>
-        </div> 
-        </FooterTemplate>
+        </ItemTemplate>        
     </asp:Repeater>
-</div> <!--- New Launched Bikes Ends Here-->
+</div> <!--- Alternative Bikes Ends Here-->

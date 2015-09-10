@@ -7,28 +7,34 @@
             <div class="loginWithCW margin-bottom40">
                 <h2 class="margin-bottom30">Log in to BikeWale</h2>
                 <div class="form-control-box margin-bottom20">
-                    <input type="text" class="form-control border-red" name="email id" id="txtloginemail" placeholder="Email">
+                    <asp:TextBox id="txtLoginEmail" runat="server" class="form-control" name="email id" placeholder="Email" />
+                    <span class="bwsprite error-icon hide"></span>
+                    <div class="bw-blackbg-tooltip hide">Invalid Email</div>
                 </div>
                 <div class="form-control-box margin-bottom20">
-                    <input type="text" class="form-control border-red" id="txtpasswordlogin" placeholder="Password">
+                    <asp:TextBox id="txtLoginPassword" runat="server" class="form-control" placeholder="Password" TextMode="Password" />
+                    <span class="bwsprite error-icon hide"></span>
+                    <div class="bw-blackbg-tooltip hide">Please Enter correct Password</div>
                 </div>
                 <div class="margin-bottom20 font12">
-                    <input id="chkRemMe" type="checkbox">
-                    <label for="chkRemMe">Remember me</label>
+                    <asp:CheckBox id="chkRemMe" runat="server"/>
+                    <label for="<%= chkRemMe.ClientID %>">Remember me</label>
                 </div>
-                <button type="button" id="btnLogin" class="btn btn-orange text-uppercase margin-bottom15 margin-right10">log in</button>
+                <asp:HiddenField ID="hdnAuthData" runat="server" />                
+                <asp:Button Text="log in" id="btnLogin" runat="server" class="btn btn-orange text-uppercase margin-bottom15 margin-right10" />
                 <button type="button" class="loginBtnSignUp btn btn-white btn-md text-uppercase margin-bottom15">sign up</button>
                 <div><a class="cur-pointer font12" id="forgotpass">Forgot password?</a></div>
                 <!-- Forget Password -->
-                <div id="forgotpassdiv">
-                    <div class="hide margin-top20 margin-bottom30" id="forgotpassbox">
+                <div id="forgotpassdiv" class="hide">
+                    <div class="margin-top20 margin-bottom30" id="forgotpassbox">
                         <div class="form-control-box margin-bottom20">
-                            <input type="text" class="form-control" name="emailId" id="txtForgotPass" placeholder="Enter your registered email">
+                            <input type="text" class="form-control" name="emailId" id="txtForgotPassEmail" placeholder="Enter your registered email">
                             <span class="bwsprite error-icon hide"></span>
                             <div class="bw-blackbg-tooltip hide">Invalid Email</div>
                         </div>
-                        <button id="frgPwd" class="btn btn-orange text-uppercase">send</button>
+                        <input type="button" id="btnForgetPass" class="btn btn-orange text-uppercase" value="send">
                     </div>
+                    <b><span id="processing_pwd" class="hide"> Please wait...</span></b>
                 </div>
             </div>
             <%--<div class="loginWithFbGp">
@@ -51,37 +57,32 @@
             <div class="signUpWithBW">
                 <h2 class="margin-bottom30">Sign up to BikeWale</h2>
                 <div class="form-control-box margin-bottom20">
-                    <input type="text" class="form-control" name="name" placeholder="Name" id="txtnamelogin">
+                    <asp:TextBox class="form-control" name="name" placeholder="Name" id="txtNameSignup" runat="server" />
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please enter your name</div>
                 </div>
                 <div class="form-control-box margin-bottom20">
-                    <input type="text" class="form-control" name="emailId" id="txtemailsignup" placeholder="Email Id">
+                    <asp:TextBox class="form-control" name="emailId" id="txtEmailSignup" placeholder="Email Id" runat="server" />
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please enter your email id</div>
                 </div>
                 <div class="form-control-box margin-bottom20">
                     <span class="form-mobile-prefix">+91</span>
-                    <input type="text" class="form-control padding-left40" name="mobile" placeholder="Mobile no." id="txtmobilelogin">
+                    <asp:TextBox class="form-control padding-left40" name="mobile" placeholder="Mobile no." id="txtMobileSignup" runat="server" />
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please enter your mobile number</div>
                 </div>
                 <div class="form-control-box margin-bottom20">
-                    <input type="password" class="form-control" name="password" placeholder="Password" id="txtRegPasswd">
+                    <asp:TextBox type="password" class="form-control" name="password" TextMode="Password" placeholder="Password" id="txtRegPasswdSignup" runat="server" />
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please enter your password</div>
-                </div>
-                <div class="form-control-box margin-bottom20">
-                    <input type="password" class="form-control" name="confirmPassword" placeholder="Confirm Password" id="txtConfPasswdlogin">
-                    <span class="bwsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter your password</div>
-                </div>                    
+                </div>                
                 <div class="margin-bottom30 font12">
-                    <input id="agreecheck" type="checkbox">
+                    <asp:CheckBox id="chkAgreeSignup" type="checkbox" runat="server" />
                     <label for="agreecheck">I have read and agree with the
-                    <a href="#">User Agreement</a> & <a href="#">Privacy Policy</a></label>
+                    <a href="/visitoragreement.aspx" target="_blank">User Agreement</a> & <a href="/privacypolicy.aspx" target="_blank">Privacy Policy</a></label>
                 </div>
-                <button type="button" class="signupBtnLogin btn btn-orange text-uppercase margin-bottom15 margin-right10">sign up</button>
+                <asp:Button class="signupBtnLogin btn btn-orange text-uppercase margin-bottom15 margin-right10" Text="sign up" ID="btnSignup" runat="server" />
                 <button type="button" id="btnSignUpBack" class="btn btn-white btn-md text-uppercase margin-bottom15">back</button>
             </div>
         </div>            
@@ -105,19 +106,25 @@
         <div class="user-profile-option-list padding-top20">
             <ul class="profileUL">
                 <li>
-                    <a herf="/mybikewale/myinquiries/">
+                    <a href="/mybikewale/myinquiries/">
                         <span class="margin-left15 bwsprite login-edit-icon"></span>
-                        <span class="margin-left20 profile-option-title">Manage my bike listing</span>
+                        <span class="margin-left20 profile-option-title">My Inquiries</span>
                     </a>
                 </li>                
                 <li>
-                    <a herf="/mybikewale/changepassword/">
+                    <a href="/users/newssubscription.aspx">
+                        <span class="margin-left15 bwsprite login-edit-icon"></span>
+                        <span class="margin-left20 profile-option-title">Subscribe Newsletters</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/mybikewale/changepassword/">
                         <span class="margin-left15 bwsprite login-password-icon"></span>
                         <span class="margin-left20 profile-option-title">Change password</span>
                     </a>
                 </li>
                 <li>
-                    <a herf="<%= Bikewale.Common .CommonOpn.AppPath + "users/login.aspx?logout=logout" %>">
+                    <a href="<%= Bikewale.Common .CommonOpn.AppPath + "users/login.aspx?logout=logout" %>">
                         <span class="margin-left15 bwsprite login-logout-icon"></span>
                         <span class="margin-left20 profile-option-title">Log out</span>
                     </a>
@@ -128,3 +135,15 @@
     </div>
 </div>
 <% } %>
+<script type="text/javascript">
+    ctrlBtnLoginId = '<%= btnLogin.ClientID%>';
+    ctrlTxtLoginEmailId = '<%= txtLoginEmail.ClientID %>';
+    ctrlTxtLoginPasswordId = '<%= txtLoginPassword.ClientID %>';
+    ctrlHdnAuthDataId = '<%= hdnAuthData.ClientID %>';
+    ctrlBtnSignup = '<%= btnSignup.ClientID %>';
+    ctrlTxtNameSignup = '<%= txtNameSignup.ClientID %>';
+    ctrlTxtEmailSignup = '<%= txtEmailSignup.ClientID %>';
+    ctrlTxtMobileSignup = '<%= txtMobileSignup.ClientID %>';
+    ctrlTxtRegPasswdSignup = '<%= txtRegPasswdSignup.ClientID %>';
+    ctrlChkAgreeSignup = '<%= chkAgreeSignup.ClientID %>';
+</script>

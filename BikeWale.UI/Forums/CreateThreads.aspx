@@ -15,7 +15,6 @@
         </ul><div class="clear"></div>
     </div>
 	<div class="grid_12 margin-top10">		
-		<form id="Form1" runat="server">
 			<asp:Label ID="lblMessage" runat="server" EnableViewState="false" CssClass="error" Font-Bold="true" />
 			<table class="writePost" border="0" cellpadding="2" cellspacing="0" width="100%">
 				<tr>
@@ -69,7 +68,6 @@
 					</td>
 				</tr>
 			</table>
-		</form>
 	</div>
 </div>
 <iframe id="ifrKeepAlive" src="/keepalive.html" frameBorder="no" width="0" height="0" runat="server"></iframe>

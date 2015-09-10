@@ -5,7 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Mobile.Controls;
-using Bikewale.m.controls;
+using Bikewale.Mobile.controls;
+using Bikewale.Common;
 
 namespace Bikewale.Mobile
 {
@@ -21,7 +22,11 @@ namespace Bikewale.Mobile
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {   
+            //device detection
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            dd.DetectDevice();
+
             ctrlNews.TotalRecords = 3;
             ctrlExpertReviews.TotalRecords = 3;
             ctrlVideos.TotalRecords = 3;

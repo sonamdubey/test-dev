@@ -107,7 +107,8 @@
 		{
 			document.getElementById('selectModel').innerHTML = "Select Make First"; 
 			return false;
-        }
+
+        }
         else if (document.getElementById('cmbModel').options[0].selected) 
         {
             document.getElementById('selectModel').innerHTML = "Select Model First";

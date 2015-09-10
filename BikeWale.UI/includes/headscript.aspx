@@ -11,7 +11,8 @@
 <meta name="keywords" content="<%= keywords %>" />
 <meta name="description" content="<%= description %>" />
 <meta name="alternate" content="<%= alternate %>" />
-<link rel="canonical" href="<%=canonical %>" /> 
+<link rel="canonical" href="<%=canonical %>" /> 
+
 <title><%= title %></title>
 <link rel="SHORTCUT ICON" href="#" />
 <link href="/css/bw-common-style.css" rel="stylesheet" type="text/css">
@@ -51,3 +52,6 @@
 <!--[if lt IE 9]>
     <script src="/src/html5.js"></script>
 <![endif]-->
+<script type="text/javascript">
+    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
+</script>

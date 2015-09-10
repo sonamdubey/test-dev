@@ -180,5 +180,34 @@ namespace Bikewale.Utility
             }
             return isSuccess;
         }
+
+        /// <summary>
+        /// Written By : Ashwini Todkar on 8 Nov 2014
+        /// </summary>
+        /// <typeparam name="T">Generic object to Post</typeparam>
+        /// <param name="hostUrl"></param>
+        /// <param name="requestType"></param>
+        /// <param name="apiUrl"></param>
+        /// <param name="objResponse"></param>
+        /// <returns></returns>
+        public static T PostDataSync<T>(string hostUrl, string requestType, string apiUrl, T objResponse)
+        {
+            T objTask = objResponse;
+
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(hostUrl);
+                client.DefaultRequestHeaders.Accept.Clear();
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(requestType));
+
+                var response = client.PostAsJsonAsync(apiUrl, objResponse).Result;                
+
+                if (response.IsSuccessStatusCode)
+                {
+                    objTask = response.Content.ReadAsAsync<T>().Result;
+                }
+            }
+            return objTask;
+        }
     }
 }

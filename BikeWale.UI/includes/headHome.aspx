@@ -1,5 +1,6 @@
 ﻿<%@ Register TagPrefix="BikeWale" TagName="LoginStatus" src="/Controls/loginstatus.ascx" %>
 <%@ Register TagPrefix="BM" TagName="BikeMakes" Src="/controls/BrowseBikeManufacturerMin.ascx" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#">
 <head>
@@ -11,7 +12,8 @@
     <!-- #include file="globalStaticFiles.aspx"-->
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate="";
-        private ushort feedbackTypeId = 0; 	    
+        private ushort feedbackTypeId = 0;
+        private bool isHeaderFix = true; 	    
     </script>
     <script type='text/javascript'>
         var googletag = googletag || {};
@@ -59,6 +61,7 @@
     </script>
 </head>
 <body class="header-fixed-inner">
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
     	<!-- #include file="/includes/headBW.aspx" -->    

@@ -90,7 +90,6 @@
     }
 </style>
 
-<form id="form1" runat="server">
     <div data-role="popup" id="requestEmi" class="ui-content new-line15" style="height: 100%;">
         <h3 class="pgsubhead">Free Bike Loan Assistance</h3>
         <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right" id="closeBox">Close</a>

@@ -22,7 +22,7 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-    <!-- #include file="/includes/headNewBW_Mobile.aspx" -->
+    <!-- #include file="/includes/headBW_Mobile.aspx" -->
               
     <section><!--  Used Search code starts here -->
         <div class="container">
@@ -48,7 +48,7 @@
                                                 <span class="fa fa-rupee " style="display:<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"none":"inline-block"%>"></span>
                                                 <span class="font24"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
                                         </div>
-                                        <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, Delhi</div>
+                                        <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                                 <div class="font13 margin-bottom10">
                                     <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>  
                                 </div>

@@ -28,15 +28,14 @@ namespace Bikewale.controls
         {
                         
         }
-
-        private void FillMakes()
+private void FillMakes()
         {
             NewBikeDealersMakeList makes = null;
             try
             {
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = "api/DealerMakes/";
+                string _apiUrl = "/api/DealerMakes/";
 
                 makes = BWHttpClient.GetApiResponseSync<NewBikeDealersMakeList>(_bwHostUrl, _requestType, _apiUrl, makes);
 

@@ -13,7 +13,6 @@
 <style type="text/css">
 	.doNotDisplay { display:none; }
 </style>
-<form id="Form1" runat="server">
 	<span style="font-weight:bold;color:red;" id="spnError" class="error" runat="server"></span>
 	
 	<fieldset>

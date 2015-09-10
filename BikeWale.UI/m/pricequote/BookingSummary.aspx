@@ -16,7 +16,6 @@
 
 <div class="padding5">
     <h1>Pre-Book to Avail Offer</h1>
-    <form runat="server">
         <div class="box1 new-line10">
             <h2 class="margin-bottom10 f-bold <%=_objPQ.objOffers.Count>0?"":"hide" %>"><%= BikeName %></h2>
             <%-- Start 102155010 --%>
@@ -133,7 +132,6 @@
             </div>
             <asp:Button data-role="none" class="rounded-corner5" runat="server" id="btnMakePayment" Text="Make Payment"/>
         </div>
-    </form>
     <div class="box1 new-line10">
         <h2 class="margin-bottom10 f-bold floatleft">Contact Details</h2>
         <!--<div class="edit-btn">

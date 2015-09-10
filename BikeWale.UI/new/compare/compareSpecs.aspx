@@ -14,7 +14,6 @@
 		}
 	});
 </script>
-<form runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -556,5 +555,4 @@
 		    </div>	  
     </div><!--    Left Container ends here -->
 </div>
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->

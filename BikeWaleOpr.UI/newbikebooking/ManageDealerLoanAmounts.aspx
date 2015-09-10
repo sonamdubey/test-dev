@@ -12,7 +12,6 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
     <div>
         <h1>Manage Dealer Loan Amounts</h1>
         Tenure (months), Ex.  12 : <asp:TextBox ID="txtTenure" runat="server" /><span id="spntxtValidTenure" class="errMessage"></span><br /><br />

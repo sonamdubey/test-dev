@@ -5,7 +5,6 @@
 %>
 <!-- #include file="/includes/headSell.aspx" -->
 <script type="text/javascript" src="/src/classified/sellbike.js?1.1"></script>
-<form id="form1" runat="server">
 <div class="container_12 margin-top20">    
     <div class="grid_8 min-height"><!--    Left Container starts here -->
         <h1>One-time Mobile Verification</h1>
@@ -18,7 +17,6 @@
          </div>
     </div>
 </div>
-</form>
 <script type="text/javascript">
     $("#txtVerificationCode").click(function () {
         $(this).val("");

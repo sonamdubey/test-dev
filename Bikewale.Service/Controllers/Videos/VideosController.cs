@@ -22,8 +22,7 @@ namespace Bikewale.Service.Videos.Controllers
     /// </summary>
     public class VideosController : ApiController
     {
-        //string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        string _cwHostUrl = "http://172.16.1.73";
+        string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];        
         string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         string _requestType = "application/json";
 

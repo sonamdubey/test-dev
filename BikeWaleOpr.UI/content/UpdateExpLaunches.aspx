@@ -20,7 +20,6 @@
         </style>
     </head>
     <body style="margin:5px;">	
-        <form id="Form1" runat="server">
            
 	        <div class="dvMargin"> <span id="spnMessage" class="dvRed" runat="server"></span><span id="spnRes" class="dvRed" runat="server"></span></div>
             <div class="dvMargin"><strong>Bike Name: </strong>&nbsp;&nbsp; <span id="spnBikeName" runat="server"></span></div>

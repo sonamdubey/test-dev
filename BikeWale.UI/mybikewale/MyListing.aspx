@@ -8,7 +8,6 @@
 <style>
     .bikeDetails li {display:block;}
 </style>
-<form id="form1" runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -90,5 +89,4 @@
         window.open("/mybikewale/removeFromListing.aspx?type=" + type + "&id=" + bikeId, "remove", "menu=no,address=no,scrollbars=no,resizable=no,width=310,height=290,left=" + left + ",top=" + top);
     }
 </script>
-</form>
 <!-- #include file="/includes/footerinner.aspx" -->

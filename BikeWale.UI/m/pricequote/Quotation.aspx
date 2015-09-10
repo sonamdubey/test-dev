@@ -9,7 +9,6 @@
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
-<form id="form1" runat="server">
     <div class="padding5">
         <h1>On Road Price Quote</h1>
     	<div class="box1 box-top new-line5 bot-red new-line10">
@@ -60,5 +59,4 @@
             </div>
         </div>
     </div>
-</form>
 <!-- #include file="/includes/footermobile_noad.aspx" -->

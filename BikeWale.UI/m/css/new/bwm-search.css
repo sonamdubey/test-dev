@@ -1,0 +1,115 @@
+﻿@charset "utf-8";
+.filter-btn, .sort-btn { color: #fff; padding: 0 10px; position: relative; cursor: pointer; font-size: 20px; }
+.brand-total { position: relative; top: -2px; }
+#sort-by-div.fixed { position: fixed; left: 0; right: 0; top: 0; z-index: 999; }
+.filter-sort-div { display: table; width: 100%; border-top: solid 1px #d9d9d9; padding: 10px 0; background: #fff; margin-bottom: 20px; box-shadow: 0 3px 4px 0 #e5e5e5; }
+.filter-sort-div div { display: table-cell; width: 33.333%; }
+.filter-sort-div div a { padding: 0; color: #565a5c; display: block; text-decoration: none; text-align: center; }
+.filter-sort-div .filter-icon { position: relative; top: 2px; }
+.search-img-holder { position: relative; }
+.search-img-holder img { width: 100%; vertical-align: middle; }
+.search-img-holder .featured-icon { position: absolute; top: 10px; left: 0px; }
+.search-bike-info span { margin-right: 5px; }
+.search-call-icon { position: absolute; top: 12px; left: 10px; color: #fff; font-size: 18px; }
+.search-bike-item { background: #fff; }
+.search-bike-item .front { height: auto; border-radius: 0; box-shadow: none; -moz-box-shadow: none; -ms-box-shadow: none; border: 0 none; }
+.search-bike-container .search-bike-item:last-child { box-shadow: none; margin: 0px; }
+/*.bwm-usedbike { background:url(../images/bwm-usedbike.png) no-repeat 0px 0px; display: inline-block; }*/
+.sort-list.ui-radio { display: table; width: 100%; border-bottom: 1px solid #ccc; color: #333; cursor: pointer; }
+.sort-list.ui-radio input[type="radio"] { display: table-cell; padding: 15px 10px 15px 0px; position: relative; left: 0px; top: 4px; width: 42px; height: 20px; margin: 0; outline: 0; }
+.sort-list.ui-radio label { display: table-cell; width: 100%; padding: 15px 10px; }
+.sort-icon { background-position: -193px -144px; height: 20px; width: 20px; }
+.filter-icon { background-position: -158px -144px; height: 20px; width: 20px; }
+.featured-icon { background-position: -96px -26px; height: 20px; width: 72px; }
+.guarantee-icon { background-position: 0px -26px; height: 25px; width: 86px; }
+.light-grey { color: #a8afb3; }
+.sort-arw { position: absolute; font-size: 12px; margin-left: 4px; top: 5px; }
+
+/*-----------------------------------------Used Bikes & Filters page-------------------------------------------------*/
+.filter-select-div { border: 1px solid #f2f2f2; background: #fff; padding: 3px 5px; position: relative; width: 38%; }
+#filter-div.ui-panel { width: 100%; }
+#filter-div .ui-panel-inner { padding: 0px; }
+#sort-by-div .ui-btn, #sort-by-div label.ui-btn { font-weight: normal; font-size: 1em; }
+#filter-btn button { margin-top: 0px; padding: 5px; height: 33px; }
+.certified-logo { height: 32px; }
+.detail-table td { padding-bottom: 15px; line-height: 18px; }
+.detail-table td:nth-of-type(odd) { color: #666; width: 50%; }
+.detail-table td div { width: 90%; }
+.cw-m-tabs-three-data p { margin: 5px 0px; }
+#imgCount { background: #333; width: 90px; height: 18px; padding: 5px; position: relative; margin: -20px auto auto; text-align: center; text-shadow: none; color: #fff; font-size: 12px; font-weight: normal; }
+#m-uc-gallery { background: #000; }
+.highPriceDiv { width: 50%; }
+.highPriceDiv .ui-icon-carat-d:after { background: url(/images/pq/m-icons.png?16042015-v5) no-repeat -52px -142px; width: 9px; height: 5px; display: block; margin-top: -2px; }
+.highPriceDiv div.ui-btn, .highPriceDiv div.ui-btn:hover { padding: 6px 10px; border: 1px solid #f2f2f2; background: #fff; border-radius: 0px; text-align: left; font-size: 1em; font-family: Roboto, Arial, Helvetica, sans-serif; color: #333; font-weight: normal; text-shadow: none; box-shadow: none; }
+.highPriceDiv .ui-select { margin: 0px; }
+.bikeDiv a.ui-btn:focus { background-color: #f6f6f6; }
+#sort-by-div .ui-controlgroup, #sort-by-div fieldset.ui-controlgroup { margin: 0px; }
+.show-only-div div { width: 50%; }
+.show-only-div label { display: inline-block; font-weight: normal; font-size: 1em; }
+#chkModelList.ui-content { padding: 0px; }
+#chkModelList .ui-controlgroup, fieldset.ui-controlgroup { margin: 0px; }
+#chkModelList .ui-controlgroup-label legend { background: #f6f6f6; padding: 10px 0px 10px 40px; width: 100%; font-size: 14px; font-weight: bold; }
+#chkModelList .ui-mobile label, #chkModelList .ui-controlgroup-label { margin: 0px; }
+#chkModelList .ui-btn, #chkModelList label.ui-btn { font-size: 14px; padding-top: 15px; }
+#chkModelList .ui-btn.ui-checkbox-off:after, .ui-btn.ui-checkbox-on:after, .ui-btn.ui-radio-off:after, .ui-btn.ui-radio-on:after { margin-top: -7px; }
+.popup-btn-submit, .popup-btn-filters { position: fixed; z-index: 99999; bottom: 0; background: #f5f5f5; width: 100%; padding: 10px 0px; }
+/*.popup-btn-filters { z-index:99999; }*/
+.popup-btn-submit button.m-new-btn, .popup-btn-filters input[type="submit"], .popup-btn-filters input[type="button"], .popup-btn-filters input[type="reset"] { width: 90%; margin: auto; }
+/*.km-data { margin-bottom: 60px; }*/
+a.btn-call, button.btn-call, input[type="submit"].btn-call, input[type="reset"].btn-call, input[type="button"].btn-call { background: #FFC000; color: #fff; font-weight: bold!important; width: 100%; padding: 7px 0px 10px 0px; text-align: center; text-decoration: none; display: block; -moz-border-radius: 5px; -webkit-border-radius: 5px; -ms-border-radius: 5px; -o-border-radius: 5px; border-radius: 5px; }
+a.btn-call:hover { color: #fff; text-decoration: none; font-weight: bold; }
+
+/*-------------------------------------------------Range Slider------------------------------*/
+.ui-widget-overlay { height: 100%; left: 0; position: fixed; top: 0; width: 100%; }
+.ui-slider { position: relative; text-align: left; }
+.ui-slider .ui-slider-range { border: 0 none; display: block; font-size: 0.7em; position: absolute; z-index: 1; }
+.ui-slider-vertical { height: 91px; width: 5px; }
+.ui-slider-vertical .ui-slider-handle { left: -7px; margin-bottom: -10px; margin-left: 0; }
+.ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
+.ui-slider-vertical .ui-slider-range-min { bottom: 0; }
+.ui-slider-vertical .ui-slider-range-max { top: 0; }
+.ui-widget-content a { color: #333333; }
+.ui-widget-header a { color: #FFFFFF; }
+.slider-box { margin: 0 10px; }
+span.ui-helper-hidden-accessible { display: none; }
+.ui-slider .ui-slider-handle { background: url(http://img.aeplcdn.com/pq/m-icons.png?16042015-v5) no-repeat 0px -197px; cursor: pointer; height: 20px; position: absolute; text-decoration: none; width: 20px; z-index: 2; top: -8px; margin-left: -5px; }
+.ui-panel-dismiss-open.ui-panel-dismiss-position-right { right: 100%; }
+.ui-popup-screen { background: #fff; }
+.ui-popup-screen.in { opacity: 0; }
+
+/* filter slider css 9/2/2015 */
+.slider-box ul li { float: left; margin-right: 2%; vertical-align: middle; width: 37%; width: 30% \9; vertical-align: bottom; }
+
+@media all and (width:320px) {
+.slider-box ul li { width: 40%; }
+}
+
+@media all and (max-width:239px) {
+.slider-box ul li { margin-bottom: 10px; }
+}
+.slider-box ul li:last-child { margin-right: 0px; width: auto !important; }
+.slider-box ul { overflow: hidden; }
+.slider-box {
+*overflow:hidden; margin-right: 0px; margin-left: 0px; }
+.mileage-box { padding-left: 0; padding-right: 0; }
+.mileage-box > div { text-align: center; }
+.mileage-box > div:first-child { padding-left: 0; }
+.mileage-box > div:last-child { padding-right: 0; }
+
+/* multiple select dropdown */
+.dropdown ul { margin: -1px 0 0 0; }
+.dropdown .form-control { background: #fff url(/images/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; padding-right: 30px; overflow: hidden; padding-left: 15px; }
+.multiSel { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+.dropdown .hida.shiftRight:before { content: "("; }
+.dropdown .hida.shiftRight { float: right; color: #82888b; }
+.dropdown .hida.shiftRight:after { content: ")"; }
+.dropdown .form-control span, .multiSel span { cursor: pointer; padding: 0 3px 2px 0; }
+.dropdown ul { background-color: #fff; border: 0; display: none; left: 0px; padding: 5px 15px; position: absolute; top: 44px; width: 100%; list-style: none; height: 115px; overflow: auto !important; z-index: 3; box-shadow: 0 1px 1px 0 #cacaca; -webkit-box-shadow: 0 1px 1px 0 #cacaca; -moz-box-shadow: 0 1px 1px 0 #cacaca; -ms-box-shadow: 0 1px 1px 0 #cacaca; -o-box-shadow: 0 1px 1px 0 #cacaca; }
+.dropdown ul li { padding: 5px 0; }
+.dropdown ul li span { padding-left: 30px; }
+
+/* mileage */
+.checkOption { width: 50%; text-align: center; }
+.checkOption:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; }
+.checkOption:last-child { border-left: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; }
+.optionSelected { background-color: #333333; color: #fff; }
