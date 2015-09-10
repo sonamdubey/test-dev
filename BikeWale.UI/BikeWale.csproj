@@ -757,6 +757,13 @@
       <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\MOnRoadPricequote.ascx.cs">
+      <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\MOnRoadPricequote.ascx.designer.cs">
+      <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
+    </Compile>
     <Compile Include="m\controls\MPopupWidget.ascx.cs">
       <DependentUpon>MPopupWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1974,6 +1981,7 @@
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
+    <Content Include="m\controls\MOnRoadPricequote.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />
     <Content Include="m\controls\NewsWidget.ascx" />
