@@ -39,8 +39,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<span class="subHeading">Bike-1</span>
+				<td class="padding-bottom10">
+					<span class="subHeading margin-right5">Bike-1</span>
 					<asp:DropDownList ID="cmbMake" runat="server" /> -
 					<asp:DropDownList ID="cmbModel" Enabled="false" runat="server">
 							<asp:ListItem Value="0" Text="--Select--" />
@@ -51,8 +51,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="alt">
-					<span class="subHeading">Bike-2</span>
+				<td class="alt padding-bottom10">
+					<span class="subHeading margin-right5">Bike-2</span>
 					<asp:DropDownList ID="cmbMake1" runat="server" /> -
 					<asp:DropDownList ID="cmbModel1" Enabled="false" runat="server">
 							<asp:ListItem Value="0" Text="--Select--" />
@@ -63,8 +63,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<span class="subHeading">Bike-3</span>
+				<td class="padding-bottom10">
+					<span class="subHeading margin-right5">Bike-3</span>
 					<asp:DropDownList ID="cmbMake2" runat="server" /> -
 					<asp:DropDownList ID="cmbModel2" Enabled="false" runat="server">
 							<asp:ListItem Value="0" Text="--Select--" />
@@ -75,8 +75,8 @@
 				</td>
 			</tr>
 			<tr>
-				<td class="alt">
-					<span class="subHeading">Bike-4</span>
+				<td class="alt padding-bottom10">
+					<span class="subHeading margin-right5">Bike-4</span>
 					<asp:DropDownList ID="cmbMake3" runat="server" /> -
 					<asp:DropDownList ID="cmbModel3" Enabled="false" runat="server">
 							<asp:ListItem Value="0" Text="--Select--" />
@@ -88,7 +88,7 @@
 			</tr>
 		</table>		   
 		<div class="margin-top15">
-			<div class="buttons"><asp:Button ID="btnCompare" CssClass="buttons" Text="Compare Selected Bikes" runat="server" /></div> 
+			<div class="buttons text-center"><asp:Button ID="btnCompare" CssClass="buttons" Text="Compare" runat="server" /></div> 
 			<span id="spn" class="error"></span>
 		</div>		   
 		<p class="margin-top15">* This bike has been discontinued and is no longer available for sale in India. We are providing this data for research purpose only.</p>			

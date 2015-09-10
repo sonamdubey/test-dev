@@ -64,6 +64,7 @@ namespace Bikewale.BindViewModels.Controls
             string hostURL = String.Empty;
             string requestType = "application/json";
             string apiUrl = String.Empty;
+            FetchedRecordCount = 0;
             try
             {
                 hostURL = ConfigurationManager.AppSettings["bwHostUrl"];

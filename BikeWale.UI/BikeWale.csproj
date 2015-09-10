@@ -721,6 +721,10 @@
       <DependentUpon>ReviewDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\AlternativeBikes.ascx.cs">
+      <DependentUpon>AlternativeBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\BookBikeSlug.ascx.cs">
       <DependentUpon>BookBikeSlug.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -810,6 +814,10 @@
     </Compile>
     <Compile Include="m\new\BikeModels.aspx.cs">
       <DependentUpon>BikeModels.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\new\BikeModels_old.aspx.cs">
+      <DependentUpon>BikeModels_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\BikeSeries.aspx.cs">
@@ -1583,6 +1591,7 @@
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
     <Content Include="css\model.css" />
+    <Content Include="css\newbikes.css" />
     <Content Include="css\new\search.css" />
     <Content Include="css\rsa.css" />
     <Content Include="css\slideshow.css" />
@@ -1972,6 +1981,7 @@
     <Content Include="m\content\userreviews\Default.aspx" />
     <Content Include="m\content\userreviews\ListReviews.aspx" />
     <Content Include="m\content\userreviews\ReviewDetails.aspx" />
+    <Content Include="m\controls\AlternativeBikes.ascx" />
     <Content Include="m\controls\BookBikeSlug.ascx" />
     <Content Include="m\controls\CompareBikeMin.ascx" />
     <Content Include="m\controls\CompareBikeMin_old.ascx" />
@@ -1991,6 +2001,7 @@
     <Content Include="m\css\bw-new-style.css" />
     <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-common-style.css" />
+    <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\bwm-search.css" />
     <Content Include="m\css\design.css" />
@@ -2030,6 +2041,7 @@
     <Content Include="m\news\newsdetails.aspx" />
     <Content Include="m\new\BikeMakes.aspx" />
     <Content Include="m\new\BikeModels.aspx" />
+    <Content Include="m\new\BikeModels_old.aspx" />
     <Content Include="m\new\BikeSeries.aspx" />
     <Content Include="m\new\compare\CompareBike.aspx" />
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
@@ -2050,6 +2062,7 @@
     <Content Include="m\pricequote\rsa.aspx" />
     <Content Include="m\pricequote\RSAOfferClaim.aspx" />
     <Content Include="m\src\BikeBooking\BikeBooking.js" />
+    <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
     <Content Include="m\src\chosen-mobile.js" />
     <Content Include="m\src\common.js" />
@@ -2065,6 +2078,7 @@
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="src\autocomplete.js" />
+    <Content Include="src\brand.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
@@ -2136,6 +2150,7 @@
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="src\knockout.js" />
     <Content Include="src\model.js" />
+    <Content Include="src\newbikes.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\new\search.js" />
@@ -2145,6 +2160,7 @@
     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\Research\write_reviews.js" />
+    <Content Include="src\search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test\css\bw-new-style.css" />
@@ -2227,7 +2243,7 @@
     <Content Include="m\fonts\fontawesome-webfont.ttf" />
     <Content Include="m\fonts\fontawesome-webfont.woff" />
     <Content Include="m\fonts\FontAwesome.otf" />
-    <Content Include="ClassDiagram1.cd" />
+    <Content Include="images\ratings\Thumbs.db" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -1,6 +1,6 @@
 ﻿<script language="c#" runat="server">	
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "";
+    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "";
     private ushort feedbackTypeId = 0; 	 
     private bool isHeaderFix = true;   
 </script>
@@ -11,6 +11,8 @@
 <meta name="keywords" content="<%= keywords %>" />
 <meta name="description" content="<%= description %>" />
 <meta name="alternate" content="<%= alternate %>" />
+<link rel="canonical" href="<%=canonical %>" /> 
+
 <title><%= title %></title>
 <link rel="SHORTCUT ICON" href="#" />
 <link href="/css/bw-common-style.css" rel="stylesheet" type="text/css">

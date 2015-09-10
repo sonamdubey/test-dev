@@ -39,7 +39,7 @@ namespace Bikewale.Service.Controllers.Customer
         /// <param name="createAuthTicket"></param>
         /// <returns>Returns authenticated users basic details.</returns>
         [ResponseType(typeof(AuthenticatedCustomer))]
-        public IHttpActionResult Get(string email, string password, bool? createAuthTicket = null)
+        public IHttpActionResult POST(string email, string password, bool? createAuthTicket = null)
         {
             CustomerEntity objCust = null;
 

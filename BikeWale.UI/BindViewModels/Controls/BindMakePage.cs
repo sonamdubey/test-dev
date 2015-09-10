@@ -7,6 +7,8 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using System.Linq;
+using Bikewale.DTO.Widgets;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -17,12 +19,15 @@ namespace Bikewale.BindViewModels.Controls
         public static int FetchedRecordsCount { get; set; }
         public static MakeBase Make { get; set; }
         public static BikeDescription BikeDesc { get; set; }
+        public static Int64 MinPrice { get; set; }
+        public static Int64 MaxPrice { get; set; }
 
         public static void BindMostPopularBikes(Repeater rptr)
         {
             MakePage objBikeList = null;
             Make = new MakeBase();
             BikeDesc = new BikeDescription();
+            FetchedRecordsCount = 0;
             try
             {
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
@@ -36,6 +41,9 @@ namespace Bikewale.BindViewModels.Controls
                     FetchedRecordsCount = objBikeList.PopularBikes.Count();
                     Make = objBikeList.PopularBikes.FirstOrDefault().objMake;
                     BikeDesc = objBikeList.Description;
+                    MinPrice = objBikeList.PopularBikes.Min(bike => bike.VersionPrice);
+                    MaxPrice = objBikeList.PopularBikes.Max(bike => bike.VersionPrice);
+
                     rptr.DataSource = objBikeList.PopularBikes;
                     rptr.DataBind();
                 }

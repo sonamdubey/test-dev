@@ -1,21 +1,24 @@
-﻿using Bikewale.BindViewModels.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Bikewale.BindViewModels.Controls;
 
-namespace Bikewale.controls
+namespace Bikewale.Mobile.Controls
 {
+    /// <summary>
+    /// Created By : Ashish G. Kamble on 9 Sept 2015
+    /// Summary : Control to show the alternative bikes of the the specific version
+    /// </summary>
     public class AlternativeBikes : System.Web.UI.UserControl
     {
         public Repeater rptAlternateBikes;
         public int VersionId { get; set; }
-        protected int FetchedRecordsCount { get; set; }
 
         private int _topCount = 6;
-        public int TopCount 
+        public int TopCount
         {
             get { return _topCount; }
             set { _topCount = value; }
@@ -25,13 +28,12 @@ namespace Bikewale.controls
 
         protected override void OnInit(EventArgs e)
         {
-            base.OnInit(e);
             this.Load += new EventHandler(Page_Load);
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindAlternativeBikes();
+            BindAlternativeBikes();            
         }
 
         private void BindAlternativeBikes()
@@ -40,7 +42,6 @@ namespace Bikewale.controls
             BindAlternativeBikesControl.TopCpunt = TopCount;
             BindAlternativeBikesControl.Deviation = Deviation;
             BindAlternativeBikesControl.BindAlternativeBikes(rptAlternateBikes);
-            this.FetchedRecordsCount = BindAlternativeBikesControl.FetchedRecordsCount;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
+using Bikewale.Common;
 using Bikewale.controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DTO.Model;
@@ -119,6 +120,11 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            //device detection
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            dd.DetectDevice();
+
             if (!IsPostBack)
             {
                 ParseQueryString();
@@ -199,7 +205,7 @@ namespace Bikewale.New
             string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
             string _requestType = "application/json";
             string _apiUrl = String.Format("api/Model?modelId={0}&isNew=true&specs=1&features=1", modelId);
-            modelPage = BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+            modelPage = Bikewale.Utility.BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
             bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
         }
 

@@ -26,5 +26,8 @@ namespace Bikewale.DTO.UsedBikes
 
         [JsonProperty("makeMaskingName")]
         public string MakeMaskingName { get; set; }
+
+        [JsonProperty("cityMaskingName")]
+        public string CityMaskingName { get; set; }
     }
 }

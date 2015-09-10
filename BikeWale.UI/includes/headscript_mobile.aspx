@@ -9,7 +9,6 @@
 <meta name="keywords" content="<%= keywords %>" />
 <meta name="description" content="<% =description%>" />
 <link rel="canonical" href="<%=canonical %>" />
-<link rel="alternate" type="text/html" media="handheld" href="http://bikewale.com/m/" title="Mobile/PDA" />
 <link rel="SHORTCUT ICON" href="http://img2.aeplcdn.com/v2/icons/bikewale.png?v=1.1" />
 <link href="/m/css/bwm-common-style.css" rel="stylesheet" type="text/css">
 <link href="/m/css/home.css" rel="stylesheet" type="text/css">

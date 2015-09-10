@@ -409,7 +409,7 @@
             </div>
 
                 <div class="mid-box margin-top15 center-align">
-                    <input type="button" value="Save this Price Certificate" id="btnSavePdf" class="action-btn" onclick="CallToAction();return false;" />
+                    <input type="button" value="Save this Price Certificate" id="btnSavePdf" class="action-btn text_white" onclick="CallToAction();return false;" />
                 </div>
             <%--          <div style="display:none">
                  <PQ:pdf runat="server" ID="PQPdfTemplate"/>

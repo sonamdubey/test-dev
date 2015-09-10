@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="False" Inherits="Bikewale.Mobile.New.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="False" Inherits="Bikewale.Mobile.New.Default"  EnableViewState="true" %>
 
 <%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/m/controls/MNewLaunchedBikes.ascx" TagName="MNewLaunchedBikes" TagPrefix="BW" %>
@@ -317,7 +317,7 @@
                     <div class="bw-tabs margin-bottom15">
                         <div class="form-control-box">
 
-                            <select class="form-control">
+                            <select class="form-control" ViewStateMode="Disabled">
                                 <option class="active" value="ctrlNews">News</option>
                                 <option value="ctrlExpertReviews">Reviews</option>
                                 <option value="ctrlVideos">Videos</option>

@@ -38,8 +38,8 @@ namespace Bikewale.Mobile
         }
 
 		protected void Page_Load(object sender, EventArgs e)
-		{
-                //Function to process and validate Query String  
+		{            
+            //Function to process and validate Query String  
              if (ProcessQueryString())
                 {
                     // ltrDefaultCityName.Text = Bikewale.Common.Configuration.GetDefaultCityName;
@@ -66,7 +66,7 @@ namespace Bikewale.Mobile
                         ctrlExpertReviews.TotalRecords = 3;
                         ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
                         ctrlVideos.TotalRecords = 3;
-                        ctrlVideos.MakeId = Convert.ToInt32(makeId); ;
+                        ctrlVideos.MakeId = Convert.ToInt32(makeId);
 
                     }
                 }

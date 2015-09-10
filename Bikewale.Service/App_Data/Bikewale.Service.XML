@@ -804,7 +804,7 @@
             </summary>
             <param name="authenticate"></param>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Customer.AuthenticateController.Get(System.String,System.String,System.Nullable{System.Boolean})">
+        <member name="M:Bikewale.Service.Controllers.Customer.AuthenticateController.POST(System.String,System.String,System.Nullable{System.Boolean})">
             <summary>
             Function will authenticate the customer.
             </summary>

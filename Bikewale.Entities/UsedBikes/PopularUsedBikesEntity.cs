@@ -14,5 +14,6 @@ namespace Bikewale.Entities.UsedBikes
         public double AvgPrice { get; set; }
         public string HostURL { get; set; }
         public string OriginalImagePath { get; set; }
+        public string CityMaskingName { get; set; }
     }
 }

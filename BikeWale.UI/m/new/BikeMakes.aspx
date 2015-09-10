@@ -8,6 +8,15 @@
 <!doctype html>
 <html>
 <head>
+    <%
+        title = _make.MakeName + " Price in India, Review, Mileage & Photos - Bikewale";
+        description = _make.MakeName + " Price in India - Rs."+Bikewale.Utility.Format.FormatPrice(Bikewale.BindViewModels.Controls.BindMakePage.MinPrice.ToString())+
+           " to  Rs." + Bikewale.Utility.Format.FormatPrice(Bikewale.BindViewModels.Controls.BindMakePage.MaxPrice.ToString()) + ". Check out "+_make.MakeName+
+           " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+        canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";
+        AdPath = "/1017752/Bikewale_Mobile_Make_";
+        AdId = "1017752";
+%>
     <link href="/m/css/bwm-brand.css" rel="stylesheet" type="text/css">
     <!-- #include file="/includes/headscript_mobile.aspx" -->     
 </head>
@@ -39,7 +48,7 @@
                                                 <span class="fa fa-rupee " style="display:<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"none":"inline-block"%>"></span>
                                                 <span class="font24"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
                                         </div>
-                                        <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, Delhi</div>
+                                        <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                                 <div class="font13 margin-bottom10">
                                     <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>  
                                 </div>
