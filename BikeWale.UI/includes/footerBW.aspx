@@ -28,7 +28,7 @@
         <div class="grid-3">
             <p class="font18 text-white margin-bottom20">Support</p>
             <ul>
-                <li><a href="#">Feedback</a></li>
+                <%--<li><a href="#">Feedback</a></li>--%>
                 <li><a href="mailto:contact@bikewale.com">contact@bikewale.com</a></li>
             </ul>
         </div>

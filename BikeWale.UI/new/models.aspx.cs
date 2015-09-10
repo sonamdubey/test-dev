@@ -31,6 +31,8 @@ namespace Bikewale.New
         protected string makeId = String.Empty;
         protected MakeBase _make = null;
         protected BikeDescription _bikeDesc = null;
+        protected Int64 _minModelPrice;
+        protected Int64 _maxModelPrice;
 
         protected override void OnInit(EventArgs e)
         {
@@ -68,6 +70,10 @@ namespace Bikewale.New
                     ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
                     ctrlVideos.TotalRecords = 3;
                     ctrlVideos.MakeId = Convert.ToInt32(makeId); ;
+
+                    //To find min and max modelPrice
+                    _minModelPrice = BindMakePage.MinPrice;
+                    _maxModelPrice = BindMakePage.MaxPrice;
 
                 }
             } 
