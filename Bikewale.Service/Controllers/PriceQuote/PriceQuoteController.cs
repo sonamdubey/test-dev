@@ -14,6 +14,9 @@ using System.Web.Http.Description;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Notifications;
+using Bikewale.DTO.PriceQuote.DealerPriceQuote;
+using System.Configuration;
+using Bikewale.Utility;
 namespace Bikewale.Service.Controllers.PriceQuote
 {
     /// <summary>
@@ -61,6 +64,42 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+
+        /// <summary>
+        /// Generates the dealer price quote
+        /// </summary>
+        /// <param name="input">Required parameters to generate the dealer price quote</param>
+        /// <returns>Dealer Price Quotation</returns>
+        [ResponseType(typeof(DPQuotationOutput))]
+        public IHttpActionResult Post([FromBody]DPQuotationInput input)
+        {
+            PQ_QuotationEntity objPrice = null;
+            DPQuotationOutput output = null;
+            try
+            {
+                string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
+                string requestType = "application/json";
+                string api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", input.CityId, input.VersionId, input.DealerId);
+
+                objPrice = BWHttpClient.GetApiResponseSync<PQ_QuotationEntity>(abHostUrl, requestType, api, objPrice);
+
+                if (objPrice != null)
+                {
+                    output = DPQuotationOutputMapper.Convert(objPrice);
+                    return Ok(output);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.DealerPriceQuoteController.Post");
                 objErr.SendMail();
                 return InternalServerError();
             }
