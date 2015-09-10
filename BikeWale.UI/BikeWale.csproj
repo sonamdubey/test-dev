@@ -765,9 +765,6 @@
       <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\controls\MOnRoadPricequote.ascx.designer.cs">
-      <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
-    </Compile>
     <Compile Include="m\controls\MPopupWidget.ascx.cs">
       <DependentUpon>MPopupWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -816,10 +813,7 @@
       <DependentUpon>BikeModels.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\new\BikeModels_old.aspx.cs">
-      <DependentUpon>BikeModels_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
+  
     <Compile Include="m\new\BikeSeries.aspx.cs">
       <DependentUpon>BikeSeries.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
