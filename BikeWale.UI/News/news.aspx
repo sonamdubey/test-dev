@@ -36,7 +36,7 @@
 	<div class="grid_8 margin-top10">    
         <h1><%= articleTitle %></h1>
 		<div id="post-<%= basicId%>">			
-            <div class="grid_6 alpha margin-top5"><div class="margin-bottom5"><abbr><%= displayDate%></abbr> by <%= authorName%></div></div>
+            <div class="grid_6 alpha margin-top5"><div class="margin-bottom5"><abbr><%= Bikewale.Utility.FormatDate.GetDaysAgo(displayDate) %></abbr> by <%= authorName%></div></div>
             <ul class="social">
                 <li><fb:like href="http://www.bikewale.com/news/<%= basicId%>-<%= articleUrl %>.html" send="false" layout="button_count" width="80" show_faces="false"></fb:like></li>
                 <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/news/<%= basicId%>-<%= articleUrl %>.html" data-via='<%= articleUrl %>' data-lang="en">Tweet</a></li>

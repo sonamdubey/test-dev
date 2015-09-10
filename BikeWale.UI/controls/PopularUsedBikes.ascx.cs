@@ -40,7 +40,8 @@ namespace Bikewale.controls
         private void CheckCityCookie(out int? cityId, out string cityName)
         {
             string location = String.Empty;
-            if (this.Context.Request.Cookies.AllKeys.Contains("location"))
+            int locationValue;
+            if (this.Context.Request.Cookies.AllKeys.Contains("location") && int.TryParse(this.Context.Request.Cookies["location"].Value, out locationValue) && locationValue > 0)
             {
                 location = this.Context.Request.Cookies["location"].Value;
                 cityId = Convert.ToInt32(location.Split('_')[0]);

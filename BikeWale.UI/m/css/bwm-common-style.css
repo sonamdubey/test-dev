@@ -228,7 +228,7 @@ footer ul li a:hover { text-decoration: underline; }
 .imageWrapper a { display: block; }
 .imageWrapper img { width: 100%; }
 .bikeDescWrapper { padding: 15px; background:#fff; }
-.bikeTitle a { color: #1a1a1a; font-size: 16px; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }  
+.bikeTitle a { color: #1a1a1a; font-size: 16px; display: block; }  
 .formContent { padding: 30px 20px 20px 20px; }
 .bike-preview { text-align: center; }
 .bike-preview img { width: 100%; }
