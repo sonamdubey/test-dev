@@ -36,10 +36,11 @@ namespace Bikewale.controls
             BindUsedBikesControl.BindRepeater(rptPopularUsedBikes);
             this.FetchedRecordsCount = BindUsedBikesControl.FetchedRecordsCount;
         }
+
         private void CheckCityCookie(out int? cityId, out string cityName)
         {
             string location = String.Empty;
-            if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value != "0")
+            if (this.Context.Request.Cookies.AllKeys.Contains("location"))
             {
                 location = this.Context.Request.Cookies["location"].Value;
                 cityId = Convert.ToInt32(location.Split('_')[0]);
@@ -61,7 +62,7 @@ namespace Bikewale.controls
             cityName = cityMaskingName.Trim();
             if (cityId.HasValue)
             {
-                url = String.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityMaskingName.Trim());
+                url = String.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityName);
             }
             else
             {
