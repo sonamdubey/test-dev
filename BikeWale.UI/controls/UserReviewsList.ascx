@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.UserReviewsList" %>
-
 <asp:Repeater ID="rptUserReview" runat="server">
     <ItemTemplate>
         <div class="padding-bottom20 font14">

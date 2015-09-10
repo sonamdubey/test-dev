@@ -16,3 +16,6 @@
         DD_belatedPNG.fix('.bw-logo a');/* fix png transparency problem with IE6 */
     </script>
 <![endif]-->
+<script type="text/javascript">
+    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
+</script>
