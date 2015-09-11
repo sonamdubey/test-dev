@@ -366,36 +366,36 @@ namespace Bikewale.New
             string format = "";
             if (alloyWheel)
             {
-                format = String.Concat(format.Trim()," Alloy Wheels");
+                format = String.Concat(format.Trim()," Alloy Wheels,");
             }
             else{
-                format = String.Concat(format.Trim(), " Spoke Wheels");
+                format = String.Concat(format.Trim(), " Spoke Wheels,");
             }
 
             if (elecStart)
             {
-                format = String.Concat(format.Trim(), " Electric Start");
+                format = String.Concat(format.Trim(), " Electric Start,");
             }
             else
             {
-                format = String.Concat(format.Trim(), " Kick Start");
+                format = String.Concat(format.Trim(), " Kick Start,");
             }
 
             if (abs)
             {
-                format = String.Concat(format.Trim(), " ABS");
+                format = String.Concat(format.Trim(), " ABS,");
             }
             
             if (!String.IsNullOrEmpty(breakType))
             {
-                format = String.Concat(format.Trim(),breakType," Break");
+                format = String.Concat(format.Trim(),breakType," Break,");
             }
 
             if (String.IsNullOrEmpty(format.Trim()))
             {
                 return "No specifications.";
             }
-            return format;
+            return format.Trim().Substring(0,format.Length - 1);
         }
     }
 

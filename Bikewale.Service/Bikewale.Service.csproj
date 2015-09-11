@@ -205,6 +205,8 @@
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />
     <Compile Include="Controllers\Customer\CustomerController.cs" />
+    <Compile Include="Controllers\Customer\LoginInputParameters.cs" />
+    <Compile Include="Controllers\Customer\RegisterInputParameters.cs" />
     <Compile Include="Controllers\Make\DealerMakesController.cs" />
     <Compile Include="Controllers\Make\MakePageController.cs" />
     <Compile Include="Controllers\NewBikeSearch\NewBikeSearchController.cs" />

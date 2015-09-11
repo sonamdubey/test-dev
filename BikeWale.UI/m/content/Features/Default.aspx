@@ -13,7 +13,6 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <div class="padding5">
-    <form runat="server" id="form1">
         <div id="br-cr"><a href="/m/" class="normal">Home</a> &rsaquo; <span class="lightgray">Features</span></div>
         <h1>Latest Bike Features</h1>
         <div id="divListing">  
