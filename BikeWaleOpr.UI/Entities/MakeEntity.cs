@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BikeWaleOpr.Entities
 {
-    [Serializable]
+    
     public class MakeEntity : MakeEntityBase
     {
         public bool New { get; set; }
