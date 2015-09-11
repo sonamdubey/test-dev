@@ -16,7 +16,9 @@
 
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
-
+<style type="text/css">
+    .action-btn.write-review-btn { padding:8px 12px !important; }
+</style>
 
 <div class="container_12">
     <div class="grid_12">
@@ -55,7 +57,7 @@
             </div>
             <div class="grid_2 omega margin-top20">
 				<p class="f-small">Own a <span class="price2"><%= BikeName %>?</span> Help others make an informed buying decision.</p>
-				<div class=" action-btn margin-top5"><a href="/content/userreviews/writereviews.aspx?bikem=<%= modelId %>">Write a Review</a></div>
+				<div class="action-btn write-review-btn margin-top5"><a href="/content/userreviews/writereviews.aspx?bikem=<%= modelId %>">Write a Review</a></div>
 			</div>
 		</div>				
 	    <div class="clear"></div>

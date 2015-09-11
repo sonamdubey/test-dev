@@ -2,12 +2,7 @@
 <style>
     
 /*PopupWidget Styling*/
-.bw-popup, .bw-contact-popup { background:#fff; width:454px; position:fixed; left:50%; top:50%; z-index:999; margin-left:-220px; margin-top:-150px;  border-radius:2px; }
-.bw-contact-popup { max-width:454px;}
-.bw-popup-sm { width:300px; position:fixed; top:50%; left:52%;}
-.popup-inner-container { padding:20px 20px 30px;}
-.popup-inner-container h2{ padding-bottom:10px; border-bottom:2px solid #c62000;}
-.bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;} 
+
 #OnRoadContent .chosen-container { border:0;border-radius:0;padding:12px }
 .minifyWidth{width:50%;}
 </style>
