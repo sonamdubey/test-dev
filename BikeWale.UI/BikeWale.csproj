@@ -1905,6 +1905,8 @@
     <Content Include="images\nav-sept.jpg" />
     <Content Include="images\nav.png" />
     <Content Include="images\new-bikes-banner.jpg" />
+    <Content Include="images\no_result_d.png" />
+    <Content Include="images\no_result_m.png" />
     <Content Include="images\pattern-bg.jpg" />
     <Content Include="images\Pratikphoto.JPG" />
     <Content Include="images\ratings\0.png" />
@@ -1912,6 +1914,7 @@
     <Content Include="images\ratings\half.png" />
     <Content Include="images\rsa-logo.png" />
     <Content Include="images\search-bg.jpg" />
+    <Content Include="images\search-loading.gif" />
     <Content Include="images\seperator-m.png" />
     <Content Include="images\seperator.png" />
     <Content Include="images\shadow-header.jpg" />
@@ -1954,8 +1957,6 @@
     <Content Include="includes\headTools.aspx" />
     <Content Include="includes\headUsed.aspx" />
     <Content Include="includes\MenuList_Mobile.aspx" />
-    <Content Include="includes\Navigation.aspx" />
-    <Content Include="includes\Navigation_Mobile.aspx" />
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
     <Content Include="Forums\ISAPI\ISAPI_Rewrite.dll" />
@@ -2066,6 +2067,7 @@
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\new\bwm-search.js" />
+    <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />

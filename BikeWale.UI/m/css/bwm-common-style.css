@@ -242,6 +242,13 @@ footer ul li a:hover { text-decoration: underline; }
 .breadcrumb li { display: inline-block; margin-right: 5px; }
 .breadcrumb li span.fa-angle-right { font-size: 18px; vertical-align: top; }
 /* nav classes */
+header.fixed {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 3;
+}
 .header-fixed { background: #333333; padding:15px 10px; height:50px; z-index: 3; }
 header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-index: 3;}
 .header-fixed-inner { padding-top: 65px; }
