@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,5 +30,10 @@ namespace Bikewale.Entities.PriceQuote
         /// Offers list
         /// </summary>
         public IList<DealerOfferEntity> Offers { get; set; }
+
+        /// <summary>
+        /// Bike Model Colors
+        /// </summary>
+        public IEnumerable<BikeModelColor> BikeModelColors { get; set; }
     }
 }

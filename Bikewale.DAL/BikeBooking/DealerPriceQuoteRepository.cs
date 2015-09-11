@@ -838,6 +838,7 @@ namespace Bikewale.DAL.BikeBooking
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity entity = null;
+            IEnumerable<BikeModelColor> bikeModelColors = null;
             Database db = null;
             SqlDataReader reader = null;
             List<DealerPriceCategoryItemEntity> DealerPriceCategoryItemEntities = null;
@@ -990,6 +991,11 @@ namespace Bikewale.DAL.BikeBooking
                                      }).ToList());
 
                             entity.Varients = BikeDealerPriceDetails;
+                            if (entity.Varients != null && entity.Varients.Count > 0)
+                            {
+                                bikeModelColors = GetModelColor(entity.Varients[0].Model.ModelId);
+                            }
+                            entity.BikeModelColors = bikeModelColors;
                         }
                     }
                 }
@@ -1008,5 +1014,62 @@ namespace Bikewale.DAL.BikeBooking
             }
             return entity;
         }
+
+        private IEnumerable<BikeModelColor> GetModelColor(int modelId)
+        {
+            List<BikeModelColor> colors = null;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "GetModelColor";
+
+                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            colors = new List<BikeModelColor>();
+
+                            while (dr.Read())
+                            {
+                                colors.Add(
+                                    new BikeModelColor
+                                    {
+                                        ColorName = Convert.ToString(dr["Color"]),
+                                        HexCode = Convert.ToString(dr["HexCode"]),
+                                        ModelId = Convert.ToUInt32(dr["BikeModelID"]),
+                                    }
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("GetModelColor sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetModelColor ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return colors;
+        }
+
     }   //End of class
 }   //End of namespace

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Bikewale.DTO.Model;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,5 +35,11 @@ namespace Bikewale.DTO.PriceQuote.BikeBooking
         /// </summary>
         [JsonProperty("offers")]
         public IList<DealerOfferDTO> Offers { get; set; }
+
+        /// <summary>
+        /// Bike Model Colors
+        /// </summary>
+        [JsonProperty("modelColors")]
+        public IEnumerable<ModelColor> BikeModelColors { get; set; }
     }
 }
