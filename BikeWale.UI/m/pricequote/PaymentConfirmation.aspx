@@ -102,7 +102,7 @@
 <!--Faqs popup starts here-->
     <div class="bw-popup faq-popup hide">
     	<div class="popup-inner-container">
-            <div class="bw-sprite close-btn floatright"></div>
+            <div class="bwmsprite close-btn floatright"></div>
             <h1>Frequently Asked Questions</h1>
             <div class="rounded-corner5 new-line10 selection-box bw-accordion">
             	<div class="selected-input-text floatleft f-bold">1. What is pre-booking?<br /> Why should I pre-book?</div>
@@ -249,7 +249,7 @@
 <!--Documents popup starts here-->
     <div class="bw-popup documents-popup hide">
     	<div class="popup-inner-container">
-            <div class="bw-sprite close-btn floatright"></div>
+            <div class="bwmsprite close-btn floatright"></div>
             <h1>List of Required Documents</h1>
             <div class="f-bold margin-top-10 margin-bottom10">Mandatory Documents:</div>
             <div class="doc-list">
