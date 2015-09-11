@@ -155,8 +155,8 @@
 		        <tr>			
 			        <td colspan="2" align="center">				
 				        <div>
-                            <asp:Button ID="butSave" CssClass="action-btn" runat="server" Text="Post Review" />
-                            <span class="margin-top5 margin-left10"><input type="button" class="action-btn" value="Discard Review" onClick="javascript:location.href='<%= BackUrl%>'" /></span>
+                            <asp:Button ID="butSave" CssClass="action-btn text_white" runat="server" Text="Post Review" />
+                            <span class="margin-top5 margin-left10"><input type="button" class="action-btn text_white" value="Discard Review" onClick="javascript:location.href='<%= BackUrl%>'" /></span>
 				        </div>
 				        
 			        </td>

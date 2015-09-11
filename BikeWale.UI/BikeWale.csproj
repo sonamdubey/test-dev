@@ -813,7 +813,6 @@
       <DependentUpon>BikeModels.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-  
     <Compile Include="m\new\BikeSeries.aspx.cs">
       <DependentUpon>BikeSeries.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1562,6 +1561,7 @@
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
+    <Content Include="css\brand.css" />
     <Content Include="css\bw-common-style.css" />
     <Content Include="css\bw-pq-new.css" />
     <Content Include="css\bw-pq.css" />

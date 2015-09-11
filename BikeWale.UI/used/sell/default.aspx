@@ -250,7 +250,7 @@
                         <td>&nbsp;</td>
                         <td>
                             <div>
-                                <asp:button id="btnContinue" runat="server" cssclass="action-btn" text="Save & Continue"></asp:button>
+                                <asp:button id="btnContinue" runat="server" cssclass="action-btn text_white" text="Save & Continue"></asp:button>
                             </div>
                         </td>
                     </tr>

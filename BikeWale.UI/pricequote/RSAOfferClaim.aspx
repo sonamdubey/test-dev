@@ -234,7 +234,7 @@
                                         </tr>
                                         <tr>
                                             <td>&nbsp;</td>
-                                            <td><asp:Button class="action-btn" id="btnSubmit" Text="Claim Offer" runat="server" /></td>
+                                            <td><asp:Button class="action-btn text_white" id="btnSubmit" Text="Claim Offer" runat="server" /></td>
                                         </tr>
                                         <input type="hidden" id="hdnVersion" runat="server" />
                                         <input type="hidden" id="hdnBikeName" runat="server"/>

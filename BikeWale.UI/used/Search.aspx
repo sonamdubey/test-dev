@@ -24,7 +24,7 @@
     .sel_parama_hover{border:1px solid #cc0000; color:#445566!important; padding:1px 1px 1px 5px; margin:3px; display:inline-block; text-decoration:none!important; border-radius:3px; cursor:pointer;}
     .sel_parama_hover span{background-color:#cc0000; color:#fff; padding:0 3px; margin-left:5px; cursor:pointer;}
     #app_filters li {display:block;} 
-    #btnShowinterst { color:#fff; }
+    #btnShowinterst { color:#fff; padding:8px;}
     #buyer_form input { border:1px solid #ccc; padding:5px; }
 </style>
 <div class="container_12">

@@ -107,13 +107,13 @@
             <ul class="profileUL">
                 <li>
                     <a href="/mybikewale/myinquiries/">
-                        <span class="margin-left15 bwsprite login-edit-icon"></span>
+                        <span class="margin-left15 bwsprite inquiry-icon"></span>
                         <span class="margin-left20 profile-option-title">My Inquiries</span>
                     </a>
                 </li>                
                 <li>
                     <a href="/users/newssubscription.aspx">
-                        <span class="margin-left15 bwsprite login-edit-icon"></span>
+                        <span class="margin-left15 bwsprite newsletter-icon"></span>
                         <span class="margin-left20 profile-option-title">Subscribe Newsletters</span>
                     </a>
                 </li>

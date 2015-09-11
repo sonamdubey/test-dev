@@ -1,19 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Controls.OnRoadPricequote" %>
 
 <link href="/css/chosen.min.css" rel="stylesheet" />
-<style>
-    
-/*PopupWidget Styling*/
-#OnRoadContent .bw-popup, .bw-contact-popup { background:#fff; width:454px; position:fixed; left:50%; top:50%; z-index:999; margin-left:-220px; margin-top:-150px;  border-radius:2px; }
-#OnRoadContent .bw-contact-popup { max-width:454px;}
-#OnRoadContent .bw-popup-sm { width:300px; position:fixed; top:50%; left:52%;}
-#OnRoadContent .popup-inner-container { padding:20px 20px 30px;}
-#OnRoadContent .popup-inner-container h2{ padding-bottom:10px; border-bottom:2px solid #c62000;}
-#OnRoadContent .bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;} 
-
-/*#OnRoadContent div.chosenError { border:1px solid #F00;} 
-#OnRoadContent div.chosenError div b {background-image:none;}*/
-</style>
 
 <div class="container">
     <div class="grid-5 leftfloat">

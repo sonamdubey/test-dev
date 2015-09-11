@@ -6,8 +6,8 @@
     keywords = "password, retrieve your password, get password";
 %>
 <!-- #include file="/includes/headMyBikeWale.aspx" -->    
-<div class="container_12 margin-top15">
-    <div class="grid_8 min-height">
+<div class="container_12 margin-top10">
+    <div class="grid_8 min-height content-inner-block-10">
         <h1>Forgot Password?</h1>  
         <table class="tbl-default margin-top15" border="0" cellspacing="0" cellpadding="3">
 	        <tr>
@@ -16,7 +16,7 @@
 	        </tr>	      
             <tr>
                 <td>&nbsp;</td>
-                <td><input type="button" id="btnGetPassword" value="Get Password" class="action-btn" /></td>
+                <td><input type="button" id="btnGetPassword" value="Get Password" class="action-btn text_white" /></td>
             </tr>          
         </table>	   				
     </div>
