@@ -57,6 +57,9 @@ namespace Bikewale.PriceQuote
         #region Page load
         protected void Page_Load(object sender, EventArgs e)
         {
+            DeviceDetection deviceDetection = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            deviceDetection.DetectDevice();
+
             div_ShowErrorMsg.Visible = false;
             try
             {
