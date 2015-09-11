@@ -46,8 +46,6 @@ namespace Bikewale.Mobile
 
                     if (!Page.IsPostBack)
                     {
-                        DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-                        dd.DetectDevice();
 
                         _make = new MakeBase();
                         _bikeDesc = new BikeDescription();

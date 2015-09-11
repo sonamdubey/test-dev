@@ -19,7 +19,6 @@
     .socialplugins li{float:left;width:84px;}
 </style>
 <div class="padding5">
-    <form runat="server" id="form1">
         <div id="br-cr">
             <a href="/m/" class="normal">Home</a> &rsaquo; 
             <a href="/m/features/" class="normal">Features</a> &rsaquo;
@@ -128,7 +127,6 @@
             <%} %>
 	        <div style="clear:both;"></div>
         </div>--%>
-    </form>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {

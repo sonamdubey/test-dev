@@ -2062,6 +2062,7 @@
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="src\autocomplete.js" />
+    <Content Include="src\brand.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
@@ -2132,7 +2133,9 @@
     <Content Include="src\html5.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="src\knockout.js" />
+    <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
+    <Content Include="src\newbikes.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\new\search.js" />
