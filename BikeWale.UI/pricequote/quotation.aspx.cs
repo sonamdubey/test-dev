@@ -85,6 +85,9 @@ namespace Bikewale.PriceQuote
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            dd.DetectDevice();
+
             ProcessPriceQuoteData();
             if (PriceQuoteCookie.PQId != null)
             {

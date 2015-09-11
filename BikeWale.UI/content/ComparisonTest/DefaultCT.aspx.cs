@@ -28,6 +28,10 @@ namespace Bikewale.Content
         }
         private void Page_Load(object sender, EventArgs e)
         {
+            DeviceDetection deviceDetection = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            deviceDetection.DetectDevice();
+
+
             CommonOpn op = new CommonOpn();
             string makeId = string.Empty, makeName = string.Empty, modelId = string.Empty, modelName = string.Empty;
             alertObj.Visible = false;

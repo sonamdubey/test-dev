@@ -49,6 +49,9 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            dd.DetectDevice();
+
             if (!String.IsNullOrEmpty(Request.QueryString["cityId"]) || !int.TryParse(Request.QueryString["cityId"], out city))
             {
                 cityId = Request.QueryString["cityId"];

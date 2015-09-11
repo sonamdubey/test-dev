@@ -46,8 +46,9 @@ namespace Bikewale.Content
         private void Page_Load(object sender, EventArgs e)
         {
             //code for device detection added by Ashwini Todkar
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-            dd.DetectDevice();
+            DeviceDetection deviceDetection = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            deviceDetection.DetectDevice();
+
 
             ProcessQS();
 

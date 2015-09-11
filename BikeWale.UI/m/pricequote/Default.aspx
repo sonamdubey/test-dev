@@ -277,6 +277,7 @@
                         $('#ddlAreaTest').append("<li class='ui-last-child'><a class='ui-btn' href='#' areaId='" + resObj[i].AreaId + "'  areaName='" + resObj[i].AreaName + "' onClick='selectArea(this);'>" + resObj[i].AreaName + "</a></li>");//("<li value='" + resObj.Table[i].Value + "'>" + resObj.Table[i].Text + "</option>");
                         $("#divArea").show();
                     }
+                    $('#ddlAreaTest li').find('a').last().css('border-bottom', '1px solid #ccc');
                 }
             });
 
