@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.CMS.Photos
 {
-    [Serializable]
     public class CMSImage
     {
         public uint RecordCount { get; set; }

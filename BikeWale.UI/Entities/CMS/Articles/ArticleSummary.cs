@@ -9,7 +9,6 @@ namespace Bikewale.Entities.CMS.Articles
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
     /// </summary>
-    [Serializable]
     public class ArticleSummary : ArticleBase
     {
         public ushort CategoryId { get; set; }
