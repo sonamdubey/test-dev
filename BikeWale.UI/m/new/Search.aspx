@@ -13,7 +13,7 @@
         <!-- #include file="/includes/headscript_mobile.aspx" -->
     </head>
     <body class="bg-light-grey">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <!-- #include file="/includes/Navigation_Mobile.aspx" -->
         <link href="/m/css/new/bwm-search.css" rel="stylesheet" type="text/css" />
 
         <header>
@@ -23,7 +23,7 @@
                     <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>                
                 </div>
                 <div class="rightfloat">
-                    <a href="#" class="sort-btn" id="sort-btn">
+                    <a class="sort-btn" id="sort-btn">
                         <span class="bwmsprite sort-icon"></span>
                     </a>
                 </div>
@@ -44,20 +44,20 @@
                 <div><!--  class="grid-12"-->
             
               		    <div class="hide" id="sort-by-div">
-                    	    <div class="filter-sort-div font14 bg-white">
-                                <div>
-                                    <a href="javascript:void(0)" data-title="sort" class="position-rel">
-                                	    Price <span class="fa sort-arw fa-long-arrow-down"></span>
+                    	    <div  class="filter-sort-div font14 bg-white">
+                                <div sc="1" so="">
+                                    <a data-title="sort" class="price-sort position-rel">
+                                	    Price<span class="hide" so="0" class="sort-text"></span>
                                     </a>
                                 </div>
-                                <div class="border-solid-left">
-                                    <a href="javascript:void(0)" data-title="sort" class="position-rel">
-                                	    Popularity <span class="fa sort-arw fa-long-arrow-down" style="display:none"></span>
+                                <div sc="" class="border-solid-left">
+                                    <a data-title="sort" class="position-rel">
+                                	    Popularity 
                                     </a>
                                 </div>
-                                <div class="border-solid-left">
-                                    <a href="javascript:void(0)" data-title="sort" class="position-rel">
-                                	    Mileage <span class="fa sort-arw fa-long-arrow-down" style="display:none"></span>
+                                <div sc="2" class="border-solid-left">
+                                    <a data-title="sort" class="position-rel">
+                                	    Mileage 
                                     </a>
                                 </div>
                             </div>
@@ -66,21 +66,28 @@
                         <div id="divSearchResult" data-bind="template: { name: 'listingTemp', foreach: searchResult }" class="search-bike-container">
 
                         </div>
+                        <div style="text-align:center;">
+                            <div id="nobike" class="hide">
+                                <img src="/images/no_result_m.png" />
+                            </div>
+                            <div id="loading" class="hide">
+                                <img src="/images/search-loading.gif" />
+                            </div>
+                        </div>
                     </div>
-
                     <script type="text/html" id="listingTemp">
                         <div class="search-bike-item">
                             <div class="front">
                                 <div class="contentWrapper">
                                     <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                     <div class="imageWrapper">
-                                        <a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' }">
+                                        <a data-bind="attr: { href: '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' }">
                                             <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/227X128/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
                                         </a>
                                     </div>
                                         <div class="bikeDescWrapper">
                                             <div class="bikeTitle">
-                                                <h3><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName"></a></h3>
+                                                <h3><a data-bind="attr: { href: '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName"></a></h3>
                                             </div>
                                             <div class="font22 text-grey margin-bottom5">
                                                 <span class="fa fa-rupee"></span>
@@ -91,16 +98,18 @@
                                                 <span data-bind="html: availSpecs"> </span>
                                             </div>
                                             <div class="padding-top5 clear">
-                                                <div class="grid-6 alpha">
-                                                    <div class="padding-left5 padding-right5">
-                                                        <div>
-                                                            <span class="margin-bottom10" data-bind="html: AppendCertificationStar(bikemodel.reviewRate())"></span>
+                                                <!-- ko if:bikemodel.reviewCount() != 0  -->
+                                                    <div class="grid-6 alpha">
+                                                        <div class="padding-left5 padding-right5 border-solid-right ">
+                                                            <div>
+                                                                <span class="margin-bottom10" data-bind="html: AppendCertificationStar(bikemodel.reviewRate())"></span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="grid-6 omega border-left1">
+                                                <!-- /ko -->
+                                                <div class="grid-6 omega">
                                                     <div class="padding-left5 padding-right5">
-                                                        <span class="font16 text-light-grey" data-bind="text: bikemodel.reviewCount() + ' Reviews'"></span>
+                                                        <span class="font16 text-light-grey" data-bind="text: ShowReviewCount(bikemodel.reviewCount())"></span>
                                                     </div>
                                                 </div>
                                                 <div class="clear"></div>
@@ -121,13 +130,13 @@
             <!--Filters starts here-->
                 <div id="filter-div" class="popup_layer hide">
                     <div data-role="header" data-theme="b" class="ui-corner-top" data-icon="delete">
-                        <div class="filterBackArrow" popupname="filterpopup" onclick="CloseWindow(this)">
+                        <div id="hidePopup" class="filterBackArrow" popupname="filterpopup" onclick="CloseWindow(this)">
                             <!--<span class="bwmsprite back-long-arrow-left-white"></span>-->
                             <span class="fa fa-angle-left"></span>
                         </div>
                         <div class="floatleft cw-m-sprite city-back-btn" id="back-btn"></div>
                         <div class="filterTitle">Filters</div>
-                        <div class="resetrTitle">Reset</div>
+                        <div id="btnReset" class="resetrTitle">Reset</div>
                         <div class="clear"></div>
                     </div>
                     <div class="content-inner-block-20 margin-bottom40 clearfix">
@@ -138,7 +147,7 @@
                               <div class="multiSel"></div>
                             </div>
                           
-                            <div class="mutliSelect">
+                            <div name="bike" class="multiSelect">
                                 <ul>
                                     <li class="unchecked" filterId="2"><span>Aprilia</span></li>
                                     <li class="unchecked" filterId="7"><span>Honda</span></li>
@@ -173,10 +182,10 @@
                             <h3 class="text-black margin-bottom10">Budget</h3>
                             <div class="slider-box content-box-shadow content-inner-block-10">
                                 <div class="leftfloat">
-                                    <span id="rangeAmount">All Range</span>
+                                    <span id="rangeAmount">0 - Any value</span>
                                 </div>
                                 <div class="clear"></div>
-                                <div id="mSlider-range" class="bwm-sliders"></div>
+                                <div name="budget" id="mSlider-range" class="bwm-sliders"></div>
                             </div>
                         </div>
                         <!--Budget section ends here-->
@@ -188,7 +197,7 @@
                               <div class="multiSel"></div>  
                             </div>
                           
-                            <div class="mutliSelect">
+                            <div name="displacement" class="multiSelect">
                                 <ul>
                                     <li class="unchecked" filterId="1"><span>Up to 110 cc</span></li>
                                     <li class="unchecked" filterId="2"><span>110-150 cc</span></li>
@@ -204,11 +213,12 @@
                        <!--ride section starts here-->
                         <div class="dropdown form-control-box margin-bottom20"> 
                             <div class="form-control">
-                              <span class="hida">Ride Style</span>    
-                              <div class="multiSel"></div>  
+                                <span class="hide">Ride Style</span>
+                                <span class="hida">Ride Style</span>    
+                                <div class="multiSel"></div>  
                             </div>
                           
-                            <div class="mutliSelect">
+                            <div name="ridestyle" class="multiSelect">
                                 <ul>
                                     <li class="unchecked" filterId="1"><span>Cruisers</span></li>
                                     <li class="unchecked" filterId="2"><span>Sports</span></li>
@@ -223,18 +233,18 @@
                         <!--ride section starts here-->
                         <div class="form-control-box margin-bottom20 clearfix">
                     	    <h3 class="text-black margin-bottom10">Mileage</h3>
-                            <div class="grid-12 mileage-box">
+                            <div name="mileage" class="grid-12 mileage-box">
                         	    <div class="grid-3 content-inner-block-5">
-                            	    <span class="form-control mileage">70+</span>
+                            	    <span filterid="1" class="form-control mileage">70+</span>
                                 </div>
                                 <div class="grid-3 content-inner-block-5">
-                            	    <span class="form-control mileage">70-50</span>
+                            	    <span filterid="2" class="form-control mileage">70-50</span>
                                 </div>
                                 <div class="grid-3 content-inner-block-5">
-                            	    <span class="form-control mileage">50-30</span>
+                            	    <span filterid="3" class="form-control mileage">50-30</span>
                                 </div>
                                 <div class="grid-3 content-inner-block-5">
-                            	    <span class="form-control mileage">30-0</span>
+                            	    <span filterid="4" class="form-control mileage">30-0</span>
                                 </div>
                             </div>
                         </div>
@@ -285,7 +295,7 @@
                 <!--Button starts here-->
                 <div class="popup-btn-filters hide text-center">
                     <div class="margin-left10 margin-right10">
-                        <input type="submit" id="btnApplyFilters" class="btn btn-orange btn-full-width" value="Apply Filters" />
+                        <input type="button" id="btnApplyFilters" class="btn btn-orange btn-full-width" value="Apply Filters" />
                     </div>
                 </div>
                 <!--Button ends here-->

@@ -17,15 +17,7 @@ namespace Bikewale.Mobile.New
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
-            try
-            {
-
-            }
-            catch(Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Mobile.New.Page_Load");
-                objErr.SendMail();
-            }
+           
 		}
 	}
 }

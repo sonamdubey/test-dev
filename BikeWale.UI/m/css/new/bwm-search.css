@@ -1,7 +1,7 @@
 ﻿@charset "utf-8";
 .filter-btn, .sort-btn { color: #fff; padding: 0 10px; position: relative; cursor: pointer; font-size: 20px; }
 .brand-total { position: relative; top: -2px; }
-#sort-by-div.fixed { position: fixed; left: 0; right: 0; top: 0; z-index: 999; }
+#sort-by-div.fixed { position: fixed; left: 0; right: 0; top: 50px; z-index: 999; }
 .filter-sort-div { display: table; width: 100%; border-top: solid 1px #d9d9d9; padding: 10px 0; background: #fff; margin-bottom: 20px; box-shadow: 0 3px 4px 0 #e5e5e5; }
 .filter-sort-div div { display: table-cell; width: 33.333%; }
 .filter-sort-div div a { padding: 0; color: #565a5c; display: block; text-decoration: none; text-align: center; }
@@ -113,3 +113,5 @@ span.ui-helper-hidden-accessible { display: none; }
 .checkOption:first-child { border-top-right-radius: 0; border-bottom-right-radius: 0; }
 .checkOption:last-child { border-left: 0; border-top-left-radius: 0; border-bottom-left-radius: 0; }
 .optionSelected { background-color: #333333; color: #fff; }
+
+.sort-text {font-size: 14px; margin-left: 4px;margin-right:4px; }

@@ -258,8 +258,8 @@
                         </div>
                         <div class="clear"></div>
                         <div class="padding-left10 margin-top10 margin-bottom10">
-                        	<button class="filter-done-btn btn btn-orange margin-right15">Done</button>
-                        	<button id="btnReset" class="filter-reset-btn btn btn-grey">Reset</button>  
+                        	<input type="button" class="filter-done-btn btn btn-orange margin-right15" value="Done"/>
+                        	<input type="button"  id="btnReset" class="filter-reset-btn btn btn-grey"  value="Reset"/>
                             <div class="clear"></div>                          
                         </div>
                     </div>
@@ -295,10 +295,16 @@
                             </ul>
                         </div>
                         <div class="clear"></div>
+                        <div style="text-align:center;">
+                            <div id="NoBikeResults" class="hide">
+                                <img src="/images/no_result_d.png" />  
+                            </div>
+                            <div id="loading" class="hide">
+                                <img src="/images/search-loading.gif" />
+                            </div>
+                        </div>
                     </div>
-                    <div id="NoBikeResults" class="hide">
-                        <span>Oops... no result found</span>
-                    </div>
+                    
                     <script type="text/html" id="listingTemp">
                         <li>
                             <div class="contentWrapper">
@@ -319,13 +325,15 @@
                                     <div class="font14 margin-bottom10">
                                         <span><span data-bind="html: availSpecs"> </span></span>
                                     </div>
-                                    <div class="leftfloat">
-                                        <p class=" inline-block border-solid-right padding-right10" >
-                                            <span data-bind="html: AppendCertificationStar(bikemodel.reviewRate())"></span>
-                                        </p>
-                                    </div>
+                                    <!-- ko if:bikemodel.reviewCount() != 0  -->
+                                        <div class="leftfloat">
+                                            <p class=" inline-block border-solid-right padding-right10" >
+                                                <span data-bind="html: AppendCertificationStar(bikemodel.reviewRate())"></span>
+                                            </p>
+                                        </div>
+                                    <!-- /ko -->
                                     <div class="leftfloat margin-left10 font16 text-light-grey">
-                                        <span data-bind="text: bikemodel.reviewCount() + ' Reviews'"> </span>
+                                        <span data-bind="text: ShowReviewCount(bikemodel.reviewCount())"> </span>
                                     </div>
                                     <div class="clear"></div>
                                     <a data-bind="attr: { modelId: bikemodel.modelId }" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>

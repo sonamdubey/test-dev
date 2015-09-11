@@ -144,6 +144,16 @@ var AppendCertificationStar = function (abStars) {
     return certificationStar;
 }
 
+var ShowReviewCount = function (reviewCount) {
+    var reviewText='';
+    if (parseInt(reviewCount) > 0)
+        reviewText = reviewCount + ' Reviews';
+    else
+        reviewText = 'Not yet rated';
+
+    return reviewText;
+};
+
 $.bindSearchResult = function (json) {
     var element;
     if ($.pageNo == 1)
@@ -178,14 +188,17 @@ $.hitAPI = function (searchUrl) {
             $.selectFiltersPresentInQS();
             $.getSelectedQSFilterText();
             $.lazyLoadingStatus = true;
+            $('#NoBikeResults').hide();
+            $('#loading').hide();
         },
         error: function (error) {
             $.totalCount = 0;
             var element = $('#divSearchResult');
             element.html('');
             ko.cleanNode(element);
+            $('#loading').hide();
             $('#NoBikeResults').show();
-            $('#bikecount').text($.totalCount+' bikes found');
+            $('#bikecount').text('No bikes found');
             $.selectFiltersPresentInQS();
             $.getSelectedQSFilterText();
         }
@@ -238,6 +251,7 @@ $.removeFilterFromQS = function (name) {
 };
 
 $.pushState = function (qs) {
+    $('#loading').show();
     window.location.hash = qs;
     $.hitAPI(qs);
 };
@@ -425,7 +439,6 @@ $.removePageNoParam = function () {
 };
 
 $.selectFiltersPresentInQS = function () {
-    //need not do for city as it can be selected from code behind
     var params = $.getAllParamsFromQS();
     for (var i = 0; i < params.length; i++) {
         if (params[i].length > 0) {
@@ -553,6 +566,11 @@ $.getNextPageData = function () {
 $.getSelectedQSFilterText = function () {
     var params = $.getAllParamsFromQS();
     count = 0;
+
+    $('.filter-select-title .default-text').each(function () {
+        $(this).text($(this).prev().text());
+    });
+
     for (var i = 0; i < params.length; i++) {
         if (params[i].length > 0) {
             var node = $('div[name=' + params[i] + ']');
@@ -563,8 +581,8 @@ $.getSelectedQSFilterText = function () {
                 for (var j = 0; j < values.length; j++) {
                     node.find('li[filterid=' + values[j] + ']').addClass('active');
                     selText += node.find('li[filterid=' + values[j] + ']').text() + ', ';
-                    count++;
                 }
+                count++;
                 node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
             } else if (params[i] == 'budget') {
                 var min = $('#minInput'), max = $('#maxInput');

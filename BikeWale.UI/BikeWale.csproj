@@ -1904,6 +1904,8 @@
     <Content Include="images\nav-sept.jpg" />
     <Content Include="images\nav.png" />
     <Content Include="images\new-bikes-banner.jpg" />
+    <Content Include="images\no_result_d.png" />
+    <Content Include="images\no_result_m.png" />
     <Content Include="images\pattern-bg.jpg" />
     <Content Include="images\Pratikphoto.JPG" />
     <Content Include="images\ratings\0.png" />
@@ -1911,6 +1913,7 @@
     <Content Include="images\ratings\half.png" />
     <Content Include="images\rsa-logo.png" />
     <Content Include="images\search-bg.jpg" />
+    <Content Include="images\search-loading.gif" />
     <Content Include="images\seperator-m.png" />
     <Content Include="images\seperator.png" />
     <Content Include="images\shadow-header.jpg" />
