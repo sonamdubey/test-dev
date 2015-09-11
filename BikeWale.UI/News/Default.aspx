@@ -34,32 +34,32 @@
         <h1 class="black-text">Bike News <span>Latest Indian Bikes News and Views</span></h1>        
         <asp:Repeater ID="rptNews" runat="server">
 				<itemtemplate>
-					<div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class="margin-bottom15">
+					<div id='post-<%# Eval("BasicId") %>' class="margin-bottom15">
 						<div class="anchor-title">
-                            <h2 class="font18"><a href="/news/<%# DataBinder.Eval(Container.DataItem,"BasicId") %>-<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>.html" rel="bookmark" title="Permanent Link to <%# DataBinder.Eval(Container.DataItem,"Title") %>">									    
-								<%# DataBinder.Eval(Container.DataItem,"Title") %>
+                            <h2 class="font18"><a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html" rel="bookmark" title="Permanent Link to <%# Eval("Title") %>">									    
+								<%# Eval("Title") %>
 							</a></h2>
                         </div>		
                         <div class="grid_5 alpha">
-							<abbr><%# DataBinder.Eval(Container.DataItem,"DisplayDate", "{0:f}") %></abbr> by 
-							<%# DataBinder.Eval(Container.DataItem,"AuthorName") %>                                                        
+							<abbr><%# Bikewale.Utility.FormatDate.GetDaysAgo(Eval("DisplayDate").ToString()) %></abbr> by 
+							<%# Eval("AuthorName") %>                                                        
 						</div>                        
                         <ul class="social">
-                            <li><fb:like href="http://www.bikewale.com/news/<%# DataBinder.Eval(Container.DataItem,"BasicId") %>-<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>.html" send="false" layout="button_count" width="80" show_faces="false"></fb:like></li>
-                            <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/news/<%# DataBinder.Eval(Container.DataItem,"BasicId") %>-<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>.html" data-via='<%# DataBinder.Eval(Container.DataItem,"Title") %>' data-lang="en">Tweet</a></li>
-                            <li><div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/news/<%# DataBinder.Eval(Container.DataItem,"BasicId") %>-<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>.html"></div></li>
+                            <li><fb:like href="http://www.bikewale.com/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html" send="false" layout="button_count" width="80" show_faces="false"></fb:like></li>
+                            <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html" data-via='<%# Eval("Title") %>' data-lang="en">Tweet</a></li>
+                            <li><div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html"></div></li>
                         </ul><div class="clear"></div>
                         <div style="border-top: 1px solid #f0f0f0;"></div>
                         <div class="margin-top10">
-						<div class="grid_5 alpha"><%# DataBinder.Eval(Container.DataItem,"Description") %></div>
-              			<%--<div class="grid_3 omega"><%#"<a href='/news/" + DataBinder.Eval(Container.DataItem,"BasicId") + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"SmallPicUrl").ToString(), DataBinder.Eval(Container.DataItem,"HostUrl").ToString()) + "' align='right' border='0' /></a>" %></div>--%>
-                            <div class="grid_3 omega"><%#"<a href='/news/" + DataBinder.Eval(Container.DataItem,"BasicId") + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString(), DataBinder.Eval(Container.DataItem,"HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) + "' align='right' border='0' /></a>" %></div>
+						<div class="grid_5 alpha"><%# Eval("Description") %></div>
+              			<%--<div class="grid_3 omega"><%#"<a href='/news/" + Eval("BasicId") + "-" + Eval("ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Common.ImagingFunctions.GetPathToShowImages(Eval("SmallPicUrl").ToString(), Eval("HostUrl").ToString()) + "' align='right' border='0' /></a>" %></div>--%>
+                            <div class="grid_3 omega"><%#"<a href='/news/" + Eval("BasicId") + "-" + Eval("ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Utility.Image.GetPathToShowImages(Eval("OriginalImgUrl").ToString(), Eval("HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) + "' align='right' border='0' /></a>" %></div>
                         </div><div class="clear"></div>
                         <div class="margin-top10">
 						    <div class="grid_7 alpha readmore">
-                                <a href="/news/<%# DataBinder.Eval(Container.DataItem,"BasicId") %>-<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>.html">Read the rest of this entry &raquo;</a>                            
+                                <a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html">Read the rest of this entry &raquo;</a>                            
 						    </div>                            
-						    <div class="grid_1 omega black-text font11"><%# DataBinder.Eval(Container.DataItem,"Views") %> views</div>
+						    <div class="grid_1 omega black-text font11"><%# Eval("Views") %> views</div>
                             <div class="clear"></div>
                         </div>
 					</div>

@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 header { background: #161209 url(../images/home-top-banner.jpg) no-repeat scroll right top; background-size:cover;}
 .btn-search { position:absolute; padding:8px 12px 9px; top: 1px; right:1px; border-top-left-radius: 0;
@@ -39,9 +39,13 @@ border-bottom-left-radius: 0;height:41px;}
 
 /* style-container */
 .styletypesprite { background: url(../images/style-type-sprite.png) no-repeat; display: inline-block;  }
-.style-scooters, .style-street, .style-cruiser, .style-sports { width:75px; height:45px; }
+.style-scooters, .style-street, .style-cruiser, .style-sports { width:77px; height:45px; }
 .style-scooters { background-position: 0 0; }
-.style-street { background-position: 0 -52px; }
-.style-cruiser { background-position: 0 -105px; }
-.style-sports { background-position: 0 -155px; }
+.style-type-container ul li:hover .style-scooters { background-position: 0 -54px; }
+.style-street { background-position: 0 -108px; }
+.style-type-container ul li:hover .style-street { background-position: 0 -162px; }
+.style-cruiser { background-position: 0 -216px; }
+.style-type-container ul li:hover .style-cruiser { background-position: 0 -270px; }
+.style-sports { background-position: 0 -324px; }
+.style-type-container ul li:hover .style-sports { background-position: 0 -378px; }
 

@@ -354,5 +354,20 @@ namespace Bikewale.BAL.BikeBooking
             return objPQOutput;
         }   //End of ProcessPQ
 
+        public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
+        {
+            BookingPageDetailsEntity pageDetail = null;
+            try
+            {
+                pageDetail = dealerPQRepository.FetchBookingPageDetails(cityId, versionId, dealerId);
+            }
+            catch (Exception ex)
+            {
+                dealerId = 0;
+                ErrorClass objErr = new ErrorClass(ex, "FetchBookingPageDetails ex : " + ex.Message);
+                objErr.SendMail();
+            }
+            return pageDetail;
+        }
     }   //End of Class
 }   //End of namespace

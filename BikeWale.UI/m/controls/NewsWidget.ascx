@@ -15,15 +15,19 @@
                                     </div>
                                     <div class="bikeDescWrapper">
                                         <div class="bikeTitle margin-bottom20">
-                                            <h3><%# DataBinder.Eval(Container.DataItem, "Title").ToString()%></h3>
+                                            <h3>
+                                                <a href="/m/news/<%# DataBinder.Eval(Container.DataItem,"BasicId").ToString() + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() %>.html">
+                                                    <%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>
+                                                </a>
+                                            </h3>
                                         </div>
-                                        <div class="margin-bottom10 text-light-grey"><%# Bikewale.Utility.FormatDate.GetDDMMYYYY(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString()) %>, by <span class="text-light-grey"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span></div>                                                    
+                                        <div class="margin-bottom10 text-light-grey"><%# Bikewale.Utility.FormatDate.GetDaysAgo(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString()) %>, by <span class="text-light-grey"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span></div>
                                     </div>
                                 </div>
                             </div>
                         </li>
                     </ItemTemplate>
-                </asp:Repeater>                
+                </asp:Repeater>
             </ul>
         </div>
         <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
