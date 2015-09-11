@@ -10,7 +10,7 @@ namespace Bikewale.Entity.CMS.Articles
     /// <summary>
     /// Created By : Ashwini Todkar on 17 Sept 2014
     /// </summary>
-    [Serializable]
+    
     public class ArticlePageDetails : ArticleSummary
     {
         public List<Page> PageList { get; set; }
