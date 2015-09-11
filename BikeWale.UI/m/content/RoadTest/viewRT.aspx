@@ -19,7 +19,6 @@
     .socialplugins li{float:left;width:84px;}
 </style>
 <div class="padding5">
-    <form runat="server" id="form1">
         <div id="br-cr">
             <a href="/m/" class="normal">Home</a> &rsaquo; 
             <a href="/m/road-tests/" class="normal">Road Tests</a> &rsaquo;
@@ -27,7 +26,7 @@
         </div>
     
         <h1><%= pageTitle %></h1>
-        <div class="new-line5 f-12"><%=displayDate %> | By <%=author %>| <%=_bikeTested %></div>
+        <div class="new-line5 f-12"><%=Bikewale.Utility.FormatDate.GetDaysAgo(displayDate) %> | By <%=author %>| <%=_bikeTested %></div>
         <div class="new-line5">
             <ul class="socialplugins  new-line10">
                 <li><fb:like href="<%= canonicalUrl%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>
