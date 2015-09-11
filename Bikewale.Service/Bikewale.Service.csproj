@@ -164,6 +164,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="AutoMappers\AutoComplete\SuggestionListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Area\BBAreaListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BookingPageDetailsEntityMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Model\BBModelListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\FeaturedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\LaunchedBikeListMapper.cs" />
@@ -190,6 +191,7 @@
     <Compile Include="AutoMappers\Videos\VideosMapper.cs" />
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
+    <Compile Include="Controllers\BikeBooking\BikeBookingPageController.cs" />
     <Compile Include="Controllers\BikeBooking\City\BBCityListController.cs" />
     <Compile Include="Controllers\BikeBooking\Make\BBMakeListController.cs" />
     <Compile Include="Controllers\BikeBooking\Model\BBModelListController.cs" />
@@ -203,6 +205,8 @@
     <Compile Include="Controllers\Compare\BikeCompareController.cs" />
     <Compile Include="Controllers\Compare\BikeCompareListController.cs" />
     <Compile Include="Controllers\Customer\CustomerController.cs" />
+    <Compile Include="Controllers\Customer\LoginInputParameters.cs" />
+    <Compile Include="Controllers\Customer\RegisterInputParameters.cs" />
     <Compile Include="Controllers\Make\DealerMakesController.cs" />
     <Compile Include="Controllers\Make\MakePageController.cs" />
     <Compile Include="Controllers\NewBikeSearch\NewBikeSearchController.cs" />

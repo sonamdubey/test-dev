@@ -25,8 +25,8 @@
 /* discover bikes */
 .newbike-discover-bike-container { background-color: #fff; }
 .newbike-discover-bike-container .jcarousel { width:934px; overflow:hidden; left:20px;}
-.newbike-discover-bike-container .jcarousel .imageWrapper { width: 298px; }
-.discover-bike-carousel .jcarousel li { width:298px; height:auto; }
+.newbike-discover-bike-container .jcarousel .imageWrapper { width: 303px; }
+.discover-bike-carousel .jcarousel li { width:303px; height:auto; margin-right:10px; }
 .discover-bike-carousel .jcarousel li.front { border:none;}
 
 /* tools you may required */
@@ -45,7 +45,7 @@
 .locate-dealer-search-container, .calculate-emi-search-container { margin:0 auto; width:750px; height: 45px; }
 .locate-dealer-search, .calculate-emi-tool-search { width:588px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; height: 45px; }
 .locate-dealer-bikeSelect { width:290px; height:45px; float:left; }
-.locate-dealer-bikeSelect input[type="text"] { width:290px; height: 43px; }
+.locate-dealer-bikeSelect select { width:290px; height: 43px; color:#555; border: none; }
 .locate-dealer-citySelect, .interest-rate-boxSelect { border-left:1px solid #ccc; height:44px; width:296px; float:left; }
 .locate-dealer-citySelect select { width: 296px; border: none; color:#555; height: 43px; }
 .get-final-price-btn, .locate-dealer-btn, .calculate-btn { float:left; }

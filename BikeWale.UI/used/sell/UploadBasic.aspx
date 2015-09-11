@@ -28,7 +28,7 @@
             <p class="desc-para">We accept <strong>jpeg</strong>, <strong>png</strong>, <strong>gif</strong> formats only. Image size up to <strong>4MB</strong> permissible. By uploading images you agree to BikeWale photos <a href="#">Terms & Conditions</a></p>				
 	        <div id="divAlertMsg" class="error padding5" runat="server"></div>                         
 	        <input type="file" id="fileInput2" name="fileInput2" runat="server"/>
-	        <asp:Button ID="btnUpload" runat="server" Text="Upload" CssClass="buttons"></asp:Button>				
+	        <asp:Button ID="btnUpload" runat="server" Text="Upload" CssClass="buttons text_white"></asp:Button>				
 	    
             <%--<p class="desc-para">No, I don't want to upload photos now. <a href="/used/bikedetails.aspx?bike=S<%= inquiryId %>">Take me to my listing</a></p>--%>
             <p class="desc-para">No, I don't want to upload photos now. <a href="/mybikewale/mylisting.aspx">Take me to my listing</a></p>

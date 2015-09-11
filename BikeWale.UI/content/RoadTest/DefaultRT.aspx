@@ -40,7 +40,7 @@
                             </a>
 						</div>	
                         <div class="grid_5 alpha">
-							<abbr><%# DataBinder.Eval(Container.DataItem,"DisplayDate", "{0:f}") %></abbr> by 
+							<abbr><%# Bikewale.Utility.FormatDate.GetDaysAgo(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString()) %></abbr> by 
 							<%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
 						</div><div class="clear"></div>
                         <div class="margin-top10">

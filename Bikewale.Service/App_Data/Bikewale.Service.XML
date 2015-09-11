@@ -738,7 +738,7 @@
             <param name="customerRepository"></param>
             <param name="authenticate"></param>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Customer.CustomerController.POST(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Bikewale.Service.Controllers.Customer.CustomerController.POST(Bikewale.Service.Controllers.Customer.RegisterInputParameters)">
             <summary>
             Written By : Ashish G. Kamble on 8 Sept 2015
             Summary : Function to register the customer with bikewale. All fields are mandatory
@@ -804,13 +804,11 @@
             </summary>
             <param name="authenticate"></param>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Customer.AuthenticateController.POST(System.String,System.String,System.Nullable{System.Boolean})">
+        <member name="M:Bikewale.Service.Controllers.Customer.AuthenticateController.POST(Bikewale.Service.Controllers.Customer.LoginInputParameters)">
             <summary>
-            Function will authenticate the customer.
+             Function will authenticate the customer.
             </summary>
-            <param name="email"></param>
-            <param name="password"></param>
-            <param name="createAuthTicket"></param>
+            <param name="objLogin"></param>
             <returns>Returns authenticated users basic details.</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController">

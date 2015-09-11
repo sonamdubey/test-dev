@@ -336,11 +336,11 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .myBikeWale-icon { background-position: 0 -277px; top: 6px; }
 .insurance-icon { background-position: 0 -214px; }
 .claim-offer-icon { width:26px; height:26px; position:relative; margin-right:10px; top:8px; }
-.inquiry-icon { width:22px; height:22px; position:relative; }
-.newsletter-icon { width:22px; height:22px; position:relative; }
+.inquiry-icon {  width:24px; height:23px; position:relative; top:3px; }
+.newsletter-icon { width:24px; height:22px; position:relative; top:3px;}
 .claim-offer-icon { background-position: -183px -160px; }
-.inquiry-icon { background-position: -183px 191px;}
-.newsletter-icon { background-position: -183px 225px; }
+.inquiry-icon { background-position: -183px -191px;}
+.newsletter-icon { background-position: -183px -225px; }
 
 .cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey, .popup-close-btn { width: 16px; height: 16px; }
 .cross-lg-white { background-position: -36px -200px; }
@@ -443,7 +443,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .bw-popup, .bw-contact-popup { background:#fff; width:454px; position:fixed; left:50%; top:40%; right:40%; z-index:999; margin-left:-220px; margin-top:-150px;  border-radius:2px; }
 .bw-contact-popup { max-width:454px;}
 .bw-popup-sm { width:450px; min-height:350px; position:fixed; top:40%; left:52%;}
-.popup-inner-container { padding:20px 20px 30px;}
+.popup-inner-container { padding:20px 50px 30px;}
 .popup-inner-container h2{ padding-bottom:10px; border-bottom:2px solid #c62000;}
 .bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;} 
 .cityPop-icon-container { width:100%; text-align:center; }
@@ -669,17 +669,17 @@ a.action-btn:hover{text-decoration:none;}
 
 
 /* Carousel Controls */
-.jcarousel-control-left, .jcarousel-control-right { border: 1px solid #e6e6e6; background: #fff; position: absolute; top: 35%; z-index: 1; }
+/* Carousel Controls */
+.jcarousel-control-left, .jcarousel-control-right {  position: absolute; top: 35%; z-index: 1; }
+.jcarousel-control-left:hover, .jcarousel-control-right:hover { cursor:pointer; }
 .jcarousel-control-left { left: -32px; }
 .jcarousel-control-right { right: -32px; }
-.jcarousel-control-prev, .jcarousel-control-next { width: 35px; height: 60px; text-indent: -9999; padding: 5px; }
-.jcarousel-control-prev { background-position: -33px -80px; }
-.jcarousel-control-next { background-position: -65px -80px; }
-.jcarousel-control-prev:hover { background-position: -33px -135px; }
-.jcarousel-control-next:hover { background-position: -65px -135px; }
-.jcarousel-control-prev.inactive, .jcarousel-control-next.inactive { cursor: not-allowed; }
-.jcarousel-control-prev.inactive { background-position: -33px -25px; cursor: not-allowed; }
-.jcarousel-control-next.inactive { background-position: -65px -25px; cursor: not-allowed; }
+.jcarousel-control-prev, .jcarousel-control-next { width: 40px; height: 80px; text-indent: -9999;border: 1px solid #e2e2e2; background-color: #fff; padding:10px 5px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.jcarousel-control-prev { background-position: -34px -75px; }
+.jcarousel-control-next { background-position: -61px -75px; }
+.jcarousel-control-prev:hover { background-position: -34px -130px; }
+.jcarousel-control-next:hover { background-position: -61px -130px; }
+.jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-control-right .jcarousel-control-next.inactive { display:none; }
 /* carousel end */
 
 /* new classes for circle icon sprite */

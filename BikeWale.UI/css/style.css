@@ -500,13 +500,12 @@ div#sybh-list div a.feedback-tab:hover { background-position:-2px -402px; }
 .feedback-popup .thankyou-msg { font-size:14px; color:#333; }
 
 /*PopupWidget Styling*/
-.bw-popup, .bw-contact-popup { background:#fff; width:454px; position:fixed; left:50%; top:50%; z-index:999; margin-left:-220px; margin-top:-150px;  border-radius:2px; }
+.bw-popup, .bw-contact-popup { background:#fff; width:454px; position:fixed; left:50%; top:40%; right:40%; z-index:999; margin-left:-220px; margin-top:-150px;  border-radius:2px; }
 .bw-contact-popup { max-width:454px;}
-.bw-popup-sm { width:300px; position:fixed; top:50%; left:52%;}
-.popup-inner-container { padding:20px 20px 30px;}
+.bw-popup-sm { width:450px; min-height:350px; position:fixed; top:40%; left:52%;}
+.popup-inner-container { padding:20px 50px 30px;}
 .popup-inner-container h2{ padding-bottom:10px; border-bottom:2px solid #c62000;}
-.bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;}
- 
+.bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;} 
 
 
 /*Sprite images for bikewale*/
@@ -519,8 +518,8 @@ div#sybh-list div a.feedback-tab:hover { background-position:-2px -402px; }
 .input-box-margin {margin-left: 180px;margin-top: 15px;}
 .ui-widget-content {background: #fff;border: 1px solid #E2E2E2;height: auto;}
 .ui-menu {display: block;float: left;list-style: none outside none;margin: 0;}
-.ui-autocomplete {cursor: default;z-index: 10;width: 180px !important;border-radius: 2px;background: #fff;border: 1px solid #eaeaea;position: absolute;max-height: 200px;overflow: auto;}
-.ui-menu li.ui-menu-item {clear: left;float: left;margin: 0;padding: 0;width: 100%;}
+.ui-autocomplete {cursor: default;z-index: 10;width: 180px;border-radius: 2px;background: #fff;border: 1px solid #eaeaea;position: absolute;max-height: 200px;overflow: auto;}
+.ui-menu li.ui-menu-item {clear: left;float: left;margin: 0;padding: 10px;width: 100%;}
 .ui-menu li.ui-menu-item a {display: block;line-height: 1.5;padding: 0.2em 0.4em;text-decoration: none;color: #333;}
 .ui-menu li.ui-menu-item a:hover, .ui-menu li.ui-menu-item a.ui-state-focus {background: #ebebeb;}
 .ui-helper-hidden-accessible {display: none;}
@@ -528,3 +527,5 @@ div#sybh-list div a.feedback-tab:hover { background-position:-2px -402px; }
 
 /* override classes for inner pages */
 .container_12, .container_16, .container_24 { background: #fff; padding-bottom:10px; margin-bottom: 20px; }
+
+

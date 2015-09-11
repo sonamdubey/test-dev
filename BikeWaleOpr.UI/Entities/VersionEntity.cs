@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BikeWaleOpr.Entities
 {   
-    [Serializable]
+    
     public class VersionEntity : VersionEntityBase
     {
         public MakeEntity objMake { get; set; }

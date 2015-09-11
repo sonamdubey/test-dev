@@ -765,9 +765,6 @@
       <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\controls\MOnRoadPricequote.ascx.designer.cs">
-      <DependentUpon>MOnRoadPricequote.ascx</DependentUpon>
-    </Compile>
     <Compile Include="m\controls\MPopupWidget.ascx.cs">
       <DependentUpon>MPopupWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -814,10 +811,6 @@
     </Compile>
     <Compile Include="m\new\BikeModels.aspx.cs">
       <DependentUpon>BikeModels.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\new\BikeModels_old.aspx.cs">
-      <DependentUpon>BikeModels_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\new\BikeSeries.aspx.cs">
@@ -1568,6 +1561,7 @@
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
+    <Content Include="css\brand.css" />
     <Content Include="css\bw-common-style.css" />
     <Content Include="css\bw-pq-new.css" />
     <Content Include="css\bw-pq.css" />
@@ -1912,6 +1906,8 @@
     <Content Include="images\nav-sept.jpg" />
     <Content Include="images\nav.png" />
     <Content Include="images\new-bikes-banner.jpg" />
+    <Content Include="images\no_result_d.png" />
+    <Content Include="images\no_result_m.png" />
     <Content Include="images\pattern-bg.jpg" />
     <Content Include="images\Pratikphoto.JPG" />
     <Content Include="images\ratings\0.png" />
@@ -1919,6 +1915,7 @@
     <Content Include="images\ratings\half.png" />
     <Content Include="images\rsa-logo.png" />
     <Content Include="images\search-bg.jpg" />
+    <Content Include="images\search-loading.gif" />
     <Content Include="images\seperator-m.png" />
     <Content Include="images\seperator.png" />
     <Content Include="images\shadow-header.jpg" />
@@ -1961,8 +1958,6 @@
     <Content Include="includes\headTools.aspx" />
     <Content Include="includes\headUsed.aspx" />
     <Content Include="includes\MenuList_Mobile.aspx" />
-    <Content Include="includes\Navigation.aspx" />
-    <Content Include="includes\Navigation_Mobile.aspx" />
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
     <Content Include="Forums\ISAPI\ISAPI_Rewrite.dll" />
@@ -2041,7 +2036,6 @@
     <Content Include="m\news\newsdetails.aspx" />
     <Content Include="m\new\BikeMakes.aspx" />
     <Content Include="m\new\BikeModels.aspx" />
-    <Content Include="m\new\BikeModels_old.aspx" />
     <Content Include="m\new\BikeSeries.aspx" />
     <Content Include="m\new\compare\CompareBike.aspx" />
     <Content Include="m\new\compare\CompareBikeDetails.aspx" />
@@ -2074,6 +2068,7 @@
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\new\bwm-search.js" />
+    <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
@@ -2149,6 +2144,7 @@
     <Content Include="src\html5.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="src\knockout.js" />
+    <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />

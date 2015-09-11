@@ -30,26 +30,39 @@ namespace Bikewale.PriceQuote
         {
             DeviceDetection dd = new DeviceDetection();
             dd.DetectDevice();
-
+            string bikeColor = String.Empty;
             if (PriceQuoteCookie.IsPQCoockieExist())
             {
-                GetDetailedQuote();
-                getCustomerDetails();
-                if (objCustomer.IsTransactionCompleted)
+                try
                 {
-                    bookingRefNum = ConfigurationManager.AppSettings["OfferUniqueTransaction"] + Carwale.BL.PaymentGateway.PGCookie.PGTransId;
+                    GetDetailedQuote();
+                    getCustomerDetails();
+                    if (objCustomer.IsTransactionCompleted)
+                    {
+                        bookingRefNum = ConfigurationManager.AppSettings["OfferUniqueTransaction"] + Carwale.BL.PaymentGateway.PGCookie.PGTransId;
 
-                    //send sms to customer
-                    SendEmailSMSToDealerCustomer.BookingSMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address + "" + address, bookingRefNum, insuranceAmount);
-                    //send sms to dealer
-                    SendEmailSMSToDealerCustomer.BookingSMSToDealer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address, bookingRefNum, BooingAmt, insuranceAmount);
-                    //send email to customer
-                    SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName, _objPQ.objOffers, bookingRefNum, _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, insuranceAmount);
-                    //send email to dealer
-                    SendEmailSMSToDealerCustomer.BookingEmailToDealer(_objPQ.objDealer.EmailId, ConfigurationManager.AppSettings["OfferClaimAlertEmail"], objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.CustomerEmail, totalPrice, _objPQ.objBookingAmt.Amount, totalPrice - _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.PriceList, bookingRefNum, bikeName, objCustomer.objColor.ColorName, _objPQ.objDealer.Name, _objPQ.objOffers, insuranceAmount);
+                        //send sms to customer
+                        SendEmailSMSToDealerCustomer.BookingSMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address + "" + address, bookingRefNum, insuranceAmount);
+                        //send sms to dealer
+                        SendEmailSMSToDealerCustomer.BookingSMSToDealer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address, bookingRefNum, BooingAmt, insuranceAmount);
+                        //send email to customer
+                        SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName, _objPQ.objOffers, bookingRefNum, _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, insuranceAmount);
+                        //send email to dealer
+
+                        if (objCustomer.objColor != null)
+                        {
+                            bikeColor = objCustomer.objColor.ColorName;
+                        }
+                        SendEmailSMSToDealerCustomer.BookingEmailToDealer(_objPQ.objDealer.EmailId, ConfigurationManager.AppSettings["OfferClaimAlertEmail"], objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.CustomerEmail, totalPrice, _objPQ.objBookingAmt.Amount, totalPrice - _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.PriceList, bookingRefNum, bikeName, bikeColor, _objPQ.objDealer.Name, _objPQ.objOffers, insuranceAmount);
+                    }
+                    else
+                        Response.Redirect("/pricequote/bookingsummary.aspx", true);
                 }
-                else
-                    Response.Redirect("/pricequote/bookingsummary.aspx", true);
+                catch (Exception ex)
+                {
+                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                    objErr.SendMail();
+                }
             }
             else
             {

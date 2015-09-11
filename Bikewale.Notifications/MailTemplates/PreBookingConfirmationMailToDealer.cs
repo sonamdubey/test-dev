@@ -58,8 +58,8 @@ namespace Bikewale.Notifications.MailTemplates
 
                 sb.Append("<div style=\"max-width:680px; margin:0 auto; border:1px solid #d8d8d8; font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#666666; background:#eeeeee;padding:10px 10px 10px 10px; word-wrap:break-word\">");
                 sb.Append("<div style=\"margin:5px 0 0;\"><div style=\" background:#fff; padding:7px; border-top:7px solid #333333;\"><div style=\"float:left; margin-right:10px;\">");
-                sb.Append("<a target=\"_blank\" href=\"http://www.bikewale.com/\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bw-logo.png\" border=\"0\" alt=\"BikeWale\" title=\"BikeWale\"></a>");
-                sb.Append("</div><div style=\" font-size:18px; font-weight:bold; float:left; margin:5px 0 0;\">Pre-Booking for " + BikeName + " [" + BikeColor + "]</div><div style=\"float:right; color:#666; margin:5px 0 0;\">" + DateTime.Now.ToString("MMM dd, yyyy") + "</div>");
+                sb.Append("<a target=\"_blank\" href=\"http://www.bikewale.com/\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bw-logo.png\" border=\"0\" alt=\"BikeWale\" title=\"BikeWale\"></a>");                
+                sb.Append("</div><div style=\" font-size:18px; font-weight:bold; float:left; margin:5px 0 0;\">Pre-Booking for " + BikeName + (!String.IsNullOrEmpty(BikeColor) ? " [" + BikeColor + "]" : "") + "</div><div style=\"float:right; color:#666; margin:5px 0 0;\">" + DateTime.Now.ToString("MMM dd, yyyy") + "</div>");
                 sb.Append("<div style=\"clear:both;\"></div></div><div style=\" background:#fff; padding:10px; margin:10px 0 0;\"><div style=\"padding:10px 0;\">");
                 sb.Append("<div style=\" margin:0; font-size:14px; font-weight:bold; color:#333;\">Dear " + DealerName + ",</div>");
                 sb.Append("<div style=\"margin:10px 0 0;\">Please call customer <span style=\"font-weight:bold;\">" + CustomerName + "</span> ASAP and proceed with further selling process, Customer has paid Rs. ");
