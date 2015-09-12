@@ -24,5 +24,7 @@ namespace Bikewale.DTO.PriceQuote
         public string ClientIP { get; set; }
         [JsonProperty("sourceType")]
         public PQSources SourceType { get; set; }
+        [JsonProperty("versionId")]
+        public uint VersionId { get; set; }
     }
 }

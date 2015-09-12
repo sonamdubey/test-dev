@@ -254,19 +254,13 @@ $('booking-available-colors .booking-color-box').click(function (e) {
 });
 
 
-var varientSelection = function () {
-    var a = 0;
-    $(".varient-item").each(function () {
-        if ($(this).hasClass("selected")) {
-            a += 1;
-        }
-    });
-    var total = a;
-    if (total == 0) {
-        return false;
-    }
-    else if (total >= 1) {
+var varientSelection = function () {    
+    var total = viewModel.SelectedVarient();
+    if (total) {
         return true;
+    }
+    else{
+        return false;
     }
 }
 
