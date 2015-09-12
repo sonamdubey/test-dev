@@ -8,7 +8,7 @@
         <div class="calculate-emi-tool-search">
             <div class="loan-amount-box">
                 <div class="form-control-box">
-                    <input autocomplete="off" class="form-control rounded-corner0 border-no" type="text" maxlength="8" placeholder="Enter loan amount" id="txtLoanAmount">
+                    <input autocomplete="off" class="form-control rounded-corner0 border-no" type="text" maxlength="8" placeholder="Enter loan amount" id="txtLoanAmount" tabindex="1">
                     <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide"></div>
@@ -16,7 +16,7 @@
             </div>
             <div class="interest-rate-boxSelect">
                 <div class="form-control-box">
-                    <input autocomplete="off" class="form-control rounded-corner0 border-no" type="text" maxlength="5" placeholder="Rate of Interest eg. 12.5" id="txtRateOfInterest" <%--value="<%= rateOfInterest %>"--%> />
+                    <input autocomplete="off" class="form-control rounded-corner0 border-no" type="text" maxlength="5" placeholder="Rate of Interest eg. 12.5" id="txtRateOfInterest" tabindex="2" <%--value="<%= rateOfInterest %>"--%> />
                     <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                     <span class="bwsprite error-icon hide" ></span>
                     <div class="bw-blackbg-tooltip hide"></div>
@@ -25,7 +25,7 @@
             <div class="clear"></div>
         </div>
         <div class="calculate-btn">
-            <a class="font18 btn btn-orange btn-lg rounded-corner-no-left" id="btnCalcEmi">Calculate</a>
+            <button class="font18 btn btn-orange btn-lg rounded-corner-no-left" id="btnCalcEmi" tabindex="3">Calculate</button>
         </div>
 
         <div class="clear"></div>

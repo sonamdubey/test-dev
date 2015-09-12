@@ -83,6 +83,7 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public string GetCities(string requestType, string stateId)
         {
+            
             string jsonCities = string.Empty;
             DataTable dt = null;
 

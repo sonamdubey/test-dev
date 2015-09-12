@@ -242,7 +242,7 @@
                         <th>&nbsp;</th>
                         <td>
                             <asp:checkbox id="chkTerms" runat="server" text=" I agree with BikeWale sell bike"></asp:checkbox>
-                            <a onclick="window.open('/used/listing-terms.html','termsListing','address=no,scrollbars=yes,width=750,height=550')">Terms & Conditions</a>, <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a><span class="required">&nbsp;*</span><p id="msgTerms" runat="server" class="error"></p>
+                            <a onclick="window.open('/TermsConditions.aspx','termsListing','address=no,scrollbars=yes,width=750,height=550')">Terms & Conditions</a>, <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a><span class="required">&nbsp;*</span><p id="msgTerms" runat="server" class="error"></p>
                             <p class="margin-top10">I agree that by clicking the 'Continue' button below I am explicitly soliciting a call from BikeWale on my 'Mobile Number' provided above to assist me in completing this transaction.</p>
                         </td>
                     </tr>

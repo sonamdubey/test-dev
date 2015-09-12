@@ -76,7 +76,7 @@
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <asp:radiobutton id="R1" runat="server" text=" EMI in Advance" name="opt" groupname="EMIType"></asp:radiobutton>
+                            <asp:radiobutton id="R1" runat="server" text=" EMI in Advance" name="opt" groupname="EMIType" tabindex="3"></asp:radiobutton>
                             &nbsp;<br />
                             <asp:radiobutton id="R2" runat="server" text=" EMI in Arrears" name="opt" groupname="EMIType"></asp:radiobutton>
                         </td>

@@ -1,6 +1,7 @@
 ﻿/*  Written By : Ashish G. Kamble on 21/8/2012  Summary : common js functions for sell bikes    */
 var re = /^[0-9]*$/;
 var reDecimal = /^[0-9]*?[\.]?[0-9]*?$/;
+//var regAlpha = /^[a-zA-Z]*$/;
 function valBikeDetails() {
     var isError = false;
     var alertObj = $("#alertObj");
@@ -49,6 +50,13 @@ function valBikeDetails() {
         $("#txtColor").focus();
         isError = true;
     }
+
+    //if (regAlpha.test($("#txtColor").val()) == false) {
+    //    $("#msgBikeColor").html("Color cannot be in Numeric Characters.");
+    //    $("#txtColor").focus();
+    //    isError = true;
+    //}
+      
 
     var txtKms = $("#txtKms");    
     if (txtKms.val() == "") {
@@ -294,18 +302,17 @@ function drpModel_Change(objModel) {
 function drpState_Change(objState) {
     var bikeStateId = objState.val();
     $("#hdn_drpSelectedCity").val("");
+
     if (bikeStateId != 0) {
-        $.ajax({
+        $.ajax({            
             type: "POST",
             url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
-            data: '{"requestType":"ALL", "stateId":"' + bikeStateId + '"}',
+            data: '{"requestType":"7", "stateId":"' + bikeStateId + '"}',
             beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetCities"); },
             success: function (response) {
                 var responseJSON = eval('(' + response + ')');
                 var resObj = eval('(' + responseJSON.value + ')');
-
                 var dependentCmbs = new Array();
-
                 bindDropDownList(resObj, drpCities, "", dependentCmbs, "--Select City--");
             }
         });
