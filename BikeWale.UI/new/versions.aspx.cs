@@ -388,7 +388,7 @@ namespace Bikewale.New
             
             if (!String.IsNullOrEmpty(breakType))
             {
-                format = String.Concat(format.Trim(),breakType," Break,");
+                format = String.Concat(format.Trim(), breakType, " Brake,");
             }
 
             if (String.IsNullOrEmpty(format.Trim()))

@@ -66,6 +66,7 @@
 
 
     function FillCitiesOnRoad(modelId) {
+        toggleErrorMsg(onRoadcity, false);
         $.ajax({
             type: "POST",
             url: "/ajaxpro/Bikewale.Ajax.AjaxPriceQuote,Bikewale.ashx",
@@ -125,6 +126,7 @@
 
     function cityChangedOnRoad() {
         gtmCodeAppender(pageId, "City Selected", null);
+        toggleErrorMsg(onRoadArea, false);
         if (viewModelOnRoad.selectedCity() != undefined) {
             $.ajax({
                 type: "POST",
@@ -195,6 +197,14 @@
     function getPriceQuoteOnRoad() {
         var cityId = viewModelOnRoad.selectedCity(), areaId = viewModelOnRoad.selectedArea() ? viewModelOnRoad.selectedArea() : 0;
         if (isValidInfoOnRoad()) {
+
+            //set global cookie
+            if (cityId > 0) {
+                cityName = $(onRoadcity).find("option[value=" + cityId + "]").text();
+                cookieValue = cityId + "_" + cityName;
+                SetCookieInDays("location", cookieValue, 365);
+            }
+
             $.ajax({
                 type: 'POST',
                 url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
@@ -269,23 +279,12 @@
 
    function calcWidth()
     {
-        if (viewModelOnRoad.bookingAreas().length > 0)
+        if (viewModelOnRoad.bookingAreas().length > 0 )
             $(ele).width(161);
         else $(ele).width(322);
     }
 
    $(function () {
-
-       $("#finalPriceBikeSelect").on('blur', function () {
-           if(viewModelOnRoad.selectedCity != undefined)
-           {
-
-           }
-           else
-           {
-
-           }
-       });
 
         $("#finalPriceBikeSelect").bw_autocomplete({
             width: 250,
@@ -305,6 +304,7 @@
                     $("#errMsgOnRoad").empty();
                     selectedModel = model.id;
                     FillCitiesOnRoad(selectedModel);
+                    
                 }
             },
             open: function (result) {

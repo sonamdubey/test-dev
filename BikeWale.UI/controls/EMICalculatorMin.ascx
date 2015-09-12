@@ -25,7 +25,7 @@
             <div class="clear"></div>
         </div>
         <div class="calculate-btn">
-            <button class="font18 btn btn-orange btn-lg rounded-corner-no-left" id="btnCalcEmi">Calculate</button>
+            <a class="font18 btn btn-orange btn-lg rounded-corner-no-left" id="btnCalcEmi">Calculate</a>
         </div>
 
         <div class="clear"></div>
@@ -71,8 +71,8 @@
 
         if (isValid)
         {
-            path = "finance/emicalculator.aspx?la=" + loanAmt + "&rt=" + rateOfInterestVal;
-           window.location.href += path;
+            path = "/finance/emicalculator.aspx?la=" + loanAmt + "&rt=" + rateOfInterestVal;
+           window.location = path;
         }
         else {
             return isValid;

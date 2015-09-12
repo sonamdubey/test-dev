@@ -201,6 +201,16 @@
     function getPriceQuoteOnRoad() {
         var cityId = viewModelOnRoad.selectedCity(), areaId = viewModelOnRoad.selectedArea() ? viewModelOnRoad.selectedArea() : 0;
         if (isValidInfoOnRoad()) {
+
+            //set global cookie
+            if (cityId > 0)
+            {
+                cityName = $(onRoadcity).find("option[value=" + cityId + "]").text();
+                cookieValue = cityId + "_" + cityName;
+                SetCookieInDays("location", cookieValue, 365);
+            }
+            
+
             $.ajax({
                 type: 'POST',
                 url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",

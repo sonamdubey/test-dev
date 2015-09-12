@@ -237,7 +237,6 @@
     <Compile Include="AutoMappers\Version\VersionListMapper.cs" />
     <Compile Include="Controllers\Area\AreaListController.cs" />
     <Compile Include="Controllers\City\CityListController.cs" />
-    <None Include="Controllers\CMS\CMSController.cs.old" />
     <Compile Include="Controllers\Make\MakeController.cs" />
     <Compile Include="Controllers\Make\MakeListController.cs" />
     <Compile Include="Controllers\Model\ModelController.cs" />

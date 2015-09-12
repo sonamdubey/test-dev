@@ -519,6 +519,27 @@
             <param name="cityId">City Id</param>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.BikeBooking.BikeBookingPageController">
+            <summary>
+            Bike Booking Page Controller
+            Author  :   Sumit Kate
+            Created On  :   10 Sept 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BikeBookingPageController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BikeBookingPageController.Get(System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            Get the Bike Booking Page details
+            </summary>
+            <param name="cityId"></param>
+            <param name="versionId"></param>
+            <param name="dealerId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.BikeBooking.City.BBCityListController">
             <summary>
             BikeBooking City List controller
@@ -673,7 +694,7 @@
             Created On : 24th August 2015
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.UInt32)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.UInt32,System.String,System.String)">
             <summary>
             To get Recent Categories Content List
             </summary>
@@ -681,7 +702,6 @@
             <param name="makeId"></param>
             <param name="modelId"></param>
             <param name="posts"></param>
-            <param name="recent"></param>
             <returns>Recent Articles List Summary</returns>
         </member>
         <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.Int32,System.Int32)">
@@ -1034,6 +1054,13 @@
             </summary>
             <param name="input">Entity contains the required details to get the price quote details</param>
             <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post(Bikewale.DTO.PriceQuote.DealerPriceQuote.DPQuotationInput)">
+            <summary>
+            Generates the dealer price quote
+            </summary>
+            <param name="input">Required parameters to generate the dealer price quote</param>
+            <returns>Dealer Price Quotation</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController">
             <summary>

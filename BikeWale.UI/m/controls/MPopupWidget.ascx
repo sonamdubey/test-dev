@@ -145,6 +145,14 @@ function isValidInfoPopup() {
 function getPriceQuotePopup() {
     var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
     if (isValidInfoPopup()) {
+
+        //set global cookie
+        if (cityId > 0) {
+            cityName = $(popupcity).find("option[value=" + cityId + "]").text();
+            cookieValue = cityId + "_" + cityName;
+            SetCookieInDays("location", cookieValue, 365);
+        }
+
         $.ajax({
             type: 'POST',
             url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
