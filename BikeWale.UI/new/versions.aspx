@@ -1053,7 +1053,7 @@
             }
 
             $(document).ready(function () {
-                <% if(!modelPage.ModelDetails.Futuristic) { %>
+                <% if(modelPage.ModelDetails.New) { %>
                 InitVM(0);
                 <% } %>
                 $(".unveil-offer-btn-container").removeClass("hide").addClass("show");

@@ -12,7 +12,7 @@ namespace Bikewale.Controls
     {
         public Repeater rptAlternateBikes;
         public int VersionId { get; set; }
-        protected int FetchedRecordsCount { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
         private int _topCount = 6;
         public int TopCount 
@@ -22,8 +22,6 @@ namespace Bikewale.Controls
         }
 
         public int? Deviation { get; set; }
-
-        public int FetchedRecordsCount { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

@@ -1588,6 +1588,7 @@
     <Content Include="css\newbikes.css" />
     <Content Include="css\new\search.css" />
     <Content Include="css\rsa.css" />
+    <Content Include="css\search.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
@@ -1906,8 +1907,6 @@
     <Content Include="images\nav-sept.jpg" />
     <Content Include="images\nav.png" />
     <Content Include="images\new-bikes-banner.jpg" />
-    <Content Include="images\no_result_d.png" />
-    <Content Include="images\no_result_m.png" />
     <Content Include="images\pattern-bg.jpg" />
     <Content Include="images\Pratikphoto.JPG" />
     <Content Include="images\ratings\0.png" />
@@ -1915,7 +1914,6 @@
     <Content Include="images\ratings\half.png" />
     <Content Include="images\rsa-logo.png" />
     <Content Include="images\search-bg.jpg" />
-    <Content Include="images\search-loading.gif" />
     <Content Include="images\seperator-m.png" />
     <Content Include="images\seperator.png" />
     <Content Include="images\shadow-header.jpg" />
@@ -1958,6 +1956,8 @@
     <Content Include="includes\headTools.aspx" />
     <Content Include="includes\headUsed.aspx" />
     <Content Include="includes\MenuList_Mobile.aspx" />
+    <Content Include="includes\Navigation.aspx" />
+    <Content Include="includes\Navigation_Mobile.aspx" />
     <Content Include="includes\PaymentHeaderMobile.aspx" />
     <Content Include="includes\pgheader.aspx" />
     <Content Include="Forums\ISAPI\ISAPI_Rewrite.dll" />
@@ -2068,12 +2068,10 @@
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\new\bwm-search.js" />
-    <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="src\autocomplete.js" />
-    <Content Include="src\brand.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
@@ -2144,9 +2142,7 @@
     <Content Include="src\html5.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="src\knockout.js" />
-    <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
-    <Content Include="src\newbikes.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\new\search.js" />
@@ -2156,7 +2152,6 @@
     <Content Include="src\Research\photogallery\image-gallery.js" />
     <Content Include="src\Research\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\Research\write_reviews.js" />
-    <Content Include="src\search.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test\css\bw-new-style.css" />
