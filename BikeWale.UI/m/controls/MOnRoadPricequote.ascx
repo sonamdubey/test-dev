@@ -189,11 +189,11 @@
                     var jsonObj = $.parseJSON(json.value);
                     if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                         gtmCodeAppender(pageId, "Successful submission - DealerPQ", "Model : " + selectedModel + ', City : ' + viewModelOnRoad.selectedCity() + ', Area : ' + viewModelOnRoad.selectedArea());
-                        window.location = "/pricequote/dealerpricequote.aspx";
+                        window.location = "/m/pricequote/dealerpricequote.aspx";
                     }
                     else if (jsonObj != undefined && jsonObj.quoteId > 0) {
                         gtmCodeAppender(pageId, "Successful submission - BikeWalePQ", "Model : " + selectedModel + ', City : ' + viewModelOnRoad.selectedCity() + ', Area : ' + viewModelOnRoad.selectedArea());
-                        window.location = "/pricequote/quotation.aspx";
+                        window.location = "/m/pricequote/quotation.aspx";
                     } else {
                         gtmCodeAppender(pageId, "Error in submission", null);
                         $("#errMsgOnRoad").text("Oops. We do not seem to have pricing for given details.").show();
