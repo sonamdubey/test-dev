@@ -1,4 +1,3 @@
-//on scroll sort fixed
 var $sortDiv = $("#sort-by-div"),
     applyFilter = $('#btnApplyFilters'),
     mileage = $('.mileage'),
@@ -8,19 +7,13 @@ var $sortDiv = $("#sort-by-div"),
     loading = $('#loading'),
     resetButton=$('#btnReset');
 
-$.pageSize = 10;
-$.infiniteScrollPageLimit = 10; // Not used for now
-var pagiFlag = false;
 var $window = $(window);
 $.totalCount = "";
 $.pageNo = "";
 $.nextPageUrl = "";
 $.lazyLoadingStatus = true;
-// Set the effect type
 $.effect = 'slide';
-// Set the options for the effect type chosen
 $.options = { direction: 'right' };
-// Set the duration (default: 400 milliseconds)
 $.duration = 500;
 $.so = '';
 $.sc = '';
@@ -49,7 +42,7 @@ $.selectedValueSortTab = function () {
     $.sc = $.getFilterFromQS('sc');
 
     if ($.so.length > 0 && $.sc.length > 0) {
-        node.find('div[sc="' + $.sc + '"]').addClass('text-bold');
+        node.find('div[sc="' + $.sc + '"] a').addClass('text-bold');
 
         if (node.find('a[data-title="sort"]').hasClass('price-sort')) {
             node.find('div[sc="' + $.sc + '"]').parent().attr('so', $.so);
@@ -62,7 +55,7 @@ $.selectedValueSortTab = function () {
         }
     }
     else
-        node.find('div[sc=""]').addClass('text-bold');
+        node.find('div[sc=""] a').addClass('text-bold');
 };
 
 //Sort by div popup
@@ -72,11 +65,15 @@ $("#sort-btn").click(function () {
 });
 
 $('#sort-by-div a[data-title="sort"]').click(function () {
-    var completeQS = '';
+    $.removePageNoParam();
+    $.removeKnockouts();
+    $.scrollToTop();
+
     $.so = '0';
     var newurl = '';
     if ($(this).hasClass('price-sort')) {
         var sortOrder=$(this).attr('so');
+        var sortedText = $('.price-sort').find('span');
 
         if (sortOrder == undefined || sortOrder == '0')
             $.so = '0';
@@ -85,35 +82,47 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
 
         $(this).attr('so', $.so);
 
+        if (sortOrder != undefined) {
+            if (sortedText.text() === ': Low')
+                $.so = '1';
+            else
+                $.so = '0';
+        }
+
         if ($.so.length > 0) {
-            var sortedText = $('.price-sort').find('span');
             sortedText.css('display', 'inline-block');
             sortedText.text($.so == '1' ? ": High" : ": Low");
         }
-
     }
 
     $('#sort-by-div a[data-title="sort"]').removeClass('text-bold');
     $(this).addClass('text-bold');
+    $(this).parent().removeClass('text-bold');
 
     $.sc = $(this).parent().attr('sc');
 
+    if ($.sc != '1')
+    {
+        $('.price-sort').find('span').text('');
+    }
+
+    completeQS = $.removeFilterFromQS('so');
+    newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + completeQS;
+    window.history.pushState({ path: newurl }, '', newurl);
+
+    completeQS = $.removeFilterFromQS('sc');
+    newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + completeQS;
+    window.history.pushState({ path: newurl }, '', newurl);
+
     if ($.sc.length > 0 && $.so.length > 0) {
-
-        completeQS += $.removeFilterFromQS('so');
-        newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + completeQS;
-        window.history.pushState({ path: newurl }, '', newurl);
-
-        completeQS += $.removeFilterFromQS('sc');
-        newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + completeQS;
-        window.history.pushState({ path: newurl }, '', newurl);
-
-        if(completeQS.length>1)
+        if (completeQS.length > 1)
             completeQS += "&so=" + $.so + "&sc=" + $.sc;
         else
             completeQS += "so=" + $.so + "&sc=" + $.sc;
     }
+    
     $.pushStateUrl(completeQS);
+    $.lazyLoadingStatus = false;
 });
 
 //filter div popup
@@ -151,9 +160,6 @@ function CloseWindow(thiswindow) {
     $("#main-container").show();
    // ucAllMod();
 }
-
-
-/** multiple select dropdown **/
 
 var checkedLen, controlWidth, hidaWidth, remainSpace, multiselWidth;
 
@@ -214,7 +220,7 @@ $(".dropdown .form-control").on('click', function () {
 	  $(this).toggleClass('checked');
 	  var title = $(this).closest('.multiSelect').find('span').text(),
 		  title = $.trim($(this).text()) + ",";
-	
+
 	  checkedLen = $dropDown.find('.multiSelect .unchecked.checked').length;
 	  controlWidth = $dropDown.find('.form-control').width();
 	  hidaWidth = $dropDown.find('.hida').width();
@@ -225,16 +231,16 @@ $(".dropdown .form-control").on('click', function () {
 		  var html = '<span data-title="' + title + '">' + title + '</span>';
 		  
 		  $dropDown.find('.multiSel').append(html);
-		  $dropDown.find(".hida").addClass('shiftRight');
+		  $dropDown.find(".hida").addClass('hide');
 	  	  multiselWidth = $dropDown.find('.multiSel').width();
 		 if( checkedLen > 1 && multiselWidth > remainSpace ){
-			$dropDown.find('.multiSel').css('max-width',remainSpace+'px');
+			$dropDown.find('.multiSel').css('max+-width',remainSpace+'px');
 		 }
 	  } 
 	  else {
 		  $dropDown.find('span[data-title="' + title + '"]').remove();
 		  if(checkedLen < 1){
-		  	$dropDown.find(".hida").removeClass('shiftRight');
+		  	$dropDown.find(".hida").removeClass('hide');
 		  }
 		  multiselWidth = $dropDown.find('.multiSel').width();
 		  if(multiselWidth < remainSpace){
@@ -252,6 +258,12 @@ $(".dropdown .form-control").on('click', function () {
 	  $(this).siblings().removeClass('optionSelected');
 	  $(this).toggleClass('optionSelected');
   });
+
+  $.scrollToTop = function () {
+      $('body,html').animate({
+          scrollTop: 0
+      }, 800);
+  };
   
   //back button function
 $(function () {
@@ -337,6 +349,14 @@ $.hitAPI = function (searchUrl) {
     });
 };
 
+$.getQSFromUrl = function () {
+    var url = location.href.split('?')[1];
+    if (url != undefined && url.length > 0)
+        return url;
+    else
+        return "";
+};
+
 $.bindSearchResult = function (json) {
     var element;
     if ($.pageNo == 1)
@@ -420,10 +440,8 @@ $.pushState = function (qs) {
 
 $.pushStateUrl = function (qs) {
     loading.show();
-    if (history.pushState) {
-        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + qs;
-        window.history.pushState({ path: newurl }, '', newurl);
-    }
+    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + qs;
+    window.history.pushState({ path: newurl }, '', newurl);
     $.hitAPI(qs);
 };
 
@@ -471,7 +489,9 @@ $.removePageNoParam = function () {
     if ($.getFilterFromQS('pageno').length > 0) {
         var completeQS = $.removeFilterFromQS('pageno');
         $.pageNo = 1;
-        window.location.hash = completeQS;
+
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + completeQS;
+        window.history.pushState({ path: newurl }, '', newurl);
     }
 };
 
@@ -494,6 +514,7 @@ $.fn.applyFilterOnButtonClick = function () {
     return $(this).click(function () {
         $.removePageNoParam();
         $.removeKnockouts();
+        $.scrollToTop();
         var completeQS='';
         var completeQSArr = new Array();
         completeQSArr.push($.applyToggelFilter());
@@ -551,7 +572,7 @@ $("#mSlider-range").slider({
             $(this).slider('values', 1, value);
         }
 
-        var budgetminValue = $.valueFormatter($.getRealValue(ui.values[0]));
+        var budgetminValue = $.valueFormatter($.getRealValue(ui.values[0])) == '30000' ? 0 : $.valueFormatter($.getRealValue(ui.values[0]));
         var budgetmaxValue = $.valueFormatter($.getRealValue(ui.values[1]));
 
         if (ui.values[0] == 0 && ui.values[1] == 20) {
@@ -649,7 +670,7 @@ $.applyCheckBoxFilter = function () {
 };
 
 $.applySliderFilter = function (element,name) {
-    var minValue = $.getRealValue(element.slider('values', 0)),
+    var minValue = $.getRealValue(element.slider('values', 0)) == '30000' ? 0 : $.getRealValue(element.slider('values', 0)),
         maxValue = $.getRealValue(element.slider('values', 1)),
         completeQS = '';
     return name + "=" + minValue + '-' + maxValue;
@@ -693,8 +714,12 @@ $.removeCompleteQSFromUrl = function () {
 $.fn.resetAll = function () {
     return $(this).click(function () {
         $.resetFilterUI();
+        $.removePageNoParam();
         $.removeKnockouts();
+        $.scrollToTop();
+        $.pageNo = 1;
         $.pushStateUrl('');
+        $.lazyLoadingStatus = false;
     });
 };
 
@@ -732,14 +757,16 @@ $.selectFiltersPresentInQS = function () {
             var node = $('div[name=' + params[i] + ']');
             if (params[i] == 'bike' || params[i] == 'displacement' || params[i] == 'ridestyle') {
                 var values = $.getFilterFromQS(params[i]).replace(/ /g, '+').split('+');
-                var text = "";
+                var html='';
                 for (var j = 0; j < values.length; j++) {
                     node.find('li[filterid=' + values[j] + ']').addClass('checked');
-                    text += node.find('li[filterid=' + values[j] + ']').text() + ', ';
+                    var title = node.find('li[filterid=' + values[j] + ']').text() + ',';
+                    html += '<span data-title="' + title + '">' + title + '</span>';
                 }
 
-                if (text.length > 1)
-                    text = text.substring(0, text.length - 1);
+                node.prev().find('.hida').addClass('hide');
+                node.prev().find('.multiSel').html(html);
+
             } else if (params[i] == 'AntiBreakingSystem' || params[i] == 'braketype' || params[i] == 'alloywheel' || params[i] == 'starttype') {
                 var values = $.getFilterFromQS(params[i]);
 
@@ -748,9 +775,19 @@ $.selectFiltersPresentInQS = function () {
                 }
             } else if (params[i] == 'budget') {
                 var values = $.getFilterFromQS(params[i]).split('-');
+                values[0] = (values[0] == '0' ? '30000' : values[0]);
                 var minValue = $.getSliderValue(values[0]), maxValue = $.getSliderValue(values[1])
 
                 $.setSliderRangeQS($('#mSlider-range'), minValue, maxValue);
+
+                var budgetminValue = $.valueFormatter(values[0]);
+                var budgetmaxValue = $.valueFormatter(values[1]);
+
+                if (values[0] == 1 && values[1] == 20) {
+                    $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span> 0 -' + ' ' + '<span class="bw-m-sprite rupee"></span> Any value');
+                } else {
+                    $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span>' + ' ' + budgetminValue + ' ' + '-' + ' ' + '<span class="bw-m-sprite rupee"></span>' + ' ' + budgetmaxValue);
+                }
             } else if (params[i] == 'mileage') {
                 var values = $.getFilterFromQS(params[i]).replace(/ /g, '+').split('+');
 
