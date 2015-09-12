@@ -25,6 +25,7 @@ namespace Bikewale.Mobile.Controls
         }
 
         public int? Deviation { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -42,6 +43,8 @@ namespace Bikewale.Mobile.Controls
             BindAlternativeBikesControl.TopCpunt = TopCount;
             BindAlternativeBikesControl.Deviation = Deviation;
             BindAlternativeBikesControl.BindAlternativeBikes(rptAlternateBikes);
+
+            FetchedRecordsCount = BindAlternativeBikesControl.FetchedRecordsCount;
         }
     }
 }

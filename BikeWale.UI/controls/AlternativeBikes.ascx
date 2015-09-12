@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.AlternativeBikes" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.AlternativeBikes" %>
 
 <!-- Alternative Bikes Starts here-->
     
@@ -37,7 +37,7 @@
                         </div>
 
                         <div class="clear"></div>
-                        <a href="#" class="btn btn-grey margin-top10">Get on road price</a>
+                        <a href="javascript:void(0)" modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "modelBase.ModelId")) %>" class="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))!="0")?"":"hide" %> btn btn-grey margin-top10 fillPopupData">Get on road price</a>
                     </div>
                 </div>
             </li>

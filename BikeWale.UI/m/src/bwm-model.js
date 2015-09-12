@@ -104,3 +104,206 @@ $("#showSmallDisc").click(function () {
     $("#showFullDisc").parent().slideDown().show();
     $("#showFullDisc").show()
 });
+/* JS for PQ */
+//function pqViewModel(modelId,cityId) {
+//    var self = this;
+//    self.cities = ko.observableArray([]);
+//    self.areas = ko.observableArray([]);
+//    self.selectedCity = ko.observable(cityId);
+//    self.selectedArea = ko.observable();
+//    self.selectedModel = ko.observable(modelId);
+//    self.priceQuote = ko.observable();
+//    self.LoadCity = function () {
+//        loadCity(self);
+//    }
+//    self.LoadArea = function(){
+//        loadArea(self);
+//    }
+
+//    self.OnAreaChange = function () {
+//        fetchPriceQuote(self);
+//    }
+
+//    self.FetchPriceQuote = function () {
+//        fetchPriceQuote(self);
+//    }
+//}
+
+//function loadCity(vm) {
+//    if (vm.selectedModel()) {
+//        $.get("/api/PQCityList/?modelId=" + vm.selectedModel(),
+//            function (data) {
+//                if (data) {
+//                    var city = ko.toJS(data);
+//                    vm.cities(city.cities);
+//                    $(".city-select-text").removeClass("hide").addClass("show");                                
+//                }
+//            });
+//    }
+//}
+
+//function loadArea(vm) {                
+//    if (vm.selectedCity()) {
+//        $.get("/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity())
+//        .done(function (data) {
+//            if (data) {
+//                var area = ko.toJS(data);
+//                vm.areas(area.areas);
+//                $(".city-select-text").removeClass("show").addClass("hide");
+//                $(".area-select-text").removeClass("hide").addClass("show");
+//            }
+//            else {
+//                vm.areas([]);
+//                $(".area-select-text").removeClass("show").addClass("hide");
+//                vm.FetchPriceQuote();
+//            }
+//        })
+//        .fail(function () {
+//            vm.areas([]);
+//            $(".area-select-text").removeClass("show").addClass("hide");
+//            vm.FetchPriceQuote();
+//        });
+//    }
+//    else {
+//        vm.areas([]);
+//        $(".city-area-wrapper").removeClass("hide").addClass("show");
+//        $(".city-select").removeClass("hide").addClass("show");
+//        $(".area-select").removeClass("show").addClass("hide");
+//        $(".city-select-text").removeClass("hide").addClass("show");
+//        $(".area-select-text").removeClass("show").addClass("hide");
+//        $(".city-onRoad-price-container").removeClass("show").addClass("hide");
+//        $(".unveil-offer-btn-container").attr('style', '');
+//        $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
+//        $(".default-showroom-text").html("");
+//    }                    
+//}
+
+//function fetchPriceQuote(vm) {             
+//    $("#dvAvailableOffer").empty();
+//    if (vm.selectedModel() && vm.selectedCity()) {                    
+//        $.get("/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea() ? vm.selectedArea() : ""))
+//        .done(function (data) {
+//            if (data) {
+//                var pq = ko.toJS(data);
+//                vm.priceQuote(pq);
+//                if (pq && pq.IsDealerPriceAvailable) {
+//                    $(".unveil-offer-btn-container").attr('style', '');
+//                    $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
+//                    var totalPrice = 0;
+//                    var priceBreakText = '';
+//                    for (var i = 0; i < pq.dealerPriceQuote.priceList.length; i++) {
+//                        totalPrice += pq.dealerPriceQuote.priceList[i].price;
+//                        priceBreakText += pq.dealerPriceQuote.priceList[i].categoryName + " + "
+//                    }
+//                    priceBreakText = priceBreakText.substring(0, priceBreakText.length - 2);
+//                    $("#bike-price").html(totalPrice);
+//                    $("#breakup").text("(" + priceBreakText + ")");
+//                    $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text())
+//                    $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text())
+//                    $(".city-select-text").removeClass("show").addClass("hide");
+//                    $(".area-select-text").removeClass("show").addClass("hide");
+//                    $(".city-onRoad-price-container").removeClass("hide").addClass("show");
+//                    $(".city-area-wrapper").addClass("hide");
+//                    if (pq.dealerPriceQuote.offers && pq.dealerPriceQuote.offers.length > 0) {
+//                        $('.available-offers-container').removeClass("hide").addClass("show");
+//                        $("#dvAvailableOffer").append("<ul id='dpqOffer' data-bind=\"foreach: priceQuote().dealerPriceQuote.offers\"><li data-bind=\"text: offerText\"></li></ul>");
+//                        ko.applyBindings(vm, $("#dpqOffer")[0]);
+//                    }
+//                    else {
+//                        $('.available-offers-container').removeClass("hide").addClass("show");
+//                        $("#dvAvailableOffer").append("<ul><li>No offers available</li></ul>");
+//                    }
+//                    $(".default-showroom-text").html("+ View Breakup");
+//                }                            
+//                else {
+//                    if(pq.bwPriceQuote.onRoadPrice > 0) {
+//                        totalPrice = pq.bwPriceQuote.onRoadPrice;
+//                        priceBreakText = "Ex-showroom + Insurance + RTO";
+//                    }                                
+//                    $("#bike-price").html(totalPrice);
+//                    $("#breakup").text("(" + priceBreakText + ")");
+//                    $(".unveil-offer-btn-container").attr('style', '');
+//                    $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
+//                    $(".city-onRoad-price-container").removeClass("show").addClass("hide");
+//                    $(".city-select-text").removeClass("hide").addClass("show");
+//                    $(".area-select-text").removeClass("show").addClass("hide");
+//                    $(".city-area-wrapper").removeClass("hide").addClass("show");
+//                    $(".city-select").removeClass("hide").addClass("show");
+//                    $(".area-select").removeClass("show").addClass("hide");
+//                    $('.available-offers-container').removeClass("hide").addClass("show");
+//                    $("#dvAvailableOffer").empty();
+//                    $("#dvAvailableOffer").append("<ul><li>Currently there are no offers in your city. We hope to serve your city soon!</li></ul>");
+//                }
+//                $(".default-showroom-text").html("+ View Breakup");
+//            }
+//            else {
+//                vm.areas([]);
+//                $(".unveil-offer-btn-container").attr('style', '');
+//                $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
+//                $(".city-onRoad-price-container").removeClass("show").addClass("hide");
+//                $(".city-select-text").removeClass("hide").addClass("show");
+//                $(".area-select-text").removeClass("show").addClass("hide");
+//                $(".city-area-wrapper").removeClass("hide").addClass("show");
+//                $(".city-select").removeClass("hide").addClass("show");
+//                $(".area-select").removeClass("show").addClass("hide");
+//                $('.available-offers-container').removeClass("hide").addClass("show");
+//                $("#dvAvailableOffer").empty();
+//                $("#dvAvailableOffer").append("<ul><li>Currently there are no offers in your city. We hope to serve your city soon!</li></ul>");
+//            }
+//        })
+//        .fail(function () {
+//            vm.areas([]);
+//            $(".unveil-offer-btn-container").attr('style', '');
+//            $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
+//            $(".city-onRoad-price-container").removeClass("show").addClass("hide");
+//            $(".city-select-text").removeClass("hide").addClass("show");
+//            $(".area-select-text").removeClass("show").addClass("hide");
+//            $(".city-area-wrapper").removeClass("hide").addClass("show");
+//            $(".city-select").removeClass("hide").addClass("show");
+//            $(".area-select").removeClass("show").addClass("hide");
+//            $('.available-offers-container').removeClass("hide").addClass("show");
+//            $("#dvAvailableOffer").empty();
+//            $("#dvAvailableOffer").append("<ul><li>Currently there are no offers in your city. We hope to serve your city soon!</li></ul>");
+//        });
+//    }
+//}
+
+//$("#mainCity li").click(function () {
+//    var val = $(this).attr('cityId');                
+//    $("#city-list-container").removeClass("show").addClass("hide");
+//    $(".city-select-text").removeClass("hide").addClass("show");
+//    $("#city-area-select-container").removeClass("hide").addClass("show");
+//    $(".offer-error").removeClass("show").addClass("hide");                                        
+//    $(".area-select").removeClass("show").addClass("hide");
+//    $(".city-select").removeClass("hide").addClass("show");
+//    $(".city-area-wrapper").removeClass("hide").addClass("show");
+//    $(".city-onRoad-price-container").removeClass("show").addClass("hide");
+//    $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
+//    if (val) {
+//        $("#ddlCity option[value=" + val + "]").attr('selected', 'selected');
+//        $('#ddlCity').trigger('change');
+//        $(".area-select").removeClass("hide").addClass("show");
+//    }
+//});
+
+//$(".city-edit-btn").click(function () {
+//    if ($("#ddlCity").val() && $("#ddlArea").val()) {
+//        $(".city-select-text").removeClass("hide").addClass("show");
+//        $(".area-select").addClass("hide");
+//        $(".city-onRoad-price-container").removeClass("show").addClass("hide");                    
+//    }
+//    $(".available-offers-container").removeClass("show").addClass("hide");
+//    $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
+//});
+
+//function InitVM(cityId) {
+//    var viewModel = new pqViewModel(vmModelId, cityId);
+//    ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
+//    viewModel.LoadCity();
+//}
+
+//$(document).ready(function () {
+//    InitVM(0);
+//    $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
+//    $(".unveil-offer-btn-container").attr('style', '');
+//});

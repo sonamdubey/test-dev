@@ -1,6 +1,5 @@
 ﻿using Bikewale.DTO.CMS.Articles;
 using Bikewale.Entities.CMS;
-using Bikewale.Entity.CMS.Articles;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.CMS;
@@ -13,6 +12,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Bikewale.Entities.CMS.Articles;
 
 namespace Bikewale.Service.Controllers.CMS
 {
@@ -54,14 +54,15 @@ namespace Bikewale.Service.Controllers.CMS
                 if (!String.IsNullOrEmpty(makeId) || !String.IsNullOrEmpty(modelId))
                 {
                     if (!String.IsNullOrEmpty(modelId))
-                        apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + (int)categoryId + "&totalrecords=" + posts + "&makeid=" + makeId + "&modelid=" + modelId;
+                        apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + (short)categoryId + "&totalrecords=" + posts + "&makeid=" + makeId + "&modelid=" + modelId;
                     else
-                        apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + (int)categoryId + "&totalrecords=" + posts + "&makeid=" + makeId;
+                        apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + (short)categoryId + "&totalrecords=" + posts + "&makeid=" + makeId;
                 }
                 else
                 {
-                    apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + categoryId + "&totalrecords=" + posts;
+                    apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + (short)categoryId + "&totalrecords=" + posts;
                 }
+
 
                 objRecentArticles = BWHttpClient.GetApiResponseSync<List<ArticleSummary>>(_cwHostUrl, _requestType, apiUrl, objRecentArticles);
 
@@ -105,6 +106,7 @@ namespace Bikewale.Service.Controllers.CMS
                 _pager.GetStartEndIndex(Convert.ToInt32(pageSize), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
 
                 string apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=";
+
                 if (CategoryId != EnumCMSContentType.RoadTest)
                 {
                     apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex;
@@ -128,6 +130,30 @@ namespace Bikewale.Service.Controllers.CMS
                         }
                     }
                 }
+
+                //if (CategoryId != EnumCMSContentType.RoadTest)
+                //{
+                //    apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex;
+                //}
+                //else
+                //{
+                //    if (String.IsNullOrEmpty(makeId))
+                //    {
+                //        apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex;
+                //    }
+                //    else
+                //    {
+                //        if (String.IsNullOrEmpty(modelId))
+                //        {
+                //            apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex + "&makeid=" + makeId;
+                //        }
+                //        else
+                //        {
+                //            apiUrl += (int)CategoryId + "&startindex=" + startIndex + "&endindex=" + endIndex + "&makeid=" + makeId + "&modelid=" + modelId;
+
+                //        }
+                //    }
+                //}
 
                 objFeaturedArticles = BWHttpClient.GetApiResponseSync<List<Bikewale.Entities.CMS.Articles.CMSContent>>(_cwHostUrl, _requestType, apiUrl, objFeaturedArticles);
 

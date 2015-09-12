@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bikewale.DTO.BikeData;
 
 namespace Bikewale.DTO.Model
 {
@@ -23,7 +24,11 @@ namespace Bikewale.DTO.Model
 
         [JsonProperty("photos")]
         public List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> Photos { get; set; }
+        
         [JsonProperty("modelColors")]
         public IEnumerable<ModelColor> ModelColors { get; set; }
+
+        [JsonProperty("upcomingBike")]
+        public UpcomingBike UpcomingBike { get; set; }
     }
 }

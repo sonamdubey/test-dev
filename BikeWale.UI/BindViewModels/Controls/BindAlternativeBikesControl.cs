@@ -20,6 +20,7 @@ namespace Bikewale.BindViewModels.Controls
         {
             SimilarBikeList similarBikeList = null;
             FetchedRecordsCount = 0;
+
             try
             {
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];

@@ -111,7 +111,7 @@ var resetBWTabs = function () {
 $(".more-filters-btn").click(function () {
     if (!$(this).hasClass("open")) {
         $(this).addClass("open");
-        $(".more-filters-container").show().css({"overflow":"inherit"});
+        $(".more-filters-container").show().css({ "overflow": "inherit" });
         var a = $(".filter-div");
         a.removeClass("open");
         a.next(".filter-selection-div").slideUp();

@@ -52,5 +52,3 @@
 
 .loan-amount-box, .interest-rate-boxSelect { width:293px; height:45px; float:left; }
 .loan-amount-box input[type="text"], .interest-rate-boxSelect input[type="text"] { width:293px; height: 43px; }
-
-
