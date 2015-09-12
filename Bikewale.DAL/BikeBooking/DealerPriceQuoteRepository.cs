@@ -835,6 +835,7 @@ namespace Bikewale.DAL.BikeBooking
         {
             throw new NotImplementedException();
         }
+
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity entity = null;
