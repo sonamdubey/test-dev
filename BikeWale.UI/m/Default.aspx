@@ -29,7 +29,7 @@
                 <div class="new-used-search new-bikes-search margin-top30 position-rel">
                         <input type="text" placeholder="Search your bike here" id="newBikeList" class="rounded-corner2">
                         <button id="btnSearch" class="btn btn-orange btn-search"><span class="fa fa-search"></span></button>
-                        <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black"></span>
+                        <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black hide"></span>
                 </div>
             </div>
         </div>

@@ -7,7 +7,7 @@
             <!-- On road pricequote control-->
             <div class="form-control-box margin-bottom20">
                 <input value="" class="form-control rounded-corner2 ui-autocomplete-input" type="text" placeholder="Search Make and Model" id="getFinalPrice" />
-                 <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black"></span>
+                 <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                   <span class="bwmsprite error-icon hide"></span>
                  <div class="bw-blackbg-tooltip hide">Please enter make/model name</div>
             </div>
@@ -189,11 +189,11 @@
                     var jsonObj = $.parseJSON(json.value);
                     if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                         gtmCodeAppender(pageId, "Successful submission - DealerPQ", "Model : " + selectedModel + ', City : ' + viewModelOnRoad.selectedCity() + ', Area : ' + viewModelOnRoad.selectedArea());
-                        window.location = "/pricequote/dealerpricequote.aspx";
+                        window.location = "/m/pricequote/dealerpricequote.aspx";
                     }
                     else if (jsonObj != undefined && jsonObj.quoteId > 0) {
                         gtmCodeAppender(pageId, "Successful submission - BikeWalePQ", "Model : " + selectedModel + ', City : ' + viewModelOnRoad.selectedCity() + ', Area : ' + viewModelOnRoad.selectedArea());
-                        window.location = "/pricequote/quotation.aspx";
+                        window.location = "/m/pricequote/quotation.aspx";
                     } else {
                         gtmCodeAppender(pageId, "Error in submission", null);
                         $("#errMsgOnRoad").text("Oops. We do not seem to have pricing for given details.").show();

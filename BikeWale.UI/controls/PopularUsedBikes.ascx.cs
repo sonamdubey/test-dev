@@ -17,6 +17,7 @@ namespace Bikewale.controls
 
         protected string cityName = String.Empty;
         protected static int? cityId = null;
+        protected static string usedCityMaskingName = String.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -59,10 +60,10 @@ namespace Bikewale.controls
         protected string FormatUsedBikeUrl(string makeMaskingName, string cityMaskingName)
         {
             string url = String.Empty;
-            cityName = cityMaskingName.Trim();
+            usedCityMaskingName = cityMaskingName.Trim();
             if (cityId.HasValue)
             {
-                url = String.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, cityName);
+                url = String.Format("/used/{0}-bikes-in-{1}/", makeMaskingName, usedCityMaskingName);
             }
             else
             {
@@ -76,7 +77,7 @@ namespace Bikewale.controls
             string url = String.Empty;
             if (cityId.HasValue)
             {
-                url = String.Format("/used/bikes-in-{0}/", cityName);
+                url = String.Format("/used/bikes-in-{0}/", usedCityMaskingName);
             }
             else
             {

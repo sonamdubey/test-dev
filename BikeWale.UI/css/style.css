@@ -473,7 +473,7 @@ div#sybh-list div a.feedback-tab:hover { background-position:-2px -402px; }
 .ui-menu {display: block;float: left;list-style: none outside none;margin: 0;}
 .ui-autocomplete {cursor: default;z-index: 10;width: 180px;border-radius: 2px;background: #fff;border: 1px solid #eaeaea;position: absolute;max-height: 200px;overflow: auto;}
 .ui-menu li.ui-menu-item {clear: left;float: left;margin: 0;padding: 10px;width: 100%;}
-.ui-menu li.ui-menu-item a {display: block;line-height: 1.5;padding: 0.2em 0.4em;text-decoration: none;color: #333;}
+.ui-menu li.ui-menu-item a {display: block;line-height: 1.5;text-decoration: none;color: #333;}
 .ui-menu li.ui-menu-item a:hover, .ui-menu li.ui-menu-item a.ui-state-focus {background: #ebebeb;}
 .ui-helper-hidden-accessible {display: none;}
 /* autocomplete classes ends here */
