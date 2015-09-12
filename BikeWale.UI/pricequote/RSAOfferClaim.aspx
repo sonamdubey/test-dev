@@ -145,7 +145,7 @@
                                                 <b>Full Name as per Vehicle Registration<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:TextBox id="txtName" runat="server"></asp:TextBox>
+                                                <asp:TextBox id="txtName" runat="server" ></asp:TextBox>
                                                 <span id="spnName" class="error"></span>
                                             </td>
                                         </tr>

@@ -168,7 +168,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .compare-list-home li { border-bottom: 1px solid #ccc; padding-bottom: 15px; text-align: center; }
 
 /* city popup classes */
-.globalcity-popup, .bw-city-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
+.globalcity-popup, .bw-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
 .globalcity-popup-data, .popup-inner-container { padding: 20px 20px 30px; }
 .cityPopup-box { background: #333333; width: 65px; height: 65px; line-height: 2; display: inline-block; }
 .globalcity-close-btn.cross-lg-lgt-grey, .bw-city-popup .close-btn { background-position: -36px -226px; }

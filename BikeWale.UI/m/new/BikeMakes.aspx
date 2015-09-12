@@ -45,7 +45,7 @@
                                                <h3><a href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %></a></h3>
                                         </div>
                                         <div class="font22 text-grey margin-bottom5">
-                                                <span class="fa fa-rupee " style="display:<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"none":"inline-block"%>"></span>
+                                                <span class="fa fa-rupee " style="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"display:none;":"display:inline-block;"%>"></span>
                                                 <span class="font24"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
                                         </div>
                                         <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>

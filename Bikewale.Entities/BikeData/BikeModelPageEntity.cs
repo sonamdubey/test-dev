@@ -13,5 +13,6 @@ namespace Bikewale.Entities.BikeData
         public List<BikeVersionMinSpecs> ModelVersions { get; set; }
         public BikeSpecificationEntity ModelVersionSpecs { get; set; }
         public IEnumerable<BikeModelColor> ModelColors { get; set; }
+        public UpcomingBikeEntity UpcomingBike { get; set; }
     }
 }

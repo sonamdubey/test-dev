@@ -16,24 +16,24 @@
 	<span id="spnError" class="error" runat="server"></span>
 	<fieldset>
 		<legend>Select Model</legend>
-		<asp:DropDownList ID="cmbMake" runat="server" />
-		<asp:DropDownList ID="cmbModel" runat="server">
+		<asp:DropDownList ID="cmbMake" runat="server" tabindex="1"/>
+		<asp:DropDownList ID="cmbModel" runat="server" tabindex="2">
 			<asp:ListItem Value="0" Text="--Select--" />
 		</asp:DropDownList>
 		<input type="hidden" id="hdn_cmbModel" runat="server"/>
-		<asp:Button ID="btnFind" Text="Show Existing Colors" runat="server" />
+		<asp:Button ID="btnFind" Text="Show Existing Colors" runat="server" tabindex="3" />
 		<span class="error" id="selectModel"></span>
 	</fieldset>
 	<br>
 	<fieldset>
 		<legend>Add Color</legend>
 		Color
-		<asp:TextBox ID="txtColor" MaxLength="50" Columns="15" runat="server" />
+		<asp:TextBox ID="txtColor" MaxLength="50" Columns="15" runat="server" tabindex="1" />
 		Company Code
-		<asp:TextBox ID="txtCode" MaxLength="50" Columns="10" runat="server" /> 
+		<asp:TextBox ID="txtCode" MaxLength="50" Columns="10" runat="server" tabindex="2" /> 
 		Code
-		<asp:TextBox ID="txtHexCode" MaxLength="6" Columns="6" runat="server" /> 
-		<asp:Button ID="btnSave" Text="Add Color" runat="server" />
+		<asp:TextBox ID="txtHexCode" MaxLength="6" Columns="6" runat="server" tabindex="3" /> 
+		<asp:Button ID="btnSave" Text="Add Color" runat="server" tabindex="4"/>
 	</fieldset>	<br><br>
 
 	<asp:DataGrid ID="dtgrdColors" runat="server" 

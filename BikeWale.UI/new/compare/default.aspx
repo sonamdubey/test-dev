@@ -34,18 +34,19 @@
 				<td class="alt">
 					<div style="padding:5px 0;">
 						<asp:RadioButton ID="optNew" AutoPostBack="true" GroupName="Compare" Checked="true" runat="server" Text="I am interested in <b>new bikes</b> only" />
-						<br><asp:RadioButton class="hide" ID="optAll" AutoPostBack="true" GroupName="Compare" runat="server" Text="I want to consider <b>new</b> as well as <b>discontinued bikes</b> in comparison" />
+						<br>
+                        <asp:RadioButton class="hide" ID="optAll" AutoPostBack="true" GroupName="Compare" runat="server" Text="I want to consider <b>new</b> as well as <b>discontinued bikes</b> in comparison" />
 					</div>
 				</td>
 			</tr>
 			<tr>
 				<td class="padding-bottom10">
 					<span class="subHeading margin-right5">Bike-1</span>
-					<asp:DropDownList ID="cmbMake" runat="server" /> -
-					<asp:DropDownList ID="cmbModel" Enabled="false" runat="server">
+					<asp:DropDownList ID="cmbMake" runat="server" tabindex="1"/> -
+					<asp:DropDownList ID="cmbModel" Enabled="false" runat="server" tabindex="2">
 							<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList> -
-					<asp:DropDownList ID="cmbVersion" Enabled="false" runat="server" >
+					<asp:DropDownList ID="cmbVersion" Enabled="false" runat="server" tabindex="3">
 						<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList>
 				</td>
@@ -53,11 +54,11 @@
 			<tr>
 				<td class="alt padding-bottom10">
 					<span class="subHeading margin-right5">Bike-2</span>
-					<asp:DropDownList ID="cmbMake1" runat="server" /> -
-					<asp:DropDownList ID="cmbModel1" Enabled="false" runat="server">
+					<asp:DropDownList ID="cmbMake1" runat="server" tabindex="1"/> -
+					<asp:DropDownList ID="cmbModel1" Enabled="false" runat="server" tabindex="2">
 							<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList> -
-					<asp:DropDownList ID="cmbVersion1" Enabled="false" runat="server" >
+					<asp:DropDownList ID="cmbVersion1" Enabled="false" runat="server" tabindex="3">
 						<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList>
 				</td>
@@ -65,11 +66,11 @@
 			<tr>
 				<td class="padding-bottom10">
 					<span class="subHeading margin-right5">Bike-3</span>
-					<asp:DropDownList ID="cmbMake2" runat="server" /> -
-					<asp:DropDownList ID="cmbModel2" Enabled="false" runat="server">
+					<asp:DropDownList ID="cmbMake2" runat="server" tabindex="1"/> -
+					<asp:DropDownList ID="cmbModel2" Enabled="false" runat="server" tabindex="2">
 							<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList> -
-					<asp:DropDownList ID="cmbVersion2" Enabled="false" runat="server" >
+					<asp:DropDownList ID="cmbVersion2" Enabled="false" runat="server" tabindex="3">
 						<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList>
 				</td>
@@ -77,11 +78,11 @@
 			<tr>
 				<td class="alt padding-bottom10">
 					<span class="subHeading margin-right5">Bike-4</span>
-					<asp:DropDownList ID="cmbMake3" runat="server" /> -
-					<asp:DropDownList ID="cmbModel3" Enabled="false" runat="server">
+					<asp:DropDownList ID="cmbMake3" runat="server" tabindex="1"/> -
+					<asp:DropDownList ID="cmbModel3" Enabled="false" runat="server" tabindex="2">
 							<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList> -
-					<asp:DropDownList ID="cmbVersion3" Enabled="false" runat="server" >
+					<asp:DropDownList ID="cmbVersion3" Enabled="false" runat="server" tabindex="3">
 						<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList>
 				</td>

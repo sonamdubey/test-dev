@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 
 .jcarousel-wrapper.model{width:100%;}
@@ -83,3 +83,12 @@
 .or-text span{ height:30px; width:30px; display:inline-block; border:1px solid #ccc; border-radius:50%; font-size:24px; position:relative;}
 
 .discover-bike-carousel .front, .discover-bike-carousel .back, .discover-bike-carousel .jcarousel li { height: auto; }
+
+.breakupPopUpContainer { min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:20px; }
+.breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
+
+.upcoming-text-label{background:#4c4c4c;z-index:1;padding:2px 25px 4px 20px;line-height:22px;left:-10px}
+.upcoming-text-label:after{content: "";background:url(../images/upcoming-ribbon.png) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
+.reviews-rating{width:42%;}
+#ctrlExpertReviews li{min-height:236px;height:auto;}
+#ctrlExpertReviews li .front{height:100%;}

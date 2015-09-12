@@ -369,7 +369,7 @@
                                             Above
                                         </span>
                                         <span class="mileage-amount-box">
-                                            <span class="font14 text-bold">60 Kmpl</span>
+                                            <span class="font14 text-bold">70 Kmpl</span>
                                         </span>   
                                     </a>
                                 </li>
@@ -379,9 +379,9 @@
                                             Between
                                         </span>
                                         <span class="mileage-amount-box font14 text-bold">
-                                            <span class="">60</span>
+                                            <span class="">70</span>
                                             <span class="mileage-amount-text-box">Kmpl</span>
-                                            <span class=""> - 40</span>
+                                            <span class=""> - 50</span>
                                             <span class="mileage-amount-text-box">Kmpl</span>
                                         </span>   
                                     </a>
@@ -392,9 +392,9 @@
                                             Between
                                         </span>
                                         <span class="mileage-amount-box font14 text-bold">
-                                            <span class="">40</span>
+                                            <span class="">50</span>
                                             <span class="mileage-amount-text-box">Kmpl</span>
-                                            <span class=""> - 20</span>
+                                            <span class=""> - 30</span>
                                             <span class="mileage-amount-text-box">Kmpl</span>
                                         </span>   
                                     </a>
@@ -405,7 +405,7 @@
                                             Upto
                                         </span>
                                         <span class="mileage-amount-box">
-                                            <span class="font14 text-bold">20 Kmpl</span>
+                                            <span class="font14 text-bold">30 Kmpl</span>
                                         </span>  
                                     </a>
                                 </li>

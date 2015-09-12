@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     /// <summary>
     /// Author:Rakesh Yadav 
@@ -31,6 +31,7 @@ namespace Bikewale.controls
         public int PageNo { get; set; }
         public int PageSize { get; set; }
         public int VersionId { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -52,6 +53,7 @@ namespace Bikewale.controls
             BindUserReviewControl.Filter = Filter;
             BindUserReviewControl.RecordCount = ReviewCount;
             BindUserReviewControl.BindUserReview(rptUserReview);
+            FetchedRecordsCount = BindUserReviewControl.FetchedRecordsCount;
         }
     }
 }

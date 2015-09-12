@@ -1,5 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.versions" %>
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
+<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/UserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
+<%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PriceQuotePopup" %>
 <!doctype html>
 <html>
 <head>
@@ -26,7 +31,8 @@
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>New Bikes</li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><a href="/<%= modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/"><%= modelPage.ModelDetails.MakeBase.MakeName %></a></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><%= modelPage.ModelDetails.ModelName %></li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -41,6 +47,12 @@
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-10 padding-top20 padding-bottom20 rounded-corner2">
                         <div class="grid-6 alpha margin-minus10">
+                            <div class="<%= modelPage.ModelDetails.Futuristic ? "" : "hide" %>">
+                        	    <span class="model-sprite bw-upcoming-bike-ico"></span>
+                            </div>
+                            <div class="<%= !modelPage.ModelDetails.Futuristic && !modelPage.ModelDetails.New ? "" : "hide" %>">
+                        	    <span class="model-sprite bw-discontinued-bike-ico"></span>
+                            </div>
                             <div class="connected-carousels">
                                 <div class="stage">
                                     <div class="carousel carousel-stage">
@@ -82,7 +94,7 @@
                                 </div>
                             </div>
 
-                            <div class="margin-top20">
+                            <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : "" %>">
                                 <p class="margin-left50	leftfloat margin-right20">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                 </p>
@@ -93,73 +105,118 @@
                                 <div class="clear"></div>
                             </div>
 
-                        </div>
-
+                        </div>                        
                         <div class="grid-6 padding-left40" id="dvBikePrice">
-                            <div class="bike-price-container font28 margin-bottom15">
-                                <span class="fa fa-rupee"></span>
-                                <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span> <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>
-                            </div>
-                            <div id="city-list-container" class="city-list-container margin-bottom20">
+                            <% if( !modelPage.ModelDetails.Futuristic ) { %>
+                                <div class="bike-price-container font28 margin-bottom15">
+                                    <span class="fa fa-rupee"></span>
+                                    <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span> <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>
+                                </div>
+                                <% if(!modelPage.ModelDetails.New) { %>
                                 <div class="text-left margin-bottom15">
-                                    <p class="font16 offer-error">Select city for accurate on-road price and exclusive offers</p>
+                                    <p class="font16 offer-error">Last Recorded Price</p>
                                 </div>
-                                <ul id="mainCity">
-                                    <li cityId="1"><span>Mumbai</span></li>
-                                    <li cityId="12"><span>Pune</span></li>
-                                    <li cityId="2"><span>Banglore</span></li>
-                                    <li cityId="40"><span>Thane</span></li>
-                                    <li cityId="13"><span>Navi Mumbai</span></li>
-                                    <li class="city-other-btn"><span>Others</span></li>
-                                </ul>
-                            </div>
-                            <div id="city-area-select-container" class="city-area-select-container margin-bottom20 hide">
-                                <div class="city-select-text text-left margin-bottom15 hide">
-                                    <p class="font16">Select city for accurate on-road price and exclusive offers</p>
-                                </div>
-                                <div class="area-select-text text-left margin-bottom15 hide">
-                                    <p class="font16">Select area for on-road price and exclusive offers</p>
-                                </div>
-                                <div class="city-onRoad-price-container font16 margin-bottom15 hide">
-                                    <p class="margin-bottom10">On-road price in <span id="pqArea">Andheri</span>, <span id="pqCity">Mumbai</span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
-                                    <p class="font12 margin-bottom15 text-light-grey" id="breakup">(Ex-showroom + RTO + Insurance + Handling charges)</p>
-                                    <button class="btn btn-orange" id="btnBookNow">Avail offers</button>
-                                </div>
-                                <div class="city-area-wrapper">
-                                    <div class="city-select leftfloat margin-right20">
-                                        <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', event : { change : LoadArea }"></select>
+                                <% } %>
+                                <% if(modelPage.ModelDetails.New) { %>
+                                <div id="city-list-container" class="city-list-container margin-bottom20">
+                                    <div class="text-left margin-bottom15">
+                                        <p class="font16 offer-error">Select city for accurate on-road price and exclusive offers</p>
                                     </div>
-                                    <div class="area-select leftfloat">
-                                        <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', enable: selectedCity, event: { change: OnAreaChange }"></select>
-                                    </div>
-                                    <div class="clear"></div>
+                                    <ul id="mainCity">
+                                        <li cityId="1"><span>Mumbai</span></li>
+                                        <li cityId="12"><span>Pune</span></li>
+                                        <li cityId="2"><span>Banglore</span></li>
+                                        <li cityId="40"><span>Thane</span></li>
+                                        <li cityId="13"><span>Navi Mumbai</span></li>
+                                        <li class="city-other-btn"><span>Others</span></li>
+                                    </ul>
                                 </div>
-                            </div>
-                            <div class="city-unveil-offer-container position-rel">
-                                <div class="available-offers-container content-inner-block-10">
-                                    <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
-                                    <div class="offer-list-container" id="dvAvailableOffer">
+                                <div id="city-area-select-container" class="city-area-select-container margin-bottom20 hide">
+                                    <div class="city-select-text text-left margin-bottom15 hide">
+                                        <p class="font16">Select city for accurate on-road price and exclusive offers</p>
+                                    </div>
+                                    <div class="area-select-text text-left margin-bottom15 hide">
+                                        <p class="font16">Select area for on-road price and exclusive offers</p>
+                                    </div>
+                                    <div class="city-onRoad-price-container font16 margin-bottom15 hide">
+                                        <p class="margin-bottom10">On-road price in <span id="pqArea">Andheri</span>, <span id="pqCity">Mumbai</span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
+                                        <p class="font12 margin-bottom15 text-light-grey" id="breakup">(Ex-showroom + RTO + Insurance + Handling charges)</p>
+                                        <input type="button" class="btn btn-orange" id="btnBookNow" value="Avail offers" />
+                                    </div>
+                                    <div class="city-area-wrapper">
+                                        <div class="city-select leftfloat margin-right20">
+                                            <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', event : { change : LoadArea }"></select>
+                                        </div>
+                                        <div class="area-select leftfloat">
+                                            <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', enable: selectedCity, event: { change: OnAreaChange }"></select>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </div>
+                                </div>
+                                <div class="city-unveil-offer-container position-rel">
+                                    <div class="available-offers-container content-inner-block-10">
+                                        <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
+                                        <div class="offer-list-container" id="dvAvailableOffer">
                                         
+                                        </div>
+                                    </div>
+                                    <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
+                                        <input type="button" class="btn btn-orange unveil-offer-btn" value="Show Offers" />
+                                    </div>
+                                    <div class="notify-btn-container position-abt pos-left0 pos-top0 hide">
+                                        <div class="margin-top50 margin-left40">
+                                            <input type="text" placeholder="Notify me" class="notify-input">
+                                            <input type="button" class="btn btn-orange btn-xs" value="Notify me" />
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
-                                    <button class="btn btn-orange unveil-offer-btn">Show Offers</button>
+                                <% } %>
+                            <% } %>
+                            <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
+                               { %>
+                            <div class="upcoming-bike-details-container margin-top30">
+                    	        <div class="upcoming-bike-price-container font28 margin-bottom20">
+                                    <span class="fa fa-rupee"></span>
+                                    <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %></span>
+                                    <span class="font30 text-black">-</span>
+                                    <span class="fa fa-rupee"></span>
+                                    <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
+                                    <span class="font12 text-light-grey default-showroom-text">Expected price</span>
                                 </div>
-                                <div class="notify-btn-container position-abt pos-left0 pos-top0 hide">
-                                    <div class="margin-top50 margin-left40">
-                                        <input type="text" placeholder="Notify me" class="notify-input">
-                                        <button class="btn btn-orange btn-xs">Notify me</button>
-                                    </div>
+                                <div class="upcoming-bike-date-container margin-bottom20">
+                        	        <span class="font20 text-black"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
+                                    <span class="font12 text-light-grey">Expected launch date</span>
+                                </div>
+                                <div class="upcoming-bike-default-text">
+                        	        <p class="font14"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
                                 </div>
                             </div>
-                        </div>
+                            <% } %>
+                        </div>                        
                         <div class="clear"></div>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-
+        <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
+    	    <div id="SneakPeak" class="grid-12 margin-bottom20">
+        	    <h2 class="text-bold text-center margin-top20 margin-bottom30">Sneak-peak</h2>
+        	    <div class="content-box-shadow content-inner-block-20">
+            	    <p class="font14 text-grey padding-left10 padding-right10">
+                        <span class="model-about-main">
+                            <%= modelPage.ModelDesc.SmallDescription %>
+                        </span>
+                        <span class="model-about-more-desc hide" style="display: none;">
+                            <%= modelPage.ModelDesc.FullDescription %>
+                        </span>
+                        <span><a href="#SneakPeak" class="read-more-btn">Read <span>more</span></a></span>
+                    </p>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+        <% if (modelPage.ModelVersionSpecs != null) { %>
         <section class="container">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
@@ -168,8 +225,8 @@
                         <a class="active" href="#overview">Overview</a>
                         <a href="#specifications">Specifications</a>
                         <a href="#features">Features</a>
-                        <a href="#variants">Variants</a>
-                        <a href="#colours">Colours</a>
+                        <a href="#variants" style="<%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? "" : "display:none;" %>">Variants</a>
+                        <a href="#colours" style="<%= (modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0) ? "" : "display:none;" %>">Colours</a>
                     </div>
                     <!-- specification code starts here -->
                     <div class="bw-tabs-data margin-bottom20" id="overview">
@@ -199,13 +256,13 @@
                             </div>
                         </div>
                         <div class="clear"></div>
-                        <p class="font14 margin-top20 text-grey padding-left10 padding-right10">
+<%--                        <p class="font14 margin-top20 text-grey padding-left10 padding-right10 <%= string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription) ? "hide" : "" %>">
                             <span class="model-about-main"><%= modelPage.ModelDesc.SmallDescription %>
                             </span>
                             <span class="model-about-more-desc hide"><%= modelPage.ModelDesc.FullDescription %>
                             </span>
                             <span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
-                        </p>
+                        </p>--%>
                     </div>
                     <!-- specification code starts here -->
                     <div class="bw-tabs-data margin-bottom20" id="specifications">
@@ -597,59 +654,96 @@
                             </ul>
                             <ul class="more-features hide">
                                 <li>
-                                    <div class="text-light-grey">Bore (mm)</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.Bore) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">Tachometer</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Tachometer) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">Stroke (mm)</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.Stroke) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">Shift Light</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ShiftLight) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">Valves Per</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.ValvesPerCylinder) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">No Of Tripmeters</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfTripmeters) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">Fuel Delivery System</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.FuelDeliverySystem) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">Tripmeter Type</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TripmeterType) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">Fuel Type</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.FuelType) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">Low Fuel Indicator</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.LowFuelIndicator) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">Ignition</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.Ignition) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">Low Oil Indicator</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.LowOilIndicator) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">Spark Plugs Per Cylinder</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.SparkPlugsPerCylinder) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">Low Battery Indicator</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.LowBatteryIndicator) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">Cooling System</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.CoolingSystem) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">Pillion Seat</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionSeat) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">Displacement (cc)</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.Displacement) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">Pillion Footrest</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionFootrest) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">Ground Clearance (mm)</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.GroundClearance) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">Pillion Backrest</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionBackrest) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">Overall Length (mm)</div>
-                                    <%= FormatValue(modelPage.ModelVersionSpecs.OverallLength) %>
-                                    <div class="clear"></div>
+                            	    <div class="text-light-grey">Pillion Grabrail</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionGrabrail) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Stand Alarm</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.StandAlarm) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Stepped Seat</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.SteppedSeat) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Antilock Braking System</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.AntilockBrakingSystem) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Killswitch</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Killswitch) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Clock</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Clock) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Electric System</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ElectricSystem) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Battery</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Battery) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Headlight Type</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.HeadlightType) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Headlight Bulb</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.HeadlightBulbType) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Brake/Tail Light</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Brake_Tail_Light) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Turn Signal</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TurnSignal) %></div>
+                                </li>
+                                <li>
+                            	    <div class="text-light-grey">Pass Light</div>
+                                    <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PassLight) %></div>
                                 </li>
                                 <div class="clear"></div>
                             </ul>
@@ -659,7 +753,7 @@
                         </div>
                     </div>
                     <!-- variant code starts here -->
-                    <div class="bw-tabs-data" id="variants">
+                    <div class="bw-tabs-data <%= modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 ? "" : "hide" %>" id="variants">
                         <h2 class="font24 margin-bottom20 text-center">Variants</h2>
                         <asp:Repeater runat="server" ID="rptVarients">
                             <ItemTemplate>
@@ -681,7 +775,7 @@
                         <div class="clear"></div>
                     </div>
                     <!-- colours code starts here -->
-                    <div class="bw-tabs-data margin-bottom20" id="colours">
+                    <div class="bw-tabs-data margin-bottom20 <%= modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0 ? "" : "hide" %>" id="colours">
                         <div class="border-solid-top margin-left10 margin-right10"></div>
                         <h2 class="font24 margin-top10 margin-bottom20 text-center">Colours</h2>
                         <div class="text-center">
@@ -698,8 +792,8 @@
                 </div>
             </div>
         </section>
-
-        <section>
+        <% } %>
+        <section class="<%= (Convert.ToInt32(ctrlAlternativeBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>">
             <div class="container margin-bottom20">
                 <div class="grid-12 alternative-section">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternatives</h2>
@@ -718,275 +812,38 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <section class="container">
+        <% 
+            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlUserReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+        %>
+        <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
             <!--  News Bikes latest updates code starts here -->
             <div class="newBikes-latest-updates-container">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top30 margin-bottom30">Latest updates on <%= bikeName %></h2>
-                    <div class="bw-tabs-panel content-box-shadow margin-bottom30">
-                        <div class="bw-tabs bw-tabs-flex" id="reviewCount">
+                    <div class="bw-tabs-panel content-box-shadow margin-bottom30">                        
+                        <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
+                        <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                             <ul>
-                                <li class="active" data-tabs="News">News</li>
-                                <li data-tabs="expertReviews">Expert Reviews</li>
-                                <li data-tabs="userReviews">User Reviews</li>
-                                <li data-tabs="Videos">Videos</li>
+                                <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
+                                <li style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "" : "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
+                                <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
                             </ul>
                         </div>
-                        <div class="bw-tabs-data" id="News">
-                            <!-- News data code starts here-->
-                            <div class="padding-bottom30">
-                                <div class="grid-4 alpha">
-                                    <div class="img-preview">
-                                        <a href="#">
-                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19895/Harley-Davidson-India-56381.jpg?wm=2" title="Acura NSX" alt="Acura NSX"></a>
-                                    </div>
-                                </div>
-                                <div class="grid-8 omega">
-                                    <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Yamaha MT-03 specs and photos revealed</a></h2>
-                                    <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                    <p class="margin-bottom15 font14 line-height">Yamaha’s plans of launching the MT-03 was more of an open secret, but the company had refused to comment on it. Now though, the company has officially...</p>
-                                    <div class="margin-bottom15">
-                                        <a href="#" class="margin-right25 font14">Read full story</a>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
                             </div>
-                            <div class="padding-bottom30">
-                                <div class="grid-4 alpha">
-                                    <div class="img-preview">
-                                        <a href="#">
-                                            <img src="http://imgd1.aeplcdn.com//640x348//bw/ec/19895/Harley-Davidson-India-56380.jpg?wm=2" title="Acura NSX" alt="Acura NSX"></a>
-                                    </div>
-                                </div>
-                                <div class="grid-8 omega">
-                                    <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Yamaha MT-03 specs and photos revealed</a></h2>
-                                    <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                    <p class="margin-bottom15 font14 line-height">Yamaha’s plans of launching the MT-03 was more of an open secret, but the company had refused to comment on it. Now though, the company has officially...</p>
-                                    <div class="margin-bottom15">
-                                        <a href="#" class="margin-right25 font14">Read full story</a>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="padding-bottom30">
-                                <div class="grid-4 alpha">
-                                    <div class="img-preview">
-                                        <a href="#">
-                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19895/Harley-Davidson-India-56381.jpg?wm=2" title="Acura NSX" alt="Acura NSX"></a>
-                                    </div>
-                                </div>
-                                <div class="grid-8 omega">
-                                    <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Yamaha MT-03 specs and photos revealed</a></h2>
-                                    <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                    <p class="margin-bottom15 font14 line-height">Yamaha’s plans of launching the MT-03 was more of an open secret, but the company had refused to comment on it. Now though, the company has officially...</p>
-                                    <div class="margin-bottom15">
-                                        <a href="#" class="margin-right25 font14">Read full story</a>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="padding-bottom50 text-center">
-                                <a href="#" class="font16">View more news</a>
-                            </div>
-                        </div>
-                        <!-- Ends here-->
-                        <div class="bw-tabs-data hide" id="expertReviews">
-                            <!-- Reviews data code starts here-->
-                            <div class="padding-bottom30">
-                                <div class="grid-4 alpha">
-                                    <div class="img-preview">
-                                        <a href="#">
-                                            <img src="http://imgd1.aeplcdn.com//640x348//bw/ec/19881/Harley-Davidson-Street-750-Front-56351.jpg?wm=0" title="Hyundai Creta" alt="Hyundai Creta"></a>
-                                    </div>
-                                </div>
-                                <div class="grid-8 omega">
-                                    <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Harley-Davidson recalls Street 750 and Street 500</a></h2>
-                                    <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                    <p class="margin-bottom15 font14 line-height">Harley-Davidson has recalled over 10,500 Street 750 and the Street 500 in the US. The recall covers Street 750 motorcycles manufactured between May 12, 2014, and June 24, 2015.</p>
-                                    <div class="margin-bottom15">
-                                        <a href="#" class="margin-right25 font14">Read More</a>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="padding-bottom30">
-                                <div class="grid-4 alpha">
-                                    <div class="img-preview">
-                                        <a href="#">
-                                            <img src="http://imgd1.aeplcdn.com/600x337/bw/ec/19874/Harley-Davidson-Road-King-First-Look-Review-56330.jpg?wm=0" title="Hyundai Creta" alt="Hyundai Creta"></a>
-                                    </div>
-                                </div>
-                                <div class="grid-8 omega">
-                                    <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Harley-Davidson recalls Street 750 and Street 500</a></h2>
-                                    <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                    <p class="margin-bottom15 font14 line-height">Harley-Davidson has recalled over 10,500 Street 750 and the Street 500 in the US. The recall covers Street 750 motorcycles manufactured between May 12, 2014, and June 24, 2015.</p>
-                                    <div class="margin-bottom15">
-                                        <a href="#" class="margin-right25 font14">Read More</a>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="padding-bottom30">
-                                <div class="grid-4 alpha">
-                                    <div class="img-preview">
-                                        <a href="#">
-                                            <img src="http://imgd1.aeplcdn.com//640x348//bw/ec/19881/Harley-Davidson-Street-750-Front-56351.jpg?wm=0" title="Hyundai Creta" alt="Hyundai Creta"></a>
-                                    </div>
-                                </div>
-                                <div class="grid-8 omega">
-                                    <h2 class="margin-bottom10 font20"><a href="#" class="text-black">Harley-Davidson recalls Street 750 and Street 500</a></h2>
-                                    <p class="margin-bottom10 text-xt-light-grey font14">2 hours ago, by <span class="text-light-grey">Sagar Bhanushali</span></p>
-                                    <p class="margin-bottom15 font14 line-height">Harley-Davidson has recalled over 10,500 Street 750 and the Street 500 in the US. The recall covers Street 750 motorcycles manufactured between May 12, 2014, and June 24, 2015.</p>
-                                    <div class="margin-bottom15">
-                                        <a href="#" class="margin-right25 font14">Read More</a>
-                                    </div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="padding-bottom50 text-center">
-                                <a href="#" class="font16">View more reviews</a>
-                            </div>
-                        </div>
-                        <!-- Ends here-->
-                        <div class="bw-tabs-data hide" id="userReviews">
-                            <!-- Reviews data code starts here-->
-                            <div class="user-reviews">
-                                <div class="padding-bottom20 font14">
-                                    <div class="grid-2">
-                                        <div class="content-inner-block-5 border-solid text-center">
-                                            <p class="inline-block margin-bottom5 margin-top5">
-                                                <img src="images/ratings/1.png" alt="Rate">
-                                                <img src="images/ratings/1.png" alt="Rate">
-                                                <img src="images/ratings/half.png" alt="Rate">
-                                                <img src="images/ratings/0.png" alt="Rate">
-                                                <img src="images/ratings/0.png" alt="Rate">
-                                            </p>
-                                            <p>3.5</p>
-                                        </div>
-                                    </div>
-                                    <div class="grid-10">
-                                        <p class="margin-bottom5 font18 text-bold">Super Awesome, Hell of a beast <span class="font14 text-unbold text-light-grey margin-left5">2 hours ago, by Sagar Bhanushali</span></p>
-                                        <p>Honda has made its foray into the lucrative sports touring segment with the CBR650F. This middleweight fully-faired motorcycle has been pegged...<a href="#">Read full story</a></p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="padding-bottom20 font14">
-                                    <div class="grid-2">
-                                        <div class="content-inner-block-5 border-solid text-center">
-                                            <p class="inline-block margin-bottom5 margin-top5">
-                                                <img src="images/ratings/1.png" alt="Rate">
-                                                <img src="images/ratings/1.png" alt="Rate">
-                                                <img src="images/ratings/half.png" alt="Rate">
-                                                <img src="images/ratings/0.png" alt="Rate">
-                                                <img src="images/ratings/0.png" alt="Rate">
-                                            </p>
-                                            <p>3.5</p>
-                                        </div>
-                                    </div>
-                                    <div class="grid-10">
-                                        <p class="margin-bottom5 font18 text-bold">Super Awesome, Hell of a beast <span class="font14 text-unbold text-light-grey margin-left5">2 hours ago, by Sagar Bhanushali</span></p>
-                                        <p>Honda has made its foray into the lucrative sports touring segment with the CBR650F. This middleweight fully-faired motorcycle has been pegged...<a href="#">Read full story</a></p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="padding-bottom20 font14">
-                                    <div class="grid-2">
-                                        <div class="content-inner-block-5 border-solid text-center">
-                                            <p class="inline-block margin-bottom5 margin-top5">
-                                                <img src="images/ratings/1.png" alt="Rate">
-                                                <img src="images/ratings/1.png" alt="Rate">
-                                                <img src="images/ratings/half.png" alt="Rate">
-                                                <img src="images/ratings/0.png" alt="Rate">
-                                                <img src="images/ratings/0.png" alt="Rate">
-                                            </p>
-                                            <p>3.5</p>
-                                        </div>
-                                    </div>
-                                    <div class="grid-10">
-                                        <p class="margin-bottom5 font18 text-bold">Super Awesome, Hell of a beast <span class="font14 text-unbold text-light-grey margin-left5">2 hours ago, by Sagar Bhanushali</span></p>
-                                        <p>Honda has made its foray into the lucrative sports touring segment with the CBR650F. This middleweight fully-faired motorcycle has been pegged...<a href="#">Read full story</a></p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="padding-bottom20 font14">
-                                    <div class="grid-2">
-                                        <div class="content-inner-block-5 border-solid text-center">
-                                            <p class="inline-block margin-bottom5 margin-top5">
-                                                <img src="images/ratings/1.png" alt="Rate">
-                                                <img src="images/ratings/1.png" alt="Rate">
-                                                <img src="images/ratings/half.png" alt="Rate">
-                                                <img src="images/ratings/0.png" alt="Rate">
-                                                <img src="images/ratings/0.png" alt="Rate">
-                                            </p>
-                                            <p>3.5</p>
-                                        </div>
-                                    </div>
-                                    <div class="grid-10">
-                                        <p class="margin-bottom5 font18 text-bold">Super Awesome, Hell of a beast <span class="font14 text-unbold text-light-grey margin-left5">2 hours ago, by Sagar Bhanushali</span></p>
-                                        <p>Honda has made its foray into the lucrative sports touring segment with the CBR650F. This middleweight fully-faired motorcycle has been pegged...<a href="#">Read full story</a></p>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <div class="padding-bottom50 text-center">
-                                    <a href="#" class="font16">View more reviews</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="bw-tabs-data hide" id="Videos">
-                            <!-- Videos data code starts here-->
-                            <div class="padding-bottom30">
-                                <div class="grid-4 alpha">
-                                    <div class="yt-iframe-preview">
-                                        <iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
-                                    </div>
-                                </div>
-                                <div class="grid-8 omega">
-                                    <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
-                                    <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
-                                    <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span>Views <span>398</span></div>
-                                    <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span>Likes <span>120</span></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="padding-bottom30">
-                                <div class="grid-4 alpha">
-                                    <div class="yt-iframe-preview">
-                                        <iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
-                                    </div>
-                                </div>
-                                <div class="grid-8 omega">
-                                    <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
-                                    <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
-                                    <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span>Views <span>398</span></div>
-                                    <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span>Likes <span>120</span></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                            <div class="padding-bottom30">
-                                <div class="grid-4 alpha">
-                                    <div class="yt-iframe-preview">
-                                        <iframe frameborder="0" allowtransparency="true" src="https://www.youtube.com/embed/lsSTQxIlOxU?rel=0&showinfo=0&autoplay=0"></iframe>
-                                    </div>
-                                </div>
-                                <div class="grid-8 omega">
-                                    <h2 class="margin-bottom10 font20"><a href="#" class="text-black">First Look Ford Figo Aspire</a></h2>
-                                    <p class="margin-bottom10 text-light-grey font14">Updated on <span>June 30, 2015</span></p>
-                                    <div class="margin-bottom15 text-light-grey"><span class="bwsprite review-sm-lgt-grey"></span>Views <span>398</span></div>
-                                    <div class="text-light-grey"><span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span>Likes <span>120</span></div>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-
-                            <div class="padding-bottom50 text-center">
-                                <a href="#" class="font16">View more videos</a>
-                            </div>
-                        </div>
-                        <!-- Ends here-->
+                        <BW:News runat="server" ID="ctrlNews" />
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                        <BW:Videos runat="server" ID="ctrlVideos" />                        
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
+        <BW:PriceQuotePopup ID="ctrlPriceQuotePopup" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
@@ -1004,6 +861,8 @@
                 // ends
             });
             // Cache selectors outside callback for performance.
+
+            <% if(!modelPage.ModelDetails.Futuristic) { %>
             var $window = $(window),
                 $menu = $('.bw-overall-rating'),
                 $menu2 = $('.alternative-section'),
@@ -1012,9 +871,10 @@
             $window.scroll(function () {
                 $menu.toggleClass('affix', menu2Top >= $window.scrollTop() && $window.scrollTop() > menuTop);
             });
-
+            <% } %>
             $("a.read-more-btn").click(function () {
-                $(".model-about-more-desc").toggle();
+                $(".model-about-more-desc").slideToggle();
+                $(".model-about-main").toggle();
                 var a = $(this).find("span");
                 a.text(a.text() === "more" ? "less" : "more");
             });
@@ -1109,6 +969,7 @@
                             var pq = ko.toJS(data);
                             vm.priceQuote(pq);
                             if (pq && pq.IsDealerPriceAvailable) {
+                                $("#btnBookNow").show();
                                 $(".unveil-offer-btn-container").attr('style', '');
                                 $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
                                 var totalPrice = 0;
@@ -1141,7 +1002,8 @@
                                 if(pq.bwPriceQuote.onRoadPrice > 0) {
                                     totalPrice = pq.bwPriceQuote.onRoadPrice;
                                     priceBreakText = "Ex-showroom + Insurance + RTO";
-                                }                                
+                                }
+                                $("#btnBookNow").hide();
                                 $("#bike-price").html(totalPrice);
                                 $("#breakup").text("(" + priceBreakText + ")");
                                 $(".unveil-offer-btn-container").attr('style', '');
@@ -1191,7 +1053,9 @@
             }
 
             $(document).ready(function () {
+                <% if(!modelPage.ModelDetails.Futuristic) { %>
                 InitVM(0);
+                <% } %>
                 $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
                 $(".unveil-offer-btn-container").attr('style', '');
             });
@@ -1229,7 +1093,10 @@
                 ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
                 viewModel.LoadCity();
             }
-
+            
+            $("#btnBookNow").click(function () {
+                
+            });
         </script>
     </form>
 </body>
