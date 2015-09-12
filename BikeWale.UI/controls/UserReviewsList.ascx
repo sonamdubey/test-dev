@@ -1,4 +1,6 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.UserReviewsList" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.UserReviewsList" %>
+<div class="bw-tabs-data hide" id="ctrlUserReviews"><!-- Reviews data code starts here-->
+    <div class="user-reviews">
 <asp:Repeater ID="rptUserReview" runat="server">
     <ItemTemplate>
         <div class="padding-bottom20 font14">
@@ -16,6 +18,10 @@
                 </div>
             <div class="clear"></div>
         </div>
-
     </ItemTemplate>
 </asp:Repeater>
+        <div class="padding-bottom50 text-center">
+            <a href="/user-reviews/" class="font16">View more reviews</a>
+        </div>
+    </div>
+</div>

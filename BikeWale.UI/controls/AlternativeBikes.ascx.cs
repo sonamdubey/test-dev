@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     public class AlternativeBikes : System.Web.UI.UserControl
     {
@@ -21,6 +21,8 @@ namespace Bikewale.controls
         }
 
         public int? Deviation { get; set; }
+
+        public int FetchedRecordsCount { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -39,6 +41,8 @@ namespace Bikewale.controls
             BindAlternativeBikesControl.TopCpunt = TopCount;
             BindAlternativeBikesControl.Deviation = Deviation;
             BindAlternativeBikesControl.BindAlternativeBikes(rptAlternateBikes);
+
+            FetchedRecordsCount = BindAlternativeBikesControl.FetchedRecordsCount;
         }
     }
 }

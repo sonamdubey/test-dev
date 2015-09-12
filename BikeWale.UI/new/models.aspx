@@ -34,7 +34,7 @@
                     <!-- breadcrumb code starts here -->
                     <ul>
                         <li><a href="/">Home</a></li>
-                        <li><span class="fa fa-angle-right margin-right10"></span>New Bikes</li>
+                        <li><span class="fa fa-angle-right margin-right10"></span><%= _make.MakeName %> Bikes</li>
                     </ul>
                     <div class="clear"></div>
                 </div>
@@ -56,13 +56,13 @@
                                 <li class="front">
                                     <div class="contentWrapper">
                                         <div class="imageWrapper">
-                                            <a href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")))+"/" %>'>
+                                            <a href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
                                                 <img class="lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>">
                                             </a>
                                         </div>
                                         <div class="bikeDescWrapper">
                                             <div class="bikeTitle margin-bottom10">
-                                                <h3><a href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")))+"/"  %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>"><%# DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %></a></h3>
+                                                <h3><a href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>"><%# DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %></a></h3>
                                             </div>
                                             <div class="margin-bottom10 font20">
                                                 <span class="fa fa-rupee " style="display:<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"none":"inline-block"%>"></span>
@@ -127,7 +127,7 @@
                     <div class="bw-tabs-panel">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
-                                <li class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" data-tabs="ctrlNews">News</li>
+                                <li class="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" data-tabs="ctrlNews">News</li>
                                 <li class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" data-tabs="ctrlExpertReviews">Reviews</li>
                                 <li class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" data-tabs="ctrlVideos">Videos</li>
                             </ul>

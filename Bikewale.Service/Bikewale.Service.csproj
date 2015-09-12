@@ -205,6 +205,9 @@
     <Compile Include="Controllers\Customer\CustomerController.cs" />
     <Compile Include="Controllers\Make\DealerMakesController.cs" />
     <Compile Include="Controllers\Make\MakePageController.cs" />
+    <Compile Include="Controllers\Model\ModelDescriptionController.cs" />
+    <Compile Include="Controllers\Model\ModelPageController.cs" />
+    <Compile Include="Controllers\Model\ModelSpecsController.cs" />
     <Compile Include="Controllers\NewBikeSearch\NewBikeSearchController.cs" />
     <Compile Include="Controllers\Customer\AuthenticateController.cs" />
     <Compile Include="Controllers\PriceQuote\Area\PQAreaListController.cs" />
@@ -233,7 +236,6 @@
     <Compile Include="AutoMappers\Version\VersionListMapper.cs" />
     <Compile Include="Controllers\Area\AreaListController.cs" />
     <Compile Include="Controllers\City\CityListController.cs" />
-    <None Include="Controllers\CMS\CMSController.cs.old" />
     <Compile Include="Controllers\Make\MakeController.cs" />
     <Compile Include="Controllers\Make\MakeListController.cs" />
     <Compile Include="Controllers\Model\ModelController.cs" />

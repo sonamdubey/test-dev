@@ -14,7 +14,6 @@
 <title><%= title %></title>
 <link rel="SHORTCUT ICON" href="#" />
 <link href="/css/bw-common-style.css" rel="stylesheet" type="text/css">
-<link href="/css/home.css" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="/src/frameworks.js"></script>
 <script type='text/javascript'>
     var googletag = googletag || {};

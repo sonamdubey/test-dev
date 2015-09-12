@@ -67,7 +67,7 @@ namespace Bikewale.New
                     ctrlExpertReviews.TotalRecords = 3;
                     ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
                     ctrlVideos.TotalRecords = 3;
-                    ctrlVideos.MakeId = Convert.ToInt32(makeId); ;
+                    ctrlVideos.MakeId = Convert.ToInt32(makeId);
 
                 }
             } 

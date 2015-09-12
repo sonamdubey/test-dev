@@ -1,7 +1,6 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 
-.header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #0e405b\9; padding: 10px 20px; z-index: 3; }
 .city-list-container { width:100%; min-height:90px; }
 .city-list-container ul { overflow: auto; }
 .city-list-container ul li { height:40px; border:1px solid #ccc; min-width:80px; padding:0px 30px; text-align:center; line-height:40px; font-size:14px; float:left; margin-right:10px; margin-bottom:10px; }
@@ -53,8 +52,11 @@
 .specification-box li div {float:left; width:205px; padding-right:10px;}
 .equal-width-list li{ display:block; float:left; width:450px; margin-left:27px; font-size:16px;}
 .equal-width-list li div{float:left; width:215px; padding-right:10px; margin-bottom:20px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
-.alternatives-carousel .jcarousel li {height: auto;}
+.alternatives-carousel .jcarousel li {height: auto; margin-right:18px;}
 .alternatives-carousel .jcarousel li.front { border:none;}
+.alternative-section .jcarousel-control-left { left:-24px; }
+.alternative-section .jcarousel-control-right { right:-24px; }
+.alternative-section .jcarousel-control-left, .alternative-section .jcarousel-control-right { top:50%; }
 .newBikes-latest-updates-container .grid-4 { padding-left:10px;}
 .available-colors { display:inline-block; width:150px; text-align:center; margin-bottom:10px; padding:0 5px;}
 .available-colors .color-box {width:60px; height:60px; margin:0 auto 15px; border-radius:3px; background:#f00;}
@@ -66,113 +68,43 @@
 .bw-brakeswheels-ico { background-position:0 -63px; width:26px; height:26px; margin-right:26px; position:relative; top:3px; left:3px;}
 .bw-dimensions-ico { background-position:0 -99px; width:33px; height:22px; margin-right:20px; position:relative; top:3px;}
 .bw-performance-ico { background-position:0 -131px; width:11px; height:22px; margin-right:41px; position:relative; top:3px; left:7px;}
+.bw-upcoming-bike-ico { background-position:0 -165px; width:135px; height:28px; }
+.bw-discontinued-bike-ico { background-position:; width:; height:; }
 
+/*news-videos tabs*/
+.newBikes-latest-updates-container .home-tabs { background:#ccc;}
+.newBikes-latest-updates-container .home-tabs li { width:170px; text-align:center; font-size:18px; padding:13px 14px; background:#f5f5f5;}
+.newBikes-latest-updates-container .home-tabs li:first-child { margin-right:-2px;}
+.newBikes-latest-updates-container .home-tabs li.active{ background:#fff; color:#2a2a2a;} 
 
+.breakupPopUpContainer { width: 670px; min-height: 350px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:50px 100px; }
+.breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 
-
-
-
-
-
-
-.connected-carousels .stage {
-    width: 476px;
-    margin: 0 auto 20px;
-    position: relative;
-}
-
+/* Connected carousel */
+.connected-carousels .stage { width: 476px; margin: 0 auto 20px; position: relative; }
 /** Navigation container **/
-
-.connected-carousels .navigation {
-    width: 476px;
-    position: relative;
-}
-
+.connected-carousels .navigation { width: 476px; position: relative; }
 /** Shared carousel styles **/
-
-.connected-carousels .carousel {
-    overflow: hidden;
-    position: relative;
-}
-
-.connected-carousels .carousel ul {
-    width: 20000em;
-    position: relative;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.connected-carousels .carousel li {
-    float: left;
-	width:476px;
-	height:268px;
-}
-
-.connected-carousels .carousel li img {
-    width:100%;
-}
-
+.connected-carousels .carousel { overflow: hidden; position: relative; }
+.connected-carousels .carousel ul { width: 20000em; position: relative; list-style: none; margin: 0; padding: 0; }
+.connected-carousels .carousel li { float: left; width:476px; height:268px; }
+.connected-carousels .carousel li img { width:100%; }
 /** Stage carousel specific styles **/
-
-.connected-carousels .carousel-stage {
-    height: 270px;
-}
-
+.connected-carousels .carousel-stage { height: 270px; }
 /** Navigation carousel specific styles **/
-
-.connected-carousels .carousel-navigation {
-    height: 60px;
-    width: 476px;
-    background: #fff;
-	padding-left:20px;
-}
-
-.navigation .carousel-navigation li {
-    display: block;
-	width:90px;
-	height:50px;
-	margin-right:20px;
-}
-
-.navigation .carousel-navigation li:hover {
-	cursor:pointer;
-}
-
-.navigation .carousel-navigation li img {
-    width:100%;
-	height:50px;
-	border:1px solid #ccc;
-}
-
-.connected-carousels .carousel-navigation li.active img {
-    border-color: #ccc;
-}
-
+.connected-carousels .carousel-navigation { height: 60px; width: 476px; background: #fff; padding-left:20px; }
+.navigation .carousel-navigation li { display: block; width:90px; height:50px; margin-right:20px; }
+.navigation .carousel-navigation li:hover { cursor:pointer; }
+.navigation .carousel-navigation li img { width:100%; height:50px; border:1px solid #ccc; }
+.connected-carousels .carousel-navigation li.active img { border-color: #ccc; }
 /** Stage carousel controls **/
-
-.connected-carousels .prev-stage,
-.connected-carousels .next-stage {
-    display: block;
-    position: absolute;
-    top: 40%;
-    color: #fff;
-}
-
-.connected-carousels .prev-stage {
-    left: 0;
-}
-
-.connected-carousels .next-stage {
-    right: 0;
-}
-
-.connected-carousels .prev-stage.inactive {background-position:-33px -27px; cursor:not-allowed; width:35px; height:60px;}
-.connected-carousels .next-stage.inactive {background-position:-65px -27px; cursor:not-allowed; width:35px; height:60px;}
-.connected-carousels .prev-stage.inactive,
-.connected-carousels .next-stage.inactive {
-    display: block;
-}
-
-.connected-carousels .prev-stage {background-position:-33px -80px; width:35px; height:60px; background-color:#fff; }
-.connected-carousels .next-stage {background-position:-65px -80px; width:35px; height:60px; background-color:#fff;}
+.connected-carousels .prev-stage, .connected-carousels .next-stage { display: block; position: absolute; top: 40%; color: #fff; }
+.connected-carousels .prev-stage { left: 0; }
+.connected-carousels .next-stage { right: 0; }
+.connected-carousels .prev, .connected-carousels .next { position: absolute; top: 40%; z-index: 1; }
+.connected-carousels .prev, .connected-carousels .next { width: 26px; height: 48px; text-indent: -9999; border: 1px solid #e2e2e2; background-color: #fff;  padding:6px 3px;}
+.connected-carousels .prev-stage { background-position: -125px -355px; }
+.connected-carousels .next-stage { background-position: -150px -355px; }
+.connected-carousels .prev-stage:hover { background-position: -125px -386px; }
+.connected-carousels .next-stage:hover { background-position: -150px -386px;}
+.connected-carousels .prev-stage.inactive, .connected-carousels .next-stage.inactive { display:none; }

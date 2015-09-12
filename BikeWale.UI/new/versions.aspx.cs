@@ -1,6 +1,5 @@
 ﻿using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
-using Bikewale.controls;
 using Bikewale.DAL.BikeData;
 using Bikewale.DTO.Model;
 using Bikewale.Entities.BikeData;
@@ -15,6 +14,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Bikewale.Controls;
 
 namespace Bikewale.New
 {
@@ -106,12 +106,19 @@ namespace Bikewale.New
 
     public class versions : System.Web.UI.Page
     {
+        protected News_new ctrlNews;
+        protected ExpertReviews ctrlExpertReviews;
+        protected VideosControl ctrlVideos;
+        protected UserReviewsList ctrlUserReviews;
+
         protected ModelPage modelPage;
         protected string modelId = string.Empty;
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
         protected AlternativeBikes ctrlAlternativeBikes;
+        protected short reviewTabsCnt = 0;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -127,28 +134,57 @@ namespace Bikewale.New
                 BindAlternativeBikeControl();
                 clientIP = this.Context.Request.ServerVariables["REMOTE_ADDR"];
             }
+
+            ////news,videos,revews, user reviews
+            ctrlNews.TotalRecords = 3;
+            ctrlNews.ModelId = Convert.ToInt32(modelId);
+            
+            ctrlExpertReviews.TotalRecords = 3;
+            ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+
+            ctrlVideos.TotalRecords = 3;
+            ctrlVideos.ModelId = Convert.ToInt32(modelId);
+
+            ctrlUserReviews.ReviewCount = 4;
+            ctrlUserReviews.PageNo = 1;
+            ctrlUserReviews.PageSize = 4;
+            ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
         }
 
         private void BindAlternativeBikeControl()
         {
             ctrlAlternativeBikes.TopCount = 6;
-            ctrlAlternativeBikes.VersionId = modelPage.ModelVersions[0].VersionId;            
+
+            if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+            {
+                ctrlAlternativeBikes.VersionId = modelPage.ModelVersions[0].VersionId;
+            }
         }
 
         private void BindPhotoRepeater()
         {
-            rptModelPhotos.DataSource = modelPage.Photos;
-            rptModelPhotos.DataBind();
-
-            rptNavigationPhoto.DataSource = modelPage.Photos;
-            rptNavigationPhoto.DataBind();
-
-            rptVarients.DataSource = modelPage.ModelVersions;
-            rptVarients.DataBind();
-            if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
+            if (modelPage != null)
             {
-                rptColor.DataSource = modelPage.ModelColors;
-                rptColor.DataBind();
+                if (modelPage.Photos != null && modelPage.Photos.Count > 0)
+                {
+                    rptModelPhotos.DataSource = modelPage.Photos;
+                    rptModelPhotos.DataBind();
+
+                    rptNavigationPhoto.DataSource = modelPage.Photos;
+                    rptNavigationPhoto.DataBind();
+                }
+
+                if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                {
+                    rptVarients.DataSource = modelPage.ModelVersions;
+                    rptVarients.DataBind();
+                }
+
+                if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
+                {
+                    rptColor.DataSource = modelPage.ModelColors;
+                    rptColor.DataBind();
+                }
             }
         }
 
@@ -177,12 +213,12 @@ namespace Bikewale.New
                         if (objResponse.StatusCode == 301)
                         {
                             //redirect permanent to new page 
-                            //CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
+                            Bikewale.Common.CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
 
                         }
                         else
                         {
-                            //Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                            Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", true);
                             //isSuccess = false;
                         }
                     }
@@ -198,9 +234,13 @@ namespace Bikewale.New
         {
             string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
             string _requestType = "application/json";
-            string _apiUrl = String.Format("api/Model?modelId={0}&isNew=true&specs=1&features=1", modelId);
+            string _apiUrl = String.Format("/api/model/details/?modelId={0}", modelId);
             modelPage = BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
-            bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+
+            if (modelPage != null)
+            {
+                bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+            }
         }
 
         protected string FormatShowReview(string makeName, string modelName)

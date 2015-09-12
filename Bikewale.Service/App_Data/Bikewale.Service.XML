@@ -792,6 +792,46 @@
             <param name="totalBikeCount">total popular bike count</param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelDescriptionController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="modelRepository"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelDescriptionController.Get(System.Int32)">
+            <summary>
+             To get Long/Short Model's Description (Synopsis) 
+            </summary>
+            <param name="modelId"></param>
+            <returns>Model Synopsis</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="modelRepository"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.Get(System.Int32)">
+            <summary>
+            To get complete Model Page with Specs,Features,description and Details
+            For the Specs and Features Default version selected is the one with maximum pricequotes
+            </summary>
+            <param name="modelId"></param>
+            <returns>Complete Model Page</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelSpecsController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="modelRepository"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelSpecsController.Get(System.Int32)">
+            <summary>
+             To get Model's Specifications and Features based on VersionId 
+            </summary>
+            <param name="versionId">Model's Version ID</param>        
+            <returns>Model's Specs and Features</returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.Customer.AuthenticateController">
             <summary>
             Created By : Ashish G. Kamble on 3 Sept 2015
@@ -1128,6 +1168,12 @@
             Created On : 24th August 2015
             </summary>
         </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="modelRepository"></param>
+        </member>
         <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32)">
             <summary>
              To get Required Model Details 
@@ -1135,37 +1181,13 @@
             <param name="modelId"></param>
             <returns>Required Model Details </returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Nullable{System.Boolean})">
-            <summary>
-             To get Long/Short Model's Description (Synopsis) 
-            </summary>
-            <param name="modelId"></param>
-            <returns>Model Synopsis</returns>
-        </member>
         <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Boolean)">
             <summary>
             To get all new versions based on Models 
             </summary>
-            <param name="requestType"></param>
             <param name="modelId"></param>
-            <returns>List of Model's New Versions </returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
-            <summary>
-             To get Model's Specifications and Features based on VersionId 
-            </summary>
-            <param name="versionId">Model's Version ID</param>
-            <param name="specs"></param>
-            <param name="features"></param>
-            <returns>Model's Specs and Features</returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Boolean,System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
-            <summary>
-            To get complete Model Page with Specs,Features,description and Details
-            For the Specs and Features Default version selected is the one with maximum pricequotes
-            </summary>
-            <param name="modelId"></param>
-            <returns>Complete Model Page</returns>
+            <param name="isNew"></param>
+            <returns>List of Model's New Versions</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.Model.ModelListController">
             <summary>

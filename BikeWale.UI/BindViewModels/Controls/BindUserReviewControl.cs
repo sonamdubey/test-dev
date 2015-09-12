@@ -23,10 +23,13 @@ namespace Bikewale.BindViewModels.Controls
         public static int VersionId { get; set; }
         public static FilterBy Filter { get; set; }
         public static int RecordCount { get; set; }
+        public static int FetchedRecordsCount { get; set; }
 
         public static void BindUserReview(Repeater rptUserReviews)
         {
             List<ReviewEntity> userReviewList = null;
+            FetchedRecordsCount = 0;
+
             try
             {
                 int stratIndex=1;
@@ -39,6 +42,8 @@ namespace Bikewale.BindViewModels.Controls
                     ModelId, stratIndex, endIndex, 0, Filter, RecordCount);
 
                 userReviewList = Bikewale.Common.BWHttpClient.GetApiResponseSync<List<ReviewEntity>>(_bwHostUrl, _requestType, _apiUrl, userReviewList);
+
+                FetchedRecordsCount = userReviewList.Count;
 
                 if (userReviewList.Count > 0)
                 {
