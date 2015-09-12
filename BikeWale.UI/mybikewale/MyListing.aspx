@@ -68,8 +68,9 @@
                 </div>
             </ItemTemplate>
         </asp:DataList>
-        <div id="div_SellYourBike" class="content-block action-btn grey-bg border-light margin-top15" runat="server">
-            <span class="margin-right10 margin-left10" style="font-size:14px;">You have not listed any bike</span><a href="/used/sell/">List Your Bike Here</a>
+        <div id="div_SellYourBike" class="content-block grey-bg border-light margin-top15" runat="server">
+            <span class="margin-right10 margin-left10" style="font-size:14px;">You have not listed any bike</span>
+            <a href="/used/sell/" class="action-btn">List Your Bike Here</a>
         </div>
 	</div>
     <div class="grid_4">

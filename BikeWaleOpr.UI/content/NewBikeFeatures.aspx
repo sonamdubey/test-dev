@@ -20,14 +20,14 @@
 	<span id="spnError" class="error" runat="server"></span>
 	<fieldset>
 		<legend>Select Bike</legend>
-		<asp:DropDownList ID="cmbMake" runat="server" />
-		<asp:DropDownList ID="cmbModel" Enabled="false" runat="server">
+		<asp:DropDownList ID="cmbMake" runat="server" tabindex="1"/>
+		<asp:DropDownList ID="cmbModel" Enabled="false" runat="server" tabindex="2">
 			<asp:ListItem Value="0" Text="--Select--" />
 		</asp:DropDownList>
-		<asp:DropDownList ID="cmbVersion" Enabled="false" runat="server" >
+		<asp:DropDownList ID="cmbVersion" Enabled="false" runat="server" tabindex="3">
 			<asp:ListItem Value="0" Text="--Select--" />
 		</asp:DropDownList>
-		<asp:Button ID="btnFind" Text="Show" runat="server" /> 
+		<asp:Button ID="btnFind" Text="Show" runat="server" tabindex="4" /> 
 	</fieldset>	<br><br>
 
 	<asp:Repeater ID="rptFeatures" runat="server" >

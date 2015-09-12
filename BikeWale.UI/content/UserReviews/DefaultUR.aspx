@@ -45,13 +45,13 @@
 		<div class="grey-bg content-block margin-top10">
             <h2>Write your own review</h2>
             <div class="margin-top10">
-			    Make<font color="red">*</font> <asp:DropDownList ID="drpMake" runat="server"/>				
+			    Make<font color="red">*</font> <asp:DropDownList ID="drpMake" runat="server" tabindex="1"/>				
 			    &nbsp; Model<font color="red">*</font> 
-			    <asp:DropDownList ID="drpModel" runat="server">
+			    <asp:DropDownList ID="drpModel" runat="server" tabindex="2">
 				    <asp:ListItem Text="--Select--" Value="0" />
 			    </asp:DropDownList>
 			    <input type="hidden" id="hdn_drpModel" runat="server" />
-			    <asp:Button ID="btnWrite" CssClass="buttons" runat="server" Text="Next"/><br>
+			    <asp:Button ID="btnWrite" CssClass="buttons" runat="server" Text="Next" tabindex="3"/><br>
 			    <span id="spnModel" class="error"></span>
            </div>			
 		</div><div class="clear"></div>

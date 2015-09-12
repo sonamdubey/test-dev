@@ -13,23 +13,23 @@
 	<form runat="server">
 		<span id="spnError" class="error" runat="server"></span>
 		<fieldset>
-			<asp:DropDownList ID="cmbMake" runat="server" />
-			<asp:DropDownList ID="cmbModel" Enabled="false" runat="server">
+			<asp:DropDownList ID="cmbMake" runat="server" tabindex="1"/>
+			<asp:DropDownList ID="cmbModel" Enabled="false" runat="server" tabindex="2">
 				<asp:ListItem Value="0" Text="--Select--" />
 			</asp:DropDownList><span class="error" id="selectModel"></span>
-			<asp:Button ID="btnFind" Text="Show Existing Features" runat="server" />
+			<asp:Button ID="btnFind" Text="Show Existing Features" runat="server" tabindex="3"/>
 			
 			
 			
 		</fieldset>	<br>
 		<fieldset>
 			<legend>Add New Features</legend>
-			Category: <asp:DropDownList ID="cmbCategories" runat="server" />
+			Category: <asp:DropDownList ID="cmbCategories" runat="server" tabindex="1"/>
 			<span class="error" id="spnCategory"></span>
 			<br>
-			<asp:TextBox ID="txtItems" TextMode="MultiLine" Columns="70" Rows="10" runat="server" />
+			<asp:TextBox ID="txtItems" TextMode="MultiLine" Columns="70" Rows="10" runat="server" tabindex="2" />
 			<span class="error" id="writeItems"></span>
-			<br><asp:Button ID="btnSave" Text="Add Items" runat="server" />
+			<br><asp:Button ID="btnSave" Text="Add Items" runat="server" tabindex="3" />
 		</fieldset><br>
 		<asp:DataGrid ID="dtgrdMembers" runat="server" 
 				DataKeyField="ID" 
