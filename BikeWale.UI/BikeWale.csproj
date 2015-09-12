@@ -853,6 +853,10 @@
       <DependentUpon>BookingSummary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\pricequote\BookingSummary_New.aspx.cs">
+      <DependentUpon>BookingSummary_New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
       <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2047,6 +2051,7 @@
     <Content Include="m\new\upcomingbikes\Default.aspx" />
     <Content Include="m\pagenotfound.aspx" />
     <Content Include="m\pricequote\BookingSummary.aspx" />
+    <Content Include="m\pricequote\BookingSummary_New.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
     <Content Include="m\pricequote\Default.aspx" />
     <Content Include="m\pricequote\DetailedDealerQuotation.aspx" />
