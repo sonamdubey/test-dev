@@ -16,19 +16,17 @@
     <h1>Add Showroom Prices</h1>
         <div style="background-color: #f4f3f3; padding: 10px; margin-top: 10px;">
             Make-Model-City                    
-            <asp:dropdownlist id="cmbMake" runat="server"></asp:dropdownlist>
-            <asp:dropdownlist id="cmbModel" runat="server">
+            <asp:dropdownlist id="cmbMake" runat="server" tabindex="1"></asp:dropdownlist>
+            <asp:dropdownlist id="cmbModel" runat="server" tabindex="2">
 				<asp:ListItem Value="0" Text="--Select--" />
 			</asp:dropdownlist>
             <asp:HiddenField  ID="hdnCmbModel" runat="server" />
-            <asp:DropDownList ID="ddlStates" runat="server" />
-            <asp:dropdownlist id="drpCity" runat="server" >
+            <asp:DropDownList ID="ddlStates" runat="server" tabindex="3"/>
+            <asp:dropdownlist id="drpCity" runat="server" tabindex="4">
                 <asp:ListItem Value="0" Text="--Select--" />
             </asp:dropdownlist>
-
-
             <input type="hidden" id="hdn_drpCityName" runat="server" />
-            <asp:button id="btnShow" text="Show" runat="server"></asp:button>
+            <asp:button id="btnShow" text="Show" runat="server" tabindex="5"></asp:button>
 
             <span id="selectMake" class="red"></span>
             <span id="selectModel" class="red"></span>
