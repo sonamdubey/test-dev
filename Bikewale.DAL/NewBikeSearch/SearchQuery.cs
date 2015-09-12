@@ -49,8 +49,8 @@ namespace Bikewale.DAL.NewBikeSearch
 		                        ,ISNULL(SD.MaxPower,0) AS Power
 		                        ,ISNULL(SD.FuelEfficiencyOverall,0) FuelEfficiencyOverall
 		                        ,ISNULL(SD.KerbWeight,0) AS [Weight]
-		                        ,MIN(ISNULL(SP.Price, 0)) OVER (PARTITION BY MO.ID) AS MinPrice
-		                        ,MAX(ISNULL(SP.Price, 0)) OVER (PARTITION BY MO.ID) AS MaxPrice
+		                        ,MO.MinPrice AS MinPrice
+		                        ,MO.MaxPrice AS MaxPrice
 		                        ,ISNULL(MO.ReviewRate, 0) MoReviewRate
 		                        ,ISNULL(MO.ReviewCount, 0) MoReviewCount
 		                        ,ISNULL(BV.ReviewRate, 0) VsReviewRate
@@ -75,8 +75,6 @@ namespace Bikewale.DAL.NewBikeSearch
                             + " INNER JOIN BikeModels AS MO WITH (NOLOCK) ON MO.ID = BV.BikeModelId "
                             + " INNER JOIN BikeMakes AS MA WITH (NOLOCK) ON MA.ID = MO.BikeMakeId "
                             + " LEFT JOIN NewBikeSpecifications AS SD WITH (NOLOCK) ON SD.BikeVersionId = BV.ID "
-                            + " LEFT JOIN NewBikeShowroomPrices AS SP WITH (NOLOCK) ON SP.BikeVersionId = BV.ID "
-                            + " AND SP.CityId = " + ConfigurationManager.AppSettings["defaultCity"]
                             + " LEFT JOIN MostPopularBikes MPB WITH(NOLOCK) ON MPB.ModelId = MO.ID AND MPB.RowNum = 1 ";
             }
             catch(Exception ex)
@@ -129,8 +127,7 @@ namespace Bikewale.DAL.NewBikeSearch
             string recordCountQuery = string.Empty;
             try
             {
-                recordCountQuery = " Select Count(*) AS RecordCount FROM ( SELECT DENSE_RANK() OVER (ORDER BY MO.MinPrice) AS DenseRank "
-                                    + " ,ROW_NUMBER() OVER (PARTITION BY MO.ID ORDER BY SP.Price) AS ModelRank "
+                recordCountQuery = " Select Count(*) AS RecordCount FROM ( SELECT ROW_NUMBER() OVER (PARTITION BY MO.ID ORDER BY MO.MinPrice) AS ModelRank "
                                     + " From " + GetFromClause() + " Where " + GetWhereClause() + " ) tbl WHERE ModelRank = 1; ";
             }
             catch(Exception ex)
@@ -341,9 +338,9 @@ namespace Bikewale.DAL.NewBikeSearch
             try
             {
                 if (!String.IsNullOrEmpty(filterInputs.MinBudget) && !String.IsNullOrEmpty(filterInputs.MaxBudget))
-                    _whereClause += " AND Sp.Price BETWEEN " + filterInputs.MinBudget + " AND " + filterInputs.MaxBudget;
+                    _whereClause += " AND Mo.MinPrice BETWEEN " + filterInputs.MinBudget + " AND " + filterInputs.MaxBudget;
                 else if (!String.IsNullOrEmpty(filterInputs.MinBudget) && String.IsNullOrEmpty(filterInputs.MaxBudget))
-                    _whereClause += " AND sp.Price >= " + filterInputs.MinBudget;
+                    _whereClause += " AND Mo.MinPrice >= " + filterInputs.MinBudget;
             }
             catch(Exception ex)
             {
@@ -412,8 +409,8 @@ namespace Bikewale.DAL.NewBikeSearch
             string searchResultQuery = string.Empty;
             try
             {
-                searchResultQuery = " WITH CTE_BikeModels AS ( SELECT DENSE_RANK() OVER (ORDER BY " + GetDenseRankClause() + " , MinPrice, MaxPrice) AS DenseRank "
-                                    + " ,ROW_NUMBER() OVER (PARTITION BY MO.ID ORDER BY SP.Price) AS ModelRank, "
+                searchResultQuery = " WITH CTE_BikeModels AS ( SELECT DENSE_RANK() OVER (ORDER BY " + GetDenseRankClause() + " , MO.MinPrice ASC, MO.Name ASC) AS DenseRank "
+                                    + " ,ROW_NUMBER() OVER (PARTITION BY MO.ID ORDER BY MO.MinPrice) AS ModelRank, "
                                     + GetSelectClause()
                                     + " FROM " + GetFromClause() + " Where " + GetWhereClause() + " ) SELECT * FROM CTE_BikeModels "
                                     + " WHERE DenseRank BETWEEN " + filterInputs.StartIndex + " AND " + filterInputs.EndIndex
