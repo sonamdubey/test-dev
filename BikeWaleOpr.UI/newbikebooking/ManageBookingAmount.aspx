@@ -14,6 +14,7 @@
     </style>
 </head>
 <body>
+    <form runat="server">
         <h1 class="margin-left10">Manage Booking Amount :</h1>
         <fieldset class="margin-left10 margin-top10 padding10">
 	        <legend >Add New Booking Amount</legend>            
@@ -81,7 +82,7 @@
                 </FooterTemplate>
             </asp:Repeater>
         </div>
-    </form>
+    
     <script type="text/javascript">
         $(document).ready(function () {
             if ($("#ddlMake").val() > 0) {
@@ -252,5 +253,6 @@
             })
         }
     </script>
+        </form>
 </body>
 </html>

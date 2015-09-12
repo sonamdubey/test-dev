@@ -28,7 +28,8 @@
                 <td><asp:button ID="btnFind" text="Find Dealers" runat="server" /></td>
 			</tr>
         </table></fieldset>
-        </form><br /><br />
+        
+        <br /><br />
         <asp:Repeater id="MyRepeater" runat="server">       
     <HeaderTemplate>
         <table border="1" style="border-collapse:collapse;" cellpadding ="5">

@@ -8,7 +8,7 @@
 </div>
 <!-- #Include file="ContentsMenu.aspx" -->
 <div class="left">
-      <form id="form2" runat="server">
+      
      <div>
         <fieldset>
             <legend><b>Filter Videos</b></legend>
@@ -112,7 +112,7 @@
             </asp:Repeater>
         </div>
     </div>    
-    </form> 
+    
 </div>
 <script type="text/javascript">
     $(document).ready(function () {

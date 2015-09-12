@@ -14,7 +14,7 @@
 <script language="javascript" src="/src/AjaxFunctions.js"></script>
 <div class="left">
 	<h3>Add Featured Listing</h3>
-	<form runat="server">
+	
 	  	<table width="100%" border="0" cellpadding="3" cellspacing="0">	
 			<tr>
 				<td colspan="2">
@@ -187,7 +187,7 @@
 			</tr>--%>
   		</table>
 		
-	</form>
+	
 </div>
 
 <script language="javascript">

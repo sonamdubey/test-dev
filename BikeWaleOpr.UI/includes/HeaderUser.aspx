@@ -8,6 +8,7 @@
 <title>BikeWale Operations</title>
 </head>
 <body>
+    <form runat="server">
 	<div>
 		<div class="header" style="height:70px;border-bottom: solid 1px rgb(200,200,200); display:block;" >
 			<div class="logo" style="float : left" >

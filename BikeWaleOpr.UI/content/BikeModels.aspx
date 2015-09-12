@@ -606,7 +606,7 @@
 	    //document.getElementById('cmbMakes').onchange = cmbMakes_Change;
 	    //cmbMakes_Change();
 	</script>
-</form>
+
 </div>
 
 <!-- #Include file="/includes/footerNew.aspx" -->

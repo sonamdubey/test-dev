@@ -170,6 +170,6 @@
            });
     })
    </script>
-  </form>
+  
  </div>
 <!-- #Include file="/includes/footerNew.aspx" -->

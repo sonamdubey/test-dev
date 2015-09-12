@@ -271,7 +271,7 @@
 			</tr>
 		</table>
 	</fieldset>
-</form>
+
 </div>
 <script language="javascript">
 

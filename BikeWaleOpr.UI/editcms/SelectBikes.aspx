@@ -102,7 +102,7 @@ function ValidateCombo() {
 //		return true;
 //	}
 </script>
-<form runat="server">
+
 <div style="clear:both;">
 <!--	<div style="float:left;">-->
 		<div>
@@ -188,7 +188,7 @@ function ValidateCombo() {
 	<input type="hidden" runat="server"  id="hdnVersionSelection" value="false" />
 </div>
 <div style="min-height:200px;">&nbsp;</div>
-</form>
+
 
 <!-- #Include file="/includes/footerNew.aspx" -->
 <script type="text/javascript" language="javascript">

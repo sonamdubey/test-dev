@@ -84,8 +84,8 @@
             </asp:TemplateColumn>
         </columns>
 	</asp:DataGrid>
-    <asp:Button id="btnSave" Text="Mark As Launched" runat="server"  />	  
-</form>
+    <asp:Button id="btnSave" Text="Mark As Launched" runat="server"  />  
+
 </div>
 
 

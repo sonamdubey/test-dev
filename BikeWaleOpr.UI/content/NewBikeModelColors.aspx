@@ -12,7 +12,7 @@
 </div>
 <!-- #Include file="ContentsMenu.aspx" -->
 <div class="left">
-<form runat="server">
+
 	<span id="spnError" class="error" runat="server"></span>
 	<fieldset>
 		<legend>Select Model</legend>
@@ -84,7 +84,7 @@
 			<asp:ButtonColumn ButtonType="LinkButton" CommandName="Delete" Text="Delete" />
 		</columns>
 	</asp:DataGrid>
-</form>
+
 </div>
 <script type="text/javascript" language="javascript">
 

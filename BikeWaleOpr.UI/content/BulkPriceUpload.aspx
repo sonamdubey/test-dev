@@ -14,7 +14,7 @@
 <div>
     <!-- #Include file="contentsMenu.aspx" -->
 </div>
-<form runat="server">
+
 <div class="left">
     <h1>Bulk Price Upload</h1>
     <fieldset>
@@ -118,7 +118,7 @@
         </div>
     </fieldset>
 </div>
-</form>
+
 <script language="javascript">
 	if(document.getElementById("btnUploadFile"))
 		document.getElementById("btnUploadFile").onclick = form_Submit;

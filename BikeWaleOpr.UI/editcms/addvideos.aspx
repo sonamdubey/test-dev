@@ -38,7 +38,7 @@
         <asp:HiddenField value="" ID="hdn_views" runat="server"></asp:HiddenField>
         <asp:HiddenField value="" ID="hdn_likes" runat="server"></asp:HiddenField>
         <asp:HiddenField value="" ID="hdn_duration" runat="server"></asp:HiddenField>
-    </form>
+    
 </div>
 <!-- #Include file="../includes/footerNew.aspx" -->
 

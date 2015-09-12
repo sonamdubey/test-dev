@@ -178,7 +178,7 @@
 			<asp:Button ID="btnPosition" runat="server"  Text="Go"></asp:Button>
 			<input type="hidden" id="hdnImageId" runat="server" />
 		</div>
-	</form>
+	
 
 <script type="text/javascript">	  
     var pendingList = new Array();

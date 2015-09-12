@@ -149,7 +149,7 @@
             <span class="greenMsg">Masking Name will be used for url formation.<br />Only lowercase letters,- and digits are allowed.</span>
         </div>
     </div>
-</form>
+
 <script type="text/javascript" language="javascript">
 
     //$(document.ready(function(){

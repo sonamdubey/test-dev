@@ -39,7 +39,7 @@
                 });
             </script>
 	<%}%>
-	<form runat="server">
+	
 	<div style="width:800px;float:left;">
 		<input id="hdnCurrentDay" type="hidden" />
 		<input id="hdnCurrentMonth" type="hidden" />
@@ -108,7 +108,7 @@
 		<div id="divBasicData"></div>
 	</div>
 	<div style="min-height:200px;">&nbsp;</div>
-	</form>
+	
 <script language="javascript" type="text/javascript" >
 	
     var bid; 

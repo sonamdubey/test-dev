@@ -9,6 +9,7 @@
 <title>BikeWale Operations</title>
 </head>
 <body>
+    <form runat="server">
 	<div class="content">
 			<div class="header">
 				<div class="top_info_right">
