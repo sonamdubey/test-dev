@@ -1,11 +1,29 @@
-﻿$("#" + ctrlBtnLoginId).click(function () {
+﻿var reEmail = /^[a-z]+(([a-z_0-9]*)|([a-z_0-9]*\.[a-z_0-9]+))*@([a-z_0-9\-]+)((\.[a-z]{3})|((\.[a-z]{2})+)|(\.[a-z]{3}(\.[a-z]{2})+))$/;
+var objREmail = $("#" + ctrlTxtEmailSignup);
+var objRPass = $("#" + ctrlTxtRegPasswdSignup);
+var objRName = $("#" + ctrlTxtNameSignup);
+var objRMobile = $("#" + ctrlTxtMobileSignup);
+var objRbtnSignup = $("#" + ctrlBtnSignup);
+var objRCheckbox = $("#" + ctrlChkAgreeSignup);
+var objRegister = {};
+
+$(objRCheckbox).attr('checked', true);
+
+$("#" + ctrlBtnLoginId).click(function () {
     var isSuccess = false;
 
     if (isValidLoginDetails()) {
+        var source = {
+            'Email': $("#" + ctrlTxtLoginEmailId).val().trim(),
+            'Password': $("#" + ctrlTxtLoginPasswordId).val().trim(),
+            'CreateAuthTicket' : true
+        };
+
         $.ajax({
-            type: "GET",
-            url: bwHostUrl + "/api/customer/authenticate?email=" + $("#" + ctrlTxtLoginEmailId).val().trim() + "&password=" + $("#" + ctrlTxtLoginPasswordId).val().trim() + "&createAuthTicket=true",
-            dataType: 'json',
+            type: "POST",
+            url: bwHostUrl + "/api/customer/authenticate/",
+            data: JSON.stringify(source),
+            contentType: 'application/json',
             async: false,
             success: function (response) {
                 if (response != null && response.isAuthorized == true) {
@@ -51,8 +69,7 @@ $("#btnForgetPass").click(function () {
 
 function sendPwd() {
     var objEmail = $("#txtForgotPassEmail");
-    var email = objEmail.val();
-    var reEmail = /^[a-z]+(([a-z_0-9]*)|([a-z_0-9]*\.[a-z_0-9]+))*@([a-z_0-9\-]+)((\.[a-z]{3})|((\.[a-z]{2})+)|(\.[a-z]{3}(\.[a-z]{2})+))$/;
+    var email = objEmail.val();    
 
     if (reEmail.test(email)) {        
         setTimeout('requestPwd()', 1000);
@@ -81,3 +98,94 @@ function requestPwd() {
     });
     return false;
 }
+
+
+$(objRbtnSignup).click(function () {       
+
+    return isValidRegDetails();
+
+});
+
+function isValidRegDetails() {
+
+    reName = /^[a-zA-Z0-9'\- ]+$/;
+    re = /^[0-9]*$/
+    reEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/;
+    isValid = true;
+    regPass = /^[a-zA-Z]+$/;
+
+
+    name = $(objRName).val().trim();
+    email = $(objREmail).val().trim();
+    pass = $(objRPass).val().trim();
+    mobile = $(objRMobile).val().trim();
+        
+    if ($.trim(name) == "") {          
+        toggleErrorMsg(objRName, true, "Please enter your Name");
+        isValid = false;
+    } else if (!reName.test($.trim(name))) {
+        toggleErrorMsg(objRName, true,"Name should be Alphanumeric.");
+        isValid = false;
+    }
+    else {
+        toggleErrorMsg(objRName, false);
+        objRegister.Name = name;
+    }
+
+    if ($.trim(email) == "") {
+        toggleErrorMsg(objREmail, true, "Please enter your Email");
+        isValid = false;
+    } else if (!reEmail.test($.trim(email).toLowerCase())) {
+        toggleErrorMsg(objREmail, true, "Invalid EmailId");
+        isValid = false;
+    } else {
+        toggleErrorMsg(objREmail, false);
+        objRegister.Email = email;
+    }        
+
+
+    if ($.trim(pass) == "") {
+        toggleErrorMsg(objRPass, true, "Please enter password");
+        isValid = false;
+    } else if ($.trim(pass).length < 6) {
+        toggleErrorMsg(objRPass, true, "Password should be atleast 6 characters long");
+        isValid = false;
+    } else if (regPass.test($.trim(pass))) {
+        toggleErrorMsg(objRPass, true, "Password should contain atleast one number or special character.");
+        isValid = false;
+    }
+    else {
+        toggleErrorMsg(objRPass, false)
+        objRegister.Password = pass;
+    }
+
+   
+    if ($.trim(mobile) != "") {
+        if (!re.test($.trim(mobile).toLowerCase())) {
+            toggleErrorMsg(objRMobile, true, "Mobile No. should be numeric only");
+            isValid = false;
+        } else if (mobile.length < 10) {
+            toggleErrorMsg(objRMobile, true, "Mobile no should be greater than 10 digits");
+            isValid = false;
+        } else {
+            toggleErrorMsg(objRMobile, false);
+            objRegister.Mobile = mobile;
+        }
+    }
+    else {
+        objRegister.Mobile = "";
+    }
+
+    if (!$(objRCheckbox).prop('checked'))
+    {
+        toggleErrorMsg(objRCheckbox, true, "You should agree to Bikewale terms and conditions");
+        isValid = false;
+    }
+    else {
+        toggleErrorMsg(objRCheckbox, false);
+        objRegister.ClientIP = "";
+    }
+
+    return isValid;
+}
+

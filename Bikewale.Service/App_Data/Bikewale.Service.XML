@@ -519,6 +519,27 @@
             <param name="cityId">City Id</param>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.BikeBooking.BikeBookingPageController">
+            <summary>
+            Bike Booking Page Controller
+            Author  :   Sumit Kate
+            Created On  :   10 Sept 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BikeBookingPageController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BikeBookingPageController.Get(System.UInt32,System.UInt32,System.UInt32)">
+            <summary>
+            Get the Bike Booking Page details
+            </summary>
+            <param name="cityId"></param>
+            <param name="versionId"></param>
+            <param name="dealerId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.BikeBooking.City.BBCityListController">
             <summary>
             BikeBooking City List controller
@@ -673,7 +694,7 @@
             Created On : 24th August 2015
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.UInt32)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.UInt32,System.String,System.String)">
             <summary>
             To get Recent Categories Content List
             </summary>
@@ -681,7 +702,6 @@
             <param name="makeId"></param>
             <param name="modelId"></param>
             <param name="posts"></param>
-            <param name="recent"></param>
             <returns>Recent Articles List Summary</returns>
         </member>
         <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.Int32,System.Int32)">
@@ -738,7 +758,7 @@
             <param name="customerRepository"></param>
             <param name="authenticate"></param>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Customer.CustomerController.POST(System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Bikewale.Service.Controllers.Customer.CustomerController.POST(Bikewale.Service.Controllers.Customer.RegisterInputParameters)">
             <summary>
             Written By : Ashish G. Kamble on 8 Sept 2015
             Summary : Function to register the customer with bikewale. All fields are mandatory
@@ -792,6 +812,46 @@
             <param name="totalBikeCount">total popular bike count</param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelDescriptionController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="modelRepository"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelDescriptionController.Get(System.Int32)">
+            <summary>
+             To get Long/Short Model's Description (Synopsis) 
+            </summary>
+            <param name="modelId"></param>
+            <returns>Model Synopsis</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="modelRepository"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.Get(System.Int32)">
+            <summary>
+            To get complete Model Page with Specs,Features,description and Details
+            For the Specs and Features Default version selected is the one with maximum pricequotes
+            </summary>
+            <param name="modelId"></param>
+            <returns>Complete Model Page</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelSpecsController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="modelRepository"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelSpecsController.Get(System.Int32)">
+            <summary>
+             To get Model's Specifications and Features based on VersionId 
+            </summary>
+            <param name="versionId">Model's Version ID</param>        
+            <returns>Model's Specs and Features</returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.Customer.AuthenticateController">
             <summary>
             Created By : Ashish G. Kamble on 3 Sept 2015
@@ -804,13 +864,11 @@
             </summary>
             <param name="authenticate"></param>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Customer.AuthenticateController.POST(System.String,System.String,System.Nullable{System.Boolean})">
+        <member name="M:Bikewale.Service.Controllers.Customer.AuthenticateController.POST(Bikewale.Service.Controllers.Customer.LoginInputParameters)">
             <summary>
-            Function will authenticate the customer.
+             Function will authenticate the customer.
             </summary>
-            <param name="email"></param>
-            <param name="password"></param>
-            <param name="createAuthTicket"></param>
+            <param name="objLogin"></param>
             <returns>Returns authenticated users basic details.</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController">
@@ -1037,6 +1095,13 @@
             <param name="input">Entity contains the required details to get the price quote details</param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post(Bikewale.DTO.PriceQuote.DealerPriceQuote.DPQuotationInput)">
+            <summary>
+            Generates the dealer price quote
+            </summary>
+            <param name="input">Required parameters to generate the dealer price quote</param>
+            <returns>Dealer Price Quotation</returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController">
             <summary>
             Price Quote Version List controller
@@ -1128,6 +1193,12 @@
             Created On : 24th August 2015
             </summary>
         </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+            <summary>
+            
+            </summary>
+            <param name="modelRepository"></param>
+        </member>
         <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32)">
             <summary>
              To get Required Model Details 
@@ -1135,37 +1206,13 @@
             <param name="modelId"></param>
             <returns>Required Model Details </returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Nullable{System.Boolean})">
-            <summary>
-             To get Long/Short Model's Description (Synopsis) 
-            </summary>
-            <param name="modelId"></param>
-            <returns>Model Synopsis</returns>
-        </member>
         <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Boolean)">
             <summary>
             To get all new versions based on Models 
             </summary>
-            <param name="requestType"></param>
             <param name="modelId"></param>
-            <returns>List of Model's New Versions </returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
-            <summary>
-             To get Model's Specifications and Features based on VersionId 
-            </summary>
-            <param name="versionId">Model's Version ID</param>
-            <param name="specs"></param>
-            <param name="features"></param>
-            <returns>Model's Specs and Features</returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelController.Get(System.Int32,System.Boolean,System.Nullable{System.Boolean},System.Nullable{System.Boolean})">
-            <summary>
-            To get complete Model Page with Specs,Features,description and Details
-            For the Specs and Features Default version selected is the one with maximum pricequotes
-            </summary>
-            <param name="modelId"></param>
-            <returns>Complete Model Page</returns>
+            <param name="isNew"></param>
+            <returns>List of Model's New Versions</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.Model.ModelListController">
             <summary>

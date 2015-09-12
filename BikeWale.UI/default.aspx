@@ -17,6 +17,7 @@
         alternate = "http://www.bikewale.com/m/";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
+    <link href="/css/home.css" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-white">
 <form runat="server">
@@ -30,11 +31,11 @@
                     <div>
                         <div class="bike-search-container">
                             <div class="bike-search new-bike-search position-rel">
-                                <input type="text" placeholder="Search your bike here Ex. Bajaj" id="newBikeList">
+                                <input type="text" placeholder="Search your bike here Ex. Bajaj" id="newBikeList" tabindex="1">
                                 <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                             </div>
                             <div class="findBtn">
-                                <button id="btnSearch" class="btn btn-orange btn-md font18">Search</button>
+                                <button id="btnSearch" class="btn btn-orange btn-md font18" tabindex="2">Search</button>
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -483,6 +484,7 @@
     <!-- Ends here -->
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js"></script>
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js"></script>
 </form>
 </body>

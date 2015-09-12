@@ -2,7 +2,7 @@
 <!-- book bike msg popup starts here -->
 <div class="bw-popup bookbikeMsg hide">
     <div class="popup-inner-container">
-        <div class="bw-sprite close-btn floatright"></div>
+        <div class="bwmsprite close-btn floatright"></div>
         <h1>Dealer not available</h1>
         <p class="new-line10 msg1">Oops, currently we don't have a partner dealer in your locality. We are adding dealers everyday. You can check an indicative on-road price below.
             <a href="/m/pricequote/quotation.aspx" class="bwm-btn ui-link">Get Estimated Price</a>

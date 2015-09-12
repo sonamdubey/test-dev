@@ -2,12 +2,7 @@
 <style>
     
 /*PopupWidget Styling*/
-.bw-popup, .bw-contact-popup { background:#fff; width:454px; position:fixed; left:50%; top:50%; z-index:999; margin-left:-220px; margin-top:-150px;  border-radius:2px; }
-.bw-contact-popup { max-width:454px;}
-.bw-popup-sm { width:300px; position:fixed; top:50%; left:52%;}
-.popup-inner-container { padding:20px 20px 30px;}
-.popup-inner-container h2{ padding-bottom:10px; border-bottom:2px solid #c62000;}
-.bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;} 
+
 #OnRoadContent .chosen-container { border:0;border-radius:0;padding:12px }
 .minifyWidth{width:50%;}
 </style>
@@ -17,7 +12,7 @@
     <div class="final-price-search tools-price-dealer-search">
         <div class="final-price-bikeSelect">
             <div class="form-control-box">
-                <input class="form-control border-no ui-autocomplete-input rounded-corner0" type="text" placeholder="Search Make and Model" id="finalPriceBikeSelect" autocomplete="off" style="width: 250px;">
+                <input class="form-control border-no ui-autocomplete-input rounded-corner0" tabindex="1" type="text" placeholder="Search Make and Model" id="finalPriceBikeSelect" autocomplete="off" style="width: 250px;">
                 <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please search a make</div>
@@ -33,7 +28,7 @@
             </div>
             <div class="final-price-areaSelect" data-bind="visible: bookingAreas().length > 0">
                 <div class="form-control-box">
-                    <select data-placeholder="--Select Area--" class="form-control rounded-corner0" id="ddlAreaOnRoad" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', event: { change: areaChangedOnRoad }"></select>
+                    <select data-placeholder="--Select Area--" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', event: { change: areaChangedOnRoad }"></select>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select an area</div>
                 </div>
@@ -42,7 +37,7 @@
         <div class="clear"></div>
     </div>
     <div class="get-final-price-btn">
-        <button id="btnDealerPriceOnRoad" class="font18 btn btn-orange btn-lg rounded-corner-no-left" type="button" value="Get Price Quote" data-bind="event: { click: getPriceQuoteOnRoad }">Get price quote</button>
+        <button id="btnDealerPriceOnRoad" tabindex="4" class="font18 btn btn-orange btn-lg rounded-corner-no-left" type="button" value="Get Price Quote" data-bind="event: { click: getPriceQuoteOnRoad }">Get price quote</button>
     </div>
     <div class="clear"></div>
 </div>
@@ -66,6 +61,7 @@
 
 
     function FillCitiesOnRoad(modelId) {
+        toggleErrorMsg(onRoadcity, false);
         $.ajax({
             type: "POST",
             url: "/ajaxpro/Bikewale.Ajax.AjaxPriceQuote,Bikewale.ashx",
@@ -125,6 +121,7 @@
 
     function cityChangedOnRoad() {
         gtmCodeAppender(pageId, "City Selected", null);
+        toggleErrorMsg(onRoadArea, false);
         if (viewModelOnRoad.selectedCity() != undefined) {
             $.ajax({
                 type: "POST",
@@ -195,6 +192,14 @@
     function getPriceQuoteOnRoad() {
         var cityId = viewModelOnRoad.selectedCity(), areaId = viewModelOnRoad.selectedArea() ? viewModelOnRoad.selectedArea() : 0;
         if (isValidInfoOnRoad()) {
+
+            //set global cookie
+            if (cityId > 0) {
+                cityName = $(onRoadcity).find("option[value=" + cityId + "]").text();
+                cookieValue = cityId + "_" + cityName;
+                SetCookieInDays("location", cookieValue, 365);
+            }
+
             $.ajax({
                 type: 'POST',
                 url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
@@ -269,23 +274,12 @@
 
    function calcWidth()
     {
-        if (viewModelOnRoad.bookingAreas().length > 0)
+        if (viewModelOnRoad.bookingAreas().length > 0 )
             $(ele).width(161);
         else $(ele).width(322);
     }
 
    $(function () {
-
-       $("#finalPriceBikeSelect").on('blur', function () {
-           if(viewModelOnRoad.selectedCity != undefined)
-           {
-
-           }
-           else
-           {
-
-           }
-       });
 
         $("#finalPriceBikeSelect").bw_autocomplete({
             width: 250,
@@ -305,6 +299,7 @@
                     $("#errMsgOnRoad").empty();
                     selectedModel = model.id;
                     FillCitiesOnRoad(selectedModel);
+                    
                 }
             },
             open: function (result) {

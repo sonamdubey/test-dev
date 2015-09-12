@@ -54,6 +54,8 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeVersionMinSpecs, VersionMinSpecs>();
             Mapper.CreateMap<BikeModelPageEntity, ModelPage>();
             Mapper.CreateMap<BikeModelColor,ModelColor>();
+            Mapper.CreateMap<BikeDescriptionEntity, BikeDiscription>();
+            Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
             return Mapper.Map<BikeModelPageEntity, ModelPage>(objModelPage);
         }
 

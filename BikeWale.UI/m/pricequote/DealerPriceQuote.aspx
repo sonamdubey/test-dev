@@ -172,7 +172,7 @@
 <!--contact details starts here-->
 <div class="bw-popup contact-details hide">
     <div class="popup-inner-container">
-        <div class="bw-sprite close-btn floatright"></div>
+        <div class="bwmsprite close-btn floatright"></div>
         <h1>Provide Contact Details</h1>
         <div class="new-line10 font12">For you to see BikeWale Dealer pricing and get a printable Certificate, we need your valid contact details. We promise to keep this information confidential and not use for any other purpose.</div>
         <div class="input-div rounded-corner5">
@@ -202,8 +202,8 @@
             </div>
             <div class="clear"></div>
         </div>
-        <div class="new-line10 lightgray font12">A verification code will be sent to the above Mobile Number. You will need the code for further Verification Process.</div>
-        <button id="btnSubmit" data-role="none" class="rounded-corner5" onclick="validateDetails();dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>>', act: 'Click Button Get_Dealer_Details',lab:'Provided User Info' });">Submit</button>
+        <div class="new-line10 lightgray font12 margin-bottom10">A verification code will be sent to the above Mobile Number. You will need the code for further Verification Process.</div>
+        <input type="button" id="btnSubmit" data-role="none" class="rounded-corner5" onclick="validateDetails();dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>>', act: 'Click Button Get_Dealer_Details',lab:'Provided User Info' });"/ value="Submit">
     </div>
 </div>
 <!--contact details ends here-->
@@ -211,7 +211,7 @@
 <!--Mobile Verification starts here-->
 <div class="bw-popup mobile-verification hide">
     <div class="popup-inner-container">
-        <div class="bw-sprite close-btn floatright"></div>
+        <div class="bwmsprite close-btn floatright"></div>
         <h1>Provide Contact Details</h1>
         <h2 class="f-bold new-line10">Mobile Verification</h2>
         <div class="new-line font12">We like to make sure that sellers get contacted by genuinely interested people like you. Kindly verify your Mobile Number.</div>

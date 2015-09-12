@@ -40,7 +40,7 @@
                         <h3><%# DataBinder.Eval(Container.DataItem, "Bike") %></h3>
                         <div class="margin-top20">
                             <span class="margin-right10 text-highlight">Total Buyers : <%# DataBinder.Eval(Container.DataItem, "TotalViews") %></span>
-                            <a class="buttons <%# Convert.ToInt32(DataBinder.Eval(Container.DataItem, "TotalViews")) == 0 ? "hide" : "show" %> <%# DataBinder.Eval(Container.DataItem,"StatusId").ToString() == "2" ? "hide" : "" %>" href="/mybikewale/buyerdetails.aspx?id=<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>">View Buyer Details</a>
+                            <a class="buttons btn-xs <%# Convert.ToInt32(DataBinder.Eval(Container.DataItem, "TotalViews")) == 0 ? "hide" : "show" %> <%# DataBinder.Eval(Container.DataItem,"StatusId").ToString() == "2" ? "hide" : "" %>" href="/mybikewale/buyerdetails.aspx?id=<%# DataBinder.Eval(Container.DataItem, "InquiryId") %>">View Buyer Details</a>
                             <div class="margin-top10">Bike Listed On : <%# Convert.ToDateTime(DataBinder.Eval(Container.DataItem, "EntryDate")).ToString("MMMM dd, yyyy") %></div>
                         </div>
                     </div>                    
@@ -68,8 +68,9 @@
                 </div>
             </ItemTemplate>
         </asp:DataList>
-        <div id="div_SellYourBike" class="content-block action-btn grey-bg border-light margin-top15" runat="server">
-            <span class="margin-right10 margin-left10" style="font-size:14px;">You have not listed any bike</span><a href="/used/sell/">List Your Bike Here</a>
+        <div id="div_SellYourBike" class="content-block grey-bg border-light margin-top15" runat="server">
+            <span class="margin-right10 margin-left10" style="font-size:14px;">You have not listed any bike</span>
+            <a href="/used/sell/" class="action-btn">List Your Bike Here</a>
         </div>
 	</div>
     <div class="grid_4">

@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using Bikewale.Common;
 using Bikewale.Entities.Customer;
 using Bikewale.UI.Entities.Customer;
+using Bikewale.Service.Controllers.Customer;
 
 namespace Bikewale.Controls
 {
@@ -72,15 +73,20 @@ namespace Bikewale.Controls
         private void RegisterCustomer(object sender, EventArgs e)
         {
             RegisteredCustomer objRegCustomer = null;
-
             try
             {
+                RegisterInputParameters objReg = new RegisterInputParameters();
+                objReg.Name = txtNameSignup.Text.Trim();
+                objReg.Email = txtEmailSignup.Text.Trim();
+                objReg.Password = txtRegPasswdSignup.Text.Trim();
+                objReg.Mobile = txtMobileSignup.Text.Trim();
+                objReg.ClientIP = CommonOpn.GetClientIP();
                 // Register customer
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = String.Format("/api/Customer/?name={0}&email={1}&mobile={2}&password={3}&clientIP={4}", txtNameSignup.Text, txtEmailSignup.Text, txtMobileSignup.Text, txtRegPasswdSignup.Text, CommonOpn.GetClientIP());
+                string _apiUrl = String.Format("/api/Customer/");
 
-                objRegCustomer = Bikewale.Utility.BWHttpClient.PostDataSync<RegisteredCustomer>(_bwHostUrl, _requestType, _apiUrl, objRegCustomer);
+                objRegCustomer = Bikewale.Utility.BWHttpClient.PostSync<RegisterInputParameters, RegisteredCustomer>(_bwHostUrl, _requestType, _apiUrl, objReg);                
 
                 if (objRegCustomer != null && objRegCustomer.IsNewCustomer)
                 {

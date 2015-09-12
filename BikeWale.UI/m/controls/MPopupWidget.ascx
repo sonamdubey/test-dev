@@ -1,8 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>  
 
 <!--bw popup code starts here-->
-
-<div class="bw-popup hide bw-popup-sm text-center" id="popupWrapper">
+<div class="bw-city-popup hide bw-popup-sm text-center" id="popupWrapper">
 	<div class="popup-inner-container">
         
     	<div class="bwmsprite close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
@@ -29,8 +28,8 @@
         </div>
     </div>
 </div>
-
 <!--bw popup code ends here-->
+
 <script type="text/javascript">
 var selectedModel = 0;
 var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
@@ -147,6 +146,14 @@ function isValidInfoPopup() {
 function getPriceQuotePopup() {
     var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
     if (isValidInfoPopup()) {
+
+        //set global cookie
+        if (cityId > 0) {
+            cityName = $(popupcity).find("option[value=" + cityId + "]").text();
+            cookieValue = cityId + "_" + cityName;
+            SetCookieInDays("location", cookieValue, 365);
+        }
+
         $.ajax({
             type: 'POST',
             url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
@@ -177,7 +184,7 @@ function getPriceQuotePopup() {
 
 $(document).ready(function () {
     $('#popupWrapper .close-btn,.blackOut-window').click(function () {
-        $('.blackOut-window,.bw-popup').fadeOut(100);
+        $('.blackOut-window,.bw-city-popup').fadeOut(100);
         $('a.fillPopupData').removeClass('ui-btn-active');
     });
 

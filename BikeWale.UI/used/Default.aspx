@@ -41,12 +41,12 @@
                     <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tbl-default margin-top10 find-used-bikes-container">
                         <tr>
                             <td>Your City</td>
-                            <td><asp:DropDownList ID="ddlCity" runat="server" ></asp:DropDownList></td>                    
+                            <td><asp:DropDownList ID="ddlCity" runat="server" tabindex="1"></asp:DropDownList></td>                    
                         </tr>
                          <tr>
                             <td>Budget</td>
                             <td>
-                                <asp:DropDownList ID="ddlPriceRange" runat="server">
+                                <asp:DropDownList ID="ddlPriceRange" runat="server" tabindex="2">
                                     <asp:ListItem Value="-1" Text="-- Any Budget --"></asp:ListItem>
 				                    <asp:ListItem Value="0" Text="Up to 10,000"></asp:ListItem>
                                     <asp:ListItem Value="1" Text="10,000-20,000"></asp:ListItem>
@@ -61,7 +61,7 @@
                         <tr>
                             <td>Bike Make</td>
                             <td>
-                                <asp:DropDownList id="ddlMake" runat="server"></asp:DropDownList>
+                                <asp:DropDownList id="ddlMake" runat="server" tabindex="3"></asp:DropDownList>
                             </td>
                               <%--     <BB:BrowseBikes runat="server" ID="BrowseBikes" VersionRequired="false"/>  
                          <td>Bike Model</td>
@@ -70,7 +70,7 @@
                         <tr>
                             <td>&nbsp;</td>
                             <td><div>
-                                <input type="button" id="btnSearchUsedBike" runat="server" value="Find Used Bike" class="action-btn text_white" onclick="SearchByCriteria()" />                                
+                                <input type="button" id="btnSearchUsedBike" tabindex="4" runat="server" value="Find Used Bike" class="action-btn text_white" onclick="SearchByCriteria()" />                                
                                 </div>
                                 <div id="process_img" class="hide text-highlight">Redirecting Please wait...</div>
                             </td>
@@ -81,8 +81,8 @@
                         Search By Profile Id
                         <%--<input type="text" id="txtlocateProfile" style="width:100px;" />&nbsp;<a id="btnLocateProfile" class="buttons">Go</a>--%>
                     
-                        <input name="txtProfileId" type="text" value="Profile Id" id="txtProfileId" placeholder="Profile Id" style="width:90px;" /><span class="error">*</span>
-                        <input name="btnSearchProfileId" type="button" id="btnSearchProfileId" value="Go" class="buttons text_white btn-xs" onclick="SearchByProfile()"  />
+                        <input name="txtProfileId" type="text" value="Profile Id" id="txtProfileId" tabindex="1" placeholder="Profile Id" style="width:90px;" /><span class="error">*</span>
+                        <input name="btnSearchProfileId" type="button" id="btnSearchProfileId" tabindex="2" value="Go" class="buttons text_white btn-xs" onclick="SearchByProfile()"  />
                         <div id="spn_txtProfile" class="error"></div>
                     </div>
                     <div class="margin-top10"></div>

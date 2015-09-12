@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace Bikewale.Entity.BikeData
 {
-    [Serializable]
+    
     public class BikeMakeEntityBase
     {
         public int MakeId { get; set; }

@@ -490,12 +490,12 @@
             <div class="bw-tabs-panel tools-may-need-wrapper content-box-shadow">
                 <div class="bw-tabs bw-tabs-flex">
                     <ul class="tools-may-need-UL">
-                        <li data-tabs="getFinal-price" class="">On-Road Price</li>
+                        <li data-tabs="getFinal-price" class="active">On-Road Price</li>
                         <li data-tabs="locate-dealer" class="">Locate A Dealer</li>
-                        <li data-tabs="calculate-emi" class="active">Calculate EMI's</li>
+                        <li data-tabs="calculate-emi" class="">Calculate EMI's</li>
                     </ul>
                 </div>
-                <div class="bw-tabs-data hide" id="getFinal-price">
+                <div class="bw-tabs-data" id="getFinal-price">
                     <div class="getFinal-price-container text-center margin-bottom50">
                         <div class="margin-bottom40">
                             <span class="bw-circle-icon final-price-logo"></span>
@@ -507,7 +507,7 @@
                 <div class="bw-tabs-data hide" id="locate-dealer">
                     <BW:LocateDealer Id="ctrlLocateDealer" runat="server" />
                 </div>
-                <div class="bw-tabs-data" id="calculate-emi">
+                <div class="bw-tabs-data hide" id="calculate-emi">
                     <BW:EmiCalc Id="ctrlEmiCalc" runat="server"></BW:EmiCalc>
                     <div class="clear"></div>
                 </div>

@@ -16,8 +16,9 @@
         DD_belatedPNG.fix('.bw-logo a');/* fix png transparency problem with IE6 */
     </script>
 <![endif]-->
+<!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
-    <script src="src/html5.js"></script>
+    <script src="/src/html5.js"></script>
 <![endif]-->
 <script type="text/javascript">
     bwHostUrl = "<%= ConfigurationManager.AppSettings["bwHostUrl"] %>";

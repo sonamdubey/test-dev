@@ -1,19 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Controls.OnRoadPricequote" %>
 
 <link href="/css/chosen.min.css" rel="stylesheet" />
-<style>
-    
-/*PopupWidget Styling*/
-#OnRoadContent .bw-popup, .bw-contact-popup { background:#fff; width:454px; position:fixed; left:50%; top:50%; z-index:999; margin-left:-220px; margin-top:-150px;  border-radius:2px; }
-#OnRoadContent .bw-contact-popup { max-width:454px;}
-#OnRoadContent .bw-popup-sm { width:300px; position:fixed; top:50%; left:52%;}
-#OnRoadContent .popup-inner-container { padding:20px 20px 30px;}
-#OnRoadContent .popup-inner-container h2{ padding-bottom:10px; border-bottom:2px solid #c62000;}
-#OnRoadContent .bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;} 
-
-/*#OnRoadContent div.chosenError { border:1px solid #F00;} 
-#OnRoadContent div.chosenError div b {background-image:none;}*/
-</style>
 
 <div class="container">
     <div class="grid-5 leftfloat">
@@ -21,8 +8,9 @@
             <h2 class="text-bold margin-bottom20 font28">On road price</h2>
 
             <!-- On road pricequote control-->
+            
             <div class="form-control-box margin-bottom20">
-                <input value="" class="form-control ui-autocomplete-input" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice" autocomplete="off" style="width: 365px;">
+                <input value="" class="form-control ui-autocomplete-input" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice" tabindex="1" autocomplete="off" style="width: 365px;">
                 <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please enter make/model name</div>
@@ -33,12 +21,14 @@
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
             <div class="form-control-box margin-bottom20 finalPriceAreaSelect " data-bind="visible: bookingAreas().length > 0">
-                <select data-placeholder="--Select Area--" class="form-control" id="ddlAreaOnRoad" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', event: { change: areaChangedOnRoad }"></select>
+                <select data-placeholder="--Select Area--" class="form-control" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', event: { change: areaChangedOnRoad }"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
-            <button id="btnDealerPriceOnRoad" class="btn btn-orange margin-bottom20" type="button" value="Get Price Quote" data-bind="event: { click: getPriceQuoteOnRoad }">Get price quote</button>
-            <!-- Onroad price quote ends here-->
+            <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" value="Get Price Quote" data-bind="event: { click: getPriceQuoteOnRoad }">Get price quote</button>
+            </div>
+            
+               <!-- Onroad price quote ends here-->
 
             <p>Its private, no need to share your number and email</p>
         </div>
@@ -201,6 +191,16 @@
     function getPriceQuoteOnRoad() {
         var cityId = viewModelOnRoad.selectedCity(), areaId = viewModelOnRoad.selectedArea() ? viewModelOnRoad.selectedArea() : 0;
         if (isValidInfoOnRoad()) {
+
+            //set global cookie
+            if (cityId > 0)
+            {
+                cityName = $(onRoadcity).find("option[value=" + cityId + "]").text();
+                cookieValue = cityId + "_" + cityName;
+                SetCookieInDays("location", cookieValue, 365);
+            }
+            
+
             $.ajax({
                 type: 'POST',
                 url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",

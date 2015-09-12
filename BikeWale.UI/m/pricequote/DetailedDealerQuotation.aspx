@@ -424,7 +424,7 @@
         <!--Book Appointment starts here-->
         <div class="bw-popup book-app-details hide">
     	    <div class="popup-inner-container">
-                <div class="bw-sprite close-btn floatright"></div>
+                <div class="bwmsprite close-btn floatright"></div>
                 <h1>Book an Appointment</h1>
                 <div class="selection-box rounded-corner5 new-line10">
                     <input type="text" name="date" id="date" value="" data-role="none" />
@@ -458,7 +458,7 @@
         <!--Color popup starts here-->
         <div class="bw-popup color-popup hide">
             <div class="popup-inner-container">
-                <div class="bw-sprite close-btn floatright"></div>
+                <div class="bwmsprite close-btn floatright"></div>
                 <h1>Select Bike Color</h1>
                 <div class="color-palette margin-top20">
                     <div>

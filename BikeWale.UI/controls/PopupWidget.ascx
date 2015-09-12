@@ -23,7 +23,7 @@
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
-                <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top10" style="display:block;margin-right:auto;margin-left:auto;" type="button" value="Confirm Location" data-bind="event: { click: getPriceQuotePopup }">
+                <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top15" style="display:block;margin-right:auto;margin-left:auto;" type="button" value="Confirm Location" data-bind="event: { click: getPriceQuotePopup }">
                 <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
             </div>
         </div> 
@@ -86,9 +86,7 @@
 
                     if (citySelected != null) {
                         viewModelPopup.selectedCity(citySelected.CityId);
-                    }
-                    //else
-                    //    viewModelPopup.selectedCity('0');
+                    } 
                         
 
                     $("#ddlCitiesPopup option[value=0]").prop("disabled", "disabled");
@@ -165,6 +163,14 @@
     function getPriceQuotePopup() {
         var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
         if (isValidInfoPopup()) {
+
+            //set global cookie
+            if (cityId > 0) {
+                cityName = $(popupcity).find("option[value=" + cityId + "]").text();
+                cookieValue = cityId + "_" + cityName;
+                SetCookieInDays("location", cookieValue, 365);
+            }
+
             $.ajax({
                 type: 'POST',
                 url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
@@ -222,7 +228,7 @@
 
     }
 
-    function checkCookies(cookieName)
+    function checkCookies()
     {
         c = document.cookie.split('; ');
         for(i=c.length-1; i>=0; i--)

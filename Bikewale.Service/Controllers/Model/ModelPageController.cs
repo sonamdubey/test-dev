@@ -17,48 +17,82 @@ using Bikewale.DTO.Version;
 using Bikewale.Service.Controllers.Version;
 using Bikewale.Service.AutoMappers.Model;
 using Bikewale.Notifications;
+using Bikewale.Entities.CMS;
+using Bikewale.Utility;
+using System.Configuration;
+using Bikewale.DTO.CMS.Photos;
+using Bikewale.Service.AutoMappers.CMS;
+using Bikewale.Entities.CMS.Photos;
 
 namespace Bikewale.Service.Controllers.Model
 {
     public class ModelPageController : ApiController
     {
+        private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+        private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
+        private string _requestType = "application/json";
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="modelRepository"></param>
         public ModelPageController(IBikeModelsRepository<BikeModelEntity, int> modelRepository)
         {
             _modelRepository = modelRepository;
         }
 
-        #region Model Details
+        #region Model Page Complete
         /// <summary>
-        /// 
+        /// To get complete Model Page with Specs,Features,description and Details
+        /// For the Specs and Features Default version selected is the one with maximum pricequotes
         /// </summary>
         /// <param name="modelId"></param>
-        /// <returns></returns>
-        [ResponseType(typeof(ModelDetails))]
+        /// <returns>Complete Model Page</returns>
+        [ResponseType(typeof(ModelPage)), Route("api/model/details/")]
         public IHttpActionResult Get(int modelId)
         {
-            BikeModelEntity objModel = null;
-            ModelDetails objDTOModel = null;
+            BikeModelPageEntity objModelPage = null;
+            ModelPage objDTOModelPage = null;
+            List<EnumCMSContentType> categorList = null;
+            List<ModelImage> objImageList = null;
             try
             {
-                objModel = _modelRepository.GetById(modelId);
+                objModelPage = _modelRepository.GetModelPage(modelId);
 
-                if (objModel != null)
+                if (objModelPage != null)
                 {
                     // Auto map the properties
-                    objDTOModel = new ModelDetails();
+                    objDTOModelPage = new ModelPage();
+                    objDTOModelPage = ModelMapper.Convert(objModelPage);
 
-                    return Ok(objDTOModel);
+                    categorList = new List<EnumCMSContentType>();
+                    categorList.Add(EnumCMSContentType.PhotoGalleries);
+                    string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+                    string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
+
+                    objImageList = BWHttpClient.GetApiResponseSync<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, objImageList);
+                    if (objImageList != null && objImageList.Count > 0)
+                    {
+                        // Auto map the properties
+                        List<CMSModelImageBase> objCMSModels = new List<CMSModelImageBase>();
+                        objCMSModels = CMSMapper.Convert(objImageList);
+                        objDTOModelPage.Photos = objCMSModels;
+                    }
+                    return Ok(objDTOModelPage);
+                }
+                else
+                {
+                    return NotFound();
                 }
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Make.MakeController");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
                 objErr.SendMail();
                 return InternalServerError();
             }
-            return NotFound();
-        }   // Get 
+        }   // Get  Model Page
         #endregion
     }
 }

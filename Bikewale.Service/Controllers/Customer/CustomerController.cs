@@ -45,16 +45,17 @@ namespace Bikewale.Service.Controllers.Customer
         /// <param name="clientIP"></param>
         /// <returns>Returns registered customers data.</returns>
         [ResponseType(typeof(RegisteredCustomer))]
-        public IHttpActionResult POST(string name, string email, string mobile, string password, string clientIP = null)
+        public IHttpActionResult POST([FromBody] RegisterInputParameters userInfo)
         {            
             try
             {
-                CustomerEntity objCust = _customerRepository.GetByEmail(email);
+                CustomerEntity objCust = _customerRepository.GetByEmail(userInfo.Email);
                 RegisteredCustomer objRegCust = new RegisteredCustomer();
+                
 
                 if (!objCust.IsExist)
                 {
-                    CustomerEntity objinputCust = new CustomerEntity() { CustomerName = name, CustomerEmail = email, CustomerMobile = mobile, Password = password, ClientIP = clientIP };
+                    CustomerEntity objinputCust = new CustomerEntity() { CustomerName = userInfo.Name, CustomerEmail = userInfo.Email, CustomerMobile = userInfo.Mobile, Password = userInfo.Password, ClientIP = userInfo.ClientIP };
 
                     // Generate hash and salt for the password.
                     RegisterCustomer objReg = new RegisterCustomer();
@@ -63,9 +64,9 @@ namespace Bikewale.Service.Controllers.Customer
                     objinputCust.PasswordHash = objReg.GenerateHashCode(objinputCust.Password, objinputCust.PasswordSalt);
 
                     objRegCust.CustomerId = _customerRepository.Add(objinputCust);
-                    objRegCust.CustomerEmail = email;
-                    objRegCust.CustomerName = name;
-                    objRegCust.CustomerMobile = mobile;
+                    objRegCust.CustomerEmail = userInfo.Email;
+                    objRegCust.CustomerName = userInfo.Name;
+                    objRegCust.CustomerMobile = userInfo.Mobile;
                     objRegCust.IsNewCustomer = true;
 
                     string authTicket = _authenticate.GenerateAuthenticationToken(objRegCust.CustomerId.ToString(), objRegCust.CustomerName, objRegCust.CustomerEmail);

@@ -40,6 +40,7 @@
         width: 276px;
         height: 170px;
     }
+    #get-pq-new h2 { border-bottom:2px solid #c62000; padding-bottom:10px; }
 </style>
 
 <!--bw color popup ends here-->
@@ -62,7 +63,7 @@
             <h1 class="margin-bottom5">Detailed Dealer Price Quote</h1>
             <!--Get pq code starts here-->
             <div id="get-pq-new" class="inner-content">
-                <h2 class="border-red"><%=BikeName %></h2>
+                <h2 class=""><%=BikeName %></h2>
                 <div id="div_ShowPQ">
                     <%--<h2><%=BikeName %></h2>--%>
                     <table cellspacing="0" cellpadding="0" width="100%" border="0" class="tbl-default margin-top10">

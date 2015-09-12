@@ -32,30 +32,28 @@ namespace Bikewale.Service.Controllers.Customer
         }
 
         /// <summary>
-        /// Function will authenticate the customer.
+        ///  Function will authenticate the customer.
         /// </summary>
-        /// <param name="email"></param>
-        /// <param name="password"></param>
-        /// <param name="createAuthTicket"></param>
+        /// <param name="objLogin"></param>
         /// <returns>Returns authenticated users basic details.</returns>
         [ResponseType(typeof(AuthenticatedCustomer))]
-        public IHttpActionResult POST(string email, string password, bool? createAuthTicket = null)
+        public IHttpActionResult POST(LoginInputParameters objLogin)
         {
-            CustomerEntity objCust = null;
-
-            if(createAuthTicket.HasValue)
-            {
-                objCust = _authenticate.AuthenticateUser(email, password, createAuthTicket.Value);
-            }           
-            else
-            {                
-                objCust = _authenticate.AuthenticateUser(email, password);
-            }
-
-            AuthenticatedCustomer objCustomer = new AuthenticatedCustomer();
-
+            CustomerEntity objCust = null;             
             try
             {
+
+                if (objLogin.CreateAuthTicket.HasValue)
+                {
+                    objCust = _authenticate.AuthenticateUser(objLogin.Email, objLogin.Password, objLogin.CreateAuthTicket.Value);
+                }
+                else
+                {
+                    objCust = _authenticate.AuthenticateUser(objLogin.Email, objLogin.Password);
+                }
+
+                AuthenticatedCustomer objCustomer = new AuthenticatedCustomer();
+
                 if (objCust != null && objCust.IsExist == true)
                 {                    
                     Mapper.CreateMap<CustomerEntity, AuthenticatedCustomer>();

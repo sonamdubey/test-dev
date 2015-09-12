@@ -6,7 +6,7 @@
     keywords = "users, login, register, forgot password";
 %>
 <!-- #include file="/includes/headMyBikeWale.aspx" -->
-<div class="container_12 margin-top15 min-height">
+<div class="container_12 margin-top10 content-inner-block-10">
     <div class="grid_8">    
         <BikeWale:Login id="ctlLogin" runat="server" />
     </div>

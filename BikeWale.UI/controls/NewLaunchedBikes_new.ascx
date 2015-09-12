@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.controls.NewLaunchedBikes_new" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.NewLaunchedBikes_new" %>
 <!-- New Launched Bikes Starts here-->    
     <asp:Repeater ID="rptNewLaunchedBikes" runat="server">
         <ItemTemplate>
@@ -13,7 +13,7 @@
                         <div class="bikeTitle margin-bottom10">
                             <h3><a href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MakeName")) + " " +Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelName"))%>"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MakeName")) + " " +Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelName"))%></a></h3>
                         </div>
-                        <div class="margin-bottom10 font20 ">
+                        <div class="font20 ">
                             <span class="fa fa-rupee" style="display:<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))=="0")?"none":"inline-block"%>"></span>
                             <span class="font22"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "MinPrice")) %> </span>
                         </div>

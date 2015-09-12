@@ -12,8 +12,7 @@ namespace Bikewale.Controls
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
-        }
-
+        }  
         protected void Page_Load(object sender, EventArgs e)
         {
 

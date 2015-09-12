@@ -145,7 +145,7 @@
                                                 <b>Full Name as per Vehicle Registration<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:TextBox id="txtName" runat="server"></asp:TextBox>
+                                                <asp:TextBox id="txtName" runat="server" ></asp:TextBox>
                                                 <span id="spnName" class="error"></span>
                                             </td>
                                         </tr>
@@ -234,7 +234,7 @@
                                         </tr>
                                         <tr>
                                             <td>&nbsp;</td>
-                                            <td><asp:Button class="action-btn" id="btnSubmit" Text="Claim Offer" runat="server" /></td>
+                                            <td><asp:Button class="action-btn text_white" id="btnSubmit" Text="Claim Offer" runat="server" /></td>
                                         </tr>
                                         <input type="hidden" id="hdnVersion" runat="server" />
                                         <input type="hidden" id="hdnBikeName" runat="server"/>

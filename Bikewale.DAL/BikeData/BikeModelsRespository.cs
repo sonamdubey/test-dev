@@ -134,6 +134,53 @@ namespace Bikewale.DAL.BikeData
 
         }
 
+        public BikeModelPageEntity GetModelPage(U modelId)
+        {
+            BikeModelPageEntity modelPage = new BikeModelPageEntity();
+
+            try
+            {
+                modelPage.ModelDetails = GetById(modelId);
+                modelPage.ModelDesc = GetModelSynopsis(modelId);
+
+                if (modelPage != null)
+                {
+                    // If bike is upcoming Bike get the upcoming bike data
+                    if (modelPage.ModelDetails.Futuristic)
+                    {
+                        modelPage.UpcomingBike = GetUpcomingBikeDetails(modelId);
+                    }
+
+                    // Get model min specs
+                    modelPage.ModelVersions = GetVersionMinSpecs(modelId, modelPage.ModelDetails.New);
+
+                    // Get version all specs
+                    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                    {
+                        modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
+                    }
+
+                    // Get model colors
+                    modelPage.ModelColors = GetModelColor(modelId);
+                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("GetModelDescription sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetModelDescription ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return modelPage;
+
+        }
+
         private IEnumerable<BikeModelColor> GetModelColor(U modelId)
         {
             List<BikeModelColor> colors = null;

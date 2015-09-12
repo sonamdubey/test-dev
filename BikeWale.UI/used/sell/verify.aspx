@@ -12,7 +12,7 @@
         <div class="margin-top5">
             <img align="absmiddle" src="http://img.carwale.com/sell/mobi-verif.gif" border="0" />
             <asp:TextBox id="txtVerificationCode" runat="server" Text="Enter your code here"></asp:TextBox>
-            <asp:Button id="btnVerifyCustomer" runat="server" Text="Verify" class="buttons" />       
+            <asp:Button id="btnVerifyCustomer" runat="server" Text="Verify" class="buttons text_white" />       
             <asp:Label id="lblError" runat="server" class="error"></asp:Label>            
          </div>
     </div>
@@ -26,4 +26,7 @@
         }
     });
 </script>
+<style type="text/css">
+    #txtVerificationCode { height:40px; }
+</style>
 <!--    #include file="/includes/footerInner.aspx" -->

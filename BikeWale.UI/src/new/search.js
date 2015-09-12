@@ -109,11 +109,18 @@ var resetBWTabs = function () {
 };
 
 $(".more-filters-btn").click(function () {
-    $(".more-filters-container").slideToggle().css({"overflow":"inherit"});
-    var a = $(".filter-div");
-    a.removeClass("open");
-    a.next(".filter-selection-div").slideUp();
-    a.next(".filter-selection-div").removeClass("open");
+    if (!$(this).hasClass("open")) {
+        $(this).addClass("open");
+        $(".more-filters-container").show().css({ "overflow": "inherit" });
+        var a = $(".filter-div");
+        a.removeClass("open");
+        a.next(".filter-selection-div").slideUp();
+        a.next(".filter-selection-div").removeClass("open");
+    }
+    else {
+        $(this).removeClass("open");
+        $(".more-filters-container").slideUp();
+    }
 });
 
 $(".filter-done-btn").click(function () {

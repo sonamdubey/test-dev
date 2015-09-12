@@ -84,7 +84,7 @@ namespace Bikewale.DAL.NewBikeSearch
                                 objList.BikeModel.ReviewCount = Convert.ToInt32(dr["MoReviewCount"]);
                                 objList.BikeModel.ReviewRate = Convert.ToDouble(dr["MoReviewRate"]);
                                 objList.FinalPrice = Format.FormatPrice(dr["MinPrice"].ToString());
-                                objList.AvailableSpecs = FormatMinSpecs.GetMinSpecs(dr["Displacement"].ToString(), dr["FuelEfficiencyOverall"].ToString(), dr["Power"].ToString(), dr["MaximumTorque"].ToString());
+                                objList.AvailableSpecs = FormatMinSpecs.GetMinSpecs(dr["Displacement"].ToString(), dr["FuelEfficiencyOverall"].ToString(), dr["Power"].ToString());
 
                                 objSearchList.Add(objList);
                             }
