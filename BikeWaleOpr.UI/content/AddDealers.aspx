@@ -78,7 +78,7 @@
 			</tr>
           	<tr><td>&nbsp;</td></tr>
         </table>
-	</form>
+	
 </div>
 
 <script language="javascript">

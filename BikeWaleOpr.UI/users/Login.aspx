@@ -33,7 +33,6 @@
                     </table>
            </div>  
 	</div>
-</form>
 <!-- #Include file="/includes/footerNew.aspx" -->
 <script type="text/javascript" >
     $(document).ready(function () {

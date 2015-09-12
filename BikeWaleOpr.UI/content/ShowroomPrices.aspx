@@ -20,7 +20,7 @@
 <script language="javascript" src="/src/AjaxFunctions.js"></script>
 <div class="left">
 	<h3>Add Showroom Prices</h3>
-	<form runat="server">
+	
 		<span id="spnError"  style="color:#FF3300; font-weight:bold;" runat="server"></span>
 		
 		<fieldset style="white-space:nowrap;">
@@ -121,7 +121,7 @@
 			<asp:Button ID="btnSave" Text="Save All Prices" runat="server" />
 		</div>
         <asp:HiddenField Id="hdnSelectedCityId" runat="server" />
-	</form>
+	
 </div>
   <script language="javascript">
 	document.getElementById('btnShow').onclick = checkFind;

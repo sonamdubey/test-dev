@@ -15,7 +15,7 @@
 <div style="clear:both;">	
     <div><h1 style="padding-left:0px;">Authors Information <a href="default.aspx" style="font-size:12px;">&lsaquo; Back to All Articles</a></h1></div>   	
 	<br />
-    <form runat="server">
+    
         <div style="width:800px;float:left;">
 		    <input id="hdnCurrentDay" type="hidden" />
 		    <input id="hdnCurrentMonth" type="hidden" />
@@ -63,7 +63,7 @@
 		<div id="divBasicData"></div>
 	</div>
 	<div style="min-height:200px;">&nbsp;</div>
-	</form>
+	
 <script language="javascript" type="text/javascript" >
 //	<%
 //		if (Request.QueryString["bid"] != null)

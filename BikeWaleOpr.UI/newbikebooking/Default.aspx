@@ -12,7 +12,7 @@
 <div>
     You are here &raquo; New Bike Booking
 </div>
-<form runat="server">
+
     <div style="border: 1px solid black; margin-left: 180px;" class="padding10">
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
             <tr id="city">
@@ -191,7 +191,7 @@
     <input type="hidden" id="hdnMakeId" runat="server">
     <input type="hidden" id="hdnDealerId" runat="server">
     <input type="hidden" id="hdnCities" runat="server">
-</form>
+
 
 <script type="text/javascript">
     function ConfirmDelete() {

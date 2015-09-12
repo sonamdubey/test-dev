@@ -76,7 +76,7 @@
          <asp:HiddenField id="hdn_ddlModel" runat="server"/>
          <asp:HiddenField id="hdn_ddlVersions" runat="server"/>
          <asp:HiddenField id="hdn_txtdayslimit" runat="server"/>
-    </form>
+   
 
     <div id="dataTable">
         <div class="errorMessage">
@@ -244,5 +244,6 @@
         })
 
     </script>
+         </form>
 </body>
 </html>

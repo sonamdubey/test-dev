@@ -13,5 +13,6 @@
 		&copy; BikeWale Confidential - <a href="http://www.bikewale.com/">BikeWale.com</a>
 	</div>
 </div>
+</form>
 </body>
 </html>

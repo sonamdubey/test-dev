@@ -98,7 +98,6 @@
             </FooterTemplate>
         </asp:repeater>       
 </div>
-</form>
 </div>
 <script type="text/javascript">
     $(document).ready(function ()
