@@ -69,7 +69,7 @@
 				        and that we may share your details with these partners.
 	        </p>
 	        <div class="new-line15">
-                <asp:LinkButton  id="btnSubmit" runat="server" data-theme="b"  style="color : #fff !important;" Text="Show On-Road Price" data-rel="popup" data-role="button" data-transition="pop" data-position-to="window"/>
+                <asp:LinkButton  id="btnSubmit" runat="server" data-theme="b" CssClass="getPrice" style="color : #fff !important;" Text="Show On-Road Price" data-rel="popup" data-role="button" data-transition="pop" data-position-to="window"/>
 	        </div>
 	        <div class="new-line5">&nbsp;</div>
         </div>
@@ -97,6 +97,8 @@
         selectedModel: ko.observable(),
         models: ko.observableArray()
     };
+    var preSelectedCityId = 0;
+    var preSelectedCityName = "";
 
     function autosearch(event) {
         var matchingAreas = [];
@@ -173,6 +175,18 @@
         }
 
         return filtered;
+    }
+
+    function checkCookies() {
+        c = document.cookie.split('; ');
+        for (i = c.length - 1; i >= 0; i--) {
+            C = c[i].split('=');
+            if (C[0] == "location") {
+                var cData = (String(C[1])).split('_');
+                preSelectedCityId = parseInt(cData[0]);
+                preSelectedCityName = cData[1];
+            }
+        }
     }
 
 
@@ -264,20 +278,21 @@
                     if (resObj && resObj.length > 0) {
                         isAreaShown = true;
                         $("#hdnIsAreaShown").val(isAreaShown);
+
+                        //Added By - Ashwini Todkar on 6 Jan 2014
+                        for (var i = 0; i < resObj.length; i++) {
+                            var objAreas = { value: resObj[i].AreaId, text: resObj[i].AreaName };
+                            areaDataSet.push(objAreas);
+
+                            $('#ddlAreaTest').append("<li class='ui-last-child'><a class='ui-btn' href='#' areaId='" + resObj[i].AreaId + "'  areaName='" + resObj[i].AreaName + "' onClick='selectArea(this);'>" + resObj[i].AreaName + "</a></li>");//("<li value='" + resObj.Table[i].Value + "'>" + resObj.Table[i].Text + "</option>");
+                            $("#divArea").show();
+                        }
+                    $('#ddlAreaTest li').find('a').last().css('border-bottom', '1px solid #ccc');
                     }
                     else {
                         isAreaShown = false;
                         $("#imgLoaderArea").hide();
-                    }
-                    //Added By - Ashwini Todkar on 6 Jan 2014
-                    for (var i = 0; i < resObj.length; i++) {
-                        var objAreas = { value: resObj[i].AreaId, text: resObj[i].AreaName };
-                        areaDataSet.push(objAreas);
-
-                        $('#ddlAreaTest').append("<li class='ui-last-child'><a class='ui-btn' href='#' areaId='" + resObj[i].AreaId + "'  areaName='" + resObj[i].AreaName + "' onClick='selectArea(this);'>" + resObj[i].AreaName + "</a></li>");//("<li value='" + resObj.Table[i].Value + "'>" + resObj.Table[i].Text + "</option>");
-                        $("#divArea").show();
-                    }
-                    $('#ddlAreaTest li').find('a').last().css('border-bottom', '1px solid #ccc');
+                    }                    
                 }
             });
 
@@ -314,17 +329,28 @@
                     success: function (response) {
                         var responseJSON = eval('(' + response + ')');
                         var resObj = eval('(' + responseJSON.value + ')');
-                        if (resObj.length > 0) {
+                        if (resObj!=null && resObj.length > 0) {
                             var initIndex = 0;
+                            checkCookies();
+                            citySelected = null;
                             for (var i = 0; i < resObj.length; i++) {
                                 if (metroCitiesIds.indexOf(resObj[i].CityId) > -1) {
                                     var currentCity = resObj[i];
                                     resObj.splice(resObj.indexOf(currentCity), 1);
                                     resObj.splice(initIndex++, 0, currentCity);
                                 }
+
+                                if (preSelectedCityId == resObj[i].CityId) {
+                                    citySelected = resObj[i];
+                                }
                             }
                             resObj.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
                             viewModelPQ.cities(resObj);
+
+                            if (citySelected != null) {
+                                viewModelPQ.selectedCity(citySelected.CityId);
+                            }      
+
                             $("#ddlCity option[value=0]").prop("disabled", "disabled");
                             if ($("#ddlCity option:last-child").val() == "0")
                             {
@@ -345,8 +371,18 @@
             }
         }
 
-        $("#btnSubmit").click(function () {
-            return isValid();
+        $('#btnSubmit').click(function () {
+            if(isValid())
+            {
+                //set global cookie
+                cityId = viewModelPQ.selectedCity();
+                if (cityId > 0) {
+                    cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
+                    cookieValue = cityId + "_" + cityName;
+                    SetCookieInDays("location", cookieValue, 365);
+                }
+            }
+            else return false;
         });
 
         function isValid() {

@@ -43,22 +43,25 @@ namespace Bikewale.Service.Controllers.CMS
         /// <param name="makeId"></param>
         /// <param name="modelId"></param>
         /// <param name="posts"></param>
-        /// <param name="recent"></param>
         /// <returns>Recent Articles List Summary</returns>
         [ResponseType(typeof(IEnumerable<CMSArticleSummary>))]
-        public IHttpActionResult Get(EnumCMSContentType categoryId, string makeId, string modelId, uint posts)
+        public IHttpActionResult Get(EnumCMSContentType categoryId, uint posts, string makeId = null, string modelId = null)
         {
             List<ArticleSummary> objRecentArticles = null;
             try
             {
-                string apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=";
+                string apiUrl = "";
                 if (!String.IsNullOrEmpty(makeId) || !String.IsNullOrEmpty(modelId))
                 {
                     if (!String.IsNullOrEmpty(modelId))
-                        apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + categoryId + "&totalrecords=" + posts + "&makeid=" + makeId + "&modelid=" + modelId;
+                        apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + (int)categoryId + "&totalrecords=" + posts + "&makeid=" + makeId + "&modelid=" + modelId;
                     else
-                        apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + categoryId + "&totalrecords=" + posts + "&makeid=" + makeId;
-                }  
+                        apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + (int)categoryId + "&totalrecords=" + posts + "&makeid=" + makeId;
+                }
+                else
+                {
+                    apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + categoryId + "&totalrecords=" + posts;
+                }
 
                 objRecentArticles = BWHttpClient.GetApiResponseSync<List<ArticleSummary>>(_cwHostUrl, _requestType, apiUrl, objRecentArticles);
 

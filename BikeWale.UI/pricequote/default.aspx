@@ -41,13 +41,13 @@
                                             <h2>Select Bike</h2>
                                         </div>
                                         <div class="input-box">
-                                            <asp:dropdownlist id="ddlMake" width="200" cssclass="drpClass"  data-bind=" value: selectedMake, event: { change: ddlMake_Change }, optionsCaption: '--Select Make--'" runat="server"></asp:dropdownlist>
+                                            <asp:dropdownlist id="ddlMake" width="200" cssclass="drpClass"  tabindex="0" data-bind=" value: selectedMake, event: { change: ddlMake_Change }, optionsCaption: '--Select Make--'" runat="server"></asp:dropdownlist>
                                             <span id="spnMake" class="error"></span></div>
                                     </div>
                                     <div class="clear"></div>
                                     <div class="input-box input-box-margin">
                                         <div>
-                                            <asp:dropdownlist id="ddlModel" width="200" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake, event: { change: bindCities }" cssclass="drpClass" runat="server"><asp:ListItem Text="--Select Model--" Value="0" /></asp:dropdownlist>
+                                            <asp:dropdownlist id="ddlModel"  tabindex="1" width="200" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake, event: { change: bindCities }" cssclass="drpClass" runat="server"><asp:ListItem Text="--Select Model--" Value="0" /></asp:dropdownlist>
                                             <input type="hidden" id="hdn_ddlModel" runat="server" />
                                             <span id="spnModel" class="error"></span></div>
                                     </div>                                    
@@ -61,12 +61,13 @@
                                         <h2>Select Location</h2>
                                     </div>
                                     <div class="input-box">
-                                        <asp:dropdownlist id="ddlCity" width="200" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--'" runat="server"><asp:ListItem Text="--Select City--" Value="0" /></asp:dropdownlist>
+                                       <%-- <asp:dropdownlist id="ddlCity" width="200" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--'" runat="server"><asp:ListItem Text="--Select City--" Value="0" /></asp:dropdownlist>--%>
+                                        <select data-placeholder="Search an Area.." class="chosen-select" style="width: 200px" tabindex="2" width="200" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--'" id="ddlCity">
                                         <input type="hidden" id="hdn_ddlCity" runat="server" data-bind=""/><span id="spnCity" class="error" runat="server" /></div>
                                 </div>
                                 <div class="clear"></div>
                                 <div class="input-box input-box-margin hide" id="divAreaChosen"  data-bind="visible: areas().length > 0">
-                                    <select data-placeholder="Search an Area.." class="chosen-select" style="width: 200px" tabindex="2" data-bind="options: areas, optionsText: 'AreaName', optionsValue: 'AreaId', value: selectedArea, optionsCaption: '--Select Area--'" id="ddlArea">
+                                    <select data-placeholder="Search an Area.." class="chosen-select" style="width: 200px" tabindex="3" data-bind="options: areas, optionsText: 'AreaName', optionsValue: 'AreaId', value: selectedArea, optionsCaption: '--Select Area--'" id="ddlArea">
                                         <option value=""></option>
                                     </select>
                                     <input type="hidden" id="hdn_ddlArea" runat="server" /><span id="spnArea" class="error" runat="server" />
@@ -103,6 +104,8 @@
 <script type="text/javascript">
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var isAreaShown = false;
+    var preSelectedCityId = 0;
+    var preSelectedCityName = "";
 
     var viewModel = {
         selectedCity: ko.observable(),
@@ -155,7 +158,13 @@
                 return false;
             }
             else {
-                return true;
+                cityId = viewModel.selectedCity();
+                //set global cookie
+                if (cityId  > 0) {
+                    cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
+                    cookieValue = cityId + "_" + cityName;
+                    SetCookieInDays("location", cookieValue, 365);
+                }
             }
         });
     });
@@ -264,18 +273,29 @@
 
                 var responseJSON = eval('(' + response + ')');
                 var cities = eval('(' + responseJSON.value + ')');
-
+                var citySelected = null;
                 if (cities && cities.length > 0) {
+                    checkCookies();
                     var initIndex = 0;
                     for (var i = 0; i < cities.length; i++) {
                         if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
                             var currentCity = cities[i];
                             cities.splice(cities.indexOf(currentCity), 1);
-                            cities.splice(initIndex++, 0, currentCity);
+                            cities.splice(initIndex++, 0, currentCity); 
+                        }
+
+
+                        if (preSelectedCityId == cities[i].CityId) {
+                            citySelected = cities[i];
                         }
                     }
                     cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
                     viewModel.cities(cities);
+
+                    if (citySelected != null) {
+                        viewModel.selectedCity(citySelected.CityId);
+                    }
+
                     $("#ddlCity option[value=0]").prop("disabled", "disabled");
                     if ($("#ddlCity option:last-child").val() == "0") {
                         $("#ddlCity option:last-child").remove();
@@ -290,9 +310,6 @@
                     viewModel.areas([]);
                 }
 
-            },
-            error: function (response) {
-                alert(response);
             }
         });
     }
@@ -335,6 +352,19 @@
         }
         else {
             viewModel.areas([]);
+        }
+    }
+
+
+    function checkCookies() {
+        c = document.cookie.split('; ');
+        for (i = c.length - 1; i >= 0; i--) {
+            C = c[i].split('=');
+            if (C[0] == "location") {
+                var cData = (String(C[1])).split('_');
+                preSelectedCityId = parseInt(cData[0]);
+                preSelectedCityName = cData[1];
+            }
         }
     }
 </script>

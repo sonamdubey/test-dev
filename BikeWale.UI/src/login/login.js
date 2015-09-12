@@ -187,4 +187,5 @@ function isValidRegDetails() {
     }
 
     return isValid;
-}
+}
+
