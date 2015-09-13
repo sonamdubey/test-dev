@@ -456,11 +456,7 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                             if (obj) {                                
                                 pqId = obj.quoteId;
                                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + obj.quoteId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
-                                SetCookie("_MPQ", cookieValue);
-                                var objPQColor = {
-                                    "pqId": pqId,
-                                    "colorId": self.SelectedModelColor().id()
-                                }
+                                SetCookie("_MPQ", cookieValue);                                
                                 var objCust = {
                                     "dealerId": dealerId,
                                     "pqId": pqId,
@@ -479,19 +475,26 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                                     contentType: "application/json",
                                     success: function (response) {
                                         var obj = ko.toJS(response);
-                                        $.ajax({
-                                            type: "POST",
-                                            url: "/api/PQBikeColor/",
-                                            data: ko.toJSON(objPQColor),
-                                            contentType: "application/json",
-                                            success: function (response) {
-                                                var obj = ko.toJS(response);
-                                            },
-                                            error: function (xhr, ajaxOptions, thrownError) {
-                                                alert("Some error has occured while updating the Bike color.");
-                                                return false;
+
+                                        if (self.SelectedModelColor()) {
+                                            var objPQColor = {
+                                                "pqId": pqId,
+                                                "colorId": self.SelectedModelColor().id()
                                             }
-                                        });
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "/api/PQBikeColor/",
+                                                data: ko.toJSON(objPQColor),
+                                                contentType: "application/json",
+                                                success: function (response) {
+                                                    var obj = ko.toJS(response);
+                                                },
+                                                error: function (xhr, ajaxOptions, thrownError) {
+                                                    alert("Some error has occured while updating the Bike color.");
+                                                    return false;
+                                                }
+                                            });
+                                        }                                        
                                     },
                                     error: function (xhr, ajaxOptions, thrownError) {
                                         alert("Error while registering the price quote");
@@ -541,32 +544,7 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                                     $("#otp-submit-btn").trigger("click");
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
-                                self.IsVerified(false);
-                                //var message;
-                                //var statusErrorMap = {
-                                //    '400': "Server understood the request, but request content was invalid.",
-                                //    '401': "Unauthorized access.",
-                                //    '404': "Bike not found.",
-                                //    '403': "Forbidden resource can't be accessed.",
-                                //    '500': "Internal server error.",
-                                //    '503': "Service unavailable."
-                                //};
-                                //if (xhr.status) {
-                                //    message = statusErrorMap[xhr.status];
-                                //    if (!message) {
-                                //        message = "Unknown Error \n.";
-                                //    }
-                                //} else if (ajaxOptions == 'parsererror') {
-                                //    message = "Error.\nParsing JSON Request failed.";
-                                //} else if (ajaxOptions == 'timeout') {
-                                //    message = "Request Time out.";
-                                //} else if (ajaxOptions == 'abort') {
-                                //    message = "Request was aborted by the server";
-                                //} else {
-                                //    message = "Unknown Error \n.";
-                                //}
-                                //vm.bikeSearch.Bikes([]);
-                                //alert(message);
+                                self.IsVerified(false);                                
                             }
                         });
                     }
