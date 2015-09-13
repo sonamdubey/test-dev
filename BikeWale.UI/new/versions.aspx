@@ -93,7 +93,7 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <% if(modelPage.ModelDetails.New) { %>
                             <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : "" %>">
                                 <p class="margin-left50	leftfloat margin-right20">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
@@ -104,18 +104,35 @@
                                 </a>
                                 <div class="clear"></div>
                             </div>
-
+                            <% } %>
                         </div>                        
                         <div class="grid-6 padding-left40" id="dvBikePrice">
                             <% if( !modelPage.ModelDetails.Futuristic ) { %>
                                 <div class="bike-price-container font28 margin-bottom15">
                                     <span class="fa fa-rupee"></span>
-                                    <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span> <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>
-                                </div>
+                                    <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span> 
+                                    <% if(modelPage.ModelDetails.New) { %>
+                                        <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>
+                                    <% } %>
+                                    <% if(!modelPage.ModelDetails.New) { %>
+                                        <span class="font12 text-light-grey default-showroom-text">Last Recorded Price</span>                                    
+                                    <% } %>
+                                </div>                                
                                 <% if(!modelPage.ModelDetails.New) { %>
-                                <div class="text-left margin-bottom15">
-                                    <p class="font16 offer-error">Last Recorded Price</p>
-                                </div>
+                                    <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : "" %>">
+                                        <p class="leftfloat margin-right20">
+                                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
+                                        </p>
+                                        <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20"><%= modelPage.ModelDetails.ReviewCount %> Reviews
+                                        </a>
+                                        <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat margin-right20 padding-left20">Write a review
+                                        </a>
+                                        <div class="clear"></div>
+                                    </div>                                    
+                                    <div class="margin-top20 bike-price-container margin-bottom15">                                                                                        
+                                        <span class="font14 text-light-grey default-showroom-text"><%= bikeName %> is discontinued in India.</span>                                                                        
+                                    </div>                                                                
+                                    <div class="clear"></div>
                                 <% } %>
                                 <% if(modelPage.ModelDetails.New) { %>
                                 <div id="city-list-container" class="city-list-container margin-bottom20">
@@ -256,13 +273,6 @@
                             </div>
                         </div>
                         <div class="clear"></div>
-<%--                        <p class="font14 margin-top20 text-grey padding-left10 padding-right10 <%= string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription) ? "hide" : "" %>">
-                            <span class="model-about-main"><%= modelPage.ModelDesc.SmallDescription %>
-                            </span>
-                            <span class="model-about-more-desc hide"><%= modelPage.ModelDesc.FullDescription %>
-                            </span>
-                            <span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
-                        </p>--%>
                     </div>
                     <!-- specification code starts here -->
                     <div class="bw-tabs-data margin-bottom20" id="specifications">
@@ -969,6 +979,9 @@
                             var pq = ko.toJS(data);
                             vm.priceQuote(pq);
                             if (pq && pq.IsDealerPriceAvailable) {
+                                var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
+                                SetCookie("_MPQ", cookieValue);
+                                SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
                                 $("#btnBookNow").show();
                                 $(".unveil-offer-btn-container").attr('style', '');
                                 $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
@@ -1053,11 +1066,16 @@
             }
 
             $(document).ready(function () {
-                <% if(modelPage.ModelDetails.New) { %>
-                InitVM(0);
+                <% if(modelPage.ModelDetails.New) { %>                
+                var cityId = '<%= cityId%>'
+                InitVM(cityId);
                 <% } %>
                 $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
                 $(".unveil-offer-btn-container").attr('style', '');
+
+                $("#btnBookNow").on("click", function () {
+                    window.location.href = "/pricequote/bookingsummary_new.aspx";
+                });
             });
 
             $("#mainCity li").click(function () {
@@ -1092,11 +1110,7 @@
                 var viewModel = new pqViewModel('<%= modelId%>',cityId);
                 ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
                 viewModel.LoadCity();
-            }
-            
-            $("#btnBookNow").click(function () {
-                
-            });
+            }            
         </script>
     </form>
 </body>

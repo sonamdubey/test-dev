@@ -308,6 +308,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .final-price-logo { background-position: 0 0; }
 .locate-dealer-logo { background-position: -102px 0; }
 .emi-calc-logo {  background-position: -204px 0; }
+.filter-icon { width:23px; height:21px; }
+.filter-icon { background-position: -180px -329px;}
+.more-filters-btn:hover .filter-icon { background-position: -180px -358px;}
 
 /* style-container */
 .style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }
@@ -674,7 +677,7 @@ a.action-btn:hover{text-decoration:none;}
 .jcarousel-control-left:hover, .jcarousel-control-right:hover { cursor:pointer; }
 .jcarousel-control-left { left: -32px; }
 .jcarousel-control-right { right: -32px; }
-.jcarousel-control-prev, .jcarousel-control-next { width: 40px; height: 80px; text-indent: -9999;border: 1px solid #e2e2e2; background-color: #fff; padding:10px 5px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.jcarousel-control-prev, .jcarousel-control-next { width: 40px; height: 80px; text-indent: -9999px ;border: 1px solid #e2e2e2; background-color: #fff; padding:10px 5px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
 .jcarousel-control-prev { background-position: -34px -75px; }
 .jcarousel-control-next { background-position: -61px -75px; }
 .jcarousel-control-prev:hover { background-position: -34px -130px; }

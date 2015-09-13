@@ -598,17 +598,16 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 
 /* Carousel Controls */
-.jcarousel-control-left, .jcarousel-control-right { border: 1px solid #e6e6e6; background: #fff; position: absolute; top: 35%; z-index: 2; display: none; }
-.jcarousel-control-left { left: -32px; }
-.jcarousel-control-right { right: -32px; }
-.jcarousel-control-prev, .jcarousel-control-next { width: 35px; height: 60px; text-indent: -9999; padding: 5px; }
-.jcarousel-control-prev { background-position: -33px -80px; }
-.jcarousel-control-next { background-position: -65px -80px; }
-.jcarousel-control-prev:hover { background-position: -33px -135px; }
-.jcarousel-control-next:hover { background-position: -65px -135px; }
-.jcarousel-control-prev.inactive, .jcarousel-control-next.inactive { cursor: not-allowed; }
-.jcarousel-control-prev.inactive { background-position: -33px -25px; cursor: not-allowed; }
-.jcarousel-control-next.inactive { background-position: -65px -25px; cursor: not-allowed; }
+.jcarousel-control-left, .jcarousel-control-right {  position: absolute; top: 32%; z-index: 2; }
+.jcarousel-control-left { left: 8px; }
+.jcarousel-control-right { right: 8px; }
+.jcarousel-control-prev, .jcarousel-control-next { width: 26px; height: 43px; text-indent: -9999px; padding: 5px; border: 1px solid #e6e6e6; background-color: #fff; display:block; }
+.jcarousel-control-prev { background-position: -153px -207px; }
+.jcarousel-control-next { background-position: -177px -207px; }
+.jcarousel-control-prev:hover { background-position: -153px -238px; }
+.jcarousel-control-next:hover { background-position: -177px -238px; }
+.jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-control-right .jcarousel-control-next.inactive { display:none; }
+
 /* carousel end */
 
 /* new classes for circle icon sprite */
