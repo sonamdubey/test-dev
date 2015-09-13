@@ -54,7 +54,7 @@ $(document).ready(function () {
 	            return false;
 	        }
 	        else {
-	            window.location.href = '/new/';
+	            window.location.href = 'new/';
 	        }
 	});
 
@@ -63,7 +63,7 @@ $(document).ready(function () {
 	    var searchVal = id.val();
 	    var placeHolder = id.attr('placeholder');
 	    if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
-	        window.location.href += '/new/';
+	        window.location.href += 'new/';
 	        return false;
 	    }
 	   
@@ -542,6 +542,10 @@ $(document).ready(function () {
         });
     };
 })(jQuery);
+
+function SetCookie(cookieName, cookieValue) {    
+    document.cookie = cookieName + "=" + cookieValue + '; path =/';
+}
 
 function SetCookieInDays(cookieName, cookieValue, nDays) {
     var today = new Date();

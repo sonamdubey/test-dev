@@ -258,6 +258,7 @@ $.removeFilterFromQS = function (name) {
 };
 
 $.pushState = function (qs) {
+    $('#NoBikeResults').hide();
     $('#loading').show();
     window.location.hash = qs;
     $.hitAPI(qs);
@@ -573,7 +574,9 @@ $.getNextPageData = function () {
 $.getSelectedQSFilterText = function () {
     var params = $.getAllParamsFromQS();
     count = 0;
-
+    $('.bw-tabs').find('li').each(function () {
+        $(this).removeClass('active');
+    });
     $('.filter-select-title .default-text').each(function () {
         $(this).text($(this).prev().text());
     });
@@ -653,10 +656,13 @@ $.formatPrice = function (minId,maxId) {
     var minBudget = minId.val();
     var maxBudget = maxId.val();
 
-    minValue = minBudget != '' && minBudget != undefined ? $.valueFormatter(minBudget) : $.valueFormatter(0);
+    minValue = minBudget != '' && minBudget != undefined ? $.valueFormatter(minBudget) : '';
     maxValue = maxBudget != '' && maxBudget != undefined ? $.valueFormatter(maxBudget) : '';
 
     $("#budgetBtn").html("<span class='minbudgetvalue'>" + minValue + "</span> - <span class='maxbudgetvalue'> " + maxValue + "</span>");
+
+    if (minBudget == '' && maxBudget == '')
+        $("#budgetBtn").text("Select budget");
 };
 
 $.valueFormatter=function(num) {
@@ -672,14 +678,15 @@ $.valueFormatter=function(num) {
 $.fn.applyBudgetFilter = function () {
     return $(this).focusout(function () {
         var min = $('#minInput'), max = $('#maxInput');
-        if($.budgetValidator(min.val(),max.val()))
-        {
-            if (min.val() != '' || max.val() != '') {
-                var budgetValue = (min.val() == '' ? 0 : min.val()) + '-' + max.val();
-                $.updateFilters($(this), $(this).parent().parent().attr('name'), budgetValue, 5);
-                $("#minPriceList").removeClass("hide").addClass("show");
-                $("#maxPriceList").css("display", "none");
-            }
+        if ($.budgetValidator(min.val(), max.val())) {
+            var budgetValue = (min.val() == '' ? 0 : min.val()) + '-' + max.val();
+            $.updateFilters($(this), $(this).parent().parent().attr('name'), budgetValue, 5);
+            $("#minPriceList").removeClass("hide").addClass("show");
+            $("#maxPriceList").css("display", "none");
+        }
+        else {
+            completeQs = $.removeFilterFromQS('budget');
+            $.pushState(completeQs);
         }
     });
 };
@@ -695,6 +702,8 @@ $.budgetValidator = function (minValue, maxValue) {
             $(".bw-blackbg-tooltip.bw-blackbg-tooltip-max").addClass("hide").removeClass("show");
             isValid = true;
         }
+    } else if (minValue == '' && maxValue == '') {
+        isValid = false;
     }
     return isValid;
 };

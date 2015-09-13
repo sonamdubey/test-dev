@@ -853,6 +853,10 @@
       <DependentUpon>BookingSummary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\pricequote\BookingSummary_New.aspx.cs">
+      <DependentUpon>BookingSummary_New.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\pricequote\DealerPriceQuote.aspx.cs">
       <DependentUpon>DealerPriceQuote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1009,6 +1013,10 @@
     </Compile>
     <Compile Include="pricequote\BookingSummary.aspx.cs">
       <DependentUpon>BookingSummary.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\BookingSummary_New.aspx.cs">
+      <DependentUpon>BookingSummary_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\DealerPriceQuote.aspx.cs">
@@ -1562,6 +1570,7 @@
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
     <Content Include="css\brand.css" />
+    <Content Include="css\booking.css" />
     <Content Include="css\bw-common-style.css" />
     <Content Include="css\bw-pq-new.css" />
     <Content Include="css\bw-pq.css" />
@@ -1874,10 +1883,12 @@
     <Content Include="images\ajax-loader.gif" />
     <Content Include="images\arrow-left-test.png" />
     <Content Include="images\arrow-right-test.png" />
+    <Content Include="images\blue-tick.png" />
     <Content Include="images\blue_button.jpg" />
     <Content Include="images\bmw-s1000r.jpg" />
     <Content Include="images\body-texture-bg.jpg" />
     <Content Include="images\booking-comforts-sprite.png" />
+    <Content Include="images\booking-sprite.png" />
     <Content Include="images\brand-img.png" />
     <Content Include="images\brand-type-sprite.png" />
     <Content Include="images\bw-circle-icon.png" />
@@ -1907,6 +1918,7 @@
     <Content Include="images\nav-sept.jpg" />
     <Content Include="images\nav.png" />
     <Content Include="images\new-bikes-banner.jpg" />
+    <Content Include="images\next-steps-thumb.jpg" />
     <Content Include="images\pattern-bg.jpg" />
     <Content Include="images\Pratikphoto.JPG" />
     <Content Include="images\ratings\0.png" />
@@ -2047,6 +2059,7 @@
     <Content Include="m\new\upcomingbikes\Default.aspx" />
     <Content Include="m\pagenotfound.aspx" />
     <Content Include="m\pricequote\BookingSummary.aspx" />
+    <Content Include="m\pricequote\BookingSummary_New.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
     <Content Include="m\pricequote\Default.aspx" />
     <Content Include="m\pricequote\DetailedDealerQuotation.aspx" />
@@ -2056,6 +2069,7 @@
     <Content Include="m\pricequote\rsa.aspx" />
     <Content Include="m\pricequote\RSAOfferClaim.aspx" />
     <Content Include="m\src\BikeBooking\BikeBooking.js" />
+    <Content Include="m\src\bwm-booking.js" />
     <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
     <Content Include="m\src\chosen-mobile.js" />
@@ -2071,7 +2085,9 @@
     <Content Include="m\src\Plugins.js" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
+    <Content Include="pricequote\BookingSummary_New.aspx" />
     <Content Include="src\autocomplete.js" />
+    <Content Include="src\booking.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />

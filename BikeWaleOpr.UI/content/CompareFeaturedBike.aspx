@@ -700,5 +700,5 @@
 	    }
 	}
 </script>
-</form>
+
 <!-- #Include file="/includes/footerNew.aspx" -->

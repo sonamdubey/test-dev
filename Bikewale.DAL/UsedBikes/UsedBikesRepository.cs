@@ -55,7 +55,7 @@ namespace Bikewale.DAL.UsedBikes
                                 HostURL = Convert.ToString(dr["HostURL"]),                     
                                 OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                 MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
-                                CityMaskingName = Convert.ToString(dr["CityMaskingName"])
+                                CityMaskingName = (Convert.ToString(dr["CityMaskingName"])).Trim()
                             });
                         }
                     }

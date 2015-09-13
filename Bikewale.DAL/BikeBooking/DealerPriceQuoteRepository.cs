@@ -835,6 +835,7 @@ namespace Bikewale.DAL.BikeBooking
         {
             throw new NotImplementedException();
         }
+
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity entity = null;
@@ -1041,6 +1042,7 @@ namespace Bikewale.DAL.BikeBooking
                                 colors.Add(
                                     new BikeModelColor
                                     {
+                                        Id = Convert.ToUInt32(dr["ID"]),
                                         ColorName = Convert.ToString(dr["Color"]),
                                         HexCode = Convert.ToString(dr["HexCode"]),
                                         ModelId = Convert.ToUInt32(dr["BikeModelID"]),

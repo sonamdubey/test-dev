@@ -59,6 +59,7 @@
             data: '{"modelId":"' + modelId + '"}',
             beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
             success: function (response) {
+                $('.blackOut-window,#popupWrapper').fadeIn(100);
                 var obj = JSON.parse(response);
                 var cities = JSON.parse(obj.value);
                 var citySelected = null; 
@@ -83,10 +84,9 @@
 
                     viewModelPopup.bookingCities(cities);
 
-                    if(citySelected!=null)
-                    {
+                    if (citySelected != null) {
                         viewModelPopup.selectedCity(citySelected.CityId);
-                    }
+                    } 
                         
 
                     $("#ddlCitiesPopup option[value=0]").prop("disabled", "disabled");
@@ -243,8 +243,9 @@
         } 
     }
 
-    $(function () {
-        $("a.fillPopupData").click(function (e) {
+    $(document).ready(function () {
+
+        $('a.fillPopupData').on('click', function (e) {
             pageId = $(this).attr('pageCatId');
             gtmCodeAppender(pageId, "Button Clicked", null);
             e.preventDefault();
@@ -252,22 +253,21 @@
             var str = $(this).attr('modelId');
             var modelIdPopup = parseInt(str, 10);
             selectedModel = modelIdPopup;
-            $('.blackOut-window,#popupWrapper').fadeIn(100);
             FillCitiesPopup(modelIdPopup);
         });
+
 
         $('#popupWrapper .close-btn,.blackOut-window').mouseup(function () {
             $('.blackOut-window,#popupWrapper').fadeOut(100);
         });
-             
 
         $("#ddlCitiesPopup").chosen({ no_results_text: "No matches found!!" });
         $("#ddlAreaPopup").chosen({ no_results_text: "No matches found!!" });
         $('.chosen-container').attr('style', 'width:100%;');
 
         ko.applyBindings(viewModelPopup, $("#popupContent")[0]);
-
     });
+        
 
 </script>
 <script type="text/javascript" src="/src/common/chosen.jquery.min.js"></script>

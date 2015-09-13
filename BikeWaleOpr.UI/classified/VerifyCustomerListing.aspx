@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.Classified.VerifyCustomerListing" Trace="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.Classified.VerifyCustomerListing" Trace="false" %>
 
 <%@ Import Namespace="BikeWaleOpr.Classified" %>
 <%@ Register TagPrefix="Pager" TagName="Pager" Src="/controls/LinkPagerControl.ascx" %>
@@ -16,7 +16,7 @@
 <div>
     <!-- #Include file="classifiedMenu.aspx" -->
 </div>
-<form runat="server">
+
 <div>
     <table>
         <tr>
@@ -29,7 +29,7 @@
         </tr>
     </table>
 </div>
-</form>
+
 <div class="left">
     <b>Verify Customer Listings</b>
     <table id="VerifyCustomerListings" class="margin-top10" cellpadding="5" border="1" style="text-align: center; font-size: 11px; border-style: solid; border-collapse: collapse;">

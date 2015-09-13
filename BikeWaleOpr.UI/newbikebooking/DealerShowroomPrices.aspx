@@ -12,6 +12,7 @@
     .row_error { background-color:red; color:#fff; }
     .red { color:red;}
 </style>
+<form runat="server">
 <div>
     <h1>Add Showroom Prices</h1>
         <div style="background-color: #f4f3f3; padding: 10px; margin-top: 10px;">

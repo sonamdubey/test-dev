@@ -11,7 +11,7 @@
 </div>
 
 <div style="clear:both;">
-	<form runat="server">
+	
 		<div>
 			<Ec:EditCmsCommon ID="EditCmsCommon" runat="server" />
 		</div>
@@ -48,7 +48,7 @@
 	}
 </script>
 	<div style="min-height:200px;">&nbsp;</div>
-	</form>
+	
 </div>
 <!-- #Include file="/includes/footerNew.aspx" -->
 

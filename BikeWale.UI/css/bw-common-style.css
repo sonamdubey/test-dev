@@ -195,7 +195,7 @@ footer ul li a:hover { text-decoration: underline; }
 
 /* autocomplete class */
 .ui-helper-hidden-accessible { position: absolute; left: -9999px; }
-.ui-autocomplete { z-index: 10; margin: -1px 0 0 -3px; padding:0; width:auto; display:inline-block; background: #aaa; border-radius: 0 0 2px 2px; border:1px solid #ccc; border-top: 0; }
+.ui-autocomplete { z-index: 10; margin: -1px 0 0 -3px; padding:0; width:auto; display:inline-block; background: #aaa; border-radius: 0 0 2px 2px; border:1px solid #ccc; border-top: 0; overflow:visible;}
 .ui-autocomplete.source:hover { background: #ddd; }
 .ui-menu .ui-menu-item { padding: 10px; background:#fff; font-size:14px; cursor:pointer; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus { background:#eee; }

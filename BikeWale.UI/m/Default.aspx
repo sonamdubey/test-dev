@@ -29,7 +29,7 @@
                 <div class="new-used-search new-bikes-search margin-top30 position-rel">
                         <input type="text" placeholder="Search your bike here" id="newBikeList" class="rounded-corner2">
                         <button id="btnSearch" class="btn btn-orange btn-search"><span class="fa fa-search"></span></button>
-                        <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black"></span>
+                        <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black hide"></span>
                 </div>
             </div>
         </div>
@@ -369,7 +369,7 @@
                                             Above
                                         </span>
                                         <span class="mileage-amount-box">
-                                            <span class="font14 text-bold">60 Kmpl</span>
+                                            <span class="font14 text-bold">70 Kmpl</span>
                                         </span>   
                                     </a>
                                 </li>
@@ -379,9 +379,9 @@
                                             Between
                                         </span>
                                         <span class="mileage-amount-box font14 text-bold">
-                                            <span class="">60</span>
+                                            <span class="">70</span>
                                             <span class="mileage-amount-text-box">Kmpl</span>
-                                            <span class=""> - 40</span>
+                                            <span class=""> - 50</span>
                                             <span class="mileage-amount-text-box">Kmpl</span>
                                         </span>   
                                     </a>
@@ -392,9 +392,9 @@
                                             Between
                                         </span>
                                         <span class="mileage-amount-box font14 text-bold">
-                                            <span class="">40</span>
+                                            <span class="">50</span>
                                             <span class="mileage-amount-text-box">Kmpl</span>
-                                            <span class=""> - 20</span>
+                                            <span class=""> - 30</span>
                                             <span class="mileage-amount-text-box">Kmpl</span>
                                         </span>   
                                     </a>
@@ -405,7 +405,7 @@
                                             Upto
                                         </span>
                                         <span class="mileage-amount-box">
-                                            <span class="font14 text-bold">20 Kmpl</span>
+                                            <span class="font14 text-bold">30 Kmpl</span>
                                         </span>  
                                     </a>
                                 </li>

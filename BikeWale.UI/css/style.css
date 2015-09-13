@@ -465,7 +465,7 @@ div#sybh-list div a.feedback-tab:hover { background-position:-2px -402px; }
 .bw-sprite{ background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bw-sprite-new.png?v=3.0) no-repeat; display:inline-block;}
 .close-btn { background-position:0 -70px; height:22px; width:20px; cursor:pointer; }
 .close-btn:hover { background-position:0 -97px; }
-
+.calender-icon { background-position:-26px -90px; width:30px; height:30px; }
 /* autocomplete classes starts here */
 .input-box {width: 180px;float: left;}
 .input-box-margin {margin-left: 180px;margin-top: 15px;}
@@ -473,7 +473,7 @@ div#sybh-list div a.feedback-tab:hover { background-position:-2px -402px; }
 .ui-menu {display: block;float: left;list-style: none outside none;margin: 0;}
 .ui-autocomplete {cursor: default;z-index: 10;width: 180px;border-radius: 2px;background: #fff;border: 1px solid #eaeaea;position: absolute;max-height: 200px;overflow: auto;}
 .ui-menu li.ui-menu-item {clear: left;float: left;margin: 0;padding: 10px;width: 100%;}
-.ui-menu li.ui-menu-item a {display: block;line-height: 1.5;padding: 0.2em 0.4em;text-decoration: none;color: #333;}
+.ui-menu li.ui-menu-item a {display: block;line-height: 1.5;text-decoration: none;color: #333;}
 .ui-menu li.ui-menu-item a:hover, .ui-menu li.ui-menu-item a.ui-state-focus {background: #ebebeb;}
 .ui-helper-hidden-accessible {display: none;}
 /* autocomplete classes ends here */

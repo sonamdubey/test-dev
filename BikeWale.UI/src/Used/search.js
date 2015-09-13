@@ -286,14 +286,15 @@ function setCheckedStatus(hash){
 			    $("#drpCityDist").removeAttr("disabled");
 			}
 
-			if( param[0] == "city" )
-				$('#drpCity option[value='+ param[1] +']').attr('selected',true);
+			if (param[0] == "city") {
+			    $('#drpCity option[value^="' + param[1] + '_"]').attr('selected', true);
+			}
 			
 			if( param[0] == "dist" )
 				$('#drpCityDist option[value='+ param[1] +']').attr('selected',true);
 			
 			if (param[0] == "city" || param[0] == "dist") {
-			    appliedFiltersCities();
+			    appliedFiltersCities(cityId);
 			}
 			else {
 			 

@@ -136,7 +136,7 @@
 			</td>
 		</tr>
 	</table>
-</form>
+
 <script language="javascript" type="text/javascript">
     $(document).ready(function () {
         var option = $("#hdn_rbtn").val();

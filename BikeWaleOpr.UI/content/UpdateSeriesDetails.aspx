@@ -8,6 +8,7 @@
     <title></title>
 </head>
 <body>
+    <form runat="server">
     <div>
         <div class="margin10">
             <div class="floatLeft margin-right10 inputWidth ">Series Name : </div>

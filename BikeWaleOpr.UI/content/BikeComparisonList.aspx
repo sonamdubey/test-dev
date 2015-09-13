@@ -97,7 +97,7 @@
                     </tr>
                 </table>
             </fieldset>
-        </form><br /><br />
+        <br /><br />
         <div class="clear"></div>
         <asp:Repeater id="MyRepeater" runat="server">       
     <HeaderTemplate>

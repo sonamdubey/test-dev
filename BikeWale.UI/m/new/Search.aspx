@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.Search" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!doctype html>
 <html>
     <head>
@@ -15,7 +16,7 @@
     <body class="bg-light-grey">
         <!-- #include file="/includes/Navigation_Mobile.aspx" -->
         <link href="/m/css/new/bwm-search.css" rel="stylesheet" type="text/css" />
-
+        <div class="blackOut-window"></div>
         <header>
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
         	    <span id="bikecount" class="font18 text-white brand-total"></span>
@@ -82,7 +83,7 @@
                                     <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                     <div class="imageWrapper">
                                         <a data-bind="attr: { href: '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' }">
-                                            <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/227X128/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
+                                            <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/310x174/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
                                         </a>
                                     </div>
                                         <div class="bikeDescWrapper">
@@ -113,7 +114,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="clear"></div>
-                                                <a data-bind="attr: { modelId: bikemodel.modelId }" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
+                                                <a data-bind="attr: { modelId: bikemodel.modelId }, click: function () { FillCitiesPopup(bikemodel.modelId()) }" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
                                             </div>
                                         </div>
                                     </div>
@@ -303,11 +304,11 @@
                 <div class="clear"></div>
             </div>
             <!--Main container ends here-->
-
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->    
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="/src/framework/knockout.js"></script>
         <script src="/m/src/new/search.js" type="text/javascript"></script>
+        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
     </body>
 </html>

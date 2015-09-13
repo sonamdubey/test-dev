@@ -38,6 +38,7 @@ var preSelectedCityId = 0;
 var preSelectedCityName = "";
 popupcity = $('#ddlCitiesPopup');
 popupArea = $('#ddlAreaPopup');
+
 // knockout popupData binding
 var viewModelPopup = {
     selectedCity: ko.observable(),
@@ -65,6 +66,7 @@ function FillCitiesPopup(modelId) {
         data: '{"modelId":"' + modelId + '"}',
         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
         success: function (response) {
+            $('.blackOut-window,#popupWrapper').fadeIn(100);
             var obj = JSON.parse(response);
             var cities = JSON.parse(obj.value);
             if (cities)
@@ -180,25 +182,21 @@ function getPriceQuotePopup() {
 }
 
 
-$(function(){
-
-    $("a.fillPopupData").click(function (e) {
-        e.preventDefault();
-        $("#errMsgPopUp").empty();
-        var str = $(this).attr('modelId');
-        var modelIdPopup = parseInt(str, 10);
-        selectedModel = modelIdPopup;
-        $('.blackOut-window,#popupWrapper').fadeIn(100);
-        FillCitiesPopup(modelIdPopup);
-    });
-
+$(document).ready(function () {
     $('#popupWrapper .close-btn,.blackOut-window').click(function () {
         $('.blackOut-window,.bw-city-popup').fadeOut(100);
         $('a.fillPopupData').removeClass('ui-btn-active');
     });
-    
 
     ko.applyBindings(viewModelPopup, $("#popupContent")[0]);
+});
 
+$("a.fillPopupData").on("click", function (e) {
+    e.stopPropagation();    
+    $("#errMsgPopUp").empty();
+    var str = $(this).attr('modelId');
+    var modelIdPopup = parseInt(str, 10);
+    selectedModel = modelIdPopup;
+    FillCitiesPopup(modelIdPopup);
 });
 </script>
