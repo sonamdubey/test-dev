@@ -302,8 +302,9 @@ function DisclaimerModel(disclaimers) {
     self.disclaimers = ko.observableArray(disclaimers);
 }
 
-function ModelColorsModel(colorName, hexCode, modelId) {
+function ModelColorsModel(id, colorName, hexCode, modelId) {
     var self = this;
+    self.id = ko.observable(id);
     self.colorName = ko.observable(colorName);
     self.hexCode = ko.observable(hexCode);
     self.modelId = ko.observable(modelId);
