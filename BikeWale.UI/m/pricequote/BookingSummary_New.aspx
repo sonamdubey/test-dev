@@ -3,6 +3,11 @@
 <!doctype html>
 <html>
 <head>
+     <%
+        title = bikeName + " Booking Summary";
+        description = "Authorise dealer price details of a bike " + bikeName;
+        keywords = bikeName + ", price, authorised, dealer,Booking ";    
+    %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->  
 </head>
 <body class="bg-light-grey">
