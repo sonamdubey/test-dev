@@ -12,21 +12,22 @@
 
         <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix"><!--  Discover bikes section code starts here -->
         <div class="grid-12">
+            <!-- ko with: viewModel.SelectedVarient() -->
                 <div class="imageWrapper margin-top10">
-                    <img src="http://imgd8.aeplcdn.com/227x128//bikewaleimg/models/490b.jpg?20140909123254" alt="" title="">
+                    <img  data-bind="attr: { src: imageUrl, alt: bikeName, title: bikeName }">
                 </div>
                 <div class="margin-top10">
-                	<h3 class="margin-bottom15">Pulsar 150 AS</h3>
+                	<h3 class="margin-bottom15"  data-bind="text: bikeName"></h3>
                 	<div class="font14">
                     	<table>
                         	<tbody>
                             	<tr>
                                 	<td width="200" class="padding-bottom10">On road price:</td>
-                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>1,25,657</td>
+                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: onRoadPrice"></span></td>
                                 </tr>
                                 <tr>
                                 	<td>Advance booking:</td>
-                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span>3,000</td>
+                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: bookingAmount"></span></td>
                                 </tr>
                                 <tr>
                                 	<td colspan="2" class="padding-bottom10"><a href="#">Hassle free cancellation policy</a></td>
@@ -36,7 +37,7 @@
                                 </tr>
                                 <tr>
                                 	<td>Balance amount:</td>
-                                    <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span>1,25,657</td>
+                                    <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: remainingAmount"></span></td>
                                 </tr>
                                 <tr>
                                 	<td class="font12 text-medium-grey">*Balance amount payable at the dealership</td>
@@ -47,6 +48,7 @@
                     </div>
                 </div>
                 <div class="clear"></div>
+            <!-- /ko -->
    		</div>
    	</section>
     
@@ -256,8 +258,8 @@
                         <p> 
 Book your bike online at BikeWale and make the balance payment at the dealership to avail great offers.</p>
 <p>For further assistance call toll free on <span class="text-bold">1800 456 7890.</span></p>
-                    </div>
-                    <div class="btn btn-full-width btn-orange margin-top20 margin-bottom10">Pay Now</div>
+                    </div> 
+                    <asp:Button id="btnMakePayment" class="btn btn-full-width btn-orange margin-top20 margin-bottom10" Text="Pay Now" runat="server" />
                     <div class="clear"></div>
                     <!--<div class="btn btn-full-width btn-link confirmationBackBtn">Back</div>-->
                  </div>
@@ -321,6 +323,8 @@ Book your bike online at BikeWale and make the balance payment at the dealership
     <!-- #include file="/includes/footerBW_Mobile.aspx" -->
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+    <script src="/m/src/framework/knockout.js" type="text/javascript"></script>
     <script src="/m/src/bwm-booking.js" type="text/javascript"></script>
  </form>
 </body>

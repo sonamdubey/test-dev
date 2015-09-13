@@ -1,4 +1,356 @@
-// JavaScript Document
+var viewModel;
+var pqId = 2
+var verId = 164;
+var cityId = 1;
+var dealerId = 4;
+var clientIP = '127.0.0.1'
+var pageUrl = 'sample'
+function pageViewModel() {
+    var self = this;
+    self.page = ko.observable();
+}
+
+function BookingPageVMModel() {
+    var self = this;
+    self.Dealer = ko.observable();
+    self.SelectedVarient = ko.observable();
+    self.ModelColors = ko.observableArray([]);
+    self.Varients = ko.observableArray([]);
+    self.CustomerVM = ko.observable(new CustomerModel());
+    self.selectVarient = function (varient) {
+        self.SelectedVarient(varient);
+    }
+    self.getBookingPage = function () {
+        var bookPage = null;
+        $.getJSON('/api/BikeBookingPage/?versionId=' + verId + '&cityId=' + cityId + '&dealerId=' + dealerId)
+        .done(function (data) {
+            if (data) {
+                bookPage = ko.toJS(data);
+
+                self.Dealer(new DealerModel(bookPage.dealer.address1,
+                    bookPage.dealer.address2,
+                    bookPage.dealer.area,
+                    bookPage.dealer.city,
+                    bookPage.dealer.contactHours,
+                    bookPage.dealer.emailId,
+                    bookPage.dealer.faxNo,
+                    bookPage.dealer.firstName,
+                    bookPage.dealer.id,
+                    bookPage.dealer.lastName,
+                    bookPage.dealer.lattitude,
+                    bookPage.dealer.longitude,
+                    bookPage.dealer.mobileNo,
+                    bookPage.dealer.organization,
+                    bookPage.dealer.phoneNo,
+                    bookPage.dealer.pincode,
+                    bookPage.dealer.state));
+                $.each(bookPage.modelColors, function (key, value) {
+                    self.ModelColors.push(new ModelColorsModel(value.colorName, value.hexCode, value.modelId));
+                });
+                $.each(bookPage.varients, function (key, value) {
+                    var priceList = [];
+                    $.each(value.priceList, function (key, value) {
+                        priceList.push(new PriceListModel(value.DealerId, value.ItemId, value.ItemName, value.Price));
+                    })
+                    if (verId == value.minSpec.versionId) {
+                        self.SelectedVarient(
+                            new VarientModel(
+                            value.bookingAmount,
+                            value.hostUrl,
+                            new MakeMdl(value.make.makeId, value.make.makeName, value.make.maskingName),
+                            new VersionMinSpecModel(
+                                value.minSpec.alloyWheels,
+                                value.minSpec.antilockBrakingSystem,
+                                value.minSpec.brakeType,
+                                value.minSpec.electricStart,
+                                value.minSpec.modelName,
+                                value.minSpec.versionName,
+                                value.minSpec.price,
+                                value.minSpec.versionId),
+                            new ModelMdl(value.model.modelId, value.model.modelName, value.model.maskingName),
+                            value.imagePath,
+                            value.noOfWaitingDays,
+                            value.onRoadPrice,
+                            priceList
+                        ));
+                    }
+                    self.Varients.push(
+                        new VarientModel(
+                            value.bookingAmount,
+                            value.hostUrl,
+                            new MakeMdl(value.make.makeId, value.make.makeName, value.make.maskingName),
+                            new VersionMinSpecModel(
+                                value.minSpec.alloyWheels,
+                                value.minSpec.antilockBrakingSystem,
+                                value.minSpec.brakeType,
+                                value.minSpec.electricStart,
+                                value.minSpec.modelName,
+                                value.minSpec.versionName,
+                                value.minSpec.price,
+                                value.minSpec.versionId),
+                            new ModelMdl(value.model.modelId, value.model.modelName, value.model.maskingName),
+                            value.imagePath,
+                            value.noOfWaitingDays,
+                            value.onRoadPrice,
+                            priceList
+                        ));
+                });
+            }
+        });
+    };
+}
+
+function CustomerModel() {
+    var self = this;
+    self.firstName = ko.observable();
+    self.lastName = ko.observable();
+    self.emailId = ko.observable();
+    self.mobileNo = ko.observable();
+    self.IsVerified = ko.observable();
+    self.otpCode = ko.observable();
+    self.verifyCustomer = function () {
+        if (!self.IsVerified()) {
+            var objCust = {
+                "dealerId": dealerId,
+                "pqId": pqId,
+                "customerName": self.firstName() + ' ' + self.lastName(),
+                "customerMobile": self.mobileNo(),
+                "customerEmail": self.emailId(),
+                "clientIP": clientIP,
+                "pageUrl": pageUrl,
+                "versionId": verId,
+                "cityId": cityId
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/PQCustomerDetail/",
+                data: ko.toJSON(objCust),
+                contentType: "application/json",
+                success: function (response) {
+                    var obj = ko.toJS(response);
+                    self.IsVerified(obj.isSuccess);
+                    if (self.IsVerified())
+                        $("#otp-submit-btn").trigger("click");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    self.IsVerified(false);
+                    //var message;
+                    //var statusErrorMap = {
+                    //    '400': "Server understood the request, but request content was invalid.",
+                    //    '401': "Unauthorized access.",
+                    //    '404': "Bike not found.",
+                    //    '403': "Forbidden resource can't be accessed.",
+                    //    '500': "Internal server error.",
+                    //    '503': "Service unavailable."
+                    //};
+                    //if (xhr.status) {
+                    //    message = statusErrorMap[xhr.status];
+                    //    if (!message) {
+                    //        message = "Unknown Error \n.";
+                    //    }
+                    //} else if (ajaxOptions == 'parsererror') {
+                    //    message = "Error.\nParsing JSON Request failed.";
+                    //} else if (ajaxOptions == 'timeout') {
+                    //    message = "Request Time out.";
+                    //} else if (ajaxOptions == 'abort') {
+                    //    message = "Request was aborted by the server";
+                    //} else {
+                    //    message = "Unknown Error \n.";
+                    //}
+                    //vm.bikeSearch.Bikes([]);
+                    //alert(message);
+                }
+            });
+        }
+    };
+    self.generateOTP = function () {
+        if (!self.IsVerified()) {
+            var objCust = {
+                "pqId": pqId,
+                "customerMobile": self.mobileNo(),
+                "customerEmail": self.emailId(),
+                "cwiCode": self.otpCode(),
+                "branchId": dealerId,
+                "customerName": self.firstName() + ' ' + self.lastName(),
+                "versionId": verId,
+                "cityId": cityId
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/PQMobileVerification/",
+                data: ko.toJSON(objCust),
+                contentType: "application/json",
+                success: function (response) {
+                    var obj = ko.toJS(response);
+                    self.IsVerified(obj.isSuccess);
+                    $("#user-details-submit-btn").trigger("click");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    self.IsVerified(false);
+                }
+            });
+        }
+    }
+}
+
+function DealerModel(address1, address2, area, city, contactHours, emailId, faxNo, firstName, id, lastName, lattitude, longitude, mobileNo, organization, phoneNo, pincode, state, websiteUrl) {
+    var self = this;
+    self.address1 = ko.observable(address1);
+    self.address2 = ko.observable(address2);
+    self.area = ko.observable(area);
+    self.city = ko.observable(city);
+    self.contactHours = ko.observable(contactHours);
+    self.emailId = ko.observable(emailId);
+    self.faxNo = ko.observable(faxNo);
+    self.firstName = ko.observable(firstName);
+    self.id = ko.observable(id);
+    self.lastName = ko.observable(lastName);
+    self.lattitude = ko.observable(lattitude);
+    self.longitude = ko.observable(longitude);
+    self.mobileNo = ko.observable(mobileNo);
+    self.organization = ko.observable(organization);
+    self.phoneNo = ko.observable(phoneNo);
+    self.pincode = ko.observable(pincode);
+    self.state = ko.observable(state);
+    self.websiteUrl = ko.observable(websiteUrl);
+    self.showMap = ko.computed(function () {
+        if (self.lattitude() && self.longitude()) {
+            var latitude = self.lattitude();
+            var longitude = self.longitude();
+            var myCenter = new google.maps.LatLng(latitude, longitude);
+            function initialize() {
+                var mapProp = {
+                    center: myCenter,
+                    zoom: 16,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                var map = new google.maps.Map(document.getElementById("divMap"), mapProp);
+
+                var marker = new google.maps.Marker({
+                    position: myCenter,
+                });
+
+                marker.setMap(map);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }, this);
+}
+
+function DisclaimerModel(disclaimers) {
+    var self = this;
+    self.disclaimers = ko.observableArray(disclaimers);
+}
+
+function ModelColorsModel(colorName, hexCode, modelId) {
+    var self = this;
+    self.colorName = ko.observable(colorName);
+    self.hexCode = ko.observable(hexCode);
+    self.modelId = ko.observable(modelId);
+}
+
+function OfferModel(id, text, type, value) {
+    var self = this;
+    self.id = ko.observable(id);
+    self.text = ko.observable(text);
+    self.type = ko.observable(type);
+    self.value = ko.observable(value);
+}
+
+function VarientModel(bookingAmount, hostUrl, make, minSpec, model, imagePath, noOfWaitingDays, onRoadPrice, priceList) {
+    var self = this;
+    self.bookingAmount = ko.observable(bookingAmount);
+    self.hostUrl = ko.observable(hostUrl);
+    self.make = ko.observable(make);
+    self.minSpec = ko.observable(minSpec);
+    self.model = ko.observable(model);
+    self.imagePath = ko.observable(imagePath);
+    self.noOfWaitingDays = ko.observable(noOfWaitingDays);
+    self.onRoadPrice = ko.observable(onRoadPrice);
+    self.priceList = ko.observableArray(priceList);
+
+    self.availText = ko.computed(function () {
+        var _days = self.noOfWaitingDays();
+        var _availText = _days ? '<p class="font12 text-light-grey">Waiting of ' + _days + ' days</p>' : '<p class="font12 text-green text-bold">Now available</p>';
+        return _availText;
+    }, this);
+
+    self.bikeName = ko.computed(function () {
+        var _bikeName = '';
+        _bikeName = self.make().makeName() + ' ' + self.model().modelName() + ' ' + self.minSpec().versionName();
+        return _bikeName;
+    }, this);
+    self.imageUrl = ko.computed(function () {
+        var _imageUrl = '';
+        _imageUrl = self.hostUrl() + '/310x174/' + self.imagePath();
+        return _imageUrl;
+    }, this);
+    self.remainingAmount = ko.computed(function () {
+        var _remainingAmount = self.onRoadPrice() - self.bookingAmount();
+        return _remainingAmount;
+    }, this);
+}
+
+function VersionMinSpecModel(alloyWheels, antilockBrakingSystem, brakeType, electricStart, modelName, versionName, price, versionId) {
+    var self = this;
+    self.alloyWheels = ko.observable(alloyWheels);
+    self.antilockBrakingSystem = ko.observable(antilockBrakingSystem);
+    self.brakeType = ko.observable(brakeType);
+    self.electricStart = ko.observable(electricStart);
+    self.modelName = ko.observable(modelName);
+    self.price = ko.observable(price);
+    self.versionId = ko.observable(versionId);
+    self.versionName = ko.observable(versionName);
+    self.displayMinSpec = ko.computed(function () {
+        var spec = '';
+        spec += (self.alloyWheels() ? "Alloy" : "Spoke") + ' Wheels, ';
+        if (self.brakeType()) {
+            spec += self.brakeType() + ' brake' + ', ';
+        }
+        spec += ' ' + (self.electricStart() ? ' Electric' : 'Kick') + ' start, ';
+        if (self.antilockBrakingSystem()) {
+            spec += ' ' + 'ABS' + ', ';
+        }
+        if (spec) {
+            return spec.substring(0, spec.length - 2);
+        }
+        return '';
+    }, this);
+}
+
+function MakeMdl(makeId, makeName, maskingName) {
+    var self = this;
+    self.makeId = ko.observable(makeId);
+    self.makeName = ko.observable(makeName);
+    self.maskingName = ko.observable(maskingName);
+}
+
+function ModelMdl(maskingName, modelId, modelName) {
+    var self = this;
+    self.maskingName = ko.observable(maskingName);
+    self.modelId = ko.observable(modelId);
+    self.modelName = ko.observable(modelName);
+}
+
+function PriceListModel(DealerId, ItemId, ItemName, Price) {
+    var self = this;
+    self.DealerId = ko.observable(DealerId);
+    self.ItemId = ko.observable(ItemId);
+    self.ItemName = ko.observable(ItemName);
+    self.Price = ko.observable(Price);
+}
+
+$(document).ready(function () {
+    viewModel = new BookingPageVMModel();
+    viewModel.getBookingPage();
+    ko.applyBindings(viewModel);
+});
+
 
 var firstname = $("#getFirstName");
 var lastname = $("#getLastName");

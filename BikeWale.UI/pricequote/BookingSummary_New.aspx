@@ -5,9 +5,9 @@
 <html>
 <head>
     <%
-        //title = bikeName + " Booking Summary";
-        //description = "Authorise dealer price details of a bike " + bikeName;
-        //keywords = bikeName + ", price, authorised, dealer,Booking ";    
+        title = bikeName + " Booking Summary";
+        description = "Authorise dealer price details of a bike " + bikeName;
+        keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="../css/booking.css" rel="stylesheet" type="text/css">
@@ -194,7 +194,7 @@
                         <ul class="varientsList" data-bind="foreach: viewModel.Varients()">
                             <li>
                                 <div class="grid-6 text-left">
-                                    <div class="varient-item border-solid content-inner-block-10" data-bind="click: selectVarient, click: function () { $parent.selectVarient($data); }">
+                                    <div data-bind="css: $parent.selectedVersionsCss, click: function () { $parent.selectVarient($data); }">
                                         <div class="grid-8 alpha">
                                             <h3 class="font16 margin-bottom10" data-bind="text: minSpec().versionName"></h3>
                                             <p class="font14" data-bind="text: minSpec().displayMinSpec"></p>
@@ -214,7 +214,7 @@
                         <div class="booking-available-colors">
                             <ul data-bind="foreach: viewModel.ModelColors()">
                                 <li>
-                                    <div class="booking-color-box" data-bind="style: { 'background-color': '#' + hexCode }">
+                                    <div class="booking-color-box" data-bind="style: { 'background-color': '#' + hexCode() }, click: function () { $parent.selectModelColor($data); }">
                                         <span class="ticked hide"></span>
                                     </div>
                                     <p class="font16 margin-top20" data-bind="text: colorName"></p>
@@ -247,7 +247,7 @@
                             <div class="clear"></div>
                         </div>
                         <p class="font12 margin-bottom20">* Colours are subject to availabilty, can be selected at the dealership</p>
-                        <a class="customize-submit-btn btn btn-orange margin-bottom20">Next</a>
+                        <a class="customize-submit-btn btn btn-orange margin-bottom20" data-bind="click: function () { viewModel.generatePQ(); }">Next</a>
                         <div class="clear"></div>
                         <div class="btn btn-link customizeBackBtn">Back</div>
                     </div>
@@ -255,9 +255,11 @@
                     <div id="confirmation" class="hide">
                         <div class="feedback-container">
                             <p class="text-bold font16">Congratulations!</p>
-                            <p>Hi <span>XYZ</span></p>
+                            <p>Hi <span data-bind="text: viewModel.CustomerVM().fullName"></span></p>
                             <p>you can now book your bike by just paying</p>
-                            <p class="font20"><span class="fa fa-rupee margin-right5"></span><span class="text-bold font22">3000</span></p>
+                            <!-- ko with: viewModel.SelectedVarient() -->
+                            <p class="font20"><span class="fa fa-rupee margin-right5"></span><span class="text-bold font22" data-bind="text: bookingAmount"></span></p>
+                            <!-- /ko -->
                             <p>
                                 You can pay that booking amount using a Credit Card/Debit Card/Net Banking. 
 Book your bike online at BikeWale and make the balance payment at the dealership to avail great offers.
@@ -295,7 +297,8 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
         <script type="text/javascript" src="../src/booking.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
         <script type="text/javascript">
-            /*
+            //Need to uncomment the below script
+            /*            
             window.onload = function() {
                 var btnRelease = document.getElementById('');                 
                 //Find the button set null value to click event and alert will not appear for that specific button
@@ -318,12 +321,13 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
             var viewModel;
-            var pqId = 2
-            var verId = 164;
-            var cityId = 1;
-            var dealerId = 4;
-            var clientIP = '127.0.0.1'
-            var pageUrl = 'sample'
+            var pqId = '<%= pqId %>'
+            var verId = '<%= versionId %>';
+            var cityId = '<%= cityId%>';
+            var dealerId = '<%= dealerId%>';
+            var clientIP = '<%= clientIP %>';
+            var pageUrl = '<%= pageUrl%>';
+            var areaId = '<%= areaId%>';
             function pageViewModel() {
                 var self = this;
                 self.page = ko.observable();
@@ -336,9 +340,23 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                 self.ModelColors = ko.observableArray([]);
                 self.Varients = ko.observableArray([]);
                 self.CustomerVM = ko.observable(new CustomerModel());
+                self.SelectedModelColor = ko.observable();
+                self.selectModelColor = function (model) {
+                    self.SelectedModelColor(model);
+                }
                 self.selectVarient = function (varient) {
                     self.SelectedVarient(varient);
                 }
+
+                self.selectedVersionsCss = ko.computed(function () {
+                    var _selectedVersion = verId;
+                    var _versionId = ko.utils.arrayFilter(self.Varients(), function (varient) {
+                        return varient.minSpec().versionId() == _selectedVersion;
+                    });
+                    return _versionId ? 'varient-item border-solid content-inner-block-10 border-dark selected' : 'varient-item border-solid content-inner-block-10';
+
+                }, this);
+
                 self.getBookingPage = function () {
                     var bookPage = null;
                     $.getJSON('/api/BikeBookingPage/?versionId=' + verId + '&cityId=' + cityId + '&dealerId=' + dealerId)
@@ -364,7 +382,7 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                                 bookPage.dealer.pincode,
                                 bookPage.dealer.state));
                             $.each(bookPage.modelColors, function (key, value) {
-                                self.ModelColors.push(new ModelColorsModel(value.colorName, value.hexCode, value.modelId));
+                                self.ModelColors.push(new ModelColorsModel(value.id, value.colorName, value.hexCode, value.modelId));
                             });
                             $.each(bookPage.varients, function (key, value) {
                                 var priceList = [];
@@ -417,6 +435,77 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                         }
                     });
                 };
+                self.generatePQ = function () {
+                    var objPQ = 
+                    {
+                        "cityId": cityId,
+                        "areaId": areaId,
+                        "modelId": self.SelectedVarient().model().modelId(),
+                        "clientIP": clientIP,
+                        "sourceType": 1,
+                        "versionId": self.SelectedVarient().minSpec().versionId()
+                    }
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/PriceQuote/",
+                        data: ko.toJSON(objPQ),
+                        contentType: "application/json",
+                        success: function (response) {
+                            var obj = ko.toJS(response);
+                            if (obj) {                                
+                                pqId = obj.quoteId;
+                                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + obj.quoteId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
+                                SetCookie("_MPQ", cookieValue);
+                                var objPQColor = {
+                                    "pqId": pqId,
+                                    "colorId": self.SelectedModelColor().id()
+                                }
+                                var objCust = {
+                                    "dealerId": dealerId,
+                                    "pqId": pqId,
+                                    "customerName": self.CustomerVM().firstName() + ' ' + self.CustomerVM().lastName(),
+                                    "customerMobile": self.CustomerVM().mobileNo(),
+                                    "customerEmail": self.CustomerVM().emailId(),
+                                    "clientIP": clientIP,
+                                    "pageUrl": pageUrl,
+                                    "versionId": verId,
+                                    "cityId": cityId
+                                }
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/api/PQCustomerDetail/",
+                                    data: ko.toJSON(objCust),
+                                    contentType: "application/json",
+                                    success: function (response) {
+                                        var obj = ko.toJS(response);
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "/api/PQBikeColor/",
+                                            data: ko.toJSON(objPQColor),
+                                            contentType: "application/json",
+                                            success: function (response) {
+                                                var obj = ko.toJS(response);
+                                            },
+                                            error: function (xhr, ajaxOptions, thrownError) {
+                                                alert("Some error has occured while updating the Bike color.");
+                                                return false;
+                                            }
+                                        });
+                                    },
+                                    error: function (xhr, ajaxOptions, thrownError) {
+                                        alert("Error while registering the price quote");
+                                    }
+                                });
+                                return;
+                            }
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert("Some error has occured while registering new price quote.");
+                            return false;
+                        }
+                    });
+                }
             }
 
             function CustomerModel() {
@@ -510,6 +599,9 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                         });
                     }
                 }
+                self.fullName = ko.computed(function () {
+                    return self.firstName() + ' ' + self.lastName();
+                },this);
             }
 
             function DealerModel(address1, address2, area, city, contactHours, emailId, faxNo, firstName, id, lastName, lattitude, longitude, mobileNo, organization, phoneNo, pincode, state, websiteUrl) {
@@ -566,8 +658,9 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                 self.disclaimers = ko.observableArray(disclaimers);
             }
 
-            function ModelColorsModel(colorName, hexCode, modelId) {
+            function ModelColorsModel(id, colorName, hexCode, modelId) {
                 var self = this;
+                self.id = ko.observable(id);
                 self.colorName = ko.observable(colorName);
                 self.hexCode = ko.observable(hexCode);
                 self.modelId = ko.observable(modelId);
@@ -629,9 +722,9 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                     var spec = '';
                     spec += (self.alloyWheels() ? "Alloy" : "Spoke") + ' Wheels, ';
                     if (self.brakeType()) {
-                        spec += self.brakeType() + ' brake' + ', ';
+                        spec += self.brakeType() + ' Brake' + ', ';
                     }
-                    spec += ' ' + (self.electricStart() ? ' Electric' : 'Kick') + ' start, ';
+                    spec += ' ' + (self.electricStart() ? ' Electric' : 'Kick') + ' Start, ';
                     if (self.antilockBrakingSystem()) {
                         spec += ' ' + 'ABS' + ', ';
                     }
@@ -648,8 +741,8 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                 self.makeName = ko.observable(makeName);
                 self.maskingName = ko.observable(maskingName);
             }
-
-            function ModelMdl(maskingName, modelId, modelName) {
+            
+            function ModelMdl(modelId, modelName, maskingName) {
                 var self = this;
                 self.maskingName = ko.observable(maskingName);
                 self.modelId = ko.observable(modelId);
