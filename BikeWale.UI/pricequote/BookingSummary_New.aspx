@@ -194,7 +194,7 @@
                         <ul class="varientsList" data-bind="foreach: viewModel.Varients()">
                             <li>
                                 <div class="grid-6 text-left">
-                                    <div data-bind="css: $parent.selectedVersionsCss, click: function () { $parent.selectVarient($data); }">
+                                    <div data-bind="attr: { class: (minSpec().versionId() == $parent.SelectedVarient().minSpec().versionId()) ? 'selected border-dark varient-item border-solid content-inner-block-10 rounded-corner2' : 'varient-item border-solid content-inner-block-10 rounded-corner2' }, click: function () { $parent.selectVarient($data, event); }">
                                         <div class="grid-8 alpha">
                                             <h3 class="font16 margin-bottom10" data-bind="text: minSpec().versionName"></h3>
                                             <p class="font14" data-bind="text: minSpec().displayMinSpec"></p>
@@ -214,35 +214,11 @@
                         <div class="booking-available-colors">
                             <ul data-bind="foreach: viewModel.ModelColors()">
                                 <li>
-                                    <div class="booking-color-box" data-bind="style: { 'background-color': '#' + hexCode() }, click: function () { $parent.selectModelColor($data); }">
+                                    <div class="booking-color-box" data-bind="style: { 'background-color': '#' + hexCode() }, click: function () { $parent.selectModelColor($data,event); }">
                                         <span class="ticked hide"></span>
                                     </div>
                                     <p class="font16 margin-top20" data-bind="text: colorName"></p>
                                 </li>
-                                <%--<li>
-                                    <div class="booking-color-box">
-                                        <span class="ticked hide"></span>
-                                    </div>
-                                    <p class="font16 margin-top20">Dazzling Red</p>
-                                </li>
-                                <li>
-                                    <div class="booking-color-box">
-                                        <span class="ticked hide"></span>
-                                    </div>
-                                    <p class="font16 margin-top20">Dazzling Red</p>
-                                </li>
-                                <li>
-                                    <div class="booking-color-box">
-                                        <span class="ticked hide"></span>
-                                    </div>
-                                    <p class="font16 margin-top20">Dazzling Red</p>
-                                </li>
-                                <li>
-                                    <div class="booking-color-box">
-                                        <span class="ticked hide"></span>
-                                    </div>
-                                    <p class="font16 margin-top20">Dazzling Red</p>
-                                </li>--%>
                             </ul>
                             <div class="clear"></div>
                         </div>
@@ -341,11 +317,25 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                 self.Varients = ko.observableArray([]);
                 self.CustomerVM = ko.observable(new CustomerModel());
                 self.SelectedModelColor = ko.observable();
-                self.selectModelColor = function (model) {
+                self.selectModelColor = function (model, event) {
+                    var curElement = $(event.currentTarget);
                     self.SelectedModelColor(model);
+                    if (!curElement.find('span.ticked').hasClass("selected")) {
+                        $('.booking-color-box').find('span.ticked').hide();
+                        $('.booking-color-box').find('span.ticked').removeClass("selected");
+                        curElement.find('span.ticked').show();
+                        curElement.find('span.ticked').addClass("selected");
+                    }
+                    else {
+                        curElement.find('span.ticked').hide();
+                        curElement.find('span.ticked').removeClass("selected");
+                    }
                 }
-                self.selectVarient = function (varient) {
+                self.selectVarient = function (varient,event) {
                     self.SelectedVarient(varient);
+                    $(".varient-item").removeClass("border-dark selected");
+                    $(event.currentTarget).addClass("border-dark selected");
+                    $(".varient-heading-text").removeClass("text-orange");
                 }
 
                 self.selectedVersionsCss = ko.computed(function () {

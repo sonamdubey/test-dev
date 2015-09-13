@@ -15,45 +15,47 @@ detailsSubmitBtn.click(function () {
     var a = validateEmail();
     var b = validateMobile();
     var c = validateName();
-    if (c == false) {
-        fnameVal();
-    }
-    else {
-        if (a == false) {
-            emailVal();
+    if (ValidateUserDetail()) {
+        if (!viewModel.CustomerVM().IsVerified()) {
+            viewModel.CustomerVM().verifyCustomer();
+            otpContainer.removeClass("hide").addClass("show");
+            if (viewModel.CustomerVM().IsVerified()) {
+
+                return;
+            }
+            $(this).hide();
+            nameValTrue();
+            mobileValTrue();
         }
         else {
-            if (b == false) {
-                mobileVal();
-            }
-        }
-        if (a == true && b == true && c == true) {            
-            if (!viewModel.CustomerVM().IsVerified()) {
-                viewModel.CustomerVM().verifyCustomer();
-                otpContainer.removeClass("hide").addClass("show");
-                if (viewModel.CustomerVM().IsVerified()) {
-                    
-                    return;
-                }
-                $(this).hide();
-                nameValTrue();
-                mobileValTrue();
-            }
-            else {
-                if (viewModel.CustomerVM().IsVerified()) {
-                    otpBtn.trigger("click");
-                }                
+            if (viewModel.CustomerVM().IsVerified()) {
+                otpBtn.trigger("click");
             }
         }
     }
 });
 
+var ValidateUserDetail = function () {
+    var isValid = true;
+    isValid = validateEmail();
+    isValid = validateMobile();
+    isValid = validateName();
+
+    return isValid;
+};
+
 var validateName = function () {
+    var isValid = true;
     var a = firstname.val().length;
-    if (a == 0)
-        return false;
-    else if (a >= 1)
-        return true;
+    if (a == 0) {
+        isValid = false;
+        fnameVal();
+    }
+    else if (a >= 1) {
+        isValid = true;
+        nameValTrue()
+    }
+    return isValid;
 }
 
 var nameValTrue = function () {
@@ -62,8 +64,8 @@ var nameValTrue = function () {
 };
 
 firstname.on("focus", function () {
-    firstname.removeClass("border-red");
-    firstname.siblings("span, div").hide();
+    emailid.removeClass("border-red");
+    emailid.siblings("span, div").hide();
 });
 
 emailid.on("focus", function () {
@@ -76,81 +78,101 @@ var mobileValTrue = function () {
     mobile.siblings("span, div").hide();
 };
 
-mobile.on("blur", function () {
-    var b = validateMobile();
-    if (b == false) {
-        mobileVal();
-        otpContainer.removeClass("show").addClass("hide");
-        detailsSubmitBtn.show();        
-    }
-    else if (b == true) {
-        mobileValTrue();
-        otpContainer.removeClass("hide").addClass("show");
-        detailsSubmitBtn.hide();
-        detailsSubmitBtn.trigger("click");
-    }
-});
-
-
-
 var fnameVal = function () {
     firstname.addClass("border-red");
     firstname.siblings("span, div").css("display", "block");
 };
 
-var emailVal = function () {
+var emailVal = function (msg) {
     emailid.addClass("border-red");
-    emailid.siblings("span, div").css("display", "block");
+    emailid.siblings("span, div").css("display", "block")
+    emailid.siblings("div").text(msg);
 };
 
-var mobileVal = function () {
+var mobileVal = function (msg) {
     mobile.addClass("border-red");
     mobile.siblings("span, div").css("display", "block");
+    mobile.siblings("div").text(msg);
 };
 
-
-
 /* Email validation */
-
 function validateEmail() {
+    var isValid = true;
     var emailID = emailid.val();
-    atpos = emailID.indexOf("@");
-    dotpos = emailID.lastIndexOf(".");
+    var reEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/;
 
-    if (atpos < 1 || (dotpos - atpos < 2)) {
-        emailVal();
-        return false;
+    if (emailID == "") {
+        emailVal('Please enter email address');
+        isValid= false;
     }
-    return true;
+    else if (!reEmail.test(emailID)) {
+        emailVal('Invalid Email');
+        isValid= false;
+    }
+    return isValid;
 }
 
 function validateMobile() {
-    var a = mobile.val().length;
-    if (a < 10)
-        return false;
-    else
-        return true;
+    var isValid = true;
+    var reMobile = /^[0-9]*$/;
+    var mobileNo = mobile.val();
+    if (mobileNo == "") {
+        isValid = false;
+        mobileVal("Please enter your Mobile Number");
+    }
+    else if (!reMobile.test(mobileNo)) {
+        isValid = false;
+        mobileVal("Mobile Number should be numeric");
+    }
+    else if (mobileNo.length != 10) {
+        isValid = false;
+        mobileVal("Mobile Number should be of 10 digits");
+    }    return isValid;
 }
 
-var otpVal = function () {
+var otpVal = function (msg) {
     otpText.addClass("border-red");
     otpText.siblings("span, div").css("display", "block");
+    otpText.siblings("div").text(msg);
 };
 
-otpBtn.click(function () {
-    if (viewModel.CustomerVM().IsVerified()) {
-        $.customizeState();
-        $("#personalInfo").hide();
-        $("#personal-info-tab").removeClass('text-bold');
-        $("#customize").show();
-        $('#customize-tab').addClass('text-bold');
-        $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
-        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-        $(".booking-dealer-details").removeClass("hide").addClass("show");
-        $(".call-for-queries").hide();
+function validateOTP() {
+    var retVal = true;
+    var isNumber = /^[0-9]*$/;
+    var cwiCode = otpText.text();
+
+    if (cwiCode == "") {
+        retVal = false;
+        otpVal("Please enter your Verification Code");
     }
-    else {
-        viewModel.CustomerVM().generateOTP();
+    else if (!isNumber.test(cwiCode)) {
+        retVal = false;
+        otpVal("Verification Code should be numeric");
+    }
+    else if (cwiCode.length != 5) {
+        retVal = false;
+        otpVal("Verification Code should be of 5 digits");
+    }
+    return retVal;
+
+}
+
+otpBtn.click(function () {
+    if (!validateOTP()) {
+        if (viewModel.CustomerVM().IsVerified()) {
+            $.customizeState();
+            $("#personalInfo").hide();
+            $("#personal-info-tab").removeClass('text-bold');
+            $("#customize").show();
+            $('#customize-tab').addClass('text-bold');
+            $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
+            $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+            $(".booking-dealer-details").removeClass("hide").addClass("show");
+            $(".call-for-queries").hide();
+        }
+        else {
+            viewModel.CustomerVM().generateOTP();
+        }
     }
 });
 

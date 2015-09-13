@@ -2069,6 +2069,7 @@
     <Content Include="m\pricequote\rsa.aspx" />
     <Content Include="m\pricequote\RSAOfferClaim.aspx" />
     <Content Include="m\src\BikeBooking\BikeBooking.js" />
+    <Content Include="m\src\bwm-booking.js" />
     <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
     <Content Include="m\src\chosen-mobile.js" />

@@ -1,15 +1,3 @@
-var viewModel;
-var pqId = 2
-var verId = 164;
-var cityId = 1;
-var dealerId = 4;
-var clientIP = '127.0.0.1'
-var pageUrl = 'sample'
-function pageViewModel() {
-    var self = this;
-    self.page = ko.observable();
-}
-
 function BookingPageVMModel() {
     var self = this;
     self.Dealer = ko.observable();
@@ -17,8 +5,26 @@ function BookingPageVMModel() {
     self.ModelColors = ko.observableArray([]);
     self.Varients = ko.observableArray([]);
     self.CustomerVM = ko.observable(new CustomerModel());
-    self.selectVarient = function (varient) {
+    self.SelectedModelColor = ko.observable();
+    self.selectModelColor = function (model, event) {
+        var curElement = $(event.currentTarget);
+        self.SelectedModelColor(model);
+        if (!curElement.find('span.ticked').hasClass("selected")) {
+            $('.color-box').find('span.ticked').hide();
+            $('.color-box').find('span.ticked').removeClass("selected");
+            curElement.find('span.ticked').show();
+            curElement.find('span.ticked').addClass("selected");
+        }
+        else {
+            curElement.find('span.ticked').hide();
+            curElement.find('span.ticked').removeClass("selected");
+        }
+    }
+    self.selectVarient = function (varient, event) {
         self.SelectedVarient(varient);
+        $(".varient-item").removeClass("border-dark selected");
+        $(event.currentTarget).addClass("border-dark selected");
+        $(".varient-heading-text").removeClass("text-orange");
     }
     self.getBookingPage = function () {
         var bookPage = null;
@@ -45,7 +51,7 @@ function BookingPageVMModel() {
                     bookPage.dealer.pincode,
                     bookPage.dealer.state));
                 $.each(bookPage.modelColors, function (key, value) {
-                    self.ModelColors.push(new ModelColorsModel(value.colorName, value.hexCode, value.modelId));
+                    self.ModelColors.push(new ModelColorsModel(value.id, value.colorName, value.hexCode, value.modelId));
                 });
                 $.each(bookPage.varients, function (key, value) {
                     var priceList = [];
@@ -98,6 +104,79 @@ function BookingPageVMModel() {
             }
         });
     };
+    self.generatePQ = function () {
+        var objPQ =
+        {
+            "cityId": cityId,
+            "areaId": areaId,
+            "modelId": self.SelectedVarient().model().modelId(),
+            "clientIP": clientIP,
+            "sourceType": 2,
+            "versionId": self.SelectedVarient().minSpec().versionId()
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/api/PriceQuote/",
+            data: ko.toJSON(objPQ),
+            contentType: "application/json",
+            success: function (response) {
+                var obj = ko.toJS(response);
+                if (obj) {
+                    pqId = obj.quoteId;
+                    var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + obj.quoteId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
+                    SetCookie("_MPQ", cookieValue);                    
+                    var objCust = {
+                        "dealerId": dealerId,
+                        "pqId": pqId,
+                        "customerName": self.CustomerVM().firstName() + ' ' + self.CustomerVM().lastName(),
+                        "customerMobile": self.CustomerVM().mobileNo(),
+                        "customerEmail": self.CustomerVM().emailId(),
+                        "clientIP": clientIP,
+                        "pageUrl": pageUrl,
+                        "versionId": verId,
+                        "cityId": cityId
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "/api/PQCustomerDetail/",
+                        data: ko.toJSON(objCust),
+                        contentType: "application/json",
+                        success: function (response) {
+                            var obj = ko.toJS(response);
+                            if (self.SelectedModelColor()) {
+                                var objPQColor = {
+                                    "pqId": pqId,
+                                    "colorId": self.SelectedModelColor().id()
+                                }
+                                $.ajax({
+                                    type: "POST",
+                                    url: "/api/PQBikeColor/",
+                                    data: ko.toJSON(objPQColor),
+                                    contentType: "application/json",
+                                    success: function (response) {
+                                        var obj = ko.toJS(response);
+                                    },
+                                    error: function (xhr, ajaxOptions, thrownError) {
+                                        alert("Some error has occured while updating the Bike color.");
+                                        return false;
+                                    }
+                                });
+                            }                            
+                        },
+                        error: function (xhr, ajaxOptions, thrownError) {
+                            alert("Error while registering the price quote");
+                        }
+                    });
+                    return;
+                }
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert("Some error has occured while registering new price quote.");
+                return false;
+            }
+        });
+    }
 }
 
 function CustomerModel() {
@@ -191,6 +270,9 @@ function CustomerModel() {
             });
         }
     }
+    self.fullName = ko.computed(function () {
+        return self.firstName() + ' ' + self.lastName();
+    }, this);
 }
 
 function DealerModel(address1, address2, area, city, contactHours, emailId, faxNo, firstName, id, lastName, lattitude, longitude, mobileNo, organization, phoneNo, pincode, state, websiteUrl) {
@@ -212,34 +294,7 @@ function DealerModel(address1, address2, area, city, contactHours, emailId, faxN
     self.phoneNo = ko.observable(phoneNo);
     self.pincode = ko.observable(pincode);
     self.state = ko.observable(state);
-    self.websiteUrl = ko.observable(websiteUrl);
-    self.showMap = ko.computed(function () {
-        if (self.lattitude() && self.longitude()) {
-            var latitude = self.lattitude();
-            var longitude = self.longitude();
-            var myCenter = new google.maps.LatLng(latitude, longitude);
-            function initialize() {
-                var mapProp = {
-                    center: myCenter,
-                    zoom: 16,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-
-                var map = new google.maps.Map(document.getElementById("divMap"), mapProp);
-
-                var marker = new google.maps.Marker({
-                    position: myCenter,
-                });
-
-                marker.setMap(map);
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }, this);
+    self.websiteUrl = ko.observable(websiteUrl);    
 }
 
 function DisclaimerModel(disclaimers) {
@@ -364,58 +419,70 @@ var otpBtn = $("#otp-submit-btn");
 var normalHeader = $('header .navbarBtn, header .global-location, header .bw-logo');
 var mobileValue = '';
 
-detailsSubmitBtn.click(function(){
-	var a = validateEmail();
-	var b = validateMobile();
-	var c = validateName();
-	if(c == false){
-		fnameVal();
-	}
-	else {
-		if(a == false){
-			emailVal();	
-		}
-		else {
-			if(b == false){
-			mobileVal();	
-			}
-		}
-		if( a==true && b==true && c==true) {
-			otpContainer.removeClass("hide").addClass("show");
-			$(this).hide();
-			nameValTrue();
-			mobileValTrue();	
-		}
-	}
-	mobileValue = mobile.val();
+detailsSubmitBtn.click(function () {
+    var a = validateEmail();
+    var b = validateMobile();
+    var c = validateName();
+    if (c == false) {
+        fnameVal();
+    }
+    else {
+        if (a == false) {
+            emailVal();
+        }
+        else {
+            if (b == false) {
+                mobileVal();
+            }
+        }
+        if (a == true && b == true && c == true) {
+            if (!viewModel.CustomerVM().IsVerified()) {
+                viewModel.CustomerVM().verifyCustomer();
+                otpContainer.removeClass("hide").addClass("show");
+                if (viewModel.CustomerVM().IsVerified()) {
+
+                    return;
+                }
+                $(this).hide();
+                nameValTrue();
+                mobileValTrue();
+            }
+            else {
+                if (viewModel.CustomerVM().IsVerified()) {
+                    otpBtn.trigger("click");
+                }
+            }
+        }
+    }
+    mobileValue = mobile.val();
 });
 
-var validateName = function(){
-	var a = firstname.val().length;
-	if(a == 0)
-		return false;
-	else if(a >= 1)
-		return true;	
+var validateName = function () {
+    var a = firstname.val().length;
+    if (a == 0)
+        return false;
+    else if (a >= 1)
+        return true;
 }
 
-var nameValTrue = function(){
-	firstname.removeClass("border-red");
-	firstname.siblings("span, div").hide();	
+var nameValTrue = function () {
+    firstname.removeClass("border-red");
+    firstname.siblings("span, div").hide();
 };
 
-firstname.on("focus",function(){
-	firstname.removeClass("border-red");
-	firstname.siblings("span, div").hide();
+firstname.on("focus", function () {
+    firstname.removeClass("border-red");
+    firstname.siblings("span, div").hide();
 });
 
-emailid.on("focus",function(){
-	emailid.removeClass("border-red");
-	emailid.siblings("span, div").hide();
+emailid.on("focus", function () {
+    emailid.removeClass("border-red");
+    emailid.siblings("span, div").hide();
 });
 
-var mobileValTrue = function(){
-	mobile.removeClass("border-red");
-	mobile.siblings("span, div").hide();
+var mobileValTrue = function () {
+    mobile.removeClass("border-red");
+    mobile.siblings("span, div").hide();
 };
 
 var prevMob;
@@ -439,219 +506,226 @@ mobile.change(function () {
     }
 });
 
-
-
-var fnameVal = function(){
-	firstname.addClass("border-red");
-	firstname.siblings("span, div").css("display","block");
+var fnameVal = function () {
+    firstname.addClass("border-red");
+    firstname.siblings("span, div").css("display", "block");
 };
 
-var emailVal = function(){
-	emailid.addClass("border-red");
-	emailid.siblings("span, div").css("display","block");
+var emailVal = function (msg) {
+    emailid.addClass("border-red");
+    emailid.siblings("span, div").css("display", "block")
+    emailid.siblings("div").text(msg);
 };
 
-var mobileVal = function(){
-	mobile.addClass("border-red");
-	mobile.siblings("span, div").css("display","block");
+var mobileVal = function (msg) {
+    mobile.addClass("border-red");
+    mobile.siblings("span, div").css("display", "block");
+    mobile.siblings("div").text(msg);
 };
-
-
 
 /* Email validation */
+function validateEmail() {
+    var emailID = emailid.val();
+    var reEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/;
 
-function validateEmail()
-{
-	var emailID = emailid.val();
-	atpos = emailID.indexOf("@");
-	dotpos = emailID.lastIndexOf(".");
-	
-	if (atpos < 1 || ( dotpos - atpos < 2 )) 
-	{
-		emailVal();
-		return false;
-	}
-	return true;
+    if (emailID == "") {
+        emailVal('Please enter email address');
+        return false;
+    }
+    else if (!reEmail.test(emailID)) {
+        emailVal('Invalid Email');
+        return false;
+    }
+    return true;
 }
 
-function validateMobile()
-{
-	var a = mobile.val().length;
-	if(a < 10)
-		return false;
-	else
-		return true;	
+function validateMobile() {
+    var reMobile = /^[0-9]*$/;
+    var mobileNo = mobile.val();
+    if (mobileNo == "") {
+        return false;
+        mobileVal("Please enter your Mobile Number");
+    }
+    else if (!reMobile.test(mobileNo)) {
+        return false;
+        mobileVal("Mobile Number should be numeric");
+    }
+    else if (mobileNo.length != 10) {
+        return false;
+        mobileVal("Mobile Number should be of 10 digits");
+    }    return true;
 }
 
-var otpVal = function(){
-	otpText.addClass("border-red");
-	otpText.siblings("span, div").css("display","block");
+var otpVal = function (msg) {
+    otpText.addClass("border-red");
+    otpText.siblings("span, div").css("display", "block");
+    otpText.siblings("div").text(msg);
 };
 
-otpBtn.click(function(){
-	$.customizeState();
-	$("#personalInfo").hide();
-	$("#personal-info-tab").removeClass('text-bold');
-	$("#customize").show();
-	$('.colours-wrap .jcarousel').jcarousel('reload', {
-    		'animation': 'slow'
-	});
-	$('#customize-tab').addClass('text-bold');
-	$('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
-	$('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-	$(".booking-dealer-details").removeClass("hide").addClass("show");
-	$(".call-for-queries").hide();
-	$.scrollToSteps();
+function validateOTP() {
+    var retVal = true;
+    var isNumber = /^[0-9]*$/;
+    var cwiCode = otpText.text();
+
+    if (cwiCode == "") {
+        retVal = false;
+        otpVal("Please enter your Verification Code");
+    }
+    else if (!isNumber.test(cwiCode)) {
+        retVal = false;
+        otpVal("Verification Code should be numeric");
+    }
+    else if (cwiCode.length != 5) {
+        retVal = false;
+        otpVal("Verification Code should be of 5 digits");
+    }
+    return retVal;
+}
+
+otpBtn.click(function () {
+    if (!validateOTP()) {
+        if (viewModel.CustomerVM().IsVerified()) {
+            $.customizeState();
+            $("#personalInfo").hide();
+            $("#personal-info-tab").removeClass('text-bold');
+            $("#customize").show();
+            $('.colours-wrap .jcarousel').jcarousel('reload', {
+                'animation': 'slow'
+            });
+            $('#customize-tab').addClass('text-bold');
+            $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
+            $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+            $(".booking-dealer-details").removeClass("hide").addClass("show");
+            $(".call-for-queries").hide();
+            $.scrollToSteps();
+        }
+        else {
+            viewModel.CustomerVM().generateOTP();
+        }
+    }
 });
 
-$(".customize-submit-btn").click(function(e){
-	var a = varientSelection();
-	if( a == true){
-		$.confirmationState();
-		$("#customize").hide();
-		$("#customize-tab").removeClass('text-bold');
-		$("#confirmation").show();
-		$('#confirmation-tab').addClass('active-tab text-bold').removeClass('disabled-tab');
-		$.scrollToSteps();
-	}
-	else {
-		$(".varient-heading-text").addClass("text-orange");
-		$.scrollToSteps();
-	}
+$(".customize-submit-btn").click(function (e) {
+    var a = varientSelection();
+    if (a == true) {
+        $.confirmationState();
+        $("#customize").hide();
+        $("#customize-tab").removeClass('text-bold');
+        $("#confirmation").show();
+        $('#confirmation-tab').addClass('active-tab text-bold').removeClass('disabled-tab');
+        $.scrollToSteps();
+    }
+    else {
+        $(".varient-heading-text").addClass("text-orange");
+        $.scrollToSteps();
+    }
 });
 
-$("#personal-info-tab, .customizeBackBtn").on('click',function(){
-	if(!$(this).hasClass('disabled-tab')){
-		$.personalInfoState();
-		$.showCurrentTab('personalInfo');
-		$('#personal-info-tab').addClass('active-tab text-bold');
-		$('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
-		$('#customize-tab').addClass('active-tab').removeClass('text-bold');
-	}	
+$("#personal-info-tab, .customizeBackBtn").on('click', function () {
+    if (!$(this).hasClass('disabled-tab')) {
+        $.personalInfoState();
+        $.showCurrentTab('personalInfo');
+        $('#personal-info-tab').addClass('active-tab text-bold');
+        $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
+        $('#customize-tab').addClass('active-tab').removeClass('text-bold');
+    }
 });
 
-$('#customize-tab, .confirmationBackBtn').on('click',function(){
-	if(!$(this).hasClass('disabled-tab')){
-		$.customizeState();
-		$.showCurrentTab('customize');
-		$('#customize-tab').addClass('active-tab text-bold');
-		$('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
-		$('#personal-info-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
-	}
+$('#customize-tab, .confirmationBackBtn').on('click', function () {
+    if (!$(this).hasClass('disabled-tab')) {
+        $.customizeState();
+        $.showCurrentTab('customize');
+        $('#customize-tab').addClass('active-tab text-bold');
+        $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
+        $('#personal-info-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
+    }
 });
 
-$("#confirmation-tab").click(function(){
-	if(!$(this).hasClass('disabled-tab')){
-		$.confirmationState();
-		$.showCurrentTab('confirmation');
-		$('#confirmation-tab').addClass('active-tab text-bold');
-		$('#customize-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
-		$('#personal-info-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
-	}	
+$("#confirmation-tab").click(function () {
+    if (!$(this).hasClass('disabled-tab')) {
+        $.confirmationState();
+        $.showCurrentTab('confirmation');
+        $('#confirmation-tab').addClass('active-tab text-bold');
+        $('#customize-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
+        $('#personal-info-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
+    }
 });
 
-$.showCurrentTab = function(tabType){
-	$('#personalInfo,#customize,#confirmation').hide();
-	$('#'+tabType).show();
+$.showCurrentTab = function (tabType) {
+    $('#personalInfo,#customize,#confirmation').hide();
+    $('#' + tabType).show();
 };
 
-$.personalInfoState = function(){
-	var container=$('.bike-to-buy-tabs ul');
-	container.find('li:eq(0)').find('span.buy-icon').attr('class','').attr('class','booking-sprite buy-icon personalInfo-icon-selected');
-	container.find('li:eq(1)').find('span.buy-icon').attr('class','').attr('class','booking-sprite buy-icon customize-icon-grey');
-	container.find('li:eq(2)').find('span.buy-icon').attr('class','').attr('class','booking-sprite buy-icon confirmation-icon-grey');
-	container.find('li').removeClass('ticked');
-	$('#book-back').removeClass('customizeBackBtn').addClass('hide');
-	normalHeader.removeClass('hide');
-	$('header').removeClass('fixed');
-	
+$.personalInfoState = function () {
+    var container = $('.bike-to-buy-tabs ul');
+    container.find('li:eq(0)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon personalInfo-icon-selected');
+    container.find('li:eq(1)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon customize-icon-grey');
+    container.find('li:eq(2)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon confirmation-icon-grey');
+    container.find('li').removeClass('ticked');
+    $('#book-back').removeClass('customizeBackBtn').addClass('hide');
+    normalHeader.removeClass('hide');
+    $('header').removeClass('fixed');
+
 };
 
-$.customizeState = function(){
-	var container=$('.bike-to-buy-tabs ul');
-	container.find('li:eq(0)').find('span.buy-icon').attr('class','').attr('class','booking-sprite buy-icon booking-tick-blue');
-	container.find('li:eq(1)').find('span.buy-icon').attr('class','').attr('class','booking-sprite buy-icon customize-icon-selected');
-	container.find('li:eq(2)').find('span.buy-icon').attr('class','').attr('class','booking-sprite buy-icon confirmation-icon-grey');
-	container.find('li').each(function(){
-		if($(this).find('div.bike-buy-part').attr('data-type-tab') == 'preference')
-			$(this).find('div.bike-buy-part').removeClass('active-tab').addClass('disabled-tab');
-		else
-			$(this).find('div.car-buy-part').addClass('active-tab').removeClass('disabled-tab');
-	});
-	$('.booking-tabs ul li:first-child, .booking-tabs ul li:eq(1)').addClass('ticked');
-	$('.booking-tabs ul li:last-child').removeClass('ticked');
-	$('.booking-tabs ul li:eq(1)').removeClass('middle').addClass('middle');
-	normalHeader.addClass('hide');
-	$('header').addClass('fixed');
-	$('#book-back').removeClass('hide');
-	$('#book-back').removeClass('confirmationBackBtn').addClass('customizeBackBtn');
+$.customizeState = function () {
+    var container = $('.bike-to-buy-tabs ul');
+    container.find('li:eq(0)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon booking-tick-blue');
+    container.find('li:eq(1)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon customize-icon-selected');
+    container.find('li:eq(2)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon confirmation-icon-grey');
+    container.find('li').each(function () {
+        if ($(this).find('div.bike-buy-part').attr('data-type-tab') == 'preference')
+            $(this).find('div.bike-buy-part').removeClass('active-tab').addClass('disabled-tab');
+        else
+            $(this).find('div.car-buy-part').addClass('active-tab').removeClass('disabled-tab');
+    });
+    $('.booking-tabs ul li:first-child, .booking-tabs ul li:eq(1)').addClass('ticked');
+    $('.booking-tabs ul li:last-child').removeClass('ticked');
+    $('.booking-tabs ul li:eq(1)').removeClass('middle').addClass('middle');
+    normalHeader.addClass('hide');
+    $('header').addClass('fixed');
+    $('#book-back').removeClass('hide');
+    $('#book-back').removeClass('confirmationBackBtn').addClass('customizeBackBtn');
 };
 
-$.confirmationState = function(){
-	var container=$('.bike-to-buy-tabs ul');
-	container.find('li:eq(0)').find('span.buy-icon').attr('class','').attr('class','booking-sprite buy-icon booking-tick-blue');
-	container.find('li:eq(1)').find('span.buy-icon').attr('class','').attr('class','booking-sprite buy-icon booking-tick-blue');
-	container.find('li:eq(2)').find('span.buy-icon').attr('class','').attr('class','booking-sprite buy-icon confirmation-icon-selected');
-	container.find('li').each(function(){
-		$(this).find('div.bike-buy-part').addClass('active-tab').removeClass('disabled-tab');
-	});
-	$('.booking-tabs ul li').addClass('ticked');
-	$('.booking-tabs ul li:eq(1)').removeClass('middle');
-	normalHeader.addClass('hide');
-	$('header').addClass('fixed');
-	$('#book-back').removeClass('hide');
-	$('#book-back').removeClass('customizeBackBtn').addClass('confirmationBackBtn');
+$.confirmationState = function () {
+    var container = $('.bike-to-buy-tabs ul');
+    container.find('li:eq(0)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon booking-tick-blue');
+    container.find('li:eq(1)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon booking-tick-blue');
+    container.find('li:eq(2)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon confirmation-icon-selected');
+    container.find('li').each(function () {
+        $(this).find('div.bike-buy-part').addClass('active-tab').removeClass('disabled-tab');
+    });
+    $('.booking-tabs ul li').addClass('ticked');
+    $('.booking-tabs ul li:eq(1)').removeClass('middle');
+    normalHeader.addClass('hide');
+    $('header').addClass('fixed');
+    $('#book-back').removeClass('hide');
+    $('#book-back').removeClass('customizeBackBtn').addClass('confirmationBackBtn');
 };
 
-$.scrollToSteps = function(){
-	var topScroll = $('#offerSection').offset().top - 50; 
-	$('body').animate({scrollTop : topScroll},300);
+$.scrollToSteps = function () {
+    var topScroll = $('#offerSection').offset().top - 50;
+    $('body').animate({ scrollTop: topScroll }, 300);
 };
 
-$(window).scroll(function(){ 
-	if($('#book-back').is(':visible')){
-		if($(window).scrollTop() > 50){
-			$('header').addClass('fixed');
-		}
-		else{
-			$('header').removeClass('fixed');
-		}
-	}
+$(window).scroll(function () {
+    if ($('#book-back').is(':visible')) {
+        if ($(window).scrollTop() > 50) {
+            $('header').addClass('fixed');
+        }
+        else {
+            $('header').removeClass('fixed');
+        }
+    }
 });
 
-$(".varient-item").click(function(){
-	$(".varient-item").removeClass("border-dark selected");
-	$(this).addClass("border-dark selected");
-	$(".varient-heading-text").removeClass("text-orange");
-});
-
-
-$('.available-colors .color-box').on('click',function(e) {
-	if(!$(this).find('span.ticked').hasClass("selected")){
-		$('.color-box').find('span.ticked').hide();
-		$('.color-box').find('span.ticked').removeClass("selected");
-		$(this).find('span.ticked').show();
-		$(this).find('span.ticked').addClass("selected");
-	}
-	else{
-		$(this).find('span.ticked').hide();
-		$(this).find('span.ticked').removeClass("selected");
-	}
-});
-
-
-var varientSelection = function(){
-	var a = 0;
-	$(".varient-item").each(function(){
-		if($(this).hasClass("selected")){
-			a += 1;
-		}
-	});
-	var total = a;
-	if(total == 0){
-		return false;
-	}
-	else if(total >= 1) {
-		return true;	
-	}
+var varientSelection = function () {
+    var total = viewModel.SelectedVarient();
+    if (total) {
+        return true;
+    }
+    else{
+        return false;
+    }
 }

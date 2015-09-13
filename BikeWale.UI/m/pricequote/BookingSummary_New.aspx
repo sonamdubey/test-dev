@@ -10,7 +10,7 @@
     <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <link href="/m/css/bwm-booking.css" rel="stylesheet" type="text/css" />   
 
-        <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix"><!--  Discover bikes section code starts here -->
+    <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix"><!--  Discover bikes section code starts here -->
         <div class="grid-12">
             <!-- ko with: viewModel.SelectedVarient() -->
                 <div class="imageWrapper margin-top10">
@@ -93,40 +93,40 @@
                     <div class="personal-info-form-container margin-top10">
                     	<div class="form-control-box personal-info-list">
                             <input type="text" class="form-control get-first-name" placeholder="First name"
-                            id="getFirstName">
+                            id="getFirstName" data-bind="value: viewModel.CustomerVM().firstName">
                             <span class="bwmsprite error-icon"></span>
                             <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
                         </div>
                         <div class="form-control-box personal-info-list">
                             <input type="text" class="form-control get-last-name" placeholder="Last name"
-                            id="getLastName">
+                            id="getLastName" data-bind="value: viewModel.CustomerVM().lastName">
                             <span class="bwmsprite error-icon"></span>
                             <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
                         </div>
                         <div class="form-control-box personal-info-list">
                             <input type="text" class="form-control get-email-id" placeholder="Email address"
-                            id="getEmailID">
+                            id="getEmailID"  data-bind="value: viewModel.CustomerVM().emailId">
                             <span class="bwmsprite error-icon"></span>
-                            <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+                            <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="form-control-box personal-info-list">
                             <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no."
-                            id="getMobile">
+                            id="getMobile"  data-bind="value: viewModel.CustomerVM().mobileNo">
                             <span class="bwmsprite error-icon"></span>
                             <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
                         </div>
                         <div class="clear"></div>
-                        <button class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn">Next</button>
+                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn">Next</a>
                     </div>
                     <div class="mobile-verification-container margin-top20 hide">
                         <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
                         <div class="form-control-box  padding-left15 padding-right15">
-                            <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" id="getOTP">
+                            <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" id="getOTP"  data-bind="value: viewModel.CustomerVM().otpCode">
                             <span class="bwmsprite error-icon"></span>
                             <div class="bw-blackbg-tooltip errorText">Please enter a valid OTP</div>
                         </div>
                         <div class="clear"></div>
-                        <button class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</button>
+                        <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
                     </div>
                 </div>
                  
@@ -135,62 +135,17 @@
                         <span class="iconTtl text-bold">Customize</span>
                     </p>
                     <p class="font14 text-center margin-top20 varient-heading-text">Choose your variant</p>
-                    <ul class="varientsList margin-top10">
+                    <ul class="varientsList margin-top10" data-bind="foreach: viewModel.Varients()">
                     	<li>
                         <div class="clear text-left">
-                            <div class="varient-item border-solid content-inner-block-10 rounded-corner2">
+                            <div class="varient-item border-solid content-inner-block-10 rounded-corner2" data-bind="attr: { class: (minSpec().versionId() == $parent.SelectedVarient().minSpec().versionId()) ? 'selected border-dark varient-item border-solid content-inner-block-10 rounded-corner2' : 'varient-item border-solid content-inner-block-10 rounded-corner2' }, click: function () { $parent.selectVarient($data, event); }">
                                 <div class="grid-12 alpha margin-bottom10">
-                                    <h3 class="font16">Pearl Sunbeam White-ABS</h3>
-                                    <p class="font14">220 CC, 38 Kmpl, 103 bhp @ 11000 rpm</p>
+                                    <h3 class="font16"  data-bind="text: minSpec().versionName"></h3>
+                                    <p class="font14"  data-bind="text: minSpec().displayMinSpec"></p>
                                 </div>
                                 <div class="grid-12 alpha omega">
-                                    <p class="font18"><span class="fa fa-rupee margin-right5"></span>1,67,673</p>
-                                    <p class="font12 text-green">Now available</p>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        </li>
-                        <li>
-                        <div class="clear text-left">
-                            <div class="varient-item border-solid content-inner-block-10 rounded-corner2">
-                                <div class="grid-12 alpha margin-bottom10">
-                                    <h3 class="font16">Pearl Sunbeam White-ABS</h3>
-                                    <p class="font14">220 CC, 38 Kmpl, 103 bhp @ 11000 rpm</p>
-                                </div>
-                                <div class="grid-12 alpha omega">
-                                    <p class="font18"><span class="fa fa-rupee margin-right5"></span>1,67,673</p>
-                                    <p class="font12 text-light-grey">Waiting of 60 days</p>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        </li>
-                        <li>
-                        <div class="clear text-left">
-                            <div class="varient-item border-solid content-inner-block-10 rounded-corner2">
-                                <div class="grid-12 alpha margin-bottom10">
-                                    <h3 class="font16">Pearl Sunbeam White-ABS</h3>
-                                    <p class="font14">220 CC, 38 Kmpl, 103 bhp @ 11000 rpm</p>
-                                </div>
-                                <div class="grid-12 alpha omega">
-                                    <p class="font18"><span class="fa fa-rupee margin-right5"></span>1,67,673</p>
-                                    <p class="font12 text-light-grey">Ex-showroom, Delhi</p>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                        </li>
-                        <li>
-                        <div class="clear text-left">
-                            <div class="varient-item border-solid content-inner-block-10 rounded-corner2">
-                                <div class="grid-12 alpha margin-bottom10">
-                                    <h3 class="font16">Pearl Sunbeam White-ABS</h3>
-                                    <p class="font14">220 CC, 38 Kmpl, 103 bhp @ 11000 rpm</p>
-                                </div>
-                                <div class="grid-12 alpha omega">
-                                    <p class="font18"><span class="fa fa-rupee margin-right5"></span>1,67,673</p>
-                                    <p class="font12 text-green">Now available</p>
+                                    <p class="font18"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: onRoadPrice"></span></p>
+                                    <p class="font12 text-green"  data-bind="html: availText"></p>
                                 </div>
                                 <div class="clear"></div>
                             </div>
@@ -205,31 +160,11 @@
                         <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
                         <div class="jcarousel-wrapper">
                             <div class="jcarousel">
-                                <ul class="text-center">
+                                <ul class="text-center" data-bind="foreach: viewModel.ModelColors()">
                                     <li class="available-colors">
-                                        <div class="color-box red"><span class="ticked hide"></span></div>
-                                        <p class="font16 text-medium-grey">Dazzling Red</p>
-                                    </li>
-                                    <li class="available-colors">
-                                        <div class="color-box blue"><span class="ticked hide"></span></div>
-                                        <p class="font16 text-medium-grey">Dazzling Blue</p>
-                                    </li>
-                                    <li class="available-colors">
-                                        <div class="color-box red"><span class="ticked hide"></span></div>
-                                        <p class="font16 text-medium-grey">Dazzling Red</p>
-                                    </li>
-                                    <li class="available-colors">
-                                        <div class="color-box blue"><span class="ticked hide"></span></div>
-                                        <p class="font16 text-medium-grey">Californoia Blue</p>
-                                    </li>
-                                    <li class="available-colors">
-                                        <div class="color-box red"><span class="ticked hide"></span></div>
-                                        <p class="font16 text-medium-grey">Dazzling Red</p>
-                                    </li>
-                                    <li class="available-colors">
-                                        <div class="color-box red"><span class="ticked hide"></span></div>
-                                        <p class="font16 text-medium-grey">Dazzling Red</p>
-                                    </li>
+                                        <div class="color-box" data-bind="style: { 'background-color': '#' + hexCode() }, click: function () { $parent.selectModelColor($data,event); }"><span class="ticked hide"></span></div>
+                                        <p class="font16 text-medium-grey" data-bind="text: colorName"></p>
+                                    </li>                                    
                                 </ul>
                              </div>
                              <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
@@ -240,7 +175,7 @@
                     </div>
                     
                     <p class="font12 margin-bottom20">* Colours are subject to availabilty, can be selected at the dealership</p>
-                    <button class="customize-submit-btn btn btn-full-width btn-orange margin-bottom20">Next</button>
+                    <button class="customize-submit-btn btn btn-full-width btn-orange margin-bottom20" data-bind="click: function () { viewModel.generatePQ(); }">Next</button>
                     <div class="clear"></div>
                     <!--<div class="btn btn-link btn-full-width customizeBackBtn">Back</div>-->
                 </div>
@@ -252,8 +187,10 @@
                     <!--<p class="font14 text-center margin-top20">Choose your variant</p>-->
                     <div class="feedback-container margin-top30">
                     	<p class="text-bold font16">Congratulations!</p>
-                        <p class="margin-bottom20">Hi <span>Amit Choubey,</span></p>
-                        <p class="margin-bottom15" style="line-height:22px;">you can now book your bike by just paying <span class="font22"><span class="fa fa-rupee margin-right5"></span><span class="text-bold font24">3000</span></span></p>
+                        <p class="margin-bottom20">Hi <span data-bind="text: viewModel.CustomerVM().fullName"></span></p>
+                        <!-- ko with: viewModel.SelectedVarient() -->
+                        <p class="margin-bottom15" style="line-height:22px;">you can now book your bike by just paying <span class="font22"><span class="fa fa-rupee margin-right5"></span><span class="text-bold font24" data-bind="text: bookingAmount"></span></span></p>
+                        <!-- /ko -->
                         <p class="margin-bottom15">You can pay that booking amount using a Credit Card/Debit Card/Net Banking.</p>
                         <p> 
 Book your bike online at BikeWale and make the balance payment at the dealership to avail great offers.</p>
@@ -270,7 +207,6 @@ Book your bike online at BikeWale and make the balance payment at the dealership
         </div>
         <div class="clear"></div>   
     </section>
-    
     
     <section><!--  toll-free code starts here -->
         <div class="container">
@@ -324,8 +260,36 @@ Book your bike online at BikeWale and make the balance payment at the dealership
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
-    <script src="/m/src/framework/knockout.js" type="text/javascript"></script>
+    <script src="/src/framework/knockout.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var pqId = '<%= pqId %>'
+        var verId = '<%= versionId %>';
+        var cityId = '<%= cityId%>';
+        var dealerId = '<%= dealerId%>';
+        var clientIP = '<%= clientIP %>';
+        var pageUrl = '<%= pageUrl%>';
+        var areaId = '<%= areaId%>';
+    </script>
     <script src="/m/src/bwm-booking.js" type="text/javascript"></script>
+    <script language="javascript" type="text/javascript">
+        window.onload = function () {
+        var btnRelease = document.getElementById('<%= clientIP %>');
+	    //Find the button set null value to click event and alert will not appear for that specific button
+	    function setGlobal() {
+	        window.onbeforeunload = null;
+	    }
+	    $(btnRelease).click(setGlobal);
+
+	    // Alert will not appear for all links on the page
+	    $('a').click(function () {
+	        window.onbeforeunload = null;
+
+	    });
+	    window.onbeforeunload = function () {
+	        return "";
+	    };
+	};
+ </script>
  </form>
 </body>
 </html>
