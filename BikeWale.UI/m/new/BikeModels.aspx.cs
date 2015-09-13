@@ -27,7 +27,8 @@ namespace Bikewale.Mobile.New
         protected AlternativeBikes ctrlAlternateBikes;
         protected NewsWidget ctrlNews;
         protected ExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;
+        protected VideosWidget ctrlVideos;        
+        //protected UserReviewsList ctrlUserReviews;
 
         // Register global variables
         protected ModelPage modelPage;
@@ -35,6 +36,8 @@ namespace Bikewale.Mobile.New
         protected Repeater rptModelPhotos, rptVarients, rptColors;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
+        protected String cityId = String.Empty;
+        protected short reviewTabsCnt = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -47,16 +50,14 @@ namespace Bikewale.Mobile.New
             {                
                 #region Do not change the sequence of these functions
                     ParseQueryString();
+                    CheckCityCookie();
                     FetchModelPageDetails();
                     BindRepeaters();
+                    BindAlternativeBikeControl();
                     clientIP = CommonOpn.GetClientIP(); 
                 #endregion                
 
-                // Alternate bikes
-                ctrlAlternateBikes.VersionId = 22;
-                ctrlAlternateBikes.TopCount = 4;
-
-                // news,videos,revews
+                ////news,videos,revews, user reviews
                 ctrlNews.TotalRecords = 3;
                 ctrlNews.ModelId = Convert.ToInt32(modelId);
 
@@ -65,8 +66,23 @@ namespace Bikewale.Mobile.New
 
                 ctrlVideos.TotalRecords = 3;
                 ctrlVideos.ModelId = Convert.ToInt32(modelId);
+
+                //ctrlUserReviews.ReviewCount = 4;
+                //ctrlUserReviews.PageNo = 1;
+                //ctrlUserReviews.PageSize = 4;
+                //ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
             }
 		}
+
+        private void BindAlternativeBikeControl()
+        {
+            ctrlAlternateBikes.TopCount = 6;
+
+            if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+            {
+                ctrlAlternateBikes.VersionId = modelPage.ModelVersions[0].VersionId;
+            }
+        }
 
         /// <summary>
         /// Function to bind the photos album
@@ -92,6 +108,7 @@ namespace Bikewale.Mobile.New
                 rptColors.DataBind();
             }
         }
+
 
         /// <summary>
         /// Function to get the required parameters from the query string.
@@ -148,17 +165,34 @@ namespace Bikewale.Mobile.New
             }
         }
 
+        private void CheckCityCookie()
+        {
+            string location = String.Empty;
+            if (this.Context.Request.Cookies.AllKeys.Contains("location"))
+            {
+                location = this.Context.Request.Cookies["location"].Value;
+                cityId = location.Split('_')[0];
+            }
+            else
+            {
+                cityId = "0";
+            }
+        }
+
         private void FetchModelPageDetails()
         {
             try
             {
                 string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
-                string _apiUrl = String.Format("/api/Model?modelId={0}&isNew=true&specs=1&features=1", modelId);
+                string _apiUrl = String.Format("/api/model/details/?modelId={0}", modelId);
 
                 modelPage = BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
-                
-                bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+
+                if (modelPage != null)
+                {
+                    bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+                }
             }
             catch (Exception ex)
             {
