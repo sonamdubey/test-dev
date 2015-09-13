@@ -200,13 +200,13 @@ $("#personal-info-tab, .customizeBackBtn").click(function () {
     }
 });
 
-$('#customize-tab, .confirmationBackBtn').click(function () {
-    if (!$(this).hasClass('disabled-tab')) {
+$('#customize-tab, .confirmationBackBtn').click(function () {    
+    if (!$(this).hasClass('disabled-tab')) {        
         $.customizeState();
         $.showCurrentTab('customize');
         $('#customize-tab').addClass('active-tab text-bold');
         $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
-        $('#personal-info-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
+        $('#personal-info-tab').addClass('active-tab').removeClass('disabled-tab text-bold');        
     }
 });
 

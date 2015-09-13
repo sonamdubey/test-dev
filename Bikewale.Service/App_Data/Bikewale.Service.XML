@@ -1088,19 +1088,18 @@
             Created On  :   21 Aug 2015
             </summary>
         </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="objIPQ"></param>
+        </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post(Bikewale.DTO.PriceQuote.PQInput)">
             <summary>
             Bikewale Price Quote and Dealer Price Quote
             </summary>
             <param name="input">Entity contains the required details to get the price quote details</param>
             <returns></returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post(Bikewale.DTO.PriceQuote.DealerPriceQuote.DPQuotationInput)">
-            <summary>
-            Generates the dealer price quote
-            </summary>
-            <param name="input">Required parameters to generate the dealer price quote</param>
-            <returns>Dealer Price Quotation</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController">
             <summary>
