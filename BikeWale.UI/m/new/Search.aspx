@@ -16,7 +16,7 @@
     <body class="bg-light-grey">
         <!-- #include file="/includes/Navigation_Mobile.aspx" -->
         <link href="/m/css/new/bwm-search.css" rel="stylesheet" type="text/css" />
-
+        <div class="blackOut-window"></div>
         <header>
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
         	    <span id="bikecount" class="font18 text-white brand-total"></span>
@@ -83,7 +83,7 @@
                                     <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                     <div class="imageWrapper">
                                         <a data-bind="attr: { href: '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' }">
-                                            <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/227X128/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
+                                            <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/310x174/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
                                         </a>
                                     </div>
                                         <div class="bikeDescWrapper">

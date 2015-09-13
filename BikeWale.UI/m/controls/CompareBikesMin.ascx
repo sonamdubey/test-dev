@@ -48,7 +48,7 @@
         </div>
 
         <div class="font16 text-center padding-top15 padding-bottom15">
-            <a href="/m/comparebikes/">View more Comparisons</a>
+            <a href="/m/comparebikes/">View more comparisons</a>
         </div>
     </div>
     <div class="clear"></div>
