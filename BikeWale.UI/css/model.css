@@ -10,7 +10,7 @@
 .offer-list-container ul { list-style-type:disc; }
 .offer-list-container ul li { margin-left:20px; padding-bottom:5px;}
 .unveil-offer-btn-container { width:100%; height:100%; background:rgba(255,255,255,0.8); }
-.unveil-offer-btn-container button { position:absolute; top:40%; left:28%; }
+.unveil-offer-btn-container input[type='button'] { position:absolute; top:40%; left:28%; }
 .offer-error-text { color:#f00; }
 
 .city-area-select-container { width:100%; min-height:100px; }
@@ -69,7 +69,7 @@
 .bw-dimensions-ico { background-position:0 -99px; width:33px; height:22px; margin-right:20px; position:relative; top:3px;}
 .bw-performance-ico { background-position:0 -131px; width:11px; height:22px; margin-right:41px; position:relative; top:3px; left:7px;}
 .bw-upcoming-bike-ico { background-position:0 -165px; width:135px; height:28px; }
-.bw-discontinued-bike-ico { background-position:; width:; height:; }
+.bw-discontinued-bike-ico { background-position:0 -202px; width:160px; height:28px; }
 
 /*news-videos tabs*/
 .newBikes-latest-updates-container .home-tabs { background:#ccc;}

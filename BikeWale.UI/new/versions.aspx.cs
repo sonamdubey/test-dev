@@ -117,6 +117,7 @@ namespace Bikewale.New
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
+        protected String cityId = String.Empty;
         protected AlternativeBikes ctrlAlternativeBikes;
         protected short reviewTabsCnt = 0;
 
@@ -135,10 +136,11 @@ namespace Bikewale.New
             if (!IsPostBack)
             {
                 ParseQueryString();
+                CheckCityCookie();
                 FetchModelPageDetails();
                 BindPhotoRepeater();
                 BindAlternativeBikeControl();
-                clientIP = this.Context.Request.ServerVariables["REMOTE_ADDR"];
+                clientIP = CommonOpn.GetClientIP();
             }
 
             ////news,videos,revews, user reviews
@@ -233,6 +235,20 @@ namespace Bikewale.New
             else
             {
 
+            }
+        }
+
+        private void CheckCityCookie()
+        {
+            string location = String.Empty;
+            if (this.Context.Request.Cookies.AllKeys.Contains("location"))
+            {
+                location = this.Context.Request.Cookies["location"].Value;
+                cityId = location.Split('_')[0];
+            }
+            else
+            {
+                cityId = "0";
             }
         }
 

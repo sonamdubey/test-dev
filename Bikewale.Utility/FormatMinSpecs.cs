@@ -124,5 +124,52 @@ namespace Bikewale.Utility
 
             return showValue;
         }
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 12 Sept 2015
+        /// Summary : Function to format the version specs
+        /// </summary>
+        /// <param name="alloyWheel"></param>
+        /// <param name="elecStart"></param>
+        /// <param name="abs"></param>
+        /// <param name="breakType"></param>
+        /// <returns></returns>
+        public static string GetMinVersionSpecs(bool alloyWheel, bool elecStart, bool abs, string breakType)
+        {
+            string format = "";
+            if (alloyWheel)
+            {
+                format = String.Concat(format.Trim(), " Alloy Wheels,");
+            }
+            else
+            {
+                format = String.Concat(format.Trim(), " Spoke Wheels,");
+            }
+
+            if (elecStart)
+            {
+                format = String.Concat(format.Trim(), " Electric Start,");
+            }
+            else
+            {
+                format = String.Concat(format.Trim(), " Kick Start,");
+            }
+
+            if (abs)
+            {
+                format = String.Concat(format.Trim(), " ABS,");
+            }
+
+            if (!String.IsNullOrEmpty(breakType))
+            {
+                format = String.Concat(format.Trim(), breakType, " Brake,");
+            }
+
+            if (String.IsNullOrEmpty(format.Trim()))
+            {
+                return "No specifications.";
+            }
+            return format.Trim().Substring(0, format.Length - 1);    
+        }
     }
 }

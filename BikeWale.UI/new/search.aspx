@@ -153,7 +153,8 @@
                         <div class="grid-2">
                             <div class="rightfloat">
                                	<div class="more-filters-btn position-rel rounded-corner2">
-                                	<span class="font14">Filters</span>
+                                	<span class="bwsprite filter-icon inline-block"></span>
+                                    <span class="font14 inline-block">Filters</span>
                                     <div class="filter-count-container">
                                     	<div class="filter-counter">0</div>
                                         <span></span>

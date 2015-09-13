@@ -547,6 +547,10 @@ function SetCookie(cookieName, cookieValue) {
     document.cookie = cookieName + "=" + cookieValue + '; path =/';
 }
 
+function SetCookie(cookieName, cookieValue) {
+    document.cookie = cookieName + "=" + cookieValue + '; path =/';
+}
+
 function SetCookieInDays(cookieName, cookieValue, nDays) {
     var today = new Date();
     var expire = new Date();
