@@ -1,18 +1,16 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.BookingSummary_New" %>
-
 <!DOCTYPE html>
-
 <html>
 <head>
     <%
-        title = bikeName + " Booking Summary";
+        title = bikeName + " Bookingbooking-sprite buy-icon customize-icon-grey Summary";
         description = "Authorise dealer price details of a bike " + bikeName;
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="../css/booking.css" rel="stylesheet" type="text/css">
+    <link href="/css/booking.css" rel="stylesheet" type="text/css">
 </head>
-<body>
+<body class="header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10">

@@ -48,7 +48,7 @@
                                         <div style="float:left;width:144px;" id ='dtlstPhotosPending_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='pending <%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "show" : "hide" %>' pending="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "true" : "false" %>">
                                             <p style="color:#555555;font-weight:bold;">
                                             Processing...
-                                            <img  align="center" src='http://img.aeplcdn.com/loader.gif'/>
+                                            <img  align="center" src='/images/search-loading.gif'/>
                                             </p>
                                         </div>   
                                     </td>

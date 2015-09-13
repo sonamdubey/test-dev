@@ -66,6 +66,7 @@ function FillCitiesPopup(modelId) {
         data: '{"modelId":"' + modelId + '"}',
         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
         success: function (response) {
+            selectedModel = modelId;
             $('.blackOut-window,#popupWrapper').fadeIn(100);
             var obj = JSON.parse(response);
             var cities = JSON.parse(obj.value);
@@ -196,7 +197,6 @@ $("a.fillPopupData").on("click", function (e) {
     $("#errMsgPopUp").empty();
     var str = $(this).attr('modelId');
     var modelIdPopup = parseInt(str, 10);
-    selectedModel = modelIdPopup;
     FillCitiesPopup(modelIdPopup);
 });
 </script>
