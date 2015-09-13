@@ -191,9 +191,8 @@ $(document).ready(function () {
     ko.applyBindings(viewModelPopup, $("#popupContent")[0]);
 });
 
-
-$("a.fillPopupData").delegate("click", function (e) {
-    e.preventDefault();
+$("a.fillPopupData").on("click", function (e) {
+    e.stopPropagation();    
     $("#errMsgPopUp").empty();
     var str = $(this).attr('modelId');
     var modelIdPopup = parseInt(str, 10);

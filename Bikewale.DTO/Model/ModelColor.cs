@@ -14,6 +14,8 @@ namespace Bikewale.DTO.Model
     /// </summary>
     public class ModelColor
     {
+        [JsonProperty("id")]
+        public uint Id { get; set; }
         [JsonProperty("modelId")]
         public uint ModelId { get; set; }
         [JsonProperty("colorName")]

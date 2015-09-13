@@ -27,6 +27,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
     public class PriceQuoteController : ApiController
     {
         private readonly IDealerPriceQuote _objIPQ = null;
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="objIPQ"></param>
         public PriceQuoteController(IDealerPriceQuote objIPQ)
         {
             _objIPQ = objIPQ;
@@ -50,6 +54,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 objPQEntity.ClientIP = input.ClientIP;
                 objPQEntity.SourceId = Convert.ToUInt16(input.SourceType);
                 objPQEntity.ModelId = input.ModelId;
+                objPQEntity.VersionId = input.VersionId;
                 objPQOutput = _objIPQ.ProcessPQ(objPQEntity);
                 if (objPQOutput != null)
                 {
@@ -64,42 +69,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post");
-                objErr.SendMail();
-                return InternalServerError();
-            }
-        }
-
-        /// <summary>
-        /// Generates the dealer price quote
-        /// </summary>
-        /// <param name="input">Required parameters to generate the dealer price quote</param>
-        /// <returns>Dealer Price Quotation</returns>
-        [ResponseType(typeof(DPQuotationOutput))]
-        public IHttpActionResult Post([FromBody]DPQuotationInput input)
-        {
-            PQ_QuotationEntity objPrice = null;
-            DPQuotationOutput output = null;
-            try
-            {
-                string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string requestType = "application/json";
-                string api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", input.CityId, input.VersionId, input.DealerId);
-
-                objPrice = BWHttpClient.GetApiResponseSync<PQ_QuotationEntity>(abHostUrl, requestType, api, objPrice);
-
-                if (objPrice != null)
-                {
-                    output = DPQuotationOutputMapper.Convert(objPrice);
-                    return Ok(output);
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.DealerPriceQuoteController.Post");
                 objErr.SendMail();
                 return InternalServerError();
             }

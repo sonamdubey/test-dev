@@ -49,8 +49,8 @@ namespace Bikewale.DAL.NewBikeSearch
 		                        ,ISNULL(SD.MaxPower,0) AS Power
 		                        ,ISNULL(SD.FuelEfficiencyOverall,0) FuelEfficiencyOverall
 		                        ,ISNULL(SD.KerbWeight,0) AS [Weight]
-		                        ,MO.MinPrice AS MinPrice
-		                        ,MO.MaxPrice AS MaxPrice
+		                        ,ISNULL(MO.MinPrice, 0) AS MinPrice
+		                        ,ISNULL(MO.MaxPrice, 0) AS MaxPrice
 		                        ,ISNULL(MO.ReviewRate, 0) MoReviewRate
 		                        ,ISNULL(MO.ReviewCount, 0) MoReviewCount
 		                        ,ISNULL(BV.ReviewRate, 0) VsReviewRate

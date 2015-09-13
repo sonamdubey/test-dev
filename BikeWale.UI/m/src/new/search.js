@@ -731,6 +731,8 @@ $.resetFilterUI = function () {
         if (params[i].length > 0) {
             var node = $('div[name=' + params[i] + ']');
             if (params[i] == 'bike' || params[i] == 'displacement' || params[i] == 'ridestyle') {
+                node.prev().find('.hida').removeClass('hide');
+                node.prev().find('.multiSel').html('');
                 node.find('li').each(function () {
                     $(this).removeClass('checked');
                 });
@@ -739,7 +741,8 @@ $.resetFilterUI = function () {
                     $(this).removeClass('optionSelected');
                 });
             } else if (params[i] == 'budget') {
-                $.setSliderRangeQS($('#mSlider-range'), 0, 20);
+                $.setSliderRangeQS($('#mSlider-range'), 1, 20);
+                $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span> 0 -' + ' ' + '<span class="bw-m-sprite rupee"></span> Any value');
             } else if (params[i] == 'mileage') {
                 node.each(function () {
                     $(this).find('span').removeClass('optionSelected');
