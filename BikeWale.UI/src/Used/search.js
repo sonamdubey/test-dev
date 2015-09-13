@@ -250,7 +250,7 @@ function setCheckedStatus(hash){
 		var param = paramCollection[i].split('=');
 		if( param.length == 2 ){			
 			var obj_ul_params = $("#"+ param[0]);
-			obj_ul_params.removeClass("hide").addClass("show"); // show the respective ul of selected param
+			obj_ul_params.removeClass("hide"); // show the respective ul of selected param
 			
 			$("#"+ param[0] + "_exp_col").attr("title","collapse").removeClass("expnd").addClass("collapse"); // manage expend/collapse icons
 			
@@ -320,7 +320,7 @@ function appliedFilters(paramObj, paramVal) {
         var child_length = appCriteriaObj.children().length;
         var clause_name = child_length == 1 ? " " + $(paramObj).html() : "" + $(paramObj).html(),
 		append_param = '<span id="' + ulCriteria + "_" + paramVal + '" class="text-grey2 sel_parama">' + clause_name + '<span id="removeSel">X</span></span>';        
-        appCriteriaObj.removeClass("hide").show().append(append_param);
+        appCriteriaObj.removeClass("hide").append(append_param);
     } else {        
         $('#' + append_param_id).remove();
     }
@@ -330,7 +330,7 @@ function appliedFiltersCities(yourCity){
     $("#_city span:not(:first-child)").remove();
 
     if ($('#drpCity option:selected').val() != '0')
-        $("#_city").removeClass("hide").show().append("<span id='your_city' class='text-grey2'>" + $('#drpCity option:selected').text() + " within " + $('#drpCityDist option:selected').text() + "</span>");
+        $("#_city").removeClass("hide").append("<span id='your_city' class='text-grey2'>" + $('#drpCity option:selected').text() + " within " + $('#drpCityDist option:selected').text() + "</span>");
 }
 
 function showModelLink(objFilter){

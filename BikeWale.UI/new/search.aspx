@@ -350,12 +350,13 @@
         </div>
     </section>
     
-    <PW:PopupWidget runat="server" ID="PopupWidget" />
+    
 <!-- #include file="/includes/footerBW.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
 <script type="text/javascript" src="/src/framework/knockout.js"></script>
 <script type="text/javascript" src="/src/common/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="/src/new/search.js"></script>
+    <PW:PopupWidget runat="server" ID="PopupWidget" />
 </form>
 </body>
 </html>

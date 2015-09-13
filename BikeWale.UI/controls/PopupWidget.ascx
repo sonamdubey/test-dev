@@ -59,6 +59,7 @@
             data: '{"modelId":"' + modelId + '"}',
             beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
             success: function (response) {
+                selectedModel = modelId;
                 $('.blackOut-window,#popupWrapper').fadeIn(100);
                 var obj = JSON.parse(response);
                 var cities = JSON.parse(obj.value);
@@ -252,10 +253,8 @@
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
             var modelIdPopup = parseInt(str, 10);
-            selectedModel = modelIdPopup;
             FillCitiesPopup(modelIdPopup);
         });
-
 
         $('#popupWrapper .close-btn,.blackOut-window').mouseup(function () {
             $('.blackOut-window,#popupWrapper').fadeOut(100);
