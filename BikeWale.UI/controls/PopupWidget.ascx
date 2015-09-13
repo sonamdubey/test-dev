@@ -244,6 +244,19 @@
     }
 
     $(document).ready(function () {
+
+        $('a.fillPopupData').on('click', function (e) {
+            pageId = $(this).attr('pageCatId');
+            gtmCodeAppender(pageId, "Button Clicked", null);
+            e.preventDefault();
+            $("#errMsgPopUp").empty();
+            var str = $(this).attr('modelId');
+            var modelIdPopup = parseInt(str, 10);
+            selectedModel = modelIdPopup;
+            FillCitiesPopup(modelIdPopup);
+        });
+
+
         $('#popupWrapper .close-btn,.blackOut-window').mouseup(function () {
             $('.blackOut-window,#popupWrapper').fadeOut(100);
         });
@@ -255,16 +268,6 @@
         ko.applyBindings(viewModelPopup, $("#popupContent")[0]);
     });
         
-    $('a.fillPopupData').on('click', function (e) {
-        pageId = $(this).attr('pageCatId');
-        gtmCodeAppender(pageId, "Button Clicked", null);
-        e.preventDefault();
-        $("#errMsgPopUp").empty();
-        var str = $(this).attr('modelId');
-        var modelIdPopup = parseInt(str, 10);
-        selectedModel = modelIdPopup;
-        FillCitiesPopup(modelIdPopup);
-    });
 
 </script>
 <script type="text/javascript" src="/src/common/chosen.jquery.min.js"></script>

@@ -1,8 +1,9 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.versions" %>
+
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
-<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
-<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
-<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
+<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PriceQuotePopup" %>
 <!doctype html>
@@ -12,7 +13,7 @@
     <% isHeaderFix = false; %>
     <link href="/css/model.css" rel="stylesheet" type="text/css">
 </head>
-<body class="bg-light-grey">    
+<body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-white">
@@ -48,10 +49,10 @@
                     <div class="content-box-shadow content-inner-block-10 padding-top20 padding-bottom20 rounded-corner2">
                         <div class="grid-6 alpha margin-minus10">
                             <div class="<%= modelPage.ModelDetails.Futuristic ? "" : "hide" %>">
-                        	    <span class="model-sprite bw-upcoming-bike-ico"></span>
+                                <span class="model-sprite bw-upcoming-bike-ico"></span>
                             </div>
                             <div class="<%= !modelPage.ModelDetails.Futuristic && !modelPage.ModelDetails.New ? "" : "hide" %>">
-                        	    <span class="model-sprite bw-discontinued-bike-ico"></span>
+                                <span class="model-sprite bw-discontinued-bike-ico"></span>
                             </div>
                             <div class="connected-carousels">
                                 <div class="stage">
@@ -105,77 +106,165 @@
                                 <div class="clear"></div>
                             </div>
 
-                        </div>                        
+                        </div>
                         <div class="grid-6 padding-left40" id="dvBikePrice">
-                            <% if( !modelPage.ModelDetails.Futuristic ) { %>
-                                <div class="bike-price-container font28 margin-bottom15">
-                                    <span class="fa fa-rupee"></span>
-                                    <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span> <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>
+                            <% if (!modelPage.ModelDetails.Futuristic)
+                               { %>
+                            <div class="bike-price-container font28 margin-bottom15">
+                                <span class="fa fa-rupee"></span>
+                                <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span> <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>
+                                <!-- View BreakUp Popup Starts here-->
+
+
+                                <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
+                                    <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                    <div class="breakup-text-container padding-bottom10">
+                                        <h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
+
+                                        <!-- ko if : !isDealerPQAvailable() && BWPriceList -->
+                                        <table class="font16">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="350" class="padding-bottom10">Ex-showroom (Mumbai)</td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().exShowroomPrice"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="padding-bottom10">RTO</td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().rto"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="padding-bottom10">Insurance (comprehensive)</td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().insurance"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="border-solid-top padding-bottom10"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- ko if :BWPriceList -->
+                                                    <td class="padding-bottom10 text-bold">Total on road price</td>
+                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: (parseInt(BWPriceList().insurance) + parseInt(BWPriceList().rto) + parseInt(BWPriceList().exShowroomPrice))"></span></td>
+                                                    <!-- /ko -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- /ko -->
+
+                                        <!-- ko if : isDealerPQAvailable() -->
+                                        <table class="font16">
+                                            <tbody>
+                                                <!-- ko foreach : DealerPriceList -->
+                                                <tr>
+                                                    <td width="350" class="padding-bottom10" data-bind="text: categoryName"></td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span> <span data-bind="text: price"></span></td>
+                                                </tr>
+                                                <!-- /ko  -->
+                                                <!-- ko if :DealerPriceList -->
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="border-solid-top padding-bottom10"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="padding-bottom10">Total on road price</td>
+                                                    <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span>  <span data-bind="text: DealerOnRoadPrice "></span></td>
+                                                </tr>
+                                                 <!-- /ko -->  
+                                                <tr>
+                                                    <td class="padding-bottom10">Minus insurance</td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span> 0</td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="border-solid-top padding-bottom10"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- ko if :DealerPriceList -->
+                                                    <td class="padding-bottom10 text-bold">Total on road price</td>
+                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span> <span data-bind="text: DealerOnRoadPrice "></span></td>
+                                                    <!-- /ko -->                                                    
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="border-solid-top padding-bottom10"></div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- /ko -->
+
+                                    </div>
                                 </div>
-                                <% if(!modelPage.ModelDetails.New) { %>
+
+                                <!--View Breakup popup ends here-->
+                            </div>
+                            <% if (!modelPage.ModelDetails.New)
+                               { %>
+                            <div class="text-left margin-bottom15">
+                                <p class="font16 offer-error">Last Recorded Price</p>
+                            </div>
+                            <% } %>
+                            <% if (modelPage.ModelDetails.New)
+                               { %>
+                            <div id="city-list-container" class="city-list-container margin-bottom20">
                                 <div class="text-left margin-bottom15">
-                                    <p class="font16 offer-error">Last Recorded Price</p>
+                                    <p class="font16 offer-error">Select city for accurate on-road price and exclusive offers</p>
                                 </div>
-                                <% } %>
-                                <% if(modelPage.ModelDetails.New) { %>
-                                <div id="city-list-container" class="city-list-container margin-bottom20">
-                                    <div class="text-left margin-bottom15">
-                                        <p class="font16 offer-error">Select city for accurate on-road price and exclusive offers</p>
-                                    </div>
-                                    <ul id="mainCity">
-                                        <li cityId="1"><span>Mumbai</span></li>
-                                        <li cityId="12"><span>Pune</span></li>
-                                        <li cityId="2"><span>Banglore</span></li>
-                                        <li cityId="40"><span>Thane</span></li>
-                                        <li cityId="13"><span>Navi Mumbai</span></li>
-                                        <li class="city-other-btn"><span>Others</span></li>
-                                    </ul>
+                                <ul id="mainCity">
+                                    <li cityid="1"><span>Mumbai</span></li>
+                                    <li cityid="12"><span>Pune</span></li>
+                                    <li cityid="2"><span>Banglore</span></li>
+                                    <li cityid="40"><span>Thane</span></li>
+                                    <li cityid="13"><span>Navi Mumbai</span></li>
+                                    <li class="city-other-btn"><span>Others</span></li>
+                                </ul>
+                            </div>
+                            <div id="city-area-select-container" class="city-area-select-container margin-bottom20 hide">
+                                <div class="city-select-text text-left margin-bottom15 hide">
+                                    <p class="font16">Select city for accurate on-road price and exclusive offers</p>
                                 </div>
-                                <div id="city-area-select-container" class="city-area-select-container margin-bottom20 hide">
-                                    <div class="city-select-text text-left margin-bottom15 hide">
-                                        <p class="font16">Select city for accurate on-road price and exclusive offers</p>
-                                    </div>
-                                    <div class="area-select-text text-left margin-bottom15 hide">
-                                        <p class="font16">Select area for on-road price and exclusive offers</p>
-                                    </div>
-                                    <div class="city-onRoad-price-container font16 margin-bottom15 hide">
-                                        <p class="margin-bottom10">On-road price in <span id="pqArea">Andheri</span>, <span id="pqCity">Mumbai</span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
-                                        <p class="font12 margin-bottom15 text-light-grey" id="breakup">(Ex-showroom + RTO + Insurance + Handling charges)</p>
-                                        <input type="button" class="btn btn-orange" id="btnBookNow" value="Avail offers" />
-                                    </div>
-                                    <div class="city-area-wrapper">
-                                        <div class="city-select leftfloat margin-right20">
-                                            <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', event : { change : LoadArea }"></select>
-                                        </div>
-                                        <div class="area-select leftfloat">
-                                            <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', enable: selectedCity, event: { change: OnAreaChange }"></select>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
+                                <div class="area-select-text text-left margin-bottom15 hide">
+                                    <p class="font16">Select area for on-road price and exclusive offers</p>
                                 </div>
-                                <div class="city-unveil-offer-container position-rel">
-                                    <div class="available-offers-container content-inner-block-10">
-                                        <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
-                                        <div class="offer-list-container" id="dvAvailableOffer">
-                                        
-                                        </div>
+                                <div class="city-onRoad-price-container font16 margin-bottom15 hide">
+                                    <p class="margin-bottom10">On-road price in <span id="pqArea">Andheri</span>, <span id="pqCity">Mumbai</span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
+                                    <p class="font12 margin-bottom15 text-light-grey" id="breakup">(Ex-showroom + RTO + Insurance + Handling charges)</p>
+                                    <input type="button" class="btn btn-orange" id="btnBookNow" value="Avail offers" />
+                                </div>
+                                <div class="city-area-wrapper">
+                                    <div class="city-select leftfloat margin-right20">
+                                        <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', event: { change: LoadArea }"></select>
                                     </div>
-                                    <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
-                                        <input type="button" class="btn btn-orange unveil-offer-btn" value="Show Offers" />
+                                    <div class="area-select leftfloat">
+                                        <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', enable: selectedCity, event: { change: OnAreaChange }"></select>
                                     </div>
-                                    <div class="notify-btn-container position-abt pos-left0 pos-top0 hide">
-                                        <div class="margin-top50 margin-left40">
-                                            <input type="text" placeholder="Notify me" class="notify-input">
-                                            <input type="button" class="btn btn-orange btn-xs" value="Notify me" />
-                                        </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <div class="city-unveil-offer-container position-rel">
+                                <div class="available-offers-container content-inner-block-10">
+                                    <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
+                                    <div class="offer-list-container" id="dvAvailableOffer">
                                     </div>
                                 </div>
-                                <% } %>
+                                <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
+                                    <input type="button" class="btn btn-orange unveil-offer-btn" value="Show Offers" />
+                                </div>
+                                <div class="notify-btn-container position-abt pos-left0 pos-top0 hide">
+                                    <div class="margin-top50 margin-left40">
+                                        <input type="text" placeholder="Notify me" class="notify-input">
+                                        <input type="button" class="btn btn-orange btn-xs" value="Notify me" />
+                                    </div>
+                                </div>
+                            </div>
+                            <% } %>
                             <% } %>
                             <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
                                { %>
                             <div class="upcoming-bike-details-container margin-top30">
-                    	        <div class="upcoming-bike-price-container font28 margin-bottom20">
+                                <div class="upcoming-bike-price-container font28 margin-bottom20">
                                     <span class="fa fa-rupee"></span>
                                     <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %></span>
                                     <span class="font30 text-black">-</span>
@@ -184,15 +273,15 @@
                                     <span class="font12 text-light-grey default-showroom-text">Expected price</span>
                                 </div>
                                 <div class="upcoming-bike-date-container margin-bottom20">
-                        	        <span class="font20 text-black"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
+                                    <span class="font20 text-black"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
                                     <span class="font12 text-light-grey">Expected launch date</span>
                                 </div>
                                 <div class="upcoming-bike-default-text">
-                        	        <p class="font14"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
+                                    <p class="font14"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
                                 </div>
                             </div>
                             <% } %>
-                        </div>                        
+                        </div>
                         <div class="clear"></div>
                     </div>
                 </div>
@@ -200,10 +289,10 @@
             </div>
         </section>
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
-    	    <div id="SneakPeak" class="grid-12 margin-bottom20">
-        	    <h2 class="text-bold text-center margin-top20 margin-bottom30">Sneak-peak</h2>
-        	    <div class="content-box-shadow content-inner-block-20">
-            	    <p class="font14 text-grey padding-left10 padding-right10">
+            <div id="SneakPeak" class="grid-12 margin-bottom20">
+                <h2 class="text-bold text-center margin-top20 margin-bottom30">Sneak-peak</h2>
+                <div class="content-box-shadow content-inner-block-20">
+                    <p class="font14 text-grey padding-left10 padding-right10">
                         <span class="model-about-main">
                             <%= modelPage.ModelDesc.SmallDescription %>
                         </span>
@@ -216,7 +305,8 @@
             </div>
             <div class="clear"></div>
         </section>
-        <% if (modelPage.ModelVersionSpecs != null) { %>
+        <% if (modelPage.ModelVersionSpecs != null)
+           { %>
         <section class="container">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
@@ -225,8 +315,8 @@
                         <a class="active" href="#overview">Overview</a>
                         <a href="#specifications">Specifications</a>
                         <a href="#features">Features</a>
-                        <a href="#variants" style="<%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? "" : "display:none;" %>">Variants</a>
-                        <a href="#colours" style="<%= (modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0) ? "" : "display:none;" %>">Colours</a>
+                        <a href="#variants" style="<%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? "": "display:none;" %>">Variants</a>
+                        <a href="#colours" style="<%= (modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0) ? "": "display:none;" %>">Colours</a>
                     </div>
                     <!-- specification code starts here -->
                     <div class="bw-tabs-data margin-bottom20" id="overview">
@@ -256,7 +346,7 @@
                             </div>
                         </div>
                         <div class="clear"></div>
-<%--                        <p class="font14 margin-top20 text-grey padding-left10 padding-right10 <%= string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription) ? "hide" : "" %>">
+                        <%--                        <p class="font14 margin-top20 text-grey padding-left10 padding-right10 <%= string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription) ? "hide" : "" %>">
                             <span class="model-about-main"><%= modelPage.ModelDesc.SmallDescription %>
                             </span>
                             <span class="model-about-more-desc hide"><%= modelPage.ModelDesc.FullDescription %>
@@ -654,95 +744,95 @@
                             </ul>
                             <ul class="more-features hide">
                                 <li>
-                            	    <div class="text-light-grey">Tachometer</div>
+                                    <div class="text-light-grey">Tachometer</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Tachometer) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Shift Light</div>
+                                    <div class="text-light-grey">Shift Light</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ShiftLight) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">No Of Tripmeters</div>
+                                    <div class="text-light-grey">No Of Tripmeters</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfTripmeters) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Tripmeter Type</div>
+                                    <div class="text-light-grey">Tripmeter Type</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TripmeterType) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Low Fuel Indicator</div>
+                                    <div class="text-light-grey">Low Fuel Indicator</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.LowFuelIndicator) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Low Oil Indicator</div>
+                                    <div class="text-light-grey">Low Oil Indicator</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.LowOilIndicator) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Low Battery Indicator</div>
+                                    <div class="text-light-grey">Low Battery Indicator</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.LowBatteryIndicator) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Pillion Seat</div>
+                                    <div class="text-light-grey">Pillion Seat</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionSeat) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Pillion Footrest</div>
+                                    <div class="text-light-grey">Pillion Footrest</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionFootrest) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Pillion Backrest</div>
+                                    <div class="text-light-grey">Pillion Backrest</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionBackrest) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Pillion Grabrail</div>
+                                    <div class="text-light-grey">Pillion Grabrail</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionGrabrail) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Stand Alarm</div>
+                                    <div class="text-light-grey">Stand Alarm</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.StandAlarm) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Stepped Seat</div>
+                                    <div class="text-light-grey">Stepped Seat</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.SteppedSeat) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Antilock Braking System</div>
+                                    <div class="text-light-grey">Antilock Braking System</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.AntilockBrakingSystem) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Killswitch</div>
+                                    <div class="text-light-grey">Killswitch</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Killswitch) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Clock</div>
+                                    <div class="text-light-grey">Clock</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Clock) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Electric System</div>
+                                    <div class="text-light-grey">Electric System</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ElectricSystem) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Battery</div>
+                                    <div class="text-light-grey">Battery</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Battery) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Headlight Type</div>
+                                    <div class="text-light-grey">Headlight Type</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.HeadlightType) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Headlight Bulb</div>
+                                    <div class="text-light-grey">Headlight Bulb</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.HeadlightBulbType) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Brake/Tail Light</div>
+                                    <div class="text-light-grey">Brake/Tail Light</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Brake_Tail_Light) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Turn Signal</div>
+                                    <div class="text-light-grey">Turn Signal</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TurnSignal) %></div>
                                 </li>
                                 <li>
-                            	    <div class="text-light-grey">Pass Light</div>
+                                    <div class="text-light-grey">Pass Light</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PassLight) %></div>
                                 </li>
                                 <div class="clear"></div>
@@ -823,21 +913,21 @@
             <div class="newBikes-latest-updates-container">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top30 margin-bottom30">Latest updates on <%= bikeName %></h2>
-                    <div class="bw-tabs-panel content-box-shadow margin-bottom30">                        
+                    <div class="bw-tabs-panel content-box-shadow margin-bottom30">
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
-                        <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
-                            <ul>
-                                <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
-                                <li style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "" : "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
-                                <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
-                            </ul>
-                        </div>
+                            <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
+                                <ul>
+                                    <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
+                                    <li style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
+                                    <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                </ul>
                             </div>
+                        </div>
                         <BW:News runat="server" ID="ctrlNews" />
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                         <BW:UserReviews runat="server" ID="ctrlUserReviews" />
-                        <BW:Videos runat="server" ID="ctrlVideos" />                        
+                        <BW:Videos runat="server" ID="ctrlVideos" />
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -862,7 +952,8 @@
             });
             // Cache selectors outside callback for performance.
 
-            <% if(!modelPage.ModelDetails.Futuristic) { %>
+            <% if (!modelPage.ModelDetails.Futuristic)
+               { %>
             var $window = $(window),
                 $menu = $('.bw-overall-rating'),
                 $menu2 = $('.alternative-section'),
@@ -883,10 +974,27 @@
                 var a = $(this).find("span");
                 a.text(a.text() === "+" ? "-" : "+");
             });
+
+            $("div#dvBikePrice").on('click','span.view-breakup-text', function () {
+                faqPopupShow();
+            });
+
+            $(".breakupCloseBtn,.blackOut-window").mouseup(function () {
+                $("div#breakupPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            });
+
+            function faqPopupShow() {
+                $("div#breakupPopUpContainer").show();
+                $(".blackOut-window").show();
+            };
+
         </script>
         <script type="text/javascript" src="/src/model.js"></script>
         <script type="text/javascript">
-            function pqViewModel(modelId,cityId) {
+            var PQCitySelectedId = 0;
+            var PQCitySelectedName = ""; 
+            function pqViewModel(modelId, cityId) {
                 var self = this;
                 self.cities = ko.observableArray([]);
                 self.areas = ko.observableArray([]);
@@ -894,10 +1002,20 @@
                 self.selectedArea = ko.observable();
                 self.selectedModel = ko.observable(modelId);
                 self.priceQuote = ko.observable();
+                self.DealerPriceList = ko.observableArray([]);
+                self.BWPriceList = ko.observable();
+                self.isDealerPQAvailable = ko.observable(false);
+                self.DealerOnRoadPrice = ko.computed(function () {
+                    var total = 0;
+                    for (i = 0; i < self.DealerPriceList().length; i++) {
+                        total += self.DealerPriceList()[i].price;
+                    }
+                    return total;
+                }, this);
                 self.LoadCity = function () {
                     loadCity(self);
                 }
-                self.LoadArea = function(){
+                self.LoadArea = function () {
                     loadArea(self);
                 }
 
@@ -910,34 +1028,87 @@
                 }
             }
 
+            function loadDealerBreakUp(vm)
+            {
+                if(vm.DealerPriceList!=null && vm.DealerPriceList.length > 0)
+                {
+                    total = 0;
+                    for(i=0;i<vm.DealerPriceList.length;i++)
+                    {
+                        total += vm.DealerPriceList.price;
+                    }
+                    alert(total);
+                    return total;
+                }
+            }
+
             function loadCity(vm) {
                 if (vm.selectedModel()) {
                     $.get("/api/PQCityList/?modelId=" + vm.selectedModel(),
                         function (data) {
                             if (data) {
                                 var city = ko.toJS(data);
+                                var citySelectedNow = null;
                                 vm.cities(city.cities);
-                                $(".city-select-text").removeClass("hide").addClass("show");                                
+                                PQcheckCookies();
+                                for (i = 0; i < city.cities.length;i++)
+                                {
+                                    c = city.cities[i].cityId;
+                                    console.log(PQCitySelectedId + "    " + c);
+                                    if (PQCitySelectedId == c )
+                                    {
+                                        console.log(PQCitySelectedId + "    " + c);
+                                        citySelectedNow = city.cities[i];
+                                        break;
+                                    }
+                                }
+
+                                if (citySelectedNow!=null)
+                                {
+                                    vm.selectedCity(citySelectedNow.cityId);
+                                    loadArea(vm);
+                                    $(".city-select-text").removeClass("hide").addClass("show");
+                                    if (parseInt($('#mainCity li[cityId' + citySelectedNow.cityId + ']').attr('cityId')) > 0)
+                                    {
+                                        $('#mainCity li[cityId' + citySelectedNow.cityId + ']').click();
+                                    }
+                                    else {
+                                        $('#mainCity li:last-child').click();
+                                    }
+                                    
+                                    if (vm.areas.length > 0)
+                                    {
+                                        $(".area-select-text").removeClass("hide").addClass("show");
+                                        fetchPriceQuote(vm);
+                                    }
+                                       
+
+                                    
+                                }
+                                else {
+                                    $(".city-select-text").removeClass("hide").addClass("show");
+                                }
+                                
                             }
                         });
                 }
             }
 
-            function loadArea(vm) {                
+            function loadArea(vm) {
                 if (vm.selectedCity()) {
                     $.get("/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity())
                     .done(function (data) {
-                            if (data) {
-                                var area = ko.toJS(data);
-                                vm.areas(area.areas);
-                                $(".city-select-text").removeClass("show").addClass("hide");
-                                $(".area-select-text").removeClass("hide").addClass("show");
-                            }
-                            else {
-                                vm.areas([]);
-                                $(".area-select-text").removeClass("show").addClass("hide");
-                                vm.FetchPriceQuote();
-                            }
+                        if (data) {
+                            var area = ko.toJS(data);
+                            vm.areas(area.areas);
+                            $(".city-select-text").removeClass("show").addClass("hide");
+                            $(".area-select-text").removeClass("hide").addClass("show");
+                        }
+                        else {
+                            vm.areas([]);
+                            $(".area-select-text").removeClass("show").addClass("hide");
+                            vm.FetchPriceQuote();
+                        }
                     })
                     .fail(function () {
                         vm.areas([]);
@@ -955,19 +1126,28 @@
                     $(".city-onRoad-price-container").removeClass("show").addClass("hide");
                     $(".unveil-offer-btn-container").attr('style', '');
                     $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
-                    $(".default-showroom-text").html("");
-                }                    
+                    $(".default-showroom-text").html("").removeClass('view-breakup-text');
+                }
             }
 
             function fetchPriceQuote(vm) {
-                var clientIP = '<%= clientIP%>';         
+                var clientIP = '<%= clientIP%>';
                 $("#dvAvailableOffer").empty();
-                if (vm.selectedModel() && vm.selectedCity()) {                    
+                if (vm.selectedModel() && vm.selectedCity()) {
                     $.get("/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea() ? vm.selectedArea() : ""))
                     .done(function (data) {
                         if (data) {
                             var pq = ko.toJS(data);
                             vm.priceQuote(pq);
+                            vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
+                            if (pq.IsDealerPriceAvailable) {
+                                vm.DealerPriceList(pq.dealerPriceQuote.priceList);                                
+                                vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
+                            }
+                            else {
+                                vm.BWPriceList(pq.bwPriceQuote);
+                            }
+
                             if (pq && pq.IsDealerPriceAvailable) {
                                 $("#btnBookNow").show();
                                 $(".unveil-offer-btn-container").attr('style', '');
@@ -996,10 +1176,10 @@
                                     $('.available-offers-container').removeClass("hide").addClass("show");
                                     $("#dvAvailableOffer").append("<ul><li>No offers available</li></ul>");
                                 }
-                                $(".default-showroom-text").html("+ View Breakup");
-                            }                            
+                                $(".default-showroom-text").html("+ View Breakup").addClass('view-breakup-text');
+                            }
                             else {
-                                if(pq.bwPriceQuote.onRoadPrice > 0) {
+                                if (pq.bwPriceQuote.onRoadPrice > 0) {
                                     totalPrice = pq.bwPriceQuote.onRoadPrice;
                                     priceBreakText = "Ex-showroom + Insurance + RTO";
                                 }
@@ -1053,7 +1233,8 @@
             }
 
             $(document).ready(function () {
-                <% if(!modelPage.ModelDetails.Futuristic) { %>
+                <% if (!modelPage.ModelDetails.Futuristic)
+                   { %>
                 InitVM(0);
                 <% } %>
                 $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
@@ -1061,42 +1242,54 @@
             });
 
             $("#mainCity li").click(function () {
-                var val = $(this).attr('cityId');                
-                    $("#city-list-container").removeClass("show").addClass("hide");
-                    $(".city-select-text").removeClass("hide").addClass("show");
-                    $("#city-area-select-container").removeClass("hide").addClass("show");
-                    $(".offer-error").removeClass("show").addClass("hide");                                        
-                    $(".area-select").removeClass("show").addClass("hide");
-                    $(".city-select").removeClass("hide").addClass("show");
-                    $(".city-area-wrapper").removeClass("hide").addClass("show");
-                    $(".city-onRoad-price-container").removeClass("show").addClass("hide");
-                    $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
-                    if (val) {
-                        $("#ddlCity option[value=" + val + "]").attr('selected', 'selected');
-                        $('#ddlCity').trigger('change');
-                        $(".area-select").removeClass("hide").addClass("show");
-                    }
+                var val = $(this).attr('cityId');
+                $("#city-list-container").removeClass("show").addClass("hide");
+                $(".city-select-text").removeClass("hide").addClass("show");
+                $("#city-area-select-container").removeClass("hide").addClass("show");
+                $(".offer-error").removeClass("show").addClass("hide");
+                $(".area-select").removeClass("show").addClass("hide");
+                $(".city-select").removeClass("hide").addClass("show");
+                $(".city-area-wrapper").removeClass("hide").addClass("show");
+                $(".city-onRoad-price-container").removeClass("show").addClass("hide");
+                $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
+                if (val) {
+                    $("#ddlCity option[value=" + val + "]").attr('selected', 'selected');
+                    $('#ddlCity').trigger('change');
+                    $(".area-select").removeClass("hide").addClass("show");
+                }
             });
 
             $(".city-edit-btn").click(function () {
                 if ($("#ddlCity").val() && $("#ddlArea").val()) {
                     $(".city-select-text").removeClass("hide").addClass("show");
                     $(".area-select").addClass("hide");
-                    $(".city-onRoad-price-container").removeClass("show").addClass("hide");                    
+                    $(".city-onRoad-price-container").removeClass("show").addClass("hide");
                 }
                 $(".available-offers-container").removeClass("show").addClass("hide");
                 $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
             });
 
             function InitVM(cityId) {
-                var viewModel = new pqViewModel('<%= modelId%>',cityId);
+                var viewModel = new pqViewModel('<%= modelId%>', cityId);
                 ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
                 viewModel.LoadCity();
             }
-            
-            $("#btnBookNow").click(function () {
-                
-            });
+
+            function PQcheckCookies()
+            {
+                c = document.cookie.split('; ');
+                for(i=c.length-1; i>=0; i--)
+                {
+                    C = c[i].split('=');
+                    if(C[0]=="location")
+                    {
+                        var cData = (String(C[1])).split('_');
+                        PQCitySelectedId = parseInt(cData[0]);
+                        PQCitySelectedName = cData[1];
+                    }
+                } 
+            }
+
         </script>
     </form>
 </body>
