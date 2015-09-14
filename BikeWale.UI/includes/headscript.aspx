@@ -16,8 +16,8 @@
 
 <title><%= title %></title>
 <link rel="SHORTCUT ICON" href="#" />
-<link href="<%= staticUrl != "" ? "http://img2.aeplcdn.com" : "" %>/css/bw-common-style.css?14sept2015" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://img2.aeplcdn.com" : "" %>/src/frameworks.js?14sept2015"></script>
+<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/bw-common-style.css?14sept2015" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?14sept2015"></script>
 <script type='text/javascript'>
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];
