@@ -107,7 +107,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
-.home-getFinalPrice-banner { background:#161209 url(../images/get-final-price-banner.jpg) no-repeat center top;     background-size: cover; height: 373px; }
+.home-getFinalPrice-banner { background:#161209 url(../images/onroad-price-banner.jpg) no-repeat center top;   background-size: cover; height: 373px; }
 
 /* global-search classes */
 .global-search { float: left; padding: 0 10px; position: relative; top: 2px; cursor: pointer; }
@@ -279,13 +279,13 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 .banner-home { height: 268px; background: #161209 url(../images/home-top-banner.jpg) no-repeat scroll right top;  background-size: cover; }
-.newbikes-banner-div { background:#161209 url(http://imgd1.aeplcdn.com/0x0/cw/static/landing-banners/m/new-cars-banner.jpg) no-repeat left top; background-size: cover; height:130px;}
+.newbikes-banner-div { background:#161209 url(../images/new-bike-banner.jpg) no-repeat center top; background-size: cover; height:130px;}
 
 /* sprite classes */
 .bwmsprite { background: url(../images/bwmsprite.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
-.bw-logo { background-position: -31px 0px; width: 121px; height: 20px; }
+.bw-logo { background-position: -31px 0px; width: 121px; height: 24px; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
 .search-icon-grey { background-position: -62px -275px; }
@@ -599,15 +599,19 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 /* Carousel Controls */
 .jcarousel-wrapper.model .jcarousel-control-left, .jcarousel-wrapper.model .jcarousel-control-right {  position: absolute; top: 32%; z-index: 2; }
-.jcarousel-wrapper.model .jcarousel-control-left { left: 8px; }
-.jcarousel-wrapper.model .jcarousel-control-right { right: 8px; }
+.jcarousel-control-left { /*left: 8px;*/ left:-10px; }
+.jcarousel-control-right { /*right: 8px;*/ right:-4px; }
 .jcarousel-wrapper.model .jcarousel-control-prev, .jcarousel-wrapper.model .jcarousel-control-next { width: 26px; height: 43px; text-indent: -9999px; padding: 5px; border: 1px solid #e6e6e6; background-color: #fff; display:block; }
 .jcarousel-wrapper.model .jcarousel-control-prev { background-position: -153px -207px; }
 .jcarousel-wrapper.model .jcarousel-control-next { background-position: -177px -207px; }
+.jcarousel-control-prev { background-position: -153px -207px; border-left: 0; }
+.jcarousel-control-next { background-position: -177px -207px; border-right: 0;}
 .jcarousel-wrapper.model .jcarousel-control-prev:hover { background-position: -153px -238px; }
 .jcarousel-wrapper.model .jcarousel-control-next:hover { background-position: -177px -238px; }
 .jcarousel-wrapper.model .jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-wrapper.model .jcarousel-control-right .jcarousel-control-next.inactive { display:none; }
-
+.jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-control-right .jcarousel-control-next.inactive { cursor: not-allowed; background-position: -153px -176px; }
+.jcarousel-control-right .jcarousel-control-next.inactive {background-position: -177px -176px;}
+.jcarousel-pagination { text-align:center;}
 /* carousel end */
 
 /* new classes for circle icon sprite */

@@ -2,6 +2,8 @@
 /* CSS Document */
 
 .jcarousel-wrapper.model{width:100%;}
+.jcarousel-wrapper.model .jcarousel-control-left { left:0; }
+.jcarousel-wrapper.model .jcarousel-control-right { right:0; }
 .jcarousel-wrapper.model .jcarousel{    padding: 0 0 20px;}
 .jcarousel-wrapper.model .jcarousel li { background-color: #fff; margin:0; height:auto; text-align:center;}
 .jcarousel-wrapper.model .jcarousel li > img {min-width:320px; max-width:100%; height:auto;}
