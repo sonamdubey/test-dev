@@ -2,6 +2,7 @@
 using System.Web;
 using System.Data;
 using System.Data.SqlClient;
+using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Common
 {
@@ -96,10 +97,12 @@ namespace Bikewale.Common
             Database db = null;
             DataTable dt = null;
 
+            EnumBikeType bikeType = (EnumBikeType)Enum.Parse(typeof(EnumBikeType), requestType, true);
+
             using (SqlCommand cmd = new SqlCommand("GetCities"))
             {
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
+                cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = (int)bikeType;
                 cmd.Parameters.Add("@StateId", SqlDbType.BigInt).Value = stateId;
 
                 try

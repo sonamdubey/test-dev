@@ -209,8 +209,8 @@ namespace Bikewale.Common
                 message.Append("User ID : " + email + "<br>");
                 //message.Append( "Password : " + password + "<br>" );
                 message.Append("Please click the below link to reset your password.<br>");
-                message.Append("http://www.bikewale.com/users/resetcustomerpassword.aspx?tkn=" + token + "<br>");
-                message.Append("Above link is valid for 24 hours only.<br>");
+                message.Append("http://www.bikewale.com/users/resetcustomerpassword.aspx?tkn=" + token );
+                message.Append("<br>Above link is valid for 24 hours only.<br>");
 
                 message.Append("<p>We request your presence on the portal and look forward to serve your diverse needs.</p>");
 
