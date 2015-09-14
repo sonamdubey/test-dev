@@ -9,7 +9,7 @@ namespace Bikewale.Entities.BikeData
     {
         public float? Displacement { get; set; }
         public ushort? FuelEfficiencyOverall { get; set; }
-        public ushort? MaxPower { get; set; }
+        public float? MaxPower { get; set; }
         public float? MaximumTorque { get; set; }
     }
 }
