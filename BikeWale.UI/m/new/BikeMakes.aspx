@@ -80,10 +80,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20 clear"></div>
                         </ItemTemplate>
                     </asp:Repeater>
                     <!--- Most Popular Bikes Ends Here-->
-                    <div class="border-top1 margin-left20 margin-right20 padding-top20 clear"></div>
+                    
                     </div>
                 </div>
             </div>

@@ -168,7 +168,7 @@
            </div>
     </section>
     <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
-    	<div id="SneakPeak" class="container clearfix box-shadow">
+    	<div id="SneakPeak" class="container clearfix box-shadow margin-bottom20">
         	<h2 class="padding-bottom15 padding-top20 text-center">Sneak-peak</h2>
         	<div class="content-box-shadow content-inner-block-20">
             	<p class="font14 text-grey padding-left10 padding-right10">

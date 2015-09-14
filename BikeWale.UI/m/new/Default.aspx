@@ -40,7 +40,7 @@
     <section class="container">
         <!-- Brand section code starts here -->
         <div class="grid-12">
-            <div class="bg-white brand-wrapper content-box-shadow margin-minus30">
+            <div class="bg-white brand-wrapper content-box-shadow margin-minus60">
                 <h2 class="content-inner-block-10 text-uppercase text-center margin-top30 margin-bottom20">Brand</h2>
                 <div class="brand-type-container">
                     <ul class="text-center">
@@ -218,7 +218,7 @@
                             </div>
                             <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
                             <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                            <p class="jcarousel-pagination"></p>
+                            <p class="jcarousel-pagination text-center"></p>
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="mctrlNewLaunchedBikes">
@@ -254,10 +254,10 @@
     </section>
 
     <section>
-        <div class="container">
+        
         <!--  Compare section code starts here -->
         <BW:CompareBike ID="ctrlCompareBikes" runat="server" />
-        </div>
+        
     </section>
 
     <section class="container">
