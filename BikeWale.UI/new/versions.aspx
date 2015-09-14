@@ -176,7 +176,7 @@
                                                 </tr>
                                                 <!-- /ko  -->
                                                 <!-- ko if :DealerPriceList -->
-                                               <%-- <tr>
+                                                <tr>
                                                     <td colspan="2">
                                                         <div class="border-solid-top padding-bottom10"></div>
                                                     </td>
@@ -189,7 +189,7 @@
                                                 <tr>
                                                     <td class="padding-bottom10">Minus insurance</td>
                                                     <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>0</td>
-                                                </tr>--%>
+                                                </tr>
                                                 <tr>
                                                     <td colspan="2">
                                                         <div class="border-solid-top padding-bottom10"></div>
