@@ -1,7 +1,7 @@
 ﻿<footer class="bg-footer padding-top40 padding-bottom20"><!-- Footer section code starts here -->
     <div class="container">
         <div class="grid-4">
-            <a href="#" class="bwsprite bw-logo"></a>
+            <a href="/" class="bwsprite bw-logo"></a>
             <p class="font18 text-white margin-top50 margin-bottom20">Join us on</p>
             <div class="footer-social-icons">
                 <a href="https://www.facebook.com/Bikewale.Official" target="_blank" title="Facebook" class="margin-right15">
