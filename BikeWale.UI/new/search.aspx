@@ -11,7 +11,7 @@
 <form runat="server">
 <!-- #include file="/includes/headBW.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/search.css" rel="stylesheet" type="text/css">
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?14sept2015" rel="stylesheet" type="text/css"/>
     <section class="bg-white">
     	<div class="container">
             <div class="grid-12">

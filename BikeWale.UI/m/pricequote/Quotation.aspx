@@ -8,7 +8,7 @@
     menu = "3";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?14sept2015" />
     <div class="padding5">
         <h1>On Road Price Quote</h1>
     	<div class="box1 box-top new-line5 bot-red new-line10">
