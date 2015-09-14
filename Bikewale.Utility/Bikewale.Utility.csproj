@@ -67,6 +67,7 @@
     <Compile Include="FormatDate.cs" />
     <Compile Include="FormatMinSpecs.cs" />
     <Compile Include="Image.cs" />
+    <Compile Include="OfferHelper.cs" />
     <Compile Include="Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReviewsRating.cs" />
