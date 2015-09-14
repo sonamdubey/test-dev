@@ -2041,6 +2041,9 @@
     <Content Include="m\images\newcars-sprite.png" />
     <Content Include="m\images\pqlanding-top-banner.jpg" />
     <Content Include="m\images\price-quote-banner.jpg" />
+    <Content Include="m\images\radio-checked.png" />
+    <Content Include="m\images\radio-unchecked.png" />
+    <Content Include="m\images\rightArrowBg.png" />
     <Content Include="m\images\style-type-sprite.png" />
     <Content Include="m\images\valentino-rossi.jpg" />
     <Content Include="m\news\Default.aspx" />
@@ -2330,7 +2333,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59591</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
