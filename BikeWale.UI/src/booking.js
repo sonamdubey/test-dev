@@ -133,7 +133,8 @@ function validateMobile() {
     if (!reMobile.test(mobileNo) && isValid) {
         isValid = false;
         mobileVal("Mobile Number should be 10 digits");
-    }    return isValid;
+    }
+    return isValid;
 }
 
 var otpVal = function (msg) {

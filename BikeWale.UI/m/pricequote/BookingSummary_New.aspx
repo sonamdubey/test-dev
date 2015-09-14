@@ -14,7 +14,6 @@
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking.css" rel="stylesheet" type="text/css" />   
-
         <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">

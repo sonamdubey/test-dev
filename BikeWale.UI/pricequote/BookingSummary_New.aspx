@@ -30,7 +30,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
         <section class="container">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">

@@ -615,7 +615,8 @@ function validateMobile() {
     else if (mobileNo.length != 10) {
         return false;
         mobileVal("Mobile Number should be of 10 digits");
-    }    return true;
+    }
+    return true;
 }
 
 var otpVal = function (msg) {
