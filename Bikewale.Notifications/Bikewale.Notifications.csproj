@@ -61,6 +61,7 @@
     <Compile Include="MailTemplates\PreBookingConfirmationMailToDealer.cs" />
     <Compile Include="MailTemplates\PreBookingConfirmationToCustomer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SendEmailSMSToDealerCustomer.cs" />
     <Compile Include="SendMails.cs" />
     <Compile Include="SMS\SMSCommon.cs" />
     <Compile Include="SMS\SMSTypes.cs" />

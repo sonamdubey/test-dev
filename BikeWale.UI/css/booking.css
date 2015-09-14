@@ -27,7 +27,7 @@
 .get-otp-code { width: 255px; }
 .get-monthly-usage { margin:0 auto; width:540px; }
 .disabled-tab { cursor: not-allowed; }
-
+.resend-otp-btn:hover { cursor:pointer; }
 
 .input-border-bottom { border-bottom:1px solid #ccc; }
 

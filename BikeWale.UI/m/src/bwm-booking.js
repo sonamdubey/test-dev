@@ -32,24 +32,6 @@ function BookingPageVMModel() {
         .done(function (data) {
             if (data) {
                 bookPage = ko.toJS(data);
-
-                self.Dealer(new DealerModel(bookPage.dealer.address1,
-                    bookPage.dealer.address2,
-                    bookPage.dealer.area,
-                    bookPage.dealer.city,
-                    bookPage.dealer.contactHours,
-                    bookPage.dealer.emailId,
-                    bookPage.dealer.faxNo,
-                    bookPage.dealer.firstName,
-                    bookPage.dealer.id,
-                    bookPage.dealer.lastName,
-                    bookPage.dealer.lattitude,
-                    bookPage.dealer.longitude,
-                    bookPage.dealer.mobileNo,
-                    bookPage.dealer.organization,
-                    bookPage.dealer.phoneNo,
-                    bookPage.dealer.pincode,
-                    bookPage.dealer.state));
                 $.each(bookPage.modelColors, function (key, value) {
                     self.ModelColors.push(new ModelColorsModel(value.id, value.colorName, value.hexCode, value.modelId));
                 });
@@ -118,6 +100,7 @@ function BookingPageVMModel() {
         $.ajax({
             type: "POST",
             url: "/api/PriceQuote/",
+            async: false,
             data: ko.toJSON(objPQ),
             contentType: "application/json",
             success: function (response) {
@@ -125,7 +108,7 @@ function BookingPageVMModel() {
                 if (obj) {
                     pqId = obj.quoteId;
                     var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + obj.quoteId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
-                    SetCookie("_MPQ", cookieValue);                    
+                    SetCookie("_MPQ", cookieValue);
                     var objCust = {
                         "dealerId": dealerId,
                         "pqId": pqId,
@@ -140,6 +123,7 @@ function BookingPageVMModel() {
                     $.ajax({
                         type: "POST",
                         url: "/api/PQCustomerDetail/",
+                        async: false,
                         data: ko.toJSON(objCust),
                         contentType: "application/json",
                         success: function (response) {
@@ -152,6 +136,7 @@ function BookingPageVMModel() {
                                 $.ajax({
                                     type: "POST",
                                     url: "/api/PQBikeColor/",
+                                    async: false,
                                     data: ko.toJSON(objPQColor),
                                     contentType: "application/json",
                                     success: function (response) {
@@ -162,7 +147,7 @@ function BookingPageVMModel() {
                                         return false;
                                     }
                                 });
-                            }                            
+                            }
                         },
                         error: function (xhr, ajaxOptions, thrownError) {
                             alert("Error while registering the price quote");
@@ -186,6 +171,7 @@ function CustomerModel() {
     self.emailId = ko.observable();
     self.mobileNo = ko.observable();
     self.IsVerified = ko.observable();
+    self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
     self.otpCode = ko.observable();
     self.verifyCustomer = function () {
         if (!self.IsVerified()) {
@@ -203,41 +189,38 @@ function CustomerModel() {
             $.ajax({
                 type: "POST",
                 url: "/api/PQCustomerDetail/",
+                async: false,
                 data: ko.toJSON(objCust),
                 contentType: "application/json",
                 success: function (response) {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);
-                    if (self.IsVerified())
-                        $("#otp-submit-btn").trigger("click");
+                    if (self.IsVerified()) {
+                        if (obj.isSuccess && obj.dealer) {
+                            viewModel.Dealer(new DealerModel(
+                                obj.dealer.address1,
+                                obj.dealer.address2,
+                                obj.dealer.area,
+                                obj.dealer.city,
+                                obj.dealer.contactHours,
+                                obj.dealer.emailid,
+                                obj.dealer.faxNo,
+                                obj.dealer.firstName,
+                                obj.dealer.id,
+                                obj.dealer.lastName,
+                                obj.dealer.lattitude,
+                                obj.dealer.longitude,
+                                obj.dealer.mobileNo,
+                                obj.dealer.organization,
+                                obj.dealer.phoneNo,
+                                obj.dealer.pincode,
+                                obj.dealer.state,
+                                obj.dealer.websiteUrl));
+                        }
+                    }
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     self.IsVerified(false);
-                    //var message;
-                    //var statusErrorMap = {
-                    //    '400': "Server understood the request, but request content was invalid.",
-                    //    '401': "Unauthorized access.",
-                    //    '404': "Bike not found.",
-                    //    '403': "Forbidden resource can't be accessed.",
-                    //    '500': "Internal server error.",
-                    //    '503': "Service unavailable."
-                    //};
-                    //if (xhr.status) {
-                    //    message = statusErrorMap[xhr.status];
-                    //    if (!message) {
-                    //        message = "Unknown Error \n.";
-                    //    }
-                    //} else if (ajaxOptions == 'parsererror') {
-                    //    message = "Error.\nParsing JSON Request failed.";
-                    //} else if (ajaxOptions == 'timeout') {
-                    //    message = "Request Time out.";
-                    //} else if (ajaxOptions == 'abort') {
-                    //    message = "Request was aborted by the server";
-                    //} else {
-                    //    message = "Unknown Error \n.";
-                    //}
-                    //vm.bikeSearch.Bikes([]);
-                    //alert(message);
                 }
             });
         }
@@ -257,12 +240,57 @@ function CustomerModel() {
             $.ajax({
                 type: "POST",
                 url: "/api/PQMobileVerification/",
+                async: false,
                 data: ko.toJSON(objCust),
                 contentType: "application/json",
                 success: function (response) {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);
-                    $("#user-details-submit-btn").trigger("click");
+                    if (obj.isSuccess && obj.dealer) {
+                        viewModel.Dealer(new DealerModel(
+                            obj.dealer.address1,
+                            obj.dealer.address2,
+                            obj.dealer.area,
+                            obj.dealer.city,
+                            obj.dealer.contactHours,
+                            obj.dealer.emailid,
+                            obj.dealer.faxNo,
+                            obj.dealer.firstName,
+                            obj.dealer.id,
+                            obj.dealer.lastName,
+                            obj.dealer.lattitude,
+                            obj.dealer.longitude,
+                            obj.dealer.mobileNo,
+                            obj.dealer.organization,
+                            obj.dealer.phoneNo,
+                            obj.dealer.pincode,
+                            obj.dealer.state,
+                            obj.dealer.websiteUrl));
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    self.IsVerified(false);
+                }
+            });
+        }
+    }
+    self.regenerateOTP = function () {
+        if (!self.IsVerified()) {
+            var url = '/api/ResendVerificationCode/';
+            var objCustomer = {
+                "customerName": self.fullName(),
+                "customerMobile": self.mobileNo(),
+                "customerEmail": self.emailId(),
+                "source": 2
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                async: false,
+                data: ko.toJSON(objCustomer),
+                contentType: "application/json",
+                success: function (response) {
+                    self.IsVerified(response);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     self.IsVerified(false);
@@ -294,7 +322,34 @@ function DealerModel(address1, address2, area, city, contactHours, emailId, faxN
     self.phoneNo = ko.observable(phoneNo);
     self.pincode = ko.observable(pincode);
     self.state = ko.observable(state);
-    self.websiteUrl = ko.observable(websiteUrl);    
+    self.websiteUrl = ko.observable(websiteUrl);
+    self.showMap = ko.computed(function () {
+        if (self.lattitude() && self.longitude()) {
+            var latitude = self.lattitude();
+            var longitude = self.longitude();
+            var myCenter = new google.maps.LatLng(latitude, longitude);
+            function initialize() {
+                var mapProp = {
+                    center: myCenter,
+                    zoom: 16,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                var map = new google.maps.Map(document.getElementById("divMap"), mapProp);
+
+                var marker = new google.maps.Marker({
+                    position: myCenter,
+                });
+
+                marker.setMap(map);
+            }
+            google.maps.event.addDomListener(window, 'load', initialize);
+            return true;
+        }
+        else {
+            return false;
+        }
+    }, this);
 }
 
 function DisclaimerModel(disclaimers) {
@@ -437,21 +492,27 @@ detailsSubmitBtn.click(function () {
             }
         }
         if (a == true && b == true && c == true) {
-            if (!viewModel.CustomerVM().IsVerified()) {
-                viewModel.CustomerVM().verifyCustomer();
+            viewModel.CustomerVM().verifyCustomer();
+            if (viewModel.CustomerVM().IsValid()) {
+                $.customizeState();
+                $("#personalInfo").hide();
+                $("#personal-info-tab").removeClass('text-bold');
+                $("#customize").show();
+                $('.colours-wrap .jcarousel').jcarousel('reload', {
+                    'animation': 'slow'
+                });
+                $('#customize-tab').addClass('text-bold');
+                $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
+                $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+                $(".booking-dealer-details").removeClass("hide").addClass("show");
+                $(".call-for-queries").hide();
+                $.scrollToSteps();
+            }
+            else {
                 otpContainer.removeClass("hide").addClass("show");
-                if (viewModel.CustomerVM().IsVerified()) {
-
-                    return;
-                }
                 $(this).hide();
                 nameValTrue();
                 mobileValTrue();
-            }
-            else {
-                if (viewModel.CustomerVM().IsVerified()) {
-                    otpBtn.trigger("click");
-                }
             }
         }
     }
@@ -527,7 +588,7 @@ var mobileVal = function (msg) {
 /* Email validation */
 function validateEmail() {
     var emailID = emailid.val();
-    var reEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/;
+    var reEmail = /^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
     if (emailID == "") {
         emailVal('Please enter email address');
@@ -566,43 +627,50 @@ var otpVal = function (msg) {
 function validateOTP() {
     var retVal = true;
     var isNumber = /^[0-9]*$/;
-    var cwiCode = otpText.text();
-
+    var cwiCode = otpText.val();
+    viewModel.CustomerVM().IsVerified(false);
     if (cwiCode == "") {
         retVal = false;
         otpVal("Please enter your Verification Code");
     }
-    else if (!isNumber.test(cwiCode)) {
-        retVal = false;
-        otpVal("Verification Code should be numeric");
+    else {
+        if (!isNumber.test(cwiCode)) {
+            retVal = false;
+            otpVal("Verification Code should be numeric");
+        }
+        else if (cwiCode.length != 5) {
+            retVal = false;
+            otpVal("Verification Code should be of 5 digits");
+        }
     }
-    else if (cwiCode.length != 5) {
-        retVal = false;
-        otpVal("Verification Code should be of 5 digits");
-    }
-    return retVal;
+    return retVal;
+
 }
 
+mobile.change(function () {
+    viewModel.CustomerVM().IsVerified(false);
+});
+
+emailid.change(function () {
+    viewModel.CustomerVM().IsVerified(false);
+});
+
 otpBtn.click(function () {
-    if (!validateOTP()) {
-        if (viewModel.CustomerVM().IsVerified()) {
-            $.customizeState();
-            $("#personalInfo").hide();
-            $("#personal-info-tab").removeClass('text-bold');
-            $("#customize").show();
-            $('.colours-wrap .jcarousel').jcarousel('reload', {
-                'animation': 'slow'
-            });
-            $('#customize-tab').addClass('text-bold');
-            $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
-            $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-            $(".booking-dealer-details").removeClass("hide").addClass("show");
-            $(".call-for-queries").hide();
-            $.scrollToSteps();
-        }
-        else {
-            viewModel.CustomerVM().generateOTP();
-        }
+    if (validateOTP()) {
+        $.customizeState();
+        $("#personalInfo").hide();
+        $("#personal-info-tab").removeClass('text-bold');
+        $("#customize").show();
+        $('.colours-wrap .jcarousel').jcarousel('reload', {
+            'animation': 'slow'
+        });
+        $('#customize-tab').addClass('text-bold');
+        $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $(".booking-dealer-details").removeClass("hide").addClass("show");
+        $(".call-for-queries").hide();
+        $.scrollToSteps();
+        viewModel.CustomerVM().generateOTP();
     }
 });
 
@@ -622,15 +690,24 @@ $(".customize-submit-btn").click(function (e) {
     }
 });
 
-$("#personal-info-tab, .customizeBackBtn").on('click', function () {
+$("#personal-info-tab").click(function () {
     if (!$(this).hasClass('disabled-tab')) {
         $.personalInfoState();
         $.showCurrentTab('personalInfo');
         $('#personal-info-tab').addClass('active-tab text-bold');
-        $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
-        $('#customize-tab').addClass('active-tab').removeClass('text-bold');
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
     }
 });
+
+$(".customizeBackBtn").click(function () {
+    $.personalInfoState();
+    $.showCurrentTab('personalInfo');
+    $('#personal-info-tab').addClass('active-tab text-bold');
+    $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
+    $('#customize-tab').addClass('active-tab').removeClass('text-bold');
+});
+
 
 $('#customize-tab, .confirmationBackBtn').on('click', function () {
     if (!$(this).hasClass('disabled-tab')) {
@@ -726,7 +803,7 @@ var varientSelection = function () {
     if (total) {
         return true;
     }
-    else{
+    else {
         return false;
     }
 }

@@ -526,18 +526,18 @@
             Created On  :   10 Sept 2015
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.BikeBooking.BikeBookingPageController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote)">
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BikeBookingPageController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.MobileVerification.IMobileVerificationRepository)">
             <summary>
             Constructor
             </summary>
         </member>
         <member name="M:Bikewale.Service.Controllers.BikeBooking.BikeBookingPageController.Get(System.UInt32,System.UInt32,System.UInt32)">
             <summary>
-            Get the Bike Booking Page details
+            Gets the dealer price quote details of bike version
             </summary>
-            <param name="cityId"></param>
-            <param name="versionId"></param>
-            <param name="dealerId"></param>
+            <param name="cityId">city id</param>
+            <param name="versionId">version id</param>
+            <param name="dealerId">dealer id</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.BikeBooking.City.BBCityListController">
@@ -983,6 +983,15 @@
             <summary>
             Mobile Verification Controller
             </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.MobileVerification.IMobileVerificationRepository,Bikewale.Interfaces.Customer.ICustomer{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.Dealer.IDealer)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="objDealerPriceQuote"></param>
+            <param name="mobileVerRespo"></param>
+            <param name="objCustomer"></param>
+            <param name="objDealer"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.Post(Bikewale.DTO.PriceQuote.PQMobileVerificationInput)">
             <summary>
