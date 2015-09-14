@@ -2,7 +2,7 @@
 <%@ Import Namespace="Bikewale.Common" %>
 <% title = "Basic File Uploader"; %>
 <!-- #include file="/includes/headSell.aspx" -->
-<script type="text/javascript" src="/src/classified/sellbike.js?1.1"></script>
+<script type="text/javascript" src="/src/classified/sellbike.js?14sept2015"></script>
 <script language="javascript">
 	var inquiryId = '<%= inquiryId %>';
 	var requestCount = 0;

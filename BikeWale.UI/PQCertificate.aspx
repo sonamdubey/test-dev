@@ -5,7 +5,7 @@
 <head>
     <title><%= BikeName %> - Price Certificate</title>
 <meta charset="utf-8">
-<link href="/css/bw-pq.css?v=3.0" rel="stylesheet" />
+<link href="/css/bw-pq.css?14sept2015" rel="stylesheet" />
     <style type="text/css">
         .hide { display:none}
         .breakhere {page-break-before: always}

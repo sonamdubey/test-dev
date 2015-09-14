@@ -167,5 +167,5 @@
 <script language="javascript">
     var displayVersion = '<%= displayVersion %>';
 </script>
-<script type="text/javascript" src="/src/Research/write_reviews.js?v=1.1"></script>
+<script type="text/javascript" src="/src/Research/write_reviews.js?14sept2015"></script>
 <!-- #include file="/includes/footerinner.aspx" -->

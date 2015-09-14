@@ -4,7 +4,7 @@
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
 <%--<link type="text/css" href="../css/mobile-rsa.css" rel="stylesheet" />--%>
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/mobile-rsa.css" />
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/mobile-rsa.css?14sept2015" />
 <body>
     <div>
         <div class="padding5">
