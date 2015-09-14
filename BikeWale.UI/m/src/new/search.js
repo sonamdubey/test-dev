@@ -815,6 +815,3 @@ $.valueFormatter = function (num) {
     }
     return num;
 }
-
-
-

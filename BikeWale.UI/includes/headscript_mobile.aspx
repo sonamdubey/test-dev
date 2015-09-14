@@ -11,9 +11,9 @@
 <meta name="description" content="<% =description%>" />
 <link rel="canonical" href="<%=canonical %>" />
 <link rel="SHORTCUT ICON" href="http://img2.aeplcdn.com/v2/icons/bikewale.png?v=1.1" />
-<link href="/m/css/bwm-common-style.css" rel="stylesheet" type="text/css">
-<link href="/m/css/home.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="/m/src/frameworks.js"></script>
+<link href="<%= staticUrl != "" ? "http://img2.aeplcdn.com/bikewaleimg" : "" %>/m/css/bwm-common-style.css?14sept2015" rel="stylesheet" type="text/css">
+<link href="<%= staticUrl != "" ? "http://img2.aeplcdn.com/bikewaleimg" : "" %>/m/css/home.css?14sept2015" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://img2.aeplcdn.com/bikewaleimg" : "" %>/m/src/frameworks.js?14sept2015"></script>
 <!-- for IE to understand the new elements of HTML5 like header, footer, section and so on -->
 <!--[if lt IE 9]>
     <script src="/m/src/html5.js"></script>
