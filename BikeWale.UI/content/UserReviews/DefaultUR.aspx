@@ -51,7 +51,7 @@
 				    <asp:ListItem Text="--Select--" Value="0" />
 			    </asp:DropDownList>
 			    <input type="hidden" id="hdn_drpModel" runat="server" />
-			    <asp:Button ID="btnWrite" CssClass="buttons" runat="server" Text="Next" tabindex="3"/><br>
+			    <asp:Button ID="btnWrite" CssClass="buttons text_white" runat="server" Text="Next" tabindex="3"/><br>
 			    <span id="spnModel" class="error"></span>
            </div>			
 		</div><div class="clear"></div>

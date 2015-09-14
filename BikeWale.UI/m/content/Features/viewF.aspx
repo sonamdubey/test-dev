@@ -17,6 +17,7 @@
 	.ulist li {margin-bottom:10px;}
 	.over-flow {overflow:hidden;}
     .socialplugins li{float:left;width:84px;}
+    a.ui-link { color:#fff !important; font-weight:normal !important; }
 </style>
 <div class="padding5">
         <div id="br-cr">

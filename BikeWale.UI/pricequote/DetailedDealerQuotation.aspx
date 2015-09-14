@@ -262,7 +262,7 @@
                 </div>
 
                 <div class="mid-box margin-top15 center-align" runat="server" id="divBookBike" visible="false">
-                    <input type="submit" class="action-btn" id="btnBookBike" value="Book to Avail Offer" name="btnBookBike" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%= MakeModel.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Prebook_to_avail_offer' });"></div>
+                    <input type="button" class="action-btn text_white" id="btnBookBike" value="Book to Avail Offer" name="btnBookBike" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%= MakeModel.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Prebook_to_avail_offer' });"></div>
                 <div class="mid-box margin-bottom10 center-align margin-top10" runat="server" id="divBikeBooked" visible="false"><b>You have already booked this bike.</b></div>
             </div>
             <%} %>
