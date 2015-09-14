@@ -2,6 +2,7 @@
 <script language="c#" runat="server">
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate="",canonical="";
     private ushort feedbackTypeId = 0;
+    string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
 </script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title><%=title %></title>
