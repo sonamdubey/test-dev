@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <title>Bike Booking FAQ's</title>
 <!-- #include file="/includes/globalStaticFiles.aspx"-->
-<link href="/css/bw-pq.css?30july2015" rel="stylesheet" />
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?23july2015" />
+<link href="/css/bw-pq.css?14sept2015" rel="stylesheet" />
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?14sept2015" />
 </head>
-<body>
+<body class="header-fixed-inner">
 <div class="main-container">
-    <div class="bw-header">
-        <div class="left-float">
-        	<a href="http://www.bikewale.com/"><img src="http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bikewale_logo_s.png"></a>
+    <div class="header-fixed">
+        <div class="left-float margin-left50">
+        	<a href="/" class="bwsprite bw-logo"></a>
         </div>
     	<div class="clear"></div>
     </div>

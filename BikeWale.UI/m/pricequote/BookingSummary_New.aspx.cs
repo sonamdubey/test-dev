@@ -33,9 +33,7 @@ namespace Bikewale.Mobile.PriceQuote
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-            dd.DetectDevice();
+        {            
             ProcessCookie();
             GetDetailedQuote();
         }
@@ -98,7 +96,7 @@ namespace Bikewale.Mobile.PriceQuote
         {
             string transresp = string.Empty;
 
-            if (objCustomer.objCustomerBase.CustomerId.ToString() != "" && objCustomer.objCustomerBase.CustomerId > 0)
+            if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.CustomerId.ToString() != "" && objCustomer.objCustomerBase.CustomerId > 0 && objCustomer.objCustomerBase.IsVerified)
             {
                 Trace.Warn("Inside begin tarns" + objCustomer.objCustomerBase.CustomerId.ToString());
                 var transaction = new TransactionDetails()

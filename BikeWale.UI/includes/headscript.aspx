@@ -1,6 +1,7 @@
 ﻿<script language="c#" runat="server">	
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "";
+    private string fbTitle = "", fbImage;
     private ushort feedbackTypeId = 0; 	 
     private bool isHeaderFix = true;   
 </script>
@@ -15,8 +16,8 @@
 
 <title><%= title %></title>
 <link rel="SHORTCUT ICON" href="#" />
-<link href="/css/bw-common-style.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="/src/frameworks.js"></script>
+<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/bw-common-style.css?09142015" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?14sept2015"></script>
 <script type='text/javascript'>
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];

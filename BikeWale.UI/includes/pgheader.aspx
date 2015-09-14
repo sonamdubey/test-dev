@@ -45,16 +45,16 @@
         });
     </script>
 </head>
-<body>
+<body class="header-fixed-inner">
     <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
         <!--Header code start here -->
-      <div class="bw-header">
-            <div class="left-float">
-        	    <a href="http://www.bikewale.com/"><img src="http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bikewale_logo_s.png" alt="bikewale"></a>
+        <div id="header" class="header-fixed">
+            <div class="left-float margin-left50">
+                <a href="/" class="bwsprite bw-logo"></a>
             </div>
-    	    <div class="clear"></div>
-      </div>
+            <div class="clear"></div>
+        </div>
         <!--Header code end here -->
         

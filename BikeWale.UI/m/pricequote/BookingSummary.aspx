@@ -10,9 +10,9 @@
 
 %>
 <!-- #include file="/includes/PaymentHeaderMobile.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" /> 
-<link href="/m/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-<script src="/m/src/jquery-ui-1.10.4.custom.min.js"></script>
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?14sept2015" /> 
+<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<script src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/jquery-ui-1.10.4.custom.min.js"></script>
 
 <div class="padding5">
     <h1>Pre-Book to Avail Offer</h1>
@@ -130,7 +130,7 @@
                     </tr>
                 </table>
             </div>
-            <asp:Button data-role="none" class="rounded-corner5" runat="server" id="btnMakePayment" Text="Make Payment"/>
+            <asp:Button data-role="none" class="rounded-corner5 margin-top15" runat="server" id="btnMakePayment" Text="Make Payment"/>
         </div>
     <div class="box1 new-line10">
         <h2 class="margin-bottom10 f-bold floatleft">Contact Details</h2>
@@ -553,5 +553,6 @@
         </div>
     </div> 
     <div id="divForPopup" style="display:none;"></div>
+</form>
 </body>
 </html>

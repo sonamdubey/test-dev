@@ -22,9 +22,10 @@
         alternate = "http://www.bikewale.com/m/new/";
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
+        canonical = "http://www.bikewale.com/new/";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="../css/newbikes.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/newbikes.css" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-white">
     <form runat="server">
@@ -541,7 +542,7 @@
     <BW:PopupWidget Id="NBPopupWidget" runat="server" />
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
-    <script type="text/javascript" src="/src/common/chosen.jquery.min.js"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>
     </form>
 </body>
 </html>

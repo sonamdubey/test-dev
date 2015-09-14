@@ -8,7 +8,7 @@
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="/css/booking.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css" rel="stylesheet" type="text/css">
 </head>
 <body class="header-fixed-inner">
     <form runat="server">
@@ -30,7 +30,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
         <section class="container">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
@@ -75,6 +74,7 @@
                         </div>
                     </div>
                     <!-- /ko -->
+                    <!-- ko if: viewModel.Dealer() -->
                     <!-- ko with: viewModel.Dealer() -->
                     <div class="grid-4 inline-block border-solid-left">
                         <div class="booking-dealer-details hide">
@@ -96,6 +96,7 @@
                             <p class="font18 text-bold">022 6739 8888 (extn : 881)</p>
                         </div>
                     </div>
+                    <!-- /ko -->
                     <!-- /ko -->
                     <div class="clear"></div>
                 </div>
@@ -170,7 +171,7 @@
                                 <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
                             </div>
                             <div class="clear"></div>
-                            <a class="btn btn-orange margin-top30" id="user-details-submit-btn">Next</a>
+                            <a class="btn btn-orange margin-top30" id="user-details-submit-btn">Next</a>                            
                         </div>
                         <div class="mobile-verification-container hide">
                             <div class="input-border-bottom"></div>
@@ -181,9 +182,11 @@
                                     <span class="bwsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText">Please enter a valid OTP</div>
                                 </div>
+                                
                                 <div class="clear"></div>
                             </div>
-                            <a class="btn btn-orange margin-top30" id="otp-submit-btn">Confirm OTP</a>
+                            <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="click: viewModel.CustomerVM().regenerateOTP()">Resend OTP</a><br />
+                            <a class="btn btn-orange margin-top30" id="otp-submit-btn">Confirm OTP</a>                            
                         </div>
                     </div>
                     <div id="customize" class="hide" data-bind="with: viewModel">
@@ -268,11 +271,11 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                 <div class="clear"></div>
             </div>
         </section>
-        <script type="text/javascript" src="../src/booking.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/booking.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
         <script type="text/javascript">
             //Need to uncomment the below script
-            /*            
+                        
             window.onload = function() {
                 var btnRelease = document.getElementById('');                 
                 //Find the button set null value to click event and alert will not appear for that specific button
@@ -289,7 +292,6 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                     return "";
                 };             
             };
-            */
         </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
@@ -344,31 +346,12 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                     return _versionId ? 'varient-item border-solid content-inner-block-10 border-dark selected' : 'varient-item border-solid content-inner-block-10';
 
                 }, this);
-
                 self.getBookingPage = function () {
                     var bookPage = null;
                     $.getJSON('/api/BikeBookingPage/?versionId=' + verId + '&cityId=' + cityId + '&dealerId=' + dealerId)
                     .done(function (data) {
                         if (data) {
                             bookPage = ko.toJS(data);
-
-                            self.Dealer(new DealerModel(bookPage.dealer.address1,
-                                bookPage.dealer.address2,
-                                bookPage.dealer.area,
-                                bookPage.dealer.city,
-                                bookPage.dealer.contactHours,
-                                bookPage.dealer.emailId,
-                                bookPage.dealer.faxNo,
-                                bookPage.dealer.firstName,
-                                bookPage.dealer.id,
-                                bookPage.dealer.lastName,
-                                bookPage.dealer.lattitude,
-                                bookPage.dealer.longitude,
-                                bookPage.dealer.mobileNo,
-                                bookPage.dealer.organization,
-                                bookPage.dealer.phoneNo,
-                                bookPage.dealer.pincode,
-                                bookPage.dealer.state));
                             $.each(bookPage.modelColors, function (key, value) {
                                 self.ModelColors.push(new ModelColorsModel(value.id, value.colorName, value.hexCode, value.modelId));
                             });
@@ -422,9 +405,9 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                             });
                         }
                     });
-                };
+                }
                 self.generatePQ = function () {
-                    var objPQ = 
+                    var objPQ =
                     {
                         "cityId": cityId,
                         "areaId": areaId,
@@ -438,13 +421,14 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                         type: "POST",
                         url: "/api/PriceQuote/",
                         data: ko.toJSON(objPQ),
+                        async: false,
                         contentType: "application/json",
                         success: function (response) {
                             var obj = ko.toJS(response);
-                            if (obj) {                                
+                            if (obj) {
                                 pqId = obj.quoteId;
                                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + obj.quoteId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
-                                SetCookie("_MPQ", cookieValue);                                
+                                SetCookie("_MPQ", cookieValue);
                                 var objCust = {
                                     "dealerId": dealerId,
                                     "pqId": pqId,
@@ -459,6 +443,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                                 $.ajax({
                                     type: "POST",
                                     url: "/api/PQCustomerDetail/",
+                                    async: false,
                                     data: ko.toJSON(objCust),
                                     contentType: "application/json",
                                     success: function (response) {
@@ -472,6 +457,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                                             $.ajax({
                                                 type: "POST",
                                                 url: "/api/PQBikeColor/",
+                                                async: false,
                                                 data: ko.toJSON(objPQColor),
                                                 contentType: "application/json",
                                                 success: function (response) {
@@ -482,7 +468,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                                                     return false;
                                                 }
                                             });
-                                        }                                        
+                                        }
                                     },
                                     error: function (xhr, ajaxOptions, thrownError) {
                                         alert("Error while registering the price quote");
@@ -496,7 +482,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                             return false;
                         }
                     });
-                }
+                };
             }
 
             function CustomerModel() {
@@ -506,7 +492,13 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                 self.emailId = ko.observable();
                 self.mobileNo = ko.observable();
                 self.IsVerified = ko.observable();
+                self.IsValid = ko.computed(function () { return self.IsVerified(); },this);
                 self.otpCode = ko.observable();
+                self.fullName = ko.computed(function(){
+                    var _firstName = self.firstName() ? self.firstName() : "";
+                    var _lastName = self.lastName() ? self.lastName() : "";
+                    return _firstName + ' ' + _lastName;
+                },this);
                 self.verifyCustomer = function () {
                     if (!self.IsVerified()) {
                         var objCust = {
@@ -524,12 +516,34 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                             type: "POST",
                             url: "/api/PQCustomerDetail/",
                             data: ko.toJSON(objCust),
+                            async: false,
                             contentType: "application/json",
                             success: function (response) {
                                 var obj = ko.toJS(response);
                                 self.IsVerified(obj.isSuccess);
-                                if (self.IsVerified())
-                                    $("#otp-submit-btn").trigger("click");
+                                if (self.IsVerified()) {
+                                    if (obj.isSuccess && obj.dealer) {
+                                        viewModel.Dealer(new DealerModel(
+                                            obj.dealer.address1,
+                                            obj.dealer.address2,
+                                            obj.dealer.area,
+                                            obj.dealer.city,
+                                            obj.dealer.contactHours,
+                                            obj.dealer.emailid,
+                                            obj.dealer.faxNo,
+                                            obj.dealer.firstName,
+                                            obj.dealer.id,
+                                            obj.dealer.lastName,
+                                            obj.dealer.lattitude,
+                                            obj.dealer.longitude,
+                                            obj.dealer.mobileNo,
+                                            obj.dealer.organization,
+                                            obj.dealer.phoneNo,
+                                            obj.dealer.pincode,
+                                            obj.dealer.state,
+                                            obj.dealer.websiteUrl));                                        
+                                    }                                    
+                                }                                    
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
                                 self.IsVerified(false);                                
@@ -553,11 +567,56 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                             type: "POST",
                             url: "/api/PQMobileVerification/",
                             data: ko.toJSON(objCust),
+                            async: false,
                             contentType: "application/json",
                             success: function (response) {
                                 var obj = ko.toJS(response);
                                 self.IsVerified(obj.isSuccess);
-                                $("#user-details-submit-btn").trigger("click");
+                                if (obj.isSuccess && obj.dealer) {
+                                    viewModel.Dealer(new DealerModel(
+                                        obj.dealer.address1,
+                                        obj.dealer.address2,
+                                        obj.dealer.area,
+                                        obj.dealer.city,
+                                        obj.dealer.contactHours,
+                                        obj.dealer.emailid,
+                                        obj.dealer.faxNo,
+                                        obj.dealer.firstName,
+                                        obj.dealer.id,
+                                        obj.dealer.lastName,
+                                        obj.dealer.lattitude,
+                                        obj.dealer.longitude,
+                                        obj.dealer.mobileNo,
+                                        obj.dealer.organization,
+                                        obj.dealer.phoneNo,
+                                        obj.dealer.pincode,
+                                        obj.dealer.state,
+                                        obj.dealer.websiteUrl));
+                                }                                
+                            },
+                            error: function (xhr, ajaxOptions, thrownError) {
+                                self.IsVerified(false);
+                            }
+                        });
+                    }
+                }
+                self.regenerateOTP = function () {
+                    if (!self.IsVerified()) {
+                        var url = '/api/ResendVerificationCode/';
+                        var objCustomer = {
+                            "customerName": self.fullName(),
+                            "customerMobile": self.mobileNo(),
+                            "customerEmail": self.emailId(),
+                            "source": 1
+                        }
+                        $.ajax({
+                            type: "POST",
+                            url: url,
+                            async: false,
+                            data: ko.toJSON(objCustomer),
+                            contentType: "application/json",
+                            success: function (response) {
+                                self.IsVerified(response);
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
                                 self.IsVerified(false);

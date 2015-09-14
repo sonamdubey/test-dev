@@ -28,18 +28,18 @@ namespace Bikewale.DAL.UsedBikes
             Database db = null;
             List<PopularUsedBikesEntity> objUsedBikesList = null;
 
-            using (SqlCommand cmd = new SqlCommand("PopularUsedBikes"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
-
-                if(cityId.HasValue)
+                using (SqlCommand cmd = new SqlCommand("PopularUsedBikes"))
                 {
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId.Value;
-                }
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@TopCount", SqlDbType.SmallInt).Value = totalCount;
 
-                try
-                {
+                    if (cityId.HasValue)
+                    {
+                        cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId.Value;
+                    }
+
                     db = new Database();
                     objUsedBikesList = new List<PopularUsedBikesEntity>();
 
@@ -48,11 +48,11 @@ namespace Bikewale.DAL.UsedBikes
                         while (dr.Read())
                         {
                             objUsedBikesList.Add(new PopularUsedBikesEntity
-                            {                                   
-                                MakeName= Convert.ToString(dr["MakeName"]),
+                            {
+                                MakeName = Convert.ToString(dr["MakeName"]),
                                 TotalBikes = Convert.ToUInt32(dr["MakewiseCount"]),
                                 AvgPrice = Convert.ToDouble(dr["AvgPrice"]),
-                                HostURL = Convert.ToString(dr["HostURL"]),                     
+                                HostURL = Convert.ToString(dr["HostURL"]),
                                 OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]),
                                 MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]),
                                 CityMaskingName = (Convert.ToString(dr["CityMaskingName"])).Trim()
@@ -60,18 +60,22 @@ namespace Bikewale.DAL.UsedBikes
                         }
                     }
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
             }
             return objUsedBikesList;
         }   // End of GetPopularUsedBikes method

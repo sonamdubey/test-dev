@@ -2,6 +2,7 @@
 /* CSS Document */
 
 /* Brand - Budget - Body type */
+.brand-wrapper.content-box-shadow {-moz-box-shadow: 2px 2px 2px rgba(0,0,0,0.20); -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,0.20); -o-box-shadow: 2px 2px 2px rgba(0,0,0,0.20); -ms-box-shadow: 2px 2px 2px rgba(0,0,0,0.20); box-shadow: 2px 2px 2px rgba(0,0,0,0.20); }
 .brand-type-container ul li { display: inline-block; *display:inline;
 *zoom:1;
 vertical-align: top; width: 90px; height: 70px; margin: 0 0 15px; text-align: center; }
@@ -17,4 +18,4 @@ vertical-align: top; width: 90px; height: 70px; margin: 0 0 15px; text-align: ce
 .tools-need-container ul li a span.tools-need-logo { display: table-cell; vertical-align: top; width: 92px; height: 92px; overflow: hidden; }
 .tools-need-container ul li a span.tools-need-desc { display: table-cell; color: #565a5c; padding-left: 20px; }
 .tools-need-container ul li a span.tools-need-text { display: block; margin-top: 20px; }
-.discover-bike-carousel .front, .discover-bike-carousel .back, .discover-bike-carousel .jcarousel li { height: auto; }
+.discover-bike-carousel .front, .discover-bike-carousel .back, .discover-bike-carousel .jcarousel li { height: auto; min-height: 400px;}

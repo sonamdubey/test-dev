@@ -9,7 +9,7 @@
     AdId = "1398766000399";
 %>
 <!-- #include file="/includes/PaymentHeaderMobile.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?14sept2015" />
 
 <div class="padding5">
         <h1>Congratulations! Your payment has been received.</h1>
@@ -320,6 +320,7 @@
         </div>
     </div> 
     <div id="divForPopup" style="display:none;"></div>
+</form>
 </body>
 </html>
 

@@ -341,21 +341,20 @@ namespace Bikewale.DAL.BikeData
             sql = " SELECT Name AS MakeName, ID AS MakeId , MaskingName FROM BikeMakes With(NoLock) "
                 + " WHERE ID = @makeId ";
 
-            SqlDataReader dr = null;
             Database db = new Database();
             SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
 
             try
             {
-                dr = db.SelectQry(sql, param);
-
-                if (dr.Read())
+                using (SqlDataReader dr = db.SelectQry(sql, param))
                 {
-                    makeDetails.MakeName = Convert.ToString(dr["MakeName"]);
-                    makeDetails.MakeId = Convert.ToInt32(dr["MakeId"]); 
-                    makeDetails.MaskingName = Convert.ToString(dr["MaskingName"]);
+                    if (dr.Read())
+                    {
+                        makeDetails.MakeName = Convert.ToString(dr["MakeName"]);
+                        makeDetails.MakeId = Convert.ToInt32(dr["MakeId"]);
+                        makeDetails.MaskingName = Convert.ToString(dr["MaskingName"]);
+                    }
                 }
-
             }
             catch (Exception err)
             {
@@ -364,10 +363,6 @@ namespace Bikewale.DAL.BikeData
             }
             finally
             {
-                if (dr != null)
-                {
-                    dr.Close();
-                }
                 db.CloseConnection();
             }
 

@@ -34,7 +34,6 @@ namespace Bikewale.DAL.BikeData
             List<BikeModelEntityBase> objModelsList = null;
 
             Database db = null;
-            SqlDataReader dr = null;
 
             try
             {
@@ -46,7 +45,7 @@ namespace Bikewale.DAL.BikeData
 
                     db = new Database();
 
-                    using (dr = db.SelectQry(cmd))
+                    using (SqlDataReader dr = db.SelectQry(cmd))
                     {
                         if (dr != null)
                         {
@@ -725,7 +724,7 @@ namespace Bikewale.DAL.BikeData
                                 objModels.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objModels.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objModels.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objModels.Specs.MaxPower = SqlReaderConvertor.ToNullableUInt16(dr["MaxPower"]);
+                                objModels.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objModelList.Add(objModels);
 
                             }
@@ -810,7 +809,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableUInt16(dr["MaxPower"]);
+                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objList.Add(objData);
                             }
                         }
@@ -882,7 +881,7 @@ namespace Bikewale.DAL.BikeData
                                 objData.Specs.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                                 objData.Specs.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                                 objData.Specs.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
-                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableUInt16(dr["MaxPower"]);
+                                objData.Specs.MaxPower = SqlReaderConvertor.ToNullableFloat(dr["MaxPower"]);
                                 objList.Add(objData);
                             }
                         }
@@ -1084,6 +1083,10 @@ namespace Bikewale.DAL.BikeData
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
                 objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
             }
 
             return objFeatured;

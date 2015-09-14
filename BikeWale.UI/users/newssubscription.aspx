@@ -35,7 +35,7 @@
 				</tr>	
                 <tr>	
 					<td>&nbsp;</td>
-					<td align="left"><asp:Button ID="btnSave"  CssClass="buttons"  Text="Save"  runat="server" /></td>
+					<td align="left"><asp:Button ID="btnSave"  CssClass="buttons text_white"  Text="Save"  runat="server" /></td>
 					<td colspan="3"></td>
 				</tr>	
             	            

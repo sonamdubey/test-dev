@@ -75,7 +75,7 @@
 		</tr>
 		<tr>
             <td>&nbsp;</td>
-			<td><asp:Button ID="btnRegister" CssClass="action-btn" Text="Register Me" runat="server" /></td>			
+			<td><asp:Button ID="btnRegister" CssClass="action-btn text_white" Text="Register Me" runat="server" /></td>			
 		</tr>
 	</table>
 </div>

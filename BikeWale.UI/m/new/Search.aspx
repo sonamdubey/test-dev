@@ -15,7 +15,7 @@
     </head>
     <body class="bg-light-grey">
         <!-- #include file="/includes/Navigation_Mobile.aspx" -->
-        <link href="/m/css/new/bwm-search.css" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-search.css" rel="stylesheet" type="text/css" />
         <div class="blackOut-window"></div>
         <header>
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
@@ -307,8 +307,8 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->    
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="/src/framework/knockout.js"></script>
-        <script src="/m/src/new/search.js" type="text/javascript"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js"></script>
+        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?15sept2015" type="text/javascript"></script>
         <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
     </body>
 </html>

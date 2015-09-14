@@ -26,18 +26,18 @@
             <span class="lightgray">Compare Bikes</span>
         </div>
         <div style="margin-bottom:10px;">
-	        <div style="float:left;"><h1>Compare Bikes</h1></div>
-            <div style="float:right;"><a style="text-decoration:none !important; font-weight:normal; font-size:15px;" href="/m/comparebikes/" ><span class="linkButton">Edit Compare</span></a></div>
+	        <div style="float:left;top:3px;" class="position-rel"><h1>Compare Bikes</h1></div>
+            <div style="float:right;"><a style="text-decoration:none !important; font-weight:normal; font-size:15px;" href="/m/comparebikes/" ><span class="btn btn-orange rounded-corner2 btn-sm">Edit Compare</span></a></div>
             <div class="clear"></div>
         </div>
         <% if(count == 2) { %>
 
-        <div style="position: fixed; right: 5px; top: -5px; left: 5px; z-index: 10; display: block;" id="divFloat">
+        <div style="position: fixed; right: 9px; top: -5px; left: 9px; z-index: 10; display: block;" id="divFloat">
             <div style="padding:0px 0px;position:static;" class="box2 new-line5">
              <div id="divFloatBikeHeader" type="divBikeImage" style="border-bottom:1px solid #b3b4c6;">
                 <div style="position:relative;" class="compareBikeContainer">
                     <div class="compareBikeBox compareBikeBorder-Rt">
-                        <div class="new-line5"><a href="/m/<%=bikeDetails.Rows[0]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[0]["ModelMaskingName"] %>/" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " " + bikeDetails.Rows[0]["Version"]%></a></div>
+                         <div class="new-line5"><a href="/m/<%=bikeDetails.Rows[0]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[0]["ModelMaskingName"] %>" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[0]["Make"] + " " + bikeDetails.Rows[0]["Model"] + " " + bikeDetails.Rows[0]["Version"]%></a></div>
                         <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[0]["Price"].ToString()) %></div>
                         <div class="new-line5 <%=bikeDetails.Rows[0]["Price"].ToString() != "0" ? "hide" : "" %>"><a class="fillPopupData" href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[0]["BikeVersionId"] %>" modelId="<%=bikeDetails.Rows[0]["Model"]%>">Check On-Road Price</a></div>
                     </div>
@@ -85,7 +85,7 @@
                     <div id="divImgContainer1" class="divImage"><a href="/m/<%=bikeDetails.Rows[1]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[1]["ModelMaskingName"] %>/" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><img src="<%= !String.IsNullOrEmpty(bikeDetails.Rows[1]["HostURL"].ToString()) ? Bikewale.Utility.Image.GetPathToShowImages(bikeDetails.Rows[1]["OriginalImagePath"].ToString() ,bikeDetails.Rows[1]["HostURL"].ToString(),Bikewale.Utility.ImageSize._310x174) :  "http://img.bikewale.com/bikewaleimg/common/nobike.jpg" %>"></a></div>
                     <div id="divBikeName1" class="new-line5"><a href="/m/<%=bikeDetails.Rows[1]["MakeMaskingName"] %>-bikes/<%=bikeDetails.Rows[1]["ModelMaskingName"] %>/" style="color:black;text-decoration:none;font-weight:bold;" class="ui-link"><%=bikeDetails.Rows[1]["Make"] + " " + bikeDetails.Rows[1]["Model"] + " " + bikeDetails.Rows[1]["Version"]%></a></div>
                     <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() == "0" ? "hide" : "" %>">Price : Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(bikeDetails.Rows[1]["Price"].ToString()) %></div>
-                    <div class="new-line5 <%=bikeDetails.Rows[1]["Price"].ToString() != "0" ? "hide" : "" %>"><a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[1]["BikeVersionId"] %>" class="fillPopupData" modelId="<%=bikeDetails.Rows[1]["Model"]%>">Check On-Road Price</a></div>
+                    <div class="new-line5  <%=bikeDetails.Rows[1]["Price"].ToString() != "0" ? "hide" : "" %>"><a href="/m/pricequote/default.aspx?version=<%=bikeDetails.Rows[1]["BikeVersionId"] %>" class="fillPopupData" modelId="<%=bikeDetails.Rows[1]["Model"]%>">Check On-Road Price</a></div>
                 </div>
             </div>
                 
@@ -829,7 +829,7 @@
         $(window).bind("scroll", function () {
             var offset = $(this).scrollTop();
 
-            if (offset > parseInt($("#divBikeName").position().top) + 170) {
+            if (offset > parseInt($("#divBikeName").position().top) + 180) {
                 $("#divFloat").show();
             }
             else {

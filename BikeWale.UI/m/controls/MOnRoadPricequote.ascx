@@ -252,7 +252,7 @@
         $("#getFinalPrice").bw_autocomplete({
 
             source: 2,
-            recordCount: 10,
+            recordCount: 5,
             onClear: function () {
                 objBikes = new Object();
             },

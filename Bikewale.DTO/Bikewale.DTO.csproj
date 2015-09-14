@@ -96,7 +96,9 @@
     <Compile Include="Model\ModelDetails.cs" />
     <Compile Include="Model\ModelList.cs" />
     <Compile Include="Model\ModelPage.cs" />
+    <Compile Include="PriceQuote\BikeBooking\BookingPageOutput.cs" />
     <Compile Include="PriceQuote\BikeBooking\BikeDealerPriceDetailDTO.cs" />
+    <Compile Include="PriceQuote\BikeBooking\BookingPage.cs" />
     <Compile Include="PriceQuote\BikeBooking\BookingPageDetailsDTO.cs" />
     <Compile Include="PriceQuote\BikeBooking\DealerDetailsDTO.cs" />
     <Compile Include="PriceQuote\BikeBooking\DealerOfferDTO.cs" />

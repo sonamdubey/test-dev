@@ -23,12 +23,12 @@ namespace Bikewale.DTO.PriceQuote
         [JsonProperty("cwiCode")]
         public string CwiCode { get; set; }
         [JsonProperty("branchId")]
-        public string BranchId { get; set; }
+        public UInt32 BranchId { get; set; }
         [JsonProperty("customerName")]
         public string CustomerName { get; set; }
         [JsonProperty("versionId")]
-        public string VersionId { get; set; }
+        public UInt32 VersionId { get; set; }
         [JsonProperty("cityId")]
-        public string CityId { get; set; }
+        public UInt32 CityId { get; set; }
     }
 }

@@ -69,7 +69,7 @@
                 <div class="grid_4 margin-top20">
                     <uc:UpcomingBikes ID="ucUpcoming" runat="server" HeaderText="Upcoming Bikes" TopRecords="2" ControlWidth="grid_2" />
                 </div>
-                <div class="grid_8 alpha omega margin-top5" style="border:1px solid #E2E2E2;">
+                <div class="grid_8 comparison-container alpha omega margin-top5" style="border:1px solid #E2E2E2;">
                     <CM:ComparisonMin ID="ctrl_ComparisonMin" runat="server" ShowCompButton="true"/>
                 </div>
             </div><!--    Left Container ends here -->
@@ -163,4 +163,7 @@
             return str;
         }
     </script>
+    <style type="text/css">
+        .grid_8.comparison-container .container { width:620px; padding-bottom:10px; }
+    </style>
 <!-- #include file="/includes/footerInner.aspx" -->

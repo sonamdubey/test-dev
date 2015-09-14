@@ -223,22 +223,19 @@ namespace Bikewale.CoreDAL
 		
 		public void CloseConnection()
 		{
-			try
-			{
-				if(con.State == ConnectionState.Open)
-				{
-					if(con.State == ConnectionState.Open)
-					{
-						objTrace.Trace.Warn("database:CloseConnection:Connection is closed successfully.");
-						con.Close();
-					}
-				}
-			}
-			catch(Exception)			
-			{
-				//do nothing
-				//HttpContext.Current.Trace.Warn(err.Message + err.Source);
-			}
+            try
+            {
+                if (con.State == ConnectionState.Open)
+                {
+                    objTrace.Trace.Warn("database:CloseConnection:Connection is closed successfully.");
+                    con.Close();
+                }
+            }
+            catch (Exception)
+            {
+                //do nothing
+                //HttpContext.Current.Trace.Warn(err.Message + err.Source);
+            }
 			
 		}
 		

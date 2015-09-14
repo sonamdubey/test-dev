@@ -4,8 +4,8 @@
     AdPath = "/1017752/Bikewale_PriceQuote_";
 %>
 <!-- #include file="/includes/pgheader.aspx" -->
-<link href="/css/bw-pq.css?30july2015" rel="stylesheet" />
-<link href="/css/bw-pq-new.css?23july2015" rel="stylesheet" />
+<link href="/css/bw-pq.css?14sept2015" rel="stylesheet" />
+<link href="/css/bw-pq-new.css?14sept2015" rel="stylesheet" />
 <link href="/css/rsa.css" rel="stylesheet" />
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
 <style>
@@ -198,7 +198,7 @@
                 <!--steps end here-->
         		</div>
             <!--next steps ends here-->
-            <div class="mid-box margin-top15 center-align margin-bottom20"><input type="submit" class="action-btn" id="btnPrintReceipt" value="Print Receipt" name="btnPrintReceipt" onClick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Print_Receipt' });"></div>
+            <div class="mid-box margin-top15 center-align margin-bottom20"><input type="submit" class="action-btn text_white" id="btnPrintReceipt" value="Print Receipt" name="btnPrintReceipt" onClick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Print_Receipt' });"></div>
         </div>
         
         <div class="grid_4 right-grid">
@@ -324,5 +324,6 @@
     });
 </script>
     </div>
+</form>
 </body>
 </html>

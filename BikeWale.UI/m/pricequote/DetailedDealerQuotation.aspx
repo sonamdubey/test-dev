@@ -10,9 +10,9 @@
     AdId = "1398766000399";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" /> 
-<link href="../../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-<script src="../../src/jquery-ui-1.10.4.custom.min.js"></script>
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?14sept2015" /> 
+<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<script src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
 
 <%--<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/BikeBooking.js"></script>--%>

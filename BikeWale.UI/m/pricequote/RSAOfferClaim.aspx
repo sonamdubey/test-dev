@@ -10,11 +10,12 @@
     menu = "12";
 %>
 <!-- #include file="/includes/headermobile_home.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?14sept2015" />
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
     <!-- offer claim starts here -->
-    <h1>Bike Purchase Offer Claim</h1>
-    <div class="margin-bottom10">	    
+    
+    <div class="margin-bottom10 grid-12">
+        <h1>Bike Purchase Offer Claim</h1>	    
 	    <div class="<%= isOfferClaimed ? "hide" : "" %>" id="div_GetPQ">
     	    <!-- new box starts here -->
 		    <div class="box1 new-line10">
@@ -171,7 +172,7 @@
                 </div>
             </div>
 	    </div>
-        <div id="RSAMessage" runat="server" class="box1 new-line10 box-min-height f-bold"></div>
+        <div id="RSAMessage" runat="server" class="box1 new-line10 box-min-height"></div>
     </div>
     <!-- offer claim starts here -->
     <script type="text/javascript">

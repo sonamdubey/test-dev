@@ -785,6 +785,10 @@
       <DependentUpon>TopUserReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\UserReviewList.ascx.cs">
+      <DependentUpon>UserReviewList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\VideosWidget.ascx.cs">
       <DependentUpon>VideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2004,8 +2008,10 @@
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
+    <Content Include="m\controls\UserReviewList.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
+    <Content Include="m\css\bwm-booking.css" />
     <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-common-style.css" />
     <Content Include="m\css\bwm-model.css" />
@@ -2041,6 +2047,9 @@
     <Content Include="m\images\newcars-sprite.png" />
     <Content Include="m\images\pqlanding-top-banner.jpg" />
     <Content Include="m\images\price-quote-banner.jpg" />
+    <Content Include="m\images\radio-checked.png" />
+    <Content Include="m\images\radio-unchecked.png" />
+    <Content Include="m\images\rightArrowBg.png" />
     <Content Include="m\images\style-type-sprite.png" />
     <Content Include="m\images\valentino-rossi.jpg" />
     <Content Include="m\news\Default.aspx" />
@@ -2081,6 +2090,7 @@
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\new\bwm-search.js" />
+    <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
@@ -2332,12 +2342,13 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>59591</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9011</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>http://localhost:80</CustomServerUrl>
+          <CustomServerUrl>
+          </CustomServerUrl>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>

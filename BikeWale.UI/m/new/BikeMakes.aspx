@@ -17,7 +17,7 @@
         AdPath = "/1017752/Bikewale_Mobile_Make_";
         AdId = "1017752";
 %>
-    <link href="/m/css/bwm-brand.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-brand.css" rel="stylesheet" type="text/css">
     <!-- #include file="/includes/headscript_mobile.aspx" -->     
 </head>
 <body class="bg-light-grey">
@@ -80,10 +80,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="border-top1 margin-left20 margin-right20 padding-top20 clear"></div>
                         </ItemTemplate>
                     </asp:Repeater>
                     <!--- Most Popular Bikes Ends Here-->
-                    <div class="border-top1 margin-left20 margin-right20 padding-top20 clear"></div>
+                    
                     </div>
                 </div>
             </div>
@@ -165,7 +166,7 @@
  <!-- #include file="/includes/footerBW_Mobile.aspx" -->
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-    <script type="text/javascript" src="/m/src/bwm-brand.js"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-brand.js"></script>
  </form>
 </body>
 </html>

@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Controls.OnRoadPricequote" %>
 
-<link href="/css/chosen.min.css" rel="stylesheet" />
+<link href="/css/chosen.min.css?14sept2015" rel="stylesheet" />
 
 <div class="container">
     <div class="grid-5 leftfloat">
@@ -36,7 +36,7 @@
     <div class="clear"></div>
 </div>
 
-<script type="text/javascript" src="/src/common/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/src/common/chosen.jquery.min.js?14sept2015"></script>
 <script type="text/javascript">
 
     var preSelectedCityId = 0;

@@ -13,7 +13,7 @@
             Navi Mumbai - 400705<br />
             Phone: (022) 6739 8888<br />
             Fax: (022) 6645 9665, 6739 8877<br />
-            Email: contact@bikewale.com
+            Email: <a href="mailto:contact@bikewale.com">contact@bikewale.com</a>
         </div>
     </div>
 <!-- #include file="/includes/footermobile.aspx" -->

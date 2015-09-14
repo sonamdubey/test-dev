@@ -5,7 +5,7 @@
 <title>BikeWale Cancellation & Refund Policy</title>
 
 <!-- #include file="/includes/pgheader.aspx" -->
-<link rel="stylesheet" href="/css/bw-pq-new.css?23july2015" type="text/css">
+<link rel="stylesheet" href="/css/bw-pq-new.css?14sept2015" type="text/css">
         <div class="container_12">
         	<h1 class=" margin-top15 margin-bottom10">Cancellation & Refund Policy</h1>
             <div class="cancellation-box">

@@ -37,7 +37,7 @@
         .ad-gallery .ad-image-wrapper .ad-image .ad-image-description .ad-description-title,.ad-gallery .ad-thumbs li a{display:block}
     </style>  
     <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
-    <script src="/src/common/ad-gallery.js?v=1.0" type="text/javascript"></script>    
+    <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/ad-gallery.js?v=1.0" type="text/javascript"></script>    
     <title>View Photographs for Bike Profile #<%= profileNo%></title>	
 </head>
 <body style="background:none;">

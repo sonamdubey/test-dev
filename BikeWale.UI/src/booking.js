@@ -12,25 +12,24 @@ var otpBtn = $("#otp-submit-btn");
 
 
 detailsSubmitBtn.click(function () {
-    var a = validateEmail();
-    var b = validateMobile();
-    var c = validateName();
     if (ValidateUserDetail()) {
-        if (!viewModel.CustomerVM().IsVerified()) {
-            viewModel.CustomerVM().verifyCustomer();
+        viewModel.CustomerVM().verifyCustomer();
+        if (viewModel.CustomerVM().IsValid()) {
+            $.customizeState();
+            $("#personalInfo").hide();
+            $("#personal-info-tab").removeClass('text-bold');
+            $("#customize").show();
+            $('#customize-tab').addClass('text-bold');
+            $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
+            $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+            $(".booking-dealer-details").removeClass("hide").addClass("show");
+            $(".call-for-queries").hide();
+        }
+        else {
             otpContainer.removeClass("hide").addClass("show");
-            if (viewModel.CustomerVM().IsVerified()) {
-
-                return;
-            }
             $(this).hide();
             nameValTrue();
             mobileValTrue();
-        }
-        else {
-            if (viewModel.CustomerVM().IsVerified()) {
-                otpBtn.trigger("click");
-            }
         }
     }
 });
@@ -38,9 +37,12 @@ detailsSubmitBtn.click(function () {
 var ValidateUserDetail = function () {
     var isValid = true;
     isValid = validateEmail();
-    isValid = validateMobile();
-    isValid = validateName();
-
+    isValid &= validateMobile();
+    isValid &= validateName();
+    if (!isValid) {
+        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab  text-bold');
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+    }
     return isValid;
 };
 
@@ -78,6 +80,14 @@ var mobileValTrue = function () {
     mobile.siblings("span, div").hide();
 };
 
+mobile.change(function () {
+    viewModel.CustomerVM().IsVerified(false);
+});
+
+emailid.change(function () {
+    viewModel.CustomerVM().IsVerified(false);
+});
+
 var fnameVal = function () {
     firstname.addClass("border-red");
     firstname.siblings("span, div").css("display", "block");
@@ -99,35 +109,32 @@ var mobileVal = function (msg) {
 function validateEmail() {
     var isValid = true;
     var emailID = emailid.val();
-    var reEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/;
+    var reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
     if (emailID == "") {
         emailVal('Please enter email address');
-        isValid= false;
+        isValid = false;
     }
     else if (!reEmail.test(emailID)) {
         emailVal('Invalid Email');
-        isValid= false;
+        isValid = false;
     }
     return isValid;
 }
 
 function validateMobile() {
     var isValid = true;
-    var reMobile = /^[0-9]*$/;
+    var reMobile = /^[0-9]{10}$/;
     var mobileNo = mobile.val();
     if (mobileNo == "") {
         isValid = false;
         mobileVal("Please enter your Mobile Number");
     }
-    else if (!reMobile.test(mobileNo)) {
+    if (!reMobile.test(mobileNo) && isValid) {
         isValid = false;
-        mobileVal("Mobile Number should be numeric");
+        mobileVal("Mobile Number should be 10 digits");
     }
-    else if (mobileNo.length != 10) {
-        isValid = false;
-        mobileVal("Mobile Number should be of 10 digits");
-    }    return isValid;
+    return isValid;
 }
 
 var otpVal = function (msg) {
@@ -138,41 +145,40 @@ var otpVal = function (msg) {
 
 function validateOTP() {
     var retVal = true;
-    var isNumber = /^[0-9]*$/;
-    var cwiCode = otpText.text();
-
+    var isNumber = /^[0-9]{5}$/;
+    var cwiCode = otpText.val();
+    viewModel.CustomerVM().IsVerified(false);
     if (cwiCode == "") {
         retVal = false;
         otpVal("Please enter your Verification Code");
     }
-    else if (!isNumber.test(cwiCode)) {
-        retVal = false;
-        otpVal("Verification Code should be numeric");
-    }
-    else if (cwiCode.length != 5) {
-        retVal = false;
-        otpVal("Verification Code should be of 5 digits");
+    else {
+        if (!isNumber.test(cwiCode)) {
+            retVal = false;
+            otpVal("Verification Code should be numeric");
+        }
+        else if (cwiCode.length != 5) {
+            retVal = false;
+            otpVal("Verification Code should be of 5 digits");
+        }
     }
     return retVal;
 
 }
 
 otpBtn.click(function () {
-    if (!validateOTP()) {
-        if (viewModel.CustomerVM().IsVerified()) {
-            $.customizeState();
-            $("#personalInfo").hide();
-            $("#personal-info-tab").removeClass('text-bold');
-            $("#customize").show();
-            $('#customize-tab').addClass('text-bold');
-            $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
-            $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-            $(".booking-dealer-details").removeClass("hide").addClass("show");
-            $(".call-for-queries").hide();
-        }
-        else {
-            viewModel.CustomerVM().generateOTP();
-        }
+    if (validateOTP()) {
+        $.customizeState();
+        $("#personalInfo").hide();
+        $("#personal-info-tab").removeClass('text-bold');
+        $("#customize").show();
+        $('#customize-tab').addClass('text-bold');
+        $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $(".booking-dealer-details").removeClass("hide").addClass("show");
+        $(".call-for-queries").hide();
+        viewModel.CustomerVM().IsVerified(false);
+        viewModel.CustomerVM().generateOTP();
     }
 });
 
@@ -190,23 +196,31 @@ $(".customize-submit-btn").click(function (e) {
     }
 });
 
-$("#personal-info-tab, .customizeBackBtn").click(function () {    
+$("#personal-info-tab").click(function () {
     if (!$(this).hasClass('disabled-tab')) {
+        $.personalInfoState();
+        $.showCurrentTab('personalInfo');
+        $('#personal-info-tab').addClass('active-tab text-bold');
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+    }
+});
+
+$(".customizeBackBtn").click(function () {
         $.personalInfoState();
         $.showCurrentTab('personalInfo');
         $('#personal-info-tab').addClass('active-tab text-bold');
         $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
         $('#customize-tab').addClass('active-tab').removeClass('text-bold');
-    }
 });
 
 $('#customize-tab, .confirmationBackBtn').click(function () {    
-    if (!$(this).hasClass('disabled-tab')) {        
+    if (!$(this).hasClass('disabled-tab')) {
         $.customizeState();
         $.showCurrentTab('customize');
         $('#customize-tab').addClass('active-tab text-bold');
         $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
-        $('#personal-info-tab').addClass('active-tab').removeClass('disabled-tab text-bold');        
+        $('#personal-info-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
     }
 });
 
@@ -276,12 +290,12 @@ $('booking-available-colors .booking-color-box').click(function (e) {
 });
 
 
-var varientSelection = function () {    
+var varientSelection = function () {
     var total = viewModel.SelectedVarient();
     if (total) {
         return true;
     }
-    else{
+    else {
         return false;
     }
 }

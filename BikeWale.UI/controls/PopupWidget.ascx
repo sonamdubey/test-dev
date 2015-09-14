@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.PopupWidget" %>
 <!--bw popup code starts here-->
-<link href="/css/chosen.min.css" rel="stylesheet" />
+<link href="/css/chosen.min.css?14sept2015" rel="stylesheet" />
 
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
     <div class="popup-inner-container" stopBinding: true>
@@ -269,4 +269,4 @@
         
 
 </script>
-<script type="text/javascript" src="/src/common/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="/src/common/chosen.jquery.min.js?14sept2015"></script>

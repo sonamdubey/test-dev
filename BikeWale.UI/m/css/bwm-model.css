@@ -2,6 +2,8 @@
 /* CSS Document */
 
 .jcarousel-wrapper.model{width:100%;}
+.jcarousel-wrapper.model .jcarousel-control-left { left:0; }
+.jcarousel-wrapper.model .jcarousel-control-right { right:0; }
 .jcarousel-wrapper.model .jcarousel{    padding: 0 0 20px;}
 .jcarousel-wrapper.model .jcarousel li { background-color: #fff; margin:0; height:auto; text-align:center;}
 .jcarousel-wrapper.model .jcarousel li > img {min-width:320px; max-width:100%; height:auto;}
@@ -68,7 +70,7 @@
 .color-box.blue {background:#3749a4;}
 
 /* model sprite classes */
-.model-sprite { background:url(../images/model-sprite.png) no-repeat; display:inline-block;}
+.model-sprite { background:url(http://img.carwale.com/bikewaleimg/m/images/model-sprite.png) no-repeat; display:inline-block;}
 .bw-summary-ico { background-position:0 0; width:23px; height:23px; margin-right:26px; position:relative; top:3px; left:5px;}
 .bw-engine-ico { background-position:0 -32px; width:30px; height:22px; margin-right:20px; position:relative; top:3px;}
 .bw-brakeswheels-ico { background-position:0 -63px; width:26px; height:26px; margin-right:26px; position:relative; top:3px; left:3px;}
@@ -88,7 +90,7 @@
 .breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 
 .upcoming-text-label{background:#4c4c4c;z-index:1;padding:2px 25px 4px 20px;line-height:22px;left:-10px}
-.upcoming-text-label:after{content: "";background:url(../images/upcoming-ribbon.png) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
+.upcoming-text-label:after{content: "";background:url(http://img.carwale.com/bikewaleimg/m/images/upcoming-ribbon.png?v123) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
 .reviews-rating{width:42%;}
 #ctrlExpertReviews li{min-height:236px;height:auto;}
 #ctrlExpertReviews li .front{height:100%;}

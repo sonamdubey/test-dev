@@ -11,13 +11,13 @@
 <!-- #include file="/includes/headUsed.aspx" -->
 <script type="text/javascript" src="/src/common/bt.js?v1.1"></script>
 <link rel="stylesheet" type="text/css" href="/css/used-cd.css" />
-<script type="text/javascript" src="/src/classified/bikedetails.js?v=1.0"></script>
+<script type="text/javascript" src="/src/classified/bikedetails.js?14sept2015"></script>
 <style type="text/css">
     .feature-list li { float: left; width: 170px; }
     .cd-tbl th { font-weight:bold; }
     #reqPhotos.buttons { background: #f5f5f5; color: #82888b; border: 1px solid #ccc; font-size:14px;}
     #reqPhotos.buttons:hover { background: #82888b; color: #fff; text-decoration: none; border:1px solid #82888b; }
-    #buyer_form input { border:1px solid #ccc; padding:5px; }
+    #buyer_form input, #verifiy_mobile input { border:1px solid #ccc; padding:5px; }
 </style>
 <script type="text/javascript">
     var bikeName = '<%= objInquiry.BikeName %>';

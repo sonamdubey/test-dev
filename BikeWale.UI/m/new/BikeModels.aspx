@@ -3,12 +3,23 @@
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW"  %>
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
+<%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>    
+     <%
+         title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
+         description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs."
+                     + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) +" - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
+                     + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+
+         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/"+modelPage.ModelDetails.MaskingName+"/";
+         AdPath = "/1017752/Bikewale_Mobile_Make_";
+         AdId = "1017752";
+%>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="/m/css/bwm-model.css" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <form id="form1" runat="server">
@@ -168,7 +179,7 @@
            </div>
     </section>
     <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
-    	<div id="SneakPeak" class="container clearfix box-shadow">
+    	<div id="SneakPeak" class="container clearfix box-shadow margin-bottom20">
         	<h2 class="padding-bottom15 padding-top20 text-center">Sneak-peak</h2>
         	<div class="content-box-shadow content-inner-block-20">
             	<p class="font14 text-grey padding-left10 padding-right10">
@@ -698,7 +709,7 @@
         if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
         if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
         if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-        //if (ctrlUserReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+        if (ctrlUserReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
     %>
     <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>"><!--  News, reviews and videos code starts here -->
         <div class="container">
@@ -711,12 +722,14 @@
                                 <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlNews">News</option>
                                 <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>"  value="ctrlExpertReviews">Reviews</option>
                                 <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
+                                <option class="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlUserReviews">User Reviews</option>
                             </select>
                         </div>
                     </div>
                     <BW:News runat="server" ID="ctrlNews"/>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>
-                    <BW:Videos runat="server" ID="ctrlVideos"/>                    
+                    <BW:Videos runat="server" ID="ctrlVideos"/>  
+                    <BW:UserReviews runat="server" id="ctrlUserReviews" />
                 </div>        
         	</div>
             <div class="clear"></div>
@@ -753,7 +766,7 @@
         cityId = '<%= cityId%>';
         isUsed = '<%= !modelPage.ModelDetails.New %>';
     </script>
-    <script type="text/javascript" src="/m/src/bwm-model.js"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js"></script>
     
 </form>
 </body>
