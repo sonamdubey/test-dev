@@ -15,18 +15,21 @@
             <span class="bFontCol">Mobile: +91 9773405602</span><br />
             <span class="bFontCol">Email: <a href="mailto:kashif.chilmai@carwale.com" class="viewDetails">kashif.chilmai@carwale.com</a></span>
         </div>
+        <div class="border-solid-top margin-top25"></div>
         <h2 class="new-line10">North Zone</h2>
         <div class="box1 new-line5">
             <span class="bold">Rahul Gupta</span><br />
             <span class="bFontCol">Mobile: +91 9810531466</span><br />
             <span class="bFontCol">Email: <a href="mailto:rahul.gupta@carwale.com" class="viewDetails">rahul.gupta@carwale.com</a></span>
         </div>
+        <div class="border-solid-top margin-top25"></div>
         <h2 class="new-line10">South Zone</h2>
         <div class="box1 new-line5">
             <span class="bold">Amal Siby Marian</span><br />
             <span class="bFontCol">Mobile: +91 9003105155</span><br />
             <span class="bFontCol">Email: <a href="mailto:amal.siby@carwale.com" class="viewDetails">amal.siby@carwale.com</a></span>
         </div>
+        <div class="border-solid-top margin-top25"></div>
         <h2 class="new-line10">East Zone</h2>
         <div class="box1 new-line5">
             <span class="bold">Romita Choudhury</span><br />

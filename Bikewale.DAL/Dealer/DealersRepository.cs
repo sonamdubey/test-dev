@@ -300,7 +300,7 @@ namespace Bikewale.DAL.Dealer
                             {
                                 CityId =Convert.ToUInt32(dr["ID"]),
                                 CityName = Convert.ToString(dr["NAME"]),
-                                CityMaskingName = Convert.ToString(dr["MaskingName"])
+                                CityMaskingName = Convert.ToString(dr["CityMaskingName"])
                             });
                         }
                     }

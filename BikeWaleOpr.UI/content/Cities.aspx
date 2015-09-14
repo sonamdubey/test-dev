@@ -85,7 +85,7 @@
                     <tr id="row_<%#Eval("ID")%>">
                         <td><%#Container.ItemIndex+1 %></td>
                         <td class="city"><%#Eval("Name") %></td>
-                        <td class="maskingname"><%#Eval("MaskingName") %></td>
+                        <td class="maskingname"><%#Eval("CityMaskingName") %></td>
                         <td class="latitude"><%#Eval("Lattitude") %></td>
                         <td class="longitude"><%#Eval("Longitude") %></td>
                         <td class="defaultPinCode"><%# Eval("DefaultPinCode") %></td>

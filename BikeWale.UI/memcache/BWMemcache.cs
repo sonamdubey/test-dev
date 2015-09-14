@@ -336,9 +336,9 @@ namespace Bikewale.Memcache
                         foreach (DataRow dr in dt.Rows)
                         {
                             //check for key duplication
-                            if (!ht.ContainsKey(dr["MaskingName"]))
+                            if (!ht.ContainsKey(dr["CityMaskingName"]))
                             {
-                                ht.Add(dr["MaskingName"], dr["ID"]);
+                                ht.Add(dr["CityMaskingName"], dr["ID"]);
                             }
                         }
                         break;
@@ -419,9 +419,9 @@ namespace Bikewale.Memcache
                 //    foreach (DataRow dr in dt.Rows)
                 //    {
                 //        //check for key duplication
-                //        if (!ht.ContainsKey(dr["MaskingName"]))
+                //        if (!ht.ContainsKey(dr["CityMaskingName"]))
                 //        {
-                //            ht.Add(dr["MaskingName"], dr["ID"]);
+                //            ht.Add(dr["CityMaskingName"], dr["ID"]);
                 //        }
                 //        else
                 //        {
