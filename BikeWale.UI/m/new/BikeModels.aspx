@@ -14,7 +14,7 @@
                      + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) +" - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
                      + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
 
-         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/";
+         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/"+modelPage.ModelDetails.MaskingName+"/";
          AdPath = "/1017752/Bikewale_Mobile_Make_";
          AdId = "1017752";
 %>

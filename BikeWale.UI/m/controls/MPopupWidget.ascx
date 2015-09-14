@@ -22,7 +22,7 @@
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div> 
             <div class="center-align margin-top20 text-center">                
-                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="event: { click: getPriceQuotePopup }">Confirm Location</a>
+                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="event: { click: getPriceQuotePopup }">Get on road price</a>
                 <div id="errMsgPopup" class="red-text margin-top10 hide"></div>
             </div>            
         </div>
@@ -70,11 +70,17 @@ function FillCitiesPopup(modelId) {
             $('.blackOut-window,#popupWrapper').fadeIn(100);
             var obj = JSON.parse(response);
             var cities = JSON.parse(obj.value);
+            var citySelected = null;
             if (cities)
             {
                 checkCookies();
                 var initIndex = 0;
                 for (var i = 0; i < cities.length; i++) {
+
+                    if (preSelectedCityId == cities[i].CityId) {
+                        citySelected = cities[i];
+                    }
+
                     if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
                         var currentCity = cities[i];
                         cities.splice(cities.indexOf(currentCity), 1);
@@ -83,6 +89,11 @@ function FillCitiesPopup(modelId) {
                 }
                 cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
                 viewModelPopup.bookingCities(cities);
+
+                if (citySelected != null) {
+                    viewModelPopup.selectedCity(citySelected.CityId);
+                }
+
                 $("#ddlCitiesPopup option[value=0]").prop("disabled", "disabled");
                 if ($("#ddlCitiesPopup option:last-child").val() == "0") {
                     $("#ddlCitiesPopup option:last-child").remove();

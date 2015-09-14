@@ -334,14 +334,15 @@
                             checkCookies();
                             citySelected = null;
                             for (var i = 0; i < resObj.length; i++) {
+
+                                if (preSelectedCityId == resObj[i].CityId) {
+                                    citySelected = resObj[i];
+                                }
+
                                 if (metroCitiesIds.indexOf(resObj[i].CityId) > -1) {
                                     var currentCity = resObj[i];
                                     resObj.splice(resObj.indexOf(currentCity), 1);
                                     resObj.splice(initIndex++, 0, currentCity);
-                                }
-
-                                if (preSelectedCityId == resObj[i].CityId) {
-                                    citySelected = resObj[i];
                                 }
                             }
                             resObj.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });

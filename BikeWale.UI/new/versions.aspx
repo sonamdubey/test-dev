@@ -58,7 +58,7 @@
             </div>
         </section>
         <section>
-            <div class="container margin-bottom30">
+            <div class="container margin-bottom20">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-10 padding-top20 padding-bottom20 rounded-corner2">
                         <div class="grid-6 alpha margin-minus10">
@@ -141,7 +141,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td width="350" class="padding-bottom10">Ex-showroom (Mumbai)</td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().exShowroomPrice"></span></td>
+                                                    <td width="150" align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().exShowroomPrice"></span></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="padding-bottom10">RTO</td>
@@ -176,7 +176,7 @@
                                                 </tr>
                                                 <!-- /ko  -->
                                                 <!-- ko if :DealerPriceList -->
-                                                <tr>
+                                               <%-- <tr>
                                                     <td colspan="2">
                                                         <div class="border-solid-top padding-bottom10"></div>
                                                     </td>
@@ -189,7 +189,7 @@
                                                 <tr>
                                                     <td class="padding-bottom10">Minus insurance</td>
                                                     <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>0</td>
-                                                </tr>
+                                                </tr>--%>
                                                 <tr>
                                                     <td colspan="2">
                                                         <div class="border-solid-top padding-bottom10"></div>
@@ -248,23 +248,24 @@
                                 </ul>
                             </div>
                             <div id="city-area-select-container" class="city-area-select-container margin-bottom20 hide">
-                                <div class="city-select-text text-left margin-bottom15 hide">
+                                <div class="city-select-text text-left margin-bottom15 hide" >
                                     <p class="font16">Select city for accurate on-road price and exclusive offers</p>
                                 </div>
-                                <div class="area-select-text text-left margin-bottom15 hide">
+                                <div class="area-select-text text-left margin-bottom15 hide" data-bind="visible: areas().length > 0">
                                     <p class="font16">Select area for on-road price and exclusive offers</p>
                                 </div>
                                 <div class="city-onRoad-price-container font16 margin-bottom15 hide">
-                                    <p class="margin-bottom10">On-road price in <span id="pqArea">Andheri</span>, <span id="pqCity">Mumbai</span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
-                                    <p class="font12 margin-bottom15 text-light-grey" id="breakup">(Ex-showroom + RTO + Insurance + Handling charges)</p>
+                                    <p class="margin-bottom10">On-road price in <span id="pqArea" ></span>, <span id="pqCity" >Mumbai</span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
+                                    <p class="font12 margin-bottom15 text-light-grey" id="breakup"></p>
                                     <input type="button" class="btn btn-orange" id="btnBookNow" value="Avail offers" />
                                 </div>
-                                <div class="city-area-wrapper">
+                                <div class="city-area-wrapper">            
                                     <div class="city-select leftfloat margin-right20">
                                         <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', event: { change: LoadArea }"></select>
                                     </div>
+                                    
                                     <div class="area-select leftfloat">
-                                        <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', enable: selectedCity, event: { change: OnAreaChange }"></select>
+                                        <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', enable: selectedCity, event: { change: OnAreaChange }, visible: areas().length > 0"></select>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -316,7 +317,7 @@
         </section>
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
             <div id="SneakPeak" class="grid-12 margin-bottom20">
-                <h2 class="text-bold text-center margin-top20 margin-bottom30">Sneak-peak</h2>
+                <h2 class="text-bold text-center margin-top30 margin-bottom30">Sneak-peek</h2>
                 <div class="content-box-shadow content-inner-block-20">
                     <p class="font14 text-grey padding-left10 padding-right10">
                         <span class="model-about-main">
@@ -869,7 +870,7 @@
                             <ItemTemplate>
                                 <div class="grid-6">
                                     <div class="border-solid content-inner-block-10 margin-bottom20">
-                                        <div class="grid-8 alpha">
+                                        <div class="grid-8 varient-desc-container alpha">
                                             <h3 class="font16 margin-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionName")) %></h3>
                                             <p class="font14"><%# FormatVarientMinSpec(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AlloyWheels")),Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "ElectricStart")),Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem")),Convert.ToString(DataBinder.Eval(Container.DataItem, "BrakeType"))) %></p>
                                         </div>
@@ -904,7 +905,7 @@
         </section>
         <% } %>
         <section class="margin-bottom30 <%= (Convert.ToInt32(ctrlAlternativeBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>">
-            <div class="container margin-bottom20">
+            <div class="container">
                 <div class="grid-12 alternative-section">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternatives</h2>
                     <div class="content-box-shadow">
@@ -932,7 +933,7 @@
             <!--  News Bikes latest updates code starts here -->
             <div class="newBikes-latest-updates-container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top30 margin-bottom30">Latest updates on <%= bikeName %></h2>
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates on <%= bikeName %></h2>
                     <div class="bw-tabs-panel content-box-shadow margin-bottom30">
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
@@ -974,18 +975,18 @@
 
             <% if (!modelPage.ModelDetails.Futuristic)
                { %>
-            var $window = $(window),
-                $menu = $('.bw-overall-rating'),
-                $menu2 = $('.alternative-section'),
-                menu2Top = $menu2.offset().top,
-                menuTop = $menu.offset().top;
-            $window.scroll(function () {
-                $menu.toggleClass('affix', menu2Top >= $window.scrollTop() && $window.scrollTop() > menuTop);
-            });
+            //var $window = $(window),
+            //    $menu = $('.bw-overall-rating'),
+            //    $menu2 = $('.alternative-section'),
+            //    menu2Top = $menu2.offset().top,
+            //    menuTop = $menu.offset().top;
+            //$window.scroll(function () {
+            //    $menu.toggleClass('affix', menu2Top >= $window.scrollTop() && $window.scrollTop() > menuTop);
+            //});
             <% } %>
             $("a.read-more-btn").click(function () {
                 $(".model-about-more-desc").slideToggle();
-                $(".model-about-main").toggle();
+                //$(".model-about-main").toggle();
                 var a = $(this).find("span");
                 a.text(a.text() === "more" ? "less" : "more");
             });
@@ -1014,6 +1015,7 @@
         <script type="text/javascript">
             var PQCitySelectedId = 0;
             var PQCitySelectedName = "";
+            var ftime = false;
             function pqViewModel(modelId, cityId) {
                 var self = this;
                 self.cities = ko.observableArray([]);
@@ -1054,7 +1056,6 @@
                     for (i = 0; i < vm.DealerPriceList.length; i++) {
                         total += vm.DealerPriceList.price;
                     }
-                    alert(total);
                     return total;
                 }
             }
@@ -1070,9 +1071,7 @@
                                 PQcheckCookies();
                                 for (i = 0; i < city.cities.length; i++) {
                                     c = city.cities[i].cityId;
-                                    console.log(PQCitySelectedId + "    " + c);
                                     if (PQCitySelectedId == c) {
-                                        console.log(PQCitySelectedId + "    " + c);
                                         citySelectedNow = city.cities[i];
                                         break;
                                     }
@@ -1080,22 +1079,15 @@
 
                                 if (citySelectedNow != null) {
                                     vm.selectedCity(citySelectedNow.cityId);
-                                    loadArea(vm);
-                                    $(".city-select-text").removeClass("hide").addClass("show");
+                                    loadArea(vm);                                     
                                     if (parseInt($('#mainCity li[cityId' + citySelectedNow.cityId + ']').attr('cityId')) > 0) {
                                         $('#mainCity li[cityId' + citySelectedNow.cityId + ']').click();
                                     }
                                     else {
                                         $('#mainCity li:last-child').click();
                                     }
-
-                                    if (vm.areas.length > 0) {
-                                        $(".area-select-text").removeClass("hide").addClass("show");
-                                        fetchPriceQuote(vm);
-                                    }
-
-
-
+                                    //get pricequote
+                                    fetchPriceQuote(vm);
                                 }
                                 else {
                                     $(".city-select-text").removeClass("hide").addClass("show");
@@ -1107,60 +1099,66 @@
             }
 
             function loadArea(vm) {
+
                 if (vm.selectedCity()) {
-                    $.get("/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity())
-                    .done(function (data) {
+                    $.ajax({
+                        url: "/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity(),
+                        type: "GET",
+                        contentType : "application/json",
+                        async: false
+                    }).done(function (data) {
                         if (data) {
                             var area = ko.toJS(data);
                             vm.areas(area.areas);
+                            $('.city-area-select-container').removeClass("hide").addClass("show");
                             $(".city-select-text").removeClass("show").addClass("hide");
                             $(".area-select-text").removeClass("hide").addClass("show");
+                            $(".area-select").removeClass("hide").addClass("show");
+                            $(".city-select").removeClass("hide").addClass("show");
+                            $("#btnBookNow").hide();
+
                         }
                         else {
                             vm.areas([]);
-                            $(".area-select-text").removeClass("show").addClass("hide");
                             vm.FetchPriceQuote();
                         }
                     })
                     .fail(function () {
+                        //no areas available;
                         vm.areas([]);
-                        $(".area-select-text").removeClass("show").addClass("hide");
-                        vm.FetchPriceQuote();
+                        vm.FetchPriceQuote();                        
                     });
                 }
                 else {
                     vm.areas([]);
-                    $(".city-area-wrapper").removeClass("hide").addClass("show");
-                    $(".city-select").removeClass("hide").addClass("show");
-                    $(".area-select").removeClass("show").addClass("hide");
-                    $(".city-select-text").removeClass("hide").addClass("show");
-                    $(".area-select-text").removeClass("show").addClass("hide");
-                    $(".city-onRoad-price-container").removeClass("show").addClass("hide");
-                    $(".unveil-offer-btn-container").attr('style', '');
-                    $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
-                    $(".default-showroom-text").html("").removeClass('view-breakup-text');
                 }
             }
 
             function fetchPriceQuote(vm) {
                 var clientIP = '<%= clientIP%>';
                 $("#dvAvailableOffer").empty();
-                if (vm.selectedModel() && vm.selectedCity()) {
-                    $.get("/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea() ? vm.selectedArea() : ""))
-                    .done(function (data) {
+                if (ftime)
+                    return;
+                if (vm.selectedModel() && vm.selectedCity()) {  
+                    $.ajax({
+                        url: "/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea()!=undefined ? vm.selectedArea() : 0),
+                        type: "GET",
+                        contentType: "application/json",
+                        async: false
+                    }).done(function (data) {
                         if (data) {
                             var pq = ko.toJS(data);
-                            vm.priceQuote(pq);
+                            vm.priceQuote(pq);                            
                             vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
                             if (pq.IsDealerPriceAvailable) {
                                 vm.DealerPriceList(pq.dealerPriceQuote.priceList);
-                                vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
                             }
                             else {
                                 vm.BWPriceList(pq.bwPriceQuote);
                             }
-
-                            if (pq && pq.IsDealerPriceAvailable) {
+                          
+                            if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable)
+                            {
                                 var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
                                 SetCookie("_MPQ", cookieValue);
                                 SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
@@ -1168,20 +1166,22 @@
                                 $(".unveil-offer-btn-container").attr('style', '');
                                 $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
                                 var totalPrice = 0;
-                                var priceBreakText = '';
+                                var priceBreakText = '';              
                                 for (var i = 0; i < pq.dealerPriceQuote.priceList.length; i++) {
                                     totalPrice += pq.dealerPriceQuote.priceList[i].price;
                                     priceBreakText += pq.dealerPriceQuote.priceList[i].categoryName + " + "
                                 }
                                 priceBreakText = priceBreakText.substring(0, priceBreakText.length - 2);
-                                $("#bike-price").html(totalPrice);
+                                //$("#bike-price").html(formatPrice(totalPrice));
+                                animatePrice($("#bike-price"), 1000, totalPrice);
                                 $("#breakup").text("(" + priceBreakText + ")");
-                                $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text())
-                                $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text())
+                                $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
+                                $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text());
                                 $(".city-select-text").removeClass("show").addClass("hide");
                                 $(".area-select-text").removeClass("show").addClass("hide");
                                 $(".city-onRoad-price-container").removeClass("hide").addClass("show");
-                                $(".city-area-wrapper").addClass("hide");
+                                $(".city-area-wrapper").addClass("hide");                            
+
                                 if (pq.dealerPriceQuote.offers && pq.dealerPriceQuote.offers.length > 0) {
                                     $('.available-offers-container').removeClass("hide").addClass("show");
                                     $("#dvAvailableOffer").append("<ul id='dpqOffer' data-bind=\"foreach: priceQuote().dealerPriceQuote.offers\"><li data-bind=\"text: offerText\"></li></ul>");
@@ -1191,29 +1191,42 @@
                                     $('.available-offers-container').removeClass("hide").addClass("show");
                                     $("#dvAvailableOffer").append("<ul><li>No offers available</li></ul>");
                                 }
-                                $(".default-showroom-text").html("+ View Breakup").addClass('view-breakup-text');
+                                $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
                             }
                             else {
-                                if (pq.bwPriceQuote.onRoadPrice > 0) {
                                     totalPrice = pq.bwPriceQuote.onRoadPrice;
                                     priceBreakText = "Ex-showroom + Insurance + RTO";
-                                }
-                                $("#btnBookNow").hide();
-                                $("#bike-price").html(totalPrice);
-                                $("#breakup").text("(" + priceBreakText + ")");
-                                $(".unveil-offer-btn-container").attr('style', '');
-                                $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
-                                $(".city-onRoad-price-container").removeClass("show").addClass("hide");
-                                $(".city-select-text").removeClass("hide").addClass("show");
-                                $(".area-select-text").removeClass("show").addClass("hide");
-                                $(".city-area-wrapper").removeClass("hide").addClass("show");
-                                $(".city-select").removeClass("hide").addClass("show");
-                                $(".area-select").removeClass("show").addClass("hide");
-                                $('.available-offers-container').removeClass("hide").addClass("show");
-                                $("#dvAvailableOffer").empty();
-                                $("#dvAvailableOffer").append("<ul><li>Currently there are no offers in your city. We hope to serve your city soon!</li></ul>");
+                                    //$("#bike-price").html(formatPrice(totalPrice));
+                                    $("#breakup").text("(" + priceBreakText + ")");                                    
+                                    $("#btnBookNow").hide();
+                                    animatePrice($("#bike-price"), 1000, totalPrice);
+                                    $(".city-onRoad-price-container").removeClass("show").addClass("hide");
+                                    $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
+                                    $("#pqArea").html("");                                                                    
+                                    
+                                    $(".city-select-text").removeClass("hide").addClass("show");
+                                    $(".city-area-wrapper").removeClass("hide").addClass("show");
+                                    $(".city-select").removeClass("hide").addClass("show");                                       
+                                    
+                                    if (vm.areas().length) {
+                                        $(".area-select").removeClass("hide").addClass("show");
+                                        $('.area-select-text').removeClass("hide").addClass("show");
+                                        $(".city-select-text").removeClass("show").addClass("hide");
+                                    }
+                                    else {
+                                        $(".area-select").removeClass("show").addClass("hide");
+                                        $('.area-select-text').removeClass("show").addClass("hide");
+                                    }
+
+                                    $(".unveil-offer-btn-container").attr('style', '');
+                                    $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
+                                    $("#dvAvailableOffer").empty();
+                                    $("#dvAvailableOffer").html("<ul><li>Currently there are no offers in your city. We hope to serve your city soon!</li></ul>");
+                                    $(".available-offers-container").removeClass("hide").addClass("show");
+
+
                             }
-                            $(".default-showroom-text").html("+ View Breakup");
+                            $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
                         }
                         else {
                             vm.areas([]);
@@ -1280,10 +1293,18 @@
             });
 
             $(".city-edit-btn").click(function () {
-                if ($("#ddlCity").val() && $("#ddlArea").val()) {
+                if ($("#ddlCity").val()) {
                     $(".city-select-text").removeClass("hide").addClass("show");
-                    $(".area-select").addClass("hide");
+                    if($("#ddlArea").val())
+                    {
+                        $(".area-select").removeClass("hide").addClass("show");
+                        $('.area-select-text').removeClass("hide").addClass("show");
+                        $(".city-select-text").removeClass("show").addClass("hide");
+                    }
+                    
+                    $(".city-select").removeClass("hide").addClass("show");
                     $(".city-onRoad-price-container").removeClass("show").addClass("hide");
+                    $(".city-area-wrapper").removeClass("hide").addClass("show");
                 }
                 $(".available-offers-container").removeClass("show").addClass("hide");
                 $(".unveil-offer-btn-container").removeClass("hide").addClass("show");

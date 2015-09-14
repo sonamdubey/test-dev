@@ -93,7 +93,7 @@
                                 <div class="bookingcomforts-sprite buying-asst-icon"></div>
                             </div>
                             <p class="font14 margin-bottom10">In case of queries call us toll-free on:</p>
-                            <p class="font18 text-bold">1800 457 9781 </p>
+                            <p class="font18 text-bold">022 6739 8888 (extn : 881)</p>
                         </div>
                     </div>
                     <!-- /ko -->
@@ -240,7 +240,7 @@
                             <p>
                                 You can pay that booking amount using a Credit Card/Debit Card/Net Banking. 
 Book your bike online at BikeWale and make the balance payment at the dealership to avail great offers.
-For further assistance call toll free on <span class="text-bold">1800 456 7890.</span>
+For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881)</span>
                             </p>
                         </div>
                         <asp:Button runat="server" ID="btnMakePayment" class="btn btn-orange margin-top20 margin-bottom10" Text="Pay Now" />
@@ -432,7 +432,7 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                                 var objCust = {
                                     "dealerId": dealerId,
                                     "pqId": pqId,
-                                    "customerName": self.CustomerVM().firstName() + ' ' + self.CustomerVM().lastName(),
+                                    "customerName": self.CustomerVM().firstName() + ' ' + (self.CustomerVM().lastName()!=undefined)?self.CustomerVM().lastName():"",
                                     "customerMobile": self.CustomerVM().mobileNo(),
                                     "customerEmail": self.CustomerVM().emailId(),
                                     "clientIP": clientIP,

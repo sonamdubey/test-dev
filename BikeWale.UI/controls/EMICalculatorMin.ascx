@@ -25,7 +25,7 @@
             <div class="clear"></div>
         </div>
         <div class="calculate-btn">
-            <button class="font18 btn btn-orange btn-lg rounded-corner-no-left" id="btnCalcEmi" tabindex="3">Calculate</button>
+            <a href="#" class="font18 btn btn-orange btn-lg rounded-corner-no-left" id="btnCalcEmi" tabindex="3">Calculate</a>
         </div>
 
         <div class="clear"></div>
