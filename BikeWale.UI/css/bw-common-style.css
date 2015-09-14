@@ -68,7 +68,7 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 }
 .form-control:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(http://img.aeplcdn.com/design15/d/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(http://img.carwale.com/bikewaleimg/images/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
 .input-sm { padding: 8px 10px; }
@@ -114,8 +114,8 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
-.home-top-banner { background:#161209 url(../images/home-top-banner.jpg) no-repeat right top; background-size: cover; height: 490px; padding-top: 1px; }
-.home-getFinalPrice-banner { background:#161209 url(../images/get-final-price-banner.jpg) no-repeat center top; background-size: cover; height: 490px; }
+.home-top-banner { background:#161209 url(http://img.carwale.com/bikewaleimg/images/home-top-banner.jpg) no-repeat right top; background-size: cover; height: 490px; padding-top: 1px; }
+.home-getFinalPrice-banner { background:#161209 url(http://img.carwale.com/bikewaleimg/images/get-final-price-banner.jpg) no-repeat center top; background-size: cover; height: 490px; }
 
 /* city popup classes */
 .globalcity-popup { width:450px; height:350px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left:5%; z-index: 10; }
@@ -262,7 +262,7 @@ div#globalPopupBlackOut {z-index: 9; }
 .loggedin-box:hover { cursor: pointer; }
 .loggedinProfileWrapper { background: #fff; width: 280px; position: fixed; top: 0; right: -280px; bottom: 0; z-index: 10; }
 
-.user-profile-banner { background:#161209 url(http://img.aeplcdn.com/design15/d/user-profile-banner.jpg?v1.0) no-repeat center top; width:280px; height: 146px; }
+.user-profile-banner { background:#161209 url(http://img.carwale.com/bikewaleimg/images/user-profile-banner.jpg?v123) no-repeat center top; width:280px; height: 146px; }
 .user-profile-details { display: table; }
 .user-profile-image { display: table-cell; width: 60px; height: 60px; overflow: hidden; vertical-align: middle; }
 .user-profile-name { display: table-cell; width: 150px; vertical-align: middle; }
@@ -289,11 +289,11 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 
 /* sprite classes */
-.bwsprite { background: url(../images/bwsprite.png?v1=19082015) no-repeat; display: inline-block; }
-.bw-circle-icon { background: url(../images/bw-circle-icon.png) no-repeat; display: inline-block; }
+.bwsprite { background: url(http://img.carwale.com/bikewaleimg/images/bwsprite.png?v123) no-repeat; display: inline-block; }
+.bw-circle-icon { background: url(http://img.carwale.com/bikewaleimg/images/bw-circle-icon.png?v123) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
-.bw-logo { background-position: -34px 0; width: 165px; height: 27px; }
+.bw-logo { background-position: -34px 0; width: 93px; height: 27px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
 .search-icon-grey { background-position: -34px -275px; }
 .search-icon-white { background-position: -64px -278px; }
@@ -314,7 +314,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 /* style-container */
 .style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }
-.styletypesprite { background: url(../images/style-type-sprite.png) no-repeat; display: inline-block;  }
+.styletypesprite { background: url(http://img.carwale.com/bikewaleimg/images/style-type-sprite.png?v123) no-repeat; display: inline-block;  }
 .style-scooters, .style-street, .style-cruiser, .style-sports, .style-scooters-dark, .style-street-dark, .style-cruiser-dark, .style-sports-dark { width:77px; height:44px; }
 .style-scooters { background-position: 0 0; }
 .style-street { background-position: 0 -108px; }
@@ -410,7 +410,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .login-logout-icon { background-position:-150px -250px; }
 
 /* Brand sprite */
-.brandlogosprite { background: url(../images/brand-type-sprite.png) no-repeat; display: inline-block; }
+.brandlogosprite { background: url(http://img.carwale.com/bikewaleimg/images/brand-type-sprite.png?v123) no-repeat; display: inline-block; }
 .brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-enfeild, .brand-guzzi, .brand-harley, .brand-hero-elec, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-royal { height:50px; }
 
 .brand-aprilia { width: 87px; background-position: 0 0; }
@@ -521,7 +521,7 @@ a.action-btn:hover{text-decoration:none;}
 .bg-light-grey-with-alpha { background: rgba(242, 242, 243, 0.9); }
 .bg-grey { background: #e1e1e1; }
 .bg-dark-grey { background: #333333; }
-.bg-footer { background: #323434 url(../images/footer.jpg) repeat-x center top; }
+.bg-footer { background: #323434 url(http://img.carwale.com/bikewaleimg/images/footer.jpg?v123) repeat-x center top; }
 .margin-left-1 { margin-left:-1px;}
 .margin-left5 { margin-left: 5px; }
 .margin-left10 { margin-left: 10px; }
@@ -672,7 +672,6 @@ a.action-btn:hover{text-decoration:none;}
 
 
 /* Carousel Controls */
-/* Carousel Controls */
 .jcarousel-control-left, .jcarousel-control-right {  position: absolute; top: 35%; z-index: 1; }
 .jcarousel-control-left:hover, .jcarousel-control-right:hover { cursor:pointer; }
 .jcarousel-control-left { left: -32px; }
@@ -684,15 +683,6 @@ a.action-btn:hover{text-decoration:none;}
 .jcarousel-control-next:hover { background-position: -61px -130px; }
 .jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-control-right .jcarousel-control-next.inactive { display:none; }
 /* carousel end */
-
-/* new classes for circle icon sprite */
-/*.cwbigicon-sprite { background:url(http://img.aeplcdn.com/design15/d/cw-circle-icon.png) no-repeat; display:inline-block;}*/
-.getfinalprice-icon { background-position:0 0; width:92px; height:92px;}
-.locatedealer-icon { background-position:-102px 0; width:92px; height:92px;}
-.userreview-icon { background-position:-204px 0; width:92px; height:92px;}
-.checkcarvalue-icon { background-position:-306px 0; width:92px; height:92px;}
-.sellcar-icon { background-position:-408px 0; width:92px; height:92px;}
-
 
 /* ***************************************************************************
  *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome *  
