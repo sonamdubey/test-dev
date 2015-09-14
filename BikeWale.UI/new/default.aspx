@@ -22,6 +22,7 @@
         alternate = "http://www.bikewale.com/m/new/";
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
+        canonical = "http://www.bikewale.com/new/";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/newbikes.css" rel="stylesheet" type="text/css">

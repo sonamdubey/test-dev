@@ -11,7 +11,7 @@
 <head>    
     <%
         title = _make.MakeName + " Price in India, Review, Mileage & Photos - Bikewale";
-        description = _make.MakeName + " Price in India - Rs."+Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString())+" - Rs."+Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString())+". Check out Bajaj on road price, reviews, mileage, variants, news & photos at Bikewale.";
+        description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) + " - Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
         alternate = "http://www.bikewale.com/m/" + _make.MaskingName + "-bikes/";
         canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";
     %>

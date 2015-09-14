@@ -37,7 +37,7 @@
         <div class="clear"></div>
     </div>
     <div class="get-final-price-btn">
-        <button id="btnDealerPriceOnRoad" tabindex="4" class="font18 btn btn-orange btn-lg rounded-corner-no-left" type="button" value="Get Price Quote" data-bind="event: { click: getPriceQuoteOnRoad }">Get price quote</button>
+        <button id="btnDealerPriceOnRoad" tabindex="4" class="font18 btn btn-orange btn-lg rounded-corner-no-left" type="button" value="Get On-road Price" data-bind="event: { click: getPriceQuoteOnRoad }">Get On-road Price</button>
     </div>
     <div class="clear"></div>
 </div>
@@ -74,16 +74,16 @@
                 if (cities) {
                     checkCookies();
                     var initIndex = 0;
-                    for (var i = 0; i < cities.length; i++) {
+                    for (var i = 0; i < cities.length; i++) { 
+
+                        if (preSelectedCityId == cities[i].CityId) {
+                            citySelected = cities[i];
+                        }
+
                         if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
                             var currentCity = cities[i];
                             cities.splice(cities.indexOf(currentCity), 1);
                             cities.splice(initIndex++, 0, currentCity);
-                        }
-
-                        if(preSelectedCityId == cities[i].CityId )
-                        {
-                            citySelected = cities[i];
                         }
                             
                     }

@@ -32,7 +32,7 @@
 /* tools you may required */
 .tools-may-need-wrapper { background:#fff; }
 .final-price-logo {  margin:0 auto; }
-.final-price-search-container { margin:0 auto; width:750px; height: 45px; }
+.final-price-search-container { margin:0 auto; width:775px; height: 45px; }
 .final-price-search { min-width:420px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; height: 45px; }
 .final-price-bikeSelect { width:250px; height:45px; float:left; }
 .final-price-bikeSelect input[type="text"] { width:250px; height: 43px; }

@@ -23,7 +23,7 @@
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
-                <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top15" style="display:block;margin-right:auto;margin-left:auto;" type="button" value="Confirm Location" data-bind="event: { click: getPriceQuotePopup }">
+                <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top15" style="display:block;margin-right:auto;margin-left:auto;" type="button" value="Get on road price" data-bind="event: { click: getPriceQuotePopup }">
                 <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
             </div>
         </div> 
@@ -68,16 +68,16 @@
                     checkCookies();
                     var initIndex = 0;
                     for (var i = 0; i < cities.length; i++) {
+
+                        if (preSelectedCityId == cities[i].CityId) {
+                            citySelected = cities[i];
+                        }
+
                         if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
                             var currentCity = cities[i];
                             cities.splice(cities.indexOf(currentCity), 1);
                             cities.splice(initIndex++, 0, currentCity);
-                        }
-
-                        if(preSelectedCityId == cities[i].CityId )
-                        {
-                            citySelected = cities[i];
-                        }
+                        }                         
                             
                     }
 

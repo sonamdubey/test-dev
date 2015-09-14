@@ -25,7 +25,7 @@
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
-            <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" value="Get Price Quote" data-bind="event: { click: getPriceQuoteOnRoad }">Get price quote</button>
+            <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" value="Get On-road Price" data-bind="event: { click: getPriceQuoteOnRoad }">Get On-road Price</button>
             </div>
             
                <!-- Onroad price quote ends here-->
@@ -75,18 +75,17 @@
                 if (cities) {
                     checkCookies();
                     var initIndex = 0;
-                    for (var i = 0; i < cities.length; i++) {
+                    for (var i = 0; i < cities.length; i++) { 
+
+                        if (preSelectedCityId == cities[i].CityId) {
+                            citySelected = cities[i];
+                        }
+
                         if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
                             var currentCity = cities[i];
                             cities.splice(cities.indexOf(currentCity), 1);
                             cities.splice(initIndex++, 0, currentCity);
-                        }
-
-                        if(preSelectedCityId == cities[i].CityId )
-                        {
-                            citySelected = cities[i];
-                        }
-                            
+                        }                            
                     }
 
                     cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null }); 

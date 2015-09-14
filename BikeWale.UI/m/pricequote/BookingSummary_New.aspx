@@ -13,7 +13,7 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking.css" rel="stylesheet" type="text/css" />   
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking.css?15sept2015" rel="stylesheet" type="text/css" />   
         <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
@@ -236,7 +236,7 @@
                 <div class="container">
                     <div class="grid-12">
                         <div class="content-box-shadow content-inner-block-15 margin-bottom15 text-medium-grey text-center">
-                            <a href="tel:1800 457 9781" class="font20 text-grey call-text-green" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 457 9781</a>
+                	<a href="tel:02267398888" class="font20 text-grey call-text-green" style="text-decoration:none;"><span class="fa fa-phone text-green margin-right5"></span> 1800 457 9781</a>
                         </div>
                     </div>
                 </div>
@@ -297,7 +297,7 @@
             var pageUrl = '<%= pageUrl%>';
             var areaId = '<%= areaId%>';
         </script>
-    <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js" type="text/javascript"></script>
+    <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js?15sept2015" type="text/javascript"></script>
         <script language="javascript" type="text/javascript">
             window.onload = function () {
                 var btnRelease = document.getElementById('<%= clientIP %>');
