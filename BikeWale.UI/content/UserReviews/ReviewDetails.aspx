@@ -79,8 +79,9 @@
                     </tr>
                 </table>
             </div>
+             Own a <%= BikeName %>? Help others make an informed buying decision. 
             <div class="grid_2 omega margin-top20 action-btn">
-                Own a <%= BikeName %>? Help others make an informed buying decision. <a href="/content/userreviews/writereviews.aspx?bikem=<%= ModelId %>" class="margin-top5">Write a review</a>
+               <a href="/content/userreviews/writereviews.aspx?bikem=<%= ModelId %>" class="margin-top5">Write a review</a>
             </div>                
         </div>               
         <div class="clear"></div>       
