@@ -14,7 +14,7 @@
                             <p>In case you have been charged, the amount will be refunded to your acount within 7-10 working days based on your bank. Kindly contact the bank for further information.</p>
                             <p class="margin-top10"><span><strong>Transaction reference number: <%= System.Configuration.ConfigurationManager.AppSettings["OfferUniqueTransaction"] %><%= Carwale.BL.PaymentGateway.PGCookie.PGTransId %></strong></span></p>
                         </div>
-                        <div class="mid-box margin-top15 margin-bottom20 center-align"><asp:Button class="action-btn" id="btnMakePayment" Text="Try Paying Again" runat="server" /></div>
+                        <div class="mid-box margin-top15 margin-bottom20 center-align"><asp:Button class="action-btn text_white" id="btnMakePayment" Text="Try Paying Again" runat="server" /></div>
         	        </div>
             </div>
         </div>
@@ -26,5 +26,6 @@
     });
 </script>
     </div>
+</form>
 </body>
 </html>

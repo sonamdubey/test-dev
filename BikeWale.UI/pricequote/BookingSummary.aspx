@@ -325,7 +325,7 @@
                             <div class="clear"></div>
                         </ul>
                     </div>
-                    <div class="mid-box center-align"><asp:Button id="btnMakePayment" class="action-btn" Text="Make Payment" runat="server"/></div>
+                    <div class="mid-box center-align"><asp:Button id="btnMakePayment" class="action-btn text_white" Text="Make Payment" runat="server"/></div>
                 </div>
                 <!--make payment div ends here-->
                 <!--steps starts here-->

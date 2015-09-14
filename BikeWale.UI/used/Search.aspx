@@ -25,7 +25,7 @@
     .sel_parama_hover span{background-color:#cc0000; color:#fff; padding:0 3px; margin-left:5px; cursor:pointer;}
     #app_filters li {display:block;} 
     #btnShowinterst { color:#fff; padding:8px;}
-    #buyer_form input { border:1px solid #ccc; padding:5px; }
+    #buyer_form input, #verifiy_mobile input { border:1px solid #ccc; padding:5px; }
 </style>
 <div class="container_12">
     <div class="grid_12">
