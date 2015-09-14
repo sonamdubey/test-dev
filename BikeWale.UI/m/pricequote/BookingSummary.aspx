@@ -130,7 +130,7 @@
                     </tr>
                 </table>
             </div>
-            <asp:Button data-role="none" class="rounded-corner5" runat="server" id="btnMakePayment" Text="Make Payment"/>
+            <asp:Button data-role="none" class="rounded-corner5 margin-top15" runat="server" id="btnMakePayment" Text="Make Payment"/>
         </div>
     <div class="box1 new-line10">
         <h2 class="margin-bottom10 f-bold floatleft">Contact Details</h2>
@@ -551,7 +551,18 @@
 </div>
             <!-- inner-section code ends here-->
         </div>
+        <div class="ad-unit">
+                    <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
+                </div>
+                <!-- Ad unit code ends here-->
+        	</div>
+            <!-- inner-section code ends here-->
+        </div>
+        
     </div> 
     <div id="divForPopup" style="display:none;"></div>
+<!-- #include file="/includes/footerBW_Mobile.aspx" -->
+<!-- #include file="/includes/footerscript_mobile.aspx" -->
+</form>
 </body>
 </html>

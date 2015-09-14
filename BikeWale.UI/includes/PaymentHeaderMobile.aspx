@@ -64,12 +64,12 @@
     <div id="divParentPageContainer" data-role="page" style="position:relative;">
         <div role="main">
         	<!-- Header code starts here-->
-            <div class="header" id="payment-header">
-                <div class="bw-logo-placer">
-                	<a href="/m/" class="bw-logo"></a>
-                </div>
-            </div>
+            <!-- #include file="/includes/headBW_Mobile.aspx" --> 
             <!-- Header code ends here-->
             <!-- inner-section code starts here-->
             <div class="inner-section">
+                <!-- Ad unit code starts here-->
+                <div class="ad-unit">
+                    <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+                </div>
            
