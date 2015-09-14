@@ -13,7 +13,7 @@
 <body class="bg-light-grey">
     <form runat="server">
     <!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <link href="/m/css/bwm-booking.css" rel="stylesheet" type="text/css" />   
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking.css" rel="stylesheet" type="text/css" />   
 
     <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix"><!--  Discover bikes section code starts here -->
         <div class="grid-12">
@@ -265,7 +265,7 @@ Book your bike online at BikeWale and make the balance payment at the dealership
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
-    <script src="/src/framework/knockout.js" type="text/javascript"></script>
+    <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js" type="text/javascript"></script>
     <script type="text/javascript">
         var pqId = '<%= pqId %>'
         var verId = '<%= versionId %>';
@@ -275,7 +275,7 @@ Book your bike online at BikeWale and make the balance payment at the dealership
         var pageUrl = '<%= pageUrl%>';
         var areaId = '<%= areaId%>';
     </script>
-    <script src="/m/src/bwm-booking.js" type="text/javascript"></script>
+    <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js" type="text/javascript"></script>
     <script language="javascript" type="text/javascript">
         window.onload = function () {
         var btnRelease = document.getElementById('<%= clientIP %>');

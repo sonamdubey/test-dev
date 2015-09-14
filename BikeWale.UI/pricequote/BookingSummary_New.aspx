@@ -8,7 +8,7 @@
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="/css/booking.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css" rel="stylesheet" type="text/css">
 </head>
 <body class="header-fixed-inner">
     <form runat="server">
@@ -268,7 +268,7 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                 <div class="clear"></div>
             </div>
         </section>
-        <script type="text/javascript" src="../src/booking.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/booking.js"></script>
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
         <script type="text/javascript">
             //Need to uncomment the below script

@@ -26,42 +26,46 @@ namespace Bikewale.DAL.Location
             Database db = null;
             List<StateEntityBase> objStateList = null;
 
-            using (SqlCommand cmd = new SqlCommand("GetStates"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-
-                try
+                using (SqlCommand cmd = new SqlCommand("GetStates"))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
                     db = new Database();
                     objStateList = new List<StateEntityBase>();
                     using (SqlDataReader dr = db.SelectQry(cmd))
                     {
-                        if(dr!=null)
+                        if (dr != null)
                         {
-                            while(dr.Read())
+                            while (dr.Read())
                             {
                                 objStateList.Add(new StateEntityBase
                                 {
-                                   StateId = Convert.ToUInt32(dr["Value"]),
-                                   StateName = Convert.ToString(dr["Text"]),
-                                   StateMaskingName = Convert.ToString(dr["MaskingName"])
+                                    StateId = Convert.ToUInt32(dr["Value"]),
+                                    StateName = Convert.ToString(dr["Text"]),
+                                    StateMaskingName = Convert.ToString(dr["MaskingName"])
                                 });
                             }
                         }
                     }
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
             }
             return objStateList;
         }   // End of GetStates method

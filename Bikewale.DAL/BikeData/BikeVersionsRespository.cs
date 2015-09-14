@@ -35,7 +35,6 @@ namespace Bikewale.DAL.BikeData
             List<BikeVersionsListEntity> objVersionsList = null;
 
             Database db = null;
-            SqlDataReader dr = null;
 
             try
             {                
@@ -52,20 +51,21 @@ namespace Bikewale.DAL.BikeData
 
                     db = new Database();
 
-                    dr = db.SelectQry(cmd);
-
-                    if (dr != null)
+                    using (SqlDataReader dr = db.SelectQry(cmd))
                     {
-                        objVersionsList = new List<BikeVersionsListEntity>();
-
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objVersionsList.Add(new BikeVersionsListEntity()
+                            objVersionsList = new List<BikeVersionsListEntity>();
+
+                            while (dr.Read())
                             {
-                                VersionId = Convert.ToInt32(dr["VersionId"]),
-                                VersionName = dr["VersionName"].ToString(),
-                                Price = Convert.ToUInt64(dr["Price"])
-                            });
+                                objVersionsList.Add(new BikeVersionsListEntity()
+                                {
+                                    VersionId = Convert.ToInt32(dr["VersionId"]),
+                                    VersionName = dr["VersionName"].ToString(),
+                                    Price = Convert.ToUInt64(dr["Price"])
+                                });
+                            }
                         }
                     }
                 }
@@ -84,8 +84,6 @@ namespace Bikewale.DAL.BikeData
             }
             finally
             {
-                if (dr != null)
-                    dr.Close();
                 db.CloseConnection();
             }
 

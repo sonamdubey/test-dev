@@ -17,42 +17,48 @@ namespace Bikewale.DAL.BikeBooking
         public IEnumerable<BikeModelEntityBase> GetModelByMake(string requestType, Int32 makeId)
         {
             Database db = null;
-            SqlDataReader reader = null;
             List<BikeModelEntityBase> lstModel = null;
             BikeModelEntityBase model = null;
-            using (SqlCommand cmd = new SqlCommand("GetBikeModels"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@RequestType", requestType);
-                cmd.Parameters.AddWithValue("@MakeId", makeId);
-                try
+                using (SqlCommand cmd = new SqlCommand("GetBikeModels"))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@RequestType", requestType);
+                    cmd.Parameters.AddWithValue("@MakeId", makeId);
+
                     db = new Database();
-                    reader = db.SelectQry(cmd);
-                    if (reader != null && reader.HasRows)
+                    using (SqlDataReader reader = db.SelectQry(cmd))
                     {
-                        lstModel = new List<BikeModelEntityBase>();
-                        while (reader.Read())
+                        if (reader != null && reader.HasRows)
                         {
-                            model = new BikeModelEntityBase();
-                            model.ModelId = Convert.ToInt32(reader["Value"]);
-                            model.ModelName = Convert.ToString(reader["Text"]);
-                            lstModel.Add(model);
+                            lstModel = new List<BikeModelEntityBase>();
+                            while (reader.Read())
+                            {
+                                model = new BikeModelEntityBase();
+                                model.ModelId = Convert.ToInt32(reader["Value"]);
+                                model.ModelName = Convert.ToString(reader["Text"]);
+                                lstModel.Add(model);
+                            }
                         }
                     }
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + " : Make Id : " + makeId + ", Request Type : " + requestType + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + " : Make Id : " + makeId + ", Request Type : " + requestType + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
             }
             return lstModel;
         }

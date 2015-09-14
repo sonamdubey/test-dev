@@ -17,7 +17,10 @@
     <script type="text/javascript">
         jQuery(window).load(function () {
             window.print();
-            window.close();
+
+            window.onafterprint = function () {
+                window.close();
+            }
         });
     </script>
 <div style="padding:10px;background:#fff; border:1px solid #e6e6e6; margin:0 auto; font-family:Segoe UI; font-size:14px; color:#737373;width:820px;">

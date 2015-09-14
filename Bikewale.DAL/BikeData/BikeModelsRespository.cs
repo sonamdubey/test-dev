@@ -34,7 +34,6 @@ namespace Bikewale.DAL.BikeData
             List<BikeModelEntityBase> objModelsList = null;
 
             Database db = null;
-            SqlDataReader dr = null;
 
             try
             {
@@ -46,7 +45,7 @@ namespace Bikewale.DAL.BikeData
 
                     db = new Database();
 
-                    using (dr = db.SelectQry(cmd))
+                    using (SqlDataReader dr = db.SelectQry(cmd))
                     {
                         if (dr != null)
                         {
@@ -1084,6 +1083,10 @@ namespace Bikewale.DAL.BikeData
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
                 objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
             }
 
             return objFeatured;

@@ -1,6 +1,7 @@
 ﻿<script language="c#" runat="server">	
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "";
+    private string fbTitle = "", fbImage;
     private ushort feedbackTypeId = 0; 	 
     private bool isHeaderFix = true;   
 </script>

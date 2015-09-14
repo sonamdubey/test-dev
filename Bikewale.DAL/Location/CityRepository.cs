@@ -27,14 +27,13 @@ namespace Bikewale.DAL.Location
         {
             Database db = null;
             List<CityEntityBase> objCityList = null;
-
-            using (SqlCommand cmd = new SqlCommand("GetCities"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@RequestType", requestType);
-
-                try
+                using (SqlCommand cmd = new SqlCommand("GetCities"))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@RequestType", requestType);
+
                     db = new Database();
                     objCityList = new List<CityEntityBase>();
 
@@ -51,18 +50,22 @@ namespace Bikewale.DAL.Location
                         }
                     }
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
             }
             return objCityList;
         }   // End of GetCities method
@@ -79,14 +82,14 @@ namespace Bikewale.DAL.Location
             Database db = null;
             List<CityEntityBase> objCityList = null;
 
-            using (SqlCommand cmd = new SqlCommand("GetCities"))
+            try
             {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
-                cmd.Parameters.Add("@StateId", SqlDbType.BigInt).Value = stateId;
-
-                try
+                using (SqlCommand cmd = new SqlCommand("GetCities"))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = requestType;
+                    cmd.Parameters.Add("@StateId", SqlDbType.BigInt).Value = stateId;
+
                     db = new Database();
                     objCityList = new List<CityEntityBase>();
 
@@ -103,18 +106,22 @@ namespace Bikewale.DAL.Location
                         }
                     }
                 }
-                catch (SqlException ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
-                catch (Exception ex)
-                {
-                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
-                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                    objErr.SendMail();
-                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
             }
             return objCityList;
         }   // End of GetCities method
@@ -162,6 +169,11 @@ namespace Bikewale.DAL.Location
                 ErrorClass objErr = new ErrorClass(ex, "ex in CityRepository : " + ex.Message);
                 objErr.SendMail();
             }
+            finally
+            {
+                db.CloseConnection();
+            }
+
             return objCities;
         }
     }

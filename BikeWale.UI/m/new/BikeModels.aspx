@@ -7,8 +7,18 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>    
+     <%
+         title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
+         description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs."
+                     + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) +" - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
+                     + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+
+         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/";
+         AdPath = "/1017752/Bikewale_Mobile_Make_";
+         AdId = "1017752";
+%>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="/m/css/bwm-model.css" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <form id="form1" runat="server">
@@ -753,7 +763,7 @@
         cityId = '<%= cityId%>';
         isUsed = '<%= !modelPage.ModelDetails.New %>';
     </script>
-    <script type="text/javascript" src="/m/src/bwm-model.js"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js"></script>
     
 </form>
 </body>

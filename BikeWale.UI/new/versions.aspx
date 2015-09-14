@@ -9,9 +9,23 @@
 <!doctype html>
 <html>
 <head>
+    <%
+        title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
+        description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs." 
+                    + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) +" - "+Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
+                    + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+                    
+        canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
+        AdId = "1017752";
+        AdPath = "BikeWale_New_";
+        TargetedModel = modelPage.ModelDetails.ModelName;
+        fbTitle = title;
+        alternate = "http://www.bikewale.com/m/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
+    %>
+
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
-    <link href="/css/model.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/model.css" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -94,7 +108,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <% if(modelPage.ModelDetails.New) { %>
+                            <% if (modelPage.ModelDetails.New)
+                               { %>
                             <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : "" %>">
                                 <p class="margin-left50	leftfloat margin-right20">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
@@ -157,7 +172,7 @@
                                                 <!-- ko foreach : DealerPriceList -->
                                                 <tr>
                                                     <td width="350" class="padding-bottom10" data-bind="text: categoryName"></td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span> <span data-bind="text: price"></span></td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: price"></span></td>
                                                 </tr>
                                                 <!-- /ko  -->
                                                 <!-- ko if :DealerPriceList -->
@@ -168,12 +183,12 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="padding-bottom10">Total on road price</td>
-                                                    <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span>  <span data-bind="text: DealerOnRoadPrice "></span></td>
+                                                    <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
                                                 </tr>
-                                                 <!-- /ko -->  
+                                                <!-- /ko -->
                                                 <tr>
                                                     <td class="padding-bottom10">Minus insurance</td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span> 0</td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>0</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">
@@ -183,8 +198,8 @@
                                                 <tr>
                                                     <!-- ko if :DealerPriceList -->
                                                     <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span> <span data-bind="text: DealerOnRoadPrice "></span></td>
-                                                    <!-- /ko -->                                                    
+                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
+                                                    <!-- /ko -->
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">
@@ -202,20 +217,20 @@
                             </div>
                             <% if (!modelPage.ModelDetails.New)
                                { %>
-                                    <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : "" %>">
-                                        <p class="leftfloat margin-right20">
-                                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
-                                        </p>
-                                        <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20"><%= modelPage.ModelDetails.ReviewCount %> Reviews
-                                        </a>
-                                        <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat margin-right20 padding-left20">Write a review
-                                        </a>
-                                        <div class="clear"></div>
-                                    </div>                                    
-                                    <div class="margin-top20 bike-price-container margin-bottom15">                                                                                        
-                                        <span class="font14 text-light-grey default-showroom-text"><%= bikeName %> is discontinued in India.</span>                                                                        
+                            <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : "" %>">
+                                <p class="leftfloat margin-right20">
+                                    <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
+                                </p>
+                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20"><%= modelPage.ModelDetails.ReviewCount %> Reviews
+                                </a>
+                                <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat margin-right20 padding-left20">Write a review
+                                </a>
+                                <div class="clear"></div>
                             </div>
-                                    <div class="clear"></div>
+                            <div class="margin-top20 bike-price-container margin-bottom15">
+                                <span class="font14 text-light-grey default-showroom-text"><%= bikeName %> is discontinued in India.</span>
+                            </div>
+                            <div class="clear"></div>
                             <% } %>
                             <% if (modelPage.ModelDetails.New)
                                { %>
@@ -888,7 +903,7 @@
             </div>
         </section>
         <% } %>
-        <section class="<%= (Convert.ToInt32(ctrlAlternativeBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>">
+        <section class="margin-bottom30 <%= (Convert.ToInt32(ctrlAlternativeBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>">
             <div class="container margin-bottom20">
                 <div class="grid-12 alternative-section">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternatives</h2>
@@ -980,7 +995,7 @@
                 a.text(a.text() === "+" ? "-" : "+");
             });
 
-            $("div#dvBikePrice").on('click','span.view-breakup-text', function () {
+            $("div#dvBikePrice").on('click', 'span.view-breakup-text', function () {
                 faqPopupShow();
             });
 
@@ -995,10 +1010,10 @@
             };
 
         </script>
-        <script type="text/javascript" src="/src/model.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js"></script>
         <script type="text/javascript">
             var PQCitySelectedId = 0;
-            var PQCitySelectedName = ""; 
+            var PQCitySelectedName = "";
             function pqViewModel(modelId, cityId) {
                 var self = this;
                 self.cities = ko.observableArray([]);
@@ -1033,13 +1048,10 @@
                 }
             }
 
-            function loadDealerBreakUp(vm)
-            {
-                if(vm.DealerPriceList!=null && vm.DealerPriceList.length > 0)
-                {
+            function loadDealerBreakUp(vm) {
+                if (vm.DealerPriceList != null && vm.DealerPriceList.length > 0) {
                     total = 0;
-                    for(i=0;i<vm.DealerPriceList.length;i++)
-                    {
+                    for (i = 0; i < vm.DealerPriceList.length; i++) {
                         total += vm.DealerPriceList.price;
                     }
                     alert(total);
@@ -1056,44 +1068,39 @@
                                 var citySelectedNow = null;
                                 vm.cities(city.cities);
                                 PQcheckCookies();
-                                for (i = 0; i < city.cities.length;i++)
-                                {
+                                for (i = 0; i < city.cities.length; i++) {
                                     c = city.cities[i].cityId;
                                     console.log(PQCitySelectedId + "    " + c);
-                                    if (PQCitySelectedId == c )
-                                    {
+                                    if (PQCitySelectedId == c) {
                                         console.log(PQCitySelectedId + "    " + c);
                                         citySelectedNow = city.cities[i];
                                         break;
                                     }
                                 }
 
-                                if (citySelectedNow!=null)
-                                {
+                                if (citySelectedNow != null) {
                                     vm.selectedCity(citySelectedNow.cityId);
                                     loadArea(vm);
                                     $(".city-select-text").removeClass("hide").addClass("show");
-                                    if (parseInt($('#mainCity li[cityId' + citySelectedNow.cityId + ']').attr('cityId')) > 0)
-                                    {
+                                    if (parseInt($('#mainCity li[cityId' + citySelectedNow.cityId + ']').attr('cityId')) > 0) {
                                         $('#mainCity li[cityId' + citySelectedNow.cityId + ']').click();
                                     }
                                     else {
                                         $('#mainCity li:last-child').click();
                                     }
-                                    
-                                    if (vm.areas.length > 0)
-                                    {
+
+                                    if (vm.areas.length > 0) {
                                         $(".area-select-text").removeClass("hide").addClass("show");
                                         fetchPriceQuote(vm);
                                     }
-                                       
 
-                                    
+
+
                                 }
                                 else {
                                     $(".city-select-text").removeClass("hide").addClass("show");
                                 }
-                                
+
                             }
                         });
                 }
@@ -1146,7 +1153,7 @@
                             vm.priceQuote(pq);
                             vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
                             if (pq.IsDealerPriceAvailable) {
-                                vm.DealerPriceList(pq.dealerPriceQuote.priceList);                                
+                                vm.DealerPriceList(pq.dealerPriceQuote.priceList);
                                 vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
                             }
                             else {
@@ -1241,7 +1248,8 @@
             }
 
             $(document).ready(function () {
-                <% if(modelPage.ModelDetails.New) { %>                
+                <% if (modelPage.ModelDetails.New)
+                   { %>
                 var cityId = '<%= cityId%>'
                 InitVM(cityId);
                 <% } %>
@@ -1285,21 +1293,18 @@
                 var viewModel = new pqViewModel('<%= modelId%>', cityId);
                 ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
                 viewModel.LoadCity();
-            }            
+            }
 
-            function PQcheckCookies()
-            {
+            function PQcheckCookies() {
                 c = document.cookie.split('; ');
-                for(i=c.length-1; i>=0; i--)
-                {
+                for (i = c.length - 1; i >= 0; i--) {
                     C = c[i].split('=');
-                    if(C[0]=="location")
-                    {
+                    if (C[0] == "location") {
                         var cData = (String(C[1])).split('_');
                         PQCitySelectedId = parseInt(cData[0]);
                         PQCitySelectedName = cData[1];
                     }
-                } 
+                }
             }
 
         </script>

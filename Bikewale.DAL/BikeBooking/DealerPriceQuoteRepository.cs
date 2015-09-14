@@ -78,6 +78,10 @@ namespace Bikewale.DAL.BikeBooking
                 objErr.SendMail();
                 isSuccess = false;
             }
+            finally
+            {
+                db.CloseConnection();
+            }
             return isSuccess;
         }
 
@@ -326,6 +330,7 @@ namespace Bikewale.DAL.BikeBooking
             {
                 db.CloseConnection();
             }
+
             return objCustomer;
         }
 
@@ -428,6 +433,7 @@ namespace Bikewale.DAL.BikeBooking
             {
                 db.CloseConnection();
             }
+
             return objVersions;
         }
 
@@ -473,10 +479,7 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return isSuccess;
         }
 
@@ -520,6 +523,7 @@ namespace Bikewale.DAL.BikeBooking
                 objErr.SendMail();
                 isSuccess = false;
             }
+
 
             return isSuccess;
         }
@@ -725,6 +729,10 @@ namespace Bikewale.DAL.BikeBooking
                 objErr.SendMail();
                 isDealerAreaAvailable = false;
             }
+            finally
+            {
+                db.CloseConnection();
+            }
             return isDealerAreaAvailable;
         }
 
@@ -770,6 +778,10 @@ namespace Bikewale.DAL.BikeBooking
             {
                 ErrorClass objErr = new ErrorClass(ex, "GetDefaultPriceQuoteVersion ex : " + ex.Message);
                 objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
             }
             return versionId;
         }   //End of GetDefaultPriceQuoteVersion
@@ -826,6 +838,11 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, "GetAreaList ex : " + ex.Message);
                 objErr.SendMail();
             }
+            finally
+            {
+                db.CloseConnection();
+            }
+
             return objArea;
         }   //End of GetAreaList
         #endregion
@@ -841,7 +858,6 @@ namespace Bikewale.DAL.BikeBooking
             BookingPageDetailsEntity entity = null;
             IEnumerable<BikeModelColor> bikeModelColors = null;
             Database db = null;
-            SqlDataReader reader = null;
             List<DealerPriceCategoryItemEntity> DealerPriceCategoryItemEntities = null;
             List<BikeDealerPriceDetail> BikeDealerPriceDetails = null;
             List<string> disclaimers = null;
@@ -858,7 +874,7 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                     cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
                     cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
-                    using (reader = db.SelectQry(cmd))
+                    using (SqlDataReader reader = db.SelectQry(cmd))
                     {
                         if (reader != null && reader.HasRows)
                         {
@@ -1013,6 +1029,11 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+            finally
+            {
+                db.CloseConnection();
+            }
+
             return entity;
         }
 
