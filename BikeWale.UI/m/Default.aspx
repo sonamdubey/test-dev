@@ -458,11 +458,11 @@
     <section class="home-getFinalPrice-banner"><!--  Get Final Price code starts here -->
         <BW:MOnRoadPricequote ID="MOnRoadPricequote" runat="server"/> 
     </section><!-- Get Final Price code Ends here -->
-    <section><!--  Compare section code starts here -->
+    <section class="home-compare"><!--  Compare section code starts here -->
         <BW:CompareBike ID="ctrlCompareBikes" runat="server"/>
     </section><!-- Compare code Ends here -->    
     <section><!--  News, reviews and videos code starts here -->
-        <div class="container bg-white">
+        <div class="container">
         	<div class="grid-12">
                 <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
                 <div class="bw-tabs-panel">

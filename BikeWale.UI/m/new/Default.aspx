@@ -40,7 +40,7 @@
     <section class="container">
         <!-- Brand section code starts here -->
         <div class="grid-12">
-            <div class="bg-white brand-wrapper content-box-shadow margin-minus30">
+            <div class="bg-white brand-wrapper content-box-shadow margin-minus60">
                 <h2 class="content-inner-block-10 text-uppercase text-center margin-top30 margin-bottom20">Brand</h2>
                 <div class="brand-type-container">
                     <ul class="text-center">
@@ -254,10 +254,10 @@
     </section>
 
     <section>
-        <div class="container">
+        
         <!--  Compare section code starts here -->
         <BW:CompareBike ID="ctrlCompareBikes" runat="server" />
-        </div>
+        
     </section>
 
     <section class="container">
