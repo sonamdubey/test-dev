@@ -7,11 +7,11 @@
      %>
     <!-- #include file="/includes/headscript.aspx" -->
 </head>
-<body class="bg-white">
+<body class="bg-light-grey">
 <form runat="server">
 <!-- #include file="/includes/headBW.aspx" -->
-    <link href="/css/new/search.css" rel="stylesheet" type="text/css">
-    <link href="/css/chosen.min.css" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/search.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css" rel="stylesheet" type="text/css"/>
     <section class="bg-white">
     	<div class="container">
             <div class="grid-12">

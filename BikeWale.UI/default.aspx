@@ -17,7 +17,7 @@
         alternate = "http://www.bikewale.com/m/";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="/css/home.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-white">
 <form runat="server">

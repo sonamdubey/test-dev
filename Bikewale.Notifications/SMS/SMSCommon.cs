@@ -110,13 +110,12 @@ namespace Bikewale.Notifications
         /// <param name="retMsg">The return message from the provider that is received after the SMS is sent</param>
         private void UpdateSMSSentData(string currentId, string retMsg)
         {
-            SqlConnection db = null;
             if (!String.IsNullOrEmpty(currentId))
             {
                 string sql = "UPDATE SMSSent SET ReturnedMsg = @RetMsg WHERE ID = @CurrentId";
                 try
                 {
-                    using (db = new SqlConnection())
+                    using (SqlConnection con = new SqlConnection())
                     {
                         using (SqlCommand cmd = new SqlCommand())
                         {
@@ -124,8 +123,8 @@ namespace Bikewale.Notifications
                             cmd.CommandType = CommandType.Text;
                             cmd.Parameters.Add("@CurrentId", SqlDbType.Int).Value = Convert.ToInt32(currentId);
                             cmd.Parameters.Add("@RetMsg", SqlDbType.VarChar).Value = retMsg;
-                            db.ConnectionString = ConfigurationManager.AppSettings["bwconnectionstring"];
-                            db.Open();
+                            con.ConnectionString = ConfigurationManager.AppSettings["bwconnectionstring"];
+                            con.Open();
                             cmd.ExecuteNonQuery();
                         }
                     }
@@ -187,14 +186,14 @@ namespace Bikewale.Notifications
             catch (SqlException err)
             {
                 //HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-                //ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
+                objErr.SendMail();
             } // catch SqlException
             catch (Exception err)
             {
                 //HttpContext.Current.Trace.Warn("Common.SMSCommon : " + err.Message);
-                //ErrorClass objErr = new ErrorClass(err, "Common.SMSCommon");
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.Notifications.SMSCommon");
+                objErr.SendMail();
             } // catch Exception
             return currentId;
         }

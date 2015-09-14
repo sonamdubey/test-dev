@@ -62,6 +62,11 @@ namespace Bikewale.DAL.Location
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+            finally
+            {
+                db.CloseConnection();
+            }
+
             return objAreaList;
         }   // End of GetAreas method
 
@@ -75,7 +80,6 @@ namespace Bikewale.DAL.Location
             Database db = null;
             List<AreaEntityBase> lstArea = null;
             AreaEntityBase area = null;
-            SqlDataReader reader = null;
             try
             {
                 using (SqlCommand cmd = new SqlCommand("GetAreas"))
@@ -84,19 +88,20 @@ namespace Bikewale.DAL.Location
                     cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
 
                     db = new Database();
-                    reader = db.SelectQry(cmd);
-                    if (reader != null && reader.HasRows)
+                    using (SqlDataReader reader = db.SelectQry(cmd))
                     {
-                        lstArea = new List<AreaEntityBase>();
-                        while (reader.Read())
+                        if (reader != null && reader.HasRows)
                         {
-                            area = new AreaEntityBase();
-                            area.AreaId = Convert.ToUInt32(reader["Value"]);
-                            area.AreaName = Convert.ToString(reader["Text"]);
-                            lstArea.Add(area);
+                            lstArea = new List<AreaEntityBase>();
+                            while (reader.Read())
+                            {
+                                area = new AreaEntityBase();
+                                area.AreaId = Convert.ToUInt32(reader["Value"]);
+                                area.AreaName = Convert.ToString(reader["Text"]);
+                                lstArea.Add(area);
+                            }
                         }
                     }
-
                 }
             }
             catch (SqlException ex)
@@ -110,6 +115,10 @@ namespace Bikewale.DAL.Location
                 HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
             }
             return lstArea;
         }
