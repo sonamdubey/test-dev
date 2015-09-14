@@ -779,6 +779,7 @@ $.selectFiltersPresentInQS = function () {
             } else if (params[i] == 'budget') {
                 var values = $.getFilterFromQS(params[i]).split('-');
                 values[0] = (values[0] == '0' ? '30000' : values[0]);
+                values[1] = values[1] == '' ? '6000000' : values[1];
                 var minValue = $.getSliderValue(values[0]), maxValue = $.getSliderValue(values[1])
 
                 $.setSliderRangeQS($('#mSlider-range'), minValue, maxValue);
