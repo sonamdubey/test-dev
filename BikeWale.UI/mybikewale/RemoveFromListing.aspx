@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.MyBikeWale.RemoveFromListing" %>
 <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
+<form runat="server">
     <div id="div_RemoveInquiry" runat="server">
         <p><asp:Label ID="lblMsg" runat="server" /></p>	
 	    <asp:DropDownList ID="drpStatus" runat="server" />
@@ -13,6 +14,7 @@
     <div>
         <asp:Label id="lblRemoveStatus" runat="server"></asp:Label>
     </div>
+    </form>
 <script type="text/javascript">
     document.getElementById('btnSave').onclick = form_Submit;    
     inquiryId = '<%= inquiryId%>';
