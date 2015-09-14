@@ -1,2 +1,2 @@
-﻿<script type="text/javascript" src="/m/src/Plugins.js"></script>
-<script type="text/javascript" src="/m/src/common.js"></script>
+﻿<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/m/src/Plugins.js?14sept2015"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/m/src/common.js?14sept2015"></script>
