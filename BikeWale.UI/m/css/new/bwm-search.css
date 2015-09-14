@@ -39,7 +39,7 @@
 #imgCount { background: #333; width: 90px; height: 18px; padding: 5px; position: relative; margin: -20px auto auto; text-align: center; text-shadow: none; color: #fff; font-size: 12px; font-weight: normal; }
 #m-uc-gallery { background: #000; }
 .highPriceDiv { width: 50%; }
-.highPriceDiv .ui-icon-carat-d:after { background: url(../images/pq/m-icons.png?16042015-v5) no-repeat -52px -142px; width: 9px; height: 5px; display: block; margin-top: -2px; }
+.highPriceDiv .ui-icon-carat-d:after { background: url(http://img.carwale.com/bikewaleimg/m/images/pq/m-icons.png?16042015-v5) no-repeat -52px -142px; width: 9px; height: 5px; display: block; margin-top: -2px; }
 .highPriceDiv div.ui-btn, .highPriceDiv div.ui-btn:hover { padding: 6px 10px; border: 1px solid #f2f2f2; background: #fff; border-radius: 0px; text-align: left; font-size: 1em; font-family: Roboto, Arial, Helvetica, sans-serif; color: #333; font-weight: normal; text-shadow: none; box-shadow: none; }
 .highPriceDiv .ui-select { margin: 0px; }
 .bikeDiv a.ui-btn:focus { background-color: #f6f6f6; }
@@ -98,7 +98,7 @@ span.ui-helper-hidden-accessible { display: none; }
 
 /* multiple select dropdown */
 .dropdown ul { margin: -1px 0 0 0; }
-.dropdown .form-control { background: #fff url(../images/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; padding-right: 30px; overflow: hidden; padding-left: 15px; }
+.dropdown .form-control { background: #fff url(http://img.carwale.com/bikewaleimg/m/images/dropArrowBg.png?v123) no-repeat 96% 50%; padding-right: 30px; overflow: hidden; padding-left: 15px; }
 .multiSel { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
 .dropdown .hida.shiftRight:before { content: "("; }
 .dropdown .hida.shiftRight { float: right; color: #82888b; }

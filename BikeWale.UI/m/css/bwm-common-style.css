@@ -68,7 +68,7 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 }
 .form-control:focus, input[type="text"]:focus, input[type="number"]:focus, input[type="search"]:focus, textarea:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 4px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  background:#fff url(../images/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; padding-right: 30px;  background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  background:#fff url(http://img.carwale.com/bikewaleimg/m/images/dropArrowBg.png?v123) no-repeat 96% 50%; padding-right: 30px;  background: #fff\0; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
 .input-sm { padding: 8px 10px; }
@@ -107,7 +107,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
-.home-getFinalPrice-banner { background:#161209 url(../images/onroad-price-banner.jpg) no-repeat center top;   background-size: cover; height: 373px; }
+.home-getFinalPrice-banner { background:#161209 url(http://img.carwale.com/bikewaleimg/m/images/get-final-price-banner.jpg) no-repeat center top;     background-size: cover; height: 373px; }
 
 /* global-search classes */
 .global-search { float: left; padding: 0 10px; position: relative; top: 2px; cursor: pointer; }
@@ -278,11 +278,11 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .gplusLoginBtn { background:#D44936; }
 a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
-.banner-home { height: 268px; background: #161209 url(../images/home-top-banner.jpg) no-repeat scroll right top;  background-size: cover; }
-.newbikes-banner-div { background:#161209 url(../images/new-bike-banner.jpg) no-repeat center top; background-size: cover; height:130px;}
+.banner-home { height: 268px; background: #161209 url(http://img.carwale.com/bikewaleimg/m/images/home-top-banner.jpg?v123) no-repeat scroll right top;  background-size: cover; }
+.newbikes-banner-div { background:#161209 url(http://img.carwale.com/bikewaleimg/m/images/new-cars-banner.jpg?v123) no-repeat left top; background-size: cover; height:130px;}
 
 /* sprite classes */
-.bwmsprite { background: url(../images/bwmsprite.png) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://img.carwale.com/bikewaleimg/m/images/bwmsprite.png?v123) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .bw-logo { background-position: -31px 0px; width: 121px; height: 24px; }
@@ -369,7 +369,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .jcarousel li:hover .back-circle-icon { background-position: -150px -291px; }
 
 /* Brand Sprite */
-.brandlogosprite { background: url(../images/brand-type-sprite.png) no-repeat; display: inline-block; }
+.brandlogosprite { background: url(http://img.carwale.com/bikewaleimg/m/images/brand-type-sprite.png?v123) no-repeat; display: inline-block; }
 .brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royal, .brand-guzzi, .brand-harley, .brand-hero-elec, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo { height:30px; }
 
 .brand-aprilia { width: 52px; background-position: 0 0; }
@@ -451,7 +451,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .bg-light-grey-with-alpha { background: rgba(242, 242, 243, 0.9); }
 .bg-grey { background: #e1e1e1; }
 .bg-dark-grey { background: #333333; }
-.bg-footer { background: #323434 url(../images/bg-footer.jpg) no-repeat center top; background-size:cover; }
+.bg-footer { background: #323434 url(http://img.carwale.com/bikewaleimg/m/images/bg-footer.jpg?v123) no-repeat center top; background-size:cover; }
 
 .margin-left5 { margin-left: 5px; }
 .margin-left10 { margin-left: 10px; }
@@ -614,7 +614,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 /* carousel end */
 
 /* new classes for circle icon sprite */
-.bwm-circle-icon { background:url(../images/bw-circle-icon.png) no-repeat; display:inline-block; }
+.bwm-circle-icon { background:url(http://img.carwale.com/bikewaleimg/m/images/bw-circle-icon.png) no-repeat; display:inline-block; }
 .getfinalprice-icon, .locatedealer-icon, .userreview-icon, .checkcarvalue-icon, .sellcar-icon, .pq-no-name, .pq-no-mobile, .pq-no-email { width:92px; height:92px;}
 .getfinalprice-icon { background-position:0 0; }
 .locatedealer-icon { background-position:-102px 0; }
@@ -681,8 +681,8 @@ fieldset { border: 0; border-collapse:collapse; }
 .border-left1{border-left:1px solid #e2e2e2;}
 .border-top1{border-top:1px solid #e2e2e2;}
 footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
-.unchecked { background: url("../images/inputUnchecked.png") no-repeat 0 center; }
-.checked { background: url("../images/inputChecked.png") no-repeat 0 center; }
+.unchecked { background: url("http://img.carwale.com/bikewaleimg/m/images/inputUnchecked.png") no-repeat 0 center; }
+.checked { background: url("http://img.carwale.com/bikewaleimg/m/images/inputChecked.png") no-repeat 0 center; }
 
 
 .clearfix:before,
