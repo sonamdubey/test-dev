@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bikewale.DTO.City;
+using Bikewale.DTO.Area;
 
 namespace Bikewale.DTO.PriceQuote.CustomerDetails
 {
@@ -22,5 +24,9 @@ namespace Bikewale.DTO.PriceQuote.CustomerDetails
         public string CustomerEmail { get; set; }
         [JsonProperty("customerMobile")]
         public string CustomerMobile { get; set; }
+        [JsonProperty("city")]
+        public CityBase cityDetails { get; set; }
+        [JsonProperty("area")]
+        public AreaBase AreaEntityBase { get; set; }
     }
 }

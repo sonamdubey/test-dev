@@ -29,6 +29,7 @@ namespace Bikewale.BikeBooking
         protected BookingPageDetailsDTO objBookingPageDetailsDTO = null;
         protected BookingSummaryBase objBooking = null;
         protected PQCustomerDetail objCustomer = null;
+        bool isDealerNotified = false;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -42,13 +43,14 @@ namespace Bikewale.BikeBooking
             dd.DetectDevice();
             ProcessCookie();
             GetDetailedQuote();
+
         }
 
         void btnMakePayment_click(object Sender, EventArgs e)
         {
             BeginTransaction("3");
         }
-        
+
         private void GetDetailedQuote()
         {
             bool _isContentFound = true;
@@ -63,8 +65,8 @@ namespace Bikewale.BikeBooking
 
                 objBooking = BWHttpClient.GetApiResponseSync<BookingSummaryBase>(_abHostUrl, _requestType, _apiUrl, objBooking);
 
-                if (objBooking != null && objBooking.DealerQuotation != null && objBooking.Customer !=null)
-                {                    
+                if (objBooking != null && objBooking.DealerQuotation != null && objBooking.Customer != null)
+                {
                     bikeName = String.Format("{0} {1}", objBooking.DealerQuotation.objQuotation.objMake.MakeName, objBooking.DealerQuotation.objQuotation.objModel.ModelName);
                     getCustomerDetails();
                 }
@@ -102,7 +104,7 @@ namespace Bikewale.BikeBooking
         {
             string transresp = string.Empty;
 
-            if (objCustomer.objCustomerBase.CustomerId.ToString() != "" && objCustomer.objCustomerBase.CustomerId > 0)
+            if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.CustomerId.ToString() != "" && objCustomer.objCustomerBase.CustomerId > 0 && objCustomer.objCustomerBase.IsVerified)
             {
                 Trace.Warn("Inside begin tarns" + objCustomer.objCustomerBase.CustomerId.ToString());
                 var transaction = new TransactionDetails()
@@ -159,6 +161,9 @@ namespace Bikewale.BikeBooking
         }
 
         #region Private Method
+        /// <summary>
+        /// Checks for the valid PQ Cookie
+        /// </summary>
         private void ProcessCookie()
         {
             if (PriceQuoteCookie.IsPQCoockieExist())

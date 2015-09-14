@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Bikewale.DTO.PriceQuote.BikeBooking;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,8 @@ namespace Bikewale.DTO.PriceQuote
     {
         [JsonProperty("isSuccess")]
         public bool IsSuccess { get; set; }
+
+        [JsonProperty("dealer")]
+        public DealerDetailsDTO Dealer { get; set; }
     }
 }
