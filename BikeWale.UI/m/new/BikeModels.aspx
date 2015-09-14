@@ -3,6 +3,7 @@
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW"  %>
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
+<%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -708,7 +709,7 @@
         if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
         if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
         if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-        //if (ctrlUserReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+        if (ctrlUserReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
     %>
     <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>"><!--  News, reviews and videos code starts here -->
         <div class="container">
@@ -721,12 +722,14 @@
                                 <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlNews">News</option>
                                 <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>"  value="ctrlExpertReviews">Reviews</option>
                                 <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
+                                <option class="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlUserReviews">User Reviews</option>
                             </select>
                         </div>
                     </div>
                     <BW:News runat="server" ID="ctrlNews"/>
                     <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>
-                    <BW:Videos runat="server" ID="ctrlVideos"/>                    
+                    <BW:Videos runat="server" ID="ctrlVideos"/>  
+                    <BW:UserReviews runat="server" id="ctrlUserReviews" />
                 </div>        
         	</div>
             <div class="clear"></div>

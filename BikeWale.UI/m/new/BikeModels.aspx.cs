@@ -28,7 +28,7 @@ namespace Bikewale.Mobile.New
         protected NewsWidget ctrlNews;
         protected ExpertReviewsWidget ctrlExpertReviews;
         protected VideosWidget ctrlVideos;        
-        //protected UserReviewsList ctrlUserReviews;
+        protected UserReviewList ctrlUserReviews;
 
         // Register global variables
         protected ModelPage modelPage;
@@ -67,10 +67,10 @@ namespace Bikewale.Mobile.New
                 ctrlVideos.TotalRecords = 3;
                 ctrlVideos.ModelId = Convert.ToInt32(modelId);
 
-                //ctrlUserReviews.ReviewCount = 4;
-                //ctrlUserReviews.PageNo = 1;
-                //ctrlUserReviews.PageSize = 4;
-                //ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
+                ctrlUserReviews.ReviewCount = 4;
+                ctrlUserReviews.PageNo = 1;
+                ctrlUserReviews.PageSize = 4;
+                ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
             }
 		}
 
