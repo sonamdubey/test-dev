@@ -64,12 +64,14 @@
     <div id="divParentPageContainer" data-role="page" style="position:relative;">
         <div role="main">
         	<!-- Header code starts here-->
-            <div class="header" id="payment-header">
-                <div class="bw-logo-placer">
-                	<a href="/m/" class="bw-logo"></a>
-                </div>
-            </div>
+
+            <header>
+    	        <div class="header-fixed"> <!-- Fixed Header code starts here -->
+        	        <a href="/m/" class="bwmsprite bw-logo bw-lg-fixed-position" style="left:10px;"></a>
+                </div> <!-- ends here -->
+    	        <div class="clear"></div>        
+            </header>
+
             <!-- Header code ends here-->
             <!-- inner-section code starts here-->
             <div class="inner-section">
-           

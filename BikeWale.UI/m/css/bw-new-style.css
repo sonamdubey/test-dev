@@ -117,7 +117,7 @@ html>body .WebRupee {margin-right:3px; *margin-right:0;}
 .bottom-btns .ui-input-btn input[type="submit"] {background-color:#000;}
 /*-------------- Helmet offer--------------------*/
 .red-text { color:#c62000;}
-.box1 { border:none; border-radius:0; padding:10px; margin-bottom:20px; box-shadow:0 5px 5px 2px #ccc; -moz-box-shadow:0 5px 5px 2px #ccc; -o-box-shadow:0 5px 5px 2px #ccc; -ms-box-shadow:0 5px 5px 2px #ccc; -webkit-box-shadow:0 5px 5px 2px #ccc;}
+.box1 { border:none; border-radius:0; padding:10px; margin-bottom:20px; -moz-box-shadow: 2px 2px 2px #dcdcdc; -webkit-box-shadow: 2px 2px 2px #dcdcdc; -o-box-shadow: 2px 2px 2px #dcdcdc; -ms-box-shadow: 2px 2px 2px #dcdcdc; box-shadow: 2px 2px 2px #dcdcdc; }
 .box1 h2 {margin-top:5px; margin-bottom:10px;}
 .box1 .inner-box li, .option-details li { margin-bottom:5px; list-style-type:disc; margin-left:10px;}
 .option-details li { margin-left:20px;}

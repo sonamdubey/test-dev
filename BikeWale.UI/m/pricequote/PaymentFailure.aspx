@@ -31,5 +31,6 @@
         });
     });
 </script>
+</form>
 </body>
 </html>

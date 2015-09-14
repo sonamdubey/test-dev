@@ -130,7 +130,7 @@
                     </tr>
                 </table>
             </div>
-            <asp:Button data-role="none" class="rounded-corner5" runat="server" id="btnMakePayment" Text="Make Payment"/>
+            <asp:Button data-role="none" class="rounded-corner5 margin-top15" runat="server" id="btnMakePayment" Text="Make Payment"/>
         </div>
     <div class="box1 new-line10">
         <h2 class="margin-bottom10 f-bold floatleft">Contact Details</h2>
@@ -553,5 +553,6 @@
         </div>
     </div> 
     <div id="divForPopup" style="display:none;"></div>
+</form>
 </body>
 </html>
