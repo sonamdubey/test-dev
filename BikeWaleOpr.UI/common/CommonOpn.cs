@@ -2049,12 +2049,21 @@ namespace BikeWaleOpr.Common
                 //if price > 5 lakh and price < 10 lakh 4% + 5000
                 //if price > 10 lakh and price < 20 lakh 6% + 8000
                 //if price > 20 lakh Then 8% + 10000.
+                //case 22:
+                //    if (price <= 20000)
+                //        roadTax = (price * 0.02);
+                //    else if (price > 20000 && price <= 60000)
+                //        roadTax = (price * 0.04);
+                //    else if (price > 60000 && price <= 200000)
+                //        roadTax = (price * 0.06);
+                //    else
+                //        roadTax = (price * 0.08);
+                //    break;
+
                 case 22:
-                    if (price <= 20000)
-                        roadTax = (price * 0.02);
-                    else if (price > 20000 && price <= 60000)
+                    if (price < 75000)
                         roadTax = (price * 0.04);
-                    else if (price > 60000 && price <= 200000)
+                    else if (price >= 75000 && price <= 200000)
                         roadTax = (price * 0.06);
                     else
                         roadTax = (price * 0.08);
