@@ -106,27 +106,33 @@
         <div class="user-profile-option-list padding-top20">
             <ul class="profileUL">
                 <li>
+                    <a href="/users/MyContactDetails.aspx">
+                        <span class="margin-left10 bwsprite myBikeWale-icon"></span>
+                        <span class="padding-left10 profile-option-title">My Profile</span>
+                    </a>
+                </li>
+                <li>
                     <a href="/mybikewale/myinquiries/">
                         <span class="margin-left15 bwsprite inquiry-icon"></span>
-                        <span class="margin-left20 profile-option-title">My Inquiries</span>
+                        <span class="padding-left20 profile-option-title">My Inquiries</span>
                     </a>
                 </li>                
                 <li>
                     <a href="/users/newssubscription.aspx">
                         <span class="margin-left15 bwsprite newsletter-icon"></span>
-                        <span class="margin-left20 profile-option-title">Subscribe Newsletters</span>
+                        <span class="padding-left20 profile-option-title">Subscribe Newsletters</span>
                     </a>
                 </li>
                 <li>
                     <a href="/mybikewale/changepassword/">
                         <span class="margin-left15 bwsprite login-password-icon"></span>
-                        <span class="margin-left20 profile-option-title">Change password</span>
+                        <span class="padding-left20 profile-option-title">Change password</span>
                     </a>
                 </li>
                 <li>
                     <a href="<%= Bikewale.Common .CommonOpn.AppPath + "users/login.aspx?logout=logout" %>">
                         <span class="margin-left15 bwsprite login-logout-icon"></span>
-                        <span class="margin-left20 profile-option-title">Log out</span>
+                        <span class="padding-left20 profile-option-title">Log out</span>
                     </a>
                 </li>
             </ul>

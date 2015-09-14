@@ -105,7 +105,7 @@
 				</tr>					
 				<tr>
 					<td>&nbsp;</td>
-					<td align="left"><asp:Button ID="btnSave"  CssClass="buttons"  Text="Update Details"  runat="server" /></td>
+					<td align="left"><asp:Button ID="btnSave"  CssClass="buttons text_white"  Text="Update Details"  runat="server" /></td>
 					<td colspan="3"></td>
 				</tr>
 			</table>
