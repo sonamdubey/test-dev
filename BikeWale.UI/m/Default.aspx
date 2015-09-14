@@ -24,10 +24,10 @@
         <div class="container">
             <div class="banner-home content-inner-block-10">
                 <!-- Top banner code starts here -->
-                <h1 class="text-uppercase text-white text-center padding-top30">BOOK YOUR DREAM BIKE</h1>
+                <h1 class="text-uppercase text-white text-center padding-top30">FIND YOUR RIDE</h1>
                 <div class="text-white margin-top15 text-center font14">Get Exclusive Offers on your Bike Purchase</div>
                 <div class="new-used-search new-bikes-search margin-top30 position-rel">
-                        <input type="text" placeholder="Search your bike here" id="newBikeList" class="rounded-corner2">
+                        <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" class="rounded-corner2">
                         <button id="btnSearch" class="btn btn-orange btn-search"><span class="fa fa-search"></span></button>
                         <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black hide"></span>
                 </div>

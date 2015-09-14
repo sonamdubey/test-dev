@@ -21,7 +21,7 @@
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
-            <button id="btnDealerPriceOnRoad" class="btn btn-orange btn-full-width margin-bottom30" type="button" value="Get Price Quote" data-bind="event: { click: getPriceQuoteOnRoad }">Get price quote</button>
+            <button id="btnDealerPriceOnRoad" class="btn btn-orange btn-full-width margin-bottom30" type="button" value="Get On-road Price" data-bind="event: { click: getPriceQuoteOnRoad }">Get On-road Price</button>
             <!-- Onroad price quote ends here-->
 
             <p class="text-white text-center padding-left30 padding-right30">Its private, no need to share your number and email</p>
@@ -65,15 +65,14 @@
                     checkCookies();
                     var initIndex = 0;
                     for (var i = 0; i < cities.length; i++) {
+                        if (preSelectedCityId == cities[i].CityId) {
+                            citySelected = cities[i];
+                        }
                         if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
                             var currentCity = cities[i];
                             cities.splice(cities.indexOf(currentCity), 1);
                             cities.splice(initIndex++, 0, currentCity);
-                        }
-
-                        if (preSelectedCityId == cities[i].CityId) {
-                            citySelected = cities[i];
-                        }
+                        }                       
 
                     }
 
@@ -182,7 +181,7 @@
             $.ajax({
                 type: 'POST',
                 url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
-                data: '{"cityId":"' + cityId + '", "areaId":"' + areaId + '", "modelId":"' + selectedModel + '", "isMobileSource":false}',
+                data: '{"cityId":"' + cityId + '", "areaId":"' + areaId + '", "modelId":"' + selectedModel + '", "isMobileSource":true}',
                 dataType: 'json',
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
                 success: function (json) {

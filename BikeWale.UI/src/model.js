@@ -138,5 +138,37 @@ var cityareaHide = function(){
 var priceChange = function(){
 	var a = $("#bike-price");
 	a.html("40,000");
-	showroomPrice.html("+ View Breakup");
+	showroomPrice.html("View Breakup");
+}
+
+function formatPrice(price){
+    price = price.toString();
+    var lastThree = price.substring(price.length - 3);
+    var otherNumbers = price.substring(0, price.length - 3);
+    if (otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+
+    return price;
+}
+
+//Animate the element's value from x to y:
+function animatePrice(ele,start,end)
+{
+    $({ someValue: start }).animate({ someValue: end }, {
+        duration: 300,
+        easing: 'easeInBounce', // can be anything
+        step: function () { // called on every step
+            // Update the element's text with rounded-up value:
+            $(ele).text(commaSeparateNumber(Math.round(this.someValue)));
+        }
+    });
+}
+
+
+function commaSeparateNumber(val) {
+    while (/(\d+)(\d{3})/.test(val.toString())) {
+        val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    }
+    return val;
 }

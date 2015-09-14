@@ -84,7 +84,7 @@
                                 </div>
                             </div>
                             <div style="margin-left: 180px;" class="mid-box margin-top15">
-                                <asp:button id="btnSavePriceQuote" class="action-btn text_white" text="Get Price Quote" runat="server" />
+                                <asp:button id="btnSavePriceQuote" class="action-btn text_white" text="Get On-road Price" runat="server" />
                             </div>
                         </div>
                     </div>
@@ -277,17 +277,17 @@
                 if (cities && cities.length > 0) {
                     checkCookies();
                     var initIndex = 0;
-                    for (var i = 0; i < cities.length; i++) {
-                        if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
-                            var currentCity = cities[i];
-                            cities.splice(cities.indexOf(currentCity), 1);
-                            cities.splice(initIndex++, 0, currentCity); 
-                        }
-
+                    for (var i = 0; i < cities.length; i++) {   
 
                         if (preSelectedCityId == cities[i].CityId) {
                             citySelected = cities[i];
                         }
+
+                        if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
+                            var currentCity = cities[i];
+                            cities.splice(cities.indexOf(currentCity), 1);
+                            cities.splice(initIndex++, 0, currentCity); 
+                        }   
                     }
                     cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
                     viewModel.cities(cities);
@@ -344,9 +344,6 @@
                     }
 
                     $('#hdnIsAreaShown').val(isAreaShown);
-                },
-                error: function (response) {
-                    alert(response);
                 }
             });
         }

@@ -199,7 +199,7 @@
                         <p class="margin-bottom15">You can pay that booking amount using a Credit Card/Debit Card/Net Banking.</p>
                         <p> 
 Book your bike online at BikeWale and make the balance payment at the dealership to avail great offers.</p>
-<p>For further assistance call toll free on <span class="text-bold">1800 456 7890.</span></p>
+<p>For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881)</span></p>
                     </div> 
                     <asp:Button id="btnMakePayment" class="btn btn-full-width btn-orange margin-top20 margin-bottom10" Text="Pay Now" runat="server" />
                     <div class="clear"></div>
@@ -217,7 +217,7 @@ Book your bike online at BikeWale and make the balance payment at the dealership
         <div class="container">
         	<div class="grid-12">
             	<div class="content-box-shadow content-inner-block-15 margin-bottom15 text-medium-grey text-center">
-                	<a href="tel:1800 457 9781" class="font20 text-grey call-text-green" style="text-decoration:none;"><span class="fa fa-phone text-green margin-right5"></span> 1800 457 9781</a>
+                	<a href="tel:02267398888" class="font20 text-grey call-text-green" style="text-decoration:none;"><span class="fa fa-phone text-green margin-right5"></span> 1800 457 9781</a>
                 </div>
 			</div>
        </div>

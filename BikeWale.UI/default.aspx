@@ -25,13 +25,13 @@
     <header class="home-top-banner">
         <div class="container">
             <div class="welcome-box">
-                <h1 class="text-uppercase margin-bottom10">BOOK YOUR DREAM BIKE</h1>
+                <h1 class="text-uppercase margin-bottom10">FIND YOUR RIDE</h1>
                 <p class="font20">Get Exclusive Offers, Discounts and Freebies on your Bike Purchase</p>
                 <div class="margin-top60">
                     <div>
                         <div class="bike-search-container">
                             <div class="bike-search new-bike-search position-rel">
-                                <input type="text" placeholder="Search your bike here Ex. Bajaj" id="newBikeList" tabindex="1">
+                                <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" tabindex="1">
                                 <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                             </div>
                             <div class="findBtn">
