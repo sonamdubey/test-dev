@@ -105,6 +105,10 @@ namespace Bikewale.DAL.NewBikeSearch
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.NewBikeSearch.SearchResult.GetSearchResult");
                 objErr.SendMail();
             }
+            finally
+            {
+                db.CloseConnection();
+            }
             return objSearch;
         }
 
