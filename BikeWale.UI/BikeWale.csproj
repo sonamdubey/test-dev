@@ -785,6 +785,10 @@
       <DependentUpon>TopUserReviews.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\controls\UserReviewList.ascx.cs">
+      <DependentUpon>UserReviewList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\controls\VideosWidget.ascx.cs">
       <DependentUpon>VideosWidget.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2004,6 +2008,7 @@
     <Content Include="m\controls\NewsWidget.ascx" />
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
+    <Content Include="m\controls\UserReviewList.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
     <Content Include="m\css\bwm-brand.css" />
@@ -2333,15 +2338,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>59591</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>http://localhost:80</CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
