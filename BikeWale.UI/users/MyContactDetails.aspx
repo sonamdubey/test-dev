@@ -33,7 +33,7 @@
         </div>
 	    <div class="grid_8 margin-top15">		
 			<!--My Community Profile Content-->	
-            <h2 style="display:inline;">Contact Details</h2><!--<a href="/mybikewale/editcontactdetails/" class="margin-left10">Edit Contact Details</a>-->
+            <h2 style="display:inline;">Contact Details</h2><a href="/mybikewale/editcontactdetails/" class="margin-left5">Edit</a>
 			<table id="tblContactDetails" class="margin-top10 grey-bg border-light" border="0" cellpadding="5" cellspacing="0" width="100%">					
 				<tr>
 					<td><span>Name :</span></td>
