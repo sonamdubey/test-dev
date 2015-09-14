@@ -888,7 +888,7 @@
             </div>
         </section>
         <% } %>
-        <section class="<%= (Convert.ToInt32(ctrlAlternativeBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>">
+        <section class="margin-bottom30 <%= (Convert.ToInt32(ctrlAlternativeBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>">
             <div class="container margin-bottom20">
                 <div class="grid-12 alternative-section">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternatives</h2>
