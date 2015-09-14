@@ -302,7 +302,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APISecurity\" />
-    <Folder Include="Controllers\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">

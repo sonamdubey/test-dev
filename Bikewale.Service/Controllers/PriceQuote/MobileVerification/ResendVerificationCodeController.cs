@@ -41,24 +41,31 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
             MobileVerificationEntity mobileVer = null;
             try
             {
-                if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
+                if (input != null && !String.IsNullOrEmpty(input.CustomerEmail) && !String.IsNullOrEmpty(input.CustomerMobile))
                 {
-                    mobileVer = _mobileVerification.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
+                    if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
+                    {
+                        mobileVer = _mobileVerification.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
 
-                    SMSTypes st = new SMSTypes();
-                    st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.Source);
+                        SMSTypes st = new SMSTypes();
+                        st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.Source);
 
-                    isSuccess = true;
-                }
-                output = new PQResendMobileVerificationOutput();
-                output.IsSuccess = isSuccess;
-                if (isSuccess)
-                {
-                    return Ok(output);
+                        isSuccess = true;
+                    }
+                    output = new PQResendMobileVerificationOutput();
+                    output.IsSuccess = isSuccess;
+                    if (isSuccess)
+                    {
+                        return Ok(output);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    } 
                 }
                 else
                 {
-                    return NotFound();
+                    return Unauthorized();
                 }
             }
             catch (Exception ex)

@@ -82,7 +82,7 @@ var cityareaHide = function () {
 var priceChange = function () {
     var a = $("#bike-price");
     a.html("40,000");
-    showroomPrice.html("+ View Breakup");
+    showroomPrice.html("View Breakup");
 }
 
 $(".more-features-btn").click(function () {
@@ -236,7 +236,7 @@ function fetchPriceQuote(vm) {
                     else {
                         $("#dvAvailableOffer").append("<ul><li>No offers available</li></ul>");
                     }
-                    $(".default-showroom-text").html("+ View Breakup");
+                    $(".default-showroom-text").html("View Breakup");
                 }
                 else {
                     if (pq.bwPriceQuote.onRoadPrice > 0) {
@@ -267,7 +267,7 @@ function fetchPriceQuote(vm) {
                     $("#dvAvailableOffer").empty();
                     $("#dvAvailableOffer").append("<ul><li>Currently there are no offers in your city. We hope to serve your city soon!</li></ul>");
                 }
-                $(".default-showroom-text").html("+ View Breakup");
+                $(".default-showroom-text").html("View Breakup");
             }
             else {
                 vm.areas([]);

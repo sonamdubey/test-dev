@@ -8,7 +8,7 @@
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?15sept2015" rel="stylesheet" type="text/css">
 </head>
 <body class="header-fixed-inner">
     <form runat="server">
@@ -93,7 +93,7 @@
                                 <div class="bookingcomforts-sprite buying-asst-icon"></div>
                             </div>
                             <p class="font14 margin-bottom10">In case of queries call us toll-free on:</p>
-                            <p class="font18 text-bold">1800 457 9781 </p>
+                            <p class="font18 text-bold">022 6739 8888 (extn : 881)</p>
                         </div>
                     </div>
                     <!-- /ko -->
@@ -240,7 +240,7 @@
                             <p>
                                 You can pay that booking amount using a Credit Card/Debit Card/Net Banking. 
 Book your bike online at BikeWale and make the balance payment at the dealership to avail great offers.
-For further assistance call toll free on <span class="text-bold">1800 456 7890.</span>
+For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881)</span>
                             </p>
                         </div>
                         <asp:Button runat="server" ID="btnMakePayment" class="btn btn-orange margin-top20 margin-bottom10" Text="Pay Now" />
@@ -271,7 +271,7 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                 <div class="clear"></div>
             </div>
         </section>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/booking.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/booking.js?15sept2015"></script>
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
         <script type="text/javascript">
             //Need to uncomment the below script
@@ -432,7 +432,7 @@ For further assistance call toll free on <span class="text-bold">1800 456 7890.<
                                 var objCust = {
                                     "dealerId": dealerId,
                                     "pqId": pqId,
-                                    "customerName": self.CustomerVM().firstName() + ' ' + self.CustomerVM().lastName(),
+                                    "customerName": self.CustomerVM().firstName() + ' ' + (self.CustomerVM().lastName()!=undefined)?self.CustomerVM().lastName():"",
                                     "customerMobile": self.CustomerVM().mobileNo(),
                                     "customerEmail": self.CustomerVM().emailId(),
                                     "clientIP": clientIP,
