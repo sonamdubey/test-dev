@@ -218,7 +218,7 @@
                             </div>
                             <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
                             <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                            <p class="jcarousel-pagination"></p>
+                            <p class="jcarousel-pagination text-center"></p>
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="mctrlNewLaunchedBikes">

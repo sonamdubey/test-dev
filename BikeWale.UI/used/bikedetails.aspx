@@ -17,7 +17,7 @@
     .cd-tbl th { font-weight:bold; }
     #reqPhotos.buttons { background: #f5f5f5; color: #82888b; border: 1px solid #ccc; font-size:14px;}
     #reqPhotos.buttons:hover { background: #82888b; color: #fff; text-decoration: none; border:1px solid #82888b; }
-    #buyer_form input { border:1px solid #ccc; padding:5px; }
+    #buyer_form input, #verifiy_mobile input { border:1px solid #ccc; padding:5px; }
 </style>
 <script type="text/javascript">
     var bikeName = '<%= objInquiry.BikeName %>';

@@ -598,15 +598,15 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 
 /* Carousel Controls */
-.jcarousel-control-left, .jcarousel-control-right {  position: absolute; top: 32%; z-index: 2; }
-.jcarousel-control-left { left: 8px; }
-.jcarousel-control-right { right: 8px; }
-.jcarousel-control-prev, .jcarousel-control-next { width: 26px; height: 43px; text-indent: -9999px; padding: 5px; border: 1px solid #e6e6e6; background-color: #fff; display:block; }
-.jcarousel-control-prev { background-position: -153px -207px; }
-.jcarousel-control-next { background-position: -177px -207px; }
-.jcarousel-control-prev:hover { background-position: -153px -238px; }
-.jcarousel-control-next:hover { background-position: -177px -238px; }
-.jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-control-right .jcarousel-control-next.inactive { display:none; }
+.jcarousel-wrapper.model .jcarousel-control-left, .jcarousel-wrapper.model .jcarousel-control-right {  position: absolute; top: 32%; z-index: 2; }
+.jcarousel-wrapper.model .jcarousel-control-left { left: 8px; }
+.jcarousel-wrapper.model .jcarousel-control-right { right: 8px; }
+.jcarousel-wrapper.model .jcarousel-control-prev, .jcarousel-wrapper.model .jcarousel-control-next { width: 26px; height: 43px; text-indent: -9999px; padding: 5px; border: 1px solid #e6e6e6; background-color: #fff; display:block; }
+.jcarousel-wrapper.model .jcarousel-control-prev { background-position: -153px -207px; }
+.jcarousel-wrapper.model .jcarousel-control-next { background-position: -177px -207px; }
+.jcarousel-wrapper.model .jcarousel-control-prev:hover { background-position: -153px -238px; }
+.jcarousel-wrapper.model .jcarousel-control-next:hover { background-position: -177px -238px; }
+.jcarousel-wrapper.model .jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-wrapper.model .jcarousel-control-right .jcarousel-control-next.inactive { display:none; }
 
 /* carousel end */
 
