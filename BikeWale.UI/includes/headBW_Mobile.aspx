@@ -99,7 +99,7 @@
                 <div class="margin-bottom20 position-rel">
                 	<span class="position-abt pos-right15 pos-top15 bwmsprite cross-sm-dark-grey cur-pointer"></span>
                     <input type="text" class="form-control padding-right30" name="globalCityPopUp" placeholder="Type to select city" id="globalCityPopUp">
-                    <span id="loaderMakeModel" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
+                    <span id="loaderMakeModel" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;" ></span>
                     <span class="bwmsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">No city found. Try a different search.</div>
                 </div>

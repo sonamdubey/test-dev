@@ -307,8 +307,7 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->    
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js"></script>
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?15sept2015" type="text/javascript"></script>
-        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
+        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />        
     </body>
 </html>
