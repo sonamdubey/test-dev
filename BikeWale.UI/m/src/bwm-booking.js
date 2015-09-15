@@ -299,8 +299,8 @@ function CustomerModel() {
         }
     }
     self.fullName = ko.computed(function () {
-        var _firstName = self.firstName() ? self.firstName() : "";
-        var _lastName = self.lastName() ? self.lastName() : "";
+        var _firstName = self.firstName() != undefined ? self.firstName() : "";
+        var _lastName = self.lastName() != undefined ? self.lastName() : "";
         return _firstName + ' ' + _lastName;
     }, this);
 }

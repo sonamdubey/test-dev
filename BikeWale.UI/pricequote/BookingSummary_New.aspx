@@ -495,8 +495,8 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                 self.IsValid = ko.computed(function () { return self.IsVerified(); },this);
                 self.otpCode = ko.observable();
                 self.fullName = ko.computed(function(){
-                    var _firstName = self.firstName() ? self.firstName() : "";
-                    var _lastName = self.lastName() ? self.lastName() : "";
+                    var _firstName = self.firstName() != undefined ? self.firstName() : "";
+                    var _lastName = self.lastName() != undefined ? self.lastName() : "";
                     return _firstName + ' ' + _lastName;
                 },this);
                 self.verifyCustomer = function () {
@@ -625,8 +625,8 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                     }
                 }
                 self.fullName = ko.computed(function () {
-                    var _firstName = self.firstName() ? self.firstName() : "";
-                    var _lastName = self.lastName() ? self.lastName() : "";
+                    var _firstName = self.firstName() != undefined ? self.firstName() : "";
+                    var _lastName = self.lastName() != undefined ? self.lastName() : "";
                     return _firstName + ' ' + _lastName;
                 },this);
             }
