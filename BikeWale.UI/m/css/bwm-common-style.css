@@ -606,7 +606,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .jcarousel-wrapper.model .jcarousel-control-next { background-position: -177px -207px; }
 .jcarousel-wrapper.model .jcarousel-control-prev:hover { background-position: -153px -238px; }
 .jcarousel-wrapper.model .jcarousel-control-next:hover { background-position: -177px -238px; }
-.jcarousel-wrapper.model .jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-wrapper.model .jcarousel-control-right .jcarousel-control-next.inactive { display:none;}
+.jcarousel-wrapper.model .jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-wrapper.model .jcarousel-control-right .jcarousel-control-next.inactive { display:block; }
+.jcarousel-wrapper.model .jcarousel-control-prev.inactive { background-position:-153px -176px; cursor:not-allowed; }
+.jcarousel-wrapper.model .jcarousel-control-next.inactive { background-position:-177px -176px; cursor:not-allowed; }
 .jcarousel-pagination { text-align:center;}
 /* carousel end */
 
