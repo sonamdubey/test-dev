@@ -57,3 +57,8 @@
 
 .horizontal-line { width:600px; height:1px; background:#ccc; top:54px; }
 .customizeBackBtn, .confirmationBackBtn { font-size: 13px; color:#0288d1; }
+
+.cancellation-popup .popup-inner-container h2, .required-doc .popup-inner-container h2 { border-bottom:none; }
+.cancellation-list ul li { padding-bottom:10px; }
+.bw-popup.required-doc { width:660px !important; left:44% !important; }
+.bw-popup.required-doc ul li { list-style-type:disc; }

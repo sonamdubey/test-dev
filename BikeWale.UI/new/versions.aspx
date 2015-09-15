@@ -25,7 +25,7 @@
 
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/model.css?15Sep2015v2" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -139,15 +139,15 @@
                                             <tbody>
                                                 <tr>
                                                     <td width="350" class="padding-bottom10">Ex-showroom (Mumbai)</td>
-                                                    <td width="150" align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().exShowroomPrice"></span></td>
+                                                    <td width="150" align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().exShowroomPrice)"></span></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="padding-bottom10">RTO</td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().rto"></span></td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().rto)"></span></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="padding-bottom10">Insurance (comprehensive)</td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().insurance"></span></td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().insurance)"></span></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">
@@ -157,9 +157,14 @@
                                                 <tr>
                                                     <!-- ko if :BWPriceList -->
                                                     <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: (parseInt(BWPriceList().insurance) + parseInt(BWPriceList().rto) + parseInt(BWPriceList().exShowroomPrice))"></span></td>
+                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata((parseInt(BWPriceList().insurance) + parseInt(BWPriceList().rto) + parseInt(BWPriceList().exShowroomPrice)))"></span></td>
                                                     <!-- /ko -->
                                                 </tr>
+                                                <tr>
+                                            <td colspan="2">
+                                                <div class="border-solid-top padding-bottom10"></div>
+                                            </td>
+                                        </tr>
                                             </tbody>
                                         </table>
                                         <!-- /ko -->
@@ -170,10 +175,10 @@
                                                 <!-- ko foreach : DealerPriceList -->
                                                 <tr>
                                                     <td width="350" class="padding-bottom10" data-bind="text: categoryName"></td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: price"></span></td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(price)"></span></td>
                                                 </tr>
                                                 <!-- /ko  -->
-                                                <!-- ko if :DealerPriceList -->
+                                                <!-- ko if : priceQuote().isInsuranceFree  && priceQuote().insuranceAmount > 0-->
                                                 <tr>
                                                     <td colspan="2">
                                                         <div class="border-solid-top padding-bottom10"></div>
@@ -183,20 +188,21 @@
                                                     <td class="padding-bottom10">Total on road price</td>
                                                     <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
                                                 </tr>
-                                                <!-- /ko -->
+                                                
                                                 <tr>
                                                     <td class="padding-bottom10">Minus insurance</td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>0</td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(priceQuote().insuranceAmount) "></span></td>
                                                 </tr>
+                                                <!-- /ko -->
                                                 <tr>
                                                     <td colspan="2">
                                                         <div class="border-solid-top padding-bottom10"></div>
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <!-- ko if :DealerPriceList -->
+                                                    <!-- ko if :DealerPriceList() -->
                                                     <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
+                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: ((priceQuote().insuranceAmount > 0) ? (DealerOnRoadPrice - priceQuote().insuranceAmount) : DealerOnRoadPrice) "></span></td>
                                                     <!-- /ko -->
                                                 </tr>
                                                 <tr>
@@ -1028,12 +1034,17 @@
                 self.DealerPriceList = ko.observableArray([]);
                 self.BWPriceList = ko.observable();
                 self.isDealerPQAvailable = ko.observable(false);
+                self.FormatPricedata = function (item) {
+                    if (item != undefined)
+                        return formatPrice(item);
+                    return "";
+                };
                 self.DealerOnRoadPrice = ko.computed(function () {
                     var total = 0;
                     for (i = 0; i < self.DealerPriceList().length; i++) {
                         total += self.DealerPriceList()[i].price;
                     }
-                    return total;
+                    return formatPrice(total);
                 }, this);
                 self.LoadCity = function () {
                     loadCity(self);
@@ -1174,8 +1185,8 @@
                                     priceBreakText += pq.dealerPriceQuote.priceList[i].categoryName + " + "
                                 }
                                 priceBreakText = priceBreakText.substring(0, priceBreakText.length - 2);
-                                //$("#bike-price").html(formatPrice(totalPrice));
-                                animatePrice($("#bike-price"), 1000, totalPrice);
+                                $("#bike-price").html(formatPrice(totalPrice));
+                                //animatePrice($("#bike-price"), 1000, totalPrice);
                                 $("#breakup").text("(" + priceBreakText + ")");
                                 $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
                                 $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text());
@@ -1199,10 +1210,10 @@
                                 temptotalPrice = totalPrice;
                                 totalPrice = pq.bwPriceQuote.onRoadPrice;
                                 priceBreakText = "Ex-showroom + Insurance + RTO";
-                                //$("#bike-price").html(formatPrice(totalPrice));
+                                $("#bike-price").html(formatPrice(totalPrice));
                                 $("#breakup").text("(" + priceBreakText + ")");
                                 $("#btnBookNow").hide();
-                                animatePrice($("#bike-price"), temptotalPrice, totalPrice);
+                                //animatePrice($("#bike-price"), temptotalPrice, totalPrice);
                                 $(".city-onRoad-price-container").removeClass("hide").addClass("show");
                                 $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
                                 $("#pqArea").html("");
@@ -1288,9 +1299,9 @@
                 $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
                 if (val) {
                     $("#ddlCity option[value=" + val + "]").attr('selected', 'selected');
-                    alert("before trigger city change");
+                 
                     $('#ddlCity').trigger('change');
-                    alert("after trigger city change");
+            
                 }
             });
 

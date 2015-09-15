@@ -70,9 +70,12 @@ firstname.on("focus", function () {
     emailid.siblings("span, div").hide();
 });
 
-emailid.on("focus", function () {
+emailid.on("focus keyup", function () {
     emailid.removeClass("border-red");
     emailid.siblings("span, div").hide();
+    detailsSubmitBtn.show();
+    otpText.val('');
+    otpContainer.removeClass("show").addClass("hide");
 });
 
 var mobileValTrue = function () {
@@ -83,6 +86,18 @@ var mobileValTrue = function () {
 mobile.change(function () {
     viewModel.CustomerVM().IsVerified(false);
 });
+
+otpText.focus("focus", function () {
+    otpText.val('');
+    otpText.siblings("span, div").css("display", "none");
+    otpVal("");
+});
+
+mobile.on("keyup focus", function () {
+    detailsSubmitBtn.show();
+    otpText.val('');
+    otpContainer.removeClass("show").addClass("hide");
+})
 
 emailid.change(function () {
     viewModel.CustomerVM().IsVerified(false);
@@ -172,17 +187,21 @@ otpBtn.click(function () {
     isValid &= validateMobile();
     isValid &= validateName();
     if (validateOTP() && isValid) {
-        $.customizeState();
-        $("#personalInfo").hide();
-        $("#personal-info-tab").removeClass('text-bold');
-        $("#customize").show();
-        $('#customize-tab').addClass('text-bold');
-        $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
-        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-        $(".booking-dealer-details").removeClass("hide").addClass("show");
-        $(".call-for-queries").hide();
-        viewModel.CustomerVM().IsVerified(false);
         viewModel.CustomerVM().generateOTP();
+        if (viewModel.CustomerVM().IsVerified()) {
+            $.customizeState();
+            $("#personalInfo").hide();
+            $("#personal-info-tab").removeClass('text-bold');
+            $("#customize").show();
+            $('#customize-tab').addClass('text-bold');
+            $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
+            $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+            $(".booking-dealer-details").removeClass("hide").addClass("show");
+            $(".call-for-queries").hide();
+        }
+        else {
+            otpVal("Please enter a valid OTP.");
+        }
     }
 });
 

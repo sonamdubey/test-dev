@@ -104,7 +104,7 @@ namespace Bikewale.BikeBooking
         {
             string transresp = string.Empty;
 
-            if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.CustomerId.ToString() != "" && objCustomer.objCustomerBase.CustomerId > 0 && objCustomer.objCustomerBase.IsVerified)
+            if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.CustomerId > 0)
             {
                 Trace.Warn("Inside begin tarns" + objCustomer.objCustomerBase.CustomerId.ToString());
                 var transaction = new TransactionDetails()

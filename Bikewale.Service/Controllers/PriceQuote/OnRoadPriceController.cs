@@ -92,7 +92,17 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             if (objPrice != null)
                             {
                                 dpqOutput = DPQuotationOutputMapper.Convert(objPrice);
+
+                                uint insuranceAmount = 0;
+
+                                foreach(var price in objPrice.PriceList)
+                                {
+                                    onRoadPrice.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQ.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);    
+                                }
+                                
+                                onRoadPrice.IsInsuranceFree = true;                                
                                 onRoadPrice.DPQOutput = dpqOutput;
+                                onRoadPrice.InsuranceAmount = insuranceAmount;
                             }
                         }
                         return Ok(onRoadPrice);
