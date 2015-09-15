@@ -504,7 +504,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                         var objCust = {
                             "dealerId": dealerId,
                             "pqId": pqId,
-                            "customerName": self.firstName() + ' ' + self.lastName(),
+                            "customerName": self.firstName() + ' ' + (self.CustomerVM().lastName() != undefined) ? self.CustomerVM().lastName() : "",
                             "customerMobile": self.mobileNo(),
                             "customerEmail": self.emailId(),
                             "clientIP": clientIP,
@@ -559,7 +559,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                             "customerEmail": self.emailId(),
                             "cwiCode": self.otpCode(),
                             "branchId": dealerId,
-                            "customerName": self.firstName() + ' ' + self.lastName(),
+                            "customerName": self.firstName() + ' ' + (self.CustomerVM().lastName() != undefined) ? self.CustomerVM().lastName() : "",
                             "versionId": verId,
                             "cityId": cityId
                         }
@@ -625,7 +625,9 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                     }
                 }
                 self.fullName = ko.computed(function () {
-                    return self.firstName() + ' ' + self.lastName();
+                    var _firstName = self.firstName() ? self.firstName() : "";
+                    var _lastName = self.lastName() ? self.lastName() : "";
+                    return _firstName + ' ' + _lastName;
                 },this);
             }
 
