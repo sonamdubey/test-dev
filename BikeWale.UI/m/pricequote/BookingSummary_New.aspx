@@ -13,7 +13,7 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking.css?15sept2015" rel="stylesheet" type="text/css" />   
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking.css?15sept2015" rel="stylesheet" type="text/css" />
         <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
@@ -132,7 +132,7 @@
                                 <div class="bw-blackbg-tooltip errorText">Please enter a valid OTP</div>
                             </div>
                             <div class="text-center padding-top10">
-                                <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" href="#" data-bind="click: viewModel.CustomerVM().regenerateOTP()">Resend OTP</a><br />
+                                <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" href="#" data-bind="click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a><br />
                             </div>
                             <div class="clear"></div>
                             <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
@@ -209,7 +209,7 @@
                         <asp:Button ID="btnMakePayment" class="btn btn-full-width btn-orange margin-top20 margin-bottom10" Text="Pay Now" runat="server" />
                         <div class="clear"></div>
                         <!--<div class="btn btn-full-width btn-link confirmationBackBtn">Back</div>-->
-                    </div>                    
+                    </div>
                 </div>
             </div>
             <div class="clear"></div>
@@ -217,10 +217,10 @@
 
         <section>
             <!--  toll-free code starts here -->
-            
+
             <div class="grid-12">
-                <!-- ko if : viewModel.Dealer() -->                
-                <!-- ko with: viewModel.Dealer() -->                       
+                <!-- ko if : viewModel.Dealer() -->
+                <!-- ko with: viewModel.Dealer() -->
                 <div class="content-box-shadow content-inner-block-10 bg-white clearfix margin-top20">
                     <div class="font18 text-bold text-black padding-bottom10" data-bind="text: organization()"></div>
                     <div class="font14" data-bind="text: address1() + ' ' + address2() + ', ' + area() + ', ' + city() + ', ' + state() + ', ' + pincode()">
@@ -236,7 +236,7 @@
                 <div class="container">
                     <div class="grid-12">
                         <div class="content-box-shadow content-inner-block-15 margin-bottom15 text-medium-grey text-center">
-                	<a href="tel:02267398888" class="font20 text-grey call-text-green" style="text-decoration:none;"><span class="fa fa-phone text-green margin-right5"></span> 1800 457 9781</a>
+                            <a href="tel:02267398888" class="font20 text-grey call-text-green" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 457 9781</a>
                         </div>
                     </div>
                 </div>
@@ -287,7 +287,7 @@
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
-    <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js" type="text/javascript"></script>
+        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js" type="text/javascript"></script>
         <script type="text/javascript">
             var pqId = '<%= pqId %>'
             var verId = '<%= versionId %>';
@@ -297,7 +297,7 @@
             var pageUrl = '<%= pageUrl%>';
             var areaId = '<%= areaId%>';
         </script>
-    <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js?15sept2015" type="text/javascript"></script>
+        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js?15sept2015" type="text/javascript"></script>
         <script language="javascript" type="text/javascript">
             window.onload = function () {
                 var btnRelease = document.getElementById('<%= clientIP %>');

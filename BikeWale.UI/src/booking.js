@@ -167,7 +167,11 @@ function validateOTP() {
 }
 
 otpBtn.click(function () {
-    if (validateOTP()) {
+    var isValid = true;
+    isValid = validateEmail();
+    isValid &= validateMobile();
+    isValid &= validateName();
+    if (validateOTP() && isValid) {
         $.customizeState();
         $("#personalInfo").hide();
         $("#personal-info-tab").removeClass('text-bold');
