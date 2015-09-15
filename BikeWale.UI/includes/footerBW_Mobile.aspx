@@ -2,7 +2,7 @@
         <div class="container">
         	<div class="grid-12 text-center">
                 <div>
-                    <a href="javascript:void(0)" class="bwmsprite bw-logo"></a>              
+                    <a href="/m/" class="bwmsprite bw-logo"></a>              
                 </div>
                 <div class="margin-top15">
                     <ul>
