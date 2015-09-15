@@ -4,5 +4,5 @@
 .brand-bikes-list-container li.front, .upcoming-brand-bikes-container li.front { border:none;}
 .brand-bikes-list-container li .imageWrapper, .upcoming-brand-bikes-container li .imageWrapper { width:303px; }
 
-.upcoming-brand-bikes-container li { width:303px; height:auto; margin-right:15px; }
+.upcoming-brand-bikes-container li { width:298px; height:auto; }
 .upcoming-brand-bikes-container .jcarousel { width: 934px; overflow: hidden; left: 20px; }
