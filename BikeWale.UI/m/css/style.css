@@ -423,7 +423,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 #nav, .loginPopUpWrapper { background: #fff; width:240px; position: fixed; top: 0; right: 0; bottom: 0; left: -240px; overflow-y: scroll; z-index: 10; }
 .navUL { padding-top: 20px; }
 .navUL li { display:block; position: relative; }
-.navUL li a { color:#1a1a1a; font-size: 14px; text-decoration:none; display:block; height: 48px; padding: 6px 0 0 15px;font-weight:normal; }
+.navUL li a { color:#1a1a1a !important; font-size: 14px; text-decoration:none; display:block; height: 48px; padding: 6px 0 0 15px;font-weight:normal; }
 .navUL li a:hover, .navUL li a.active { font-weight: 600; }
 .navUL li ul { display: none; border-top: 1px solid #ebecec; border-bottom: 1px solid #ebecec; background: #f6f7f7; }
 .navUL li ul a { padding: 15px 0 0 51px; border-left: 4px solid transparent; }
@@ -554,7 +554,7 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .yt-iframe-preview iframe { width: 100%; height: 174px; }
 
 /* footer classes */
-footer ul li { display: inline-block; }
+footer ul li { display: inline-block;text-shadow:none;}
 footer ul li a { display: inline-block; color: #fff; padding: 10px; }
 footer ul li a:hover { text-decoration: underline; }
 footer .container {padding:0; margin:0; border:0;}
@@ -568,7 +568,7 @@ footer .border-solid-top {
 .ui-autocomplete.source:hover { background: #ddd; }
 .ui-menu .ui-menu-item { padding: 10px; background:#fff; font-size:14px; cursor:pointer; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus { background:#eee; }
-.ui-menu .ui-menu-item a { color: #333; }
+.ui-menu .ui-menu-item a { color: #333;font-weight:normal; }
 
 /* common properties */
 .leftfloat{float:left;}
