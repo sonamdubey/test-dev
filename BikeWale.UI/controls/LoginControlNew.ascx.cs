@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Web.UI.HtmlControls;
 using Bikewale.Common;
 using Bikewale.Entities.Customer;
 using Bikewale.UI.Entities.Customer;
@@ -23,6 +24,7 @@ namespace Bikewale.Controls
         protected CheckBox chkRemMe;
         protected HiddenField hdnAuthData;
         protected TextBox txtLoginEmail, txtLoginPassword, txtNameSignup, txtEmailSignup, txtMobileSignup, txtRegPasswdSignup;
+        protected HtmlGenericControl divLogin, divSignUp, loginPopUpWrapper, errorRegister;
 
         protected override void OnInit(EventArgs e)
         {
@@ -33,7 +35,7 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            errorRegister.Visible = false;
         }
 
         /// <summary>
@@ -92,7 +94,14 @@ namespace Bikewale.Controls
                 {
                     // Authenticate the customer
                     CreateAuthenticationCookie(objRegCustomer.AuthenticationTicket, false);    
-                }                
+                }        
+                else if(objRegCustomer!=null && !objRegCustomer.IsNewCustomer)
+                {
+                    loginPopUpWrapper.Attributes.Add("style", "right:0px;");
+                    divSignUp.Attributes.Add("style", "display:none;");
+                    errorRegister.Visible = true;
+                    divLogin.Attributes.Add("style", "display:block;");
+                }
             }
             catch (Exception ex)
             {
