@@ -25,7 +25,7 @@
 
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/model.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/model.css?15Sep2015v2" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -251,7 +251,7 @@
                                 <div class="city-select-text text-left margin-bottom15 hide" >
                                     <p class="font16">Select city for accurate on-road price and exclusive offers</p>
                                 </div>
-                                <div class="area-select-text text-left margin-bottom15 hide" data-bind="visible: areas().length > 0">
+                                <div class="area-select-text text-left margin-bottom15 hide" >
                                     <p class="font16">Select area for on-road price and exclusive offers</p>
                                 </div>
                                 <div class="city-onRoad-price-container font16 margin-bottom15 hide">
@@ -317,7 +317,9 @@
         </section>
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
             <div id="SneakPeak" class="grid-12 margin-bottom20">
+                <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null){ %>
                 <h2 class="text-bold text-center margin-top30 margin-bottom30">Sneak-peek</h2>
+                 <% } %>
                 <div class="content-box-shadow content-inner-block-20">
                     <p class="font14 text-grey padding-left10 padding-right10">
                         <span class="model-about-main">
@@ -975,14 +977,16 @@
 
             <% if (!modelPage.ModelDetails.Futuristic)
                { %>
-            //var $window = $(window),
-            //    $menu = $('.bw-overall-rating'),
-            //    $menu2 = $('.alternative-section'),
-            //    menu2Top = $menu2.offset().top,
-            //    menuTop = $menu.offset().top;
-            //$window.scroll(function () {
-            //    $menu.toggleClass('affix', menu2Top >= $window.scrollTop() && $window.scrollTop() > menuTop);
-            //});
+            var $window = $(window);
+            $menu = $('.bw-overall-rating');
+            $menu2 = $('.alternative-section');
+            if ($menu != null && $menu2)
+            {
+                menu2Top = $menu2.offset().top;
+                menuTop = $menu.offset().top;
+                $window.scroll(function () {$menu.toggleClass('affix', menu2Top >= $window.scrollTop() && $window.scrollTop() > menuTop);});
+            }  
+            
             <% } %>
             $("a.read-more-btn").click(function () {
                 $(".model-about-more-desc").slideToggle();
@@ -1011,11 +1015,10 @@
             };
 
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?15Sep2015v2"></script>
         <script type="text/javascript">
             var PQCitySelectedId = 0;
             var PQCitySelectedName = "";
-            var ftime = false;
             function pqViewModel(modelId, cityId) {
                 var self = this;
                 self.cities = ko.observableArray([]);
@@ -1038,6 +1041,8 @@
                     loadCity(self);
                 }
                 self.LoadArea = function () {
+                    if(self.selectedArea())
+                        self.areas([]);
                     loadArea(self);
                 }
 
@@ -1068,43 +1073,44 @@
                                 var city = ko.toJS(data);
                                 var citySelectedNow = null;
                                 vm.cities(city.cities);
-                                PQcheckCookies();
-                                for (i = 0; i < city.cities.length; i++) {
-                                    c = city.cities[i].cityId;
-                                    if (PQCitySelectedId == c) {
-                                        citySelectedNow = city.cities[i];
-                                        break;
-                                    }
-                                }
+                                //PQcheckCookies();
+                                //for (i = 0; i < city.cities.length; i++) {
+                                //    c = city.cities[i].cityId;
+                                //    if (PQCitySelectedId == c) {
+                                //        citySelectedNow = city.cities[i];
+                                //        break;
+                                //    }
+                                //}
 
-                                if (citySelectedNow != null) {
-                                    vm.selectedCity(citySelectedNow.cityId);
-                                    loadArea(vm);                                     
-                                    if (parseInt($('#mainCity li[cityId' + citySelectedNow.cityId + ']').attr('cityId')) > 0) {
-                                        $('#mainCity li[cityId' + citySelectedNow.cityId + ']').click();
-                                    }
-                                    else {
-                                        $('#mainCity li:last-child').click();
-                                    }
-                                    //get pricequote
-                                    fetchPriceQuote(vm);
-                                }
-                                else {
-                                    $(".city-select-text").removeClass("hide").addClass("show");
-                                }
+                                //if (citySelectedNow != null) {
+                                //    vm.selectedCity(citySelectedNow.cityId);
+                                //    var mainCityTemp = parseInt($('#mainCity li[cityId=' + citySelectedNow.cityId + ']').attr('cityId'));
+                                //    if (!isNaN(mainCityTemp) && (mainCityTemp > 0)) {
+                                //        $('#mainCity li[cityId=' + mainCityTemp + ']').click();
+                                //    }
+                                //    else {
+                                //        $('#mainCity li:last-child').click();
+                                //    }
 
+                                //    //get pricequote
+                                //    //fetchPriceQuote(vm);
+                                //}
+                                //else {
+                                //    $(".city-select-text").removeClass("hide").addClass("show");
+                                //} 
+                                $(".city-select-text").removeClass("hide").addClass("show");
+                                $(".area-select-text").removeClass("show").addClass("hide");
                             }
                         });
                 }
             }
 
             function loadArea(vm) {
-
                 if (vm.selectedCity()) {
                     $.ajax({
                         url: "/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity(),
                         type: "GET",
-                        contentType : "application/json",
+                        contentType: "application/json",
                         async: false
                     }).done(function (data) {
                         if (data) {
@@ -1126,7 +1132,7 @@
                     .fail(function () {
                         //no areas available;
                         vm.areas([]);
-                        vm.FetchPriceQuote();                        
+                        vm.FetchPriceQuote();
                     });
                 }
                 else {
@@ -1137,18 +1143,16 @@
             function fetchPriceQuote(vm) {
                 var clientIP = '<%= clientIP%>';
                 $("#dvAvailableOffer").empty();
-                if (ftime)
-                    return;
-                if (vm.selectedModel() && vm.selectedCity()) {  
+                if (vm.selectedModel() && vm.selectedCity()) {
                     $.ajax({
-                        url: "/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea()!=undefined ? vm.selectedArea() : 0),
+                        url: "/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea() != undefined ? vm.selectedArea() : 0),
                         type: "GET",
                         contentType: "application/json",
                         async: false
                     }).done(function (data) {
                         if (data) {
                             var pq = ko.toJS(data);
-                            vm.priceQuote(pq);                            
+                            vm.priceQuote(pq);
                             vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
                             if (pq.IsDealerPriceAvailable) {
                                 vm.DealerPriceList(pq.dealerPriceQuote.priceList);
@@ -1156,17 +1160,17 @@
                             else {
                                 vm.BWPriceList(pq.bwPriceQuote);
                             }
-                          
-                            if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable)
-                            {
+
+                            if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                                 var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
                                 SetCookie("_MPQ", cookieValue);
                                 SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
                                 $("#btnBookNow").show();
                                 $(".unveil-offer-btn-container").attr('style', '');
                                 $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
+                                temptotalPrice = totalPrice;
                                 var totalPrice = 0;
-                                var priceBreakText = '';              
+                                var priceBreakText = '';
                                 for (var i = 0; i < pq.dealerPriceQuote.priceList.length; i++) {
                                     totalPrice += pq.dealerPriceQuote.priceList[i].price;
                                     priceBreakText += pq.dealerPriceQuote.priceList[i].categoryName + " + "
@@ -1180,7 +1184,7 @@
                                 $(".city-select-text").removeClass("show").addClass("hide");
                                 $(".area-select-text").removeClass("show").addClass("hide");
                                 $(".city-onRoad-price-container").removeClass("hide").addClass("show");
-                                $(".city-area-wrapper").addClass("hide");                            
+                                $(".city-area-wrapper").removeClass("show").addClass("hide");
 
                                 if (pq.dealerPriceQuote.offers && pq.dealerPriceQuote.offers.length > 0) {
                                     $('.available-offers-container').removeClass("hide").addClass("show");
@@ -1194,37 +1198,36 @@
                                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
                             }
                             else {
-                                    totalPrice = pq.bwPriceQuote.onRoadPrice;
-                                    priceBreakText = "Ex-showroom + Insurance + RTO";
-                                    //$("#bike-price").html(formatPrice(totalPrice));
-                                    $("#breakup").text("(" + priceBreakText + ")");                                    
-                                    $("#btnBookNow").hide();
-                                    animatePrice($("#bike-price"), 1000, totalPrice);
-                                    $(".city-onRoad-price-container").removeClass("show").addClass("hide");
-                                    $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
-                                    $("#pqArea").html("");                                                                    
-                                    
-                                    $(".city-select-text").removeClass("hide").addClass("show");
-                                    $(".city-area-wrapper").removeClass("hide").addClass("show");
-                                    $(".city-select").removeClass("hide").addClass("show");                                       
-                                    
-                                    if (vm.areas().length) {
-                                        $(".area-select").removeClass("hide").addClass("show");
-                                        $('.area-select-text').removeClass("hide").addClass("show");
-                                        $(".city-select-text").removeClass("show").addClass("hide");
-                                    }
-                                    else {
-                                        $(".area-select").removeClass("show").addClass("hide");
-                                        $('.area-select-text').removeClass("show").addClass("hide");
-                                    }
+                                temptotalPrice = totalPrice;
+                                totalPrice = pq.bwPriceQuote.onRoadPrice;
+                                priceBreakText = "Ex-showroom + Insurance + RTO";
+                                //$("#bike-price").html(formatPrice(totalPrice));
+                                $("#breakup").text("(" + priceBreakText + ")");
+                                $("#btnBookNow").hide();
+                                animatePrice($("#bike-price"), temptotalPrice, totalPrice);
+                                $(".city-onRoad-price-container").removeClass("hide").addClass("show");
+                                $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
+                                $("#pqArea").html("");
 
-                                    $(".unveil-offer-btn-container").attr('style', '');
-                                    $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
-                                    $("#dvAvailableOffer").empty();
-                                    $("#dvAvailableOffer").html("<ul><li>Currently there are no offers in your city. We hope to serve your city soon!</li></ul>");
-                                    $(".available-offers-container").removeClass("hide").addClass("show");
+                                $(".city-select-text").removeClass("show").addClass("hide");
+                                $(".city-area-wrapper").removeClass("show").addClass("hide");
+                                $(".city-select").removeClass("hide").addClass("hide");
 
+                                //if (vm.areas().length) {
+                                //    $(".area-select").removeClass("hide").addClass("show");
+                                //    $('.area-select-text').removeClass("hide").addClass("show");
+                                //    $(".city-select-text").removeClass("show").addClass("hide");
+                                //}
+                                //else {
+                                //    $(".area-select").removeClass("show").addClass("hide");
+                                //    $('.area-select-text').removeClass("show").addClass("hide");
+                                //}
 
+                                $(".unveil-offer-btn-container").attr('style', '');
+                                $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
+                                $("#dvAvailableOffer").empty();
+                                $("#dvAvailableOffer").html("<ul><li>Currently there are no offers in your city. We hope to serve your city soon!</li></ul>");
+                                $(".available-offers-container").removeClass("hide").addClass("show");
                             }
                             $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
                         }
@@ -1287,21 +1290,21 @@
                 $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
                 if (val) {
                     $("#ddlCity option[value=" + val + "]").attr('selected', 'selected');
+                    alert("before trigger city change");
                     $('#ddlCity').trigger('change');
-                    $(".area-select").removeClass("hide").addClass("show");
+                    alert("after trigger city change");
                 }
             });
 
             $(".city-edit-btn").click(function () {
                 if ($("#ddlCity").val()) {
                     $(".city-select-text").removeClass("hide").addClass("show");
-                    if($("#ddlArea").val())
-                    {
+                    if ($("#ddlArea").val()) {
                         $(".area-select").removeClass("hide").addClass("show");
                         $('.area-select-text').removeClass("hide").addClass("show");
                         $(".city-select-text").removeClass("show").addClass("hide");
                     }
-                    
+
                     $(".city-select").removeClass("hide").addClass("show");
                     $(".city-onRoad-price-container").removeClass("show").addClass("hide");
                     $(".city-area-wrapper").removeClass("hide").addClass("show");

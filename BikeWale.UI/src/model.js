@@ -95,40 +95,7 @@ var editBtn = $(".city-edit-btn")
 var bikePrice = $("#bike-price");
 var onRoadPriceText = $(".city-onRoad-price-container")
 var showroomPrice = $(".default-showroom-text");
-
-//otherBtn.click(function(){
-//	cityList.hide();
-//	$(".city-select-text").removeClass("hide").addClass("show");
-//	cityAreaContainer.removeClass("hide").addClass("show");
-//	offerError.removeClass("show").addClass("hide");
-//});
-
-citySelect.on("change",function(){
-	areaSelect.removeClass("hide").addClass("show");
-	$(".city-select-text").removeClass("show").addClass("hide");	
-	$(".area-select-text").removeClass("hide").addClass("show");
-});
-
-areaSelect.on("change",function(){
-	$(".area-select-text").removeClass("show").addClass("hide");
-	onRoadPriceText.removeClass("hide").addClass("show");
-	offerBtnContainer.hide();
-	$(".city-area-wrapper").addClass("hide");
-	cityareaHide();
-	//priceChange();
-});
-
-editBtn.click(function(){
-	$(".city-select-text").removeClass("hide").addClass("show");
-	cityAreaContainer.removeClass("hide").addClass("show");
-	onRoadPriceText.removeClass("show").addClass("hide");
-	$(".city-area-wrapper").removeClass("hide").addClass("show");
-	citySelect.removeClass("hide").addClass("show");
-});
-
-offerBtn.click(function(){
-	offerError.addClass("text-red");	
-});
+var temptotalPrice = $(bikePrice).text();
 
 var cityareaHide = function(){
 	citySelect.removeClass("show").addClass("hide");
@@ -155,13 +122,14 @@ function formatPrice(price){
 //Animate the element's value from x to y:
 function animatePrice(ele,start,end)
 {
-    $({ someValue: start }).animate({ someValue: end }, {
-        duration: 300,
-        easing: 'easeInBounce', // can be anything
-        step: function () { // called on every step
-            // Update the element's text with rounded-up value:
+    $({ someValue: start }).stop(true).animate({ someValue: end }, {
+        duration: 500,
+        easing: 'swing',
+        step: function () { 
             $(ele).text(commaSeparateNumber(Math.round(this.someValue)));
         }
+    }).promise().done(function () {
+        $(ele).text(end);
     });
 }
 

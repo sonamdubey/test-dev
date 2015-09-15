@@ -19,7 +19,7 @@
          AdId = "1017752";
 %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?15Sep2015v2" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <form id="form1" runat="server">
@@ -57,7 +57,7 @@
                     	<p class="leftfloat margin-right10 rating-wrap">
                             <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
                         </p>
-                        <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %>border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
+                        <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
                         	<%= modelPage.ModelDetails.ReviewCount %> Reviews
                         </a>                        
                         <div class="clear"></div>
@@ -83,99 +83,96 @@
                 </div>
                 <% if( modelPage.ModelDetails.New ) { %>
                 <div class="grid-12 bg-white box-shadow" id="dvBikePrice">
-                	<div class="bike-price-container font22 margin-bottom15">
+                    <div class="bike-price-container font22 margin-bottom15">
                         <span class="fa fa-rupee"></span>
-                        <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10 default-showroom-text"><%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
-					
-                         <!-- View BreakUp Popup Starts here-->
+                        <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10 default-showroom-text">Ex-showroom <%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
+                        <%--<span class="view-breakup-text hide font12 text-light-grey ">+ View Breakup</span>--%>
+                        <!-- View BreakUp Popup Starts here-->   
+                        <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
+                            <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+                            <div class="breakup-text-container padding-bottom10">
+                                <h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
 
+                                <!-- ko if : !isDealerPQAvailable() && BWPriceList -->
+                                <table class="font14" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td width="60%" class="padding-bottom10">Ex-showroom (Mumbai)</td>
+                                            <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().exShowroomPrice"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding-bottom10">RTO</td>
+                                            <td  class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().rto"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding-bottom10">Insurance (comprehensive)</td>
+                                            <td  class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().insurance"></span></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="border-solid-top padding-bottom10"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <!-- ko if :BWPriceList -->
+                                            <td class="padding-bottom10 text-bold">Total on road price</td>
+                                            <td class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: (parseInt(BWPriceList().insurance) + parseInt(BWPriceList().rto) + parseInt(BWPriceList().exShowroomPrice))"></span></td>
+                                            <!-- /ko -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- /ko -->
 
-                                <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
-                                    <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                                    <div class="breakup-text-container padding-bottom10">
-                                        <h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
-
-                                        <!-- ko if : !isDealerPQAvailable() && BWPriceList -->
-                                        <table class="font16">
-                                            <tbody>
-                                                <tr>
-                                                    <td width="350" class="padding-bottom10">Ex-showroom (Mumbai)</td>
-                                                    <td width="150" align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().exShowroomPrice"></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="padding-bottom10">RTO</td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().rto"></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="padding-bottom10">Insurance (comprehensive)</td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().insurance"></span></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="border-solid-top padding-bottom10"></div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <!-- ko if :BWPriceList -->
-                                                    <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: (parseInt(BWPriceList().insurance) + parseInt(BWPriceList().rto) + parseInt(BWPriceList().exShowroomPrice))"></span></td>
-                                                    <!-- /ko -->
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                <!-- ko if : isDealerPQAvailable() -->
+                                <table class="font14" width="100%">
+                                    <tbody>
+                                        <!-- ko foreach : DealerPriceList -->
+                                        <tr>
+                                            <td width="60%" class="padding-bottom10" data-bind="text: categoryName"></td>
+                                            <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: price"></span></td>
+                                        </tr>
+                                        <!-- /ko  -->
+                                        <!-- ko if :DealerPriceList -->
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="border-solid-top padding-bottom10"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding-bottom10">Total on road price</td>
+                                            <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
+                                        </tr>
                                         <!-- /ko -->
+                                        <tr>
+                                            <td class="padding-bottom10">Minus insurance</td>
+                                            <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>0</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="border-solid-top padding-bottom10"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <!-- ko if :DealerPriceList -->
+                                            <td class="padding-bottom10 text-bold">Total on road price</td>
+                                            <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
+                                            <!-- /ko -->
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="border-solid-top padding-bottom10"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!-- /ko -->
 
-                                        <!-- ko if : isDealerPQAvailable() -->
-                                        <table class="font16">
-                                            <tbody>
-                                                <!-- ko foreach : DealerPriceList -->
-                                                <tr>
-                                                    <td width="350" class="padding-bottom10" data-bind="text: categoryName"></td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: price"></span></td>
-                                                </tr>
-                                                <!-- /ko  -->
-                                                <!-- ko if :DealerPriceList -->
-                                               <%-- <tr>
-                                                    <td colspan="2">
-                                                        <div class="border-solid-top padding-bottom10"></div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="padding-bottom10">Total on road price</td>
-                                                    <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
-                                                </tr>
-                                                <!-- /ko -->
-                                                <tr>
-                                                    <td class="padding-bottom10">Minus insurance</td>
-                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>0</td>
-                                                </tr>--%>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="border-solid-top padding-bottom10"></div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <!-- ko if :DealerPriceList -->
-                                                    <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
-                                                    <!-- /ko -->
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2">
-                                                        <div class="border-solid-top padding-bottom10"></div>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                        <!-- /ko -->
-
-                                    </div>
-                                </div>
-
-                                <!--View Breakup popup ends here-->
+                            </div>
+                        </div> 
+                        <!--View Breakup popup ends here-->
 
                     </div>
-                	<div id="city-list-container" class="city-list-container margin-bottom10">
+                	<div id="city-list-container" class="city-list-container margin-bottom10 ">
                     	<div class="text-left margin-bottom15">
                         	<p class="font14 offer-error">Select City for accurate on-road price</p>
                         </div>
@@ -205,7 +202,7 @@
                                 <select id="ddlCity" class="form-control" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', event : { change : LoadArea }"></select>
                             </div>
                             <div class="area-select margin-top20 hide">
-                                <select id="ddlArea" class="form-control" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', enable: selectedCity, event: { change: OnAreaChange }"></select>
+                                <select id="ddlArea" class="form-control" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', enable: selectedCity, event: { change: OnAreaChange }, visible: areas().length > 0"></select>
                             </div>
                             <div class="clear"></div>
                     	</div>
@@ -267,8 +264,10 @@
            </div>
     </section>
     <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
-    	<div id="SneakPeak" class="container clearfix box-shadow margin-bottom20">
-        	<h2 class="padding-bottom15 padding-top20 text-center">Sneak-peak</h2>
+    	<div id="SneakPeak" class="container clearfix box-shadow margin-bottom20 margin-top20">
+             <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null){ %>
+                <h2 class="padding-bottom15  text-center">Sneak-peek</h2>
+                 <% } %>           	
         	<div class="content-box-shadow content-inner-block-20">
             	<p class="font14 text-grey padding-left10 padding-right10">
                     <span class="model-about-main">
@@ -286,7 +285,6 @@
     <% if (modelPage.ModelVersionSpecs != null)
        { %>
     <section class="<%= modelPage.ModelVersionSpecs == null ? "hide" : "" %>">
-        <div>&nbsp;</div>
     	<div class="container bg-white text-center clearfix">
         	<div class="grid-12">
                 <h2 class="text-center margin-top20 margin-bottom20">Overview</h2>  
@@ -854,7 +852,7 @@
         cityId = '<%= cityId%>';
         isUsed = '<%= !modelPage.ModelDetails.New %>';
     </script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?14Sep2015"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?15Sep2015v2"></script>
     
 </form>
 </body>
