@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Default" %>
-
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
@@ -8,6 +7,7 @@
 <%@ Register Src="~/controls/OnRoadPriceQuote.ascx" TagName="OnRoadPriceQuote" TagPrefix="BW" %>
 <html>
 <head>
+    <!-- #include file="/includes/headscript.aspx" -->
     <%
         title = "New Bikes, Used Bikes, Bike Prices, Reviews & Photos in India";
         keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price";
@@ -17,12 +17,12 @@
         alternate = "http://www.bikewale.com/m/";
         canonical = "http://www.bikewale.com/";
     %>
-    <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-white">
 <form runat="server">
     <!-- #include file="/includes/headBW.aspx" -->
+    
     <header class="home-top-banner">
         <div class="container">
             <div class="welcome-box">
@@ -485,7 +485,7 @@
     <!-- Ends here -->
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
 </form>
 </body>
 </html>

@@ -1,14 +1,15 @@
 ﻿<script runat="server">	
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+    string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
 </script>
-<link rel="SHORTCUT ICON" href="<%= staticUrl != "" ? "http://img2.aeplcdn.com/bikewaleimg" : "" %>/images/favicon.png"  type="image/png"/>
-<link type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/style.css?14sept2015" rel="stylesheet"/>
-<link type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/960.css?14sept2015" rel="stylesheet"/>
+<link rel="SHORTCUT ICON" href="<%= staticUrl != "" ? "http://img2.aeplcdn.com/bikewaleimg" : "" %>/images/favicon.png?<%= staticFileVersion%>"  type="image/png"/>
+<link type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/style.css?<%= staticFileVersion%>" rel="stylesheet"/>
+<link type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/960.css?<%= staticFileVersion%>" rel="stylesheet"/>
 <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeWaleCommon.js?v=1.2"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/bt.js?v1.1"></script>
-<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js?14sept2015"></script>
-<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-style.css?15sept2015" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js?<%= staticFileVersion%>"></script>
+<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-style.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
 <!--[if IE]><script language="javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/excanvas.js?v=1.0"></script><![endif]-->
 <!--[if IE 6]>
     <script src="http://st.carwale.com/ie-png-fix.js?v=1.0"></script>

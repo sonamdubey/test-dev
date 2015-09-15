@@ -10,7 +10,7 @@
     AdId = "1398766000399";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?14sept2015" />
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
 <script type="text/javascript">
     var dealerId = '<%= dealerId%>';
     var pqId = '<%= pqId%>';
@@ -29,7 +29,7 @@
 <style>
     .grey-bullet li{ background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bw-grey-bullet.png) no-repeat 0px 9px;display: block;list-style: square outside none;padding: 3px 0 3px 10px;}
 </style>
-<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/BikeBooking.js?14sept2015"></script>
+<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/BikeBooking.js?<%= staticFileVersion %>"></script>
 
 <div class="padding5">
     <h1 class="margin-top-10" style="margin-left:0px;"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Price Quote</h1>

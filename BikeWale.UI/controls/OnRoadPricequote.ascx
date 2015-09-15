@@ -1,7 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Controls.OnRoadPricequote" %>
 
-<link href="/css/chosen.min.css?14sept2015" rel="stylesheet" />
-
+<script runat="server">
+    private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+    private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+</script>
+<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
 <div class="container">
     <div class="grid-5 leftfloat">
         <div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70" id="OnRoadContent">

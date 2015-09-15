@@ -7,8 +7,8 @@
                     <ItemTemplate>
                         <li>
                             <div class="front padding-bottom20">
-                                <div class="contentWrapper">
-                                    <div class="grid-12 alpha padding-left10 padding-right10 padding-top20">
+                                <div class="contentWrapper content-inner-block10">
+                                    <div class="grid-12 alpha omega padding-top10">
                                         <div class="reviews-rating leftfloat text-center text-center border-solid margin-bottom5 margin-right10">
                                             <span class="margin-bottom5 margin-top5 show">
                                                 <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(Eval("OverAllRating.OverAllRating"))) %>

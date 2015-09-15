@@ -25,7 +25,7 @@
 
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/model.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -1011,7 +1011,7 @@
             };
 
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?<%=staticFileVersion %>"></script>
         <script type="text/javascript">
             var PQCitySelectedId = 0;
             var PQCitySelectedName = "";

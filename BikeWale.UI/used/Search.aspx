@@ -16,7 +16,7 @@
     var isFirstLoad = true;
     var queryString = '<%= queryString%>';
 </script>
-<script type="text/javascript" src="/src/used/search.js?14sept2015"></script>
+<script type="text/javascript" src="/src/used/search.js?<%= staticFileVersion %>"></script>
 
 <style type="text/css">
     .sel_parama{border:1px solid #DFDFDF; color:#445566!important; padding:1px 1px 1px 5px; margin:3px; display:inline-block; text-decoration:none!important; border-radius:3px; cursor:pointer;}

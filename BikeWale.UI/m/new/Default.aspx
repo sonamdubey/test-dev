@@ -21,7 +21,7 @@
         AdId = "1398766302464";
      %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-newbikes.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -337,7 +337,7 @@
     <!-- #include file="/includes/footerBW_Mobile.aspx" -->
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-newbikes.js"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-newbikes.js?<%= staticFileVersion %>"></script>
      </form>
 </body>
 </html>
