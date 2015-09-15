@@ -13,7 +13,7 @@
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
-<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css?<%= staticFileVersion %>" />
+<link rel="stylesheet" href="/css/bw-pq.css?<%= staticFileVersion %>" />
 <link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
 <link rel="stylesheet" type="text/css" href="/css/rsa.css?v=3.0"/>
 <style type="text/css">

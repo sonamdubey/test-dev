@@ -9,7 +9,7 @@
     //AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/pgheader.aspx" -->
-<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
 <link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/rsa.css?<%= staticFileVersion %>"/>
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" />

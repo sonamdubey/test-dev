@@ -10,7 +10,7 @@
     AdId = "1398766000399";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
+<link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" />
 <script type="text/javascript">
     var dealerId = '<%= dealerId%>';
     var pqId = '<%= pqId%>';
