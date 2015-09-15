@@ -390,10 +390,10 @@ namespace Bikewale.DAL.NewBikeSearch
                     clause = " SD.FuelEfficiencyOverall >= 70 ";
                     break;
                 case "2":
-                    clause = " SD.FuelEfficiencyOverall BETWEEN 70 AND 50 ";
+                    clause = " SD.FuelEfficiencyOverall <= 70 AND SD.FuelEfficiencyOverall >= 50 ";
                     break;
                 case "3":
-                    clause = " SD.FuelEfficiencyOverall BETWEEN 50 AND 30 ";
+                    clause = " SD.FuelEfficiencyOverall <= 50 AND SD.FuelEfficiencyOverall >= 30 ";
                     break;
                 case "4":
                     clause = " SD.FuelEfficiencyOverall <= 30 ";
