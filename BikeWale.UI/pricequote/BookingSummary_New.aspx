@@ -77,7 +77,7 @@
                     <!-- ko if: viewModel.Dealer() -->
                     <!-- ko with: viewModel.Dealer() -->
                     <div class="grid-4 inline-block border-solid-left">
-                        <div class="booking-dealer-details hide">
+                        <div class="booking-dealer-details">
                             <h3 class="font18 margin-bottom15" data-bind="text: organization()"></h3>
                             <p class="font14 text-light-grey margin-bottom10" data-bind="text: address1() + ' ' + address2() + ', ' + area() + ', ' + city() + ', ' + state() + ', ' + pincode()"></p>
                             <p class="font14 margin-bottom10"><span class="fa fa-phone margin-right5"></span><span data-bind="text: phoneNo()"></span></p>
@@ -88,6 +88,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- ko ifnot :viewModel.Dealer() -->
                         <div class="call-for-queries text-center">
                             <div class="query-call-pic bg-white text-center">
                                 <div class="bookingcomforts-sprite buying-asst-icon"></div>
@@ -95,6 +96,7 @@
                             <p class="font14 margin-bottom10">In case of queries call us toll-free on:</p>
                             <p class="font18 text-bold">022 6739 8888 (extn : 881)</p>
                         </div>
+                        <!-- /ko -->
                     </div>
                     <!-- /ko -->
                     <!-- /ko -->
@@ -185,7 +187,7 @@
                                 
                                 <div class="clear"></div>
                             </div>
-                            <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="click: viewModel.CustomerVM().regenerateOTP()">Resend OTP</a><br />
+                            <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a><br />
                             <a class="btn btn-orange margin-top30" id="otp-submit-btn">Confirm OTP</a>                            
                         </div>
                     </div>
@@ -432,7 +434,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                                 var objCust = {
                                     "dealerId": dealerId,
                                     "pqId": pqId,
-                                    "customerName": self.CustomerVM().firstName() + ' ' + (self.CustomerVM().lastName()!=undefined)?self.CustomerVM().lastName():"",
+                                    "customerName": self.CustomerVM().fullName(),
                                     "customerMobile": self.CustomerVM().mobileNo(),
                                     "customerEmail": self.CustomerVM().emailId(),
                                     "clientIP": clientIP,
@@ -504,7 +506,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                         var objCust = {
                             "dealerId": dealerId,
                             "pqId": pqId,
-                            "customerName": self.firstName() + ' ' + (self.CustomerVM().lastName() != undefined) ? self.CustomerVM().lastName() : "",
+                            "customerName": self.fullName(),
                             "customerMobile": self.mobileNo(),
                             "customerEmail": self.emailId(),
                             "clientIP": clientIP,
@@ -559,7 +561,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                             "customerEmail": self.emailId(),
                             "cwiCode": self.otpCode(),
                             "branchId": dealerId,
-                            "customerName": self.firstName() + ' ' + (self.CustomerVM().lastName() != undefined) ? self.CustomerVM().lastName() : "",
+                            "customerName": self.fullName(),
                             "versionId": verId,
                             "cityId": cityId
                         }
@@ -616,7 +618,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                             data: ko.toJSON(objCustomer),
                             contentType: "application/json",
                             success: function (response) {
-                                self.IsVerified(response);
+                                
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
                                 self.IsVerified(false);
