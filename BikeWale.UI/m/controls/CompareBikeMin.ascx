@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.CompareBikeMin" %>
 <style>
     @media screen and (min-width:315px) {
-        .compareImageContainer {width:300px;margin:auto;}
+        .compareImageContainer {width:100%;margin:auto;}
     }
 
     @media screen and (max-width:329px) {
