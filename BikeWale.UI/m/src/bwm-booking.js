@@ -112,7 +112,7 @@ function BookingPageVMModel() {
                     var objCust = {
                         "dealerId": dealerId,
                         "pqId": pqId,
-                        "customerName": self.CustomerVM().firstName() + ' ' + (self.CustomerVM().lastName() != undefined) ? self.CustomerVM().lastName() : "",
+                        "customerName": self.CustomerVM().fullName(),
                         "customerMobile": self.CustomerVM().mobileNo(),
                         "customerEmail": self.CustomerVM().emailId(),
                         "clientIP": clientIP,
@@ -178,7 +178,7 @@ function CustomerModel() {
             var objCust = {
                 "dealerId": dealerId,
                 "pqId": pqId,
-                "customerName": self.firstName() + ' ' + (self.CustomerVM().lastName() != undefined) ? self.CustomerVM().lastName() : "",
+                "customerName": self.fullName(),
                 "customerMobile": self.mobileNo(),
                 "customerEmail": self.emailId(),
                 "clientIP": clientIP,
@@ -233,7 +233,7 @@ function CustomerModel() {
                 "customerEmail": self.emailId(),
                 "cwiCode": self.otpCode(),
                 "branchId": dealerId,
-                "customerName": self.firstName() + ' ' + (self.CustomerVM().lastName() != undefined) ? self.CustomerVM().lastName() : "",
+                "customerName": self.fullName(),
                 "versionId": verId,
                 "cityId": cityId
             }
@@ -290,7 +290,7 @@ function CustomerModel() {
                 data: ko.toJSON(objCustomer),
                 contentType: "application/json",
                 success: function (response) {
-                    self.IsVerified(response);
+                    
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     self.IsVerified(false);
@@ -551,8 +551,7 @@ var mobileValTrue = function () {
 
 var prevMob;
 
-mobile.change(function () {
-    console.log(mobileValue);
+mobile.change(function () {    
     var b = validateMobile();
     if (b == false) {
         mobileVal();
@@ -659,7 +658,11 @@ emailid.change(function () {
 });
 
 otpBtn.click(function () {
-    if (validateOTP()) {
+    var isValid = true;
+    isValid = validateEmail();
+    isValid &= validateMobile();
+    isValid &= validateName();
+    if (validateOTP() && isValid) {
         $.customizeState();
         $("#personalInfo").hide();
         $("#personal-info-tab").removeClass('text-bold');
