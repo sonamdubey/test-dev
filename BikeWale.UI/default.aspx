@@ -7,7 +7,7 @@
 <%@ Register Src="~/controls/OnRoadPriceQuote.ascx" TagName="OnRoadPriceQuote" TagPrefix="BW" %>
 <html>
 <head>
-    <!-- #include file="/includes/headscript.aspx" -->
+    
     <%
         title = "New Bikes, Used Bikes, Bike Prices, Reviews & Photos in India";
         keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price";
@@ -17,6 +17,7 @@
         alternate = "http://www.bikewale.com/m/";
         canonical = "http://www.bikewale.com/";
     %>
+    <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-white">
