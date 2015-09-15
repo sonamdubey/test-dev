@@ -60,7 +60,7 @@ $.selectedValueSortTab = function () {
 
 //Sort by div popup
 $("#sort-btn").click(function () {
-    $("#sort-by-div").toggle($.effect, $.options, $.duration);
+    $("#sort-by-div").slideToggle('fast');
     $("html, body").animate({ scrollTop: $("header").offset().top }, 0);
 });
 
