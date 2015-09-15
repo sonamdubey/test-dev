@@ -1,35 +1,5 @@
 // JavaScript Document
 $(document).ready(function() {
-	var availableTags = [
-		"Bajaj 1",
-		"Bajaj 2",
-		"Bajaj 3",
-		"Bajaj 4",
-		"Bajaj 5"
-	];
-	
-	$("#finalPriceBikeSelect").autocomplete({
-		source: function(request, response) {
-			dataListDisplay(availableTags,request, response);
-		},minLength: 1
-	}).css({'width':'250px'});
-	$("#locateDealerBikeSelect").autocomplete({
-		source: function(request, response) {
-			dataListDisplay(availableTags,request, response);
-		},minLength: 1
-	}).css({'width':'290px'});
-	
-	function dataListDisplay(availableTags,request,response){
-		var results = $.ui.autocomplete.filter(availableTags, request.term);
-		response(results.slice(0, 5));
-	}
-	
-	$("#final-price-citySelect").change(function(){
-		var a = $(".final-price-citySelect");
-		a.css("width",161);
-		$(".final-price-citySelect select").css("width",160);
-		$(".final-price-areaSelect").show();
-	});
 	
 	$("a.view-more-btn").click(function(e){
 		e.preventDefault();
