@@ -22,7 +22,7 @@
 <script type="text/javascript">
 
     if (<%= submit %> == 1) {
-        //document.formBillDesk.submit();
+        document.formBillDesk.submit();
     }
     
 </script>
