@@ -435,6 +435,8 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .navUL li a.sept-nav-list { padding: 15px 0 0 55px; color: #82888b; height: 36px; }
 .blackOut-window { background:#000; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.5; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); -moz-opacity:0.5; -khtml-opacity: 0.5; }
 
+.lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
+
 /* sprite classes */
 .bwmsprite { background: url(http://img.carwale.com/bikewaleimg/m/images/bwmsprite.png?v09152015) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }

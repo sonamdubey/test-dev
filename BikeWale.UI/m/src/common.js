@@ -181,7 +181,7 @@ $(document).ready(function () {
 		navbarShow();
 	});
 	function navbarShow() {
-		//$('body').addClass('lock-browser-scroll');
+		$('body').addClass('lock-browser-scroll');
 		$("#nav").addClass('open').animate({'left':'0px'});
 		$(".blackOut-window").show();
 	}	
@@ -217,7 +217,7 @@ $(document).ready(function () {
 	}); // nav bar code ends here
 	
 	function navbarHide(){
-		//$('body').addClass('lock-browser-scroll');
+		$('body').addClass('lock-browser-scroll');
 		$("#nav").removeClass('open').animate({'left':'-300px'});
 		$(".blackOut-window").hide();
 	}
@@ -253,6 +253,14 @@ $(document).ready(function () {
 		$(".loginStage").show();
 		$(".signUpStage").hide();
 	}
+	function lockPopup() {
+		$('body').addClass('lock-browser-scroll');
+		$(".blackOut-window").show();		
+	}
+	function unlockPopup() {
+		$('body').removeClass('lock-browser-scroll');
+		$(".blackOut-window").hide();
+	}	
 	
 	// lang changer code
     $(".changer-default").click( function(){
