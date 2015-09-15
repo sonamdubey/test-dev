@@ -85,8 +85,96 @@
                 <div class="grid-12 bg-white box-shadow" id="dvBikePrice">
                 	<div class="bike-price-container font22 margin-bottom15">
                         <span class="fa fa-rupee"></span>
-                        <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10"><%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
-					</div>
+                        <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10 default-showroom-text"><%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
+					
+                         <!-- View BreakUp Popup Starts here-->
+
+
+                                <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
+                                    <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                    <div class="breakup-text-container padding-bottom10">
+                                        <h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
+
+                                        <!-- ko if : !isDealerPQAvailable() && BWPriceList -->
+                                        <table class="font16">
+                                            <tbody>
+                                                <tr>
+                                                    <td width="350" class="padding-bottom10">Ex-showroom (Mumbai)</td>
+                                                    <td width="150" align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().exShowroomPrice"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="padding-bottom10">RTO</td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().rto"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="padding-bottom10">Insurance (comprehensive)</td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().insurance"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="border-solid-top padding-bottom10"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- ko if :BWPriceList -->
+                                                    <td class="padding-bottom10 text-bold">Total on road price</td>
+                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: (parseInt(BWPriceList().insurance) + parseInt(BWPriceList().rto) + parseInt(BWPriceList().exShowroomPrice))"></span></td>
+                                                    <!-- /ko -->
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- /ko -->
+
+                                        <!-- ko if : isDealerPQAvailable() -->
+                                        <table class="font16">
+                                            <tbody>
+                                                <!-- ko foreach : DealerPriceList -->
+                                                <tr>
+                                                    <td width="350" class="padding-bottom10" data-bind="text: categoryName"></td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: price"></span></td>
+                                                </tr>
+                                                <!-- /ko  -->
+                                                <!-- ko if :DealerPriceList -->
+                                               <%-- <tr>
+                                                    <td colspan="2">
+                                                        <div class="border-solid-top padding-bottom10"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="padding-bottom10">Total on road price</td>
+                                                    <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
+                                                </tr>
+                                                <!-- /ko -->
+                                                <tr>
+                                                    <td class="padding-bottom10">Minus insurance</td>
+                                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>0</td>
+                                                </tr>--%>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="border-solid-top padding-bottom10"></div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <!-- ko if :DealerPriceList -->
+                                                    <td class="padding-bottom10 text-bold">Total on road price</td>
+                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
+                                                    <!-- /ko -->
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <div class="border-solid-top padding-bottom10"></div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <!-- /ko -->
+
+                                    </div>
+                                </div>
+
+                                <!--View Breakup popup ends here-->
+
+                    </div>
                 	<div id="city-list-container" class="city-list-container margin-bottom10">
                     	<div class="text-left margin-bottom15">
                         	<p class="font14 offer-error">Select City for accurate on-road price</p>
@@ -108,8 +196,8 @@
                             <p class="font14">Select area for on-road price and exclusive offers</p>
                         </div>
                         <div class="city-onRoad-price-container font14 margin-bottom15 hide">
-                        	<p class="margin-bottom10">On-road price in <span id="pqArea">Andheri</span>, <span id="pqCity">Mumbai</span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
-                            <p class="font12 margin-bottom15">(Ex-showroom + RTO + Insurance + Handling charges)</p>
+                        	<p class="margin-bottom10">On-road price in <span id="pqArea"></span>, <span id="pqCity"></span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
+                            <p class="font12 margin-bottom15"></p>
                             <input type="button" class="btn btn-orange btn-full-width" id="btnBookNow" value="Book now and avail offers" />
                         </div>	
                         <div class="city-area-wrapper">
@@ -766,7 +854,7 @@
         cityId = '<%= cityId%>';
         isUsed = '<%= !modelPage.ModelDetails.New %>';
     </script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?14Sep2015"></script>
     
 </form>
 </body>
