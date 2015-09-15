@@ -114,7 +114,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
-.home-top-banner { background:#161209 url(http://img.carwale.com/bikewaleimg/images/home-top-banner.jpg) no-repeat center top; background-size: cover; height: 490px; padding-top: 1px; }
+.home-top-banner { background:#161209 url(http://img.carwale.com/bikewaleimg/images/home-top-banner.jpg) no-repeat right top; background-size: cover; height: 490px; padding-top: 1px; }
 .home-getFinalPrice-banner { background:#161209 url(http://img.carwale.com/bikewaleimg/images/get-final-price-banner.jpg) no-repeat center top; background-size: cover; height: 490px; }
 
 /* city popup classes */

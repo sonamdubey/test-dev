@@ -29,15 +29,16 @@
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
             <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" value="Get On-road Price" data-bind="event: { click: getPriceQuoteOnRoad }">Get On-road Price</button>
+            <p>Its private, no need to share your number and email</p>
             </div>
             
                <!-- Onroad price quote ends here-->
 
-            <p>Its private, no need to share your number and email</p>
+            
         </div>
     </div>
     <div class="clear"></div>
-</div>
+
 
 <script type="text/javascript" src="/src/common/chosen.jquery.min.js?14sept2015"></script>
 <script type="text/javascript">
