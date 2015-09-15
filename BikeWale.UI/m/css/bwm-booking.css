@@ -7,10 +7,10 @@
 
 .table-cell { display:table-cell; vertical-align:middle;}
 .what-next-box .inner-thumb { width:84px; height:84px; box-shadow:3px 3px 7px rgba(0,0,0,0.11); -webkit-box-shadow:3px 3px 7px rgba(0,0,0,0.11); -moz-box-shadow:3px 3px 7px rgba(0,0,0,0.11); -ms-box-shadow:3px 3px 7px rgba(0,0,0,0.11); -o-box-shadow:3px 3px 7px rgba(0,0,0,0.11); text-align:center;}
-.what-next-box li { background:url(/images/steps-bg-pic.png) repeat-y; padding:0 0 20px 45px;}
+.what-next-box li { background:url(http://img.carwale.com/bikewaleimg/m/images/steps-bg-pic.png?v=150915) repeat-y; padding:0 0 20px 45px;}
 .what-next-box li:nth-child(4) { padding-bottom:0; margin-bottom:20px;}
 /* next steps sprite classes */
-.whatnext-sprite { background:url(/images/what-next-sprite.png) no-repeat; display:inline-block;}
+.whatnext-sprite { background:url(http://img.carwale.com/bikewaleimg/m/images/what-next-sprite.png?v=150915) no-repeat; display:inline-block;}
 .get-dealership { background-position:0 0; width:55px; height:37px;}
 .show-id { background-position:0 -49px; width:48px; height:37px;}
 .submit-list { background-position:0 -95px; width:40px; height:40px;}
@@ -18,7 +18,7 @@
 
 /* booking comforts sprite */
 
-.bookingcomforts-sprite { background:url(/images/booking-comforts-sprite.png) no-repeat; display:inline-block;}
+.bookingcomforts-sprite { background:url(http://img.carwale.com/bikewaleimg/m/images/booking-comforts-sprite.png?v=150915) no-repeat; display:inline-block;}
 .buying-asst-icon { background-position:-247px 0; width:71px; height:46px; position:relative; top:22px;}
 
 .booking-tabs ul{ display:table; margin:0 auto 20px; width: 270px; overflow: hidden; }
@@ -48,7 +48,7 @@
 .available-colors .color-box {width:60px; height:60px; margin:0 auto 15px; border-radius:3px; position:relative;}
 .color-box.red {background:#f00;}
 .color-box.blue {background:#3749a4;}
-.available-colors .color-box .ticked { background:url(/images/blue-tick.png) no-repeat; width:22px; height:16px; position:absolute; top:50%; left:50%; margin-top:-8px; margin-left:-11px;}
+.available-colors .color-box .ticked { background:url(http://img.carwale.com/bikewaleimg/m/images/blue-tick.png?v=150915) no-repeat; width:22px; height:16px; position:absolute; top:50%; left:50%; margin-top:-8px; margin-left:-11px;}
 .text-green { color:#5bc033;}
 
 .feedback-container { width:100%; font-size:16px; line-height:1.6; }
@@ -58,7 +58,7 @@
 .border-dark { border:1px solid #222; }
 
 /* booking sprite */
-.booking-sprite { background: url(/images/booking-sprite.png) no-repeat; display: inline-block; }
+.booking-sprite { background: url(http://img.carwale.com/bikewaleimg/m/images/booking-sprite.png?v=150915) no-repeat; display: inline-block; }
 .booking-sprite, .booking-sprite + span.iconTtl{display:inline-block; vertical-align:middle;}
 .personalInfo-icon-selected, .customize-icon-selected, .confirmation-icon-selected { width:42px; height:42px; }
 .personalInfo-icon-selected { background-position: 0 0; }
@@ -69,7 +69,7 @@
 .customize-icon-grey { background-position:-43px -52px; }
 .confirmation-icon-grey { background-position: -43px -102px; }
 
-.white-back-arrow{background:url("/images/white-back-arrow.png") no-repeat scroll left top; top:0;}
+.white-back-arrow{background:url("http://img.carwale.com/bikewaleimg/m/images/white-back-arrow.png?v=150915") no-repeat scroll left top; top:0;}
 .white-back-arrow:hover{background-position:left top;}
 .call-text-green{border:1px solid #5bc033;padding:6px 42px;}
 
