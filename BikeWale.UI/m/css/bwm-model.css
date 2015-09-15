@@ -94,3 +94,5 @@
 .reviews-rating{width:42%;}
 #ctrlExpertReviews li{min-height:236px;height:auto;}
 #ctrlExpertReviews li .front{height:100%;}
+
+.container img {max-width:100%;}

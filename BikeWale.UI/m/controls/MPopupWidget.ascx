@@ -67,7 +67,9 @@ function FillCitiesPopup(modelId) {
         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
         success: function (response) {
             selectedModel = modelId;
-            $('.blackOut-window,#popupWrapper').fadeIn(100);
+            $('#popupWrapper').fadeIn(100);
+            $('body').addClass('lock-browser-scroll');
+            $(".blackOut-window").show();
             var obj = JSON.parse(response);
             var cities = JSON.parse(obj.value);
             var citySelected = null;
@@ -196,7 +198,9 @@ function getPriceQuotePopup() {
 
 $(document).ready(function () {
     $('#popupWrapper .close-btn,.blackOut-window').click(function () {
-        $('.blackOut-window,.bw-city-popup').fadeOut(100);
+        $('.bw-city-popup').fadeOut(100);
+        $('body').removeClass('lock-browser-scroll');
+        $(".blackOut-window").hide();
         $('a.fillPopupData').removeClass('ui-btn-active');
     });
 
