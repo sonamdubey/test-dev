@@ -35,7 +35,7 @@
                                     <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: bookingAmount"></span></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2" class="padding-bottom10"><a href="#">Hassle free cancellation policy</a></td>
+                                    <td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2">
@@ -227,12 +227,12 @@
                     </div>
                     <div class="font14 padding-top10"><span class="fa fa-phone"></span><span data-bind="text: phoneNo()"></span></div>
                     <div id="divMapWindow">
-                        <div id="divMap" data-bind="style: { width: showMap ? '290px' : 0, height: showMap ? '90px' : 0 }"></div>
+                        <div style="width: 290px; height: 90px" data-bind="googlemap: { latitude: lattitude(), longitude: longitude() }"></div>
                     </div>
                 </div>
                 <!-- /ko -->
                 <!-- /ko -->
-                <!-- ko ifnot :viewModel.Dealer() -->
+                <!-- ko if: !viewModel.Dealer() -->
                 <div class="container">
                     <div class="grid-12">
                         <div class="content-box-shadow content-inner-block-15 margin-bottom15 text-medium-grey text-center">
@@ -268,7 +268,7 @@
                                 <div class="inner-thumb table-cell">
                                     <div class="whatnext-sprite submit-list"></div>
                                 </div>
-                                <p class="table-cell text-bold padding-left10"><a href="#">Submit list of required documents</a></p>
+                                <p class="table-cell text-bold padding-left10"><a href="#" id="required-document">Submit list of required documents</a></p>
                             </li>
                             <li>
                                 <div class="inner-thumb table-cell">
@@ -282,6 +282,72 @@
                 <div class="clear"></div>
             </div>
         </section>
+        
+        <!--Cancellation & refund policy popup starts here-->
+    <div class="bwm-popup cancellation-popup hide">
+    	<div class="popup-inner-container">
+            <div class="cancel-policy-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+            <h3>Cancellation & Refund Policy</h3>
+            <div class="lower-alpha-list cancellation-list content-inner-block-10">
+                <ol>
+                    <li>Cancellation must be requested <strong>within 15 calendar days of pre-booking the vehicle.</strong></li>
+		            <li>Please email your <strong>‘Pre-Booking Cancellation Request’</strong> to <a href="mailto:contact@bikewale.com" class="blue-text">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating the <strong>pre-booking reference number, your mobile number and email address (that you used while pre-booking).</strong></li> 	
+                    <li><strong>Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
+                    <li>If the dealer has initiated the procurement of the bike upon customer’s pre-booking, cancellation will not be possible.</li>
+                   
+                    <li>For all valid requests, we will process the refund of full pre-booking amount to customer’s account within 7 working days.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!--Cancellation & refund policy popup ends here-->
+    
+    <!--Documents popup starts here-->
+    <div class="bwm-popup required-doc hide">
+    	<div class="popup-inner-container">
+            <div class="req-document-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+            <h3 class="margin-bottom20">List of Required Documents</h3>
+            <div class="f-bold margin-top-10 text-bold">Mandatory Documents:</div>
+            <div class="doc-list">
+                <ul>
+                    <li>Two Color Photographs.</li>
+                    <li>PAN Card.</li>
+                </ul>
+            </div>
+            <div class="f-bold margin-top10 text-bold">Identity Proof:</div>
+            <div class="doc-list">
+                <ul>
+                    <li>Passport / Voter ID / Driving License.</li>
+                </ul>
+            </div>
+            <div class="f-bold margin-top10 text-bold">Additional Documents for Loan:</div>
+            <div class="doc-list">
+                <ul>
+                    <li>Last 6 Months Bank Statement.</li>
+                    <li>Salary Slip / Latest I.T. Return.</li>
+                </ul>
+            </div>
+            <div class="f-bold margin-top20 margin-bottom10  text-bold">Residential Address Proof:</div>
+            <div class="lightgray">(Self-Owned House)</div>
+            <div class="doc-list">
+                <ul>
+                    <li>Light Bil / Passport.</li>
+                    <li>Ration Card (Relation Proof).</li>
+                </ul>
+            </div>
+            <div class="lightgray margin-top15">(Rented House)</div>
+            <div class="doc-list">
+                <ul>
+                    <li>Registered Rent Agreement + Police N.O.C..</li>
+                    <li>Rent Home Electricity Bill.</li>
+                    <li>Permanent Address Proof.</li>
+                    <li>Ration Card (Relation Proof).</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--Documents popup ends here-->
+
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
@@ -297,7 +363,7 @@
             var pageUrl = '<%= pageUrl%>';
             var areaId = '<%= areaId%>';
         </script>
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js?15sept20151" type="text/javascript"></script>
+        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js?sept201515" type="text/javascript"></script>
         <script language="javascript" type="text/javascript">
             window.onload = function () {
                 var btnRelease = document.getElementById('<%= clientIP %>');
@@ -316,6 +382,51 @@
                     return "";
                 };
             };
+
+
+            $(document).ready(function () {
+                $(document).delegate("#cancellation-box", "click", function (e) {
+                    e.preventDefault();
+                    $(".blackOut-window").show();
+                    $('.cancellation-popup').show();
+                });
+
+                $(document).delegate(".cancel-policy-close-btn", "click", function () {
+                    ClosePolicyPopUp();
+                });
+
+                function ClosePolicyPopUp() {
+                    $(".cancellation-popup").hide();
+                    unlockPopup();
+                }
+
+                $(document).delegate("#required-document", "click", function (e) {
+                    e.preventDefault();
+                    $(".blackOut-window").show();
+                    $('.required-doc').show();
+                });
+
+                $(document).delegate(".req-document-close-btn", "click", function () {
+                    CloseDocumentPopUp();
+                });
+
+                function CloseDocumentPopUp() {
+                    $(".required-doc").hide();
+                    unlockPopup();
+                }
+
+                function unlockPopup() {
+                    $('body').removeClass('lock-browser-scroll');
+                    $(".blackOut-window").hide();
+                }
+
+                $(document).delegate(".blackOut-window", "click", function () {
+                    $(".cancellation-popup").hide();
+                    $('.required-doc').hide();
+                });
+
+            });
+
         </script>
     </form>
 </body>
