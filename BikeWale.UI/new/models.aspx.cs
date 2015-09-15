@@ -33,6 +33,7 @@ namespace Bikewale.New
         protected BikeDescription _bikeDesc = null;
         protected Int64 _minModelPrice;
         protected Int64 _maxModelPrice;
+        protected short reviewTabsCnt = 0;
 
         protected override void OnInit(EventArgs e)
         {

@@ -124,7 +124,11 @@
             <div class="clear"></div>
         </div>
     </section>
-    
+    <% 
+            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }            
+        %>
      <section ><!--  News Bikes code starts here -->
         <div class="container">
             <div class="grid-12 ">
@@ -133,9 +137,9 @@
                     <div class="bw-tabs-panel">
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
-                                <li class="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" data-tabs="ctrlNews">News</li>
-                                <li class="<%= ctrlExpertReviews.FetchedRecordsCount > 0 ? "" : "hide" %>" data-tabs="ctrlExpertReviews">Reviews</li>
-                                <li  class="<%= ctrlVideos.FetchedRecordsCount > 0 ? "" : "hide" %>" data-tabs="ctrlVideos">Videos</li>
+                                <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Reviews</li>
+                                <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
                             </ul>
                         </div>
                         <BW:News runat="server" ID="ctrlNews" />
