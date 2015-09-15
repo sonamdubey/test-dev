@@ -26,8 +26,11 @@ $(document).ready(function () {
 	$("#globalCity").autocomplete({
 		source: function(request, response) {
 			dataListDisplay(availableTags,request, response);
-		},minLength: 1
+		}, minLength: 1
 	}).css({ 'width': '179px' });
+	
+
+	
 
     $("#newBikeList").bw_autocomplete({
         recordCount: 5,
@@ -134,7 +137,7 @@ $(document).ready(function () {
             else
                 showHideMatchError(element,true);
         }
-    }).autocomplete("widget").addClass("globalCity-autocomplete").css({'z-index':'11'});
+    }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11','font-weight':'normal','text-align':'left' }).insertAfter(".ui-autocomplete-input");
 
 	
 	$("#citySelectionFinalPrice").autocomplete({
@@ -345,7 +348,7 @@ $(document).ready(function () {
 	    }
 	    else {
 	        showHideMatchError(ele, true);
-	        unlockPopup();
+	        //unlockPopup();
 	    }
 	    return false;
 	});
@@ -570,13 +573,15 @@ function CheckGlobalCookie() {
     }
 }
 
-function lockPopup() {
+
+
+/*function lockPopup() {
     $(".blackOut-window").show();
 }
 
 function unlockPopup() {
     $(".blackOut-window").hide();
-}
+}*/
 
 
 

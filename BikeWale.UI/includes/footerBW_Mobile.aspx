@@ -8,7 +8,7 @@
                     <ul>
                         <li><a href="/m/contactus.aspx">Contact Us</a></li>
                         <li><a href="/m/advertisewithus.aspx">Advertise with Us</a></li>
-                        <li><a href="http://www.carwale.com/m/">Carwale.com</a></li>
+                        <li><a href="http://www.carwale.com/m/">CarWale.com</a></li>
                         <%--<li><a href="/m/aboutus.aspx">About Us</a></li>--%>
                         <%--<li><a href="/forums/">Forums</a></li>--%>
                         <%--<li><a href="/m/sitemap.aspx">Sitemap</a></li>--%>
