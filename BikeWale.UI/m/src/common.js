@@ -256,14 +256,14 @@ $(document).ready(function () {
 		$(".loginStage").show();
 		$(".signUpStage").hide();
 	}
-	function lockPopup() {
-		$('body').addClass('lock-browser-scroll');
-		$(".blackOut-window").show();		
-	}
-	function unlockPopup() {
-		$('body').removeClass('lock-browser-scroll');
-		$(".blackOut-window").hide();
-	}	
+	//function lockPopup() {
+	//	$('body').addClass('lock-browser-scroll');
+	//	$(".blackOut-window").show();		
+	//}
+	//function unlockPopup() {
+	//	$('body').removeClass('lock-browser-scroll');
+	//	$(".blackOut-window").hide();
+	//}	
 	
 	// lang changer code
     $(".changer-default").click( function(){
@@ -574,7 +574,14 @@ function CheckGlobalCookie() {
 }
 
 
-
+function lockPopup() {
+    $('body').addClass('lock-browser-scroll');
+    $(".blackOut-window").show();
+}
+function unlockPopup() {
+    $('body').removeClass('lock-browser-scroll');
+    $(".blackOut-window").hide();
+}
 /*function lockPopup() {
     $(".blackOut-window").show();
 }
