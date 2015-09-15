@@ -33,12 +33,10 @@
                 	<div class="jcarousel-wrapper model">
                         <div class="jcarousel">
                             <ul>
-                                <asp:Repeater ID="rptModelPhotos" runat="server">                                    
-                                    <HeaderTemplate>
-                                        <li>
-                                            <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
-                                        </li>
-                                    </HeaderTemplate>
+                                <li>
+                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
+                                </li>
+                                <asp:Repeater ID="rptModelPhotos" runat="server">                                                                        
                                     <ItemTemplate>
                                         <li>
                                             <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
