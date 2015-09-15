@@ -26,8 +26,11 @@ $(document).ready(function () {
 	$("#globalCity").autocomplete({
 		source: function(request, response) {
 			dataListDisplay(availableTags,request, response);
-		},minLength: 1
+		}, minLength: 1
 	}).css({ 'width': '179px' });
+	
+
+	
 
     $("#newBikeList").bw_autocomplete({
         recordCount: 5,
@@ -134,7 +137,7 @@ $(document).ready(function () {
             else
                 showHideMatchError(element,true);
         }
-    }).autocomplete("widget").addClass("globalCity-autocomplete").css({'z-index':'11'});
+    }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11','font-weight':'normal','text-align':'left' }).insertAfter(".ui-autocomplete-input");
 
 	
 	$("#citySelectionFinalPrice").autocomplete({
@@ -181,7 +184,7 @@ $(document).ready(function () {
 		navbarShow();
 	});
 	function navbarShow() {
-		//$('body').addClass('lock-browser-scroll');
+		$('body').addClass('lock-browser-scroll');
 		$("#nav").addClass('open').animate({'left':'0px'});
 		$(".blackOut-window").show();
 	}	
@@ -217,7 +220,7 @@ $(document).ready(function () {
 	}); // nav bar code ends here
 	
 	function navbarHide(){
-		//$('body').addClass('lock-browser-scroll');
+		$('body').addClass('lock-browser-scroll');
 		$("#nav").removeClass('open').animate({'left':'-300px'});
 		$(".blackOut-window").hide();
 	}
@@ -253,6 +256,14 @@ $(document).ready(function () {
 		$(".loginStage").show();
 		$(".signUpStage").hide();
 	}
+	function lockPopup() {
+		$('body').addClass('lock-browser-scroll');
+		$(".blackOut-window").show();		
+	}
+	function unlockPopup() {
+		$('body').removeClass('lock-browser-scroll');
+		$(".blackOut-window").hide();
+	}	
 	
 	// lang changer code
     $(".changer-default").click( function(){
@@ -337,7 +348,7 @@ $(document).ready(function () {
 	    }
 	    else {
 	        showHideMatchError(ele, true);
-	        unlockPopup();
+	        //unlockPopup();
 	    }
 	    return false;
 	});
@@ -562,13 +573,15 @@ function CheckGlobalCookie() {
     }
 }
 
-function lockPopup() {
+
+
+/*function lockPopup() {
     $(".blackOut-window").show();
 }
 
 function unlockPopup() {
     $(".blackOut-window").hide();
-}
+}*/
 
 
 

@@ -9,9 +9,9 @@
     //AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/pgheader.aspx" -->
-<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css?14sept2015" rel="stylesheet" />
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?15sept20151" />
-<link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/rsa.css?15sept20151"/>
+<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
+<link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/rsa.css?<%= staticFileVersion %>"/>
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" />
 <div class="main-container">
       <div id="blackOut-window"></div>

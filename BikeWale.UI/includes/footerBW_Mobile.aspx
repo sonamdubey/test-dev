@@ -2,13 +2,13 @@
         <div class="container">
         	<div class="grid-12 text-center">
                 <div>
-                    <a href="javascript:void(0)" class="bwmsprite bw-logo"></a>              
+                    <a href="/m/" class="bwmsprite bw-logo"></a>              
                 </div>
                 <div class="margin-top15">
                     <ul>
                         <li><a href="/m/contactus.aspx">Contact Us</a></li>
                         <li><a href="/m/advertisewithus.aspx">Advertise with Us</a></li>
-                        <li><a href="http://www.carwale.com/m/">Carwale.com</a></li>
+                        <li><a href="http://www.carwale.com/m/">CarWale.com</a></li>
                         <%--<li><a href="/m/aboutus.aspx">About Us</a></li>--%>
                         <%--<li><a href="/forums/">Forums</a></li>--%>
                         <%--<li><a href="/m/sitemap.aspx">Sitemap</a></li>--%>

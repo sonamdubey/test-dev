@@ -1,7 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Controls.OnRoadPricequote" %>
 
-<link href="/css/chosen.min.css?14sept2015" rel="stylesheet" />
-
+<script runat="server">
+    private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+    private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+</script>
+<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
 <div class="container">
     <div class="grid-5 leftfloat">
         <div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70" id="OnRoadContent">
@@ -26,15 +29,16 @@
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
             <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" value="Get On-road Price" data-bind="event: { click: getPriceQuoteOnRoad }">Get On-road Price</button>
+            <p>Its private, no need to share your number and email</p>
             </div>
             
                <!-- Onroad price quote ends here-->
 
-            <p>Its private, no need to share your number and email</p>
+            
         </div>
     </div>
     <div class="clear"></div>
-</div>
+
 
 <script type="text/javascript" src="/src/common/chosen.jquery.min.js?14sept2015"></script>
 <script type="text/javascript">

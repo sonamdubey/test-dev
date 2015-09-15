@@ -10,7 +10,7 @@
     menu = "12";
 %>
 <!-- #include file="/includes/headermobile_home.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?14sept2015" />
+<link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" />
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
     <!-- offer claim starts here -->
     

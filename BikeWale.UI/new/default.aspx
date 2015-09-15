@@ -25,7 +25,7 @@
         canonical = "http://www.bikewale.com/new/";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/newbikes.css" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-white">
     <form runat="server">
@@ -245,7 +245,7 @@
                         </ul>
                     </div>
                     <div class="view-brandType text-center padding-top10 padding-bottom30">
-                        <a href="#" id="view-brandType" class="view-more-btn font16">View <span>More</span> Brands</a>
+                        <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View <span>More</span> Brands</a>
                     </div>
                 </div>
                 <div class="bw-tabs-data hide" id="discoverBudget">
@@ -542,7 +542,8 @@
     <BW:PopupWidget Id="NBPopupWidget" runat="server" />
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>
+    <%--<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>--%>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/newbikes.js?<%= staticFileVersion %>"></script>
     </form>
 </body>
 </html>

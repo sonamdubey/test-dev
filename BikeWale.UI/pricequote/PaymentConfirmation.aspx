@@ -4,8 +4,8 @@
     AdPath = "/1017752/Bikewale_PriceQuote_";
 %>
 <!-- #include file="/includes/pgheader.aspx" -->
-<link href="/css/bw-pq.css?14sept2015" rel="stylesheet" />
-<link href="/css/bw-pq-new.css?14sept2015" rel="stylesheet" />
+<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link href="/css/bw-pq-new.css?<%= staticFileVersion %>" rel="stylesheet" />
 <link href="/css/rsa.css" rel="stylesheet" />
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
 <style>

@@ -7,7 +7,7 @@
     }
 </script>
 <!-- #include file="/includes/headhome.aspx" -->
-<div class="container_12">
+<div class="container_12 container-min-height">
     <div class="grid_12 margin-top10">
         <h1>Advertise with Us</h1>
         <div class="margin-top10">We ensure that your advertisement is linked to the relevant pages and reach your customers in the right way. Please contact for any advertisement related queries:</div>
@@ -45,4 +45,7 @@
         </div>
     </div>    
 </div>
+<style type="text/css">
+    .container-min-height { min-height:530px; }
+</style>
  <!-- #include file="/includes/footerinner.aspx" -->

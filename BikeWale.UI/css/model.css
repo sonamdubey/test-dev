@@ -58,7 +58,7 @@
 .alternative-section .jcarousel-control-right { right:-24px; }
 .alternative-section .jcarousel-control-left, .alternative-section .jcarousel-control-right { top:50%; }
 .newBikes-latest-updates-container .grid-4 { padding-left:10px;}
-.available-colors { display:inline-block; width:150px; text-align:center; margin-bottom:10px; padding:0 5px;}
+.available-colors { display:inline-block; width:150px; text-align:center; margin-bottom: 20px; padding:0 5px; vertical-align: top; }
 .available-colors .color-box {width:60px; height:60px; margin:0 auto 15px; border-radius:3px; background:#f00;}
 .varient-desc-container { min-height:72px; }
 /* model sprite classes */

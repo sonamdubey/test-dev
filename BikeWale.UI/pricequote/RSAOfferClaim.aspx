@@ -8,7 +8,7 @@
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <link rel="stylesheet" href="/css/datepicker.css" />
-<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?14sept2015" />
+<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
 <script src="/src/picker.js"></script>
 <script src="/src/picker.date.js"></script>
 <style>

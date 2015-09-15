@@ -11,11 +11,11 @@
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 
-<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css?14sept2015" rel="stylesheet" />
-<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?14sept2015" rel="stylesheet" />
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/price_quote.js?14sept2015"></script>
+<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/price_quote.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?14sept2015"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?<%= staticFileVersion %>"></script>
     <div class="main-container">
         <div class="container_12">
             <div class="grid_12">

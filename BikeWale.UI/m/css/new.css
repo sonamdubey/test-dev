@@ -1,6 +1,6 @@
 ﻿/*New Styles for Research Default Page*/
 .makeContainer {width:50%;float:left; border-bottom:1px solid #b3b4c6;}
-.makeImgContainer {margin:auto;height:53px;width:91px; background: url("http://img.aeplcdn.com/bikewaleimg/images/brand-img.png") no-repeat scroll transparent;}
+.makeImgContainer {margin:auto;height:53px;width:91px; background: url("http://img.aeplcdn.com/bikewaleimg/images/brand-img.png?v=150915") no-repeat scroll transparent;}
 .makeTextContainer {text-align:center;height:10px;font-size:12px !important;color:#252628;font-weight:normal;}
 
 .aprilia {background-position: 0px 0px;} /*Aprillia*/

@@ -13,7 +13,7 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
-        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking.css?15sept20151" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
@@ -363,7 +363,7 @@
             var pageUrl = '<%= pageUrl%>';
             var areaId = '<%= areaId%>';
         </script>
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js?sept201515" type="text/javascript"></script>
+        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js?<%= staticFileVersion %>" type="text/javascript"></script>
         <script language="javascript" type="text/javascript">
             window.onload = function () {
                 var btnRelease = document.getElementById('<%= clientIP %>');
