@@ -1,6 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  EnableEventValidation="false"  Inherits="Bikewale.MyBikeWale.NewsSubscription" %>
 <!-- #include file="/Includes/headMyBikeWale.aspx" -->
-<div class="container_12">
+<div class="container_12 container-min-height">
     <div class="grid_12">
         <ul class="breadcrumb">
             <li>You are here: </li>

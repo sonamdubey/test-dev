@@ -18,6 +18,7 @@
     #reqPhotos.buttons { background: #f5f5f5; color: #82888b; border: 1px solid #ccc; font-size:14px;}
     #reqPhotos.buttons:hover { background: #82888b; color: #fff; text-decoration: none; border:1px solid #82888b; }
     #buyer_form input, #verifiy_mobile input { border:1px solid #ccc; padding:5px; }
+    #colorbox   { width:650px !important; height:530px !important; }
 </style>
 <script type="text/javascript">
     var bikeName = '<%= objInquiry.BikeName %>';
@@ -103,7 +104,7 @@
                         <td valign="top">Petrol</td>
                     </tr>
                     <tr>
-                        <td colspan="4" align="right" style="padding:0; padding-right:30px"><div class="action-btn margin-top10"><a id="contact-seller">Get Seller Details</a></div></td>
+                        <td colspan="4" align="right" style="padding:0; padding-right:30px"><div class="margin-top10"><a id="contact-seller" class="action-btn">Get Seller Details</a></div></td>
                     </tr>
                 </table>
             </div>

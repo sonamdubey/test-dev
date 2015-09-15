@@ -1,6 +1,6 @@
 <%@ Page Inherits="Bikewale.Users.ChangePassword" AutoEventWireUp="false" Language="C#" Trace="false" Debug="false" %>
 <!-- #include file="/includes/headMyBikeWale.aspx" -->
-    <div class="container_12">
+    <div class="container_12 container-min-height">
         <div class="grid_12">
             <ul class="breadcrumb">
                 <li>You are here: </li>

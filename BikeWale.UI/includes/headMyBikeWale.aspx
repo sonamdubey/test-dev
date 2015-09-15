@@ -57,6 +57,9 @@
             var s = document.getElementsByTagName( 'script' )[0]; s.parentNode.insertBefore( po, s );
         } )();
     </script>
+    <style>
+        .container-min-height { min-height:530px; }
+    </style>
 </head>
 <body class="header-fixed-inner">
     <form runat="server">
