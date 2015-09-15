@@ -10,7 +10,7 @@
     AdId = "1398766000399";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" /> 
+<link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" /> 
 <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
 <script src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>

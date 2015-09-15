@@ -18,7 +18,7 @@
 <PW:PopupWidget runat="server" ID="PopupWidget" />
 
 <%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
-<link href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
 <link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
 <link rel="stylesheet" type="text/css" href="/css/rsa.css?v=3.0" />
 <link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" />

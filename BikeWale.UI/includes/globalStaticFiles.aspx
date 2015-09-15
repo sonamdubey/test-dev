@@ -9,7 +9,7 @@
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeWaleCommon.js?v=1.2"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/bt.js?v1.1"></script>
 <script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js?<%= staticFileVersion%>"></script>
-<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-common-style.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
+<link href="/css/bw-common-style.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
 <!--[if IE]><script language="javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/excanvas.js?v=1.0"></script><![endif]-->
 <!--[if IE 6]>
     <script src="http://st.carwale.com/ie-png-fix.js?v=1.0"></script>

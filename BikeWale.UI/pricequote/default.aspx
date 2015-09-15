@@ -11,7 +11,7 @@
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 
-<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
 <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/price_quote.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>

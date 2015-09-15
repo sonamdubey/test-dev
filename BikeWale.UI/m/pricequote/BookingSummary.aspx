@@ -10,7 +10,7 @@
 
 %>
 <!-- #include file="/includes/PaymentHeaderMobile.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" /> 
+<link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" /> 
 <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
 <script src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/jquery-ui-1.10.4.custom.min.js"></script>
 
