@@ -79,8 +79,8 @@
                     </tr>
                 </table>
             </div>
-            <div class="grid_2 omega margin-top20 action-btn">
-                Own a <%= BikeName %>? Help others make an informed buying decision. <a href="/content/userreviews/writereviews.aspx?bikem=<%= ModelId %>" class="margin-top5">Write a review</a>
+            <div class="grid_2 omega margin-top20">
+                Own a <%= BikeName %>? Help others make an informed buying decision. <a href="/content/userreviews/writereviews.aspx?bikem=<%= ModelId %>" class="margin-top5 action-btn btn-xs">Write a review</a>
             </div>                
         </div>               
         <div class="clear"></div>       

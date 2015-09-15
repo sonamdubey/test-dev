@@ -278,7 +278,7 @@ header.fixed {    position: fixed;    left: 0;    right: 0;    top: 0;    z-inde
 .gplusLoginBtn { background:#D44936; }
 a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
-.banner-home { height: 268px; background: #161209 url(http://img.carwale.com/bikewaleimg/m/images/home-top-banner.jpg?v123) no-repeat scroll right top;  background-size: cover; }
+.banner-home { height: 268px; background: #161209 url(http://img.carwale.com/bikewaleimg/m/images/home-top-banner.jpg?v123) no-repeat scroll center top;  background-size: cover; }
 .newbikes-banner-div { background:#161209 url(http://img.carwale.com/bikewaleimg/m/images/new-cars-banner.jpg?v123) no-repeat left top; background-size: cover; height:130px;}
 
 /* sprite classes */
@@ -599,17 +599,14 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 /* Carousel Controls */
 .jcarousel-control-left, .jcarousel-control-right {  position: absolute; top: 32%; z-index: 2; }
-.jcarousel-control-left { /*left: 8px;*/ left:-10px; }
-.jcarousel-control-right { /*right: 8px;*/ right:-4px; }
+.jcarousel-control-left { left: 8px; }
+.jcarousel-control-right { right: 8px; }
 .jcarousel-control-prev, .jcarousel-control-next { width: 26px; height: 43px; text-indent: -9999px; padding: 5px; border: 1px solid #e6e6e6; background-color: #fff; display:block; }
 .jcarousel-control-prev { background-position: -153px -207px; }
 .jcarousel-control-next { background-position: -177px -207px; }
-.jcarousel-control-prev { background-position: -153px -207px; border-left: 0; }
-.jcarousel-control-next { background-position: -177px -207px; border-right: 0;}
 .jcarousel-control-prev:hover { background-position: -153px -238px; }
 .jcarousel-control-next:hover { background-position: -177px -238px; }
-.jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-control-right .jcarousel-control-next.inactive { cursor: not-allowed; background-position: -153px -176px; }
-.jcarousel-control-right .jcarousel-control-next.inactive {background-position: -177px -176px;}
+.jcarousel-control-left .jcarousel-control-prev.inactive, .jcarousel-control-right .jcarousel-control-next.inactive { display:none;}
 .jcarousel-pagination { text-align:center;}
 /* carousel end */
 

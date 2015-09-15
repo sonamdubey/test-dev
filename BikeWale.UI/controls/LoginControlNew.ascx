@@ -1,10 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LoginControlNew" %>
 <% if(Bikewale.Common.CurrentUser.Id == "-1") { %>
-<div class="loginPopUpWrapper" id="loginPopUpWrapper"><!-- login code starts here -->
+<div class="loginPopUpWrapper" id="loginPopUpWrapper" runat="server"><!-- login code starts here -->
     <div class="loginBoxContent" id="Testlogin-box">
         <div class="loginCloseBtn position-abt pos-top10 pos-left10 infoBtn bwsprite cross-md-dark-grey cur-pointer"></div>
-        <div class="loginStage">
+        <div class="loginStage" id="divLogin" runat="server">
             <div class="loginWithCW margin-bottom40">
+                <p id="errorRegister" class="text-red margin-bottom10" runat="server">Already Registered. Please Login</p>
                 <h2 class="margin-bottom30">Log in to BikeWale</h2>
                 <div class="form-control-box margin-bottom20">
                     <asp:TextBox id="txtLoginEmail" runat="server" class="form-control" name="email id" placeholder="Email" />
@@ -53,7 +54,7 @@
                 </a>
             </div>--%>
         </div>
-        <div class="signUpStage">
+        <div class="signUpStage" id="divSignUp" runat="server">
             <div class="signUpWithBW">
                 <h2 class="margin-bottom30">Sign up to BikeWale</h2>
                 <div class="form-control-box margin-bottom20">
