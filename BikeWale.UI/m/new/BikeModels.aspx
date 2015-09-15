@@ -851,7 +851,7 @@
         cityId = '<%= cityId%>';
         isUsed = '<%= !modelPage.ModelDetails.New %>';
     </script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?15Sep2015v2"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
     
 </form>
 </body>
