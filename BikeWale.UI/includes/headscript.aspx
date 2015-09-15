@@ -7,17 +7,19 @@
     private bool isHeaderFix = true;   
 </script>
 
+<title><%= title %></title>
+<meta name="description" content="<%= description %>" />
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
-<meta name="keywords" content="<%= keywords %>" />
-<meta name="description" content="<%= description %>" />
-<meta name="alternate" content="<%= alternate %>" />
-<link rel="canonical" href="<%=canonical %>" /> 
 
-<title><%= title %></title>
+<% if(!String.IsNullOrEmpty(keywords)) { %><meta name="keywords" content="<%= keywords %>" /><% } %>
+<%if(!String.IsNullOrEmpty(alternate)) { %><meta name="alternate" content="<%= alternate %>" /><% } %>
+<%if(!String.IsNullOrEmpty(canonical)) { %><link rel="canonical" href="<%=canonical %>" /> <% } %>
+
+
 <link rel="SHORTCUT ICON" href="#" />
-<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css">
+<link href="/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 <script type='text/javascript'>
     var googletag = googletag || {};
