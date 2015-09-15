@@ -7,7 +7,7 @@
     }
 </script>
 <!-- #include file="/includes/headhome.aspx" -->
-<div class="container_12 margin-top15">
+<div class="container_12 margin-top15 container-min-height">
     <div class="grid_12 min-height">
         <h1>Contact BikeWale</h1>
         <div class="margin-top15">           
@@ -23,4 +23,7 @@
         </div>
     </div>    
 </div>
+<style type="text/css">
+    .container-min-height { min-height:530px; }
+</style>
 <!-- #include file="/includes/footerinner.aspx" -->
