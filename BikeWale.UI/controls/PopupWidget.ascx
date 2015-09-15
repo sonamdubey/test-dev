@@ -1,6 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.PopupWidget" %>
 <!--bw popup code starts here-->
-<link href="/css/chosen.min.css?14sept2015" rel="stylesheet" />
+<script runat="server">
+    private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+    private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+</script>
+<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%=staticFileVersion %>" rel="stylesheet" />
 
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
     <div class="popup-inner-container" stopBinding: true>
@@ -269,4 +273,4 @@
         
 
 </script>
-<script type="text/javascript" src="/src/common/chosen.jquery.min.js?14sept2015"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>

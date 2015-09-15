@@ -8,7 +8,7 @@
     <style>
         .red { color:red;}
     </style>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/style.css?14sept2015" rel="stylesheet" />
+    <link href="/css/style.css?15sep2015" rel="stylesheet" />
     <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
     <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 </head>

@@ -10,8 +10,8 @@
 <body class="bg-light-grey">
 <form runat="server">
 <!-- #include file="/includes/headBW.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/search.css" rel="stylesheet" type="text/css">
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?14sept2015" rel="stylesheet" type="text/css"/>
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
     <section class="bg-white">
     	<div class="container">
             <div class="grid-12">
@@ -353,9 +353,9 @@
     
 <!-- #include file="/includes/footerBW.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
-<script type="text/javascript" src="/src/framework/knockout.js"></script>
-<script type="text/javascript" src="/src/common/chosen.jquery.min.js"></script>
-<script type="text/javascript" src="/src/new/search.js"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
     <PW:PopupWidget runat="server" ID="PopupWidget" />
 </form>
 </body>

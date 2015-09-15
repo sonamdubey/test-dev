@@ -8,7 +8,7 @@
     AdPath = "/1017752/BikeWale_SellBikes_HomePage_";
 %>
 <!-- #include file="/includes/headSell.aspx" -->
-<script type="text/javascript" src="/src/classified/sellbike.js?14sept2015"></script>
+<script type="text/javascript" src="/src/classified/sellbike.js?<%= staticFileVersion %>"></script>
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">

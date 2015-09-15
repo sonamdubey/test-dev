@@ -1,13 +1,14 @@
 ﻿<script language="c#" runat="server">	
-    string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+    private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+    private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "";
     private string fbTitle = "", fbImage;
     private ushort feedbackTypeId = 0; 	 
     private bool isHeaderFix = true;   
 </script>
 
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    
 <meta name="keywords" content="<%= keywords %>" />
 <meta name="description" content="<%= description %>" />
@@ -16,8 +17,8 @@
 
 <title><%= title %></title>
 <link rel="SHORTCUT ICON" href="#" />
-<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/bw-common-style.css?15sept2015" rel="stylesheet" type="text/css">
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?14sept2015"></script>
+<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 <script type='text/javascript'>
     var googletag = googletag || {};
     googletag.cmd = googletag.cmd || [];
