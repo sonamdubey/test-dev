@@ -245,7 +245,7 @@
                                 <ul id="mainCity">
                                     <li cityid="1"><span>Mumbai</span></li>
                                     <li cityid="12"><span>Pune</span></li>
-                                    <li cityid="2"><span>Banglore</span></li>
+                                    <li cityid="2"><span>Bangalore</span></li>
                                     <li cityid="40"><span>Thane</span></li>
                                     <li cityid="13"><span>Navi Mumbai</span></li>
                                     <li class="city-other-btn"><span>Others</span></li>
@@ -1019,7 +1019,7 @@
             };
 
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?15Sep2015v2"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?<%= staticFileVersion %>">"></script>
         <script type="text/javascript">
             var PQCitySelectedId = 0;
             var PQCitySelectedName = "";
