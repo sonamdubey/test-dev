@@ -132,15 +132,18 @@ namespace Bikewale.New
             //device detection
             DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
             dd.DetectDevice();
-
+            #region Do Not change the sequence
+            ParseQueryString();
+            CheckCityCookie();
+            FetchModelPageDetails(); 
+            #endregion
             if (!IsPostBack)
             {
-                ParseQueryString();
-                CheckCityCookie();
-                FetchModelPageDetails();
+                #region Do not change the sequence
                 BindPhotoRepeater();
                 BindAlternativeBikeControl();
-                clientIP = CommonOpn.GetClientIP();
+                clientIP = CommonOpn.GetClientIP(); 
+                #endregion
             }
 
             ////news,videos,revews, user reviews
@@ -220,7 +223,7 @@ namespace Bikewale.New
                     {
                         if (objResponse.StatusCode == 301)
                         {
-                            //redirect permanent to new page 
+                            //redirect permanent to new page                             
                             Bikewale.Common.CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
 
                         }
@@ -303,7 +306,7 @@ namespace Bikewale.New
         protected string FormatMaxPower(object bhp,object rpm)
         {
             string format = "<div class=\"text-bold\">{0} bhp @ {1} rpm</div>";
-            if (bhp != null && !String.IsNullOrEmpty(bhp.ToString()) && rpm != null && !String.IsNullOrEmpty(rpm.ToString()))
+            if (bhp != null && !String.IsNullOrEmpty(bhp.ToString()) && rpm != null && !String.IsNullOrEmpty(rpm.ToString()) && rpm.ToString() != "0")
             {
                 return String.Format(format,bhp.ToString(),rpm.ToString());
             }
@@ -313,7 +316,7 @@ namespace Bikewale.New
         protected string FormatMaxTorque(object nm,object rpm)
         {
             string format = "<div class=\"text-bold\">{0} Nm @ {1} rpm</div>";
-            if (nm != null && !String.IsNullOrEmpty(nm.ToString()) && rpm != null && !String.IsNullOrEmpty(rpm.ToString()))
+            if (nm != null && !String.IsNullOrEmpty(nm.ToString()) && rpm != null && !String.IsNullOrEmpty(rpm.ToString()) && rpm.ToString() != "0")
             {
                 return String.Format(format, nm.ToString(), rpm.ToString());
             }

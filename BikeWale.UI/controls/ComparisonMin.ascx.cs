@@ -48,7 +48,7 @@ namespace Bikewale.controls
 
             if (FetchedRecordsCount > 0)
             {
-                this.TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(TopRecord.OriginalImagePath, TopRecord.HostURL, Bikewale.Utility.ImageSize._310x174);
+                this.TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(TopRecord.OriginalImagePath, TopRecord.HostURL, Bikewale.Utility.ImageSize._476x268);
 
                 if (this.TopRecord.ReviewCount1 > 0)
                 {

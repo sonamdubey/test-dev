@@ -48,16 +48,15 @@ namespace Bikewale.New
             {
                // ltrDefaultCityName.Text = Bikewale.Common.Configuration.GetDefaultCityName;
 
+                _make = new MakeBase();
+                _bikeDesc = new BikeDescription();
+
+                //to get complete make page
+                GetMakePage(); 
                 if (!Page.IsPostBack)
                 {
                     DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
                     dd.DetectDevice();
-
-                    _make = new MakeBase();
-                    _bikeDesc = new BikeDescription();
-
-                    //to get complete make page
-                    GetMakePage(); 
 
                     //To get Upcoming Bike List Details 
                     ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;

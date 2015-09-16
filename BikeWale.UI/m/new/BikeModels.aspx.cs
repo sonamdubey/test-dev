@@ -46,12 +46,14 @@ namespace Bikewale.Mobile.New
 
 		protected void Page_Load(object sender, EventArgs e)
 		{
+            #region Do not change the sequence
+            ParseQueryString();
+            CheckCityCookie();
+            FetchModelPageDetails(); 
+            #endregion
             if (!IsPostBack)
             {                
-                #region Do not change the sequence of these functions
-                    ParseQueryString();
-                    CheckCityCookie();
-                    FetchModelPageDetails();
+                #region Do not change the sequence of these functions                    
                     BindRepeaters();
                     BindAlternativeBikeControl();
                     clientIP = CommonOpn.GetClientIP(); 
