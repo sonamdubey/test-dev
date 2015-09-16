@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ArticlePhotoGallery.ascx.cs" Inherits="Bikewale.Controls.ArticlePhotoGallery" %>
 <style>
-    #colorbox   { width:648px !important; height:410px !important; }
+    #colorbox   { width:700px !important; height:450px !important; }
 </style>
 <div class="border-light" id="ctrlNewsPhotoGallery_taggedPhotogallery">
     <div class="content-block-white">

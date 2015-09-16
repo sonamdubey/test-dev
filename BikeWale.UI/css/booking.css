@@ -9,7 +9,7 @@
 
 /* booking comforts sprite */
 
-.bookingcomforts-sprite { background:url(http://img.carwale.com/bikewaleimg/images/booking-comforts-sprite.png?15sep2015) no-repeat; display:inline-block;}
+.bookingcomforts-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/images/booking-comforts-sprite.png?15sep2015) no-repeat; display:inline-block;}
 .buying-asst-icon { background-position:-247px 0; width:71px; height:46px; position:relative; top:22px;}
 
 .booking-wrapper { background:#fff; padding:30px;}
@@ -33,9 +33,9 @@
 
 /* color box css */
 .booking-available-colors ul { width:100%; min-height:50px; margin:0 auto; text-align:center;  }
-.booking-available-colors ul li { width:120px; height:100px; display:inline-block; *display:inline; *zoom:1; border-radius:3px;  position:relative; cursor:pointer; margin:0 20px 15px; vertical-align:top;}
-.booking-color-box { margin:0 auto; width:60px; height:60px; background:#ccc; }
-.booking-available-colors .booking-color-box .ticked { background:url(http://img.carwale.com/bikewaleimg/images/blue-tick.png?v123) no-repeat; width:22px; height:16px; position:absolute; top:22px; left:50px;}
+.booking-available-colors ul li { width:140px; display:inline-block; *display:inline; *zoom:1; border-radius:3px;  position:relative; cursor:pointer; margin:0 20px 15px; vertical-align:top;}
+.booking-color-box { margin:0 auto; width:60px; height:60px; background:#ccc; border:1px solid #ccc; }
+.booking-available-colors .booking-color-box .ticked { background:url(http://img.aeplcdn.com/bikewaleimg/images/blue-tick.png) no-repeat; width:22px; height:16px; position:absolute; top:22px; left:59px;}
 .text-green { color:#5bc033;}
 
 .feedback-container { width:800px; text-align:center; font-size:16px; line-height:1.6; margin:0 auto;}
@@ -45,7 +45,7 @@
 .border-dark { border:1px solid #222; }
 
 /* booking sprite */
-.booking-sprite { background: url(http://img.carwale.com/bikewaleimg/images/booking-sprite.png?v123) no-repeat; display: inline-block; }
+.booking-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/booking-sprite.png) no-repeat; display: inline-block; }
 .personalInfo-icon-selected, .customize-icon-selected, .confirmation-icon-selected { width:42px; height:42px; }
 .personalInfo-icon-selected { background-position: 0 0; }
 .customize-icon-selected { background-position: 0 -52px; }

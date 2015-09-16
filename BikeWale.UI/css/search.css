@@ -19,8 +19,8 @@
 .filter-brand-list { width:480px; height:270px; }
 .filter-budget-list, .filter-mileage-list, .filter-displacement-list { width:187px; min-height:130px; }
 .list-items ul { min-height:100px; }
-.list-items li { background: url(http://img.carwale.com/bikewaleimg/images/inputUnchecked.png?v123) no-repeat scroll 0 3px; cursor: pointer; display: block; padding-bottom: 8px; padding-left: 30px; position: relative; width:150px; float:left; font-size:14px; }
-.list-items li.active { background: url(http://img.carwale.com/bikewaleimg/images/inputChecked.png?v123) no-repeat scroll 0 3px; }
+.list-items li { background: url(http://img.aeplcdn.com/bikewaleimg/images/inputUnchecked.png) no-repeat scroll 0 3px; cursor: pointer; display: block; padding-bottom: 8px; padding-left: 30px; position: relative; width:150px; float:left; font-size:14px; }
+.list-items li.active { background: url(http://img.aeplcdn.com/bikewaleimg/images/inputChecked.png) no-repeat scroll 0 3px; }
 .filter-budget-list.list-items li, .filter-mileage-list.list-items li, .filter-displacement-list.list-items li { width:165px; }
 .filter-select-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:154px; }
 .filter-select-title span.selected { padding-right:2px; }
