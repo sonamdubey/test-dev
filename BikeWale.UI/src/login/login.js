@@ -64,10 +64,10 @@ function isValidLoginDetails()
 }
 
 $("#btnForgetPass").click(function () {
-    sendPwd();
+    sendForgetPwd();
 });
 
-function sendPwd() {
+function sendForgetPwd() {
     var objEmail = $("#txtForgotPassEmail");
     var email = objEmail.val();    
 

@@ -16,7 +16,7 @@ using System.Web.UI.WebControls;
 namespace Bikewale.Mobile
 {
     public class BikeMakes : System.Web.UI.Page
-	{
+    {
         protected MUpcomingBikes ctrlUpcomingBikes;
         protected NewsWidget ctrlNews;
         protected ExpertReviewsWidget ctrlExpertReviews;
@@ -37,99 +37,96 @@ namespace Bikewale.Mobile
             this.Load += new EventHandler(Page_Load);
         }
 
-		protected void Page_Load(object sender, EventArgs e)
-		{            
+        protected void Page_Load(object sender, EventArgs e)
+        {
             //Function to process and validate Query String  
-             if (ProcessQueryString())
-                {
-                    // ltrDefaultCityName.Text = Bikewale.Common.Configuration.GetDefaultCityName;
-
-                    if (!Page.IsPostBack)
-                    {
-
-                        _make = new MakeBase();
-                        _bikeDesc = new BikeDescription();
-
-                        //to get complete make page
-                        GetMakePage();
-
-                        //To get Upcoming Bike List Details 
-                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                        ctrlUpcomingBikes.pageSize = 6;
-                        ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
-
-                        ////news,videos,revews
-                        ctrlNews.TotalRecords = 3;
-                        ctrlNews.MakeId = Convert.ToInt32(makeId);
-                        ctrlExpertReviews.TotalRecords = 3;
-                        ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
-                        ctrlVideos.TotalRecords = 3;
-                        ctrlVideos.MakeId = Convert.ToInt32(makeId);
-
-                    }
-                }
-		}
-
-            bool ProcessQueryString()
+            if (ProcessQueryString())
             {
-                bool isSucess = true;
+                // ltrDefaultCityName.Text = Bikewale.Common.Configuration.GetDefaultCityName;
+                _make = new MakeBase();
+                _bikeDesc = new BikeDescription();
 
-                if (!String.IsNullOrEmpty(Request.QueryString["make"]))
+                //to get complete make page
+                GetMakePage();
+                if (!Page.IsPostBack)
                 {
-                    makeId = MakeMapping.GetMakeId(Request.QueryString["make"]);
-                    //verify the id as passed in the url
-                    if (CommonOpn.CheckId(makeId) == false)
-                    {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                        isSucess = false;
-                    }
+                    //To get Upcoming Bike List Details 
+                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                    ctrlUpcomingBikes.pageSize = 6;
+                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
+
+                    ////news,videos,revews
+                    ctrlNews.TotalRecords = 3;
+                    ctrlNews.MakeId = Convert.ToInt32(makeId);
+                    ctrlExpertReviews.TotalRecords = 3;
+                    ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
+                    ctrlVideos.TotalRecords = 3;
+                    ctrlVideos.MakeId = Convert.ToInt32(makeId);
+
                 }
-                else
+            }
+        }
+
+        bool ProcessQueryString()
+        {
+            bool isSucess = true;
+
+            if (!String.IsNullOrEmpty(Request.QueryString["make"]))
+            {
+                makeId = MakeMapping.GetMakeId(Request.QueryString["make"]);
+                //verify the id as passed in the url
+                if (CommonOpn.CheckId(makeId) == false)
                 {
-                    //invalid make id, hence redirect to the new default page
-                    Response.Redirect("/new/", false);
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                     isSucess = false;
                 }
-
-                return isSucess;
+            }
+            else
+            {
+                //invalid make id, hence redirect to the new default page
+                Response.Redirect("/new/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+                isSucess = false;
             }
 
-            private void GetMakePage()
-            {
-                BindMakePage.totalCount = 6;
-                BindMakePage.makeId = Convert.ToInt32(makeId);
-                BindMakePage.BindMostPopularBikes(rptMostPopularBikes);
-                fetchedRecordsCount = BindMakePage.FetchedRecordsCount;
-                _make = BindMakePage.Make;
-                _bikeDesc = BindMakePage.BikeDesc;
+            return isSucess;
+        }
 
-                if (_bikeDesc != null)
+        private void GetMakePage()
+        {
+            BindMakePage.totalCount = 6;
+            BindMakePage.makeId = Convert.ToInt32(makeId);
+            BindMakePage.BindMostPopularBikes(rptMostPopularBikes);
+            fetchedRecordsCount = BindMakePage.FetchedRecordsCount;
+            _make = BindMakePage.Make;
+            _bikeDesc = BindMakePage.BikeDesc;
+
+            if (_bikeDesc != null)
+            {
+                isDescription = true;
+            }
+        }
+
+        protected string ShowEstimatedPrice(object estimatedPrice)
+        {
+            string price = String.Empty;
+            if (estimatedPrice != null)
+            {
+                price = Bikewale.Utility.Format.FormatPrice(estimatedPrice.ToString());
+                if (price == "N/A")
                 {
-                    isDescription = true;
+                    price = "Price unavailable";
+                }
+                else
+                {
+                    price += " <span class='font16'> Onwards</span>";
                 }
             }
+            return price;
+        }
 
-            protected string ShowEstimatedPrice(object estimatedPrice)
-            {
-                string price = String.Empty;
-                if (estimatedPrice != null)
-                {
-                    price = Bikewale.Utility.Format.FormatPrice(estimatedPrice.ToString());
-                    if (price == "N/A")
-                    {
-                        price = "Price unavailable";
-                    }
-                    else
-                    {
-                        price += " <span class='font16'> Onwards</span>";
-                    }
-                }
-                return price;
-            }
-
-	}
+    }
 }
