@@ -276,8 +276,8 @@
                             	    <h3>Wheels</h3>
                                 </div>
                                 <div name="alloywheel" class="grid-7 omega">
-                            	    <span filterid="1" class="form-control grid-6 checkOption">Alloy</span>
-                            	    <span filterid="2" class="form-control grid-6 checkOption">Spoke</span>                                
+                            	    <span filterid="2" class="form-control grid-6 checkOption">Alloy</span>
+                            	    <span filterid="1" class="form-control grid-6 checkOption">Spoke</span>                                
                                 </div>
                             </div>
                         

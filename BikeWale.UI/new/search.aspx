@@ -234,8 +234,8 @@
                                 	<div class="bw-tabs-panel">
                                     	<div class="bw-tabs home-tabs">
                                             <ul>
-                                                <li filterid="1" class="first" data-tabs="alloy">Alloy</li>
-                                                <li filterid="2" data-tabs="spoke" class="second">Spoke</li>
+                                                <li filterid="2" class="first" data-tabs="alloy">Alloy</li>
+                                                <li filterid="1" data-tabs="spoke" class="second">Spoke</li>
                                             </ul>
                                         </div>
                                     </div>
