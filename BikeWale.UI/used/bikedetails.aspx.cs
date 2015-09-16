@@ -57,13 +57,16 @@ namespace Bikewale.Used
             
             ValidateProfileId();
 
+            objInquiry = new ClassifiedInquiryDetails(profileId);
+            objPhotos = new ClassifiedInquiryPhotos();
+
             if (!IsPostBack)
             {
                 // Validate profile id. Profile id is a unique id if each classified listing
                 // if listed Bike is of a 'Dealer' than profile id will be like D78243(primary key of the table prepand by 'D')
                 // if listed Bike is of a 'Individual' than profile id will be like S78243(primary key of the table prepand by 'S')				
 
-                objInquiry = new ClassifiedInquiryDetails(profileId);
+                
 
                 // if fake/wrong profile id passed in query string
                 //Modified By : Ashwini Todkar added soldoutstatus fake or invalid
@@ -90,7 +93,7 @@ namespace Bikewale.Used
 
                 // Bind photos 
                 bool isAprooved = true;
-                objPhotos = new ClassifiedInquiryPhotos();
+                
                 objPhotos.BindWithRepeater(sellInqId, isDealer, rptPhotos, isAprooved);
 
                 if (objInquiry.VersionId != "" && objInquiry.CityId != "")
