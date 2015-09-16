@@ -136,6 +136,7 @@
                             </div>
                             <div class="clear"></div>
                             <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
+                            <div id="processing" class="hide" style="text-align:center;font-weight:bold;">Processing Please wait...</div>
                         </div>
                     </div>
 

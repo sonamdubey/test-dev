@@ -507,6 +507,8 @@ detailsSubmitBtn.click(function () {
                 $(this).hide();
                 nameValTrue();
                 mobileValTrue();
+                otpText.val('').removeClass("border-red");
+                otpText.siblings("span, div").css("display", "none");
             }
         }
     }
@@ -669,8 +671,11 @@ otpBtn.click(function () {
     isValid = validateEmail();
     isValid &= validateMobile();
     isValid &= validateName();
+    $('#processing').show();
+    if (!validateOTP())
+        $('#processing').hide();
+
     if (validateOTP() && isValid) {
-        otpBtn.text("Processing...");
         viewModel.CustomerVM().generateOTP();
         if (viewModel.CustomerVM().IsVerified()) {
             $.customizeState();
@@ -686,9 +691,10 @@ otpBtn.click(function () {
             $(".booking-dealer-details").removeClass("hide").addClass("show");
             $(".call-for-queries").hide();
             $.scrollToSteps();
+            $('#processing').hide();
         }
         else {
-            otpBtn.text("Confirm");
+            $('#processing').hide();
             otpVal("Please enter a valid OTP.");
         }
     }
