@@ -5,7 +5,7 @@
 <div class="left-float margin-top10 margin-right10 padding-bottom20">   
     <asp:DropDownList id="ddlMake" runat="server" CssClass="brand"></asp:DropDownList>  
 </div>
-<div class="action-btn margin-top10"><a id="btnGo" runat="server" >Go</a></div>                            
+<div class="margin-top10"><a id="btnGo" class="action-btn" runat="server" >Go</a></div>                            
 <div class="clear"></div>
 
 <script type="text/javascript">

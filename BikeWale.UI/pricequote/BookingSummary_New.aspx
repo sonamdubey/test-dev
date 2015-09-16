@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.BookingSummary_New" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,7 +56,7 @@
                                         <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: bookingAmount"></span></td>
                                     </tr>
                                     <tr>
-                                        <td colspan="2" class="padding-bottom10"><a href="#">Hassle free cancellation policy</a></td>
+                                        <td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2">
@@ -74,21 +75,23 @@
                         </div>
                     </div>
                     <!-- /ko -->
-                    <!-- ko if: viewModel.Dealer() -->
-                    <!-- ko with: viewModel.Dealer() -->
+
                     <div class="grid-4 inline-block border-solid-left">
+                        <!-- ko if: viewModel.Dealer() -->
+                        <!-- ko with: viewModel.Dealer() -->
                         <div class="booking-dealer-details">
                             <h3 class="font18 margin-bottom15" data-bind="text: organization()"></h3>
                             <p class="font14 text-light-grey margin-bottom10" data-bind="text: address1() + ' ' + address2() + ', ' + area() + ', ' + city() + ', ' + state() + ', ' + pincode()"></p>
                             <p class="font14 margin-bottom10"><span class="fa fa-phone margin-right5"></span><span data-bind="text: phoneNo()"></span></p>
                             <div>
                                 <%--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.9863262686094!2d72.99639100000005!3d19.06433880000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b2c080cb%3A0x225353b221740ef0!2sCarWale!5e0!3m2!1sen!2sin!4v1441706839659" width="290" height="90" frameborder="0" style="border: 0" allowfullscreen></iframe>--%>
-                                <div id="divMapWindow">
-                                    <div id="divMap" data-bind="style: { width: showMap ? '290px' : 0, height: showMap ? '90px' : 0 }"></div>
-                                </div>
+                                <%--<div id="divMap" data-bind="style: { width: showMap ? '290px' : 0, height: showMap ? '90px' : 0 }"></div>--%>
+                                <div style="width: 290px; height: 90px" data-bind="googlemap: { latitude: lattitude(), longitude: longitude() }"></div>
                             </div>
                         </div>
-                        <!-- ko ifnot :viewModel.Dealer() -->
+                        <!-- /ko -->
+                        <!-- /ko -->
+                        <!-- ko if: !viewModel.Dealer() -->
                         <div class="call-for-queries text-center">
                             <div class="query-call-pic bg-white text-center">
                                 <div class="bookingcomforts-sprite buying-asst-icon"></div>
@@ -98,8 +101,6 @@
                         </div>
                         <!-- /ko -->
                     </div>
-                    <!-- /ko -->
-                    <!-- /ko -->
                     <div class="clear"></div>
                 </div>
             </div>
@@ -173,7 +174,7 @@
                                 <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
                             </div>
                             <div class="clear"></div>
-                            <a class="btn btn-orange margin-top30" id="user-details-submit-btn">Next</a>                            
+                            <a class="btn btn-orange margin-top30" id="user-details-submit-btn">Next</a>
                         </div>
                         <div class="mobile-verification-container hide">
                             <div class="input-border-bottom"></div>
@@ -184,11 +185,11 @@
                                     <span class="bwsprite error-icon errorIcon hide"></span>
                                     <div class="bw-blackbg-tooltip errorText hide"></div>
                                 </div>
-                                
+
                                 <div class="clear"></div>
                             </div>
                             <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a><br />
-                            <a class="btn btn-orange margin-top30" id="otp-submit-btn">Confirm OTP</a>                            
+                            <a class="btn btn-orange margin-top30" id="otp-submit-btn">Confirm OTP</a>
                         </div>
                     </div>
                     <div id="customize" class="hide" data-bind="with: viewModel">
@@ -217,7 +218,7 @@
                         <div class="booking-available-colors">
                             <ul data-bind="foreach: viewModel.ModelColors()">
                                 <li>
-                                    <div class="booking-color-box" data-bind="style: { 'background-color': '#' + hexCode() }, click: function () { $parent.selectModelColor($data,event); }">
+                                    <div class="booking-color-box" data-bind="style: { 'background-color': '#' + hexCode() }, click: function () { $parent.selectModelColor($data, event); }">
                                         <span class="ticked hide"></span>
                                     </div>
                                     <p class="font16 margin-top20" data-bind="text: colorName"></p>
@@ -256,7 +257,82 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
             </div>
             <div class="clear"></div>
         </section>
+        <!--cancellation popup starts here-->
+        <div class="bw-popup bw-popup-lg hide cancellation-popup">
+            <div class="popup-inner-container">
 
+                <div class="cancel-policy-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                <h2>Cancellation & Refund Policy</h2>
+                <div class="popup-inner-content cancellation-list margin-top10">
+                    <ul>
+                        <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of pre-booking the vehicle.</strong> </li>
+                        <li><strong>b.</strong> Please email your <strong>Pre-Booking Cancellation Request'</strong> to <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating <strong>the booking reference number, your mobile number and email address (that you used while pre-booking).</strong></li>
+
+                        <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
+                                of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
+                                submitting any documents, procurement of the vehicle by the dealership etc.
+                        </li>
+                        <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s pre-booking, cancellation will not be possible.</li>
+
+                        <li><strong>e.</strong> For all valid requests, we will process the refund of full pre-booking amount to customer's account within 7 working days.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!--cancellation popup ends here-->
+        <!--required documents popup ends here-->
+        <div class="bw-popup bw-popup-lg hide required-doc">
+            <div class="popup-inner-container">
+
+                <div class="req-document-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                <h2>Required Documents for Registration / Loan</h2>
+                <div class="popup-inner-content margin-top10">
+
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td valign="top" width="310">
+                                    <div class="grey-bullets">
+                                        <p><strong>Mandatory Documents:</strong></p>
+                                        <ul>
+                                            <li>Two Color Photographs.</li>
+                                            <li>PAN Card.</li>
+                                        </ul>
+                                        <p class="margin-top20"><strong>Identity Proof:</strong></p>
+                                        <ul>
+                                            <li>Passport / Voter ID / Driving License.</li>
+                                        </ul>
+                                        <p class="margin-top20"><strong>Additional Documents for Loan:</strong></p>
+                                        <ul>
+                                            <li>Last 6 Months Bank Statement.</li>
+                                            <li>Salary Slip / Latest I.T. Return</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="grey-bullets res-proof">
+                                        <p><strong>Residential Address Proof:</strong></p>
+                                        <p class="margin-top10">(Self-Owned House)</p>
+                                        <ul>
+                                            <li>Light Bil / Passport.</li>
+                                            <li>Ration Card (Relation Proof).</li>
+                                        </ul>
+                                        <p class="margin-top10">(Rented House)</p>
+                                        <ul>
+                                            <li>Registered Rent Agreement + Police N.O.C.</li>
+                                            <li>Rent Home Electricity Bill.</li>
+                                            <li>Permanent Address Proof.</li>
+                                            <li>Ration Card (Relation Proof).</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--required documents popup ends here-->
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12 alternative-section">
@@ -265,7 +341,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                         <div class="next-step-box">
                             <img src="../images/next-steps-thumb.jpg" usemap="#nextSteps">
                             <map name="nextSteps">
-                                <area shape="rect" coords="424,23,587,72" href="#" target="_blank">
+                                <area shape="rect" coords="424,23,587,72" href="#" target="_blank" id="required-document">
                             </map>
                         </div>
                     </div>
@@ -277,22 +353,22 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/booking.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             //Need to uncomment the below script
-                        
-            window.onload = function() {
-                var btnRelease = document.getElementById('');                 
+
+            window.onload = function () {
+                var btnRelease = document.getElementById('');
                 //Find the button set null value to click event and alert will not appear for that specific button
                 function setGlobal() {
                     window.onbeforeunload = null;
                 }
                 $(btnRelease).click(setGlobal);
-                
+
                 // Alert will not appear for all links on the page
-                $("a").click(function(){
+                $("a").click(function () {
                     window.onbeforeunload = null;
                 });
-                window.onbeforeunload = function() {
+                window.onbeforeunload = function () {
                     return "";
-                };             
+                };
             };
         </script>
         <!-- #include file="/includes/footerBW.aspx" -->
@@ -306,6 +382,8 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
             var clientIP = '<%= clientIP %>';
             var pageUrl = '<%= pageUrl%>';
             var areaId = '<%= areaId%>';
+
+
             function pageViewModel() {
                 var self = this;
                 self.page = ko.observable();
@@ -333,7 +411,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                         curElement.find('span.ticked').removeClass("selected");
                     }
                 }
-                self.selectVarient = function (varient,event) {
+                self.selectVarient = function (varient, event) {
                     self.SelectedVarient(varient);
                     $(".varient-item").removeClass("border-dark selected");
                     $(event.currentTarget).addClass("border-dark selected");
@@ -494,13 +572,13 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                 self.emailId = ko.observable();
                 self.mobileNo = ko.observable();
                 self.IsVerified = ko.observable();
-                self.IsValid = ko.computed(function () { return self.IsVerified(); },this);
+                self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
                 self.otpCode = ko.observable();
-                self.fullName = ko.computed(function(){
+                self.fullName = ko.computed(function () {
                     var _firstName = self.firstName() != undefined ? self.firstName() : "";
                     var _lastName = self.lastName() != undefined ? self.lastName() : "";
                     return _firstName + ' ' + _lastName;
-                },this);
+                }, this);
                 self.verifyCustomer = function () {
                     if (!self.IsVerified()) {
                         var objCust = {
@@ -543,12 +621,12 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                                             obj.dealer.phoneNo,
                                             obj.dealer.pincode,
                                             obj.dealer.state,
-                                            obj.dealer.websiteUrl));                                        
-                                    }                                    
-                                }                                    
+                                            obj.dealer.websiteUrl));
+                                    }
+                                }
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
-                                self.IsVerified(false);                                
+                                self.IsVerified(false);
                             }
                         });
                     }
@@ -594,7 +672,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                                         obj.dealer.pincode,
                                         obj.dealer.state,
                                         obj.dealer.websiteUrl));
-                                }                                
+                                }
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
                                 self.IsVerified(false);
@@ -618,7 +696,8 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                             data: ko.toJSON(objCustomer),
                             contentType: "application/json",
                             success: function (response) {
-                                
+                                self.IsVerified(false);
+                                alert("You will receive the new OTP via SMS shortly.");
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
                                 self.IsVerified(false);
@@ -630,7 +709,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                     var _firstName = self.firstName() != undefined ? self.firstName() : "";
                     var _lastName = self.lastName() != undefined ? self.lastName() : "";
                     return _firstName + ' ' + _lastName;
-                },this);
+                }, this);
             }
 
             function DealerModel(address1, address2, area, city, contactHours, emailId, faxNo, firstName, id, lastName, lattitude, longitude, mobileNo, organization, phoneNo, pincode, state, websiteUrl) {
@@ -652,34 +731,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                 self.phoneNo = ko.observable(phoneNo);
                 self.pincode = ko.observable(pincode);
                 self.state = ko.observable(state);
-                self.websiteUrl = ko.observable(websiteUrl);
-                self.showMap = ko.computed(function () {
-                    if (self.lattitude() && self.longitude()) {
-                        var latitude = self.lattitude();
-                        var longitude = self.longitude();
-                        var myCenter = new google.maps.LatLng(latitude, longitude);
-                        function initialize() {
-                            var mapProp = {
-                                center: myCenter,
-                                zoom: 16,
-                                mapTypeId: google.maps.MapTypeId.ROADMAP
-                            };
-
-                            var map = new google.maps.Map(document.getElementById("divMap"), mapProp);
-
-                            var marker = new google.maps.Marker({
-                                position: myCenter,
-                            });
-
-                            marker.setMap(map);
-                        }
-                        google.maps.event.addDomListener(window, 'load', initialize);
-                        return true;
-                    }
-                    else {
-                        return false;
-                    }
-                }, this);
+                self.websiteUrl = ko.observable(websiteUrl);                
             }
 
             function DisclaimerModel(disclaimers) {
@@ -770,7 +822,7 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                 self.makeName = ko.observable(makeName);
                 self.maskingName = ko.observable(maskingName);
             }
-            
+
             function ModelMdl(modelId, modelName, maskingName) {
                 var self = this;
                 self.maskingName = ko.observable(maskingName);
@@ -786,7 +838,65 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                 self.Price = ko.observable(Price);
             }
 
+            ko.bindingHandlers.googlemap = {
+                init: function (element, valueAccessor) {
+                    var
+                      value = valueAccessor(),
+                      latLng = new google.maps.LatLng(value.latitude, value.longitude),
+                      mapOptions = {
+                          zoom: 10,
+                          center: latLng,
+                          mapTypeId: google.maps.MapTypeId.ROADMAP
+                      },
+                      map = new google.maps.Map(element, mapOptions),
+                      marker = new google.maps.Marker({
+                          position: latLng,
+                          map: map
+                      });
+                }
+            };
+
             $(document).ready(function () {
+                $(document).delegate("#cancellation-box", "click", function (e) {
+                    e.preventDefault();
+                    $(".blackOut-window").show();
+                    $('.cancellation-popup').show();
+                });
+
+                $(document).delegate(".cancel-policy-close-btn", "click", function () {
+                    ClosePolicyPopUp();
+                });
+
+                function ClosePolicyPopUp() {
+                    $(".cancellation-popup").hide();
+                    unlockPopup();
+                }
+
+                $(document).delegate("#required-document", "click", function (e) {
+                    e.preventDefault();
+                    $(".blackOut-window").show();
+                    $('.required-doc').show();
+                });
+
+                $(document).delegate(".req-document-close-btn", "click", function () {
+                    CloseDocumentPopUp();
+                });
+
+                function CloseDocumentPopUp() {
+                    $(".required-doc").hide();
+                    unlockPopup();
+                }
+
+                function unlockPopup() {
+                    $('body').removeClass('lock-browser-scroll');
+                    $(".blackOut-window").hide();
+                }
+
+                $(document).delegate(".blackOut-window", "click", function () {
+                    $(".cancellation-popup").hide();
+                    $('.required-doc').hide();
+                });
+
                 viewModel = new BookingPageVMModel();
                 viewModel.getBookingPage();
                 ko.applyBindings(viewModel);

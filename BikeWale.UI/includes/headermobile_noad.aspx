@@ -9,6 +9,8 @@
     <title><%= title %></title>
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", canonical = "",menu="";
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script> 
    <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->    
 </head>

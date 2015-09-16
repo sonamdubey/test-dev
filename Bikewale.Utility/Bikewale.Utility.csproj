@@ -61,6 +61,7 @@
     <Compile Include="CollectionHelper.cs" />
     <Compile Include="CommonValidators.cs" />
     <Compile Include="CommonApiOpn.cs" />
+    <Compile Include="DealerOfferHelper.cs" />
     <Compile Include="Description.cs" />
     <Compile Include="Distance.cs" />
     <Compile Include="Format.cs" />

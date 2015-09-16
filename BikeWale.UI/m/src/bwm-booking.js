@@ -290,7 +290,8 @@ function CustomerModel() {
                 data: ko.toJSON(objCustomer),
                 contentType: "application/json",
                 success: function (response) {
-                    
+                    self.IsVerified(false);
+                    alert("You will receive the new OTP via SMS shortly.");
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     self.IsVerified(false);
@@ -324,34 +325,7 @@ function DealerModel(address1, address2, area, city, contactHours, emailId, faxN
     self.phoneNo = ko.observable(phoneNo);
     self.pincode = ko.observable(pincode);
     self.state = ko.observable(state);
-    self.websiteUrl = ko.observable(websiteUrl);
-    self.showMap = ko.computed(function () {
-        if (self.lattitude() && self.longitude()) {
-            var latitude = self.lattitude();
-            var longitude = self.longitude();
-            var myCenter = new google.maps.LatLng(latitude, longitude);
-            function initialize() {
-                var mapProp = {
-                    center: myCenter,
-                    zoom: 16,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
-
-                var map = new google.maps.Map(document.getElementById("divMap"), mapProp);
-
-                var marker = new google.maps.Marker({
-                    position: myCenter,
-                });
-
-                marker.setMap(map);
-            }
-            google.maps.event.addDomListener(window, 'load', initialize);
-            return true;
-        }
-        else {
-            return false;
-        }
-    }, this);
+    self.websiteUrl = ko.observable(websiteUrl);    
 }
 
 function DisclaimerModel(disclaimers) {
@@ -458,6 +432,24 @@ function PriceListModel(DealerId, ItemId, ItemName, Price) {
     self.Price = ko.observable(Price);
 }
 
+ko.bindingHandlers.googlemap = {
+    init: function (element, valueAccessor) {
+        var
+          value = valueAccessor(),
+          latLng = new google.maps.LatLng(value.latitude, value.longitude),
+          mapOptions = {
+              zoom: 10,
+              center: latLng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+          },
+          map = new google.maps.Map(element, mapOptions),
+          marker = new google.maps.Marker({
+              position: latLng,
+              map: map
+          });
+    }
+};
+
 $(document).ready(function () {
     viewModel = new BookingPageVMModel();
     viewModel.getBookingPage();
@@ -539,9 +531,12 @@ firstname.on("focus", function () {
     firstname.siblings("span, div").hide();
 });
 
-emailid.on("focus", function () {
+emailid.on("focus keyup", function () {
     emailid.removeClass("border-red");
     emailid.siblings("span, div").hide();
+    detailsSubmitBtn.show();
+    otpText.val('');
+    otpContainer.removeClass("show").addClass("hide");
 });
 
 var mobileValTrue = function () {
@@ -551,7 +546,8 @@ var mobileValTrue = function () {
 
 var prevMob;
 
-mobile.change(function () {    
+mobile.change(function () {
+    viewModel.CustomerVM().IsVerified(false);
     var b = validateMobile();
     if (b == false) {
         mobileVal();
@@ -653,6 +649,18 @@ mobile.change(function () {
     viewModel.CustomerVM().IsVerified(false);
 });
 
+otpText.focus("focus", function () {
+    otpText.val('');
+    otpText.siblings("span, div").css("display", "none");
+    otpVal("");
+});
+
+mobile.on("keyup focus", function () {
+    detailsSubmitBtn.show();
+    otpText.val('');
+    otpContainer.removeClass("show").addClass("hide");
+})
+
 emailid.change(function () {
     viewModel.CustomerVM().IsVerified(false);
 });
@@ -663,20 +671,25 @@ otpBtn.click(function () {
     isValid &= validateMobile();
     isValid &= validateName();
     if (validateOTP() && isValid) {
-        $.customizeState();
-        $("#personalInfo").hide();
-        $("#personal-info-tab").removeClass('text-bold');
-        $("#customize").show();
-        $('.colours-wrap .jcarousel').jcarousel('reload', {
-            'animation': 'slow'
-        });
-        $('#customize-tab').addClass('text-bold');
-        $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
-        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-        $(".booking-dealer-details").removeClass("hide").addClass("show");
-        $(".call-for-queries").hide();
-        $.scrollToSteps();
         viewModel.CustomerVM().generateOTP();
+        if (viewModel.CustomerVM().IsVerified()) {
+            $.customizeState();
+            $("#personalInfo").hide();
+            $("#personal-info-tab").removeClass('text-bold');
+            $("#customize").show();
+            $('.colours-wrap .jcarousel').jcarousel('reload', {
+                'animation': 'slow'
+            });
+            $('#customize-tab').addClass('text-bold');
+            $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
+            $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+            $(".booking-dealer-details").removeClass("hide").addClass("show");
+            $(".call-for-queries").hide();
+            $.scrollToSteps();
+        }
+        else {
+            otpVal("Please enter a valid OTP.");
+        }
     }
 });
 

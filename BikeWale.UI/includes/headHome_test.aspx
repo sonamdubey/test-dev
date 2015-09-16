@@ -10,6 +10,8 @@
     <!-- #include file="globalStaticFiles.aspx"-->
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "";	    
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
     <script type='text/javascript'>
         (function () {

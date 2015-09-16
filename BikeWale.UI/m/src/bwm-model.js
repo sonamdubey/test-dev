@@ -69,6 +69,11 @@ function pqViewModel(modelId, cityId) {
     self.priceQuote = ko.observable();
     self.DealerPriceList = ko.observableArray([]);
     self.BWPriceList = ko.observable();
+    self.FormatPricedata = function (item) {
+        if(item!=undefined)
+            return formatPrice(item);
+        return "";
+    };
     self.isDealerPQAvailable = ko.observable(false);
     self.DealerOnRoadPrice = ko.computed(function () {
         var total = 0;
@@ -215,7 +220,10 @@ function fetchPriceQuote(vm) {
                         priceBreakText += pq.dealerPriceQuote.priceList[i].categoryName + " + "
                     }
                     priceBreakText = priceBreakText.substring(0, priceBreakText.length - 2);
-                    animatePrice($("#bike-price"), temptotalPrice, totalPrice);
+
+                    //animatePrice($("#bike-price"), temptotalPrice, totalPrice);
+                    $("#btnBookNow").show();
+                    $("#bike-price").html(formatPrice(totalPrice));
                     $("#breakup").text("(" + priceBreakText + ")");
                     $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text())
                     $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text())
@@ -243,14 +251,13 @@ function fetchPriceQuote(vm) {
                     temptotalPrice = totalPrice;
                     totalPrice = pq.bwPriceQuote.onRoadPrice;
                     priceBreakText = "Ex-showroom + Insurance + RTO";
-                    //$("#bike-price").html(formatPrice(totalPrice));
+                    $("#bike-price").html(formatPrice(totalPrice));
                     $("#breakup").text("(" + priceBreakText + ")");
                     $("#btnBookNow").hide();
-                    animatePrice($("#bike-price"), temptotalPrice, totalPrice);
+                    //animatePrice($("#bike-price"), temptotalPrice, totalPrice);
                     $(".city-onRoad-price-container").removeClass("hide").addClass("show");
                     $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
                     $("#pqArea").html("");
-
                     $(".city-select-text").removeClass("show").addClass("hide");
                     $(".city-area-wrapper").removeClass("show").addClass("hide");
                     $(".city-select").removeClass("hide").addClass("hide");

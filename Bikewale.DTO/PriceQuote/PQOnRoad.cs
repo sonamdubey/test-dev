@@ -23,5 +23,9 @@ namespace Bikewale.DTO.PriceQuote
         [JsonProperty("bwPriceQuote")]
         public PQBikePriceQuoteOutput BPQOutput { get; set; }
         public bool IsDealerPriceAvailable { get { if (this.DPQOutput != null) { return true; } else { return false; } } }
+        [JsonProperty("isInsuranceFree")]
+        public bool IsInsuranceFree { get; set; }
+        [JsonProperty("insuranceAmount")]
+        public uint InsuranceAmount { get; set; }
     }
 }

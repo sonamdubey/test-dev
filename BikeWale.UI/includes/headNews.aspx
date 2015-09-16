@@ -25,6 +25,8 @@
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "",alternate = "";	    
         private bool isHeaderFix = true;
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
     <script type='text/javascript'>
         var googletag = googletag || {};

@@ -21,14 +21,14 @@
         <div class="final-price-city-area-container">
             <div class="final-price-citySelect" >
                 <div class="form-control-box">
-                    <select data-placeholder="--Select City--" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedOnRoad }"></select> 
+                    <select data-placeholder="Select City" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: 'Select City', event: { change: cityChangedOnRoad }"></select> 
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select a city</div>
                 </div>
             </div>
             <div class="final-price-areaSelect" data-bind="visible: bookingAreas().length > 0">
                 <div class="form-control-box">
-                    <select data-placeholder="--Select Area--" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', event: { change: areaChangedOnRoad }"></select>
+                    <select data-placeholder="Select Area" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: 'Select Area', event: { change: areaChangedOnRoad }"></select>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select an area</div>
                 </div>
