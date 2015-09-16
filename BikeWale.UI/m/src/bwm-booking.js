@@ -507,6 +507,8 @@ detailsSubmitBtn.click(function () {
                 $(this).hide();
                 nameValTrue();
                 mobileValTrue();
+                otpText.val('').removeClass("border-red");
+                otpText.siblings("span, div").css("display", "none");
             }
         }
     }
@@ -632,7 +634,7 @@ function validateOTP() {
         otpVal("Please enter your Verification Code");
     }
     else {
-        if (!isNumber.test(cwiCode)) {
+        if (isNaN(cwiCode)) {
             retVal = false;
             otpVal("Verification Code should be numeric");
         }
@@ -649,10 +651,9 @@ mobile.change(function () {
     viewModel.CustomerVM().IsVerified(false);
 });
 
-otpText.focus("focus", function () {
+otpText.on("focus", function () {
     otpText.val('');
     otpText.siblings("span, div").css("display", "none");
-    otpVal("");
 });
 
 mobile.on("keyup focus", function () {
@@ -670,6 +671,10 @@ otpBtn.click(function () {
     isValid = validateEmail();
     isValid &= validateMobile();
     isValid &= validateName();
+    $('#processing').show();
+    if (!validateOTP())
+        $('#processing').hide();
+
     if (validateOTP() && isValid) {
         viewModel.CustomerVM().generateOTP();
         if (viewModel.CustomerVM().IsVerified()) {
@@ -686,8 +691,10 @@ otpBtn.click(function () {
             $(".booking-dealer-details").removeClass("hide").addClass("show");
             $(".call-for-queries").hide();
             $.scrollToSteps();
+            $('#processing').hide();
         }
         else {
+            $('#processing').hide();
             otpVal("Please enter a valid OTP.");
         }
     }

@@ -128,14 +128,15 @@
                             <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
                             <div class="form-control-box  padding-left15 padding-right15">
                                 <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
-                                <span class="bwmsprite error-icon"></span>
-                                <div class="bw-blackbg-tooltip errorText">Please enter a valid OTP</div>
+                                <span class="bwmsprite error-icon hide"></span>
+                                <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
                             </div>
                             <div class="text-center padding-top10">
                                 <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" href="#" data-bind="click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a><br />
                             </div>
                             <div class="clear"></div>
                             <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
+                            <div id="processing" class="hide" style="text-align:center;font-weight:bold;">Processing Please wait...</div>
                         </div>
                     </div>
 

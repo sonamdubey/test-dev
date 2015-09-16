@@ -182,14 +182,15 @@
                                 <p class="font16 leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
                                 <div class="form-control-box">
                                     <input type="text" class="form-control get-otp-code rightfloat" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
-                                    <span class="bwsprite error-icon errorIcon"></span>
-                                    <div class="bw-blackbg-tooltip errorText">Please enter a valid OTP</div>
+                                    <span class="bwsprite error-icon errorIcon hide"></span>
+                                    <div class="bw-blackbg-tooltip errorText hide"></div>
                                 </div>
 
                                 <div class="clear"></div>
                             </div>
                             <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a><br />
-                            <a class="btn btn-orange margin-top30" id="otp-submit-btn">Confirm OTP</a>
+                                <a class="btn btn-orange margin-top30" id="otp-submit-btn">Confirm OTP</a>
+                                <div style="margin-right:70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
                         </div>
                     </div>
                     <div id="customize" class="hide" data-bind="with: viewModel">

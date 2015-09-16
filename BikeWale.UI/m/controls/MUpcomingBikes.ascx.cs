@@ -64,7 +64,7 @@ namespace Bikewale.Mobile.controls
             string ldate = String.Empty;
             if(launchDate!=null)
             {
-                ldate = Bikewale.Utility.FormatDate.Truncate(Convert.ToString(launchDate), 11);
+                ldate = Convert.ToString(launchDate);
                 if (ldate.Trim() != "")
                 {
                     ldate += "<span class='font14 text-light-grey'> (Expected launch)</span>";
