@@ -71,7 +71,7 @@
 
 .white-back-arrow{background:url("http://img.carwale.com/bikewaleimg/m/images/white-back-arrow.png?v=150915") no-repeat scroll left top; top:0;}
 .white-back-arrow:hover{background-position:left top;}
-.call-text-green{border:1px solid #5bc033;padding:6px 42px;}
+.call-text-green{border:1px solid #5bc033;padding:0 10px;}
 
 .bwm-popup {background: #fff; position: fixed; left: 5%; top: 15%; right: 5%; bottom:15%; z-index: 10; margin:-50px 0; overflow-y:scroll;}
 .doc-list ul {list-style-type:disc; }
