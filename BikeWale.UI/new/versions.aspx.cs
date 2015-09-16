@@ -188,7 +188,15 @@ namespace Bikewale.New
                     }
                     rptModelPhotos.DataBind();
 
-                    rptNavigationPhoto.DataSource = modelPage.Photos;
+                    if (modelPage.Photos.Count > 2)
+                    {
+                        rptNavigationPhoto.DataSource = modelPage.Photos.Take(3);
+                    }
+                    else
+                    {
+                        rptNavigationPhoto.DataSource = modelPage.Photos;
+                    }
+                    
                     rptNavigationPhoto.DataBind();
                 }
 
