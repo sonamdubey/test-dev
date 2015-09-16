@@ -405,13 +405,11 @@ $(document).ready(function () {
     });
 
     $(offerBtn).click(function () {
-        if(modelViewModel.selectedCity()==undefined || modelViewModel.selectedArea()==undefined)
-        {            
-            $('.offer-error').removeClass("hide").addClass("show");
-            $('.city-select-text').removeClass("hide").addClass("show");
-            if (modelViewModel.selectedArea() == undefined)
-            {
-                $('.area-select-text').removeClass("hide").addClass("show");
+        if (modelViewModel.selectedCity() == undefined || modelViewModel.selectedArea() == undefined) {
+            $('.offer-error').addClass("text-red");
+            $('.city-select-text').addClass("text-red");
+            if (modelViewModel.selectedCity() != undefined && modelViewModel.selectedArea() == undefined) {
+                $('.area-select-text').addClass("text-red");
             }
         }
     });
