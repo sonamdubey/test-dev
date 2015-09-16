@@ -888,7 +888,7 @@ namespace Bikewale.DAL.BikeBooking
                                         DealerId = Convert.ToUInt32(reader["DealerId"]),
                                         ItemId = Convert.ToUInt32(reader["ItemId"]),
                                         ItemName = Convert.ToString(reader["ItemName"]),
-                                        Price = Convert.ToUInt32(reader["Price"]),
+                                        Price = Convert.ToInt32(reader["Price"]),
                                         VersionId = Convert.ToUInt32(reader["VersionId"])
                                     }
                                 );
