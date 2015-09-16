@@ -130,22 +130,22 @@
             if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }            
         %>
      <section ><!--  News Bikes code starts here -->
-        <div class="container">
-            <div class="grid-12 ">
+        <div class="container newBikes-latest-updates-container">
+            <div class="grid-12 margin-bottom20">
                 <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
-                <div class="content-box-shadow padding-top20 padding-left10 rounded-corner2">
-                    <div class="bw-tabs-panel">
-                        <div class="bw-tabs bw-tabs-flex">
+                <div class="bw-tabs-panel content-box-shadow margin-bottom30">
+                    <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
+                        <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>">
                             <ul>
                                 <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
                                 <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Reviews</li>
                                 <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
                             </ul>
                         </div>
-                        <BW:News runat="server" ID="ctrlNews" />
-                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                        <BW:Videos runat="server" ID="ctrlVideos" />
                     </div>
+                    <BW:News runat="server" ID="ctrlNews" />
+                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                    <BW:Videos runat="server" ID="ctrlVideos" /> 
                 </div>       
             </div>
             <div class="clear"></div>
@@ -153,8 +153,8 @@
     </section>
     <section ><!-- About Brand code starts here-->
     	<div class="container">
-        	<div class="grid-12 <%# (isDescription)?"":"hide" %>">
-            	<h2 class="text-bold text-center margin-top50 margin-bottom30">About <%= _make.MakeName %></h2>
+        	<div class="grid-12" style="<%= (isDescription) ? "": "display:none;" %>">
+            	<h2 class="text-bold text-center margin-top30 margin-bottom30">About <%= _make.MakeName %></h2>
                 <div class="content-box-shadow content-inner-block-10 rounded-corner2 margin-bottom30 font14">
                 	<span class="brand-about-main">
                     	<%= _bikeDesc.SmallDescription %>

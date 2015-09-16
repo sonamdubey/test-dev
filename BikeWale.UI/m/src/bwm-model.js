@@ -212,7 +212,7 @@ function fetchPriceQuote(vm) {
                     $(".unveil-offer-btn-container").attr('style', '');
                     $(".unveil-offer-btn-container").removeClass("show");
                     $(".unveil-offer-btn-container").addClass("hide");
-                    temptotalPrice = totalPrice;
+                    temptotalPrice = checkNumeric($(bikePrice).text().trim());
                     var totalPrice = 0;
                     var priceBreakText = '';
                     for (var i = 0; i < pq.dealerPriceQuote.priceList.length; i++) {
@@ -220,10 +220,9 @@ function fetchPriceQuote(vm) {
                         priceBreakText += pq.dealerPriceQuote.priceList[i].categoryName + " + "
                     }
                     priceBreakText = priceBreakText.substring(0, priceBreakText.length - 2);
-
-                    //animatePrice($("#bike-price"), temptotalPrice, totalPrice);
+                    animatePrice($("#bike-price"), temptotalPrice, totalPrice);
                     $("#btnBookNow").show();
-                    $("#bike-price").html(formatPrice(totalPrice));
+                    //$("#bike-price").html(formatPrice(totalPrice));
                     $("#breakup").text("(" + priceBreakText + ")");
                     $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text())
                     $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text())
@@ -248,13 +247,13 @@ function fetchPriceQuote(vm) {
                     $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
                 }
                 else {
-                    temptotalPrice = totalPrice;
+                    temptotalPrice = checkNumeric($(bikePrice).text().trim());
                     totalPrice = pq.bwPriceQuote.onRoadPrice;
                     priceBreakText = "Ex-showroom + Insurance + RTO";
-                    $("#bike-price").html(formatPrice(totalPrice));
+                    //$("#bike-price").html(formatPrice(totalPrice));
                     $("#breakup").text("(" + priceBreakText + ")");
                     $("#btnBookNow").hide();
-                    //animatePrice($("#bike-price"), temptotalPrice, totalPrice);
+                    animatePrice($("#bike-price"), temptotalPrice, totalPrice);
                     $(".city-onRoad-price-container").removeClass("hide").addClass("show");
                     $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
                     $("#pqArea").html("");
@@ -441,12 +440,12 @@ function formatPrice(price) {
 function animatePrice(ele, start, end) {
     $({ someValue: start }).stop(true).animate({ someValue: end }, {
         duration: 500,
-        easing: "easeOutExpo",
+        easing: 'easeInOutBounce',
         step: function () {
             $(ele).text(commaSeparateNumber(Math.round(this.someValue)));
         }
     }).promise().done(function () {
-        $(ele).text(end);
+        $(ele).text(commaSeparateNumber(end));
     });
 }
 
@@ -456,4 +455,8 @@ function commaSeparateNumber(val) {
         val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     }
     return val;
+}
+
+function checkNumeric(str) {
+    return parseInt(str.replace(/\,/g, ''));
 }

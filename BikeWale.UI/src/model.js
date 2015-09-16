@@ -124,12 +124,12 @@ function animatePrice(ele,start,end)
 {
     $({ someValue: start }).stop(true).animate({ someValue: end }, {
         duration: 500,
-        easing: 'swing',
+        easing: 'easeInOutBounce',
         step: function () { 
             $(ele).text(commaSeparateNumber(Math.round(this.someValue)));
         }
     }).promise().done(function () {
-        $(ele).text(end);
+        $(ele).text(commaSeparateNumber(end));
     });
 }
 
@@ -139,4 +139,8 @@ function commaSeparateNumber(val) {
         val = val.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
     }
     return val;
+}
+
+function checkNumeric(str) {
+    return parseInt(str.replace(/\,/g, ''));
 }
