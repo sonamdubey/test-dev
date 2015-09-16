@@ -137,7 +137,8 @@ $(document).ready(function () {
             else
                 showHideMatchError(element,true);
         }
-    }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11','font-weight':'normal','text-align':'left' }).insertAfter(".ui-autocomplete-input");
+    }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11', 'font-weight': 'normal', 'text-align': 'left' }).insertAfter("#globalCityPopUp");
+
 
 	
 	$("#citySelectionFinalPrice").autocomplete({
@@ -590,7 +591,10 @@ function unlockPopup() {
     $(".blackOut-window").hide();
 }*/
 
-
+$(window).resize(function () {
+    var newwidth = 98 + '%';
+    $(".ui-autocomplete").width(newwidth) ;
+});
 
 
 
