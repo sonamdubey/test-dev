@@ -204,7 +204,7 @@
                             <p class="font14">Select area for on-road price and exclusive offers</p>
                         </div>
                         <div class="city-onRoad-price-container font14 margin-bottom15 hide">
-                            <p class="margin-bottom10">On-road price in <span id="pqArea"></span>, <span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>Edit</span></p>
+                            <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>Edit</span></p>
                             <p class="font12 margin-bottom15"></p>
                             <input type="button" class="btn btn-orange btn-full-width" id="btnBookNow" value="Avail Offers" />
                         </div>
