@@ -165,7 +165,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .used-budget-box { width: 206px; float:left; color: #a8afb3; position: relative; }
 .findBtn { float:left; }
 .findBtn .btn-md { padding: 11px 20px 8px 20px; border-radius: 0 2px 2px 0; }
-.compare-list-home li {padding-bottom: 15px; text-align: center; }
+.compare-list-home li {padding-bottom: 25px; text-align: center; }
 
 /* news, review and videos section on home page classes */
 .img-preview img { width: 100% }
