@@ -338,7 +338,9 @@ $(document).ready(function () {
 
 	/* jCarousel custom methods */
 	$(function () {
-		var jcarousel = $('.jcarousel').jcarousel();
+	    var jcarousel = $('.jcarousel').jcarousel({
+	        vertical: false
+	    });
 		$('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
 			$(this).removeClass('inactive');
 		}).on('jcarouselcontrol:inactive', function () {
