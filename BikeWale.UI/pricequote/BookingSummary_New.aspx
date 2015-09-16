@@ -195,7 +195,7 @@
                     </div>
                     <div id="customize" class="hide" data-bind="with: viewModel">
                         <p class="font16 margin-bottom20 varient-heading-text">Choose your variant</p>
-
+                        <!-- ko if: viewModel.SelectedVarient() -->
                         <ul class="varientsList" data-bind="foreach: viewModel.Varients()">
                             <li>
                                 <div class="grid-6 text-left">
@@ -213,7 +213,7 @@
                                 </div>
                             </li>
                         </ul>
-
+                        <!-- /ko -->
                         <div class="clear"></div>
                         <div class="border-solid-top margin-bottom20"></div>
                         <div class="booking-available-colors">
@@ -437,11 +437,8 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                                 self.ModelColors.push(new ModelColorsModel(value.id, value.colorName, value.hexCode, value.modelId));
                             });
                             $.each(bookPage.varients, function (key, value) {
-                                var priceList = [];
-                                $.each(value.priceList, function (key, value) {
-                                    priceList.push(new PriceListModel(value.DealerId, value.ItemId, value.ItemName, value.Price));
-                                })
-                                if (verId == value.minSpec.versionId) {
+                                
+                                if (parseInt(verId) == value.minSpec.versionId) {
                                     self.SelectedVarient(
                                         new VarientModel(
                                         value.bookingAmount,
@@ -483,6 +480,11 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                                         value.onRoadPrice,
                                         priceList
                                     ));
+
+                                var priceList = [];
+                                $.each(value.priceList, function (key, value) {
+                                    priceList.push(new PriceListModel(value.DealerId, value.ItemId, value.ItemName, value.Price));
+                                });
                             });
                         }
                     });
