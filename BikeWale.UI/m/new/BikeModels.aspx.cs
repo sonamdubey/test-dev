@@ -94,7 +94,14 @@ namespace Bikewale.Mobile.New
 
             if (modelPage.Photos != null && modelPage.Photos.Count > 0)
             {
-                rptModelPhotos.DataSource = modelPage.Photos;
+                if (modelPage.Photos.Count > 2)
+                {
+                    rptModelPhotos.DataSource = modelPage.Photos.Take(3);
+                }
+                else
+                {
+                    rptModelPhotos.DataSource = modelPage.Photos;
+                }
                 rptModelPhotos.DataBind();
             }
 
