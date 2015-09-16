@@ -209,7 +209,8 @@ function fetchPriceQuote(vm) {
                 if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                     var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
                     SetCookie("_MPQ", cookieValue);
-                    //SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
+                    if (pq.bwPriceQuote.city!=null)
+                        SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
                     $(".unveil-offer-btn-container").attr('style', '');
                     $(".unveil-offer-btn-container").removeClass("show");
                     $(".unveil-offer-btn-container").addClass("hide");
@@ -221,6 +222,8 @@ function fetchPriceQuote(vm) {
                         priceBreakText += pq.dealerPriceQuote.priceList[i].categoryName + " + "
                     }
                     priceBreakText = priceBreakText.substring(0, priceBreakText.length - 2);
+                    if (pq.isInsuranceFree && pq.insuranceAmount > 0)
+                        totalPrice = totalPrice - pq.insuranceAmount;
                     animatePrice($("#bike-price"), temptotalPrice, totalPrice);
                     $("#btnBookNow").show();
                     //$("#bike-price").html(formatPrice(totalPrice));
@@ -239,13 +242,13 @@ function fetchPriceQuote(vm) {
                     $(".city-onRoad-price-container").addClass("show");
                     $('.available-offers-container').addClass("show");
 
-                    //set global cookie
-                    cityId = vm.selectedCity();
-                    if (cityId > 0) {
-                        cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
-                        cookieValue = cityId + "_" + cityName;
-                        SetCookieInDays("location", cookieValue, 365);
-                    }
+                    ////set global cookie
+                    //cityId = vm.selectedCity();
+                    //if (cityId > 0) {
+                    //    cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
+                    //    cookieValue = cityId + "_" + cityName;
+                    //    SetCookieInDays("location", cookieValue, 365);
+                    //}
 
                     if (pq.dealerPriceQuote.offers && pq.dealerPriceQuote.offers.length > 0) {
                         $("#dvAvailableOffer").append("<ul id='dpqOffer' data-bind=\"foreach: priceQuote().dealerPriceQuote.offers\"><li data-bind=\"text: offerText\"></li></ul>");

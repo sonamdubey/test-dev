@@ -178,7 +178,7 @@
                                                     <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(price)"></span></td>
                                                 </tr>
                                                 <!-- /ko  -->
-                                                <!-- ko if : priceQuote().isInsuranceFree  && priceQuote().insuranceAmount > 0-->
+                                                <!-- ko if : priceQuote().isInsuranceFree  && priceQuote().insuranceAmount > 0 -->
                                                 <tr>
                                                     <td colspan="2">
                                                         <div class="border-solid-top padding-bottom10"></div>
@@ -1175,7 +1175,8 @@
                             if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                                 var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
                                 SetCookie("_MPQ", cookieValue);                              
-
+                                if (pq.bwPriceQuote.city != null)
+                                    SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
                                 $("#btnBookNow").show();
                                 $(".unveil-offer-btn-container").attr('style', '');
                                 $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
@@ -1188,7 +1189,8 @@
                                 }
                                 priceBreakText = priceBreakText.substring(0, priceBreakText.length - 2);
                                 //$("#bike-price").html(formatPrice(totalPrice));
-                                console.log("1 " + temptotalPrice + " " + totalPrice);
+                                if (pq.isInsuranceFree && pq.insuranceAmount > 0)
+                                    totalPrice = totalPrice - pq.insuranceAmount;
                                 animatePrice($("#bike-price"), 1000, totalPrice);
                                 $("#breakup").text("(" + priceBreakText + ")");
                                 $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
@@ -1209,19 +1211,18 @@
                                 }
                                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
 
-                                //set global cookie
-                                cityId = vm.selectedCity();
-                                if (cityId > 0) {
-                                    cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
-                                    cookieValue = cityId + "_" + cityName;
-                                    SetCookieInDays("location", cookieValue, 365);
-                                }
+                                ////set global cookie
+                                //cityId = vm.selectedCity();
+                                //if (cityId > 0) {
+                                //    cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
+                                //    cookieValue = cityId + "_" + cityName;
+                                //    SetCookieInDays("location", cookieValue, 365);
+                                //}
                             }
                             else {
                                 temptotalPrice = checkNumeric($("#bike-price").text());
                                 totalPrice = pq.bwPriceQuote.onRoadPrice;
                                 priceBreakText = "Ex-showroom + Insurance + RTO";
-                                console.log("2 " + temptotalPrice + " " + totalPrice);
                                 //$("#bike-price").html(formatPrice(totalPrice));
                                 $("#breakup").text("(" + priceBreakText + ")");
                                 $("#btnBookNow").hide();

@@ -141,7 +141,7 @@
                                             <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(price)"></span></td>
                                         </tr>
                                         <!-- /ko  -->
-                                        <!-- ko if :DealerPriceList -->
+                                        <!-- ko if : priceQuote().isInsuranceFree  && priceQuote().insuranceAmount > 0 -->
                                         <tr>
                                             <td colspan="2">
                                                 <div class="border-solid-top padding-bottom10"></div>
@@ -151,18 +151,19 @@
                                             <td class="padding-bottom10">Total on road price</td>
                                             <td align="right" class="padding-bottom10 text-bold text-right" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(DealerOnRoadPrice()) "></span></td>
                                         </tr>
-                                        <!-- /ko -->
+                                        
                                         <tr>
                                             <td class="padding-bottom10">Minus insurance</td>
                                             <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(priceQuote().insuranceAmount)"></span></td>
                                         </tr>
+                                        <!-- /ko -->
                                         <tr>
                                             <td colspan="2">
                                                 <div class="border-solid-top padding-bottom10"></div>
                                             </td>
                                         </tr>
                                         <tr>
-                                            <!-- ko if :DealerPriceList -->
+                                            <!-- ko if : DealerPriceList -->
                                             <td class="padding-bottom10 text-bold">Total on road price</td>
                                             <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: ((priceQuote().insuranceAmount > 0) ? $root.FormatPricedata((DealerOnRoadPrice() - priceQuote().insuranceAmount)) : $root.FormatPricedata(DealerOnRoadPrice())) "></span></td>
                                             <!-- /ko -->
