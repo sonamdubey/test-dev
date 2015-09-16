@@ -33,7 +33,7 @@
 
 /* color box css */
 .booking-available-colors ul { width:100%; min-height:50px; margin:0 auto; text-align:center;  }
-.booking-available-colors ul li { width:120px; height:100px; display:inline-block; *display:inline; *zoom:1; border-radius:3px;  position:relative; cursor:pointer; margin:0 20px 15px;}
+.booking-available-colors ul li { width:120px; height:100px; display:inline-block; *display:inline; *zoom:1; border-radius:3px;  position:relative; cursor:pointer; margin:0 20px 15px; vertical-align:top;}
 .booking-color-box { margin:0 auto; width:60px; height:60px; background:#ccc; }
 .booking-available-colors .booking-color-box .ticked { background:url(http://img.carwale.com/bikewaleimg/images/blue-tick.png?v123) no-repeat; width:22px; height:16px; position:absolute; top:22px; left:50px;}
 .text-green { color:#5bc033;}
