@@ -208,7 +208,7 @@
                     </div>
                     <div class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
                     	<div class="available-offers-container content-inner-block-10">
-                        	<h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Avaiable Offers</h4>
+                        	<h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                             <div class="offer-list-container" id="dvAvailableOffer">                            	
                             </div>
                         </div>
