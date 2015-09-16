@@ -1023,6 +1023,8 @@
         <script type="text/javascript">
             var PQCitySelectedId = 0;
             var PQCitySelectedName = "";
+            var temptotalPrice = 0;
+            var modelViewModel;
             function pqViewModel(modelId, cityId) {
                 var self = this;
                 self.cities = ko.observableArray([]);
@@ -1172,12 +1174,12 @@
 
                             if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                                 var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
-                                SetCookie("_MPQ", cookieValue);
-                                SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
+                                SetCookie("_MPQ", cookieValue);                              
+
                                 $("#btnBookNow").show();
                                 $(".unveil-offer-btn-container").attr('style', '');
                                 $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
-                                temptotalPrice = totalPrice;
+                                temptotalPrice = checkNumeric($("#bike-price").text());
                                 var totalPrice = 0;
                                 var priceBreakText = '';
                                 for (var i = 0; i < pq.dealerPriceQuote.priceList.length; i++) {
@@ -1185,8 +1187,9 @@
                                     priceBreakText += pq.dealerPriceQuote.priceList[i].categoryName + " + "
                                 }
                                 priceBreakText = priceBreakText.substring(0, priceBreakText.length - 2);
-                                $("#bike-price").html(formatPrice(totalPrice));
-                                //animatePrice($("#bike-price"), 1000, totalPrice);
+                                //$("#bike-price").html(formatPrice(totalPrice));
+                                console.log("1 " + temptotalPrice + " " + totalPrice);
+                                animatePrice($("#bike-price"), 1000, totalPrice);
                                 $("#breakup").text("(" + priceBreakText + ")");
                                 $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
                                 $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text());
@@ -1205,15 +1208,24 @@
                                     $("#dvAvailableOffer").append("<ul><li>No offers available</li></ul>");
                                 }
                                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
+
+                                //set global cookie
+                                cityId = vm.selectedCity();
+                                if (cityId > 0) {
+                                    cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
+                                    cookieValue = cityId + "_" + cityName;
+                                    SetCookieInDays("location", cookieValue, 365);
+                                }
                             }
                             else {
-                                temptotalPrice = totalPrice;
+                                temptotalPrice = checkNumeric($("#bike-price").text());
                                 totalPrice = pq.bwPriceQuote.onRoadPrice;
                                 priceBreakText = "Ex-showroom + Insurance + RTO";
-                                $("#bike-price").html(formatPrice(totalPrice));
+                                console.log("2 " + temptotalPrice + " " + totalPrice);
+                                //$("#bike-price").html(formatPrice(totalPrice));
                                 $("#breakup").text("(" + priceBreakText + ")");
                                 $("#btnBookNow").hide();
-                                //animatePrice($("#bike-price"), temptotalPrice, totalPrice);
+                                animatePrice($("#bike-price"), temptotalPrice, totalPrice);
                                 $(".city-onRoad-price-container").removeClass("hide").addClass("show");
                                 $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
                                 $("#pqArea").html("");
@@ -1222,15 +1234,15 @@
                                 $(".city-area-wrapper").removeClass("show").addClass("hide");
                                 $(".city-select").removeClass("hide").addClass("hide");
 
-                                //if (vm.areas().length) {
-                                //    $(".area-select").removeClass("hide").addClass("show");
-                                //    $('.area-select-text').removeClass("hide").addClass("show");
-                                //    $(".city-select-text").removeClass("show").addClass("hide");
-                                //}
-                                //else {
-                                //    $(".area-select").removeClass("show").addClass("hide");
-                                //    $('.area-select-text').removeClass("show").addClass("hide");
-                                //}
+                                if (vm.areas().length) {
+                                    $(".area-select").removeClass("hide").addClass("show");
+                                    $('.area-select-text').removeClass("hide").addClass("show");
+                                    $(".city-select-text").removeClass("show").addClass("hide");
+                                }
+                                else {
+                                    $(".area-select").removeClass("show").addClass("hide");
+                                    $('.area-select-text').removeClass("show").addClass("hide");
+                                }
 
                                 $(".unveil-offer-btn-container").attr('style', '');
                                 $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
@@ -1284,6 +1296,17 @@
                 $("#btnBookNow").on("click", function () {
                     window.location.href = "/pricequote/bookingsummary_new.aspx";
                 });
+
+                $('.unveil-offer-btn').click(function () {                     
+                    if (modelViewModel.selectedCity() == undefined || modelViewModel.selectedArea() == undefined) {
+                        $('.offer-error').addClass("text-red");
+                        $('.city-select-text').addClass("text-red");
+                        if (modelViewModel.selectedCity()!=undefined && modelViewModel.selectedArea() == undefined) {
+                            $('.area-select-text').addClass("text-red");
+                        }
+                    }
+                });
+
             });
 
             $("#mainCity li").click(function () {
@@ -1298,8 +1321,7 @@
                 $(".city-onRoad-price-container").removeClass("show").addClass("hide");
                 $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
                 if (val) {
-                    $("#ddlCity option[value=" + val + "]").attr('selected', 'selected');
-                 
+                    $("#ddlCity option[value=" + val + "]").prop('selected', 'selected');                 
                     $('#ddlCity').trigger('change');
             
                 }
@@ -1324,6 +1346,7 @@
 
             function InitVM(cityId) {
                 var viewModel = new pqViewModel('<%= modelId%>', cityId);
+                modelViewModel = viewModel;
                 ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
                 viewModel.LoadCity();
             }
@@ -1339,6 +1362,7 @@
                     }
                 }
             }
+            
 
         </script>
     </form>

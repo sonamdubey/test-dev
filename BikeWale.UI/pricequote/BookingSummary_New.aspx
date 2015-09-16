@@ -96,7 +96,7 @@
                             <div class="query-call-pic bg-white text-center">
                                 <div class="bookingcomforts-sprite buying-asst-icon"></div>
                             </div>
-                            <p class="font14 margin-bottom10">In case of queries call us toll-free on:</p>
+                            <p class="font14 margin-bottom10">In case of queries call us on:</p>
                             <p class="font18 text-bold">022 6739 8888 (extn : 881)</p>
                         </div>
                         <!-- /ko -->

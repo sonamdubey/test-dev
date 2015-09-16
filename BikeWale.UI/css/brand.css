@@ -6,3 +6,9 @@
 
 .upcoming-brand-bikes-container li { width:298px; height:auto; }
 .upcoming-brand-bikes-container .jcarousel { width: 934px; overflow: hidden; left: 20px; }
+
+/*news-videos tabs*/
+.newBikes-latest-updates-container .home-tabs { background:#ccc;}
+.newBikes-latest-updates-container .home-tabs li { width:170px; text-align:center; font-size:18px; padding:13px 14px; background:#f5f5f5;}
+.newBikes-latest-updates-container .home-tabs li:first-child { margin-right:-2px;}
+.newBikes-latest-updates-container .home-tabs li.active{ background:#fff; color:#2a2a2a;}

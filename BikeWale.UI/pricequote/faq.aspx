@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <title>Bike Booking FAQ's</title>
 <!-- #include file="/includes/globalStaticFiles.aspx"-->
+<script runat="server">	
+    string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+    string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+</script>
 <link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
 </head>
