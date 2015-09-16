@@ -186,7 +186,7 @@
                                                 </tr>
                                                 <tr>
                                                     <td class="padding-bottom10">Total on road price</td>
-                                                    <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: DealerOnRoadPrice "></span></td>
+                                                    <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(DealerOnRoadPrice()) "></span></td>
                                                 </tr>
                                                 
                                                 <tr>
@@ -202,7 +202,7 @@
                                                 <tr>
                                                     <!-- ko if :DealerPriceList() -->
                                                     <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: ((priceQuote().insuranceAmount > 0) ? (DealerOnRoadPrice - priceQuote().insuranceAmount) : DealerOnRoadPrice) "></span></td>
+                                                    <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: ((priceQuote().insuranceAmount > 0) ? $root.FormatPricedata((DealerOnRoadPrice() - priceQuote().insuranceAmount)) : $root.FormatPricedata(DealerOnRoadPrice())) "></span></td>
                                                     <!-- /ko -->
                                                 </tr>
                                                 <tr>
@@ -261,7 +261,7 @@
                                 <div class="city-onRoad-price-container font16 margin-bottom15 hide">
                                     <p class="margin-bottom10">On-road price in <span id="pqArea" ></span>, <span id="pqCity" >Mumbai</span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
                                     <p class="font12 margin-bottom15 text-light-grey" id="breakup"></p>
-                                    <input type="button" class="btn btn-orange" id="btnBookNow" value="Avail offers" />
+                                    <input type="button" class="btn btn-orange" id="btnBookNow" value="Avail Offers" />
                                 </div>
                                 <div class="city-area-wrapper">            
                                     <div class="city-select leftfloat margin-right20">
@@ -1044,7 +1044,7 @@
                     for (i = 0; i < self.DealerPriceList().length; i++) {
                         total += self.DealerPriceList()[i].price;
                     }
-                    return formatPrice(total);
+                    return total;
                 }, this);
                 self.LoadCity = function () {
                     loadCity(self);
