@@ -183,7 +183,7 @@
                     </div>
                     <div id="city-list-container" class="city-list-container margin-bottom10 ">
                         <div class="text-left margin-bottom15">
-                            <p class="font14 offer-error">Select City for accurate on-road price</p>
+                            <p class="font14 offer-error">Select city for accurate on-road price and exclusive offers</p>
                         </div>
                         <ul id="mainCity">
                             <li cityid="1"><span>Mumbai</span></li>
@@ -196,7 +196,7 @@
                     </div>
                     <div id="city-area-select-container" class="city-area-select-container margin-bottom20 hide">
                         <div class="city-select-text text-left margin-bottom15 hide">
-                            <p class="font14">Select city for accurate on-road price</p>
+                            <p class="font14">Select city for accurate on-road price and exclusive offers</p>
                         </div>
                         <div class="area-select-text text-left margin-bottom15 hide">
                             <p class="font14">Select area for on-road price and exclusive offers</p>
