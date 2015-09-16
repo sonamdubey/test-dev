@@ -49,11 +49,11 @@
                                 <tbody>
                                     <tr>
                                         <td width="200" class="padding-bottom10">On road price:</td>
-                                        <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: onRoadPrice"></span></td>
+                                        <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: onRoadPrice"></span></td>
                                     </tr>
                                     <tr>
                                         <td>Advance booking:</td>
-                                        <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: bookingAmount"></span></td>
+                                        <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: bookingAmount"></span></td>
                                     </tr>
                                     <tr>
                                         <td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
@@ -65,7 +65,7 @@
                                     </tr>
                                     <tr>
                                         <td>Balance amount:</td>
-                                        <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: remainingAmount"></span></td>
+                                        <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: remainingAmount"></span></td>
                                     </tr>
                                     <tr>
                                         <td class="font12" colspan="2">*Balance amount payable at the dealership</td>
@@ -205,7 +205,7 @@
                                             <p class="font14" data-bind="text: minSpec().displayMinSpec"></p>
                                         </div>
                                         <div class="grid-4 omega">
-                                            <p class="font18 margin-bottom10"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: onRoadPrice"></span></p>
+                                            <p class="font18 margin-bottom10"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: onRoadPrice"></span></p>
                                             <span data-bind="html: availText"></span>
                                         </div>
                                         <div class="clear"></div>
@@ -239,7 +239,7 @@
                             <p>Hi <span data-bind="text: viewModel.CustomerVM().fullName"></span></p>
                             <p>you can now book your bike by just paying</p>
                             <!-- ko with: viewModel.SelectedVarient() -->
-                            <p class="font20"><span class="fa fa-rupee margin-right5"></span><span class="text-bold font22" data-bind="text: bookingAmount"></span></p>
+                            <p class="font20"><span class="fa fa-rupee margin-right5"></span><span class="text-bold font22" data-bind="CurrencyText: bookingAmount"></span></p>
                             <!-- /ko -->
                             <p>
                                 You can pay that booking amount using a Credit Card/Debit Card/Net Banking. 
@@ -858,6 +858,24 @@ For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881
                       });
                 }
             };
+
+            ko.bindingHandlers.CurrencyText = {
+                update: function (element, valueAccessor) {
+                    var amount = valueAccessor();
+                    var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount()) : 0;
+                    $(element).text(formattedAmount);
+                }
+            };
+
+            function formatPrice(price) {
+                price = price.toString();
+                var lastThree = price.substring(price.length - 3);
+                var otherNumbers = price.substring(0, price.length - 3);
+                if (otherNumbers != '')
+                    lastThree = ',' + lastThree;
+                var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+                return price;
+            }
 
             $(document).ready(function () {
                 $(document).delegate("#cancellation-box", "click", function (e) {

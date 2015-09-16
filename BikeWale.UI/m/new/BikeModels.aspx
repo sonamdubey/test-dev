@@ -95,8 +95,7 @@
                     <div class="bike-price-container font22 margin-bottom15">
                         <span class="fa fa-rupee"></span>
                         <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10 default-showroom-text">Ex-showroom <%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
-                        <%--<span class="view-breakup-text hide font12 text-light-grey ">+ View Breakup</span>--%>
-                        <!-- View BreakUp Popup Starts here-->
+                        <!-- View BreakUp Popup Starts here--> 
                         <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
                             <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
                             <div class="breakup-text-container padding-bottom10">
@@ -179,9 +178,11 @@
 
                             </div>
                         </div>
-                        <!--View Breakup popup ends here-->
-
-                    </div>
+                        <!--View Breakup popup ends here-->                        
+                    </div>                   
+                    <div class="bike-price-container font22 margin-bottom15 hide">
+                      <span class="font24 text-bold ">Price not available</span>
+                     </div>
                     <div id="city-list-container" class="city-list-container margin-bottom10 ">
                         <div class="text-left margin-bottom15">
                             <p class="font14 offer-error">Select city for accurate on-road price and exclusive offers</p>
@@ -203,7 +204,7 @@
                             <p class="font14">Select area for on-road price and exclusive offers</p>
                         </div>
                         <div class="city-onRoad-price-container font14 margin-bottom15 hide">
-                            <p class="margin-bottom10">On-road price in <span id="pqArea"></span>, <span id="pqCity"></span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
+                            <p class="margin-bottom10">On-road price in <span id="pqArea"></span>, <span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>Edit</span></p>
                             <p class="font12 margin-bottom15"></p>
                             <input type="button" class="btn btn-orange btn-full-width" id="btnBookNow" value="Avail Offers" />
                         </div>

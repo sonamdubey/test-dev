@@ -129,7 +129,7 @@ function animatePrice(ele,start,end)
             $(ele).text(commaSeparateNumber(Math.round(this.someValue)));
         }
     }).promise().done(function () {
-        $(ele).text(commaSeparateNumber(end));
+        $(ele).text(formatPrice(end));
     });
 }
 

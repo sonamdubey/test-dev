@@ -19,7 +19,7 @@
                         <span class="fa fa-rupee"></span>
                         <span class="font24"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem, "MinPrice").ToString()) %></span><span class="font16"> onwards</span>
                     </div>
-                    <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, Delhi</div>
+                    <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"] %></div>
                     <div class="font13 margin-bottom10">
                         <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "MaxPower"))) %>                             
                     </div>

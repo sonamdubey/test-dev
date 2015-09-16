@@ -125,10 +125,10 @@
                                { %>
                             <div class="bike-price-container font28 margin-bottom15">
                                 <span class="fa fa-rupee"></span>
-                                <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span> <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>
+                                <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span> 
+                                <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>
+                                
                                 <!-- View BreakUp Popup Starts here-->
-
-
                                 <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
                                     <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                                     <div class="breakup-text-container padding-bottom10">
@@ -215,9 +215,11 @@
                                         <!-- /ko -->
 
                                     </div>
-                                </div>
-
+                                </div> 
                                 <!--View Breakup popup ends here-->
+                            </div>
+                            <div class="bike-price-container font28 margin-bottom15 hide">
+                                <span class="font30 text-black ">Price not available</span>
                             </div>
                             <% if (!modelPage.ModelDetails.New)
                                { %>
@@ -259,7 +261,7 @@
                                     <p class="font16">Select area for on-road price and exclusive offers</p>
                                 </div>
                                 <div class="city-onRoad-price-container font16 margin-bottom15 hide">
-                                    <p class="margin-bottom10">On-road price in <span id="pqArea" ></span>, <span id="pqCity" >Mumbai</span><span class="city-edit-btn font12 margin-left10">Edit</span></p>
+                                    <p class="margin-bottom10">On-road price in <span id="pqArea" ></span> <span id="pqCity" ></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>Edit</span></p>
                                     <p class="font12 margin-bottom15 text-light-grey" id="breakup"></p>
                                     <input type="button" class="btn btn-orange" id="btnBookNow" value="Avail Offers" />
                                 </div>
@@ -283,12 +285,12 @@
                                 <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
                                     <input type="button" class="btn btn-orange unveil-offer-btn" value="Show Offers" />
                                 </div>
-                                <div class="notify-btn-container position-abt pos-left0 pos-top0 hide">
+                                <%--<div class="notify-btn-container position-abt pos-left0 pos-top0 hide">
                                     <div class="margin-top50 margin-left40">
                                         <input type="text" placeholder="Notify me" class="notify-input">
                                         <input type="button" class="btn btn-orange btn-xs" value="Notify me" />
                                     </div>
-                                </div>
+                                </div>--%>
                             </div>
                             <% } %>
                             <% } %>
@@ -1050,20 +1052,26 @@
                 }, this);
                 self.LoadCity = function () {
                     loadCity(self);
-                }
+                };
                 self.LoadArea = function () {
-                    if(self.selectedArea())
-                        self.areas([]);
                     loadArea(self);
-                }
+                };
 
                 self.OnAreaChange = function () {
                     fetchPriceQuote(self);
-                }
+                };
 
                 self.FetchPriceQuote = function () {
                     fetchPriceQuote(self);
-                }
+                };
+
+
+                //self.EditButton = function () {
+                //    if (self.areas() && self.areas().length >0 && self.selectedArea()) {
+                //        self.selectedArea(undefined);
+                //    }
+                //    editButton();
+                //};
             }
 
             function loadDealerBreakUp(vm) {
@@ -1175,9 +1183,10 @@
                             if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                                 var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
                                 SetCookie("_MPQ", cookieValue);                              
-                                if (pq.bwPriceQuote.city != null)
-                                    SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
-                                $("#btnBookNow").show();
+                                //if (pq.bwPriceQuote.city != null)
+                                //    SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
+                                $("#btnBookNow").show();                                
+
                                 $(".unveil-offer-btn-container").attr('style', '');
                                 $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
                                 temptotalPrice = checkNumeric($("#bike-price").text());
@@ -1191,14 +1200,25 @@
                                 //$("#bike-price").html(formatPrice(totalPrice));
                                 if (pq.isInsuranceFree && pq.insuranceAmount > 0)
                                     totalPrice = totalPrice - pq.insuranceAmount;
+
+                                if (totalPrice <= 0) {
+                                    $($(".bike-price-container")[0]).hide();
+                                    $($(".bike-price-container")[1]).show();
+                                }
+                                else {
+                                    $($(".bike-price-container")[1]).hide();
+                                    $($(".bike-price-container")[0]).show();
+                                }
+
                                 animatePrice($("#bike-price"), 1000, totalPrice);
                                 $("#breakup").text("(" + priceBreakText + ")");
                                 $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
-                                $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text());
+                                $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text() + ', ');
                                 $(".city-select-text").removeClass("show").addClass("hide");
                                 $(".area-select-text").removeClass("show").addClass("hide");
                                 $(".city-onRoad-price-container").removeClass("hide").addClass("show");
-                                $(".city-area-wrapper").removeClass("show").addClass("hide");
+                                $(".city-area-wrapper").removeClass("show").addClass("hide");                                
+                                    
 
                                 if (pq.dealerPriceQuote.offers && pq.dealerPriceQuote.offers.length > 0) {
                                     $('.available-offers-container').removeClass("hide").addClass("show");
@@ -1211,13 +1231,14 @@
                                 }
                                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
 
-                                ////set global cookie
-                                //cityId = vm.selectedCity();
-                                //if (cityId > 0) {
-                                //    cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
-                                //    cookieValue = cityId + "_" + cityName;
-                                //    SetCookieInDays("location", cookieValue, 365);
-                                //}
+                                //set global cookie
+                                cityId = vm.selectedCity();
+                                if (cityId > 0) {
+                                    cityName = $("#ddlCity option:selected").text();
+                                    cookieValue = cityId + "_" + cityName;
+                                    console.log(cookieValue);
+                                    SetCookieInDays("location", cookieValue, 365);
+                                }
                             }
                             else {
                                 temptotalPrice = checkNumeric($("#bike-price").text());
@@ -1226,10 +1247,23 @@
                                 //$("#bike-price").html(formatPrice(totalPrice));
                                 $("#breakup").text("(" + priceBreakText + ")");
                                 $("#btnBookNow").hide();
+
+                                if (totalPrice <= 0) {
+                                    $($(".bike-price-container")[0]).hide();
+                                    $($(".bike-price-container")[1]).show();
+                                }
+                                else {
+                                    $($(".bike-price-container")[1]).hide();
+                                    $($(".bike-price-container")[0]).show();
+                                }
+
                                 animatePrice($("#bike-price"), temptotalPrice, totalPrice);
                                 $(".city-onRoad-price-container").removeClass("hide").addClass("show");
                                 $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
-                                $("#pqArea").html("");
+
+                                if (vm.selectedArea()==undefined)
+                                    $("#pqArea").html("");
+                                else $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text() + ', ');
 
                                 $(".city-select-text").removeClass("show").addClass("hide");
                                 $(".city-area-wrapper").removeClass("show").addClass("hide");
@@ -1243,6 +1277,15 @@
                                 else {
                                     $(".area-select").removeClass("show").addClass("hide");
                                     $('.area-select-text').removeClass("show").addClass("hide");
+                                }
+
+                                //set global cookie
+                                cityId = vm.selectedCity();
+                                if (cityId > 0) {
+                                    cityName = $("#ddlCity option:selected").text();
+                                    cookieValue = cityId + "_" + cityName;
+                                    console.log(cookieValue);
+                                    SetCookieInDays("location", cookieValue, 365);
                                 }
 
                                 $(".unveil-offer-btn-container").attr('style', '');
@@ -1313,6 +1356,7 @@
             $("#mainCity li").click(function () {
                 var val = $(this).attr('cityId');
                 $("#city-list-container").removeClass("show").addClass("hide");
+                $('.offer-error').removeClass("text-red");
                 $(".city-select-text").removeClass("hide").addClass("show");
                 $("#city-area-select-container").removeClass("hide").addClass("show");
                 $(".offer-error").removeClass("show").addClass("hide");
@@ -1330,19 +1374,27 @@
 
             $(".city-edit-btn").click(function () {
                 if ($("#ddlCity").val()) {
-                    $(".city-select-text").removeClass("hide").addClass("show");
+
                     if ($("#ddlArea").val()) {
                         $(".area-select").removeClass("hide").addClass("show");
                         $('.area-select-text').removeClass("hide").addClass("show");
-                        $(".city-select-text").removeClass("show").addClass("hide");
+                        $(".available-offers-container").removeClass("hide").addClass("show").removeClass("text-red");
+                        $(".city-select-text").removeClass("show").addClass("hide").removeClass("text-red");
+                        // $('#ddlArea option:first-child').attr("selected", "selected");
+                        modelViewModel.selectedArea(undefined);
+                    }
+                    else {
+                        $(".city-select-text").removeClass("hide").addClass("show");
+                        $(".city-select").removeClass("hide").addClass("show").removeClass("text-red");
+                        $('.area-select-text').removeClass("show").addClass("hide").removeClass("text-red");
+                        $(".available-offers-container").removeClass("show").addClass("hide");
+                        $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
                     }
 
-                    $(".city-select").removeClass("hide").addClass("show");
-                    $(".city-onRoad-price-container").removeClass("show").addClass("hide");
                     $(".city-area-wrapper").removeClass("hide").addClass("show");
+                    $(".city-onRoad-price-container").removeClass("show").addClass("hide");
+
                 }
-                $(".available-offers-container").removeClass("show").addClass("hide");
-                $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
             });
 
             function InitVM(cityId) {
