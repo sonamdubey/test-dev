@@ -45,10 +45,9 @@
                                         <div style="float:left;" id='dtlstPhotos_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1" ? "hide" : "show" %>'> 
                                             <img class='img-border' id="imgUpload" src="<%# (ImagingFunctions.GetPathToShowImages("/144X81/"+DataBinder.Eval( Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval( Container.DataItem, "HostURL").ToString() )).Replace("http://http://","http://") %>" />
                                         </div>
-                                        <div style="float:left;width:144px;" id ='dtlstPhotosPending_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='pending <%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "show" : "hide" %>' pending="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "true" : "false" %>">
+                                        <div style="float:left;width:60px;" id ='dtlstPhotosPending_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='pending <%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "show" : "hide" %>' pending="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "true" : "false" %>">
                                             <p style="color:#555555;font-weight:bold;">
-                                            Processing...
-                                            <img  align="center" src='/images/search-loading.gif'/>
+                                            <img align="center" src='/images/search-loading.gif'/>
                                             </p>
                                         </div>   
                                     </td>

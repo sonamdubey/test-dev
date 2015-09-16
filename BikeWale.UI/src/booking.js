@@ -87,10 +87,9 @@ mobile.change(function () {
     viewModel.CustomerVM().IsVerified(false);
 });
 
-otpText.focus("focus", function () {
+otpText.on("focus", function () {
     otpText.val('');
     otpText.siblings("span, div").css("display", "none");
-    otpVal("");
 });
 
 mobile.on("keyup focus", function () {
@@ -168,7 +167,7 @@ function validateOTP() {
         otpVal("Please enter your Verification Code");
     }
     else {
-        if (!isNumber.test(cwiCode)) {
+        if (isNaN(cwiCode)) {
             retVal = false;
             otpVal("Verification Code should be numeric");
         }
@@ -187,6 +186,7 @@ otpBtn.click(function () {
     isValid &= validateMobile();
     isValid &= validateName();
     if (validateOTP() && isValid) {
+        otpBtn.text("Processing...");
         viewModel.CustomerVM().generateOTP();
         if (viewModel.CustomerVM().IsVerified()) {
             $.customizeState();
@@ -200,6 +200,7 @@ otpBtn.click(function () {
             $(".call-for-queries").hide();
         }
         else {
+            otpBtn.text("Confirm OTP");
             otpVal("Please enter a valid OTP.");
         }
     }
