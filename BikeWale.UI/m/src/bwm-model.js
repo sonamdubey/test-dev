@@ -80,7 +80,7 @@ function pqViewModel(modelId, cityId) {
         for (i = 0; i < self.DealerPriceList().length; i++) {
             total += self.DealerPriceList()[i].price;
         }
-        return formatPrice(total);
+        return total;
     }, this);
     self.LoadCity = function () {
         loadCity(self);
