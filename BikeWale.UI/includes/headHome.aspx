@@ -14,6 +14,8 @@
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate="";
         private ushort feedbackTypeId = 0;
         private bool isHeaderFix = true; 	    
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
     <script type='text/javascript'>
         var googletag = googletag || {};

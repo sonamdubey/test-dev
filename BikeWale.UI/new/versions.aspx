@@ -979,7 +979,7 @@
             });
             // Cache selectors outside callback for performance.
 
-            <% if (!modelPage.ModelDetails.Futuristic)
+            <% if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
                { %>
             var $window = $(window);
             $menu = $('.bw-overall-rating');

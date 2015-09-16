@@ -11,6 +11,8 @@
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "";
         private bool isHeaderFix = true;	    
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>        
     <script type="text/javascript">
         //facebook like button script
