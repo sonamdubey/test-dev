@@ -56,6 +56,22 @@ namespace Bikewale.Service.Controllers.BikeBooking
                     objBookingPageOutput.Disclaimers = objBookingPageDetailsDTO.Disclaimers;
                     objBookingPageOutput.Offers = objBookingPageDetailsDTO.Offers;
                     objBookingPageOutput.Varients = objBookingPageDetailsDTO.Varients;
+                    uint insuranceAmount = 0;
+                    foreach (var varient in objBookingPageOutput.Varients)
+                    {
+                        foreach (var price in varient.PriceList)
+                        {
+                            if (Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), "", price.ItemName, Convert.ToUInt32(price.Price), ref insuranceAmount))
+                            {
+                                price.Price = -price.Price;
+                                break;
+                            }
+                        }
+                        if (insuranceAmount > 0)
+                        {
+                            varient.OnRoadPrice = varient.OnRoadPrice - insuranceAmount;
+                        }
+                    }
                     return Ok(objBookingPageOutput);
                 }
                 else
