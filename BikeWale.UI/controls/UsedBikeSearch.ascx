@@ -35,7 +35,7 @@
             <div class="col"><a href="/used/honda-bikes-in-india/">Honda</a></div>
             <div class="col"><a href="/used/yamaha-bikes-in-india/">Yamaha</a></div>      
             <div class="col"><a href="/used/royalenfield-bikes-in-india/">Royal Enfield</a></div>
-            <div class="col"><a title="Used bmw bikes" href="/used/tvs-bikes/">TVS</a></div>
+            <div class="col"><a href="/used/tvs-bikes-in-india/">TVS</a></div>
             <div class="clear"></div>
             <div class="col"><a href="/used/suzuki-bikes-in-india/">Suzuki</a></div>
             <div class="col"><a href="/used/herohonda-bikes-in-india/">Hero Honda</a></div>
