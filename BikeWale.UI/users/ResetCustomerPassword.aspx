@@ -37,9 +37,9 @@
 					<tr>
 						<td>&nbsp;</td>
 						<td>				
-							<asp:Button ID="butChange" Text="Reset Password" CssClass="buttons" runat="server"></asp:Button>
+							<asp:Button ID="butChange" Text="Reset Password" CssClass="buttons text_white" runat="server"></asp:Button>
 							&nbsp;&nbsp;
-							<asp:Button ID="butCancel" CausesValidation="false" Text="Cancel" CssClass="buttons" runat="server"></asp:Button>				
+							<asp:Button ID="butCancel" CausesValidation="false" Text="Cancel" CssClass="buttons text_white" runat="server"></asp:Button>				
 						</td>
 					</tr>
 				</table>

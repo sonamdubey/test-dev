@@ -101,9 +101,11 @@
 .connected-carousels .prev-stage { left: 0; }
 .connected-carousels .next-stage { right: 0; }
 .connected-carousels .prev, .connected-carousels .next { position: absolute; top: 40%; z-index: 1; }
-.connected-carousels .prev, .connected-carousels .next { width: 26px; height: 48px; text-indent: -9999; border: 1px solid #e2e2e2; background-color: #fff;  padding:6px 3px;}
+.connected-carousels .prev, .connected-carousels .next { width: 26px; height: 48px; text-indent: -9999px; border: 1px solid #e2e2e2; background-color: #fff;  padding:6px 3px;}
 .connected-carousels .prev-stage { background-position: -125px -355px; }
 .connected-carousels .next-stage { background-position: -150px -355px; }
 .connected-carousels .prev-stage:hover { background-position: -125px -386px; }
 .connected-carousels .next-stage:hover { background-position: -150px -386px;}
-.connected-carousels .prev-stage.inactive, .connected-carousels .next-stage.inactive { display:none; }
+.connected-carousels .prev-stage.inactive, .connected-carousels .next-stage.inactive { display:block; }
+.connected-carousels .prev-stage.inactive { background-position:-34px -20px; cursor:not-allowed; }
+.connected-carousels .next-stage.inactive { background-position:-61px -20px; cursor:not-allowed; }
