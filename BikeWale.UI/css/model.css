@@ -107,5 +107,5 @@
 .connected-carousels .prev-stage:hover { background-position: -125px -386px; }
 .connected-carousels .next-stage:hover { background-position: -150px -386px;}
 .connected-carousels .prev-stage.inactive, .connected-carousels .next-stage.inactive { display:block; }
-.connected-carousels .prev-stage.inactive { background-position:-34px -20px; cursor:not-allowed; }
-.connected-carousels .next-stage.inactive { background-position:-61px -20px; cursor:not-allowed; }
+.connected-carousels .prev-stage.inactive { background-position:-125px -324px; cursor:not-allowed; }
+.connected-carousels .next-stage.inactive { background-position:-150px -324px; cursor:not-allowed; }

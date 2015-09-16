@@ -107,15 +107,15 @@
                                     <tbody>
                                         <tr>
                                             <td width="60%" class="padding-bottom10">Ex-showroom (Mumbai)</td>
-                                            <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().exShowroomPrice"></span></td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().exShowroomPrice)"></span></td>
                                         </tr>
                                         <tr>
                                             <td class="padding-bottom10">RTO</td>
-                                            <td class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().rto"></span></td>
+                                            <td  align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().rto)"></span></td>
                                         </tr>
                                         <tr>
                                             <td class="padding-bottom10">Insurance (comprehensive)</td>
-                                            <td class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: BWPriceList().insurance"></span></td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().insurance)"></span></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">
@@ -125,7 +125,7 @@
                                         <tr>
                                             <!-- ko if :BWPriceList -->
                                             <td class="padding-bottom10 text-bold">Total on road price</td>
-                                            <td class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: (parseInt(BWPriceList().insurance) + parseInt(BWPriceList().rto) + parseInt(BWPriceList().exShowroomPrice))"></span></td>
+                                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(parseInt(BWPriceList().insurance) + parseInt(BWPriceList().rto) + parseInt(BWPriceList().exShowroomPrice))"></span></td>
                                             <!-- /ko -->
                                         </tr>
                                     </tbody>
@@ -138,7 +138,7 @@
                                         <!-- ko foreach : DealerPriceList -->
                                         <tr>
                                             <td width="60%" class="padding-bottom10" data-bind="text: categoryName"></td>
-                                            <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: price"></span></td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(price)"></span></td>
                                         </tr>
                                         <!-- /ko  -->
                                         <!-- ko if :DealerPriceList -->
@@ -149,12 +149,12 @@
                                         </tr>
                                         <tr>
                                             <td class="padding-bottom10">Total on road price</td>
-                                            <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(DealerOnRoadPrice()) "></span></td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(DealerOnRoadPrice()) "></span></td>
                                         </tr>
                                         <!-- /ko -->
                                         <tr>
                                             <td class="padding-bottom10">Minus insurance</td>
-                                            <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>0</td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(priceQuote().insuranceAmount)"></span></td>
                                         </tr>
                                         <tr>
                                             <td colspan="2">
@@ -164,7 +164,7 @@
                                         <tr>
                                             <!-- ko if :DealerPriceList -->
                                             <td class="padding-bottom10 text-bold">Total on road price</td>
-                                            <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: ((priceQuote().insuranceAmount > 0) ? $root.FormatPricedata((DealerOnRoadPrice() - priceQuote().insuranceAmount)) : $root.FormatPricedata(DealerOnRoadPrice())) "></span></td>
+                                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: ((priceQuote().insuranceAmount > 0) ? $root.FormatPricedata((DealerOnRoadPrice() - priceQuote().insuranceAmount)) : $root.FormatPricedata(DealerOnRoadPrice())) "></span></td>
                                             <!-- /ko -->
                                         </tr>
                                         <tr>
@@ -188,7 +188,7 @@
                         <ul id="mainCity">
                             <li cityid="1"><span>Mumbai</span></li>
                             <li cityid="12"><span>Pune</span></li>
-                            <li cityid="2"><span>Banglore</span></li>
+                            <li cityId="2"><span>Bangalore</span></li>
                             <li cityid="40"><span>Thane</span></li>
                             <li cityid="13"><span>Navi Mumbai</span></li>
                             <li class="city-other-btn"><span>Others</span></li>

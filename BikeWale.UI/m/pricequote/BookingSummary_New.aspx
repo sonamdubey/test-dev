@@ -235,8 +235,8 @@
                 <!-- /ko -->
                 <!-- ko if: !viewModel.Dealer() -->
                 <div class="container">
-                    <div class="grid-12">
-                        <div class="content-box-shadow content-inner-block-15 margin-bottom15 text-medium-grey text-center">
+                    <div class="grid-12 alpha omega">
+                        <div class="content-box-shadow content-inner-block-5 margin-bottom15 text-medium-grey text-center">
                             <a href="tel:02267398888" class="font20 text-grey call-text-green" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>022 6739 8888 (extn: 881)</a>
                         </div>
                     </div>
