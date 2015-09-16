@@ -73,7 +73,7 @@
                                     <div class="carousel carousel-stage">
                                         <ul>
                                             <li>
-                                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>">
+                                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%= bikeName %>" alt="<%= bikeName %>">
                                             </li>
                                             <asp:Repeater ID="rptModelPhotos" runat="server">                                                
                                                 <ItemTemplate>
