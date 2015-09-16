@@ -94,6 +94,7 @@ namespace Bikewale.PriceQuote
 
                             if (BindModelsDropdownList(makeId))
                             {
+                                ddlModel.SelectedValue = modelId;
                                 //BindVersionsDropdownList(modelId);
                                 BindCitiesDropdownList(modelId);
 

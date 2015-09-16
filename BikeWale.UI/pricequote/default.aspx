@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.PriceQuote.Default" Trace="false" Debug="false" EnableEventValidation="false" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.PriceQuote.Default" Trace="true" Debug="false" EnableEventValidation="false" Async="true" %>
 
 <%
     title = (modelName == "" ? "New Bike" : modelName) + " On-Road Price Quote";
@@ -17,7 +17,7 @@
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?<%= staticFileVersion %>"></script>
     <div class="main-container">
-        <div class="container_12">
+        <div class="container_12 container-min-height">
             <div class="grid_12">
                 <ul class="breadcrumb">
                     <li>You are here: </li>
@@ -62,7 +62,7 @@
                                     </div>
                                     <div class="input-box">
                                        <%-- <asp:dropdownlist id="ddlCity" width="200" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--'" runat="server"><asp:ListItem Text="--Select City--" Value="0" /></asp:dropdownlist>--%>
-                                        <select data-placeholder="Search an Area.." class="chosen-select" style="width: 200px" tabindex="2" width="200" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--'" id="ddlCity">
+                                        <asp:dropdownlist data-placeholder="Search an Area.." class="chosen-select" style="width: 200px" tabindex="2" width="200" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--'" id="ddlCity" runat="server"></asp:dropdownlist>
                                         <input type="hidden" id="hdn_ddlCity" runat="server" data-bind=""/><span id="spnCity" class="error" runat="server" /></div>
                                 </div>
                                 <div class="clear"></div>
@@ -367,5 +367,6 @@
 </script>
 <style type="text/css">
     #ddlArea_chosen { width:200px !important; }
+    .container-min-height { min-height:530px; }
 </style>
 <!-- #include file="/includes/footerInner.aspx" -->
