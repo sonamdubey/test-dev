@@ -85,22 +85,29 @@ function pqViewModel(modelId, cityId) {
     }, this);
     self.LoadCity = function () {
         loadCity(self);
-    }
+    };
     self.LoadArea = function () {
         if (self.selectedArea())
             self.areas([]);
         loadArea(self);
-    }
+    };
 
     self.OnAreaChange = function () {
         if (self.areas()) {
             fetchPriceQuote(self);
-        }        
-    }
+        }
+    };
 
     self.FetchPriceQuote = function () {
         fetchPriceQuote(self);
-    }
+    };
+
+    //self.EditButton = function () {
+    //    if (self.selectedArea()) {
+    //        self.selectedArea(undefined);
+    //    }
+    //    editButton();
+    //};
 }
 
 function loadCity(vm) {
@@ -111,14 +118,14 @@ function loadCity(vm) {
                     var city = ko.toJS(data);
                     vm.cities(city.cities);
                     //PQcheckCookies();
+                    //var citySelectedNow = null;
                     //for (i = 0; i < city.cities.length; i++) {
                     //    c = city.cities[i].cityId;
                     //    if (PQCitySelectedId == c) {
                     //        citySelectedNow = city.cities[i];
                     //        break;
                     //    }
-                    //}
-
+                    //}  
                     //if (citySelectedNow != null) {
                     //    vm.selectedCity(citySelectedNow.cityId);
                     //    loadArea(vm);
@@ -209,8 +216,8 @@ function fetchPriceQuote(vm) {
                 if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                     var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
                     SetCookie("_MPQ", cookieValue);
-                    if (pq.bwPriceQuote.city!=null)
-                        SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
+                    //if (pq.bwPriceQuote.city!=null)
+                    //    SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
                     $(".unveil-offer-btn-container").attr('style', '');
                     $(".unveil-offer-btn-container").removeClass("show");
                     $(".unveil-offer-btn-container").addClass("hide");
@@ -224,12 +231,31 @@ function fetchPriceQuote(vm) {
                     priceBreakText = priceBreakText.substring(0, priceBreakText.length - 2);
                     if (pq.isInsuranceFree && pq.insuranceAmount > 0)
                         totalPrice = totalPrice - pq.insuranceAmount;
+
+                    if (totalPrice <= 0) {
+                        $($(".bike-price-container")[0]).hide();
+                        $($(".bike-price-container")[1]).show();
+                    }
+                    else {
+                        $($(".bike-price-container")[1]).hide();
+                        $($(".bike-price-container")[0]).show();
+                    }
+
+                    //set global cookie
+                    cityId = vm.selectedCity();
+                    if (cityId > 0) {
+                        cityName = $("#ddlCity option:selected").text();
+                        cookieValue = cityId + "_" + cityName;
+                        console.log(cookieValue);
+                        SetCookieInDays("location", cookieValue, 365);
+                    }
+
                     animatePrice($("#bike-price"), temptotalPrice, totalPrice);
                     $("#btnBookNow").show();
                     //$("#bike-price").html(formatPrice(totalPrice));
                     $("#breakup").text("(" + priceBreakText + ")");
-                    $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text())
-                    $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text())
+                    $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
+                    $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text() + ', ');
 
                     $(".city-onRoad-price-container").removeClass("hide");
                     $(".city-select-text").removeClass("show");
@@ -241,14 +267,6 @@ function fetchPriceQuote(vm) {
                     $(".city-area-wrapper").removeClass("show").addClass("hide");
                     $(".city-onRoad-price-container").addClass("show");
                     $('.available-offers-container').addClass("show");
-
-                    ////set global cookie
-                    //cityId = vm.selectedCity();
-                    //if (cityId > 0) {
-                    //    cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
-                    //    cookieValue = cityId + "_" + cityName;
-                    //    SetCookieInDays("location", cookieValue, 365);
-                    //}
 
                     if (pq.dealerPriceQuote.offers && pq.dealerPriceQuote.offers.length > 0) {
                         $("#dvAvailableOffer").append("<ul id='dpqOffer' data-bind=\"foreach: priceQuote().dealerPriceQuote.offers\"><li data-bind=\"text: offerText\"></li></ul>");
@@ -266,10 +284,20 @@ function fetchPriceQuote(vm) {
                     //$("#bike-price").html(formatPrice(totalPrice));
                     $("#breakup").text("(" + priceBreakText + ")");
                     $("#btnBookNow").hide();
+                    if (totalPrice <= 0) {
+                        $($(".bike-price-container")[0]).hide();
+                        $($(".bike-price-container")[1]).show();
+                    }
+                    else {
+                        $($(".bike-price-container")[1]).hide();
+                        $($(".bike-price-container")[0]).show();
+                    }
                     animatePrice($("#bike-price"), temptotalPrice, totalPrice);
                     $(".city-onRoad-price-container").removeClass("hide").addClass("show");
                     $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
-                    $("#pqArea").html("");
+                    if (vm.selectedArea() == undefined)
+                        $("#pqArea").html("");
+                    else $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text() + ', ');
                     $(".city-select-text").removeClass("show").addClass("hide");
                     $(".city-area-wrapper").removeClass("show").addClass("hide");
                     $(".city-select").removeClass("hide").addClass("hide");
@@ -278,6 +306,15 @@ function fetchPriceQuote(vm) {
                     $("#dvAvailableOffer").empty();
                     $("#dvAvailableOffer").html("<ul><li>Currently there are no offers in your city. We hope to serve your city soon!</li></ul>");
                     $(".available-offers-container").removeClass("hide").addClass("show");
+
+                    //set global cookie
+                    cityId = vm.selectedCity();
+                    if (cityId > 0) {
+                        cityName = $("#ddlCity option:selected").text();
+                        cookieValue = cityId + "_" + cityName;
+                        console.log(cookieValue);
+                        SetCookieInDays("location", cookieValue, 365);
+                    }  
 
                 }
                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
@@ -355,19 +392,27 @@ $("#mainCity li").click(function () {
 
 $(".city-edit-btn").click(function () {
     if ($("#ddlCity").val()) {
-        $(".city-select-text").removeClass("hide").addClass("show");
+
         if ($("#ddlArea").val()) {
             $(".area-select").removeClass("hide").addClass("show");
             $('.area-select-text').removeClass("hide").addClass("show");
-            $(".city-select-text").removeClass("show").addClass("hide");
+            $(".available-offers-container").removeClass("hide").addClass("show").removeClass("text-red");
+            $(".city-select-text").removeClass("show").addClass("hide").removeClass("text-red");
+            modelViewModel.selectedArea(undefined);
+
+        }
+        else {
+            $(".city-select-text").removeClass("hide").addClass("show");
+            $(".city-select").removeClass("hide").addClass("show").removeClass("text-red");
+            $('.area-select-text').removeClass("show").addClass("hide").removeClass("text-red");
+            $(".available-offers-container").removeClass("show").addClass("hide");
+            $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
         }
 
-        $(".city-select").removeClass("hide").addClass("show");
-        $(".city-onRoad-price-container").removeClass("show").addClass("hide");
         $(".city-area-wrapper").removeClass("hide").addClass("show");
+        $(".city-onRoad-price-container").removeClass("show").addClass("hide");
+
     }
-    $(".available-offers-container").removeClass("show").addClass("hide");
-    $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
 });
 
 
@@ -457,7 +502,7 @@ function animatePrice(ele, start, end) {
             $(ele).text(commaSeparateNumber(Math.round(this.someValue)));
         }
     }).promise().done(function () {
-        $(ele).text(commaSeparateNumber(end));
+        $(ele).text(formatPrice(end));
     });
 }
 
