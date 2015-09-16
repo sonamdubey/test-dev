@@ -169,7 +169,7 @@ namespace Bikewale.DAL.NewBikeSearch
             if (filterInputs.DrumBrake && !filterInputs.DiscBrake)
                 _whereClause += " AND SD.FrontDisc = 0 ";
             else if(filterInputs.DiscBrake && !filterInputs.DrumBrake)
-                _whereClause += " AND SD.FrontDisc = 0 ";
+                _whereClause += " AND SD.FrontDisc = 1 ";
         }
 
         private void StartTypeFilterClause()
