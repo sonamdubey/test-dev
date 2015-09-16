@@ -181,8 +181,8 @@
                                 <p class="font16 leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
                                 <div class="form-control-box">
                                     <input type="text" class="form-control get-otp-code rightfloat" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
-                                    <span class="bwsprite error-icon errorIcon"></span>
-                                    <div class="bw-blackbg-tooltip errorText">Please enter a valid OTP</div>
+                                    <span class="bwsprite error-icon errorIcon hide"></span>
+                                    <div class="bw-blackbg-tooltip errorText hide"></div>
                                 </div>
                                 
                                 <div class="clear"></div>
