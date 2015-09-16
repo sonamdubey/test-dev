@@ -28,11 +28,11 @@
                             <tbody>
                                 <tr>
                                     <td width="200" class="padding-bottom10">On road price:</td>
-                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: onRoadPrice"></span></td>
+                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: onRoadPrice"></span></td>
                                 </tr>
                                 <tr>
                                     <td>Advance booking:</td>
-                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: bookingAmount"></span></td>
+                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: bookingAmount"></span></td>
                                 </tr>
                                 <tr>
                                     <td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
@@ -44,7 +44,7 @@
                                 </tr>
                                 <tr>
                                     <td>Balance amount:</td>
-                                    <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: remainingAmount"></span></td>
+                                    <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: remainingAmount"></span></td>
                                 </tr>
                                 <tr>
                                     <td class="font12 text-medium-grey">*Balance amount payable at the dealership</td>
@@ -154,7 +154,7 @@
                                             <p class="font14" data-bind="text: minSpec().displayMinSpec"></p>
                                         </div>
                                         <div class="grid-12 alpha omega">
-                                            <p class="font18"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: onRoadPrice"></span></p>
+                                            <p class="font18"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: onRoadPrice"></span></p>
                                             <p class="font12 text-green" data-bind="html: availText"></p>
                                         </div>
                                         <div class="clear"></div>
@@ -200,7 +200,7 @@
                             <p class="text-bold font16">Congratulations!</p>
                             <p class="margin-bottom20">Hi <span data-bind="text: viewModel.CustomerVM().fullName"></span></p>
                             <!-- ko with: viewModel.SelectedVarient() -->
-                            <p class="margin-bottom15" style="line-height: 22px;">you can now book your bike by just paying <span class="font22"><span class="fa fa-rupee margin-right5"></span><span class="text-bold font24" data-bind="text: bookingAmount"></span></span></p>
+                            <p class="margin-bottom15" style="line-height: 22px;">you can now book your bike by just paying <span class="font22"><span class="fa fa-rupee margin-right5"></span><span class="text-bold font24" data-bind="CurrencyText: bookingAmount"></span></span></p>
                             <!-- /ko -->
                             <p class="margin-bottom15">You can pay that booking amount using a Credit Card/Debit Card/Net Banking.</p>
                             <p>

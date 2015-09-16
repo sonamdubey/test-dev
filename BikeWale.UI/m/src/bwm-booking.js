@@ -450,6 +450,24 @@ ko.bindingHandlers.googlemap = {
     }
 };
 
+ko.bindingHandlers.CurrencyText = {
+    update: function (element, valueAccessor) {
+        var amount = valueAccessor();
+        var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount()) : 0;
+        $(element).text(formattedAmount);
+    }
+};
+
+function formatPrice(price) {
+    price = price.toString();
+    var lastThree = price.substring(price.length - 3);
+    var otherNumbers = price.substring(0, price.length - 3);
+    if (otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return price;
+}
+
 $(document).ready(function () {
     viewModel = new BookingPageVMModel();
     viewModel.getBookingPage();
