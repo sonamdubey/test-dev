@@ -156,11 +156,11 @@ $(document).ready(function () {
         afterfetch: function (result, searchtext) {
             var element = $("#globalCityPopUp");
             if (result != undefined && result.length > 0)
-                showHideMatchError(element,false);
+                showHideMatchError(element, false);
             else
-                showHideMatchError(element,true);
+                showHideMatchError(element, true);
         }
-    }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11', 'font-weight': 'normal', 'text-align': 'left' }).insertAfter("#globalCityPopUp");
+    }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11', 'font-weight': 'normal', 'text-align': 'left' });
 
 
 	
