@@ -144,6 +144,7 @@
                             <span class="iconTtl text-bold">Customize</span>
                         </p>
                         <p class="font14 text-center margin-top20 varient-heading-text">Choose your variant</p>
+                        <!-- ko if: viewModel.SelectedVarient() -->
                         <ul class="varientsList margin-top10" data-bind="foreach: viewModel.Varients()">
                             <li>
                                 <div class="clear text-left">
@@ -161,6 +162,7 @@
                                 </div>
                             </li>
                         </ul>
+                        <!-- /ko -->
                         <div class="clear"></div>
                         <div class="border-solid-top margin-bottom20"></div>
 
