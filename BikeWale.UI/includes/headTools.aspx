@@ -59,8 +59,19 @@
         } )();
     </script>
 </head>
-<body class="header-fixed-inner">
+<body class="bg-white header-fixed-inner">
     <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
     	<!-- #include file="/includes/headBW.aspx" -->
+        <section class="bg-white">
+            <div class="container_12">
+                <div class="grid_12">
+                    <div class="padding-bottom5 text-center">
+                        <!-- #include file="/ads/Ad728x90.aspx" -->
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <div class="clear"></div>
