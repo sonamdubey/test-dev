@@ -1,6 +1,5 @@
 ﻿using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
-using Bikewale.Entity.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
@@ -137,7 +136,7 @@ namespace Bikewale.Mobile.PriceQuote
 
         /// <summary>
         /// Written By : Ashwini Todkar on 15 Dec 2014
-        /// Summary    : Method to get dealer price quote, offers, facilities, contact details 
+        /// Summary    : PopulateWhere to get dealer price quote, offers, facilities, contact details 
         /// </summary>
         private void GetDetailedQuote()
         {

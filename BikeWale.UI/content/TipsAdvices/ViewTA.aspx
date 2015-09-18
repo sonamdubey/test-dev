@@ -8,7 +8,6 @@
     AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/headnew.aspx" -->
-<form id="form1" runat="server">
 <div class="container_12">
     <div class="grid_12"><ul class="breadcrumb"><li>You are here: </li><li><a href="/">Home</a></li><li>&rsaquo;<a title="Tips And Advices" href="/tipsadvices/">Bike Tips And Advices</a></li><li class="current">&rsaquo; <strong><%= ArticleTitle%></strong></li></ul><div class="clear"></div></div>
 	<div class="grid_8 margin-top10">        
@@ -91,7 +90,6 @@
         </div>
     </div>    
 </div>
-</form>
 <script type="text/javascript" type="text/javascript">
     $(document).ready(function () {
         $("#btnSubmit").click(function () {

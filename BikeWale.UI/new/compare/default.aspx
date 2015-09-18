@@ -1,5 +1,5 @@
 ﻿<%@ Page Inherits="Bikewale.New.ComparisonChoose" trace="false" Debug="false" AutoEventWireUp="false" Language="C#" EnableEventValidation="false" %>
-<%@ Register TagPrefix="uc" TagName="CompareCarsMin" Src="~/controls/ComparisonMin.ascx" %>
+<%@ Register TagPrefix="uc" TagName="CompareCarsMin" Src="~/controls/ComparisonMin_old.ascx" %>
 <%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
 <%@ Register TagPrefix="uc" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%@ Register TagPrefix="uc" TagName="BrowseUserReviews" Src="~/controls/BrowseUserReviews.ascx" %>
@@ -13,7 +13,6 @@
     AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/headNew.aspx" -->
-<form runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -35,61 +34,62 @@
 				<td class="alt">
 					<div style="padding:5px 0;">
 						<asp:RadioButton ID="optNew" AutoPostBack="true" GroupName="Compare" Checked="true" runat="server" Text="I am interested in <b>new bikes</b> only" />
-						<br><asp:RadioButton class="hide" ID="optAll" AutoPostBack="true" GroupName="Compare" runat="server" Text="I want to consider <b>new</b> as well as <b>discontinued bikes</b> in comparison" />
+						<br>
+                        <asp:RadioButton class="hide" ID="optAll" AutoPostBack="true" GroupName="Compare" runat="server" Text="I want to consider <b>new</b> as well as <b>discontinued bikes</b> in comparison" />
 					</div>
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<span class="subHeading">Bike-1</span>
-					<asp:DropDownList ID="cmbMake" runat="server" /> -
-					<asp:DropDownList ID="cmbModel" Enabled="false" runat="server">
+				<td class="padding-bottom10">
+					<span class="subHeading margin-right5">Bike-1</span>
+					<asp:DropDownList ID="cmbMake" runat="server" tabindex="1"/> -
+					<asp:DropDownList ID="cmbModel" Enabled="false" runat="server" tabindex="2">
 							<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList> -
-					<asp:DropDownList ID="cmbVersion" Enabled="false" runat="server" >
+					<asp:DropDownList ID="cmbVersion" Enabled="false" runat="server" tabindex="3">
 						<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList>
 				</td>
 			</tr>
 			<tr>
-				<td class="alt">
-					<span class="subHeading">Bike-2</span>
-					<asp:DropDownList ID="cmbMake1" runat="server" /> -
-					<asp:DropDownList ID="cmbModel1" Enabled="false" runat="server">
+				<td class="alt padding-bottom10">
+					<span class="subHeading margin-right5">Bike-2</span>
+					<asp:DropDownList ID="cmbMake1" runat="server" tabindex="1"/> -
+					<asp:DropDownList ID="cmbModel1" Enabled="false" runat="server" tabindex="2">
 							<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList> -
-					<asp:DropDownList ID="cmbVersion1" Enabled="false" runat="server" >
+					<asp:DropDownList ID="cmbVersion1" Enabled="false" runat="server" tabindex="3">
 						<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList>
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<span class="subHeading">Bike-3</span>
-					<asp:DropDownList ID="cmbMake2" runat="server" /> -
-					<asp:DropDownList ID="cmbModel2" Enabled="false" runat="server">
+				<td class="padding-bottom10">
+					<span class="subHeading margin-right5">Bike-3</span>
+					<asp:DropDownList ID="cmbMake2" runat="server" tabindex="1"/> -
+					<asp:DropDownList ID="cmbModel2" Enabled="false" runat="server" tabindex="2">
 							<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList> -
-					<asp:DropDownList ID="cmbVersion2" Enabled="false" runat="server" >
+					<asp:DropDownList ID="cmbVersion2" Enabled="false" runat="server" tabindex="3">
 						<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList>
 				</td>
 			</tr>
 			<tr>
-				<td class="alt">
-					<span class="subHeading">Bike-4</span>
-					<asp:DropDownList ID="cmbMake3" runat="server" /> -
-					<asp:DropDownList ID="cmbModel3" Enabled="false" runat="server">
+				<td class="alt padding-bottom10">
+					<span class="subHeading margin-right5">Bike-4</span>
+					<asp:DropDownList ID="cmbMake3" runat="server" tabindex="1"/> -
+					<asp:DropDownList ID="cmbModel3" Enabled="false" runat="server" tabindex="2">
 							<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList> -
-					<asp:DropDownList ID="cmbVersion3" Enabled="false" runat="server" >
+					<asp:DropDownList ID="cmbVersion3" Enabled="false" runat="server" tabindex="3">
 						<asp:ListItem Value="0" Text="--Select--" />
 					</asp:DropDownList>
 				</td>
 			</tr>
 		</table>		   
 		<div class="margin-top15">
-			<div class="buttons"><asp:Button ID="btnCompare" CssClass="buttons" Text="Compare Selected Bikes" runat="server" /></div> 
+			<div class="buttons text-center"><asp:Button ID="btnCompare" CssClass="buttons" Text="Compare" runat="server" /></div> 
 			<span id="spn" class="error"></span>
 		</div>		   
 		<p class="margin-top15">* This bike has been discontinued and is no longer available for sale in India. We are providing this data for research purpose only.</p>			
@@ -106,23 +106,22 @@
         
     </div><!--    Left Container ends here -->
     <div class="grid_4"><!--    Right Container starts here -->
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>
+        </div>--%>
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
             <uc:InstantBikePrice runat="server" ID="ucInstantBikePrice" />
         </div>
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
            <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
         </div>
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>
+        </div>--%>
     </div><!--    Right Container ends here -->
 </div>
-</form>			
 <script type="text/javascript">
     $(document).ready(function(){
         $("select[id^='cmbMake']").change(function(){

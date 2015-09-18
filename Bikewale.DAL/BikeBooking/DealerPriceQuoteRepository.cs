@@ -13,6 +13,8 @@ using Bikewale.Entities.Customer;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Location;
+using System.Configuration;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.DAL.BikeBooking
 {
@@ -75,6 +77,10 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
                 isSuccess = false;
+            }
+            finally
+            {
+                db.CloseConnection();
             }
             return isSuccess;
         }
@@ -324,6 +330,7 @@ namespace Bikewale.DAL.BikeBooking
             {
                 db.CloseConnection();
             }
+
             return objCustomer;
         }
 
@@ -426,6 +433,7 @@ namespace Bikewale.DAL.BikeBooking
             {
                 db.CloseConnection();
             }
+
             return objVersions;
         }
 
@@ -471,10 +479,7 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-            finally
-            {
-                db.CloseConnection();
-            }
+
             return isSuccess;
         }
 
@@ -518,6 +523,7 @@ namespace Bikewale.DAL.BikeBooking
                 objErr.SendMail();
                 isSuccess = false;
             }
+
 
             return isSuccess;
         }
@@ -723,6 +729,10 @@ namespace Bikewale.DAL.BikeBooking
                 objErr.SendMail();
                 isDealerAreaAvailable = false;
             }
+            finally
+            {
+                db.CloseConnection();
+            }
             return isDealerAreaAvailable;
         }
 
@@ -769,6 +779,10 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, "GetDefaultPriceQuoteVersion ex : " + ex.Message);
                 objErr.SendMail();
             }
+            finally
+            {
+                db.CloseConnection();
+            }
             return versionId;
         }   //End of GetDefaultPriceQuoteVersion
         #endregion
@@ -782,9 +796,9 @@ namespace Bikewale.DAL.BikeBooking
         /// <param name="versionId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public List<AreaEntityBase> GetAreaList(uint modelId, uint cityId)
+        public List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId)
         {
-            List<AreaEntityBase> objArea = null;
+            List<Bikewale.Entities.Location.AreaEntityBase> objArea = null;
             Database db = null;
             try
             {
@@ -803,9 +817,9 @@ namespace Bikewale.DAL.BikeBooking
                     {
                         if (dr != null)
                         {
-                            objArea = new List<AreaEntityBase>();
+                            objArea = new List<Bikewale.Entities.Location.AreaEntityBase>();
                             while (dr.Read())
-                                objArea.Add(new AreaEntityBase()
+                                objArea.Add(new Bikewale.Entities.Location.AreaEntityBase()
                                 {
                                     AreaId = Convert.ToUInt32(dr["Value"]),
                                     AreaName = dr["Text"].ToString()
@@ -824,6 +838,11 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, "GetAreaList ex : " + ex.Message);
                 objErr.SendMail();
             }
+            finally
+            {
+                db.CloseConnection();
+            }
+
             return objArea;
         }   //End of GetAreaList
         #endregion
@@ -833,5 +852,247 @@ namespace Bikewale.DAL.BikeBooking
         {
             throw new NotImplementedException();
         }
+
+        public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
+        {
+            BookingPageDetailsEntity entity = null;
+            IEnumerable<BikeModelColor> bikeModelColors = null;
+            Database db = null;
+            List<DealerPriceCategoryItemEntity> DealerPriceCategoryItemEntities = null;
+            List<BikeDealerPriceDetail> BikeDealerPriceDetails = null;
+            List<string> disclaimers = null;
+            List<DealerOfferEntity> offers = null;
+            DealerDetails objDealerDetails = null;
+            try
+            {
+                db = new Database(ConfigurationManager.AppSettings["connectionstring"]);
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "BW_GetVarientsPriceDetail";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+                    cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
+                    cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
+                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    {
+                        if (reader != null && reader.HasRows)
+                        {
+                            #region Price Breakup for all Versions
+                            DealerPriceCategoryItemEntities = new List<DealerPriceCategoryItemEntity>();
+                            while (reader.Read())
+                            {
+                                DealerPriceCategoryItemEntities.Add(
+                                    new DealerPriceCategoryItemEntity()
+                                    {
+                                        DealerId = Convert.ToUInt32(reader["DealerId"]),
+                                        ItemId = Convert.ToUInt32(reader["ItemId"]),
+                                        ItemName = Convert.ToString(reader["ItemName"]),
+                                        Price = Convert.ToInt32(reader["Price"]),
+                                        VersionId = Convert.ToUInt32(reader["VersionId"])
+                                    }
+                                );
+                            }
+                            #endregion
+                            #region Version Price Details
+                            if (reader.NextResult())
+                            {
+                                BikeDealerPriceDetails = new List<BikeDealerPriceDetail>();
+                                while (reader.Read())
+                                {
+                                    BikeDealerPriceDetails.Add(
+                                        new BikeDealerPriceDetail()
+                                        {
+                                            BookingAmount = Convert.ToUInt32(reader["BookingAmount"]),
+                                            HostUrl = Convert.ToString(reader["HostURL"]),
+                                            ImagePath = Convert.ToString(reader["OriginalImagePath"]),
+                                            Make = new BikeMakeEntityBase()
+                                            {
+                                                MakeId = Convert.ToInt32(reader["MakeId"]),
+                                                MakeName = Convert.ToString(reader["MakeName"]),
+                                                MaskingName = Convert.ToString(reader["MakeMaskingName"])
+                                            },
+                                            MinSpec = new BikeVersionMinSpecs()
+                                            {
+                                                VersionId = Convert.ToInt32(reader["VersionId"]),
+                                                VersionName = Convert.ToString(reader["VersionName"]),
+                                                Price = Convert.ToUInt64(reader["OnRoadPrice"]),
+                                                ModelName = Convert.ToString(reader["ModelName"]),
+                                                ElectricStart = Convert.IsDBNull(reader["ElectricStart"]) ? false : Convert.ToBoolean(reader["ElectricStart"]),
+                                                BrakeType = Convert.IsDBNull(reader["BreakType"]) ? String.Empty : Convert.ToString(reader["BreakType"]),
+                                                AntilockBrakingSystem = Convert.IsDBNull(reader["ABS"]) ? false : Convert.ToBoolean(reader["ABS"]),
+                                                AlloyWheels = Convert.IsDBNull(reader["AlloyWheels"]) ? false : Convert.ToBoolean(reader["AlloyWheels"])
+                                            },
+                                            Model = new BikeModelEntityBase()
+                                            {
+                                                MaskingName = Convert.ToString(reader["ModelMaskingName"]),
+                                                ModelId = Convert.ToInt32(reader["ModelId"]),
+                                                ModelName = Convert.ToString(reader["ModelName"])
+                                            },
+                                            NoOfWaitingDays = Convert.ToUInt32(reader["NumOfDays"]),
+                                            OnRoadPrice = Convert.ToUInt32(reader["OnRoadPrice"]),
+                                        }
+                                        );
+                                }
+                            }
+                            #endregion
+                            if (reader.NextResult())
+                            {
+                                disclaimers = new List<string>();
+                                while (reader.Read())
+                                {
+                                    disclaimers.Add(Convert.ToString(reader["Disclaimer"]));
+                                }
+                            }
+                            #region Dealer Offer Entity
+                            if (reader.NextResult())
+                            {
+                                offers = new List<DealerOfferEntity>();
+                                while (reader.Read())
+                                {
+                                    offers.Add(
+                                        new DealerOfferEntity()
+                                        {
+                                            Id = Convert.ToUInt32(reader["OfferCategoryId"]),
+                                            Text = Convert.ToString(reader["OfferText"]),
+                                            Type = Convert.ToString(reader["OfferType"]),
+                                            Value = Convert.ToUInt32(reader["OfferValue"])
+                                        }
+                                        );
+                                }
+                            }
+                            #endregion
+                            #region Dealer Details
+                            if (reader.NextResult())
+                            {
+                                if (reader.Read())
+                                {
+                                    objDealerDetails = new DealerDetails()
+                                    {
+                                        Address1 = Convert.ToString(reader["Address1"]),
+                                        Address2 = Convert.ToString(reader["Address2"]),
+                                        Area = Convert.ToString(reader["AreaName"]),
+                                        City = Convert.ToString(reader["CityName"]),
+                                        ContactHours = Convert.ToString(reader["ContactHours"]),
+                                        EmailId = Convert.ToString(reader["EmailId"]),
+                                        FaxNo = Convert.ToString(reader["FaxNo"]),
+                                        FirstName = Convert.ToString(reader["FirstName"]),
+                                        Id = Convert.ToUInt32(reader["Id"]),
+                                        LastName = Convert.ToString(reader["LastName"]),
+                                        Lattitude = Convert.ToString(reader["Lattitude"]),
+                                        Longitude = Convert.ToString(reader["Longitude"]),
+                                        MobileNo = Convert.ToString(reader["MobileNo"]),
+                                        Organization = Convert.ToString(reader["Organization"]),
+                                        PhoneNo = Convert.ToString(reader["PhoneNo"]),
+                                        Pincode = Convert.ToString(reader["Pincode"]),
+                                        State = Convert.ToString(reader["StateName"]),
+                                        WebsiteUrl = Convert.ToString(reader["WebsiteUrl"])
+                                    };
+                                }
+                            }
+                            #endregion
+                            entity = new BookingPageDetailsEntity();
+                            entity.Dealer = objDealerDetails;
+                            entity.Disclaimers = disclaimers;
+                            entity.Offers = offers;
+                            BikeDealerPriceDetails.ForEach(
+                                version => version.PriceList =
+                                    (from price in DealerPriceCategoryItemEntities
+                                     where price.VersionId == version.MinSpec.VersionId
+                                     select new DealerVersionPriceItemEntity()
+                                     {
+                                         DealerId = price.DealerId,
+                                         ItemId = price.ItemId,
+                                         ItemName = price.ItemName,
+                                         Price = price.Price
+                                     }).ToList());
+
+                            entity.Varients = BikeDealerPriceDetails;
+                            if (entity.Varients != null && entity.Varients.Count > 0)
+                            {
+                                bikeModelColors = GetModelColor(entity.Varients[0].Model.ModelId);
+                            }
+                            entity.BikeModelColors = bikeModelColors;
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqEx)
+            {
+                HttpContext.Current.Trace.Warn("FetchBookingPageDetails sqlex : " + sqEx.Message + sqEx.Source);
+                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("FetchBookingPageDetails ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return entity;
+        }
+
+        private IEnumerable<BikeModelColor> GetModelColor(int modelId)
+        {
+            List<BikeModelColor> colors = null;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "GetModelColor";
+
+                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            colors = new List<BikeModelColor>();
+
+                            while (dr.Read())
+                            {
+                                colors.Add(
+                                    new BikeModelColor
+                                    {
+                                        Id = Convert.ToUInt32(dr["ID"]),
+                                        ColorName = Convert.ToString(dr["Color"]),
+                                        HexCode = Convert.ToString(dr["HexCode"]),
+                                        ModelId = Convert.ToUInt32(dr["BikeModelID"]),
+                                    }
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("GetModelColor sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetModelColor ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return colors;
+        }
+
     }   //End of class
 }   //End of namespace

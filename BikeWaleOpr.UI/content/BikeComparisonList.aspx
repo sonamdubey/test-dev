@@ -19,7 +19,6 @@
 <script type="text/javascript" src="/src/AjaxFunctions.js"></script>
     <div class="left">
 	<h3>Bike Comparison List</h3><br />
-        <form id="Form1" runat="server">
 
             <fieldset style="white-space:nowrap;width:634px; float:left;">
 			<legend>Add Bikes to Compare</legend>
@@ -98,7 +97,7 @@
                     </tr>
                 </table>
             </fieldset>
-        </form><br /><br />
+        <br /><br />
         <div class="clear"></div>
         <asp:Repeater id="MyRepeater" runat="server">       
     <HeaderTemplate>

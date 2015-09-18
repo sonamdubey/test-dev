@@ -28,7 +28,6 @@
 		.mar-bot{margin-bottom:5px;}	
 		.expnd-cont{margin:0;}        
     </style>
-    <form id="form1" runat="server">
         <div class="container_12">
             <div class="grid_12">
                 <ul class="breadcrumb">

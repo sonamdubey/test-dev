@@ -242,8 +242,132 @@ namespace Bikewale.DAL.BikeData
 
         public BikeDescriptionEntity GetMakeDescription(U makeId)
         {
-            throw new NotImplementedException();
+            BikeDescriptionEntity objMake = null;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "GetMakeSynopsis";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+
+                    db = new Database();
+
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null && dr.Read())
+                        {
+                            objMake = new BikeDescriptionEntity()
+                            {
+                                Name = Convert.ToString("MakeName"),
+                                SmallDescription = Convert.ToString(dr["Description"]),
+                                FullDescription = Convert.ToString(dr["Description"])
+                            };
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("GetMakeDescription sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetMakeDescription ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objMake;
         }
-        
+
+        /// <summary>
+        /// Getting makes only by providing only request type
+        /// </summary>
+        /// <param name="RequestType">Pass value as New or Used or Upcoming or PriceQuote or ALL</param>
+        /// <returns></returns>
+        public DataTable GetMakes(string RequestType)
+        {
+            DataTable dt = null;
+            Database db = null;
+
+            using (SqlCommand cmd = new SqlCommand("GetBikeMakes"))
+            {
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add("@RequestType", SqlDbType.VarChar, 20).Value = RequestType;
+                try
+                {
+                    db = new Database();
+                    dt = db.SelectAdaptQry(cmd).Tables[0];
+                }
+                catch (SqlException ex)
+                {
+                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    objErr.SendMail();
+                }
+                catch (Exception ex)
+                {
+                    HttpContext.Current.Trace.Warn(ex.Message + ex.Source);
+                    ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                    objErr.SendMail();
+                }
+            }
+            return dt;
+        }
+
+        /// <summary>
+        ///     Get Makeid and make name from the make id
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <returns></returns>
+        public BikeMakeEntityBase GetMakeDetails(string makeId)
+        {
+            // Validate the makeId
+            if (!CommonOpn.IsNumeric(makeId))
+                return null;
+
+            string sql = "";
+            BikeMakeEntityBase makeDetails = new BikeMakeEntityBase();
+
+            sql = " SELECT Name AS MakeName, ID AS MakeId , MaskingName FROM BikeMakes With(NoLock) "
+                + " WHERE ID = @makeId ";
+
+            Database db = new Database();
+            SqlParameter[] param = { new SqlParameter("@makeId", makeId) };
+
+            try
+            {
+                using (SqlDataReader dr = db.SelectQry(sql, param))
+                {
+                    if (dr.Read())
+                    {
+                        makeDetails.MakeName = Convert.ToString(dr["MakeName"]);
+                        makeDetails.MakeId = Convert.ToInt32(dr["MakeId"]);
+                        makeDetails.MaskingName = Convert.ToString(dr["MaskingName"]);
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return makeDetails;
+        }   // End of getMakeDetails
+
     }
 }

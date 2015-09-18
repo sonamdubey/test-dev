@@ -2,14 +2,13 @@
 <%@ Import Namespace="Bikewale.Common" %>
 <% title = "Basic File Uploader"; %>
 <!-- #include file="/includes/headSell.aspx" -->
-<script type="text/javascript" src="/src/classified/sellbike.js?1.1"></script>
+<script type="text/javascript" src="/src/classified/sellbike.js?14sept2015"></script>
 <script language="javascript">
 	var inquiryId = '<%= inquiryId %>';
 	var requestCount = 0;
 	var responseCount = 0;
 	nextStepUrl = "/used/sell/confirmation.aspx";
 </script>
-<form runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -29,7 +28,7 @@
             <p class="desc-para">We accept <strong>jpeg</strong>, <strong>png</strong>, <strong>gif</strong> formats only. Image size up to <strong>4MB</strong> permissible. By uploading images you agree to BikeWale photos <a href="#">Terms & Conditions</a></p>				
 	        <div id="divAlertMsg" class="error padding5" runat="server"></div>                         
 	        <input type="file" id="fileInput2" name="fileInput2" runat="server"/>
-	        <asp:Button ID="btnUpload" runat="server" Text="Upload" CssClass="buttons"></asp:Button>				
+	        <asp:Button ID="btnUpload" runat="server" Text="Upload" CssClass="buttons text_white"></asp:Button>				
 	    
             <%--<p class="desc-para">No, I don't want to upload photos now. <a href="/used/bikedetails.aspx?bike=S<%= inquiryId %>">Take me to my listing</a></p>--%>
             <p class="desc-para">No, I don't want to upload photos now. <a href="/mybikewale/mylisting.aspx">Take me to my listing</a></p>
@@ -46,10 +45,9 @@
                                         <div style="float:left;" id='dtlstPhotos_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1" ? "hide" : "show" %>'> 
                                             <img class='img-border' id="imgUpload" src="<%# (ImagingFunctions.GetPathToShowImages("/144X81/"+DataBinder.Eval( Container.DataItem, "OriginalImagePath").ToString(), DataBinder.Eval( Container.DataItem, "HostURL").ToString() )).Replace("http://http://","http://") %>" />
                                         </div>
-                                        <div style="float:left;width:144px;" id ='dtlstPhotosPending_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='pending <%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "show" : "hide" %>' pending="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "true" : "false" %>">
+                                        <div style="float:left;width:60px;" id ='dtlstPhotosPending_<%# DataBinder.Eval(Container.DataItem,"ID")%>' class='pending <%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "show" : "hide" %>' pending="<%# DataBinder.Eval(Container.DataItem, "StatusId").ToString()=="1"? "true" : "false" %>">
                                             <p style="color:#555555;font-weight:bold;">
-                                            Processing...
-                                            <img  align="center" src='http://img.aeplcdn.com/loader.gif'/>
+                                            <img align="center" src='/images/search-loading.gif'/>
                                             </p>
                                         </div>   
                                     </td>
@@ -66,7 +64,6 @@
         </div>
     </div><!-- grid_8 -->
 </div>
-</form>
 <script type="text/javascript">
     var pendingList = new Array();
     var refreshTime = 2000;

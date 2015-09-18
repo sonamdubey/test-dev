@@ -12,7 +12,6 @@
 <style>
     img {border:none;}
 </style>
-<form id="form1" runat="server">
     <div class="padding5">
        <div id="br-cr">
             <a href="/m/new/" class="normal">New Bikes</a> &rsaquo;  
@@ -38,39 +37,27 @@
                                    <tr><td class="darkgray" colspan="2"><b> <%=  objReview.ReviewEntity.WrittenBy %>'s Ratings</b></td></tr>
                                     <tr>
                                         <td style="width:110px;" class="darkgray"><span style="position:relative;top:2px;">Overall Average</span></td>
-                                        <td style="font-size:0px;"> 
-                                            <%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(objReview.ReviewRatingEntity.OverAllRating))%>
-                                        </td>
+                                        <td style="font-size:0px;"><%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(objReview.ReviewRatingEntity.OverAllRating))%></td>
                                     </tr>
                                     <tr>
                                         <td class="darkgray new-line5"><span style="position:relative;top:2px;">Looks</span></td>
-                                        <td style="font-size:0px;">
-                                            <%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(objReview.ReviewRatingEntity.StyleRating))%>
-                                        </td>
+                                        <td style="font-size:0px;"><%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(objReview.ReviewRatingEntity.StyleRating))%></td>
                                     </tr>
                                         <tr>
                                         <td class="darkgray new-line"><span style="position:relative;top:2px;">Performance</span></td>
-                                        <td style="font-size:0px;">
-                                             <%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(objReview.ReviewRatingEntity.PerformanceRating))%>
-                                        </td>
+                                        <td style="font-size:0px;"><%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(objReview.ReviewRatingEntity.PerformanceRating))%></td>
                                     </tr>
                                     <tr>
                                         <td class="darkgray new-line"><span style="position:relative;top:2px;">Space/Comfort</span></td>
-                                        <td style="font-size:0px;">
-                                             <%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(    objReview.ReviewRatingEntity.ComfortRating))%>
-                                        </td>
+                                        <td style="font-size:0px;"><%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(    objReview.ReviewRatingEntity.ComfortRating))%></td>
                                     </tr>
                                     <tr>
                                         <td class="darkgray new-line"><span style="position:relative;top:2px;">Fuel Economy</span></td>
-                                        <td style="font-size:0px;">
-                                               <%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble( objReview.ReviewRatingEntity.FuelEconomyRating))%>
-                                        </td>
+                                        <td style="font-size:0px;"><%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble( objReview.ReviewRatingEntity.FuelEconomyRating))%></td>
                                     </tr>
                                     <tr>
                                         <td class="darkgray new-line"><span style="position:relative;top:2px;">Value For Money</span></td>
-                                        <td style="font-size:0px;">
-                                               <%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(objReview.ReviewRatingEntity.ValueRating))%>
-                                        </td>
+                                        <td style="font-size:0px;"><%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(objReview.ReviewRatingEntity.ValueRating))%></td>
                                     </tr>
                             </table>
                         </td>
@@ -92,7 +79,7 @@
                 </table>
             </div>
         </div>
-        <h2 class="new-line5">Full Review</h2>
+        <h2 class="margin-top30 margin-bottom20">Full Review</h2>
         <div class="box1 new-line10" style="font-size:14px; line-height:18px;">
              <%= objReview.ReviewEntity.Comments %>
         </div>
@@ -141,5 +128,4 @@
     </table>
 
 </div>
-</form>
 <!-- #include file="/includes/footermobile.aspx" -->

@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.WriteReviews" Trace="false" ValidateRequest="false" %>
 <%@ Register TagPrefix="BW" TagName="RTE" src="/Controls/RichTextEditor.ascx" %>
 <!-- #include file="/includes/headnew.aspx" -->
-    <form id="form1" runat="server">
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -156,8 +155,8 @@
 		        <tr>			
 			        <td colspan="2" align="center">				
 				        <div>
-                            <asp:Button ID="butSave" CssClass="action-btn" runat="server" Text="Post Review" />
-                            <span class="margin-top5 margin-left10"><input type="button" class="action-btn" value="Discard Review" onClick="javascript:location.href='<%= BackUrl%>'" /></span>
+                            <asp:Button ID="butSave" CssClass="action-btn text_white" runat="server" Text="Post Review" />
+                            <span class="margin-top5 margin-left10"><input type="button" class="action-btn text_white" value="Discard Review" onClick="javascript:location.href='<%= BackUrl%>'" /></span>
 				        </div>
 				        
 			        </td>
@@ -165,9 +164,8 @@
 	        </table>
         </div>
     </div>
-    </form>
 <script language="javascript">
     var displayVersion = '<%= displayVersion %>';
 </script>
-<script type="text/javascript" src="/src/Research/write_reviews.js?v=1.1"></script>
+<script type="text/javascript" src="/src/Research/write_reviews.js?<%= staticFileVersion %>"></script>
 <!-- #include file="/includes/footerinner.aspx" -->

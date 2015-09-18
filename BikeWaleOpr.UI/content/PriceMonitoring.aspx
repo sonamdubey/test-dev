@@ -34,7 +34,7 @@
 		<span class="moreThanMonth"><strong>More Than 1 Month</strong></span> &nbsp;&nbsp;
 	</h3>
 	<br />
-	<form runat="server">
+	
 		Select Bike Make 
 		<asp:DropDownList ID="drpMake" CssClass="drpClass" runat="server"></asp:DropDownList>
 		-
@@ -81,7 +81,7 @@
 			</div>
 			<a href="javascript:move_up()"><strong>Show Next</strong></a>
 		</asp:Panel>
-	</form>
+	
 </div>
 </fieldset>
 </div>

@@ -57,7 +57,7 @@ namespace Bikewale.Ajax
                         container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
                         ICustomer<CustomerEntity, UInt32> objCustomer = container.Resolve<ICustomer<CustomerEntity, UInt32>>();
 
-                        RegisterCustomer rc = new RegisterCustomer();
+                        Bikewale.Common.RegisterCustomer rc = new Bikewale.Common.RegisterCustomer();
                         password = rc.GenerateRandomPassword();
                         salt = rc.GenerateRandomSalt();
                         hash = rc.GenerateHashCode(password, salt);
@@ -295,7 +295,7 @@ namespace Bikewale.Ajax
 
         /// <summary>
         /// Written By : Ashwini Todkar on 3 Oct 2014
-        /// Method to set shecdule appointmnet date
+        /// PopulateWhere to set shecdule appointmnet date
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns>if a valid user then returns true else false</returns>

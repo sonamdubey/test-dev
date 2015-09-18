@@ -26,15 +26,17 @@
     .next-prev-link:hover a span.prev-arrow { background-position:-13px -610px; }
     .next-prev-link p:last-child a { text-decoration:underline;font-size: 11px;display:block; color:#666}
     .next-prev-link p:first-child {padding-bottom:5px; }
+
+    .article-content img { width:100%; }
+    .article-content p iframe { width:620px !important; }
 	
 </style>
-<form id="form1" runat="server">
 <div class="container_12">
     <div class="grid_12"><ul class="breadcrumb"><li>You are here: </li><li><a href="/">Home</a></li><li>&rsaquo; <a title="Indian Bike News" href="/news/">Bike News</a></li><li class="current">&rsaquo; <strong><%= articleTitle%></strong></li></ul><div class="clear"></div></div>
 	<div class="grid_8 margin-top10">    
         <h1><%= articleTitle %></h1>
 		<div id="post-<%= basicId%>">			
-            <div class="grid_6 alpha margin-top5"><div class="margin-bottom5"><abbr><%= displayDate%></abbr> by <%= authorName%></div></div>
+            <div class="grid_6 alpha margin-top5"><div class="margin-bottom5"><abbr><%= Bikewale.Utility.FormatDate.GetDaysAgo(displayDate) %></abbr> by <%= authorName%></div></div>
             <ul class="social">
                 <li><fb:like href="http://www.bikewale.com/news/<%= basicId%>-<%= articleUrl %>.html" send="false" layout="button_count" width="80" show_faces="false"></fb:like></li>
                 <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/news/<%= basicId%>-<%= articleUrl %>.html" data-via='<%= articleUrl %>' data-lang="en">Tweet</a></li>
@@ -68,20 +70,20 @@
         <!--end-->
     </div>  
     <div class="grid_4">
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_News/BikeWale_News_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>
+        </div>--%>
         <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top15">
             <BP:InstantBikePrice runat="server" ID="InstantBikePrice" />
         </div>        
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20">
             <LD:LocateDealer runat="server" id="LocateDealer" />
         </div>
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_News/BikeWale_News_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>
+        </div>--%>
     </div>    
 </div>
 </form>

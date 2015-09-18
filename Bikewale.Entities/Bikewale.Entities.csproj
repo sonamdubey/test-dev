@@ -30,8 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\BikeWale.UI\bin\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,10 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoComplete\AutoSuggestEnum.cs" />
+    <Compile Include="AutoComplete\Payload.cs" />
+    <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntityBase.cs" />
+    <Compile Include="BikeBooking\BookingResults.cs" />
     <Compile Include="BikeBooking\CalculatedEMI.cs" />
+    <Compile Include="BikeBooking\Consumers.cs" />
     <Compile Include="BikeBooking\EMI.cs" />
     <Compile Include="BikeBooking\FacilityEntity.cs" />
     <Compile Include="BikeBooking\NewBikeDealers.cs" />
@@ -58,26 +64,42 @@
     <Compile Include="BikeBooking\PQ_Price.cs" />
     <Compile Include="BikeBooking\PQ_QuotationEntity.cs" />
     <Compile Include="BikeBooking\RSAOfferClaimEntity.cs" />
+    <Compile Include="BikeData\BikeModelColor.cs" />
     <Compile Include="BikeData\BikeDescriptionEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntityBase.cs" />
+    <Compile Include="BikeData\BikeMakePageEntity.cs" />
     <Compile Include="BikeData\BikeModelEntity.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
+    <Compile Include="BikeData\BikeModelPageEntity.cs" />
     <Compile Include="BikeData\BikeModelsListEntity.cs" />
     <Compile Include="BikeData\BikeSeriesEntity.cs" />
     <Compile Include="BikeData\BikeSeriesEntityBase.cs" />
     <Compile Include="BikeData\BikeSpecificationEntity.cs" />
     <Compile Include="BikeData\BikeVersionEntity.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
+    <Compile Include="BikeData\BikeVersionMinSpecs.cs" />
     <Compile Include="BikeData\BikeVersionsListEntity.cs" />
     <Compile Include="BikeData\EnumBikeData.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
+    <Compile Include="BikeData\FeaturedBikeEntity.cs" />
+    <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
+    <Compile Include="BikeData\MostPopularBikesBase.cs" />
     <Compile Include="BikeData\NewLaunchedBikeEntity.cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
+    <Compile Include="CMS\Articles\ArticleBase.cs" />
+    <Compile Include="CMS\Articles\ArticleDetails.cs" />
+    <Compile Include="CMS\Articles\ArticlePageDetails.cs" />
+    <Compile Include="CMS\Articles\ArticleSummary.cs" />
+    <Compile Include="CMS\Articles\CMSContentBase.cs" />
+    <Compile Include="CMS\Articles\ContentFilter.cs" />
+    <Compile Include="CMS\Articles\Image.cs" />
+    <Compile Include="CMS\Articles\Page.cs" />
+    <Compile Include="CMS\Articles\VehicleTag.cs" />
     <Compile Include="CMS\CMSBikeTagsEntity.cs" />
     <Compile Include="CMS\CMSContentDetailsEntity.cs" />
     <Compile Include="CMS\CMSContentListEntity.cs" />
@@ -87,25 +109,61 @@
     <Compile Include="CMS\CMSPageEntity.cs" />
     <Compile Include="CMS\ContentFilter.cs" />
     <Compile Include="CMS\EnumCMSContentType.cs" />
+    <Compile Include="Compare\BikeColor.cs" />
+    <Compile Include="Compare\BikeCompareEntity.cs" />
+    <Compile Include="Compare\BikeDetails.cs" />
+    <Compile Include="Compare\BikeEntityBase.cs" />
+    <Compile Include="Compare\BikeFeature.cs" />
+    <Compile Include="Compare\BikeSpecification.cs" />
+    <Compile Include="Compare\TopBikeCompareBase.cs" />
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Customer\CustomerEntityBase.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
     <Compile Include="Dealer\NewBikeDealerEntity.cs" />
     <Compile Include="Dealer\NewBikeDealersListEntity.cs" />
     <Compile Include="Dealer\NewBikeDealersMakeEntity.cs" />
+    <Compile Include="EditCMS\Articles\ArticleBase.cs" />
+    <Compile Include="EditCMS\Articles\ArticleDetails.cs" />
+    <Compile Include="EditCMS\Articles\ArticlePageDetails.cs" />
+    <Compile Include="EditCMS\Articles\ArticleSummary.cs" />
+    <Compile Include="EditCMS\Articles\CMSContent.cs" />
+    <Compile Include="EditCMS\Articles\ContentFilter.cs" />
+    <Compile Include="EditCMS\Articles\Image.cs" />
+    <Compile Include="EditCMS\Articles\Page.cs" />
+    <Compile Include="EditCMS\Articles\VehicleTag.cs" />
+    <Compile Include="EditCMS\Photos\BikeMakeEntityBase.cs" />
+    <Compile Include="EditCMS\Photos\BikeModelEntityBase.cs" />
+    <Compile Include="EditCMS\Photos\CMSImage.cs" />
+    <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
     <Compile Include="Location\AreaEntityBase.cs" />
     <Compile Include="Location\CityEntityBase.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
+    <Compile Include="NewBikeSearch\FilterEnum.cs" />
+    <Compile Include="NewBikeSearch\FilterInput.cs" />
+    <Compile Include="NewBikeSearch\InputBaseEntity.cs" />
+    <Compile Include="NewBikeSearch\PagingUrl.cs" />
+    <Compile Include="NewBikeSearch\RideStyleEnum.cs" />
+    <Compile Include="NewBikeSearch\SearchOutputEntity.cs" />
+    <Compile Include="NewBikeSearch\SearchOutputEntityBase.cs" />
     <Compile Include="Pager\PagerEntity.cs" />
     <Compile Include="Pager\PagerOutputEntity.cs" />
     <Compile Include="Pager\PagerUrlList.cs" />
     <Compile Include="PhotoGallery\ModelPhotoEntity.cs" />
+    <Compile Include="CMS\Photos\CMSImage.cs" />
+    <Compile Include="CMS\Photos\ModelImage.cs" />
+    <Compile Include="PriceQuote\BikeDealerPriceDetail.cs" />
     <Compile Include="PriceQuote\BikeQuotationEntity.cs" />
+    <Compile Include="PriceQuote\BookingPageDetailsEntity.cs" />
+    <Compile Include="PriceQuote\DealerDetails.cs" />
+    <Compile Include="PriceQuote\DealerOfferEntity.cs" />
+    <Compile Include="PriceQuote\DealerPriceCategoryItemEntity.cs" />
+    <Compile Include="PriceQuote\DealerVersionPriceItemEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsedBikes\PopularUsedBikesEntity.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />
     <Compile Include="UserReviews\ReviewDetailsEntity.cs" />
     <Compile Include="UserReviews\ReviewEntity.cs" />
@@ -114,6 +172,8 @@
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
+    <Compile Include="Videos\BikeVideoEntity.cs" />
+    <Compile Include="Videos\EnumVideosCategory.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

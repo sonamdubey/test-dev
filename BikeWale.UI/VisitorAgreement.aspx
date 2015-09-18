@@ -5,8 +5,8 @@
     keywords = "Visitor Agreement, Relationship and Notice, Fees and Services, Use of the Site, Privacy";
 %>
 <!-- #include file="/includes/headhome.aspx" -->   
-<div class="container_12 margin-top15">    
-	<div class="grid_10 format-content">
+<div class="container_12">    
+	<div class="grid_10 format-content margin-top10">
         <h1>Visitor Agreement</h1>
 
             <p>

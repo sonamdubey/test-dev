@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Mobile.New.CompareBike" Trace="false" %>
-<%@ Register TagPrefix="CB" TagName="CompareBike" Src="/m/controls/CompareBikeMin.ascx" %>
+<%@ Register TagPrefix="CB" TagName="CompareBike" Src="/m/controls/CompareBikeMin_old.ascx" %>
 <%
     title = "Compare Bikes | New Bike Comparisons in India - BikeWale";
     keywords = "bike compare, compare bike, compare bikes, bike comparison, bike comparison india";
@@ -14,7 +14,6 @@
 <style>
     a {text-decoration:none !important;}
 </style>
-<form id="Form1" runat="server">
     <input type="hidden" id="hdnMake1" runat="server" />
 <input type="hidden" id="hdnMake2" runat="server" />
 <input type="hidden" id="hdnModel1" runat="server" />
@@ -122,7 +121,6 @@
     </div>
 
 
-</form>
 <script type="text/javascript">
     
     $(document).ready(function () {

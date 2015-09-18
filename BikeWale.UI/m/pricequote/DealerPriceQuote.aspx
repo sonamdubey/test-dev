@@ -10,7 +10,7 @@
     AdId = "1398766000399";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
+<link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" />
 <script type="text/javascript">
     var dealerId = '<%= dealerId%>';
     var pqId = '<%= pqId%>';
@@ -29,10 +29,9 @@
 <style>
     .grey-bullet li{ background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bw-grey-bullet.png) no-repeat 0px 9px;display: block;list-style: square outside none;padding: 3px 0 3px 10px;}
 </style>
-<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/BikeBooking.js?29072005"></script>
+<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/BikeBooking.js?<%= staticFileVersion %>"></script>
 
 <div class="padding5">
-    <form id="Form1" runat="server">
     <h1 class="margin-top-10" style="margin-left:0px;"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Price Quote</h1>
     <div class="box1 box-top new-line5 bot-red new-line10">
         <%--<h1 class="margin-bottom10"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Price Quote</h1>--%>
@@ -167,14 +166,13 @@
     <!--Exciting Offers section ends here-->
         <button type="button" data-role="none" id="getDealerDetails" class="rounded-corner5" style="margin-bottom:20px;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</button>
     </div>
-      </form>
     <%--<button data-role="none" id="getDealerDetails" class="rounded-corner5" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details & Book Now</button>--%>
 </div>
 
 <!--contact details starts here-->
 <div class="bw-popup contact-details hide">
     <div class="popup-inner-container">
-        <div class="bw-sprite close-btn floatright"></div>
+        <div class="bwmsprite close-btn floatright"></div>
         <h1>Provide Contact Details</h1>
         <div class="new-line10 font12">For you to see BikeWale Dealer pricing and get a printable Certificate, we need your valid contact details. We promise to keep this information confidential and not use for any other purpose.</div>
         <div class="input-div rounded-corner5">
@@ -204,8 +202,8 @@
             </div>
             <div class="clear"></div>
         </div>
-        <div class="new-line10 lightgray font12">A verification code will be sent to the above Mobile Number. You will need the code for further Verification Process.</div>
-        <button id="btnSubmit" data-role="none" class="rounded-corner5" onclick="validateDetails();dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>>', act: 'Click Button Get_Dealer_Details',lab:'Provided User Info' });">Submit</button>
+        <div class="new-line10 lightgray font12 margin-bottom10">A verification code will be sent to the above Mobile Number. You will need the code for further Verification Process.</div>
+        <input type="button" id="btnSubmit" data-role="none" class="rounded-corner5" onclick="validateDetails();dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>>', act: 'Click Button Get_Dealer_Details',lab:'Provided User Info' });"/ value="Submit">
     </div>
 </div>
 <!--contact details ends here-->
@@ -213,7 +211,7 @@
 <!--Mobile Verification starts here-->
 <div class="bw-popup mobile-verification hide">
     <div class="popup-inner-container">
-        <div class="bw-sprite close-btn floatright"></div>
+        <div class="bwmsprite close-btn floatright"></div>
         <h1>Provide Contact Details</h1>
         <h2 class="f-bold new-line10">Mobile Verification</h2>
         <div class="new-line font12">We like to make sure that sellers get contacted by genuinely interested people like you. Kindly verify your Mobile Number.</div>

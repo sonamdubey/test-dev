@@ -52,7 +52,7 @@
 	}
 	
 </script>
-<form runat="server">
+
 <div style="clear:both;">
 <div>
 		<Ec:EditCmsCommon ID="EditCmsCommon" runat="server" />

@@ -549,6 +549,7 @@ namespace Bikewale.DAL.UserReviews
         /// <param name="versionId"></param>
         /// <param name="filter">MostRescent,MostRated,MostRead,MostHelpful</param>
         /// <param name="totalReviews">total reviews available for a model</param>
+        /// Modified By:Rakesh Yadav On to fetch MakeMaskingName and ModelMaskingName on 08 Sep 2015
         /// <returns></returns>
         public List<ReviewEntity> GetBikeReviewsList(uint startIndex, uint endIndex, uint modelId, uint versionId, FilterBy filter, out uint totalReviews)
         {
@@ -593,7 +594,8 @@ namespace Bikewale.DAL.UserReviews
                                 objRating.ReviewDate = Convert.ToDateTime(dr["EntryDateTime"]);
                                 objRating.Liked = Convert.ToUInt16(dr["Liked"]);
                                 objRating.Disliked = Convert.ToUInt16(dr["Disliked"]);
-
+                                objRating.MakeMaskingName = dr["MakeMaskingName"].ToString();
+                                objRating.ModelMaskingName = dr["ModelMaskingName"].ToString();
                                 objRatingList.Add(objRating);
 
                                 totalReviews = Convert.ToUInt32(dr["RecordCount"]);

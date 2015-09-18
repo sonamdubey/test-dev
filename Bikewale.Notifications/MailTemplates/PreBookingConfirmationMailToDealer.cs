@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Bikewale.Entity.BikeBooking;
+using Bikewale.Entities.BikeBooking;
 using System.Web;
 using Bikewale.Utility;
 

@@ -168,7 +168,7 @@ namespace Bikewale.Used
 
         /// <summary>
         /// Written By : Ashwini Todkar on 17 April 2014
-        /// Summary    : Method to get bike fuel type text
+        /// Summary    : PopulateWhere to get bike fuel type text
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -198,7 +198,7 @@ namespace Bikewale.Used
 
         /// <summary>
         /// Written By : Ashwini Todkar on 17 April 2014
-        /// Summary    : Method to get transmission type text
+        /// Summary    : PopulateWhere to get transmission type text
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>

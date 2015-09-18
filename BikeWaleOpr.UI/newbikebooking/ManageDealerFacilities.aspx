@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form runat="server">
     <div>
         <h1>Manage Dealer Facilities</h1>
         Facilitiy <asp:TextBox ID="txtFacility" runat="server" />

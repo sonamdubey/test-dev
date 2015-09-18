@@ -3,7 +3,7 @@ using Carwale.DAL.PaymentGateway;
 using Carwale.Entity.Enum;
 using Carwale.Entity.PaymentGateway;
 using Carwale.Interfaces.PaymentGateway;
-using Carwale.Utility;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -14,7 +14,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Carwale.Notifications;
+using Bikewale.Notifications;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Mobile.PriceQuote;
 

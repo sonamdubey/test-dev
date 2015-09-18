@@ -6,7 +6,6 @@
 	<a href="/default.aspx">BikeWale operations</a> &raquo; <a href="/editcms/default.aspx">Editorial Home</a> &raquo; Manage Articles
 </div>
 <div style="clear:both;">
-	<form id="Form1" runat="server">
 		<asp:Label ID="lblEditImageId" runat="server" Text="-1" Visible="false" />
 		<div>
 			<Ec:EditCmsCommon ID="EditCmsCommon" runat="server" />
@@ -39,7 +38,7 @@
         <asp:HiddenField value="" ID="hdn_views" runat="server"></asp:HiddenField>
         <asp:HiddenField value="" ID="hdn_likes" runat="server"></asp:HiddenField>
         <asp:HiddenField value="" ID="hdn_duration" runat="server"></asp:HiddenField>
-    </form>
+    
 </div>
 <!-- #Include file="../includes/footerNew.aspx" -->
 

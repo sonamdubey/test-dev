@@ -8,7 +8,7 @@
 </div>
 <script language="javascript" src="/src/AjaxFunctions.js"></script>
 <script language="javascript" src="http://opr.carwale.com/src/common/bt.js"></script>
-<form runat="server">
+
 <div style="clear:both;">
 	<h1 style="padding-left:0px;"><%=heading%></h1>
 	<div style="padding-bottom:6px;"><b><%=isPublished%></b></div><br />

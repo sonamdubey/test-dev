@@ -15,7 +15,7 @@
 <div style="clear:both;">	
     <div><h1 style="padding-left:0px;">Authors Information <a href="default.aspx" style="font-size:12px;">&lsaquo; Back to All Articles</a></h1></div>   	
 	<br />
-    <form runat="server">
+    
         <div style="width:800px;float:left;">
 		    <input id="hdnCurrentDay" type="hidden" />
 		    <input id="hdnCurrentMonth" type="hidden" />
@@ -63,7 +63,7 @@
 		<div id="divBasicData"></div>
 	</div>
 	<div style="min-height:200px;">&nbsp;</div>
-	</form>
+	
 <script language="javascript" type="text/javascript" >
 //	<%
 //		if (Request.QueryString["bid"] != null)
@@ -89,13 +89,15 @@
 			retVal = false;
 		}
 
-       if ($("#txtDesignation").val().trim() == "")
+
+       if ($("#txtDesignation").val().trim() == "")
 		{
 		    $("#spnDesignation").html("Enter Designation");
 			retVal = false;
 		}
 
-        if ($("#txtBriefProfile").val().trim() == "")
+
+        if ($("#txtBriefProfile").val().trim() == "")
 		{
 		    $("#spnBriefProfile").html("Enter Brief Profile");
 			retVal = false;
@@ -107,10 +109,12 @@
 			retVal = false;
 		}
 
-       if ($("#inpPhoto").val() == "") 
+
+       if ($("#inpPhoto").val() == "") 
        {
            $("#spnPhoto").html("Please browse photo"); 
-           retVal = false;       }	
+           retVal = false;
+       }	
 			
 		return retVal;
 	}

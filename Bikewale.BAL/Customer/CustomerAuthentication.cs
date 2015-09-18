@@ -7,6 +7,8 @@ using Microsoft.Practices.Unity;
 using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.Customer;
 using Bikewale.DAL.Customer;
+using System.Web.Security;
+using Bikewale.Notifications;
 
 namespace Bikewale.BAL.Customer
 {
@@ -29,6 +31,11 @@ namespace Bikewale.BAL.Customer
             }
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public bool IsRegisteredUser(string email)
         {
             bool isRegistered = false;
@@ -47,9 +54,83 @@ namespace Bikewale.BAL.Customer
             return isRegistered;
         }
 
-        public T AuthenticateUser(string email, string password)
+        /// <summary>
+        /// Written By : Ashish G. kamble on 8 Sept 2015
+        /// Summary : Function to generate the authentication ticket
+        /// </summary>
+        /// <param name="custId"></param>
+        /// <param name="custName"></param>
+        /// <param name="custEmail"></param>
+        /// <returns>Returns authenticated ticket</returns>
+        public string GenerateAuthenticationToken(string custId, string custName, string custEmail)
         {
-            throw new NotImplementedException();
+            string authTicket = string.Empty;
+
+            try
+            {
+                //create a ticket and add it to the cookie
+                FormsAuthenticationTicket ticket;
+                //now add the id and the role to the ticket, concat the id and role, separated by ',' 
+                ticket = new FormsAuthenticationTicket(
+                            1,
+                            custName,
+                            DateTime.Now,
+                            DateTime.Now.AddDays(365),
+                            false,
+                            custId + ":" + custEmail
+                        );
+
+                authTicket = FormsAuthentication.Encrypt(ticket);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "GenerateAuthenticationToken");
+                objErr.SendMail();
+            }
+
+            return authTicket;
+        }
+
+        /// <summary>
+        /// Written By : Ashish G. Kamble on 8 Sept 2015
+        /// Summary : Function to authenticate the customer with bikewale database. authentication ticket creation is optional
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <param name="createAuthTicket"></param>
+        /// <returns></returns>
+        public T AuthenticateUser(string email, string password, bool? createAuthTicket = null)
+        {
+            ICustomer<T, U> objCust = null;
+            T objCustEntity = null;
+
+            using (IUnityContainer container = new UnityContainer())
+            {
+                container.RegisterType<ICustomer<T, U>, Customer<T, U>>();
+                objCust = container.Resolve<ICustomer<T, U>>();
+            }
+
+            objCustEntity = objCust.GetByEmail(email);
+
+            if(objCustEntity != null)
+            { 
+                RegisterCustomer objRegister = new RegisterCustomer();
+                string userHash = objRegister.GenerateHashCode(password, objCustEntity.PasswordSalt);
+
+                if (string.Equals(userHash, objCustEntity.PasswordHash))
+                {
+                    if (createAuthTicket.HasValue)
+                    {
+                        objCustEntity.AuthenticationTicket = GenerateAuthenticationToken(objCustEntity.CustomerId.ToString(), objCustEntity.CustomerName, objCustEntity.CustomerEmail);
+                    }
+                }
+                else
+                {
+                    objCustEntity = null;
+                }
+            }
+
+            return objCustEntity;
         }
 
         public T AuthenticateUser(string email)
@@ -85,5 +166,6 @@ namespace Bikewale.BAL.Customer
         {
             customerRepository.DeactivatePasswordRecoveryToken(customerId);
         }
+
     }
 }

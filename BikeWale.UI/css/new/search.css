@@ -1,0 +1,47 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.filter-container { height:65px; }
+.search-bike-list ul li { float:left; width:298px; min-height: 420px; margin:0 6px 5px; }
+.search-bike-list ul li .bikeDescWrapper { min-height: 260px; }
+.header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #0e405b\9; padding: 10px 20px; z-index: 3; }
+.stick { position: fixed; top: 0; width:976px; z-index: 3; }
+.filter-div { width:187px; height:40px; padding:9px; border:1px solid #ccc; margin-top:10px; color:#a8afb3; position:relative; cursor:pointer; }
+.filter-select-btn { width: 154px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+#upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
+.filter-div .fa-angle-down, .filter-div.open .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
+.filter-div.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
+
+.filter-selection-div { background:#fff; margin-top:13px; border:1px solid #ccc; position:absolute; z-index:3; }
+.list-items ul::before { border-bottom: 10px solid #cccccc; border-left: 10px solid transparent; border-right: 10px solid transparent; content: ""; left: 87px; position: absolute; top: -11px; z-index: 1; }
+.list-items ul::after { border-bottom: 10px solid #ffffff; border-left: 10px solid transparent; border-right: 10px solid transparent; content: ""; left: 87px; position: absolute; top: -10px; z-index: 1; }
+
+.filter-brand-list { width:480px; height:270px; }
+.filter-budget-list, .filter-mileage-list, .filter-displacement-list { width:187px; }
+.list-items ul { min-height:100px; }
+.list-items li { background: url(http://img.carwale.com/bikewaleimg/images/inputUnchecked.png) no-repeat scroll 0 3px; cursor: pointer; display: block; padding-bottom: 8px; padding-left: 30px; position: relative; width:150px; float:left; font-size:14px; }
+.list-items li.active { background: url(http://img.carwale.com/bikewaleimg/images/inputChecked.png) no-repeat scroll 0 3px; }
+.filter-budget-list.list-items li, .filter-mileage-list.list-items li, .filter-displacement-list.list-items li { width:165px; }
+.filter-select-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:154px; }
+.filter-select-title span.selected { padding-right:2px; }
+.filter-select-title span.selected:after { content:","; }
+.filter-select-title span.selected:last-child:after { display:none; }
+
+.more-filters-container { width:976px;  }
+.more-filter-item-data .form-control { width:99%; }
+.ride-style-list.list-items { width:185px; }
+.more-filters-btn { width:110px; height:40px; padding:9px; border:1px solid #555; margin-top:10px; color:#555; text-align:center; cursor:pointer; background:#fff; }
+.more-filters-btn:hover { background:#666; color:#fff; }
+.filter-count-container { font-size: 12px; height: 22px; min-width: 25px; position: absolute; right: -4px; text-align: center; top: -5px; }
+.filter-counter { background: #ef3f30 none repeat scroll 0 0; border-radius: 2px; color: #fff; padding: 0 2px; }
+
+/* budget */
+.budget-box { width:187px; height:40px; padding:9px; border:1px solid #ccc; margin-top:10px; color:#a8afb3; position:relative; cursor:pointer; }
+#minMaxContainer .fa-angle-down, #minMaxContainer.open .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
+#minMaxContainer.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
+#budgetListContainer { position: absolute; z-index: 3; width: 185px; background: #fff; border: 1px solid #ccc; border-radius: 0 0 2px 2px; margin-top:13px; }
+#budgetBtn { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; width: 150px; text-align: left; }
+#userBudgetInput { background: #e2e2e2; }
+#userBudgetInput .priceBox { border: 1px solid #fff; display: inline-block; margin: 7px; padding: 8px; width: 75px; }
+#budgetListContainer li { display: block; padding: 7px 12px; color: #666; cursor: pointer; background:none;}
+.filter-selection-div.filter-budget-list { background:#fff; margin-top:13px; border:none; position:absolute; z-index:3; width:187px; min-height:100px; }

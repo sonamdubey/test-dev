@@ -10,6 +10,8 @@ using Bikewale.Entities.BikeData;
 using Bikewale.CoreDAL;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Notifications;
+using System.Diagnostics;
+using Bikewale.Utility;
 
 namespace Bikewale.DAL.BikeData
 {
@@ -33,7 +35,6 @@ namespace Bikewale.DAL.BikeData
             List<BikeVersionsListEntity> objVersionsList = null;
 
             Database db = null;
-            SqlDataReader dr = null;
 
             try
             {                
@@ -50,20 +51,21 @@ namespace Bikewale.DAL.BikeData
 
                     db = new Database();
 
-                    dr = db.SelectQry(cmd);
-
-                    if (dr != null)
+                    using (SqlDataReader dr = db.SelectQry(cmd))
                     {
-                        objVersionsList = new List<BikeVersionsListEntity>();
-
-                        while (dr.Read())
+                        if (dr != null)
                         {
-                            objVersionsList.Add(new BikeVersionsListEntity()
+                            objVersionsList = new List<BikeVersionsListEntity>();
+
+                            while (dr.Read())
                             {
-                                VersionId = Convert.ToUInt32(dr["VersionId"]),
-                                VersionName = dr["VersionName"].ToString(),
-                                Price = Convert.ToUInt64(dr["Price"])
-                            });
+                                objVersionsList.Add(new BikeVersionsListEntity()
+                                {
+                                    VersionId = Convert.ToInt32(dr["VersionId"]),
+                                    VersionName = dr["VersionName"].ToString(),
+                                    Price = Convert.ToUInt64(dr["Price"])
+                                });
+                            }
                         }
                     }
                 }
@@ -82,8 +84,6 @@ namespace Bikewale.DAL.BikeData
             }
             finally
             {
-                if (dr != null)
-                    dr.Close();
                 db.CloseConnection();
             }
 
@@ -109,6 +109,63 @@ namespace Bikewale.DAL.BikeData
         {
             throw new NotImplementedException();
         }
+
+        public List<BikeVersionMinSpecs> GetVersionMinSpecs(uint modelId,bool isNew)
+        {
+           Database db = null;
+           List<BikeVersionMinSpecs> objMinSpecs = new List<BikeVersionMinSpecs>();
+            try
+            {
+                db = new Database();
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "GetVersions";
+
+                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;                    
+                    cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
+
+                    using(SqlDataReader dr = db.SelectQry(cmd))
+                    {                                           
+                        
+                        if(dr!=null)
+                        {
+                            while(dr.Read())
+                            {
+                                objMinSpecs.Add( new BikeVersionMinSpecs(){
+                                   VersionId  = Convert.ToInt32(dr["ID"]),
+                                   VersionName = Convert.ToString(dr["Version"]),
+                                   ModelName =Convert.ToString(dr["Model"]),
+                                   Price  = Convert.ToUInt64(dr["VersionPrice"]),
+                                   BrakeType  = Convert.ToString(dr["BrakeType"]),
+                                   AlloyWheels  = Convert.ToBoolean(dr["AlloyWheels"]),
+                                   ElectricStart  = Convert.ToBoolean(dr["ElectricStart"]),
+                                   AntilockBrakingSystem  = Convert.ToBoolean(dr["AntilockBrakingSystem"])
+                                }) ;
+                            }
+                        }
+                    }
+                }                 
+            
+            }
+            catch (SqlException ex)
+            {                     
+                //ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                //objErr.SendMail();
+            }
+            catch (Exception ex)
+            {   
+              //  ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+              //  objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objMinSpecs;
+        }   // End of GetVersionsMinSpecs method
+
 
         /// <summary>
         /// Summary : Function to get all details of a particular version.
@@ -294,6 +351,9 @@ namespace Bikewale.DAL.BikeData
                         cmd.Parameters.Add("@Killswitch", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Clock", SqlDbType.Bit).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@Colors", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@MaxPowerRPM",SqlDbType.Float).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@MaximumTorqueRPM", SqlDbType.Float).Direction = ParameterDirection.Output;
+                        
                         cmd.Parameters.Add("@RowCount", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
 
                         conn.Open();
@@ -381,6 +441,8 @@ namespace Bikewale.DAL.BikeData
                             objSpecs.AntilockBrakingSystem = Convert.ToBoolean(cmd.Parameters["@AntilockBrakingSystem"].Value);
                             objSpecs.Killswitch = Convert.ToBoolean(cmd.Parameters["@Killswitch"].Value);
                             objSpecs.Clock = Convert.ToBoolean(cmd.Parameters["@Clock"].Value);
+                            objSpecs.MaxPowerRPM = Convert.ToSingle(cmd.Parameters["@MaxPowerRPM"].Value);
+                            objSpecs.MaximumTorqueRPM = Convert.ToSingle(cmd.Parameters["@MaximumTorqueRPM"].Value);
                             objSpecs.Colors = Convert.ToString(cmd.Parameters["@Colors"].Value);
                         }
                     }
@@ -451,6 +513,12 @@ namespace Bikewale.DAL.BikeData
                             objBike.MaxPrice = Convert.ToInt32(dr["MaxPrice"]);
                             objBike.VersionPrice = Convert.ToInt32(dr["VersionPrice"]);
                             objBike.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                            objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
+                            objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
+                            objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
+                            objBike.MaxPower = SqlReaderConvertor.ToNullableUInt16(dr["MaxPower"]);
+                            objBike.ReviewCount = Convert.ToUInt16(dr["ReviewCount"]);
+                            objBike.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
                             objSimilarBikes.Add(objBike);
                         }
                     }
@@ -519,5 +587,7 @@ namespace Bikewale.DAL.BikeData
             }
             return objColors;
         }
+
+
     }   // class
 }   // namespace

@@ -1,5 +1,5 @@
 ﻿using Bikewale.Common;
-using Bikewale.Entity.CMS.Photos;
+using Bikewale.Entities.CMS.Photos;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -31,7 +31,7 @@ namespace Bikewale.Controls
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// Method to fetch photos of a article from api asynchronously
+        /// PopulateWhere to fetch photos of a article from api asynchronously
         /// </summary>
 
         //private async void GetArticlePhotos()

@@ -17,7 +17,6 @@
         </ul><div class="clear"></div>
     </div>
     <div class="grid_12 margin-top15 min-height">
-        <form runat="server">
             <h1 class="FeaturedAdvise">Unsubscribe Newsletters</h1>
             <div class="margin-top10">
 	            <div id="dReq" runat="server">
@@ -32,7 +31,6 @@
 	            </div>
                 <div id="errMsg" class="error margin-top15"></div>
             </div>
-        </form>
     </div>
     <script type="text/javascript">
         $(document).ready(function () {

@@ -16,7 +16,7 @@ using Bikewale.Common;
 using System.Net.Http;
 using System.Configuration;
 using System.Net.Http.Headers;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 
 namespace Bikewale.Mobile.News
 {
@@ -171,7 +171,7 @@ namespace Bikewale.Mobile.News
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// Method to bind link pager control 
+        /// PopulateWhere to bind link pager control 
         /// </summary>
         /// <param name="objPager"> Pager instance </param>
         /// <param name="recordCount"> total news available</param>
@@ -211,7 +211,7 @@ namespace Bikewale.Mobile.News
             }
         }
 
-        //Method to create Pager instance
+        //PopulateWhere to create Pager instance
         private IPager GetPager()
         {
             IPager _objPager = null;

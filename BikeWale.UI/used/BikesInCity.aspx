@@ -5,7 +5,6 @@
     description = "bikewale.com city wise used bikes listing.";
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
-<form id="form1" runat="server">
     <div  class="container_12">
          <div class="grid_12">
             <ul class="breadcrumb">
@@ -24,10 +23,9 @@
         <div id="divContent" class="grid_8 margin-top10  border-light">
         <asp:repeater id="rptCity" runat="server">
             <headerTemplate><ul class="ul-hrz margin-top10 margin-left10" style="font-size:13px;"></HeaderTemplate>
-            <itemTemplate><li><a class="href-grey" href="/used/bikes-in-<%#DataBinder.Eval( Container.DataItem, "MaskingName") %>/"><%#DataBinder.Eval( Container.DataItem, "City")%> (<%#DataBinder.Eval( Container.DataItem, "BikeCount")%>) </a></li></itemTemplate>
+            <itemTemplate><li><a class="href-grey" href="/used/bikes-in-<%#DataBinder.Eval( Container.DataItem, "CityMaskingName") %>/"><%#DataBinder.Eval( Container.DataItem, "City")%> (<%#DataBinder.Eval( Container.DataItem, "BikeCount")%>) </a></li></itemTemplate>
             <footerTemplate></ul></FooterTemplate>
         </asp:repeater>
             </div>
     </div>
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->

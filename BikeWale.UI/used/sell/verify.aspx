@@ -5,7 +5,6 @@
 %>
 <!-- #include file="/includes/headSell.aspx" -->
 <script type="text/javascript" src="/src/classified/sellbike.js?1.1"></script>
-<form id="form1" runat="server">
 <div class="container_12 margin-top20">    
     <div class="grid_8 min-height"><!--    Left Container starts here -->
         <h1>One-time Mobile Verification</h1>
@@ -13,12 +12,11 @@
         <div class="margin-top5">
             <img align="absmiddle" src="http://img.carwale.com/sell/mobi-verif.gif" border="0" />
             <asp:TextBox id="txtVerificationCode" runat="server" Text="Enter your code here"></asp:TextBox>
-            <asp:Button id="btnVerifyCustomer" runat="server" Text="Verify" class="buttons" />       
+            <asp:Button id="btnVerifyCustomer" runat="server" Text="Verify" class="buttons text_white" />       
             <asp:Label id="lblError" runat="server" class="error"></asp:Label>            
          </div>
     </div>
 </div>
-</form>
 <script type="text/javascript">
     $("#txtVerificationCode").click(function () {
         $(this).val("");
@@ -28,4 +26,7 @@
         }
     });
 </script>
+<style type="text/css">
+    #txtVerificationCode { height:40px; }
+</style>
 <!--    #include file="/includes/footerInner.aspx" -->

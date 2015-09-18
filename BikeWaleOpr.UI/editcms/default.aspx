@@ -14,7 +14,7 @@
 		<h1 class="urh">Manage Articles</h1>
 		[<a href="basicinfo.aspx">Add New</a>]
 	</div>
-	<form runat="server">
+	
 		<div>
 			<table cellpadding="2" cellspacing="3">
 				<tr>
@@ -106,6 +106,6 @@
 	}
 </script>		
 		
-	</form>
+	
 </div>
 <!-- #Include file="/includes/footerNew.aspx" -->

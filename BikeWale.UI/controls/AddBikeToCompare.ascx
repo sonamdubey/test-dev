@@ -8,7 +8,7 @@
 	<li><select id="drpMake" runat="server" /></li>
 	<li><select id="drpModel" runat="server"><option selected="selected" Value="-1">--Select Model--</option></select></li>
 	<li><select id="drpVersion" runat="server"><option selected="selected" Value="-1">--Select Version--</option></select></li>
-	<li><input class="action-btn" type="button" id="btnAddBike" runat="server" value="Add a Bike"/>
+	<li><input class="action-btn text_white" type="button" id="btnAddBike" runat="server" value="Add a Bike"/>
 	</li>
 </ul>
 

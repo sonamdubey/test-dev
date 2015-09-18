@@ -13,7 +13,7 @@
     <script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
 </head>
 <body>
-    <form id="form1" runat="server">  
+    <form runat="server">
     <div class="margin20">
         <div>
             <h3>Add Synopsis for <%=make%></h3>

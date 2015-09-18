@@ -1,24 +1,36 @@
-﻿using System;
+﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Common;
+using Bikewale.Controls;
+using Bikewale.DTO.Make;
+using Bikewale.Entities.BikeData;
+using Bikewale.Memcache;
+using Bikewale.Mobile.controls;
+using Bikewale.Mobile.Controls;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Microsoft.Practices.Unity;
-using Bikewale.BAL.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Memcache;
-using Bikewale.Common;
 
 namespace Bikewale.Mobile
 {
     public class BikeMakes : System.Web.UI.Page
     {
-        protected Repeater rptSeries;
+        protected MUpcomingBikes ctrlUpcomingBikes;
+        protected NewsWidget ctrlNews;
+        protected ExpertReviewsWidget ctrlExpertReviews;
+        protected VideosWidget ctrlVideos;
+        protected MMostPopularBikes ctrlMostPopularBikes;
+        protected Repeater rptMostPopularBikes;
 
-        protected string makeId = string.Empty, makeName = string.Empty, makeMaskingName = string.Empty, price = string.Empty;
-        protected int count = 0;
+        protected bool isDescription = false;
+        protected Literal ltrDefaultCityName;
+        protected int fetchedRecordsCount = 0;
+        protected string makeId = String.Empty;
+        protected MakeBase _make = null;
+        protected BikeDescription _bikeDesc = null;
+        protected int uCount = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -27,92 +39,94 @@ namespace Bikewale.Mobile
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            ProcessQueryString();
-            if(!String.IsNullOrEmpty(makeId))
-                BindSeiesList();
-        }
-
-        //Modified By : Sadhana Upadhyay to get price 
-        protected void BindSeiesList()
-        {
-            int minPrice = 999999999;
-            int maxPrice = 0;
-
-            try
+            //Function to process and validate Query String  
+            if (ProcessQueryString())
             {
-                using (IUnityContainer container = new UnityContainer())
+                // ltrDefaultCityName.Text = Bikewale.Common.Configuration.GetDefaultCityName;
+                _make = new MakeBase();
+                _bikeDesc = new BikeDescription();
+
+                //to get complete make page
+                GetMakePage();
+                if (!Page.IsPostBack)
                 {
-                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakes<BikeMakeEntity, int>>();
-                    IBikeMakes<BikeMakeEntity, int> objMake = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    //To get Upcoming Bike List Details 
+                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                    ctrlUpcomingBikes.pageSize = 6;
+                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(makeId);
 
-                    List<BikeModelsListEntity> objModelList = objMake.GetModelsList(Convert.ToInt32(makeId));
+                    ////news,videos,revews
+                    ctrlNews.TotalRecords = 3;
+                    ctrlNews.MakeId = Convert.ToInt32(makeId);
+                    ctrlExpertReviews.TotalRecords = 3;
+                    ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
+                    ctrlVideos.TotalRecords = 3;
+                    ctrlVideos.MakeId = Convert.ToInt32(makeId);
 
-                    //Filtered with lambda expression
-                    List<BikeModelsListEntity> objSeriesList = objModelList.FindAll(s => s.ModelRank == 1);
-
-                    count = objSeriesList.Count;
-                    if (count > 0)
-                    {
-                        rptSeries.DataSource = objSeriesList;
-                        rptSeries.DataBind();
-
-                        makeName = objSeriesList[0].MakeBase.MakeName;
-                        makeMaskingName = objSeriesList[0].MakeBase.MaskingName;
-
-
-                        for (int i = 0; i < objSeriesList.Count; i++)
-                        {
-                            if (!String.IsNullOrEmpty(objSeriesList[i].MinPrice.ToString()))
-                            {
-                                if (Convert.ToInt32(objSeriesList[i].MinPrice) < minPrice)
-                                {
-                                    minPrice = Convert.ToInt32(objSeriesList[i].MinPrice);
-                                }
-
-                                if (Convert.ToInt32(objSeriesList[i].MinPrice) > maxPrice)
-                                {
-                                    maxPrice = Convert.ToInt32(objSeriesList[i].MinPrice);
-                                }
-                            }
-                        }
-
-                        price = ((!String.IsNullOrEmpty(minPrice.ToString()) && minPrice != 999999999) ? "Rs." + CommonOpn.FormatPrice(minPrice.ToString()) : String.Empty) + ((!String.IsNullOrEmpty(maxPrice.ToString()) && maxPrice != 0) ? " to Rs." + CommonOpn.FormatPrice(maxPrice.ToString()) : String.Empty);
-                    }
-                    else
-                    {
-                        Response.Redirect("/m/pagenotfound.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                    }
                 }
             }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
         }
 
-        void ProcessQueryString()
+        bool ProcessQueryString()
         {
+            bool isSucess = true;
+
             if (!String.IsNullOrEmpty(Request.QueryString["make"]))
             {
-                makeId = MakeMapping.GetMakeId(Request.QueryString["make"].ToLower());
-
-                if (String.IsNullOrEmpty(makeId))
+                makeId = MakeMapping.GetMakeId(Request.QueryString["make"]);
+                //verify the id as passed in the url
+                if (CommonOpn.CheckId(makeId) == false)
                 {
-                    Response.Redirect("/m/pagenotfound.aspx", false);
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
+                    isSucess = false;
                 }
             }
             else
             {
-                Response.Redirect("/m/pagenotfound.aspx", false);
+                //invalid make id, hence redirect to the new default page
+                Response.Redirect("/new/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
+                isSucess = false;
+            }
+
+            return isSucess;
+        }
+
+        private void GetMakePage()
+        {
+            BindMakePage.totalCount = 6;
+            BindMakePage.makeId = Convert.ToInt32(makeId);
+            BindMakePage.BindMostPopularBikes(rptMostPopularBikes);
+            fetchedRecordsCount = BindMakePage.FetchedRecordsCount;
+            _make = BindMakePage.Make;
+            _bikeDesc = BindMakePage.BikeDesc;
+
+            if (_bikeDesc != null)
+            {
+                isDescription = true;
             }
         }
 
-    }   // class
-}   // namespace
+        protected string ShowEstimatedPrice(object estimatedPrice)
+        {
+            string price = String.Empty;
+            if (estimatedPrice != null)
+            {
+                price = Bikewale.Utility.Format.FormatPrice(estimatedPrice.ToString());
+                if (price == "N/A")
+                {
+                    price = "Price unavailable";
+                }
+                else
+                {
+                    price += " <span class='font16'> Onwards</span>";
+                }
+            }
+            return price;
+        }
+
+    }
+}

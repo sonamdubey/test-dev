@@ -291,9 +291,9 @@ namespace Bikewale.BAL.BikeBooking
         /// <param name="versionId"></param>
         /// <param name="cityId"></param>
         /// <returns></returns>
-        public List<AreaEntityBase> GetAreaList(uint modelId, uint cityId)
+        public List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId)
         {
-            List<AreaEntityBase> objArea = null;
+            List<Bikewale.Entities.Location.AreaEntityBase> objArea = null;
 
             objArea = dealerPQRepository.GetAreaList(modelId, cityId);
 
@@ -354,5 +354,20 @@ namespace Bikewale.BAL.BikeBooking
             return objPQOutput;
         }   //End of ProcessPQ
 
+        public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
+        {
+            BookingPageDetailsEntity pageDetail = null;
+            try
+            {
+                pageDetail = dealerPQRepository.FetchBookingPageDetails(cityId, versionId, dealerId);
+            }
+            catch (Exception ex)
+            {
+                dealerId = 0;
+                ErrorClass objErr = new ErrorClass(ex, "FetchBookingPageDetails ex : " + ex.Message);
+                objErr.SendMail();
+            }
+            return pageDetail;
+        }
     }   //End of Class
 }   //End of namespace

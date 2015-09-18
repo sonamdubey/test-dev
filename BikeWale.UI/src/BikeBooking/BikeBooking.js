@@ -11,7 +11,7 @@
                 var responseJSON = eval('(' + response + ')');
                 var resObj = eval('(' + responseJSON.value + ')');
                 if (resObj == false) {
-                    $("#blackOut-window").show();
+                    $(".blackOut-window").show();
                     $('.bw-contact-popup').show();
                     $("#txtName").focus();
                 }
@@ -51,7 +51,7 @@
         return false;
     });
     $('.close-btn').click(function () {
-        $("#blackOut-window").hide();
+        $(".blackOut-window").hide();
         $('.bw-contact-popup').hide();
         $('.bw-popup').hide();
     });

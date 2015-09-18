@@ -20,7 +20,6 @@
 		$("#uiTabs").tabs();
 	});
 </script>
-<form runat="server">
 <div class="left_container_top">
 	<div class="content" style="width:600px; float:left;">
 		<div id="youHere">
@@ -48,5 +47,4 @@
 	</div><!-- content eends -->
 </div>
 <div class="left_container" style="float:left"> </div>
-</form>	
 <!-- #include file="../includes/footer.aspx" -->

@@ -8,12 +8,11 @@
     <style>
         .red { color:red;}
     </style>
-    <link href="/css/style.css?23july2015" rel="stylesheet" />
+    <link href="/css/style.css?15sep2015" rel="stylesheet" />
     <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
     <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 </head>
 <body>
-    <form id="form1" runat="server">
     <div id="divMain">
         <div class="right-float"><span><span class="red">*</span>All fields are mandatory</span></div>
         <div class="clear"></div>
@@ -181,6 +180,5 @@
                 return retVal;
             }
     </script>
-    </form>
 </body>
 </html>

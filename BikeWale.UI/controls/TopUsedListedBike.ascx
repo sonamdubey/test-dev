@@ -6,7 +6,7 @@
     <ul class="<%= DisplayTwoColumn == false ? "std-ul-list" : "ul-hrz-col2" %>">
         <asp:Repeater ID="rptListings" runat="server">        
             <ItemTemplate>
-                <li><a href="/used/bikes-in-<%# DataBinder.Eval( Container.DataItem, "CityMaskingName" ).ToString() %>/<%# DataBinder.Eval( Container.DataItem, "MakeMaskingName" ).ToString() %>-<%# DataBinder.Eval( Container.DataItem, "ModelMaskingName" ).ToString() %>-<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>/"><%# DataBinder.Eval( Container.DataItem, "MakeName" ) %>&nbsp;<%# DataBinder.Eval( Container.DataItem, "ModelName" ) %>&nbsp;<%# DataBinder.Eval( Container.DataItem, "VersionName" ) %>&nbsp;(Year&nbsp;<%# DataBinder.Eval( Container.DataItem, "MakeYear" ) %>)</a></li>
+                <li><a href="/used/bikes-in-<%# Convert.ToString(DataBinder.Eval( Container.DataItem, "CityMaskingName" )).Trim() %>/<%# DataBinder.Eval( Container.DataItem, "MakeMaskingName" ).ToString() %>-<%# DataBinder.Eval( Container.DataItem, "ModelMaskingName" ).ToString() %>-<%# DataBinder.Eval( Container.DataItem, "ProfileId" ) %>/"><%# DataBinder.Eval( Container.DataItem, "MakeName" ) %>&nbsp;<%# DataBinder.Eval( Container.DataItem, "ModelName" ) %>&nbsp;<%# DataBinder.Eval( Container.DataItem, "VersionName" ) %>&nbsp;(Year&nbsp;<%# DataBinder.Eval( Container.DataItem, "MakeYear" ) %>)</a></li>
             </ItemTemplate>        
         </asp:Repeater> 
     </ul>          

@@ -8,18 +8,17 @@
     menu = "3";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
-<form id="form1" runat="server">
+<link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" />
     <div class="padding5">
         <h1>On Road Price Quote</h1>
     	<div class="box1 box-top new-line5 bot-red new-line10">
-            <h2 class="margin-bottom10"><%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%></h2>
+            <h2 class="margin-bottom20"><%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%></h2>
             
-                <div class="full-border new-line10 selection-box <%= versionList.Count > 1 ?"":"hide" %>"><b>Variants: </b>
+                <div class="new-line10 selection-box no-border <%= versionList.Count > 1 ?"":"hide" %>"><b>Variants: </b>
                     <asp:DropDownList id="ddlVersion" runat="server" AutoPostBAck="true"></asp:DropDownList>
                 </div>
             
-            <div class="full-border bike-img">
+            <div class="bike-img">
             	<%--<img src="<%= ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/"+objVersionDetails.LargePicUrl,objVersionDetails.HostUrl) %>" alt="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" title="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" border="0" />--%>
                 <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(objVersionDetails.OriginalImagePath,objVersionDetails.HostUrl,Bikewale.Utility.ImageSize._640x348) %>" alt="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" title="<%= objQuotation.MakeName + " " + objQuotation.ModelName + " " + objQuotation.VersionName%> photos" border="0" />
             </div>
@@ -55,10 +54,9 @@
                       </tr>
                     </table>
                 <%} else{%>
-                <div class="full-border margin-top-10 padding5" style="background:#fef5e6;">Price for this bike is not available in this city.</div>
+                <div class="margin-top-10 padding5" style="background:#fef5e6;">Price for this bike is not available in this city.</div>
                 <%} %>
             </div>
         </div>
     </div>
-</form>
 <!-- #include file="/includes/footermobile_noad.aspx" -->

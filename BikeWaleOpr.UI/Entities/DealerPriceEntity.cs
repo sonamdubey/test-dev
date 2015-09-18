@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BikeWaleOpr.Entities
 {
-    [Serializable]
+    
     public class DealerPriceEntity
     {
         public PQ_Price Price { get; set; }

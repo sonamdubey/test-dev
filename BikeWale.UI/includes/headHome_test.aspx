@@ -10,6 +10,8 @@
     <!-- #include file="globalStaticFiles.aspx"-->
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "";	    
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
     <script type='text/javascript'>
         (function () {
@@ -49,6 +51,7 @@
     </script>
 </head>
 <body>
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" -->     
 	<div class="main-container">
     	<!--Top nav code start here -->

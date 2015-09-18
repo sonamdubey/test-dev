@@ -15,12 +15,12 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
-<!-- #include file="/includes/headNew.aspx" -->
+
 
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
+<!-- #include file="/includes/headNew.aspx" -->
 
-    <form id="form1" runat="server">
         <div class="container_12">
             <div class="grid_12">
                 <ul class="breadcrumb">
@@ -70,15 +70,15 @@
                 <div class="grid_4 margin-top20">
                     <uc:UpcomingBikes ID="ucUpcoming" runat="server" HeaderText="Upcoming Bikes" TopRecords="2" ControlWidth="grid_2" />
                 </div>
-                <div class="grid_8 alpha omega margin-top5" style="border:1px solid #E2E2E2;">
+                <div class="grid_8 comparison-container alpha omega margin-top5" style="border:1px solid #E2E2E2;">
                     <CM:ComparisonMin ID="ctrl_ComparisonMin" runat="server" ShowCompButton="true"/>
                 </div>
             </div><!--    Left Container ends here -->
             <div class="grid_4"><!--    Right Container starts here -->
-                <div class="margin-top15">
+                <%--<div class="margin-top15">
                     <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                     <!-- #include file="/ads/Ad300x250.aspx" -->
-                </div>                
+                </div> --%>               
                 <div class="margin-top15 light-grey-bg content-block border-radius5 padding-bottom20  margin-top5">
                     <BP:InstantBikePrice runat="server" ID="InstantBikePrice" />
                 </div>
@@ -86,13 +86,12 @@
                     <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
                 </div>                    
                 <div class="clear"></div>              
-                <div class="margin-top15">
+                <%--<div class="margin-top15">
                     <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                     <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-                </div>
+                </div>--%>
             </div><!--    Right Container ends here -->
         </div>
-    </form>
     <script type="text/javascript">
         $(document).ready(function () {
             if ($("#cmbMake").val().split('_')[0] > 0) {
@@ -165,4 +164,7 @@
             return str;
         }
     </script>
+    <style type="text/css">
+        .grid_8.comparison-container .container { width:620px; padding-bottom:10px; }
+    </style>
 <!-- #include file="/includes/footerInner.aspx" -->

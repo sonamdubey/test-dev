@@ -14,12 +14,11 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
-<!-- #include file="/includes/headNew.aspx" -->
+
 
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
-
-<form id="form1" runat="server">
+<!-- #include file="/includes/headNew.aspx" -->
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -46,7 +45,7 @@
 			                    <div style="margin:5px 0;" >
                                     <div><b>Price : </b> Rs. <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"MinPrice").ToString()) %></div>
                                     <span class="ex-showroom">Ex-showroom, <%= ConfigurationManager.AppSettings["defaultName"].ToString() %></span>
-                                    <a class="buttons fillPopupData" title="Check <%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> On-road Price" href="/pricequote/default.aspx?model=<%#DataBinder.Eval(Container.DataItem,"ModelId") %>" style="margin-top:-25px; margin-right:25px; float:right;" modelId="<%#DataBinder.Eval(Container.DataItem,"ModelId") %>">Check On-Road Price</a>
+                                    <a class="buttons fillPopupData btn-xs" title="Check <%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") + " " + DataBinder.Eval(Container.DataItem,"ModelName") %> On-road Price" href="/pricequote/default.aspx?model=<%#DataBinder.Eval(Container.DataItem,"ModelId") %>" style="margin-top:-25px; margin-right:25px; float:right;" modelId="<%#DataBinder.Eval(Container.DataItem,"ModelId") %>">Check On-Road Price</a>
                                     </div>
 			                    <div class="margin-top10 <%#DataBinder.Eval(Container.DataItem,"ReviewCount").ToString() == "0" ? "hide" : "" %>">
                                     <%# Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ReviewRate"))) %>&nbsp;&nbsp;&nbsp;
@@ -74,10 +73,10 @@
             <BikeWale:RepeaterPager id="repeaterPager" runat="server"/>
         </div>
     <div class="grid_4">
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>
+        </div>--%>
         <div class="grid_4 alpha margin-top15">
             <uc:UpcomingBikes ID="ctrl_UpcomingBikes" runat="server" HeaderText="Upcoming Bikes" TopRecords="2" ControlWidth="grid_2" />                    
             <div class="clear"></div>
@@ -87,11 +86,10 @@
             <news:NewsMin ID="ctrl_News" runat="server" />
             <div class="clear"></div>
         </div>
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>
+        </div>--%>
     </div>
 </div>
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->

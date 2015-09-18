@@ -20,7 +20,7 @@
         });
     });    
 </script>
-<form id="Form1"  runat="server">
+
 <div>
 	<Ec:EditCmsCommon ID="EditCmsCommon" runat="server" />    
     <style type="text/css">
@@ -219,7 +219,7 @@
 		</div>
 	</div>
 </div>
-</form>
+
 
 <script type="text/javascript" language="javascript">
 

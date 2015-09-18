@@ -10,9 +10,9 @@
     AdId = "1398766000399";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" /> 
-<link href="../../css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-<script src="../../src/jquery-ui-1.10.4.custom.min.js"></script>
+<link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" /> 
+<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<script src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
 
 <%--<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/BikeBooking.js"></script>--%>
@@ -414,9 +414,7 @@
                 </ul>
             </div>
             <div class="bottom-btns">
-                    <form id="Form1" runat="server">
                         <asp:Button type="submit" Text="Save this Price Certificate" id="btnSavePdf" runat="server" data-role="none"  visible="false" data-theme="b" data-mini="true" class="rounded-corner5"  />
-                    </form>
                  <%--   <div style="display:none">
                         <PQ:pdf runat="server" ID="PQPdfTemplate"/>
                 </div>--%>
@@ -426,7 +424,7 @@
         <!--Book Appointment starts here-->
         <div class="bw-popup book-app-details hide">
     	    <div class="popup-inner-container">
-                <div class="bw-sprite close-btn floatright"></div>
+                <div class="bwmsprite close-btn floatright"></div>
                 <h1>Book an Appointment</h1>
                 <div class="selection-box rounded-corner5 new-line10">
                     <input type="text" name="date" id="date" value="" data-role="none" />
@@ -460,7 +458,7 @@
         <!--Color popup starts here-->
         <div class="bw-popup color-popup hide">
             <div class="popup-inner-container">
-                <div class="bw-sprite close-btn floatright"></div>
+                <div class="bwmsprite close-btn floatright"></div>
                 <h1>Select Bike Color</h1>
                 <div class="color-palette margin-top20">
                     <div>

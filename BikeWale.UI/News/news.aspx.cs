@@ -12,7 +12,7 @@ using System.Net.Http;
 using System.Configuration;
 using System.Net.Http.Headers;
 using Bikewale.Interfaces.Pager;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 
 
 namespace Bikewale.News
@@ -72,7 +72,7 @@ namespace Bikewale.News
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// Method to fetch news details from api asynchronously
+        /// PopulateWhere to fetch news details from api asynchronously
         /// </summary>
         private async void GetNewsDetailsFromApi()
         {
@@ -103,7 +103,7 @@ namespace Bikewale.News
             }
         }
 
-        //Method to set news details
+        //PopulateWhere to set news details
         private void GetNewsData()
         {
             articleTitle = objArticle.Title;

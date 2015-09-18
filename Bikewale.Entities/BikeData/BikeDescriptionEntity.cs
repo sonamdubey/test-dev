@@ -8,6 +8,7 @@ namespace Bikewale.Entities.BikeData
 {
     public class BikeDescriptionEntity
     {
+        public string Name { get; set; }
         public string SmallDescription { get; set; }
         public string FullDescription { get; set; }
     }

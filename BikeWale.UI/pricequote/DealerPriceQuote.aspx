@@ -13,13 +13,14 @@
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
-<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css?30july2015" />
-<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?23july2015" />
+<link rel="stylesheet" href="/css/bw-pq.css?<%= staticFileVersion %>" />
+<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
 <link rel="stylesheet" type="text/css" href="/css/rsa.css?v=3.0"/>
-<style>
+<style type="text/css">
     .minLength { width:95px !important;}
     .colours { list-style : outside none none; display:inline;}
     .colours li {float :left;}
+    .edit-done-mob input { padding:5px; }
 </style>
 <script type="text/javascript">
     var dealerId = '<%= dealerId%>';
@@ -35,7 +36,7 @@
         Customername = '<%= CustomerDetailCookie.CustomerName%>', email = '<%= CustomerDetailCookie.CustomerEmail%>', mobileNo = '<%= CustomerDetailCookie.CustomerMobile %>';
     }
 </script>
-<script type="text/javascript"  src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/BikeBooking.js?23july2015"></script>
+<script type="text/javascript"  src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/BikeBooking.js?<%= staticFileVersion %>"></script>
 
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
@@ -98,7 +99,7 @@
                     <span class="blue" id="editNum">Edit</span>
                 </span>
                 <span class="edit-done-mob new-line5 margin-bottom10">
-                    <input type="text" placeholder="Mobile Number" class="rounded-corner5" id="editedMobNo" maxlength="10" />
+                    <input type="text" placeholder="Mobile Number" class="border-solid" id="editedMobNo" maxlength="10" />
                     <span class="blue" id="done-btn">Done</span><br />
                     <span class="error" id="spnEditNo"></span>
                 </span>
@@ -116,7 +117,6 @@
     </div>
 </div>
 <!--bw verification popup ends starts here-->
-<form runat="server">
 <div class="main-container">
 	<div class="container_12">
         <div class="grid_12">
@@ -337,7 +337,7 @@
                                     </ul>
                                 </FooterTemplate>                              
                             </asp:Repeater>
-                    <div style="text-align:center;" class="mid-box margin-top15 action-btn">
+                    <div style="text-align:center;" class="mid-box margin-top15">
                         <a class="action-btn" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</a>
                     </div>
                     </div>
@@ -356,16 +356,15 @@
 </div>
 <script type="text/javascript">
     $("#rsa").click(function () {
-        $('#blackOut-window').show();
+        $('.blackOut-window').show();
         $('.rsa-popup').show();
     });
 
     $('.white-close-btn').click(function () {
-        $("#blackOut-window").hide();
+        $(".blackOut-window").hide();
         $('.rsa-popup').hide();
     });
 </script>    
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->
 
 

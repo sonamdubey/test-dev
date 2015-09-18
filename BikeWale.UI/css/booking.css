@@ -1,0 +1,64 @@
+﻿@charset "utf-8";
+/* CSS Document */
+/* Car to Buy Section */
+
+/*.header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #0e405b\9; padding: 10px 20px; z-index: 3; }*/
+.call-for-queries { background:#f5f5f5; padding:50px 20px 20px; margin:60px 0 0; height:140px;}
+.query-call-pic {width:130px; height:92px; margin:0 auto; position:absolute; top:10px; left:94px; border:1px solid #ddd\9; -moz-box-shadow:0px 2px 5px #ccc; -o-box-shadow:0px 2px 5px #ccc; -webkit-box-shadow:0px 2px 5px #ccc; -ms-box-shadow:0px 2px 5px #ccc; box-shadow:0px 2px 5px #ccc;}
+.next-step-box {width:756px; margin:0 auto; padding:50px 0;}
+
+/* booking comforts sprite */
+
+.bookingcomforts-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/images/booking-comforts-sprite.png?15sep2015) no-repeat; display:inline-block;}
+.buying-asst-icon { background-position:-247px 0; width:71px; height:46px; position:relative; top:22px;}
+
+.booking-wrapper { background:#fff; padding:30px;}
+.booking-tabs ul li { display:inline-block; *display:inline; *zoom:1; vertical-align:top; width:250px; height:75px; background:#fff; margin-left:20px; margin-right:20px; text-align:center; }
+.personal-info-form-container { margin:30px auto; width: 850px; min-height:100px; }
+.bike-booking-part { width:200px; height:70px; display:inline-block; cursor: pointer;}
+.bike-booking-title {  width:200px; height:20px; display:inline-block; margin-bottom:10px;}
+.bike-booking-image { width:100px;  height:45px; position:relative; left:46px; }
+.bike-booking-image span {  margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;  }
+.personal-info-form-container .personal-info-list { margin:0 auto; width:410px; float:left; margin-left:7px; margin-right:7px; margin-bottom:20px; border-radius:0; }
+.personal-info-list .errorIcon, .personal-info-list .errorText { display:none; }
+.mobile-verification-container .errorIcon, .mobile-verification-container .errorText { display:none; }
+.mobile-verification-container { width: 850px; min-height:50px; margin:0 auto; padding:0 10px; }
+.mobile-verification-container p { height:40px; line-height:40px; }
+.get-otp-code { width: 255px; }
+.get-monthly-usage { margin:0 auto; width:540px; }
+.disabled-tab { cursor: not-allowed; }
+.resend-otp-btn:hover { cursor:pointer; }
+
+.input-border-bottom { border-bottom:1px solid #ccc; }
+
+/* color box css */
+.booking-available-colors ul { width:100%; min-height:50px; margin:0 auto; text-align:center;  }
+.booking-available-colors ul li { width:140px; display:inline-block; *display:inline; *zoom:1; border-radius:3px;  position:relative; cursor:pointer; margin:0 20px 15px; vertical-align:top;}
+.booking-color-box { margin:0 auto; width:60px; height:60px; background:#ccc; border:1px solid #ccc; }
+.booking-available-colors .booking-color-box .ticked { background:url(http://img.aeplcdn.com/bikewaleimg/images/blue-tick.png) no-repeat; width:22px; height:16px; position:absolute; top:22px; left:59px;}
+.text-green { color:#5bc033;}
+
+.feedback-container { width:800px; text-align:center; font-size:16px; line-height:1.6; margin:0 auto;}
+
+.varientsList li .varient-item { margin-bottom:20px; }
+.varientsList li .varient-item:hover { cursor:pointer;}
+.border-dark { border:1px solid #222; }
+
+/* booking sprite */
+.booking-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/booking-sprite.png) no-repeat; display: inline-block; }
+.personalInfo-icon-selected, .customize-icon-selected, .confirmation-icon-selected { width:42px; height:42px; }
+.personalInfo-icon-selected { background-position: 0 0; }
+.customize-icon-selected { background-position: 0 -52px; }
+.confirmation-icon-selected { background-position: 0 -103px; }
+.booking-tick-blue, .customize-icon-grey, .confirmation-icon-grey { width:28px; height:28px; }
+.booking-tick-blue { background-position: -52px 0; }
+.customize-icon-grey { background-position: -52px -37px; }
+.confirmation-icon-grey { background-position: -52px -73px; }
+
+.horizontal-line { width:600px; height:1px; background:#ccc; top:54px; }
+.customizeBackBtn, .confirmationBackBtn { font-size: 13px; color:#0288d1; }
+
+.cancellation-popup .popup-inner-container h2, .required-doc .popup-inner-container h2 { border-bottom:none; }
+.cancellation-list ul li { padding-bottom:10px; }
+.bw-popup.required-doc { width:660px !important; left:44% !important; }
+.bw-popup.required-doc ul li { list-style-type:disc; }

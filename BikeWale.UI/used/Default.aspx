@@ -16,12 +16,13 @@
     .col {float: left;padding-bottom: 5px;width: 100px;}
     .tabs-container{border:1px solid #bfbfbf; overflow:hidden; margin-left:20px;}
     .tabs-container li a{border-left: 1px solid #bfbfbf; color:#5e5e5e; padding:11px 18px; cursor:pointer; font-weight:bold;}
-    .tabs-container li{font-weight:bold;  float:left; padding:10px 0px; }
+    .tabs-container li{font-weight:bold;  float:left; padding:10px 0px; background:#f5f5f5;}
     .tabs-container li:hover {background-color:#E2E2E2 ; font-weight:bold;  float:left;}
     .tabs-container li a.first{border-left: 0px;}
-    .tabs-container li a.active-tab{color:#898585!important; text-decoration:none; font-weight:bold;}
+    .tabs-container li a.active-tab{color:#898585!important; text-decoration:none; font-weight:bold; background:#fff;}
+    .tabs-container li a:hover { text-decoration:none; }
+    .find-used-bikes-container td select { width:195px; }
 </style>
-<form id="form1" runat="server">
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -37,15 +38,15 @@
                 <div class="content-block">
                     <h2 class="hd2">Find Used Bikes</h2>
 		            <p class="margin-top5">Thousands of used bikes listed for sale</p>
-                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tbl-default margin-top10">
+                    <table border="0" cellpadding="0" cellspacing="0" width="100%" class="tbl-default margin-top10 find-used-bikes-container">
                         <tr>
                             <td>Your City</td>
-                            <td><asp:DropDownList ID="ddlCity" runat="server" ></asp:DropDownList></td>                    
+                            <td><asp:DropDownList ID="ddlCity" runat="server" tabindex="1"></asp:DropDownList></td>                    
                         </tr>
                          <tr>
                             <td>Budget</td>
                             <td>
-                                <asp:DropDownList ID="ddlPriceRange" runat="server">
+                                <asp:DropDownList ID="ddlPriceRange" runat="server" tabindex="2">
                                     <asp:ListItem Value="-1" Text="-- Any Budget --"></asp:ListItem>
 				                    <asp:ListItem Value="0" Text="Up to 10,000"></asp:ListItem>
                                     <asp:ListItem Value="1" Text="10,000-20,000"></asp:ListItem>
@@ -60,7 +61,7 @@
                         <tr>
                             <td>Bike Make</td>
                             <td>
-                                <asp:DropDownList id="ddlMake" runat="server"></asp:DropDownList>
+                                <asp:DropDownList id="ddlMake" runat="server" tabindex="3"></asp:DropDownList>
                             </td>
                               <%--     <BB:BrowseBikes runat="server" ID="BrowseBikes" VersionRequired="false"/>  
                          <td>Bike Model</td>
@@ -68,8 +69,8 @@
                         </tr>
                         <tr>
                             <td>&nbsp;</td>
-                            <td><div class="action-btn">
-                                <input type="button" id="btnSearchUsedBike" runat="server" value="Find Used Bike" class="action-btn" onclick="SearchByCriteria()" />                                
+                            <td><div>
+                                <input type="button" id="btnSearchUsedBike" tabindex="4" runat="server" value="Find Used Bike" class="action-btn text_white" onclick="SearchByCriteria()" />                                
                                 </div>
                                 <div id="process_img" class="hide text-highlight">Redirecting Please wait...</div>
                             </td>
@@ -80,8 +81,8 @@
                         Search By Profile Id
                         <%--<input type="text" id="txtlocateProfile" style="width:100px;" />&nbsp;<a id="btnLocateProfile" class="buttons">Go</a>--%>
                     
-                        <input name="txtProfileId" type="text" value="Profile Id" id="txtProfileId" placeholder="Profile Id" style="width:90px;" /><span class="error">*</span>
-                        <input name="btnSearchProfileId" type="button" id="btnSearchProfileId" value="Go" class="buttons" onclick="SearchByProfile()"  />
+                        <input name="txtProfileId" type="text" value="Profile Id" id="txtProfileId" tabindex="1" placeholder="Profile Id" style="width:90px;" /><span class="error">*</span>
+                        <input name="btnSearchProfileId" type="button" id="btnSearchProfileId" tabindex="2" value="Go" class="buttons text_white btn-xs" onclick="SearchByProfile()"  />
                         <div id="spn_txtProfile" class="error"></div>
                     </div>
                     <div class="margin-top10"></div>
@@ -129,21 +130,20 @@
             </div>
         </div>
         <div class="grid_4 right-grid">            
-            <div class="margin-top15">
+            <%--<div class="margin-top15">
                 <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
                 <!-- #include file="/ads/Ad300x250.aspx" -->
-            </div>
+            </div>--%>
             <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top15"><BP:InstantBikePrice ID="getPriceQuoteMin" runat="server" /></div> 
             <div class="margin-top15">          
                 <TA:TipsAdvicesMin runat="server" ID="TipsAdvicesMin" />
             </div>
-            <div class="margin-top15">
+            <%--<div class="margin-top15">
                 <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
                 <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-            </div>        
+            </div>--%>        
         </div>
     </div>
-</form>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#ddlCity option[value='-1']").attr("disabled", "disabled");
@@ -345,6 +345,7 @@
 
                     if (status.value == true) {
                         location.href = search_href;
+                        console.log("search_href: " + search_href);
                     }
                     else {
                         $("#btnSearchUsedBike").removeClass("hide").addClass("show");

@@ -14,7 +14,6 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<form runat="server">
 <div class="padding5">
     <div id="br-cr"><a href="/m/" class="normal">Home</a> &rsaquo; <span class="lightgray">Road Test</span></div>
     <div class="box1 new-line5 hide" onClick="BoxClicked(this);" type="expando">
@@ -56,7 +55,7 @@
 			                        <div class="sub-heading">
 				                        Road Test: <%# DataBinder.Eval(Container.DataItem, "Title") %>&nbsp;&nbsp;<span class="arr-small">&raquo;</span>
 			                        </div>
-			                        <div class="lightgray new-line" style="font-size:13px;">
+			                        <div class="lightgray new-line" style="font-size:13px; margin-bottom:10px;">
 				                        by <%# DataBinder.Eval(Container.DataItem, "AuthorName") %>
 			                        </div>
                                     <div style="border:1px solid #b3b4c6;background-color:#ffffff;width:100px;position:absolute;right:-1px;bottom:-10px;padding:2px 2px;font-size:13px;" class="lightgray">
@@ -72,7 +71,6 @@
     </div>  
     <Pager:Pager ID="listPager" runat="server" />  
 </div>
-</form>
 <script language="javascript" type="text/javascript">
     function BoxClicked(box)
     {	

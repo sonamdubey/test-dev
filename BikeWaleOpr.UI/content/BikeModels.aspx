@@ -20,7 +20,6 @@
     .color-code .new { border:1px solid #000000; background-color:#B2Df75; width:12px; height:12px; }
     .color-code .discontinued { border:1px solid #000000; background-color:#FDBA2B; width:12px; height:12px; }
 </style>
-<form id="Form1" runat="server">
 	<span id="spnError" class="error" runat="server"></span>
     <div>
         <div class="floatLeft" style=" width:620px;">
@@ -607,7 +606,7 @@
 	    //document.getElementById('cmbMakes').onchange = cmbMakes_Change;
 	    //cmbMakes_Change();
 	</script>
-</form>
+
 </div>
 
 <!-- #Include file="/includes/footerNew.aspx" -->

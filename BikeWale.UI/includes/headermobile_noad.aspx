@@ -9,25 +9,18 @@
     <title><%= title %></title>
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", canonical = "",menu="";
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script> 
    <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->    
 </head>
 <body>
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
     <div data-role="page" style="position:relative;">
         <div role="main">
         	<!-- Header code starts here-->
-            <div class="header">
-            	<div class="icon-placer">
-                	<a href="#nav-panel">
-                    	<span class="bw-sprite nav-icon"></span>
-                    </a>
-                </div>
-                <div class="bw-logo-placer">
-                	<a href="/m/" class="bw-sprite bw-logo"></a>
-                </div>
-                <div class="clear"></div>
-            </div>
+            <!-- #include file="/includes/headBW_Mobile.aspx" --> 
             <!-- Header code ends here-->
             <!-- inner-section code starts here-->
             <div class="inner-section">

@@ -10,7 +10,6 @@
 <script type="text/javascript" src="/src/AjaxFunctions.js"></script>
     <div class="left">
 	<h3>Find Dealer Details</h3><br />
-        <form id="Form1" runat="server">
         <fieldset style="white-space:nowrap;width:970px;">
 		<legend>Enter delear details</legend>
 		<table>
@@ -29,7 +28,8 @@
                 <td><asp:button ID="btnFind" text="Find Dealers" runat="server" /></td>
 			</tr>
         </table></fieldset>
-        </form><br /><br />
+        
+        <br /><br />
         <asp:Repeater id="MyRepeater" runat="server">       
     <HeaderTemplate>
         <table border="1" style="border-collapse:collapse;" cellpadding ="5">

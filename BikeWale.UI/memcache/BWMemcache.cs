@@ -104,7 +104,7 @@ namespace Bikewale.Memcache
 
 
         /// <summary>
-        /// Method to get data from database for the particular sp provided.
+        /// PopulateWhere to get data from database for the particular sp provided.
         /// </summary>
         /// <param name="spName">Name of the sp from which data is required.</param>
         /// <param name="param">If any sql parameters to be passed on to sp. (optional)</param>
@@ -336,9 +336,9 @@ namespace Bikewale.Memcache
                         foreach (DataRow dr in dt.Rows)
                         {
                             //check for key duplication
-                            if (!ht.ContainsKey(dr["MaskingName"]))
+                            if (!ht.ContainsKey(dr["CityMaskingName"]))
                             {
-                                ht.Add(dr["MaskingName"], dr["ID"]);
+                                ht.Add(dr["CityMaskingName"], dr["ID"]);
                             }
                         }
                         break;
@@ -419,9 +419,9 @@ namespace Bikewale.Memcache
                 //    foreach (DataRow dr in dt.Rows)
                 //    {
                 //        //check for key duplication
-                //        if (!ht.ContainsKey(dr["MaskingName"]))
+                //        if (!ht.ContainsKey(dr["CityMaskingName"]))
                 //        {
-                //            ht.Add(dr["MaskingName"], dr["ID"]);
+                //            ht.Add(dr["CityMaskingName"], dr["ID"]);
                 //        }
                 //        else
                 //        {

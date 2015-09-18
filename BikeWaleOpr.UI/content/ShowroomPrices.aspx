@@ -20,26 +20,26 @@
 <script language="javascript" src="/src/AjaxFunctions.js"></script>
 <div class="left">
 	<h3>Add Showroom Prices</h3>
-	<form runat="server">
+	
 		<span id="spnError"  style="color:#FF3300; font-weight:bold;" runat="server"></span>
 		
 		<fieldset style="white-space:nowrap;">
 			<legend>Search Vehicle</legend>
 			<label>Make</label>
-			<asp:DropDownList ID="cmbMake" runat="server"></asp:DropDownList>
-			<asp:DropDownList ID="cmbModel" Enabled="false" runat="server">
+			<asp:DropDownList ID="cmbMake" runat="server" tabindex="1"></asp:DropDownList>
+			<asp:DropDownList ID="cmbModel" Enabled="false" runat="server" tabindex="2">
 				<asp:ListItem Value="0" Text="--Select--" />
 			</asp:DropDownList>
 			<span  style="color:#FF3300; font-weight:bold;" id="selectModel"></span>
-			<asp:RadioButton ID="optNew" runat="server" GroupName="Type" Text="New" Checked="true" />
+			<asp:RadioButton ID="optNew" runat="server" GroupName="Type" Text="New" Checked="true" tabindex="3"/>
 			<asp:RadioButton ID="optUsed" runat="server" GroupName="Type" Text="Used" />
-            <asp:DropDownList ID="ddlStates" runat="server" />
-			<asp:DropDownList ID="drpCity" runat="server"  >
+            <asp:DropDownList ID="ddlStates" runat="server" tabindex="4"/>
+			<asp:DropDownList ID="drpCity" runat="server" tabindex="5" >
                 	<asp:ListItem Value="0" Text="--Select City--" />
 			</asp:DropDownList>
             <span  style="color:#FF3300; font-weight:bold;" id="spnCity"></span>
             <input type="hidden" id="hdn_ddlCities" runat="server" />
-			<asp:Button ID="btnShow" Text="Search" runat="server"></asp:Button>
+			<asp:Button ID="btnShow" Text="Search" runat="server" tabindex="6"></asp:Button>
 		</fieldset>
 		<br>
 		<asp:Button ID="btnRemove" Text="Remove Price" runat="server"></asp:Button>
@@ -121,7 +121,7 @@
 			<asp:Button ID="btnSave" Text="Save All Prices" runat="server" />
 		</div>
         <asp:HiddenField Id="hdnSelectedCityId" runat="server" />
-	</form>
+	
 </div>
   <script language="javascript">
 	document.getElementById('btnShow').onclick = checkFind;

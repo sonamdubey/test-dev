@@ -12,7 +12,10 @@
 
     <!-- #include file="globalStaticFiles.aspx"-->
     <script language="c#" runat="server">	    
-	    private string title = "", description = "", keywords = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMake="", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "", alternate="";	    
+	    private string title = "", description = "", keywords = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMake="", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "", alternate="";
+        private bool isHeaderFix = true;
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
     <script type='text/javascript'>
         var googletag = googletag || {};
@@ -44,15 +47,16 @@
         });
     </script>
 </head>
-<body>
+<body class="header-fixed-inner">
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
         <!--Header code start here -->
-      <div class="bw-header">
-            <div class="left-float">
-        	    <a href="http://www.bikewale.com/"><img src="http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bikewale_logo_s.png" alt="bikewale"></a>
+        <div id="header" class="header-fixed">
+            <div class="left-float margin-left50">
+                <a href="/" class="bwsprite bw-logo"></a>
             </div>
-    	    <div class="clear"></div>
-      </div>
+            <div class="clear"></div>
+        </div>
         <!--Header code end here -->
         

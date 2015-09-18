@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Trace="false" Inherits="Bikewale.PriceQuote.RSAOfferClaim" %>
+
 <%@ Register TagPrefix="BikeWale" TagName="Calender" Src="~/controls/DateControl.ascx" %>
 <%
     title = "Bike Purchase Offer Claim";
@@ -6,22 +7,24 @@
     AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/headNew.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?23july2015" />
+<link rel="stylesheet" href="/css/datepicker.css" />
+<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
+<script src="/src/picker.js"></script>
+<script src="/src/picker.date.js"></script>
 <style>
     .inner-content {
-    border:1px solid #eaeaea;
-    padding:10px;
-    margin-bottom:20px;
+        border: 1px solid #eaeaea;
+        padding: 10px;
+        margin-bottom: 20px;
     }
-    .grey-bullets li{ 
-        background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bw-grey-bullet.png) no-repeat 0px 9px;
+
+    .grey-bullets li {
+        background: url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bw-grey-bullet.png) no-repeat 0px 9px;
         display: block;
         list-style: square outside none;
         padding: 3px 0 3px 10px;
     }
-
 </style>
-<form runat="server">
 <div class="main-container">
     <div class="container_12">
         <div class="grid_12">
@@ -32,42 +35,46 @@
                 <li><a class="blue" href="/new/">New</a></li>
                 <li class="fwd-arrow">&rsaquo;</li>
                 <li class="current">Bike Purchase Offer Claim</li>
-            </ul><div class="clear"></div>
+            </ul>
+            <div class="clear"></div>
         </div>
         <div class="grid_8 margin-top10">
             <h1 class="margin-bottom5">Bike Purchase Offer Claim</h1>
             <div id="div_GetPQ" class="<%= isOfferClaimed ? "hide" : "" %>">
-		        <!--make payment div starts here-->
+                <!--make payment div starts here-->
                 <div class="inner-content relative">
                     <h2 class=" margin-bottom10 payment-pg-heading">Offer 1: Select Your Free Helmet</h2>
                     <p class="margin-top10">Select one helmet from the below three options by clicking on the image:</p>
                     <div class="offer-1 margin-top10">
                         <ul>
-                            <li class="offer-box-1" offerId="1">
+                            <li class="offer-box-1" offerid="1">
                                 <div data-id="offer1" class="offer-1-title">
                                     <span class="bw-sprite unchecked-radio"></span>
                                     <label for="offer">Vega / Studds Open Face Helmet (Size: M) </label>
                                     <div class="clear"></div>
                                 </div>
-                                <div class="center-align offer-pic"><img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg"></div>                                
+                                <div class="center-align offer-pic">
+                                    <img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg"></div>
                                 <div class="clear"></div>
                             </li>
-                            <li class="offer-box-2" offerId="2" style="display:none;">
+                            <li class="offer-box-2" offerid="2" style="display: none;">
                                 <div data-id="offer1" class="offer-1-title">
                                     <span class="bw-sprite unchecked-radio"></span>
                                     <label for="offer">Replay Plain Flip-up Helmet (Size: M) </label>
                                     <div class="clear"></div>
                                 </div>
-                                <div class="center-align offer-pic"><img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg"></div>                                
+                                <div class="center-align offer-pic">
+                                    <img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg"></div>
                                 <div class="clear"></div>
                             </li>
-                            <li class="offer-box-3" offerId="3">
+                            <li class="offer-box-3" offerid="3">
                                 <div data-id="offer1" class="offer-1-title">
                                     <span class="bw-sprite unchecked-radio"></span>
                                     <label for="offer">Vega / Studds Full Face Helmet (Size: M)</label>
                                     <div class="clear"></div>
                                 </div>
-                                <div class="center-align offer-pic"><img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg"></div>                                
+                                <div class="center-align offer-pic">
+                                    <img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg"></div>
                                 <div class="clear"></div>
                             </li>
                             <div class="clear"></div>
@@ -99,7 +106,7 @@
                     <div class="specification-popup-3">
                         <div class="grey-bullets">
                             <ul>
-                                <li> ABS shell</li>
+                                <li>ABS shell</li>
                                 <li>Scratch resistant</li>
                                 <li>Lightweight & compact</li>
                                 <li>Color: Black</li>
@@ -107,7 +114,7 @@
                         </div>
                     </div>
                     <!-- offer popup ends here -->
-                    <asp:HiddenField id="hdnSelHelmet" runat="server" />
+                    <asp:hiddenfield id="hdnSelHelmet" runat="server" />
                 </div>
                 <!--make payment div ends here-->
                 <!-- plus circle starts here -->
@@ -118,35 +125,35 @@
                 <!--steps starts here-->
                 <div class="inner-content">
                     <h2 class="payment-pg-heading">Offer 2: Your Free Roadside Assistance</h2>
-                        <div class="margin-top10">
-                            <p class="black-text"><strong>Incident Inclusive - Two Wheeler Assistance (Validity: 12 Months)</strong></p>
-                            <div class="grey-bullets margin-top10">
-                                <ul>
-                                    <li>Roadside Repair (On site Minor Repair, Lost keys/ replacement, Flat tyre Support, etc.)</li>
-                                    <li>Towing for mechanical, electrical & accidental breakdown (one way).</li>
-                                    <li>Customer Service (Toll free hotline, Customer satisfaction survey and Medical Assitance).</li>
-                                </ul>                                
-                            </div>
+                    <div class="margin-top10">
+                        <p class="black-text"><strong>Incident Inclusive - Two Wheeler Assistance (Validity: 12 Months)</strong></p>
+                        <div class="grey-bullets margin-top10">
+                            <ul>
+                                <li>Roadside Repair (On site Minor Repair, Lost keys/ replacement, Flat tyre Support, etc.)</li>
+                                <li>Towing for mechanical, electrical & accidental breakdown (one way).</li>
+                                <li>Customer Service (Toll free hotline, Customer satisfaction survey and Medical Assitance).</li>
+                            </ul>
                         </div>
-                <!--steps end here-->
+                    </div>
+                    <!--steps end here-->
                 </div>
                 <!-- share information starts here -->
                 <div class="inner-content">
                     <h2 class="payment-pg-heading">Share Bike Purchase Details to avail both offers</h2>
-                    <div>                        
+                    <div>
                         <!-- table starts here -->
                         <div class="steps">
                             <p class="desc-para">Please provide following information about your bike purchase to claim your free gifts. Upon verification of your purchase, we will ship the gift directly to your address.</p>
                             <p class="desc-para">All <span class="required">*</span> marked fields are required</p>
                             <div id="get-pq-new" class="inner-content">
-                                <div class="mid-box" id="pq_car">			       
-                                    <table cellspacing="0" cellpadding="3" width="100%" border="0">	
+                                <div class="mid-box" id="pq_car">
+                                    <table cellspacing="0" cellpadding="3" width="100%" border="0">
                                         <tr>
-                                            <td style="width:230px;">
+                                            <td style="width: 230px;">
                                                 <b>Full Name as per Vehicle Registration<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:TextBox id="txtName" runat="server"></asp:TextBox>
+                                                <asp:textbox id="txtName" runat="server"></asp:textbox>
                                                 <span id="spnName" class="error"></span>
                                             </td>
                                         </tr>
@@ -155,7 +162,7 @@
                                                 <b>Mobile Number<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:TextBox id="txtMobile" runat="server"></asp:TextBox>
+                                                <asp:textbox id="txtMobile" runat="server"></asp:textbox>
                                                 <span id="spnMobile" class="error"></span>
                                             </td>
                                         </tr>
@@ -164,23 +171,29 @@
                                                 <b>Email Id<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:TextBox id="txtEmail" runat="server"></asp:TextBox>
+                                                <asp:textbox id="txtEmail" runat="server"></asp:textbox>
                                                 <span id="spnEmail" class="error"></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Purchased Bike<span class="error">*</span></b></td>
-                                            <td><select id="ddlMake" runat="server"></select><input type="hidden" id="hdnMake" runat="server" /></td>
-                                        </tr>
-                                        <tr>
-                                            <td></td>
-                                            <td><select id="ddlModel"><option value="0">--Select Model--</option></select><input type="hidden" id="hdnModel" runat="server" /></td>
-                                            
+                                            <td>
+                                                <select id="ddlMake" runat="server"></select><input type="hidden" id="hdnMake" runat="server" /></td>
                                         </tr>
                                         <tr>
                                             <td></td>
                                             <td>
-                                                <select id="ddlVersion"><option value="0">--Select Version--</option></select>
+                                                <select id="ddlModel">
+                                                    <option value="0">--Select Model--</option>
+                                                </select><input type="hidden" id="hdnModel" runat="server" /></td>
+
+                                        </tr>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <select id="ddlVersion">
+                                                    <option value="0">--Select Version--</option>
+                                                </select>
                                                 <span id="spnVersion" class="error"></span>
                                             </td>
                                         </tr>
@@ -189,7 +202,7 @@
                                                 <b>Vehicle Registration Number<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:TextBox id="txtVehicle" runat="server"></asp:TextBox>
+                                                <asp:textbox id="txtVehicle" runat="server"></asp:textbox>
                                                 <span id="spnVehicle" class="error"></span>
                                             </td>
                                         </tr>
@@ -198,7 +211,7 @@
                                                 <b>Address as per Vehicle Registration<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:TextBox id="txtAddress" rows="2" columns="60" textmode="MultiLine"  runat="server"></asp:TextBox>
+                                                <asp:textbox id="txtAddress" rows="2" columns="60" textmode="MultiLine" runat="server"></asp:textbox>
                                                 <span id="spnAddress" class="error"></span>
                                             </td>
                                         </tr>
@@ -207,14 +220,15 @@
                                                 <b>Date of vehicle Delivery<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <BikeWale:Calender DateId="calMakeYear" ID="calDeliveryDate" runat="server" />
+                                                <%--<BikeWale:Calender DateId="calMakeYear" ID="calDeliveryDate" runat="server" />--%>
+                                                <asp:textbox type="text" id="txtPreferredDate" placeholder="Select Date" class="calender" runat="server"></asp:textbox>
                                                 <span id="msgMakeYear" class="error"></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Full Name of the Dealer<span class="error">*</span></b></td>
                                             <td>
-                                                <asp:TextBox id="txtdealerName" runat="server"></asp:TextBox>
+                                                <asp:textbox id="txtdealerName" runat="server"></asp:textbox>
                                                 <span id="spnDealerName" class="error"></span>
                                             </td>
                                         </tr>
@@ -223,25 +237,27 @@
                                                 <b>Address of the Dealer<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:TextBox id="txtDealerAddress" rows="2" columns="60" textmode="MultiLine"  runat="server"></asp:TextBox>
+                                                <asp:textbox id="txtDealerAddress" rows="2" columns="60" textmode="MultiLine" runat="server"></asp:textbox>
                                                 <span id="spnDealerAddress" class="error"></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Any Comments (Optional)</b></td>
                                             <td>
-                                                <asp:TextBox id="txtComments" rows="2" columns="60" textmode="MultiLine"  runat="server"></asp:TextBox>
+                                                <asp:textbox id="txtComments" rows="2" columns="60" textmode="MultiLine" runat="server"></asp:textbox>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>&nbsp;</td>
-                                            <td><asp:Button class="action-btn" id="btnSubmit" Text="Claim Offer" runat="server" /></td>
+                                            <td>
+                                                <asp:button class="action-btn text_white" id="btnSubmit" text="Claim Offer" runat="server" />
+                                            </td>
                                         </tr>
                                         <input type="hidden" id="hdnVersion" runat="server" />
-                                        <input type="hidden" id="hdnBikeName" runat="server"/>
+                                        <input type="hidden" id="hdnBikeName" runat="server" />
                                     </table>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                         <!-- table ends here -->
                     </div>
@@ -256,196 +272,225 @@
                 <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                 <!-- #include file="/ads/Ad300x250.aspx" -->
             </div>
-        </div><!-- Right Container ends here  -->
+        </div>
+        <!-- Right Container ends here  -->
     </div>
 </div>
-</form>
 <script type="text/javascript">
-    $("#btnSubmit").click(function () {
-        var isError = false;
-        var re = /^[0-9]*$/;
-        var reEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/;
+    $(document).ready(function () {
+        $("#txtPreferredDate").datepicker({
+            showOn: "both",
+            buttonImage: "../images/date-icon.png",
+            buttonImageOnly: true,
+            dateFormat: 'dd/mm/yy',
+            numberOfMonths: 1,
+            minDate: 0, //days after which dates should be enabled
+            maxDate: '+2Y', //max limit months/years to be shown
+            firstDay: 1
+        });
+    });
 
-        $("#spnName").text("");
-        $("#spnMobile").text("");
-        $("#spnEmail").text("");
-        $("#spnVehicle").text("");
-        $("#spnAddress").text("");
-        $("#msgMakeYear").text("");
-        $("#spnDealerName").text("");
-        $("#spnDealerAddress").text("");
-        $("#spnVersion").text("");
-        $("#errHelmetOffer").text("");
+        $("#btnSubmit").click(function () {
+            var isError = false;
+            var re = /^[0-9]*$/;
+            var reEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,6}$/;
 
-        var customerName = $("#txtName").val();
-        var customerEmail = $("#txtEmail").val().toLowerCase();
-        var CustomerMobile = $("#txtMobile").val();
-        var bikeRegistrationNo = $("#txtVehicle").val();
-        var customerAddress = $("#txtAddress").val();
-        var deliveryDate = $("#calMakeYear").val();
-        var dealerName = $("#txtdealerName").val();
-        var dealerAddress = $("#txtDealerAddress").val();
-        var selHelmet = $("#hdnSelHelmet").val();
-
-        if (customerName == "") {
-            $("#spnName").text("Required");
-            isError = true;
-        } else if (name.length == 1) {
-            $("#spnName").text("Please enter your complete name");
-            isError = true;
-        } else {
             $("#spnName").text("");
-        }
-
-        if (CustomerMobile == "") {
-            $("#spnMobile").text("Required");
-            isError = true;
-        } else if (CustomerMobile != "" && re.test(CustomerMobile) == false) {
-            $("#spnMobile").text("Please provide numeric data only in your mobile number.");
-            isError = true;
-        } else if (CustomerMobile.length != 10) {
-            $("#spnMobile").text("Your mobile number should be of 10 digits.");
-            isError = true;
-        } else {
             $("#spnMobile").text("");
-        }
-
-        if (customerEmail == "") {
-            $("#spnEmail").text("Required");
-            isError = true;
-        } else if (customerEmail != "" && reEmail.test(customerEmail) == false) {
-            $("#spnEmail").text("Invalid Email");
-            isError = true;
-        } else {
             $("#spnEmail").text("");
-        }
-
-        if (bikeRegistrationNo == "") {
-            $("#spnVehicle").text("Required");
-            isError = true;
-        } else {
             $("#spnVehicle").text("");
-        }
-
-        if (dealerName == "") {
-            $("#spnDealerName").text("Required");
-            isError = true;
-        } else {
+            $("#spnAddress").text("");
+            $("#msgMakeYear").text("");
             $("#spnDealerName").text("");
-        }
-
-        if (dealerAddress == "") {
-            $("#spnDealerAddress").text("Required");
-            isError = true;
-        } else {
             $("#spnDealerAddress").text("");
-        }
-
-        if ($("#ddlVersion").val() <= 0) {
-            $("#spnVersion").text("Please select version.");
-            isError = true;
-        }
-        else {
             $("#spnVersion").text("");
-        }
-
-        if (selHelmet == "" || selHelmet <= 0) {            
-            $("#errHelmetOffer").text("Please select helmet.");
-            isError = true;
-        } else {
             $("#errHelmetOffer").text("");
-        }
 
-        return !isError;
-    });
+            var customerName = $("#txtName").val();
+            var customerEmail = $("#txtEmail").val().toLowerCase();
+            var CustomerMobile = $("#txtMobile").val();
+            var bikeRegistrationNo = $("#txtVehicle").val();
+            var customerAddress = $("#txtAddress").val();
+            //var deliveryDate = $("#calMakeYear").val();
+            var deliveryDate = $("#txtPreferredDate").val();
+            var dealerName = $("#txtdealerName").val();
+            var dealerAddress = $("#txtDealerAddress").val();
+            var selHelmet = $("#hdnSelHelmet").val();
 
-    var make = "";
-    var model = "";
-    var version = "";
-    var bikeName = "";
+            if (customerName == "") {
+                $("#spnName").text("Required");
+                isError = true;
+                console.log("isError 1: " + isError);
+            } else if (name.length == 1) {
+                $("#spnName").text("Please enter your complete name");
+                isError = true;
+                console.log("isError 2: " + isError);
+            } else {
+                $("#spnName").text("");
+            }
 
-    $("#ddlMake").change(function () {
-        drpMake_Change($(this));              
-    });
+            if (CustomerMobile == "") {
+                $("#spnMobile").text("Required");
+                isError = true;
+                console.log("isError 3: " + isError);
+            } else if (CustomerMobile != "" && re.test(CustomerMobile) == false) {
+                $("#spnMobile").text("Please provide numeric data only in your mobile number.");
+                isError = true;
+                console.log("isError 4: " + isError);
+            } else if (CustomerMobile.length != 10) {
+                $("#spnMobile").text("Your mobile number should be of 10 digits.");
+                isError = true;
+                console.log("isError 5: " + isError);
+            } else {
+                $("#spnMobile").text("");
+            }
 
-    $("#ddlModel").change(function () {
-        drpModel_Change($(this));        
-    });
+            if (customerEmail == "") {
+                $("#spnEmail").text("Required");
+                isError = true;
+                console.log("isError:  6" + isError);
+            } else if (customerEmail != "" && reEmail.test(customerEmail) == false) {
+                $("#spnEmail").text("Invalid Email");
+                isError = true;
+                console.log("isError: 7" + isError);
+            } else {
+                $("#spnEmail").text("");
+            }
 
-    $("#ddlVersion").change(function () {
-        $("#hdnVersion").val($(this).val());
-        version = $(this).find(":selected").text();
-        bikeName = make + model + version;
-        $("#hdnBikeName").val(bikeName);
-    });
+            if (bikeRegistrationNo == "") {
+                $("#spnVehicle").text("Required");
+                isError = true;
+                console.log("isError: 8" + isError);
+            } else {
+                $("#spnVehicle").text("");
+            }
 
-    function drpMake_Change(objMake) {
-        var bikeMakeId = objMake.val();
-        $("#ddlVersion").val("0").attr("disabled", true);
-        if (bikeMakeId != 0) {
-            make = objMake.find(":selected").text();
-            $.ajax({
-                type: "POST",
-                url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
-                data: '{"requestType":"NEW", "makeId":"' + bikeMakeId + '"}',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModels"); },
-                success: function (response) {
-                    //alert(response);
-                    var responseJSON = eval('(' + response + ')');
-                    var resObj = eval('(' + responseJSON.value + ')');
+            if (dealerName == "") {
+                $("#spnDealerName").text("Required");
+                isError = true;
+                console.log("isError: 9" + isError);
+            } else {
+                $("#spnDealerName").text("");
+            }
 
-                    var dependentCmbs = new Array();
+            if (dealerAddress == "") {
+                $("#spnDealerAddress").text("Required");
+                isError = true;
+                console.log("isError: 10" + isError);
+            } else {
+                $("#spnDealerAddress").text("");
+            }
 
-                    bindDropDownList(resObj, $("#ddlModel"), "", dependentCmbs, "--Select Model--");
-                }
-            });
-        } else {
-            $("#ddlModel").val("0").attr("disabled", true);
-        }
-    }
+            if ($("#ddlVersion").val() <= 0) {
+                $("#spnVersion").text("Please select version.");
+                isError = true;
+                console.log("isError: 11" + isError);
+            }
+            else {
+                $("#spnVersion").text("");
+            }
 
-    function drpModel_Change(objModel) {
-        var bikeModelId = objModel.val();
-        if (bikeModelId != 0) {
-            model = objModel.find(":selected").text();
-            $.ajax({
-                type: "POST",
-                url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
-                data: '{"requestType":"NEW", "modelId":"' + bikeModelId + '"}',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetVersions"); },
-                success: function (response) {
-                    var responseJSON = eval('(' + response + ')');
-                    var resObj = eval('(' + responseJSON.value + ')');
+            if (selHelmet == "" || selHelmet <= 0) {            
+                $("#errHelmetOffer").text("Please select helmet.");
+                isError = true;
+                console.log("isError: 12" + isError);
+            } else {
+                $("#errHelmetOffer").text("");
+            }
+            console.log("isError: " + isError);
+            return !isError;
+        });
 
-                    var dependentCmbs = new Array();
+        var make = "";
+        var model = "";
+        var version = "";
+        var bikeName = "";
 
-                    bindDropDownList(resObj, $("#ddlVersion"), "", dependentCmbs, "--Select Version--");
-                }
-            });
-        } else {
+        $("#ddlMake").change(function () {
+            drpMake_Change($(this));              
+        });
+
+        $("#ddlModel").change(function () {
+            drpModel_Change($(this));        
+        });
+
+        $("#ddlVersion").change(function () {
+            $("#hdnVersion").val($(this).val());
+            version = $(this).find(":selected").text();
+            bikeName = make + model + version;
+            $("#hdnBikeName").val(bikeName);
+        });
+
+        function drpMake_Change(objMake) {
+            var bikeMakeId = objMake.val();
             $("#ddlVersion").val("0").attr("disabled", true);
+            if (bikeMakeId != 0) {
+                make = objMake.find(":selected").text();
+                $.ajax({
+                    type: "POST",
+                    url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
+                    data: '{"requestType":"NEW", "makeId":"' + bikeMakeId + '"}',
+                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModels"); },
+                    success: function (response) {
+                        //alert(response);
+                        var responseJSON = eval('(' + response + ')');
+                        var resObj = eval('(' + responseJSON.value + ')');
+
+                        var dependentCmbs = new Array();
+
+                        bindDropDownList(resObj, $("#ddlModel"), "", dependentCmbs, "--Select Model--");
+                    }
+                });
+            } else {
+                $("#ddlModel").val("0").attr("disabled", true);
+            }
         }
-    }
-    $(".offer-1 li").click(function () {
-        var panel = $(this).closest(".offer-1");
-        panel.find("span.bw-sprite").removeClass("checked-radio");
-        $(this).find("span.bw-sprite").toggleClass("checked-radio", "unchecked-radio");
-        var panelId = $(this).attr("data-id");
-        $("#" + panelId).show();
-        $(".offer-1 li").removeClass("selected-offer");
-        $(this).addClass("selected-offer");
-        $("#hdnSelHelmet").val($(this).attr("offerId"));
-    });
-    $('.offer-box-1').hover(function () {
-        $('.specification-popup-1').toggle(200);
-    });
-    $('.offer-box-2').hover(function () {
-        $('.specification-popup-2').toggle(200);
-    });
-    $('.offer-box-3').hover(function () {
-        $('.specification-popup-3').toggle(200);
-    });
+
+        function drpModel_Change(objModel) {
+            var bikeModelId = objModel.val();
+            if (bikeModelId != 0) {
+                model = objModel.find(":selected").text();
+                $.ajax({
+                    type: "POST",
+                    url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
+                    data: '{"requestType":"NEW", "modelId":"' + bikeModelId + '"}',
+                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetVersions"); },
+                    success: function (response) {
+                        var responseJSON = eval('(' + response + ')');
+                        var resObj = eval('(' + responseJSON.value + ')');
+
+                        var dependentCmbs = new Array();
+
+                        bindDropDownList(resObj, $("#ddlVersion"), "", dependentCmbs, "--Select Version--");
+                    }
+                });
+            } else {
+                $("#ddlVersion").val("0").attr("disabled", true);
+            }
+        }
+        $(".offer-1 li").click(function () {
+            var panel = $(this).closest(".offer-1");
+            panel.find("span.bw-sprite").removeClass("checked-radio");
+            $(this).find("span.bw-sprite").toggleClass("checked-radio", "unchecked-radio");
+            var panelId = $(this).attr("data-id");
+            $("#" + panelId).show();
+            $(".offer-1 li").removeClass("selected-offer");
+            $(this).addClass("selected-offer");
+            $("#hdnSelHelmet").val($(this).attr("offerId"));
+        });
+        $('.offer-box-1').hover(function () {
+            $('.specification-popup-1').toggle(200);
+        });
+        $('.offer-box-2').hover(function () {
+            $('.specification-popup-2').toggle(200);
+        });
+        $('.offer-box-3').hover(function () {
+            $('.specification-popup-3').toggle(200);
+        });
 
 
 </script>
+<style type="text/css">
+    .ui-datepicker-trigger { position:relative; top:6px; left:4px; }
+</style>
 <!-- #include file="/includes/footerInner.aspx" -->

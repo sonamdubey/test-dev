@@ -18,7 +18,7 @@ using Bikewale.Common;
 using System.Net.Http;
 using System.Configuration;
 using System.Net.Http.Headers;
-using Bikewale.Entity.CMS.Photos;
+using Bikewale.Entities.CMS.Photos;
 
 namespace Bikewale.Controls
 {
@@ -57,7 +57,7 @@ namespace Bikewale.Controls
 
         /// <summary>
         /// Written By : Ashwini Todkar on 3 Oct 2014
-        /// Summary    : Method to get model details
+        /// Summary    : PopulateWhere to get model details
         /// </summary>
         private void GetModelDetails()
         {
@@ -144,7 +144,7 @@ namespace Bikewale.Controls
 
         /// <summary>
         /// Written By : Ashwini Todkar on 3 Oct 2014
-        /// Summary    : Method to bind model photos repeater
+        /// Summary    : PopulateWhere to bind model photos repeater
         /// </summary>
         /// <param name="_objImageList"></param>
         private void BindPhotos(List<ModelImage> _objImageList)

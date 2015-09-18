@@ -13,10 +13,9 @@
 <style type="text/css">
     .ul-2col li{ float:left; width:200px; }
 </style>
-<form id="form1" runat="server">
 <div class="container_12">
     <div class="grid_12"><ul class="breadcrumb"><li>You are here: </li><li><a href="/">Home</a></li><li class="fwd-arrow">&rsaquo;</li><li><a href="/new/">New</a></li><li class="fwd-arrow">&rsaquo;</li><li class="current"><strong>User Reviews</strong></li></ul><div class="clear"></div></div>
-    <div class="grid_12"><h1>User Reviews</h1></div>
+    <div class="grid_12"><h1 class="margin-top10">User Reviews</h1></div>
     <div class="grid_5 margin-top10">                  	
 		<div class="grey-bg content-block">
             <h2>Browse By Make</h2>
@@ -46,13 +45,13 @@
 		<div class="grey-bg content-block margin-top10">
             <h2>Write your own review</h2>
             <div class="margin-top10">
-			    Make<font color="red">*</font> <asp:DropDownList ID="drpMake" runat="server"/>				
+			    Make<font color="red">*</font> <asp:DropDownList ID="drpMake" runat="server" tabindex="1"/>				
 			    &nbsp; Model<font color="red">*</font> 
-			    <asp:DropDownList ID="drpModel" runat="server">
+			    <asp:DropDownList ID="drpModel" runat="server" tabindex="2">
 				    <asp:ListItem Text="--Select--" Value="0" />
 			    </asp:DropDownList>
 			    <input type="hidden" id="hdn_drpModel" runat="server" />
-			    <asp:Button ID="btnWrite" CssClass="buttons" runat="server" Text="Next"/><br>
+			    <asp:Button ID="btnWrite" CssClass="buttons text_white" runat="server" Text="Next" tabindex="3"/><br>
 			    <span id="spnModel" class="error"></span>
            </div>			
 		</div><div class="clear"></div>
@@ -93,7 +92,6 @@
         </div>
 	</div>
 </div>
-</form>
 <script type="text/javascript">
 
     $("#drpMake").change(function () {      

@@ -20,8 +20,7 @@
     #tblContactDetails span { font-weight:bold; }    
     #tblContactDetails td { color:#000; }
 </style>
-<form id="Form1" runat="server">
-    <div class="container_12">
+    <div class="container_12 container-min-height">
         <div class="grid_12">
             <ul class="breadcrumb">
                 <li>You are here: </li>
@@ -34,7 +33,7 @@
         </div>
 	    <div class="grid_8 margin-top15">		
 			<!--My Community Profile Content-->	
-            <h2 style="display:inline;">Contact Details</h2><!--<a href="/mybikewale/editcontactdetails/" class="margin-left10">Edit Contact Details</a>-->
+            <h2 style="display:inline;">Contact Details</h2><a href="/mybikewale/editcontactdetails/" class="margin-left5">Edit</a>
 			<table id="tblContactDetails" class="margin-top10 grey-bg border-light" border="0" cellpadding="5" cellspacing="0" width="100%">					
 				<tr>
 					<td><span>Name :</span></td>
@@ -66,6 +65,5 @@
             
         </div>
     </div>
-</form>
 <!-- #include file="/includes/footerinner.aspx" -->
 <!-- Footer ends here -->

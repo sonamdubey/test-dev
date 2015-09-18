@@ -48,8 +48,8 @@
  </style>
 <link rel="canonical" href=<%= canonical %> />
 <script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
-<form id="Form1" method="post" runat="server">
-    <div class="container_12">
+
+    <div class="container_12 margin-bottom20">
         <div class="grid_12"><ul class="breadcrumb"><li>You are here: </li><li><a href="/">Home</a></li><li>&rsaquo; <a title="Indian Bike News" href="/road-tests/">Road Tests</a></li><li class="current">&rsaquo; <strong><%= articleTitle%></strong></li></ul><div class="clear"></div></div>	
         <div class="grid_8 margin-top10">            
 		    <h1 class="hd1"><%= articleTitle%></h1>
@@ -132,24 +132,24 @@
 		    </div>--%>
         </div>    
       <div class="grid_4"><!--    Right Container starts here -->
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>                
+        </div>--%>                
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
             <uc:InstantBikePrice runat="server" ID="ucInstantBikePrice" />
         </div>
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
             <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
         </div>
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>
+        </div>--%>
     </div>	
    </div>
-</form>
 <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -175,5 +175,5 @@
         //});
     });
 </script>
-<!-- #include file="/includes/footerinner.aspx" -->
+<!-- #include file="/includes/footerInner.aspx" -->
 

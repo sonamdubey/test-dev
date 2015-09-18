@@ -20,5 +20,8 @@ namespace Bikewale.Entities.Location
 
         [JsonProperty("stateName"), DataMember]
         public string StateName { get; set; }
+
+        [JsonProperty("stateMaskingName")]
+        public string StateMaskingName { get; set; }
     }
 }

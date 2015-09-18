@@ -12,9 +12,11 @@ namespace Bikewale.Entities.BikeData
     /// </summary>
     public class BikeVersionsListEntity
     {
-        public uint VersionId { get; set; }
+        public int VersionId { get; set; }
         public string VersionName { get; set; }
         public string ModelName { get; set; }
         public UInt64 Price { get; set; }
+      //  public string MaskingName { get; set; }
+
     }
 }

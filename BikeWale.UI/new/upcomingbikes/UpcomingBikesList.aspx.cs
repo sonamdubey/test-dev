@@ -108,7 +108,7 @@ namespace Bikewale.New
 
         #region Fetch Upcoming Bikes (Based on Make)
         /// <summary>
-        /// Method to fetch data on Upcoming bikes based on Make
+        /// PopulateWhere to fetch data on Upcoming bikes based on Make
         /// </summary>
         /// <param name="makeId">Bike Make Id</param>
         /// <param name="makeName">Bike Make Name</param>
@@ -144,7 +144,7 @@ namespace Bikewale.New
 
         #region Fill Repeater
         /// <summary>
-        /// Method to fetch data on Upcoming bikes
+        /// PopulateWhere to fetch data on Upcoming bikes
         /// </summary>
         /// <param name="sort">Criteria on which the data is sorted.</param>
         void FillRepeaters(string sort)
@@ -180,7 +180,7 @@ namespace Bikewale.New
 
         #region BindData
         /// <summary>
-        /// Method to bind the data retrieved to the repeater
+        /// PopulateWhere to bind the data retrieved to the repeater
         /// </summary>
         /// <param name="cmd">Sql Command Object</param>
         void BindData(SqlCommand cmd)
@@ -229,7 +229,7 @@ namespace Bikewale.New
 
         #region Sort Criteria
         /// <summary>
-        /// Method to sort Data retrieved
+        /// PopulateWhere to sort Data retrieved
         /// </summary>
         /// <param name="sort">Criteria on which the data will be sorted</param>
         /// <returns></returns>

@@ -1,3 +1,6 @@
-#Ignore .cache files
-**/bin/*
-**/obj/*
+*/bin
+*/obj
+*.suo
+/packages
+*.log
+*.user

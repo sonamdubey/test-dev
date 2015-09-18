@@ -4,9 +4,8 @@
     AdPath = "/1017752/Bikewale_PriceQuote_";
 %>
 <!-- #include file="/includes/pgheader.aspx" -->
-<link rel="stylesheet" href="/css/bw-pq.css?30july2015" type="text/css">
-<link rel="stylesheet" href="/css/bw-pq-new.css?23july2015" type="text/css">
-    <form runat="server">
+<link rel="stylesheet" href="/css/bw-pq.css?<%= staticFileVersion %>" type="text/css">
+<link rel="stylesheet" href="/css/bw-pq-new.css?<%= staticFileVersion %>" type="text/css">
         <div class="main-container">
 	        <div class="container_12">
     	        <div class="grid_8 margin-top10">
@@ -15,11 +14,10 @@
                             <p>In case you have been charged, the amount will be refunded to your acount within 7-10 working days based on your bank. Kindly contact the bank for further information.</p>
                             <p class="margin-top10"><span><strong>Transaction reference number: <%= System.Configuration.ConfigurationManager.AppSettings["OfferUniqueTransaction"] %><%= Carwale.BL.PaymentGateway.PGCookie.PGTransId %></strong></span></p>
                         </div>
-                        <div class="mid-box margin-top15 margin-bottom20 center-align"><asp:Button class="action-btn" id="btnMakePayment" Text="Try Paying Again" runat="server" /></div>
+                        <div class="mid-box margin-top15 margin-bottom20 center-align"><asp:Button class="action-btn text_white" id="btnMakePayment" Text="Try Paying Again" runat="server" /></div>
         	        </div>
             </div>
         </div>
-    </form>
 <script type="text/ecmascript">
     $(document).ready(function () {
         $("#btnMakePayment").click(function () {
@@ -28,5 +26,6 @@
     });
 </script>
     </div>
+</form>
 </body>
 </html>

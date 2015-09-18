@@ -23,6 +23,8 @@
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMakes="",TargetedModels="", AdModel_300x250=""
         ,AdSeries_300x250="", canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "";
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script> 
     <script type='text/javascript'>
         var googletag = googletag || {};
@@ -77,21 +79,12 @@
     <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->
 </head>
 <body>
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
     <div id="divParentPageContainer" data-role="page" style="position:relative;">
         <div role="main">
         	<!-- Header code starts here-->
-            <div class="header">
-            	<div class="icon-placer">
-                	<a href="#nav-panel">
-                    	<span class="bw-sprite nav-icon"></span>
-                    </a>
-                </div>
-                <div class="bw-logo-placer">
-                	<a href="/m/" class="bw-logo"></a>
-                </div>
-                <div class="clear"></div>
-            </div>
+            <!-- #include file="/includes/headBW_Mobile.aspx" --> 
             <!-- Header code ends here-->
             <!-- inner-section code starts here-->
             <div class="inner-section">

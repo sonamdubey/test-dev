@@ -38,7 +38,7 @@ namespace Bikewale.Used
         }
 
         /// <summary>
-        ///     Method to verify the the code entered by customer
+        ///     PopulateWhere to verify the the code entered by customer
         /// </summary>
         protected void VerifyCustomer()
         {

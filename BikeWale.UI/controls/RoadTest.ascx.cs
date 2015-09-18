@@ -7,7 +7,7 @@ using Bikewale.Common;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 using System.Configuration;
 using Bikewale.Entities.CMS;
 using System.Collections.Generic;
@@ -77,7 +77,7 @@ namespace Bikewale.Controls
 
         /// <summary>
         /// Written By : Ashwini Todkar on 6 Oct 2014
-        /// Summary    : Method to fetch roadtests from api asynchronously
+        /// Summary    : PopulateWhere to fetch roadtests from api asynchronously
         /// </summary>
         protected async void FetchRoadTest()
         {

@@ -1,30 +1,44 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.m.controls.MPopupWidget" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>  
+
 <!--bw popup code starts here-->
-<div id="blackOut-window" class="hide"></div>
-<div class="bw-popup hide bw-popup-sm" id="popupWrapper">
+<div class="bw-city-popup hide bw-popup-sm text-center" id="popupWrapper">
 	<div class="popup-inner-container">
-    	<div class="bw-sprite close-btn floatright"></div>
-    	<h1>Select Location</h1>
-        <div class="popup-inner-container" id="popupContent">
-            <div><i><span class="red">*</span>All fields are mandatory</i></div>
-         <div>
-                <select id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }" ></select> 
+        
+    	<div class="bwmsprite close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+        <div class="cityPopup-box rounded-corner50percent margin-bottom20">
+            	<span class="bwmsprite cityPopup-icon margin-top10"></span>
             </div>
-            <div  data-bind="visible: bookingAreas().length > 0" >
-                <select  class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--'"></select>
+    	<p class="font20 margin-bottom10 text-capitalize">Please Tell Us Your Location</p>
+        <div class="padding-top5" id="popupContent">
+            <div class="text-light-grey margin-bottom15"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
+         <div>
+                <select id="ddlCitiesPopup" class="form-control" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }" ></select> 
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select City</div>   
+         </div>
+            <div  data-bind="visible: bookingAreas().length > 0" class="margin-top15">
+                <select  class="form-control chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--'"></select>
+                <span class="bwsprite error-icon hide"></span>
+                <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div> 
-            <div class="center-align">                
-                <a id="btnDealerPricePopup" class="bwm-btn" data-bind="event: { click: getPriceQuotePopup }"> Get Price Quote</a>
+            <div class="center-align margin-top20 text-center">                
+                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="event: { click: getPriceQuotePopup }">Get on road price</a>
                 <div id="errMsgPopup" class="red-text margin-top10 hide"></div>
             </div>            
         </div>
     </div>
 </div>
 <!--bw popup code ends here-->
+
 <script type="text/javascript">
 var selectedModel = 0;
 var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
 var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
+var preSelectedCityId = 0;
+var preSelectedCityName = "";
+popupcity = $('#ddlCitiesPopup');
+popupArea = $('#ddlAreaPopup');
+
 // knockout popupData binding
 var viewModelPopup = {
     selectedCity: ko.observable(),
@@ -33,6 +47,18 @@ var viewModelPopup = {
     bookingAreas: ko.observableArray([])
 };
 
+function checkCookies(cookieName) {
+    c = document.cookie.split('; ');
+    for (i = c.length - 1; i >= 0; i--) {
+        C = c[i].split('=');
+        if (C[0] == "location") {
+            var cData = (String(C[1])).split('_');
+            preSelectedCityId = parseInt(cData[0]);
+            preSelectedCityName = cData[1];
+        }
+    }
+}
+
 function FillCitiesPopup(modelId) {
     $.ajax({
         type: "POST",
@@ -40,12 +66,23 @@ function FillCitiesPopup(modelId) {
         data: '{"modelId":"' + modelId + '"}',
         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
         success: function (response) {
+            selectedModel = modelId;
+            $('#popupWrapper').fadeIn(100);
+            $('body').addClass('lock-browser-scroll');
+            $(".blackOut-window").show();
             var obj = JSON.parse(response);
             var cities = JSON.parse(obj.value);
+            var citySelected = null;
             if (cities)
             {
+                checkCookies();
                 var initIndex = 0;
                 for (var i = 0; i < cities.length; i++) {
+
+                    if (preSelectedCityId == cities[i].CityId) {
+                        citySelected = cities[i];
+                    }
+
                     if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
                         var currentCity = cities[i];
                         cities.splice(cities.indexOf(currentCity), 1);
@@ -54,6 +91,11 @@ function FillCitiesPopup(modelId) {
                 }
                 cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
                 viewModelPopup.bookingCities(cities);
+
+                if (citySelected != null) {
+                    viewModelPopup.selectedCity(citySelected.CityId);
+                }
+
                 $("#ddlCitiesPopup option[value=0]").prop("disabled", "disabled");
                 if ($("#ddlCitiesPopup option:last-child").val() == "0") {
                     $("#ddlCitiesPopup option:last-child").remove();
@@ -99,7 +141,8 @@ function cityChangedPopup() {
 function isValidInfoPopup() {
     isValid = true;
     var errMsg = "Missing fields:";
-    if (viewModelPopup.selectedCity() == undefined) {
+
+    if (viewModelPopup.selectedCity() == undefined) { 
         errMsg += "City,";
         isValid = false;
     }
@@ -109,6 +152,7 @@ function isValidInfoPopup() {
     }
     if (!isValid) {
         errMsg = errMsg.substring(0, errMsg.length - 1);
+        gtmCodeAppender(pageId, "Error in submission", errMsg);
     }
     return isValid;
 }
@@ -116,6 +160,14 @@ function isValidInfoPopup() {
 function getPriceQuotePopup() {
     var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
     if (isValidInfoPopup()) {
+
+        //set global cookie
+        if (cityId > 0) {
+            cityName = $(popupcity).find("option[value=" + cityId + "]").text();
+            cookieValue = cityId + "_" + cityName;
+            SetCookieInDays("location", cookieValue, 365);
+        }
+
         $.ajax({
             type: 'POST',
             url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
@@ -144,25 +196,22 @@ function getPriceQuotePopup() {
 }
 
 
-$(function(){
-
-    $("a.fillPopupData").click(function (e) {
-        e.preventDefault();
-        $("#errMsgPopUp").empty();
-        var str = $(this).attr('modelId');
-        var modelIdPopup = parseInt(str, 10);
-        selectedModel = modelIdPopup;
-        $('#blackOut-window,#popupWrapper').show();
-        FillCitiesPopup(modelIdPopup);
-    });
-
-    $('#popupWrapper .close-btn').click(function () {
-        $("#blackOut-window").hide();
-        $('.bw-popup').hide();
+$(document).ready(function () {
+    $('#popupWrapper .close-btn,.blackOut-window').click(function () {
+        $('.bw-city-popup').fadeOut(100);
+        $('body').removeClass('lock-browser-scroll');
+        $(".blackOut-window").hide();
         $('a.fillPopupData').removeClass('ui-btn-active');
     });
 
     ko.applyBindings(viewModelPopup, $("#popupContent")[0]);
+});
 
+$("a.fillPopupData").on("click", function (e) {
+    e.stopPropagation();    
+    $("#errMsgPopUp").empty();
+    var str = $(this).attr('modelId');
+    var modelIdPopup = parseInt(str, 10);
+    FillCitiesPopup(modelIdPopup);
 });
 </script>

@@ -1,5 +1,5 @@
 ﻿using Bikewale.Common;
-using Bikewale.Entity.BikeBooking;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Notifications;
 using Bikewale.Notifications.MailTemplates;
 using System;
@@ -36,25 +36,25 @@ namespace Bikewale.BikeBooking
 
         public static void SMSToDealer(string dealerMobile, string customerName, string customerMobile, string bikeName, string areaName, string cityName)
         {
-            SMSTypes obj = new SMSTypes();
+            Bikewale.Common.SMSTypes obj = new Bikewale.Common.SMSTypes();
             obj.NewBikePriceQuoteSMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString());
         }
 
         public static void SMSToCustomer(string customerMobile, string customerName, string BikeName, string dealerName, string dealerContactNo, string dealerAddress, uint bookingAmount,uint insuranceAmount = 0)
         {
-            SMSTypes obj = new SMSTypes();
+            Bikewale.Common.SMSTypes obj = new Bikewale.Common.SMSTypes();
             obj.NewBikePriceQuoteSMSToCustomer(customerMobile, customerName, BikeName, dealerName, dealerContactNo, dealerAddress, HttpContext.Current.Request.ServerVariables["URL"].ToString(), bookingAmount,insuranceAmount);
         }
 
         public static void BookingSMSToCustomer(string customerMobile, string customerName, string BikeName, string dealerName, string dealerContactNo, string dealerAddress, string bookingRefNum, uint insuranceAmount = 0)
         {
-            SMSTypes obj = new SMSTypes();
+            Bikewale.Common.SMSTypes obj = new Bikewale.Common.SMSTypes();
             obj.BikeBookingSMSToCustomer(customerMobile, customerName, BikeName, dealerName, dealerContactNo, dealerAddress, HttpContext.Current.Request.ServerVariables["URL"].ToString(), bookingRefNum, insuranceAmount);
         }
 
         public static void BookingSMSToDealer(string customerMobile, string customerName, string BikeName, string dealerName, string dealerContactNo, string dealerAddress, string bookingRefNum, UInt32 bookingAmt, uint insuranceAmount = 0)
         {
-            SMSTypes obj = new SMSTypes();
+            Bikewale.Common.SMSTypes obj = new Bikewale.Common.SMSTypes();
             obj.BikeBookingSMSToDealer(dealerContactNo, customerName, dealerName, customerMobile, BikeName, HttpContext.Current.Request.ServerVariables["URL"].ToString(), bookingAmt, bookingRefNum, insuranceAmount);
         }
 

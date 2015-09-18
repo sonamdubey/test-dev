@@ -15,7 +15,6 @@
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
 
-<form id="form1" runat="server">
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -80,8 +79,8 @@
                     </tr>
                 </table>
             </div>
-            <div class="grid_2 omega margin-top20 action-btn">
-                Own a <%= BikeName %>? Help others make an informed buying decision. <a href="/content/userreviews/writereviews.aspx?bikem=<%= ModelId %>" class="margin-top5">Write a review</a>
+            <div class="grid_2 omega margin-top20">
+                Own a <%= BikeName %>? Help others make an informed buying decision. <a href="/content/userreviews/writereviews.aspx?bikem=<%= ModelId %>" class="margin-top5 action-btn btn-xs">Write a review</a>
             </div>                
         </div>               
         <div class="clear"></div>       
@@ -155,7 +154,7 @@
     <span id="spnAbuseComments" class="error"></span><br />
     <a id="btnReportReviewAbuse" class="buttons" onclick="javascript:reportAbuse()">Report</a>
 </div>   
-</form><script type="text/javascript" src="/src/graybox.js?v=1.0"></script>
+<script type="text/javascript" src="/src/graybox.js?v=1.0"></script>
     <script language="javascript">
         function helpfulClick(reviewId, helpful) {
             //alert(reviewId + "," + helpful);

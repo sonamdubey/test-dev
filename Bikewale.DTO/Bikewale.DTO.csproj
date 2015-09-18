@@ -30,8 +30,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -39,10 +44,155 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoComplete\BikeList.cs" />
+    <Compile Include="AutoComplete\Payload.cs" />
+    <Compile Include="AutoComplete\SuggestionList.cs" />
+    <Compile Include="BikeData\BikeDiscription.cs" />
+    <Compile Include="Area\AreaBase.cs" />
+    <Compile Include="Area\AreaList.cs" />
+    <Compile Include="BikeData\MinSpecs.cs" />
+    <Compile Include="BikeData\BikeMakeDropdownDTO.cs" />
+    <Compile Include="City\CityBase.cs" />
+    <Compile Include="City\CityList.cs" />
+    <Compile Include="BikeData\FeaturedBike.cs" />
+    <Compile Include="BikeData\FeaturedBikeList.cs" />
+    <Compile Include="BikeData\LaunchedBike.cs" />
+    <Compile Include="BikeData\LaunchedBikeList.cs" />
+    <Compile Include="BikeData\SimilarBike.cs" />
+    <Compile Include="BikeData\SimilarBikeList.cs" />
+    <Compile Include="BikeData\UpcomingBike.cs" />
+    <Compile Include="BikeData\UpcomingBikeList.cs" />
+    <Compile Include="CMS\Photos\CMSModelImageBase.cs" />
+    <Compile Include="Customer\AuthenticatedCustomer.cs" />
+    <Compile Include="Customer\Customer.cs" />
+    <Compile Include="Customer\CustomerBase.cs" />
+    <Compile Include="Customer\RegisteredCustomer.cs" />
+    <Compile Include="Make\BikeDescription.cs" />
     <Compile Include="Make\MakeBase.cs" />
     <Compile Include="Make\MakeList.cs" />
+    <Compile Include="BikeBooking\Area\BBAreaBase.cs" />
+    <Compile Include="BikeBooking\Area\BBAreaList.cs" />
+    <Compile Include="BikeBooking\City\BBCityBase.cs" />
+    <Compile Include="BikeBooking\City\BBCityList.cs" />
+    <Compile Include="BikeBooking\Make\BBMakeBase.cs" />
+    <Compile Include="BikeBooking\Make\BBMakeList.cs" />
+    <Compile Include="BikeBooking\Model\BBModelBase.cs" />
+    <Compile Include="BikeBooking\Model\BBModelList.cs" />
+    <Compile Include="BikeBooking\Version\BBVersionBase.cs" />
+    <Compile Include="BikeBooking\Version\BBVersionList.cs" />
+    <Compile Include="BookingSummary\BookingSummaryBase.cs" />
+    <Compile Include="Make\MakePage.cs" />
+    <Compile Include="Make\NewBikeDealersMakeBase.cs" />
+    <Compile Include="Make\NewBikedealersMakeList.cs" />
+    <Compile Include="Model\ModelColor.cs" />
+    <Compile Include="Model\ModelDetail.cs" />
+    <Compile Include="NewBikeSearch\Pager.cs" />
+    <Compile Include="NewBikeSearch\SearchOutput.cs" />
+    <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
+    <Compile Include="PriceQuote\Area\PQAreaBase.cs" />
+    <Compile Include="PriceQuote\Area\PQAreaList.cs" />
+    <Compile Include="Model\ModelBase.cs" />
+    <Compile Include="Model\ModelDescription.cs" />
+    <Compile Include="Model\ModelDetails.cs" />
+    <Compile Include="Model\ModelList.cs" />
+    <Compile Include="Model\ModelPage.cs" />
+    <Compile Include="PriceQuote\BikeBooking\BookingPageOutput.cs" />
+    <Compile Include="PriceQuote\BikeBooking\BikeDealerPriceDetailDTO.cs" />
+    <Compile Include="PriceQuote\BikeBooking\BookingPage.cs" />
+    <Compile Include="PriceQuote\BikeBooking\BookingPageDetailsDTO.cs" />
+    <Compile Include="PriceQuote\BikeBooking\DealerDetailsDTO.cs" />
+    <Compile Include="PriceQuote\BikeBooking\DealerOfferDTO.cs" />
+    <Compile Include="PriceQuote\BikeBooking\DealerVersionPriceItemDTO.cs" />
+    <Compile Include="PriceQuote\PQOnRoad.cs" />
+    <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
+    <Compile Include="Version\ModelVersionList.cs" />
+    <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteInput.cs" />
+    <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteOutput.cs" />
+    <Compile Include="PriceQuote\City\PQCityBase.cs" />
+    <Compile Include="PriceQuote\City\PQCityList.cs" />
+    <Compile Include="PriceQuote\CustomerDetails\PQCustomerBase.cs" />
+    <Compile Include="PriceQuote\CustomerDetails\PQColor.cs" />
+    <Compile Include="PriceQuote\CustomerDetails\PQCustomer.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQAreaBase.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQCityBase.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQuotationInput.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQuotationOutput.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQMakeBase.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQModelBase.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQNewBikeDealer.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQOfferBase.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQ_Price.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQStateBase.cs" />
+    <Compile Include="PriceQuote\DealerPriceQuote\DPQVersionBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQAreaBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQBookingAmountBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQCityBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQDealerDetailBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQEMI.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQFacilityBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQMakeBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQModelBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQNewBikeDealer.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQOfferBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQPQ_Price.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQQuotationBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQStateBase.cs" />
+    <Compile Include="PriceQuote\DetailedDealerQuotation\DDQVersionBase.cs" />
+    <Compile Include="PriceQuote\DPQMobileVerifiedInput.cs" />
+    <Compile Include="PriceQuote\DPQMobileVerifiedOutput.cs" />
+    <Compile Include="PriceQuote\Make\PQMakeBase.cs" />
+    <Compile Include="PriceQuote\Make\PQMakeList.cs" />
+    <Compile Include="PriceQuote\MobileVerification\PQMobileVerificationInput.cs" />
+    <Compile Include="PriceQuote\MobileVerification\PQMobileVerificationOutput.cs" />
+    <Compile Include="PriceQuote\Model\PQModelBase.cs" />
+    <Compile Include="PriceQuote\Model\PQModelList.cs" />
+    <Compile Include="PriceQuote\PQBikeColorInput.cs" />
+    <Compile Include="PriceQuote\PQBikeColorOutput.cs" />
+    <Compile Include="PriceQuote\PQCustomerDetailInput.cs" />
+    <Compile Include="PriceQuote\PQCustomerDetailOutput.cs" />
+    <Compile Include="PriceQuote\PQInput.cs" />
+    <Compile Include="PriceQuote\PQMobileVerificationInput.cs" />
+    <Compile Include="PriceQuote\PQMobileVerificationOutput.cs" />
+    <Compile Include="PriceQuote\PQOutput.cs" />
+    <Compile Include="PriceQuote\PQSources.cs" />
+    <Compile Include="PriceQuote\Version\PQVersionBase.cs" />
+    <Compile Include="PriceQuote\Version\PQVersionList.cs" />
+    <Compile Include="CMS\Articles\CMSArticleBase.cs" />
+    <Compile Include="CMS\Articles\CMSArticleDetails.cs" />
+    <Compile Include="CMS\Articles\CMSArticlePageDetails.cs" />
+    <Compile Include="CMS\Articles\CMSArticleSummary.cs" />
+    <Compile Include="CMS\Articles\CMSContent.cs" />
+    <Compile Include="CMS\Articles\CMSContentFilter.cs" />
+    <Compile Include="CMS\Articles\CMSImage.cs" />
+    <Compile Include="CMS\Articles\CMSPage.cs" />
+    <Compile Include="CMS\Articles\CMSVehicleTag.cs" />
+    <Compile Include="CMS\Photos\CMSImageList.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="UserReviews\FilterByBase.cs" />
+    <Compile Include="UserReviews\ReviewDetails.cs" />
+    <Compile Include="UserReviews\Review.cs" />
+    <Compile Include="UserReviews\ReviewBase.cs" />
+    <Compile Include="UserReviews\ReviewRating.cs" />
+    <Compile Include="UserReviews\ReviewRatingBase.cs" />
+    <Compile Include="UserReviews\ReviewsListEntity.cs" />
+    <Compile Include="UserReviews\ReviewTaggedBike.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Series\SeriesBase.cs" />
+    <Compile Include="Series\SeriesList.cs" />
+    <Compile Include="State\StateBase.cs" />
+    <Compile Include="State\StateList.cs" />
+    <Compile Include="Version\VersionBase.cs" />
+    <Compile Include="Version\VersionDetails.cs" />
+    <Compile Include="Version\VersionList.cs" />
+    <Compile Include="Version\VersionMinSpecs.cs" />
+    <Compile Include="Version\VersionSpecifications.cs" />
+    <Compile Include="Videos\VideoBase.cs" />
+    <Compile Include="Videos\VideosList.cs" />
+    <Compile Include="Widgets\MostPopularBikes.cs" />
+    <Compile Include="Widgets\MostPopularBikesList.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

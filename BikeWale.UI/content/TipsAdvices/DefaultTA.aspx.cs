@@ -33,6 +33,9 @@ namespace Bikewale.Content
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            DeviceDetection deviceDetection = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            deviceDetection.DetectDevice();
+
             CommonOpn op = new CommonOpn();
 
             if (Request["pn"] != null && Request.QueryString["pn"] != "")

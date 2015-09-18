@@ -15,7 +15,6 @@
 
 <div class="left">
 	<h3>Expected Bike Launches</h3>
-	<form id="Form1" runat="server">
     <br />
 	<span id="spnError" class="dvRed" runat="server"></span>
 	<asp:DataGrid ID="dtgrdLaunches" runat="server" 
@@ -85,8 +84,8 @@
             </asp:TemplateColumn>
         </columns>
 	</asp:DataGrid>
-    <asp:Button id="btnSave" Text="Mark As Launched" runat="server"  />	  
-</form>
+    <asp:Button id="btnSave" Text="Mark As Launched" runat="server"  />  
+
 </div>
 
 

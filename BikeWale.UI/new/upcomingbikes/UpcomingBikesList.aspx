@@ -14,11 +14,11 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
-<!-- #include file="/includes/headNew.aspx" -->
+
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
 
-<form id="form1" runat="server">
+<!-- #include file="/includes/headNew.aspx" -->
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -57,19 +57,18 @@
             </BikeWale:RepeaterPager>
         </div>
     <div class="grid_4">
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>
+        </div>--%>
         <div class="grey-bg content-block border-radius5 padding-bottom20 margin-top15">
             <NBL:NewBikeLaunches ID="ctrl_NewBikeLaunches" TopCount="3" runat="server" />                    
             <div class="clear"></div>
         </div>
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>
+        </div>--%>
     </div>
 </div>
-</form>
 <!-- #include file="/includes/footerInner.aspx" -->

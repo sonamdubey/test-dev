@@ -18,14 +18,14 @@
     .socialplugins li{float:left;width:84px;}
 </style>
 
-<div class="padding5">
+<div class="padding10">
     <div id="br-cr">
         <a href="/m/" class="normal">Home</a> &rsaquo; 
         <a href="/m/news/" class="normal">News</a> &rsaquo; 
         <span class="lightgray"><%= newsTitle %></span>
     </div>
     <div class="pgsubhead"><%= newsTitle %></div>
-    <div class="new-line5 lightgray f-12" style="font-size:13px;"><%= displayDate %>  | By <%= author  %></div>    
+    <div class="new-line5 lightgray f-12" style="font-size:13px;"><%= Bikewale.Utility.FormatDate.GetDaysAgo(displayDate) %>  | By <%= author  %></div>    
     <div class="new-line5">
         <ul class="socialplugins  new-line10">
             <li><fb:like href="http://www.bikewale.com/news/<%= pageUrl%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>

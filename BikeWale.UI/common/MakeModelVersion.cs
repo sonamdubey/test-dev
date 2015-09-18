@@ -196,7 +196,7 @@ namespace Bikewale.Common
         }
         /// <summary>
         /// Written By : Ashish G. Kamble on 3/8/2012
-        /// Method will set makeid, make, model on the basis of model id
+        /// PopulateWhere will set makeid, make, model on the basis of model id
         /// </summary>
         /// <param name="modelId"></param>
         public void GetModelDetails(string modelId)
@@ -283,7 +283,7 @@ namespace Bikewale.Common
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 3/8/2012
-        /// Method will set makeid, make, model id, model, version id, version on the basis of version id
+        /// PopulateWhere will set makeid, make, model id, model, version id, version on the basis of version id
         /// </summary>
         /// <param name="versionId"></param>
         /// <returns></returns>
@@ -472,7 +472,7 @@ namespace Bikewale.Common
 
         /// <summary>
         /// Written By : Ashwini Todkar on 28 April 2014
-        /// Summary    : Method to get buyng preferences of user
+        /// Summary    : PopulateWhere to get buyng preferences of user
         /// </summary>
         /// <returns>datatable containing id and buying preferences like 1 week or just researching</returns>
         public DataTable GetBuyingPreference()

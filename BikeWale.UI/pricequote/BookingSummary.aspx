@@ -9,9 +9,9 @@
     //AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/pgheader.aspx" -->
-<link href="/css/bw-pq.css?30july2015" rel="stylesheet" />
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?23july2015" />
-<link rel="stylesheet" type="text/css" href="/css/rsa.css?v=3.0"/>
+<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
+<link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/rsa.css?<%= staticFileVersion %>"/>
 <link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" />
 <div class="main-container">
       <div id="blackOut-window"></div>
@@ -214,7 +214,6 @@
                 </div>
             </div>
             <!--cancellation popup ends here-->
-    <form runat="server">
 	<div class="container_12">
     	<div class="grid_8 margin-top10">
         	<h1 class="margin-bottom5">Pre-Book to Avail Offer</h1>
@@ -326,7 +325,7 @@
                             <div class="clear"></div>
                         </ul>
                     </div>
-                    <div class="mid-box center-align"><asp:Button id="btnMakePayment" class="action-btn" Text="Make Payment" runat="server"/></div>
+                    <div class="mid-box center-align"><asp:Button id="btnMakePayment" class="action-btn text_white" Text="Make Payment" runat="server"/></div>
                 </div>
                 <!--make payment div ends here-->
                 <!--steps starts here-->
@@ -391,8 +390,8 @@
                 <!--Dealer detailes div ends here-->
             </div>
     </div>
-    </form>
 </div>
+</form>
 <script type="text/ecmascript">
     $(document).ready(function () {
 

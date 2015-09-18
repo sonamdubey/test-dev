@@ -27,11 +27,11 @@
                 txtloanamount.Value = loanAmount;
             }
             rate = "12";
-            //if (Request.QueryString["rt"] != null)
-            //{
-            //    rate = Request.QueryString["rt"];
-            //    interestRate.Value = rate;
-            //}
+            if (Request.QueryString["rt"] != null)
+            {
+                rate = Request.QueryString["rt"];
+                interestRate.Value = rate;
+            }
 
             //if (Request.QueryString["loantype"] != null)
             //	loanType = Request.QueryString["loantype"];
@@ -46,7 +46,6 @@
 <style type="text/css">
     
 </style>
-<form id="form1" runat="server">
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -67,17 +66,17 @@
                     <tr>
                         <td class="td-width">Loan Amount (&#8377;)</td>
                         <td>
-                            <input style="text-align: right; width:100px;" type="text" maxlength="10" id="txtloanamount" size="10" value="100000" runat="server" /></td>
+                            <input style="text-align: right; width:160px; height:40px;" type="text" maxlength="10" id="txtloanamount" size="10" value="100000" runat="server" /></td>
                     </tr>
                     <tr>
                         <td>Rate Of Interest (<strong>% </strong>)</td>
                         <td>
-                            <input style="text-align: right; width:100px;" id="interestRate" type="text" maxlength="5" value="12.5" size="5" runat="server" /></td>
+                            <input style="text-align: right; width:160px; height:40px;" id="interestRate" type="text" maxlength="5" value="12.5" size="5" runat="server" /></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
                         <td>
-                            <asp:radiobutton id="R1" runat="server" text=" EMI in Advance" name="opt" groupname="EMIType"></asp:radiobutton>
+                            <asp:radiobutton id="R1" runat="server" text=" EMI in Advance" name="opt" groupname="EMIType" tabindex="3"></asp:radiobutton>
                             &nbsp;<br />
                             <asp:radiobutton id="R2" runat="server" text=" EMI in Arrears" name="opt" groupname="EMIType"></asp:radiobutton>
                         </td>
@@ -85,7 +84,7 @@
                     <tr>
                         <td>&nbsp;</td>
                         <td>                         
-                            <input id="btnCalcEmi" class="buttons" type="submit" title="Calculate EMI" name="Button" value="Calculate EMI" />                        
+                            <input id="btnCalcEmi" class="buttons text_white" type="submit" title="Calculate EMI" name="Button" value="Calculate EMI" />                        
                         </td>
                     </tr>
                 </table>
@@ -147,10 +146,10 @@
         </div>
     </div>
     <div class="grid_4">
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
         <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
         <!-- #include file="/ads/Ad300x250.aspx" -->   
-        </div>
+        </div>--%>
     </div>
 </div>
 </form>

@@ -17,9 +17,9 @@
 	.ulist li {margin-bottom:10px;}
 	.over-flow {overflow:hidden;}
     .socialplugins li{float:left;width:84px;}
+    .bg-footer a.ui-link { color:#fff !important; font-weight:normal !important; }
 </style>
 <div class="padding5">
-    <form runat="server" id="form1">
         <div id="br-cr">
             <a href="/m/" class="normal">Home</a> &rsaquo; 
             <a href="/m/features/" class="normal">Features</a> &rsaquo;
@@ -128,7 +128,6 @@
             <%} %>
 	        <div style="clear:both;"></div>
         </div>--%>
-    </form>
 </div>
 <script type="text/javascript">
     $(document).ready(function () {

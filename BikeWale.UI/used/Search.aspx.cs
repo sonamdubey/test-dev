@@ -356,7 +356,7 @@ namespace Bikewale.Used
 
         /// <summary>
         ///   Written By : Ashwini Todkar on 22 Feb 2013
-        ///   Summary : Method to fetch meta info related to page.
+        ///   Summary : PopulateWhere to fetch meta info related to page.
         /// </summary>
         private void GetMetaKeywords()
         {

@@ -11,7 +11,6 @@
 <script type="text/javascript" language="javascript" src="/src/AjaxFunctions.js"></script>
 <div class="left">
 <h1>Bike Makes</h1>
-<form id="Form1" runat="server">
 	<span id="spnError" class="error" runat="server"></span>
 	<fieldset>
 		<legend>Add New Bike Make</legend>
@@ -150,7 +149,7 @@
             <span class="greenMsg">Masking Name will be used for url formation.<br />Only lowercase letters,- and digits are allowed.</span>
         </div>
     </div>
-</form>
+
 <script type="text/javascript" language="javascript">
 
     //$(document.ready(function(){

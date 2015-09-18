@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikeWaleOpr.Content.UpdateCityDetails"  Trace="false"%>
 <script type="text/javascript" src="/src/common/common.js?V1.1"></script>
-<form id="form1" runat="server">
   <div>
                 <div  class="margin10">
                     <div  class="floatLeft inputWidth">Select State : </div>

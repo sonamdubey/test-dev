@@ -1,122 +1,184 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.New.Models" AutoEventWireUp="false" Trace="false" Debug="false" Async="true" %>
-<%@ Register TagPrefix="news" TagName="NewsMin" Src="~/controls/NewsMin.ascx" %>
-<%@ Register TagPrefix="uc" TagName="UserReviewsMin" Src="~/controls/UserReviewsMin.ascx" %>
-<%@ Register TagPrefix="tips" TagName="TipsAdvicesMin" Src="~/controls/TipsAdvicesMin.ascx" %>
-<%@ Register TagPrefix="BikeWale" TagName="FeaturedBikes" Src="~/controls/FeaturedBike.ascx" %>
-<%@ Register TagPrefix="RT" TagName="RoadTest" Src="/controls/RoadTestControl.ascx" %>
-<%@ Register TagPrefix="uc" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMin.ascx" %>
-<%@ Register TagPrefix="BikeBooking" TagName="BookBikeWidget" Src="~/controls/BikeBookingWidget.ascx" %>
-<%@ Import Namespace="Bikewale.Common" %>
-<%
-    title = make + " Price in India, Review, Mileage & Photos - Bikewale";
-    description = make + " Price in India - " + price  + ". Check out " + make + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
-    AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_New_";
-    canonical       = "http://www.bikewale.com/" + makeMaskingName + "-bikes/" ;
-    alternate="http://www.bikewale.com/m/"+ makeMaskingName + "-bikes/";
-    ShowTargeting = "1";
-    TargetedMake = make;
-%>
-
-<!-- #include file="/includes/headNew.aspx" -->
-
+﻿<%@ Page Language="C#" AutoEventWireup="false"  Inherits="Bikewale.New.Model" %>
+<%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW"  %>
+<%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW"  %>
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 
-<style type="text/css">  
-.tbl-series { width:100%; border-collapse:collapse; }
-.tbl-series td { padding:10px 0;}
-.tbl-header {text-align:left; background-color:#e5e4e4; padding:5px 0;}
-.series-row {border-top:1px solid #e5e4e4;}
-.td-border {border-bottom:1px solid #e5e4e4;}
-</style>
-<div class="container_12">
-<form runat="server">
-    <div class="grid_12">
-        <ul class="breadcrumb">
-            <li>You are here: </li>
-            <li itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop='url' href="/"><span itemprop="title">Home</span></a></li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li itemtype="http://data-vocabulary.org/Breadcrumb"><a itemprop='url' href="/new/"><span itemprop="title">New Bikes</span></a></li>
-            <li class="fwd-arrow">&rsaquo;</li>
-            <li itemtype="http://data-vocabulary.org/Breadcrumb" class="current"><span itemprop="title"><strong><%= make %> Bikes</strong></span></li>
-        </ul><div class="clear"></div>
-    </div>
-    <div class="grid_8  margin-top10"><!--    Left Container starts here -->
-	    <h1 class="hd1"><%= make %> Bikes</h1>
-	    <div id="divModels" runat="server" class="mid-box">
-		    <table class="tbl-series margin-top5">
-			    <tr>
-				    <th width="150" class="tbl-header" >&nbsp;</th>
-				    <th width="250" class="tbl-header">Bike Model</th>
-				    <th class="tbl-header">Ex-Showroom Price (<asp:Literal id="ltrDefaultCityName" runat="server"></asp:Literal>)</th>
-			    </tr>
-	            <%--<asp:Repeater ID="rptModels" runat="server">
-		            <itemtemplate>
-			            <tr>
-				            <td>
-					            <a href='/<%# previousUrl + DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%# DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/photos/'>
-					            <img title="<%=make%> <%# DataBinder.Eval(Container.DataItem,"Model") %> Photos" border="0" src='<%# MakeModelVersion.GetModelImage(DataBinder.Eval(Container.DataItem, "HostURL").ToString(),"/bikewaleimg/models/" + DataBinder.Eval(Container.DataItem,"SmallPic")) %>' alt='<%=make%> <%# DataBinder.Eval(Container.DataItem,"Model") %> Photos' /></a>
-				            </td>
-				            <td>
-					            <a class="href-title" href='/<%# previousUrl + DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%# DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/'><%= make %> <%# DataBinder.Eval(Container.DataItem,"Model") %></a>
-					            <p><%# GetRateImage( Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ReviewRate"))) %> 
-                                    <a title='<%= make %> <%# DataBinder.Eval(Container.DataItem,"Model") %> User Reviews' class="href-grey <%# DataBinder.Eval(Container.DataItem,"ReviewCount").ToString() == "0" ? "hide" : "" %>" href="/<%#DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/user-reviews/"><%# DataBinder.Eval(Container.DataItem,"ReviewCount") %> User Reviews</a>
-                                    <a class="<%# DataBinder.Eval(Container.DataItem,"ReviewCount").ToString() == "0" ? "show" : "hide" %>" href="/content/userreviews/writereviews.aspx?bikem=<%# DataBinder.Eval(Container.DataItem,"Id") %>">Write a review</a>
-					            </p>
-				            </td>
-				            <td>
-					            <strong>Rs. <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"MinPrice").ToString(),DataBinder.Eval(Container.DataItem,"MaxPrice").ToString()) %></strong>
-					            <p class="<%# String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"MinPrice").ToString()) ? "hide" : "" %>"><a href='/pricequote/default.aspx?model=<%# DataBinder.Eval(Container.DataItem,"ID") %>' title='<%=make%> <%# DataBinder.Eval(Container.DataItem,"Model") %> On Road Price'>Check on-road price</a></p>
-				            </td>
-			            </tr>
-		            </itemtemplate>
-	            </asp:Repeater>--%>
-                <asp:Repeater ID="rptSeries" runat="server">
-		            <itemtemplate>
-			         <%--<%# DataBinder.Eval(Container.DataItem, "SeriesRank").ToString().Equals("1") ? GetSeriesRow(DataBinder.Eval(Container.DataItem, "SeriesRank").ToString(), DataBinder.Eval(Container.DataItem, "SeriesId").ToString(), DataBinder.Eval(Container.DataItem, "Series").ToString(),DataBinder.Eval(Container.DataItem, "Model").ToString(),  MakeModelVersion.GetFormattedPrice( DataBinder.Eval(Container.DataItem, "MinPrice").ToString()), DataBinder.Eval(Container.DataItem,"HostUrl").ToString(), DataBinder.Eval(Container.DataItem,"SmallPicUrl").ToString(), DataBinder.Eval(Container.DataItem,"ReviewCount").ToString(), DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString(), DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString(),DataBinder.Eval(Container.DataItem,"SeriesMaskingName").ToString(),DataBinder.Eval(Container.DataItem,"ModelCount").ToString(),DataBinder.Eval(Container.DataItem,"ModelId").ToString(),DataBinder.Eval(Container.DataItem,"ReviewRate").ToString()) : ""%>--%>
-                        <%# DataBinder.Eval(Container.DataItem, "SeriesRank").ToString().Equals("1") ? GetSeriesRow(DataBinder.Eval(Container.DataItem, "SeriesRank").ToString(), DataBinder.Eval(Container.DataItem, "SeriesId").ToString(), DataBinder.Eval(Container.DataItem, "Series").ToString(),DataBinder.Eval(Container.DataItem, "Model").ToString(),  MakeModelVersion.GetFormattedPrice( DataBinder.Eval(Container.DataItem, "MinPrice").ToString()), DataBinder.Eval(Container.DataItem,"HostUrl").ToString(), DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem,"ReviewCount").ToString(), DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString(), DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString(),DataBinder.Eval(Container.DataItem,"SeriesMaskingName").ToString(),DataBinder.Eval(Container.DataItem,"ModelCount").ToString(),DataBinder.Eval(Container.DataItem,"ModelId").ToString(),DataBinder.Eval(Container.DataItem,"ReviewRate").ToString()) : ""%>
-			            <tr class='<%# DataBinder.Eval(Container.DataItem, "ModelCount").ToString().Equals("1") ? "hide" : "" %>'>			            
-                            <td class="td-border" style="padding-left:10px;"><div><a class="href-grey" href="/<%#  DataBinder.Eval(Container.DataItem, "MakeMaskingName").ToString() +"-bikes/" + DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() + "/" %>"><span class="text-grey"><%# DataBinder.Eval(Container.DataItem, "Model")  %></span></a><br><span class='<%# Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ReviewRate")) <= 0 ? "hide" : ""%>'><%# CommonOpn.GetRateImage( Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ReviewRate"))) %> | </span><a href="/<%#DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName").ToString() %>/user-reviews/" class="href-grey reviewLink <%# DataBinder.Eval(Container.DataItem,"ReviewCount").ToString() == "0" ? "hide" : "" %>" ><%# DataBinder.Eval(Container.DataItem, "ReviewCount") %> User Reviews</a><a href="/content/userreviews/writereviews.aspx?bikem=<%# DataBinder.Eval(Container.DataItem, "ModelId")%>" class="reviewLink <%# DataBinder.Eval(Container.DataItem,"ReviewCount").ToString() == "0" ? "" : "hide" %>" rel="nofollow">Write  a review</a></div></td>
-				            <td class="td-border" valign="top">
-                                <strong> Starts At Rs. <%# MakeModelVersion.GetFormattedPrice( DataBinder.Eval(Container.DataItem, "MinPrice").ToString() ) %></strong>
-                                <div class="<%# DataBinder.Eval(Container.DataItem,"MinPrice").ToString().Equals("0")? "hide" : "" %>"><a href='/pricequote/default.aspx?model=<%# DataBinder.Eval(Container.DataItem,"ModelId") %>' title='<%=make%> <%# DataBinder.Eval(Container.DataItem,"Model") %> On Road Price' class='fillPopupData' pageCatId="1" modelId="<%# DataBinder.Eval(Container.DataItem,"ModelId") %>">Check on-road price</a></div>
-				            </td>
-                        </tr>
-		            </itemtemplate>
-	            </asp:Repeater>
-		    </table>
-	    </div>      
-        <div class="margin-top20">   
-            <RT:RoadTest id="ucRoadTestMin" runat="server" TopRecords="4" ControlWidth="grid_2" ></RT:RoadTest>
-        </div><div class="clear"></div>
-        <div class="margin-top15 grey-bg">
-            <div class="content-block"><uc:UserReviewsMin id="ucUserReviewsMin" runat="server" TopRecords="5"></uc:UserReviewsMin></div>
-        </div><div class="clear"></div>
-        <div class="margin-top15">
-            <h2>Featured Bikes</h2>
-            <BikeWale:FeaturedBikes ID="ctrl_FeaturedBike" runat="server" TopRecords="4" />
+<!Doctype html>
+<html>
+<head>    
+    <%
+        title = _make.MakeName + " Price in India, Review, Mileage & Photos - Bikewale";
+        description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) + " - Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+        alternate = "http://www.bikewale.com/m/" + _make.MaskingName + "-bikes/";
+        canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";
+    %>
+    <!-- #include file="/includes/headscript.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+</head>
+<body class="bg-light-grey">
+    <form runat="server">
+    <!-- #include file="/includes/headBW.aspx" -->
+    
+    <!-- Brand Page Starts Here-->
+    <section class="bg-white header-fixed-inner">
+        <div class="container">
+            <div class="grid-12">
+                <div class="padding-bottom15 text-center">
+                </div>
+            </div>
+            <div class="clear"></div>
         </div>
-    </div><!-- Left Container ends here -->
-    <div class="grid_4"><!--    Right Container starts here -->
-        <div class="marging-top15">
-            <BikeBooking:BookBikeWidget ID="ctrBikeBooking" runat="server"/>
+    </section>
+    
+    <section class="bg-light-grey padding-top10">
+    	<div class="container">
+        	<div class="grid-12">
+                <div class="breadcrumb margin-bottom15">
+                    <!-- breadcrumb code starts here -->
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><span class="fa fa-angle-right margin-right10"></span><%= _make.MakeName %> Bikes</li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <h1 class="font30 text-black margin-top10"><%= _make.MakeName %> bikes</h1>
+                <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="margin-top15">
-            <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
+    </section>
+    
+    <section>
+    	<div class="container">
+        	<div class="grid-12">
+            	<div class="brand-bikes-list-container content-box-shadow content-inner-block-10 rounded-corner2">
+                	<ul>
+                         <!-- Most Popular Bikes Starts here--> 
+                        <asp:Repeater ID="rptMostPopularBikes" runat="server">
+                            <ItemTemplate>
+                                <li class="front">
+                                    <div class="contentWrapper">
+                                        <div class="imageWrapper">
+                                            <a href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
+                                                <img class="lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>">
+                                            </a>
+                                        </div>
+                                        <div class="bikeDescWrapper">
+                                            <div class="bikeTitle margin-bottom10">
+                                                <h3><a href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>"><%# DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %></a></h3>
+                                            </div>
+                                            <div class="font20">
+                                                <span class="fa fa-rupee " style="display:<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"none":"inline-block"%>"></span>
+                                                <span class="font22"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
+                                            </div>
+                                            <div class="font12 text-light-grey margin-bottom10">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
+                                            <div class="font14 margin-bottom10">
+                                                <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
+                                            </div>
+                                            <div class="leftfloat">
+                                                <p class=" inline-block border-solid-right padding-right10 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
+                                                    <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ModelRating"))) %>
+                                                </p>
+                                            </div>
+                                            <div class="leftfloat margin-left10 font16 text-light-grey <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
+                                                <span><a href="/<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName"))%>-bikes/<%#Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")) %>/user-reviews/" ><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ReviewCount")) %> Reviews</a></span>
+                                            </div>
+
+                                            <div class="leftfloat font16 text-light-grey <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">
+                                                <span class="border-solid-right">Not rated yet  </span><a href="/content/userreviews/writereviews.aspx?bikem=<%# DataBinder.Eval(Container.DataItem,"objModel.ModelId") %>"><span class="margin-left10">Write a review</span></a>
+                                            </div>
+
+                                            <div class="clear"></div>
+                                            <a href="Javascript:void(0)" pageId ="1"  modelId="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                        <!--- Most Popular Bikes Ends Here-->
+                    </ul>
+                </div>
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="margin-top15">
-            <uc:UpcomingBikes ID="ucUpcoming" runat="server" HeaderText="Upcoming Bikes" TopRecords="2" ControlWidth="grid_2" />
-        </div><div class="clear"></div>
-        
-        <div><news:NewsMin id="newsMin" runat="server"></news:NewsMin></div>
-        <div class="margin-top15"><tips:TipsAdvicesMin id="tipsAdvices" runat="server" /></div>
-        <div class="margin-top15">
-            <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250_BTF -->
-            <!-- #include file="/ads/Ad300x250BTF.aspx" -->
+    </section>    
+    <section class="<%= (Convert.ToInt32(ctrlUpcomingBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>"><!-- Upcoming bikes from brands -->
+    	<div class="container">
+        	<div class="grid-12">
+            	<h2 class="text-bold text-center margin-top50 margin-bottom30">Upcoming bikes from <%= _make.MakeName %></h2>
+                <div class="content-box-shadow padding-top20 rounded-corner2">
+                    <div class="jcarousel-wrapper upcoming-brand-bikes-container">
+                        <div class="jcarousel">
+                            <ul>
+                	            <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes"/> <!-- Upcoming Bikes Control-->               
+                           </ul>
+                        </div>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                        </div> 
+                  </div>
+            </div>
+            <div class="clear"></div>
         </div>
-    </div><!--    Right Container ends here -->
-</form>    
-</div>
-<!-- #include file="/includes/footerInner.aspx" -->
+    </section>
+    <% 
+            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }            
+        %>
+     <section ><!--  News Bikes code starts here -->
+        <div class="container newBikes-latest-updates-container">
+            <div class="grid-12 margin-bottom20">
+                <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
+                <div class="bw-tabs-panel content-box-shadow margin-bottom30">
+                    <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
+                        <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>">
+                            <ul>
+                                <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Reviews</li>
+                                <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <BW:News runat="server" ID="ctrlNews" />
+                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                    <BW:Videos runat="server" ID="ctrlVideos" /> 
+                </div>       
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+    <section ><!-- About Brand code starts here-->
+    	<div class="container">
+        	<div class="grid-12" style="<%= (isDescription) ? "": "display:none;" %>">
+            	<h2 class="text-bold text-center margin-top30 margin-bottom30">About <%= _make.MakeName %></h2>
+                <div class="content-box-shadow content-inner-block-10 rounded-corner2 margin-bottom30 font14">
+                	<span class="brand-about-main">
+                    	<%= _bikeDesc.SmallDescription %>
+                    </span>
+                    <span class="brand-about-more-desc hide">
+                        <%= _bikeDesc.FullDescription %>
+                    </span>
+					<span><a href="javascript:void(0)" class="read-more-btn">Read <span>more</span></a></span>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section>
+     <!-- Popup Section goes here-->	
+     <PW:PopupWidget runat="server" ID="PopupWidget" />
+     <!-- Popup Section Ends here-->  
+    </section>
+    
+
+<!-- #include file="/includes/footerBW.aspx" -->
+<!-- #include file="/includes/footerscript.aspx" -->
+    </form> 
+</body>
+</html>
+    

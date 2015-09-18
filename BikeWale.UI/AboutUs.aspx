@@ -5,8 +5,8 @@
     keywords = "about us, about bikewale";
 %>
 <!-- #include file="/includes/headhome.aspx" -->
-<div class="container_12 margin-top15">
-    <div class="grid_12">
+<div class="container_12">
+    <div class="grid_12 margin-top10">
         <h1>About BikeWale</h1>        
         <div class="format-content margin-top10">
             <p>Bikers of the world, welcome home to BikeWale, the latest channel from CarWale.com in its two-

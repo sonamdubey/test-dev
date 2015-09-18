@@ -144,5 +144,11 @@ namespace Bikewale.BAL.BikeData
         {
             throw new NotImplementedException();
         }
+
+
+        public List<FeaturedBikeEntity> GetFeaturedBikes(uint topRecords)
+        {
+            throw new NotImplementedException();
+        }
     }   // Class
 }   // namespace

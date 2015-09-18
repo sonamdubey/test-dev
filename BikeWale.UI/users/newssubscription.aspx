@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false"  EnableEventValidation="false"  Inherits="Bikewale.MyBikeWale.NewsSubscription" %>
 <!-- #include file="/Includes/headMyBikeWale.aspx" -->
-<form id="form1" runat="server">
-<div class="container_12">
+<div class="container_12 container-min-height">
     <div class="grid_12">
         <ul class="breadcrumb">
             <li>You are here: </li>
@@ -13,7 +12,7 @@
         </ul><div class="clear"></div>
     </div>
 	<div id="content" class="grid_8">
-        <h2 class="margin-top10">BikeWale News Subscription</h2>		
+        <h2 class="margin-top10 margin-bottom5">BikeWale News Subscription</h2>		
 		<!--My Profile Content-->
 		<div  id="tb1">
 			<table border="0" width="100%" cellspacing="0" cellpadding="5" >	
@@ -36,7 +35,7 @@
 				</tr>	
                 <tr>	
 					<td>&nbsp;</td>
-					<td align="left"><asp:Button ID="btnSave"  CssClass="buttons"  Text="Save"  runat="server" /></td>
+					<td align="left"><asp:Button ID="btnSave"  CssClass="buttons text_white"  Text="Save"  runat="server" /></td>
 					<td colspan="3"></td>
 				</tr>	
             	            
@@ -44,7 +43,6 @@
 		</div>				
 	</div>
 </div>
-</form>
 <!-- #include file="../Includes/footerInner.aspx" -->
 <!-- Footer ends here -->
 

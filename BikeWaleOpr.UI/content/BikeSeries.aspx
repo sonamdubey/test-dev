@@ -18,7 +18,6 @@
 </div>
 <body>
     <div class="left">
-        <form id="form1" runat="server">
             <div>
                 <div>
                     <fieldset>
@@ -81,7 +80,7 @@
                     </asp:Repeater>
                 </div>
             </div>
-        </form>
+        
    </div>
 <!-- #Include file="/includes/footerNew.aspx" -->
     <script type="text/javascript" language="javascript">

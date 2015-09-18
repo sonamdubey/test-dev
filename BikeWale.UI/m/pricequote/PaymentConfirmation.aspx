@@ -9,7 +9,7 @@
     AdId = "1398766000399";
 %>
 <!-- #include file="/includes/PaymentHeaderMobile.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" />
+<link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" />
 
 <div class="padding5">
         <h1>Congratulations! Your payment has been received.</h1>
@@ -102,7 +102,7 @@
 <!--Faqs popup starts here-->
     <div class="bw-popup faq-popup hide">
     	<div class="popup-inner-container">
-            <div class="bw-sprite close-btn floatright"></div>
+            <div class="bwmsprite close-btn floatright"></div>
             <h1>Frequently Asked Questions</h1>
             <div class="rounded-corner5 new-line10 selection-box bw-accordion">
             	<div class="selected-input-text floatleft f-bold">1. What is pre-booking?<br /> Why should I pre-book?</div>
@@ -249,7 +249,7 @@
 <!--Documents popup starts here-->
     <div class="bw-popup documents-popup hide">
     	<div class="popup-inner-container">
-            <div class="bw-sprite close-btn floatright"></div>
+            <div class="bwmsprite close-btn floatright"></div>
             <h1>List of Required Documents</h1>
             <div class="f-bold margin-top-10 margin-bottom10">Mandatory Documents:</div>
             <div class="doc-list">
@@ -320,6 +320,7 @@
         </div>
     </div> 
     <div id="divForPopup" style="display:none;"></div>
+</form>
 </body>
 </html>
 

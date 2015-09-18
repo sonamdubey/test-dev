@@ -38,9 +38,10 @@
     #gallery .jcarousel-skin-tango .jcarousel-next-horizontal { background: #282626 url("http://img.carwale.com/adgallery/ad_scroll_forward.png") no-repeat center center; right: 10px; }
     #gallery .jcarousel-skin-tango .jcarousel-prev-horizontal { background: #282626 url("http://img.carwale.com/adgallery/ad_scroll_back.png") no-repeat  center center; left: 0px; }
 
+    .article-content img { width:100%; }
+
  </style>
 <script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
-<form id="form1" runat="server">
     <div class="container_12">
         <div class="grid_12">             			
 			<ul class="breadcrumb">
@@ -55,7 +56,7 @@
         <div class="grid_8 margin-top10">	
 		
 		    <h1><%= articleTitle%></h1>        
-		    <span><%= authorName + ", " + displayDate %> </span> 
+		    <span><%= authorName + ", " + Bikewale.Utility.FormatDate.GetDaysAgo(displayDate) %> </span> 
             <div class="clear"></div>
 		    <div class="block-spacing" id="topNav" runat="server">		
                 <div class="text-bold">
@@ -132,20 +133,20 @@
 		    </div>--%>
     </div>
         <div class="grid_4"><!--    Right Container starts here -->    
-            <div class="margin-top15">
+            <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-            </div>	            
+            </div>--%>	            
             <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
                 <uc:InstantBikePrice runat="server" ID="ucInstantBikePrice" />
             </div>
             <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
                 <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
             </div>
-            <div class="margin-top15">
+            <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>	
+            </div>--%>	
      </div>
    </div>
 </form>
@@ -160,4 +161,4 @@
         ScrollToTop("back-to-top", speed);
     });
 </script>
-<!-- #include file="/includes/footerinner.aspx" -->>
+<!-- #include file="/includes/footerinner.aspx" -->

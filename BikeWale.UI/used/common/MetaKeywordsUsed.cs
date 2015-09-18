@@ -27,7 +27,7 @@ namespace Bikewale.Used
 
         /// <summary>
         ///     Written By : Ashwini Todkar on 16 April 2014
-        ///     Summary : Method will set meta info for the used bike search page.
+        ///     Summary : PopulateWhere will set meta info for the used bike search page.
         /// </summary>
         /// <param name="makeId">Not mandetory. Send empty if not available.</param>
         /// <param name="modelId">Not mandetory. Send empty if not available.</param>

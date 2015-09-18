@@ -27,6 +27,9 @@
     <script src="http://st2.aeplcdn.com/src/jquery.jcarousel.min.js" type="text/javascript"></script>
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMake="",TargetedModels ="", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "", alternate="";	    
+        private bool isHeaderFix = true;
+        private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+        private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
     <script type='text/javascript'>
         var googletag = googletag || {};
@@ -79,100 +82,19 @@
         } )();
     </script>    
 </head>
-<body>
+<body class="bg-white header-fixed-inner">
+    <form runat="server">
     <!-- #include file="/includes/gacode.aspx" --> 
 	<div class="main-container">
-    	<!--Top nav code start here -->
-    	<div class="top-nav">
-        	<div class="container_12">
-            	<div class="grid_9">
-                    <ul class="left-float">
-                    	<li><a href="http://www.carwale.com">CarWale</a></li>
-                        <li>|</li>
-                        <li><a href="/aboutus.aspx">About Us</a></li>                        
-                        <li>|</li>
-                       <%-- <li><a href="/advertisewithus.aspx">Advertise with Us</a></li>                       
-                        <li>|</li>
-                        <li><a href="/contactus.aspx">Contact Us</a></li>
-                        <li>|</li> --%>
-                    </ul>
-                    <div class="left-float margin-left10">                        	
-                        <fb:like href="https://www.facebook.com/pages/BikeWale/471265026228033" layout="button_count" show-faces="false" action="like" colorscheme="light" />
-                    </div>
-                    <div class="left-float margin-left10">                            
-                        <a href="https://twitter.com/bikewale" class="twitter-follow-button" data-show-count="true" data-lang="en">Follow @twitter</a>    
-                    </div>
-                    <div class="left-float margin-left10 hide">
-                        <div class="g-plusone" data-size="medium" data-href="http://www.bikewale.com"></div>
-                    </div>
-                </div>
-                <BikeWale:LoginStatus Id="ctrl_LoginStatus" runat="server" />
-            </div>
-        </div>
-        <!--Top nav code end here -->
-        
-        <!--Header code start here -->
-        <div class="header-container">
+    	<!-- #include file="/includes/headBW.aspx" -->
+        <section class="bg-white">
             <div class="container_12">
-                <div class="grid_12 margin-top5">
-                    <!-- logo code start here -->
-                    <div class="bw-logo  left-float"><a href="/"></a></div>
-                    <!-- logo code end here -->
-                    <!-- Ad Slot code start here -->
-                    <div class="ad-slot left-float">
+                <div class="grid_12">
+                    <div class="padding-bottom5 text-center">
                         <!-- #include file="/ads/Ad728x90.aspx" -->
                     </div>
-                    <!-- Ad Slot code end here -->
                 </div>
+                <div class="clear"></div>
             </div>
-            <div class="container_12">
-            	<!-- Primary Navigation start here -->
-                <div class="grid_12 primary-nav-container">
-                	<ul>
-                    	<li><a href="/">Home</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <li class="active"><a href="/new/">New Bikes</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <li><a href="/used/">Used Bikes</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <li><a href="/used/sell/">Sell Bike</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <%--<li><a href="/forums/">Forum</a></li>--%>
-                        <li><a href="/finance/emicalculator.aspx">Tools</a></li>
-                        <li class="pri-nav-sept"></li>
-                        <li><a href="/news/">News</a></li> 
-                        <li class="pri-nav-sept"></li>
-                        <li><a href="/mybikewale/">My BikeWale</a></li>
-                        <li class="pri-nav-sept"></li>
-                       <%-- <li><a href="/autoexpo/2014/" class="ae-link">AutoExpo 2014</a></li>--%>
-                    </ul>
-                </div>               
-            </div>
-        </div>
-        <div class="container_12">
-            <div id="sub-nav" class="grid_12">
-                 <ul id="sub-nav-list">
-                    <li><a href="/comparebikes/">Compare Bikes</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/pricequote/">On-road Price Quote</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/road-tests/">Road Tests</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/features/">Features</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/user-reviews/">User Reviews</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/upcoming-bikes/">Upcoming Bikes</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <li><a href="/new-bikes-launches/">Recent Launches</a></li>
-                    <li class="sub-nav-sept"></li>
-                    <%--<li><a href="/tipsadvices/">Tips & Advices</a></li>
-                    <li class="sub-nav-sept"></li>--%>
-                    <%--<li><a href="/finance/emicalculator.aspx">calculate emi</a></li>
-                    <li class="sub-nav-sept"></li>--%>
-                    <li><a href="/new/locate-dealers/">Locate Dealers</a></li>
-                </ul>
-            </div>
-        </div>
-        <!--Header code end here -->
-        
+        </section>
+        <div class="clear"></div>

@@ -11,10 +11,10 @@ using Bikewale.Memcache;
 using System.Net.Http;
 using System.Configuration;
 using System.Net.Http.Headers;
-using Bikewale.Entity.CMS.Articles;
+using Bikewale.Entities.CMS.Articles;
 using System.Text;
 using Bikewale.Controls;
-using Bikewale.Entity.CMS.Photos;
+using Bikewale.Entities.CMS.Photos;
 using System.Linq;
 
 namespace Bikewale.Content
@@ -38,8 +38,10 @@ namespace Bikewale.Content
         private void Page_Load(object sender, EventArgs e)
         {
             //code for device detection added by Ashwini Todkar
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-            dd.DetectDevice();
+            DeviceDetection deviceDetection = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            deviceDetection.DetectDevice();
+
+
             ProcessQS();
             GetRoadtestDetails();
             GetArticlePhotos();
@@ -79,7 +81,7 @@ namespace Bikewale.Content
 
         /// <summary>
         /// Written By : Ashwini Todkar on 24 Sept 2014
-        /// Method to fetch roadtest details from api asynchronously
+        /// PopulateWhere to fetch roadtest details from api asynchronously
         /// </summary>
        
         private async void GetRoadtestDetails()

@@ -121,7 +121,7 @@ namespace Bikewale.Mobile.New
 
         /// <summary>
         /// Written By : Ashwini Todkar on 22 Jan 2014
-        /// Method to check masking name of model is changed or not
+        /// PopulateWhere to check masking name of model is changed or not
         /// </summary>
         /// <param name="maskingName"></param>
         /// <returns></returns>
@@ -197,7 +197,7 @@ namespace Bikewale.Mobile.New
                 for (int jTmp = 0; jTmp < drv.Length; jTmp++)
                 {
                     colorString += "<div class='colorBox' style='border: 1px solid #e9e9e9;padding-top:5px;background-color:#" + drv[jTmp].Row["HexCode"].ToString() + "'></div>"
-                                + "<div class='new-line'>" + drv[jTmp].Row["Color"].ToString() + "</div>";
+                                + "<div class='new-line margin-bottom10'>" + drv[jTmp].Row["Color"].ToString() + "</div>";
                 }
             }
             return colorString;

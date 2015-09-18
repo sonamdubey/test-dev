@@ -18,8 +18,8 @@
 <PW:PopupWidget runat="server" ID="PopupWidget" />
 
 <%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
-<link href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css?30july2015" rel="stylesheet" />
-<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?23july2015" />
+<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
+<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
 <link rel="stylesheet" type="text/css" href="/css/rsa.css?v=3.0" />
 <link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" />
 <script type="text/javascript" src="http://st.aeplcdn.com/bikewale/src/common/bt.js?v1.1"></script>
@@ -40,6 +40,7 @@
         width: 276px;
         height: 170px;
     }
+    #get-pq-new h2 { border-bottom:2px solid #c62000; padding-bottom:10px; }
 </style>
 
 <!--bw color popup ends here-->
@@ -62,7 +63,7 @@
             <h1 class="margin-bottom5">Detailed Dealer Price Quote</h1>
             <!--Get pq code starts here-->
             <div id="get-pq-new" class="inner-content">
-                <h2 class="border-red"><%=BikeName %></h2>
+                <h2 class=""><%=BikeName %></h2>
                 <div id="div_ShowPQ">
                     <%--<h2><%=BikeName %></h2>--%>
                     <table cellspacing="0" cellpadding="0" width="100%" border="0" class="tbl-default margin-top10">
@@ -261,7 +262,7 @@
                 </div>
 
                 <div class="mid-box margin-top15 center-align" runat="server" id="divBookBike" visible="false">
-                    <input type="submit" class="action-btn" id="btnBookBike" value="Book to Avail Offer" name="btnBookBike" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%= MakeModel.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Prebook_to_avail_offer' });"></div>
+                    <input type="button" class="action-btn text_white" id="btnBookBike" value="Book to Avail Offer" name="btnBookBike" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%= MakeModel.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Prebook_to_avail_offer' });"></div>
                 <div class="mid-box margin-bottom10 center-align margin-top10" runat="server" id="divBikeBooked" visible="false"><b>You have already booked this bike.</b></div>
             </div>
             <%} %>
@@ -408,11 +409,9 @@
                 <p><i>Please read other <a target="_blank" href="/termsconditions.aspx" class="blue">Important Terms & Conditions</a></i></p>
             </div>
 
-            <form id="Form1" runat="server">
                 <div class="mid-box margin-top15 center-align">
-                    <input type="button" value="Save this Price Certificate" id="btnSavePdf" class="action-btn" onclick="CallToAction();return false;" />
+                    <input type="button" value="Save this Price Certificate" id="btnSavePdf" class="action-btn text_white" onclick="CallToAction();return false;" />
                 </div>
-            </form>
             <%--          <div style="display:none">
                  <PQ:pdf runat="server" ID="PQPdfTemplate"/>
                 <PQT:Test runat="server" id="Test" />

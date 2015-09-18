@@ -8,7 +8,7 @@
     <title></title>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form runat="server">
     <div>
         <div class="margin10">
             <div class="floatLeft margin-right10 inputWidth ">Series Name : </div>

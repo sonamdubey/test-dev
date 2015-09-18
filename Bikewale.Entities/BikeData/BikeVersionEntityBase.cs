@@ -14,5 +14,6 @@ namespace Bikewale.Entities.BikeData
         public int VersionId { get; set; }
         [DataMember]
         public string VersionName { get; set; }
+
     }
 }

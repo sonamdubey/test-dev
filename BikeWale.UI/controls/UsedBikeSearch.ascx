@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false"  Inherits="Bikewale.Controls.UsedBikeSearch" %>
-<div class="margin-top15 margin-left10" style="border:1px solid #E2E2E2;">                
+<div class="margin-top40 margin-left10" style="border:1px solid #E2E2E2;">                
     <div>
         <h2 class="left-float margin-top15">Used Bikes By</h2>  
         <ul class="tabs-container left-float margin-top10" id="tab-list">                
@@ -35,7 +35,7 @@
             <div class="col"><a href="/used/honda-bikes-in-india/">Honda</a></div>
             <div class="col"><a href="/used/yamaha-bikes-in-india/">Yamaha</a></div>      
             <div class="col"><a href="/used/royalenfield-bikes-in-india/">Royal Enfield</a></div>
-            <div class="col"><a title="Used bmw bikes" href="/used/tvs-bikes/">TVS</a></div>
+            <div class="col"><a href="/used/tvs-bikes-in-india/">TVS</a></div>
             <div class="clear"></div>
             <div class="col"><a href="/used/suzuki-bikes-in-india/">Suzuki</a></div>
             <div class="col"><a href="/used/herohonda-bikes-in-india/">Hero Honda</a></div>

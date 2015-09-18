@@ -1,5 +1,5 @@
 ﻿using Bikewale.Common;
-using Bikewale.Entity.BikeBooking;
+using Bikewale.Entities.BikeBooking;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -19,7 +19,6 @@ using System.Diagnostics;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.BAL.BikeData;
-using Bikewale.Entities.BikeBooking;
 using Carwale.BL.PaymentGateway;
 using System.Text;
 
@@ -228,7 +227,7 @@ namespace Bikewale.BikeBooking
 
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
-        /// Method save quote certificate as pdf
+        /// PopulateWhere save quote certificate as pdf
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -241,7 +240,7 @@ namespace Bikewale.BikeBooking
 
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
-        /// Summary    : Method to get availability of bike with dealer e.g. in stock or waiting
+        /// Summary    : PopulateWhere to get availability of bike with dealer e.g. in stock or waiting
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="versionId"></param>
@@ -258,7 +257,7 @@ namespace Bikewale.BikeBooking
 
         /// <summary>
         /// Written By : Ashwini Todkar on 7 Nov 2014
-        /// Summary    : Method to get dealer price quote, offers, facilities, contact details 
+        /// Summary    : PopulateWhere to get dealer price quote, offers, facilities, contact details 
         /// </summary>
         private void GetDetailedQuote()
         {

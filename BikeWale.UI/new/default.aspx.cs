@@ -1,116 +1,51 @@
-using System;
-using System.Text;
-using System.Data;
-using System.Data.SqlClient;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using Bikewale.Common;
+using Bikewale.controls;
 using Bikewale.Controls;
-using Bikewale.Memcache;
+using Bikewale.Entities.BikeData;
+using Bikewale.Common;
 
 namespace Bikewale.New
 {
-	public class Default : Page
-	{
-		protected Repeater rptWallpapers, rptBodyStyles;
-		protected DataList dltMakes;
-		protected DropDownList drpRevMake;
-		//protected Button btnRev;
-		//protected QuickResearch ucQuickResearch;
-	
-		protected override void OnInit( EventArgs e )
-		{
-			InitializeComponent();
-		}
-		
-		void InitializeComponent()
-		{
-			base.Load += new EventHandler( Page_Load );
-		}
-		
-		void Page_Load( object Sender, EventArgs e )
-		{			
-			if (!Page.IsPostBack)
-			{
-                DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-                dd.DetectDevice();
+    public class Default : System.Web.UI.Page
+    {
+        protected News_new ctrlNews;
+        protected UpcomingBikes_new ctrlUpcomingBikes;
+        protected NewLaunchedBikes_new ctrlNewLaunchedBikes;
+        protected MostPopularBikes_new ctrlMostPopularBikes;
+        protected ExpertReviews ctrlExpertReviews;
+        protected VideosControl ctrlVideos;
+        protected ComparisonMin ctrlCompareBikes;        
 
-				LoadMakes();
-				//LoadBodyStyles();
-				//LoadWallpapers();
-				//LoadUpcomingBikes();
-			}
-		}
-		
-        //private void LoadBodyStyles()
-        //{
-        //   DataSet ds = new DataSet();
-        //   ds = CWCommon.GetStaticBodyStyles();
-        //   rptBodyStyles.DataSource = ds;
-        //   rptBodyStyles.DataBind();
-        //}
-		
-		private void LoadMakes()
-		{
-			// Bind New Bike Makes
-           //DataSet ds = new DataSet();
-           //ds = BWCommon.GetStaticMakes();
-           //dltMakes.DataSource = ds;
-           //dltMakes.DataBind();
-           //ucQuickResearch.MakeContents = ds;		   
+        protected override void OnInit(EventArgs e)
+        {
+            this.Load += new EventHandler(Page_Load);
+        }
 
-            //Database db = null;
-            DataSet ds = null;
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            //device detection
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            dd.DetectDevice();
 
-            try
-            {
-                BikeMakes objMakes = new BikeMakes();
-                ds = objMakes.GetNewBikeMakes();
+            //to get Most Popular Bikes
+            ctrlMostPopularBikes.totalCount = 6;
 
-                /*db = new Database();
+            //To get Upcoming Bike List Details 
+            ctrlNewLaunchedBikes.pageSize = 6;
 
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "GetMakeModelVersion";
-                    cmd.CommandType = CommandType.StoredProcedure;
+            //To get Upcoming Bike List Details 
+            ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+            ctrlUpcomingBikes.pageSize = 6;
 
-                    cmd.Parameters.Add("@condition",SqlDbType.VarChar, 10).Value = "Make";
-
-                    ds = db.SelectAdaptQry(cmd);
-
-                    dltMakes.DataSource = ds;
-                    dltMakes.DataBind();
-                }*/
-                dltMakes.DataSource = ds;
-                dltMakes.DataBind();
-            }
-            catch (SqlException err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "new.default.LoadMakes");
-                objErr.SendMail();
-            }
-            catch (Exception err)
-            {
-                ErrorClass objErr = new ErrorClass(err, "new.default.LoadMakes");
-                objErr.SendMail();
-            }
-	    }
-		
-        //private void LoadWallpapers()
-        //{
-        //    string sql = " SELECT TOP 3 RandomString, HostUrl FROM Wallpapers ORDER BY NEWID() ";
-        //    try
-        //    {
-        //        CommonOpn op = new CommonOpn();
-        //        op.BindRepeaterReader( sql, rptWallpapers );
-        //    }
-        //    catch(Exception err )
-        //    {
-        //        ErrorClass objErr = new ErrorClass(err,Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    } // catch Exception
-        //}
-	}
-}		
+            ctrlNews.TotalRecords = 3;
+            ctrlExpertReviews.TotalRecords = 3;
+            ctrlVideos.TotalRecords = 3;
+            ctrlCompareBikes.TotalRecords = 4;            
+        }
+    }
+}

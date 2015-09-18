@@ -1,6 +1,5 @@
 <%@ Page Inherits="Bikewale.Users.ResetCustomerPassword" AutoEventWireUp="false" Language="C#" Trace="false" Debug="false" %>
 <!-- #include file="/includes/headMyBikeWale.aspx" -->
-<form id="Form1" runat="server">
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -38,9 +37,9 @@
 					<tr>
 						<td>&nbsp;</td>
 						<td>				
-							<asp:Button ID="butChange" Text="Reset Password" CssClass="buttons" runat="server"></asp:Button>
+							<asp:Button ID="butChange" Text="Reset Password" CssClass="buttons text_white" runat="server"></asp:Button>
 							&nbsp;&nbsp;
-							<asp:Button ID="butCancel" CausesValidation="false" Text="Cancel" CssClass="buttons" runat="server"></asp:Button>				
+							<asp:Button ID="butCancel" CausesValidation="false" Text="Cancel" CssClass="buttons text_white" runat="server"></asp:Button>				
 						</td>
 					</tr>
 				</table>
@@ -48,7 +47,6 @@
 			</div>			
 	    </div>
     </div>
-</form>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#butChange").click(function () {

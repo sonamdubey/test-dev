@@ -1,365 +1,213 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Bikewale.Memcache;
-using Microsoft.Practices.Unity;
-using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
+using Bikewale.Cache.Core;
+using Bikewale.Common;
+using Bikewale.DAL.BikeData;
+using Bikewale.DTO.Model;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
-using Bikewale.Common;
-using Bikewale.Mobile.Controls;
-using Bikewale.Entities.UserReviews;
-using System.Text.RegularExpressions;
-using System.Web.UI.HtmlControls;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Cache.Core;
-using Bikewale.Cache.BikeData;
-using Bikewale.DAL.BikeData;
+using Bikewale.Mobile.Controls;
+using Microsoft.Practices.Unity;
 
-namespace Bikewale.Mobile
+namespace Bikewale.Mobile.New
 {
-    public class BikeModels : System.Web.UI.Page
-    {
-        protected int modelId = 0, versionCount = 0, modelCount = 0, count = 0;
-        protected uint versionId = 0;
-        protected string versionName = string.Empty, errMsg = string.Empty, formattedPrice = string.Empty;
-        
-        protected Repeater rptVersions;
+    /// <summary>
+    /// Created By : Ashish G. Kamble on 9 Sept 2015    
+    /// </summary>
+	public class BikeModels : System.Web.UI.Page
+	{
+        // Register controls
+        protected AlternativeBikes ctrlAlternateBikes;
+        protected NewsWidget ctrlNews;
+        protected ExpertReviewsWidget ctrlExpertReviews;
+        protected VideosWidget ctrlVideos;        
+        protected UserReviewList ctrlUserReviews;
 
-        protected BikeModelEntity objModelEntity = null;
-        protected BikeDescriptionEntity objDesc = null;
-        protected UpcomingBikeEntity objUpcomingBike = null;
-        protected BikeSpecificationEntity objSpecs = null;
-        protected DropDownList drpVersion, ddlStates;
-        protected TopUserReviews reviewList;
-        protected EnumBikeType bikeType;
+        // Register global variables
+        protected ModelPage modelPage;
+        protected string modelId = string.Empty;
+        protected Repeater rptModelPhotos, rptVarients, rptColors;
+        protected String bikeName = String.Empty;
+        protected String clientIP = string.Empty;
+        protected String cityId = String.Empty;
+        protected short reviewTabsCnt = 0;
 
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
 
-        protected void Page_Load(object sender, EventArgs e)
+		protected void Page_Load(object sender, EventArgs e)
+		{
+            #region Do not change the sequence
+            ParseQueryString();
+            CheckCityCookie();
+            FetchModelPageDetails(); 
+            #endregion
+            if (!IsPostBack)
+            {                
+                #region Do not change the sequence of these functions                    
+                    BindRepeaters();
+                    BindAlternativeBikeControl();
+                    clientIP = CommonOpn.GetClientIP(); 
+                #endregion                
+
+                ////news,videos,revews, user reviews
+                ctrlNews.TotalRecords = 3;
+                ctrlNews.ModelId = Convert.ToInt32(modelId);
+
+                ctrlExpertReviews.TotalRecords = 3;
+                ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+
+                ctrlVideos.TotalRecords = 3;
+                ctrlVideos.ModelId = Convert.ToInt32(modelId);
+
+                ctrlUserReviews.ReviewCount = 4;
+                ctrlUserReviews.PageNo = 1;
+                ctrlUserReviews.PageSize = 4;
+                ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
+            }
+		}
+
+        private void BindAlternativeBikeControl()
         {
-            if (ProcessQueryString())
+            ctrlAlternateBikes.TopCount = 6;
+
+            if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
             {
-                if (!IsPostBack)
+                ctrlAlternateBikes.VersionId = modelPage.ModelVersions[0].VersionId;
+            }
+        }
+
+        /// <summary>
+        /// Function to bind the photos album
+        /// </summary>
+        private void BindRepeaters()
+        {
+
+            if (modelPage.Photos != null && modelPage.Photos.Count > 0)
+            {
+                if (modelPage.Photos.Count > 2)
                 {
-                    BindVersionsDDL();
-                    BindStates();
+                    rptModelPhotos.DataSource = modelPage.Photos.Take(3);
                 }
-
-                BindModelData();
-                
-            }
-            else
-            {
-                Response.Redirect("/m/pagenotfound.aspx", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
-            }
-        }
-
-        private void BindStates()
-        {
-            try
-            {
-                StateCity objStates = new StateCity();
-
-                ddlStates.DataSource = objStates.GetStates();
-                ddlStates.DataTextField = "Text";
-                ddlStates.DataValueField = "Value";
-                ddlStates.DataBind();
-                ddlStates.Items.Insert(0, new ListItem("--Select State--","0"));
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-
-        private void BindModelData()
-        {
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
+                else
                 {
-                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-                    IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-
-                    //Get Model details
-                    objModelEntity = objModel.GetById(modelId);
-
-                    if(objModelEntity.MinPrice > 0)
-                        formattedPrice =  CommonOpn.FormatNumeric(objModelEntity.MinPrice.ToString());
-
-                    if (objModelEntity.MinPrice > 0 && objModelEntity.MinPrice != objModelEntity.MaxPrice)
-                        formattedPrice +=  "-" + CommonOpn.FormatNumeric(objModelEntity.MaxPrice.ToString());
-
-                    formattedPrice = String.IsNullOrEmpty(formattedPrice) ? "N/A" : formattedPrice;
-
-                    reviewList.ModelId = Convert.ToUInt32(modelId);
-                    reviewList.ModelMaskingName = objModelEntity.MaskingName;
-                    reviewList.MakeMaskingName = objModelEntity.MakeBase.MaskingName;
-                    reviewList.TopCount = 3;
-                    reviewList.Filter = FilterBy.MostRecent;
-                    reviewList.HeaderText = objModelEntity.MakeBase.MakeName + " " + objModelEntity.ModelName + " Reviews";
-
-                    // Get Model synopsis
-                    objDesc = objModel.GetModelSynopsis(modelId);
-                    
-                    if (!objModelEntity.Futuristic)
-                    {
-                        bikeType = objModelEntity.New ? EnumBikeType.New : EnumBikeType.Used;
-
-                        // Get specs of the version
-                        container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();
-                        IBikeVersions<BikeVersionEntity, int> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
-
-                        // Get VersionsList
-                        List<BikeVersionsListEntity> objVersionsList = objVersion.GetVersionsByType(bikeType, modelId);
-                        versionCount = objVersionsList.Count;
-
-                        if (versionCount > 0)
-                        {
-                            rptVersions.DataSource = objVersionsList;
-                            rptVersions.DataBind();
-
-                            if ((int)ViewState["VersionCount"] > 0)
-                            {
-                                versionId = Convert.ToUInt32(drpVersion.SelectedValue);
-                                versionName = drpVersion.SelectedItem.Text;
-
-                                objSpecs = objVersion.GetSpecifications(Convert.ToInt32(versionId));
-                            }
-                        }
-                    }
-                    else
-                    {
-                        // If bike is upcoming get upcoming bike details
-                        objUpcomingBike = objModel.GetUpcomingBikeDetails(modelId);
-                        Trace.Warn("price", objUpcomingBike.ExpectedLaunchId.ToString());
-                    }
-
-                    
-                    container.RegisterType<IBikeSeries<BikeSeriesEntity, int>, BikeSeries<BikeSeriesEntity, int>>();
-                    IBikeSeries<BikeSeriesEntity, int> objSeries = container.Resolve<IBikeSeries<BikeSeriesEntity, int>>();
-
-                    Trace.Warn("objModelEntity.ModelSeries.SeriesId", objModelEntity.ModelSeries.SeriesId.ToString());
-                    BikeSeriesEntity objSeriesEntity = objSeries.GetById(objModelEntity.ModelSeries.SeriesId);
-                    Trace.Warn(objSeriesEntity.ModelCount.ToString());
-                    modelCount = objSeriesEntity.ModelCount;
-
+                    rptModelPhotos.DataSource = modelPage.Photos;
                 }
+                rptModelPhotos.DataBind();
             }
-            catch (Exception ex)
+
+            if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
+                rptVarients.DataSource = modelPage.ModelVersions;
+                rptVarients.DataBind();
+            }
+
+            if (modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0)
+            {
+                rptColors.DataSource = modelPage.ModelColors.ToList();
+                rptColors.DataBind();
             }
         }
-
-		// Modified By : Sadhana Upadhyay on 25 Aug 2014 to get version whose specifications are available
-        protected void BindVersionsDDL()
-        {
-            try
-            {
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
-                    IBikeModels<BikeModelEntity, int> objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
-
-                    //Get Model details
-                    objModelEntity = objModel.GetById(modelId);
-
-                    bikeType = objModelEntity.New ? EnumBikeType.NewBikeSpecs : EnumBikeType.UsedBikeSpecs;
-
-                    container.RegisterType<IBikeVersions<BikeVersionEntity,int>,BikeVersions<BikeVersionEntity,int>>();
-                    IBikeVersions<BikeVersionEntity, int> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
-
-                    List<BikeVersionsListEntity> ddlVersionsList = objVersion.GetVersionsByType(bikeType,modelId);
-
-                    count = ddlVersionsList.Count;
-                    ViewState["VersionCount"] = count;
-                    Trace.Warn("list", count.ToString());
-                    drpVersion.DataSource = ddlVersionsList;
-                    drpVersion.DataValueField = "VersionId";
-                    drpVersion.DataTextField = "VersionName";
-                    drpVersion.DataBind();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
-        }
-
-        private bool ProcessQueryString()
-        {
-
-            bool isSuccess = true;
-
-            //Modified By : Ashwini Todkar on 19 Jan 2015
-
-            if (!string.IsNullOrEmpty(Request.QueryString["model"]))
-            {
-                ModelMaskingResponse objResponse = null;
-
-                using (IUnityContainer container = new UnityContainer())
-                {
-                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                            ;
-                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-
-                    objResponse = objCache.GetModelMaskingResponse(Request.QueryString["model"]);
-
-                    if (objResponse != null && objResponse.StatusCode == 200)
-                    {
-                        modelId = Convert.ToInt32(objResponse.ModelId);
-                    }
-                    else
-                    {
-                        if (objResponse.StatusCode == 301)
-                        {
-                            //redirect permanent to new page 
-                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
-                        }
-                        else
-                        {
-                            Response.Redirect("/m/pagenotfound.aspx", true);
-                            isSuccess = false;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Response.Redirect("/m/pagenotfound.aspx", true);
-                isSuccess = false;
-            }
-
-            return isSuccess;
-
-            //bool isSuccess = true;
-
-            //if (!String.IsNullOrEmpty(Request.QueryString["model"]))
-            //{
-            //    ModelMapping objMapping = new ModelMapping();
-
-            //    string _tmpModelId = objMapping.GetModelId(Request.QueryString["model"].ToLower());
-
-            //    if (String.IsNullOrEmpty(_tmpModelId))
-            //    {
-            //        isSuccess = false;
-            //    }
-            //    else
-            //    {
-            //        modelId = Convert.ToInt32(_tmpModelId);
-            //    }
-            //}
-            //else
-            //{
-            //    isSuccess = false;
-            //}
-
-            //return isSuccess;
-        }
-
-        protected string ShowNotAvailable(string value)
-        {
-            if (String.IsNullOrEmpty(value) || value == "0")
-            {
-                return "--";
-            }
-            else
-            {
-                return value;
-            }
-        }
-
-        protected string GetFeatures(string featureValue)
-        {
-            string showValue = String.Empty;
-
-            if (String.IsNullOrEmpty(featureValue))
-            {
-                showValue = "--";
-            }
-            else
-            {
-                showValue = featureValue == "True" ? "Yes" : "No";
-            }
-            return showValue;
-        }   // End of GetFeatures method
 
 
         /// <summary>
-        /// method to check all fields to get price quote should be filled and valid
+        /// Function to get the required parameters from the query string.
         /// </summary>
-        /// <returns></returns>
-        //private bool IsPQDetailsValid()
-        //{
-        //    bool retVal = true;
-        //    errMsg = "";
+        private void ParseQueryString()
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(Request.QueryString["model"]))
+                {
+                    ModelMaskingResponse objResponse = null;
 
-        //    //if (String.IsNullOrEmpty(Request.QueryString["model"]))
-        //    //{
-        //    if (String.IsNullOrEmpty(ddlStates.SelectedValue) || Convert.ToInt32(ddlStates.SelectedValue) <= 0)
-        //    {
-        //        retVal = false;
-        //        errMsg = errMsg + "Select State</br>";
-        //    }
-        //    //}
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
 
-        //    if (String.IsNullOrEmpty(hdnCity.Value) || Convert.ToInt32(hdnCity.Value) <= 0)
-        //    {
-        //        retVal = false;
-        //        errMsg = errMsg + "Select City</br>";
-        //    }
-        
+                        objResponse = objCache.GetModelMaskingResponse(Request.QueryString["model"]);
 
-        //    if (String.IsNullOrEmpty(txtName.Text.Trim()))
-        //    {
-        //        retVal = false;
-        //        errMsg = errMsg + "Enter Your Name<br>";
-        //    }
+                        if (objResponse != null && objResponse.StatusCode == 200)
+                        {
+                            modelId = objResponse.ModelId.ToString();
+                        }
+                        else
+                        {
+                            if (objResponse.StatusCode == 301)
+                            {
+                                //redirect permanent to new page 
+                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
 
-        //    if (String.IsNullOrEmpty(txtEmail.Text.Trim()))
-        //    {
-        //        retVal = false;
-        //        errMsg = errMsg + "Enter Your Email</br>";
+                            }
+                            else
+                            {
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                                //isSuccess = false;
+                            }
+                        }
+                    }
+                }
+                else
+                {
 
-        //    }
-        //    else
-        //    {
-        //        if (IsValidEmail(txtEmail.Text.Trim().ToLower()) == false)
-        //        {
-        //            retVal = false;
-        //            errMsg = errMsg + "Enter valid email</br>";
-        //        }
-        //    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : FetchModelPageDetails");
+                objErr.SendMail();
 
-        //    if (String.IsNullOrEmpty(hdnMobile.Value))
-        //    {
-        //        retVal = false;
-        //        errMsg = errMsg + "Enter Your Mobile.";
-        //    }
-        //    else
-        //    {
-        //        if (IsValidMobile(hdnMobile.Value) == false)
-        //        {
-        //            retVal = false;
-        //            errMsg = errMsg + "Enter valid mobile number</br>";
-        //        }
-        //    }
+                // If any error occurred redirect to the new default page
+                Response.Redirect("/m/new/", false);
+            }
+        }
 
-        //    return retVal;
-        //}
-    }   // class
-}   // namespace
+        private void CheckCityCookie()
+        {
+            string location = String.Empty;
+            if (this.Context.Request.Cookies.AllKeys.Contains("location"))
+            {
+                location = this.Context.Request.Cookies["location"].Value;
+                cityId = location.Split('_')[0];
+            }
+            else
+            {
+                cityId = "0";
+            }
+        }
+
+        private void FetchModelPageDetails()
+        {
+            try
+            {
+                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+                string _requestType = "application/json";
+                string _apiUrl = String.Format("/api/model/details/?modelId={0}", modelId);
+
+                modelPage = BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+
+                if (modelPage != null)
+                {
+                    bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : FetchModelPageDetails");
+                objErr.SendMail();
+            }
+        }
+	}
+}

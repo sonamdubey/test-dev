@@ -5,7 +5,7 @@
 <head>
     <title><%= BikeName %> - Price Certificate</title>
 <meta charset="utf-8">
-<link href="/css/bw-pq.css?v=3.0" rel="stylesheet" />
+<link href="/css/bw-pq.css?14sept2015" rel="stylesheet" />
     <style type="text/css">
         .hide { display:none}
         .breakhere {page-break-before: always}
@@ -17,7 +17,10 @@
     <script type="text/javascript">
         jQuery(window).load(function () {
             window.print();
-            window.close();
+
+            window.onafterprint = function () {
+                window.close();
+            }
         });
     </script>
 <div style="padding:10px;background:#fff; border:1px solid #e6e6e6; margin:0 auto; font-family:Segoe UI; font-size:14px; color:#737373;width:820px;">

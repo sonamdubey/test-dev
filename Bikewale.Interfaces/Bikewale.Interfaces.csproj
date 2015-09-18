@@ -30,6 +30,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Elasticsearch.Net">
+      <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Nest">
+      <HintPath>..\Libs\Nest.dll</HintPath>
+    </Reference>
+    <Reference Include="Carwale.Entity">
+      <HintPath>..\Libs\Carwale.Entity.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutoComplete\IAutoSuggest.cs" />
+    <Compile Include="BikeBooking\IBikeBooking.cs" />
     <Compile Include="BikeBooking\IDealerPriceQuote.cs" />
     <Compile Include="BikeData\IBikeMakes.cs" />
     <Compile Include="BikeData\IBikeModelMaskingCacheRepository.cs" />
@@ -48,19 +59,26 @@
     <Compile Include="BikeData\IBikeSeries.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />
+    <Compile Include="Compare\IBikeCompare.cs" />
     <Compile Include="Customer\ICustomer.cs" />
     <Compile Include="Customer\ICustomerAuthentication.cs" />
     <Compile Include="Customer\ICustomerRepository.cs" />
     <Compile Include="Dealer\IDealer.cs" />
     <Compile Include="Feedback\IFeedback.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Location\IArea.cs" />
     <Compile Include="Location\ICity.cs" />
+    <Compile Include="Location\IState.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
+    <Compile Include="NewBikeSearch\IProcessFilter.cs" />
+    <Compile Include="NewBikeSearch\ISearchQuery.cs" />
+    <Compile Include="NewBikeSearch\ISearchResult.cs" />
     <Compile Include="Pager\IPager.cs" />
     <Compile Include="PhotoGallery\IModelPhotos.cs" />
     <Compile Include="PriceQuote\IPriceQuote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsedBikes\IUsedBikes.cs" />
     <Compile Include="UserReviews\IUserReviews.cs" />
   </ItemGroup>
   <ItemGroup />

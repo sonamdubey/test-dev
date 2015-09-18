@@ -10,6 +10,7 @@
     </style>
 </head>
 <body>
+<form runat="server">
 <div style="padding:5px;">
     <table id="listingPhotos" border="1" class="tableViw" style="border-width:1px;text-align:center;border-style:solid;border-collapse:collapse;width:100%;border-spacing:0; padding:0;">
         <tbody>
@@ -79,6 +80,7 @@
     <div style="margin-top:10px">
     </div>
 </div>
+</form>
 </body>
 <script>
     $(document).ready(function () {

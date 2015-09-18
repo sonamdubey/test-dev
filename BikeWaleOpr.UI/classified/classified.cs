@@ -32,7 +32,7 @@ namespace BikeWaleOpr.Classified
                     cmd.Parameters.Add("@EndIndex", SqlDbType.Int).Value = endIndex;
                     if (!String.IsNullOrEmpty(inquiryId))
                     {
-                        cmd.Parameters.Add("@InquiryId", SqlDbType.Int).Value =Convert.ToUInt32(inquiryId);
+                        cmd.Parameters.Add("@InquiryId", SqlDbType.Int).Value = Convert.ToUInt32(inquiryId.Substring(1, inquiryId.Length - 1));
                     }
                     db = new Database();
                     ds = db.SelectAdaptQry(cmd);

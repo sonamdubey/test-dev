@@ -1,12 +1,12 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.ListPagerControl" %>
-<table style="width:100%; margin-top:10px;" cellspacing="0" cellpadding="0" border="0" class="new-line5">
+<table style="width:100%; margin-top:20px;" cellspacing="0" cellpadding="0" border="0" class="new-line5">
 	<tr>
          <%if(TotalPages > 1 ) { %>
 		        <td style="width:60px;">
 			        <%if (!String.IsNullOrEmpty(prevPageUrl))
                     {%>
 				        <a class="normal" href="<%= prevPageUrl %>">
-				            <span><span class="arr-big">&laquo;</span>&nbsp;Prev</span>
+				            <span><span class="arr-big position-rel" style="top:2px;">&laquo;</span>&nbsp;Prev</span>
 				        </a>
 			        <%}%>
 		        </td>
@@ -20,7 +20,7 @@
 			        <%if (!String.IsNullOrEmpty(nextPageUrl))
                     {%>
 				        <a class="normal" href="<%= nextPageUrl %>">
-				            <span style="position:relative;top:-4px;">Next<span class="arr-big">&nbsp;&raquo;</span></span>
+				            <span style="position:relative;top:-4px;">Next<span class="arr-big position-rel" style="top:2px;">&nbsp;&raquo;</span></span>
 				        </a>
 			        <%}%>
 		        </td>

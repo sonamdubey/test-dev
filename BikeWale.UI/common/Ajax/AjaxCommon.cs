@@ -26,11 +26,11 @@ namespace Bikewale.Ajax
     {
         /// <summary>
         ///  Written By : Ashish G. Kamble on 8/2/2012
-        ///  Method to get model id and model name to fill the drop down list
+        ///  PopulateWhere to get model id and model name to fill the drop down list
         /// </summary>
         /// <param name="requestType">Pass value as New or Used or Upcoming or PQ</param>
         /// <param name="makeId"></param>
-        /// <returns>Method will return model id and model name in json format</returns>
+        /// <returns>PopulateWhere will return model id and model name in json format</returns>
         [AjaxPro.AjaxMethod()]
         public string GetModels(string requestType, string makeId)
         {
@@ -51,11 +51,11 @@ namespace Bikewale.Ajax
 
         /// <summary>
         ///  Written By : Ashish G. Kamble on 8/2/2012
-        ///  Method to get version id and version name to fill the drop down list
+        ///  PopulateWhere to get version id and version name to fill the drop down list
         /// </summary>
         /// <param name="requestType">Pass value as New or Used or Upcoming or PQ</param>
         /// <param name="modelId"></param>
-        /// <returns>Method will return version id and version name in json format</returns>
+        /// <returns>PopulateWhere will return version id and version name in json format</returns>
         [AjaxPro.AjaxMethod()]
         public string GetVersions(string requestType, string modelId)
         {
@@ -83,6 +83,7 @@ namespace Bikewale.Ajax
         [AjaxPro.AjaxMethod()]
         public string GetCities(string requestType, string stateId)
         {
+            
             string jsonCities = string.Empty;
             DataTable dt = null;
 
@@ -174,11 +175,11 @@ namespace Bikewale.Ajax
 
         /// <summary>
         ///  Written By : Ashwini Todkar on 11/Oct/2013
-        ///  Method to get model id and model Mapping name to fill the drop down list
+        ///  PopulateWhere to get model id and model Mapping name to fill the drop down list
         /// </summary>
         /// <param name="requestType">Pass value as New or Used or Upcoming or PQ</param>
         /// <param name="makeId"></param>
-        /// <returns>Method will return model id and model mapping name in json format</returns>
+        /// <returns>PopulateWhere will return model id and model mapping name in json format</returns>
         [AjaxPro.AjaxMethod()]
         public string GetModelsWithMappingName(string requestType, string makeId)
         {
@@ -223,7 +224,7 @@ namespace Bikewale.Ajax
 
         /// <summary>
         /// Written By : Ashwini Todkar on 17 Oct 2014
-        /// Summary    : Method to save emi request and register customer tif user is new else update customer details
+        /// Summary    : PopulateWhere to save emi request and register customer tif user is new else update customer details
         /// </summary>
         /// <param name="custName">Customer Name</param>
         /// <param name="email">Customer Email</param>
@@ -275,6 +276,8 @@ namespace Bikewale.Ajax
         /// <summary>
         /// Created By : Sadhana Upadhyay on 21 Jan 2015
         /// Summary : To save customer Feedback
+        /// Modified By : Sadhana Upadhyay on 26 Aug 2015
+        /// Summary : To send Email to multiple People
         /// </summary>
         /// <param name="feedbackType"></param>
         /// <param name="feedbackComment"></param>
@@ -284,7 +287,7 @@ namespace Bikewale.Ajax
         public bool SaveCustomerFeedback(ushort feedbackType, string feedbackComment, ushort platformId ,string pageUrl)
         {
             bool isSaved = false;
-            string feedbackEmailTo = ConfigurationManager.AppSettings["feedbackEmailTo"];
+            string[] feedbackEmailTo = ConfigurationManager.AppSettings["feedbackEmailTo"].Split(';');
             try
             {
                 using (IUnityContainer container = new UnityContainer())
@@ -297,7 +300,7 @@ namespace Bikewale.Ajax
                     if (isSaved)
                     {
                         ComposeEmailBase objEmail = new FeedbackMailer(pageUrl, feedbackComment);
-                        objEmail.Send(feedbackEmailTo, "BikeWale User Feedback");
+                        objEmail.Send(feedbackEmailTo[0], "BikeWale User Feedback", "", feedbackEmailTo, null);
                     }
                 }
             }

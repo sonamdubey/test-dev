@@ -41,7 +41,6 @@
 </script>
 <script type="text/javascript" src="/src/common/graybox.js"></script>
 
-<form id="Form1" runat="server">
 <div id="div_load" class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">

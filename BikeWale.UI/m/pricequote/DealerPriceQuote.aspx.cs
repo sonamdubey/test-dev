@@ -8,7 +8,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Configuration;
-using Bikewale.Entity.BikeBooking;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Common;
 using Bikewale.Mobile.PriceQuote;
 using Microsoft.Practices.Unity;
@@ -22,7 +22,6 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.BAL.BikeData;
-using Bikewale.Entities.BikeBooking;
 
 namespace Bikewale.Mobile.BikeBooking
 {

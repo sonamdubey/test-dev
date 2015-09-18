@@ -6,7 +6,6 @@
 <div>
     <!-- #Include file="contentsMenu.aspx" -->
 </div>
-<form id="Form1" runat="server">
 <div class="left">
     <h3>Manage Reviews</h3>
     <div class="margin-top10">
@@ -57,7 +56,7 @@
         </FooterTemplate>
     </asp:Repeater>
 </div>
-</form>
+
 <script type = "text/javascript">
     $(document).ready(function () {
 

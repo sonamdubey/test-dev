@@ -402,7 +402,7 @@ namespace Bikewale.Common
 
         /// <summary>
         /// Written By : Ashwini Todkar on 19 Dec 2014
-        /// Summary    : Method to send sms to customer after bike is booked successfully.
+        /// Summary    : PopulateWhere to send sms to customer after bike is booked successfully.
         /// </summary>
         /// <param name="customerMobile"></param>
         /// <param name="customerName"></param>
@@ -447,7 +447,7 @@ namespace Bikewale.Common
 
         /// <summary>
         /// Written By : Ashwini Todkar on 19 Dec 2014
-        /// Summary    : Method to send sms to dealer after user booked bike successfully.
+        /// Summary    : PopulateWhere to send sms to dealer after user booked bike successfully.
         /// </summary>
         /// <param name="dealerMobileNo"></param>
         /// <param name="customerName"></param>

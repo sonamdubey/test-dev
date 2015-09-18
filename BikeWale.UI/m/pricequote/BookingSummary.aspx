@@ -10,13 +10,12 @@
 
 %>
 <!-- #include file="/includes/PaymentHeaderMobile.aspx" -->
-<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?26june2015" /> 
-<link href="/m/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
-<script src="/m/src/jquery-ui-1.10.4.custom.min.js"></script>
+<link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" /> 
+<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
+<script src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/jquery-ui-1.10.4.custom.min.js"></script>
 
 <div class="padding5">
     <h1>Pre-Book to Avail Offer</h1>
-    <form runat="server">
         <div class="box1 new-line10">
             <h2 class="margin-bottom10 f-bold <%=_objPQ.objOffers.Count>0?"":"hide" %>"><%= BikeName %></h2>
             <%-- Start 102155010 --%>
@@ -131,9 +130,8 @@
                     </tr>
                 </table>
             </div>
-            <asp:Button data-role="none" class="rounded-corner5" runat="server" id="btnMakePayment" Text="Make Payment"/>
+            <asp:Button data-role="none" class="rounded-corner5 margin-top15" runat="server" id="btnMakePayment" Text="Make Payment"/>
         </div>
-    </form>
     <div class="box1 new-line10">
         <h2 class="margin-bottom10 f-bold floatleft">Contact Details</h2>
         <!--<div class="edit-btn">
@@ -197,7 +195,7 @@
 <!--Price quote popup starts here-->
     <div class="bw-popup price-quote-popup hide">
     	<div class="popup-inner-container">
-            <div class="bw-sprite close-btn floatright"></div>
+            <div class="bwmsprite close-btn floatright"></div>
             <h1>On Road Price Quote</h1>
             <table width="100%" border="0" cellspacing="0" cellpadding="0" class="margin-top-10">
                 <asp:Repeater id="rptPrice" runat="server">
@@ -267,7 +265,7 @@
     <!--Documents popup starts here-->
     <div class="bw-popup documents-popup hide">
     	<div class="popup-inner-container">
-            <div class="bw-sprite close-btn floatright"></div>
+            <div class="bwmsprite close-btn floatright"></div>
             <h1>List of Required Documents</h1>
             <div class="f-bold margin-top-10 margin-bottom10">Mandatory Documents:</div>
             <div class="doc-list">
@@ -313,7 +311,7 @@
 <!--Cancellation & refund policy popup starts here-->
     <div class="bw-popup cancellation-popup hide">
     	<div class="popup-inner-container">
-            <div class="bw-sprite close-btn floatright"></div>
+            <div class="bwmsprite close-btn floatright"></div>
             <h1>Cancellation & Refund Policy</h1>
             <div class="lower-alpha-list">
                 <ol>
@@ -332,7 +330,7 @@
     <!--Faqs popup starts here-->
     <div class="bw-popup faq-popup hide">
     	<div class="popup-inner-container">
-            <div class="bw-sprite close-btn floatright"></div>
+            <div class="bwmsprite close-btn floatright"></div>
             <h1>Frequently Asked Questions</h1>
             <div class="rounded-corner5 new-line10 selection-box bw-accordion">
             	<div class="selected-input-text floatleft f-bold">1. What is pre-booking?<br /> Why should I pre-book?</div>
@@ -555,5 +553,6 @@
         </div>
     </div> 
     <div id="divForPopup" style="display:none;"></div>
+</form>
 </body>
 </html>

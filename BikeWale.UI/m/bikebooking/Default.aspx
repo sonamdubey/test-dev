@@ -11,27 +11,22 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
 
-    <form id="form1" runat="server">
 
     <div class="padding5">
         <div id="br-cr"><a href="/m/new/" class="normal">New Bikes</a> &rsaquo; <span class="lightgray">Book Your Bike</span></div>
         <h1> Book Your Bike </h1>
         <div id="divBookingDetails" class="box1 new-line5">
             <div>
-            <select id="ddlCities" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId',
-    optionsCaption: 'Select City', event: { change: cityChangedBooking }"></select>
+            <select id="ddlCities" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId',optionsCaption: 'Select City', event: { change: cityChangedBooking }"></select>
         </div>
         <div>
-            <select id="ddlArea" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'Text', optionsValue: 'Value',
-    optionsCaption: 'Select Area', event: { change: areaChangedBooking }"></select>
+            <select id="ddlArea" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'Text', optionsValue: 'Value', optionsCaption: 'Select Area', event: { change: areaChangedBooking }"></select>
         </div>
         <div>
-            <select id="ddlMake" data-bind="options: bookingMakes, value: selectedMake, optionsText: 'MakeName', optionsValue: 'MakeId',
-    optionsCaption: 'Select Make', event: { change: makeChangedBooking }"></select>
+            <select id="ddlMake" data-bind="options: bookingMakes, value: selectedMake, optionsText: 'MakeName', optionsValue: 'MakeId', optionsCaption: 'Select Make', event: { change: makeChangedBooking }"></select>
         </div>
         <div>
-            <select id="ddlModel" data-bind="options: bookingModels, value: selectedModel, optionsText: 'Text', optionsValue: 'Value',
-    optionsCaption: 'Select Model', event: { change: modelChangedBooking }"></select>
+            <select id="ddlModel" data-bind="options: bookingModels, value: selectedModel, optionsText: 'Text', optionsValue: 'Value', optionsCaption: 'Select Model', event: { change: modelChangedBooking }"></select>
         </div>
         <div class="new-line15">
 		    <div><input type="checkbox" style="margin-top:3px;" id="userAgreement" checked="checked" /></div>
@@ -60,7 +55,6 @@
             <a href="#" data-role="button" data-rel="back" data-theme="c" data-mini="true">OK</a>
         </div>
     </div>        
-    </form>
 <script type="text/javascript">
 
     // knockout data binding
@@ -75,7 +69,8 @@
         bookingModels: ko.observableArray()
     };
 
-    
+    var preSelectedCityId = 0;
+    var preSelectedCityName = "";
 
     //bind cities
     function bindBookingCities() {
@@ -152,9 +147,16 @@
     }
 
     $("#btnDealerPrice").click(function () {        
-        // Validate the data
+        var cityId = viewModelBikeBooking.selectedCity(), areaId = viewModelBikeBooking.selectedArea() ? viewModelBikeBooking.selectedArea() : 0;
         if (isValidBookingInfo()) {
-            // Process PQ
+            
+            //set global cookie
+            if (cityId > 0) {
+                cityName = $('#ddlCities').find("option[value=" + cityId + "]").text();
+                cookieValue = cityId + "_" + cityName;
+                SetCookieInDays("location", cookieValue, 365);
+            }
+
             var pathName = window.location.pathname;
             var objMsg = $('.bookbikeMsg');
             $.ajax({

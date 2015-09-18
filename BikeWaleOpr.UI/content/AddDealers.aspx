@@ -10,7 +10,6 @@
 <script type="text/javascript" src="/src/AjaxFunctions.js"></script>
     <div class="left">
 	<h3><asp:label id="lbl" runat="server"></asp:label></h3>
-	<form id="Form1" runat="server">
 		<table width="100%" border="0" cellpadding="2" cellspacing="0">
 			<tr>
 				<td colspan="2" align="left"><asp:Label ID="lblMessage" CssClass="lbl" runat="server"></asp:Label></td>
@@ -79,7 +78,7 @@
 			</tr>
           	<tr><td>&nbsp;</td></tr>
         </table>
-	</form>
+	
 </div>
 
 <script language="javascript">

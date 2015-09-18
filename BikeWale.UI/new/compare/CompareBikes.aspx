@@ -15,7 +15,7 @@
     TargetedModels = targetedModels;
 %>
 
-<!-- #include file="/includes/headNew.aspx" -->
+
 
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
@@ -47,7 +47,7 @@
     .tab_inner_container .container-1 .Colors td:last-child.repeater-1  { border-right:0px;}
     .tab_inner_container .tbl-compare .specs-title th, .tab_inner_container .tbl-compare .specs-title td {text-align:left; padding-left:5px; }
     .maintd .bikemain {border:0px solid red; overflow:hidden; }
-    .maintd .bikename { margin-bottom: 10px;text-align: center;}
+    .maintd .bikename { margin-bottom: 10px;text-align: center; font-size:12px;}
     .maintd .bikeclose {overflow:hidden; display:inline-block;  text-align: right; float:right;}
     .sixcolum{ width:123px; }
     .fivecolum{ width:149px; }
@@ -60,6 +60,7 @@
     .featuredBike { background-color:#fffae8!important; }
     .blue {color: #0056cc;cursor: pointer;text-decoration: none;}
 </style>
+<!-- #include file="/includes/headNew.aspx" -->
          <div class="container_12">
              <div class="grid_12">
                 <ul class="breadcrumb">
