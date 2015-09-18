@@ -15,10 +15,11 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
-<!-- #include file="/includes/headNew.aspx" -->
+
 
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
+<!-- #include file="/includes/headNew.aspx" -->
 
         <div class="container_12">
             <div class="grid_12">
@@ -74,10 +75,10 @@
                 </div>
             </div><!--    Left Container ends here -->
             <div class="grid_4"><!--    Right Container starts here -->
-                <div class="margin-top15">
+                <%--<div class="margin-top15">
                     <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                     <!-- #include file="/ads/Ad300x250.aspx" -->
-                </div>                
+                </div> --%>               
                 <div class="margin-top15 light-grey-bg content-block border-radius5 padding-bottom20  margin-top5">
                     <BP:InstantBikePrice runat="server" ID="InstantBikePrice" />
                 </div>
@@ -85,10 +86,10 @@
                     <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
                 </div>                    
                 <div class="clear"></div>              
-                <div class="margin-top15">
+                <%--<div class="margin-top15">
                     <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                     <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-                </div>
+                </div>--%>
             </div><!--    Right Container ends here -->
         </div>
     <script type="text/javascript">

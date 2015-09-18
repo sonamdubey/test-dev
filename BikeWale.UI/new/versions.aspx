@@ -31,9 +31,10 @@
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-white">
-            <div class="container">
+    	    <div class="container header-fixed-inner">
                 <div class="grid-12">
-                    <div class="padding-bottom15 text-center">
+                    <div class="padding-bottom15 padding-top10 text-center">
+                         <!-- #include file="/ads/Ad728x90.aspx" --> 
                     </div>
                 </div>
                 <div class="clear"></div>
