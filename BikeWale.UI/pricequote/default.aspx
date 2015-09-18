@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.PriceQuote.Default" Trace="true" Debug="false" EnableEventValidation="false" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.PriceQuote.Default" Trace="false" Debug="false" EnableEventValidation="false" Async="true" %>
 
 <%
     title = (modelName == "" ? "New Bike" : modelName) + " On-Road Price Quote";
