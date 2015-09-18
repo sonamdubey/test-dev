@@ -12,14 +12,14 @@
     AdId = "1395986297721";
     AdPath = "/1017752/Bikewale_PriceQuote_";
 %>
-<!-- #include file="/includes/headNew.aspx" -->
+
 <script type="text/javascript" src="/src/pq/price_quote.js?v=1.1"></script>
 <%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
 <link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
 
  <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
-
+<!-- #include file="/includes/headNew.aspx" -->
 <div class="main-container">
 	<div class="container_12">
         <div class="grid_12">
@@ -97,10 +97,10 @@
        <%-- <div id="div_ShowErrorMsg" runat="server" class="grey-bg border-light content-block text-highlight margin-top15"></div>--%>
         
         <div class="grid_4">
-            <div class="margin-top15 margin-bottom20">
+            <%--<div class="margin-top15 margin-bottom20">
                 <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                 <!-- #include file="/ads/Ad300x250.aspx" -->
-            </div>
+            </div>--%>
             <div class="inner-content">
                 <LD:LocateDealer ID="ucLocateDealer" runat="server" />
             </div>

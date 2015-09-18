@@ -92,10 +92,10 @@
                 <div id="div_ShowErrorMsg" runat="server" class="grey-bg border-light content-block text-highlight margin-top15"></div>
             </div>
             <div class="grid_4">
-                <div class="margin-top15">
+                <%--<div class="margin-top15">
                     <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
                     <!-- #include file="/ads/Ad300x250.aspx" -->
-                </div>
+                </div>--%>
             </div>
             <!-- Right Container ends here  -->
         </div>

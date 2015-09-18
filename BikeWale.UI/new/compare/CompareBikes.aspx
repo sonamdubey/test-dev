@@ -15,7 +15,7 @@
     TargetedModels = targetedModels;
 %>
 
-<!-- #include file="/includes/headNew.aspx" -->
+
 
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
@@ -60,6 +60,7 @@
     .featuredBike { background-color:#fffae8!important; }
     .blue {color: #0056cc;cursor: pointer;text-decoration: none;}
 </style>
+<!-- #include file="/includes/headNew.aspx" -->
          <div class="container_12">
              <div class="grid_12">
                 <ul class="breadcrumb">

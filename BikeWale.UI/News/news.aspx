@@ -70,20 +70,20 @@
         <!--end-->
     </div>  
     <div class="grid_4">
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_News/BikeWale_News_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>
+        </div>--%>
         <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top15">
             <BP:InstantBikePrice runat="server" ID="InstantBikePrice" />
         </div>        
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20">
             <LD:LocateDealer runat="server" id="LocateDealer" />
         </div>
-        <div class="margin-top15">
+        <%--<div class="margin-top15">
             <!-- BikeWale_News/BikeWale_News_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>
+        </div>--%>
     </div>    
 </div>
 </form>
