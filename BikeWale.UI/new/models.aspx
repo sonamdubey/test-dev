@@ -23,7 +23,7 @@
     <!-- #include file="/includes/headBW.aspx" -->
     
     <!-- Brand Page Starts Here-->
-    <section class="bg-white">
+    <section class="bg-white header-fixed-inner">
         <div class="container">
             <div class="grid-12">
                 <div class="padding-bottom15 text-center">
