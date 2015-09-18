@@ -58,3 +58,4 @@
 <script type="text/javascript">
     bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
 </script>
+<!-- #include file="\includes\gacode.aspx" -->
