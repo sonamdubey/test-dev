@@ -177,7 +177,7 @@ namespace BikeWaleOpr.NewBikeBooking
             try
             {
                 ManageCities objMC = new ManageCities();
-                ds = objMC.GetCities(Convert.ToInt32(ddlStates.SelectedValue), "ALL");
+                ds = objMC.GetCities(Convert.ToInt32(ddlStates.SelectedValue), "7");
                 drpCity.DataSource = ds;
                 drpCity.DataTextField = "Text";
                 drpCity.DataValueField = "Value";
