@@ -17,6 +17,8 @@ namespace Bikewale
         protected VideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
         protected PopularUsedBikes ctrlPopularUsedBikes;
+        protected short reviewTabsCnt = 0;
+        
 
         protected override void OnInit(EventArgs e)
         {
@@ -33,7 +35,8 @@ namespace Bikewale
             ctrlExpertReviews.TotalRecords = 3;
             ctrlVideos.TotalRecords = 3;
             ctrlCompareBikes.TotalRecords = 4;
-            ctrlPopularUsedBikes.TotalRecords = 6;            
+            ctrlPopularUsedBikes.TotalRecords = 6;
+            
         }
     }
 }

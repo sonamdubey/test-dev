@@ -461,28 +461,38 @@
     <section class="home-compare"><!--  Compare section code starts here -->
         <BW:CompareBike ID="ctrlCompareBikes" runat="server"/>
     </section><!-- Compare code Ends here -->    
-    <section><!--  News, reviews and videos code starts here -->
-        <div class="container">
-        	<div class="grid-12">
-                <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
-                <div class="bw-tabs-panel">
-                    <div class="bw-tabs margin-bottom15">
-                    	<div class="form-control-box">                        	
-                            <select class="form-control">
-                                <option class="active" value="ctrlNews">News</option>
-                                <option value="ctrlExpertReviews">Reviews</option>
-                                <option value="ctrlVideos">Videos</option>
-                            </select>
+    
+ <% 
+            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+    %>
+    <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+            <!--  News, reviews and videos code starts here -->
+            <div class="container">
+                <div class="grid-12">
+                    <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
+                    <div class="bw-tabs-panel">
+                        <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
+                            <div class="form-control-box">
+                                <select class="form-control">
+                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlNews">News</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlExpertReviews">Reviews</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
+                                   
+                                </select>
+                            </div>
                         </div>
+                        <BW:News runat="server" ID="ctrlNews" />
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <BW:Videos runat="server" ID="ctrlVideos" />
+                       
                     </div>
-                    <BW:News runat="server" ID="ctrlNews"/>
-                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>
-                    <BW:Videos runat="server" ID="ctrlVideos"/>
                 </div>
-        	</div>
-            <div class="clear"></div>
-        </div>
-    </section>  <!--  News, reviews and videos code ends here -->
+                <div class="clear"></div>
+            </div>
+        </section>
+    <!--  News, reviews and videos code ends here -->
     
     <section>
     	<div class="container">

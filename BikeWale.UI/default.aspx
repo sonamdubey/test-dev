@@ -457,32 +457,40 @@
         <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
     </section>
     <!-- Ends here -->
-    <section class="bg-light-grey if">
+    <section class="bg-light-grey <%= (ctrlPopularUsedBikes.FetchedRecordsCount > 0)?"":"hide" %>">
         <!--  Used Bikes code starts here -->
         <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
     </section>
+  
     <!-- Ends here -->
-    <section>
-        <!--  News Bikes code starts here -->
-        <div class="container">
-            <div class="grid-12">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Latest updates from the industry</h2>
-                <div class="bw-tabs-panel">
-                    <div class="bw-tabs bw-tabs-flex">
-                        <ul>
-                            <li class="active" data-tabs="ctrlNews">News</li>
-                            <li data-tabs="ctrlExpertReviews">Reviews</li>
-                            <li data-tabs="ctrlVideos">Videos</li>
-                        </ul>
+     <% 
+            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+        %>
+        <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+            <!--  News Bikes latest updates code starts here -->
+            <div class="newBikes-latest-updates-container">
+                <div class="grid-12">
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
+                    <div class="bw-tabs-panel content-box-shadow margin-bottom30">
+                        <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
+                            <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
+                                <ul>
+                                    <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Reviews</li>                                   
+                                    <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <BW:News runat="server" ID="ctrlNews" />
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />                         
+                        <BW:Videos runat="server" ID="ctrlVideos" />
                     </div>
-                    <BW:News runat="server" ID="ctrlNews" />
-                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                    <BW:Videos runat="server" ID="ctrlVideos" />
                 </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-        </div>
-    </section>
+        </section>
     <!-- Ends here -->
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->

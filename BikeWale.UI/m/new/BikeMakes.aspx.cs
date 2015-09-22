@@ -31,6 +31,7 @@ namespace Bikewale.Mobile
         protected MakeBase _make = null;
         protected BikeDescription _bikeDesc = null;
         protected int uCount = 0;
+        protected short reviewTabsCnt = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -104,7 +105,7 @@ namespace Bikewale.Mobile
             _make = BindMakePage.Make;
             _bikeDesc = BindMakePage.BikeDesc;
 
-            if (_bikeDesc != null)
+            if (_bikeDesc != null && _bikeDesc.FullDescription != null && _bikeDesc.SmallDescription != null && _bikeDesc.FullDescription.Trim().Length > 0 && _bikeDesc.SmallDescription.Trim().Length > 0)
             {
                 isDescription = true;
             }
