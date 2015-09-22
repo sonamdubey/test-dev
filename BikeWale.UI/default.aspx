@@ -461,7 +461,7 @@
         <!--  Used Bikes code starts here -->
         <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
     </section>
-   <%=  Convert.ToInt32(ctrlVideos.FetchedRecordsCount)   %>
+  
     <!-- Ends here -->
      <% 
             if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
