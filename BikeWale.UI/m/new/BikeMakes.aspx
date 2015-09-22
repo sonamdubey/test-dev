@@ -93,8 +93,8 @@
     
     </section><!-- Used Search code  Ends here -->
     
-    <section ><!--  Upcoming, New Launches and Top Selling code starts here -->
-        <div class="container" class="<%= (Convert.ToInt32(ctrlUpcomingBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>">
+    <section class="<%= (Convert.ToInt32(ctrlUpcomingBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>" ><!--  Upcoming, New Launches and Top Selling code starts here -->
+        <div class="container" >
             <div class="grid-12 ">
                 <h2 class="text-center margin-top30 margin-bottom20">Upcoming <%= _make.MakeName %> bikes</h2>               
                         <div class="jcarousel-wrapper upComingBikes">
@@ -113,31 +113,39 @@
         </div>
     </section>
     
-    <section><!--  News, reviews and videos code starts here -->
-        <div class="container">
-        	<div class="grid-12">
-                <h2 class="text-center margin-top40 margin-bottom30 padding-left30 padding-right30">Latest Updates from <%= _make.MakeName %></h2>
-                <div class="bw-tabs-panel">
-                    <div class="bw-tabs margin-bottom15">
-                    	<div class="form-control-box">
-                        	
-                            <select class="form-control">
-                                <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlNews">News</option>
-                                <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>"  value="ctrlExpertReviews">Reviews</option>
-                                <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
-                            </select>
+    <% 
+            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+    %>
+    <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+            <!--  News, reviews and videos code starts here -->
+            <div class="container">
+                <div class="grid-12">
+                    <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
+                    <div class="bw-tabs-panel">
+                        <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
+                            <div class="form-control-box">
+                                <select class="form-control">
+                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlNews">News</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlExpertReviews">Reviews</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
+                                   
+                                </select>
+                            </div>
                         </div>
+                        <BW:News runat="server" ID="ctrlNews" />
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <BW:Videos runat="server" ID="ctrlVideos" />
+                       
                     </div>
-                      <BW:News runat="server" ID="ctrlNews"/>
-                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews"/>
-                    <BW:Videos runat="server" ID="ctrlVideos"/>
-                </div>        
-        	</div>
-            <div class="clear"></div>
-        </div>
-    </section>  <!--  News, reviews and videos code ends here -->
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    <!--  News, reviews and videos code ends here -->
     
-    <section><!--  About code starts here -->
+    <section class="<%= (isDescription)? "": "hide" %>><!--  About code starts here -->
         <div class="container">
         	<div class="grid-12">
             	<div class="content-inner-block-10 content-box-shadow margin-bottom30">

@@ -12,7 +12,7 @@ namespace Bikewale.controls
     {
         protected Repeater rptPopularUsedBikes;
         public int TotalRecords { get; set; }
-        protected int FetchedRecordsCount { get; set; }
+        public int FetchedRecordsCount { get; set; }
         
 
         protected string cityName = String.Empty;

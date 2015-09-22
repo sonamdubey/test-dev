@@ -19,7 +19,8 @@ namespace Bikewale.New
         protected MostPopularBikes_new ctrlMostPopularBikes;
         protected ExpertReviews ctrlExpertReviews;
         protected VideosControl ctrlVideos;
-        protected ComparisonMin ctrlCompareBikes;        
+        protected ComparisonMin ctrlCompareBikes;
+        protected short reviewTabsCnt = 0;
 
         protected override void OnInit(EventArgs e)
         {

@@ -20,6 +20,7 @@ namespace Bikewale.Mobile.New
         protected ExpertReviewsWidget ctrlExpertReviews;
         protected VideosWidget ctrlVideos;
         protected CompareBikesMin ctrlCompareBikes;
+        protected short reviewTabsCnt = 0;
 
         protected override void OnInit(EventArgs e)
         {
