@@ -10,7 +10,7 @@
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
                                         <a href="/m/news/<%# DataBinder.Eval(Container.DataItem,"BasicId").ToString() + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() %>.html">
-                                            <img alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._370x208) %>">
+                                            <img class="lazy" alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._370x208) %>" src="http://img1.aeplcdn.com/grey.gif" width="370" height="208">
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
@@ -37,4 +37,7 @@
     <div class="text-center margin-bottom40">
         <a class="font16" href="/m/news/">View More News</a>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () { $("img.lazy").lazyload(); });
+    </script>
 </div>

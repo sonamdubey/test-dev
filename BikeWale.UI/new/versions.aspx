@@ -11,10 +11,10 @@
 <head>
     <%
         title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
-        description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs." 
-                    + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) +" - "+Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
+        description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs."
+                    + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
                     + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
-                    
+
         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
         AdId = "1017752";
         AdPath = "BikeWale_New_";
@@ -73,12 +73,12 @@
                                     <div class="carousel carousel-stage">
                                         <ul>
                                             <li>
-                                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%= bikeName %>" alt="<%= bikeName %>">
+                                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%= bikeName %>" alt="<%= bikeName %>" />
                                             </li>
-                                            <asp:Repeater ID="rptModelPhotos" runat="server">                                                
+                                            <asp:Repeater ID="rptModelPhotos" runat="server">
                                                 <ItemTemplate>
                                                     <li>
-                                                        <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>">
+                                                        <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img1.aeplcdn.com/grey.gif" width="476" height="268"/>
                                                     </li>
                                                 </ItemTemplate>
                                             </asp:Repeater>
@@ -91,15 +91,13 @@
                                 <div class="navigation">
                                     <div class="carousel carousel-navigation">
                                         <ul>
+                                            <li>
+                                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
+                                            </li>
                                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
-                                                <HeaderTemplate>
-                                                    <li>
-                                                        <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>">
-                                                    </li>
-                                                </HeaderTemplate>
                                                 <ItemTemplate>
                                                     <li>
-                                                        <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>"></li>
+                                                        <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img1.aeplcdn.com/grey.gif" width="110" height="61"/></li>
                                                 </ItemTemplate>
                                             </asp:Repeater>
                                         </ul>
@@ -125,9 +123,9 @@
                                { %>
                             <div class="bike-price-container font28 margin-bottom15">
                                 <span class="fa fa-rupee"></span>
-                                <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span> 
+                                <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span>
                                 <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>
-                                
+
                                 <!-- View BreakUp Popup Starts here-->
                                 <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
                                     <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -161,10 +159,10 @@
                                                     <!-- /ko -->
                                                 </tr>
                                                 <tr>
-                                            <td colspan="2">
-                                                <div class="border-solid-top padding-bottom10"></div>
-                                            </td>
-                                        </tr>
+                                                    <td colspan="2">
+                                                        <div class="border-solid-top padding-bottom10"></div>
+                                                    </td>
+                                                </tr>
                                             </tbody>
                                         </table>
                                         <!-- /ko -->
@@ -188,7 +186,7 @@
                                                     <td class="padding-bottom10">Total on road price</td>
                                                     <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(DealerOnRoadPrice()) "></span></td>
                                                 </tr>
-                                                
+
                                                 <tr>
                                                     <td class="padding-bottom10">Minus insurance</td>
                                                     <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(priceQuote().insuranceAmount) "></span></td>
@@ -215,7 +213,7 @@
                                         <!-- /ko -->
 
                                     </div>
-                                </div> 
+                                </div>
                                 <!--View Breakup popup ends here-->
                             </div>
                             <div class="bike-price-container font28 margin-bottom15 hide">
@@ -254,22 +252,22 @@
                                 </ul>
                             </div>
                             <div id="city-area-select-container" class="city-area-select-container margin-bottom20 hide">
-                                <div class="city-select-text text-left margin-bottom15 hide" >
+                                <div class="city-select-text text-left margin-bottom15 hide">
                                     <p class="font16">Select city for accurate on-road price and exclusive offers</p>
                                 </div>
-                                <div class="area-select-text text-left margin-bottom15 hide" >
+                                <div class="area-select-text text-left margin-bottom15 hide">
                                     <p class="font16">Select area for on-road price and exclusive offers</p>
                                 </div>
                                 <div class="city-onRoad-price-container font16 margin-bottom15 hide">
-                                    <p class="margin-bottom10">On-road price in <span id="pqArea" ></span> <span id="pqCity" ></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>Edit</span></p>
+                                    <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>Edit</span></p>
                                     <p class="font12 margin-bottom15 text-light-grey" id="breakup"></p>
                                     <input type="button" class="btn btn-orange" id="btnBookNow" value="Avail Offers" />
                                 </div>
-                                <div class="city-area-wrapper">            
+                                <div class="city-area-wrapper">
                                     <div class="city-select leftfloat margin-right20">
                                         <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', event: { change: LoadArea }"></select>
                                     </div>
-                                    
+
                                     <div class="area-select leftfloat">
                                         <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', enable: selectedCity, event: { change: OnAreaChange }, visible: areas().length > 0"></select>
                                     </div>
@@ -323,9 +321,10 @@
         </section>
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
             <div id="SneakPeak" class="grid-12 margin-bottom20">
-                <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null){ %>
+                <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
+                   { %>
                 <h2 class="text-bold text-center margin-top30 margin-bottom30">Sneak-peek</h2>
-                 <% } %>
+                <% } %>
                 <div class="content-box-shadow content-inner-block-20">
                     <p class="font14 text-grey padding-left10 padding-right10">
                         <span class="model-about-main">
@@ -977,7 +976,7 @@
                     $('html, body').animate({ scrollTop: target.offset().top - 50 - $(".header-fixed").height() }, 1000);
                     return false;
                 });
-                // ends
+                // ends                                
             });
             // Cache selectors outside callback for performance.
 
@@ -986,13 +985,12 @@
             var $window = $(window);
             $menu = $('.bw-overall-rating');
             $menu2 = $('.alternative-section');
-            if ($menu != null && $menu2)
-            {
+            if ($menu != null && $menu2) {
                 menu2Top = $menu2.offset().top;
                 menuTop = $menu.offset().top;
-                $window.scroll(function () {$menu.toggleClass('affix', menu2Top >= $window.scrollTop() && $window.scrollTop() > menuTop);});
-            }  
-            
+                $window.scroll(function () { $menu.toggleClass('affix', menu2Top >= $window.scrollTop() && $window.scrollTop() > menuTop); });
+            }
+
             <% } %>
             $("a.read-more-btn").click(function () {
                 $(".model-about-more-desc").slideToggle();
@@ -1182,10 +1180,10 @@
 
                             if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                                 var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
-                                SetCookie("_MPQ", cookieValue);                              
+                                SetCookie("_MPQ", cookieValue);
                                 //if (pq.bwPriceQuote.city != null)
                                 //    SetCookieInDays("location", vm.selectedCity() + '_' + pq.bwPriceQuote.city);
-                                $("#btnBookNow").show();                                
+                                $("#btnBookNow").show();
 
                                 $(".unveil-offer-btn-container").attr('style', '');
                                 $(".unveil-offer-btn-container").removeClass("show").addClass("hide");
@@ -1217,8 +1215,8 @@
                                 $(".city-select-text").removeClass("show").addClass("hide");
                                 $(".area-select-text").removeClass("show").addClass("hide");
                                 $(".city-onRoad-price-container").removeClass("hide").addClass("show");
-                                $(".city-area-wrapper").removeClass("show").addClass("hide");                                
-                                    
+                                $(".city-area-wrapper").removeClass("show").addClass("hide");
+
 
                                 if (pq.dealerPriceQuote.offers && pq.dealerPriceQuote.offers.length > 0) {
                                     $('.available-offers-container').removeClass("hide").addClass("show");
@@ -1261,7 +1259,7 @@
                                 $(".city-onRoad-price-container").removeClass("hide").addClass("show");
                                 $("#pqCity").html($("#ddlCity option[value=" + vm.selectedCity() + "]").text());
 
-                                if (vm.selectedArea()==undefined)
+                                if (vm.selectedArea() == undefined)
                                     $("#pqArea").html("");
                                 else $("#pqArea").html($("#ddlArea option[value=" + vm.selectedArea() + "]").text() + ', ');
 
@@ -1341,16 +1339,15 @@
                     window.location.href = "/pricequote/bookingsummary_new.aspx";
                 });
 
-                $('.unveil-offer-btn').click(function () {                     
+                $('.unveil-offer-btn').click(function () {
                     if (modelViewModel.selectedCity() == undefined || modelViewModel.selectedArea() == undefined) {
                         $('.offer-error').addClass("text-red");
                         $('.city-select-text').addClass("text-red");
-                        if (modelViewModel.selectedCity()!=undefined && modelViewModel.selectedArea() == undefined) {
+                        if (modelViewModel.selectedCity() != undefined && modelViewModel.selectedArea() == undefined) {
                             $('.area-select-text').addClass("text-red");
                         }
                     }
-                });
-
+                });                
             });
 
             $("#mainCity li").click(function () {
@@ -1366,9 +1363,9 @@
                 $(".city-onRoad-price-container").removeClass("show").addClass("hide");
                 $(".unveil-offer-btn-container").removeClass("hide").addClass("show");
                 if (val) {
-                    $("#ddlCity option[value=" + val + "]").prop('selected', 'selected');                 
+                    $("#ddlCity option[value=" + val + "]").prop('selected', 'selected');
                     $('#ddlCity').trigger('change');
-            
+
                 }
             });
 
@@ -1415,7 +1412,7 @@
                     }
                 }
             }
-            
+
 
         </script>
     </form>

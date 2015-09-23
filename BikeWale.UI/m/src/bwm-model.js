@@ -8,11 +8,17 @@ jQuery(function () {
             width = element.innerWidth();
         element.jcarousel('items').css('width', width + 'px');
     })
-    .jcarousel({
-        // Your configurations options
-
+    .on('jcarousel:targetin', 'li', function () {
+        $("img.lazy").lazyload({
+            threshold: 200
+        });
     });
-
+    $(".jcarousel-pagination").click(function () {
+        $("img.lazy").lazyload({
+            threshold: 200
+        });
+    });
+    
 });
 
 var otherBtn = $(".city-other-btn");
@@ -71,7 +77,7 @@ function pqViewModel(modelId, cityId) {
     self.DealerPriceList = ko.observableArray([]);
     self.BWPriceList = ko.observable();
     self.FormatPricedata = function (item) {
-        if(item!=undefined)
+        if (item != undefined)
             return formatPrice(item);
         return "";
     };
@@ -314,7 +320,7 @@ function fetchPriceQuote(vm) {
                         cookieValue = cityId + "_" + cityName;
                         console.log(cookieValue);
                         SetCookieInDays("location", cookieValue, 365);
-                    }  
+                    }
 
                 }
                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
@@ -424,7 +430,7 @@ function InitVM(cityId) {
 }
 
 $(document).ready(function () {
-    if (isUsed == "False") {        
+    if (isUsed == "False") {
         InitVM(cityId);
     }
     $(".unveil-offer-btn-container").removeClass("hide");

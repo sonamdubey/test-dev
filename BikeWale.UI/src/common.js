@@ -496,7 +496,7 @@ $(document).ready(function () {
                     if (!(cacheProp in cache) && reqTerm.length > 0) {
                         var indexToHit = options.source;
                         var count = options.recordCount;
-                        var path = "/api/AutoSuggest?source=" + indexToHit + "&inputText=" + encodeURIComponent(reqTerm) + "&noofrecords=" + count;
+                        var path = "/api/AutoSuggest/?source=" + indexToHit + "&inputText=" + encodeURIComponent(reqTerm) + "&noofrecords=" + count;
 
                         cache[cacheProp] = new Array();
                         $.ajax({

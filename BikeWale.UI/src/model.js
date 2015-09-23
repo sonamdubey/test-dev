@@ -1,7 +1,13 @@
 // JavaScript Document
 
-(function($) {
-    
+
+function UNTLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "UNT"
+    });
+}
+
+(function($) {    
     var connector = function(itemNavigation, carouselStage) {
         return carouselStage.jcarousel('items').eq(itemNavigation.index());
     };
@@ -9,27 +15,26 @@
     $(function() {
         
         var carouselStage      = $('.carousel-stage').jcarousel();
-        var carouselNavigation = $('.carousel-navigation').jcarousel();
+        var carouselNavigation = $('.carousel-navigation').jcarousel();        
 
-        
         carouselNavigation.jcarousel('items').each(function() {
             var item = $(this);
-
             
             var target = connector(item, carouselStage);
 
             item
                 .on('jcarouselcontrol:active', function() {
                     carouselNavigation.jcarousel('scrollIntoView', this);
+                    $("img.lazy").lazyload();
                     item.addClass('active');
                 })
-                .on('jcarouselcontrol:inactive', function() {
+                .on('jcarouselcontrol:inactive', function () {
                     item.removeClass('active');
                 })
                 .jcarouselControl({
                     target: target,
-                    carousel: carouselStage
-                });
+                    carousel: carouselStage,
+                })
         });
 
         
@@ -37,7 +42,8 @@
             .on('jcarouselcontrol:inactive', function() {
                 $(this).addClass('inactive');
             })
-            .on('jcarouselcontrol:active', function() {
+            .on('jcarouselcontrol:active', function () {
+                $("img.lazy").lazyload();
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
@@ -48,7 +54,8 @@
             .on('jcarouselcontrol:inactive', function() {
                 $(this).addClass('inactive');
             })
-            .on('jcarouselcontrol:active', function() {
+            .on('jcarouselcontrol:active', function () {
+                $("img.lazy").lazyload();
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
@@ -57,10 +64,11 @@
 
         
         $('.prev-navigation')
-            .on('jcarouselcontrol:inactive', function() {
+            .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
-            .on('jcarouselcontrol:active', function() {
+            .on('jcarouselcontrol:active', function () {
+                $("img.lazy").lazyload();
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
@@ -71,17 +79,26 @@
             .on('jcarouselcontrol:inactive', function() {
                 $(this).addClass('inactive');
             })
-            .on('jcarouselcontrol:active', function() {
+            .on('jcarouselcontrol:active', function () {
+                $("img.lazy").lazyload();
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
                 target: '+=1'
             });
+
+        $('.jcarousel-wrapper.alternatives-carousel')
+            .on('jcarousel:targetin', 'li', function () {
+                $("img.lazy").lazyload();
+            });
     });
 })(jQuery);
 
 
-
+carouselNavigation.on('jcarousel:create', function (event, carousel) {
+    //$("img.lazy").lazyload();
+    alert("inside visible");
+});
 
 var otherBtn = $(".city-other-btn");
 var cityAreaContainer = $("#city-area-select-container");

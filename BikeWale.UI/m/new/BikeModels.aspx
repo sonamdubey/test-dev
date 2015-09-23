@@ -10,14 +10,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%
-         title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
-         description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs."
-                     + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) +" - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
-                     + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+        title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
+        description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs."
+                    + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
+                    + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
 
-         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/"+modelPage.ModelDetails.MaskingName+"/";
-         AdPath = "/1017752/Bikewale_Mobile_Make_";
-         AdId = "1017752";
+        canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
+        AdPath = "/1017752/Bikewale_Mobile_Make_";
+        AdId = "1017752";
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?15Sep2015v2" rel="stylesheet" type="text/css" />
@@ -39,14 +39,14 @@
                     <% } %>
                     <div class="jcarousel-wrapper model">
                         <div class="jcarousel">
-                            <ul>
+                            <ul id="ulModelPhotos">
                                 <li>
-                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
+                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" width="476" height="268" />
                                 </li>
                                 <asp:Repeater ID="rptModelPhotos" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
+                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img1.aeplcdn.com/grey.gif" width="476" height="268" />
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
@@ -95,7 +95,7 @@
                     <div class="bike-price-container font22 margin-bottom15">
                         <span class="fa fa-rupee"></span>
                         <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10 default-showroom-text">Ex-showroom <%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
-                        <!-- View BreakUp Popup Starts here--> 
+                        <!-- View BreakUp Popup Starts here-->
                         <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
                             <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
                             <div class="breakup-text-container padding-bottom10">
@@ -110,7 +110,7 @@
                                         </tr>
                                         <tr>
                                             <td class="padding-bottom10">RTO</td>
-                                            <td  align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().rto)"></span></td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().rto)"></span></td>
                                         </tr>
                                         <tr>
                                             <td class="padding-bottom10">Insurance (comprehensive)</td>
@@ -150,7 +150,7 @@
                                             <td class="padding-bottom10">Total on road price</td>
                                             <td align="right" class="padding-bottom10 text-bold text-right" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(DealerOnRoadPrice()) "></span></td>
                                         </tr>
-                                        
+
                                         <tr>
                                             <td class="padding-bottom10">Minus insurance</td>
                                             <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(priceQuote().insuranceAmount)"></span></td>
@@ -178,11 +178,11 @@
 
                             </div>
                         </div>
-                        <!--View Breakup popup ends here-->                        
-                    </div>                   
+                        <!--View Breakup popup ends here-->
+                    </div>
                     <div class="bike-price-container font22 margin-bottom15 hide">
-                      <span class="font24 text-bold ">Price not available</span>
-                     </div>
+                        <span class="font24 text-bold ">Price not available</span>
+                    </div>
                     <div id="city-list-container" class="city-list-container margin-bottom10 ">
                         <div class="text-left margin-bottom15">
                             <p class="font14 offer-error">Select city for accurate on-road price and exclusive offers</p>
@@ -190,7 +190,7 @@
                         <ul id="mainCity">
                             <li cityid="1"><span>Mumbai</span></li>
                             <li cityid="12"><span>Pune</span></li>
-                            <li cityId="2"><span>Bangalore</span></li>
+                            <li cityid="2"><span>Bangalore</span></li>
                             <li cityid="40"><span>Thane</span></li>
                             <li cityid="13"><span>Navi Mumbai</span></li>
                             <li class="city-other-btn"><span>Others</span></li>
@@ -220,7 +220,7 @@
                     </div>
                     <div class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
                         <div class="available-offers-container content-inner-block-10">
-                        	<h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
+                            <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                             <div class="offer-list-container" id="dvAvailableOffer">
                             </div>
                         </div>
@@ -868,8 +868,7 @@
             cityId = '<%= cityId%>';
             isUsed = '<%= !modelPage.ModelDetails.New %>';
         </script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
-
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>        
     </form>
 </body>
 </html>
