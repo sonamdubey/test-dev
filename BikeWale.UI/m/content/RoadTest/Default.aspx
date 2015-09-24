@@ -24,7 +24,7 @@
 	    <div><select id="ddlMakes" runat="server"></select>
 	    </div>
 	    <div class="new-line10">
-            <img id="imgLoaderModels" src="http://img.carwale.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+            <img id="imgLoaderModels" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
             <select id="ddlModels"  runat="server">
                 <option value="0">--Select Model--</option>
             </select>

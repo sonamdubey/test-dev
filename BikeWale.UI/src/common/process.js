@@ -3,7 +3,7 @@
 
 /* Prepand grey box layout at page load */
 $(document).ready(function(){
-	$("body").prepend("<div id='gb-overlay'></div><div id='processing' class='process'><img src='http://img.carwale.com/loader2.gif' border='0' style='padding:17px 0 0 20px;'/></div>");
+	$("body").prepend("<div id='gb-overlay'></div><div id='processing' class='process'><img src='http://img.aeplcdn.com/loader2.gif' border='0' style='padding:17px 0 0 20px;'/></div>");
 });
 
 function processingWait(applyIframe) {

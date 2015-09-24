@@ -456,7 +456,7 @@ function clearAppliedCriteria(){
 
 function filterResults() {
     if (hashParams != "") { // param selected
-        $("#searchRes").html("<img src='http://img.carwale.com/loader.gif' border='0'/>");
+        $("#searchRes").html("<img src='http://img.aeplcdn.com/loader.gif' border='0'/>");
         setTimeout("loadSearchResults()", 300);
     } else {
         $("#searchRes").load("search_result.aspx");

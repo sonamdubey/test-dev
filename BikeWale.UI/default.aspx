@@ -21,9 +21,8 @@
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-white">
-<form runat="server">
-    <!-- #include file="/includes/headBW.aspx" -->
-    
+<form runat="server">    
+    <!-- #include file="/includes/headBW.aspx" -->    
     <header class="home-top-banner">
         <div class="container">
             <div class="welcome-box">

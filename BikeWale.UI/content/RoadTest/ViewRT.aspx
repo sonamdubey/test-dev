@@ -38,8 +38,8 @@
     #gallery .jcarousel-skin-tango .jcarousel-prev-horizontal { cursor: pointer; height: 110px; position: absolute; top: 0px; width: 15px; opacity:.8; filter: alpha(opacity=80); }
     #gallery .jcarousel-skin-tango .jcarousel-next-horizontal:hover, 
     #gallery .jcarousel-skin-tango .jcarousel-prev-horizontal:hover { opacity:1; filter: alpha(opacity=100); }
-    #gallery .jcarousel-skin-tango .jcarousel-next-horizontal { background: #282626 url("http://img.carwale.com/adgallery/ad_scroll_forward.png") no-repeat center center; right: 10px; }
-    #gallery .jcarousel-skin-tango .jcarousel-prev-horizontal { background: #282626 url("http://img.carwale.com/adgallery/ad_scroll_back.png") no-repeat  center center; left: 0px; }
+    #gallery .jcarousel-skin-tango .jcarousel-next-horizontal { background: #282626 url("http://img.aeplcdn.com/adgallery/ad_scroll_forward.png") no-repeat center center; right: 10px; }
+    #gallery .jcarousel-skin-tango .jcarousel-prev-horizontal { background: #282626 url("http://img.aeplcdn.com/adgallery/ad_scroll_back.png") no-repeat  center center; left: 0px; }
     #cboxLoadedContent iframe body {
         margin: 0px !important;
         padding: 0px !important;

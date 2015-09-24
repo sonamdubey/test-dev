@@ -208,9 +208,9 @@ namespace Bikewale.Controls
 
         public string GetRateImage(double value)
         {
-            string oneImg = "<img src=\"http://img.carwale.com/images/ratings/1.gif\">";
-            string zeroImg = "<img src=\"http://img.carwale.com/images/ratings/0.gif\">";
-            string halfImg = "<img src=\"http://img.carwale.com/images/ratings/half.gif\">";           
+            string oneImg = "<img src=\"http://img.aeplcdn.com/images/ratings/1.gif\">";
+            string zeroImg = "<img src=\"http://img.aeplcdn.com/images/ratings/0.gif\">";
+            string halfImg = "<img src=\"http://img.aeplcdn.com/images/ratings/half.gif\">";           
 
             StringBuilder sb = new StringBuilder();
             int absVal = (int)Math.Floor(value);

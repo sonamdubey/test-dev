@@ -44,8 +44,8 @@
                              
                     <div id="noImageAv" runat="server">
                         <li>
-                            <a href='http://img.carwale.com/adgallery/no-img-big.png'>
-				                <img src='http://img.carwale.com/adgallery/no-img-thumb.png' border="0" style="height:70px;" title='No Images Available' alt='No Images Available' />
+                            <a href='http://img.aeplcdn.com/adgallery/no-img-big.png'>
+				                <img src='http://img.aeplcdn.com/adgallery/no-img-thumb.png' border="0" style="height:70px;" title='No Images Available' alt='No Images Available' />
 			                </a>
                         </li>                          
                     </div>      

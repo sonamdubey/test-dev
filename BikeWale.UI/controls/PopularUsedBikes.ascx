@@ -21,7 +21,7 @@
                                         <div class="margin-bottom10 font20">
                                             <span class="fa fa-rupee"></span>
                                             <span class="font22"><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"AvgPrice").ToString()) %></span>
-                                            <span class="font16">onwards</span>
+                                            <span class="font16">(Average price)</span>
                                         </div>
                                         <div class="font16 text-light-grey bikes-avaiable-count">
                                             <a href="<%# FormatUsedBikeUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString(), DataBinder.Eval(Container.DataItem,"CityMaskingName").ToString()) %>" title="<%# DataBinder.Eval(Container.DataItem,"MakeName").ToString() %>"><span><%# DataBinder.Eval(Container.DataItem,"TotalBikes").ToString() %> Bikes Avaiable</span></a>

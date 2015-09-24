@@ -35,17 +35,17 @@
             <div class="new-line5"><asp:dropdownlist id="ddlMake" class="textAlignLeft" data-bind=" value: selectedMake, optionsCaption: '--Select Make--'" runat="server"></asp:dropdownlist></div>
             <div id="divModel" style="display:none;">
 		        <div class="new-line15">
-                    <img id="imgLoaderModel" src="http://img.carwale.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+                    <img id="imgLoaderModel" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
                     <asp:dropdownlist id="ddlModel" class="textAlignLeft" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake" runat="server"><asp:ListItem Text="--Select Model--" Value="0" /></asp:dropdownlist>
 		        </div>
             </div>
             <%} %>            
             <div class="new-line15">
-                <img id="imgLoaderCity" src="http://img.carwale.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+                <img id="imgLoaderCity" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
 	            <div class="new-line15"><asp:dropdownlist id="ddlCity" class="textAlignLeft" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, optionsCaption: '--Select City--'" runat="server"><asp:ListItem Text="--Select City--" Value="0" /></asp:dropdownlist></div>
             </div>              
              <div class="new-line5" id="divArea" style="display:none;">
-                <img id="imgLoaderArea" src="http://img.carwale.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+                <img id="imgLoaderArea" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
                 <div class="ui-select ui-corner-all ui-shadow new-line15" id="divAreaPopup" style="font-size:14px;" onclick="OpenPopup(this)"><a href="#" class="ui-btn">--Select an Area--</a></div>
                 <div class="divAutoSuggest" style="min-height:100% !important;background-color:#f8f8f8;display:none">
                     <div data-role="header" data-theme="b"  class="ui-corner-top" data-icon="delete">

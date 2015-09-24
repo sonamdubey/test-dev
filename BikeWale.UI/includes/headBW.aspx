@@ -45,5 +45,14 @@
         </div>
         <div class="clear"></div>
     </div> <!-- ends here -->
-    <div class="clear"></div>
-
+    <div class="clear"></div>    
+    <section class="bg-white header-fixed-inner">
+        <div class="container">
+            <div class="grid-12">
+                <div class="padding-bottom15 text-center">
+                <!-- #include file="/ads/Ad970x90.aspx" -->
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>

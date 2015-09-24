@@ -670,7 +670,7 @@ namespace Bikewale.Common
 				
 				if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "carwale.com" ) >= 0 )
 				{
-					imgPath = "http://img.carwale.com/";
+					imgPath = "http://img.aeplcdn.com/";
 
 					// remove the following line as soon as 
 					// images.carwale.com is activated.
@@ -697,7 +697,7 @@ namespace Bikewale.Common
 			
 			if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf( "carwale.com" ) >= 0 )
 			{
-				absPath = myPage.Server.MapPath( imgPath.Replace("http://img.carwale.com/","/") ).ToLower().Replace( "\\carwale\\","\\carwaleimg\\" );
+				absPath = myPage.Server.MapPath( imgPath.Replace("http://img.aeplcdn.com/","/") ).ToLower().Replace( "\\carwale\\","\\carwaleimg\\" );
 
 				// remove the following line as soon as 
 				// images.carwale.com is activated.
@@ -1639,9 +1639,9 @@ namespace Bikewale.Common
 
         public static string GetRateImage(double value)
         {        
-            string oneImg = "<img src=\"http://img.carwale.com/images/ratings/1.gif\">";
-            string zeroImg = "<img src=\"http://img.carwale.com/images/ratings/0.gif\">";
-            string halfImg = "<img src=\"http://img.carwale.com/images/ratings/half.gif\">";
+            string oneImg = "<img src=\"http://img.aeplcdn.com/images/ratings/1.gif\">";
+            string zeroImg = "<img src=\"http://img.aeplcdn.com/images/ratings/0.gif\">";
+            string halfImg = "<img src=\"http://img.aeplcdn.com/images/ratings/half.gif\">";
 
             StringBuilder sb = new StringBuilder();
             int absVal = (int)Math.Floor(value);

@@ -369,7 +369,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .jcarousel li:hover .back-circle-icon { background-position: -150px -291px; }
 
 /* Brand Sprite */
-.brandlogosprite { background: url(http://img.carwale.com/bikewaleimg/m/images/brand-type-sprite.png?v=150915) no-repeat; display: inline-block; }
+.brandlogosprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png?v=150915) no-repeat; display: inline-block; }
 .brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royal, .brand-guzzi, .brand-harley, .brand-hero-elec, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo { height:30px; }
 
 .brand-aprilia { width: 52px; background-position: 0 0; }

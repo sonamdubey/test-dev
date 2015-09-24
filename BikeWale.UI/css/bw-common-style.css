@@ -709,11 +709,11 @@ a.action-btn:hover{text-decoration:none;}
 #gb-window #gb-content { border: 0; padding:10px; background: none; overflow:auto; zoom: 1; }
 #gb-window #loading{margin:7px 0 7px 7px;}
 #gb-overlay {position: absolute; top: 0; left:0; width:100%; height: 100%; background-color:#1A1A1A; opacity:.30;filter:Alpha(Opacity=30); display:none; z-index:100001;}
-.process{width:145px; top:300px; height:48px; background: #F7F7F7 url(http://img.carwale.com/loading.gif) no-repeat; background-position:12% 50%;  z-index:100002; display:none;  position: absolute;}
-.process-inline{background: #fff url(http://img.carwale.com/loader.gif) no-repeat; display:none; width:20px; height:20px; margin:3px 0 0 5px;}
-.gb-close {float:right; margin: 0; background:url(http://img.carwale.com/cw-common/slide/controls.png) -25px 0px no-repeat; width:25px; height:25px;}
+.process{width:145px; top:300px; height:48px; background: #F7F7F7 url(http://img.aeplcdn.com/loading.gif) no-repeat; background-position:12% 50%;  z-index:100002; display:none;  position: absolute;}
+.process-inline{background: #fff url(http://img.aeplcdn.com/loader.gif) no-repeat; display:none; width:20px; height:20px; margin:3px 0 0 5px;}
+.gb-close {float:right; margin: 0; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -25px 0px no-repeat; width:25px; height:25px;}
 .gb-close:hover { background-position:-25px -25px; }
-.gb-back { float:right; margin: 0; background:url(http://img.carwale.com/cw-common/slide/controls.png) -75px 0px no-repeat; width:25px; height:25px; }
+.gb-back { float:right; margin: 0; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -75px 0px no-repeat; width:25px; height:25px; }
 
 
 /*************style for PQ Popup****************************/
