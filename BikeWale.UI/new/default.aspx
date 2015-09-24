@@ -526,7 +526,7 @@
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
                             <li class="active" data-tabs="ctrlNews">News</li>
-                            <li data-tabs="ctrlExpertReviews">Reviews</li>
+                            <li data-tabs="ctrlExpertReviews">Expert Reviews</li>
                             <li data-tabs="ctrlVideos">Videos</li>
                         </ul>
                     </div>

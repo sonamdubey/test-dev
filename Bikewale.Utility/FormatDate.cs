@@ -40,7 +40,7 @@ namespace Bikewale.Utility
             {
                 retVal = tsDiff.Days.ToString();
 
-                retVal+= retVal=="1"? "day ago": "days ago";
+                retVal+= retVal=="1"? " day ago": " days ago";
 
             }
             else if (tsDiff.Hours > 0)

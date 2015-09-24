@@ -97,7 +97,7 @@
                                 <div class="bookingcomforts-sprite buying-asst-icon"></div>
                             </div>
                             <p class="font14 margin-bottom10">In case of queries call us on:</p>
-                            <p class="font18 text-bold">022 6739 8888 (extn : 881)</p>
+                            <p class="font18 text-bold">1800 120 8300</p>
                         </div>
                         <!-- /ko -->
                     </div>
@@ -244,7 +244,7 @@
                             <p>
                                 You can pay that booking amount using a Credit Card/Debit Card/Net Banking. 
 Book your bike online at BikeWale and make the balance payment at the dealership to avail great offers.
-For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881)</span>
+For further assistance call on <span class="text-bold">1800 120 8300</span>
                             </p>
                         </div>
                         <asp:Button runat="server" ID="btnMakePayment" class="btn btn-orange margin-top20 margin-bottom10" Text="Pay Now" />

@@ -171,5 +171,166 @@ namespace Bikewale.Utility
             }
             return format.Trim().Substring(0, format.Length - 1);    
         }
+
+        //Overloading of ShowAvailable
+
+        /// <summary>
+        /// Written By : Lucky Rathore On 23 Sept 2015
+        /// Summary : Function to format the availability and append respective unit.
+        /// </summary>
+        /// <param name="value">Value to be checked whether available or not.</param>
+        /// <param name="unit">unit of respective value e.g. cc, kg.</param>
+        /// <returns>If value is null function will return --</returns>
+        public static string ShowAvailable(string value,string unit)
+        {
+            string showValue = string.Empty;
+
+            if (String.IsNullOrEmpty(value))
+            {
+                showValue = "--";
+            }
+            else
+            {
+                bool isBoolValue = false;
+
+                if (Boolean.TryParse(value, out isBoolValue))
+                {
+                    showValue = isBoolValue ? "Yes" : "No";
+                }
+                else
+                {
+                    showValue = value + " " + unit;
+                }
+            }
+            return showValue;
+        }
+
+        /// <summary>
+        /// Written By : Lucky Rathore On 23 Sept 2015
+        /// Summary : Function to format the availability and append respective unit.
+        /// </summary>
+        /// <param name="value">Value to be checked whether available or not.</param>
+        /// <param name="unit">unit of respective value e.g. cc, kg.</param>
+        /// <returns>If value is null function will return --</returns>
+        public static string ShowAvailable(int value,string unit)
+        {
+            string showValue = string.Empty;
+
+            if (value > 0)
+            {
+                showValue = Format.FormatNumeric(Convert.ToString(value)) + " " + unit;
+            }
+            else
+            {
+                showValue = "--";
+            }
+
+            return showValue;
+        }
+
+        /// <summary>
+        /// Written By : Lucky Rathore On 23 Sept 2015
+        /// Summary : Function to format the availability and append respective unit.
+        /// </summary>
+        /// <param name="value">Value to be checked whether available or not.</param>
+        /// <param name="unit">unit of respective value e.g. cc, kg.</param>
+        /// <returns>If value is null function will return --</returns>
+        public static string ShowAvailable(float value,string unit)
+        {
+            string showValue = string.Empty;
+
+            if (value > 0)
+            {
+                if ((value % 1 == 0))
+                {
+                    showValue = value.ToString("N0", new System.Globalization.CultureInfo("en-US")) + " " + unit;
+                }
+                else
+                {
+                    showValue = value.ToString("N", new System.Globalization.CultureInfo("en-US")) + " " + unit;
+                }
+            }
+            else
+            {
+                showValue = "--";
+            }
+
+            return showValue;
+        }
+
+        /// <summary>
+        /// Written By : Lucky Rathore On 23 Sept 2015
+        /// Summary : Function to format the availability and append respective unit.
+        /// </summary>
+        /// <param name="value1">Value1 to be checked whether available or not.</param>
+        /// <param name="unit1">unit1 of respective value e.g. cc, kg.</param>
+        ///<param name="value2">Value2 to be checked whether available or not.</param>
+        /// <param name="unit2">unit2 of respective value e.g. cc, kg.</param>
+        /// <returns>If both value1 and value2 is null function will return -- else return respective unit</returns>
+        public static string ShowAvailable(int value1, string unit1, float value2, string unit2)
+        {
+            string showValue = string.Empty;
+
+            string showValue1 = ShowAvailable(value1, unit1);
+            string showValue2 = ShowAvailable(value2, unit2);
+            if (showValue1.Equals("--") && showValue2.Equals("--"))
+            {
+                showValue = "--";
+            }
+            else
+            {
+                if ( showValue1.Equals("--") ) 
+                {
+                    showValue = showValue2;  
+                }
+                else if (showValue2.Equals("--"))
+                {
+                    showValue = showValue1;
+                }
+                else 
+                {
+                    showValue = showValue1 + " @ " + showValue2;
+                }
+            }
+            return showValue;
+        }
+
+        /// <summary>
+        /// Written By : Lucky Rathore On 23 Sept 2015
+        /// Summary : Function to format the availability and append respective unit.
+        /// </summary>
+        /// <param name="value1">Value1 to be checked whether available or not.</param>
+        /// <param name="unit1">unit1 of respective value e.g. cc, kg.</param>
+        ///<param name="value2">Value2 to be checked whether available or not.</param>
+        /// <param name="unit2">unit2 of respective value e.g. cc, kg.</param>
+        /// <returns>If both value1 and value2 is null function will return -- else return respective unit</returns>
+        public static string ShowAvailable(float value1, string unit1, float value2, string unit2)
+        {
+            string showValue = string.Empty;
+
+            string showValue1 = ShowAvailable(value1, unit1);
+            string showValue2 = ShowAvailable(value2, unit2);
+
+            if (showValue1.Equals("--") && showValue2.Equals("--"))
+            {
+                showValue = "--";
+            }
+            else
+            {
+                if (showValue1.Equals("--"))
+                {
+                    showValue = showValue2;
+                }
+                else if (showValue2.Equals("--"))
+                {
+                    showValue = showValue1;
+                }
+                else
+                {
+                    showValue = showValue1 + " @ " + showValue2;
+                }
+            }
+            return showValue;
+        }
     }
 }
