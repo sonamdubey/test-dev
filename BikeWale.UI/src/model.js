@@ -1,12 +1,5 @@
 // JavaScript Document
 
-
-function UNTLazyLoad() {
-    $("img.lazy").lazyload({
-        event: "UNT"
-    });
-}
-
 (function($) {    
     var connector = function(itemNavigation, carouselStage) {
         return carouselStage.jcarousel('items').eq(itemNavigation.index());
@@ -25,7 +18,6 @@ function UNTLazyLoad() {
             item
                 .on('jcarouselcontrol:active', function() {
                     carouselNavigation.jcarousel('scrollIntoView', this);
-                    $("img.lazy").lazyload();
                     item.addClass('active');
                 })
                 .on('jcarouselcontrol:inactive', function () {
@@ -43,7 +35,6 @@ function UNTLazyLoad() {
                 $(this).addClass('inactive');
             })
             .on('jcarouselcontrol:active', function () {
-                $("img.lazy").lazyload();
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
@@ -55,7 +46,6 @@ function UNTLazyLoad() {
                 $(this).addClass('inactive');
             })
             .on('jcarouselcontrol:active', function () {
-                $("img.lazy").lazyload();
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
@@ -68,11 +58,10 @@ function UNTLazyLoad() {
                 $(this).addClass('inactive');
             })
             .on('jcarouselcontrol:active', function () {
-                $("img.lazy").lazyload();
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
-                target: '-=1'
+                target: '-=4'
             });
 
         $('.next-navigation')
@@ -80,25 +69,23 @@ function UNTLazyLoad() {
                 $(this).addClass('inactive');
             })
             .on('jcarouselcontrol:active', function () {
-                $("img.lazy").lazyload();
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
-                target: '+=1'
+                target: '+=4'
             });
 
-        $('.jcarousel-wrapper.alternatives-carousel')
-            .on('jcarousel:targetin', 'li', function () {
-                $("img.lazy").lazyload();
-            });
+        $(".carousel-navigation, .carousel-stage").on('jcarousel:visiblein', 'li', function(event, carousel) {
+            $(this).find("img.lazy").trigger("imgLazyLoad");
+        });
+        
+        $(".alternatives-carousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
+            $(this).find("img.lazy").trigger("imgLazyLoad");
+        });
+        
     });
 })(jQuery);
 
-
-carouselNavigation.on('jcarousel:create', function (event, carousel) {
-    //$("img.lazy").lazyload();
-    alert("inside visible");
-});
 
 var otherBtn = $(".city-other-btn");
 var cityAreaContainer = $("#city-area-select-container");

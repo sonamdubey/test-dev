@@ -89,6 +89,8 @@
                                 </div>
 
                                 <div class="navigation">
+                                    <a href="#" class="prev prev-navigation bwsprite"></a>
+		                            <a href="#" class="next next-navigation bwsprite"></a>
                                     <div class="carousel carousel-navigation">
                                         <ul>
                                             <li>
@@ -964,6 +966,24 @@
         <BW:PriceQuotePopup ID="ctrlPriceQuotePopup" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
+        <script type="text/javascript">
+
+            function applyLazyLoad() {
+                $("img.lazy").lazyload({
+                    event: "imgLazyLoad",
+                    effect: "fadeIn"
+                });
+            }
+            
+            $(document).ready(function (e) {
+                applyLazyLoad();
+
+                $(".carousel-navigation ul li").slice(0, 4).find("img.lazy").trigger("imgLazyLoad");
+                $(".carousel-stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
+
+            });
+
+        </script>
         <script type="text/javascript">
 
             $(document).ready(function (e) {
