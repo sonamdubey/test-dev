@@ -320,11 +320,9 @@
             if (customerName == "") {
                 $("#spnName").text("Required");
                 isError = true;
-                console.log("isError 1: " + isError);
             } else if (name.length == 1) {
                 $("#spnName").text("Please enter your complete name");
                 isError = true;
-                console.log("isError 2: " + isError);
             } else {
                 $("#spnName").text("");
             }
@@ -332,15 +330,12 @@
             if (CustomerMobile == "") {
                 $("#spnMobile").text("Required");
                 isError = true;
-                console.log("isError 3: " + isError);
             } else if (CustomerMobile != "" && re.test(CustomerMobile) == false) {
                 $("#spnMobile").text("Please provide numeric data only in your mobile number.");
                 isError = true;
-                console.log("isError 4: " + isError);
             } else if (CustomerMobile.length != 10) {
                 $("#spnMobile").text("Your mobile number should be of 10 digits.");
                 isError = true;
-                console.log("isError 5: " + isError);
             } else {
                 $("#spnMobile").text("");
             }
@@ -348,11 +343,9 @@
             if (customerEmail == "") {
                 $("#spnEmail").text("Required");
                 isError = true;
-                console.log("isError:  6" + isError);
             } else if (customerEmail != "" && reEmail.test(customerEmail) == false) {
                 $("#spnEmail").text("Invalid Email");
                 isError = true;
-                console.log("isError: 7" + isError);
             } else {
                 $("#spnEmail").text("");
             }
@@ -360,7 +353,6 @@
             if (bikeRegistrationNo == "") {
                 $("#spnVehicle").text("Required");
                 isError = true;
-                console.log("isError: 8" + isError);
             } else {
                 $("#spnVehicle").text("");
             }
@@ -368,7 +360,6 @@
             if (dealerName == "") {
                 $("#spnDealerName").text("Required");
                 isError = true;
-                console.log("isError: 9" + isError);
             } else {
                 $("#spnDealerName").text("");
             }
@@ -376,7 +367,6 @@
             if (dealerAddress == "") {
                 $("#spnDealerAddress").text("Required");
                 isError = true;
-                console.log("isError: 10" + isError);
             } else {
                 $("#spnDealerAddress").text("");
             }
@@ -384,7 +374,6 @@
             if ($("#ddlVersion").val() <= 0) {
                 $("#spnVersion").text("Please select version.");
                 isError = true;
-                console.log("isError: 11" + isError);
             }
             else {
                 $("#spnVersion").text("");
@@ -393,11 +382,9 @@
             if (selHelmet == "" || selHelmet <= 0) {            
                 $("#errHelmetOffer").text("Please select helmet.");
                 isError = true;
-                console.log("isError: 12" + isError);
             } else {
                 $("#errHelmetOffer").text("");
             }
-            console.log("isError: " + isError);
             return !isError;
         });
 

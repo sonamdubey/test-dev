@@ -1235,8 +1235,7 @@
                                 cityId = vm.selectedCity();
                                 if (cityId > 0) {
                                     cityName = $("#ddlCity option:selected").text();
-                                    cookieValue = cityId + "_" + cityName;
-                                    console.log(cookieValue);
+                                    cookieValue = cityId + "_" + cityName;                                    
                                     SetCookieInDays("location", cookieValue, 365);
                                 }
                             }
@@ -1283,8 +1282,7 @@
                                 cityId = vm.selectedCity();
                                 if (cityId > 0) {
                                     cityName = $("#ddlCity option:selected").text();
-                                    cookieValue = cityId + "_" + cityName;
-                                    console.log(cookieValue);
+                                    cookieValue = cityId + "_" + cityName;                                    
                                     SetCookieInDays("location", cookieValue, 365);
                                 }
 

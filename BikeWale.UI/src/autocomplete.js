@@ -51,11 +51,9 @@ var ac_Source = new Object({ old: "0", new: "1" });
     $.fn.bw_autocomplete = function (options) {
         return this.each(function () {
             if (options == null || options == undefined) {
-                console.log("cwsearch: please define options");
                 return;
             }
             else if (options.source == null || options.source == undefined || options.source == '') {
-                console.log("cwsearch: please define source");
                 return;
             }
             var cache = new Object();
