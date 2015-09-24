@@ -135,7 +135,7 @@ namespace BikeWaleOpr.NewBikeBooking
             try
             {
                 ManageCities objCity=new ManageCities();
-                DataTable dt = objCity.GetCities(0,"ALL").Tables[0];
+                DataTable dt = objCity.GetCities(0, "7").Tables[0];
                 if (dt != null && dt.Rows.Count > 0)
                 {
                     ddlCity.DataSource = dt;

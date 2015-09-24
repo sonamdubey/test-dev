@@ -470,7 +470,7 @@ namespace Bikewale.New
                 return "No specifications.";
             }
             return format.Trim().Substring(0,format.Length - 1);
-        }
+        }  
     }
 
 }

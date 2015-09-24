@@ -65,15 +65,15 @@ namespace Bikewale.Service.Videos.Controllers
         }  //get  Categorized Videos 
         #endregion 
 
-        #region Videos List
+        #region Videos List        
         /// <summary>
-        ///  To get Videos List based on Make or Model (Classes of Videos)
+        ///  To get Videos List based on Make or Model (Classes of Videos).
         /// </summary>
-        /// <param name="classType">Boolean : True for Make,False for Models</param>
-        /// <param name="classId">Make/Model Id</param>
-        /// <param name="pageNo"></param>
-        /// <param name="pageSize"></param>
-        /// <returns>Model's/Make's Videos List</returns>
+        /// <param name="pageNo">Compulsory. Value should be greater than 0.</param>
+        /// <param name="pageSize">Compulsory.</param>
+        /// <param name="makeId">Optional if modelId is provided</param>
+        /// <param name="modelId">Optional if makeId is provided</param>
+        /// <returns></returns>
         [ResponseType(typeof(VideosList))]
         public IHttpActionResult Get(uint pageNo, uint pageSize, int? makeId = null , int? modelId = null)
         {

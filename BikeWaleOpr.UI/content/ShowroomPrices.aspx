@@ -134,7 +134,7 @@
 
 	$("#ddlStates").change(function () {
 	    
-	    var requestType = "ALL";
+	    var requestType = "7";
 	    var stateId = $(this).val();
 	    //alert(stateId);
 	    //$("#" + hdnSelectedModel_Id).val("");

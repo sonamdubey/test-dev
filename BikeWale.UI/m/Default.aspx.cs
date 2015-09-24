@@ -16,6 +16,7 @@ namespace Bikewale.Mobile
         protected ExpertReviewsWidget ctrlExpertReviews;
         protected VideosWidget ctrlVideos;
         protected CompareBikesMin ctrlCompareBikes;
+        protected short reviewTabsCnt = 0;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

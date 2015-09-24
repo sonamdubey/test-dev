@@ -23,11 +23,10 @@
     <!-- #include file="/includes/headBW.aspx" -->
     
     <!-- Brand Page Starts Here-->
-    <section class="bg-white">
-    	<div class="container header-fixed-inner">
+    <section class="bg-white header-fixed-inner">
+        <div class="container">
             <div class="grid-12">
-                <div class="padding-bottom15 padding-top10 text-center">
-                     <!-- #include file="/ads/Ad728x90.aspx" --> 
+                <div class="padding-bottom15 text-center">
                 </div>
             </div>
             <div class="clear"></div>
@@ -106,7 +105,7 @@
             <div class="clear"></div>
         </div>
     </section>    
-    <section class="<%= (Convert.ToInt32(ctrlUpcomingBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>"><!-- Upcoming bikes from brands -->
+    <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? "" : "hide" %>"><!-- Upcoming bikes from brands -->
     	<div class="container">
         	<div class="grid-12">
             	<h2 class="text-bold text-center margin-top50 margin-bottom30">Upcoming bikes from <%= _make.MakeName %></h2>
@@ -139,7 +138,7 @@
                         <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>">
                             <ul>
                                 <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Reviews</li>
+                                <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
                                 <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
                             </ul>
                         </div>
@@ -152,9 +151,9 @@
             <div class="clear"></div>
         </div>
     </section>
-    <section ><!-- About Brand code starts here-->
+    <section class="<%= (isDescription)? "": "hide" %>" ><!-- About Brand code starts here-->
     	<div class="container">
-        	<div class="grid-12" style="<%= (isDescription) ? "": "display:none;" %>">
+        	<div class="grid-12" >
             	<h2 class="text-bold text-center margin-top30 margin-bottom30">About <%= _make.MakeName %></h2>
                 <div class="content-box-shadow content-inner-block-10 rounded-corner2 margin-bottom30 font14">
                 	<span class="brand-about-main">
@@ -176,6 +175,14 @@
      <!-- Popup Section Ends here-->  
     </section>
     
+    <script>
+        $("a.read-more-btn").click(function () {
+            $("span.brand-about-main").toggleClass('hide');
+            $("span.brand-about-more-desc").toggleClass('hide');
+            var a = $(this).find("span");
+            a.text(a.text() === "more" ? "less" : "more");
+        });
+    </script>
 
 <!-- #include file="/includes/footerBW.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
