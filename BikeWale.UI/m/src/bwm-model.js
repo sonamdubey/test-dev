@@ -19,6 +19,10 @@ jQuery(function () {
         });
     });
     
+    $(".alternatives-carousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
+        $(this).find("img.lazy").trigger("imgLazyLoad");
+    });
+
 });
 
 var otherBtn = $(".city-other-btn");

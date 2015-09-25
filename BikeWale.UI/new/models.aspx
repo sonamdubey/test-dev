@@ -182,6 +182,9 @@
 
         <script type="text/javascript">
             $(document).ready(function () { $("img.lazy").lazyload(); });
+            $(".upcoming-brand-bikes-container").on('jcarousel:visiblein', 'li', function (event, carousel) {
+                $(this).find("img.lazy").trigger("imgLazyLoad");
+            });
         </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->

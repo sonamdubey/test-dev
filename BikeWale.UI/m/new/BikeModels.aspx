@@ -845,7 +845,7 @@
                     <!-- Most Popular Bikes Starts here-->
                     <h2 class="margin-top30px margin-bottom20 text-center"><%= bikeName %> alternatives</h2>
 
-                    <div class="jcarousel-wrapper discover-bike-carousel">
+                    <div class="jcarousel-wrapper discover-bike-carousel alternatives-carousel">
                         <div class="jcarousel">
                             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
                         </div>
