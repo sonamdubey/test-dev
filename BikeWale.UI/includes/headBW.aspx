@@ -47,7 +47,7 @@
     </div> <!-- ends here -->
     <div class="clear"></div>    
 <% if(isAd970x90Shown){ %>
-    <section class="bg-white <%= isHeaderFix ? "header-fixed-inner": "" %>">
+    <section class="bg-white <%= isHeaderFix ? "header-fixed-inner": "padding-top10" %>">
         <div class="container">
             <div class="grid-12">
                 <div class="padding-bottom15 text-center">
