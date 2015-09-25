@@ -179,6 +179,10 @@
 <!-- #include file="/includes/footerBW.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
     </form> 
+    <script type="text/javascript">
+        ga_pg_id = '4';
+        var _makeName = '<%= _make.MakeName %>';
+    </script>
 </body>
 </html>
     

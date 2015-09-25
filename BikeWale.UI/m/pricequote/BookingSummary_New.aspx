@@ -367,6 +367,7 @@
         </script>
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js?<%= staticFileVersion %>" type="text/javascript"></script>
         <script language="javascript" type="text/javascript">
+            var thisBikename = '<%= this.bikeName %>';
             window.onload = function () {
                 var btnRelease = document.getElementById('<%= clientIP %>');
                 //Find the button set null value to click event and alert will not appear for that specific button

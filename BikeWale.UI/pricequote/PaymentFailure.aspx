@@ -20,6 +20,9 @@
         </div>
 <script type="text/ecmascript">
     $(document).ready(function () {
+        // GA code
+        var cityArea = GetGlobalCityArea();
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Payment_Failure', 'lab': '<%= MakeModel.Replace("'","") %>' + cityArea });
         $("#btnMakePayment").click(function () {
             dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%= MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Retry_Payment' });
         });

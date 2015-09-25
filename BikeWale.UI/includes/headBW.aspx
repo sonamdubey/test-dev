@@ -29,7 +29,7 @@
     <div id="header" class='<%= isHeaderFix ? "header-fixed": "header-not-fixed" %>'> <!-- Fixed Header code starts here -->
         <div class="leftfloat">
             <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
-            <a href="/" class="bwsprite bw-logo"></a>
+            <a href="/" id="bwheader-logo" class="bwsprite bw-logo"></a>
         </div>
         <div class="rightfloat">
             <div class="global-location">

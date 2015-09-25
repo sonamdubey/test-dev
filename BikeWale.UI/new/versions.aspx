@@ -283,7 +283,7 @@
                                     </div>
                                 </div>
                                 <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
-                                    <input type="button" class="btn btn-orange unveil-offer-btn" value="Show Offers" />
+                                    <input type="button" id="btnShowOffers" class="btn btn-orange unveil-offer-btn" value="Show Offers" />
                                 </div>
                                 <%--<div class="notify-btn-container position-abt pos-left0 pos-top0 hide">
                                     <div class="margin-top50 margin-left40">
@@ -966,7 +966,7 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
-
+            var myBikeName = '<%= this.bikeName %>';
             $(document).ready(function (e) {
                 $('.bw-overall-rating a[href^="#"], a[href^="#"].review-count-box').click(function () {
                     $('.bw-overall-rating a').removeClass("active");
@@ -1023,6 +1023,7 @@
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?<%= staticFileVersion %>">"></script>
         <script type="text/javascript">
+            ga_pg_id = '2';
             var PQCitySelectedId = 0;
             var PQCitySelectedName = "";
             var temptotalPrice = 0;
@@ -1416,6 +1417,7 @@
                 }
             }
             
+
 
         </script>
     </form>

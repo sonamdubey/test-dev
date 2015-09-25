@@ -175,7 +175,8 @@
                 cookieValue = cityId + "_" + cityName;
                 SetCookieInDays("location", cookieValue, 365);
             }
-
+            // GA code
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': _makeName });
             $.ajax({
                 type: 'POST',
                 url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",

@@ -57,5 +57,7 @@
 <![endif]-->
 <script type="text/javascript">
     bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
+    var ga_pg_id = '0';
+    //	new\default.aspx  = 3//	new\versions.aspx = 2//	default.aspx = 1//	includes\headscript.aspx = 0
 </script>
 <!-- #include file="\includes\gacode.aspx" -->

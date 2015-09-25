@@ -293,6 +293,10 @@
     <!--Documents popup ends here-->
 <script type="text/javascript">
     $(document).ready(function () {
+        var cityArea = GetGlobalCityArea();
+        if (cityArea != undefined) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Payment_Confirmation', 'lab': cityArea });
+        }
         //For Faqs popup
         $("#faqLink").click(function () {
             $(".faq-popup").show();

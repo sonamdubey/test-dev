@@ -7,7 +7,6 @@
 <%@ Register Src="~/controls/OnRoadPriceQuote.ascx" TagName="OnRoadPriceQuote" TagPrefix="BW" %>
 <html>
 <head>
-    
     <%
         title = "New Bikes, Used Bikes, Bike Prices, Reviews & Photos in India";
         keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price";
@@ -487,6 +486,9 @@
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript">
+        ga_pg_id = '1';
+    </script>
 </form>
 </body>
 </html>
