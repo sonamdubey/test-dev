@@ -17,11 +17,11 @@
                     
         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
         AdId = "1017752";
-        AdPath = "BikeWale_New_";
-        ShowTargeting = "1";
+        AdPath = "/1017752/BikeWale_New_";        
         TargetedModel = modelPage.ModelDetails.ModelName;
         fbTitle = title;
         alternate = "http://www.bikewale.com/m/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
+        isAd970x90Shown = true;
     %>
 
     <!-- #include file="/includes/headscript.aspx" -->

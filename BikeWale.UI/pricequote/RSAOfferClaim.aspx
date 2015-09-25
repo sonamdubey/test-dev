@@ -4,7 +4,7 @@
 <%
     title = "Bike Purchase Offer Claim";
     AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_New_";
+    AdPath = "/1017752/BikeWale_New_";      
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <link rel="stylesheet" href="/css/datepicker.css" />

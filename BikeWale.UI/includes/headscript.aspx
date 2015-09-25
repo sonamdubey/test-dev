@@ -3,8 +3,8 @@
     private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "";
     private string fbTitle = "", fbImage;
-    private ushort feedbackTypeId = 0; 	 
-    private bool isHeaderFix = true;   
+    private ushort feedbackTypeId = 0;
+    private bool isHeaderFix = true, isAd970x90Shown = false;   
 </script>
 
 <title><%= title %></title>
@@ -39,14 +39,14 @@
     googletag.cmd.push(function () {
         googletag.defineSlot('<%= AdPath%>728x90', [728, 90], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
         googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());                    
-        googletag.defineSlot('<%= AdPath%>_300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
+        googletag.defineSlot('<%= AdPath%>300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
+        <% if(isAd970x90Shown){ %>
         googletag.defineSlot('<%= AdPath%>970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads()); 
-        <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>
-            <% if(!String.IsNullOrEmpty(TargetedModel)){%>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");<%}%>
-            <% if (!String.IsNullOrEmpty(TargetedSeries)){%>googletag.pubads().setTargeting("Series", "<%= TargetedSeries %>");<%}%>
+        <% } %>
+            <% if(!String.IsNullOrEmpty(TargetedModel)){%>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");<%}%>             
             <% if(!String.IsNullOrEmpty(TargetedMake)){%>googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");<%}%>
             <% if(!String.IsNullOrEmpty(TargetedModels)){%>googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels %>");<%}%>
-        <% } %>
+        
         googletag.pubads().collapseEmptyDivs();
         googletag.pubads().enableSingleRequest();
         googletag.enableServices();

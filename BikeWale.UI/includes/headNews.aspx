@@ -24,7 +24,7 @@
     <script src="http://st2.aeplcdn.com/src/jquery.jcarousel.min.js" type="text/javascript"></script>
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", canonical = "",prevPageUrl = "",nextPageUrl = "", fbTitle = "", fbImage = "", AdId = "", AdPath = "",alternate = "";	    
-        private bool isHeaderFix = true;
+        private bool isHeaderFix = true, isAd970x90Shown = false;
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
