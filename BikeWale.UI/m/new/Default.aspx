@@ -339,7 +339,7 @@
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-newbikes.js?<%= staticFileVersion %>"></script>
      <script type="text/javascript" >
-            ga_pg_id = '3';
+            ga_pg_id = '4';
         </script>
      </form>
 </body>
