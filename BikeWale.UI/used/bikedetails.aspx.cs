@@ -72,7 +72,7 @@ namespace Bikewale.Used
                 //Modified By : Ashwini Todkar added soldoutstatus fake or invalid
                 if (objInquiry.AskingPrice == "" || objInquiry.AskingPrice == "-1" || objInquiry.SoldOutStatus == "4" || objInquiry.SoldOutStatus == "2")
                 {
-                    Response.Redirect("/pageNotFound.aspx",true);
+                    Response.Redirect("/pageNotFound.aspx",false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }

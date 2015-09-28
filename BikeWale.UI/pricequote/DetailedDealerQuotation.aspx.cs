@@ -128,12 +128,17 @@ namespace Bikewale.BikeBooking
                 }
                 else
                 {
-                    Response.Redirect("/pricequote/", true);
+                    Response.Redirect("/pricequote/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
             else
-                Response.Redirect("/pricequote/", true);
-
+            {
+                Response.Redirect("/pricequote/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
             //SendSMSnEmail();
         }
 
@@ -389,7 +394,7 @@ namespace Bikewale.BikeBooking
                             }
                             DealerPriceQuoteCookie.CreateDealerPriceQuoteCookie(PriceQuoteCookie.PQId, true, true);
                         }
-                    }                    
+                    }
                 }
                 else
                 {
@@ -405,7 +410,11 @@ namespace Bikewale.BikeBooking
             finally
             {
                 if (!_isContentFound)
-                    Response.Redirect("/pagenotfound.aspx", true);
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 

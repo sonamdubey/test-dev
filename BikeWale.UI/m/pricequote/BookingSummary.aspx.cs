@@ -106,13 +106,11 @@ namespace Bikewale.Mobile.BikeBooking
                 if (transresp == "Transaction Failure" || transresp == "Invalid information!")
                 {
                     HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/bookingsummary.aspx");
-                    Trace.Warn("fail");
                 }
             }
             else
             {
                 HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/bookingsummary.aspx");
-                Trace.Warn("fail");
             }
         }
 
@@ -132,12 +130,16 @@ namespace Bikewale.Mobile.BikeBooking
                 }
                 else
                 {
-                    Response.Redirect("/m/pricequote/", true);
+                    Response.Redirect("/m/pricequote/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
             else
             {
-                Response.Redirect("/m/pricequote/", true);
+                Response.Redirect("/m/pricequote/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 
@@ -247,7 +249,11 @@ namespace Bikewale.Mobile.BikeBooking
             finally
             {
                 if (!_isContentFound)
-                    Response.Redirect("/m/pagenotfound.aspx", true);
+                {
+                    Response.Redirect("/m/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 

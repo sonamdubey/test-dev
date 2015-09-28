@@ -55,7 +55,7 @@ $(document).ready(function () {
 	
 
 	
-
+    
     $("#newBikeList").bw_autocomplete({
         recordCount: 5,
         source: 1,
@@ -76,8 +76,12 @@ $(document).ready(function () {
             // GA code
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': ui.item.label });
         },
+
         open: function (result) {
             objBikes.result = result;
+            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+                $('.ui-autocomplete').off('menufocus hover mouseover');
+            }
         },
         focusout: function () {
             if ($('li.ui-state-focus a:visible').text() != "") {
@@ -153,6 +157,10 @@ $(document).ready(function () {
         },
         open: function (result) {
             objCity.result = result;
+            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+                //alert("IOS");
+                $('.ui-autocomplete').off('menufocus hover mouseover');
+            }
         },
         focusout: function () {
             if ($('li.ui-state-focus a:visible').text() != "") {
@@ -372,7 +380,22 @@ $(document).ready(function () {
 			}
 		});
 		// Swipe handlers for mobile
-		$(".jcarousel").swipe({ fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto" });
+	   
+		$('.jcarousel a').on('click', function (e) {
+		    e.preventDefault();
+		    var targetHref = $(this).attr('href');
+		    if (targetHref != '' || targetHref != 'javascript:void(0);')
+		        window.open(targetHref, '_self');
+		});
+
+	    //$(".jcarousel").swipe({ fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto" });
+
+		$(".jcarousel").swipe({
+		    fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto",
+		    excludedElements: "label, button, input, select, textarea, .noSwipe",
+		});
+
+
 		function swipe1(event, direction, distance, duration, fingerCount) {
 			if (direction == "left") {
 				$(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-next").click();
@@ -725,18 +748,39 @@ function unlockPopup() {
     $('body').removeClass('lock-browser-scroll');
     $(".blackOut-window").hide();
 }
-/*function lockPopup() {
-    $(".blackOut-window").show();
-}
-
-function unlockPopup() {
-    $(".blackOut-window").hide();
-}*/
 
 $(window).resize(function () {
     var newwidth = 98 + '%';
     $(".ui-autocomplete").width(newwidth) ;
 });
+
+//function to attach ajax spinner
+function attachAjaxLoader(element) {
+    var $loading = $(element).hide();
+    $(document)
+      .ajaxStart(function () {
+          $loading.show();
+      })
+      .ajaxStop(function () {
+          $loading.hide();
+      });
+}
+
+//set location cookie
+function setLocationCookie(cityEle, areaEle) {
+    if (parseInt($(cityEle).val()) > 0) {
+        cookieValue = parseInt($(cityEle).val()) + "_" + $(cityEle).text();
+        if (parseInt($(areaEle).val()) > 0)
+            cookieValue += "_" + parseInt($(areaEle).val()) + "_" + $(areaEle).text();
+        SetCookieInDays("location", cookieValue, 365);
+    }
+}
+
+//match cookie data to check city /area exists 
+function selectElementFromArray(dataArray, id) {
+    var result = $.grep(dataArray, function (e) { return e.id == id; });
+    return result;
+}
 
 
 

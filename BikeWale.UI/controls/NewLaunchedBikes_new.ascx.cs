@@ -15,6 +15,7 @@ namespace Bikewale.controls
         public  int pageSize { get; set; }
         public  int? curPageNo { get; set; }
         public  int FetchedRecordsCount { get; set; }
+        public string PageId { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

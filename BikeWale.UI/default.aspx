@@ -325,7 +325,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#budget=100000-150000">
+                                    <a href="/new/search.aspx#budget=100000-250000">
                                         <span class="budget-title-box font16">Between
                                         </span>
                                         <span class="budget-amount-box font20">
@@ -334,18 +334,18 @@
                                             <span class="budget-amount-text-box font16">Lakhs</span>
                                             <span class="font24">- </span>
                                             <span class="fa fa-rupee"></span>
-                                            <span>1.5</span>
+                                            <span>2.5</span>
                                             <span class="budget-amount-text-box font16">Lakhs</span>
                                         </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#budget=200000-">
+                                    <a href="/new/search.aspx#budget=250000-">
                                         <span class="budget-title-box font16">Above
                                         </span>
                                         <span class="budget-amount-box font20">
                                             <span class="fa fa-rupee"></span>
-                                            <span class="font24">2</span>
+                                            <span class="font24">2.5</span>
                                             <span class="budget-amount-text-box font16">Lakhs</span>
                                         </span>
                                     </a>
@@ -447,7 +447,7 @@
     </section>
     <!--  Ends here -->
     <section class="home-getFinalPrice-banner">
-      <BW:OnRoadPriceQuote ID="ctrlOnRoadPriceQuote" runat="server"/>
+      <BW:OnRoadPriceQuote ID="ctrlOnRoadPriceQuote" PageId="1" runat="server"/>
     </section>
 
     <section class="margin-bottom50">

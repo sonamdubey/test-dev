@@ -88,7 +88,11 @@ namespace Bikewale.BikeBooking
             finally
             {
                 if (!_isContentFound)
-                    Response.Redirect("/pagenotfound.aspx", true);
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
         protected void getCustomerDetails()
@@ -184,12 +188,16 @@ namespace Bikewale.BikeBooking
                 }
                 else
                 {
-                    Response.Redirect("/", true);
+                    Response.Redirect("/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
             else
             {
-                Response.Redirect("/", true);
+                Response.Redirect("/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
         #endregion

@@ -54,7 +54,11 @@ namespace Bikewale.Mobile.BikeBooking
                 if (!String.IsNullOrEmpty(PriceQuoteCookie.DealerId))
                     dealerId = Convert.ToUInt32(PriceQuoteCookie.DealerId);
                 else
-                    Response.Redirect("/m/pricequote/quotation.aspx", true);
+                {
+                    Response.Redirect("/m/pricequote/quotation.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
 
                 areaId = PriceQuoteCookie.AreaId;
                 cityId = Convert.ToUInt32(PriceQuoteCookie.CityId);
@@ -77,7 +81,9 @@ namespace Bikewale.Mobile.BikeBooking
             }
             else
             {
-                Response.Redirect("/m/pricequote/default.aspx", true);
+                Response.Redirect("/m/pricequote/default.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 
@@ -141,7 +147,9 @@ namespace Bikewale.Mobile.BikeBooking
             {
                 if (!isPriceAvailable)
                 {
-                    Response.Redirect("/m/pricequote/quotation.aspx", true);
+                    Response.Redirect("/m/pricequote/quotation.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
         }
@@ -247,13 +255,17 @@ namespace Bikewale.Mobile.BikeBooking
                 if (objPQOutput.PQId > 0 && objPQOutput.DealerId > 0)
                 {
                     PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());
-                    Response.Redirect("/m/pricequote/dealerpricequote.aspx", true);
+                    Response.Redirect("/m/pricequote/dealerpricequote.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
                 else if (objPQOutput.PQId > 0)
                 {
                     // Save pq cookie
                     PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "");
-                    Response.Redirect("/m/pricequote/quotation.aspx", true);
+                    Response.Redirect("/m/pricequote/quotation.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
                 else
                 {

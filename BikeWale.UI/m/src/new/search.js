@@ -5,7 +5,9 @@ var $sortDiv = $("#sort-by-div"),
     multiSelect = $('.multiSelect'),
     nobikediv = $('#nobike'),
     loading = $('#loading'),
-    resetButton=$('#btnReset');
+    resetButton = $('#btnReset');
+
+var sortEnum = {};
 
 var $window = $(window);
 $.totalCount = "";
@@ -335,6 +337,7 @@ $.hitAPI = function (searchUrl) {
             $.lazyLoadingStatus = true;
             $('#hidePopup').click();
             loading.hide();
+            $.pushGACode(searchUrl, $.totalCount);
         },
         error: function (error) {
             $.totalCount = 0;
@@ -345,6 +348,7 @@ $.hitAPI = function (searchUrl) {
             loading.hide();
             $('#hidePopup').click();
             $('#bikecount').text($.totalCount + ' bikes found');
+            $.pushGACode(searchUrl, $.totalCount);
         }
     });
 };
@@ -816,3 +820,112 @@ $.valueFormatter = function (num) {
     }
     return num;
 }
+
+$.pushGACode = function (qs,noOfRecords)
+{
+    var params = $.getAllParamsFromQS();
+    for (var i = 0; i < params.length; i++) {
+        if (params[i].length > 0) {
+            if (params[i] != "pageno" && params[i] != "so" && params[i] != "sc") {
+                $.pushGTACode(noOfRecords, params[i]);
+            } else if (params[i] == "sc") {
+                var sc = $.getFilterFromQS('sc'), so = $.getFilterFromQS('so');
+
+                var filterName = "";
+                switch (sc) {
+                    case '0':
+                        filterName = "Popular";
+                        break;
+                    case '1':
+                        filterName = so == '0' ? "Price :Low to High" : "Price :High to Low";
+                        break;
+                    case '2':
+                        filterName = 'Mileage :High to Low';
+                        break;
+                }
+
+                $.pushGTACode(noOfRecords,filterName);
+            }
+        }
+    }
+};
+
+$.pushGTACode = function (noOfRecords, filterName) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_' + noOfRecords, 'lab': filterName });
+};
+
+$.ModelClickGaTrack = function (modelName,modelUrl) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelName });
+    location.href = modelUrl;
+};
+
+$.PricePopUpClickGA = function (makeName) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Get_On_Road_Price_Click', 'lab': makeName });
+};
+
+(function ($, ko) {
+    'use strict';
+    // TODO: Hook into image load event before loading others...
+    function KoLazyLoad() {
+        var self = this;
+
+        var updatebit = ko.observable(true).extend({ throttle: 50 });
+
+        var handlers = {
+            img: updateImage
+        };
+
+        function flagForLoadCheck() {
+            updatebit(!updatebit());
+        }
+
+        $(window).on('scroll', flagForLoadCheck);
+        $(window).on('resize', flagForLoadCheck);
+
+        function isInViewport(element) {
+            var rect = element.getBoundingClientRect();
+            return rect.bottom > 0 && rect.right > 0 &&
+              rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+              rect.left < (window.innerWidth || document.documentElement.clientWidth);
+        }
+
+        function updateImage(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var value = ko.unwrap(valueAccessor());
+            if (isInViewport(element)) {
+                element.src = value;
+                $(element).data('kolazy', true);
+            }
+        }
+
+        function init(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var initArgs = arguments;
+            updatebit.subscribe(function () {
+                update.apply(self, initArgs);
+            });
+        }
+
+        function update(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var $element = $(element);
+
+            if ($element.is(':hidden') || $element.css('visibility') == 'hidden' || $element.data('kolazy')) {
+                return;
+            }
+
+            var handlerName = element.tagName.toLowerCase();
+            if (handlers.hasOwnProperty(handlerName)) {
+                return handlers[handlerName].apply(this, arguments);
+            } else {
+                throw new Error('No lazy handler defined for "' + handlerName + '"');
+            }
+        }
+
+        return {
+            handlers: handlers,
+            init: init,
+            update: update
+        }
+    }
+
+    ko.bindingHandlers.lazyload = new KoLazyLoad();
+
+})(jQuery, ko);

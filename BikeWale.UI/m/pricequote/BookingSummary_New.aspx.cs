@@ -80,7 +80,11 @@ namespace Bikewale.Mobile.PriceQuote
             finally
             {
                 if (!_isContentFound)
+                {
                     Response.Redirect("/pagenotfound.aspx", true);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
         protected void getCustomerDetails()
@@ -169,12 +173,16 @@ namespace Bikewale.Mobile.PriceQuote
                 }
                 else
                 {
-                    Response.Redirect("/", true);
+                    Response.Redirect("/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
             else
             {
-                Response.Redirect("/", true);
+                Response.Redirect("/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
         #endregion

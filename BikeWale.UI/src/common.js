@@ -4,6 +4,7 @@ var objBikes = new Object();
 var objCity = new Object();
 var globalCityId = 0;
 
+//fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
         var len = this.length >>> 0;
@@ -771,4 +772,21 @@ function attachAjaxLoader(element)
       .ajaxStop(function () {
           $loading.hide();
       });
+}
+
+//set location cookie
+function setLocationCookie(cityEle, areaEle) {
+    if (parseInt($(cityEle).val()) > 0) {
+        cookieValue = parseInt($(cityEle).val()) + "_" + $(cityEle).text();
+        if (parseInt($(areaEle).val()) > 0)
+            cookieValue += "_" + parseInt($(areaEle).val()) + "_" + $(areaEle).text();
+        SetCookieInDays("location", cookieValue, 365);
+    }
+}
+
+//match cookie data to check city /area exists 
+function selectElementFromArray(dataArray,id)
+{
+    var result = $.grep(dataArray, function (e) { return e.id == id; });
+    return result;
 }
