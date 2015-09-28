@@ -37,6 +37,7 @@
     var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var pageId;
+    var selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
     onRoadcity = $('#ddlCitiesOnRoad');
     onRoadArea = $('#ddlAreaOnRoad');
     onRoadMakeModel = $('#getFinalPrice');
@@ -187,50 +188,69 @@
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
                 success: function (json) {
                     var jsonObj = $.parseJSON(json.value);
+
+                    selectedCityName = $("#ddlCitiesOnRoad option:selected").text();
+
+                    if (areaId > 0)
+                        selectedAreaName = $("#ddlAreaOnRoad option:selected").text();
+
+                    if (selectedMakeName != "" && selectedCityName != "") {
+                        gaLabel = selectedMakeName + ',' + selectedCityName;
+
+                        if (selectedAreaName != '')
+                            gaLabel += ',' + selectedAreaName;
+                    }
+
                     if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-                        gtmCodeAppender(pageId, "Successful submission - DealerPQ", "Model : " + selectedModel + ', City : ' + viewModelOnRoad.selectedCity() + ', Area : ' + viewModelOnRoad.selectedArea());
+                        gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                         window.location = "/m/pricequote/dealerpricequote.aspx";
                     }
                     else if (jsonObj != undefined && jsonObj.quoteId > 0) {
-                        gtmCodeAppender(pageId, "Successful submission - BikeWalePQ", "Model : " + selectedModel + ', City : ' + viewModelOnRoad.selectedCity() + ', Area : ' + viewModelOnRoad.selectedArea());
+                        gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
                         window.location = "/m/pricequote/quotation.aspx";
                     } else {
-                        gtmCodeAppender(pageId, "Error in submission", null);
+                        gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                         $("#errMsgOnRoad").text("Oops. We do not seem to have pricing for given details.").show();
                     }
                 },
                 error: function (e) {
-                    gtmCodeAppender(pageId, "Error in submission", null);
+                    gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                     $("#errMsg").text("Oops. Some error occured. Please try again.").show();
                 }
             });
         } else {
-            gtmCodeAppender(pageId, "Error in submission", null);
+            gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
             $("#errMsgOnRoad").text("Please select all the details").show();
         }
     }
 
     function gtmCodeAppender(pageId, action, label) {
+        var categoty = '';
         if (pageId != null) {
             switch (pageId) {
                 case "1":
-                    category = 'CheckPQ_Make';
-                    action = "CheckPQ_Make_" + action;
+                    category = 'Make_Page';
                     break;
                 case "2":
                     category = "CheckPQ_Series";
                     action = "CheckPQ_Series_" + action;
                     break;
                 case "3":
-                    category = "CheckPQ_Model";
+                    category = "Model_Page";
                     action = "CheckPQ_Model_" + action;
+                    break;
+                case '4':
+                    category = 'New_Bikes_Page';
+                    break;
+                case '5':
+                    category = 'HP';
                     break;
             }
             if (label) {
-                dataLayer.push({ 'event': 'product_bw_gtm', 'cat': category, 'act': action, 'lab': label });
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action, 'lab': label });
             }
             else {
-                dataLayer.push({ 'event': 'product_bw_gtm', 'cat': category, 'act': action });
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action });
             }
         }
 
@@ -266,9 +286,10 @@
                     model = new Object();
                     model.maskingName = ui.item.payload.modelMaskingName;
                     model.id = ui.item.payload.modelId;
-                    pageId = $(this).attr('pageCatId');
+                    pageId = '<%= PageId %>';
                     gtmCodeAppender(pageId, "Button Clicked", null);
                     selectedModel = model.id;
+                    selectedMakeName = ui.item.label;
                     FillCitiesOnRoad(selectedModel);
 
                 }

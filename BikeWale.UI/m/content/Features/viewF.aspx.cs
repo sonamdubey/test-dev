@@ -100,18 +100,18 @@ namespace Bikewale.Mobile.Content
         private async void GetFeatureDetails()
         {
             try
-            {       
-                 //sets the base URI for HTTP requests
+            {
+                //sets the base URI for HTTP requests
                 string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
                 string _requestType = "application/json";
                 string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + BasicId;
-             
+
                 // Send HTTP GET requests 
-       
+
                 objFeature = await BWHttpClient.GetApiResponse<ArticlePageDetails>(_cwHostUrl, _requestType, _apiUrl, objFeature);
 
                 if (objFeature != null)
-                {      
+                {
                     GetFeatureData();
                     BindPages();
                     BindPhotos();
@@ -130,7 +130,11 @@ namespace Bikewale.Mobile.Content
             finally
             {
                 if (!_isContentFount)
-                    Response.Redirect("/m/pagenotfound.aspx", true);
+                {
+                    Response.Redirect("/m/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 

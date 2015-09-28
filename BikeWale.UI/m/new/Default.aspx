@@ -213,7 +213,7 @@
                         <div class="jcarousel-wrapper discover-bike-carousel">
                             <div class="jcarousel">
                                 <ul>
-                                    <BW:MMostPopularBikes runat="server" ID="mctrlMostPopularBikes" />
+                                    <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
@@ -225,7 +225,7 @@
                         <div class="jcarousel-wrapper discover-bike-carousel">
                             <div class="jcarousel">
                                 <ul>
-                                    <BW:MNewLaunchedBikes runat="server" ID="mctrlNewLaunchedBikes" />
+                                    <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>

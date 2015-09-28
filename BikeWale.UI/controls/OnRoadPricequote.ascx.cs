@@ -9,6 +9,7 @@ namespace Bikewale.Controls
 {
     public partial class OnRoadPricequote : System.Web.UI.UserControl
     {
+        public string PageId { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

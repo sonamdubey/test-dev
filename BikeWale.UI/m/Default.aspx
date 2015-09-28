@@ -331,7 +331,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/m/new/search.aspx?budget=100000-150000">
+                                    <a href="/m/new/search.aspx?budget=100000-250000">
                                     	<span class="budget-title-box font14">
                                             Between
                                         </span>
@@ -341,19 +341,19 @@
                                             <span class="budget-amount-text-box font14 text-bold">Lac</span>
                                             <span class="font14 text-bold"> - </span>
                                             <span class="fa fa-rupee"></span>
-                                            <span class="font14 text-bold">1.5</span>
+                                            <span class="font14 text-bold">2.5</span>
                                             <span class="budget-amount-text-box font14 text-bold">Lac</span>
                                         </span>   
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/m/new/search.aspx?budget=200000-">
+                                    <a href="/m/new/search.aspx?budget=250000-">
                                     	<span class="budget-title-box font14">
                                             Above
                                         </span>
                                         <span class="budget-amount-box font12">
                                             <span class="fa fa-rupee"></span>
-                                            <span class="font14 text-bold">2</span>
+                                            <span class="font14 text-bold">2.5</span>
                                             <span class="budget-amount-text-box font14 text-bold">Lac</span>
                                         </span>   
                                     </a>
@@ -457,7 +457,7 @@
         </div>
     </section><!-- Upcoming, new launches Ends here -->
     <section class="home-getFinalPrice-banner"><!--  Get Final Price code starts here -->
-        <BW:MOnRoadPricequote ID="MOnRoadPricequote" runat="server"/> 
+        <BW:MOnRoadPricequote PageId="5" ID="MOnRoadPricequote" runat="server"/> 
     </section><!-- Get Final Price code Ends here -->
     <section class="home-compare"><!--  Compare section code starts here -->
         <BW:CompareBike ID="ctrlCompareBikes" runat="server"/>

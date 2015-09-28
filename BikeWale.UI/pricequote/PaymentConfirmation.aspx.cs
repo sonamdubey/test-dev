@@ -6,6 +6,7 @@ using Bikewale.Mobile.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
 using System.Configuration;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.PriceQuote
@@ -56,7 +57,11 @@ namespace Bikewale.PriceQuote
                         SendEmailSMSToDealerCustomer.BookingEmailToDealer(_objPQ.objDealer.EmailId, ConfigurationManager.AppSettings["OfferClaimAlertEmail"], objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.CustomerEmail, totalPrice, _objPQ.objBookingAmt.Amount, totalPrice - _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.PriceList, bookingRefNum, bikeName, bikeColor, _objPQ.objDealer.Name, _objPQ.objOffers, insuranceAmount);
                     }
                     else
-                        Response.Redirect("/pricequote/bookingsummary.aspx", true);
+                    {
+                        Response.Redirect("/pricequote/bookingsummary.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -66,7 +71,9 @@ namespace Bikewale.PriceQuote
             }
             else
             {
-                Response.Redirect("/pricequote/quotation.aspx", true);
+                Response.Redirect("/pricequote/quotation.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 
@@ -163,7 +170,11 @@ namespace Bikewale.PriceQuote
             finally
             {
                 if (!_isContentFound)
-                    Response.Redirect("/pagenotfound.aspx", true);
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 
@@ -181,7 +192,11 @@ namespace Bikewale.PriceQuote
                 objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteCookie.PQId));
 
                 if (objCustomer == null)
-                    Response.Redirect("/pricequote/", true);
+                {
+                    Response.Redirect("/pricequote/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
     }

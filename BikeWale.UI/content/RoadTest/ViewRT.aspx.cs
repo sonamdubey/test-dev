@@ -75,7 +75,9 @@ namespace Bikewale.Content
             }
             else
             {
-                Response.Redirect("/road-tests/", true);
+                Response.Redirect("/road-tests/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 
@@ -119,7 +121,7 @@ namespace Bikewale.Content
             {
                 if (!_isContentFount)
                 {
-                    Response.Redirect("/pagenotfound.aspx", true);
+                    Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }

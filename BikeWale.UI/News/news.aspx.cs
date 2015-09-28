@@ -66,7 +66,9 @@ namespace Bikewale.News
             }
             else
             {
-                Response.Redirect("/pagenotfound.aspx", true);
+                Response.Redirect("/pagenotfound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 
@@ -99,7 +101,11 @@ namespace Bikewale.News
             finally
             {
                 if (!_isContentFount)
-                    Response.Redirect("/news/", true);
+                {
+                    Response.Redirect("/news/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 

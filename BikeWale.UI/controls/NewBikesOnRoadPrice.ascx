@@ -51,6 +51,7 @@
     selectedMakeModel = { makeModelName: "", modelId: "" };
     mname = "";
     var onCookieObj = {};
+    var selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
 
     // knockout OnRoadData binding
     var viewModelOnRoad = {
@@ -121,7 +122,7 @@
 
 
     function cityChangedOnRoad() {
-        gtmCodeAppender(pageId, "City Selected", null);
+        gtmCodeAppenderWidget(pageId, "City Selected", null);
         toggleErrorMsg(onRoadArea, false);
         if (viewModelOnRoad.selectedCity() != undefined) {
             $.ajax({
@@ -155,7 +156,7 @@
     }
 
     function areaChangedOnRoad() {
-        gtmCodeAppender(pageId, "Area Selected", null);
+        gtmCodeAppenderWidget(pageId, "Area Selected", null);
     }
 
 
@@ -188,7 +189,7 @@
 
         if (!isValid) {
             errMsg = errMsg.substring(0, errMsg.length - 1);
-            gtmCodeAppender(pageId, "Error in submission", errMsg);
+            gtmCodeAppenderWidget(pageId, "Error in submission", errMsg);
         }
 
         return isValid;
@@ -209,35 +210,48 @@
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
                 success: function (json) {
                     var jsonObj = $.parseJSON(json.value);
+
+                    selectedCityName = $("#ddlCitiesOnRoad option:selected").text();
+
+                    if (areaId > 0)
+                        selectedAreaName = $("#ddlAreaOnRoad option:selected").text();
+
+                    if (selectedMakeName != "" && selectedCityName != "") {
+                        gaLabel = selectedMakeName + ',' + selectedCityName;
+
+                        if (selectedAreaName != '')
+                            gaLabel += ',' + selectedAreaName;
+                    }
+
+
                     if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-                        gtmCodeAppender(pageId, "Successful submission - DealerPQ", "Model : " + selectedModel + ', City : ' + viewModelOnRoad.selectedCity() + ', Area : ' + viewModelOnRoad.selectedArea());
+                        gtmCodeAppenderWidget(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                         window.location = "/pricequote/dealerpricequote.aspx";
                     }
                     else if (jsonObj != undefined && jsonObj.quoteId > 0) {
-                        gtmCodeAppender(pageId, "Successful submission - BikeWalePQ", "Model : " + selectedModel + ', City : ' + viewModelOnRoad.selectedCity() + ', Area : ' + viewModelOnRoad.selectedArea());
+                        gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
                         window.location = "/pricequote/quotation.aspx";
                     } else {
-                        gtmCodeAppender(pageId, "Error in submission", null);
+                        gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                         $("#errMsgOnRoad").text("Oops. We do not seem to have pricing for given details.").show();
                     }
                 },
                 error: function (e) {
-                    gtmCodeAppender(pageId, "Error in submission", null);
+                    gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                     $("#errMsg").text("Oops. Some error occured. Please try again.").show();
                 }
             });
         } else {
-            gtmCodeAppender(pageId, "Error in submission", null);
+            gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
             $("#errMsgOnRoad").text("Please select all the details").show();
         }
     }
 
-    function gtmCodeAppender(pageId, action, label) {
+    function gtmCodeAppenderWidget(pageId, action, label) {
         if (pageId != null) {
             switch (pageId) {
                 case "1":
                     category = 'CheckPQ_Make';
-                    action = "CheckPQ_Make_" + action;
                     break;
                 case "2":
                     category = "CheckPQ_Series";
@@ -245,14 +259,16 @@
                     break;
                 case "3":
                     category = "CheckPQ_Model";
-                    action = "CheckPQ_Model_" + action;
+                    break;
+                case "4":
+                    category = "New_Bikes_Page";
                     break;
             }
             if (label) {
-                dataLayer.push({ 'event': 'product_bw_gtm', 'cat': category, 'act': action, 'lab': label });
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action, 'lab': label });
             }
             else {
-                dataLayer.push({ 'event': 'product_bw_gtm', 'cat': category, 'act': action });
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action });
             }
         }
 
@@ -295,8 +311,9 @@
                     model = new Object();
                     model.maskingName = ui.item.payload.modelMaskingName;
                     model.id = ui.item.payload.modelId;
-                    pageId = $(this).attr('pageCatId');
-                    gtmCodeAppender(pageId, "Button Clicked", null);
+                    selectedMakeName = ui.item.label;
+                    pageId = '<%= PageId %>';
+                    gtmCodeAppenderWidget(pageId, "Button Clicked", null);
                     $("#errMsgOnRoad").empty();
                     selectedModel = model.id;
                     FillCitiesOnRoad(selectedModel);
