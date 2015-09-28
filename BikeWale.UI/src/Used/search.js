@@ -607,7 +607,7 @@ function rowExpend(){
             expnd_row.find("#front_image").attr('src', compImgUrl).css({ 'cursor': 'pointer' });
             expnd_row.find("#photo_count").text(currRow.find("#photo_count").val() + " Photos");
         } else {
-            expnd_row.find("#front_image").attr('src', 'http://img.carwale.com/bikewaleimg/common/nobike.jpg').css({ 'cursor': 'default' });
+            expnd_row.find("#front_image").attr('src', 'http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg').css({ 'cursor': 'default' });
             expnd_row.find("#photo_count").text("");
         }
 

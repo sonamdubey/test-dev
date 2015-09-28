@@ -10,7 +10,8 @@
    <!-- #include file="globalStaticFiles.aspx"-->
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "";
-        private bool isHeaderFix = true;	    
+        private bool isHeaderFix = true, isAd970x90Shown = false;
+        private string AdId = "";	    
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>        

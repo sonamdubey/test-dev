@@ -95,8 +95,7 @@
             }
             else {
                 
-                // bind models
-                console.log("makeid:" + viewModel.selectedMake());
+                // bind models                
                 $.ajax({
                     type: 'POST',
                     url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",

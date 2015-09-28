@@ -359,11 +359,11 @@ input::-moz-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size: 13p
 input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size: 13px; }
 .ui-autocomplete-input:focus { color: #4d5057; }
 
-input[type="checkbox"], input[type="checkbox"]:checked{appearance: none; -webkit-appearance:none;  background:#fff url("http://img.carwale.com/bikewaleimg/m/images/inputUnchecked.png?v=150915") no-repeat 0 0; background: #fff\0; }
-input[type="checkbox"]:checked {background:#fff url("http://img.carwale.com/bikewaleimg/m/images/inputChecked.png?v=150915") no-repeat 0 0; background: #fff\0;}
+input[type="checkbox"], input[type="checkbox"]:checked{appearance: none; -webkit-appearance:none;  background:#fff url("http://img.aeplcdn.com/bikewaleimg/m/images/inputUnchecked.png?v=150915") no-repeat 0 0; background: #fff\0; }
+input[type="checkbox"]:checked {background:#fff url("http://img.aeplcdn.com/bikewaleimg/m/images/inputChecked.png?v=150915") no-repeat 0 0; background: #fff\0;}
 
-input[type="radio"], input[type="radio"]:checked{appearance: none; -webkit-appearance:none;  background:#fff url("http://img.carwale.com/bikewaleimg/m/images/radio-unchecked.png?v=150915") no-repeat 0 0; background: #fff\0; }
-input[type="radio"]:checked {background:#fff url("http://img.carwale.com/bikewaleimg/m/images/radio-checked.png?v=150915") no-repeat 0 0; background: #fff\0;}
+input[type="radio"], input[type="radio"]:checked{appearance: none; -webkit-appearance:none;  background:#fff url("http://img.aeplcdn.com/bikewaleimg/m/images/radio-unchecked.png?v=150915") no-repeat 0 0; background: #fff\0; }
+input[type="radio"]:checked {background:#fff url("http://img.aeplcdn.com/bikewaleimg/m/images/radio-checked.png?v=150915") no-repeat 0 0; background: #fff\0;}
 
 .form-control-box { position: relative; }
 .form-control, .ui-input-text input, .ui-input-search input, .ui-select .ui-btn { display: block; width: 100%; padding: 10px; line-height: 1.42857143; color: #4d5057; position: relative;
@@ -380,8 +380,8 @@ select,textarea.ui-input-text	{ border:1px solid #ccc; }
 .ui-select select{font-size:13px;}
 .ui-select .ui-btn{box-shadow:none;}
 .ui-select .ui-btn span{text-align:left;font-weight:normal;font-size:13px;}
-.ui-icon-carat-d:after{background-image:url(http://img.carwale.com/bikewaleimg/m/images/dropArrowBg.png?v=150915); background-color: transparent;}
-.ui-icon-carat-r:after {background-image:url(http://img.carwale.com/bikewaleimg/m/images/rightArrowBg.png?v=150915); background-color: transparent;}
+.ui-icon-carat-d:after{background-image:url(http://img.aeplcdn.com/bikewaleimg/m/images/dropArrowBg.png?v=150915); background-color: transparent;}
+.ui-icon-carat-r:after {background-image:url(http://img.aeplcdn.com/bikewaleimg/m/images/rightArrowBg.png?v=150915); background-color: transparent;}
 .ui-select .ui-btn:hover{background:#ffffff;}
 textarea.ui-input-text.ui-textinput-autogrow{border-color:#ccc;}
 
@@ -438,7 +438,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 
 /* sprite classes */
-.bwmsprite { background: url(http://img.carwale.com/bikewaleimg/m/images/bwmsprite.png?v09152015) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v09152015) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .bw-logo { background-position: -31px 0px; width: 121px; height: 24px; }
@@ -625,7 +625,7 @@ footer .border-solid-top {
 .bg-light-grey-with-alpha { background: rgba(242, 242, 243, 0.9); }
 .bg-grey { background: #e1e1e1; }
 .bg-dark-grey { background: #333333; }
-.bg-footer { background: #323434 url(http://img.carwale.com/bikewaleimg/m/images/bg-footer.jpg?v=150915) no-repeat center top; background-size:cover; }
+.bg-footer { background: #323434 url(http://img.aeplcdn.com/bikewaleimg/m/images/bg-footer.jpg?v=150915) no-repeat center top; background-size:cover; }
 
 .margin-left5 { margin-left: 5px; }
 .margin-left10 { margin-left: 10px; }
@@ -784,7 +784,7 @@ footer .border-solid-top {
 .ui-listview > li > a.ui-btn {font-size:13px; border-color: #ccc; font-weight:normal;}
 .ui-popup-screen.ui-overlay-a{background-color:#000;}
 
-.ui-select a.ui-btn{font-size: 13px;font-weight:normal;text-align: left; background:#fff url(http://img.carwale.com/bikewaleimg/m/images/dropArrowBg.png?v=150915) no-repeat 96% 50%; }
-.ui-select a.ui-btn:hover,.ui-select a.ui-btn:focus{background:#fff url(http://img.carwale.com/bikewaleimg/m/images/dropArrowBg.png?v=150915) no-repeat 96% 50%;}
+.ui-select a.ui-btn{font-size: 13px;font-weight:normal;text-align: left; background:#fff url(http://img.aeplcdn.com/bikewaleimg/m/images/dropArrowBg.png?v=150915) no-repeat 96% 50%; }
+.ui-select a.ui-btn:hover,.ui-select a.ui-btn:focus{background:#fff url(http://img.aeplcdn.com/bikewaleimg/m/images/dropArrowBg.png?v=150915) no-repeat 96% 50%;}
 .filtered-list{border-radius:0;}
 .divAutoSuggest .filtered-list li .ui-btn{font-size:13px;font-weight:normal; background:#fff; border-bottom:none; text-shadow:none;}

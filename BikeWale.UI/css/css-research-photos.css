@@ -18,7 +18,7 @@ h4.rollover-text{font-size:16px;font-weight:normal!important;padding-bottom:5px;
 .img-placer{width:180px; float:left;padding:10px 10px 10px 0px; padding:15px 7px 7px 7px; height:110px; }
 .imgBox{width:160px; height:100px;}
 .rollover-container{background-color:#000000; opacity:0.8; filter:Alpha(opacity=80); color:#FFFFFF; position:absolute; display:none; height:90px; width:162px; text-decoration:none;font-size:12px!important;}
-.loading {position:absolute; top:0; left:0;background:url(http://img.carwale.com/loader.gif) no-repeat #FFF center center; filter:alpha(opacity=80); opacity:0.8; z-index:99999; display:none;}
+.loading {position:absolute; top:0; left:0;background:url(http://img.aeplcdn.com/loader.gif) no-repeat #FFF center center; filter:alpha(opacity=80); opacity:0.8; z-index:99999; display:none;}
 .dgNavDivTop td{margin-right:20px; border-bottom: 1px dashed #CCC; border-top: 1px dashed #CCC; padding:3px 0;}  
 .top-spacing{padding-top:10px;}
 .divider-line{border-bottom:1px solid #b2b2b1; padding-bottom:10px;}
@@ -29,7 +29,7 @@ h4.rollover-text{font-size:16px;font-weight:normal!important;padding-bottom:5px;
 .menu li {float:left; font-size:93%; text-align:center; padding: 0 2px 0 0;}
 .menu a {position:relative; display:block; text-decoration:none; float:left; padding:10px 20px 0 20px; height:34px; color:#a8a8a8; background-color:#2e2e2e;}
 .menu a:hover {color:#fff;height:34px; padding:10px 20px 0 20px;}    
-.menu a:hover span {background:url(http://img.carwale.com/adgallery/down-arrow.png) no-repeat; position:absolute; top: 44px; left:45%;width: 27px;height: 10px;margin:auto;z-index:99999;}
+.menu a:hover span {background:url(http://img.aeplcdn.com/adgallery/down-arrow.png) no-repeat; position:absolute; top: 44px; left:45%;width: 27px;height: 10px;margin:auto;z-index:99999;}
 .menu a:hover {background-position:0 0;} /*IE fix*/
 .menu .current a {color:#fff; height:34px; padding:10px 20px 0 20px;}    
-.menu .current span {background:url(http://img.carwale.com/adgallery/down-arrow.png) no-repeat; position:absolute; top: 44px; left:45%;width: 12px;height: 10px;margin:auto;z-index:99999;}    
+.menu .current span {background:url(http://img.aeplcdn.com/adgallery/down-arrow.png) no-repeat; position:absolute; top: 44px; left:45%;width: 12px;height: 10px;margin:auto;z-index:99999;}    

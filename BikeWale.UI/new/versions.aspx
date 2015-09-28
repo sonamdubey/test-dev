@@ -17,10 +17,11 @@
                     
         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
         AdId = "1017752";
-        AdPath = "BikeWale_New_";
+        AdPath = "/1017752/Bikewale_NewBike_";        
         TargetedModel = modelPage.ModelDetails.ModelName;
         fbTitle = title;
         alternate = "http://www.bikewale.com/m/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
+        isAd970x90Shown = true;
     %>
 
     <!-- #include file="/includes/headscript.aspx" -->
@@ -29,16 +30,7 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->
-        <section class="bg-white">
-            <div class="container">
-                <div class="grid-12">
-                    <div class="padding-bottom15 text-center">
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
+        <!-- #include file="/includes/headBW.aspx" -->        
         <section class="bg-light-grey padding-top10">
             <div class="container">
                 <div class="grid-12">
@@ -1235,8 +1227,7 @@
                                 cityId = vm.selectedCity();
                                 if (cityId > 0) {
                                     cityName = $("#ddlCity option:selected").text();
-                                    cookieValue = cityId + "_" + cityName;
-                                    console.log(cookieValue);
+                                    cookieValue = cityId + "_" + cityName;                                    
                                     SetCookieInDays("location", cookieValue, 365);
                                 }
                             }
@@ -1283,8 +1274,7 @@
                                 cityId = vm.selectedCity();
                                 if (cityId > 0) {
                                     cityName = $("#ddlCity option:selected").text();
-                                    cookieValue = cityId + "_" + cityName;
-                                    console.log(cookieValue);
+                                    cookieValue = cityId + "_" + cityName;                                    
                                     SetCookieInDays("location", cookieValue, 365);
                                 }
 

@@ -136,8 +136,8 @@ html>body .WebRupee {margin-right:3px; *margin-right:0;}
 .bwm-offer-pic img { width:100px;}
 /* bw sprite new classes */
 
-.unchecked-radio-icon { background:url(http://img.carwale.com/bikewaleimg/m/images/radio-unchecked.png?v=150915) no-repeat center center; width:15px; height:15px;}
-.checked-radio-icon { background:url(http://img.carwale.com/bikewaleimg/m/images/radio-checked.png?v=150915) no-repeat center center; width:15px; height:15px;}
+.unchecked-radio-icon { background:url(http://img.aeplcdn.com/bikewaleimg/m/images/radio-unchecked.png?v=150915) no-repeat center center; width:15px; height:15px;}
+.checked-radio-icon { background:url(http://img.aeplcdn.com/bikewaleimg/m/images/radio-checked.png?v=150915) no-repeat center center; width:15px; height:15px;}
 .carouselH {max-width: 285px; margin: 0 auto;}
 .centerContent {text-align: left; margin-left: 60px;}
 .mainH { padding-top: 5px;}

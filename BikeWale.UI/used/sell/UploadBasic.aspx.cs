@@ -213,7 +213,7 @@ namespace Bikewale.Used
                         FolderPath = FolderPath.Replace("\\bikewale\\", "\\carwale\\");
                 }   
              
-                //path for original image has been created like img.carwale.com/bikewale/*
+                //path for original image has been created like img.aeplcdn.com/bikewale/*
 					
 				if(! Directory.Exists(FolderPath))
 					Directory.CreateDirectory(FolderPath);

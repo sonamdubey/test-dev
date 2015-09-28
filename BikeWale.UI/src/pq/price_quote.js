@@ -74,7 +74,7 @@ function showModelImage(modelId) {
     var img_obj = $("#model-img");
     $("#sponsored-car").hide();
     $("#model_img_container").show();
-    img_obj.attr("src", "http://img.carwale.com/loader.gif"); //.removeClass("img-border").addClass("img-border");
+    img_obj.attr("src", "http://img.aeplcdn.com/loader.gif"); //.removeClass("img-border").addClass("img-border");
     $.ajax({
         type: "POST", url: "/ajaxpro/CarwaleAjax.AjaxPQ,CarwaleAjax.ashx",
         data: '{"modelId":"' + modelId + '"}',

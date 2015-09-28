@@ -257,7 +257,7 @@ namespace Bikewale.Common
             string absolutePath = "";
 
             if (HttpContext.Current.Request.ServerVariables["HTTP_HOST"].IndexOf("carwale.com") >= 0)
-                absolutePath = "http://img.carwale.com" + relativePath;
+                absolutePath = "http://img.aeplcdn.com" + relativePath;
             else
                 absolutePath = "http://webserver:8083" + relativePath;
 

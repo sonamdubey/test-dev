@@ -17,7 +17,7 @@ namespace Bikewale.Utility
             }
             else
             {
-                imgUrl = "http://img.carwale.com/bikewaleimg/common/nobike.jpg";
+                imgUrl = "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg";
             }
             return imgUrl;
         }

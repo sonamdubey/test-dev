@@ -413,7 +413,7 @@ namespace Bikewale.Common
 				string imgPath;
 				if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToLower().IndexOf( "bikewale.com" ) >= 0 )
 				{
-					   imgPath = "http://img.carwale.com/Contents/uc.xml";
+					   imgPath = "http://img.aeplcdn.com/Contents/uc.xml";
 				}
 				else
 				{
@@ -529,7 +529,7 @@ namespace Bikewale.Common
 				string imgPath;
 				if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToLower().IndexOf( "bikewale.com" ) >= 0 )
 				{
-					   imgPath = "http://img.carwale.com/Contents/rt.xml";
+					   imgPath = "http://img.aeplcdn.com/Contents/rt.xml";
 				}
 				else
 				{
@@ -639,7 +639,7 @@ namespace Bikewale.Common
 				string imgPath;
 				if ( HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToLower().IndexOf( "bikewale.com" ) >= 0 )
 				{
-					   imgPath = "http://img.carwale.com/Contents/nl.xml";
+					   imgPath = "http://img.aeplcdn.com/Contents/nl.xml";
 				}
 				else
 				{
