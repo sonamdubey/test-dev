@@ -114,7 +114,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="clear"></div>
-                                                <a data-bind="attr: { modelId: bikemodel.modelId }, click: function () { FillCitiesPopup(bikemodel.modelId(), bikemodel.makeBase.makeName(), bikemodel.modelName(),'6'); $.PricePopUpClickGA(bikemodel.makeBase.makeName()) }" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
+                                                <a data-bind="attr: { modelId: bikemodel.modelId }, click: function () { FillCitiesPopup(bikemodel.modelId(), bikemodel.makeBase.makeName(), bikemodel.modelName(), '6'); $.PricePopUpClickGA(bikemodel.modelName()) }" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
                                             </div>
                                         </div>
                                     </div>

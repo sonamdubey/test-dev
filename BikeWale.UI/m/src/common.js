@@ -751,7 +751,7 @@ function unlockPopup() {
 
 $(window).resize(function () {
     var newwidth = 98 + '%';
-    $(".ui-autocomplete").width(newwidth) ;
+    $(".ui-autocomplete").width(newwidth);
 });
 
 //function to attach ajax spinner

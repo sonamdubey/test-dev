@@ -23,7 +23,7 @@
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
             <div data-bind="visible: bookingAreas().length > 0" style="margin-top:10px">
-                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', event: { change: areaChangedPopup }"></select>
+                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--'"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
@@ -123,7 +123,7 @@
 
 
     function cityChangedPopup() {
-        gtmCodeAppender(pageId, "City Selected", null);
+        //gtmCodeAppender(pageId, "City Selected", null);
         if (viewModelPopup.selectedCity() != undefined) {
             $.ajax({
                 type: "POST",
@@ -153,9 +153,9 @@
         }
     }
 
-    function areaChangedPopup() {
-        gtmCodeAppender(pageId, "Area Selected", null);
-    }
+    //function areaChangedPopup() {
+    //    gtmCodeAppender(pageId, "Area Selected", null);
+    //}
 
 
     function isValidInfoPopup() {
@@ -184,7 +184,7 @@
             //set global cookie
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
             // GA code
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': _makeName });
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': selectedMakeName });
             $.ajax({
                 type: 'POST',
                 url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
@@ -284,7 +284,7 @@
 
         $('a.fillPopupData').on('click', function (e) {
             pageIdAttr = $(this).attr('pageCatId');
-            gtmCodeAppender(pageId, "Button Clicked", null);
+            gtmCodeAppender(pageId, "Get_On_Road_Price_Click", null);
             e.preventDefault();
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
