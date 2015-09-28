@@ -38,6 +38,7 @@ var preSelectedCityId = 0;
 var preSelectedCityName = "";
 popupcity = $('#ddlCitiesPopup');
 popupArea = $('#ddlAreaPopup');
+var onCookieObj = {};
 
 // knockout popupData binding
 var viewModelPopup = {
@@ -47,14 +48,17 @@ var viewModelPopup = {
     bookingAreas: ko.observableArray([])
 };
 
-function checkCookies(cookieName) {
+function checkCookies() {
     c = document.cookie.split('; ');
     for (i = c.length - 1; i >= 0; i--) {
         C = c[i].split('=');
         if (C[0] == "location") {
             var cData = (String(C[1])).split('_');
-            preSelectedCityId = parseInt(cData[0]);
-            preSelectedCityName = cData[1];
+            onCookieObj.PQCitySelectedId = parseInt(cData[0]);
+            onCookieObj.PQCitySelectedName = cData[1];
+            onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
+            onCookieObj.PQAreaSelectedName = cData[3];
+
         }
     }
 }
@@ -79,7 +83,7 @@ function FillCitiesPopup(modelId) {
                 var initIndex = 0;
                 for (var i = 0; i < cities.length; i++) {
 
-                    if (preSelectedCityId == cities[i].CityId) {
+                    if (onCookieObj.PQCitySelectedId == cities[i].CityId) {
                         citySelected = cities[i];
                     }
 
@@ -125,6 +129,10 @@ function cityChangedPopup() {
                 areas=$.parseJSON(response.value);
                 if (areas.length) {
                     viewModelPopup.bookingAreas(areas);
+                    if (onCookieObj.PQAreaSelectedId != 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                        viewModelPopup.selectedArea(onCookieObj.PQAreaSelectedId);
+                        onCookieObj.PQAreaSelectedId = 0;
+                    }
                 }
                 else {
                     viewModelPopup.selectedArea = ko.observable(0);
@@ -160,13 +168,8 @@ function isValidInfoPopup() {
 function getPriceQuotePopup() {
     var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
     if (isValidInfoPopup()) {
-
         //set global cookie
-        if (cityId > 0) {
-            cityName = $(popupcity).find("option[value=" + cityId + "]").text();
-            cookieValue = cityId + "_" + cityName;
-            SetCookieInDays("location", cookieValue, 365);
-        }
+        setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));       
 
         $.ajax({
             type: 'POST',

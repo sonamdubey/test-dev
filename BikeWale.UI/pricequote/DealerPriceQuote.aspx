@@ -21,6 +21,7 @@
     .colours { list-style : outside none none; display:inline;}
     .colours li {float :left;}
     .edit-done-mob input { padding:5px; }
+    #txtName, #txtEmail { width:260px; }
 </style>
 <script type="text/javascript">
     var dealerId = '<%= dealerId%>';

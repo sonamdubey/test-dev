@@ -2,7 +2,6 @@
 <style>
     
 /*PopupWidget Styling*/
-
 #OnRoadContent .chosen-container { border:0;border-radius:0;padding:12px }
 .minifyWidth{width:50%;}
 </style>
@@ -22,6 +21,7 @@
             <div class="final-price-citySelect" >
                 <div class="form-control-box">
                     <select data-placeholder="Select City" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: 'Select City', event: { change: cityChangedOnRoad }"></select> 
+                    <span class="fa fa-spinner fa-spin position-abt pos-right12 pos-top15 text-black bg-white" style="display:none"></span>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select a city</div>
                 </div>
@@ -50,6 +50,7 @@
     onRoadMakeModel = $('#finalPriceBikeSelect');
     selectedMakeModel = { makeModelName: "", modelId: "" };
     mname = "";
+    var onCookieObj = {};
 
     // knockout OnRoadData binding
     var viewModelOnRoad = {
@@ -72,11 +73,11 @@
                 var cities = JSON.parse(obj.value);
                 var citySelected = null; 
                 if (cities) {
-                    checkCookies();
+                    nbCheckCookies();
                     var initIndex = 0;
                     for (var i = 0; i < cities.length; i++) { 
 
-                        if (preSelectedCityId == cities[i].CityId) {
+                        if (onCookieObj.PQCitySelectedId == cities[i].CityId) {
                             citySelected = cities[i];
                         }
 
@@ -133,6 +134,10 @@
                     areas = $.parseJSON(response.value);
                     if (areas.length) {
                         viewModelOnRoad.bookingAreas(areas);
+                        if (onCookieObj.PQAreaSelectedId != 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                            viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
+                            onCookieObj.PQAreaSelectedId = 0;
+                        }
                         $('#ddlAreaOnRoad').trigger("chosen:updated");
                         calcWidth();
                     }
@@ -194,11 +199,7 @@
         if (isValidInfoOnRoad()) {
 
             //set global cookie
-            if (cityId > 0) {
-                cityName = $(onRoadcity).find("option[value=" + cityId + "]").text();
-                cookieValue = cityId + "_" + cityName;
-                SetCookieInDays("location", cookieValue, 365);
-            }
+            setLocationCookie($('#ddlCitiesOnRoad option:selected'), $('#ddlAreaOnRoad option:selected'));
 
             $.ajax({
                 type: 'POST',
@@ -257,19 +258,19 @@
 
     }
 
-    function checkCookies()
-    {
+    function nbCheckCookies() {
         c = document.cookie.split('; ');
-        for(i=c.length-1; i>=0; i--)
-        {
+        for (i = c.length - 1; i >= 0; i--) {
             C = c[i].split('=');
-            if(C[0]=="location")
-            {
+            if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
-                preSelectedCityId = parseInt(cData[0]);
-                preSelectedCityName = cData[1];
+                onCookieObj.PQCitySelectedId = parseInt(cData[0]);
+                onCookieObj.PQCitySelectedName = cData[1];
+                onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
+                onCookieObj.PQAreaSelectedName = cData[3];
+
             }
-        } 
+        }
     }
 
    function calcWidth()

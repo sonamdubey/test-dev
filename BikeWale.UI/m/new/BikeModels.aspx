@@ -183,6 +183,7 @@
                     <div class="bike-price-container font22 margin-bottom15 hide">
                       <span class="font24 text-bold ">Price not available</span>
                      </div>
+                     <!-- ko ifnot : cities()  && (cities().length > 0) -->
                     <div id="city-list-container" class="city-list-container margin-bottom10 ">
                         <div class="text-left margin-bottom15">
                             <p class="font14 offer-error">Select city for accurate on-road price and exclusive offers</p>
@@ -196,43 +197,67 @@
                             <li class="city-other-btn"><span>Others</span></li>
                         </ul>
                     </div>
-                    <div id="city-area-select-container" class="city-area-select-container margin-bottom20 hide">
-                        <div class="city-select-text text-left margin-bottom15 hide">
+                    <!-- /ko -->
+                    <div id="city-area-select-container" class="city-area-select-container margin-bottom20 ">
+                        <div class="city-select-text text-left margin-bottom15 "  data-bind="enable: !selectedCity() || cities()">
                             <p class="font14">Select city for accurate on-road price and exclusive offers</p>
                         </div>
-                        <div class="area-select-text text-left margin-bottom15 hide">
+                        <!-- ko if : selectedCity() && areas()  && areas().length > 0-->
+                        <div class="area-select-text text-left margin-bottom15 ">
                             <p class="font14">Select area for on-road price and exclusive offers</p>
                         </div>
+                        <!-- /ko -->
+                        <!-- ko if : BWPriceList() || DealerPriceList() -->
                         <div class="city-onRoad-price-container font14 margin-bottom15 hide">
                             <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>Edit</span></p>
                             <p class="font12 margin-bottom15"></p>
-                            <input type="button" class="btn btn-orange btn-full-width" id="btnBookNow" value="Avail Offers" />
+                            <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
+                            <input type="button" class="btn btn-orange btn-full-width" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
+                        	<!-- /ko -->
                         </div>
+                        <!-- /ko -->
                         <div class="city-area-wrapper">
-                            <div class="city-select">
-                                <select id="ddlCity" class="form-control" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', event: { change: LoadArea }"></select>
+                        	<!-- ko if : cities()  && cities().length > 0 -->  
+                            <div class="city-select position-rel">
+                                <select id="ddlCity" class="form-control " data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City'"></select>
+                            	<span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
                             </div>
-                            <div class="area-select margin-top20 hide">
-                                <select id="ddlArea" class="form-control" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', enable: selectedCity, event: { change: OnAreaChange }, visible: areas().length > 0"></select>
+                            <!-- /ko -->
+                            <!-- ko if : selectedCity() && areas()  && areas().length > 0 -->
+                            <div class="area-select margin-top20 position-rel">
+                                <select id="ddlArea" class="form-control" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area'"></select>
+                            	<span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
                             </div>
+                            <!-- /ko -->
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <div class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
+                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
                         <div class="available-offers-container content-inner-block-10">
                         	<h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                             <div class="offer-list-container" id="dvAvailableOffer">
+                             <!-- ko if:priceQuote() -->
+	                         <!-- ko if : priceQuote().IsDealerPriceAvailable  -->
+	                        	<ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers">
+	                            <li data-bind="text: offerText"></li>
+	                        </ul>
+	                        <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length == 0">
+	                            <li >No offers available</li>
+	                        </ul>
+	                        <!-- /ko -->
+	                         <!-- ko if : !priceQuote().IsDealerPriceAvailable -->
+	                        <ul >
+	                            <li>
+	                                Currently there are no offers in your city. We hope to serve your city soon!
+	                            </li> 
+	                        </ul>
+	                        <!-- /ko -->
+	                        <!-- /ko -->
                             </div>
                         </div>
                         <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
                             <input type="button" class="btn btn-md btn-orange unveil-offer-btn" value="Show Offers" />
-                        </div>
-                        <div class="notify-btn-container position-abt pos-left0 pos-top0 hide">
-                            <div class="margin-top50 margin-left40">
-                                <input type="text" placeholder="Notify me" class="notify-input" />
-                                <input type="text" class="btn btn-orange btn-xs" value="Notify me" />
-                            </div>
-                        </div>
+                        </div>                        
                     </div>
                 </div>
                 <% } %>
@@ -838,7 +863,6 @@
             </div>
         </section>
 
-
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
             <div class="container margin-bottom30">
                 <div class="grid-12">
@@ -858,18 +882,17 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
+        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />        
+    	<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
+		<script type="text/javascript">
+		    vmModelId = '<%= modelId%>';
+		    clientIP = '<%= clientIP%>';
+		    cityId = '<%= cityId%>';
+		    isUsed = '<%= !modelPage.ModelDetails.New %>';
+        </script>
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript">
-            vmModelId = '<%= modelId%>';
-            clientIP = '<%= clientIP%>';
-            cityId = '<%= cityId%>';
-            isUsed = '<%= !modelPage.ModelDetails.New %>';
-        </script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
-
     </form>
 </body>
 </html>

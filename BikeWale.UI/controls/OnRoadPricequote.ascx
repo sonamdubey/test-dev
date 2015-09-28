@@ -54,6 +54,7 @@
     onRoadArea = $('#ddlAreaOnRoad');
     onRoadMakeModel = $('#makemodelFinalPrice');
     mname = "";
+    var onCookieObj = {};
 
    
     
@@ -81,7 +82,7 @@
                     var initIndex = 0;
                     for (var i = 0; i < cities.length; i++) { 
 
-                        if (preSelectedCityId == cities[i].CityId) {
+                        if (onCookieObj.PQCitySelectedId == cities[i].CityId) {
                             citySelected = cities[i];
                         }
 
@@ -133,6 +134,10 @@
                     areas = $.parseJSON(response.value);
                     if (areas.length) {
                         viewModelOnRoad.bookingAreas(areas);
+                        if (onCookieObj.PQAreaSelectedId != 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                            viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
+                            onCookieObj.PQAreaSelectedId = 0;
+                        }
                         $('#ddlAreaOnRoad').trigger("chosen:updated");
                     }
                     else {
@@ -196,12 +201,7 @@
         if (isValidInfoOnRoad()) {
 
             //set global cookie
-            if (cityId > 0)
-            {
-                cityName = $(onRoadcity).find("option[value=" + cityId + "]").text();
-                cookieValue = cityId + "_" + cityName;
-                SetCookieInDays("location", cookieValue, 365);
-            }
+            setLocationCookie($('#ddlCitiesOnRoad option:selected'), $('#ddlAreaOnRoad option:selected'));
             
 
             $.ajax({
@@ -264,16 +264,17 @@
     function checkCookies()
     {
         c = document.cookie.split('; ');
-        for(i=c.length-1; i>=0; i--)
-        {
+        for (i = c.length - 1; i >= 0; i--) {
             C = c[i].split('=');
-            if(C[0]=="location")
-            {
+            if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
-                preSelectedCityId = parseInt(cData[0]);
-                preSelectedCityName = cData[1];
+                onCookieObj.PQCitySelectedId = parseInt(cData[0]);
+                onCookieObj.PQCitySelectedName = cData[1];
+                onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
+                onCookieObj.PQAreaSelectedName = cData[3];
+
             }
-        } 
+        }
     }
 
     $(function () {
