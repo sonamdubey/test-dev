@@ -265,7 +265,7 @@
                                 <!-- On Road Price mesasge starts -->
                                 <!-- ko if : BWPriceList() || DealerPriceList() -->
                                 <div class="city-onRoad-price-container font16 margin-bottom15 hide">
-                                    <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>Edit</span></p>
+                                    <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>change location</span></p>
                                     <p class="font12 margin-bottom15 text-light-grey" id="breakup"></p>
                                     <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
                                     <input type="button" class="btn btn-orange" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
@@ -307,7 +307,10 @@
                                         <!-- /ko -->
                                          <!-- ko if : !priceQuote().IsDealerPriceAvailable -->
                                         <ul >
-                                            <li>
+                                             <li data-bind="visible:areas() && areas().length > 0">
+                                                Currently there are no offers in your area. We hope to serve your area soon!
+                                            </li> 
+                                            <li data-bind="visible: !(areas() && areas().length > 0)">
                                                 Currently there are no offers in your city. We hope to serve your city soon!
                                             </li> 
                                         </ul>
@@ -1019,6 +1022,7 @@
          <BW:PriceQuotePopup ID="ctrlPriceQuotePopup" runat="server" />
 
         <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?<%= staticFileVersion %>">"></script>
         <script type="text/javascript">
             var myBikeName = '<%= this.bikeName %>';
@@ -1082,12 +1086,7 @@
                 viewModel.LoadCity();
             }
 
-        </script>
-        
-
-        
-        <!-- #include file="/includes/footerscript.aspx" -->
-       
+        </script>      
     </form>
 </body>
 </html>

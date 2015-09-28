@@ -94,17 +94,18 @@ function loadCity(vm) {
     if (vm.selectedModel()) {
         $.get("/api/PQCityList/?modelId=" + vm.selectedModel(),
             function (data) {
-                $(ctrlSelectCity).next().hide();
+               
                 if (data) {
                     var city = ko.toJS(data);
                     vm.cities(city.cities);
                     ctrlSelectCity = $("#ddlCity");
                     //$(ctrlSelectCity).trigger("chosen:updated");
                     PQcheckCookies();                    
-                    if (selectElementFromArray(vm.cities(),pqCookieObj.PQCitySelectedId)) {
+                    if (!isNaN(pqCookieObj.PQCitySelectedId) && pqCookieObj.PQCitySelectedId > 0 && selectElementFromArray(vm.cities(), pqCookieObj.PQCitySelectedId)) {
                         vm.selectedCity(pqCookieObj.PQCitySelectedId);
                         pqCookieObj.PQCitySelectedId = 0;
                     }
+                    $(ctrlSelectCity).next().hide();
                 }
             });
     }
@@ -121,18 +122,21 @@ function loadArea(vm) {
             if (data) {
                 var area = ko.toJS(data);
                 vm.areas(area.areas);
+                console.log(234);
                 ctrlSelectArea = $("#ddlArea");
                 $(".city-select-text").hide();
-                $(offerBtnContainer).show();
-                $(ctrlSelectArea).next().hide();
+                $(offerBtnContainer).show();                 
                 //$(ctrlSelectArea).trigger("chosen:updated");
-                if (selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId)) {
+                if (!isNaN(pqCookieObj.PQAreaSelectedId) && pqCookieObj.PQAreaSelectedId > 0 && vm.areas().length > 0 && selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId)) {
                     vm.selectedArea(pqCookieObj.PQAreaSelectedId);
+                    console.log(567234);
                     pqCookieObj.PQAreaSelectedId = 0;
                 }
+                $(ctrlSelectArea).next().hide();
             }
             else {
                 vm.areas([]);
+                console.log(2374574);
                 //$(ctrlSelectArea).trigger("chosen:updated");
                 vm.FetchPriceQuote();
             }
@@ -140,12 +144,14 @@ function loadArea(vm) {
         .fail(function () {
             //no areas available;
             vm.areas([]);
+            console.log(2340);
             //$(ctrlSelectArea).trigger("chosen:updated");
             vm.FetchPriceQuote();
         });
     }
     else {
         vm.areas([]);
+        console.log(2877634);
         //$(ctrlSelectArea).trigger("chosen:updated");
         $(".available-offers-container").hide();
         $(offerBtnContainer).show();
