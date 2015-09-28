@@ -20,9 +20,9 @@
     .next-prev-link{width:260px;}
     .next-prev-link p:first-child a { color:#666;}
     .next-prev-link a:hover { color:#000; }
-    .next-prev-link a span.next-arrow { background:url(http://img.carwale.com/newtemplate/cw-sprite.png) 0 -589px no-repeat; width:10px; height:15px; display:inline-block;  }
+    .next-prev-link a span.next-arrow { background:url(http://img.aeplcdn.com/newtemplate/cw-sprite.png) 0 -589px no-repeat; width:10px; height:15px; display:inline-block;  }
     .next-prev-link:hover a span.next-arrow { background-position:0 -610px; }
-    .next-prev-link a span.prev-arrow { background:url(http://img.carwale.com/newtemplate/cw-sprite.png) -13px -589px no-repeat; width:10px; height:15px; display:inline-block; margin-right:5px; }
+    .next-prev-link a span.prev-arrow { background:url(http://img.aeplcdn.com/newtemplate/cw-sprite.png) -13px -589px no-repeat; width:10px; height:15px; display:inline-block; margin-right:5px; }
     .next-prev-link:hover a span.prev-arrow { background-position:-13px -610px; }
     .next-prev-link p:last-child a { text-decoration:underline;font-size: 11px;display:block; color:#666}
     .next-prev-link p:first-child {padding-bottom:5px; }

@@ -100,8 +100,8 @@ namespace Bikewale.New
 
             if (sortCriteria == QsSortCriteria)
             {
-                sortImage = (QsSortOrder == "1" ? "<img src='http://img.carwale.com/used/sorting-down.png' border='0' />" :
-                                "<img src='http://img.carwale.com/used/sorting-up.png' border='0' />");
+                sortImage = (QsSortOrder == "1" ? "<img src='http://img.aeplcdn.com/used/sorting-down.png' border='0' />" :
+                                "<img src='http://img.aeplcdn.com/used/sorting-up.png' border='0' />");
             }
 
             return sortImage;
@@ -154,7 +154,7 @@ namespace Bikewale.New
             if (modelRank == "1")
             {
 
-                string imgSrc = originalImagePath == "" ? "http://img.carwale.com/bikewaleimg/common/nobike.jpg" : MakeModelVersion.GetModelImage(hostUrl, originalImagePath, Bikewale.Utility.ImageSize._110x61);
+                string imgSrc = originalImagePath == "" ? "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg" : MakeModelVersion.GetModelImage(hostUrl, originalImagePath, Bikewale.Utility.ImageSize._110x61);
                 Trace.Warn("Bike Model :: ",bikeModel);
                 Trace.Warn("Bike Model Name:::", modelMappingName);
                 Trace.Warn("Bike Make Name:::", makeMappingname);

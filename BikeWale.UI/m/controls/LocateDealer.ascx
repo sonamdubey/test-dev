@@ -10,7 +10,7 @@
         </div>
         <div id="divCities">
             <div class="new-line15">
-                <img id="imgLoaderCity" src="http://img.carwale.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
+                <img id="imgLoaderCity" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
                 <select data-mini="true" id="cmbCity">
                         <option value="0">--Select City--</option>         
                 </select>

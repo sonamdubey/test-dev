@@ -17,7 +17,7 @@
 .ulcomp li.label span{margin-top:20px; font-size:14px;}
 /*************** END : Used bike comparision **********************/
 
-.filter{background:url(http://img.carwale.com/used/chkbox.gif) no-repeat; color:#4D4D4D!important; text-decoration:none!important; padding:2px 0 2px 23px;}
+.filter{background:url(http://img.aeplcdn.com/used/chkbox.gif) no-repeat; color:#4D4D4D!important; text-decoration:none!important; padding:2px 0 2px 23px;}
 .checked_grey{background-position:-20px -206px; height:16px; width:16px; padding:0!important;}
 .unchecked_grey{background-position:-20px -253px; height:16px; width:16px; padding:0!important;}
 .close_comp{background-position:-18px -300px; float:right; height:14px; padding:1px 0 1px 16px!important;}
@@ -35,7 +35,7 @@
 .img-desc a{color:#fff; text-decoration:underline;}
 #img_description{color:#CBCBCB;}
 /* prev, next, prevPage and nextPage buttons */
-a.browse {background:url(http://img.carwale.com/cw-common/hori_large.png) no-repeat; display:block; width:30px; height:30px; float:left; cursor:pointer; font-size:1px; margin-left:5px;}
+a.browse {background:url(http://img.aeplcdn.com/cw-common/hori_large.png) no-repeat; display:block; width:30px; height:30px; float:left; cursor:pointer; font-size:1px; margin-left:5px;}
 /* right */
 a.right{ background-position: 0 -30px; clear:right; margin-right: 0px;}
 a.right:hover{ background-position:-30px -30px; }
@@ -45,7 +45,7 @@ a.left{ margin-left:0px; }
 a.left:hover{ background-position:-30px 0; }
 a.left:active{ background-position:-60px 0; }
 .navi {	width:180px; float:left; margin-top:10px;}/* position and dimensions of the navigator */
-.navi a {width:8px; height:8px; float:left; margin:3px; background:url(http://img.carwale.com/cw-common/navigator.png) 0 -16px no-repeat; display:block; font-size:1px;}/* items inside navigator */
+.navi a {width:8px; height:8px; float:left; margin:3px; background:url(http://img.aeplcdn.com/cw-common/navigator.png) 0 -16px no-repeat; display:block; font-size:1px;}/* items inside navigator */
 .navi a:hover{background-position:0 -8px;}/* mouseover state */
 .navi a.active {background-position:0 0;}/* active state (current page state) */
 /* disabled navigational button */
@@ -54,7 +54,7 @@ a.disabled {visibility:hidden !important;}
 .thumb_preview{float:left; width:300px; height:225px; background-color:#4D4D4D; }
 .thumb_navi{float:left; width:270px; margin-left:15px;}
 /* Next Step */
-.next-step{background:url(http://img.carwale.com/next_step.gif) no-repeat; float:left; display:inline-block; width:40px; height:35px;}
+.next-step{background:url(http://img.aeplcdn.com/next_step.gif) no-repeat; float:left; display:inline-block; width:40px; height:35px;}
 .bookmark{background-position:-20px -22px;}
 .bookmarked{color:#FFC23A;}
 .view-all{background-position:-60px -20px;}
@@ -70,7 +70,7 @@ a.disabled {visibility:hidden !important;}
 .ul-next li a{color:#445566; text-decoration:none;}
 
 .ul-tick-chk{font-size:12px; list-style:none;}
-.ul-tick-chk li{background:url(http://img.carwale.com/tick-chk.png) no-repeat top left; padding:5px 0 5px 20px; background-position:0 3px;}
+.ul-tick-chk li{background:url(http://img.aeplcdn.com/tick-chk.png) no-repeat top left; padding:5px 0 5px 20px; background-position:0 3px;}
 
 .ul-normal li{border-top:1px dashed #EBEBEB; padding:10px 0;}
 /*
@@ -85,38 +85,38 @@ a.disabled {visibility:hidden !important;}
 #cboxTitle{margin:0;}
 #cboxLoadingOverlay, #cboxLoadingGraphic{position:absolute; top:0; left:0; width:100%;}
 #cboxPrevious, #cboxNext, #cboxClose, #cboxSlideshow{cursor:pointer;}
-#cboxOverlay{background:url(http://img.carwale.com/cw-common/slide/overlay.png) 0 0 repeat;}
+#cboxOverlay{background:url(http://img.aeplcdn.com/cw-common/slide/overlay.png) 0 0 repeat;}
 #colorbox{}
-#cboxTopLeft{width:21px; height:21px; background:url(http://img.carwale.com/cw-common/slide/controls.png) -100px 0 no-repeat;}
-#cboxTopRight{width:21px; height:21px; background:url(http://img.carwale.com/cw-common/slide/controls.png) -129px 0 no-repeat;}
-#cboxBottomLeft{width:21px; height:21px; background:url(http://img.carwale.com/cw-common/slide/controls.png) -100px -29px no-repeat;}
-#cboxBottomRight{width:21px; height:21px; background:url(http://img.carwale.com/cw-common/slide/controls.png) -129px -29px no-repeat;}
-#cboxMiddleLeft{width:21px; background:url(http://img.carwale.com/cw-common/slide/controls.png) left top repeat-y;}
-#cboxMiddleRight{width:21px; background:url(http://img.carwale.com/cw-common/slide/controls.png) right top repeat-y;}
-#cboxTopCenter{height:21px; background:url(http://img.carwale.com/cw-common/slide/border.png) 0 0 repeat-x;}
-#cboxBottomCenter{height:21px; background:url(http://img.carwale.com/cw-common/slide/border.png) 0 -29px repeat-x;}
+#cboxTopLeft{width:21px; height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -100px 0 no-repeat;}
+#cboxTopRight{width:21px; height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -129px 0 no-repeat;}
+#cboxBottomLeft{width:21px; height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -100px -29px no-repeat;}
+#cboxBottomRight{width:21px; height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -129px -29px no-repeat;}
+#cboxMiddleLeft{width:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) left top repeat-y;}
+#cboxMiddleRight{width:21px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) right top repeat-y;}
+#cboxTopCenter{height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/border.png) 0 0 repeat-x;}
+#cboxBottomCenter{height:21px; background:url(http://img.aeplcdn.com/cw-common/slide/border.png) 0 -29px repeat-x;}
 #cboxContent{background:#fff;}
 #cboxLoadedContent{margin-bottom:28px;}
 #cboxTitle{position:absolute; bottom:3px; left:0; text-align:center; width:100%; color:#949494;}
 #cboxCurrent{position:absolute; bottom:3px; left:58px; color:#949494;}
 #cboxSlideshow{position:absolute; bottom:3px; right:30px; color:#0092ef;}
-#cboxPrevious{position:absolute; bottom:0; left:0px; background:url(http://img.carwale.com/cw-common/slide/controls.png) -75px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+#cboxPrevious{position:absolute; bottom:0; left:0px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -75px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
 #cboxPrevious.hover{background-position:-75px -25px;}
-#cboxNext{position:absolute; bottom:0; left:27px; background:url(http://img.carwale.com/cw-common/slide/controls.png) -50px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+#cboxNext{position:absolute; bottom:0; left:27px; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -50px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
 #cboxNext.hover{background-position:-50px -25px;}
-#cboxLoadingOverlay{background:url(http://img.carwale.com/cw-common/slide/loading_background.png) center center no-repeat;}
-#cboxLoadingGraphic{background:url(http://img.carwale.com/cw-common/load.gif) center center no-repeat;}
-#cboxClose{position:absolute; bottom:0; right:0; background:url(http://img.carwale.com/cw-common/slide/controls.png) -25px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
+#cboxLoadingOverlay{background:url(http://img.aeplcdn.com/cw-common/slide/loading_background.png) center center no-repeat;}
+#cboxLoadingGraphic{background:url(http://img.aeplcdn.com/cw-common/load.gif) center center no-repeat;}
+#cboxClose{position:absolute; bottom:0; right:0; background:url(http://img.aeplcdn.com/cw-common/slide/controls.png) -25px 0px no-repeat; width:25px; height:25px; text-indent:-9999px;}
 #cboxClose.hover{background-position:-25px -25px;}
 
-.cboxIE #cboxTopLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.carwale.com/cw-common/slide/internet_explorer/borderTopLeft.png, sizingMethod='scale');}
-.cboxIE #cboxTopCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.carwale.com/cw-common/slide/internet_explorer/borderTopCenter.png, sizingMethod='scale');}
-.cboxIE #cboxTopRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.carwale.com/cw-common/slide/internet_explorer/borderTopRight.png, sizingMethod='scale');}
-.cboxIE #cboxBottomLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.carwale.com/cw-common/slide/internet_explorer/borderBottomLeft.png, sizingMethod='scale');}
-.cboxIE #cboxBottomCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.carwale.com/cw-common/slide/internet_explorer/borderBottomCenter.png, sizingMethod='scale');}
-.cboxIE #cboxBottomRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.carwale.com/cw-common/slide/internet_explorer/borderBottomRight.png, sizingMethod='scale');}
-.cboxIE #cboxMiddleLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.carwale.com/cw-common/slide/internet_explorer/borderMiddleLeft.png, sizingMethod='scale');}
-.cboxIE #cboxMiddleRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.carwale.com/cw-common/slide/internet_explorer/borderMiddleRight.png, sizingMethod='scale');}
+.cboxIE #cboxTopLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderTopLeft.png, sizingMethod='scale');}
+.cboxIE #cboxTopCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderTopCenter.png, sizingMethod='scale');}
+.cboxIE #cboxTopRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderTopRight.png, sizingMethod='scale');}
+.cboxIE #cboxBottomLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderBottomLeft.png, sizingMethod='scale');}
+.cboxIE #cboxBottomCenter{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderBottomCenter.png, sizingMethod='scale');}
+.cboxIE #cboxBottomRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderBottomRight.png, sizingMethod='scale');}
+.cboxIE #cboxMiddleLeft{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderMiddleLeft.png, sizingMethod='scale');}
+.cboxIE #cboxMiddleRight{background:transparent; filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src=http://img.aeplcdn.com/cw-common/slide/internet_explorer/borderMiddleRight.png, sizingMethod='scale');}
 
 /* text to show note */
 .note {font-size:11px;}

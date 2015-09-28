@@ -28,7 +28,7 @@
     <div class="grid_12 margin-top10">
         <h1>Authors</h1> 
         <div class="format-content margin-top10">
-            <div><img src="http://img.carwale.com/authers/pratheek.jpg" alt="Pratheek K" class="left-float margin-right10" style="margin-bottom:10px;"/>
+            <div><img src="http://img.aeplcdn.com/authers/pratheek.jpg" alt="Pratheek K" class="left-float margin-right10" style="margin-bottom:10px;"/>
                 <h3>Pratheek Kunder</h3>
                 <p>Pratheek is someone who enjoys travel. Given a choice, he prefers doing so on two wheels.He has been on BikeWale since its inception and has been instrumental in setting up the content for the site.
                     A Computer Science graduate, and student of marketing, he lives by the motto "Twist of the wrist is the best way to find inner peace".  

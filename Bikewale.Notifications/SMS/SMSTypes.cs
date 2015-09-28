@@ -153,7 +153,7 @@ namespace Bikewale.Notifications
                 string message = "";
 
                 //message = "Dear " + customerName + ", Thank you for showing interest in " + BikeName + ". Dealer details: " + dealerName + ", " + dealerContactNo + ", " + dealerAddress;
-                if (insuranceAmount == 0)
+                if (insuranceAmount == 0 || bookingAmount == 0)
                     message = String.Format("Avail your FREE Vega Helmet %26 1-year RSA from BikeWale on purchase of {0} from {1}({2}) Dealer Address: {3}.", BikeName, dealerName, dealerContactNo, dealerAddress);
                 else
                 {
