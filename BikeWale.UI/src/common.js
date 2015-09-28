@@ -748,16 +748,16 @@ function CheckGlobalCookie()
     //}
 }
 
-function GetGlobalCityArea(){
+function GetGlobalCityArea() {
     var cookieName = "location";
     var cityArea = '';
-    if(isCookieExists(cookieName))
-    {
+    if (isCookieExists(cookieName)) {
         var arrays = getCookie(cookieName).split("_");
         if (arrays.length > 0) {
             cityArea = arrays[arrays.length - 1];
         }
         return cityArea;
+    }
 }
 
 //function to attach ajax spinner
