@@ -106,7 +106,7 @@
     var isAreaShown = false;
     var preSelectedCityId = 0;
     var preSelectedCityName = "";
-
+    var onCookieObj = {};
     var viewModel = {
         selectedCity: ko.observable(),
         cities: ko.observableArray(),
@@ -160,11 +160,7 @@
             else {
                 cityId = viewModel.selectedCity();
                 //set global cookie
-                if (cityId  > 0) {
-                    cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
-                    cookieValue = cityId + "_" + cityName;
-                    SetCookieInDays("location", cookieValue, 365);
-                }
+                setLocationCookie($('#ddlCity option:selected'), $('#ddlArea option:selected'));
             }
         });
     });
@@ -202,14 +198,7 @@
             } else {
                 areaMsg.text("");
             }
-        }
-
-        if (!isBuyPrefChecked()) {
-            buyTimeMsg.text("Please tell us your buying preferences.");
-            isError = true;
-        } else {
-            buyTimeMsg.text("");
-        }
+        }         
 
         if (!isError) {
             if (!$("#userAgreement").prop("checked")) {
@@ -279,7 +268,7 @@
                     var initIndex = 0;
                     for (var i = 0; i < cities.length; i++) {   
 
-                        if (preSelectedCityId == cities[i].CityId) {
+                        if (onCookieObj.PQCitySelectedId == cities[i].CityId) {
                             citySelected = cities[i];
                         }
 
@@ -334,9 +323,14 @@
                         $('.chosen-container').attr('style', 'width:180px');
 
                         viewModel.areas(resObj);
-
                         $('.chosen-select').prop('disabled', false);
                         $('.chosen-select').trigger("chosen:updated");
+                        if (onCookieObj.PQAreaSelectedId != 0 && selectElementFromArray(resObj, onCookieObj.PQAreaSelectedId)) {
+                            viewModel.selectedArea(onCookieObj.PQAreaSelectedId);
+                            onCookieObj.PQAreaSelectedId = 0;
+                        }
+                        $('.chosen-select').trigger("chosen:updated");
+                        $("#hdn_ddlArea").val($("#ddlArea").chosen().val());
                         isAreaShown = true;
                     } else {
                         $('#divAreaChosen').hide();
@@ -359,8 +353,11 @@
             C = c[i].split('=');
             if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
-                preSelectedCityId = parseInt(cData[0]);
-                preSelectedCityName = cData[1];
+                onCookieObj.PQCitySelectedId = parseInt(cData[0]);
+                onCookieObj.PQCitySelectedName = cData[1];
+                onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
+                onCookieObj.PQAreaSelectedName = cData[3];
+
             }
         }
     }

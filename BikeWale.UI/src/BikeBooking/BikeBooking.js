@@ -51,10 +51,24 @@
         return false;
     });
     $('.close-btn').click(function () {
+        closeContactPopup();
+    });
+
+    $(document).keydown(function (e) {
+        // ESCAPE key pressed
+        if (e.keyCode == 27)
+            closeContactPopup();
+    });
+
+    $(".blackOut-window").click(function () {
+        closeContactPopup();
+    });
+
+    function closeContactPopup() {
         $(".blackOut-window").hide();
         $('.bw-contact-popup').hide();
         $('.bw-popup').hide();
-    });
+    };
 
     $(".edit-done-mob").hide();
     $("#editNum").click(function () {

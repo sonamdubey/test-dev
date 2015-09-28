@@ -725,18 +725,39 @@ function unlockPopup() {
     $('body').removeClass('lock-browser-scroll');
     $(".blackOut-window").hide();
 }
-/*function lockPopup() {
-    $(".blackOut-window").show();
-}
-
-function unlockPopup() {
-    $(".blackOut-window").hide();
-}*/
 
 $(window).resize(function () {
     var newwidth = 98 + '%';
     $(".ui-autocomplete").width(newwidth) ;
 });
+
+//function to attach ajax spinner
+function attachAjaxLoader(element) {
+    var $loading = $(element).hide();
+    $(document)
+      .ajaxStart(function () {
+          $loading.show();
+      })
+      .ajaxStop(function () {
+          $loading.hide();
+      });
+}
+
+//set location cookie
+function setLocationCookie(cityEle, areaEle) {
+    if (parseInt($(cityEle).val()) > 0) {
+        cookieValue = parseInt($(cityEle).val()) + "_" + $(cityEle).text();
+        if (parseInt($(areaEle).val()) > 0)
+            cookieValue += "_" + parseInt($(areaEle).val()) + "_" + $(areaEle).text();
+        SetCookieInDays("location", cookieValue, 365);
+    }
+}
+
+//match cookie data to check city /area exists 
+function selectElementFromArray(dataArray, id) {
+    var result = $.grep(dataArray, function (e) { return e.id == id; });
+    return result;
+}
 
 
 
