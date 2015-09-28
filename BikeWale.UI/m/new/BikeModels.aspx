@@ -225,7 +225,7 @@
                             </div>
                         </div>
                         <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
-                            <input type="button" class="btn btn-md btn-orange unveil-offer-btn" value="Show Offers" />
+                            <input type="button" id="btnShowOffers"  class="btn btn-md btn-orange unveil-offer-btn" value="Show Offers" />
                         </div>
                         <div class="notify-btn-container position-abt pos-left0 pos-top0 hide">
                             <div class="margin-top50 margin-left40">
@@ -859,6 +859,8 @@
             clientIP = '<%= clientIP%>';
             cityId = '<%= cityId%>';
             isUsed = '<%= !modelPage.ModelDetails.New %>';
+            var myBikeName = '<%= this.bikeName %>';
+            ga_pg_id = '2';
         </script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>        
     </form>

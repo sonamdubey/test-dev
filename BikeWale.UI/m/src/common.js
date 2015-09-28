@@ -2,6 +2,7 @@ var focusedMakeModel = null, focusedCity = null;
 var objBikes = new Object();
 var objCity = new Object();
 var globalCityId = 0;
+var ga_pg_id = '0';
 
 if (!Array.prototype.indexOf)
 {
@@ -72,6 +73,8 @@ $(document).ready(function () {
                 model.id = ui.item.payload.modelId;
             }
             MakeModelRedirection(make, model);
+            // GA code
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': ui.item.label });
         },
         open: function (result) {
             objBikes.result = result;
@@ -106,6 +109,7 @@ $(document).ready(function () {
         var id = $('#newBikeList');
         var searchVal = id.val();
         var placeHolder = id.attr('placeholder');
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
         if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
             window.location.href += '/new/';
             return false;
@@ -143,6 +147,9 @@ $(document).ready(function () {
             SetCookieInDays("location", CookieValue, oneYear);
             CloseCityPopUp();
             showGlobalCity(ui.item.label);
+            // City is selected
+            var cityName = $(".cityName").html();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
         },
         open: function (result) {
             objCity.result = result;
@@ -207,7 +214,34 @@ $(document).ready(function () {
 	$(".navbarBtn").click(function(){
 		navbarShow();
 	});
+
+	function GetCatForNav() {
+	    
+	    var ret_category = null;
+	    if (ga_pg_id != null && ga_pg_id != "0") {
+	        switch (ga_pg_id) {
+	            case "1":
+	                ret_category = "HP";
+	                break;
+	            case "2":
+	                ret_category = "Model_Page";
+	                break;
+	            case "3":
+	                ret_category = "Make_Page";
+	                break;
+	            case "4":
+	                ret_category = "New_Bikes_Page";
+	                break;
+	        }
+	        return ret_category;
+	    }
+	}
+
 	function navbarShow() {
+	    var category = GetCatForNav();
+	    if (category != null) {
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Hamburger_Menu_Icon', 'lab': 'Icon_Click' });
+	    }
 		$('body').addClass('lock-browser-scroll');
 		$("#nav").addClass('open').animate({'left':'0px'});
 		$(".blackOut-window").show();
@@ -365,6 +399,80 @@ $(document).ready(function () {
 	    }
 	}
 
+    // Contents Widegt Clicked
+
+	$("#ctrlNews a").on("click", function () {
+	    var category = GetCatForNav();
+	    if (category != null) {
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Content_Widget_Clicked', 'lab': 'News_Clicked' });
+	    }
+	});
+	$("#ctrlExpertReviews a").on("click", function () {
+	    var category = GetCatForNav();
+	    if (category != null) {
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Content_Widget_Clicked', 'lab': 'Reviews_Clicked' });
+	    }
+	});
+	$("#ctrlVideos a").on("click", function () {
+	    var category = GetCatForNav();
+	    if (category != null) {
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Content_Widget_Clicked', 'lab': 'Videos_Clicked' });
+	    }
+	});
+    // Brands, mileage, styles clicked
+	$(".brand-type-container li").on("click", function () {
+	    var bikeClicked = $(this).find(".brand-type-title").html();
+	    var category = GetCatForNav();
+	    if (category != null) {
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Brand/Budget/Mileage/Style', 'lab': bikeClicked });
+	    }
+	});
+
+	$("#discoverBudget li a").on("click", function () {
+	    var budgetClick = $(this).text();
+	    var category = GetCatForNav();
+	    if (category != null) {
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Budget', 'lab': budgetClick });
+	    }
+	});
+
+	$("#discoverMileage li a").on("click", function () {
+	    var mileageClick = $(this).text();
+	    var category = GetCatForNav();
+	    if (category != null) {
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Mileage', 'lab': mileageClick });
+	    }
+	});
+
+	$("#discoverStyle li a").on("click", function () {
+	    var styleClicked = $(this).text();
+	    var category = GetCatForNav();
+	    if (category != null) {
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Style', 'lab': styleClicked });
+	    }
+	});
+
+    // Google Analytics code for Click of Item on Nav_Bar on HP
+	$(".navUL ul li").on("click", function () {
+	    pushNavMenuAnalytics($(this).text());
+	});
+	$(".navbarTitle").on("click", function () {
+	    pushNavMenuAnalytics($(this).text());
+	});
+
+	$("#bwheader-logo").on("click", function () {
+	    var categ = GetCatForNav();
+	    if (categ != undefined) {
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Logo', 'lab': 'Logo_Clicked' });
+	    }
+	});
+
+	function pushNavMenuAnalytics(menuItem) {
+	    var categ = GetCatForNav();
+	    if (categ != undefined) {
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Hamburger_Menu_Item_Click', 'lab': menuItem });
+	    }
+	}
 
 	$('#btnGlobalCityPopup').on('click', function () {
 	    ele = $('#globalCityPopUp');
@@ -597,6 +705,17 @@ function CheckGlobalCookie() {
     //}
 }
 
+function GetGlobalCityArea() {
+    var cookieName = "location";
+    var cityArea = '';
+    if (isCookieExists(cookieName)) {
+        var arrays = getCookie(cookieName).split("_");
+        if (arrays.length > 0) {
+            cityArea = arrays[arrays.length - 1];
+        }
+        return cityArea;
+    }
+}
 
 function lockPopup() {
     $('body').addClass('lock-browser-scroll');

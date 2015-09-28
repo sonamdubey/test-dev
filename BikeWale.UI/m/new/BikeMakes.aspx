@@ -185,6 +185,8 @@
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-brand.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
+        ga_pg_id = '4';
+        var _makeName = '<%= _make.MakeName %>';
             $(document).ready(function () {
                 jQuery('.jcarousel-wrapper.upComingBikes .jcarousel')    
                 .on('jcarousel:targetin', 'li', function () {

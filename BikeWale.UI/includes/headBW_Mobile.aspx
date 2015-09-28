@@ -123,7 +123,7 @@
     </div> <!-- global-search-popup code ends here -->
     <header>
     	<div class="header-fixed"> <!-- Fixed Header code starts here -->
-        	<a href="/m/" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
+        	<a href="/m/" id="bwheader-logo" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
             <div class="leftfloat">
                 <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>                
             </div>

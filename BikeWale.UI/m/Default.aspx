@@ -506,6 +506,9 @@
 <!-- all other js plugins -->    
 <!-- #include file="/includes/footerscript_Mobile.aspx" -->
 <script type="text/javascript" src="/m/src/home.js?<%= staticFileVersion %>"></script>
+ <script type="text/javascript">
+        ga_pg_id = '1';
+    </script>
 </form>
 </body>
 </html>

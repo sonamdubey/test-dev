@@ -261,6 +261,11 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
+        var cityArea = GetGlobalCityArea();
+        if(cityArea != undefined){
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Payment_Confirmation', 'lab': cityArea });
+        }
+
         $('#blackOut-window, .rsa-popup,.bw-popup').hide();
 
         $('#btnPrintReceipt').click(function () {
