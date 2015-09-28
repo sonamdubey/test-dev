@@ -28,7 +28,7 @@
             </div>
             <div class="final-price-areaSelect" data-bind="visible: bookingAreas().length > 0">
                 <div class="form-control-box">
-                    <select data-placeholder="Select Area" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: 'Select Area', event: { change: areaChangedOnRoad }"></select>
+                    <select data-placeholder="Select Area" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: 'Select Area'"></select>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select an area</div>
                 </div>
@@ -122,7 +122,7 @@
 
 
     function cityChangedOnRoad() {
-        gtmCodeAppenderWidget(pageId, "City Selected", null);
+        //gtmCodeAppenderWidget(pageId, "City Selected", null);
         toggleErrorMsg(onRoadArea, false);
         if (viewModelOnRoad.selectedCity() != undefined) {
             $.ajax({
@@ -155,9 +155,9 @@
         }
     }
 
-    function areaChangedOnRoad() {
-        gtmCodeAppenderWidget(pageId, "Area Selected", null);
-    }
+    //function areaChangedOnRoad() {
+    //    gtmCodeAppenderWidget(pageId, "Area Selected", null);
+    //}
 
 
     function isValidInfoOnRoad() {
@@ -313,7 +313,7 @@
                     model.id = ui.item.payload.modelId;
                     selectedMakeName = ui.item.label;
                     pageId = '<%= PageId %>';
-                    gtmCodeAppenderWidget(pageId, "Button Clicked", null);
+                    gtmCodeAppenderWidget(pageId, "Get_On_Road_Price_Click", null);
                     $("#errMsgOnRoad").empty();
                     selectedModel = model.id;
                     FillCitiesOnRoad(selectedModel);

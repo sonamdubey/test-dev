@@ -240,6 +240,7 @@ $("a.fillPopupData").on("click", function (e) {
     var pageIdAttr = $(this).attr('pagecatid');
     var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
     var modelIdPopup = parseInt(str, 10);
+    gtmCodeAppender(pageId, "Get_On_Road_Price_Click", null);
     FillCitiesPopup(modelIdPopup,makeName,modelName,pageIdAttr);
 });
 

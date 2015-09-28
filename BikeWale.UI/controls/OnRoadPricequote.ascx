@@ -24,7 +24,7 @@
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
             <div class="form-control-box margin-bottom20 finalPriceAreaSelect " data-bind="visible: bookingAreas().length > 0">
-                <select data-placeholder="--Select Area--" class="form-control" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', event: { change: areaChangedOnRoad }"></select>
+                <select data-placeholder="--Select Area--" class="form-control" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--'"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
@@ -122,7 +122,7 @@
     }
 
     function cityChangedOnRoad() {
-        gtmCodeAppender(pageId, "City Selected", null);
+        //gtmCodeAppender(pageId, "City Selected", null);
         if (viewModelOnRoad.selectedCity() != undefined) {
             $.ajax({
                 type: "POST",
@@ -152,9 +152,9 @@
         }
     }
 
-    function areaChangedOnRoad() {
-        gtmCodeAppender(pageId, "Area Selected", null);
-    }
+    //function areaChangedOnRoad() {
+    //    gtmCodeAppender(pageId, "Area Selected", null);
+    //}
 
 
 
@@ -300,7 +300,7 @@
                     model.id = ui.item.payload.modelId;
                     pageId = '<%= PageId %>';
                     selectedMakeName = ui.item.label;
-                    gtmCodeAppender(pageId, "Button Clicked", null);
+                    gtmCodeAppender(pageId, "Get_On_Road_Price_Click", null);
                     $("#errMsgOnRoad").empty();
                     selectedModel = model.id;
                     FillCitiesOnRoad(selectedModel);
