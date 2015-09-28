@@ -275,6 +275,10 @@
             },
             open: function (result) {
                 objBikes.result = result;
+                if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+
+                    $('.ui-autocomplete').off('menufocus hover mouseover');
+                }
             },
             focusout: function () {
                 if ($('li.ui-state-focus a:visible').text() != "") {

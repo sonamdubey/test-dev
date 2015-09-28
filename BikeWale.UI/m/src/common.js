@@ -55,7 +55,7 @@ $(document).ready(function () {
 	
 
 	
-
+    
     $("#newBikeList").bw_autocomplete({
         recordCount: 5,
         source: 1,
@@ -76,8 +76,12 @@ $(document).ready(function () {
             // GA code
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': ui.item.label });
         },
+
         open: function (result) {
             objBikes.result = result;
+            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+                $('.ui-autocomplete').off('menufocus hover mouseover');
+            }
         },
         focusout: function () {
             if ($('li.ui-state-focus a:visible').text() != "") {
@@ -153,6 +157,10 @@ $(document).ready(function () {
         },
         open: function (result) {
             objCity.result = result;
+            if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+                //alert("IOS");
+                $('.ui-autocomplete').off('menufocus hover mouseover');
+            }
         },
         focusout: function () {
             if ($('li.ui-state-focus a:visible').text() != "") {
