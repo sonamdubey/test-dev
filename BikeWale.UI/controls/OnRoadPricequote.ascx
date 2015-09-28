@@ -82,7 +82,7 @@
                     var initIndex = 0;
                     for (var i = 0; i < cities.length; i++) { 
 
-                        if (onCookieObj.PQCitySelectedId == cities[i].CityId) {
+                        if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQCitySelectedId == cities[i].CityId) {
                             citySelected = cities[i];
                         }
 
@@ -134,7 +134,7 @@
                     areas = $.parseJSON(response.value);
                     if (areas.length) {
                         viewModelOnRoad.bookingAreas(areas);
-                        if (onCookieObj.PQAreaSelectedId != 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
                             viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
                             onCookieObj.PQAreaSelectedId = 0;
                         }

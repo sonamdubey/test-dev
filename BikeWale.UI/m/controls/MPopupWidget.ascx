@@ -91,7 +91,7 @@ function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr) {
                 var initIndex = 0;
                 for (var i = 0; i < cities.length; i++) {
 
-                    if (onCookieObj.PQCitySelectedId == cities[i].CityId) {
+                    if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQCitySelectedId == cities[i].CityId) {
                         citySelected = cities[i];
                     }
 
@@ -137,7 +137,7 @@ function cityChangedPopup() {
                 areas=$.parseJSON(response.value);
                 if (areas.length) {
                     viewModelPopup.bookingAreas(areas);
-                    if (onCookieObj.PQAreaSelectedId != 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                    if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
                         viewModelPopup.selectedArea(onCookieObj.PQAreaSelectedId);
                         onCookieObj.PQAreaSelectedId = 0;
                     }

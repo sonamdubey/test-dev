@@ -346,7 +346,7 @@
                             citySelected = null;
                             for (var i = 0; i < resObj.length; i++) {
 
-                                if (onCookieObj.PQCitySelectedId == resObj[i].CityId) {
+                                if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0  && onCookieObj.PQCitySelectedId == resObj[i].CityId) {
                                     citySelected = resObj[i];
                                 }
 
@@ -462,7 +462,7 @@
 
                         viewModelPQ.areas(resObj);
                         $('.chosen-select').prop('disabled', false);
-                        if (onCookieObj.PQAreaSelectedId != 0 && selectElementFromArray(resObj, onCookieObj.PQAreaSelectedId)) {
+                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(resObj, onCookieObj.PQAreaSelectedId)) {
                             $('#ddlAreaTest li a[areaId="' + onCookieObj.PQAreaSelectedId + '"]').click();
                             onCookieObj.PQAreaSelectedId = 0;
                         }                          

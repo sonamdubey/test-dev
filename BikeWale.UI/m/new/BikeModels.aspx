@@ -209,7 +209,7 @@
                         <!-- /ko -->
                         <!-- ko if : BWPriceList() || DealerPriceList() -->
                         <div class="city-onRoad-price-container font14 margin-bottom15 hide">
-                            <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>Edit</span></p>
+                            <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>change location</span></p>
                             <p class="font12 margin-bottom15"></p>
                             <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
                             <input type="button" class="btn btn-orange btn-full-width" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
@@ -247,10 +247,13 @@
 	                        <!-- /ko -->
 	                         <!-- ko if : !priceQuote().IsDealerPriceAvailable -->
 	                        <ul >
-	                            <li>
-	                                Currently there are no offers in your city. We hope to serve your city soon!
-	                            </li> 
-	                        </ul>
+                                <li data-bind="visible: areas() && areas().length > 0">
+                                Currently there are no offers in your area. We hope to serve your area soon!
+                                </li> 
+                                <li data-bind="visible: !(areas() && areas().length > 0)">
+                                Currently there are no offers in your city. We hope to serve your city soon!
+                                </li> 
+                            </ul>
 	                        <!-- /ko -->
 	                        <!-- /ko -->
                             </div>
@@ -881,7 +884,10 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />        
+        <BW:MPopupWidget runat="server" ID="MPopupWidget1" /> 
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- all other js plugins -->
+        <!-- #include file="/includes/footerscript_Mobile.aspx" -->       
     	<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
 		<script type="text/javascript">
 		    vmModelId = '<%= modelId%>';
@@ -891,9 +897,7 @@
             var myBikeName = '<%= this.bikeName %>';
             ga_pg_id = '2';
         </script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- all other js plugins -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        
     </form>
 </body>
 </html>
