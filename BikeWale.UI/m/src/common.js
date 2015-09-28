@@ -606,17 +606,10 @@ function unlockPopup() {
     $('body').removeClass('lock-browser-scroll');
     $(".blackOut-window").hide();
 }
-/*function lockPopup() {
-    $(".blackOut-window").show();
-}
-
-function unlockPopup() {
-    $(".blackOut-window").hide();
-}*/
 
 $(window).resize(function () {
     var newwidth = 98 + '%';
-    $(".ui-autocomplete").width(newwidth) ;
+    $(".ui-autocomplete").width(newwidth);
 });
 
 
