@@ -154,7 +154,7 @@
                             <div class="rightfloat">
                                	<div class="more-filters-btn position-rel rounded-corner2">
                                 	<span class="bwsprite filter-icon inline-block"></span>
-                                    <span class="font14 inline-block">Filters</span>
+                                    <span class="font14 inline-block">More</span>
                                     <div class="filter-count-container">
                                     	<div class="filter-counter">0</div>
                                         <span></span>
@@ -279,6 +279,7 @@
                     	<div class="leftfloat grid-8">
                         	<h2><span id="bikecount"></span></h2>
                         </div>
+                        <!--
                         <div class="rightfloat padding-right10 grid-3">
                             <div class="form-control-box">
                                 <select id="sort" class="form-control">
@@ -287,6 +288,24 @@
                                     <option so="1" sc="1" value="so=1&sc=1">Price :High to Low</option>
                                     <option so="0" sc="2" value="so=0&sc=2" >Mileage :High to Low</option>
                                 </select>
+                            </div>
+                        </div>
+                        -->
+                        <div class="rightfloat padding-right10 padding-left30 grid-3">
+                            <div class="sort-div rounded-corner2">
+                            	<div class="sort-by-title" id="sort-by-container">
+                                	<span class="leftfloat sort-select-btn">Popular</span>
+                                    <span class="clear"></span>
+                                </div>
+                                <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                            </div>
+                            <div class="sort-selection-div sort-list-items hide">
+                            	<ul>
+                                	<li class="selected" so="" sc="" sortqs="">Popular</li>
+                                    <li so="0" sc="1" sortqs="so=0&sc=1" >Price: Low to High</li>
+                                    <li so="1" sc="1" sortqs="so=1&sc=1">Price: High to Low</li>
+                                    <li so="0" sc="2" sortqs="so=0&sc=2">Mileage: High to Low</li>
+                                </ul>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -312,13 +331,13 @@
                         <li>
                             <div class="contentWrapper">
                                 <div class="imageWrapper">
-                                    <a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' }">
-                                        <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
+                                    <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(), '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/'); }">
+                                        <img class="lazy" data-bind="attr: {title: bikeName, alt: bikeName, src:'http://img1.aeplcdn.com/grey.gif'},lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
                                     </a>
                                 </div>
                                 <div class="bikeDescWrapper">
                                     <div class="bikeTitle margin-bottom10">
-                                        <h3><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName"></a></h3>
+                                        <h3><a data-bind="attr: { title: bikeName }, text: bikeName, click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/'); }"></a></h3>
                                     </div>
                                     <div class="font20">
                                         <span class="fa fa-rupee"></span>
@@ -339,7 +358,7 @@
                                         <span data-bind="text: ShowReviewCount(bikemodel.reviewCount())"> </span>
                                     </div>
                                     <div class="clear"></div>
-                                    <a data-bind="attr: { modelId: bikemodel.modelId }, click: function () { FillCitiesPopup(bikemodel.modelId()); }" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
+                                    <a data-bind="attr: { modelId: bikemodel.modelId }, click: function () { FillCitiesPopup(bikemodel.modelId(), bikemodel.makeBase.makeName(), bikemodel.modelName(), '4'); $.PricePopUpClickGA(bikemodel.makeBase.makeName()); }" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
                                 </div>
                             </div>
                         </li>
@@ -355,7 +374,7 @@
 <!-- #include file="/includes/footerscript.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
     <PW:PopupWidget runat="server" ID="PopupWidget" />
 </form>
 </body>

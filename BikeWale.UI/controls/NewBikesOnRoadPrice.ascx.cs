@@ -9,6 +9,7 @@ namespace Bikewale.controls
 {
     public  class NewBikesOnRoadPrice : System.Web.UI.UserControl
     {
+        public string PageId { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

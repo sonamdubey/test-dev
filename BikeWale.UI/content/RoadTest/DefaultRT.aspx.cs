@@ -125,7 +125,9 @@ namespace Bikewale.Content
                             }
                             else
                             {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                this.Page.Visible = false;
                             }
                         }
                     }
@@ -146,58 +148,58 @@ namespace Bikewale.Content
         {
             try
             {
-                    //sets the base URI for HTTP requests
-                    string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                    string _requestType = "application/json";
-                    //client.BaseAddress = new Uri(_cwHostUrl);
+                //sets the base URI for HTTP requests
+                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+                string _requestType = "application/json";
+                //client.BaseAddress = new Uri(_cwHostUrl);
 
-                    // get pager instance
-                    IPager objPager = GetPager();
+                // get pager instance
+                IPager objPager = GetPager();
 
-                    int _startIndex = 0, _endIndex = 0, _roadtestCategoryId = (int)EnumCMSContentType.RoadTest;
+                int _startIndex = 0, _endIndex = 0, _roadtestCategoryId = (int)EnumCMSContentType.RoadTest;
 
-                    objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
+                objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
 
-                    string _apiUrl = string.Empty;
+                string _apiUrl = string.Empty;
 
-                    if (String.IsNullOrEmpty(makeId))
+                if (String.IsNullOrEmpty(makeId))
+                {
+                    _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex;
+                }
+                else
+                {
+                    if (String.IsNullOrEmpty(modelId))
                     {
-                        _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex ;
+                        _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId;
+                        MakeModelSearch.MakeId = makeId;
                     }
                     else
                     {
-                        if (String.IsNullOrEmpty(modelId))
-                        {
-                            _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId;
-                            MakeModelSearch.MakeId = makeId;               
-                        }
-                        else
-                        {
-                            _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId + "&modelid=" + modelId;
-                            MakeModelSearch.MakeId = makeId;
-                            MakeModelSearch.ModelId = modelId;
-                        }
+                        _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _roadtestCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex + "&makeid=" + makeId + "&modelid=" + modelId;
+                        MakeModelSearch.MakeId = makeId;
+                        MakeModelSearch.ModelId = modelId;
                     }
+                }
 
-                    CMSContent _objRoadTestList = null;
+                CMSContent _objRoadTestList = null;
 
-                    _objRoadTestList = await BWHttpClient.GetApiResponse<CMSContent>(_cwHostUrl, _requestType, _apiUrl, _objRoadTestList);
+                _objRoadTestList = await BWHttpClient.GetApiResponse<CMSContent>(_cwHostUrl, _requestType, _apiUrl, _objRoadTestList);
 
-                    if (_objRoadTestList != null)
+                if (_objRoadTestList != null)
+                {
+                    if (_objRoadTestList.Articles.Count > 0)
                     {
-                        if (_objRoadTestList.Articles.Count > 0)
-                        {
-                            BindRoadtest(_objRoadTestList);
-                            BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount), makeName, modelName);
-                        }
-                        else
-                            _isContentFound = false;
+                        BindRoadtest(_objRoadTestList);
+                        BindLinkPager(objPager, Convert.ToInt32(_objRoadTestList.RecordCount), makeName, modelName);
                     }
                     else
-                    {                      
-                        alertObj.Visible = true;
-                        alertObj.InnerText = "Sorry! No road tests have been carried out for the selected bike.";                      
-                    }
+                        _isContentFound = false;
+                }
+                else
+                {
+                    alertObj.Visible = true;
+                    alertObj.InnerText = "Sorry! No road tests have been carried out for the selected bike.";
+                }
             }
             catch (Exception err)
             {
@@ -208,7 +210,11 @@ namespace Bikewale.Content
             finally
             {
                 if (!_isContentFound)
+                {
                     Response.Redirect("/pagenotfound.aspx", true);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 

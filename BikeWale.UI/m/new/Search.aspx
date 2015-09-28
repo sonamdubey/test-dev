@@ -82,13 +82,13 @@
                                 <div class="contentWrapper">
                                     <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                     <div class="imageWrapper">
-                                        <a data-bind="attr: { href: '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' }">
-                                            <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/310x174/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
+                                        <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' ) }">
+                                            <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'http://img1.aeplcdn.com/grey.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
                                         </a>
                                     </div>
                                         <div class="bikeDescWrapper">
                                             <div class="bikeTitle">
-                                                <h3><a data-bind="attr: { href: '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName"></a></h3>
+                                                <h3><a data-bind="attr: {title: bikeName }, text: bikeName, click: function () { $.ModelClickGaTrack(bikemodel.modelName(), '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/') }"></a></h3>
                                             </div>
                                             <div class="font22 text-grey margin-bottom5">
                                                 <span class="fa fa-rupee"></span>
@@ -114,7 +114,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="clear"></div>
-                                                <a data-bind="attr: { modelId: bikemodel.modelId }, click: function () { FillCitiesPopup(bikemodel.modelId()) }" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
+                                                <a data-bind="attr: { modelId: bikemodel.modelId }, click: function () { FillCitiesPopup(bikemodel.modelId(), bikemodel.makeBase.makeName(), bikemodel.modelName(),'6'); $.PricePopUpClickGA(bikemodel.makeBase.makeName()) }" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
                                             </div>
                                         </div>
                                     </div>
@@ -143,6 +143,7 @@
                     <div class="content-inner-block-20 margin-bottom40 clearfix">
                 	    <!--Brand section starts here-->
                         <div class="dropdown form-control-box margin-bottom20"> 
+                            <h3 class="text-black margin-bottom10">Brand</h3>
                             <div class="form-control">
                               <span class="hida">Brand</span>
                               <div class="multiSel"></div>
@@ -193,6 +194,7 @@
                     
                         <!--Displacement section starts here-->
                         <div class="dropdown form-control-box margin-bottom20"> 
+                            <h3 class="text-black margin-bottom10">Displacement</h3>
                             <div class="form-control">
                               <span class="hida">Displacement</span>    
                               <div class="multiSel"></div>  
@@ -213,6 +215,7 @@
                     
                        <!--ride section starts here-->
                         <div class="dropdown form-control-box margin-bottom20"> 
+                            <h3 class="text-black margin-bottom10">Ride style</h3>
                             <div class="form-control">
                                 <span class="hide">Ride Style</span>
                                 <span class="hida">Ride Style</span>    

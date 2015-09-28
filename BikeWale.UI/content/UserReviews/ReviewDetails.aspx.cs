@@ -266,7 +266,6 @@ namespace Bikewale.Content
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
-                    return;
                 }
             }
             else

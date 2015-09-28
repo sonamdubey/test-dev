@@ -115,7 +115,9 @@ namespace Bikewale.Content
                         }
                         else
                         {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
                         }
                     }
                 }
@@ -129,10 +131,9 @@ namespace Bikewale.Content
                 if (CommonOpn.CheckId(modelId) == false)
                 {
                     //redirect to the error page
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx",false);
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
-                    return;
                 }
             }
             
@@ -145,10 +146,9 @@ namespace Bikewale.Content
                 if (CommonOpn.CheckId(pageNumber) == false)
                 {
                     //redirect to the error page
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx",false);
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
-                    return;
                 }
             }
 
@@ -163,10 +163,9 @@ namespace Bikewale.Content
                 {
                     //redirect to the error page                 
 
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx",false);
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
-                    return;
                 }
             }
             Trace.Warn("start post back ");

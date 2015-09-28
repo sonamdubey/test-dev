@@ -79,12 +79,16 @@ namespace Bikewale.Mobile.BikeBooking
                 }
                 else
                 {
-                    Response.Redirect("/m/pricequote/", true);
+                    Response.Redirect("/m/pricequote/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
             else
             {
-                Response.Redirect("/m/pricequote/", true);
+                Response.Redirect("/m/pricequote/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 

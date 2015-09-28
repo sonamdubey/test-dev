@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <a href="javascript:void(0)" modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?"":"hide" %> ">Get on road price</a>
+                            <a href="javascript:void(0)" modelName="<%# DataBinder.Eval(Container.DataItem,"ModelName").ToString() %>" makeName="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName").ToString() %>" pagecatid="<%=PageId %>" modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?"":"hide" %> ">Get on road price</a>
                         </div>
                     </div>
                 </div>

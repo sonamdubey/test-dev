@@ -38,59 +38,73 @@ namespace Bikewale.BikeBooking
 
         }
 
+        #region CompleteTransaction Method
         private void CompleteTransaction()
         {
             bool isUpdated = false;
-            IUnityContainer containerTran = new UnityContainer();
-            containerTran.RegisterType<ITransaction, Transaction>()
-                        .RegisterType<IPaymentGateway, BillDesk>()
-                        .RegisterType<ITransactionRepository, TransactionRepository>()
-                        .RegisterType<IPackageRepository, PackageRepository>()
-                        .RegisterType<ITransactionValidator, ValidateTransaction>();
-
-            ITransaction completetransaction = containerTran.Resolve<ITransaction>();
-            bool transresp = completetransaction.CompleteBillDeskTransaction();
-            Trace.Warn("transresp : " + transresp);
-
-
-            containerTran.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
-            IDealerPriceQuote objDealer = containerTran.Resolve<IDealerPriceQuote>();
-            
-
-            if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
+            try
             {
-                isUpdated = objDealer.UpdatePQTransactionalDetail(Convert.ToUInt32(PriceQuoteCookie.PQId), Convert.ToUInt32(PGCookie.PGTransId), true, ConfigurationManager.AppSettings["OfferUniqueTransaction"]);
-            }
-            else
-            {
-                isUpdated = objDealer.UpdatePQTransactionalDetail(Convert.ToUInt32(PriceQuoteCookie.PQId), Convert.ToUInt32(PGCookie.PGTransId), false, ConfigurationManager.AppSettings["OfferUniqueTransaction"]);
-            }
-            
-            if (Request.QueryString["sourceid"] != null && Request.QueryString["sourceid"] != "")
-            {
-                if (Request.QueryString["sourceid"].ToString() == "1")
+                using (IUnityContainer containerTran = new UnityContainer())
                 {
+                    containerTran.RegisterType<ITransaction, Transaction>()
+                                .RegisterType<IPaymentGateway, BillDesk>()
+                                .RegisterType<ITransactionRepository, TransactionRepository>()
+                                .RegisterType<IPackageRepository, PackageRepository>()
+                                .RegisterType<ITransactionValidator, ValidateTransaction>();
+
+                    ITransaction completetransaction = containerTran.Resolve<ITransaction>();
+                    bool transresp = completetransaction.CompleteBillDeskTransaction();
+                    Trace.Warn("transresp : " + transresp);
+
+
+                    containerTran.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
+                    IDealerPriceQuote objDealer = containerTran.Resolve<IDealerPriceQuote>();
+
+
                     if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
                     {
-                        HttpContext.Current.Response.Redirect("/pricequote/paymentconfirmation.aspx");
+                        isUpdated = objDealer.UpdatePQTransactionalDetail(Convert.ToUInt32(PriceQuoteCookie.PQId), Convert.ToUInt32(PGCookie.PGTransId), true, ConfigurationManager.AppSettings["OfferUniqueTransaction"]);
                     }
                     else
                     {
-                        HttpContext.Current.Response.Redirect("/pricequote/paymentfailure.aspx");
-                    }
-                }
-                if (Request.QueryString["sourceid"].ToString() == "2")
-                {
-                    if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
-                    {
-                        HttpContext.Current.Response.Redirect("/m/pricequote/paymentconfirmation.aspx");
-                    }
-                    else
-                    {
-                        HttpContext.Current.Response.Redirect("/m/pricequote/paymentfailure.aspx");
+                        isUpdated = objDealer.UpdatePQTransactionalDetail(Convert.ToUInt32(PriceQuoteCookie.PQId), Convert.ToUInt32(PGCookie.PGTransId), false, ConfigurationManager.AppSettings["OfferUniqueTransaction"]);
                     }
                 }
             }
-        }
-    }
-}
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BikeBooking.BillDeskResponse.CompleteTransaction");
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (Request.QueryString["sourceid"] != null && Request.QueryString["sourceid"] != "")
+                {
+                    if (Request.QueryString["sourceid"].ToString() == "1")
+                    {
+                        if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
+                        {
+                            HttpContext.Current.Response.Redirect("/pricequote/paymentconfirmation.aspx", false);
+                        }
+                        else
+                        {
+                            HttpContext.Current.Response.Redirect("/pricequote/paymentfailure.aspx", false);
+                        }
+                    }
+                    if (Request.QueryString["sourceid"].ToString() == "2")
+                    {
+                        if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
+                        {
+                            HttpContext.Current.Response.Redirect("/m/pricequote/paymentconfirmation.aspx", false);
+                        }
+                        else
+                        {
+                            HttpContext.Current.Response.Redirect("/m/pricequote/paymentfailure.aspx", false);
+                        }
+                    }
+                }
+            }
+        }   //End of CompleteTransaction
+        #endregion
+    }   //End of class
+}   //End of namespace

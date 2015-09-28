@@ -9,6 +9,7 @@ namespace Bikewale.m.controls
 {
     public partial class MOnRoadPricequote : System.Web.UI.UserControl
     {
+        public string PageId { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
 

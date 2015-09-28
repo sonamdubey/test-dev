@@ -244,7 +244,9 @@ namespace Bikewale.New
                         }
                         else
                         {
-                            Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", true);
+                            Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
                             //isSuccess = false;
                         }
                     }

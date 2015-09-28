@@ -338,7 +338,22 @@ $(document).ready(function () {
 			}
 		});
 		// Swipe handlers for mobile
-		$(".jcarousel").swipe({ fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto" });
+	   
+		$('.jcarousel a').on('click', function (e) {
+		    e.preventDefault();
+		    var targetHref = $(this).attr('href');
+		    if (targetHref != '' || targetHref != 'javascript:void(0);')
+		        window.open(targetHref, '_self');
+		});
+
+	    //$(".jcarousel").swipe({ fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto" });
+
+		$(".jcarousel").swipe({
+		    fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto",
+		    excludedElements: "label, button, input, select, textarea, .noSwipe",
+		});
+
+
 		function swipe1(event, direction, distance, duration, fingerCount) {
 			if (direction == "left") {
 				$(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-next").click();
