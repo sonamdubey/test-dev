@@ -122,21 +122,18 @@ function loadArea(vm) {
             if (data) {
                 var area = ko.toJS(data);
                 vm.areas(area.areas);
-                console.log(234);
                 ctrlSelectArea = $("#ddlArea");
                 $(".city-select-text").hide();
                 $(offerBtnContainer).show();                 
                 //$(ctrlSelectArea).trigger("chosen:updated");
                 if (!isNaN(pqCookieObj.PQAreaSelectedId) && pqCookieObj.PQAreaSelectedId > 0 && vm.areas().length > 0 && selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId)) {
                     vm.selectedArea(pqCookieObj.PQAreaSelectedId);
-                    console.log(567234);
                     pqCookieObj.PQAreaSelectedId = 0;
                 }
                 $(ctrlSelectArea).next().hide();
             }
             else {
                 vm.areas([]);
-                console.log(2374574);
                 //$(ctrlSelectArea).trigger("chosen:updated");
                 vm.FetchPriceQuote();
             }
@@ -144,14 +141,12 @@ function loadArea(vm) {
         .fail(function () {
             //no areas available;
             vm.areas([]);
-            console.log(2340);
             //$(ctrlSelectArea).trigger("chosen:updated");
             vm.FetchPriceQuote();
         });
     }
     else {
         vm.areas([]);
-        console.log(2877634);
         //$(ctrlSelectArea).trigger("chosen:updated");
         $(".available-offers-container").hide();
         $(offerBtnContainer).show();
