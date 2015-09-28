@@ -243,7 +243,7 @@
                                             <div class="bw-offer-item">
                                             	<ul>
                                                 	<li>
-                                                    	<div class="offer-pic"><img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg"></div>
+                                                    	<div class="offer-pic"><img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg"></div>
                                                         <p class="margin-top10"><strong>Vega Cruiser Open Face Helmet (Size: M)</strong></p>
                                                         <div class="item-specification margin-top10">
                                                         	<ul>
@@ -255,7 +255,7 @@
                                                         </div>
                                                     </li>
                                                     <li>
-                                                    	<div class="offer-pic"><img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg"></div>
+                                                    	<div class="offer-pic"><img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg"></div>
                                                         <p class="margin-top10"><strong>Replay Dream Plain Flip-up Helmet (Size: M)</strong></p>
                                                         <div class="item-specification margin-top10">
                                                         	<ul>
@@ -267,7 +267,7 @@
                                                         </div>
                                                     </li>
                                                     <li>
-                                                    	<div class="offer-pic"><img src="http://img.carwale.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg"></div>
+                                                    	<div class="offer-pic"><img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic3.jpg"></div>
                                                         <p class="margin-top10"><strong>Vega Cliff Full Face Helmet (Size: M)</strong></p>
                                                         <div class="item-specification margin-top10">
                                                         	<ul>

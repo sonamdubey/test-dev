@@ -485,7 +485,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                                 $.each(value.priceList, function (key, value) {
                                     priceList.push(new PriceListModel(value.DealerId, value.ItemId, value.ItemName, value.Price));
                                 });
-                            });
+                            });                            
                         }
                     });
                 }
@@ -511,7 +511,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                             if (obj) {
                                 pqId = obj.quoteId;
                                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + obj.quoteId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
-                                SetCookie("_MPQ", cookieValue);
+                                SetCookie("_MPQ", cookieValue);                                
                                 var objCust = {
                                     "dealerId": dealerId,
                                     "pqId": pqId,
@@ -604,7 +604,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                             success: function (response) {
                                 var obj = ko.toJS(response);
                                 self.IsVerified(obj.isSuccess);
-                                if (self.IsVerified()) {
+                                if (self.IsVerified()) {                                    
                                     if (obj.isSuccess && obj.dealer) {
                                         viewModel.Dealer(new DealerModel(
                                             obj.dealer.address1,

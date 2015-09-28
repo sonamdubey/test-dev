@@ -170,7 +170,7 @@ function trim(val) {
 var imgs = document.getElementById("tblRatings").getElementsByTagName("img");
 
 var msgs = new Array ( "Poor", "Fair", "Good", "Very Good", "Excellent" );
-var path        = "http://img.carwale.com/images/ratings/";
+var path        = "http://img.aeplcdn.com/images/ratings/";
 var imgN		= path + "white.gif";
 var imgT 		= path + "1.gif";
 var imgTOver 	= path + "greyRed.gif";

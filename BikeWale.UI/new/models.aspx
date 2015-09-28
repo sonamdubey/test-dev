@@ -13,7 +13,11 @@
         title = _make.MakeName + " Price in India, Review, Mileage & Photos - Bikewale";
         description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) + " - Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
         alternate = "http://www.bikewale.com/m/" + _make.MaskingName + "-bikes/";
-        canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";
+        canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";       
+        TargetedMake = _make.MakeName;
+        AdPath = "/1017752/Bikewale_NewBike_";
+        AdId = "1442913773076";
+        isAd970x90Shown = true;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -22,17 +26,7 @@
     <form runat="server">
     <!-- #include file="/includes/headBW.aspx" -->
     
-    <!-- Brand Page Starts Here-->
-    <section class="bg-white header-fixed-inner">
-        <div class="container">
-            <div class="grid-12">
-                <div class="padding-bottom15 text-center">
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-    
+    <!-- Brand Page Starts Here-->    
     <section class="bg-light-grey padding-top10">
     	<div class="container">
         	<div class="grid-12">

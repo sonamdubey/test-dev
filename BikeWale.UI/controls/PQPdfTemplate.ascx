@@ -299,7 +299,7 @@
                         <tr>
                             <td style="width:100px;vertical-align:top;border-right:1px solid #E5E5E5;">
                                  <div>
-                                    <img alt=" Bajaj Avenger 220 DTS- i Photos" src="http://img.carwale.com/bikewaleimg/models/548b.jpg?20140909125715" title="Bajaj Avenger 220 DTS- i Photos">
+                                    <img alt=" Bajaj Avenger 220 DTS- i Photos" src="http://img.aeplcdn.com/bikewaleimg/models/548b.jpg?20140909125715" title="Bajaj Avenger 220 DTS- i Photos">
                                  </div>
                             </td>
                             

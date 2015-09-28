@@ -246,7 +246,6 @@ function fetchPriceQuote(vm) {
                     if (cityId > 0) {
                         cityName = $("#ddlCity option:selected").text();
                         cookieValue = cityId + "_" + cityName;
-                        console.log(cookieValue);
                         SetCookieInDays("location", cookieValue, 365);
                     }
 
@@ -312,7 +311,6 @@ function fetchPriceQuote(vm) {
                     if (cityId > 0) {
                         cityName = $("#ddlCity option:selected").text();
                         cookieValue = cityId + "_" + cityName;
-                        console.log(cookieValue);
                         SetCookieInDays("location", cookieValue, 365);
                     }  
 

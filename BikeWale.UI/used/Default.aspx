@@ -345,7 +345,6 @@
 
                     if (status.value == true) {
                         location.href = search_href;
-                        console.log("search_href: " + search_href);
                     }
                     else {
                         $("#btnSearchUsedBike").removeClass("hide").addClass("show");

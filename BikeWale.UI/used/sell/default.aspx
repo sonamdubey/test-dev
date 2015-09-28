@@ -82,7 +82,7 @@
                             <input type="hidden" id="hdnBikeColor" runat="server" />
                             <div id="comboColors" style="display: inline-block;" title="Choose color of your bike">
                                 <div id="colorPreview"></div>
-                                <img id="drpColorImg" style="padding: 2px 2px 0 0;" src="http://img.carwale.com/sell/drop.png" border="0" align="right" /><div id="selectedColor" runat="server" style="padding: 5px;">-- Select Color --</div>
+                                <img id="drpColorImg" style="padding: 2px 2px 0 0;" src="http://img.aeplcdn.com/sell/drop.png" border="0" align="right" /><div id="selectedColor" runat="server" style="padding: 5px;">-- Select Color --</div>
                             </div>
                             <div id="colors">
                                 <ul class="ul-normal">

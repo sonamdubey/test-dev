@@ -2,7 +2,7 @@
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" src="/Controls/RepeaterPagerPhotoGallery.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="System.Data" %>
-<div id="smAlertMsg" runat="server"><img src="http://img.carwale.com/adgallery/alert.gif" /></div>
+<div id="smAlertMsg" runat="server"><img src="http://img.aeplcdn.com/adgallery/alert.gif" /></div>
 <BikeWale:RepeaterPager id="rpgListings" ResultName="Bikes" ShowHeadersVisible="false" PagerPosition="TopBottom" runat="server">
 	<asp:Repeater ID="rptListings" runat="server" EnableViewState="false">
 	<headertemplate>

@@ -10,7 +10,7 @@
 (function ($) {
     $.fn.adGallery = function (options) {
         var defaults = {
-            loader_image: 'http://img.carwale.com/bikewaleimg/images/circleloader.gif',
+            loader_image: 'http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif',
             start_at_index: 0,
             description_wrapper: false,
             thumb_opacity: 0.7,
@@ -722,7 +722,7 @@
                   image.error = true;
                   image.preloaded = false;
                   image.size = false;
-                  image.image = "http://img.carwale.com/adgallery/no-img-thumb.png";
+                  image.image = "http://img.aeplcdn.com/adgallery/no-img-thumb.png";
               }
             );
                     } else {

@@ -482,8 +482,8 @@ namespace Bikewale.Controls
 
             if (sortCriteria == sc)
             {
-                sortImage = (so == "1" ? "<img src='http://img.carwale.com/used/sorting-down.png' border='0' />" :
-                                "<img src='http://img.carwale.com/used/sorting-up.png' border='0' />");
+                sortImage = (so == "1" ? "<img src='http://img.aeplcdn.com/used/sorting-down.png' border='0' />" :
+                                "<img src='http://img.aeplcdn.com/used/sorting-up.png' border='0' />");
             }
 
             return sortImage;

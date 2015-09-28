@@ -424,11 +424,9 @@ $(document).ready(function () {
     $.fn.bw_autocomplete = function (options) {
         return this.each(function () {
             if (options == null || options == undefined) {
-                console.log("cwsearch: please define options");
                 return;
             }
             else if (options.source == null || options.source == undefined || options.source == '') {
-                console.log("cwsearch: please define source");
                 return;
             }
             var cache = new Object();
@@ -591,12 +589,12 @@ function CheckGlobalCookie() {
         $(".fa-spinner").hide();
         $("#globalCityPopUp").val(cityName);
     }
-    else
-    {
-        showHideMatchError($("#globalCityPopUp"), false);
-        $("#globalcity-popup").show();
-        lockPopup();
-    }
+    //else
+    //{
+    //    showHideMatchError($("#globalCityPopUp"), false);
+    //    $("#globalcity-popup").show();
+    //    lockPopup();
+    //}
 }
 
 

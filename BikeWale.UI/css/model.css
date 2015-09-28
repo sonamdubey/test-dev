@@ -62,7 +62,7 @@
 .available-colors .color-box {width:60px; height:60px; margin:0 auto 15px; border-radius:3px; background:#f00; border:1px solid #ccc;}
 .varient-desc-container { min-height:72px; }
 /* model sprite classes */
-.model-sprite { background:url(http://img.carwale.com/bikewaleimg/images/model-sprite.png?v123) no-repeat; display:inline-block;}
+.model-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/images/model-sprite.png?v123) no-repeat; display:inline-block;}
 .bw-summary-ico { background-position:0 0; width:23px; height:23px; margin-right:26px; position:relative; top:3px; left:5px;}
 .bw-engine-ico { background-position:0 -32px; width:30px; height:22px; margin-right:20px; position:relative; top:3px;}
 .bw-brakeswheels-ico { background-position:0 -63px; width:26px; height:26px; margin-right:26px; position:relative; top:3px; left:3px;}
