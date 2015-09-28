@@ -8,9 +8,19 @@ jQuery(function () {
             width = element.innerWidth();
         element.jcarousel('items').css('width', width + 'px');
     })
-    .jcarousel({
-        // Your configurations options
-
+    .on('jcarousel:targetin', 'li', function () {
+        $("img.lazy").lazyload({
+            threshold: 200
+        });
+    });
+    $(".jcarousel-pagination").click(function () {
+        $("img.lazy").lazyload({
+            threshold: 200
+        });
+    });
+    
+    $(".alternatives-carousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
+        $(this).find("img.lazy").trigger("imgLazyLoad");
     });
 
 });
@@ -71,7 +81,7 @@ function pqViewModel(modelId, cityId) {
     self.DealerPriceList = ko.observableArray([]);
     self.BWPriceList = ko.observable();
     self.FormatPricedata = function (item) {
-        if(item!=undefined)
+        if (item != undefined)
             return formatPrice(item);
         return "";
     };
@@ -312,7 +322,7 @@ function fetchPriceQuote(vm) {
                         cityName = $("#ddlCity option:selected").text();
                         cookieValue = cityId + "_" + cityName;
                         SetCookieInDays("location", cookieValue, 365);
-                    }  
+                    }
 
                 }
                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
@@ -422,7 +432,7 @@ function InitVM(cityId) {
 }
 
 $(document).ready(function () {
-    if (isUsed == "False") {        
+    if (isUsed == "False") {
         InitVM(cityId);
     }
     $(".unveil-offer-btn-container").removeClass("hide");

@@ -460,7 +460,7 @@ $(document).ready(function () {
                         $(".fa-spinner").show();
                         var indexToHit = options.source;
                         var count = options.recordCount;
-                        var path = "/api/AutoSuggest?source=" + indexToHit + "&inputText=" + encodeURIComponent(reqTerm) + "&noofrecords=" + count;
+                        var path = "/api/AutoSuggest/?source=" + indexToHit + "&inputText=" + encodeURIComponent(reqTerm) + "&noofrecords=" + count;
 
                         cache[cacheProp] = new Array();
                         $.ajax({
