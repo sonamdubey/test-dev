@@ -79,7 +79,7 @@ namespace Bikewale.Utility
             {
                 retVal = timeSpan.Days.ToString();
 
-                retVal += retVal == "1" ? "day ago" : "days ago";
+                retVal += retVal == "1" ? " day ago" : " days ago";
             }
             else if (timeSpan.Hours > 0)
             {
