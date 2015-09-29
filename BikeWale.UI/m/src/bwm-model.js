@@ -88,17 +88,29 @@ function pqViewModel(modelId, cityId) {
     self.selectedCity.subscribe(function () {
         self.areas("");
         self.selectedArea(undefined);
+        var selectedCity = $('#ddlCity :selected').text();
+        if ($('#ddlCity :selected').index() != 0) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': selectedCity });
+        }
         loadArea(self);
     });
 
     self.selectedArea.subscribe(function () {
-        if (self.selectedArea() != undefined && self.selectedArea() != 0)
+        if (self.selectedArea() != undefined && self.selectedArea() != 0) {
             fetchPriceQuote(self);
+            var selectedArea = $('#ddlArea :selected').text();
+            if ($('#ddlArea :selected').index() != 0) {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': selectedArea });
+            }
+        }
     });
 
     self.availOfferBtn = function () {
-        if (self.priceQuote() && self.priceQuote().IsDealerPriceAvailable && self.priceQuote().dealerPriceQuote.offers.length > 0)
+        if (self.priceQuote() && self.priceQuote().IsDealerPriceAvailable && self.priceQuote().dealerPriceQuote.offers.length > 0) {
+            var city_area = GetGlobalCityArea();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': city_area });
             window.location.href = "/pricequote/bookingsummary_new.aspx";
+        }
         return false;
     };
 }

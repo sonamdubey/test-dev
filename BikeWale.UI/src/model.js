@@ -62,17 +62,30 @@ function pqViewModel(modelId, cityId) {
     self.selectedCity.subscribe(function () {
         self.areas("");
         self.selectedArea(undefined);
+        var selectedCity = $('#ddlCity :selected').text();
+        if ($('#ddlCity :selected').index() != 0) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': selectedCity });
+        }
         loadArea(self);
     });
 
+    
     self.selectedArea.subscribe(function () {
-        if (self.selectedArea() != undefined && self.selectedArea()!=0)
+        if (self.selectedArea() != undefined && self.selectedArea() != 0) {
             fetchPriceQuote(self);
+            var selectedArea = $('#ddlArea :selected').text();
+            if ($('#ddlArea :selected').index() != 0) {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': selectedArea });
+            }
+        }
     });
 
     self.availOfferBtn = function () {
-        if (self.priceQuote() && self.priceQuote().IsDealerPriceAvailable && self.priceQuote().dealerPriceQuote.offers.length > 0)
+        if (self.priceQuote() && self.priceQuote().IsDealerPriceAvailable && self.priceQuote().dealerPriceQuote.offers.length > 0) {
+            var city_area = GetGlobalCityArea();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': city_area });
             window.location.href = "/pricequote/bookingsummary_new.aspx";
+        }
         return false;
     };
 
@@ -458,24 +471,6 @@ function checkNumeric(str) {
     return parseInt(str.replace(/\,/g, ''));
 }
 
-// GA codes
-
-$('#ddlCity').change(function () {
-    if ($('#ddlCity option:selected').index() != 0) {
-        var cityClicked = $('#ddlCity option:selected').text();
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': cityClicked });
-    }
-
-});
-
-$('#ddlArea').change(function () {
-    if ($('#ddlArea option:selected').index() != 0) {
-        var areaClicked = $('#ddlArea option:selected').text();
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': areaClicked });
-    }
-
-});
-
 $("#btnShowOffers").on("click", function () {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName });
 //sections display properties for the area fail status
@@ -494,13 +489,4 @@ function pqAreaFailStatus()
 //window.setInterval(function () {
 //    $('.chosen-select').trigger('chosen:updated');
 //}, 1000);
-});
-
-$("#btnBookNow").on("click", function () {
-    var city_area = getCookie('location');
-    var arrays = city_area.split("_");
-    if (arrays.length > 2) {
-        cityArea = arrays[1] + '_' + arrays[3];
-    }
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName + '_' + city_area });
 });

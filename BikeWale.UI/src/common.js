@@ -500,8 +500,6 @@ $(document).ready(function () {
 
 	$("#discoverMileage li a").on("click", function () {
 	    var mileageClick = $(this).text().replace(/\s/g, "");
-//  $(this).text().replace(/ +(?= )/g, '');
-//
 	    var category = GetCatForNav();
 	    if (category != null) {
 	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Discover_Your_Bike_Mileage', 'lab': mileageClick });
