@@ -194,7 +194,6 @@ $(document).ready(function () {
         open: function (result) {
             objCity.result = result;
             if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-                //alert("IOS");
                 $('.ui-autocomplete').off('menufocus hover mouseover');
             }
         },
@@ -725,8 +724,8 @@ function GetGlobalCityArea() {
     var cityArea = '';
     if (isCookieExists(cookieName)) {
         var arrays = getCookie(cookieName).split("_");
-        if (arrays.length > 0) {
-            cityArea = arrays[arrays.length - 1];
+        if (arrays.length > 3) {
+            cityArea = arrays[1] +'_'+arrays[3];
         }
         return cityArea;
     }
