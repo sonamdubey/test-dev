@@ -300,7 +300,7 @@
                     model.id = ui.item.payload.modelId;
                     pageId = '<%= PageId %>';
                     selectedMakeName = ui.item.label;
-                    gtmCodeAppender(pageId, "Get_On_Road_Price_Click", null);
+                    gtmCodeAppender(pageId, "Get_On_Road_Price_Click", selectedMakeName);
                     $("#errMsgOnRoad").empty();
                     selectedModel = model.id;
                     FillCitiesOnRoad(selectedModel);
