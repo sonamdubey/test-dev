@@ -10,12 +10,12 @@ jQuery(function () {
     })
     .on('jcarousel:targetin', 'li', function () {
         $("img.lazy").lazyload({
-            threshold: 200
+            threshold: 200,
         });
     });
     $(".jcarousel-pagination").click(function () {
         $("img.lazy").lazyload({
-            threshold: 200
+            threshold: 200,
         });
     });
     
