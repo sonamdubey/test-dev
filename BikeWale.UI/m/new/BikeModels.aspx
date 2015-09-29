@@ -491,6 +491,10 @@
                                         <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.GearboxType) %></div>
                                     </li>
                                     <li>
+                                        <div class="text-light-grey">No. of Gears</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfGears) %></div>
+                                    </li>
+                                    <li>
                                         <div class="text-light-grey">Transmission Type</div>
                                         <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TransmissionType) %></div>
                                     </li>
@@ -634,11 +638,11 @@
                                         <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TopSpeed, "kmph") %></div>
                                     </li>
                                     <li>
-                                        <div class="text-light-grey">60 to 0 kmph (Seconds, metres)</div>
+                                        <div class="text-light-grey">60 to 0 kmph</div>
                                         <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_60_0_kmph) %></div>
                                     </li>
                                     <li>
-                                        <div class="text-light-grey">80 to 0 kmph (Seconds, metres)</div>
+                                        <div class="text-light-grey">80 to 0 kmph</div>
                                         <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_80_0_kmph) %></div>
                                     </li>
                                     <div class="clear"></div>

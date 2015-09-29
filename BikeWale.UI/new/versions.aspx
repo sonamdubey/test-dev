@@ -439,7 +439,7 @@
                                         <li>
                                             <div class="text-light-grey">Displacement</div>
                                             <div class="text-bold">
-                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower,"cc") %> 
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement,"cc") %> 
                                             </div>
                                             <div class="clear"></div>
                                         </li>
@@ -532,24 +532,20 @@
                                         <li>
                                             <div class="text-light-grey">Max Power</div>
                                             <div class="text-bold">
-                                            <%= 
-                                            Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp",
-                                                modelPage.ModelVersionSpecs.MaxPowerRPM,"rpm")
-                                            %>                                             
+                                            <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %>                                             
                                             </div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
                                             <div class="text-light-grey">Maximum Torque</div>
                                             <div class="text-bold">
-                                            <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm",
-                                                 modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %>
+                                            <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm", modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %>
                                             </div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
                                             <div class="text-light-grey">Bore</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Bore," mm") %></div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Bore,"mm") %></div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
@@ -593,7 +589,7 @@
                                             <div class="clear"></div>
                                         </li>
                                         <li>
-                                            <div class="text-light-grey">No Of Gears</div>
+                                            <div class="text-light-grey">No of Gears</div>
                                             <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfGears) %></div>
                                             <div class="clear"></div>
                                         </li>
@@ -739,7 +735,7 @@
                                         </li>
                                         <li>
                                             <div class="text-light-grey">Reserve Fuel Capacity</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ReserveFuelCapacity,"kmpl") %></div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ReserveFuelCapacity,"litres") %></div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
@@ -773,12 +769,12 @@
                                             <div class="clear"></div>
                                         </li>
                                         <li>
-                                            <div class="text-light-grey">60 to 0 kmph (Seconds, metres)</div>
+                                            <div class="text-light-grey">60 to 0 kmph</div>
                                             <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_60_0_kmph) %></div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
-                                            <div class="text-light-grey">80 to 0 kmph (Seconds, metres)</div>
+                                            <div class="text-light-grey">80 to 0 kmph</div>
                                             <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_80_0_kmph) %></div>
                                             <div class="clear"></div>
                                         </li>
