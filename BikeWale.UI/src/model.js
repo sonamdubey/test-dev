@@ -64,6 +64,8 @@ function pqViewModel(modelId, cityId) {
     };
 
     self.selectedCity.subscribe(function () {
+        self.areas("");
+        self.selectedArea(undefined);
         if(self.selectedCity() != undefined)
             loadArea(self);
     });
