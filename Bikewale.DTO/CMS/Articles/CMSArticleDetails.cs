@@ -18,5 +18,7 @@ namespace Bikewale.DTO.CMS.Articles
         public string MainImgCaption { get; set; }
         public bool IsMainImageSet { get; set; }
         public string AuthorMaskingName { get; set; }
+
+        public HtmlContent htmlContent { get; set; }
     }
 }

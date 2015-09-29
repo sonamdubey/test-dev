@@ -31,49 +31,87 @@ namespace Bikewale.Utility
             return value.Length <= maxLength ? value : value.Substring(0, maxLength);
         }
 
+        /// <summary>
+        /// Created By : Ashish G. Kamble on 28 Sept 2015
+        /// Summary : Function to format the date. Date will be formatted as years ago, months ago, days ago, hours ago, minutes ago, seconds ago.
+        /// </summary>
+        /// <param name="displayDate">Date in the string format.</param>
+        /// <returns>Returns formatted date.</returns>
         public static string GetDaysAgo(string displayDate)
         {
             string retVal = "";
-            TimeSpan tsDiff = DateTime.Now.Subtract(Convert.ToDateTime(displayDate));
 
-            if (tsDiff.Days > 0)
+            TimeSpan timeSpan = DateTime.Now.Subtract(Convert.ToDateTime(displayDate));
+            
+            retVal = FormateDate(timeSpan);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Created By : Ashish G. Kamble on 28 Sept 2015
+        /// Summary : Function to format the date. Date will be formatted as years ago, months ago, days ago, hours ago, minutes ago, seconds ago.
+        /// </summary>
+        /// <param name="displayDate">Date in the datetime format.</param>
+        /// <returns>Returns formatted date.</returns>
+        public static string GetDaysAgo(DateTime displayDate)
+        {
+            string retVal = "";
+
+            TimeSpan timeSpan = DateTime.Now.Subtract(displayDate);
+
+            retVal = FormateDate(timeSpan);
+
+            return retVal;
+        }
+
+        /// <summary>
+        /// Created By : Ashish G. Kamble on 28 Sept 2015
+        /// Summary : Function to formate the date. Date will be formatted as years ago, months ago, days ago, hours ago, minutes ago, seconds ago.
+        /// </summary>
+        /// <param name="timeSpan">Difference between todays date and date which needs formatting.</param>
+        /// <returns></returns>
+        private static string FormateDate(TimeSpan timeSpan)
+        {
+            string retVal = string.Empty;
+
+            if (timeSpan.Days > 0)
             {
-                retVal = tsDiff.Days.ToString();
+                retVal = timeSpan.Days.ToString();
 
-                retVal+= retVal=="1"? "day ago": "days ago";
+                retVal += retVal == "1" ? "day ago" : "days ago";
+            }
+            else if (timeSpan.Hours > 0)
+            {
+                retVal = timeSpan.Hours.ToString();
+
+                retVal += retVal == "1" ? " hour ago" : " hours ago";
+            }
+            else if (timeSpan.Minutes > 0)
+            {
+                retVal = timeSpan.Minutes.ToString();
+                retVal += retVal == "1" ? " minute ago" : " minutes ago";
+            }
+            else if (timeSpan.Seconds > 0)
+            {
+                retVal = timeSpan.Seconds.ToString();
+
+                retVal += retVal == "1" ? " second ago" : " seconds ago";
 
             }
-            else if (tsDiff.Hours > 0)
-            {
-                retVal = tsDiff.Hours.ToString();
 
-                retVal+= retVal=="1"?" hour ago":" hours ago";
-            }
-            else if (tsDiff.Minutes > 0)
+            if (timeSpan.Days > 360)
             {
-                retVal = tsDiff.Minutes.ToString();
-                retVal+=retVal=="1"?" minute ago":" minutes ago";
-            }
-            else if (tsDiff.Seconds > 0)
-            {
-                retVal = tsDiff.Seconds.ToString();
+                retVal = Convert.ToString(timeSpan.Days / 360);
 
-                retVal+=retVal=="1"?" second ago":" seconds ago";
+                retVal += retVal == "1" ? " year ago" : " years ago";
 
             }
-
-            if (tsDiff.Days > 360)
+            else if (timeSpan.Days > 30)
             {
-                retVal = Convert.ToString(tsDiff.Days / 360);
+                retVal = Convert.ToString(timeSpan.Days / 30);
 
-                retVal+=retVal=="1"?" year ago":" years ago";
-
-            }
-            else if (tsDiff.Days > 30)
-            {
-                retVal = Convert.ToString(tsDiff.Days / 30);
-
-                retVal+=retVal=="1"?" month ago":" months ago";
+                retVal += retVal == "1" ? " month ago" : " months ago";
             }
 
             return retVal;

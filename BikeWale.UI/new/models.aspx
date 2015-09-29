@@ -14,6 +14,8 @@
         description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) + " - Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
         alternate = "http://www.bikewale.com/m/" + _make.MaskingName + "-bikes/";
         canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";
+        AdId = "1395986297721";
+        AdPath = "/1017752/BikeWale_New_";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -26,7 +28,7 @@
     <section class="bg-white header-fixed-inner">
         <div class="container">
             <div class="grid-12">
-                <div class="padding-bottom15 text-center">
+                <div class="padding-bottom15 text-center">                    
                 </div>
             </div>
             <div class="clear"></div>

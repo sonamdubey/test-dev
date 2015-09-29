@@ -20,5 +20,7 @@ namespace Bikewale.DTO.CMS.Articles
         public bool IsSticky { get; set; }
         public uint FacebookCommentCount { get; set; }
         public string OriginalImgUrl { get; set; }
+
+        public string FormattedDisplayDate { get; set; }
     }
 }
