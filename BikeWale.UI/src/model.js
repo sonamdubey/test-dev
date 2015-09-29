@@ -115,7 +115,6 @@ function loadCity(vm) {
 
 function loadArea(vm) {
     $(ctrlSelectArea).next().show();
-    console.log(vm.selectedCity());
     if (vm.selectedCity()!=undefined) {
         $.ajax({
             url: "/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity(),
