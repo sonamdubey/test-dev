@@ -60,3 +60,38 @@ function ScrollToTop(id, scrollSpeed) {
         return false;
     });
 }
+
+function GetGlobalCityArea() {
+    var cookieName = "location";
+    var cityArea = '';
+    if (isCookieExists(cookieName)) {
+        var arrays = getCookie(cookieName).split("_");
+        if (arrays.length > 2) {
+            cityArea = arrays[1] + '_' + arrays[3];
+        }
+        return cityArea;
+    }
+}
+
+function isCookieExists(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0)
+            return true;
+    }
+    return false;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1);
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}

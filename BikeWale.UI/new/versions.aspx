@@ -265,7 +265,7 @@
                                 <!-- On Road Price mesasge starts -->
                                 <!-- ko if : BWPriceList() || DealerPriceList() -->
                                 <div class="city-onRoad-price-container font16 margin-bottom15 hide">
-                                    <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>Edit</span></p>
+                                    <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>change location</span></p>
                                     <p class="font12 margin-bottom15 text-light-grey" id="breakup"></p>
                                     <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
                                     <input type="button" class="btn btn-orange" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
@@ -307,7 +307,10 @@
                                         <!-- /ko -->
                                          <!-- ko if : !priceQuote().IsDealerPriceAvailable -->
                                         <ul >
-                                            <li>
+                                             <li data-bind="visible:areas() && areas().length > 0">
+                                                Currently there are no offers in your area. We hope to serve your area soon!
+                                            </li> 
+                                            <li data-bind="visible: !(areas() && areas().length > 0)">
                                                 Currently there are no offers in your city. We hope to serve your city soon!
                                             </li> 
                                         </ul>
@@ -436,7 +439,7 @@
                                         <li>
                                             <div class="text-light-grey">Displacement</div>
                                             <div class="text-bold">
-                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower,"cc") %> 
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement,"cc") %> 
                                             </div>
                                             <div class="clear"></div>
                                         </li>
@@ -529,24 +532,20 @@
                                         <li>
                                             <div class="text-light-grey">Max Power</div>
                                             <div class="text-bold">
-                                            <%= 
-                                            Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp",
-                                                modelPage.ModelVersionSpecs.MaxPowerRPM,"rpm")
-                                            %>                                             
+                                            <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %>                                             
                                             </div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
                                             <div class="text-light-grey">Maximum Torque</div>
                                             <div class="text-bold">
-                                            <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm",
-                                                 modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %>
+                                            <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm", modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %>
                                             </div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
                                             <div class="text-light-grey">Bore</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Bore," mm") %></div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Bore,"mm") %></div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
@@ -590,7 +589,7 @@
                                             <div class="clear"></div>
                                         </li>
                                         <li>
-                                            <div class="text-light-grey">No Of Gears</div>
+                                            <div class="text-light-grey">No of Gears</div>
                                             <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfGears) %></div>
                                             <div class="clear"></div>
                                         </li>
@@ -736,7 +735,7 @@
                                         </li>
                                         <li>
                                             <div class="text-light-grey">Reserve Fuel Capacity</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ReserveFuelCapacity,"kmpl") %></div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ReserveFuelCapacity,"litres") %></div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
@@ -770,12 +769,12 @@
                                             <div class="clear"></div>
                                         </li>
                                         <li>
-                                            <div class="text-light-grey">60 to 0 kmph (Seconds, metres)</div>
+                                            <div class="text-light-grey">60 to 0 kmph</div>
                                             <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_60_0_kmph) %></div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
-                                            <div class="text-light-grey">80 to 0 kmph (Seconds, metres)</div>
+                                            <div class="text-light-grey">80 to 0 kmph</div>
                                             <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_80_0_kmph) %></div>
                                             <div class="clear"></div>
                                         </li>
@@ -1019,6 +1018,7 @@
          <BW:PriceQuotePopup ID="ctrlPriceQuotePopup" runat="server" />
 
         <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?<%= staticFileVersion %>">"></script>
         <script type="text/javascript">
             var myBikeName = '<%= this.bikeName %>';
@@ -1082,12 +1082,7 @@
                 viewModel.LoadCity();
             }
 
-        </script>
-        
-
-        
-        <!-- #include file="/includes/footerscript.aspx" -->
-       
+        </script>      
     </form>
 </body>
 </html>

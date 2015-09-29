@@ -94,17 +94,18 @@ function loadCity(vm) {
     if (vm.selectedModel()) {
         $.get("/api/PQCityList/?modelId=" + vm.selectedModel(),
             function (data) {
-                $(ctrlSelectCity).next().hide();
+               
                 if (data) {
                     var city = ko.toJS(data);
                     vm.cities(city.cities);
                     ctrlSelectCity = $("#ddlCity");
                     //$(ctrlSelectCity).trigger("chosen:updated");
                     PQcheckCookies();                    
-                    if (selectElementFromArray(vm.cities(),pqCookieObj.PQCitySelectedId)) {
+                    if (!isNaN(pqCookieObj.PQCitySelectedId) && pqCookieObj.PQCitySelectedId > 0 && selectElementFromArray(vm.cities(), pqCookieObj.PQCitySelectedId)) {
                         vm.selectedCity(pqCookieObj.PQCitySelectedId);
                         pqCookieObj.PQCitySelectedId = 0;
                     }
+                    $(ctrlSelectCity).next().hide();
                 }
             });
     }
@@ -123,13 +124,13 @@ function loadArea(vm) {
                 vm.areas(area.areas);
                 ctrlSelectArea = $("#ddlArea");
                 $(".city-select-text").hide();
-                $(offerBtnContainer).show();
-                $(ctrlSelectArea).next().hide();
+                $(offerBtnContainer).show();                 
                 //$(ctrlSelectArea).trigger("chosen:updated");
-                if (selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId)) {
+                if (!isNaN(pqCookieObj.PQAreaSelectedId) && pqCookieObj.PQAreaSelectedId > 0 && vm.areas().length > 0 && selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId)) {
                     vm.selectedArea(pqCookieObj.PQAreaSelectedId);
                     pqCookieObj.PQAreaSelectedId = 0;
                 }
+                $(ctrlSelectArea).next().hide();
             }
             else {
                 vm.areas([]);
@@ -460,14 +461,18 @@ function checkNumeric(str) {
 // GA codes
 
 $('#ddlCity').change(function () {
-    var cityClicked = $('#ddlCity option:selected').text();
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': cityClicked });
+    if ($('#ddlCity option:selected').index() != 0) {
+        var cityClicked = $('#ddlCity option:selected').text();
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': cityClicked });
+    }
 
 });
 
 $('#ddlArea').change(function () {
-    var areaClicked = $('#ddlArea option:selected').text();
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': areaClicked });
+    if ($('#ddlArea option:selected').index() != 0) {
+        var areaClicked = $('#ddlArea option:selected').text();
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': areaClicked });
+    }
 
 });
 
@@ -493,5 +498,9 @@ function pqAreaFailStatus()
 
 $("#btnBookNow").on("click", function () {
     var city_area = getCookie('location');
+    var arrays = city_area.split("_");
+    if (arrays.length > 2) {
+        cityArea = arrays[1] + '_' + arrays[3];
+    }
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName + '_' + city_area });
 });
