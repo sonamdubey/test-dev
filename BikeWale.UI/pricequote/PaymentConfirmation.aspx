@@ -169,7 +169,7 @@
                                     </div>
                                 </div>
                     </div>
-                	<p class="margin-top10">Balance Amount Payable at Dealership: <span class="WebRupee">Rs.</span> <%=totalPrice - Convert.ToUInt32(Bikewale.Common.CommonOpn.FormatPrice(_objPQ.objBookingAmt.Amount.ToString())) - insuranceAmount %></p>
+                	<p class="margin-top10">Balance Amount Payable at Dealership: <span class="WebRupee">Rs.</span> <%=Bikewale.Utility.Format.FormatPrice((totalPrice - _objPQ.objBookingAmt.Amount - insuranceAmount).ToString()) %></p>
                 </div>
             <!--Get pq code ends here-->
             <!--next steps starts here-->
@@ -210,8 +210,9 @@
                                 <div class="margin-left20">
                                     <p><%= address %></p>
                                                         
-                                    <%if (!String.IsNullOrEmpty(_objPQ.objDealer.WorkingTime)) {%>
-                                    <div class="margin-top10"><span><b>Working Hours: </b></span><%=   _objPQ.objDealer.WorkingTime   %></div>
+                                    <%if (!String.IsNullOrEmpty(WorkingTime))
+                                      {%>
+                                    <div class="margin-top10"><span><b>Working Hours: </b></span><%=  WorkingTime   %></div>
                                     <%} %>
                                     <%--<div class="margin-top10"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.9863217196075!2d72.99639100000005!3d19.064338999999993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b2c080cb%3A0x225353b221740ef0!2sCarWale!5e0!3m2!1sen!2sin!4v1418196092146" width="250" height="140" frameborder="0" style="border:0"></iframe></div>--%>
                                     <div class="margin-top10 margin-right20 map-content hide" id="divMapWindow">

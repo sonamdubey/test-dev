@@ -20,7 +20,7 @@ namespace Bikewale.PriceQuote
         protected double lattitude, longitude;
         protected uint totalPrice = 0;
         protected UInt32 BooingAmt = 0;
-        protected string contactNo = string.Empty, organization = string.Empty, address = string.Empty, bikeName = string.Empty, MakeModel = string.Empty, bookingRefNum = string.Empty;
+        protected string contactNo = string.Empty, organization = string.Empty, address = string.Empty, bikeName = string.Empty, MakeModel = string.Empty, bookingRefNum = string.Empty, WorkingTime = string.Empty;
         protected UInt32 insuranceAmount = 0;
         protected bool IsInsuranceFree = false;
         protected override void OnInit(EventArgs e)
@@ -117,6 +117,7 @@ namespace Bikewale.PriceQuote
                         }
 
                         address += ", " + _objPQ.objDealer.objState.StateName;
+                        WorkingTime = Convert.ToString(_objPQ.objDealer.WorkingTime);
                     }
                     if (_objPQ.objQuotation != null)
                     {
