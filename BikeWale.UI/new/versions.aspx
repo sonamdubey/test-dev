@@ -501,7 +501,7 @@
                                         </li>
                                         <li>
                                             <div class="text-light-grey">Top Speed</div>
-                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TopSpeed, "kmpl") %></div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TopSpeed, "kmph") %></div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
@@ -589,7 +589,7 @@
                                             <div class="clear"></div>
                                         </li>
                                         <li>
-                                            <div class="text-light-grey">No of Gears</div>
+                                            <div class="text-light-grey">No. of Gears</div>
                                             <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfGears) %></div>
                                             <div class="clear"></div>
                                         </li>
@@ -833,7 +833,7 @@
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ShiftLight) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">No Of Tripmeters</div>
+                                    <div class="text-light-grey">No. of Tripmeters</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfTripmeters) %></div>
                                 </li>
                                 <li>

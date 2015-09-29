@@ -630,7 +630,7 @@
                                         <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_0_80_kmph, "seconds") %></div>
                                     </li>
                                     <li>
-                                        <div class="text-light-grey">0 to 40 m</div>
+                                        <div class="text-light-grey">0 to 40 kmph</div>
                                         <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_0_40_m, "seconds") %></div>
                                     </li>
                                     <li>
@@ -695,7 +695,7 @@
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ShiftLight) %></div>
                                 </li>
                                 <li>
-                                    <div class="text-light-grey">No of Tripmeters</div>
+                                    <div class="text-light-grey">No. of Tripmeters</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfTripmeters) %></div>
                                 </li>
                                 <li>
