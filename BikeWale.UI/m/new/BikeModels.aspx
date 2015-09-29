@@ -20,7 +20,7 @@
         AdId = "1017752";
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?15Sep2015v2" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />    
 </head>
 <body>
     <form id="form1" runat="server">
