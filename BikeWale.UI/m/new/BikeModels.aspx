@@ -199,7 +199,7 @@
                     </div>
                     <!-- /ko -->
                     <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible: popularCityClicked()">
-                        <div class="city-select-text text-left margin-bottom15 "  data-bind="enable: !selectedCity() || cities()">
+                        <div class="city-select-text text-left margin-bottom15 "  data-bind="visible: !selectedCity() || cities()">
                             <p class="font14">Select city for accurate on-road price and exclusive offers</p>
                         </div>
                         <!-- ko if : selectedCity() && areas()  && areas().length > 0-->
