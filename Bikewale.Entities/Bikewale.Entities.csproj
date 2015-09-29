@@ -97,6 +97,8 @@
     <Compile Include="CMS\Articles\ArticleSummary.cs" />
     <Compile Include="CMS\Articles\CMSContentBase.cs" />
     <Compile Include="CMS\Articles\ContentFilter.cs" />
+    <Compile Include="CMS\Articles\HtmlContent.cs" />
+    <Compile Include="CMS\Articles\HtmlItem.cs" />
     <Compile Include="CMS\Articles\Image.cs" />
     <Compile Include="CMS\Articles\Page.cs" />
     <Compile Include="CMS\Articles\VehicleTag.cs" />
