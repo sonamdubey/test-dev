@@ -67,6 +67,9 @@ namespace Bikewale.Service.Controllers.CMS
 
                     List<CMSArticleSummary> objCMSRArticles = new List<CMSArticleSummary>();
                     objCMSRArticles = CMSMapper.Convert(objRecentArticles);
+
+                    objCMSRArticles.ForEach(s => s.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(s.DisplayDate));
+
                     return Ok(objCMSRArticles);
                 }
             }
@@ -123,6 +126,9 @@ namespace Bikewale.Service.Controllers.CMS
 
                     List<CMSArticleSummary> objCMSRArticles = new List<CMSArticleSummary>();
                     objCMSRArticles = CMSMapper.Convert(objRecentArticles);
+
+                    objCMSRArticles.ForEach(s => s.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(s.DisplayDate));
+
                     return Ok(objCMSRArticles);
                 }
             }
@@ -174,6 +180,9 @@ namespace Bikewale.Service.Controllers.CMS
                 {
                     Bikewale.DTO.CMS.Articles.CMSContent objCMSFArticles = new Bikewale.DTO.CMS.Articles.CMSContent();
                     objCMSFArticles = CMSMapper.Convert(objFeaturedArticles);
+
+                    objCMSFArticles.Articles.ToList().ForEach(s => s.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(s.DisplayDate));
+
                     return Ok(objCMSFArticles);
 
                 }
@@ -238,6 +247,9 @@ namespace Bikewale.Service.Controllers.CMS
                 {
                     Bikewale.DTO.CMS.Articles.CMSContent objCMSFArticles = new Bikewale.DTO.CMS.Articles.CMSContent();
                     objCMSFArticles = CMSMapper.Convert(objFeaturedArticles);
+
+                    objCMSFArticles.Articles.ToList().ForEach(s => s.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(s.DisplayDate));
+
                     return Ok(objCMSFArticles);
 
                 }
