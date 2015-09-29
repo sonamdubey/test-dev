@@ -183,7 +183,6 @@
 
             //set global cookie
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
-            // GA code
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': selectedMakeName });
             $.ajax({
                 type: 'POST',
@@ -291,6 +290,7 @@
             var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
             var modelIdPopup = parseInt(str, 10);
             FillCitiesPopup(modelIdPopup, makeName, modelName, pageIdAttr);
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': _makeName });
         });
 
         $('#popupWrapper .close-btn,.blackOut-window').mouseup(function () {

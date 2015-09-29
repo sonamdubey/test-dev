@@ -461,14 +461,18 @@ function checkNumeric(str) {
 // GA codes
 
 $('#ddlCity').change(function () {
-    var cityClicked = $('#ddlCity option:selected').text();
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': cityClicked });
+    if ($('#ddlCity option:selected').index() != 0) {
+        var cityClicked = $('#ddlCity option:selected').text();
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': cityClicked });
+    }
 
 });
 
 $('#ddlArea').change(function () {
-    var areaClicked = $('#ddlArea option:selected').text();
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': areaClicked });
+    if ($('#ddlArea option:selected').index() != 0) {
+        var areaClicked = $('#ddlArea option:selected').text();
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': areaClicked });
+    }
 
 });
 
@@ -494,5 +498,9 @@ function pqAreaFailStatus()
 
 $("#btnBookNow").on("click", function () {
     var city_area = getCookie('location');
+    var arrays = city_area.split("_");
+    if (arrays.length > 2) {
+        cityArea = arrays[1] + '_' + arrays[3];
+    }
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName + '_' + city_area });
 });
