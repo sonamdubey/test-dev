@@ -212,6 +212,7 @@ $("a.fillPopupData").on("click", function (e) {
     $("#errMsgPopUp").empty();
     var str = $(this).attr('modelId');
     var modelIdPopup = parseInt(str, 10);
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': _makeName });
     FillCitiesPopup(modelIdPopup);
 });
 </script>

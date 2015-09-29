@@ -433,6 +433,10 @@ $(document).ready(function () {
 
     $("#btnBookNow").on("click", function () {
         var city_area = getCookie('location');
+        var arrays = city_area.split("_");
+        if (arrays.length > 2) {
+            cityArea = arrays[1] + '_' + arrays[3];
+        }
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName + '_' + city_area });
         window.location.href = "/m/pricequote/bookingsummary_new.aspx";
     });
