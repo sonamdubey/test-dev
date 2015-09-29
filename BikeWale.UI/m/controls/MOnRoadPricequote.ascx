@@ -287,11 +287,10 @@
                     model.maskingName = ui.item.payload.modelMaskingName;
                     model.id = ui.item.payload.modelId;
                     pageId = '<%= PageId %>';
-                    gtmCodeAppender(pageId, "Get_On_Road_Price_Click", null);
                     selectedModel = model.id;
                     selectedMakeName = ui.item.label;
                     FillCitiesOnRoad(selectedModel);
-
+                    gtmCodeAppender(pageId, "Get_On_Road_Price_Click", selectedMakeName);
                 }
             },
             open: function (result) {

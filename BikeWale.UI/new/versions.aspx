@@ -234,13 +234,13 @@
                             <% } %>
                             <% if (modelPage.ModelDetails.New)
                                { %>
-                            <!-- ko ifnot : cities()  && (cities().length > 0) -->
-                            <div id="city-list-container" class="city-list-container margin-bottom20">
+                            <!-- ko if :!popularCityClicked()-->
+                            <div id="city-list-container" class="city-list-container margin-bottom20 ">
                                 <div class="text-left margin-bottom15">
                                     <p class="font16 offer-error">Select city for accurate on-road price and exclusive offers</p>
                                 </div>
                                 <ul id="mainCity">
-                                    <li cityid="1"><span>Mumbai</span></li>
+                                    <li cityid="1" ><span>Mumbai</span></li>
                                     <li cityid="12"><span>Pune</span></li>
                                     <li cityid="2"><span>Bangalore</span></li>
                                     <li cityid="40"><span>Thane</span></li>
@@ -250,7 +250,7 @@
                             </div>
                             <!-- /ko -->
                             <!-- City and Area  msgs and select controls starts-->
-                            <div id="city-area-select-container" class="city-area-select-container margin-bottom20 ">
+                            <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible:popularCityClicked()">
                                 
                                 <div class="city-select-text text-left margin-bottom15 " data-bind="enable:!selectedCity() || cities()">
                                     <p class="font16">Select city for accurate on-road price and exclusive offers</p>

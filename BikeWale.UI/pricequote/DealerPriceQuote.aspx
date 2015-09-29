@@ -82,7 +82,7 @@
             <p>A verification code will be sent to the above Mobile Number. You will need the code for further Verification Process.</p>
         </div>
         <div class="mid-box margin-top15 center-align">
-        	<input type="submit" name="btnNext" value="Next" id="btnNext" class="action-btn" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });">
+        	<input type="button" name="btnNext" value="Next" id="btnNext" class="action-btn" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });">
         </div>
     </div>
 </div>
@@ -113,7 +113,7 @@
             </p>
         </div>
         <div class="mid-box margin-top15 center-align">
-        	<input type="submit" name="btnSavePriceQuote" value="Verify" id="btnSavePriceQuote" class="action-btn" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Verified Mobile Number' });">
+        	<input type="button" name="btnSavePriceQuote" value="Verify" id="btnSavePriceQuote" class="action-btn" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Verified Mobile Number' });">
        </div>
     </div>
 </div>

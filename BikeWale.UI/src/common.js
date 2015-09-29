@@ -793,6 +793,19 @@ function setLocationCookie(cityEle, areaEle) {
 //match cookie data to check city /area exists 
 function selectElementFromArray(dataArray,id)
 {
-    var result = $.grep(dataArray, function (e) { return e.id == id; });
-    return result;
+    l = dataArray.length;
+    if (dataArray != null && dataArray[0].cityId) {
+        for (var i = 0; i < l; i++) {
+            if (dataArray[i].cityId === id)
+                return true
+        }
+    }
+    else {
+        for (var i = 0; i < l; i++) {
+            if (dataArray[i].areaId === id)
+                return true
+        }
+    }
+
+    return false;
 }

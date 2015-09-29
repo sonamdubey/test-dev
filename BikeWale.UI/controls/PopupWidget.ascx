@@ -183,7 +183,6 @@
 
             //set global cookie
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': selectedMakeName });
             $.ajax({
                 type: 'POST',
                 url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
@@ -283,14 +282,13 @@
 
         $('a.fillPopupData').on('click', function (e) {
             pageIdAttr = $(this).attr('pageCatId');
-            gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", null);
             e.preventDefault();
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
             var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
             var modelIdPopup = parseInt(str, 10);
             FillCitiesPopup(modelIdPopup, makeName, modelName, pageIdAttr);
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': _makeName });
+            gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);
         });
 
         $('#popupWrapper .close-btn,.blackOut-window').mouseup(function () {
