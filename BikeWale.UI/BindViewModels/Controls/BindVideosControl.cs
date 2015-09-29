@@ -29,15 +29,14 @@ namespace Bikewale.BindViewModels.Controls
                 string _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 string _requestType = "application/json";
 
-                string _apiUrl = "/api/videos/?categoryId=" + EnumVideosCategory.JustLatest + "&pageNo=1&pageSize=" + TotalRecords;
-
+                string _apiUrl = "/api/videos/cat/" + EnumVideosCategory.JustLatest + "/pn/1/ps/" + TotalRecords;                 
 
                 if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                 {
                     if (ModelId.HasValue && ModelId.Value > 0)
-                        _apiUrl = "/api/videos/?pageNo=1&pageSize=" + TotalRecords + "&modelId=" + ModelId.Value;
+                        _apiUrl = "/api/videos/pn/1/ps/" + TotalRecords + "/model/" + ModelId.Value;
                     else
-                        _apiUrl = "/api/videos/?pageNo=1&pageSize=" + TotalRecords + "&makeId=" + MakeId.Value;
+                        _apiUrl = "/api/videos/pn/1/ps/" + TotalRecords + "/make/" + MakeId.Value;
                 }
 
                 objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);

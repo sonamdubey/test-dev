@@ -184,8 +184,8 @@
                     <div class="bike-price-container font22 margin-bottom15 hide">
                         <span class="font24 text-bold ">Price not available</span>
                     </div>
-                     <!-- ko ifnot : cities()  && (cities().length > 0) -->
-                    <div id="city-list-container" class="city-list-container margin-bottom10 ">
+                     <!-- ko if : !popularCityClicked()-->
+                    <div id="city-list-container" class="city-list-container margin-bottom10 " >
                         <div class="text-left margin-bottom15">
                             <p class="font14 offer-error">Select city for accurate on-road price and exclusive offers</p>
                         </div>
@@ -199,7 +199,7 @@
                         </ul>
                     </div>
                     <!-- /ko -->
-                    <div id="city-area-select-container" class="city-area-select-container margin-bottom20 ">
+                    <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible: popularCityClicked()">
                         <div class="city-select-text text-left margin-bottom15 "  data-bind="enable: !selectedCity() || cities()">
                             <p class="font14">Select city for accurate on-road price and exclusive offers</p>
                         </div>

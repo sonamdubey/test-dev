@@ -64,6 +64,7 @@ function pqViewModel(modelId, cityId) {
     self.priceQuote = ko.observable();
     self.DealerPriceList = ko.observableArray([]);
     self.BWPriceList = ko.observable();
+    self.popularCityClicked = ko.observable(false);
     self.isDealerPQAvailable = ko.observable(false);
     self.FormatPricedata = function (item) {
         if (item != undefined)
@@ -86,13 +87,12 @@ function pqViewModel(modelId, cityId) {
     };
 
     self.selectedCity.subscribe(function () {
-        self.areas("");
-        self.selectedArea(undefined);
-        loadArea(self);
+        if (self.selectedCity() != undefined)
+            loadArea(self);
     });
 
     self.selectedArea.subscribe(function () {
-        if (self.selectedArea() != undefined && self.selectedArea() != 0)
+        if (self.selectedArea() != undefined)
             fetchPriceQuote(self);
     });
 
@@ -122,8 +122,9 @@ function loadCity(vm) {
                     ctrlSelectCity = $("#ddlCity");
                     //$(ctrlSelectCity).trigger("chosen:updated");
                     PQcheckCookies();
-                    if (!isNaN(pqCookieObj.PQCitySelectedId) && pqCookieObj.PQCitySelectedId > 0 && vm.cities().length > 0 && selectElementFromArray(vm.cities(), pqCookieObj.PQCitySelectedId)) {
+                    if (!isNaN(pqCookieObj.PQCitySelectedId) && pqCookieObj.PQCitySelectedId > 0 && vm.cities() && selectElementFromArray(vm.cities(), pqCookieObj.PQCitySelectedId)) {
                         vm.selectedCity(pqCookieObj.PQCitySelectedId);
+                        vm.popularCityClicked(true);
                         pqCookieObj.PQCitySelectedId = 0;
                     }
                     $(ctrlSelectCity).next().hide();
@@ -133,7 +134,7 @@ function loadCity(vm) {
 }
 
 function loadArea(vm) {
-    $(ctrlSelectArea).prop('disabled', true).next().show();
+    $(ctrlSelectArea).next().show();
     if (vm.selectedCity()) {
         $.ajax({
             url: "/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity(),
@@ -147,7 +148,7 @@ function loadArea(vm) {
                 $(".city-select-text").hide();
                 $(offerBtnContainer).show();                
                 //$(ctrlSelectArea).trigger("chosen:updated");
-                if (!isNaN(pqCookieObj.PQAreaSelectedId) && pqCookieObj.PQAreaSelectedId > 0 && vm.areas().length > 0 &&  selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId)) {
+                if (!isNaN(pqCookieObj.PQAreaSelectedId) && pqCookieObj.PQAreaSelectedId > 0 && vm.areas() &&  (selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId))) {
                     vm.selectedArea(pqCookieObj.PQAreaSelectedId);
                     pqCookieObj.PQAreaSelectedId = 0;
                 }
@@ -155,6 +156,7 @@ function loadArea(vm) {
             }
             else {
                 vm.areas([]);
+                $(ctrlSelectArea).next().hide();
                // $(ctrlSelectArea).trigger("chosen:updated");
                 vm.FetchPriceQuote();
             }
@@ -162,12 +164,14 @@ function loadArea(vm) {
         .fail(function () {
             //no areas available;
             vm.areas([]);
+            $(ctrlSelectArea).next().hide();
            // $(ctrlSelectArea).trigger("chosen:updated");
             vm.FetchPriceQuote();
         });
     }
     else {
         vm.areas([]);
+        $(ctrlSelectArea).next().hide();
        // $(ctrlSelectArea).trigger("chosen:updated");
         $(".available-offers-container").hide();
         $(offerBtnContainer).show();
@@ -187,7 +191,6 @@ function fetchPriceQuote(vm) {
             if (data) {
                 var pq = ko.toJS(data);
                 vm.priceQuote(pq);
-
                 $(priceBlock).find("span.price-loader").hide();
                 vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
                 if (pq.IsDealerPriceAvailable) {
@@ -263,14 +266,17 @@ function fetchPriceQuote(vm) {
                     setLocationCookie($(ctrlSelectCity).find('option:selected'), $(ctrlSelectArea).find('option:selected'));
                 }
                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
+                $(priceBlock).find("span.price-loader").hide();
             }
             else {
                 vm.areas([]);
+                $(priceBlock).find("span.price-loader").hide();
                 pqAreaFailStatus();
             }
         })
         .fail(function () {
             vm.areas([]);
+            $(priceBlock).find("span.price-loader").hide();
             pqAreaFailStatus();
         });
     }
@@ -311,16 +317,19 @@ $(document).ready(function () {
     });
 
 
-    $("#mainCity li").click(function () {
+    $(priceBlock).delegate('#mainCity li', 'click', function () {
         var val = $(this).attr('cityId');
-        $(".offer-error").removeClass("show").addClass("hide");
+        $(".offer-error").hide();
         $(".city-onRoad-price-container").hide();
         $(offerBtnContainer).show();
         $('.offer-error').removeClass("text-red");
+        $(priceBlock).find("#city-list-container").hide();
+        $(cityAreaContainer).show();
         if (val) {
             $(ctrlSelectCity).find(" option[value=" + val + "]").prop('selected', 'selected');
             $(ctrlSelectCity).trigger('change');
         }
+        modelViewModel.popularCityClicked(true);
     });
 
     $(editBtn).on('click', function (e) {
