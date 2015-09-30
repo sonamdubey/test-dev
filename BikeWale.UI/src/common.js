@@ -791,21 +791,12 @@ function setLocationCookie(cityEle, areaEle) {
 }
 
 //match cookie data to check city /area exists 
-function selectElementFromArray(dataArray,id)
-{
-    l = dataArray.length;
-    if (dataArray != null && dataArray[0].cityId) {
+function selectElementFromArray(dataArray, id) {
+    if (dataArray != null && (l = dataArray.length) > 0) {
         for (var i = 0; i < l; i++) {
-            if (dataArray[i].cityId === id)
-                return true
+            if (dataArray[i].cityId === id || dataArray[i].AreaId === id || dataArray[i].areaId === id || dataArray[i].CityId === id)
+                return true;
         }
     }
-    else {
-        for (var i = 0; i < l; i++) {
-            if (dataArray[i].areaId === id)
-                return true
-        }
-    }
-
     return false;
 }
