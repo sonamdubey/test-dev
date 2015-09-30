@@ -219,7 +219,7 @@ function fetchPriceQuote(vm) {
                         $($(".bike-price-container")[0]).show();
                     }
 
-                    animatePrice($(bikePrice), 1000, totalPrice);
+                    animatePrice($(bikePrice), temptotalPrice, totalPrice);
                     $("#breakup").text("(" + priceBreakText + ")");
                     $("#pqCity").html($(ctrlSelectCity).find("option[value=" + vm.selectedCity() + "]").text());
                     $("#pqArea").html($(ctrlSelectArea).find("option[value=" + vm.selectedArea() + "]").text() + ', ');
