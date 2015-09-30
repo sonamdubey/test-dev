@@ -18,6 +18,7 @@
     </style>
 </head>
 <body>
+    <form runat="server">
         <h1>Manage Dealer Area Mapping</h1>
     <div style="padding:10px;">
         
@@ -66,9 +67,7 @@
             <div class="popup-inner-container">
             </div>
         </div>
-    </form>
-
-    <script type="text/javascript">
+           <script type="text/javascript">
         $(document).ready(function () {
             $("a[id^='edit_']").click(function () {
                 var html = $(".popup-inner-container").html("");
@@ -247,5 +246,7 @@
             $("#hdnUnmapArea").val(arealist);
         }
     </script>
+     
+     </form>
 </body>
 </html>

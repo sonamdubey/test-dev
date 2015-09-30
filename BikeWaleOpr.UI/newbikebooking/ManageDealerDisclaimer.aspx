@@ -11,6 +11,7 @@
     <script src="/src/graybox.js"></script>   
 </head>
 <body>
+    <form runat="server"> 
         <h1 class="margin-left10">Manage Dealer Disclaimer :</h1>
         <fieldset class="margin-left10 margin-top10 padding10">
 	        <legend >Add New Disclaimer</legend>            
