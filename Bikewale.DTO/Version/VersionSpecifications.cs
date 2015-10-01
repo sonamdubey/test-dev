@@ -12,7 +12,7 @@ namespace Bikewale.DTO.Version
         public uint BikeVersionId { get; set; }
         public float Displacement { get; set; }
         public ushort Cylinders { get; set; }
-        public ushort MaxPower { get; set; }
+        public float MaxPower { get; set; }
         public float MaximumTorque { get; set; }
         public float Bore { get; set; }
         public float Stroke { get; set; }
