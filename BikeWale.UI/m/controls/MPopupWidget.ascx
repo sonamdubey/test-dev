@@ -38,6 +38,8 @@ var preSelectedCityId = 0;
 var preSelectedCityName = "";
 popupcity = $('#ddlCitiesPopup');
 popupArea = $('#ddlAreaPopup');
+var onCookieObj = {};
+var selectedMakeName = '', selectedModelName = '', selectedCityName = '', selectedAreaName = '', gaLabel = '';
 
 // knockout popupData binding
 var viewModelPopup = {
@@ -47,19 +49,22 @@ var viewModelPopup = {
     bookingAreas: ko.observableArray([])
 };
 
-function checkCookies(cookieName) {
+function checkCookies() {
     c = document.cookie.split('; ');
     for (i = c.length - 1; i >= 0; i--) {
         C = c[i].split('=');
         if (C[0] == "location") {
             var cData = (String(C[1])).split('_');
-            preSelectedCityId = parseInt(cData[0]);
-            preSelectedCityName = cData[1];
+            onCookieObj.PQCitySelectedId = parseInt(cData[0]);
+            onCookieObj.PQCitySelectedName = cData[1];
+            onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
+            onCookieObj.PQAreaSelectedName = cData[3];
+
         }
     }
 }
 
-function FillCitiesPopup(modelId) {
+function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr) {
     $.ajax({
         type: "POST",
         url: "/ajaxpro/Bikewale.Ajax.AjaxPriceQuote,Bikewale.ashx",
@@ -67,6 +72,13 @@ function FillCitiesPopup(modelId) {
         beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
         success: function (response) {
             selectedModel = modelId;
+            pageId = pageIdAttr;
+            if (makeName != undefined && makeName != '')
+                selectedMakeName = makeName;
+
+            if (modelName != undefined && modelName != '')
+                selectedModelName = modelName;
+            
             $('#popupWrapper').fadeIn(100);
             $('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
@@ -79,7 +91,7 @@ function FillCitiesPopup(modelId) {
                 var initIndex = 0;
                 for (var i = 0; i < cities.length; i++) {
 
-                    if (preSelectedCityId == cities[i].CityId) {
+                    if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQCitySelectedId == cities[i].CityId) {
                         citySelected = cities[i];
                     }
 
@@ -125,6 +137,10 @@ function cityChangedPopup() {
                 areas=$.parseJSON(response.value);
                 if (areas.length) {
                     viewModelPopup.bookingAreas(areas);
+                    if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                        viewModelPopup.selectedArea(onCookieObj.PQAreaSelectedId);
+                        onCookieObj.PQAreaSelectedId = 0;
+                    }
                 }
                 else {
                     viewModelPopup.selectedArea = ko.observable(0);
@@ -160,13 +176,8 @@ function isValidInfoPopup() {
 function getPriceQuotePopup() {
     var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
     if (isValidInfoPopup()) {
-
         //set global cookie
-        if (cityId > 0) {
-            cityName = $(popupcity).find("option[value=" + cityId + "]").text();
-            cookieValue = cityId + "_" + cityName;
-            SetCookieInDays("location", cookieValue, 365);
-        }
+        setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));       
 
         $.ajax({
             type: 'POST',
@@ -176,22 +187,37 @@ function getPriceQuotePopup() {
             beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
             success: function (json) {
                 var jsonObj = $.parseJSON(json.value);
+                selectedCityName = $("#ddlCitiesPopup option:selected").text();
+
+                if (areaId > 0)
+                    selectedAreaName = $("#ddlAreaPopup option:selected").text();
+
+                if (selectedMakeName != "" && selectedModelName != "" && selectedCityName != "") {
+                    gaLabel = selectedMakeName + ',' + selectedModelName + ',' + selectedCityName;
+
+                    if (selectedAreaName != '')
+                        gaLabel += ',' + selectedAreaName;
+                }
                 if (jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+                    gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                     window.location = "/m/pricequote/dealerpricequote.aspx";
                 }
                 else if (jsonObj.quoteId > 0) {
+                    gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
                     window.location = "/m/pricequote/quotation.aspx";
                 } else {
+                    gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                     $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
                 }
             },
             error: function (e) {
                 $("#errMsg").text("Oops. Some error occured. Please try again.").show();
-                dataLayer.push({ 'event': 'product_bw_gtm', 'cat': category, 'act': 'Error in submission' });
+                gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
             }
         });
     } else {       
         $("#errMsgPopup").text("Please select all the details").show();
+        gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
     }
 }
 
@@ -211,7 +237,45 @@ $("a.fillPopupData").on("click", function (e) {
     e.stopPropagation();    
     $("#errMsgPopUp").empty();
     var str = $(this).attr('modelId');
+    var pageIdAttr = $(this).attr('pagecatid');
+    var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
     var modelIdPopup = parseInt(str, 10);
-    FillCitiesPopup(modelIdPopup);
+    gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);
+    FillCitiesPopup(modelIdPopup,makeName,modelName,pageIdAttr);
 });
+
+function gtmCodeAppender(pageId, action, label) {
+    var categoty = '';
+    if (pageId != null) {
+        switch (pageId) {
+            case "1":
+                category = 'Make_Page';
+                break;
+            case "2":
+                category = "CheckPQ_Series";
+                action = "CheckPQ_Series_" + action;
+                break;
+            case "3":
+                category = "Model_Page";
+                action = "CheckPQ_Model_" + action;
+                break;
+            case '4':
+                category = 'New_Bikes_Page';
+                break;
+            case '5':
+                category = 'HP';
+                break;
+            case '6':
+                category = 'Search_Page';
+                break;
+        }
+        if (label) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action, 'lab': label });
+        }
+        else {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action });
+        }
+    }
+
+}
 </script>

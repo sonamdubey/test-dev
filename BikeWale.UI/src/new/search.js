@@ -1,9 +1,13 @@
-var appendText = $(".filter-select-title");
-var currentList = $(".filter-selection-div");
-var liList = $(".filter-selection-div ul li");
-var liToggelFilter = $(".bw-tabs li");
-var defaultText = $(".default-text");
-var sortCriteria = $('#sort');
+var appendText = $(".filter-select-title"),
+    currentList = $(".filter-selection-div"),
+    liList = $(".filter-selection-div ul li"),
+    liToggelFilter = $(".bw-tabs li"),
+    defaultText = $(".default-text"),
+    sortCriteria = $('#sort'),
+    sortByDiv = $(".sort-div"),
+    sortListDiv = $(".sort-selection-div"),
+    sortListLI = $(".sort-selection-div ul li");
+
 var count = 0;
 var searchUrl = "";
 $.pageNo = "";
@@ -26,15 +30,15 @@ var $window = $(window),
     $menu = $('#filter-container'),
     menuTop = $menu.offset().top;
 
-
 var SearchViewModel = function (model) {
     ko.mapping.fromJS(model, {}, this);
 };
 
 $(document).ready(function () {
+    
     var completeQs = window.location.hash.replace('#', '');
     completeQs = $.removeFilterFromQS('pageno');
-    $.pushState(completeQs);
+    $.pushState(completeQs,"");
 });
 
 $(document).mouseup(function (e) {
@@ -73,6 +77,7 @@ $(".filter-div").on("click", function () {
     if (!clickedDiv.hasClass("open")) {
         stateChangeDown(allDiv, clickedDiv);
         //$(".more-filters-container").slideUp();
+        $.sortChangeUp(sortByDiv);
     }
     else {
 
@@ -176,7 +181,7 @@ $.bindSearchResult = function (json) {
         $('#NoBikeResults').show();
 };
 
-$.hitAPI = function (searchUrl) {
+$.hitAPI = function (searchUrl,filterName) {
     $.ajax({
         type: 'GET',
         url: '/api/NewBikeSearch/?' + searchUrl,
@@ -194,9 +199,12 @@ $.hitAPI = function (searchUrl) {
             }
             $.selectFiltersPresentInQS();
             $.getSelectedQSFilterText();
+
             $.lazyLoadingStatus = true;
             $('#NoBikeResults').hide();
             $('#loading').hide();
+            if (filterName != "" && filterName != undefined)
+                $.pushGTACode($.totalCount, filterName);
         },
         error: function (error) {
             $.totalCount = 0;
@@ -208,6 +216,8 @@ $.hitAPI = function (searchUrl) {
             $('#bikecount').text('No bikes found');
             $.selectFiltersPresentInQS();
             $.getSelectedQSFilterText();
+            if (filterName != "" && filterName != undefined)
+                $.pushGTACode($.totalCount, filterName);
         }
     });
 };
@@ -237,8 +247,8 @@ $.loadNextPage = function () {
         completeQS += "&pageno=" + $.pageNo;
     else
         completeQS = "pageno=" + $.pageNo;
-    $.pushState(completeQS);
-}
+    $.pushState(completeQS, "");
+};
 
 $.removeFilterFromQS = function (name) {
     var url = window.location.hash.replace('#', '');
@@ -257,11 +267,11 @@ $.removeFilterFromQS = function (name) {
         return "";
 };
 
-$.pushState = function (qs) {
+$.pushState = function (qs, filterName) {
     $('#NoBikeResults').hide();
     $('#loading').show();
     window.location.hash = qs;
-    $.hitAPI(qs);
+    $.hitAPI(qs, filterName);
 };
 
 $.getFilterFromQS = function (name) {
@@ -375,29 +385,6 @@ $.removeValueFromCheckBoxInQS = function (name, value, curValue) {
     return completeQS;
 };
 
-$.fn.applySortFilter = function () {
-    return $(this).change(function () {
-        $.removePageNoParam();
-        $.removeKnockouts();
-        var node = $(this);
-        var completeQS = $.removeFilterFromQS('so');
-        window.location.hash = completeQS;
-        completeQS = $.removeFilterFromQS('sc');
-        window.location.hash = completeQS;
-        var so = node.find('option:selected').attr('so');
-        var sc = node.find('option:selected').attr('sc');
-        if (completeQS.length > 0) {
-            if (so.length > 0 && sc.length > 0)
-                completeQS = completeQS + "&so=" + so + "&sc=" + sc;
-        }
-        else {
-            if (so.length > 0 && sc.length > 0)
-                completeQS = "so=" + so + "&sc=" + sc;
-        }
-        $.pushState(completeQS);
-    });
-};
-
 $.applyCheckBoxFilter = function (name, value, node) {
     $.removePageNoParam();
     $.removeKnockouts();
@@ -416,7 +403,7 @@ $.applyCheckBoxFilter = function (name, value, node) {
             completeQS = $.addFilterInQS(name, value);
         }
     }
-    $.pushState(completeQS);
+    $.pushState(completeQS,name);
 };
 
 $.applyToggelFilter = function (name, value, node) {
@@ -435,7 +422,7 @@ $.applyToggelFilter = function (name, value, node) {
         tempQS = $.removeFilterFromQS(name);
     }
     
-    $.pushState(tempQS);
+    $.pushState(tempQS,name);
 };
 
 $.removePageNoParam = function () {
@@ -457,26 +444,21 @@ $.selectFiltersPresentInQS = function () {
                     node.find('li[filterid=' + values[j] + ']').addClass('active');
                 }
             }
-           
+
             $.so = $.getFilterFromQS('so');
             $.sc = $.getFilterFromQS('sc');
-            if ($.so.length > 0 && $.sc.length > 0)
-                $('#sort option').each(function(){
-                    if($(this).val() == ('so=' + $.so + '&sc=' + $.sc))
-                        $(this).attr('selected','true')
+            if ($.so.length > 0 && $.sc.length > 0) {
+                sortListLI.removeClass("selected");
+                sortListLI.each(function () {
+                    if ($(this).attr('sortqs') == ('so=' + $.so + '&sc=' + $.sc)) {
+                        $(this).addClass('selected')
+                        var sortByText = $(this).text();
+                        $(".sort-by-title").find(".sort-select-btn").html(sortByText);
+                    }
                 });
+            }
         }
     }
-};
-
-$.addParameterToString = function (name, value, completeQS) {
-    if (value.length > 0) {
-        if (completeQS.length > 0)
-            completeQS += "&" + name + "=" + value;
-        else
-            completeQS = name + "=" + value;
-    }
-    return completeQS;
 };
 
 $.appendToQS = function (temp, name, value) {
@@ -511,7 +493,7 @@ $.fn.resetAll = function () {
         var completeQS = '';
         if (so.length > 0 && sc.length > 0)
             completeQS = "sc=" + sc + "&so=" + so;
-        $.pushState(completeQS);
+        $.pushState(completeQS,"resetButton");
     });
 };
 
@@ -534,32 +516,6 @@ $.fn.onToggelFilterClick = function () {
 
         $.updateFilters(panel, $(this).parent().parent().parent().parent().attr('name'), $(this).attr('filterid'), 2);
     });
-};
-
-$.fn.onDropdownChange = function () {
-    return $(this).change(function () {
-        var filterid = $(this).val();
-        $.updateFilters($(this), $(this).parent().parent().attr('name'), filterid, 4);
-    });
-};
-
-$.setQSParametersInURL = function () {
-    var completeQS = '';
-    completeQS = $.addParameterToString("bike", $.Bike, completeQS);
-    completeQS = $.addParameterToString("displacement", $.Bike, completeQS);
-    completeQS = $.addParameterToString("Budget", $.Bike, completeQS);
-    completeQS = $.addParameterToString("Mileage", $.Bike, completeQS);
-    completeQS = $.addParameterToString("RideStyle", $.Bike, completeQS);
-    completeQS = $.addParameterToString("AntiBreakingSystem", $.Bike, completeQS);
-    completeQS = $.addParameterToString("BrakeType", $.Bike, completeQS);
-    completeQS = $.addParameterToString("AlloyWheel", $.Bike, completeQS);
-    completeQS = $.addParameterToString("StartType", $.Bike, completeQS);
-    completeQS = $.addParameterToString("PageNo", $.Bike, completeQS);
-    completeQS = $.addParameterToString("PageSize", $.Bike, completeQS);
-    completeQS = $.addParameterToString("so", $.Bike, completeQS);
-    completeQS = $.addParameterToString("sc", $.Bike, completeQS);
-    
-    window.location.hash = completeQS;
 };
 
 $.getNextPageData = function () {
@@ -612,35 +568,13 @@ $.updateFilters = function (node, name, value, type) {
         $.applyCheckBoxFilter(name, value, node);
     else if (type == 2)
         $.applyToggelFilter(name, value, node);
-    else if (type == 3)
-        $.applySortFilter(node);
-    else if (type == 4)
-        $.ApplyDropdownFilter(name, value, node);
     else if (type == 5)
         $.applyMinMaxFilter(name, value,node);
-};
-
-$.ApplyDropdownFilter = function (name, value, node) {
-    $.removePageNoParam();
-    $.removeKnockouts();
-    var tempQS = '';
-
-    if (value > 0)
-    {
-        tempQS = $.removeFilterFromQS(name);
-        tempQS = $.appendToQS(tempQS, name, value);
-    }
-    else
-        tempQS = $.removeFilterFromQS(name);
-
-    $.pushState(tempQS);
 };
 
 liList.onCheckBoxClick();
 
 liToggelFilter.onToggelFilterClick();
-
-sortCriteria.applySortFilter();
 
 $(".budget-box").click(function (e) {
     $("#minMaxContainer").toggleClass("open");
@@ -686,7 +620,7 @@ $.fn.applyBudgetFilter = function () {
         }
         else {
             completeQs = $.removeFilterFromQS('budget');
-            $.pushState(completeQs);
+            $.pushState(completeQs,"budget");
         }
     });
 };
@@ -722,17 +656,137 @@ $.applyMinMaxFilter = function (name, value, node) {
         tempQS = $.removeFilterFromQS(name);
     }
 
-    $.pushState(tempQS);
+    $.pushState(tempQS,name);
 };
 
 $('.priceBox').applyBudgetFilter();
 
+$.pushGTACode = function (noOfRecords, filterName) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_'+ noOfRecords, 'lab': filterName });
+};
 
+$.ModelClickGaTrack = function (modelName,url) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelName });
+    location.href = url;
+};
 
+$.PricePopUpClickGA = function (makeName) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Get_On_Road_Price_Click', 'lab': makeName });
+};
 
+sortByDiv.click(function(){
+	if(!sortByDiv.hasClass("open"))
+		$.sortChangeDown(sortByDiv);
+	else
+		$.sortChangeUp(sortByDiv);
+});
 
+$.sortChangeDown = function(sortByDiv){
+	sortByDiv.addClass("open");
+	sortListDiv.show();
+};
 
+$.sortChangeUp = function(sortByDiv){
+	sortByDiv.removeClass("open");
+	sortListDiv.slideUp();	
+};
 
+$.fn.applySortFilter = function () {
+    return $(this).click(function () {
+        var node = $(this);
+        var completeQS = $.removeFilterFromQS('so');
+        window.location.hash = completeQS;
+        completeQS = $.removeFilterFromQS('sc');
+        window.location.hash = completeQS;
 
+        $.removePageNoParam();
+        $.removeKnockouts();
 
+        sortListLI.removeClass('selected');
+        node.addClass('selected');
+        var sortByText = $(this).text();
+        $(".sort-by-title").find(".sort-select-btn").html(sortByText);
+        $.sortChangeUp(sortByDiv);
 
+        var so = node.attr('so');
+        var sc = node.attr('sc');
+        if (completeQS.length > 0) {
+            if (so.length > 0 && sc.length > 0)
+                completeQS = completeQS + "&so=" + so + "&sc=" + sc;
+        }
+        else {
+            if (so.length > 0 && sc.length > 0)
+                completeQS = "so=" + so + "&sc=" + sc;
+        }
+        $.pushState(completeQS, sortByText);
+    });
+}
+
+sortListLI.applySortFilter();
+
+(function ($, ko) {
+    'use strict';
+    // TODO: Hook into image load event before loading others...
+    function KoLazyLoad() {
+        var self = this;
+
+        var updatebit = ko.observable(true).extend({ throttle: 50 });
+
+        var handlers = {
+            img: updateImage
+        };
+
+        function flagForLoadCheck() {
+            updatebit(!updatebit());
+        }
+
+        $(window).on('scroll', flagForLoadCheck);
+        $(window).on('resize', flagForLoadCheck);
+
+        function isInViewport(element) {
+            var rect = element.getBoundingClientRect();
+            return rect.bottom > 0 && rect.right > 0 &&
+              rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+              rect.left < (window.innerWidth || document.documentElement.clientWidth);
+        }
+
+        function updateImage(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var value = ko.unwrap(valueAccessor());
+            if (isInViewport(element)) {
+                element.src = value;
+                $(element).data('kolazy', true);
+            }
+        }
+
+        function init(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var initArgs = arguments;
+            updatebit.subscribe(function () {
+                update.apply(self, initArgs);
+            });
+        }
+
+        function update(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var $element = $(element);
+
+            if ($element.is(':hidden') || $element.css('visibility') == 'hidden' || $element.data('kolazy')) {
+                return;
+            }
+
+            var handlerName = element.tagName.toLowerCase();
+            if (handlers.hasOwnProperty(handlerName)) {
+                return handlers[handlerName].apply(this, arguments);
+            } else {
+                throw new Error('No lazy handler defined for "' + handlerName + '"');
+            }
+        }
+
+        return {
+            handlers: handlers,
+            init: init,
+            update: update
+        }
+    }
+
+    ko.bindingHandlers.lazyload = new KoLazyLoad();
+
+})(jQuery, ko);

@@ -87,7 +87,10 @@
 <script type="text/javascript">
 
     var areaDataSet = [];
+    var pqAreaId = 0;
+    var pqAreaName = "";
     var isAreaShown = false;
+    var onCookieObj = {};
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var viewModelPQ = {
         selectedCity: ko.observable(),
@@ -132,7 +135,9 @@
         var self = $(event);
         var areaId = self.attr('areaId');
         var areaName = self.attr('areaname');
-        var cityId = $("#ddlCity").val();
+        pqAreaName = areaName;
+        pqAreaId = areaId;
+        var cityId = $("#ddlCity").val();        
         if (isAreaShown == true) {
             $("#txtArea").val(areaId);
             var str = " <a href='#' class='ui-btn'>" + areaName + "</a>";
@@ -183,8 +188,11 @@
             C = c[i].split('=');
             if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
-                preSelectedCityId = parseInt(cData[0]);
-                preSelectedCityName = cData[1];
+                onCookieObj.PQCitySelectedId = parseInt(cData[0]);
+                onCookieObj.PQCitySelectedName = cData[1];
+                onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
+                onCookieObj.PQAreaSelectedName = cData[3];
+
             }
         }
     }
@@ -287,7 +295,10 @@
                             $('#ddlAreaTest').append("<li class='ui-last-child'><a class='ui-btn' href='#' areaId='" + resObj[i].AreaId + "'  areaName='" + resObj[i].AreaName + "' onClick='selectArea(this);'>" + resObj[i].AreaName + "</a></li>");//("<li value='" + resObj.Table[i].Value + "'>" + resObj.Table[i].Text + "</option>");
                             $("#divArea").show();
                         }
-                    $('#ddlAreaTest li').find('a').last().css('border-bottom', '1px solid #ccc');
+                        $('#ddlAreaTest li').find('a').last().css('border-bottom', '1px solid #ccc');
+                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId != 0 && selectElementFromArray(resObj, onCookieObj.PQAreaSelectedId)) {
+                            selectArea($('#ddlAreaTest li a.ui-btn[areaId="' + onCookieObj.PQAreaSelectedId + '"]')[0]);
+                        }
                     }
                     else {
                         isAreaShown = false;
@@ -335,7 +346,7 @@
                             citySelected = null;
                             for (var i = 0; i < resObj.length; i++) {
 
-                                if (preSelectedCityId == resObj[i].CityId) {
+                                if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0  && onCookieObj.PQCitySelectedId == resObj[i].CityId) {
                                     citySelected = resObj[i];
                                 }
 
@@ -346,10 +357,12 @@
                                 }
                             }
                             resObj.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
-                            viewModelPQ.cities(resObj);
-
+                            $("#ddlCity").empty();
+                            viewModelPQ.cities(resObj);                            
                             if (citySelected != null) {
                                 viewModelPQ.selectedCity(citySelected.CityId);
+                              $("#ddlCity option[value=" + citySelected.CityId + "]").prop("selected", true);
+                                //$("#ddlCity").prop('selectedIndex', citySelected.CityId);
                             }      
 
                             $("#ddlCity option[value=0]").prop("disabled", "disabled");
@@ -374,14 +387,8 @@
 
         $('#btnSubmit').click(function () {
             if(isValid())
-            {
-                //set global cookie
-                cityId = viewModelPQ.selectedCity();
-                if (cityId > 0) {
-                    cityName = $("#ddlCity").find("option[value=" + cityId + "]").text();
-                    cookieValue = cityId + "_" + cityName;
-                    SetCookieInDays("location", cookieValue, 365);
-                }
+            {  //set global cookie
+                pqSetLocationCookie();
             }
             else return false;
         });
@@ -454,9 +461,13 @@
                         $('.chosen-container').attr('style', 'width:180px');
 
                         viewModelPQ.areas(resObj);
-
                         $('.chosen-select').prop('disabled', false);
+                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(resObj, onCookieObj.PQAreaSelectedId)) {
+                            $('#ddlAreaTest li a[areaId="' + onCookieObj.PQAreaSelectedId + '"]').click();
+                            onCookieObj.PQAreaSelectedId = 0;
+                        }                          
                         $('.chosen-select').trigger("chosen:updated");
+                        //$("#hdn_ddlArea").val($("#ddlArea").chosen().val());
                         isAreaShown = true;
                     } else {
                         $('#divAreaChosen').hide();
@@ -464,9 +475,6 @@
                     }
 
                     $('#hdnIsAreaShown').val(isAreaShown);
-                },
-                error: function (response) {
-                    alert(response);
                 }
             });
         }
@@ -477,6 +485,16 @@
 
     if (window.location.search != '' || window.location.search != null) {
         MetroCities($("#ddlCity"));
+    }
+
+    function pqSetLocationCookie()
+    {
+        if (parseInt($("#ddlCity").val()) > 0) {
+            cookieValue = parseInt($("#ddlCity").val()) + "_" + $("#ddlCity option:selected").text();
+            if (parseInt(pqAreaId) > 0)
+                cookieValue += "_" + parseInt(pqAreaId) + "_" + pqAreaName;
+            SetCookieInDays("location", cookieValue, 365);
+        }
     }
 </script>
 <!-- #include file="/includes/footermobile_noad.aspx" -->

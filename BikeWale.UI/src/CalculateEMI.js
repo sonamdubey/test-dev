@@ -81,7 +81,6 @@ function computeEMI(months) {
     var finalEmi = 0;
 
     if (document.getElementById('R1').checked) {
-
         finalEmi = (txtloanamount * interest * Math.pow(1 + interest, months - 1)) / (Math.pow(1 + interest, months) - 1);
     }
     else {

@@ -135,21 +135,21 @@ namespace Bikewale.New
             #region Do Not change the sequence
             ParseQueryString();
             CheckCityCookie();
-            FetchModelPageDetails(); 
+            FetchModelPageDetails();
             #endregion
             if (!IsPostBack)
             {
                 #region Do not change the sequence
                 BindPhotoRepeater();
                 BindAlternativeBikeControl();
-                clientIP = CommonOpn.GetClientIP(); 
+                clientIP = CommonOpn.GetClientIP();
                 #endregion
             }
 
             ////news,videos,revews, user reviews
             ctrlNews.TotalRecords = 3;
             ctrlNews.ModelId = Convert.ToInt32(modelId);
-            
+
             ctrlExpertReviews.TotalRecords = 3;
             ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
 
@@ -178,25 +178,29 @@ namespace Bikewale.New
             {
                 if (modelPage.Photos != null && modelPage.Photos.Count > 0)
                 {
-                    if (modelPage.Photos.Count > 2)
-                    {
-                        rptModelPhotos.DataSource = modelPage.Photos.Take(3);
-                    }
-                    else
-                    {
-                        rptModelPhotos.DataSource = modelPage.Photos;
-                    }
+                    //if (modelPage.Photos.Count > 2)
+                    //{
+                    //    rptModelPhotos.DataSource = modelPage.Photos.Take(3);
+                    //}
+                    //else
+                    //{
+                    //    rptModelPhotos.DataSource = modelPage.Photos;
+                    //}
+                    //rptModelPhotos.DataBind();
+
+                    //if (modelPage.Photos.Count > 2)
+                    //{
+                    //    rptNavigationPhoto.DataSource = modelPage.Photos.Take(3);
+                    //}
+                    //else
+                    //{
+                    //    rptNavigationPhoto.DataSource = modelPage.Photos;
+                    //}
+
+                    rptModelPhotos.DataSource = modelPage.Photos;
                     rptModelPhotos.DataBind();
 
-                    if (modelPage.Photos.Count > 2)
-                    {
-                        rptNavigationPhoto.DataSource = modelPage.Photos.Take(3);
-                    }
-                    else
-                    {
-                        rptNavigationPhoto.DataSource = modelPage.Photos;
-                    }
-                    
+                    rptNavigationPhoto.DataSource = modelPage.Photos;
                     rptNavigationPhoto.DataBind();
                 }
 
@@ -244,7 +248,9 @@ namespace Bikewale.New
                         }
                         else
                         {
-                            Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", true);
+                            Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
                             //isSuccess = false;
                         }
                     }
@@ -285,15 +291,15 @@ namespace Bikewale.New
 
         protected string FormatShowReview(string makeName, string modelName)
         {
-            return string.Format("/{0}-bikes/{1}/user-reviews/",makeName,modelName);
+            return string.Format("/{0}-bikes/{1}/user-reviews/", makeName, modelName);
         }
 
         protected string FormatWriteReviewLink()
         {
-            return String.Format("/content/userreviews/writereviews.aspx?bikem={0}",modelId);
+            return String.Format("/content/userreviews/writereviews.aspx?bikem={0}", modelId);
         }
 
-        protected string FormatOverview(object spec,Overviews overview)
+        protected string FormatOverview(object spec, Overviews overview)
         {
             String strSpec = "<span class=\"font26 text-bold text-black\">{0}</span><span class=\"font24 text-light-grey margin-left5\">{1}</span>";
             if (spec != null && !string.IsNullOrEmpty(spec.ToString()))
@@ -314,21 +320,21 @@ namespace Bikewale.New
             }
             else
             {
-                return String.Format(strSpec,"-","");
-            }            
+                return String.Format(strSpec, "-", "");
+            }
         }
 
-        protected string FormatMaxPower(object bhp,object rpm)
+        protected string FormatMaxPower(object bhp, object rpm)
         {
             string format = "<div class=\"text-bold\">{0} bhp @ {1} rpm</div>";
             if (bhp != null && !String.IsNullOrEmpty(bhp.ToString()) && rpm != null && !String.IsNullOrEmpty(rpm.ToString()) && rpm.ToString() != "0")
             {
-                return String.Format(format,bhp.ToString(),rpm.ToString());
+                return String.Format(format, bhp.ToString(), rpm.ToString());
             }
             return "<div class=\"text-bold\">-</div>";
         }
 
-        protected string FormatMaxTorque(object nm,object rpm)
+        protected string FormatMaxTorque(object nm, object rpm)
         {
             string format = "<div class=\"text-bold\">{0} Nm @ {1} rpm</div>";
             if (nm != null && !String.IsNullOrEmpty(nm.ToString()) && rpm != null && !String.IsNullOrEmpty(rpm.ToString()) && rpm.ToString() != "0")
@@ -342,11 +348,11 @@ namespace Bikewale.New
             string format = "<div class=\"text-bold\">{0}</div>";
             if (val != null && !String.IsNullOrEmpty(val.ToString()) && val.ToString() != "0")
             {
-                return String.Format(format,val.ToString());
+                return String.Format(format, val.ToString());
             }
             return "<div class=\"text-bold\">-</div>";
         }
-        
+
         protected string FormatValue(short val)
         {
             string format = "<div class=\"text-bold\">{0}</div>";
@@ -416,12 +422,12 @@ namespace Bikewale.New
             return "<div class=\"text-bold\">-</div>";
         }
 
-        protected string FormatDimension(ushort val,string dim)
+        protected string FormatDimension(ushort val, string dim)
         {
             string format = "<div class=\"text-bold\">{0} {1}</div>";
             if (val > 0)
             {
-                return String.Format(format, val.ToString(),dim);
+                return String.Format(format, val.ToString(), dim);
             }
             return "<div class=\"text-bold\">-</div>";
         }
@@ -435,14 +441,15 @@ namespace Bikewale.New
             return "<div class=\"text-bold\">-</div>";
         }
 
-        protected string FormatVarientMinSpec(bool alloyWheel,bool elecStart, bool abs,string breakType)
+        protected string FormatVarientMinSpec(bool alloyWheel, bool elecStart, bool abs, string breakType)
         {
             string format = "";
             if (alloyWheel)
             {
-                format = String.Concat(format.Trim()," Alloy Wheels,");
+                format = String.Concat(format.Trim(), " Alloy Wheels,");
             }
-            else{
+            else
+            {
                 format = String.Concat(format.Trim(), " Spoke Wheels,");
             }
 
@@ -459,7 +466,7 @@ namespace Bikewale.New
             {
                 format = String.Concat(format.Trim(), " ABS,");
             }
-            
+
             if (!String.IsNullOrEmpty(breakType))
             {
                 format = String.Concat(format.Trim(), breakType, " Brake,");
@@ -469,8 +476,8 @@ namespace Bikewale.New
             {
                 return "No specifications.";
             }
-            return format.Trim().Substring(0,format.Length - 1);
-        }
+            return format.Trim().Substring(0, format.Length - 1);
+        }  
     }
 
 }

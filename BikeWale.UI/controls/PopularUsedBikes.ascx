@@ -24,7 +24,7 @@
                                             <span class="font16">(Average price)</span>
                                         </div>
                                         <div class="font16 text-light-grey bikes-avaiable-count">
-                                            <a href="<%# FormatUsedBikeUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString(), DataBinder.Eval(Container.DataItem,"CityMaskingName").ToString()) %>" title="<%# DataBinder.Eval(Container.DataItem,"MakeName").ToString() %>"><span><%# DataBinder.Eval(Container.DataItem,"TotalBikes").ToString() %> Bikes Avaiable</span></a>
+                                            <a href="<%# FormatUsedBikeUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString(), DataBinder.Eval(Container.DataItem,"CityMaskingName").ToString()) %>" title="<%# DataBinder.Eval(Container.DataItem,"MakeName").ToString() %>"><span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"TotalBikes").ToString()) %> Bikes Available</span></a>
                                         </div>
                                     </div>
                                 </div>

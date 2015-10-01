@@ -207,7 +207,7 @@
                             <p>
                                 Book your bike online at BikeWale and make the balance payment at the dealership to avail great offers.
                             </p>
-                            <p>For further assistance call on <span class="text-bold">022 6739 8888 (extn : 881)</span></p>
+                            <p>For further assistance call on <span class="text-bold">1800 120 8300</span></p>
                         </div>
                         <asp:Button ID="btnMakePayment" class="btn btn-full-width btn-orange margin-top20 margin-bottom10" Text="Pay Now" runat="server" />
                         <div class="clear"></div>
@@ -239,7 +239,7 @@
                 <div class="container">
                     <div class="grid-12 alpha omega">
                         <div class="content-box-shadow content-inner-block-5 margin-bottom15 text-medium-grey text-center">
-                            <a href="tel:02267398888" class="font20 text-grey call-text-green" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>022 6739 8888 (extn: 881)</a>
+                            <a href="tel:1800 120 8300" class="font20 text-grey call-text-green" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 120 8300</a>
                         </div>
                     </div>
                 </div>
@@ -367,6 +367,7 @@
         </script>
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-booking.js?<%= staticFileVersion %>" type="text/javascript"></script>
         <script language="javascript" type="text/javascript">
+            var thisBikename = '<%= this.bikeName %>';
             window.onload = function () {
                 var btnRelease = document.getElementById('<%= clientIP %>');
                 //Find the button set null value to click event and alert will not appear for that specific button

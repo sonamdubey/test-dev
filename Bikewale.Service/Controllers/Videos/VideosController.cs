@@ -28,13 +28,14 @@ namespace Bikewale.Service.Videos.Controllers
 
         #region Videos List 
         /// <summary>
-        ///  To get list of Videos based on Categories defined in Enum
+        ///  Modified By : Ashish G. Kamble
+        ///  Summary : API to get the list of videos for the specified video subcategory.
         /// </summary>
         /// <param name="categoryId"></param>
-        /// <param name="pageNo">Min:0</param>
-        /// <param name="pageSize">Total Records to be Fetched</param>
+        /// <param name="pageNo">Compulsory. Value should be greater than 0.</param>
+        /// <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>
         /// <returns>Categorized Videos List</returns>
-        [ResponseType(typeof(VideosList))]
+        [ResponseType(typeof(VideosList)), Route("api/videos/cat/{categoryId}/pn/{pageNo}/ps/{pageSize}/")]
         public IHttpActionResult Get(EnumVideosCategory categoryId,uint pageNo,uint pageSize)
         {              
             try
@@ -65,33 +66,26 @@ namespace Bikewale.Service.Videos.Controllers
         }  //get  Categorized Videos 
         #endregion 
 
-        #region Videos List
+        #region Videos List        
         /// <summary>
-        ///  To get Videos List based on Make or Model (Classes of Videos)
+        ///  Modified By : Ashish G. Kamble
+        ///  Summary : API to get the list of videos for the specified make.
         /// </summary>
-        /// <param name="classType">Boolean : True for Make,False for Models</param>
-        /// <param name="classId">Make/Model Id</param>
-        /// <param name="pageNo"></param>
-        /// <param name="pageSize"></param>
-        /// <returns>Model's/Make's Videos List</returns>
-        [ResponseType(typeof(VideosList))]
-        public IHttpActionResult Get(uint pageNo, uint pageSize, int? makeId = null , int? modelId = null)
+        /// <param name="pageNo">Compulsory. Value should be greater than 0.</param>
+        /// <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>
+        /// <param name="makeId">Mandatory.</param>        
+        /// <returns></returns>
+        [ResponseType(typeof(VideosList)), Route("api/videos/pn/{pageNo}/ps/{pageSize}/make/{makeId}/")]
+        public IHttpActionResult GetVideosByMakeId(uint pageNo, uint pageSize, int makeId)
         {
             try
             {
                 string _apiUrl = string.Empty;
-
-                if (modelId.HasValue && modelId > 0)
-                {
-                    _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", modelId, pageNo, pageSize);
-                }
-                else if(makeId.HasValue && makeId > 0)
+                
+                if(makeId > 0)
                 {
                     _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", makeId, pageNo, pageSize);
-                }
 
-                if (modelId.HasValue || makeId.HasValue)
-                {
                     List<BikeVideoEntity> objVideosList = null;
 
                     objVideosList = BWHttpClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
@@ -101,10 +95,6 @@ namespace Bikewale.Service.Videos.Controllers
                         VideosList videoDTOList = new VideosList();
                         videoDTOList.Videos = VideosMapper.Convert(objVideosList);
                         return Ok(videoDTOList);
-                    }
-                    else
-                    {
-                        return NotFound();
                     }
                 }
 
@@ -119,5 +109,50 @@ namespace Bikewale.Service.Videos.Controllers
 
         }  //get  Model/Makes Videos 
         #endregion 
-    }
-}
+
+
+        #region Videos List        
+        /// <summary>
+        ///  Modified By : Ashish G. Kamble
+        ///  Summary : API to get the list of videos for the specified model.
+        /// </summary>
+        /// <param name="pageNo">Compulsory. Value should be greater than 0.</param>
+        /// <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>        
+        /// <param name="modelId">Mandatory.</param>
+        /// <returns></returns>
+        [ResponseType(typeof(VideosList)), Route("api/videos/pn/{pageNo}/ps/{pageSize}/model/{modelId}/")]
+        public IHttpActionResult GetVideosByModelId(uint pageNo, uint pageSize, int modelId)
+        {
+            try
+            {
+                string _apiUrl = string.Empty;
+
+                if (modelId > 0)
+                {
+                    _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", modelId, pageNo, pageSize);
+
+                    List<BikeVideoEntity> objVideosList = null;
+
+                    objVideosList = BWHttpClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
+
+                    if (objVideosList != null && objVideosList.Count > 0)
+                    {
+                        VideosList videoDTOList = new VideosList();
+                        videoDTOList.Videos = VideosMapper.Convert(objVideosList);
+                        return Ok(videoDTOList);
+                    }
+                }
+
+                return NotFound();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Videos.VideosController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
+        #endregion
+
+    }   // class
+}   // namespace

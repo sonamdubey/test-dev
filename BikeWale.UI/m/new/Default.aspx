@@ -196,16 +196,16 @@
     </section>
 
     <section> <!--  Upcoming, New Launches and Top Selling code starts here -->
-        <div class="container">
+        <div class="container <%= ((mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
             <div class="grid-12">
                 <h2 class="text-center margin-top30 margin-bottom20">Discover your bike</h2>
                 <div class="bw-tabs-panel">
                     <div class="bw-tabs margin-bottom15">
                         <div class="form-control-box">
                             <select class="form-control">
-                                <option value="mctrlMostPopularBikes">Most Popular</option>
-                                <option value="mctrlNewLaunchedBikes">New Launches</option>
-                                <option value="mctrlUpcomingBikes">Upcoming</option>
+                                <option value="mctrlMostPopularBikes"  style="<%= (mctrlMostPopularBikes.FetchedRecordsCount > 0)?"":"display:none" %>">Most Popular</option>
+                                <option value="mctrlNewLaunchedBikes"  style="<%= (mctrlNewLaunchedBikes.FetchedRecordsCount > 0)?"":"display:none" %>">New Launches</option>
+                                <option value="mctrlUpcomingBikes"  style="<%= (mctrlUpcomingBikes.FetchedRecordsCount > 0)?"":"display:none" %>">Upcoming</option>
                             </select>
                         </div>
                     </div>
@@ -213,7 +213,7 @@
                         <div class="jcarousel-wrapper discover-bike-carousel">
                             <div class="jcarousel">
                                 <ul>
-                                    <BW:MMostPopularBikes runat="server" ID="mctrlMostPopularBikes" />
+                                    <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
@@ -225,7 +225,7 @@
                         <div class="jcarousel-wrapper discover-bike-carousel">
                             <div class="jcarousel">
                                 <ul>
-                                    <BW:MNewLaunchedBikes runat="server" ID="mctrlNewLaunchedBikes" />
+                                    <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
                                 </ul>
                             </div>
                             <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
@@ -308,36 +308,46 @@
         <div class="clear"></div>
     </section>
 
-    <section>
-        <!--  News, reviews and videos code starts here -->
-        <div class="container">
-            <div class="grid-12">
-                <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
-                <div class="bw-tabs-panel">
-                    <div class="bw-tabs margin-bottom15">
-                        <div class="form-control-box">
-
-                            <select class="form-control" ViewStateMode="Disabled">
-                                <option class="active" value="ctrlNews">News</option>
-                                <option value="ctrlExpertReviews">Reviews</option>
-                                <option value="ctrlVideos">Videos</option>
-                            </select>
+    <% 
+            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+    %>
+    <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+            <!--  News, reviews and videos code starts here -->
+            <div class="container">
+                <div class="grid-12">
+                    <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
+                    <div class="bw-tabs-panel">
+                        <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
+                            <div class="form-control-box">
+                                <select class="form-control">
+                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlNews">News</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlExpertReviews">Reviews</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
+                                   
+                                </select>
+                            </div>
                         </div>
+                        <BW:News runat="server" ID="ctrlNews" />
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <BW:Videos runat="server" ID="ctrlVideos" />
+                       
                     </div>
-                    <BW:News runat="server" ID="ctrlNews" />
-                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                    <BW:Videos runat="server" ID="ctrlVideos" />
                 </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-        </div>
-    </section>
+        </section>
+    <!--  News, reviews and videos code ends here -->
     
     <BW:MPopupWidget runat="server" ID="MPopupWidget" />
     <!-- #include file="/includes/footerBW_Mobile.aspx" -->
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-newbikes.js?<%= staticFileVersion %>"></script>
+     <script type="text/javascript" >
+            ga_pg_id = '4';
+        </script>
      </form>
 </body>
 </html>

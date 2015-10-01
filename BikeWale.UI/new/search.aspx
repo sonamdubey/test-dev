@@ -12,16 +12,6 @@
 <!-- #include file="/includes/headBW.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
-    <section class="bg-white">
-    	<div class="container">
-            <div class="grid-12">
-                <div class="padding-bottom15 text-center">
-                    
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
     
     <section class="bg-light-grey padding-top10">
     	<div class="container">
@@ -59,33 +49,33 @@
                                 <div id="filter-select-brand" name="bike" class="filter-selection-div filter-brand-list list-items hide">
                                 	<span class="top-arrow"></span>
                                 	<ul class="content-inner-block-10">
-                                    	<li class="uncheck" filterId="2"><span>Aprilia</span></li>
                                         <li class="uncheck" filterId="7"><span>Honda</span></li>
-                                        <li class="uncheck" filterId="11"><span>Royal Enfield</span></li>
                                         <li class="uncheck" filterId="1"><span>Bajaj</span></li>
-                                        <li class="uncheck" filterId="8"><span>Hyosung</span></li>
+                                        <li class="uncheck" filterId="6"><span>Hero</span></li>
+                                        <li class="uncheck" filterId="15"><span>TVS</span></li>
+                                        <li class="uncheck" filterId="11"><span>Royal Enfield</span></li>
+                                        <li class="uncheck" filterId="13"><span>Yamaha</span></li>
                                         <li class="uncheck" filterId="12"><span>Suzuki</span></li>
-                                        <li class="uncheck" filterId="40"><span>Benelli</span></li>
-                                        <li class="uncheck" filterId="34"><span>Indian</span></li>
-                                        <li class="uncheck" filterId="22"><span>Triumph</span></li>
+                                        <li class="uncheck" filterId="9"><span>KTM</span></li>
+                                        <li class="uncheck" filterId="10"><span>Mahindra</span></li>
                                     </ul>
                                     <div class="clear"></div>
                                     <div class="border-solid-top margin-left10 margin-right10"></div>
                                     <ul class="content-inner-block-10">
-                                    	<li class="uncheck" filterId="3"><span>BMW</span></li>
-                                        <li class="uncheck" filterId="17"><span>Kawasaki</span></li>
-                                        <li class="uncheck" filterId="15"><span>TVS</span></li>
-                                        <li class="uncheck" filterId="4"><span>Ducati</span></li>
-                                        <li class="uncheck" filterId="9"><span>KTM</span></li>
-                                        <li class="uncheck" filterId="16"><span>Vespa</span></li>
-                                        <li class="uncheck" filterId="5"><span>Harley Davidson</span></li>
-                                        <li class="uncheck" filterId="19"><span>LML</span></li>
-                                        <li class="uncheck" filterId="13"><span>Yamaha</span></li>
-                                        <li class="uncheck" filterId="6"><span>Hero</span></li>
-                                        <li class="uncheck" filterId="10"><span>Mahindra</span></li>
-                                        <li class="uncheck" filterId="14"><span>Yo</span></li>
+                                        <li class="uncheck" filterId="2"><span>Aprilia</span></li>
                                         <li class="uncheck" filterId="39"><span>Hero Electric</span></li>
                                         <li class="uncheck" filterId="20"><span>Moto Guzzi</span></li>
+                                        <li class="uncheck" filterId="40"><span>Benelli</span></li>
+                                        <li class="uncheck" filterId="8"><span>Hyosung</span></li>
+                                        <li class="uncheck" filterId="22"><span>Triumph</span></li>
+                                        <li class="uncheck" filterId="3"><span>BMW</span></li>
+                                        <li class="uncheck" filterId="34"><span>Indian</span></li>
+                                        <li class="uncheck" filterId="16"><span>Vespa</span></li>
+                                        <li class="uncheck" filterId="4"><span>Ducati</span></li>
+                                        <li class="uncheck" filterId="17"><span>Kawasaki</span></li>
+                                        <li class="uncheck" filterId="14"><span>Yo</span></li>
+                                        <li class="uncheck" filterId="5"><span>Harley Davidson</span></li>
+                                        <li class="uncheck" filterId="19"><span>LML</span></li>
                                     </ul>
                                     <div class="clear"></div>
                                 </div>
@@ -154,7 +144,7 @@
                             <div class="rightfloat">
                                	<div class="more-filters-btn position-rel rounded-corner2">
                                 	<span class="bwsprite filter-icon inline-block"></span>
-                                    <span class="font14 inline-block">Filters</span>
+                                    <span class="font14 inline-block">More</span>
                                     <div class="filter-count-container">
                                     	<div class="filter-counter">0</div>
                                         <span></span>
@@ -279,6 +269,7 @@
                     	<div class="leftfloat grid-8">
                         	<h2><span id="bikecount"></span></h2>
                         </div>
+                        <!--
                         <div class="rightfloat padding-right10 grid-3">
                             <div class="form-control-box">
                                 <select id="sort" class="form-control">
@@ -287,6 +278,24 @@
                                     <option so="1" sc="1" value="so=1&sc=1">Price :High to Low</option>
                                     <option so="0" sc="2" value="so=0&sc=2" >Mileage :High to Low</option>
                                 </select>
+                            </div>
+                        </div>
+                        -->
+                        <div class="rightfloat padding-right10 padding-left30 grid-3">
+                            <div class="sort-div rounded-corner2">
+                            	<div class="sort-by-title" id="sort-by-container">
+                                	<span class="leftfloat sort-select-btn">Popular</span>
+                                    <span class="clear"></span>
+                                </div>
+                                <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                            </div>
+                            <div class="sort-selection-div sort-list-items hide">
+                            	<ul>
+                                	<li class="selected" so="" sc="" sortqs="">Popular</li>
+                                    <li so="0" sc="1" sortqs="so=0&sc=1" >Price: Low to High</li>
+                                    <li so="1" sc="1" sortqs="so=1&sc=1">Price: High to Low</li>
+                                    <li so="0" sc="2" sortqs="so=0&sc=2">Mileage: High to Low</li>
+                                </ul>
                             </div>
                         </div>
                         <div class="clear"></div>
@@ -312,13 +321,13 @@
                         <li>
                             <div class="contentWrapper">
                                 <div class="imageWrapper">
-                                    <a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' }">
-                                        <img class="lazy" data-bind="attr: { src: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath(), title: bikeName, alt: bikeName }">
+                                    <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(), '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/'); }">
+                                        <img class="lazy" data-bind="attr: {title: bikeName, alt: bikeName, src:'http://img1.aeplcdn.com/grey.gif'},lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
                                     </a>
                                 </div>
                                 <div class="bikeDescWrapper">
                                     <div class="bikeTitle margin-bottom10">
-                                        <h3><a data-bind="attr: { href: '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/', title: bikeName }, text: bikeName"></a></h3>
+                                        <h3><a data-bind="attr: { title: bikeName }, text: bikeName, click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/'); }"></a></h3>
                                     </div>
                                     <div class="font20">
                                         <span class="fa fa-rupee"></span>
@@ -339,7 +348,7 @@
                                         <span data-bind="text: ShowReviewCount(bikemodel.reviewCount())"> </span>
                                     </div>
                                     <div class="clear"></div>
-                                    <a data-bind="attr: { modelId: bikemodel.modelId }, click: function () { FillCitiesPopup(bikemodel.modelId()); }" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
+                                    <a data-bind="attr: { modelId: bikemodel.modelId }, click: function () { FillCitiesPopup(bikemodel.modelId(), bikemodel.makeBase.makeName(), bikemodel.modelName(), '4'); $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
                                 </div>
                             </div>
                         </li>
@@ -355,7 +364,7 @@
 <!-- #include file="/includes/footerscript.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
     <PW:PopupWidget runat="server" ID="PopupWidget" />
 </form>
 </body>

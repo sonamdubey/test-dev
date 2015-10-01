@@ -7,7 +7,6 @@
 <%@ Register Src="~/controls/OnRoadPriceQuote.ascx" TagName="OnRoadPriceQuote" TagPrefix="BW" %>
 <html>
 <head>
-    
     <%
         title = "New Bikes, Used Bikes, Bike Prices, Reviews & Photos in India";
         keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price";
@@ -326,7 +325,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#budget=100000-150000">
+                                    <a href="/new/search.aspx#budget=100000-250000">
                                         <span class="budget-title-box font16">Between
                                         </span>
                                         <span class="budget-amount-box font20">
@@ -335,18 +334,18 @@
                                             <span class="budget-amount-text-box font16">Lakhs</span>
                                             <span class="font24">- </span>
                                             <span class="fa fa-rupee"></span>
-                                            <span>1.5</span>
+                                            <span>2.5</span>
                                             <span class="budget-amount-text-box font16">Lakhs</span>
                                         </span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="/new/search.aspx#budget=200000-">
+                                    <a href="/new/search.aspx#budget=250000-">
                                         <span class="budget-title-box font16">Above
                                         </span>
                                         <span class="budget-amount-box font20">
                                             <span class="fa fa-rupee"></span>
-                                            <span class="font24">2</span>
+                                            <span class="font24">2.5</span>
                                             <span class="budget-amount-text-box font16">Lakhs</span>
                                         </span>
                                     </a>
@@ -448,7 +447,7 @@
     </section>
     <!--  Ends here -->
     <section class="home-getFinalPrice-banner">
-      <BW:OnRoadPriceQuote ID="ctrlOnRoadPriceQuote" runat="server"/>
+      <BW:OnRoadPriceQuote ID="ctrlOnRoadPriceQuote" PageId="1" runat="server"/>
     </section>
 
     <section class="margin-bottom50">
@@ -456,36 +455,47 @@
         <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
     </section>
     <!-- Ends here -->
-    <section class="bg-light-grey if">
+    <section class="bg-light-grey <%= (ctrlPopularUsedBikes.FetchedRecordsCount > 0)?"":"hide" %>">
         <!--  Used Bikes code starts here -->
         <BW:PopularUsedBikes runat="server" ID="ctrlPopularUsedBikes" />
     </section>
+  
     <!-- Ends here -->
-    <section>
-        <!--  News Bikes code starts here -->
-        <div class="container">
-            <div class="grid-12">
-                <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Latest updates from the industry</h2>
-                <div class="bw-tabs-panel">
-                    <div class="bw-tabs bw-tabs-flex">
-                        <ul>
-                            <li class="active" data-tabs="ctrlNews">News</li>
-                            <li data-tabs="ctrlExpertReviews">Reviews</li>
-                            <li data-tabs="ctrlVideos">Videos</li>
-                        </ul>
+     <% 
+            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+        %>
+        <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+            <!--  News Bikes latest updates code starts here -->
+            <div class="newBikes-latest-updates-container">
+                <div class="grid-12">
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
+                    <div class="bw-tabs-panel content-box-shadow margin-bottom30">
+                        <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
+                            <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
+                                <ul>
+                                    <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                   
+                                    <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <BW:News runat="server" ID="ctrlNews" />
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />                         
+                        <BW:Videos runat="server" ID="ctrlVideos" />
                     </div>
-                    <BW:News runat="server" ID="ctrlNews" />
-                    <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                    <BW:Videos runat="server" ID="ctrlVideos" />
                 </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-        </div>
-    </section>
+        </section>
     <!-- Ends here -->
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript">
+        ga_pg_id = '1';
+    </script>
 </form>
 </body>
 </html>

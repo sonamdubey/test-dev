@@ -62,7 +62,9 @@ namespace Bikewale.Content
 
         private void btnWrite_Click(object Sender, EventArgs e)
         {          
-            Response.Redirect("/content/userreviews/writereviews.aspx?bikem=" + Request.Form["drpModel"]);           
+            Response.Redirect("/content/userreviews/writereviews.aspx?bikem=" + Request.Form["drpModel"],false);
+            HttpContext.Current.ApplicationInstance.CompleteRequest();
+            this.Page.Visible = false;
         }
 
         //Modified By : Ashwini Todkar on 12nd Feb 2014

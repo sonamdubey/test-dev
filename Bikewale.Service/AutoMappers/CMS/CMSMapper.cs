@@ -54,13 +54,13 @@ namespace Bikewale.Service.AutoMappers.CMS
             return Mapper.Map<List<Entities.CMS.Articles.ArticleSummary>, List<CMSArticleSummary>>(objRecentArticles);
         }
 
-        internal static List<Bikewale.DTO.CMS.Articles.CMSContent> Convert(List<Bikewale.Entities.CMS.Articles.CMSContent> objFeaturedArticles)
+        internal static Bikewale.DTO.CMS.Articles.CMSContent Convert(Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles)
         {
             Mapper.CreateMap<Bikewale.Entities.CMS.Articles.CMSContent, Bikewale.DTO.CMS.Articles.CMSContent>();
             Mapper.CreateMap<ArticleBase, CMSArticleBase>();
             Mapper.CreateMap<ArticleSummary, CMSArticleSummary>();
             Mapper.CreateMap<VehicleTag, CMSVehicleTag>();
-            return Mapper.Map<List<Bikewale.Entities.CMS.Articles.CMSContent>, List<Bikewale.DTO.CMS.Articles.CMSContent>>(objFeaturedArticles);
+            return Mapper.Map<Bikewale.Entities.CMS.Articles.CMSContent, Bikewale.DTO.CMS.Articles.CMSContent>(objFeaturedArticles);
         }
 
         internal static CMSImageList Convert(CMSImage objPhotos)

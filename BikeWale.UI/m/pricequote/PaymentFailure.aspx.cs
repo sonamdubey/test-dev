@@ -43,10 +43,18 @@ namespace Bikewale.Mobile.PriceQuote
                 GetDetailedQuote();
                 getCustomerDetails();
                 if (objCustomer.IsTransactionCompleted)
-                    Response.Redirect("/m/pricequote/paymentconfirmation.aspx", true);
+                {
+                    Response.Redirect("/m/pricequote/paymentconfirmation.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
             else
-                Response.Redirect("/m/pricequote/", true);
+            {
+                Response.Redirect("/m/pricequote/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
         }
 
         private void ProcessPayment(object sender, EventArgs e)
@@ -56,7 +64,11 @@ namespace Bikewale.Mobile.PriceQuote
                 if (objAmount.objBookingAmountEntityBase.Amount > 0)
                     BeginTransaction("3");
                 else
-                    Response.Redirect("/m/pricequote/", true);
+                {
+                    Response.Redirect("/m/pricequote/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 
@@ -112,13 +124,11 @@ namespace Bikewale.Mobile.PriceQuote
                 if (transresp == "Transaction Failure" || transresp == "Invalid information!")
                 {
                     HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/bookingsummary.aspx");
-                    Trace.Warn("fail");
                 }
             }
             else
             {
                 HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/bookingsummary.aspx");
-                Trace.Warn("fail");
             }
 
         }
@@ -163,7 +173,11 @@ namespace Bikewale.Mobile.PriceQuote
             finally
             {
                 if (!_isContentFound)
-                    Response.Redirect("/m/pagenotfound.aspx", true);
+                {
+                    Response.Redirect("/m/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
     }

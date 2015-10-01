@@ -2,7 +2,6 @@
 <style>
     
 /*PopupWidget Styling*/
-
 #OnRoadContent .chosen-container { border:0;border-radius:0;padding:12px }
 .minifyWidth{width:50%;}
 </style>
@@ -22,13 +21,14 @@
             <div class="final-price-citySelect" >
                 <div class="form-control-box">
                     <select data-placeholder="Select City" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: 'Select City', event: { change: cityChangedOnRoad }"></select> 
+                    <span class="fa fa-spinner fa-spin position-abt pos-right12 pos-top15 text-black bg-white" style="display:none"></span>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select a city</div>
                 </div>
             </div>
             <div class="final-price-areaSelect" data-bind="visible: bookingAreas().length > 0">
                 <div class="form-control-box">
-                    <select data-placeholder="Select Area" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: 'Select Area', event: { change: areaChangedOnRoad }"></select>
+                    <select data-placeholder="Select Area" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: 'Select Area'"></select>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select an area</div>
                 </div>
@@ -50,6 +50,8 @@
     onRoadMakeModel = $('#finalPriceBikeSelect');
     selectedMakeModel = { makeModelName: "", modelId: "" };
     mname = "";
+    var onCookieObj = {};
+    var selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
 
     // knockout OnRoadData binding
     var viewModelOnRoad = {
@@ -72,11 +74,11 @@
                 var cities = JSON.parse(obj.value);
                 var citySelected = null; 
                 if (cities) {
-                    checkCookies();
+                    nbCheckCookies();
                     var initIndex = 0;
                     for (var i = 0; i < cities.length; i++) { 
 
-                        if (preSelectedCityId == cities[i].CityId) {
+                        if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQCitySelectedId == cities[i].CityId) {
                             citySelected = cities[i];
                         }
 
@@ -120,7 +122,7 @@
 
 
     function cityChangedOnRoad() {
-        gtmCodeAppender(pageId, "City Selected", null);
+        //gtmCodeAppenderWidget(pageId, "City Selected", null);
         toggleErrorMsg(onRoadArea, false);
         if (viewModelOnRoad.selectedCity() != undefined) {
             $.ajax({
@@ -133,6 +135,10 @@
                     areas = $.parseJSON(response.value);
                     if (areas.length) {
                         viewModelOnRoad.bookingAreas(areas);
+                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                            viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
+                            onCookieObj.PQAreaSelectedId = 0;
+                        }
                         $('#ddlAreaOnRoad').trigger("chosen:updated");
                         calcWidth();
                     }
@@ -149,9 +155,9 @@
         }
     }
 
-    function areaChangedOnRoad() {
-        gtmCodeAppender(pageId, "Area Selected", null);
-    }
+    //function areaChangedOnRoad() {
+    //    gtmCodeAppenderWidget(pageId, "Area Selected", null);
+    //}
 
 
     function isValidInfoOnRoad() {
@@ -183,7 +189,7 @@
 
         if (!isValid) {
             errMsg = errMsg.substring(0, errMsg.length - 1);
-            gtmCodeAppender(pageId, "Error in submission", errMsg);
+            gtmCodeAppenderWidget(pageId, "Error in submission", errMsg);
         }
 
         return isValid;
@@ -194,11 +200,7 @@
         if (isValidInfoOnRoad()) {
 
             //set global cookie
-            if (cityId > 0) {
-                cityName = $(onRoadcity).find("option[value=" + cityId + "]").text();
-                cookieValue = cityId + "_" + cityName;
-                SetCookieInDays("location", cookieValue, 365);
-            }
+            setLocationCookie($('#ddlCitiesOnRoad option:selected'), $('#ddlAreaOnRoad option:selected'));
 
             $.ajax({
                 type: 'POST',
@@ -208,35 +210,48 @@
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
                 success: function (json) {
                     var jsonObj = $.parseJSON(json.value);
+
+                    selectedCityName = $("#ddlCitiesOnRoad option:selected").text();
+
+                    if (areaId > 0)
+                        selectedAreaName = $("#ddlAreaOnRoad option:selected").text();
+
+                    if (selectedMakeName != "" && selectedCityName != "") {
+                        gaLabel = selectedMakeName + ',' + selectedCityName;
+
+                        if (selectedAreaName != '')
+                            gaLabel += ',' + selectedAreaName;
+                    }
+
+
                     if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-                        gtmCodeAppender(pageId, "Successful submission - DealerPQ", "Model : " + selectedModel + ', City : ' + viewModelOnRoad.selectedCity() + ', Area : ' + viewModelOnRoad.selectedArea());
+                        gtmCodeAppenderWidget(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                         window.location = "/pricequote/dealerpricequote.aspx";
                     }
                     else if (jsonObj != undefined && jsonObj.quoteId > 0) {
-                        gtmCodeAppender(pageId, "Successful submission - BikeWalePQ", "Model : " + selectedModel + ', City : ' + viewModelOnRoad.selectedCity() + ', Area : ' + viewModelOnRoad.selectedArea());
+                        gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
                         window.location = "/pricequote/quotation.aspx";
                     } else {
-                        gtmCodeAppender(pageId, "Error in submission", null);
+                        gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                         $("#errMsgOnRoad").text("Oops. We do not seem to have pricing for given details.").show();
                     }
                 },
                 error: function (e) {
-                    gtmCodeAppender(pageId, "Error in submission", null);
+                    gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                     $("#errMsg").text("Oops. Some error occured. Please try again.").show();
                 }
             });
         } else {
-            gtmCodeAppender(pageId, "Error in submission", null);
+            gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
             $("#errMsgOnRoad").text("Please select all the details").show();
         }
     }
 
-    function gtmCodeAppender(pageId, action, label) {
+    function gtmCodeAppenderWidget(pageId, action, label) {
         if (pageId != null) {
             switch (pageId) {
                 case "1":
                     category = 'CheckPQ_Make';
-                    action = "CheckPQ_Make_" + action;
                     break;
                 case "2":
                     category = "CheckPQ_Series";
@@ -244,32 +259,34 @@
                     break;
                 case "3":
                     category = "CheckPQ_Model";
-                    action = "CheckPQ_Model_" + action;
+                    break;
+                case "4":
+                    category = "New_Bikes_Page";
                     break;
             }
             if (label) {
-                dataLayer.push({ 'event': 'product_bw_gtm', 'cat': category, 'act': action, 'lab': label });
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action, 'lab': label });
             }
             else {
-                dataLayer.push({ 'event': 'product_bw_gtm', 'cat': category, 'act': action });
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': action });
             }
         }
 
     }
 
-    function checkCookies()
-    {
+    function nbCheckCookies() {
         c = document.cookie.split('; ');
-        for(i=c.length-1; i>=0; i--)
-        {
+        for (i = c.length - 1; i >= 0; i--) {
             C = c[i].split('=');
-            if(C[0]=="location")
-            {
+            if (C[0] == "location") {
                 var cData = (String(C[1])).split('_');
-                preSelectedCityId = parseInt(cData[0]);
-                preSelectedCityName = cData[1];
+                onCookieObj.PQCitySelectedId = parseInt(cData[0]);
+                onCookieObj.PQCitySelectedName = cData[1];
+                onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
+                onCookieObj.PQAreaSelectedName = cData[3];
+
             }
-        } 
+        }
     }
 
    function calcWidth()
@@ -294,8 +311,9 @@
                     model = new Object();
                     model.maskingName = ui.item.payload.modelMaskingName;
                     model.id = ui.item.payload.modelId;
-                    pageId = $(this).attr('pageCatId');
-                    gtmCodeAppender(pageId, "Button Clicked", null);
+                    selectedMakeName = ui.item.label;
+                    pageId = '<%= PageId %>';
+                    gtmCodeAppenderWidget(pageId, "Get_On_Road_Price_Click", selectedMakeName);
                     $("#errMsgOnRoad").empty();
                     selectedModel = model.id;
                     FillCitiesOnRoad(selectedModel);

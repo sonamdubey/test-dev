@@ -16,6 +16,7 @@
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>        
     <script type="text/javascript">
+        var ga_pg_id = '0';
         //facebook like button script
         ( function ( d, s, id ) {
             var js, fjs = d.getElementsByTagName( s )[0];

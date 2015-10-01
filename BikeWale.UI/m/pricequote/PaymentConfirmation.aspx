@@ -62,7 +62,7 @@
                     </FooterTemplate>
                 </asp:Repeater>
             </div>
-            <div class="text-center font12 margin-top-10">Balance Amount Payable at Dealership: <span class="WebRupee">Rs.</span><%=totalPrice - Convert.ToUInt32(Bikewale.Common.CommonOpn.FormatPrice(_objPQ.objBookingAmt.Amount.ToString())) - insuranceAmount %></div>
+            <div class="text-center font12 margin-top-10">Balance Amount Payable at Dealership: <span class="WebRupee">Rs.</span><%=Bikewale.Utility.Format.FormatPrice((totalPrice - _objPQ.objBookingAmt.Amount - insuranceAmount).ToString()) %></div>
             <%--<button id="btnPrint" data-role="none" class="rounded-corner5" onClick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel %>', act: 'Click Button Get_Dealer_Details' ,lab:'Clicked on Print_Receipt'});">Print Receipt</button>--%>
         </div>
         <div class="box1 new-line10">
@@ -293,6 +293,10 @@
     <!--Documents popup ends here-->
 <script type="text/javascript">
     $(document).ready(function () {
+        var cityArea = GetGlobalCityArea();
+        if (cityArea != undefined) {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Payment_Confirmation', 'lab': cityArea });
+        }
         //For Faqs popup
         $("#faqLink").click(function () {
             $(".faq-popup").show();

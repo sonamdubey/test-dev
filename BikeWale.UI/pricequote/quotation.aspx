@@ -18,8 +18,8 @@
 <link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
 
  <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/headNew.aspx" -->
+<PW:PopupWidget runat="server" ID="PopupWidget" />
 <div class="main-container">
 	<div class="container_12">
         <div class="grid_12">
@@ -110,9 +110,12 @@
     
 <script type="text/javascript">
     $(document).ready(function () {
+        
         makeMapName = '<%= mmv.MakeMappingName%>';
         modelMapName = '<%= mmv.ModelMappingName%>';
         $("#version_" + '<%= versionId%>').html("<b>this bike</b>");
+
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': selectedModel });
     });
 
     function compareSelected()

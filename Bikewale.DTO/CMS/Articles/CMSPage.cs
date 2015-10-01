@@ -12,5 +12,7 @@ namespace Bikewale.DTO.CMS.Articles
         public ushort Priority { get; set; }
         public string PageName { get; set; }
         public string Content { get; set; }
+
+        public HtmlContent htmlContent { get; set; }
     }
 }

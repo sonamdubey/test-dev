@@ -5,7 +5,7 @@
             <div class="padding-bottom30">
                 <div class="grid-4 alpha">
                     <div class="img-preview">
-                        <a href="/news/<%# DataBinder.Eval(Container.DataItem,"BasicId").ToString() + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() %>.html"><img src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>"></a>
+                        <a href="/news/<%# DataBinder.Eval(Container.DataItem,"BasicId").ToString() + "-" + DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() %>.html"><img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" src="http://img1.aeplcdn.com/grey.gif" width="310" height="174"></a>
                     </div>
                 </div>
                 <div class="grid-8 omega">
@@ -23,4 +23,7 @@
     <div class="padding-bottom50 text-center">
         <a href="/news/" class="font16">View more news</a>
     </div>
+    <script type="text/javascript">
+        $(document).ready(function () { $("img.lazy").lazyload(); });
+    </script>
 </div><!-- Ends here-->

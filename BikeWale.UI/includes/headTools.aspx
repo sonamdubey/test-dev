@@ -15,6 +15,7 @@
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
     <script type='text/javascript'>
+        var ga_pg_id = '0';
         var googletag = googletag || {};
         googletag.cmd = googletag.cmd || [];
         (function () {

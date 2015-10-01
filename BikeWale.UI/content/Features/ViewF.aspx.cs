@@ -87,9 +87,9 @@ namespace Bikewale.Content
             }
             else
             {
-                Response.Redirect("/pagenotfound.aspx", true);
-                // HttpContext.Current.ApplicationInstance.CompleteRequest();
-                //this.Page.Visible = false;
+                Response.Redirect("/pagenotfound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 
@@ -131,9 +131,9 @@ namespace Bikewale.Content
             {
                 if (!_isContentFount)
                 {
-                    Response.Redirect("/pagenotfound.aspx", true);
-                    //HttpContext.Current.ApplicationInstance.CompleteRequest();
-                    //this.Page.Visible = false;
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
         }

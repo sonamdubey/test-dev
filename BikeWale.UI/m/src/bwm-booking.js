@@ -87,6 +87,7 @@ function BookingPageVMModel() {
         });
     };
     self.generatePQ = function () {
+        
         var objPQ =
         {
             "cityId": cityId,
@@ -96,6 +97,9 @@ function BookingPageVMModel() {
             "sourceType": 2,
             "versionId": self.SelectedVarient().minSpec().versionId()
         }
+        // Push GA Analytics
+        var cityArea = GetGlobalCityArea();
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_2', 'lab': thisBikename + '_' + cityArea });
 
         $.ajax({
             type: "POST",
@@ -488,19 +492,24 @@ var normalHeader = $('header .navbarBtn, header .global-location, header .bw-log
 var mobileValue = '';
 
 detailsSubmitBtn.click(function () {
+    
     var a = validateEmail();
     var b = validateMobile();
     var c = validateName();
+    var cityArea = GetGlobalCityArea();
     if (c == false) {
         fnameVal();
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Name', 'lab': cityArea });
     }
     else {
         if (a == false) {
             emailVal();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Email', 'lab': cityArea });
         }
         else {
             if (b == false) {
                 mobileVal();
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': cityArea });
             }
         }
         if (a == true && b == true && c == true) {
@@ -528,6 +537,9 @@ detailsSubmitBtn.click(function () {
                 otpText.val('').removeClass("border-red");
                 otpText.siblings("span, div").css("display", "none");
             }
+            // Push 
+        var getCityArea = GetGlobalCityArea();
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_Successful_Submit', 'lab': getCityArea });
         }
     }
     mobileValue = mobile.val();
@@ -622,16 +634,16 @@ function validateMobile() {
     var reMobile = /^[0-9]*$/;
     var mobileNo = mobile.val();
     if (mobileNo == "") {
-        return false;
         mobileVal("Please enter your Mobile Number");
+        return false;
     }
     else if (!reMobile.test(mobileNo)) {
-        return false;
         mobileVal("Mobile Number should be numeric");
+        return false;
     }
     else if (mobileNo.length != 10) {
-        return false;
         mobileVal("Mobile Number should be of 10 digits");
+        return false;
     }
     return true;
 }
@@ -687,8 +699,18 @@ emailid.change(function () {
 otpBtn.click(function () {
     var isValid = true;
     isValid = validateEmail();
+    var getCityArea = GetGlobalCityArea();
+    if (isValid == false) {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_OTP_Submit_Error_Name', 'lab': getCityArea  });
+    }
     isValid &= validateMobile();
+    if (isValid == false) {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_OTP_Submit_Error_Mobile', 'lab': getCityArea });
+    }
     isValid &= validateName();
+    if (isValid == false) {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_OTP_Submit_Error_Name', 'lab': getCityArea });
+    }
     $('#processing').show();
     if (!validateOTP())
         $('#processing').hide();
@@ -710,10 +732,12 @@ otpBtn.click(function () {
             $(".call-for-queries").hide();
             $.scrollToSteps();
             $('#processing').hide();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
         }
         else {
             $('#processing').hide();
             otpVal("Please enter a valid OTP.");
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
         }
     }
 });
@@ -851,3 +875,9 @@ var varientSelection = function () {
         return false;
     }
 }
+
+$('#btnMakePayment').on('click', function (e) {
+    
+    var cityArea = GetGlobalCityArea();
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step 3_Pay_Click', 'lab': cityArea });
+});

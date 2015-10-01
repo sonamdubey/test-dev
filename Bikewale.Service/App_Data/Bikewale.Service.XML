@@ -1451,13 +1451,13 @@
         </member>
         <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(System.UInt32,System.UInt32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
-             To get Videos List based on Make or Model (Classes of Videos)
+             To get Videos List based on Make or Model (Classes of Videos).
             </summary>
-            <param name="classType">Boolean : True for Make,False for Models</param>
-            <param name="classId">Make/Model Id</param>
-            <param name="pageNo"></param>
-            <param name="pageSize"></param>
-            <returns>Model's/Make's Videos List</returns>
+            <param name="pageNo">Compulsory. Value should be greater than 0.</param>
+            <param name="pageSize">Compulsory.</param>
+            <param name="makeId">Optional if modelId is provided</param>
+            <param name="modelId">Optional if makeId is provided</param>
+            <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Feedback.FeedbackController">
             <summary>

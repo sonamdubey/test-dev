@@ -118,7 +118,11 @@ namespace Bikewale.Content
             finally
             {
                 if (!_isContentFound)
+                {
                     Response.Redirect("/m/pagenotfound.aspx", true);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 
@@ -367,7 +371,9 @@ namespace Bikewale.Content
                         }
                         else
                         {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
                         }
                     }
                 }

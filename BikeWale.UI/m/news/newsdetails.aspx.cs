@@ -46,8 +46,12 @@ namespace Bikewale.Mobile.Content
                 if (Int32.TryParse(_newsId, out _basicId))
                     GetNewsDetails(_basicId);
                 else
-                    Response.Redirect("/m/pagenotfound.aspx", true);  
-            }          
+                {
+                    Response.Redirect("/m/pagenotfound.aspx", true);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
+            }
         }
 
         /// <summary>
@@ -77,7 +81,9 @@ namespace Bikewale.Mobile.Content
             }
             else
             {
-                Response.Redirect("/m/news/", true);
+                Response.Redirect("/m/news/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 
@@ -110,8 +116,12 @@ namespace Bikewale.Mobile.Content
             }
             finally
             {
-                if(!_isContentFound)
-                    Response.Redirect("/m/news/", true);
+                if (!_isContentFound)
+                {
+                    Response.Redirect("/m/news/", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 

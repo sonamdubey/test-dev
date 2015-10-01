@@ -181,12 +181,16 @@ namespace Bikewale.PriceQuote
                     // Save pq cookie
                     PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());
 
-                    Response.Redirect("/pricequote/dealerpricequote.aspx", true);
+                    Response.Redirect("/pricequote/dealerpricequote.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
                 else if(objPQOutput.PQId>0)
                 {
                     PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), string.Empty);
-                    Response.Redirect("/pricequote/quotation.aspx", true);
+                    Response.Redirect("/pricequote/quotation.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
                 else
                 {

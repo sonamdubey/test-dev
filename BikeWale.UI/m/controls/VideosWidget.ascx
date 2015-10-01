@@ -16,10 +16,10 @@
                                     <h3><%# DataBinder.Eval(Container.DataItem,"VideoTitle").ToString() %></h3>
                                 </div>
                                 <div class="margin-bottom15 text-light-grey">
-                                    <span class="bwmsprite review-sm-lgt-grey"></span> Views <span><%# DataBinder.Eval(Container.DataItem,"Views").ToString() %></span>
+                                    <span class="bwmsprite review-sm-lgt-grey"></span> Views <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Views").ToString()) %></span>
                                 </div>
                                 <div class="text-light-grey">
-                                    <span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span><%# DataBinder.Eval(Container.DataItem,"Likes").ToString() %></span>
+                                    <span class="fa fa-thumbs-o-up text-light-grey margin-right5"></span> Likes <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Likes").ToString()) %></span>
                                 </div>
                             </div>
                         </div>

@@ -42,10 +42,18 @@ namespace Bikewale.PriceQuote
                 GetDetailedQuote();
                 getCustomerDetails();
                 if (objCustomer.IsTransactionCompleted)
-                    Response.Redirect("/pricequote/paymentconfirmation.aspx", true);
+                {
+                    Response.Redirect("/pricequote/paymentconfirmation.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
             else
-                Response.Redirect("/pricequote/", true);
+            {
+                Response.Redirect("/pricequote/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
         }
 
         // <summary>
@@ -93,7 +101,11 @@ namespace Bikewale.PriceQuote
             finally
             {
                 if (!_isContentFound)
-                    Response.Redirect("/pagenotfound.aspx", true);
+                {
+                    Response.Redirect("/pagenotfound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
+                }
             }
         }
 
@@ -109,7 +121,11 @@ namespace Bikewale.PriceQuote
 
                         BeginTransaction("3");
                     else
-                        Response.Redirect("/pricequote/", true);
+                    {
+                        Response.Redirect("/pricequote/", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                    }
                 }
             }
         }

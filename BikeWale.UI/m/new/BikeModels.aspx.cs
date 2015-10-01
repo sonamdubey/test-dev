@@ -94,14 +94,15 @@ namespace Bikewale.Mobile.New
 
             if (modelPage.Photos != null && modelPage.Photos.Count > 0)
             {
-                if (modelPage.Photos.Count > 2)
-                {
-                    rptModelPhotos.DataSource = modelPage.Photos.Take(3);
-                }
-                else
-                {
-                    rptModelPhotos.DataSource = modelPage.Photos;
-                }
+                //if (modelPage.Photos.Count > 2)
+                //{
+                //    rptModelPhotos.DataSource = modelPage.Photos.Take(3);
+                //}
+                //else
+                //{
+                //    rptModelPhotos.DataSource = modelPage.Photos;
+                //}
+                rptModelPhotos.DataSource = modelPage.Photos;
                 rptModelPhotos.DataBind();
             }
 
@@ -111,9 +112,9 @@ namespace Bikewale.Mobile.New
                 rptVarients.DataBind();
             }
 
-            if (modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0)
+            if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
             {
-                rptColors.DataSource = modelPage.ModelColors.ToList();
+                rptColors.DataSource = modelPage.ModelColors;
                 rptColors.DataBind();
             }
         }
