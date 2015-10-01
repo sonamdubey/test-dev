@@ -6,6 +6,7 @@
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PriceQuotePopup" %>
+<%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <!doctype html>
 <html>
 <head>
@@ -60,7 +61,7 @@
                             <div class="<%= !modelPage.ModelDetails.Futuristic && !modelPage.ModelDetails.New ? "" : "hide" %>">
                                 <span class="model-sprite bw-discontinued-bike-ico"></span>
                             </div>
-                            <div class="connected-carousels">
+                            <div class="connected-carousels" id="bikeBannerImageCarousel">
                                 <div class="stage">
                                     <div class="carousel carousel-stage">
                                         <ul>
@@ -1016,7 +1017,7 @@
         </section>
         
          <BW:PriceQuotePopup ID="ctrlPriceQuotePopup" runat="server" />
-
+        <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?<%= staticFileVersion %>">"></script>
@@ -1028,8 +1029,7 @@
                     event: "imgLazyLoad",
                     effect: "fadeIn"
                 });
-            }
-            
+            }            
             $(document).ready(function (e) {
                 applyLazyLoad();
 
@@ -1037,7 +1037,6 @@
                 $(".carousel-stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
 
             });
-
         </script>
         <script type="text/javascript">
         $(document).ready(function (e) {
