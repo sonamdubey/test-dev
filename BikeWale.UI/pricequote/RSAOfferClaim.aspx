@@ -150,6 +150,15 @@
                                     <table cellspacing="0" cellpadding="3" width="100%" border="0">
                                         <tr>
                                             <td style="width: 230px;">
+                                                <b>Booking Ref. No. (e.g. BW201234)</b>
+                                            </td>
+                                            <td>
+                                                <asp:textbox id="txtBookingNum" runat="server"></asp:textbox>
+                                                <span id="spnBookingNum" class="error"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 230px;">
                                                 <b>Full Name as per Vehicle Registration<span class="error">*</span></b>
                                             </td>
                                             <td>
@@ -213,6 +222,15 @@
                                             <td>
                                                 <asp:textbox id="txtAddress" rows="2" columns="60" textmode="MultiLine" runat="server"></asp:textbox>
                                                 <span id="spnAddress" class="error"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 230px;">
+                                                <b>Pincode<span class="error">*</span></b>
+                                            </td>
+                                            <td>
+                                                <asp:textbox id="txtPincode" runat="server"></asp:textbox>
+                                                <span id="spnPincode" class="error"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -311,11 +329,14 @@
             var CustomerMobile = $("#txtMobile").val();
             var bikeRegistrationNo = $("#txtVehicle").val();
             var customerAddress = $("#txtAddress").val();
+            var customerPincode = $("#txtPincode").val();
             //var deliveryDate = $("#calMakeYear").val();
             var deliveryDate = $("#txtPreferredDate").val();
             var dealerName = $("#txtdealerName").val();
             var dealerAddress = $("#txtDealerAddress").val();
             var selHelmet = $("#hdnSelHelmet").val();
+
+            var pincodeReg = /^\d{6}$/;
 
             if (customerName == "") {
                 $("#spnName").text("Required");
@@ -325,6 +346,14 @@
                 isError = true;
             } else {
                 $("#spnName").text("");
+            }
+
+            if (pincodeReg.test(customerPincode) && customerPincode[0] != '0') {
+                $("#spnPincode").text("");
+            }
+            else {
+                $("#spnPincode").text("Please Enter six digit Pincode");
+                isError = true;
             }
 
             if (CustomerMobile == "") {
@@ -385,6 +414,7 @@
             } else {
                 $("#errHelmetOffer").text("");
             }
+            
             return !isError;
         });
 
