@@ -5,6 +5,7 @@ var objCity = new Object();
 var globalCityId = 0;
 var _makeName = '';
 var ga_pg_id = '0';
+
 //fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
@@ -791,21 +792,13 @@ function setLocationCookie(cityEle, areaEle) {
 }
 
 //match cookie data to check city /area exists 
-function selectElementFromArray(dataArray,id)
-{
-    l = dataArray.length;
-    if (dataArray != null && dataArray[0].cityId) {
+function selectElementFromArray(dataArray, id) {
+    if (dataArray != null && (l = dataArray.length) > 0) {
         for (var i = 0; i < l; i++) {
-            if (dataArray[i].cityId === id)
+            if (dataArray[i].cityId === id || dataArray[i].AreaId === id || dataArray[i].areaId === id || dataArray[i].CityId === id)
                 return true
         }
     }
-    else {
-        for (var i = 0; i < l; i++) {
-            if (dataArray[i].areaId === id)
-                return true
-        }
-    }
-
     return false;
 }
+

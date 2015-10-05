@@ -1,17 +1,9 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.Controls.OnRoadPricequote" %>
-
-<script runat="server">
-    private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-    private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-</script>
-<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
 <div class="container">
     <div class="grid-5 leftfloat">
         <div class="bg-white content-inner-block-15 light-box-shadow rounded-corner2 margin-top70" id="OnRoadContent">
-            <h2 class="text-bold margin-bottom20 font28">On road price</h2>
-
-            <!-- On road pricequote control-->
-            
+            <h2 class="text-bold margin-bottom20 font28">On road price</h2> 
+            <!-- On road pricequote control-->              
             <div class="form-control-box margin-bottom20">
                 <input value="" class="form-control ui-autocomplete-input" type="text" placeholder="Search Make and Model" id="makemodelFinalPrice" tabindex="1" autocomplete="off" style="width: 365px;">
                 <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
@@ -19,28 +11,22 @@
                 <div class="bw-blackbg-tooltip hide">Please enter make/model name</div>
             </div>
             <div class="form-control-box margin-bottom20 finalPriceCitySelect " >
-                <select data-placeholder="--Select City--" class="form-control" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedOnRoad }"></select>
+                <select data-placeholder="--Select City--" class="form-control" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedOnRoad },chosen: { width: '100%' }"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
             <div class="form-control-box margin-bottom20 finalPriceAreaSelect " data-bind="visible: bookingAreas().length > 0">
-                <select data-placeholder="--Select Area--" class="form-control" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--'"></select>
+                <select data-placeholder="--Select Area--" class="form-control" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', chosen: { width: '100%' }"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
             <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" value="Get On-road Price" data-bind="event: { click: getPriceQuoteOnRoad }">Get On-road Price</button>
             <p class="margin-bottom5">Its private, no need to share your number and email</p>    
+        </div>             
+        <!-- Onroad price quote ends here-->            
         </div>
-            
-               <!-- Onroad price quote ends here-->
-
-            
-        </div>
-    </div>
-    <div class="clear"></div>
 </div>
 
-<script type="text/javascript" src="/src/common/chosen.jquery.min.js?14sept2015"></script>
 <script type="text/javascript">
 
     var preSelectedCityId = 0;
@@ -64,7 +50,7 @@
         bookingCities: ko.observableArray([]),
         selectedArea: ko.observable(),
         bookingAreas: ko.observableArray([])
-    };
+    };    
 
 
     function FillCitiesOnRoad(modelId) {
@@ -79,43 +65,15 @@
                 var citySelected = null; 
                 if (cities) {
                     checkCookies();
-                    var initIndex = 0;
-                    for (var i = 0; i < cities.length; i++) { 
-
-                        if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQCitySelectedId == cities[i].CityId) {
-                            citySelected = cities[i];
-                        }
-
-                        if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
-                            var currentCity = cities[i];
-                            cities.splice(cities.indexOf(currentCity), 1);
-                            cities.splice(initIndex++, 0, currentCity);
-                        }                            
-                    }
-
-                    cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null }); 
-
                     viewModelOnRoad.bookingCities(cities);
-
-                    if(citySelected!=null)
-                    {
-                        viewModelOnRoad.selectedCity(citySelected.CityId);
-                    }                        
-
-                    $("#ddlCitiesOnRoad option[value=0]").prop("disabled", "disabled");
-                    if ($("#ddlCitiesOnRoad option:last-child").val() == "0") {
-                        $("#ddlCitiesOnRoad option:last-child").remove();
+                    if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelOnRoad.bookingCities() && selectElementFromArray(viewModelOnRoad.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                        viewModelOnRoad.selectedCity(onCookieObj.PQCitySelectedId);
                     }
-                    if ($("#ddlCitiesOnRoad option:first-child").next().val() == "0") {
-                        $("#ddlCitiesOnRoad option[value=0]").remove();
-                    }
-                    $('#ddlCitiesOnRoad').trigger("chosen:updated");                        
-
-                    cityChangedOnRoad();
+                    cityChangedOnRoad();                    
+                    
                 }
                 else {
                     viewModelOnRoad.bookingCities([]);
-                    $('#ddlCitiesOnRoad').trigger("chosen:updated");
                 }
             }
         });
@@ -136,14 +94,11 @@
                         viewModelOnRoad.bookingAreas(areas);
                         if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
                             viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
-                            onCookieObj.PQAreaSelectedId = 0;
                         }
-                        $('#ddlAreaOnRoad').trigger("chosen:updated");
                     }
                     else {
                         viewModelOnRoad.selectedArea(0);
                         viewModelOnRoad.bookingAreas([]);
-                        $('#ddlAreaOnRoad').trigger("chosen:updated");
                     }
                 }
             });

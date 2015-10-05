@@ -19,6 +19,7 @@
         AdId = "1017752";
     %>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
 </head>
 <body class="bg-light-grey">
@@ -150,8 +151,7 @@
         </section>
     <!--  News, reviews and videos code ends here -->
 
-    <section class="<%= (isDescription)? "": "hide" %>><!--  About code starts here -->
-            <!--  About code starts here -->
+    <section class="<%= (isDescription)? "": "hide" %>"><!--  About code starts here -->
             <div class="container">
                 <div class="grid-12">
                     <div class="content-inner-block-10 content-box-shadow margin-bottom30">
@@ -181,9 +181,9 @@
 
         <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-brand.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
         ga_pg_id = '3';
         var _makeName = '<%= _make.MakeName %>';

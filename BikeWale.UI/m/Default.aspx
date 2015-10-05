@@ -17,6 +17,7 @@
      %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/home.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -505,7 +506,8 @@
 <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 <!-- all other js plugins -->    
 <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-<script type="text/javascript" src="/m/src/home.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/home.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
  <script type="text/javascript">
         ga_pg_id = '1';
     </script>

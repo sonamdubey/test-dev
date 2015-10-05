@@ -27,6 +27,11 @@
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <style>
+ .chosen-results::-webkit-scrollbar { width: 10px;border-radius:5px; }
+.chosen-results::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2); }
+.chosen-results::-webkit-scrollbar-thumb { background-color: rgba(204, 204, 204,0.7); }
+    </style>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -112,7 +117,7 @@
                             </div>
                             <% } %>
                         </div>
-                        <div class="grid-6 padding-left40" id="dvBikePrice">
+                        <div class="grid-6 padding-left40" style="display:none"  data-bind="visible:true" id="dvBikePrice">
                             <% if (!modelPage.ModelDetails.Futuristic)
                                { %>
                             <div class="bike-price-container font28 margin-bottom15">
@@ -251,7 +256,8 @@
                             <!-- /ko -->
                             <!-- City and Area  msgs and select controls starts-->
                             <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible:popularCityClicked()">
-                                
+                               
+                                <div id="locationError" >
                                 <div class="city-select-text text-left margin-bottom15 " data-bind="visible:!selectedCity() || cities()">
                                     <p class="font16">Select city for accurate on-road price and exclusive offers</p>
                                 </div>
@@ -261,11 +267,11 @@
                                     <p class="font16">Select area for on-road price and exclusive offers</p>
                                 </div>
                                 <!-- /ko -->
-                                
+                                </div> 
                                 <!-- On Road Price mesasge starts -->
                                 <!-- ko if : BWPriceList() || DealerPriceList() -->
                                 <div class="city-onRoad-price-container font16 margin-bottom15 hide">
-                                    <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>change location</span></p>
+                                    <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10">change location</span></p>
                                     <p class="font12 margin-bottom15 text-light-grey" id="breakup"></p>
                                     <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
                                     <input type="button" class="btn btn-orange" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
@@ -277,14 +283,14 @@
                                 <div class="city-area-wrapper">
                                     <!-- ko if : cities()  && cities().length > 0 -->            
                                     <div class="city-select leftfloat margin-right20 position-rel">
-                                        <select class="chosen-select" data-placeholder="Select City" id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City'"></select> <%--, event: { change: LoadArea }--%>
-                                        <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
+                                          <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
+                                        <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', chosen: { width: '190px' }"></select>                                   
                                     </div>
                                     <!-- /ko -->
                                     <!-- ko if : selectedCity() && areas()  && areas().length > 0 -->
                                     <div class="area-select leftfloat position-rel">
-                                        <select class="chosen-select" data-placeholder="Select Area" id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area'"></select>  <%-- ,event: { change: OnAreaChange }--%>
                                         <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
+                                        <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', chosen: { width: '190px' }"></select>                                        
                                     </div>
                                     <!-- /ko -->
                                     <div class="clear"></div>
@@ -317,10 +323,12 @@
                                         <!-- /ko -->
                                         <!-- /ko -->
                                     </div>
-                                </div>                                 
+                                </div>
+                                                                
                                 <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
                                     <input type="button" id="btnShowOffers" class="btn btn-orange unveil-offer-btn" value="Show Offers" />
-                                </div>                               
+                                </div> 
+                                                             
                             </div>
                             <% } %>
                             <% } %>
