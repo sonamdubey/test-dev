@@ -400,7 +400,7 @@ namespace BikeWaleOpr.Content
 
             //Trace.Warn("city " + cityId + "modelId" + modelId);
 			
-			if(modelId.Trim() != string.Empty && modelId.Length != 0 && modelId.Trim() != "")
+			if(modelId != null && modelId.Trim() != string.Empty && modelId.Length != 0 && modelId.Trim() != "")
 			{			
 				sql = " SELECT VE.ID, VE.Name,"
 					+ " NCS.Price AS MumPrice, NCS.Insurance AS MumInsurance, NCS.RTO AS MumRTO, NCS.CorporateRTO AS MumCorporateRTO, "

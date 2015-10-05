@@ -151,13 +151,14 @@ namespace Bikewale.Notifications
                 EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer;
 
                 string message = "";
-
                 //message = "Dear " + customerName + ", Thank you for showing interest in " + BikeName + ". Dealer details: " + dealerName + ", " + dealerContactNo + ", " + dealerAddress;
                 if (insuranceAmount == 0 || bookingAmount == 0)
+                {
                     message = String.Format("Avail your FREE Vega Helmet %26 1-year RSA from BikeWale on purchase of {0} from {1}({2}) Dealer Address: {3}.", BikeName, dealerName, dealerContactNo, dealerAddress);
+                }
                 else
                 {
-                    message = String.Format("Pay Rs. {3} to book your {0} online at BikeWale %26 get 100%25 discount on Insurance at {1}({2})", BikeName, dealerName, dealerContactNo, bookingAmount);
+                    message = String.Format("Pay Rs. {1} to book your {0} at BikeWale to get a helmet worth Rs. 1000 and one year RSA absolutely FREE!", BikeName, bookingAmount);
                 }
                 SMSCommon sc = new SMSCommon();
                 sc.ProcessSMS(customerMobile, message, esms, pageUrl);
@@ -193,7 +194,7 @@ namespace Bikewale.Notifications
 
                 if (insuranceAmount == 0)
                 {
-                    message = "You have pre-booked " + BikeName + ", No " + bookingRefNum + ". Contact " + dealerName + ", " + dealerContactNo + ", " + dealerAddress;
+                    message = "Congratulations! You have booked " + BikeName + ", Reference No " + bookingRefNum + ". Contact " + dealerName + ", " + dealerContactNo + ", " + dealerAddress;
                 }
                 else
                 {

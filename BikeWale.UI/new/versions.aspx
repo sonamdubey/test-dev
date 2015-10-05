@@ -413,7 +413,7 @@
                         <div class="grid-3 border-solid-right padding-top20 padding-bottom20">
                             <div class="font22 text-center">
                                 <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %>
-                                <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>PS</small>
+                                <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>bhp</small>
                                 <p class="font20 text-black">Max power</p>
                             </div>
                         </div>
@@ -1007,9 +1007,9 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
-                                    <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
-                                    <li style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
+                                    <li class="active" style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
+                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                    
+                                    <li style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
                                     <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
                                 </ul>
                             </div>
