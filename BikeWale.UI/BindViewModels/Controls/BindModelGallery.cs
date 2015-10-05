@@ -61,17 +61,6 @@ namespace Bikewale.BindViewModels.Controls
                     rptrVideoNav.DataSource = objVideos.Videos.ToList();
                     rptrVideoNav.DataBind();
                 }
-                else
-                {
-                    FetchedVideoCount = 1;
-                    VideoBase vid = new VideoBase();
-                    vid.VideoId = "i98gbGklHvY";
-                    vid.VideoUrl = "https://www.youtube.com/embed/i98gbGklHvY?rel=0&showinfo=0";
-                    List<VideoBase> vidz = new List<VideoBase>();
-                    vidz.Add(vid);
-                    rptrVideoNav.DataSource = vidz;
-                    rptrVideoNav.DataBind();
-                }
             }
             catch (Exception ex)
             {
@@ -105,18 +94,7 @@ namespace Bikewale.BindViewModels.Controls
                     FetchedVideoCount = objVideos.Videos.ToList().Count;
                     rptrVideoNav.DataSource = objVideos.Videos.ToList();
                     rptrVideoNav.DataBind();
-                }
-                else
-                {
-                    FetchedVideoCount = 1;
-                    VideoBase vid = new VideoBase();
-                    vid.VideoId = "i98gbGklHvY";
-                    vid.VideoUrl = "https://www.youtube.com/embed/i98gbGklHvY?rel=0&showinfo=0";
-                    List<VideoBase> vidz = new List<VideoBase>();
-                    vidz.Add(vid);                 
-                    rptrVideoNav.DataSource = vidz;
-                    rptrVideoNav.DataBind();
-                }
+                }                
             }
             catch (Exception ex)
             {

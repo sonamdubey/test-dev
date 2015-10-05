@@ -7,8 +7,8 @@
         <div class="text-center margin-top50 margin-bottom20">
             <div class="bw-tabs home-tabs <%= videoCount == 0 ? "hide" : "" %>">
                 <ul>
-                    <li class="active" data-tabs="Photos">Photos</li>
-                    <li data-tabs="Videos">Videos</li>
+                    <li class="active" data-tabs="Photos" id="photos-tab">Photos</li>
+                    <li data-tabs="Videos" id="videos-tab">Videos</li>
                 </ul>
             </div>
         </div>
@@ -58,23 +58,11 @@
             <div class="connected-carousels-videos">
                 <div class="stage-videos">
                     <div class="carousel-videos carousel-stage-videos">
-                        <ul>
-                            <asp:Repeater ID="rptVideos" runat="server">
-                                <ItemTemplate>
-                                    <li>
-                                        <div class="yt-iframe-container">
-                                            <iframe src="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </li>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </ul>
+                        <div class="yt-iframe-container">
+                            <iframe id="video-iframe" src="" frameborder="0" allowfullscreen></iframe>
+                        </div>
                     </div>
-                    <a href="#" class="prev videos-prev-stage bwmsprite"></a>
-                    <a href="#" class="next videos-next-stage bwmsprite"></a>
-
                 </div>
-
                 <div class="navigation-videos">
                     <a href="#" class="prev videos-prev-navigation bwmsprite hide" style="display: none"></a>
                     <a href="#" class="next videos-next-navigation bwmsprite hide" style="display: none"></a>
@@ -83,7 +71,7 @@
                             <asp:Repeater ID="rptVideoNav" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <img class="lazy" src="http://img1.aeplcdn.com/grey.gif" data-original="<%# String.Format("http://img.youtube.com/vi/{0}/1.jpg",DataBinder.Eval(Container.DataItem,"VideoId").ToString()) %>" width="83" height="47" />
+                                        <img iframe-data="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>" src="<%# String.Format("http://img.youtube.com/vi/{0}/1.jpg",DataBinder.Eval(Container.DataItem,"VideoId").ToString()) %>" width="83" height="47" />
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>

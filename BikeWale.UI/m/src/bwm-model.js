@@ -172,32 +172,12 @@ $("#bikeBannerImageCarousel .stage li").click(function () {
     $(".modelgallery-close-btn").removeClass("hide").addClass("show");
 });
 
-var videoIframe = $(".yt-iframe-container iframe");
-var srcArray = [];
-var i = 0;
-videoIframe.each(function () {
-    srcArray[i] = $(this).attr("src");
-    //console.log(srcArray[i]);
-    i++;
-});
-
-
-
 $(".modelgallery-close-btn").click(function () {
     $('body').removeClass('lock-browser-scroll');
     $(".blackOut-window-model").hide();
     $(".bike-gallery-popup").removeClass("show").addClass("hide");
     $(".modelgallery-close-btn").removeClass("show").addClass("hide");
-    $(".yt-iframe-container iframe").attr("src", "");
-
-    setTimeout(function () {
-        i = 0;
-        videoIframe.each(function () {
-            $(this).attr("src", srcArray[i]);
-            //console.log(srcArray[i]);
-            i++;
-        })
-    }, 500);
+    videoiFrame.setAttribute("src", "");
 });
 
 $(document).ready(function () {
@@ -234,6 +214,27 @@ function setImageDetails(imgTitle, imgIndex) {
         $(".bike-gallery-count").text(imgIndex.toString() + "/" + imgTotalCount.toString());
     }
 }
+
+var videoiFrame = document.getElementById("video-iframe");
+
+/* first video src */
+$("#photos-tab, #videos-tab").click(function () {
+    firstVideo();
+});
+
+var firstVideo = function () {
+    var a = $(".carousel-navigation-videos ul").first("li");
+    var newSrc = a.find("img").attr("iframe-data");
+    videoiFrame.setAttribute("src", newSrc);
+};
+
+var navigationVideosLI = $(".carousel-navigation-videos ul li");
+navigationVideosLI.click(function () {
+    navigationVideosLI.removeClass("active");
+    $(this).addClass("active");
+    var newSrc = $(this).find("img").attr("iframe-data");
+    videoiFrame.setAttribute("src", newSrc);
+});
 
 var pqCookieObj = {
         PQCitySelectedId: 0,

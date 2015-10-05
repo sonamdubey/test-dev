@@ -92,7 +92,7 @@
 .connected-carousels .carousel-stage { height: 270px; }
 /** Navigation carousel specific styles **/
 .connected-carousels .carousel-navigation { height: 60px; width: 420px; background: #fff; margin-left:24px; }
-.navigation .carousel-navigation li { display: block; width:90px; height:50px; margin-right:20px; }
+.navigation .carousel-navigation li { display: block; width:90px; height:50px; margin-right:10px; }
 .navigation .carousel-navigation li:hover { cursor:pointer; }
 .navigation .carousel-navigation li img { width:100%; height:50px; border:2px solid #fff; }
 .navigation .carousel-navigation li.active img { border:2px solid #555; }
@@ -143,7 +143,7 @@
 .connected-carousels-photos .carousel-stage-photos, .connected-carousels-videos .carousel-stage-videos { height: 349px; }
 /** Navigation carousel specific styles **/
 .connected-carousels-photos .carousel-navigation-photos, .connected-carousels-videos .carousel-navigation-videos { height: 85px; width: 640px; background: none; margin-left:30px; padding-left:0;}
-.navigation-photos .carousel-navigation-photos li, .navigation-videos .carousel-navigation-videos li { display: block; width:145px; height:85px; margin-right:20px; }
+.navigation-photos .carousel-navigation-photos li, .navigation-videos .carousel-navigation-videos li { display: block; width:145px; height:85px; margin-right:10px; }
 .navigation-photos .carousel-navigation-photos li:hover, .navigation-videos .carousel-navigatio-videosn li:hover { cursor:pointer; }
 .navigation-photos .carousel-navigation-photos li img { width:100%; height:85px; border:3px solid #444; }
 .navigation-videos .carousel-navigation-videos li .yt-iframe-container img { width:100%; height:85px; border:3px solid #444; cursor:pointer; }
@@ -176,4 +176,6 @@
 .connected-carousels-photos .photos-prev-navigation.inactive, .connected-carousels-videos .videos-prev-navigation.inactive { background-position:-125px -324px; cursor:not-allowed; }
 .connected-carousels-photos .photos-next-navigation.inactive, .connected-carousels-videos .videos-next-navigation.inactive { background-position:-150px -324px; cursor:not-allowed; }
 
-.connected-carousels-photos:hover { cursor:pointer; }
+.connected-carousels-photos:hover { /*cursor:pointer;*/ }
+.carousel-stage ul li { cursor:pointer; }
+.carousel-stage-videos .yt-iframe-container iframe { width:100%; height:360px; }

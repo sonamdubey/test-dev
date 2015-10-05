@@ -1033,7 +1033,7 @@
             $(document).ready(function (e) {
                 applyLazyLoad();
 
-                $(".carousel-navigation ul li").slice(0, 4).find("img.lazy").trigger("imgLazyLoad");
+                $(".carousel-navigation ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
                 $(".carousel-stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
 
             });

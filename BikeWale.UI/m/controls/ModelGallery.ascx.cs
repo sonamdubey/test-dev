@@ -10,7 +10,7 @@ namespace Bikewale.m.controls
 {
     public class ModelGallery : System.Web.UI.UserControl
     {
-        protected Repeater rptVideos, rptVideoNav, rptModelPhotos, rptNavigationPhoto;
+        protected Repeater rptVideoNav, rptModelPhotos, rptNavigationPhoto;
         public string bikeName = String.Empty;
         public int imageCount = 0, videoCount = 0;
         public int modelId;
@@ -34,7 +34,7 @@ namespace Bikewale.m.controls
         {
             BindModelGallery.ModelId = modelId;
             BindModelGallery.BindImages(rptModelPhotos, rptNavigationPhoto, Photos);
-            BindModelGallery.BindVideos(rptVideos, rptVideoNav);
+            BindModelGallery.BindVideos(rptVideoNav);
             videoCount = BindModelGallery.FetchedVideoCount;
         }
     }

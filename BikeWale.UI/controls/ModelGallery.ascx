@@ -7,8 +7,8 @@
         <div class="text-center margin-top20 margin-bottom20">
             <div class="bw-tabs home-tabs <%= videoCount == 0 ? "hide" : "" %>">
                 <ul>
-                    <li class="active" data-tabs="Photos">Photos</li>
-                    <li data-tabs="Videos">Videos</li>
+                    <li class="active" data-tabs="Photos" id="photos-tab">Photos</li>
+                    <li data-tabs="Videos" id="videos-tab">Videos</li>
                 </ul>
             </div>
         </div>
@@ -57,23 +57,12 @@
         <div class="bw-tabs-data hide" id="Videos">
             <div class="connected-carousels-videos">
                 <div class="stage-videos">
-                    <div class="carousel-videos carousel-stage-videos">
-                        <ul>
-                            <asp:Repeater ID="rptVideos" runat="server">
-                                <ItemTemplate>
-                                    <li>
-                                        <div class="yt-iframe-container">
-                                            <iframe src="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>" frameborder="0" allowfullscreen></iframe>
-                                        </div>
-                                    </li>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </ul>
+                        <div class="carousel-videos carousel-stage-videos">
+                            <div class="yt-iframe-container">
+                                <iframe id="video-iframe" src="" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
                     </div>
-                    <a href="#" class="prev videos-prev-stage bwsprite hide"></a>
-                    <a href="#" class="next videos-next-stage bwsprite hide"></a>
-                </div>
-
                 <div class="navigation-videos">
                     <a href="#" class="prev videos-prev-navigation bwsprite hide"></a>
                     <a href="#" class="next videos-next-navigation bwsprite hide"></a>
@@ -83,7 +72,7 @@
                                 <ItemTemplate>
                                     <li>
                                         <div class="yt-iframe-container">
-                                            <img src="http://img1.aeplcdn.com/grey.gif" class="lazy" data-original="<%# String.Format("http://img.youtube.com/vi/{0}/1.jpg",DataBinder.Eval(Container.DataItem,"VideoId").ToString()) %>" />
+                                            <img iframe-data="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>" src="<%# String.Format("http://img.youtube.com/vi/{0}/1.jpg",DataBinder.Eval(Container.DataItem,"VideoId").ToString()) %>" />
                                         </div>
                                     </li>
                                 </ItemTemplate>
