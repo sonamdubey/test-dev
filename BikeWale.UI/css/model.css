@@ -92,7 +92,7 @@
 .connected-carousels .carousel-stage { height: 270px; }
 /** Navigation carousel specific styles **/
 .connected-carousels .carousel-navigation { height: 60px; width: 420px; background: #fff; margin-left:24px; }
-.navigation .carousel-navigation li { display: block; width:90px; height:50px; margin-right:20px; }
+.navigation .carousel-navigation li { display: block; width:90px; height:50px; margin-right:10px; }
 .navigation .carousel-navigation li:hover { cursor:pointer; }
 .navigation .carousel-navigation li img { width:100%; height:50px; border:2px solid #fff; }
 .navigation .carousel-navigation li.active img { border:2px solid #555; }
@@ -114,3 +114,68 @@
 .connected-carousels .navigation .prev-navigation, .connected-carousels .navigation .next-navigation { width: 26px; height: 45px; text-indent: -9999; border: none; background-color: transparent;  padding:6px 3px; }
 .connected-carousels .navigation .prev-navigation { left:2px; top:1px; }
 .connected-carousels .navigation .next-navigation { right:7px; top:1px; }
+
+
+
+.bike-gallery-popup { width:700px; height:600px; margin:0 auto; overflow-y:auto; position:fixed; top:4%; right:5%; left:5%; z-index:10; }
+.blackOut-window-model { background:#222; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=95); -moz-opacity:0.95; -khtml-opacity: 0.95; }
+.modelgallery-close-btn { z-index:9; }
+
+/*image-videos tabs*/
+.bike-gallery-popup .home-tabs { background:#ccc;}
+.bike-gallery-popup .home-tabs li { width:170px; text-align:center; font-size:18px; padding:7px 20px; background:#f5f5f5;}
+.bike-gallery-popup .home-tabs li:first-child { margin-right:-2px;}
+.bike-gallery-popup .home-tabs li.active{ background:#fff; color:#2a2a2a;} 
+
+
+.connected-carousels-photos .bike-gallery-details { position: absolute; bottom: 1px; font-size:14px; width:640px; color:#fff; padding:10px 20px 5px; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(5,0,0,0.7));}
+
+.connected-carousels-photos .stage-photos, .connected-carousels-videos .stage-videos { width: 640px; margin: 0 auto 20px; position: relative; }
+/** Navigation container **/
+.connected-carousels-photos .navigation-photos, .connected-carousels-videos .navigation-videos { width: 640px; position: relative; }
+/** Shared carousel styles **/
+.connected-carousels-photos .carousel-photos, .connected-carousels-videos .carousel-videos { overflow: hidden; position: relative; }
+.connected-carousels-photos .carousel-photos ul, .connected-carousels-videos .carousel-videos ul { width: 20000em; position: relative; list-style: none; margin: 0; padding: 0; }
+.connected-carousels-photos .carousel-photos li, .connected-carousels-videos .carousel-videos li { float: left; width:640px; height:360px; }
+.connected-carousels-photos .carousel-photos li img { width:100%; }
+.connected-carousels-videos .carousel-videos li .yt-iframe-container iframe { width:100%; height:360px; }
+/** Stage carousel specific styles **/
+.connected-carousels-photos .carousel-stage-photos, .connected-carousels-videos .carousel-stage-videos { height: 349px; }
+/** Navigation carousel specific styles **/
+.connected-carousels-photos .carousel-navigation-photos, .connected-carousels-videos .carousel-navigation-videos { height: 85px; width: 640px; background: none; margin-left:30px; padding-left:0;}
+.navigation-photos .carousel-navigation-photos li, .navigation-videos .carousel-navigation-videos li { display: block; width:145px; height:85px; margin-right:10px; }
+.navigation-photos .carousel-navigation-photos li:hover, .navigation-videos .carousel-navigatio-videosn li:hover { cursor:pointer; }
+.navigation-photos .carousel-navigation-photos li img { width:100%; height:85px; border:3px solid #444; }
+.navigation-videos .carousel-navigation-videos li .yt-iframe-container img { width:100%; height:85px; border:3px solid #444; cursor:pointer; }
+.navigation-photos .carousel-navigation-photos li.active img { border:3px solid #ccc; }
+.navigation-videos .carousel-navigation-videos li.active .yt-iframe-container iframe { border:3px solid #ccc; }
+
+.connected-carousels-photos .carousel-navigation-photos li.active img, .connected-carousels-videos .carousel-navigation-videos li.active img { border-color: #ccc; }
+/** Stage carousel controls **/
+.connected-carousels-photos .photos-prev-stage, .connected-carousels-photos .photos-next-stage, .connected-carousels-videos .videos-prev-stage, .connected-carousels-videos .videos-next-stage { position: absolute; top: 40%; color: #fff; }
+.connected-carousels-photos .photos-prev-stage, .connected-carousels-videos .videos-prev-stage { left: -20px; }
+.connected-carousels-photos .photos-next-stage, .connected-carousels-videos .videos-next-stage { right: -20px; }
+.connected-carousels-photos .prev, .connected-carousels-photos .next, .connected-carousels-videos .prev, .connected-carousels-videos .next { position: absolute; top: 40%; z-index: 1; }
+.connected-carousels-photos .prev, .connected-carousels-photos .next, .connected-carousels-videos .prev, .connected-carousels-videos .next { width: 40px; height: 80px; text-indent: -9999px ;border: 1px solid #e2e2e2; background-color: #fff; padding:10px 5px; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.connected-carousels-photos .photos-prev-stage, .connected-carousels-videos .videos-prev-stage { background-position: -34px -75px; }
+.connected-carousels-photos .photos-next-stage, .connected-carousels-videos .videos-next-stage { background-position: -61px -75px; }
+.connected-carousels-photos .photos-prev-stage:hover, .connected-carousels-videos .videos-prev-stage:hover { background-position: -34px -130px; }
+.connected-carousels-photos .photos-next-stage:hover, .connected-carousels-videos .videos-next-stage:hover { background-position: -61px -130px;}
+.connected-carousels-photos .photos-prev-stage.inactive, .connected-carousels-photos .photos-next-stage.inactive, .connected-carousels-videos .videos-prev-stage.inactive, .connected-carousels-videos .videos-next-stage.inactive {}
+.connected-carousels-photos .photos-prev-stage.inactive, .connected-carousels-videos .videos-prev-stage.inactive { background-position:-34px -20px; cursor:not-allowed; }
+.connected-carousels-photos .photos-next-stage.inactive, .connected-carousels-videos .videos-next-stage.inactive { background-position:-61px -20px; cursor:not-allowed; }
+/** Navigation carousel controls **/
+
+.connected-carousels-photos .photos-prev-navigation, .connected-carousels-videos .videos-prev-navigation { left: 18px; }
+.connected-carousels-photos .photos-next-navigation, .connected-carousels-videos .videos-next-navigation { right: -42px; }
+.connected-carousels-photos .photos-prev-navigation, .connected-carousels-photos .photos-next-navigation, .connected-carousels-videos .videos-prev-navigation, .connected-carousels-videos .videos-next-navigation  { position: absolute; top: 20%; color: #fff; width: 26px; height: 48px; text-indent: -9999; border: 1px solid #e2e2e2; background-color: #fff;  padding:6px 3px;}
+.connected-carousels-photos .photos-prev-navigation, .connected-carousels-videos .videos-prev-navigation { background-position: -125px -355px; }
+.connected-carousels-photos .photos-next-navigation, .connected-carousels-videos .videos-next-navigation { background-position: -150px -355px; }
+.connected-carousels-photos .photos-prev-navigation:hover, .connected-carousels-videos .videos-prev-navigation:hover { background-position: -125px -386px; }
+.connected-carousels-photos .photos-next-navigation:hover, .connected-carousels-videos .videos-next-navigation:hover { background-position: -150px -386px;}
+.connected-carousels-photos .photos-prev-navigation.inactive, .connected-carousels-videos .videos-prev-navigation.inactive { background-position:-125px -324px; cursor:not-allowed; }
+.connected-carousels-photos .photos-next-navigation.inactive, .connected-carousels-videos .videos-next-navigation.inactive { background-position:-150px -324px; cursor:not-allowed; }
+
+.connected-carousels-photos:hover { /*cursor:pointer;*/ }
+.carousel-stage ul li { cursor:pointer; }
+.carousel-stage-videos .yt-iframe-container iframe { width:100%; height:360px; }

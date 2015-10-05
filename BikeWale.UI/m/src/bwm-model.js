@@ -1,6 +1,30 @@
 // JavaScript Document
 
+function applyLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "imgLazyLoad"
+    });
+}
+
+$(function () {
+    applyLazyLoad();
+
+    $(".carousel-navigation ul li").slice(0, 4).find("img.lazy").trigger("imgLazyLoad");
+    $(".jcarousel.stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
+    $(".carousel-navigation-photos ul li").slice(0, 4).find("img.lazy").trigger("imgLazyLoad");
+    $(".carousel-stage-photos ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
+    $(".carousel-navigation-videos ul li").slice(0, 4).find("img.lazy").trigger("imgLazyLoad");
+
+});
+
 jQuery(function () {
+
+    var connector2 = function (itemNavigation2, carouselStage2) {
+        return carouselStage2.jcarousel('items').eq(itemNavigation2.index());
+    };
+    var connector3 = function (itemNavigation3, carouselStage3) {
+        return carouselStage3.jcarousel('items').eq(itemNavigation3.index());
+    };
 
     jQuery('.jcarousel-wrapper.model .jcarousel')
     .on('jcarousel:create jcarousel:reload', function () {
@@ -10,26 +34,213 @@ jQuery(function () {
     })
     .on('jcarousel:targetin', 'li', function () {
         $("img.lazy").lazyload({
-            threshold: 200,
+            threshold: 200
         });
     });
     $(".jcarousel-pagination").click(function () {
         $("img.lazy").lazyload({
-            threshold: 200,
+            threshold: 200
         });
     });
-    
+
     $(".alternatives-carousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
         $(this).find("img.lazy").trigger("imgLazyLoad");
     });
 
+    var carouselStage2 = $('.carousel-stage-photos').jcarousel();
+    var carouselNavigation2 = $('.carousel-navigation-photos').jcarousel();
+
+    var carouselStage3 = $('.carousel-stage-videos').jcarousel();
+    var carouselNavigation3 = $('.carousel-navigation-videos').jcarousel();
+
+
+    carouselNavigation2.jcarousel('items').each(function () {
+        var item2 = $(this);
+        var target = connector2(item2, carouselStage2);
+        item2
+            .on('jcarouselcontrol:active', function () {
+                carouselNavigation2.jcarousel('scrollIntoView', this);
+                item2.addClass('active');
+            })
+            .on('jcarouselcontrol:inactive', function () {
+                item2.removeClass('active');
+            })
+            .jcarouselControl({
+                target: target,
+                carousel: carouselStage2
+            });
+    });
+
+    carouselNavigation3.jcarousel('items').each(function () {
+        var item3 = $(this);
+        var target = connector3(item3, carouselStage3);
+        item3
+            .on('jcarouselcontrol:active', function () {
+                carouselNavigation3.jcarousel('scrollIntoView', this);
+                item3.addClass('active');
+            })
+            .on('jcarouselcontrol:inactive', function () {
+                item3.removeClass('active');
+            })
+.jcarouselControl({
+    target: target,
+    carousel: carouselStage3
+});
+    });
+
+    $('.prev-stage, .photos-prev-stage, .videos-prev-stage')
+            .on('jcarouselcontrol:inactive', function () {
+                $(this).addClass('inactive');
+            })
+            .on('jcarouselcontrol:active', function () {
+                $(this).removeClass('inactive');
+            })
+            .jcarouselControl({
+                target: '-=1'
+            });
+    $('.next-stage, .photos-next-stage, .videos-next-stage')
+        .on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        })
+        .on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        })
+        .jcarouselControl({
+            target: '+=1'
+        });
+    $('.prev-navigation, .photos-prev-navigation, .videos-prev-navigation')
+        .on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        })
+        .on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        })
+        .jcarouselControl({
+            target: '-=4'
+        });
+    $('.next-navigation, .photos-next-navigation, .videos-next-navigation')
+        .on('jcarouselcontrol:inactive', function () {
+            $(this).addClass('inactive');
+        })
+        .on('jcarouselcontrol:active', function () {
+            $(this).removeClass('inactive');
+        })
+        .jcarouselControl({
+            target: '+=4'
+        });
+
+
+    $(".jcarousel.stage, .carousel-navigation-photos, .carousel-stage-photos,.carousel-navigation-videos").on('jcarousel:visiblein', 'li', function (event, carousel) {
+        $(this).find("img.lazy").trigger("imgLazyLoad");
+    });
+
+
+    $(".carousel-stage-photos, .carousel-navigation-photos,.carousel-navigation-videos,.carousel-stage-videos").swipe({
+        fingers: 'all', swipeLeft: swipe2, swipeRight: swipe2, allowPageScroll: "auto",
+        excludedElements: "label, button, input, select, textarea, .noSwipe",
+    });
+
+
+    function swipe2(event, direction, distance, duration, fingerCount) {
+        if (direction == "left") {
+            $(this).closest('.connected-carousels-photos,.navigation-photos,.connected-carousels-videos').find("a.jcarousel-control-next,a.photos-next-stage,a.photos-next-navigation,a.videos-next-stage,a.videos-next-navigation").click();
+        }
+        else if (direction == "right") {
+            $(this).closest('.connected-carousels-photos,.navigation-photos,.connected-carousels-videos').find("a.jcarousel-control-prev,a.photos-prev-stage,a.photos-prev-navigation,a.videos-prev-stage,a.videos-prev-navigation").click();
+        }
+    }
+
+
+});
+
+$(".photos-next-stage").click(function () {
+    getImageNextIndex();
+});
+
+$(".photos-prev-stage").click(function () {
+    getImagePrevIndex();
+});
+
+$(".carousel-navigation-photos").click(function () {
+    getImageIndex();
+});
+
+$("#bikeBannerImageCarousel .stage li").click(function () {
+    $('body').addClass('lock-browser-scroll');
+    $(".blackOut-window-model").show();
+    $(".bike-gallery-popup").removeClass("hide").addClass("show");
+    $(".modelgallery-close-btn").removeClass("hide").addClass("show");
+});
+
+$(".modelgallery-close-btn").click(function () {
+    $('body').removeClass('lock-browser-scroll');
+    $(".blackOut-window-model").hide();
+    $(".bike-gallery-popup").removeClass("show").addClass("hide");
+    $(".modelgallery-close-btn").removeClass("show").addClass("hide");
+    videoiFrame.setAttribute("src", "");
+});
+
+$(document).ready(function () {
+    imgTotalCount = $(".carousel-stage-photos ul li").length;
+    var imgIndexA = $(".carousel-navigation-photos ul li.active");
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setImageDetails(imgTitle, imgIndex);
+});
+
+function getImageNextIndex() {
+    var imgIndexA = $(".carousel-navigation-photos ul li.active").next();
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setImageDetails(imgTitle, imgIndex);
+}
+
+function getImagePrevIndex() {
+    var imgIndexA = $(".carousel-navigation-photos ul li.active").prev();
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setImageDetails(imgTitle, imgIndex);
+}
+
+function getImageIndex() {
+    var imgIndexA = $(".carousel-navigation-photos ul li.active");
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setImageDetails(imgTitle, imgIndex);
+}
+function setImageDetails(imgTitle, imgIndex) {
+    $(".leftfloatbike-gallery-details").text(imgTitle);
+    if (imgIndex > 0) {
+        $(".bike-gallery-count").text(imgIndex.toString() + "/" + imgTotalCount.toString());
+    }
+}
+
+var videoiFrame = document.getElementById("video-iframe");
+
+/* first video src */
+$("#photos-tab, #videos-tab").click(function () {
+    firstVideo();
+});
+
+var firstVideo = function () {
+    var a = $(".carousel-navigation-videos ul").first("li");
+    var newSrc = a.find("img").attr("iframe-data");
+    videoiFrame.setAttribute("src", newSrc);
+};
+
+var navigationVideosLI = $(".carousel-navigation-videos ul li");
+navigationVideosLI.click(function () {
+    navigationVideosLI.removeClass("active");
+    $(this).addClass("active");
+    var newSrc = $(this).find("img").attr("iframe-data");
+    videoiFrame.setAttribute("src", newSrc);
 });
 
 var pqCookieObj = {
-    PQCitySelectedId: 0,
-    PQAreaSelectedId: 0,
-    PQCitySelectedName: "",
-    PQAreaSelectedName: ""
+        PQCitySelectedId: 0,
+        PQAreaSelectedId: 0,
+        PQCitySelectedName: "",
+        PQAreaSelectedName: ""
 };
 var temptotalPrice = 0;
 var modelViewModel;
@@ -70,31 +281,31 @@ function pqViewModel(modelId, cityId) {
         if (item != undefined)
             return formatPrice(item);
         return "";
-    };
+};
     self.DealerOnRoadPrice = ko.computed(function () {
         var total = 0;
         for (i = 0; i < self.DealerPriceList().length; i++) {
             total += self.DealerPriceList()[i].price;
-        }
+    }
         return total;
     }, this);
     self.LoadCity = function () {
         loadCity(self);
-    };
+};
 
     self.FetchPriceQuote = function () {
         fetchPriceQuote(self);
-    };
+};
 
     self.selectedCity.subscribe(function () {
         self.areas("");
         self.selectedArea(undefined);
         if (self.selectedCity() != undefined)
-        var selectedCity = $('#ddlCity :selected').text();
+            var selectedCity = $('#ddlCity :selected').text();
         if ($('#ddlCity :selected').index() != 0) {
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': selectedCity });
-        }
-            loadArea(self);
+    }
+        loadArea(self);
     });
 
     self.selectedArea.subscribe(function () {
@@ -103,8 +314,8 @@ function pqViewModel(modelId, cityId) {
             var selectedArea = $('#ddlArea :selected').text();
             if ($('#ddlArea :selected').index() != 0) {
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': selectedArea });
-            }
         }
+    }
     });
 
     self.availOfferBtn = function () {
@@ -112,9 +323,9 @@ function pqViewModel(modelId, cityId) {
             var city_area = GetGlobalCityArea();
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': city_area });
             window.location.href = "/pricequote/bookingsummary_new.aspx";
-        }
+    }
         return false;
-    };
+};
 }
 
 function InitVM(cityId) {
@@ -129,7 +340,7 @@ function loadCity(vm) {
     if (vm.selectedModel()) {
         $.get("/api/PQCityList/?modelId=" + vm.selectedModel(),
             function (data) {
-                
+
                 if (data) {
                     var city = ko.toJS(data);
                     vm.cities(city.cities);
@@ -140,57 +351,57 @@ function loadCity(vm) {
                         vm.selectedCity(pqCookieObj.PQCitySelectedId);
                         vm.popularCityClicked(true);
                         pqCookieObj.PQCitySelectedId = 0;
-                    }
-                    $(ctrlSelectCity).next().hide();
                 }
-            });
-    }
+                    $(ctrlSelectCity).next().hide();
+            }
+        });
+}
 }
 
 function loadArea(vm) {
     $(ctrlSelectArea).next().show();
     if (vm.selectedCity()) {
         $.ajax({
-            url: "/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity(),
-            type: "GET",
-            contentType: "application/json",
+                url: "/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity(),
+                type: "GET",
+                contentType: "application/json",
         }).done(function (data) {
             if (data) {
                 var area = ko.toJS(data);
                 vm.areas(area.areas);
                 ctrlSelectArea = $("#ddlArea");
                 $(".city-select-text").hide();
-                $(offerBtnContainer).show();                
+                $(offerBtnContainer).show();
                 //$(ctrlSelectArea).trigger("chosen:updated");
-                if (!isNaN(pqCookieObj.PQAreaSelectedId) && pqCookieObj.PQAreaSelectedId > 0 && vm.areas() &&  (selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId))) {
+                if (!isNaN(pqCookieObj.PQAreaSelectedId) && pqCookieObj.PQAreaSelectedId > 0 && vm.areas() && (selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId))) {
                     vm.selectedArea(pqCookieObj.PQAreaSelectedId);
                     pqCookieObj.PQAreaSelectedId = 0;
-                }
+            }
                 $(ctrlSelectArea).next().hide();
             }
             else {
                 vm.areas([]);
                 $(ctrlSelectArea).next().hide();
-               // $(ctrlSelectArea).trigger("chosen:updated");
+                // $(ctrlSelectArea).trigger("chosen:updated");
                 vm.FetchPriceQuote();
-            }
+        }
         })
         .fail(function () {
             //no areas available;
             vm.areas([]);
             $(ctrlSelectArea).next().hide();
-           // $(ctrlSelectArea).trigger("chosen:updated");
+            // $(ctrlSelectArea).trigger("chosen:updated");
             vm.FetchPriceQuote();
         });
     }
     else {
         vm.areas([]);
         $(ctrlSelectArea).next().hide();
-       // $(ctrlSelectArea).trigger("chosen:updated");
+        // $(ctrlSelectArea).trigger("chosen:updated");
         $(".available-offers-container").hide();
         $(offerBtnContainer).show();
         $(".city-select-text").removeClass("text-red").show();
-    }
+}
 }
 
 function fetchPriceQuote(vm) {
@@ -198,9 +409,9 @@ function fetchPriceQuote(vm) {
     //$("#dvAvailableOffer").empty();
     if (vm.selectedModel() != undefined && vm.selectedCity() != undefined) {
         $.ajax({
-            url: "/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea() != undefined ? vm.selectedArea() : 0),
-            type: "GET",
-            contentType: "application/json",
+                url: "/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea() != undefined ? vm.selectedArea() : 0),
+                type: "GET",
+                contentType: "application/json",
         }).done(function (data) {
             if (data) {
                 var pq = ko.toJS(data);
@@ -212,7 +423,7 @@ function fetchPriceQuote(vm) {
                 }
                 else {
                     vm.BWPriceList(pq.bwPriceQuote);
-                }
+            }
                 if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                     var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
                     SetCookie("_MPQ", cookieValue);
@@ -224,7 +435,7 @@ function fetchPriceQuote(vm) {
                         totalPrice += this.price;
                         priceBreakText += this.categoryName + " + ";
                     });
-                    priceBreakText = priceBreakText.substring(0, priceBreakText.length - 3);
+                    priceBreakText = priceBreakText.substring(0, priceBreakText.length -3);
                     if (pq.isInsuranceFree && pq.insuranceAmount > 0)
                         totalPrice -= pq.insuranceAmount;
 
@@ -235,7 +446,7 @@ function fetchPriceQuote(vm) {
                     else {
                         $($(".bike-price-container")[1]).hide();
                         $($(".bike-price-container")[0]).show();
-                    }
+                }
 
                     animatePrice($(bikePrice), temptotalPrice, totalPrice);
                     $("#breakup").text("(" + priceBreakText + ")");
@@ -263,7 +474,7 @@ function fetchPriceQuote(vm) {
                     else {
                         $($(".bike-price-container")[1]).hide();
                         $($(".bike-price-container")[0]).show();
-                    }
+                }
                     animatePrice($(bikePrice), temptotalPrice, totalPrice);
                     $("#pqCity").html($(ctrlSelectCity).find("option[value=" + vm.selectedCity() + "]").text());
 
@@ -278,7 +489,7 @@ function fetchPriceQuote(vm) {
                     $(offerBtnContainer).hide();
                     $(".available-offers-container").show();
                     setLocationCookie($(ctrlSelectCity).find('option:selected'), $(ctrlSelectArea).find('option:selected'));
-                }
+            }
                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
                 $(priceBlock).find("span.price-loader").hide();
             }
@@ -286,20 +497,20 @@ function fetchPriceQuote(vm) {
                 vm.areas([]);
                 $(priceBlock).find("span.price-loader").hide();
                 pqAreaFailStatus();
-            }
+        }
         })
         .fail(function () {
             vm.areas([]);
             $(priceBlock).find("span.price-loader").hide();
             pqAreaFailStatus();
         });
-    }
+}
 }
 
 //function to check pqCookies
 function PQcheckCookies() {
     c = document.cookie.split('; ');
-    for (i = c.length - 1; i >= 0; i--) {
+    for (i = c.length -1; i >= 0; i--) {
         C = c[i].split('=');
         if (C[0] == "location") {
             var cData = (String(C[1])).split('_');
@@ -308,8 +519,8 @@ function PQcheckCookies() {
             pqCookieObj.PQAreaSelectedId = parseInt(cData[2]);
             pqCookieObj.PQAreaSelectedName = cData[3];
 
-        }
     }
+}
 }
 
 
@@ -317,7 +528,7 @@ $(document).ready(function () {
 
     if (isUsed == "False") {
         InitVM(cityId);
-    }
+}
 
     $(offerBtnContainer).show();
     $(offerBtn).click(function () {
@@ -326,8 +537,8 @@ $(document).ready(function () {
             $('.city-select-text').addClass("text-red");
             if (modelViewModel.selectedCity() != undefined && modelViewModel.selectedArea() == undefined) {
                 $('.area-select-text').addClass("text-red");
-            }
         }
+    }
     });
 
 
@@ -342,7 +553,7 @@ $(document).ready(function () {
         if (val) {
             $(ctrlSelectCity).find(" option[value=" + val + "]").prop('selected', 'selected');
             $(ctrlSelectCity).trigger('change');
-        }
+    }
         modelViewModel.popularCityClicked(true);
     });
 
@@ -355,7 +566,7 @@ $(document).ready(function () {
             $(".available-offers-container").hide();
             $(offerBtnContainer).show();
             $(".city-select-text").removeClass("text-red").show();
-        }
+    }
 
         $(".city-area-select-container").show();
         $(".city-area-wrapper").show();
@@ -364,8 +575,8 @@ $(document).ready(function () {
         var arrays = city_area.split("_");
         if (arrays.length > 2) {
             cityArea = arrays[1] + '_' + arrays[3];
-        }
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName + '_' + city_area });
+    }
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName + '_' +city_area });
 
     });
 
@@ -404,7 +615,7 @@ $(document).ready(function () {
 
     var connector = function (itemNavigation, carouselStage) {
         return carouselStage.jcarousel('items').eq(itemNavigation.index());
-    };
+};
 
     $(function () {
 
@@ -422,72 +633,73 @@ $(document).ready(function () {
                 .on('jcarouselcontrol:active', function () {
                     carouselNavigation.jcarousel('scrollIntoView', this);
                     item.addClass('active');
-                })
+            })
                 .on('jcarouselcontrol:inactive', function () {
                     item.removeClass('active');
-                })
+            })
                 .jcarouselControl({
-                    target: target,
-                    carousel: carouselStage
-                });
+                        target: target,
+                        carousel: carouselStage
+            });
         });
 
 
         $('.prev-stage')
             .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
-            })
+        })
             .on('jcarouselcontrol:active', function () {
                 $(this).removeClass('inactive');
-            })
+        })
             .jcarouselControl({
-                target: '-=1'
-            });
+                    target: '-=1'
+        });
 
         $('.next-stage')
             .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
-            })
+        })
             .on('jcarouselcontrol:active', function () {
                 $(this).removeClass('inactive');
-            })
+        })
             .jcarouselControl({
-                target: '+=1'
-            });
+                    target: '+=1'
+        });
 
 
         $('.prev-navigation')
             .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
-            })
+        })
             .on('jcarouselcontrol:active', function () {
                 $(this).removeClass('inactive');
-            })
+        })
             .jcarouselControl({
-                target: '-=1'
-            });
+                    target: '-=1'
+        });
 
         $('.next-navigation')
             .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
-            })
+        })
             .on('jcarouselcontrol:active', function () {
                 $(this).removeClass('inactive');
-            })
+        })
             .jcarouselControl({
-                target: '+=1'
-            });
+                    target: '+=1'
+        });
     });
 })(jQuery);
 
 //Animate the element's value from start to end:
 function animatePrice(ele, start, end) {
-    $({ someValue: start }).stop(true).animate({ someValue: end }, {
-        duration: 500,
-        easing: 'easeInOutBounce',
-        step: function () {
+    $({ someValue: start }).stop(true).animate({ someValue: end
+    }, {
+            duration: 500,
+            easing: 'easeInOutBounce',
+            step: function () {
             $(ele).text(formatPrice(Math.round(this.someValue)));
-        }
+    }
     }).promise().done(function () {
         $(ele).text(formatPrice(end));
     });
@@ -523,7 +735,7 @@ $('#ddlCity').change(function () {
     if ($('#ddlCity option:selected').index() != 0) {
         var cityClicked = $('#ddlCity option:selected').text();
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': cityClicked });
-    }
+}
 
 });
 
@@ -531,7 +743,7 @@ $('#ddlArea').change(function () {
     if ($('#ddlArea option:selected').index() != 0) {
         var areaClicked = $('#ddlArea option:selected').text();
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': areaClicked });
-    }
+}
 
 });
 

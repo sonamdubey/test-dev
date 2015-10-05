@@ -374,23 +374,32 @@ function PQcheckCookies() {
 
 
 //photos corousel function
-(function($) {    
-    var connector = function(itemNavigation, carouselStage) {
+(function ($) {
+
+    var connector = function (itemNavigation, carouselStage) {
         return carouselStage.jcarousel('items').eq(itemNavigation.index());
     };
+    var connector2 = function (itemNavigation2, carouselStage2) {
+        return carouselStage2.jcarousel('items').eq(itemNavigation2.index());
+    };
+    var connector3 = function (itemNavigation3, carouselStage3) {
+        return carouselStage3.jcarousel('items').eq(itemNavigation3.index());
+    };
+    $(function () {
+        var carouselStage = $('.carousel-stage').jcarousel();
+        var carouselNavigation = $('.carousel-navigation').jcarousel();
 
-    $(function() {
-        
-        var carouselStage      = $('.carousel-stage').jcarousel();
-        var carouselNavigation = $('.carousel-navigation').jcarousel();        
+        var carouselStage2 = $('.carousel-stage-photos').jcarousel();
+        var carouselNavigation2 = $('.carousel-navigation-photos').jcarousel();
 
-        carouselNavigation.jcarousel('items').each(function() {
+        var carouselStage3 = $('.carousel-stage-videos').jcarousel();
+        var carouselNavigation3 = $('.carousel-navigation-videos').jcarousel();        
+
+        carouselNavigation.jcarousel('items').each(function () {
             var item = $(this);
-            
             var target = connector(item, carouselStage);
-
             item
-                .on('jcarouselcontrol:active', function() {
+                .on('jcarouselcontrol:active', function () {
                     carouselNavigation.jcarousel('scrollIntoView', this);
                     item.addClass('active');
                 })
@@ -399,13 +408,46 @@ function PQcheckCookies() {
                 })
                 .jcarouselControl({
                     target: target,
-                    carousel: carouselStage,
-                })
+                    carousel: carouselStage
+                });
         });
 
-        
-        $('.prev-stage')
-            .on('jcarouselcontrol:inactive', function() {
+        carouselNavigation2.jcarousel('items').each(function () {
+            var item2 = $(this);
+            var target = connector2(item2, carouselStage2);
+            item2
+				.on('jcarouselcontrol:active', function () {
+				    carouselNavigation2.jcarousel('scrollIntoView', this);
+				    item2.addClass('active');
+				})
+				.on('jcarouselcontrol:inactive', function () {
+				    item2.removeClass('active');
+				})
+				.jcarouselControl({
+				    target: target,
+				    carousel: carouselStage2
+				});
+        });
+
+        carouselNavigation3.jcarousel('items').each(function () {
+            var item3 = $(this);
+            var target = connector3(item3, carouselStage3);
+            item3
+				.on('jcarouselcontrol:active', function () {
+				    carouselNavigation3.jcarousel('scrollIntoView', this);
+				    item3.addClass('active');
+				})
+				.on('jcarouselcontrol:inactive', function () {
+				    item3.removeClass('active');
+				})
+				.jcarouselControl({
+				    target: target,
+				    carousel: carouselStage3
+				});
+        });
+
+        $('.prev-stage, .photos-prev-stage, .videos-prev-stage')
+            .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
             .on('jcarouselcontrol:active', function () {
@@ -414,9 +456,8 @@ function PQcheckCookies() {
             .jcarouselControl({
                 target: '-=1'
             });
-
-        $('.next-stage')
-            .on('jcarouselcontrol:inactive', function() {
+        $('.next-stage, .photos-next-stage, .videos-next-stage')
+            .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
             .on('jcarouselcontrol:active', function () {
@@ -425,40 +466,64 @@ function PQcheckCookies() {
             .jcarouselControl({
                 target: '+=1'
             });
-
-        
-        $('.prev-navigation')
+        $('.prev-navigation, .photos-prev-navigation, .videos-prev-navigation')
             .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
-            .on('jcarouselcontrol:active', function () {
+            .on('jcarouselcontrol:active', function () {                
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
                 target: '-=4'
             });
-
-        $('.next-navigation')
-            .on('jcarouselcontrol:inactive', function() {
+        $('.next-navigation, .photos-next-navigation, .videos-next-navigation')
+            .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
-            .on('jcarouselcontrol:active', function () {
+            .on('jcarouselcontrol:active', function () {                
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
                 target: '+=4'
             });
 
-        $(".carousel-navigation, .carousel-stage").on('jcarousel:visiblein', 'li', function(event, carousel) {
+
+        $(".carousel-navigation, .carousel-stage, .carousel-stage-photos, .carousel-navigation-photos").on('jcarousel:visiblein', 'li', function (event, carousel) {
             $(this).find("img.lazy").trigger("imgLazyLoad");
         });
-        
-        $(".alternatives-carousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
-            $(this).find("img.lazy").trigger("imgLazyLoad");
-        });
-        
+        //$(".carousel-stage-photos").on('jcarousel:visiblein', 'li', function (event, carousel) {
+        //    getImageIndex();
+        //});       
     });
 })(jQuery);
+
+$(".photos-next-stage").click(function () {
+    getImageNextIndex();
+});
+
+$(".photos-prev-stage").click(function () {
+    getImagePrevIndex();
+});
+
+$(".carousel-navigation-photos").click(function () {
+    getImageIndex();
+});
+
+$(".stage-photos").hover(function () {
+    $(".photos-next-stage, .photos-prev-stage, .photos-prev-stage.inactive, .photos-next-stage.inactive").toggleClass("hide show");
+});
+
+$(".navigation-photos").hover(function () {
+    $(".photos-prev-navigation, .photos-next-navigation, .photos-prev-navigation.inactive, .photos-next-navigation.inactive").toggleClass("hide show");
+});
+
+$(".stage-videos").hover(function () {
+    $(".videos-next-stage, .videos-prev-stage, .videos-prev-stage.inactive, .videos-next-stage.inactive").toggleClass("hide show");
+});
+
+$(".navigation-videos").hover(function () {
+    $(".videos-prev-navigation, .videos-next-navigation, .videos-prev-navigation.inactive, .videos-next-navigation.inactive").toggleClass("hide show");
+});
 function animatePrice(ele,start,end)
 {
     $({ someValue: start }).stop(true).animate({ someValue: end }, {
@@ -504,4 +569,90 @@ function pqAreaFailStatus()
 //window.setInterval(function () {
 //    $('.chosen-select').trigger('chosen:updated');
 //}, 1000);
+});
+
+$("#bikeBannerImageCarousel .stage li").click(function () {
+    $('body').addClass('lock-browser-scroll');
+    $(".blackOut-window-model").show();
+    $(".bike-gallery-popup").removeClass("hide").addClass("show");
+    $(".modelgallery-close-btn").removeClass("hide").addClass("show");
+    $(".carousel-stage-photos ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
+    $(".carousel-navigation-photos ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
+    $(document).on("keydown", function (e) {
+        var $blackModel = $(".blackOut-window-model");
+        var $bikegallerypopup = $(".bike-gallery-popup");
+        if ($bikegallerypopup.hasClass("show") && e.keyCode === 27) {            
+            $(".modelgallery-close-btn").click();
+        }
+        if ($bikegallerypopup.hasClass("show") && e.keyCode == 39 && $("#photos-tab").hasClass("active")) {
+            $(".photos-next-stage").click();
+        }
+        if ($bikegallerypopup.hasClass("show") && e.keyCode == 37 && $("#photos-tab").hasClass("active")) {
+            $(".photos-prev-stage").click();
+        }
+    });
+});
+
+$(".modelgallery-close-btn").click(function () {
+    $('body').removeClass('lock-browser-scroll');
+    $(".blackOut-window-model").hide();
+    $(".bike-gallery-popup").removeClass("show").addClass("hide");
+    $(".modelgallery-close-btn").removeClass("show").addClass("hide");
+    videoiFrame.setAttribute("src", "");
+});
+
+$(document).ready(function () {
+    imgTotalCount = $(".carousel-stage-photos ul li").length;    
+    var imgIndexA = $(".carousel-navigation-photos ul li.active");
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setImageDetails(imgTitle, imgIndex);
+});
+
+function getImageNextIndex() {
+    var imgIndexA = $(".carousel-navigation-photos ul li.active").next();
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setImageDetails(imgTitle, imgIndex);
+}
+
+function getImagePrevIndex() {
+    var imgIndexA = $(".carousel-navigation-photos ul li.active").prev();
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");    
+    setImageDetails(imgTitle, imgIndex);
+}
+
+function getImageIndex() {
+    var imgIndexA = $(".carousel-navigation-photos ul li.active");
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setImageDetails(imgTitle, imgIndex);
+}
+function setImageDetails(imgTitle,imgIndex) {            
+    $(".leftfloatbike-gallery-details").text(imgTitle);
+    if (imgIndex > 0) {
+        $(".bike-gallery-count").text(imgIndex.toString() + "/" + imgTotalCount.toString());
+    }
+}
+
+var videoiFrame = document.getElementById("video-iframe");
+
+/* first video src */
+$("#photos-tab, #videos-tab").click(function () {
+    firstVideo();
+});
+
+var firstVideo = function () {
+    var a = $(".carousel-navigation-videos ul").first("li");
+    var newSrc = a.find("img").attr("iframe-data");
+    videoiFrame.setAttribute("src", newSrc);
+};
+
+var navigationVideosLI = $(".carousel-navigation-videos ul li");
+navigationVideosLI.click(function () {
+    navigationVideosLI.removeClass("active");
+    $(this).addClass("active");
+    var newSrc = $(this).find("img").attr("iframe-data");
+    videoiFrame.setAttribute("src", newSrc);
 });
