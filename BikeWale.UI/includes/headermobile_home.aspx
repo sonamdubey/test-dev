@@ -22,6 +22,7 @@
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", 
         canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "", Ad_HP_Banner_400x310 = "";
         private bool isHeaderFix = true, isAd320x50Shown = false,isAd300x250Shown = false;
+        private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false;
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script> 
