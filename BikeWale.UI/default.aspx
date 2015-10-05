@@ -31,7 +31,7 @@
                     <div>
                         <div class="bike-search-container">
                             <div class="bike-search new-bike-search position-rel">
-                                <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" tabindex="1">
+                                <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" tabindex="1">
                                 <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                             </div>
                             <div class="findBtn">
