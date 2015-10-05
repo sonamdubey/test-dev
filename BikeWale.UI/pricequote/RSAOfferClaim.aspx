@@ -24,6 +24,8 @@
         list-style: square outside none;
         padding: 3px 0 3px 10px;
     }
+
+    #get-pq-new select, #get-pq-new textarea { width:170px; }
 </style>
 <div class="main-container">
     <div class="container_12">
@@ -149,7 +151,7 @@
                                 <div class="mid-box" id="pq_car">
                                     <table cellspacing="0" cellpadding="3" width="100%" border="0">
                                         <tr>
-                                            <td style="width: 230px;">
+                                            <td style="width: 280px;">
                                                 <b>Full Name as per Vehicle Registration<span class="error">*</span></b>
                                             </td>
                                             <td>
@@ -211,7 +213,7 @@
                                                 <b>Address as per Vehicle Registration<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:textbox id="txtAddress" rows="2" columns="60" textmode="MultiLine" runat="server"></asp:textbox>
+                                                <asp:textbox id="txtAddress" rows="2" textmode="MultiLine" runat="server"></asp:textbox>
                                                 <span id="spnAddress" class="error"></span>
                                             </td>
                                         </tr>
@@ -237,14 +239,14 @@
                                                 <b>Address of the Dealer<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:textbox id="txtDealerAddress" rows="2" columns="60" textmode="MultiLine" runat="server"></asp:textbox>
+                                                <asp:textbox id="txtDealerAddress" rows="2" textmode="MultiLine" runat="server"></asp:textbox>
                                                 <span id="spnDealerAddress" class="error"></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Any Comments (Optional)</b></td>
                                             <td>
-                                                <asp:textbox id="txtComments" rows="2" columns="60" textmode="MultiLine" runat="server"></asp:textbox>
+                                                <asp:textbox id="txtComments" rows="2" textmode="MultiLine" runat="server"></asp:textbox>
                                             </td>
                                         </tr>
                                         <tr>
