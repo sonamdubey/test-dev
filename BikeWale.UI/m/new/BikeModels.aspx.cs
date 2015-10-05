@@ -154,7 +154,9 @@ namespace Bikewale.Mobile.New
                             }
                             else
                             {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);                                
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                this.Page.Visible = false;
                                 //isSuccess = false;
                             }
                         }
@@ -172,6 +174,8 @@ namespace Bikewale.Mobile.New
 
                 // If any error occurred redirect to the new default page
                 Response.Redirect("/m/new/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 

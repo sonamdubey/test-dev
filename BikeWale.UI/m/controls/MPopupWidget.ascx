@@ -12,12 +12,12 @@
         <div class="padding-top5" id="popupContent">
             <div class="text-light-grey margin-bottom15"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
          <div>
-                <select id="ddlCitiesPopup" class="form-control" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }" ></select> 
+                <select id="ddlCitiesPopup" class="form-control" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }, chosen: { width: '100%' }" ></select> 
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>   
          </div>
             <div  data-bind="visible: bookingAreas().length > 0" class="margin-top15">
-                <select  class="form-control chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--'"></select>
+                <select  class="form-control chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', chosen: { width: '100%' }"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div> 
@@ -48,6 +48,27 @@ var viewModelPopup = {
     selectedArea: ko.observable(),
     bookingAreas: ko.observableArray([])
 };
+
+//for jquery chosen 
+ko.bindingHandlers.chosen = {
+    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var $element = $(element);
+        var options = ko.unwrap(valueAccessor());
+        if (typeof options === 'object')
+            $element.chosen(options);
+
+        ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+            if (allBindings.has(propName)) {
+                var prop = allBindings.get(propName);
+                if (ko.isObservable(prop)) {
+                    prop.subscribe(function () {
+                        $element.trigger('chosen:updated');
+                    });
+                }
+            }
+        });
+    }
+}
 
 function checkCookies() {
     c = document.cookie.split('; ');
@@ -88,33 +109,10 @@ function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr) {
             if (cities)
             {
                 checkCookies();
-                var initIndex = 0;
-                for (var i = 0; i < cities.length; i++) {
-
-                    if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQCitySelectedId == cities[i].CityId) {
-                        citySelected = cities[i];
-                    }
-
-                    if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
-                        var currentCity = cities[i];
-                        cities.splice(cities.indexOf(currentCity), 1);
-                        cities.splice(initIndex++, 0, currentCity);
-                    }
-                }
-                cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
                 viewModelPopup.bookingCities(cities);
-
-                if (citySelected != null) {
-                    viewModelPopup.selectedCity(citySelected.CityId);
-                }
-
-                $("#ddlCitiesPopup option[value=0]").prop("disabled", "disabled");
-                if ($("#ddlCitiesPopup option:last-child").val() == "0") {
-                    $("#ddlCitiesPopup option:last-child").remove();
-                }
-                if ($("#ddlCitiesPopup option:first-child").next().val() == "0") {
-                    $("#ddlCitiesPopup option[value=0]").remove();
-                }
+                if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                    viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
+                } 
                 cityChangedPopup();
             }
             else {
@@ -139,7 +137,6 @@ function cityChangedPopup() {
                     viewModelPopup.bookingAreas(areas);
                     if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
                         viewModelPopup.selectedArea(onCookieObj.PQAreaSelectedId);
-                        onCookieObj.PQAreaSelectedId = 0;
                     }
                 }
                 else {

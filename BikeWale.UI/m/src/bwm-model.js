@@ -90,11 +90,15 @@ function pqViewModel(modelId, cityId) {
         self.areas("");
         self.selectedArea(undefined);
         if (self.selectedCity() != undefined)
-        var selectedCity = $('#ddlCity :selected').text();
-        if ($('#ddlCity :selected').index() != 0) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': selectedCity });
-        }
+        {
             loadArea(self);
+            var selectedCity = $('#ddlCity :selected').text();
+            if ($('#ddlCity :selected').index() != 0) {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': selectedCity });
+            }
+        }
+        
+            
     });
 
     self.selectedArea.subscribe(function () {
@@ -111,11 +115,13 @@ function pqViewModel(modelId, cityId) {
         if (self.priceQuote() && self.priceQuote().IsDealerPriceAvailable && self.priceQuote().dealerPriceQuote.offers.length > 0) {
             var city_area = GetGlobalCityArea();
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': city_area });
-            window.location.href = "/pricequote/bookingsummary_new.aspx";
+            window.location.href = "/m/pricequote/bookingsummary_new.aspx";
         }
         return false;
     };
 }
+
+
 
 function InitVM(cityId) {
     var viewModel = new pqViewModel(vmModelId, cityId);
@@ -125,7 +131,7 @@ function InitVM(cityId) {
 }
 
 function loadCity(vm) {
-    $(ctrlSelectCity).prop('disabled', true).next().show();
+    $(ctrlSelectCity).prop('disabled', true).prev().show();
     if (vm.selectedModel()) {
         $.get("/api/PQCityList/?modelId=" + vm.selectedModel(),
             function (data) {
@@ -134,21 +140,20 @@ function loadCity(vm) {
                     var city = ko.toJS(data);
                     vm.cities(city.cities);
                     ctrlSelectCity = $("#ddlCity");
-                    //$(ctrlSelectCity).trigger("chosen:updated");
                     PQcheckCookies();
                     if (!isNaN(pqCookieObj.PQCitySelectedId) && pqCookieObj.PQCitySelectedId > 0 && vm.cities() && selectElementFromArray(vm.cities(), pqCookieObj.PQCitySelectedId)) {
                         vm.selectedCity(pqCookieObj.PQCitySelectedId);
                         vm.popularCityClicked(true);
                         pqCookieObj.PQCitySelectedId = 0;
                     }
-                    $(ctrlSelectCity).next().hide();
+                    $(ctrlSelectCity).prev().hide();
                 }
             });
     }
 }
 
 function loadArea(vm) {
-    $(ctrlSelectArea).next().show();
+    $(ctrlSelectArea).prev().show();
     if (vm.selectedCity()) {
         $.ajax({
             url: "/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity(),
@@ -160,33 +165,29 @@ function loadArea(vm) {
                 vm.areas(area.areas);
                 ctrlSelectArea = $("#ddlArea");
                 $(".city-select-text").hide();
-                $(offerBtnContainer).show();                
-                //$(ctrlSelectArea).trigger("chosen:updated");
+                $(offerBtnContainer).show();
                 if (!isNaN(pqCookieObj.PQAreaSelectedId) && pqCookieObj.PQAreaSelectedId > 0 && vm.areas() &&  (selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId))) {
                     vm.selectedArea(pqCookieObj.PQAreaSelectedId);
                     pqCookieObj.PQAreaSelectedId = 0;
                 }
-                $(ctrlSelectArea).next().hide();
+                $(ctrlSelectArea).prev().hide();
             }
             else {
                 vm.areas([]);
-                $(ctrlSelectArea).next().hide();
-               // $(ctrlSelectArea).trigger("chosen:updated");
+                $(ctrlSelectArea).prev().hide();
                 vm.FetchPriceQuote();
             }
         })
         .fail(function () {
             //no areas available;
             vm.areas([]);
-            $(ctrlSelectArea).next().hide();
-           // $(ctrlSelectArea).trigger("chosen:updated");
+            $(ctrlSelectArea).prev().hide();
             vm.FetchPriceQuote();
         });
     }
     else {
         vm.areas([]);
-        $(ctrlSelectArea).next().hide();
-       // $(ctrlSelectArea).trigger("chosen:updated");
+        $(ctrlSelectArea).prev().hide();
         $(".available-offers-container").hide();
         $(offerBtnContainer).show();
         $(".city-select-text").removeClass("text-red").show();
@@ -195,7 +196,6 @@ function loadArea(vm) {
 
 function fetchPriceQuote(vm) {
     $(priceBlock).find("span.price-loader").show();
-    //$("#dvAvailableOffer").empty();
     if (vm.selectedModel() != undefined && vm.selectedCity() != undefined) {
         $.ajax({
             url: "/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea() != undefined ? vm.selectedArea() : 0),
@@ -319,14 +319,45 @@ $(document).ready(function () {
         InitVM(cityId);
     }
 
+    $.fn.shake = function (options) {
+        // defaults
+        var settings = {
+            'shakes': 2,
+            'distance': 10,
+            'duration': 400
+        };
+        // merge options
+        if (options) {
+            $.extend(settings, options);
+        }
+        // make it so
+        var pos;
+        return this.each(function () {
+            $this = $(this);
+            // position if necessary
+            pos = $this.css('position');
+            if (!pos || pos === 'static') {
+                $this.css('position', 'relative');
+            }
+            // shake it
+            for (var x = 1; x <= settings.shakes; x++) {
+                $this.animate({ left: settings.distance * -1 }, (settings.duration / settings.shakes) / 4)
+                    .animate({ left: settings.distance }, (settings.duration / settings.shakes) / 2)
+                    .animate({ left: 0 }, (settings.duration / settings.shakes) / 4);
+            }
+        });
+    };
+
     $(offerBtnContainer).show();
     $(offerBtn).click(function () {
-        if (modelViewModel.selectedCity() == undefined || modelViewModel.selectedArea() == undefined) {
-            $('.offer-error').addClass("text-red");
-            $('.city-select-text').addClass("text-red");
-            if (modelViewModel.selectedCity() != undefined && modelViewModel.selectedArea() == undefined) {
-                $('.area-select-text').addClass("text-red");
-            }
+        if (modelViewModel.cities() && modelViewModel.selectedCity() === undefined) {
+            $('html,body').animate({ 'scrollTop': $('#dvBikePrice').offset().top }, 500);
+            $('.offer-error').addClass("text-red").shake();
+            $('.city-select-text').addClass("text-red").shake();
+        }
+        else if (modelViewModel.selectedCity != undefined && modelViewModel.areas() || modelViewModel.selectedArea() === undefined) {
+            $('html,body').animate({ 'scrollTop': $('#dvBikePrice').offset().top }, 500);
+            $('.area-select-text').addClass("text-red").shake();
         }
     });
 

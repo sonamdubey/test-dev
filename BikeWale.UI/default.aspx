@@ -18,6 +18,7 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
 </head>
 <body class="bg-white">
 <form runat="server">    
@@ -452,7 +453,10 @@
 
     <section class="margin-bottom50">
         <!--  Compare section code starts here -->
+        <div class="container">
+        <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Compare now</h2>
         <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
+        </div>
     </section>
     <!-- Ends here -->
     <section class="bg-light-grey <%= (ctrlPopularUsedBikes.FetchedRecordsCount > 0)?"":"hide" %>">
@@ -470,8 +474,8 @@
             <!--  News Bikes latest updates code starts here -->
             <div class="newBikes-latest-updates-container">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
-                    <div class="bw-tabs-panel content-box-shadow margin-bottom30">
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Latest updates from the industry</h2>
+                    <div class="bw-tabs-panel margin-bottom30 ">
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
@@ -493,8 +497,31 @@
     <!-- #include file="/includes/footerBW.aspx" -->
     <!-- #include file="/includes/footerscript.aspx" -->
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
     <script type="text/javascript">
         ga_pg_id = '1';
+
+        //for jquery chosen : knockout event 
+        ko.bindingHandlers.chosen = {
+            init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+                var $element = $(element);
+                var options = ko.unwrap(valueAccessor());
+                if (typeof options === 'object')
+                    $element.chosen(options);
+
+                ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+                    if (allBindings.has(propName)) {
+                        var prop = allBindings.get(propName);
+                        if (ko.isObservable(prop)) {
+                            prop.subscribe(function () {
+                                $element.trigger('chosen:updated');
+                            });
+                        }
+                    }
+                });
+            }
+        }
+
     </script>
 </form>
 </body>

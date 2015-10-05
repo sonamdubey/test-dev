@@ -12,12 +12,12 @@
                  <div class="bw-blackbg-tooltip hide">Please enter make/model name</div>
             </div>
             <div class="form-control-box margin-bottom20 finalPriceCitySelect ">
-                <select data-placeholder="--Select City--" class="form-control" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedOnRoad }"></select>
+                <select data-placeholder="--Select City--" class="form-control" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', chosen: { width: '100%' }, event: { change: cityChangedOnRoad }"></select>
                 <span class="bwmsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
             <div class="form-control-box margin-bottom20 finalPriceAreaSelect " data-bind="visible: bookingAreas().length > 0">
-                <select data-placeholder="--Select Area--" class="form-control" id="ddlAreaOnRoad" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--'"></select>
+                <select data-placeholder="--Select Area--" class="form-control" id="ddlAreaOnRoad" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', chosen: { width: '100%' }"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
@@ -28,6 +28,7 @@
         </div>
     </div>
     <div class="clear"></div>
+
 
 <script type="text/javascript">
 
@@ -52,7 +53,35 @@
         bookingAreas: ko.observableArray([])
     };
 
+    //for jquery chosen 
+    ko.bindingHandlers.chosen = {
+        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var $element = $(element);
+            var options = ko.unwrap(valueAccessor());
+            if (typeof options === 'object')
+                $element.chosen(options);
 
+            ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+                if (allBindings.has(propName)) {
+                    var prop = allBindings.get(propName);
+                    if (ko.isObservable(prop)) {
+                        prop.subscribe(function () {
+                            $element.trigger('chosen:updated');
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+    // Chosen touch support.
+    if ($('.chosen-container').length > 0) {
+        $('.chosen-container').on('touchstart', function (e) {
+            e.stopPropagation(); e.preventDefault();
+            // Trigger the mousedown event.
+            $(this).trigger('mousedown');
+        });
+    }
     function FillCitiesOnRoad(modelId) {
         $.ajax({
             type: "POST",
@@ -65,35 +94,10 @@
                 var citySelected = null;
                 if (cities) {
                     checkCookies();
-                    var initIndex = 0;
-                    for (var i = 0; i < cities.length; i++) {
-                        if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQCitySelectedId == cities[i].CityId) {
-                            citySelected = cities[i];
-                        }
-                        if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
-                            var currentCity = cities[i];
-                            cities.splice(cities.indexOf(currentCity), 1);
-                            cities.splice(initIndex++, 0, currentCity);
-                        }                       
-
-                    }
-
-                    cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
-
                     viewModelOnRoad.bookingCities(cities);
-
-                    if (citySelected != null) {
-                        viewModelOnRoad.selectedCity(citySelected.CityId);
+                    if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelOnRoad.bookingCities() && selectElementFromArray(viewModelOnRoad.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                        viewModelOnRoad.selectedCity(onCookieObj.PQCitySelectedId);
                     }
-
-                    $("#ddlCitiesOnRoad option[value=0]").prop("disabled", "disabled");
-                    if ($("#ddlCitiesOnRoad option:last-child").val() == "0") {
-                        $("#ddlCitiesOnRoad option:last-child").remove();
-                    }
-                    if ($("#ddlCitiesOnRoad option:first-child").next().val() == "0") {
-                        $("#ddlCitiesOnRoad option[value=0]").remove();
-                    }
-
                     cityChangedOnRoad();
                 }
                 else {
@@ -118,7 +122,6 @@
                         viewModelOnRoad.bookingAreas(areas);
                         if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && onCookieObj.PQAreaSelectedId != 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
                             viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
-                            onCookieObj.PQAreaSelectedId = 0;
                         }
                     }
                     else {
@@ -131,10 +134,6 @@
             viewModelOnRoad.bookingAreas([]);
         }
     }
-
-    //function areaChangedOnRoad() {
-    //    gtmCodeAppender(pageId, "Area Selected", null);
-    //}
 
 
     function isValidInfoOnRoad() {

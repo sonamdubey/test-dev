@@ -20,7 +20,7 @@
         <div class="final-price-city-area-container">
             <div class="final-price-citySelect" >
                 <div class="form-control-box">
-                    <select data-placeholder="Select City" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: 'Select City', event: { change: cityChangedOnRoad }"></select> 
+                    <select data-placeholder="Select City" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: 'Select City', event: { change: cityChangedOnRoad }, chosen: { width: '100%' }"></select> 
                     <span class="fa fa-spinner fa-spin position-abt pos-right12 pos-top15 text-black bg-white" style="display:none"></span>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select a city</div>
@@ -28,7 +28,7 @@
             </div>
             <div class="final-price-areaSelect" data-bind="visible: bookingAreas().length > 0">
                 <div class="form-control-box">
-                    <select data-placeholder="Select Area" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: 'Select Area'"></select>
+                    <select data-placeholder="Select Area" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: 'Select Area', chosen: { width: '100%' }"></select>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select an area</div>
                 </div>
@@ -75,46 +75,14 @@
                 var citySelected = null; 
                 if (cities) {
                     nbCheckCookies();
-                    var initIndex = 0;
-                    for (var i = 0; i < cities.length; i++) { 
-
-                        if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQCitySelectedId == cities[i].CityId) {
-                            citySelected = cities[i];
-                        }
-
-                        if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
-                            var currentCity = cities[i];
-                            cities.splice(cities.indexOf(currentCity), 1);
-                            cities.splice(initIndex++, 0, currentCity);
-                        }
-                            
-                    }
-
-                    cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null }); 
-
                     viewModelOnRoad.bookingCities(cities);
-
-                    if(citySelected!=null)
-                    {
-                        viewModelOnRoad.selectedCity(citySelected.CityId);
-                        calcWidth();
+                    if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelOnRoad.bookingCities() && selectElementFromArray(viewModelOnRoad.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                        viewModelOnRoad.selectedCity(onCookieObj.PQCitySelectedId);
                     }
-                        
-
-                    $("#ddlCitiesOnRoad option[value=0]").prop("disabled", "disabled");
-                    if ($("#ddlCitiesOnRoad option:last-child").val() == "0") {
-                        $("#ddlCitiesOnRoad option:last-child").remove();
-                    }
-                    if ($("#ddlCitiesOnRoad option:first-child").next().val() == "0") {
-                        $("#ddlCitiesOnRoad option[value=0]").remove();
-                    }
-                    $('#ddlCitiesOnRoad').trigger("chosen:updated");                        
-
                     cityChangedOnRoad();
                 }
                 else {
                     viewModelOnRoad.bookingCities([]);
-                    $('#ddlCitiesOnRoad').trigger("chosen:updated");
                 }
             }
         });
@@ -135,17 +103,14 @@
                     areas = $.parseJSON(response.value);
                     if (areas.length) {
                         viewModelOnRoad.bookingAreas(areas);
-                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(viewModelOnRoad.bookingAreas(), onCookieObj.PQAreaSelectedId)) {
                             viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
-                            onCookieObj.PQAreaSelectedId = 0;
                         }
-                        $('#ddlAreaOnRoad').trigger("chosen:updated");
                         calcWidth();
                     }
                     else {
                         viewModelOnRoad.selectedArea(0);
                         viewModelOnRoad.bookingAreas([]);
-                        $('#ddlAreaOnRoad').trigger("chosen:updated");
                         calcWidth();
                     }
                 }
@@ -154,10 +119,6 @@
             viewModelOnRoad.bookingAreas([]);
         }
     }
-
-    //function areaChangedOnRoad() {
-    //    gtmCodeAppenderWidget(pageId, "Area Selected", null);
-    //}
 
 
     function isValidInfoOnRoad() {
@@ -334,13 +295,10 @@
                 return false;
             }
         });
-        
-        $("#ddlCitiesOnRoad").chosen({ no_results_text: "No matches found!!" });
-        $("#ddlAreaOnRoad").chosen({ no_results_text: "No matches found!!" });
 
         ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
 
-        ele = $('#OnRoadContent .final-price-citySelect')[0];
+        ele = $('#OnRoadContent .final-price-citySelect')[0];   
 
     });
 </script>

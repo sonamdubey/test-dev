@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.ComparisonMin" %>
-<div class="container">
-    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Compare now</h2>
-    <div class="grid-6 margin-top20">
+
+    <div class="grid-6 margin-top20 margin-bottom20">
         <div class="border-solid-right">
             <h3 class="font16 text-center padding-bottom15">
                 <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2)%>">
@@ -44,7 +43,7 @@
             </div>
         </div>
     </div>
-    <div class="grid-6 margin-top20">
+    <div class="grid-6 margin-top20 margin-bottom20">
         <div class="compare-list-home">
             <ul>
                 <asp:Repeater runat="server" ID="rptCompareBike">
@@ -57,7 +56,7 @@
                             </p>
                             <div class="font16 text-light-grey">
                                 <span class="margin-right50">
-                                    <span class="fa fa-rupee"></span> <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price1").ToString()) %></span>
+                                    <span class="fa fa-rupee"></span><span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price1").ToString()) %></span>
                                 </span>
                                 <span class="fa fa-rupee"></span> <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price2").ToString()) %></span>
                             </div>
@@ -71,4 +70,3 @@
         </div>
     </div>
     <div class="clear"></div>
-</div>

@@ -5,6 +5,7 @@ var objCity = new Object();
 var globalCityId = 0;
 var _makeName = '';
 var ga_pg_id = '0';
+
 //fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
@@ -815,3 +816,4 @@ function selectElementFromArray(dataArray, id) {
     }
     return false;
 }
+
