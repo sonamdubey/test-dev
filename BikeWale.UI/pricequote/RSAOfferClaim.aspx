@@ -302,7 +302,7 @@
             buttonImageOnly: true,
             dateFormat: 'dd/mm/yy',
             numberOfMonths: 1,
-            minDate: 0, //days after which dates should be enabled
+            minDate: '-2y', //days after which dates should be enabled
             maxDate: '+2Y', //max limit months/years to be shown
             firstDay: 1
         });
