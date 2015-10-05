@@ -321,13 +321,13 @@
                         <li>
                             <div class="contentWrapper">
                                 <div class="imageWrapper">
-                                    <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(), '/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/'); }">
+                                    <a  data-bind="attr:{href:'/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/'},click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }">
                                         <img class="lazy" data-bind="attr: {title: bikeName, alt: bikeName, src:'http://img1.aeplcdn.com/grey.gif'},lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
                                     </a>
                                 </div>
                                 <div class="bikeDescWrapper">
                                     <div class="bikeTitle margin-bottom10">
-                                        <h3><a data-bind="attr: { title: bikeName }, text: bikeName, click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/'); }"></a></h3>
+                                        <h3><a data-bind="attr: { href:'/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/',title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true;}"></a></h3>
                                     </div>
                                     <div class="font20">
                                         <span class="fa fa-rupee"></span>
