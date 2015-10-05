@@ -136,3 +136,13 @@
         </div> <!-- ends here -->
     	<div class="clear"></div>        
     </header>
+
+<% if(Ad_320x50){ %>
+<section>            
+    <div class="container">
+        <div>
+            <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
+        </div>
+    </div>
+</section>
+<% } %>

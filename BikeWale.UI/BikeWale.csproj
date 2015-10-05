@@ -251,6 +251,7 @@
     <Compile Include="BindViewModels\Controls\BindBikeCompareControl.cs" />
     <Compile Include="BindViewModels\Controls\BindExpertReviewsControl.cs" />
     <Compile Include="BindViewModels\Controls\BindMakePage.cs" />
+    <Compile Include="BindViewModels\Controls\BindModelGallery.cs" />
     <Compile Include="BindViewModels\Controls\BindMostPopularBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BIndNewLaunchedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindNewsControl.cs" />
@@ -481,6 +482,10 @@
     </Compile>
     <Compile Include="controls\MakeModelSearch.ascx.cs">
       <DependentUpon>MakeModelSearch.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="controls\ModelGallery.ascx.cs">
+      <DependentUpon>ModelGallery.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="controls\MostPopularBikes_new.ascx.cs">
@@ -759,6 +764,10 @@
     </Compile>
     <Compile Include="m\controls\MNewLaunchedBikes.ascx.cs">
       <DependentUpon>MNewLaunchedBikes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\ModelGallery.ascx.cs">
+      <DependentUpon>ModelGallery.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\MOnRoadPricequote.ascx.cs">
@@ -1535,6 +1544,7 @@
     <Content Include="controls\loginStatus.ascx" />
     <Content Include="controls\LoginStatusNew.ascx" />
     <Content Include="controls\MakeModelSearch.ascx" />
+    <Content Include="controls\ModelGallery.ascx" />
     <Content Include="controls\MostPopularBikes_new.ascx" />
     <Content Include="controls\NewBikeLaunches.ascx" />
     <Content Include="controls\NewBikesOnRoadPrice.ascx" />
@@ -2004,6 +2014,7 @@
     <Content Include="m\controls\LocateDealer.ascx" />
     <Content Include="m\controls\MMostPopularBikes.ascx" />
     <Content Include="m\controls\MNewLaunchedBikes.ascx" />
+    <Content Include="m\controls\ModelGallery.ascx" />
     <Content Include="m\controls\MOnRoadPricequote.ascx" />
     <Content Include="m\controls\MPopupWidget.ascx" />
     <Content Include="m\controls\MUpcomingBikes.ascx" />

@@ -21,6 +21,8 @@
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", 
         canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "", Ad_HP_Banner_400x310 = "";
+        private bool isHeaderFix = true, isAd320x50Shown = false,isAd300x250Shown = false;
+        private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false;
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script> 
@@ -33,6 +35,7 @@
         })();
     </script>
     <script type='text/javascript'>
+        googletag.defineSlot('<%= AdPath%>_300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
         googletag.defineSlot('<%= AdPath%>_Top_320x50', [320, 50], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
         googletag.defineSlot('<%= AdPath%>_Bottom_320x50', [320, 50], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());      
         googletag.pubads().collapseEmptyDivs();
@@ -70,8 +73,8 @@
             <!-- #include file="/includes/headBW_Mobile.aspx" --> 
             <!-- Header code ends here-->
             <!-- inner-section code starts here-->
-            <div class="inner-section">
+            <%--<div class="inner-section">
                 <!-- Ad unit code starts here-->
                 <div class="ad-unit">
                     <!-- #include file="/ads/Ad320x50_mobile_Sync.aspx" -->
-                </div>
+                </div>--%>
