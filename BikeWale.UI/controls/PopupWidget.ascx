@@ -78,39 +78,11 @@
                 var citySelected = null; 
                 if (cities) {
                     checkCookies();
-                    var initIndex = 0;
-                    for (var i = 0; i < cities.length; i++) {
-
-                        if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQCitySelectedId == cities[i].CityId) {
-                            citySelected = cities[i];
-                        }
-
-                        if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
-                            var currentCity = cities[i];
-                            cities.splice(cities.indexOf(currentCity), 1);
-                            cities.splice(initIndex++, 0, currentCity);
-                        }                         
-                            
-                    }
-
-                    cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null }); 
-
                     viewModelPopup.bookingCities(cities);
-
-                    if (citySelected != null) {
-                        viewModelPopup.selectedCity(citySelected.CityId);
-                    } 
-                        
-
-                    $("#ddlCitiesPopup option[value=0]").prop("disabled", "disabled");
-                    if ($("#ddlCitiesPopup option:last-child").val() == "0") {
-                        $("#ddlCitiesPopup option:last-child").remove();
+                    if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                        viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
                     }
-                    if ($("#ddlCitiesPopup option:first-child").next().val() == "0") {
-                        $("#ddlCitiesPopup option[value=0]").remove();
-                    }
-                    $('#ddlCitiesPopup').trigger("chosen:updated");                        
-
+                    $('#ddlCitiesPopup').trigger("chosen:updated");
                     cityChangedPopup();
                 }
                 else {
