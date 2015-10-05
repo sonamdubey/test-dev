@@ -23,6 +23,7 @@
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", AdId = "", AdPath = "",ShowTargeting="",TargetedModel="", TargetedSeries="", TargetedMakes="",TargetedModels="", AdModel_300x250=""
         ,AdSeries_300x250="", canonical = "",relPrevPageUrl = "",relNextPageUrl = "",fbTitle = "",fbImage = "", menu = "";
+        private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false;
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script> 
@@ -43,12 +44,11 @@
 
 <script type='text/javascript'>
     googletag.cmd.push(function () {
-        googletag.defineSlot('<%= AdPath%>_Top_320x50', [320, 50], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
-        googletag.defineSlot('<%= AdPath%>_Bottom_320x50', [320, 50], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
-        <% if(!String.IsNullOrEmpty(AdModel_300x250)) { %>googletag.defineSlot('/1017752/Bikewale_Mobile_Model_300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());<% } %>
-        <% if(!String.IsNullOrEmpty(AdSeries_300x250)) { %>googletag.defineSlot('/1017752/Bikewale_Mobile_Series_300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());<% } %>
-        <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");
-        googletag.pubads().setTargeting("Series", "<%= TargetedSeries %>");
+        <% if(Ad_320x50) { %>googletag.defineSlot('<%= AdPath%>_Top_320x50', [320, 50], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());<% } %>
+        <% if(Ad_Bot_320x50) { %>googletag.defineSlot('<%= AdPath%>_Bottom_320x50', [320, 50], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());<% } %>
+        <% if (Ad_300x250) { %>googletag.defineSlot('<%= AdPath%>_300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());<% } %>                
+        <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>
+        googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");        
         googletag.pubads().setTargeting("Make", "<%= TargetedMakes %>");
         googletag.pubads().setTargeting("CompareBike-M", "<%= TargetedModels %>");
         <% } %>        
@@ -89,6 +89,8 @@
             <!-- inner-section code starts here-->
             <div class="inner-section">
                 <!-- Ad unit code starts here-->
+                <% if(Ad_320x50){ %>
                 <div class="ad-unit">
                     <!-- #include file="/ads/Ad320x50_mobile.aspx" -->
                 </div>
+                <%} %>
