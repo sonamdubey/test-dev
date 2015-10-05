@@ -1,4 +1,13 @@
-﻿<footer class="bg-footer padding-top30 padding-bottom15"><!-- Footer section code starts here -->
+﻿<% if(Ad_Bot_320x50){ %>
+<section>            
+    <div class="container">
+        <div>
+            <!-- #include file="/ads/Ad320x50_Bottom_mobile.aspx" -->
+        </div>
+    </div>
+</section>
+<% } %>
+<footer class="bg-footer padding-top30 padding-bottom15"><!-- Footer section code starts here -->
         <div class="container">
         	<div class="grid-12 text-center">
                 <div>

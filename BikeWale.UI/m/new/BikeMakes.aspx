@@ -15,8 +15,11 @@
            " to  Rs." + Bikewale.Utility.Format.FormatPrice(Bikewale.BindViewModels.Controls.BindMakePage.MaxPrice.ToString()) + ". Check out " + _make.MakeName +
            " on road price, reviews, mileage, variants, news & photos at Bikewale.";
         canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";
-        AdPath = "/1017752/Bikewale_Mobile_Make_";
+        AdPath = "/1017752/Bikewale_Mobile_Make";
         AdId = "1017752";
+        Ad_320x50 = true;
+        Ad_Bot_320x50 = true;        
+        TargetedMakes = _make.MakeName;
     %>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -30,7 +33,7 @@
             <div class="container">
                 <div>
                     <!--  class="grid-12"-->
-                    <h2 class="text-center margin-top30 margin-bottom20"><%= _make.MakeName %> Bikes</h2>
+                    <h2 class="text-center margin-top20 margin-bottom20"><%= _make.MakeName %> Bikes</h2>
                     <div class="search-bike-container">
                         <div class="search-bike-item">
                             <!-- Most Popular Bikes Starts here-->
@@ -155,7 +158,7 @@
             <div class="container">
                 <div class="grid-12">
                     <div class="content-inner-block-10 content-box-shadow margin-bottom30">
-                        <h2 class="text-center margin-top30 margin-bottom20">About <%= _make.MakeName %> bikes</h2>
+                        <h2 class="text-center margin-top30 margin-bottom10">About <%= _make.MakeName %> bikes</h2>
                         <p>
                             <%= _bikeDesc.SmallDescription %>
                         </p>

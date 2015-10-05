@@ -16,21 +16,25 @@
                     + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
 
         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
-        AdPath = "/1017752/Bikewale_Mobile_Make_";
+        AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1017752";
+        Ad_320x50 = true;
+        Ad_Bot_320x50 = true;
+        Ad_300x250 = true;
+        TargetedModel = modelPage.ModelDetails.ModelName;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server">        
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container bg-white clearfix">
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)
-                       { %><h1 class="padding-top25 padding-bottom20 padding-left20 padding-right20"><%= bikeName %></h1>
+                       { %><h1 class="padding-top15 padding-bottom20 padding-left20 padding-right20"><%= bikeName %></h1>
                     <% } %>
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %><div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Upcoming</div>
@@ -846,7 +850,7 @@
         %>
         <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
             <!--  News, reviews and videos code starts here -->
-            <div class="container">
+            <div class="container padding-bottom10">
                 <div class="grid-12">
                     <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
                     <div class="bw-tabs-panel">
@@ -874,7 +878,7 @@
             <div class="container margin-bottom30">
                 <div class="grid-12">
                     <!-- Most Popular Bikes Starts here-->
-                    <h2 class="margin-top30px margin-bottom20 text-center"><%= bikeName %> alternatives</h2>
+                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> alternatives</h2>
 
                     <div class="jcarousel-wrapper discover-bike-carousel alternatives-carousel">
                         <div class="jcarousel">
