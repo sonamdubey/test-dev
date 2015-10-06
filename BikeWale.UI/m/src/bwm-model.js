@@ -166,6 +166,7 @@ $(".carousel-navigation-photos").click(function () {
 });
 
 $("#bikeBannerImageCarousel .stage li").click(function () {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Photo_Clicked', 'lab': myBikeName });
     if (imgTotalCount > 0) {
         $('body').addClass('lock-browser-scroll');
         $(".blackOut-window-model").show();
@@ -222,6 +223,10 @@ var videoiFrame = document.getElementById("video-iframe");
 /* first video src */
 $("#photos-tab, #videos-tab").click(function () {
     firstVideo();
+});
+
+$("#videos-tab").click(function () {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Video_Tab_Clicked', 'lab': myBikeName });
 });
 
 var firstVideo = function () {
