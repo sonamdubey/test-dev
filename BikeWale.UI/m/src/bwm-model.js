@@ -166,10 +166,12 @@ $(".carousel-navigation-photos").click(function () {
 });
 
 $("#bikeBannerImageCarousel .stage li").click(function () {
-    $('body').addClass('lock-browser-scroll');
-    $(".blackOut-window-model").show();
-    $(".bike-gallery-popup").removeClass("hide").addClass("show");
-    $(".modelgallery-close-btn").removeClass("hide").addClass("show");
+    if (imgTotalCount > 0) {
+        $('body').addClass('lock-browser-scroll');
+        $(".blackOut-window-model").show();
+        $(".bike-gallery-popup").removeClass("hide").addClass("show");
+        $(".modelgallery-close-btn").removeClass("hide").addClass("show");
+    }
 });
 
 $(".modelgallery-close-btn").click(function () {

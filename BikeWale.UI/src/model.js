@@ -572,25 +572,27 @@ function pqAreaFailStatus()
 });
 
 $("#bikeBannerImageCarousel .stage li").click(function () {
-    $('body').addClass('lock-browser-scroll');
-    $(".blackOut-window-model").show();
-    $(".bike-gallery-popup").removeClass("hide").addClass("show");
-    $(".modelgallery-close-btn").removeClass("hide").addClass("show");
-    $(".carousel-stage-photos ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
-    $(".carousel-navigation-photos ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
-    $(document).on("keydown", function (e) {
-        var $blackModel = $(".blackOut-window-model");
-        var $bikegallerypopup = $(".bike-gallery-popup");
-        if ($bikegallerypopup.hasClass("show") && e.keyCode === 27) {            
-            $(".modelgallery-close-btn").click();
-        }
-        if ($bikegallerypopup.hasClass("show") && e.keyCode == 39 && $("#photos-tab").hasClass("active")) {
-            $(".photos-next-stage").click();
-        }
-        if ($bikegallerypopup.hasClass("show") && e.keyCode == 37 && $("#photos-tab").hasClass("active")) {
-            $(".photos-prev-stage").click();
-        }
-    });
+    if (imgTotalCount > 0) {
+        $('body').addClass('lock-browser-scroll');
+        $(".blackOut-window-model").show();
+        $(".bike-gallery-popup").removeClass("hide").addClass("show");
+        $(".modelgallery-close-btn").removeClass("hide").addClass("show");
+        $(".carousel-stage-photos ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
+        $(".carousel-navigation-photos ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
+        $(document).on("keydown", function (e) {
+            var $blackModel = $(".blackOut-window-model");
+            var $bikegallerypopup = $(".bike-gallery-popup");
+            if ($bikegallerypopup.hasClass("show") && e.keyCode === 27) {
+                $(".modelgallery-close-btn").click();
+            }
+            if ($bikegallerypopup.hasClass("show") && e.keyCode == 39 && $("#photos-tab").hasClass("active")) {
+                $(".photos-next-stage").click();
+            }
+            if ($bikegallerypopup.hasClass("show") && e.keyCode == 37 && $("#photos-tab").hasClass("active")) {
+                $(".photos-prev-stage").click();
+            }
+        });
+    }    
 });
 
 $(".modelgallery-close-btn").click(function () {
