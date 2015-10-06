@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.News_new" %>
-<div class="bw-tabs-data hide" id="ctrlNews"><!-- News data code starts here-->
+<div class="bw-tabs-data" id="ctrlNews"><!-- News data code starts here-->
     <asp:Repeater ID="rptNews" runat="server">
         <ItemTemplate>
             <div class="padding-bottom30">

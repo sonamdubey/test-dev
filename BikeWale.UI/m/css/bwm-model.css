@@ -52,10 +52,10 @@
 /* overview-box css */
 .overview-box{padding:0 30px; display:inline-block; margin:auto; clear:both; font-weight: 600;}
 .overview-box > div {width:49%; float:left; margin-bottom:15px; padding:10px 0; position:relative;}
-.overview-box > div.odd{padding-right:25px; border-right:1px solid #e2e2e2;}
-.overview-box > div.even{padding-left:25px;}
+.overview-box > div.odd{padding-right:10px; border-right:1px solid #e2e2e2;}
+.overview-box > div.even{padding-left:10px;}
 .overview-box > div span { display:block; text-align: center;}
-.overview-box div.btmAftBorder:after{content:'';position:absolute; bottom:-8px; height:1px; background-color:#e2e2e2; width:60%;}
+.overview-box div.btmAftBorder:after{content:'';position:absolute; bottom:-8px; height:1px; background-color:#e2e2e2; width:90%;}
 .overview-box div.odd.btmAftBorder:after{left:0;}
 .overview-box div.even.btmAftBorder:after{right:0;}
 

@@ -370,10 +370,25 @@ $(document).ready(function () {
     });
 
     $("a.read-more-btn").click(function () {
-        $(".model-about-more-desc").slideToggle();
-        var a = $(this).find("span");
-        a.text(a.text() === "more" ? "less" : "more");
+        if (!$(this).hasClass("open")) {
+            $(".model-about-main").hide();
+            $(".model-about-more-desc").show();
+            var a = $(this).find("span");
+            a.text(a.text() === "more" ? "less" : "more");
+            $(this).addClass("open");
+        }
+        else if ($(this).hasClass("open")) {
+            $(".model-about-main").show();
+            $(".model-about-more-desc").hide();
+            var a = $(this).find("span");
+            a.text(a.text() === "more" ? "less" : "more");
+            $(this).removeClass("open");
+        }
+
     });
+
+    $("#ctrlNews").addClass("hide");
+
     $(".more-features-btn").click(function () {
         $(".more-features").slideToggle();
         var a = $(this).find("span");
