@@ -64,8 +64,9 @@
 	}
 	#main { padding:20px; }
 	p, li { font-weight:bold; font-size:12px;color:#666666; }
+    .container-min-height { min-height:500px; }
 </style>  
-<div class="container_12">    
+<div class="container_12 container-min-height">    
     <div class="content-block">
 		<h1>Page Not Found</h1>
 		<h3>Requested page couldn't be found on <a href="/" title="Visit BikeWale home page">BikeWale</a></h3>

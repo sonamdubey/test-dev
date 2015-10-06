@@ -66,12 +66,18 @@ function pqViewModel(modelId, cityId) {
     self.selectedCity.subscribe(function () {
         self.areas("");
         self.selectedArea(undefined);
-        if(self.selectedCity() != undefined)
-        var selectedCity = $('#ddlCity :selected').text();
-        if ($('#ddlCity :selected').index() != 0) {
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': selectedCity });
+        if (self.selectedCity() != undefined)
+        {
+            loadArea(self);            
+            var selectedCity = $('#ddlCity :selected').text();
+            if ($('#ddlCity :selected').index() != 0) {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected', 'lab': selectedCity });
+            }             
         }
-            loadArea(self);
+        else {
+            $(offerBtn).show();
+        }
+        
     });
 
     
@@ -82,6 +88,9 @@ function pqViewModel(modelId, cityId) {
             if ($('#ddlArea :selected').index() != 0) {
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': selectedArea });
             }
+        }
+        else {
+            $(offerBtn).show();
         }
     });
 
@@ -96,18 +105,30 @@ function pqViewModel(modelId, cityId) {
 
 }
 
-function loadDealerBreakUp(vm) {
-    if (vm.DealerPriceList != null && vm.DealerPriceList.length > 0) {
-        total = 0;
-        for (i = 0; i < vm.DealerPriceList.length; i++) {
-            total += vm.DealerPriceList.price;
-        }
-        return total;
+
+//for jquery chosen 
+ko.bindingHandlers.chosen = {
+    init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+        var $element = $(element);
+        var options = ko.unwrap(valueAccessor());  
+        if (typeof options === 'object')
+            $element.chosen(options);            
+
+        ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+            if (allBindings.has(propName)) {
+                var prop = allBindings.get(propName);
+                if (ko.isObservable(prop)) {
+                    prop.subscribe(function () {
+                        $element.trigger('chosen:updated');
+                    });
+                }
+            }
+        });
     }
 }
 
 function loadCity(vm) {
-    $(ctrlSelectCity).prop('disabled', true).next().show();
+    $(ctrlSelectCity).prop('disabled', true).prev().show();
     if (vm.selectedModel()) {
         $.get("/api/PQCityList/?modelId=" + vm.selectedModel(),
             function (data) {               
@@ -122,14 +143,14 @@ function loadCity(vm) {
                         vm.popularCityClicked(true);
                         pqCookieObj.PQCitySelectedId = 0;
                     }
-                    $(ctrlSelectCity).next().hide();                    
+                    $(ctrlSelectCity).prev().hide();                    
                 }
             });
     }
 }
 
 function loadArea(vm) {
-    $(ctrlSelectArea).next().show();
+    $(ctrlSelectArea).prev().show();
     if (vm.selectedCity()!=undefined) {
         $.ajax({
             url: "/api/PQAreaList/?modelId=" + vm.selectedModel() + "&cityId=" + vm.selectedCity(),
@@ -141,27 +162,24 @@ function loadArea(vm) {
                 vm.areas(area.areas);
                 ctrlSelectArea = $("#ddlArea");
                 $(".city-select-text").hide();
-                $(offerBtnContainer).show();                 
-                //$(ctrlSelectArea).trigger("chosen:updated");
+                $(offerBtnContainer).show();
                 if (!isNaN(pqCookieObj.PQAreaSelectedId) && pqCookieObj.PQAreaSelectedId > 0 && vm.areas() && selectElementFromArray(vm.areas(), pqCookieObj.PQAreaSelectedId)) {
                     vm.selectedArea(pqCookieObj.PQAreaSelectedId);
-                    vm.popularCityClicked(true);
+                    vm.popularCityClicked(true);                    
                     pqCookieObj.PQAreaSelectedId = 0;
                 }
-                $(ctrlSelectArea).next().hide();
+                $(ctrlSelectArea).prev().hide();
             }
             else {
                 vm.areas([]);
-                //$(ctrlSelectArea).trigger("chosen:updated");
-                $(ctrlSelectArea).next().hide();
+                $(ctrlSelectArea).prev().hide();
                 vm.FetchPriceQuote();
             }
         })
         .fail(function () {
             //no areas available;
             vm.areas([]);
-            //$(ctrlSelectArea).trigger("chosen:updated");
-            $(ctrlSelectArea).next().hide();
+            $(ctrlSelectArea).prev().hide();
             vm.FetchPriceQuote();
         });
     }
@@ -170,7 +188,7 @@ function loadArea(vm) {
         //$(ctrlSelectArea).trigger("chosen:updated");
         $(".available-offers-container").hide();
         $(offerBtnContainer).show();
-        $(ctrlSelectArea).next().hide();
+        $(ctrlSelectArea).prev().hide();
         $(".city-select-text").removeClass("text-red").show();
     }
 }
@@ -278,18 +296,56 @@ function fetchPriceQuote(vm) {
     }
 }
 
-$(document).ready(function () {    
+$(document).ready(function () {
+
+    $.fn.shake = function (options) {
+        // defaults
+        var settings = {
+            'shakes': 2,
+            'distance': 10,
+            'duration': 400
+        };
+        // merge options
+        if (options) {
+            $.extend(settings, options);
+        }
+        // make it so
+        var pos;
+        return this.each(function () {
+            $this = $(this);
+            // position if necessary
+            pos = $this.css('position');
+            if (!pos || pos === 'static') {
+                $this.css('position', 'relative');
+            }
+            // shake it
+            for (var x = 1; x <= settings.shakes; x++) {
+                $this.animate({ left: settings.distance * -1 }, (settings.duration / settings.shakes) / 4)
+                    .animate({ left: settings.distance }, (settings.duration / settings.shakes) / 2)
+                    .animate({ left: 0 }, (settings.duration / settings.shakes) / 4);
+            }
+        });
+    };
+
     $(offerBtnContainer).show();
     $(offerBtn).click(function () {
-        if (modelViewModel.selectedCity() == undefined || modelViewModel.selectedArea() == undefined) {
-            $('.offer-error').addClass("text-red");
-            $('.city-select-text').addClass("text-red");
-            if (modelViewModel.selectedCity()!=undefined && modelViewModel.selectedArea() == undefined) {
-                $('.area-select-text').addClass("text-red");
-            }
+        if ( modelViewModel.cities() && modelViewModel.selectedCity() === undefined ) {
+            $('.offer-error').addClass("text-red").shake();
+            $('.city-select-text').addClass("text-red").shake();
+            //transferEffect($(priceBlock).find("#ddlCity_chosen"));
+        }
+        else if(modelViewModel.selectedCity != undefined && modelViewModel.areas() || modelViewModel.selectedArea() === undefined)
+        {
+            $('.area-select-text').addClass("text-red").shake();
+            //transferEffect($(priceBlock).find("#ddlArea_chosen"));
         }
     });
 
+
+    function transferEffect(target)
+    {
+        $(this).effect('transfer', { to: $(target) }, 1000);
+    }
 
     $(priceBlock).delegate('#mainCity li', 'click', function () {
         var val = $(this).attr('cityId');
@@ -307,23 +363,25 @@ $(document).ready(function () {
     });
 
     $(editBtn).on('click',function (e) {
+        $(".city-onRoad-price-container").hide();
+        $(".city-area-select-container").show();
+        $(priceBlock).find("#ddlCity_chosen").show();
+        $(".city-area-wrapper").show();
+
         if (modelViewModel.areas() && modelViewModel.selectedArea())
         {
             $(".available-offers-container").removeClass("text-red").show();
-            $('.area-select-text').removeClass("text-red").show();            
+            $('.area-select-text').removeClass("text-red").show();
+            $(priceBlock).find("#ddlArea_chosen").trigger('chosen-updated').show();
         }
         else
         {
             $(".available-offers-container").hide();
             $(offerBtnContainer).show();
             $(".city-select-text").removeClass("text-red").show(); 
-        }
-
-        $(".city-area-select-container").show();
-        $(".city-area-wrapper").show();
-        $(".city-onRoad-price-container").hide();
-        
-        
+        }        
+            
+               
     });
 
     $("a.read-more-btn").click(function () {
@@ -374,23 +432,32 @@ function PQcheckCookies() {
 
 
 //photos corousel function
-(function($) {    
-    var connector = function(itemNavigation, carouselStage) {
+(function ($) {
+
+    var connector = function (itemNavigation, carouselStage) {
         return carouselStage.jcarousel('items').eq(itemNavigation.index());
     };
+    var connector2 = function (itemNavigation2, carouselStage2) {
+        return carouselStage2.jcarousel('items').eq(itemNavigation2.index());
+    };
+    var connector3 = function (itemNavigation3, carouselStage3) {
+        return carouselStage3.jcarousel('items').eq(itemNavigation3.index());
+    };
+    $(function () {
+        var carouselStage = $('.carousel-stage').jcarousel();
+        var carouselNavigation = $('.carousel-navigation').jcarousel();
 
-    $(function() {
-        
-        var carouselStage      = $('.carousel-stage').jcarousel();
-        var carouselNavigation = $('.carousel-navigation').jcarousel();        
+        var carouselStage2 = $('.carousel-stage-photos').jcarousel();
+        var carouselNavigation2 = $('.carousel-navigation-photos').jcarousel();
 
-        carouselNavigation.jcarousel('items').each(function() {
+        var carouselStage3 = $('.carousel-stage-videos').jcarousel();
+        var carouselNavigation3 = $('.carousel-navigation-videos').jcarousel();        
+
+        carouselNavigation.jcarousel('items').each(function () {
             var item = $(this);
-            
             var target = connector(item, carouselStage);
-
             item
-                .on('jcarouselcontrol:active', function() {
+                .on('jcarouselcontrol:active', function () {
                     carouselNavigation.jcarousel('scrollIntoView', this);
                     item.addClass('active');
                 })
@@ -399,13 +466,46 @@ function PQcheckCookies() {
                 })
                 .jcarouselControl({
                     target: target,
-                    carousel: carouselStage,
-                })
+                    carousel: carouselStage
+                });
         });
 
-        
-        $('.prev-stage')
-            .on('jcarouselcontrol:inactive', function() {
+        carouselNavigation2.jcarousel('items').each(function () {
+            var item2 = $(this);
+            var target = connector2(item2, carouselStage2);
+            item2
+				.on('jcarouselcontrol:active', function () {
+				    carouselNavigation2.jcarousel('scrollIntoView', this);
+				    item2.addClass('active');
+				})
+				.on('jcarouselcontrol:inactive', function () {
+				    item2.removeClass('active');
+				})
+				.jcarouselControl({
+				    target: target,
+				    carousel: carouselStage2
+				});
+        });
+
+        carouselNavigation3.jcarousel('items').each(function () {
+            var item3 = $(this);
+            var target = connector3(item3, carouselStage3);
+            item3
+				.on('jcarouselcontrol:active', function () {
+				    carouselNavigation3.jcarousel('scrollIntoView', this);
+				    item3.addClass('active');
+				})
+				.on('jcarouselcontrol:inactive', function () {
+				    item3.removeClass('active');
+				})
+				.jcarouselControl({
+				    target: target,
+				    carousel: carouselStage3
+				});
+        });
+
+        $('.prev-stage, .photos-prev-stage, .videos-prev-stage')
+            .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
             .on('jcarouselcontrol:active', function () {
@@ -414,9 +514,8 @@ function PQcheckCookies() {
             .jcarouselControl({
                 target: '-=1'
             });
-
-        $('.next-stage')
-            .on('jcarouselcontrol:inactive', function() {
+        $('.next-stage, .photos-next-stage, .videos-next-stage')
+            .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
             .on('jcarouselcontrol:active', function () {
@@ -425,40 +524,64 @@ function PQcheckCookies() {
             .jcarouselControl({
                 target: '+=1'
             });
-
-        
-        $('.prev-navigation')
+        $('.prev-navigation, .photos-prev-navigation, .videos-prev-navigation')
             .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
-            .on('jcarouselcontrol:active', function () {
+            .on('jcarouselcontrol:active', function () {                
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
                 target: '-=4'
             });
-
-        $('.next-navigation')
-            .on('jcarouselcontrol:inactive', function() {
+        $('.next-navigation, .photos-next-navigation, .videos-next-navigation')
+            .on('jcarouselcontrol:inactive', function () {
                 $(this).addClass('inactive');
             })
-            .on('jcarouselcontrol:active', function () {
+            .on('jcarouselcontrol:active', function () {                
                 $(this).removeClass('inactive');
             })
             .jcarouselControl({
                 target: '+=4'
             });
 
-        $(".carousel-navigation, .carousel-stage").on('jcarousel:visiblein', 'li', function(event, carousel) {
+
+        $(".carousel-navigation, .carousel-stage, .carousel-stage-photos, .carousel-navigation-photos").on('jcarousel:visiblein', 'li', function (event, carousel) {
             $(this).find("img.lazy").trigger("imgLazyLoad");
         });
-        
-        $(".alternatives-carousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
-            $(this).find("img.lazy").trigger("imgLazyLoad");
-        });
-        
+        //$(".carousel-stage-photos").on('jcarousel:visiblein', 'li', function (event, carousel) {
+        //    getImageIndex();
+        //});       
     });
 })(jQuery);
+
+$(".photos-next-stage").click(function () {
+    getImageNextIndex();
+});
+
+$(".photos-prev-stage").click(function () {
+    getImagePrevIndex();
+});
+
+$(".carousel-navigation-photos").click(function () {
+    getImageIndex();
+});
+
+$(".stage-photos").hover(function () {
+    $(".photos-next-stage, .photos-prev-stage, .photos-prev-stage.inactive, .photos-next-stage.inactive").toggleClass("hide show");
+});
+
+$(".navigation-photos").hover(function () {
+    $(".photos-prev-navigation, .photos-next-navigation, .photos-prev-navigation.inactive, .photos-next-navigation.inactive").toggleClass("hide show");
+});
+
+$(".stage-videos").hover(function () {
+    $(".videos-next-stage, .videos-prev-stage, .videos-prev-stage.inactive, .videos-next-stage.inactive").toggleClass("hide show");
+});
+
+$(".navigation-videos").hover(function () {
+    $(".videos-prev-navigation, .videos-next-navigation, .videos-prev-navigation.inactive, .videos-next-navigation.inactive").toggleClass("hide show");
+});
 function animatePrice(ele,start,end)
 {
     $({ someValue: start }).stop(true).animate({ someValue: end }, {
@@ -501,7 +624,97 @@ function pqAreaFailStatus()
     $(priceBlock).find("span.price-loader").hide();
 }
 
-//window.setInterval(function () {
-//    $('.chosen-select').trigger('chosen:updated');
-//}, 1000);
+});
+
+$("#bikeBannerImageCarousel .stage li").click(function () {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Photo_Clicked', 'lab': myBikeName });
+    if (imgTotalCount > 0) {
+        $('body').addClass('lock-browser-scroll');
+        $(".blackOut-window-model").show();
+        $(".bike-gallery-popup").removeClass("hide").addClass("show");
+        $(".modelgallery-close-btn").removeClass("hide").addClass("show");
+        $(".carousel-stage-photos ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
+        $(".carousel-navigation-photos ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
+        $(document).on("keydown", function (e) {
+            var $blackModel = $(".blackOut-window-model");
+            var $bikegallerypopup = $(".bike-gallery-popup");
+            if ($bikegallerypopup.hasClass("show") && e.keyCode === 27) {
+                $(".modelgallery-close-btn").click();
+            }
+            if ($bikegallerypopup.hasClass("show") && e.keyCode == 39 && $("#photos-tab").hasClass("active")) {
+                $(".photos-next-stage").click();
+            }
+            if ($bikegallerypopup.hasClass("show") && e.keyCode == 37 && $("#photos-tab").hasClass("active")) {
+                $(".photos-prev-stage").click();
+            }
+        });
+    }    
+});
+
+$(".modelgallery-close-btn").click(function () {
+    $('body').removeClass('lock-browser-scroll');
+    $(".blackOut-window-model").hide();
+    $(".bike-gallery-popup").removeClass("show").addClass("hide");
+    $(".modelgallery-close-btn").removeClass("show").addClass("hide");
+    videoiFrame.setAttribute("src", "");
+});
+
+$(document).ready(function () {
+    imgTotalCount = $(".carousel-stage-photos ul li").length;    
+    var imgIndexA = $(".carousel-navigation-photos ul li.active");
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setImageDetails(imgTitle, imgIndex);
+});
+
+function getImageNextIndex() {
+    var imgIndexA = $(".carousel-navigation-photos ul li.active").next();
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setImageDetails(imgTitle, imgIndex);
+}
+
+function getImagePrevIndex() {
+    var imgIndexA = $(".carousel-navigation-photos ul li.active").prev();
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");    
+    setImageDetails(imgTitle, imgIndex);
+}
+
+function getImageIndex() {
+    var imgIndexA = $(".carousel-navigation-photos ul li.active");
+    var imgIndex = imgIndexA.index() + 1;
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setImageDetails(imgTitle, imgIndex);
+}
+function setImageDetails(imgTitle,imgIndex) {            
+    $(".leftfloatbike-gallery-details").text(imgTitle);
+    if (imgIndex > 0) {
+        $(".bike-gallery-count").text(imgIndex.toString() + "/" + imgTotalCount.toString());
+    }
+}
+
+var videoiFrame = document.getElementById("video-iframe");
+
+/* first video src */
+$("#photos-tab, #videos-tab").click(function () {
+    firstVideo();
+});
+
+$("#videos-tab").click(function () {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Video_Tab_Clicked', 'lab': myBikeName });
+});
+
+var firstVideo = function () {
+    var a = $(".carousel-navigation-videos ul").first("li");
+    var newSrc = a.find("img").attr("iframe-data");
+    videoiFrame.setAttribute("src", newSrc);
+};
+
+var navigationVideosLI = $(".carousel-navigation-videos ul li");
+navigationVideosLI.click(function () {
+    navigationVideosLI.removeClass("active");
+    $(this).addClass("active");
+    var newSrc = $(this).find("img").attr("iframe-data");
+    videoiFrame.setAttribute("src", newSrc);
 });

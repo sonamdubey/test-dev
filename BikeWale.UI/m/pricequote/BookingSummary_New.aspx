@@ -14,51 +14,6 @@
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-        <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix">
-            <!--  Discover bikes section code starts here -->
-            <div class="grid-12">
-                <!-- ko with: viewModel.SelectedVarient() -->
-                <div class="imageWrapper margin-top10">
-                    <img data-bind="attr: { src: imageUrl, alt: bikeName, title: bikeName }">
-                </div>
-                <div class="margin-top10">
-                    <h3 class="margin-bottom15" data-bind="text: bikeName"></h3>
-                    <div class="font14">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td width="200" class="padding-bottom10">On road price:</td>
-                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: onRoadPrice"></span></td>
-                                </tr>
-                                <tr>
-                                    <td>Advance booking:</td>
-                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: bookingAmount"></span></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2">
-                                        <div class="border-solid-top padding-bottom10"></div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Balance amount:</td>
-                                    <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: remainingAmount"></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="font12 text-medium-grey">*Balance amount payable at the dealership</td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="clear"></div>
-                <!-- /ko -->
-            </div>
-        </section>
-
         <section id="offerSection" class="container bg-white box-shadow margin-bottom20 clearfix">
             <!--  Don't know which car to buy section code starts here -->
             <div class="grid-12">
@@ -136,7 +91,7 @@
                             </div>
                             <div class="clear"></div>
                             <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
-                            <div id="processing" class="hide" style="text-align:center;font-weight:bold;">Processing Please wait...</div>
+                            <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
                         </div>
                     </div>
 
@@ -218,6 +173,51 @@
             <div class="clear"></div>
         </section>
 
+        <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix">
+            <!--  Discover bikes section code starts here -->
+            <div class="grid-12">
+                <!-- ko with: viewModel.SelectedVarient() -->
+                <div class="imageWrapper margin-top10">
+                    <img data-bind="attr: { src: imageUrl, alt: bikeName, title: bikeName }">
+                </div>
+                <div class="margin-top10">
+                    <h3 class="margin-bottom15" data-bind="text: bikeName"></h3>
+                    <div class="font14">
+                        <table width="100%">
+                            <tbody>
+                                <tr>
+                                    <td width="200" class="padding-bottom10">On road price:</td>
+                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: onRoadPrice"></span></td>
+                                </tr>
+                                <tr>
+                                    <td>Advance booking:</td>
+                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: bookingAmount"></span></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div class="border-solid-top padding-bottom10"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Balance amount:</td>
+                                    <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: remainingAmount"></span></td>
+                                </tr>
+                                <tr>
+                                    <td class="font12 text-medium-grey">*Balance amount payable at the dealership</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <!-- /ko -->
+            </div>
+        </section>
+
         <section>
             <!--  toll-free code starts here -->
 
@@ -238,8 +238,10 @@
                 <!-- ko if: !viewModel.Dealer() -->
                 <div class="container">
                     <div class="grid-12 alpha omega">
+                        
                         <div class="content-box-shadow content-inner-block-5 margin-bottom15 text-medium-grey text-center">
-                            <a href="tel:1800 120 8300" class="font20 text-grey call-text-green" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 120 8300</a>
+                            <div class="margin-bottom5">In case of queries call us on:</div>                            
+                            <div><a href="tel:1800 120 8300" class="font20 text-grey call-text-green" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 120 8300</a></div>
                         </div>
                     </div>
                 </div>

@@ -17,7 +17,7 @@ namespace Bikewale.Mobile.BikeBooking
 {
     public class RSAOfferClaim : System.Web.UI.Page
     {
-        protected TextBox txtName, txtMobile, txtEmail, txtVehicle, txtAddress, txtdealerName, txtDealerAddress, txtComments;
+        protected TextBox txtBookingNum, txtName, txtMobile, txtEmail, txtVehicle, txtAddress, txtPincode, txtdealerName, txtDealerAddress, txtComments;
         protected HtmlInputHidden hdnVersion, hdnBikeName;
         protected HtmlSelect ddlMake;
         protected Button btnSubmit;
@@ -54,10 +54,12 @@ namespace Bikewale.Mobile.BikeBooking
 
                 objOffer = new RSAOfferClaimEntity()
                 {
+                    BookingNum = txtBookingNum.Text,
                     CustomerName = txtName.Text,
                     CustomerEmail = txtEmail.Text,
                     CustomerMobile = txtMobile.Text,
                     CustomerAddress = txtAddress.Text,
+                    CustomerPincode = txtPincode.Text,
                     DeliveryDate = calDeliveryDate.Value,
                     DealerAddress = txtDealerAddress.Text,
                     DealerName = txtdealerName.Text,

@@ -34,7 +34,7 @@
         <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
         <p class="text-center jcarousel-pagination margin-bottom30"></p>
     </div>
-    <div class="text-center margin-bottom40">
+    <div class="text-center margin-bottom30">
         <a class="font16" href="/m/news/">View More News</a>
     </div>
     <script type="text/javascript">

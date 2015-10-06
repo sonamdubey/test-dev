@@ -15,7 +15,7 @@
 <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/price_quote.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?<%= staticFileVersion %>"></script>
+<%--<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?<%= staticFileVersion %>"></script>--%>
     <div class="main-container">
         <div class="container_12 container-min-height">
             <div class="grid_12">
@@ -61,13 +61,12 @@
                                         <h2>Select Location</h2>
                                     </div>
                                     <div class="input-box">
-                                       <%-- <asp:dropdownlist id="ddlCity" width="200" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--'" runat="server"><asp:ListItem Text="--Select City--" Value="0" /></asp:dropdownlist>--%>
-                                        <asp:dropdownlist data-placeholder="Search an Area.." class="chosen-select" style="width: 200px" tabindex="2" width="200" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--'" id="ddlCity" runat="server"></asp:dropdownlist>
+                                        <asp:dropdownlist data-placeholder="Search an Area.." class="chosen-select" style="width: 200px" tabindex="2" width="200" cssclass="drpClass" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, event: { change: UpdateArea }, optionsCaption: '--Select City--', chosen: { width: '200px' }" id="ddlCity" runat="server"></asp:dropdownlist>
                                         <input type="hidden" id="hdn_ddlCity" runat="server" data-bind=""/><span id="spnCity" class="error" runat="server" /></div>
                                 </div>
                                 <div class="clear"></div>
-                                <div class="input-box input-box-margin hide" id="divAreaChosen"  data-bind="visible: areas().length > 0">
-                                    <select data-placeholder="Search an Area.." class="chosen-select" style="width: 200px" tabindex="3" data-bind="options: areas, optionsText: 'AreaName', optionsValue: 'AreaId', value: selectedArea, optionsCaption: '--Select Area--'" id="ddlArea">
+                                <div class="input-box input-box-margin " data-bind="visible: selectedCity() && areas() && areas().length > 0">
+                                    <select data-placeholder="Search an Area.." class="chosen-select" style="width: 200px" tabindex="3" data-bind="options: areas, optionsText: 'AreaName', optionsValue: 'AreaId', value: selectedArea, optionsCaption: '--Select Area--', chosen: { width: '200px' }" id="ddlArea">
                                         <option value=""></option>
                                     </select>
                                     <input type="hidden" id="hdn_ddlArea" runat="server" /><span id="spnArea" class="error" runat="server" />
@@ -118,6 +117,27 @@
         models: ko.observableArray()
     };
 
+    //for jquery chosen 
+    ko.bindingHandlers.chosen = {
+        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var $element = $(element);
+            var options = ko.unwrap(valueAccessor());
+            if (typeof options === 'object')
+                $element.chosen(options);
+
+            ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+                if (allBindings.has(propName)) {
+                    var prop = allBindings.get(propName);
+                    if (ko.isObservable(prop)) {
+                        prop.subscribe(function () {
+                            $element.trigger('chosen:updated');
+                        });
+                    }
+                }
+            });
+        }
+    }
+
     $(document).ready(function () {
 
         ko.applyBindings(viewModel, document.getElementById("pq_car"));
@@ -126,18 +146,13 @@
                 ddlMake_Change();
             }
 
-        
-
-        $('#ddlArea').prop('disabled', true).trigger("chosen:updated");
-        $("#ddlArea").chosen({ no_results_text: "No matches found!!" });
-
         var cityId = '';
 
         if (window.location.search == '' || window.location.search == null) {
             ddlMake_Change();
         }
         else {
-            MetroCities($("#ddlCity"));
+            //MetroCities($("#ddlCity"));
         }
         if ($("#ddlCity").val() > 0) {
             $("#hdn_ddlCity").val($("#ddlCity").val());
@@ -235,7 +250,6 @@
             viewModel.models([]);
             viewModel.cities([]);
             viewModel.areas([]);
-            $('#divAreaChosen').hide();
         }
     }
 
@@ -248,7 +262,6 @@
         else {
             viewModel.cities([]);
             viewModel.areas([]);
-            $('#divAreaChosen').hide();
         }
     }
 
@@ -265,32 +278,9 @@
                 var citySelected = null;
                 if (cities && cities.length > 0) {
                     checkCookies();
-                    var initIndex = 0;
-                    for (var i = 0; i < cities.length; i++) {   
-
-                        if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQCitySelectedId == cities[i].CityId) {
-                            citySelected = cities[i];
-                        }
-
-                        if (metroCitiesIds.indexOf(cities[i].CityId) > -1) {
-                            var currentCity = cities[i];
-                            cities.splice(cities.indexOf(currentCity), 1);
-                            cities.splice(initIndex++, 0, currentCity); 
-                        }   
-                    }
-                    cities.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
                     viewModel.cities(cities);
-
-                    if (citySelected != null) {
-                        viewModel.selectedCity(citySelected.CityId);
-                    }
-
-                    $("#ddlCity option[value=0]").prop("disabled", "disabled");
-                    if ($("#ddlCity option:last-child").val() == "0") {
-                        $("#ddlCity option:last-child").remove();
-                    }
-                    if ($("#ddlCity option:first-child").next().val() == "0") {
-                        $("#ddlCity option[value=0]").remove();
+                    if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModel.cities() && selectElementFromArray(viewModel.cities(), onCookieObj.PQCitySelectedId)) {
+                        viewModel.selectedCity(onCookieObj.PQCitySelectedId);
                     }
                     UpdateArea();
                 }
@@ -319,21 +309,15 @@
                     var responseJSON = eval('(' + response + ')');
                     var resObj = eval('(' + responseJSON.value + ')');
                     if (responseJSON.value != '[]') {
-                        $('#divAreaChosen').show();
-                        $('.chosen-container').attr('style', 'width:180px');
 
                         viewModel.areas(resObj);
-                        $('.chosen-select').prop('disabled', false);
-                        $('.chosen-select').trigger("chosen:updated");
-                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(resObj, onCookieObj.PQAreaSelectedId)) {
+                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && viewModel.areas() && selectElementFromArray(viewModel.areas(), onCookieObj.PQAreaSelectedId)) {
                             viewModel.selectedArea(onCookieObj.PQAreaSelectedId);
                             onCookieObj.PQAreaSelectedId = 0;
                         }
-                        $('.chosen-select').trigger("chosen:updated");
                         $("#hdn_ddlArea").val($("#ddlArea").chosen().val());
                         isAreaShown = true;
                     } else {
-                        $('#divAreaChosen').hide();
                         isAreaShown = false;
                     }
 
@@ -343,6 +327,7 @@
         }
         else {
             viewModel.areas([]);
+            viewModel.selectedArea(undefined);
         }
     }
 
@@ -363,7 +348,6 @@
     }
 </script>
 <style type="text/css">
-    #ddlArea_chosen { width:200px !important; }
     .container-min-height { min-height:530px; }
 </style>
 <!-- #include file="/includes/footerInner.aspx" -->

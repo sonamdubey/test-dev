@@ -16,6 +16,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Controls;
+using Bikewale.controls;
 
 namespace Bikewale.New
 {
@@ -111,7 +112,7 @@ namespace Bikewale.New
         protected ExpertReviews ctrlExpertReviews;
         protected VideosControl ctrlVideos;
         protected UserReviewsList ctrlUserReviews;
-
+        protected ModelGallery ctrlModelGallery;
         protected ModelPage modelPage;
         protected string modelId = string.Empty;
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor;
@@ -141,6 +142,7 @@ namespace Bikewale.New
             {
                 #region Do not change the sequence
                 BindPhotoRepeater();
+                BindModelGallery();
                 BindAlternativeBikeControl();
                 clientIP = CommonOpn.GetClientIP();
                 #endregion
@@ -169,6 +171,24 @@ namespace Bikewale.New
             if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
             {
                 ctrlAlternativeBikes.VersionId = modelPage.ModelVersions[0].VersionId;
+            }
+        }
+
+        private void BindModelGallery()
+        {
+            List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> photos = null;
+            if (modelPage != null && modelPage.Photos != null && modelPage.Photos.Count > 0)
+            {
+                photos = modelPage.Photos;
+                photos.Insert(0, new DTO.CMS.Photos.CMSModelImageBase()
+                {
+                    HostUrl = modelPage.ModelDetails.HostUrl,
+                    OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
+                    ImageCategory = bikeName,
+                });
+                ctrlModelGallery.bikeName = bikeName;
+                ctrlModelGallery.modelId = Convert.ToInt32(modelId);
+                ctrlModelGallery.Photos = photos;
             }
         }
 
@@ -477,7 +497,7 @@ namespace Bikewale.New
                 return "No specifications.";
             }
             return format.Trim().Substring(0, format.Length - 1);
-        }  
+        }
     }
 
 }

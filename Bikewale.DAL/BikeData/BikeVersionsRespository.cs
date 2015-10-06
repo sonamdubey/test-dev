@@ -366,8 +366,8 @@ namespace Bikewale.DAL.BikeData
 
                             objSpecs.Displacement = Convert.ToSingle(cmd.Parameters["@Displacement"].Value);
                             objSpecs.Cylinders = Convert.ToUInt16(cmd.Parameters["@Cylinders"].Value);
-                            objSpecs.MaxPower = Convert.ToUInt16(cmd.Parameters["@MaxPower"].Value);
-                            objSpecs.MaximumTorque = Convert.ToUInt16(cmd.Parameters["@MaximumTorque"].Value);
+                            objSpecs.MaxPower = Convert.ToSingle(cmd.Parameters["@MaxPower"].Value);
+                            objSpecs.MaximumTorque = Convert.ToSingle(cmd.Parameters["@MaximumTorque"].Value);
                             objSpecs.Bore = Convert.ToSingle(cmd.Parameters["@Bore"].Value);
                             objSpecs.Stroke = Convert.ToSingle(cmd.Parameters["@Stroke"].Value);
                             objSpecs.ValvesPerCylinder = Convert.ToUInt16(cmd.Parameters["@ValvesPerCylinder"].Value);

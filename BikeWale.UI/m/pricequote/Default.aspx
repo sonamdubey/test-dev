@@ -12,7 +12,7 @@
 <!-- #include file="/includes/headermobile_noad.aspx" -->
 <script type="text/javascript" src="/m/src/placeholder.js?v=1.0"></script>
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/MetroCities.js?23july2015"></script>
+<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
 <style type="text/css">
     .ui-filterable div input {
         height : 40px;
@@ -84,6 +84,8 @@
         <a href="#" data-role="button" data-rel="back" data-theme="c" data-mini="true">OK</a>
     </div>
 </div>
+
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
 
     var areaDataSet = [];
@@ -343,35 +345,14 @@
                         if (resObj!=null && resObj.length > 0) {
                             var initIndex = 0;
                             checkCookies();
-                            citySelected = null;
-                            for (var i = 0; i < resObj.length; i++) {
-
-                                if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0  && onCookieObj.PQCitySelectedId == resObj[i].CityId) {
-                                    citySelected = resObj[i];
-                                }
-
-                                if (metroCitiesIds.indexOf(resObj[i].CityId) > -1) {
-                                    var currentCity = resObj[i];
-                                    resObj.splice(resObj.indexOf(currentCity), 1);
-                                    resObj.splice(initIndex++, 0, currentCity);
-                                }
-                            }
-                            resObj.splice(initIndex, 0, { CityId: 0, CityName: "---------------", CityMaskingName: null });
+                            
                             $("#ddlCity").empty();
-                            viewModelPQ.cities(resObj);                            
-                            if (citySelected != null) {
-                                viewModelPQ.selectedCity(citySelected.CityId);
-                              $("#ddlCity option[value=" + citySelected.CityId + "]").prop("selected", true);
-                                //$("#ddlCity").prop('selectedIndex', citySelected.CityId);
-                            }      
-
-                            $("#ddlCity option[value=0]").prop("disabled", "disabled");
-                            if ($("#ddlCity option:last-child").val() == "0")
-                            {
-                                $("#ddlCity option[value=0]").remove();
-                            }
-                            if ($("#ddlCity option:first-child").next().val() == "0") {
-                                $("#ddlCity option[value=0]").remove();
+                            viewModelPQ.cities(resObj);
+                            viewModelPQ.bookingCities(cities);
+                            if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPQ.bookingCities() && selectElementFromArray(viewModelPQ.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                                viewModelPQ.selectedCity(onCookieObj.PQCitySelectedId);
+                                $("#ddlCity option[value=" + citySelected.CityId + "]").prop("selected", true);
+                                $("#ddlCity").prop('selectedIndex', citySelected.CityId);
                             }
                         }
                         else viewModelPQ.cities([]);

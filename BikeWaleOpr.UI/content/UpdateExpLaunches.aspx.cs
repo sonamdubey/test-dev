@@ -102,7 +102,7 @@ namespace BikeWaleOpr.Content
 
                  if (dtSplit[1] != "") 
                  {                     
-                      if (dtSplit[2] != "PM") 
+                      if (dtSplit.Length >=3 && dtSplit[2] != "PM") 
                       {
                           if (Convert.ToInt32(Convert.ToDateTime(date).Hour) == 12)
                           {

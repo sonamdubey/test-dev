@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.New.comparebikes" AutoEventWireUp="false" Trace="false" %>
 <%@ Register TagPrefix="AddBike" TagName="AddBike" Src="~/controls/AddBikeToCompare.ascx" %>
+<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%
     title = "Compare " + pageTitle + "- BikeWale";
     description = "BikeWale&reg; - Compare " + keyword + ". Compare Price, Mileage, Engine Power, Specifications, features and colors of bikes on BikeWale.";
@@ -15,11 +16,7 @@
     TargetedModels = targetedModels;
 %>
 
-
-
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
-
+<!-- #include file="/includes/headNew.aspx" -->
 <style>
     .container-border {border-top:1px solid #F3F2F2;}
     .tab_inner_container .container-border th.mainth { border-right:1px solid #F3F2F2;}
@@ -60,7 +57,7 @@
     .featuredBike { background-color:#fffae8!important; }
     .blue {color: #0056cc;cursor: pointer;text-decoration: none;}
 </style>
-<!-- #include file="/includes/headNew.aspx" -->
+
          <div class="container_12">
              <div class="grid_12">
                 <ul class="breadcrumb">
@@ -469,8 +466,10 @@
 		    </div>	
         </div><!--    Left Container ends here -->
               </div>
-<div id="back-to-top" class="back-to-top"><a><span></span></a></div>
-
+    <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
+    <!-- Popup Widget goes here -->
+    <PW:PopupWidget runat="server" ID="PopupWidget" />
+    <!-- Popup Widget ends here -->
 <script type="text/javascript">
     $(document).ready(function () {
         var speed = 300;
