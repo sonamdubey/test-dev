@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.NewsWidget" %>
-<div class="bw-tabs-data" id="ctrlNews">
+<div class="bw-tabs-data hide" id="ctrlNews">
     <div class="jcarousel-wrapper">
         <div class="jcarousel">
             <ul>

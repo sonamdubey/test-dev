@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UserReviewList" %>
-<div class="bw-tabs-data hide" id="ctrlUserReviews">
+<div class="bw-tabs-data" id="ctrlUserReviews">
     <div class="jcarousel-wrapper">
         <div class="jcarousel">
             <ul>
