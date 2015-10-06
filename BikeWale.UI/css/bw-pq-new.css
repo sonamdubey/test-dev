@@ -93,4 +93,4 @@
 .plus-text:before { content:""; border-top:1px solid #9b9b9b; position:absolute; top:16px; left:0; width:100%;}
 .specification-popup-1, .specification-popup-2, .specification-popup-3  {display:none; position:absolute; top:285px; background:#fff; z-index:999; box-shadow:1px 1px 2px #ccc; box-shadow:0px 0px 15px  #ccc; width:168px; min-height:85px; border:1px solid #e0e0e0; padding:10px;}
 .specification-popup-2 { left:210px;}
-.specification-popup-3 { left:410px;}
+.specification-popup-3 { left:190px;}

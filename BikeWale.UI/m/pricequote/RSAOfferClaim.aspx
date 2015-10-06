@@ -154,7 +154,7 @@
                         </div>
                         <div class="avail-offer-form">
                     	    <p><b>Pincode<span class="red-text">*</span></b></p>
-                            <asp:TextBox id="txtPincode" runat="server" placeholder="As Per Registration"></asp:TextBox>
+                            <asp:TextBox id="txtPincode" runat="server" placeholder="As Per Registration" MaxLength="6"></asp:TextBox>
                             <span id="spnPincode" class="error"></span>
                         </div>
                         <div class="avail-offer-form">

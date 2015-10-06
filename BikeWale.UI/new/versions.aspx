@@ -1005,9 +1005,9 @@
                                 </ul>
                             </div>
                         </div>
-                        <BW:News runat="server" ID="ctrlNews" />
+                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />                        
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                        <BW:News runat="server" ID="ctrlNews" />
                         <BW:Videos runat="server" ID="ctrlVideos" />
                     </div>
                 </div>
