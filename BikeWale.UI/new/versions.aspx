@@ -972,26 +972,7 @@
                 </div>
             </div>
         </section>
-        <% } %>
-        <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
-            <div class="container">
-                <div class="grid-12 alternative-section">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternatives</h2>
-                    <div class="content-box-shadow">
-                        <div class="jcarousel-wrapper alternatives-carousel margin-top20">
-                            <div class="jcarousel">
-                                <ul>
-                                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
-                                </ul>
-                            </div>
-                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
+        <% } %>        
         <% 
             if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
             if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
@@ -1018,6 +999,26 @@
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                         <BW:News runat="server" ID="ctrlNews" />
                         <BW:Videos runat="server" ID="ctrlVideos" />
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
+            <div class="container">
+                <div class="grid-12 alternative-section">
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternatives</h2>
+                    <div class="content-box-shadow">
+                        <div class="jcarousel-wrapper alternatives-carousel margin-top20">
+                            <div class="jcarousel">
+                                <ul>
+                                    <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                                </ul>
+                            </div>
+                            <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                            <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                        </div>
                     </div>
                 </div>
                 <div class="clear"></div>
