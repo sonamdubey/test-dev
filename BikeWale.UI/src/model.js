@@ -623,11 +623,8 @@ function checkNumeric(str) {
     return parseInt(str.replace(/\,/g, ''));
 }
 
-$("#btnShowOffers").on("click", function () {
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName });
 //sections display properties for the area fail status
-function pqAreaFailStatus()
-{
+function pqAreaFailStatus() {
     $(offerBtnContainer).hide();
     $(".city-onRoad-price-container").hide();
     $(".city-select-text").show();
@@ -639,6 +636,8 @@ function pqAreaFailStatus()
     $(priceBlock).find("span.price-loader").hide();
 }
 
+$("#btnShowOffers").on("click", function () {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName });
 });
 
 $("#bikeBannerImageCarousel .stage li").click(function () {
