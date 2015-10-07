@@ -118,7 +118,7 @@
                             </div>
                             <% } %>
                         </div>
-                        <div class="grid-6 padding-left40" style="display:none"  data-bind="visible:true" id="dvBikePrice">
+                        <div class="grid-6 padding-left40" id="dvBikePrice">
                             <% if (!modelPage.ModelDetails.Futuristic)
                                { %>
                             <div class="bike-price-container font28 margin-bottom15">
