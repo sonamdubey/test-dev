@@ -11,9 +11,9 @@ namespace Bikewale.Utility
 
         public static string GetRateImage(double value)
         {
-            string oneImg = "<img src='/images/ratings/1.png'>";
-            string zeroImg = "<img src='/images/ratings/0.png'>";
-            string halfImg = "<img src='/images/ratings/half.png'>";
+            string oneImg = "<img src='http://img.aeplcdn.com/images/ratings/1.png'>";
+            string zeroImg = "<img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+            string halfImg = "<img src='http://img.aeplcdn.com/images/ratings/half.png'>";
 
             StringBuilder sb = new StringBuilder();
             int absVal = (int)Math.Floor(value);

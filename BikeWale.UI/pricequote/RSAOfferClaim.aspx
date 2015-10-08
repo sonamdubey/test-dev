@@ -24,6 +24,8 @@
         list-style: square outside none;
         padding: 3px 0 3px 10px;
     }
+
+    #get-pq-new select, #get-pq-new textarea { width:170px; }
 </style>
 <div class="main-container">
     <div class="container_12">
@@ -44,7 +46,7 @@
                 <!--make payment div starts here-->
                 <div class="inner-content relative">
                     <h2 class=" margin-bottom10 payment-pg-heading">Offer 1: Select Your Free Helmet</h2>
-                    <p class="margin-top10">Select one helmet from the below three options by clicking on the image:</p>
+                    <p class="margin-top10">Select one helmet from the below two options by clicking on the image:</p>
                     <div class="offer-1 margin-top10">
                         <ul>
                             <li class="offer-box-1" offerid="1">
@@ -57,7 +59,7 @@
                                     <img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic1.jpg"></div>
                                 <div class="clear"></div>
                             </li>
-                            <li class="offer-box-2" offerid="2" style="display: none;">
+<%--                            <li class="offer-box-2" offerid="2" style="display: none;">
                                 <div data-id="offer1" class="offer-1-title">
                                     <span class="bw-sprite unchecked-radio"></span>
                                     <label for="offer">Replay Plain Flip-up Helmet (Size: M) </label>
@@ -66,7 +68,7 @@
                                 <div class="center-align offer-pic">
                                     <img src="http://img.aeplcdn.com/bikewaleimg/images/bikebooking/images/offer-list-pic2.jpg"></div>
                                 <div class="clear"></div>
-                            </li>
+                            </li>--%>
                             <li class="offer-box-3" offerid="3">
                                 <div data-id="offer1" class="offer-1-title">
                                     <span class="bw-sprite unchecked-radio"></span>
@@ -93,7 +95,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="specification-popup-2">
+<%--                    <div class="specification-popup-2">
                         <div class="grey-bullets">
                             <ul>
                                 <li>Dual Full-cum-open face</li>
@@ -102,7 +104,7 @@
                                 <li>Color: Matt Cherry Red</li>
                             </ul>
                         </div>
-                    </div>
+                    </div>--%>
                     <div class="specification-popup-3">
                         <div class="grey-bullets">
                             <ul>
@@ -148,6 +150,15 @@
                             <div id="get-pq-new" class="inner-content">
                                 <div class="mid-box" id="pq_car">
                                     <table cellspacing="0" cellpadding="3" width="100%" border="0">
+                                        <tr>
+                                            <td style="width: 280px;">
+                                                <b>Booking Ref. No. (e.g. BW201234)</b>
+                                            </td>
+                                            <td>
+                                                <asp:textbox id="txtBookingNum" runat="server"></asp:textbox>
+                                                <span id="spnBookingNum" class="error"></span>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td style="width: 230px;">
                                                 <b>Full Name as per Vehicle Registration<span class="error">*</span></b>
@@ -211,8 +222,17 @@
                                                 <b>Address as per Vehicle Registration<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:textbox id="txtAddress" rows="2" columns="60" textmode="MultiLine" runat="server"></asp:textbox>
+                                                <asp:textbox id="txtAddress" rows="2" textmode="MultiLine" runat="server"></asp:textbox>
                                                 <span id="spnAddress" class="error"></span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="width: 230px;">
+                                                <b>Pincode<span class="error">*</span></b>
+                                            </td>
+                                            <td>
+                                                <asp:textbox id="txtPincode" runat="server" MaxLength="6"></asp:textbox>
+                                                <span id="spnPincode" class="error"></span>
                                             </td>
                                         </tr>
                                         <tr>
@@ -237,14 +257,14 @@
                                                 <b>Address of the Dealer<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:textbox id="txtDealerAddress" rows="2" columns="60" textmode="MultiLine" runat="server"></asp:textbox>
+                                                <asp:textbox id="txtDealerAddress" rows="2" textmode="MultiLine" runat="server"></asp:textbox>
                                                 <span id="spnDealerAddress" class="error"></span>
                                             </td>
                                         </tr>
                                         <tr>
                                             <td><b>Any Comments (Optional)</b></td>
                                             <td>
-                                                <asp:textbox id="txtComments" rows="2" columns="60" textmode="MultiLine" runat="server"></asp:textbox>
+                                                <asp:textbox id="txtComments" rows="2" textmode="MultiLine" runat="server"></asp:textbox>
                                             </td>
                                         </tr>
                                         <tr>
@@ -284,8 +304,8 @@
             buttonImageOnly: true,
             dateFormat: 'dd/mm/yy',
             numberOfMonths: 1,
-            minDate: 0, //days after which dates should be enabled
-            maxDate: '+2Y', //max limit months/years to be shown
+            minDate: '-1y', //days after which dates should be enabled
+            maxDate: '+1Y', //max limit months/years to be shown
             firstDay: 1
         });
     });
@@ -311,11 +331,14 @@
             var CustomerMobile = $("#txtMobile").val();
             var bikeRegistrationNo = $("#txtVehicle").val();
             var customerAddress = $("#txtAddress").val();
+            var customerPincode = $("#txtPincode").val();
             //var deliveryDate = $("#calMakeYear").val();
             var deliveryDate = $("#txtPreferredDate").val();
             var dealerName = $("#txtdealerName").val();
             var dealerAddress = $("#txtDealerAddress").val();
             var selHelmet = $("#hdnSelHelmet").val();
+
+            var pincodeReg = /^\d{6}$/;
 
             if (customerName == "") {
                 $("#spnName").text("Required");
@@ -325,6 +348,14 @@
                 isError = true;
             } else {
                 $("#spnName").text("");
+            }
+
+            if (pincodeReg.test(customerPincode) && customerPincode[0] != '0') {
+                $("#spnPincode").text("");
+            }
+            else {
+                $("#spnPincode").text("Please Enter six digit Pincode");
+                isError = true;
             }
 
             if (CustomerMobile == "") {
@@ -385,6 +416,7 @@
             } else {
                 $("#errHelmetOffer").text("");
             }
+            
             return !isError;
         });
 
@@ -468,9 +500,9 @@
         $('.offer-box-1').hover(function () {
             $('.specification-popup-1').toggle(200);
         });
-        $('.offer-box-2').hover(function () {
-            $('.specification-popup-2').toggle(200);
-        });
+        //$('.offer-box-2').hover(function () {
+        //    $('.specification-popup-2').toggle(200);
+        //});
         $('.offer-box-3').hover(function () {
             $('.specification-popup-3').toggle(200);
         });

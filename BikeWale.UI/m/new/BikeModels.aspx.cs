@@ -15,6 +15,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
+using Bikewale.m.controls;
 
 namespace Bikewale.Mobile.New
 {
@@ -29,7 +30,7 @@ namespace Bikewale.Mobile.New
         protected ExpertReviewsWidget ctrlExpertReviews;
         protected VideosWidget ctrlVideos;        
         protected UserReviewList ctrlUserReviews;
-
+        protected ModelGallery ctrlModelGallery;
         // Register global variables
         protected ModelPage modelPage;
         protected string modelId = string.Empty;
@@ -55,6 +56,7 @@ namespace Bikewale.Mobile.New
             {                
                 #region Do not change the sequence of these functions                    
                     BindRepeaters();
+                    BindModelGallery();
                     BindAlternativeBikeControl();
                     clientIP = CommonOpn.GetClientIP(); 
                 #endregion                
@@ -75,6 +77,24 @@ namespace Bikewale.Mobile.New
                 ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
             }
 		}
+
+        private void BindModelGallery()
+        {
+            List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> photos = null;
+            if (modelPage != null && modelPage.Photos != null && modelPage.Photos.Count > 0)
+            {
+                photos = modelPage.Photos;
+                photos.Insert(0, new DTO.CMS.Photos.CMSModelImageBase()
+                {
+                    HostUrl = modelPage.ModelDetails.HostUrl,
+                    OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
+                    ImageCategory = bikeName,
+                });
+                ctrlModelGallery.bikeName = bikeName;
+                ctrlModelGallery.modelId = Convert.ToInt32(modelId);
+                ctrlModelGallery.Photos = photos;
+            }
+        }
 
         private void BindAlternativeBikeControl()
         {
@@ -154,7 +174,9 @@ namespace Bikewale.Mobile.New
                             }
                             else
                             {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);                                
+                                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                                this.Page.Visible = false;
                                 //isSuccess = false;
                             }
                         }
@@ -172,6 +194,8 @@ namespace Bikewale.Mobile.New
 
                 // If any error occurred redirect to the new default page
                 Response.Redirect("/m/new/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
         }
 

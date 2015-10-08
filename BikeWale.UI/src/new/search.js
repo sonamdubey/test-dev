@@ -665,11 +665,6 @@ $.pushGTACode = function (noOfRecords, filterName) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_'+ noOfRecords, 'lab': filterName });
 };
 
-$.ModelClickGaTrack = function (modelName,url) {
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelName });
-    location.href = url;
-};
-
 $.PricePopUpClickGA = function (makeName) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Get_On_Road_Price_Click', 'lab': makeName });
 };

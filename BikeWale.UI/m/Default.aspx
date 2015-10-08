@@ -17,6 +17,7 @@
      %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/home.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -28,7 +29,7 @@
                 <h1 class="text-uppercase text-white text-center padding-top30">FIND YOUR RIDE</h1>
                 <div class="text-white margin-top15 text-center font14">Get Exclusive Offers on your Bike Purchase</div>
                 <div class="new-used-search new-bikes-search margin-top30 position-rel">
-                        <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" class="rounded-corner2">
+                        <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" class="rounded-corner2">
                         <button id="btnSearch" class="btn btn-orange btn-search"><span class="fa fa-search"></span></button>
                         <span  id="loaderMakeModel"  class="fa fa-spinner fa-spin position-abt pos-right55 pos-top15 text-black" style="display:none"></span>
                 </div>
@@ -478,7 +479,7 @@
                             <div class="form-control-box">
                                 <select class="form-control">
                                     <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlNews">News</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlExpertReviews">Reviews</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlExpertReviews">Expert Reviews</option>
                                     <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
                                    
                                 </select>
@@ -505,7 +506,8 @@
 <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 <!-- all other js plugins -->    
 <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-<script type="text/javascript" src="/m/src/home.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/home.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
  <script type="text/javascript">
         ga_pg_id = '1';
     </script>

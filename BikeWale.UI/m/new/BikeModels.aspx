@@ -6,6 +6,7 @@
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+<%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -16,21 +17,26 @@
                     + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
 
         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
-        AdPath = "/1017752/Bikewale_Mobile_Make_";
+        AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1017752";
+        Ad_320x50 = true;
+        Ad_Bot_320x50 = true;
+        Ad_300x250 = true;
+        TargetedModel = modelPage.ModelDetails.ModelName;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
     
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form id="form1" runat="server">        
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container bg-white clearfix">
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)
-                       { %><h1 class="padding-top25 padding-bottom20 padding-left20 padding-right20"><%= bikeName %></h1>
+                       { %><h1 class="padding-top15 padding-bottom20 padding-left20 padding-right20"><%= bikeName %></h1>
                     <% } %>
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %><div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Upcoming</div>
@@ -38,8 +44,8 @@
                     <% if (!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                        { %><div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
                     <% } %>
-                    <div class="jcarousel-wrapper model">
-                        <div class="jcarousel">
+                    <div class="jcarousel-wrapper model" id="bikeBannerImageCarousel">
+                        <div class="jcarousel stage">
                             <ul id="ulModelPhotos">
                                 <li>
                                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
@@ -92,7 +98,7 @@
                 </div>
                 <% if (modelPage.ModelDetails.New)
                    { %>
-                <div class="grid-12 bg-white box-shadow" id="dvBikePrice">
+                <div class="grid-12 bg-white box-shadow" style="display:none"  data-bind="visible: true" id="dvBikePrice">
                     <div class="bike-price-container font22 margin-bottom15">
                         <span class="fa fa-rupee"></span>
                         <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10 default-showroom-text">Ex-showroom <%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
@@ -220,14 +226,14 @@
                         <div class="city-area-wrapper">
                         	<!-- ko if : cities()  && cities().length > 0 -->  
                             <div class="city-select position-rel">
-                                <select id="ddlCity" class="form-control " data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City'"></select>
-                            	<span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
+                                <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
+                                <select id="ddlCity" class="form-control " data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', chosen: { width: '100%' }"></select>                             	
                             </div>
                             <!-- /ko -->
                             <!-- ko if : selectedCity() && areas()  && areas().length > 0 -->
                             <div class="area-select margin-top20 position-rel">
-                                <select id="ddlArea" class="form-control" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area'"></select>
-                            	<span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
+                                <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
+                                <select id="ddlArea" class="form-control" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', chosen: { width: '100%' }"></select>                            	
                             </div>
                             <!-- /ko -->
                             <div class="clear"></div>
@@ -343,7 +349,7 @@
                         </div>
                         <div class="odd">
                             <span class="font22"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %> 
-                                <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>PS</small></span>
+                                <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>bhp</small></span>
                             <span class="font14">Max power</span>
                         </div>
                         <div class="even">
@@ -846,24 +852,26 @@
         %>
         <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
             <!--  News, reviews and videos code starts here -->
-            <div class="container">
+            <div class="container padding-bottom10">
                 <div class="grid-12">
                     <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
                     <div class="bw-tabs-panel">
                         <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
                             <div class="form-control-box">
                                 <select class="form-control">
-                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlNews">News</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlExpertReviews">Reviews</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlUserReviews">User Reviews</option>                                    
+                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlExpertReviews">Expert Reviews</option>
+                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlNews">News</option>
                                     <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlUserReviews">User Reviews</option>
+                                    
                                 </select>
                             </div>
                         </div>
-                        <BW:News runat="server" ID="ctrlNews" />
+                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />                        
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <BW:News runat="server" ID="ctrlNews" />
                         <BW:Videos runat="server" ID="ctrlVideos" />
-                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                        
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -874,7 +882,7 @@
             <div class="container margin-bottom30">
                 <div class="grid-12">
                     <!-- Most Popular Bikes Starts here-->
-                    <h2 class="margin-top30px margin-bottom20 text-center"><%= bikeName %> alternatives</h2>
+                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> alternatives</h2>
 
                     <div class="jcarousel-wrapper discover-bike-carousel alternatives-carousel">
                         <div class="jcarousel">
@@ -890,10 +898,12 @@
             </div>
         </section>
         <BW:MPopupWidget runat="server" ID="MPopupWidget1" /> 
+        <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->       
-    	<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
+        <!-- #include file="/includes/footerscript_Mobile.aspx" -->  
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>     
+    	<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script> 
 		<script type="text/javascript">
 		    vmModelId = '<%= modelId%>';
 		    clientIP = '<%= clientIP%>';

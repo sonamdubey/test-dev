@@ -107,6 +107,11 @@
             	    <p>Please provide following information about your bike purchase to claim your free gifts. Upon verification of your purchase, we will ship the gift directly to your address.</p>
                     <p class="font12 lightgray new-line10">All * marked fields are required.</p>
             	    <div class="new-line10">
+                        <div class="avail-offer-form">
+                    	    <p><b>Booking Ref. No.<span class="red-text">*</span></b></p>
+                            <asp:TextBox id="txtBookingNum" runat="server" placeholder="e.g. BW201234"></asp:TextBox>
+                            <span id="spnBookingNum" class="error"></span>
+                        </div>
                 	    <div class="avail-offer-form">
                     	    <p><b>Full Name<span class="red-text">*</span></b></p>
                             <asp:TextBox id="txtName" runat="server" placeholder="As Per Registration"></asp:TextBox>
@@ -146,6 +151,11 @@
                     	    <p><b>Address<span class="red-text">*</span></b></p>                            
                             <asp:TextBox id="txtAddress" rows="2" columns="60" textmode="MultiLine"  runat="server" placeholder="As Per Registration"></asp:TextBox>
                             <span id="spnAddress" class="error"></span>
+                        </div>
+                        <div class="avail-offer-form">
+                    	    <p><b>Pincode<span class="red-text">*</span></b></p>
+                            <asp:TextBox id="txtPincode" runat="server" placeholder="As Per Registration" MaxLength="6"></asp:TextBox>
+                            <span id="spnPincode" class="error"></span>
                         </div>
                         <div class="avail-offer-form">
                     	    <p><b>Date of Delivery<span class="red-text">*</span></b></p>
@@ -212,10 +222,12 @@
                 var CustomerMobile = $("#txtMobile").val();
                 var bikeRegistrationNo = $("#txtVehicle").val();
                 var customerAddress = $("#txtAddress").val();
+                var customerPincode = $("#txtPincode").val();
                 var deliveryDate = $("#calMakeYear").val();
                 var dealerName = $("#txtdealerName").val();
                 var dealerAddress = $("#txtDealerAddress").val();
                 var selHelmet = $("#hdnSelHelmet").val();
+                var pincodeReg = /^\d{6}$/;
 
                 if (customerName == "") {
                     $("#spnName").text("Required");
@@ -248,6 +260,14 @@
                     isError = true;
                 } else {
                     $("#spnEmail").text("");
+                }
+
+                if (pincodeReg.test(customerPincode) && customerPincode[0] != '0') {
+                    $("#spnPincode").text("");
+                }
+                else {
+                    $("#spnPincode").text("Please Enter six digit Pincode");
+                    isError = true;
                 }
 
                 if (bikeRegistrationNo == "") {

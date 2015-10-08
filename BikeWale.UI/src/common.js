@@ -5,6 +5,7 @@ var objCity = new Object();
 var globalCityId = 0;
 var _makeName = '';
 var ga_pg_id = '0';
+
 //fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
@@ -110,10 +111,12 @@ $(document).ready(function () {
 	    var placeHolder = id.attr('placeholder');
 	    if (e.keyCode == 13)
 	        if (btnFindBikeNewNav() || searchVal == placeHolder || searchVal == "") {
+	            window.location.href = 'new/';
 	            return false;
 	        }
 	        else {
 	            window.location.href = 'new/';
+	            return false;
 	        }
 	});
 
@@ -123,6 +126,8 @@ $(document).ready(function () {
 	    var placeHolder = id.attr('placeholder');
 	    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
 	    if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
+	        return false;
+	    } else {
 	        window.location.href += 'new/';
 	        return false;
 	    }
@@ -130,9 +135,10 @@ $(document).ready(function () {
 	});
 
 	function btnFindBikeNewNav() {
-	    if (focusedMakeModel == undefined || focusedMakeModel == null)
-	        return false;
-	    var splitVal = focusedMakeModel.id.split('|');
+	    if (focusedMakeModel == undefined || focusedMakeModel == null) {
+	        window.location.href += 'new/';
+	        return true;
+	    }
 	    var make = new Object();
 	    make.maskingName = focusedMakeModel.payload.makeMaskingName;
 	    make.id = focusedMakeModel.payload.makeId;
@@ -173,10 +179,20 @@ $(document).ready(function () {
 	        if ($('li.ui-state-focus a:visible').text() != "") {
 	            focusedMakeModel = new Object();
 	            focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
+	            //$('#btnSearch').click();
 	        }
 	    },
 	    afterfetch: function (result, searchtext) {
-	        return false;
+	        if (result != undefined && result.length > 0)
+	            return false;
+	        else
+	            focusedMakeModel = null;
+	    },
+	    keyup: function () {
+	        if ($('li.ui-state-focus a:visible').text() != "") {
+	            focusedMakeModel = new Object();
+	            focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
+	        }
 	    }
 	});
 	
@@ -800,3 +816,4 @@ function selectElementFromArray(dataArray, id) {
     }
     return false;
 }
+

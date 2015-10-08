@@ -488,7 +488,7 @@ var otpContainer = $(".mobile-verification-container");
 var detailsSubmitBtn = $("#user-details-submit-btn");
 var otpText = $("#getOTP");
 var otpBtn = $("#otp-submit-btn");
-var normalHeader = $('header .navbarBtn, header .global-location, header .bw-logo');
+var normalHeader = $('header .navbarBtn, header .global-location');
 var mobileValue = '';
 
 detailsSubmitBtn.click(function () {
@@ -810,7 +810,7 @@ $.personalInfoState = function () {
     container.find('li').removeClass('ticked');
     $('#book-back').removeClass('customizeBackBtn').addClass('hide');
     normalHeader.removeClass('hide');
-    $('header').removeClass('fixed');
+    //$('header').removeClass('fixed');
 
 };
 
@@ -829,7 +829,7 @@ $.customizeState = function () {
     $('.booking-tabs ul li:last-child').removeClass('ticked');
     $('.booking-tabs ul li:eq(1)').removeClass('middle').addClass('middle');
     normalHeader.addClass('hide');
-    $('header').addClass('fixed');
+    //$('header').addClass('fixed');
     $('#book-back').removeClass('hide');
     $('#book-back').removeClass('confirmationBackBtn').addClass('customizeBackBtn');
 };
@@ -845,7 +845,7 @@ $.confirmationState = function () {
     $('.booking-tabs ul li').addClass('ticked');
     $('.booking-tabs ul li:eq(1)').removeClass('middle');
     normalHeader.addClass('hide');
-    $('header').addClass('fixed');
+    //$('header').addClass('fixed');
     $('#book-back').removeClass('hide');
     $('#book-back').removeClass('customizeBackBtn').addClass('confirmationBackBtn');
 };
@@ -854,7 +854,7 @@ $.scrollToSteps = function () {
     var topScroll = $('#offerSection').offset().top - 50;
     $('body').animate({ scrollTop: topScroll }, 300);
 };
-
+/*
 $(window).scroll(function () {
     if ($('#book-back').is(':visible')) {
         if ($(window).scrollTop() > 50) {
@@ -865,7 +865,7 @@ $(window).scroll(function () {
         }
     }
 });
-
+*/
 var varientSelection = function () {
     var total = viewModel.SelectedVarient();
     if (total) {

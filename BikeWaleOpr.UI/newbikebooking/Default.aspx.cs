@@ -17,7 +17,7 @@ namespace BikeWaleOpr.BikeBooking
 {
     public class Default : System.Web.UI.Page
     {
-        protected DropDownList drpCity, drpAllCity, drpDealer,ddlState;
+        protected DropDownList drpCity, drpAllCity, drpDealer, ddlState, ddlDealerCity;
         protected ListBox drpPriceHead;
         protected List<PQ_Price> _objNewCategory = null;
         protected List<PQ_Price> _objCategory = null;
@@ -26,14 +26,14 @@ namespace BikeWaleOpr.BikeBooking
         protected DataTable dtVersionsData = null;
         protected Repeater rptModels, rptcatItem;
         private string _requestType = "application/json";
-        protected  HtmlInputControl hdnCityId, hdnMakeId, hdnDealerId,hdnCities;
+        protected HtmlInputControl hdnCityId, hdnMakeId, hdnDealerId, hdnCities, hdnDealerList, hdnDealerCity;
         protected string cwHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
         protected HtmlInputButton btnManagePrice;
         protected HtmlGenericControl selectCityPriceHead;
         protected uint dealerId, cityId, makeId;
-        protected Button btnAddCat, addShowPrice, btnUpdate, btnDelete,btnTransferPriceSheet;
+        protected Button btnAddCat, addShowPrice, btnUpdate, btnDelete, btnTransferPriceSheet, btnUpdateDealerPrice;
         //protected string choice = string.Empty;
-        protected Label lblSaved,lblTransferStatus;
+        protected Label lblSaved, lblTransferStatus, lblDealerPriceStatus;
         protected string selectedChoice = string.Empty;
         protected string[] a;
 
@@ -45,7 +45,106 @@ namespace BikeWaleOpr.BikeBooking
             btnUpdate.Click += new EventHandler(UpdateVersionPrice);
             btnDelete.Click += new EventHandler(DeletePriceAvailability);
             btnTransferPriceSheet.Click += new EventHandler(btnTransferPriceSheet_Click);
+            btnUpdateDealerPrice.Click += new EventHandler(btnCopyDealerPrice_Click);
             InitializeComponent();
+        }
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 5 Oct 2015
+        /// Summary : To copy Price sheet for other dealer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnCopyDealerPrice_Click(object sender, EventArgs e)
+        {
+            string[] dealers = null;
+            List<string> lstDealerId = null;
+            try
+            {
+             if(!String.IsNullOrEmpty(hdnDealerList.Value))
+             {
+                 dealers = hdnDealerList.Value.Split(',');
+                 if(dealers!=null && dealers.Length>0)
+                 {
+                     lstDealerId = new List<string>();
+                     foreach (string dealerId in dealers)
+                         lstDealerId.Add(dealerId);
+
+                     CopyPricesToDealers(lstDealerId);
+                 }
+             }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "NewBikebooking.Default.btnCopyDealerPrice_Click");
+                objErr.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 5 Oct 2015
+        /// Summary : To copy price to multiple dealer
+        /// </summary>
+        private void CopyPricesToDealers(List<string> objDealerList)
+        {
+            DataTable dtPriceSheet = null;
+            TextBox txtValue = null;
+            Label lbVersionId = null, lblCategoryId = null;
+            Repeater rptValues = null;
+            string jsonPriceSheet = String.Empty, apiUrl = String.Empty;
+            bool isTransferred = false;
+            
+            try
+            {
+                dtPriceSheet = new DataTable();
+                dtPriceSheet.Columns.Add("DealerId", typeof(int));
+                dtPriceSheet.Columns.Add("BikeVersionId", typeof(int));
+                dtPriceSheet.Columns.Add("CityId", typeof(int));
+                dtPriceSheet.Columns.Add("ItemId", typeof(Int16));
+                dtPriceSheet.Columns.Add("Itemvalue", typeof(object));
+                uint dealerCity = Convert.ToUInt32(hdnDealerCity.Value);
+
+                if (rptModels != null && rptModels.Items != null && rptModels.Items.Count > 0)
+                {
+                    for (int outerRepeaterItemIndex = 0; outerRepeaterItemIndex < rptModels.Items.Count; outerRepeaterItemIndex++)
+                    {
+                        lbVersionId = rptModels.Items[outerRepeaterItemIndex].FindControl("lblVersionId") as Label;
+                        rptValues = rptModels.Items[outerRepeaterItemIndex].FindControl("rptValues") as Repeater;
+
+                        if (rptValues != null && rptValues.Items.Count > 0)
+                        {
+                            for (int innerRepeaterItemIndex = 0; innerRepeaterItemIndex < rptValues.Items.Count; innerRepeaterItemIndex++)
+                            {
+                                txtValue = (TextBox)rptValues.Items[innerRepeaterItemIndex].FindControl("txtValue");
+                                lblCategoryId = (Label)rptValues.Items[innerRepeaterItemIndex].FindControl("lblCategoryId");
+
+                                if (lbVersionId.Text.Length > 0 && txtValue.Text.Trim().Length > 0)
+                                {
+                                    //3. populate newly created DataTable with Price Sheet data and with City list
+                                    foreach (string dealerId in objDealerList)
+                                    {
+                                        dtPriceSheet.Rows.Add(dealerId, lbVersionId.Text.Trim(), dealerCity, lblCategoryId.Text.Trim(), txtValue.Text.Trim().Equals("NA") ? null : txtValue.Text.Trim());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                jsonPriceSheet = JsonConvert.SerializeObject(dtPriceSheet, Newtonsoft.Json.Formatting.Indented);
+                apiUrl = "/api/DealerPriceQuote/SaveDealerPrices/";
+
+                //5. Post JSON to AutoBiz API in sync.
+                isTransferred = BWHttpClient.PostSync<string>(cwHostUrl, _requestType, apiUrl, jsonPriceSheet);
+
+                if (isTransferred)
+                    lblDealerPriceStatus.Visible = true;
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "NewBikebooking.Default.CopyPricesToDealers");
+                objErr.SendMail();
+            }
         }
 
         #region Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate 
@@ -613,7 +712,8 @@ namespace BikeWaleOpr.BikeBooking
         protected void Page_Load(object sender, EventArgs e)
         {
             //GetDealerPrices(cityId, dealerId, makeId);
-            lblTransferStatus.Visible = false;      
+            lblTransferStatus.Visible = false;
+            lblDealerPriceStatus.Visible = false;
             if (!IsPostBack)
             {
                 FillCity();
@@ -646,8 +746,15 @@ namespace BikeWaleOpr.BikeBooking
                    drpCity.DataValueField = "Value";
                    drpCity.DataBind();
                    drpCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
+
+                   //Added By : Sadhana Upadhyay on 5 Oct 2015
+                   //To fill city dropdown where dealers are available to copy dealer Price
+                   ddlDealerCity.DataSource = dt;
+                   ddlDealerCity.DataTextField = "Text";
+                   ddlDealerCity.DataValueField = "Value";
+                   ddlDealerCity.DataBind();
+                   ddlDealerCity.Items.Insert(0, new ListItem("--Select City--", "-1"));
                }
-               
            }
            catch (Exception err)
            {

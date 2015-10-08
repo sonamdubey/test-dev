@@ -344,8 +344,15 @@ $(document).ready(function () {
 		$("#LangName").text(langTxt);
 		$(".lang-changer-option").hide();
 	}); // ends	
-	// Common BW tabs code
-
+    // Common BW tabs code
+	$(".bw-tabs li").on('click', function () {
+	    var panel = $(this).closest(".bw-tabs-panel");
+	    panel.find(".bw-tabs li").removeClass("active");
+	    $(this).addClass("active");
+	    var panelId = $(this).attr("data-tabs");
+	    panel.find(".bw-tabs-data").hide();
+	    $("#" + panelId).show();
+	}); // ends
 	// Common CW select box tabs code
 	$(".bw-tabs select").change( function (){
 		var panel = $(this).closest(".bw-tabs-panel");

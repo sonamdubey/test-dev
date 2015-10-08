@@ -48,8 +48,8 @@
         <hr />
         <table width="100%" border="0" cellpadding="2" cellspacing="0">
             <tr>
-                <td width="50%">
-                    <fieldset style="height: 180px">
+                <td width="33%">
+                    <fieldset style="height: 200px">
                         <legend>Add / Show Price</legend>
                         <div>
                             Select City of Pricing :
@@ -67,8 +67,8 @@
                         </div>                        
                     </fieldset>
                 </td>
-                <td><%-- Start Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate --%>
-                    <fieldset style="height: 180px">
+                <td width="33%"><%-- Start Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate --%>
+                    <fieldset style="height: 200px">
                         <legend>Copy Price Sheet to Other cities</legend>
                         Select State :<span style="color:red">* </span>
                         <asp:dropdownlist id="ddlState" runat="server" />
@@ -77,7 +77,21 @@
                         <asp:button id="btnTransferPriceSheet" text="Copy Price Sheet" runat="server" onclientclick="return ConfirmCopy();"></asp:button>
                         <asp:label runat="server" id="lblTransferStatus" class="errorMessage" text="Price Sheet copied successfully."></asp:label>
                     </fieldset>
-                    <%-- End Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate --%></td>
+                    <%-- End Pivotal Tracker # : 95144444 & 96417936 Author : Sumit Kate --%>
+                </td>
+                <%-- Start Pivotal Tracker # : 104505670 Author : Sadhana Upadhyay --%>
+                <td width="33%">
+                    <fieldset style="height: 200px">
+                        <legend>Copy Price Sheet to Other dealer</legend>
+                        Select City :<span style="color:red">* </span>
+                        <asp:dropdownlist id="ddlDealerCity" runat="server" />
+                        Select Dealer :<span style="color:red">* </span>
+                        <select id="lstDealer" multiple="multiple" style="height: 134px; vertical-align: text-top;" ></select>
+                        <asp:button id="btnUpdateDealerPrice" text="Copy Dealer Price Sheet" runat="server" onclientclick="return ConfirmDealerCopy();"></asp:button>
+                        <asp:label runat="server" id="lblDealerPriceStatus" class="errorMessage" text="Price Sheet copied successfully."></asp:label>
+                    </fieldset>
+                </td>
+                <%-- End Pivotal Tracker # : 104505670 Author : Sadhana Upadhyay --%>
             </tr>
         </table>
     </div>
@@ -191,6 +205,8 @@
     <input type="hidden" id="hdnMakeId" runat="server">
     <input type="hidden" id="hdnDealerId" runat="server">
     <input type="hidden" id="hdnCities" runat="server">
+    <input type="hidden" id="hdnDealerList" runat="server" />
+    <input type="hidden" id="hdnDealerCity" runat="server" />
 
 
 <script type="text/javascript">
@@ -257,6 +273,30 @@
         }
         return acknowledge;
     }
+
+    //Created By : Sadhana Upadhyay on 5 Oct 2015
+    //To validate dealer price sheet coty form
+    function ConfirmDealerCopy() {
+        var acknowledge = false;
+        var strDealerId = '';
+        var cityId = $('#ddlDealerCity').val();
+        $('#lstDealer option:selected').each(function () {
+            strDealerId += this.value + ',';
+        });
+
+        strDealerId = strDealerId.substring(0, strDealerId.length - 1);
+        if (strDealerId.length > 0 && cityId != '' && cityId > 0) {
+            
+            $('#hdnDealerList').val(strDealerId);
+            acknowledge = confirm("Do you want to copy the current city's price sheet to selected cities.");
+            if (acknowledge)
+                return acknowledge;
+        } else {
+            alert('Please select city and dealers.');
+        }
+        return acknowledge;
+    }
+
     <%--
     Created by Sumit Kate on 11/09/2015
     Purpose : To Load all cities of the state from CarWale DB using AjaxPro API call
@@ -408,9 +448,32 @@
             }
         });
 
+        $('#ddlDealerCity').change(function () {
+            var cityId = $(this).val();
+            $('#hdnDealerCity').val(cityId);
+            var ddlDealerList = $('#lstDealer');
+            
+            if (cityId > 0) {
+                $.ajax({
+                    type: "GET",
+                    url: ABApiHostUrl + "/api/Dealers/GetAllDealers/?cityId=" + cityId,
+                    success: function (response) {
+                        ddlDealerList.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("disabled");
+                        for (var i = 0; i < response.length; i++) {
+                            ddlDealerList.append("<option value=" + response[i].Value + " makeId=" + response[i].MakeId + ">" + response[i].Text + "</option>");
+                        }
+                    }
+                });
+            }
+            else {
+                ddlDealerList.empty().append("<option value=\"0\">" + selectString + "</option>").removeAttr("enabled");
+            }
+        });
+
         $("#drpAllCity").change(function () {
             $("#hdnCityId").val($(this).val());
         })
+
         $("#btnManageoffer").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
@@ -421,6 +484,7 @@
             else
                 alert("Please select dealer");
         });
+
         $("#btnManagePrice").click(function () {
 
             var dealerId = $("#drpDealer").val();
@@ -435,6 +499,7 @@
                 alert("Please select dealer");
             }
         });
+
         $("#btnManagefacilities").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
@@ -445,6 +510,7 @@
             else
                 alert("Please select dealer");
         });
+
         $("#btnMapDealer").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
@@ -455,6 +521,7 @@
             else
                 alert("Please select dealer");
         });
+
         $("#btngoAvailable").click(function () {
             var dealerId = $("#drpDealer").val();
             if (dealerId > 0) {
@@ -476,6 +543,7 @@
                 alert("Please select dealer");
 
         });
+
         $("#btnDisclaimer").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
@@ -486,6 +554,7 @@
             else
                 alert("Please select dealer");
         });
+
         $("#btnBkgAmount").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
