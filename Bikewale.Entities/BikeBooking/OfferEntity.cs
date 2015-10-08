@@ -33,5 +33,8 @@ namespace Bikewale.Entities.BikeBooking
 
         [JsonProperty("offerValue")]
         public UInt32 OfferValue { get; set; }
+
+        [JsonProperty("isOfferTerms")]
+        public bool IsOfferTerms { get; set; }
     }
 }

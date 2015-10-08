@@ -120,7 +120,19 @@
                                 <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span>
                                 <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>    
                                 <span style="font-size:14px;display:none" class="price-loader fa fa-spinner fa-spin  text-black"  ></span>
-                                
+
+                                <!-- Terms and condition Popup start -->
+                                <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                                    <h3>Terms and Conditions</h3>
+                                    <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                        <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                        <img src="/images/search-loading.gif" />
+                                    </div>
+                                    <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                    <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                                    </div>
+                                </div>
+                                <!-- Terms and condition Popup Ends -->
 
                                 <!-- View BreakUp Popup Starts here-->
                                 <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
@@ -299,7 +311,11 @@
                                         <!-- ko if:priceQuote() -->
                                          <!-- ko if : priceQuote().IsDealerPriceAvailable  -->
                                         <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers">
-                                            <li data-bind="text : offerText"></li>
+                                           <li>
+                                               <span class="offer-text inline-block" data-bind="text: offerText, style: { width: isOfferTerms == true ? '80%' : '100%' }," ></span>
+                                               <span data-bind="visible: isOfferTerms == true,  click: $root.termsConditions.bind(offerId)" class="city-edit-btn font10 margin-left10">View Terms</span>
+                                           </li><%--<a href="javascript:void(0)" data-bind=" click: $root.termsConditions.bind(offerId)" >View Terms</a>--%>
+                                            
                                         </ul>
                                         <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length == 0">
                                             <li >No offers available</li>
