@@ -71,6 +71,22 @@ namespace Bikewale.BAL.Dealer
         }
 
         /// <summary>
+        /// Created By : Sushil Kumar
+        /// Created On : 7th October 2015
+        /// Get list of all dealers with details for a given make and city.
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <param name="clientId"></param>
+        /// <returns></returns>
+        public NewBikeDealerEntityList GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null)
+        {
+            NewBikeDealerEntityList objDealersList = null; 
+            objDealersList = dealerRepository.GetNewBikeDealersList(makeId, cityId,clientId);
+            return objDealersList;
+        }
+
+        /// <summary>
         /// Function to get the list of makes available in the given city.
         /// </summary>
         /// <param name="cityId"></param>
