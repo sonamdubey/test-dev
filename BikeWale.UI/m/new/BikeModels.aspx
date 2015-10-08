@@ -909,7 +909,7 @@
 		    clientIP = '<%= clientIP%>';
 		    cityId = '<%= cityId%>';
 		    isUsed = '<%= !modelPage.ModelDetails.New %>';
-            var myBikeName = '<%= this.bikeName %>';
+            var myBikeName = "<%= this.bikeName %>";
             ga_pg_id = '2';
         </script>
         

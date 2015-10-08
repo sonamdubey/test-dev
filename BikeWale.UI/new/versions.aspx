@@ -1031,7 +1031,7 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?<%= staticFileVersion %>">"></script>
         <script type="text/javascript">
-            var myBikeName = '<%= this.bikeName %>';
+            var myBikeName = "<%= this.bikeName %>";
         var clientIP = "<%= clientIP%>";
             function applyLazyLoad() {
                 $("img.lazy").lazyload({
