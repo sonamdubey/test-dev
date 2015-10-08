@@ -23,7 +23,8 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
             Mapper.CreateMap<Bikewale.Entities.BikeBooking.PQ_Price, Bikewale.DTO.PriceQuote.DealerPriceQuote.DPQ_Price>();
             Mapper.CreateMap<NewBikeDealers, DPQNewBikeDealer>();
             Mapper.CreateMap<OfferEntity, DPQOfferBase>();
-            Mapper.CreateMap<PQ_QuotationEntity, DPQuotationOutput>();
+            Mapper.CreateMap<PQ_BikeVarient, DPQ_BikeVarient>();
+            Mapper.CreateMap<PQ_QuotationEntity, DPQuotationOutput>();            
             return Mapper.Map<PQ_QuotationEntity, DPQuotationOutput>(objPrice);
         }
     }

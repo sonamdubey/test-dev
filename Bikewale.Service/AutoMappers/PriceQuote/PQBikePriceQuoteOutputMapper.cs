@@ -12,6 +12,7 @@ namespace Bikewale.Service.AutoMappers.PriceQuote
     {
         internal static DTO.PriceQuote.BikeQuotation.PQBikePriceQuoteOutput Convert(Entities.PriceQuote.BikeQuotationEntity quotation)
         {
+            Mapper.CreateMap<OtherVersionInfoEntity, OtherVersionInfoDTO>();
             Mapper.CreateMap<BikeQuotationEntity, PQBikePriceQuoteOutput>();
             return Mapper.Map<BikeQuotationEntity, PQBikePriceQuoteOutput>(quotation);
         }
