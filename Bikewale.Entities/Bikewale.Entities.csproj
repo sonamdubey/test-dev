@@ -48,6 +48,7 @@
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
+    <Compile Include="BikeBooking\BikeBooking.cs" />
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntityBase.cs" />
     <Compile Include="BikeBooking\BookingResults.cs" />
@@ -165,6 +166,7 @@
     <Compile Include="PriceQuote\DealerOfferEntity.cs" />
     <Compile Include="PriceQuote\DealerPriceCategoryItemEntity.cs" />
     <Compile Include="PriceQuote\DealerVersionPriceItemEntity.cs" />
+    <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

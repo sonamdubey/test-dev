@@ -854,6 +854,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\offerterms.aspx.cs">
+      <DependentUpon>offerterms.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1018,6 +1022,10 @@
     </Compile>
     <Compile Include="new\VersionSpecs.aspx.cs">
       <DependentUpon>VersionSpecs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="offerterms.aspx.cs">
+      <DependentUpon>offerterms.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="PQCertificate.aspx.cs">
@@ -2076,6 +2084,7 @@
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
+    <Content Include="m\offerterms.aspx" />
     <Content Include="m\new\Search.aspx" />
     <Content Include="m\new\upcomingbikes\Default.aspx" />
     <Content Include="m\pagenotfound.aspx" />
@@ -2107,6 +2116,7 @@
     <Content Include="m\src\Plugins.js" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
+    <Content Include="offerterms.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />

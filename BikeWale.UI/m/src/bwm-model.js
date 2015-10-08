@@ -337,6 +337,12 @@ function pqViewModel(modelId, cityId) {
     }
         return false;
 };
+
+    self.termsConditions = function (entity) {
+        if (entity != null && entity.offerId != 0) {
+            LoadTerms(entity.offerId);
+        }
+    };
 }
 
 
@@ -654,14 +660,53 @@ $(document).ready(function () {
         $(".blackOut-window").hide();
     });
 
+    $(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+        $("div#termsPopUpContainer").hide();
+        $(".blackOut-window").hide();
+    });
+
     $(document).on('keydown', function (e) {
-        if (e.keyCode === 27) $("div.breakupCloseBtn").click();
+        if (e.keyCode === 27) {
+            $("div.breakupCloseBtn").click();
+            $("div.termsPopUpCloseBtn").click();
+        }
     });
 
     //$(ctrlSelectCity).chosen({ no_results_text: "No matches found!!" });
     //$(ctrlSelectArea).chosen({ no_results_text: "No matches found!!" });
 
 });
+
+function LoadTerms(offerId) {
+
+    $(".termsPopUpContainer").css('height', '150')
+    $('#termspinner').show();
+    $('#terms').empty();
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+
+    var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+    if (offerId != '' && offerId != null) {
+        $.ajax({
+            type: "GET",
+            url: abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                $(".termsPopUpContainer").css('height', '500')
+                $('#termspinner').hide();
+                if (response.html != null)
+                    $('#terms').html(response.html);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        setTimeout(LoadTerms, 2000); // check again in a second
+    }
+}
 
 //photos corousel function
 (function ($) {

@@ -42,5 +42,9 @@ namespace BikeWaleOpr.Entities
 
         [JsonProperty("userId")]
         public UInt32 UserId { get; set; }
+
+        [JsonProperty("isOfferTerms")]
+        public bool IsOfferTerms { get; set; }
+
     }
 }
