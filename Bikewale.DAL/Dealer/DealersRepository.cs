@@ -217,6 +217,83 @@ namespace Bikewale.DAL.Dealer
         }
 
         /// <summary>
+        /// Method to get list of dealers with its details for given city and make
+        /// </summary>
+        /// <param name="makeId"></param>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        public NewBikeDealerEntityList GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null)
+        {
+            IList<NewBikeDealerEntityBase> objDealerList = null;
+            NewBikeDealerEntityList objLstNewBikeDealerEntity = null;
+            Database db = null;
+
+            try
+            {
+                db = new Database();
+
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "GetNewBikeDealers";
+                    cmd.Parameters.Add("@MakeId", SqlDbType.Int).Value = makeId;
+                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
+
+                    if(clientId.HasValue)
+                        cmd.Parameters.AddWithValue("@ClientId", clientId.Value);
+                    
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {                         
+                        objLstNewBikeDealerEntity = new NewBikeDealerEntityList();
+                        objDealerList = new List<NewBikeDealerEntityBase>();
+                        bool isFirstRow = true;
+                        while (dr.Read())
+                        {
+                            if(isFirstRow)
+                            {
+                                objLstNewBikeDealerEntity.BikeMake = Convert.ToString(dr["BikeMake"]);
+                                objLstNewBikeDealerEntity.MakeMaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objLstNewBikeDealerEntity.City = Convert.ToString(dr["City"]);
+                                objLstNewBikeDealerEntity.State = Convert.ToString(dr["State"]);
+                                isFirstRow = false;
+                            } 
+                            NewBikeDealerEntityBase objDealer = new NewBikeDealerEntityBase();
+                            objDealer.Id = Convert.ToInt32(dr["DealerId"]);
+                            objDealer.Name = Convert.ToString(dr["DealerName"]);
+                            objDealer.Address = Convert.ToString(dr["Address"]);
+                            objDealer.ContactNo = Convert.ToString(dr["ContactNo"]);
+                            objDealer.Email = Convert.ToString(dr["EMailId"]);
+                            objDealer.PinCode = Convert.ToString(dr["PinCode"]);
+                            objDealer.Website = Convert.ToString(dr["WebSite"]);
+                            objDealer.Fax = Convert.ToString(dr["FaxNo"]);
+                            objDealer.WorkingHours = Convert.ToString(dr["WorkingHours"]);
+                            objDealerList.Add(objDealer);
+                        }
+                        objLstNewBikeDealerEntity.Dealers = objDealerList;
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("GetBikeShowrooms sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("GetBikeShowrooms ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objLstNewBikeDealerEntity;
+        }
+
+        /// <summary>
         /// Method to get list of makes for which dealers are available in given city.
         /// </summary>
         /// <param name="cityId"></param>
