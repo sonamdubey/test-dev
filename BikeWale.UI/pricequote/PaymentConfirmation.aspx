@@ -1,335 +1,343 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.PriceQuote.PaymentConfirmation" Trace="false" %>
-<%
-    AdId = "1395986297721";
-    AdPath = "/1017752/Bikewale_PriceQuote_";
-%>
-<!-- #include file="/includes/pgheader.aspx" -->
-<link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
-<link href="/css/bw-pq-new.css?<%= staticFileVersion %>" rel="stylesheet" />
-<link href="/css/rsa.css" rel="stylesheet" />
-<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+<!Doctype html>
+<html>
+<head>
+    <% 
+        AdId = "1395986297721";
+        AdPath = "/1017752/Bikewale_PriceQuote_";
+    %>
+    <!-- #include file="/includes/headscript.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 <style>
-    .map-box {width:250px;height:140px;}
+    .map-box {width:290px;height:90px;}
 </style>
-<div id="blackOut-window"></div>
-<div class="rsa-popup bw-popup">
-    <!--header starts here-->
-    <div class="rsa-header">
-        <div class="bw-sprite white-close-btn right-float margin-top5"></div>
-        <div class="left-float margin-right10 header-seperator">
-            <img class="margin-right10" src="http://img1.carwale.com/bikewaleimg/images/bikebooking/images/rsa-logo.png" border="0">
-                        
-        </div>
-        <div class=" left-float margin-top5">
-            <h1>FREE Bike Roadside Assistance Offer</h1>
-        </div>
-        <div class="clear"></div>
-    </div>
-    <!--header ends here-->
-    <!--inner content starts here-->
-    <div class="popup-inner-content">
-        <h2>Three simple steps to avail the offer:</h2>
-        <div class="steps">
-            <h2>Step 1:</h2>
-            <p>Purchase your bike and get it registered with RTO.</p>
-        </div>
-        <div class="seperator"></div>
-            
-        <div class="steps">
-            <h2>Step 2:</h2>
-            <p>Email the following details to <a class="blue" href="#">contact@bikewale.com</a> with subject as <span class="color-text">"Free RSA Offer"</span>:</p>
-                
-                <div class="rsa-details margin-left20 margin-top10">
-                    <ol>
-                        <li>Mobile number and Email address used to avail the Dealer Price Certificate</li>
-                        <li>Vehicle Registration Number (e.g. MH 06 AT 8875)</li>
-                        <li>Full Name as per Vehicle Registration</li>
-                        <li>Complete Communication Address as per Vehicle Registration</li>
-                        <li>Date of vehicle Delivery</li>
-                        <li>Name and address of the dealership from where the bike was purchased  </li>
-                    </ol>
-                </div>
-        </div>
-        <div class="seperator"></div>
-            
-        <div class="steps">
-            <h2>Step 3:</h2>
-            <p>On receipt of above details we will verify your purchase from the dealership and dispatch your<strong> FREE Bike Roadside Assistance Certificate</strong> on your email address within 5 working days.
-        </p>
-        </div>
-    </div>
-    <!--header starts here-->
-</div>
+</head>
+<body class="bg-light-grey">
+    <form runat="server">
+        <!-- #include file="/includes/headBW.aspx" -->
 
-            <!--required documents popup ends here-->
-            <div class="bw-popup bw-popup-lg">
-	            <div class="popup-inner-container">
-    	            <div class="bw-sprite close-btn right-float"></div>
-                    <h2>Required Documents for Registration / Loan</h2>
-                        <div class="popup-inner-content">
-            
-                            <table cellpadding="0" cellspacing="0" width="100%">
-                                <tbody>
-                                    <tr>
-                                        <td valign="top" width="310">
-                                            <div class="grey-bullets">
-                                	            <p><strong>Mandatory Documents:</strong></p>
-                                	            <ul>
-                                    	            <li>Two Color Photographs.</li>
-                                                    <li>PAN Card.</li>
-                                                </ul>
-                                                <p class="margin-top20"><strong>Identity Proof:</strong></p>
-                                	            <ul>
-                                    	            <li>Passport / Voter ID / Driving License.</li>
-                                                </ul>
-                                                <p class="margin-top20"><strong>Additional Documents for Loan:</strong></p>
-                                	            <ul>
-                                    	            <li>Last 6 Months Bank Statement.</li>
-                                                    <li>Salary Slip / Latest I.T. Return</li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                        <td>
-                            	            <div class="grey-bullets res-proof">
-                                	            <p><strong>Residential Address Proof:</strong></p>
-                                                <p class="margin-top10">(Self-Owned House)</p>
-                                	            <ul>
-                                    	            <li>Light Bil / Passport.</li>
-                                                    <li>Ration Card (Relation Proof).</li>
-                                                </ul>
-                                                <p class="margin-top10">(Rented House)</p>
-                                                <ul>
-                                    	            <li>Registered Rent Agreement + Police N.O.C.</li>
-                                                    <li>Rent Home Electricity Bill.</li>
-                                                    <li>Permanent Address Proof.</li>
-                                                    <li>Ration Card (Relation Proof).</li>
-                                                </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                </div>
-            </div>
-            <!--required documents popup ends here-->
-<div class="main-container">
-	<div class="container_12">
-    	<div class="grid_8 margin-top10">
-        	<h1 class="margin-bottom5">Congratulations! Your payment has been received.</h1>
-            <div class="inner-content">
-                <div>
-                    <h3 class="margin-top5 <%= !String.IsNullOrEmpty(bookingRefNum) ? "" : "hide"  %>">Booking reference number: <%= bookingRefNum %></h3>
-                	<p class="margin-top5"> Please see below your booking details. These details have been sent on your email and mobile.</p>
-                </div>
-            </div>
-            
-            <!--Get pq code starts here-->
-                <div id="get-pq-new" class="inner-content">
-                    <div id="div_ShowPQ">
-                    	<h2 class="payment-pg-heading">Booked Bike</h2>
-                        	<p class="margin-top10"><strong><%= bikeName%></strong></p>
-                        	<%--<p><strong>Color: <%= objCustomer.objColor.ColorName %></strong></p>--%>
-                                
-                                <div class="bw-offer-box margin-top10">
-                                    <h2><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Exclusive Offers for BikeWale Customers"%></h2>
-                                    <div class="margin-top5">
-                                        <asp:Repeater ID="rptOffers" runat="server">
-                                            <HeaderTemplate>
-                                                    <ul>                                        
-                                            </HeaderTemplate>
-                                            <ItemTemplate>
-                                                    <%--
-                                                        <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%>   <%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "<a id=\"rsa\" class=\"blue\">How to avail the offer?</a>" : ""  %></li>--%>
-                                                <%-- Start 102155010 --%>
-                                                <%--<li><%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() != "3" ? DataBinder.Eval(Container.DataItem,"OfferText") : ""%> </li>--%>
-                                                <%
-                                                    if (IsInsuranceFree)
-                                                    {
-                                                        %>
-                                                <li>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
-                                                <%
-                                                    }
-                                                    else
-                                                    {%>
-                                                <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
-                                                       <% 
-                                                    }
-                                                     %>                                                
-                                                <%-- End 102155010 --%>
-                                            </ItemTemplate>
-                                            <FooterTemplate>
-                                                <%-- Start 102155010 --%>
-                                                        <%--<li>Get one year of <a target="_blank" href="/Absure Bike RSA.pdf">Bike Roadside Assistance</a>  absolutely FREE. <a id="rsa" class="blue">How to avail the offer?</a></li>--%>
-                                                   <%-- <li><a href="/Absure Bike RSA.pdf" target="_blank">Get RSA Details</a></li>--%>                                                
-                                                <%-- End 102155010 --%>
-                                                    </ul>
-                                            </FooterTemplate>
-                                        </asp:Repeater>
-                                    </div>
-                                </div>
+        <section class="bg-white header-fixed-inner">
+            <div class="container">
+                <div class="grid-12">
+                    <div class="padding-bottom15 text-center">
                     </div>
-                	<p class="margin-top10">Balance Amount Payable at Dealership: <span class="WebRupee">Rs.</span> <%=Bikewale.Utility.Format.FormatPrice((totalPrice - _objPQ.objBookingAmt.Amount - insuranceAmount).ToString()) %></p>
                 </div>
-            <!--Get pq code ends here-->
-            <!--next steps starts here-->
-            	<div class="inner-content">
-                	<h2 class="payment-pg-heading">Next Steps</h2>
-                    	<div class="margin-top10 bw-box">
-                        	<ul>
-                                <li>
-                                    <h2>Reserve Offer</h2>
-                                    <p class="margin-bottom5"><span class="bw-sprite reserve-offer"></span></p>
-                                    <p class=" left-align">Make payment to reserve your offer and pre-book your bike.</p>
-                                </li>
-                                <li>
-                                    <h2>Visit Dealership</h2>
-                                    <p class="margin-bottom10"><span class="bw-sprite visit-dealership"></span></p>
-                                    <p class=" left-align">Visit dealership and pay the remaining amount. Be ready with all <a id="RequiredDoc" class="blue" href="#">required documents</a>.</p>
-                                </li>
-                                <li>
-                                    <h2>Buy Your Bike!</h2>
-                                    <p><span class="bw-sprite buy-your-bike"></span></p>
-                                    <p class=" left-align">Avail offer benefit and take delivery of your bike.</p>
-                                </li>
-                            </ul>
-                        	<div class="clear"></div>
-                		</div>
-                <!--steps end here-->
-        		</div>
-            <!--next steps ends here-->
-            <div class="mid-box margin-top15 center-align margin-bottom20"><input type="submit" class="action-btn text_white" id="btnPrintReceipt" value="Print Receipt" name="btnPrintReceipt" onClick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","")%>        ', act: 'Click Button Get_Dealer_Details', lab: 'Clicked on Print_Receipt' });"></div>
-        </div>
-        
-        <div class="grid_4 right-grid">
-            <div id="divControl">
-                <div class="inner-content">
-                	<h2 class="payment-pg-heading margin-bottom10">Authorised Dealer Details</h2>
-                        <div>
-                            <h3 class="margin-bottom5"><span class="bw-sprite dealer-search margin-right10"></span><%= organization %></h3>
-                                <div class="margin-left20">
-                                    <p><%= address %></p>
-                                                        
-                                    <%if (!String.IsNullOrEmpty(WorkingTime))
-                                      {%>
-                                    <div class="margin-top10"><span><b>Working Hours: </b></span><%=  WorkingTime   %></div>
-                                    <%} %>
-                                    <%--<div class="margin-top10"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.9863217196075!2d72.99639100000005!3d19.064338999999993!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b2c080cb%3A0x225353b221740ef0!2sCarWale!5e0!3m2!1sen!2sin!4v1418196092146" width="250" height="140" frameborder="0" style="border:0"></iframe></div>--%>
-                                    <div class="margin-top10 margin-right20 map-content hide" id="divMapWindow">
-                                          <div id="divMap"></div>
-                                    </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+   	
+        <section class="bg-light-grey padding-top10">
+            <div class="container">
+                <div class="grid-12">
+                    <div class="breadcrumb margin-bottom15">
+                        <!-- breadcrumb code starts here -->
+                        <ul>
+                            <li><a href="/">Home</a></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span>New Bikes</li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                    <h1 class="booking-success-heading font30 text-black margin-top10 margin-bottom10">Congratulations on your booking!</h1> 
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+    
+	    <section class="container">
+        <div class="grid-12">
+            <div class="content-box-shadow">
+                <div class="booking-success-alert-container">
+                    <div class="booking-success-alert">
+                        <p class="text-bold">
+                            <span class="inline-block booking-sprite booking-success-icon margin-right10"></span>
+                            <span class="inline-block font18">We have received your payment of
+                                <span class="fa fa-rupee margin-left5"></span>
+                                <span class="font20"><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                                                                                                                                                                               
+            	<div class="grid-4 content-inner-block-10 inline-block margin-top10 margin-bottom10">
+                	<div class="imageWrapper margin-top10">
+                    	<img src="<%= Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath,_objPQ.objQuotation.HostUrl,Bikewale.Utility.ImageSize._310x174) %>"  alt="<%= bikeName %>" title="<%= bikeName %>">
+                    </div>
+                </div>
+                <div class="grid-4 content-inner-block-10 inline-block margin-top10 margin-bottom10">
+                	<h3 class="margin-bottom15"><%= bikeName%></h3>
+                	<div class="font14">
+                    	<table>
+                        	<tbody>
+                            	<tr>
+                                	<td width="200" class="padding-bottom10">On road price:</td>
+                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span> <%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(totalPrice)) %></td>
+                                </tr>
+                                <tr>
+                                	<td>Advance booking:</td>
+                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span> <%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></td>
+                                </tr>
+                                 <% if (IsInsuranceFree)
+                                           {%>
+                                <tr>
+                                    <td>Free Insurance Amount:</td>
+                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span> <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %></td>
+                                </tr>
+                                        <%}%>
+                                <tr>
+                                	<td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
+                                </tr>
+                                <tr>
+                                	<td colspan="2"><div class="border-solid-top padding-bottom10"></div></td>
+                                </tr>
+                                <tr>
+                                	<td>Balance amount:</td>
+                                    <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalPrice - _objPQ.objBookingAmt.Amount - insuranceAmount)) %></td>
+                                </tr>
+                                <tr>
+                                	<td class="font12" colspan="2">*Balance amount payable at the dealership</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="grid-4 content-inner-block-10 inline-block border-solid-left margin-top10 margin-bottom10">
+                    <!--  Dealer details starts here -->
+                	<div class="booking-dealer-details ">
+                        <h3 class="font18 margin-bottom15"><%= organization %></h3>
+                        <p class="font14 text-light-grey margin-bottom10"><%= address %></p>
+                        <p class="font14 margin-bottom10"><span class="fa fa-phone margin-right5"></span><%=contactNo %></p>
+                        <div id="divMap" class="hide margin-top10 border-solid"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+   		</div>
+   	</section>
+  
 
-                                    <!--<p class=" margin-top5 margin-bottom5"><a href="#" class="blue">Get Directions</a></p>-->
-                                </div>
-                            <div class="padding-left10 margin-top10">
-                                <p class="margin-top5"><span class="bw-sprite call padding-left10 left-float padding-right10"></span><%=contactNo %></p>
-                                <div class="clear"></div>
-                            </div>
+    <section>
+    	<div class="container">
+        	<div class="grid-12 booking-details-section">
+            	<h2 class="text-bold text-center margin-top50 margin-bottom20">Booking details</h2>
+                <div class="content-box-shadow content-inner-block-20">
+                	<div class="grid-6 booking-info-container border-solid-right">
+                    	<div class="booked-bike-info border-solid-bottom padding-bottom10 padding-top10">
+                            <p class="font14 margin-bottom10">Booking ID:<span class="font18 margin-left5 text-bold"><%= bookingRefNum %></span></p>
+                            <p class="font14 margin-bottom5">Assigned dealership:<span class="margin-left5 text-bold"><%= organization %></span></p>
+                            <p class="font14 margin-bottom5">Selected bike:<span class="margin-left5 text-bold"><%= bikeName %></span></p>
+                            <p class="font14 margin-bottom5">Selected colour:<span class="margin-left5 text-bold"><%= objCustomer.objColor.ColorName %></span></p>
                         </div>
-                </div>
-                <div class="inner-content hide">
-                	<h2 class="payment-pg-heading">Steps to Avail your Offer</h2>
-                    	<div class="avail-offers-box margin-top10">
-                        	<ul>
-                            	<li>
-                                	<div class="list-thumbnail">
-                                    	<span class="bw-sprite reserve-offer"></span>	
-                                    </div>
-                                    <p>Offer reserved for you and bike has been pre-booked</p>
-                                    <div class="clear"></div>
-                                </li>
-                                <li>
-                                	<div class="list-thumbnail">
-                                    	<span class="bw-sprite buy-your-bike"></span>
-                                    </div>
-                                    <p>Visit dealership and pay the remaining booking amount</p>
-                                    <div class="clear"></div>
-                                </li>
-                                <li>
-                                	<div class="list-thumbnail center-align">
-                                		<span class="bw-sprite avail-offer"></span>
-                                	</div>
-                                	<p>Get offer on bike delivery</p>
-                                	<div class="clear"></div>
-                                </li>
+                        <div class="booked-used-info padding-top10 padding-bottom10">
+                        	<p class="font16 margin-bottom10 text-bold">Personal information</p>
+                            <p class="font14 margin-bottom5">Name:<span class="margin-left5 text-bold"><%= objCustomer.objCustomerBase.CustomerName %></span></p>
+                            <p class="font14 margin-bottom5">Email ID:<span class="margin-left5 text-bold"><%= objCustomer.objCustomerBase.CustomerEmail %></span></p>
+                            <p class="font14 margin-bottom5">Mobile no:<span class="margin-left5 text-bold"><%= objCustomer.objCustomerBase.CustomerMobile %></span></p>
+                        </div>
+                    </div>
+                    <div class="grid-6 availed-offers-container">
+                        <!-- offers container -->
+                    	<div class="availed-offers-info margin-left10 padding-top10 padding-bottom10">
+                        	<p class="font16 margin-bottom10 text-bold">
+                                Availed exclusive Bikewale offers  
+                        	</p>
+                            <ul>
+                                <asp:Repeater ID="rptOffers" runat="server">
+                                    <ItemTemplate>
+                                        <% if (IsInsuranceFree)
+                                           {%>
+                                        <li>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
+                                        <%
+                                           }
+                                           else
+                                           {%>
+                                        <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                                        <% 
+                                                    }
+                                        %>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                             </ul>
                         </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+     
+    <section>
+    	<div class="container margin-bottom20">
+        	<div class="grid-12 alternative-section">
+            	<h2 class="text-bold text-center margin-top50 margin-bottom20">What next!</h2>
+        		<div class="content-box-shadow content-inner-block-20">
+                	<div class="next-step-box">
+                    	<img src="/images/next-steps-thumb.jpg" usemap="#nextSteps">
+                        <map name="nextSteps">
+                          <area shape="rect" id="required-document" coords="424,23,587,72" href="#" >
+                        </map>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+		</div>
+    </section>
+    <div class="clear"></div>
+
+        <!--cancellation popup starts here-->
+        <div class="bw-popup bw-popup-lg hide cancellation-popup">
+            <div class="popup-inner-container">
+
+                <div class="cancel-policy-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                <h2>Cancellation & Refund Policy</h2>
+                <div class="popup-inner-content cancellation-list margin-top10">
+                    <ul>
+                        <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of pre-booking the vehicle.</strong> </li>
+                        <li><strong>b.</strong> Please email your <strong>Pre-Booking Cancellation Request'</strong> to <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating <strong>the booking reference number, your mobile number and email address (that you used while pre-booking).</strong></li>
+
+                        <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
+                                of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
+                                submitting any documents, procurement of the vehicle by the dealership etc.
+                        </li>
+                        <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s pre-booking, cancellation will not be possible.</li>
+
+                        <li><strong>e.</strong> For all valid requests, we will process the refund of full pre-booking amount to customer's account within 7 working days.</li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<script type="text/javascript">
-    $(document).ready(function () {
+        <!--cancellation popup ends here-->
+        
+        <!--required documents popup ends here-->
+        <div class="bw-popup bw-popup-lg hide required-doc">
+            <div class="popup-inner-container">
 
-        var cityArea = GetGlobalCityArea();
-        if(cityArea != undefined){
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Payment_Confirmation', 'lab': cityArea });
-        }
+                <div class="req-document-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                <h2>Required Documents for Registration / Loan</h2>
+                <div class="popup-inner-content margin-top10">
 
-        $('#blackOut-window, .rsa-popup,.bw-popup').hide();
+                    <table cellpadding="0" cellspacing="0" width="100%">
+                        <tbody>
+                            <tr>
+                                <td valign="top" width="310">
+                                    <div class="grey-bullets">
+                                        <p><strong>Mandatory Documents:</strong></p>
+                                        <ul>
+                                            <li>Two Color Photographs.</li>
+                                            <li>PAN Card.</li>
+                                        </ul>
+                                        <p class="margin-top20"><strong>Identity Proof:</strong></p>
+                                        <ul>
+                                            <li>Passport / Voter ID / Driving License.</li>
+                                        </ul>
+                                        <p class="margin-top20"><strong>Additional Documents for Loan:</strong></p>
+                                        <ul>
+                                            <li>Last 6 Months Bank Statement.</li>
+                                            <li>Salary Slip / Latest I.T. Return</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="grey-bullets res-proof">
+                                        <p><strong>Residential Address Proof:</strong></p>
+                                        <p class="margin-top10">(Self-Owned House)</p>
+                                        <ul>
+                                            <li>Light Bil / Passport.</li>
+                                            <li>Ration Card (Relation Proof).</li>
+                                        </ul>
+                                        <p class="margin-top10">(Rented House)</p>
+                                        <ul>
+                                            <li>Registered Rent Agreement + Police N.O.C.</li>
+                                            <li>Rent Home Electricity Bill.</li>
+                                            <li>Permanent Address Proof.</li>
+                                            <li>Ration Card (Relation Proof).</li>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!--required documents popup ends here-->
+        
 
-        $('#btnPrintReceipt').click(function () {
-            window.print();
-            //printWindow = window.open("", "mywindow", "location=0,status=0,scrollbars=1");
-            //printWindow.document.write("<div style='width:100%;text-align:left;'>");
-            //printWindow.document.write("<input type='button' id='btnPrint' value='Print' style='width:100px' onclick='window.print()' />");
-            //printWindow.document.write("<input type='button' id='btnCancel' value='Cancel' style='width:100px' onclick='window.close()' />");
-            //printWindow.document.write(document.getElementById('news').innerHTML);
-            //printWindow.document.write("</div>");
-            //printWindow.document.close();
-            //printWindow.focus();
-        });
+        <!-- #include file="/includes/footerBW.aspx" -->
+        <!-- #include file="/includes/footerscript.aspx" -->
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
 
-        $("#rsa").click(function () {
-            $('#blackOut-window').show();
-            $('.rsa-popup').show();
-        });
+                var cityArea = "<%= objCustomer.objCustomerBase.cityDetails.CityName +'_'+ objCustomer.objCustomerBase.AreaDetails.AreaName %>  ";
+                if (cityArea != undefined) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Payment_Confirmation', 'lab': cityArea });
+                }
 
-        $('#RequiredDoc').click(function () {
-            $("#blackOut-window").show();
-            $('.bw-popup-lg').show();
-        });
+                var latitude = '<%=lattitude %>';
+                var longitude = '<%= longitude%>';
 
-        $('.white-close-btn').click(function () {
-            $("#blackOut-window").hide();
-            $('.rsa-popup').hide();
-        });
+                if (latitude > 0 && longitude > 0) {
+                    $("#divMap").removeClass("hide").addClass("map-box");
+                    var myCenter = new google.maps.LatLng(latitude, longitude);
 
-        $('.close-btn').click(function () {
-            $("#blackOut-window").hide();
-            $('.bw-popup').hide();
-        });
+                    function initialize() {
+                        var mapProp = {
+                            center: myCenter,
+                            zoom: 16,
+                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
 
-        var latitude = '<%=lattitude %>';
-        var longitude = '<%= longitude%>';
+                        var map = new google.maps.Map(document.getElementById("divMap"), mapProp);
 
-        if (latitude > 0 && longitude > 0) {
-            $("#divMapWindow").removeClass("hide");
-            $("#divMap").addClass("map-box");
-            var myCenter = new google.maps.LatLng(latitude, longitude);
+                        var marker = new google.maps.Marker({
+                            position: myCenter,
+                        });
 
-            function initialize() {
-                var mapProp = {
-                    center: myCenter,
-                    zoom: 16,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                };
+                        marker.setMap(map);
+                    }
 
-                var map = new google.maps.Map(document.getElementById("divMap"), mapProp);
+                    google.maps.event.addDomListener(window, 'load', initialize);
+                }
 
-                var marker = new google.maps.Marker({
-                    position: myCenter,
+                $(document).delegate("#cancellation-box", "click", function (e) {
+                    e.preventDefault();
+                    $(".blackOut-window").show();
+                    $('.cancellation-popup').show();
                 });
 
-                marker.setMap(map);
-            }
+                $(document).delegate(".cancel-policy-close-btn", "click", function () {
+                    $(".cancellation-popup").hide();
+                    unlockPopup();
+                });
 
-            google.maps.event.addDomListener(window, 'load', initialize);
-        }
-    });
-</script>
-    </div>
-</form>
+                $(document).delegate("#required-document", "click", function (e) {
+                    e.preventDefault();
+                    $(".blackOut-window").show();
+                    $('.required-doc').show();
+                });
+
+                $(document).delegate(".req-document-close-btn", "click", function () {
+                    $(".required-doc").hide();
+                    unlockPopup();
+                });
+
+
+                function unlockPopup() {
+                    $('body').removeClass('lock-browser-scroll');
+                    $(".blackOut-window").hide();
+                }
+
+                $(document).delegate(".blackOut-window", "click", function () {
+                    $(".cancellation-popup").hide();
+                    $('.required-doc').hide();
+                });
+                
+            });
+        </script>
+    </form>
+    
 </body>
 </html>
+

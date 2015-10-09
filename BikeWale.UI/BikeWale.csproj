@@ -240,6 +240,7 @@
     </Compile>
     <Compile Include="BikeBooking\Common\BikeBookingOperations.cs" />
     <Compile Include="BikeBooking\Common\CustomerDetailCookie.cs" />
+    <Compile Include="BikeBooking\Common\CustomerPaymentCookie.cs" />
     <Compile Include="BikeBooking\Common\DealerPriceQuoteCookie.cs" />
     <Compile Include="BikeBooking\Common\SendEmailSMSToDealerCustomer.cs" />
     <Compile Include="BikeBooking\Common\TCApi_Inquiry.cs" />
@@ -1058,6 +1059,10 @@
     </Compile>
     <Compile Include="pricequote\PaymentConfirmation.aspx.cs">
       <DependentUpon>PaymentConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\PaymentConfirmation_old.aspx.cs">
+      <DependentUpon>PaymentConfirmation_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\PaymentFailure.aspx.cs">
@@ -2118,6 +2123,7 @@
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
+    <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
     <Content Include="src\common.js" />
@@ -2165,7 +2171,7 @@
     <Content Include="pricequote\default.aspx" />
     <Content Include="pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="pricequote\faq.aspx" />
-    <Content Include="pricequote\PaymentConfirmation.aspx" />
+    <Content Include="pricequote\PaymentConfirmation_old.aspx" />
     <Content Include="pricequote\PaymentFailure.aspx" />
     <Content Include="pricequote\quotation.aspx" />
     <Content Include="pricequote\RSAOfferClaim.aspx" />
