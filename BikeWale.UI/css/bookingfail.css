@@ -1,0 +1,5 @@
+@charset "utf-8";
+/* CSS Document */
+.booking-fail-icon { width:36px; height:36px; background-position:-180px -390px; }
+.booking-fail-alert { padding:15px 25px;  -moz-box-shadow: 0 3px 2px #e5e5e5; -webkit-box-shadow: 0 3px 2px #e5e5e5; -o-box-shadow: 0 3px 2px #e5e5e5; -ms-box-shadow: 0 3px 2px #e5e5e5; box-shadow: 0 3px 2px #e5e5e5; }
+.transaction-failure-container { min-height:300px; }
