@@ -1,27 +1,27 @@
 ﻿using Bikewale.BikeBooking;
-using Bikewale.BikeBooking.Common;
 using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Mobile.PriceQuote;
 using Microsoft.Practices.Unity;
 using System;
 using System.Configuration;
 using System.Web;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Mobile.PriceQuote
+namespace Bikewale.PriceQuote
 {
-    public partial class PaymentConfirmation : System.Web.UI.Page
+    public class PaymentConfirmation_old : System.Web.UI.Page
     {
         protected Repeater rptOffers;
 
-        protected PQ_DealerDetailEntity _objPQ;
-        protected PQCustomerDetail objCustomer;
+        protected PQ_DealerDetailEntity _objPQ = null;
+        protected PQCustomerDetail objCustomer = null;
         protected double lattitude, longitude;
-        protected UInt32 BooingAmt = 0;
-        protected string contactNo = string.Empty, organization = string.Empty, address = string.Empty, bikeName = string.Empty, MakeModel = string.Empty, bookingRefNum = string.Empty;
         protected uint totalPrice = 0;
-        protected UInt32 insuranceAmount = 0, dealerId = 0;
+        protected UInt32 BooingAmt = 0;
+        protected string contactNo = string.Empty, organization = string.Empty, address = string.Empty, bikeName = string.Empty, MakeModel = string.Empty, bookingRefNum = string.Empty, WorkingTime = string.Empty;
+        protected UInt32 insuranceAmount = 0;
         protected bool IsInsuranceFree = false;
         protected override void OnInit(EventArgs e)
         {
@@ -29,6 +29,8 @@ namespace Bikewale.Mobile.PriceQuote
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            DeviceDetection dd = new DeviceDetection();
+            dd.DetectDevice();
             string bikeColor = String.Empty;
             if (PriceQuoteCookie.IsPQCoockieExist())
             {
@@ -36,30 +38,27 @@ namespace Bikewale.Mobile.PriceQuote
                 {
                     GetDetailedQuote();
                     getCustomerDetails();
-                    if (objCustomer.IsTransactionCompleted)
+                    if (!objCustomer.IsTransactionCompleted)
                     {
                         bookingRefNum = ConfigurationManager.AppSettings["OfferUniqueTransaction"] + Carwale.BL.PaymentGateway.PGCookie.PGTransId;
+
+                        //send sms to customer
+                        SendEmailSMSToDealerCustomer.BookingSMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, address, bookingRefNum, insuranceAmount);
+                        //send sms to dealer
+                        SendEmailSMSToDealerCustomer.BookingSMSToDealer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address, bookingRefNum, BooingAmt, insuranceAmount);
+                        //send email to customer
+                        SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName, _objPQ.objOffers, bookingRefNum, _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, insuranceAmount);
+                        //send email to dealer
+
                         if (objCustomer.objColor != null)
                         {
                             bikeColor = objCustomer.objColor.ColorName;
                         }
-                        if (!CustomerPaymentCookie.IsExists && !CustomerPaymentCookie.IsMailSend && !CustomerPaymentCookie.IsSMSSend)
-                        {
-                            //send sms to customer 
-                            SendEmailSMSToDealerCustomer.BookingSMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, address, bookingRefNum, insuranceAmount);
-                            //send sms to dealer
-                            SendEmailSMSToDealerCustomer.BookingSMSToDealer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address, bookingRefNum, BooingAmt, insuranceAmount);
-                            //send email to customer
-                            SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName, _objPQ.objOffers, bookingRefNum, _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, insuranceAmount);
-                            //send email to dealer                        
-                            SendEmailSMSToDealerCustomer.BookingEmailToDealer(_objPQ.objDealer.EmailId, ConfigurationManager.AppSettings["OfferClaimAlertEmail"], objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.CustomerEmail, totalPrice, _objPQ.objBookingAmt.Amount, totalPrice - _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.PriceList, bookingRefNum, bikeName, bikeColor, _objPQ.objDealer.Name, _objPQ.objOffers, insuranceAmount);
-                            //Save cookie
-                            CustomerPaymentCookie.CreateCustomerPaymentCookie(bookingRefNum, true, true);
-                        }
+                        SendEmailSMSToDealerCustomer.BookingEmailToDealer(_objPQ.objDealer.EmailId, ConfigurationManager.AppSettings["OfferClaimAlertEmail"], objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.CustomerEmail, totalPrice, _objPQ.objBookingAmt.Amount, totalPrice - _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.PriceList, bookingRefNum, bikeName, bikeColor, _objPQ.objDealer.Name, _objPQ.objOffers, insuranceAmount);
                     }
                     else
                     {
-                        Response.Redirect("/m/pricequote/bookingsummary.aspx", false);
+                        Response.Redirect("/pricequote/bookingsummary.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
@@ -72,12 +71,16 @@ namespace Bikewale.Mobile.PriceQuote
             }
             else
             {
-                Response.Redirect("/m/pricequote/quotation.aspx", false);
+                Response.Redirect("/pricequote/quotation.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
         }
 
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 15 Dec 2014
+        /// Summary : To get dealer price break up and other details
+        /// </summary>
         private void GetDetailedQuote()
         {
             bool _isContentFound = true;
@@ -102,7 +105,6 @@ namespace Bikewale.Mobile.PriceQuote
 
                     if (_objPQ.objDealer != null)
                     {
-                        dealerId = _objPQ.objDealer.DealerId;
                         contactNo = _objPQ.objDealer.PhoneNo + (!String.IsNullOrEmpty(_objPQ.objDealer.PhoneNo) && !String.IsNullOrEmpty(_objPQ.objDealer.MobileNo) ? ", " : "") + _objPQ.objDealer.MobileNo;
                         organization = _objPQ.objDealer.Organization;
                         lattitude = _objPQ.objDealer.objArea.Latitude;
@@ -115,6 +117,7 @@ namespace Bikewale.Mobile.PriceQuote
                         }
 
                         address += ", " + _objPQ.objDealer.objState.StateName;
+                        WorkingTime = Convert.ToString(_objPQ.objDealer.WorkingTime);
                     }
                     if (_objPQ.objQuotation != null)
                     {
@@ -143,10 +146,9 @@ namespace Bikewale.Mobile.PriceQuote
 
                             totalPrice += item.Price;
                         }
-
                         foreach (var price in _objPQ.objQuotation.PriceList)
                         {
-                            Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), _objPQ.objQuotation.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
+                            Bikewale.common.DealerOfferHelper.HasFreeInsurance(_objPQ.objDealer.DealerId.ToString(), _objPQ.objQuotation.objModel.ModelId.ToString(), price.CategoryName, price.Price, ref insuranceAmount);
                         }
                         if (insuranceAmount > 0)
                         {
@@ -170,7 +172,7 @@ namespace Bikewale.Mobile.PriceQuote
             {
                 if (!_isContentFound)
                 {
-                    Response.Redirect("/m/pagenotfound.aspx", false);
+                    Response.Redirect("/pagenotfound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -192,7 +194,7 @@ namespace Bikewale.Mobile.PriceQuote
 
                 if (objCustomer == null)
                 {
-                    Response.Redirect("/m/pricequote/", false);
+                    Response.Redirect("/pricequote/", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
