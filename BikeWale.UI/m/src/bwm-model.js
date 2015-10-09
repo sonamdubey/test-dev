@@ -433,7 +433,7 @@ function fetchPriceQuote(vm) {
                         $("#locprice_" + this.versionId.toString()).text("Ex-showroom, " + cityName);
                     });
                     $.each(pq.dealerPriceQuote.varients, function () {
-                        $("#price_" + this.version.versionId.toString()).text(this.onRoadPrice ? formatPrice(this.onRoadPrice) : "NA");
+                        $("#price_" + this.version.versionId.toString()).text(this.onRoadPrice ? formatPrice((this.onRoadPrice - pq.insuranceAmount)) : "NA");
                         $("#locprice_" + this.version.versionId.toString()).text("On-road price, " + cityName);
                     });
                 }
