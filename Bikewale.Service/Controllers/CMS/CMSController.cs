@@ -194,7 +194,14 @@ namespace Bikewale.Service.Controllers.CMS
                             }
                         }
                     }
-
+                    if (objFeaturedArticles.CategoryId == (int)EnumCMSContentType.Features)
+                    {
+                        objCMSFArticles.ShareUrl = "/features/" + objCMSFArticles.ArticleUrl + "-" + basicId;
+                    }
+                    else if (objFeaturedArticles.CategoryId == (int)EnumCMSContentType.RoadTest)
+                    {
+                        objCMSFArticles.ShareUrl = "/road-tests/" + objCMSFArticles.ArticleUrl + "-" + basicId + ".html";
+                    }
                     return Ok(objCMSFArticles);
                 }                
             }
@@ -256,7 +263,10 @@ namespace Bikewale.Service.Controllers.CMS
                             objCMSFArticles.Content = "";
                         }
                     }
-                    
+                    if (objFeaturedArticles.CategoryId == (int)EnumCMSContentType.News)
+                    {
+                        objCMSFArticles.ShareUrl = "/news/" + basicId + "-" + objNews.ArticleUrl + ".html";
+                    }
                     return Ok(objCMSFArticles);
                 }
             }

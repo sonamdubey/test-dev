@@ -155,6 +155,7 @@ namespace Bikewale.Service.Controllers.CMS
         [ResponseType(typeof(IEnumerable<Bikewale.DTO.CMS.Articles.CMSContent>)), Route("api/cms/cat/{categoryId}/posts/{posts}/pn/{pageNumber}/")]
         public IHttpActionResult Get(EnumCMSContentType categoryId, int posts, int pageNumber)
         {
+            string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
             Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles = null;
             try
             {
@@ -180,11 +181,27 @@ namespace Bikewale.Service.Controllers.CMS
                 {
                     Bikewale.DTO.CMS.Articles.CMSContent objCMSFArticles = new Bikewale.DTO.CMS.Articles.CMSContent();
                     objCMSFArticles = CMSMapper.Convert(objFeaturedArticles);
-
-                    objCMSFArticles.Articles.ToList().ForEach(s => s.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(s.DisplayDate));
-
+                    
+                    foreach (var article in objCMSFArticles.Articles)
+                    {
+                        EnumCMSContentType contentType =  (EnumCMSContentType)article.CategoryId;
+                        switch (contentType)
+                        {
+                            case EnumCMSContentType.News:
+                                article.ShareUrl =  _bwHostUrl +"/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                                break;
+                            case EnumCMSContentType.Features:
+                                article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId;;
+                                break;
+                            case EnumCMSContentType.RoadTest:
+                                article.ShareUrl = _bwHostUrl+ "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                                break;
+                            default:
+                                break;
+                        }
+                        article.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(article.DisplayDate);
+                    }
                     return Ok(objCMSFArticles);
-
                 }
             }
             catch (Exception ex)
