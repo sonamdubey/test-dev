@@ -23,7 +23,7 @@ jQuery(function () {
         return carouselStage2.jcarousel('items').eq(itemNavigation2.index());
     };
     var connector3 = function (itemNavigation3, carouselStage3) {
-        return carouselStage3.jcarousel('items').eq(itemNavigation3.index());
+        //return carouselStage3.jcarousel('items').eq(itemNavigation3.index());
     };
 
     jQuery('.jcarousel-wrapper.model .jcarousel')
@@ -37,6 +37,7 @@ jQuery(function () {
             threshold: 200
         });
     });
+
     $(".jcarousel-pagination").click(function () {
         $("img.lazy").lazyload({
             threshold: 200
@@ -50,7 +51,7 @@ jQuery(function () {
     var carouselStage2 = $('.carousel-stage-photos').jcarousel();
     var carouselNavigation2 = $('.carousel-navigation-photos').jcarousel();
 
-    var carouselStage3 = $('.carousel-stage-videos').jcarousel();
+   // var carouselStage3 = $('.carousel-stage-videos').jcarousel();
     var carouselNavigation3 = $('.carousel-navigation-videos').jcarousel();
 
 
@@ -73,7 +74,7 @@ jQuery(function () {
 
     carouselNavigation3.jcarousel('items').each(function () {
         var item3 = $(this);
-        var target = connector3(item3, carouselStage3);
+        var target = connector3(item3);
         item3
             .on('jcarouselcontrol:active', function () {
                 carouselNavigation3.jcarousel('scrollIntoView', this);
@@ -82,10 +83,6 @@ jQuery(function () {
             .on('jcarouselcontrol:inactive', function () {
                 item3.removeClass('active');
             })
-.jcarouselControl({
-    target: target,
-    carousel: carouselStage3
-});
     });
 
     $('.prev-stage, .photos-prev-stage, .videos-prev-stage')
@@ -135,7 +132,7 @@ jQuery(function () {
     });
 
 
-    $(".carousel-stage-photos, .carousel-navigation-photos,.carousel-navigation-videos,.carousel-stage-videos").swipe({
+    $(".carousel-stage-photos, .carousel-navigation-photos,.carousel-navigation-videos").swipe({
         fingers: 'all', swipeLeft: swipe2, swipeRight: swipe2, allowPageScroll: "auto",
         excludedElements: "label, button, input, select, textarea, .noSwipe",
     });
@@ -143,10 +140,11 @@ jQuery(function () {
 
     function swipe2(event, direction, distance, duration, fingerCount) {
         if (direction == "left") {
-            $(this).closest('.connected-carousels-photos,.navigation-photos,.connected-carousels-videos').find("a.jcarousel-control-next,a.photos-next-stage,a.photos-next-navigation,a.videos-next-stage,a.videos-next-navigation").click();
+            $(this).closest('.connected-carousels-photos .stage-photos,.navigation-photos,.navigation-videos').find("a.jcarousel-control-next,a.photos-next-stage,a.photos-next-navigation,a.videos-next-navigation").click();
         }
         else if (direction == "right") {
-            $(this).closest('.connected-carousels-photos,.navigation-photos,.connected-carousels-videos').find("a.jcarousel-control-prev,a.photos-prev-stage,a.photos-prev-navigation,a.videos-prev-stage,a.videos-prev-navigation").click();
+            $(this).closest('.connected-carousels-photos .stage-photos,.navigation-photos,.navigation-videos').find("a.jcarousel-control-prev,a.photos-prev-stage,a.photos-prev-navigation,a.videos-prev-navigation").click();
+
         }
     }
 
@@ -172,6 +170,17 @@ $("#bikeBannerImageCarousel .stage li").click(function () {
         $(".blackOut-window-model").show();
         $(".bike-gallery-popup").removeClass("hide").addClass("show");
         $(".modelgallery-close-btn").removeClass("hide").addClass("show");
+
+        $('.carousel-stage-photos')
+        .on('jcarousel:create jcarousel:reload', function () {
+            var element = $(this),
+                width = element.innerWidth();
+            element.jcarousel('items').css('width', width + 'px');
+        })
+        .jcarousel();
+        
+
+
     }
 });
 
