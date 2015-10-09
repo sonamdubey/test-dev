@@ -50,6 +50,7 @@ namespace Bikewale.PriceQuote
             }
             else
             {
+                PushBikeBookingFailure();
                 Response.Redirect("/pricequote/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
@@ -184,6 +185,30 @@ namespace Bikewale.PriceQuote
             {
                 HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary.aspx");
                 Trace.Warn("fail");
+            }
+        }
+
+        /// <summary>
+        /// created By : Sangram Nandkhile 8 Oct 2015
+        /// Function to to Push Payment Failure to AutoBiz
+        /// </summary>
+        private void PushBikeBookingFailure()
+        {
+            try
+            {
+                BookingRequest request = new BookingRequest();
+                request.BranchId = Convert.ToUInt32(PriceQuoteCookie.DealerId);
+                request.InquiryId = Convert.ToUInt32(PriceQuoteCookie.PQId);
+
+                // HTTP PUT Request
+                string _apiHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
+                string _requestType = "application/json";
+                string _apiUrl = String.Format("/webapi/booking/");
+                string response = Bikewale.Utility.BWHttpClient.PutSync<BookingRequest,string>(_apiHostUrl, _requestType, _apiUrl, request);
+            }
+            catch (Exception ex)
+            {
+                // throw Ex
             }
         }
     }
