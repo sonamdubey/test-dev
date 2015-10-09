@@ -105,7 +105,6 @@ function pqViewModel(modelId, cityId) {
     };
 
     self.termsConditions = function (entity) {
-        debugger;
         if (entity != null && entity.offerId != 0) {
             LoadTerms(entity.offerId);
         }
