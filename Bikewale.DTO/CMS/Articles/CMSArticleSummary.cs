@@ -22,5 +22,6 @@ namespace Bikewale.DTO.CMS.Articles
         public string OriginalImgUrl { get; set; }
 
         public string FormattedDisplayDate { get; set; }
+        public string ShareUrl { get; set; }
     }
 }

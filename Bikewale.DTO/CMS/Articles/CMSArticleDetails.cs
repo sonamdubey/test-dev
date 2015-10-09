@@ -20,5 +20,6 @@ namespace Bikewale.DTO.CMS.Articles
         public string AuthorMaskingName { get; set; }
 
         public HtmlContent htmlContent { get; set; }
+        public string ShareUrl { get; set; }
     }
 }
