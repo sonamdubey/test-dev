@@ -116,7 +116,11 @@
 /* offers popup */
 .termsPopUpContainer { width: 700px; height: 150px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; }
 .termsPopUpCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
-.offer-text { width:80%; padding-right:10px; }
+
+
+.viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
+.viewterms:hover{text-decoration:underline;}
+
 .bike-gallery-heading h3 { width:320px; margin:0 auto 10px; }
 
 /*image-videos tabs*/

@@ -319,9 +319,10 @@
                                          <!-- ko if : priceQuote().IsDealerPriceAvailable  -->
                                         <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers">
                                            <li>
-                                               <span class="offer-text inline-block" data-bind="text: offerText, style: { width: isOfferTerms == true ? '80%' : '100%' }," ></span>
-                                               <span data-bind="visible: isOfferTerms == true,  click: $root.termsConditions.bind(offerId)" class="city-edit-btn font10 margin-left10">View Terms</span>
-                                           </li><%--<a href="javascript:void(0)" data-bind=" click: $root.termsConditions.bind(offerId)" >View Terms</a>--%>
+                                               <span data-bind="text: offerText" >
+                                               </span>
+                                               <span class="viewterms" data-bind="visible: isOfferTerms == true,  click: $root.termsConditions.bind(offerId)" >View Terms</span>
+                                           </li>
                                             
                                         </ul>
                                         <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length == 0">
@@ -1064,6 +1065,7 @@
             });
         </script>
         <script type="text/javascript">
+
         $(document).ready(function (e) {
                 $('.bw-overall-rating a[href^="#"], a[href^="#"].review-count-box').click(function () {
                     $('.bw-overall-rating a').removeClass("active");

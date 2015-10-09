@@ -260,9 +260,9 @@
 	                        	<ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers">
 	                            <%--<li data-bind="text: offerText"></li>--%>
                                    <li>
-                                    <span class="offer-text inline-block" data-bind="text: offerText, style: { width: isOfferTerms == true ? '80%' : '100%' }," ></span>
-                                    <span data-bind="visible: isOfferTerms == true, click: $root.termsConditions.bind(offerId)" class="city-edit-btn font10 margin-left10">View Terms</span>
-                                  </li>
+                                    <span data-bind="text: offerText" ></span>
+                                    <span class="viewterms" data-bind="visible: isOfferTerms == true, click: $root.termsConditions.bind(offerId)" >View Terms</span>
+                                   </li>
 	                        </ul>
 	                        <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length == 0">
 	                            <li >No offers available</li>

@@ -27,7 +27,7 @@ var offerError = $(".offer-error");
 var bikePrice = $("#bike-price");
 var showroomPrice = $(".default-showroom-text");
 var temptotalPrice = $(bikePrice).text();
-var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+
 
 function pqViewModel(modelId, cityId) {
     var self = this;
@@ -105,6 +105,7 @@ function pqViewModel(modelId, cityId) {
     };
 
     self.termsConditions = function (entity) {
+        debugger;
         if (entity != null && entity.offerId != 0) {
             LoadTerms(entity.offerId);
         }
