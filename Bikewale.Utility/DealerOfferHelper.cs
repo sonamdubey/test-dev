@@ -12,7 +12,7 @@ namespace Bikewale.Utility
     {
         public static bool HasFreeInsurance(string dealerId, string modelId, string categoryName, UInt32 categoryValue, ref UInt32 insuranceValue)
         {
-            bool retVal = false;            
+            bool retVal = false;
             string[] dealers = null;
             NameValueCollection nvc = null;
             try
@@ -23,7 +23,7 @@ namespace Bikewale.Utility
                     dealers = nvc.AllKeys;
                 }
                 if (dealers.Contains(dealerId))
-                {                    
+                {
                     if (categoryName.ToUpper().Contains("INSURANCE"))
                     {
                         retVal = true;
@@ -43,6 +43,29 @@ namespace Bikewale.Utility
                 if (insuranceValue == 0)
                     insuranceValue = 0;
             }
+            return retVal;
+        }
+        public static bool HasBumperDealerOffer(string dealerId, string modelId)
+        {
+            bool retVal = false;
+            string[] dealers = null;
+            NameValueCollection nvc = null;
+            try
+            {
+                nvc = ConfigurationManager.GetSection("BumperDealerOffer") as NameValueCollection;
+                if (nvc != null && nvc.HasKeys())
+                {
+                    dealers = nvc.AllKeys;
+                }
+                if (dealers!=null && dealers.Contains(dealerId))
+                {
+                    retVal = true;
+                }
+            }
+            catch (Exception)
+            {
+
+            }            
             return retVal;
         }
     }
