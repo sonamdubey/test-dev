@@ -450,7 +450,7 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandText = "SaveRSAOfferClaim";
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.Add("@BookingNum", SqlDbType.VarChar, 10).Value = objOffer.BookingNum;
+                    cmd.Parameters.Add("@BookingNum", SqlDbType.VarChar, 20).Value = objOffer.BookingNum;
                     cmd.Parameters.Add("@CustomerName", SqlDbType.VarChar, 100).Value = objOffer.CustomerName;
                     cmd.Parameters.Add("@CustomerMobile", SqlDbType.VarChar, 50).Value = objOffer.CustomerMobile;
                     cmd.Parameters.Add("@CustomerEmail", SqlDbType.VarChar, 50).Value = objOffer.CustomerEmail;
