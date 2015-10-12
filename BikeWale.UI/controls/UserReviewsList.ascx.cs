@@ -17,7 +17,6 @@ namespace Bikewale.Controls
     public class UserReviewsList : System.Web.UI.UserControl
     {
         protected Repeater rptUserReview;
-
         public int ModelId { get; set; }
 
         private int _reviewCount = 4;

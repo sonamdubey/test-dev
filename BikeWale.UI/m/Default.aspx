@@ -464,11 +464,32 @@
         <BW:CompareBike ID="ctrlCompareBikes" runat="server"/>
     </section><!-- Compare code Ends here -->    
     
- <% 
-            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-    %>
+    <%
+        if (ctrlNews.FetchedRecordsCount > 0)
+        {
+            reviewTabsCnt++;
+            isNewsZero = false;
+            isNewsActive = true;
+        }
+        if (ctrlExpertReviews.FetchedRecordsCount > 0)
+        {
+            reviewTabsCnt++;
+            isExpertReviewZero = false;
+            if (!isNewsActive)
+            {
+                isExpertReviewActive = true;
+            }
+        }
+        if (ctrlVideos.FetchedRecordsCount > 0)
+        {
+            reviewTabsCnt++;
+            isVideoZero = false;
+            if (!isExpertReviewActive && !isNewsActive)
+            {
+                isVideoActive = true;
+            }
+        }
+         %>
     <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
             <!--  News, reviews and videos code starts here -->
             <div class="container">
@@ -478,16 +499,16 @@
                         <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
                             <div class="form-control-box">
                                 <select class="form-control">
-                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlNews">News</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlExpertReviews">Expert Reviews</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
+                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option>
                                    
                                 </select>
                             </div>
-                        </div>
-                        <BW:News runat="server" ID="ctrlNews" />
-                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        </div>                        
+                        <%if (!isNewsZero) { %>         <BW:News runat="server" ID="ctrlNews" />    <% } %>
+                        <%if (!isExpertReviewZero) { %> <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />  <% } %>                         
+                        <%if (!isVideoZero) { %>        <BW:Videos runat="server" ID="ctrlVideos" />    <% } %>
                        
                     </div>
                 </div>
@@ -506,10 +527,13 @@
 <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 <!-- all other js plugins -->    
 <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/home.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
- <script type="text/javascript">
-        ga_pg_id = '1';
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/home.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
+    <script type="text/javascript">
+         ga_pg_id = '1';
+         if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+         if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
+         if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
     </script>
 </form>
 </body>

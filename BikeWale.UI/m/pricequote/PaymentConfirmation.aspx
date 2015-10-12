@@ -17,6 +17,7 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->        
+                <div class="f-bold"><%= IsInsuranceFree ? "BikeWale Offer" : "Exclusive Offers on Online Booking"%></div>
         
     <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix"><!--  Discover bikes section code starts here -->
         <div class="grid-12">

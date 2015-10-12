@@ -17,7 +17,7 @@ namespace Bikewale.Controls
     public class News_new : System.Web.UI.UserControl
     {
         protected Repeater rptNews;
-
+        
         public int TotalRecords { get; set; }
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
