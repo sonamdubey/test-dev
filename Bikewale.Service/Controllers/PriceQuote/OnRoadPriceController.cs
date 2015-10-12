@@ -80,6 +80,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     if (objPQ != null && objPQ.PQId > 0)
                     {
                         bpqOutput = _objPriceQuote.GetPriceQuoteById(objPQ.PQId);
+                        bpqOutput.Varients = _objPriceQuote.GetOtherVersionsPrices(objPQ.PQId);
                         if (bpqOutput != null)
                         {
                             bwPriceQuote = PQBikePriceQuoteOutputMapper.Convert(bpqOutput);

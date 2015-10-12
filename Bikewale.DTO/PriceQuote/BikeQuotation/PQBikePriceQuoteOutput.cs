@@ -37,5 +37,7 @@ namespace Bikewale.DTO.PriceQuote.BikeQuotation
         public string Area { get; set; }
         [JsonProperty("versionId")]
         public uint VersionId { get; set; }
+        [JsonProperty("varients")]
+        public IEnumerable<OtherVersionInfoDTO> Varients { get; set; }
     }
 }
