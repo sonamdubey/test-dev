@@ -181,7 +181,7 @@
 	
 	<% if ( IsPostBack ) 
 	{ %>
-		qryStrMake = '<%=cmbMake.SelectedValue%>' ;
+      qryStrMake = '<%=cmbMake.SelectedValue%>';
 		qryStrModel = '<%=Request.Form["cmbModel"]%>';
 		qryStrCity = '<%=drpCity.SelectedValue%>'
 	<%}%>
@@ -192,6 +192,7 @@
 	}
 	for ( var i = 0; i < model.options.length; i++ )
 	{
+	    alert(qryStrModel + " " + model.options.length);
 		if ( model.options[ i ].value == qryStrModel ) model.options[ i ].selected = true;
 	}
 	
@@ -199,7 +200,6 @@
 	{
 		if ( city.options[ i ].value == qryStrCity ) city.options[ i ].selected = true;
 	}
-	
 	
 	function checkFind( e )
 	{

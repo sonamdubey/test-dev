@@ -325,10 +325,7 @@
                     type: "GET",
                     url: host + "/api/Dealers/DeleteDealerOffer/?offerId=" + offerId,
                     success: function (response) {
-                        if (response)
                             window.location.href = window.location.href;
-                        else
-                            alert("some error occured while deleting offers.");
                     }
                 });
             }
