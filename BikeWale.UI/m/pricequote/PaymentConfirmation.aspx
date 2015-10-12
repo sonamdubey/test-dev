@@ -17,6 +17,7 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->        
+                <div class="f-bold"><%= IsInsuranceFree ? "BikeWale Offer" : "Exclusive Offers on Online Booking"%></div>
         
     <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix"><!--  Discover bikes section code starts here -->
         <div class="grid-12">
@@ -65,64 +66,69 @@
    		</div>
    	</section>
     
-    <div class="container bg-white clearfix padding-top10 margin-top20 box-shadow">
-    	<div class="grid-12">
-            <div class="confirmation-info text-center">
-                <h1 class="text-black">Congratulations on your booking!</h1>
-                <p class="font16 padding-top25 padding-bottom10 text-bold">We have received your payment of </p>
-                <p class="font30 text-bold border-solid-bottom padding-bottom10"><span class="fa fa-rupee margin-right5"></span> <%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></p>
+        <div class="container bg-white clearfix padding-top10 margin-top20 box-shadow">
+            <div class="grid-12">
+                <div class="confirmation-info text-center">
+                    
+                    <h1 class="text-black"><span class="inline-block booking-sprite booking-success-icon margin-right10"></span>Congratulations on your booking!</h1>
+                    <p class="font16 padding-top25 padding-bottom10 text-bold">We have received your payment of </p>
+                    <p class="font30 text-bold border-solid-bottom padding-bottom10"><span class="fa fa-rupee margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></p>
+                </div>
+                <h2 class="padding-top15 padding-bottom20 text-center">Booking details</h2>
+                <p class="font14 ">Booking ID: <span class="font18 text-bold"><%= bookingRefNum %></span></p>
+
+                <div class="font14 padding-top20">
+                    <p>Assigned dealership: </p>
+                    <p class="text-bold"><%= organization %></p>
+                </div>
+                <div class="font14 padding-top20 padding-bottom20">
+                    <p>Selected bike:</p>
+                    <p class="text-bold"><%= bikeName %></p>
+                </div>
+                <% if (objCustomer.objColor != null && !String.IsNullOrEmpty(objCustomer.objColor.ColorName))
+                   { %>
+                <div class="font14 padding-bottom20">
+                    <p>Selected colour: </p>
+                    <p class="text-bold"><%= objCustomer.objColor.ColorName %></p>
+                </div>
+                <%} %>
+
+                <p class="font16 text-bold padding-top20 border-solid-top">Personal information</p>
+                <div class="font14 padding-top20">
+                    <p>Name: </p>
+                    <p class="text-bold"><%= objCustomer.objCustomerBase.CustomerName %></p>
+                </div>
+                <div class="font14 padding-top20">
+                    <p>Email ID: </p>
+                    <p class="text-bold"><%= objCustomer.objCustomerBase.CustomerEmail %></p>
+                </div>
+                <div class="font14 padding-top20 border-solid-bottom padding-bottom20">
+                    <p>Mobile no: </p>
+                    <p class="text-bold"><%= objCustomer.objCustomerBase.CustomerMobile %></p>
+                </div>
+
+
+
+                <p class="font16 text-bold padding-top20">Availed offers</p>
+                <ul class="confirmation-offers">
+                    <asp:Repeater ID="rptOffers" runat="server">
+                        <ItemTemplate>
+                            <% if (IsInsuranceFree)
+                               {%>
+                            <li class="font14 padding-bottom10">Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
+                            <%
+                           }
+                               else
+                               {%>
+                            <li class="font14 padding-bottom10"><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                            <% 
+                           }
+                            %>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </ul>
             </div>
-            <h2 class="padding-top15 padding-bottom20 text-center">Booking details</h2>
-            <p class="font14">Booking ID: <span class="font18"><%= bookingRefNum %></span></p>
-            
-            <div class="font14 padding-top20">
-                <p>Assigned dealership: </p>
-                <p class="text-bold"><%= organization %></p>
-			</div>
-            <div class="font14 padding-top20">
-                <p>Selected bike:</p>
-                <p class="text-bold"><%= bikeName %></p>
-			</div>
-            <div class="font14 padding-top20 border-solid-bottom padding-bottom20">
-                <p>Selected colour: </p>
-                <p class="text-bold"><%= objCustomer.objColor.ColorName %></p>
-			</div>
-            <p class="font16 text-bold padding-top20">Personal information</p>
-            <div class="font14 padding-top20">
-                <p>Name: </p>
-                <p class="text-bold"><%= objCustomer.objCustomerBase.CustomerName %></p>
-			</div>
-            <div class="font14 padding-top20">
-                <p>Email ID: </p>
-                <p class="text-bold"><%= objCustomer.objCustomerBase.CustomerEmail %></p>
-			</div>
-            <div class="font14 padding-top20 border-solid-bottom padding-bottom20">
-                <p>Mobile no: </p>
-                <p class="text-bold"><%= objCustomer.objCustomerBase.CustomerMobile %></p>
-			</div>
-            
-            
-            
-            <p class="font16 text-bold padding-top20">Availed offers</p>
-            <ul class="confirmation-offers">
-                <asp:Repeater ID="rptOffers" runat="server">
-                    <ItemTemplate>
-                        <% if (IsInsuranceFree)
-                           {%>
-                        <li class="font14 padding-bottom10">Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
-                        <%
-                                           }
-                           else
-                           {%>
-                        <li class="font14 padding-bottom10"><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
-                        <% 
-                                           }
-                        %>
-                    </ItemTemplate>
-                </asp:Repeater>
-            </ul>
-    	</div>
-    </div>
+        </div>
     
     
     	<div class="grid-12">

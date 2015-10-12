@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.ExpertReviews" %>
-<div class="bw-tabs-data hide" id="ctrlExpertReviews"><!-- Reviews data code starts here-->
+<div class="bw-tabs-data" id="ctrlExpertReviews"><!-- Reviews data code starts here-->
     <asp:Repeater ID="rptExpertReviews" runat="server">
         <ItemTemplate>
             <div class="padding-bottom30">

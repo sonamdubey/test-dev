@@ -34,6 +34,10 @@ namespace Bikewale.New
         protected Int64 _minModelPrice;
         protected Int64 _maxModelPrice;
         protected short reviewTabsCnt = 0;
+        //Variable to Assing ACTIVE .css class
+        protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
+        //Varible to Hide or show controlers
+        protected bool isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
         protected override void OnInit(EventArgs e)
         {
