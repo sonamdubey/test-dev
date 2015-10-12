@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.PriceQuote.PaymentConfirmation" Trace="false" %>
+
 <!Doctype html>
 <html>
 <head>
@@ -8,9 +9,12 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-<style>
-    .map-box {width:290px;height:90px;}
-</style>
+    <style>
+        .map-box {
+            width: 290px;
+            height: 90px;
+        }
+    </style>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -25,7 +29,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-   	
+
         <section class="bg-light-grey padding-top10">
             <div class="container">
                 <div class="grid-12">
@@ -37,153 +41,158 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="booking-success-heading font30 text-black margin-top10 margin-bottom10">Congratulations on your booking!</h1> 
+                    <h1 class="booking-success-heading font30 text-black margin-top10 margin-bottom10">Congratulations on your booking!</h1>
                     <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-    
-	    <section class="container">
-        <div class="grid-12">
-            <div class="content-box-shadow">
-                <div class="booking-success-alert-container">
-                    <div class="booking-success-alert">
-                        <p class="text-bold">
-                            <span class="inline-block booking-sprite booking-success-icon margin-right10"></span>
-                            <span class="inline-block font18">We have received your payment of
-                                <span class="fa fa-rupee margin-left5"></span>
-                                <span class="font20"><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></span>
-                            </span>
-                        </p>
-                    </div>
-                </div>
-                                                                                                                                                                               
-            	<div class="grid-4 content-inner-block-10 inline-block margin-top10 margin-bottom10">
-                	<div class="imageWrapper margin-top10">
-                    	<img src="<%= Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath,_objPQ.objQuotation.HostUrl,Bikewale.Utility.ImageSize._310x174) %>"  alt="<%= bikeName %>" title="<%= bikeName %>">
-                    </div>
-                </div>
-                <div class="grid-4 content-inner-block-10 inline-block margin-top10 margin-bottom10">
-                	<h3 class="margin-bottom15"><%= bikeName%></h3>
-                	<div class="font14">
-                    	<table>
-                        	<tbody>
-                            	<tr>
-                                	<td width="200" class="padding-bottom10">On road price:</td>
-                                    <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span> <%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(totalPrice)) %></td>
-                                </tr>
-                                <tr>
-                                	<td>Advance booking:</td>
-                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span> <%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></td>
-                                </tr>
-                                 <% if (IsInsuranceFree)
-                                           {%>
-                                <tr>
-                                    <td>Free Insurance Amount:</td>
-                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span> <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %></td>
-                                </tr>
-                                        <%}%>
-                                <tr>
-                                	<td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
-                                </tr>
-                                <tr>
-                                	<td colspan="2"><div class="border-solid-top padding-bottom10"></div></td>
-                                </tr>
-                                <tr>
-                                	<td>Balance amount:</td>
-                                    <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalPrice - _objPQ.objBookingAmt.Amount - insuranceAmount)) %></td>
-                                </tr>
-                                <tr>
-                                	<td class="font12" colspan="2">*Balance amount payable at the dealership</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="grid-4 content-inner-block-10 inline-block border-solid-left margin-top10 margin-bottom10">
-                    <!--  Dealer details starts here -->
-                	<div class="booking-dealer-details ">
-                        <h3 class="font18 margin-bottom15"><%= organization %></h3>
-                        <p class="font14 text-light-grey margin-bottom10"><%= address %></p>
-                        <p class="font14 margin-bottom10"><span class="fa fa-phone margin-right5"></span><%=contactNo %></p>
-                        <div id="divMap" class="hide margin-top10 border-solid"></div>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-   		</div>
-   	</section>
-  
 
-    <section>
-    	<div class="container">
-        	<div class="grid-12 booking-details-section">
-            	<h2 class="text-bold text-center margin-top50 margin-bottom20">Booking details</h2>
-                <div class="content-box-shadow content-inner-block-20">
-                	<div class="grid-6 booking-info-container border-solid-right">
-                    	<div class="booked-bike-info border-solid-bottom padding-bottom10 padding-top10">
-                            <p class="font14 margin-bottom10">Booking ID:<span class="font18 margin-left5 text-bold"><%= bookingRefNum %></span></p>
-                            <p class="font14 margin-bottom5">Assigned dealership:<span class="margin-left5 text-bold"><%= organization %></span></p>
-                            <p class="font14 margin-bottom5">Selected bike:<span class="margin-left5 text-bold"><%= bikeName %></span></p>
-                            <p class="font14 margin-bottom5">Selected colour:<span class="margin-left5 text-bold"><%= objCustomer.objColor.ColorName %></span></p>
-                        </div>
-                        <div class="booked-used-info padding-top10 padding-bottom10">
-                        	<p class="font16 margin-bottom10 text-bold">Personal information</p>
-                            <p class="font14 margin-bottom5">Name:<span class="margin-left5 text-bold"><%= objCustomer.objCustomerBase.CustomerName %></span></p>
-                            <p class="font14 margin-bottom5">Email ID:<span class="margin-left5 text-bold"><%= objCustomer.objCustomerBase.CustomerEmail %></span></p>
-                            <p class="font14 margin-bottom5">Mobile no:<span class="margin-left5 text-bold"><%= objCustomer.objCustomerBase.CustomerMobile %></span></p>
+        <section class="container">
+            <div class="grid-12">
+                <div class="content-box-shadow">
+                    <div class="booking-success-alert-container">
+                        <div class="booking-success-alert">
+                            <p class="text-bold">
+                                <span class="inline-block booking-sprite booking-success-icon margin-right10"></span>
+                                <span class="inline-block font18">We have received your payment of
+                                <span class="fa fa-rupee margin-left5"></span>
+                                    <span class="font20"><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></span>
+                                </span>
+                            </p>
                         </div>
                     </div>
-                    <div class="grid-6 availed-offers-container">
-                        <!-- offers container -->
-                    	<div class="availed-offers-info margin-left10 padding-top10 padding-bottom10">
-                        	<p class="font16 margin-bottom10 text-bold">
-                                Availed exclusive Bikewale offers  
-                        	</p>
-                            <ul>
-                                <asp:Repeater ID="rptOffers" runat="server">
-                                    <ItemTemplate>
-                                        <% if (IsInsuranceFree)
-                                           {%>
-                                        <li>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
-                                        <%
-                                           }
-                                           else
-                                           {%>
-                                        <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
-                                        <% 
-                                                    }
-                                        %>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                            </ul>
+
+                    <div class="grid-4 content-inner-block-10 inline-block margin-top10 margin-bottom10">
+                        <div class="imageWrapper margin-top10">
+                            <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath,_objPQ.objQuotation.HostUrl,Bikewale.Utility.ImageSize._310x174) %>" alt="<%= bikeName %>" title="<%= bikeName %>">
+                        </div>
+                    </div>
+                    <div class="grid-4 content-inner-block-10 inline-block margin-top10 margin-bottom10">
+                        <h3 class="margin-bottom15"><%= bikeName%></h3>
+                        <div class="font14">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td width="200" class="padding-bottom10">On road price:</td>
+                                        <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(totalPrice)) %></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Advance booking:</td>
+                                        <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></td>
+                                    </tr>
+                                    <% if (IsInsuranceFree)
+                                       {%>
+                                    <tr>
+                                        <td>Free Insurance Amount:</td>
+                                        <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %></td>
+                                    </tr>
+                                    <%}%>
+                                    <tr>
+                                        <td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="border-solid-top padding-bottom10"></div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Balance amount:</td>
+                                        <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalPrice - _objPQ.objBookingAmt.Amount - insuranceAmount)) %></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font12" colspan="2">*Balance amount payable at the dealership</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="grid-4 content-inner-block-10 inline-block border-solid-left margin-top10 margin-bottom10">
+                        <!--  Dealer details starts here -->
+                        <div class="booking-dealer-details ">
+                            <h3 class="font18 margin-bottom15"><%= organization %></h3>
+                            <p class="font14 text-light-grey margin-bottom10"><%= address %></p>
+                            <p class="font14 margin-bottom10"><span class="fa fa-phone margin-right5"></span><%=contactNo %></p>
+                            <div id="divMap" class="hide margin-top10 border-solid"></div>
                         </div>
                     </div>
                     <div class="clear"></div>
                 </div>
             </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-     
-    <section>
-    	<div class="container margin-bottom20">
-        	<div class="grid-12 alternative-section">
-            	<h2 class="text-bold text-center margin-top50 margin-bottom20">What next!</h2>
-        		<div class="content-box-shadow content-inner-block-20">
-                	<div class="next-step-box">
-                    	<img src="/images/next-steps-thumb.jpg" usemap="#nextSteps">
-                        <map name="nextSteps">
-                          <area shape="rect" id="required-document" coords="424,23,587,72" href="#" >
-                        </map>
+        </section>
+
+
+        <section>
+            <div class="container">
+                <div class="grid-12 booking-details-section">
+                    <h2 class="text-bold text-center margin-top50 margin-bottom20">Booking details</h2>
+                    <div class="content-box-shadow content-inner-block-20">
+                        <div class="grid-6 booking-info-container border-solid-right">
+                            <div class="booked-bike-info border-solid-bottom padding-bottom10 padding-top10">
+                                <p class="font14 margin-bottom10">Booking ID:<span class="font18 margin-left5 text-bold"><%= bookingRefNum %></span></p>
+                                <p class="font14 margin-bottom5">Assigned dealership:<span class="margin-left5 text-bold"><%= organization %></span></p>
+                                <p class="font14 margin-bottom5">Selected bike:<span class="margin-left5 text-bold"><%= bikeName %></span></p>
+                                <% if (objCustomer.objColor != null && !String.IsNullOrEmpty(objCustomer.objColor.ColorName))
+                                   { %>
+                                <p class="font14 margin-bottom5">Selected colour:<span class="margin-left5 text-bold"><%= objCustomer.objColor.ColorName %></span></p>
+                                <%} %>
+                            </div>
+                            <div class="booked-used-info padding-top10 padding-bottom10">
+                                <p class="font16 margin-bottom10 text-bold">Personal information</p>
+                                <p class="font14 margin-bottom5">Name:<span class="margin-left5 text-bold"><%= objCustomer.objCustomerBase.CustomerName %></span></p>
+                                <p class="font14 margin-bottom5">Email ID:<span class="margin-left5 text-bold"><%= objCustomer.objCustomerBase.CustomerEmail %></span></p>
+                                <p class="font14 margin-bottom5">Mobile no:<span class="margin-left5 text-bold"><%= objCustomer.objCustomerBase.CustomerMobile %></span></p>
+                            </div>
+                        </div>
+                        <div class="grid-6 availed-offers-container">
+                            <!-- offers container -->
+                            <div class="availed-offers-info margin-left10 padding-top10 padding-bottom10">
+                                <p class="font16 margin-bottom10 text-bold">
+                                    Availed exclusive Bikewale offers  
+                                </p>
+                                <ul>
+                                    <asp:Repeater ID="rptOffers" runat="server">
+                                        <ItemTemplate>
+                                            <% if (IsInsuranceFree)
+                                               {%>
+                                            <li>Free Insurance for 1 year worth Rs. <%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %>  at the dealership</li>
+                                            <%
+                                           }
+                                               else
+                                               {%>
+                                            <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                                            <% 
+                                           }
+                                            %>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
                     </div>
                 </div>
+                <div class="clear"></div>
             </div>
-            <div class="clear"></div>
-		</div>
-    </section>
-    <div class="clear"></div>
+        </section>
+
+        <section>
+            <div class="container margin-bottom20">
+                <div class="grid-12 alternative-section">
+                    <h2 class="text-bold text-center margin-top50 margin-bottom20">What next!</h2>
+                    <div class="content-box-shadow content-inner-block-20">
+                        <div class="next-step-box">
+                            <img src="/images/next-steps-thumb.jpg" usemap="#nextSteps">
+                            <map name="nextSteps">
+                                <area shape="rect" id="required-document" coords="424,23,587,72" href="#">
+                            </map>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <div class="clear"></div>
 
         <!--cancellation popup starts here-->
         <div class="bw-popup bw-popup-lg hide cancellation-popup">
@@ -208,7 +217,7 @@
             </div>
         </div>
         <!--cancellation popup ends here-->
-        
+
         <!--required documents popup ends here-->
         <div class="bw-popup bw-popup-lg hide required-doc">
             <div class="popup-inner-container">
@@ -262,7 +271,7 @@
             </div>
         </div>
         <!--required documents popup ends here-->
-        
+
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
@@ -333,11 +342,11 @@
                     $(".cancellation-popup").hide();
                     $('.required-doc').hide();
                 });
-                
+
             });
         </script>
     </form>
-    
+
 </body>
 </html>
 
