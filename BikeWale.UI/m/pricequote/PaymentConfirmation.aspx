@@ -29,7 +29,7 @@
             	<img src="<%= Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath,_objPQ.objQuotation.HostUrl,Bikewale.Utility.ImageSize._640x348) %>" alt="" title="" border="0" />
             </div>
             <div class="offer-div margin-top-10">
-                <div class="f-bold"><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Exclusive Offers on Online Booking"%></div>
+                <div class="f-bold"><%= IsInsuranceFree ? "BikeWale Offer" : "Exclusive Offers on Online Booking"%></div>
                 <asp:Repeater ID="rptOffers" runat="server">
                     <HeaderTemplate>
                             <ul>                                        

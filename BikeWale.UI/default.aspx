@@ -466,9 +466,30 @@
   
     <!-- Ends here -->
      <% 
-            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+         if (ctrlNews.FetchedRecordsCount > 0)
+         {
+             reviewTabsCnt++;
+             isNewsZero = false;
+             isNewsActive = true;
+         }
+         if (ctrlExpertReviews.FetchedRecordsCount > 0)
+         {
+             reviewTabsCnt++;
+             isExpertReviewZero = false;
+             if (!isNewsActive)
+             {
+                 isExpertReviewActive = true;
+             }
+         }
+         if (ctrlVideos.FetchedRecordsCount > 0)
+         {
+             reviewTabsCnt++;
+             isVideoZero = false;
+             if (!isExpertReviewActive && !isNewsActive)
+             {
+                 isVideoActive = true;
+             }
+         }
         %>
         <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
             <!--  News Bikes latest updates code starts here -->
@@ -479,15 +500,15 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
-                                    <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                   
-                                    <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                   
+                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
                                 </ul>
                             </div>
                         </div>
-                        <BW:News runat="server" ID="ctrlNews" />
-                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />                         
-                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        <%if (!isNewsZero) { %>         <BW:News runat="server" ID="ctrlNews" />    <% } %>
+                        <%if (!isExpertReviewZero) { %> <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />  <% } %>                         
+                        <%if (!isVideoZero) { %>        <BW:Videos runat="server" ID="ctrlVideos" />    <% } %>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -521,7 +542,9 @@
                 });
             }
         }
-
+        if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+        if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
+        if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
     </script>
 </form>
 </body>

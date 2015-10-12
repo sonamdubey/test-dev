@@ -132,7 +132,7 @@
                         	<%--<p><strong>Color: <%= objCustomer.objColor.ColorName %></strong></p>--%>
                                 
                                 <div class="bw-offer-box margin-top10">
-                                    <h2><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Exclusive Offers for BikeWale Customers"%></h2>
+                                    <h2><%= IsInsuranceFree ? "BikeWale Offer" : "Exclusive Offers for BikeWale Customers"%></h2>
                                     <div class="margin-top5">
                                         <asp:Repeater ID="rptOffers" runat="server">
                                             <HeaderTemplate>

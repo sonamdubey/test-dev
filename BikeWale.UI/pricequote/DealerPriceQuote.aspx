@@ -318,7 +318,7 @@
                 <%if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
                   { %>
                 <div id="divOffers" style="background:#fff;">                    
-                    <h2><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Get Absolutely Free"%></h2>
+                    <h2><%= IsInsuranceFree ? "BikeWale Offer" : "Get Absolutely Free"%></h2>
                     <div class="margin-top5 margin-left5 font14">
                           <asp:Repeater ID="rptOffers" runat="server">
                                 <HeaderTemplate>

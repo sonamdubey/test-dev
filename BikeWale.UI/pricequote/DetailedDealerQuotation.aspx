@@ -188,7 +188,7 @@
             <%if (_objPQ.objOffers != null && _objPQ.objOffers.Count > 0)
               { %>
             <div class="bw-offer-box" id="divOffers">
-                <h2><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Exclusive Offers for BikeWale Customers"%></h2>
+                <h2><%= IsInsuranceFree ? "BikeWale Offer" : "Exclusive Offers for BikeWale Customers"%></h2>
                 <%
                   if (!IsInsuranceFree)
                   { 
