@@ -72,6 +72,7 @@ namespace Bikewale.BikeBooking
                         HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/dealerPricequote.aspx",false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
+                        return;
                     }
                     bikeName = String.Format("{0} {1}", objBooking.DealerQuotation.objQuotation.objMake.MakeName, objBooking.DealerQuotation.objQuotation.objModel.ModelName);
                     getCustomerDetails();
