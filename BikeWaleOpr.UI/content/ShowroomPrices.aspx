@@ -190,7 +190,6 @@
 	{
 		if ( make.options[ i ].value == qryStrMake ) make.options[ i ].selected = true;
 	}
-	cmbMake_OnChange();
 	for ( var i = 0; i < model.options.length; i++ )
 	{
 		if ( model.options[ i ].value == qryStrModel ) model.options[ i ].selected = true;

@@ -61,7 +61,7 @@ namespace Bikewale.Mobile.PriceQuote
                 {
                     if (objBooking.DealerQuotation.objBookingAmt == null || (objBooking.DealerQuotation.objBookingAmt != null && objBooking.DealerQuotation.objBookingAmt.Amount == 0))
                     {
-                        HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/dealerPricequote.aspx", true);
+                        HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/detaileddealerquotation.aspx", true);
                     }
                     bikeName = String.Format("{0} {1}", objBooking.DealerQuotation.objQuotation.objMake.MakeName, objBooking.DealerQuotation.objQuotation.objModel.ModelName);
                     getCustomerDetails();
