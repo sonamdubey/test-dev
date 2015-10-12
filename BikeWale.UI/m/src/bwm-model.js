@@ -430,7 +430,7 @@ function fetchPriceQuote(vm) {
                     vm.DealerPriceList(pq.dealerPriceQuote.priceList);
                     $.each(pq.bwPriceQuote.varients, function () {
                         $("#price_" + this.versionId.toString()).text(this.onRoadPrice ? formatPrice(this.onRoadPrice) : "NA");
-                        $("#locprice_" + this.versionId.toString()).text("Ex-showroom, " + cityName);
+                        $("#locprice_" + this.versionId.toString()).text("On-road price, " + cityName);
                     });
                     $.each(pq.dealerPriceQuote.varients, function () {
                         $("#price_" + this.version.versionId.toString()).text(this.onRoadPrice ? formatPrice((this.onRoadPrice - pq.insuranceAmount)) : "NA");
@@ -441,7 +441,7 @@ function fetchPriceQuote(vm) {
                     vm.BWPriceList(pq.bwPriceQuote);
                     $.each(pq.bwPriceQuote.varients, function () {
                         $("#price_" + this.versionId.toString()).text(this.onRoadPrice ? formatPrice(this.onRoadPrice) : "NA");
-                        $("#locprice_" + this.versionId.toString()).text("Ex-showroom, " + cityName);
+                        $("#locprice_" + this.versionId.toString()).text("On-road price, " + cityName);
                     });
             }
                 if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
