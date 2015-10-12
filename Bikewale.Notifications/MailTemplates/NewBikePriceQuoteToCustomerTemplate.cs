@@ -167,7 +167,7 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append("<div><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/buy-your-bike.png\" border=\"0\"></div><div style=\"font-size:12px; font-weight:bold; color:#333;margin:15px 0 26px;\">Buy your Bike!</div>");
                 sb.Append("<div style=\"color:#666666; text-align:left;\">Dealer will help you in RTO formalities. Ride out from the dealership on your newly purchased " + BikeName + ".</div>");
                 sb.Append("</div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></div></div>");
-                sb.Append("<div style=\"margin-bottom:15px;\">We wish you a great buying experience!</div><div style=\"margin-bottom:15px;\">Please feel free to call us at 022-67398888 for any help required in the process.</div>");
+                sb.Append("<div style=\"margin-bottom:15px;\">We wish you a great buying experience!</div><div style=\"margin-bottom:15px;\">Please feel free to call us at 1800 120 8300 for any help required in the process.</div>");
                 sb.Append("<div style=\"margin-bottom:2px;\">Best Regards</div><div>Team BikeWale</div></div></div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bottom-shadow.png) center center no-repeat; height:6px;\"></div>");
             }
             catch (Exception ex)
