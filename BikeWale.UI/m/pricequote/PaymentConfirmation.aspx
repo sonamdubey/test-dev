@@ -69,7 +69,8 @@
         <div class="container bg-white clearfix padding-top10 margin-top20 box-shadow">
             <div class="grid-12">
                 <div class="confirmation-info text-center">
-                    <h1 class="text-black">Congratulations on your booking!</h1>
+                    
+                    <h1 class="text-black"><span class="inline-block booking-sprite booking-success-icon margin-right10"></span>Congratulations on your booking!</h1>
                     <p class="font16 padding-top25 padding-bottom10 text-bold">We have received your payment of </p>
                     <p class="font30 text-bold border-solid-bottom padding-bottom10"><span class="fa fa-rupee margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></p>
                 </div>

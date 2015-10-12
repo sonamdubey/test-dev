@@ -18,6 +18,7 @@
             <div class="main-container">
         <!-- Header code starts here--> 
             <header>
+
     	        <div class="header-fixed"> <!-- Fixed Header code starts here -->
         	        <a href="/m/" class="bwmsprite bw-logo bw-lg-fixed-position" style="left:10px;"></a>
                 </div> <!-- ends here -->
@@ -27,7 +28,7 @@
         <section class="container clearfix">
             <div class="grid-12 padding-top10 padding-bottom10">
                 <div class="fail-msg content-inner-block-10 content-box-shadow position-rel">
-                    <p class="position-rel"><span class="fail-icon margin-right10 position-abt"></span><span class="font16 text-bold padding-left45">Oops... We could not complete your transaction</span></p>
+                    <p class="position-rel"><span class="fail-icon margin-right10 position-abt"></span><span class="font16 text-bold padding-left45"><span class="inline-block booking-sprite booking-fail-icon margin-right10"></span> Oops... We could not complete your transaction</span></p>
                 </div>
 
                 <div class="content-inner-block-10 content-box-shadow">
