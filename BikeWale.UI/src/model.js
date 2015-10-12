@@ -402,7 +402,7 @@ $(document).ready(function () {
         
     });
 
-    $("#ctrlNews").addClass("hide");
+   
 
     $(".more-features-btn").click(function () {
         $(".more-features").slideToggle();
