@@ -121,6 +121,10 @@ namespace Bikewale.New
         protected String cityId = String.Empty;
         protected AlternativeBikes ctrlAlternativeBikes;
         protected short reviewTabsCnt = 0;
+        //Variable to Assing ACTIVE class
+        protected bool isUserReviewActive = false, isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
+        //Varible to Hide or show controlers
+        protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
         protected override void OnInit(EventArgs e)
         {
@@ -154,7 +158,6 @@ namespace Bikewale.New
 
             ctrlExpertReviews.TotalRecords = 3;
             ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
-
             ctrlVideos.TotalRecords = 3;
             ctrlVideos.ModelId = Convert.ToInt32(modelId);
 
@@ -162,7 +165,7 @@ namespace Bikewale.New
             ctrlUserReviews.PageNo = 1;
             ctrlUserReviews.PageSize = 4;
             ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
-        }
+        }       
 
         private void BindAlternativeBikeControl()
         {
