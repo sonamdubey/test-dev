@@ -11,6 +11,10 @@ namespace Bikewale.DTO.PriceQuote.DealerPriceQuote
     /// Dealer price quote output entity
     /// Author  :   Sumit Kate
     /// Date    :   21 Aug 2015
+    /// 
+    /// Modified By : Sumit Kate
+    /// Date        : 08 Oct 2015
+    /// Description : Added PQ_BikeVarient List to send the quotation for other available varients
     /// </summary>
     public class DPQuotationOutput
     {
@@ -30,5 +34,8 @@ namespace Bikewale.DTO.PriceQuote.DealerPriceQuote
         public string HostUrl { get; set; }
         [JsonProperty("imagePath")]
         public string OriginalImagePath { get; set; }
+        [JsonProperty("varients")]
+        public IEnumerable<DPQ_BikeVarient> Varients { get; set; }
+
     }
 }

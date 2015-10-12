@@ -22,5 +22,6 @@ namespace Bikewale.Entities.PriceQuote
         public string Area { get; set; }
 
         public uint VersionId { get; set; }
+        public IEnumerable<OtherVersionInfoEntity> Varients { get; set; }
     }
 }

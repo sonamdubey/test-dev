@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeBooking
 {
+    /// <summary>
+    /// PQ Quotation Entity
+    /// Modified By     : Sumit Kate
+    /// Modified Date   : 08 Oct 2015
+    /// Description     : Added PQ_BikeVarient List to send the quotation for other available varients
+    /// </summary>
     public class PQ_QuotationEntity
     {
         public List<PQ_Price> PriceList { get; set; }
@@ -21,5 +27,6 @@ namespace Bikewale.Entities.BikeBooking
         public string LargePicUrl { get; set; }
         public string SmallPicUrl { get; set; }
         public string OriginalImagePath { get; set; }
+        public IEnumerable<PQ_BikeVarient> Varients { get; set; }
     }
 }

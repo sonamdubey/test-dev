@@ -211,14 +211,26 @@ function fetchPriceQuote(vm) {
         }).done(function (data) {
             if (data) {
                 var pq = ko.toJS(data);
-                
+                var cityName = $(ctrlSelectCity).find("option[value=" + vm.selectedCity() + "]").text();
                 vm.priceQuote(pq);
                 vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
                 if (pq.IsDealerPriceAvailable) {
                     vm.DealerPriceList(pq.dealerPriceQuote.priceList);
+                    $.each(pq.bwPriceQuote.varients, function () {
+                        $("#price_" + this.versionId.toString()).text(this.onRoadPrice ? formatPrice((this.onRoadPrice - pq.insuranceAmount)) : "NA");
+                        $("#locprice_" + this.versionId.toString()).text("Ex-showroom, " + cityName);
+                    });
+                    $.each(pq.dealerPriceQuote.varients,function () {
+                        $("#price_" + this.version.versionId.toString()).text(this.onRoadPrice ? formatPrice(this.onRoadPrice) : "NA");
+                        $("#locprice_" + this.version.versionId.toString()).text("On-road price, " + cityName);
+                    });
                 }
                 else {
                     vm.BWPriceList(pq.bwPriceQuote);
+                    $.each(pq.bwPriceQuote.varients, function () {                        
+                        $("#price_" + this.versionId.toString()).text(this.onRoadPrice ? formatPrice(this.onRoadPrice) : "NA");
+                        $("#locprice_" + this.versionId.toString()).text("Ex-showroom, " + cityName);
+                    });
                 }
                 if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                     var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;

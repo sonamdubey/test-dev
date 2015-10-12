@@ -61,7 +61,7 @@
                                         </td>
                                         <td class="floatLeft">Select Model <span class="errMessage">*</span>
                                         </td>
-                                        <td class="floatLeft margin-left10"><asp:DropDownList ID="DropDownModels" runat="server" Width="100%" />
+                                        <td class="floatLeft margin-left10"><asp:DropDownList ID="DropDownModels" multiple="multiple" runat="server" Width="100%" />
                                         </td>
                                         <td class="floatLeft margin-left10">
                                             <span id="spntxtModel" class="errorMessage"></span>
@@ -163,6 +163,7 @@
                     <HeaderTemplate>
                         <h1>Added Offer(s) :</h1>
                         <br />
+                        <input class="margin-bottom10 margin-left10" type="button" value="Delete Offers" id="dltOffers"/>
                         <table border="1" style="border-collapse: collapse;" cellpadding="5" class="margin-left10">
                             <tr style="background-color: #D4CFCF;">
                                 <th>
@@ -186,7 +187,7 @@
                     <ItemTemplate>
                         <tr id="row_<%# DataBinder.Eval(Container.DataItem,"OfferId") %>" class='<%# DataBinder.Eval(Container.DataItem, "OfferValidTill") %> < <%# System.DateTime.Now%> ? "expired" : ""'>
                             <td>
-                                <input type="checkbox" class="checkboxAll" id="chkOffer_<%# DataBinder.Eval(Container.DataItem,"OfferId") %>" /></td>
+                                <input type="checkbox" class="checkboxAll" id="chkOffer_<%# DataBinder.Eval(Container.DataItem,"OfferId") %>" offerId="<%# DataBinder.Eval(Container.DataItem,"OfferId") %>" /></td>
                             <td><%# DataBinder.Eval(Container.DataItem,"OfferId") %></td>
                             <td><%# DataBinder.Eval(Container.DataItem,"objMake.MakeName") %></td>
                             <td><%# DataBinder.Eval(Container.DataItem,"objModel.ModelName") %></td>
@@ -279,14 +280,17 @@
     <%--End Pivotal Tracker # : 95410582 Author : Sumit Kate--%>
 
         $(document).ready(function () {
+            if ($("#DropDownMake").val() > 0)
+            {
+                GetModels($("#DropDownMake"));
+            }
+
             $("#DropDownMake").change(function () {
                 $("#lblSaved").text("");
                 $("#DropDownModels").val("0").attr("disabled", "disabled");
                 GetModels(this);
             });
-            $("#DropDownModels").change(function () {
-                $("#hdn_modelId").val($(this).val());
-            });
+
             if ($("#ddlState").val() > 0) {
                 loadStateCities();
             }
@@ -313,19 +317,22 @@
         }
 
         function btnDelete_Click(offerId) {
-            $("#row_" + offerId).addClass("yellow");
+            //$("#row_" + offerId).addClass("yellow");
             var host = '<%=cwHostUrl%>';
             var acknowledge = confirm("Are you sure you want to delete this record");
             if (acknowledge) {
                 $.ajax({
                     type: "GET",
                     url: host + "/api/Dealers/DeleteDealerOffer/?offerId=" + offerId,
-                    success: function () {
-                        window.location.href = window.location.href;
+                    success: function (response) {
+                        if (response)
+                            window.location.href = window.location.href;
+                        else
+                            alert("some error occured while deleting offers.");
                     }
                 });
             }
-            $("#row_" + offerId).removeClass("yellow");
+            //$("#row_" + offerId).removeClass("yellow");
 
         }
 
@@ -343,13 +350,12 @@
             var day = date.getDate();
 
             var currentDate = new Date(date.getFullYear(), (month < 10 ? '0' : '') + month, (day < 10 ? '0' : '') + day);
-            //alert("Today's Date ; " + currentDate);
             var enteredDay = $("#dtDate_cmbDay").val();
             var enteredmonth = $("#dtDate_cmbMonth").val();
             var enteredYear = $("#dtDate_txtYear").val();
 
             var completeDate = new Date(enteredYear, (enteredmonth < 10 ? '0' : '') + enteredmonth - 1, (enteredDay < 10 ? '0' : '') + enteredDay);
-            //alert("Complete Entered Date : " + completeDate);
+
             var isError = false;
 
             if (isNaN($("#offerValue").val())) {
@@ -368,7 +374,7 @@
                 $("#spntxtMake").text("Please Select Make");
                 isError = true;
             }
-            if ($("#DropDownModels option:selected").val() <= '0') {
+            if ($("#DropDownModels option:selected").length <= 0) {
                 $("#spntxtModel").text("Please Select Model");
                 isError = true;
             }
@@ -380,6 +386,19 @@
                 $("#spntxtofferText").text("Offer Text Required");
                 isError = true;
             }
+
+            if (!isError)
+            {
+                var strModelId = '';
+                $('#DropDownModels option:selected').each(function () {
+                    strModelId += this.value + ',';
+                });
+
+                strModelId = strModelId.substring(0, strModelId.length-1);
+
+                $("#hdn_modelId").val(strModelId);
+            }
+
             return !isError;
         }
 
@@ -394,7 +413,7 @@
             var applyIframe = true;
             var caption = "Edit Bike Offer";
             var GB_Html = html;
-            //alert($("#row_" + offerId).find('td').eq(6).text().split("/"));
+            
             var selectedMonth = $("#row_" + offerId).find('td').eq(8).text().split("/")[0];
             var selectedDay = $("#row_" + offerId).find('td').eq(8).text().split("/")[1];
             var selectedYear = $("#row_" + offerId).find('td').eq(8).text().split("/")[2].split(" ")[0];
@@ -419,14 +438,12 @@
                 //var day = date.getDate();
 
                 //var currentUpdDate = new Date(date.getFullYear(), (month < 10 ? '0' : '') + month, (day < 10 ? '0' : '') + day);
-                ////alert("Today's Date ; " + currentUpdDate);
+                
                 var enteredDay = $("#updDtDate_cmbDay").val();
                 var enteredmonth = $("#updDtDate_cmbMonth").val();
                 var enteredYear = $("#updDtDate_txtYear").val();
-                ////alert(enteredDay + " " + enteredmonth + " " + enteredYear);
+                
                 //var completeUpdDate = new Date(enteredYear, (enteredmonth < 10 ? '0' : '') + enteredmonth - 1, (enteredDay < 10 ? '0' : '') + enteredDay);
-                ////alert("Complete Entered Date : " + completeUpdDate);
-                ////alert("Entered Date is future date" + completeUpdDate > currentUpdDate);
                 //var isError = false;
 
                 //if (completeUpdDate < currentUpdDate) {
@@ -462,6 +479,27 @@
                 return !isError;
             });
         }
+
+        $("#dltOffers").click(function () {
+            var isSuccess = false;
+            var offerIds = '';
+            $('.checkboxAll').each(function () {
+                if ($(this).is(":checked")) {
+                    offerIds += $(this).attr('offerId') + ',';
+                }
+            });
+
+
+            if (offerIds.length > 1) {
+                offerIds = offerIds.substring(0, offerIds.length - 1);
+                isSuccess = true;
+            }
+            
+            if (isSuccess)
+                btnDelete_Click(offerIds);
+            else
+                alert("please select offers to delete.");
+        });
     </script>
 </body>
 </html>
