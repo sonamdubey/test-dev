@@ -16,7 +16,7 @@ namespace Bikewale.Notifications
         /// Summary : Method should be overridden in derived class. This method will return the mail body contents.
         /// </summary>
         /// <returns></returns>
-        public abstract StringBuilder ComposeBody();
+        public abstract string ComposeBody();
 
         /// <summary>
         /// Written By : Ashish G. Kamble on 31 May 2013
@@ -27,7 +27,7 @@ namespace Bikewale.Notifications
         public void Send(string sendTo, string subject)
         {
             SendMails mail = new SendMails();
-            mail.SendMail(sendTo, subject, Convert.ToString(ComposeBody()));
+            mail.SendMail(sendTo, subject, ComposeBody());
         }
 
 
@@ -41,7 +41,7 @@ namespace Bikewale.Notifications
         public void Send(string sendTo, string subject, string replyTo)
         {
             SendMails mail = new SendMails();
-            mail.SendMail(sendTo, subject, Convert.ToString(ComposeBody()), replyTo);
+            mail.SendMail(sendTo, subject, ComposeBody(), replyTo);
         }
 
 
@@ -57,7 +57,7 @@ namespace Bikewale.Notifications
         public void Send(string sendTo, string subject, string replyTo, string[] cc, string[] bcc)
         {
             SendMails mail = new SendMails();
-            mail.SendMail(sendTo, subject, Convert.ToString(ComposeBody()), replyTo, cc, bcc);
+            mail.SendMail(sendTo, subject, ComposeBody(), replyTo, cc, bcc);
         }
 
     }   // End of class

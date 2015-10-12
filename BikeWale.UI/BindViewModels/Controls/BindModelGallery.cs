@@ -31,6 +31,12 @@ namespace Bikewale.BindViewModels.Controls
         /// </summary>
         public static int FetchedVideoCount { get; set; }
 
+        static string _cwHostUrl;
+      static BindModelGallery()
+        {
+          _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+        }
+
         /// <summary>
         /// Binds the Video main and navigation JCarousel
         /// It fetches data from BW Video APIs
@@ -44,22 +50,26 @@ namespace Bikewale.BindViewModels.Controls
                 FetchedVideoCount = 0;
                 VideosList objVideos = null;
 
-                string _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+                
                 string _requestType = "application/json";
 
                 string _apiUrl = String.Format("/api/videos/pn/1/ps/1000/model/{0}/", ModelId);
 
                 objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
 
-                if (objVideos != null && objVideos.Videos.ToList().Count > 0)
+                if (objVideos != null)
                 {
-                    FetchedVideoCount = objVideos.Videos.ToList().Count;
+                  var videoList = objVideos.Videos.ToList();
+                  if (videoList.Count > 0)
+                  {
+                    FetchedVideoCount = videoList.Count;
 
-                    rptrVideos.DataSource = objVideos.Videos.ToList();
+                    rptrVideos.DataSource = videoList;
                     rptrVideos.DataBind();
 
-                    rptrVideoNav.DataSource = objVideos.Videos.ToList();
+                    rptrVideoNav.DataSource = videoList;
                     rptrVideoNav.DataBind();
+                  }
                 }
             }
             catch (Exception ex)
@@ -77,30 +87,33 @@ namespace Bikewale.BindViewModels.Controls
         /// <param name="rptrVideoNav">Video navigation repeater</param>
         public static void BindVideos(Repeater rptrVideoNav)
         {
-            try
+          try
+          {
+            FetchedVideoCount = 0;
+            VideosList objVideos = null;
+
+            string _requestType = "application/json";
+
+            string _apiUrl = String.Format("/api/videos/pn/1/ps/1000/model/{0}/", ModelId);
+
+            objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
+
+            if (objVideos != null)
             {
-                FetchedVideoCount = 0;
-                VideosList objVideos = null;
-
-                string _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
-
-                string _apiUrl = String.Format("/api/videos/pn/1/ps/1000/model/{0}/", ModelId);
-
-                objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
-
-                if (objVideos != null && objVideos.Videos.ToList().Count > 0)
-                {
-                    FetchedVideoCount = objVideos.Videos.ToList().Count;
-                    rptrVideoNav.DataSource = objVideos.Videos.ToList();
-                    rptrVideoNav.DataBind();
-                }                
+              var lst = objVideos.Videos.ToList();
+              if (lst.Count > 0)
+              {
+                FetchedVideoCount = lst.Count;
+                rptrVideoNav.DataSource = lst;
+                rptrVideoNav.DataBind();
+              }
             }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
-            }
+          }
+          catch (Exception ex)
+          {
+            ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+            objErr.SendMail();
+          }
         }
 
         /// <summary>

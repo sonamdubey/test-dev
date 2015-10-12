@@ -32,16 +32,20 @@ namespace Bikewale.Service.UnityConfiguration
         /// <returns></returns>
         public object GetService(Type serviceType)
         {
-            try
-            {
-                return container.Resolve(serviceType);
-            }
-            catch (ResolutionFailedException)
-            {
-                return null;
-            }
-        }
+          try
+          {
+            if ((serviceType.IsInterface || serviceType.IsAbstract) && !container.IsRegistered(serviceType))
+              return null;
+            else
+              return container.Resolve(serviceType);
 
+          }
+          catch (ResolutionFailedException)
+          {
+            return null;
+          }
+        }     
+       
         /// <summary>
         /// 
         /// </summary>

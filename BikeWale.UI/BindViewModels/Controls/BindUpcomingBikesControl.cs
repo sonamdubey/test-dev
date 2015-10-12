@@ -20,6 +20,9 @@ namespace Bikewale.BindViewModels.Controls
         public static int? curPageNo { get; set; }
         public static int  FetchedRecordsCount {get;set;}
 
+        static readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+        static readonly string _requestType = "application/json";
+
         public static void BindUpcomingBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
@@ -28,8 +31,7 @@ namespace Bikewale.BindViewModels.Controls
             
             try
             {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
+                
                 string _apiUrl = String.Format("/api/UpcomingBike/?sortBy={0}&pageSize={1}", sortBy, pageSize);
 
 
@@ -45,11 +47,15 @@ namespace Bikewale.BindViewModels.Controls
 
                 objBikeList = BWHttpClient.GetApiResponseSync<UpcomingBikeList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
 
-                if (objBikeList != null && objBikeList.UpcomingBike.ToList().Count > 0)
+                if (objBikeList != null)
                 {
-                    FetchedRecordsCount = objBikeList.UpcomingBike.ToList().Count;
-                    rptr.DataSource = objBikeList.UpcomingBike.ToList();
+                  var bikeList = objBikeList.UpcomingBike.ToList();
+                  if (bikeList.Count > 0)
+                  {
+                    FetchedRecordsCount = bikeList.Count;
+                    rptr.DataSource = bikeList;
                     rptr.DataBind();
+                  }
                 }
             }
             catch (Exception ex)

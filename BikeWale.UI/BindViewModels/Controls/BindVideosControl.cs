@@ -19,16 +19,20 @@ namespace Bikewale.BindViewModels.Controls
         public static int? ModelId { get; set; }
         public static int FetchedRecordsCount { get; set; }
 
+        static string _cwHostUrl;
+        static string _requestType;
+        static BindVideosControl()
+        {
+          _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+          _requestType = "application/json";
+        }
         public static void BindVideos(Repeater rptr)
         {
             try
             {
                 FetchedRecordsCount = 0;
                 VideosList objVideos = null;
-
-                string _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
-
+                
                 string _apiUrl = "/api/videos/cat/" + EnumVideosCategory.JustLatest + "/pn/1/ps/" + TotalRecords;                 
 
                 if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
@@ -41,12 +45,15 @@ namespace Bikewale.BindViewModels.Controls
 
                 objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
 
-                if (objVideos != null && objVideos.Videos.ToList().Count > 0)
+                if (objVideos != null)
                 {
-                    FetchedRecordsCount = objVideos.Videos.ToList().Count;
-
-                    rptr.DataSource = objVideos.Videos.ToList();
+                  var list = objVideos.Videos.ToList();
+                  if (list.Count > 0)
+                  {
+                    FetchedRecordsCount =list.Count;
+                    rptr.DataSource = list;
                     rptr.DataBind();
+                  }
                 }
             }
             catch (Exception ex)

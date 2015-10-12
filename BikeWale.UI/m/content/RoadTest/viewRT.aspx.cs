@@ -204,10 +204,9 @@ namespace Bikewale.Content
 
                 _bikeTested.Append("Bike Tested: ");
 
-                List<int> ids = objRoadtest.VehiclTagsList
+                IEnumerable<int> ids = objRoadtest.VehiclTagsList
                        .Select(e => e.ModelBase.ModelId)
-                       .Distinct()
-                       .ToList();
+                       .Distinct();
 
                 foreach (var i in ids)
                 {
