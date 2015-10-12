@@ -78,3 +78,6 @@
 .cancellation-list ol li { padding-bottom:10px; }
 .doc-list ul li {padding-bottom:5px;}
 .cancellation-list ol { list-style-type:lower-alpha; }
+
+.booking-success-icon{width: 42px;height: 42px;display: inline-block;background-position: -85px -51px;}
+.booking-fail-icon{width: 42px;height: 42px;display: inline-block;background-position: -85px -102px;}
