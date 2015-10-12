@@ -58,5 +58,28 @@ namespace Bikewale.Utility
             }
             return retVal;
         }
+        public static bool HasBumperDealerOffer(string dealerId, string modelId)
+        {
+            bool retVal = false;
+            string[] dealers = null;
+            NameValueCollection nvc = null;
+            try
+            {
+                nvc = ConfigurationManager.GetSection("BumperDealerOffer") as NameValueCollection;
+                if (nvc != null && nvc.HasKeys())
+                {
+                    dealers = nvc.AllKeys;
+                }
+                if (dealers != null && dealers.Contains(dealerId))
+                {
+                    retVal = true;
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+            return retVal;
+        }
     }
 }
