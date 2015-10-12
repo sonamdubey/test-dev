@@ -26,7 +26,7 @@
                     <!--Exciting Offers section starts here-->
                     <% if (_objPQ.objOffers != null && _objPQ.objOffers.Count > 0){ %>
                      <div class="bw-offer-box break-line new-line10 <%=_objPQ.objOffers.Count>0?"":"hide" %>" id="divOffers">
-                        <h2 class="f-bold"><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Exclusive Offers for BikeWale Customers"%></h2>
+                        <h2 class="f-bold"><%= IsInsuranceFree ? "BikeWale Offer" : "Exclusive Offers for BikeWale Customers"%></h2>
                         <div class="margin-top5 margin-left5 new-line10">
                               <asp:Repeater ID="rptOffers" runat="server">
                                     <HeaderTemplate>

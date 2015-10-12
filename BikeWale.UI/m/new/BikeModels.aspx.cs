@@ -39,6 +39,10 @@ namespace Bikewale.Mobile.New
         protected String clientIP = string.Empty;
         protected String cityId = String.Empty;
         protected short reviewTabsCnt = 0;
+        //Variable to Assing ACTIVE class
+        protected bool isUserReviewActive = false, isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
+        //Varible to Hide or show controlers
+        protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
         protected override void OnInit(EventArgs e)
         {
