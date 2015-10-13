@@ -85,12 +85,12 @@
     function getModels(e)
     {        
         var makeId = $(e).val();
-        
+        var reqType='ALL';
         if (makeId > 0) {
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
-                data: '{"makeId":"' + makeId + '"}',
+                data: '{"makeId":"' + makeId + '","requestType":"' + reqType + '"}',
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModels"); },
                 success: function (response) {
                     var responseJSON = eval('(' + response + ')');
