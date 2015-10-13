@@ -16,9 +16,7 @@
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->        
-                <div class="f-bold"><%= IsInsuranceFree ? "BikeWale Offer" : "Exclusive Offers on Online Booking"%></div>
-        
+        <!-- #include file="/includes/headBW_Mobile.aspx" -->               
     <section class="container bg-white box-shadow padding-bottom20 margin-bottom10 clearfix"><!--  Discover bikes section code starts here -->
         <div class="grid-12">
                 <div class="imageWrapper margin-top10">
@@ -109,7 +107,7 @@
 
 
 
-                <p class="font16 text-bold padding-top20">Availed offers</p>
+                <p class="font16 text-bold padding-top20">Availed exclusive Bikewale offers </p>
                 <ul class="confirmation-offers">
                     <asp:Repeater ID="rptOffers" runat="server">
                         <ItemTemplate>
