@@ -385,7 +385,7 @@
         <section class="container">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
-                <div class="content-box-shadow content-inner-block-10">
+                <div class="content-box-shadow content-inner-block-10 discover-bike-tabs-container">
                     <div class="bw-overall-rating">
                         <a class="active" href="#overview">Overview</a>
                         <a href="#specifications">Specifications</a>
@@ -394,7 +394,7 @@
                         <a href="#colours" style="<%= (modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0) ? "": "display:none;" %>">Colours</a>
                     </div>
                     <!-- Overview code starts here -->
-                    <div class="bw-tabs-data margin-bottom20" id="overview">
+                    <div class="bw-tabs-data margin-bottom20 active" id="overview">
                         <h2 class="font24 margin-top10 margin-bottom20 text-center">Overview</h2>
                         <div class="grid-3 border-solid-right">
                             <div class="font22 text-center padding-top20 padding-bottom20">
@@ -615,7 +615,7 @@
                                         <div class="clear"></div>
                                     </ul>
                                 </div>
-                                <div class="bw-tabs-data hide"id="brakeWheels">
+                                <div class="bw-tabs-data hide" id="brakeWheels">
                                     <ul>
                                         <li>
                                             <div class="text-light-grey">Brake Type</div>
@@ -933,7 +933,7 @@
                         </div>
                     </div>
                     <!-- variant code starts here -->
-                    <div class="bw-tabs-data <%= modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 ? "" : "hide" %>" id="variants">
+                    <div class="bw-tabs-data margin-bottom20 <%= modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 ? "" : "hide" %>" id="variants">
                         <h2 class="font24 margin-bottom20 text-center">Variants</h2>
                         <asp:Repeater runat="server" ID="rptVarients">
                             <ItemTemplate>
@@ -1049,36 +1049,73 @@
         </script>
         <script type="text/javascript">
         $(document).ready(function (e) {
-                $('.bw-overall-rating a[href^="#"], a[href^="#"].review-count-box').click(function () {
-                    $('.bw-overall-rating a').removeClass("active");
-                    $(this).addClass("active");
-                    var target = $(this.hash);
-                    if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
-                    if (target.length == 0) target = $('html');
-                    $('html, body').animate({ scrollTop: target.offset().top - 50 - $(".header-fixed").height() }, 1000);
-                    return false;
-                });
-                // ends                                
+            $('.bw-overall-rating a[href^="#"]').click(function () {
+                var target = $(this.hash);
+                if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+                if (target.length == 0) target = $('html');
+                $('html, body').animate({ scrollTop: target.offset().top -50- $(".header-fixed").height() }, 1000);
+                return false;
+            });
+            // ends                                
 
-                <% if (modelPage.ModelDetails.New)
-                { %>
-                var cityId = '<%= cityId%>'
-                InitVM(cityId);
-                <% } %>
+            <% if (modelPage.ModelDetails.New)
+            { %>
+            var cityId = '<%= cityId%>'
+            InitVM(cityId);
+            <% } %>
 
             });
             // Cache selectors outside callback for performance.
 
             <% if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
                { %>
-            var $window = $(window);
-            $menu = $('.bw-overall-rating');
-            $menu2 = $('.alternative-section');
-            if ($menu != null && $menu2) {
-                menu2Top = $menu2.offset().top;
-                menuTop = $menu.offset().top;
-                $window.scroll(function () { $menu.toggleClass('affix', menu2Top >= $window.scrollTop() && $window.scrollTop() > menuTop); });
-            }
+            var $window = $(window),
+	        $menu = $('.bw-overall-rating'),
+	        menuTop = $menu.offset().top + 50;
+           
+            var sections = $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20'),
+                nav = $('div.bw-overall-rating'),
+                nav_height = nav.outerHeight(),
+                section_height = $(".discover-bike-tabs-container"),
+                sectionContainer_height = section_height.outerHeight() + menuTop - 250,
+                sectionStart = section_height.offset().top - 150;
+                    
+            section_height.bind('heightChangeBlock', function () {
+                $(".more-features").css("display","block");
+                sectionContainer_height = section_height.outerHeight() + menuTop - 250;
+                $(".more-features").css("display", "none");
+            });
+
+            section_height.bind('heightChangeNone', function () {
+                $(".more-features").css("display", "none");
+                sectionContainer_height = section_height.outerHeight() + menuTop - 250;
+                $(".more-features").css("display", "block");
+            });
+
+            $(".more-features-btn").click(function () {
+                if($(".more-features").css("display") == "none")
+                    section_height.trigger('heightChangeBlock');
+                else if($(".more-features").css("display") == "block") 
+                    section_height.trigger('heightChangeNone');
+            });
+                
+            $window.scroll(function () {
+                $menu.toggleClass('affix', sectionContainer_height >= $window.scrollTop() && $window.scrollTop() > sectionStart);
+                var cur_pos = $(this).scrollTop();
+
+                sections.each(function () {
+                    var top = $(this).offset().top -10- nav_height,
+                    bottom = top + $(this).outerHeight();
+
+                    if (cur_pos >= top && cur_pos <= bottom) {
+                        nav.find('a').removeClass('active');
+                        sections.removeClass('active');
+
+                        $(this).addClass('active');
+                        nav.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+                    }
+                });
+            });
 
             <% } %> 
             ga_pg_id = '2';

@@ -219,9 +219,10 @@ footer ul li a:hover { text-decoration: underline; }
 
 .front, .back { height: 330px; background: #fff; overflow:hidden; display: inline-block; border-radius: 3px; border:1px solid #ccc; -webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; -ms-backface-visibility: hidden; backface-visibility: hidden; }
 .contentWrapper, .formWrapper { position:relative; overflow:hidden; background:#fff; }
-.imageWrapper { width:310px; height:174px; overflow: hidden; text-align: center; }
-.imageWrapper a { display: block; }
-.imageWrapper img { width: 100%; }
+.imageWrapper { display:table; width:310px; height:174px; overflow: hidden; text-align: center; }
+.imageWrapper a { display:table-cell; vertical-align:middle; }
+/*.imageWrapper img { width: 100%; } */
+/*.imageWrapper img {background-image: url(../images/circleloader.gif); background-position:center; background-repeat: no-repeat; }*/
 .bikeDescWrapper { padding: 15px; background:#fff; }
 .bikeTitle a { color: #2a2a2a; font-size: 18px; display: block; }
 .formContent { padding: 30px 20px 20px 20px; }
