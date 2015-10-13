@@ -264,7 +264,7 @@
     <section class="container">
         <!-- Tools you may need code starts here -->
         <div class="grid-12">
-            <h2 class="text-center margin-top30 margin-bottom20">Tool you may need</h2>
+            <h2 class="text-center margin-top30 margin-bottom20">Tools you may need</h2>
             <div class="tools-need-container margin-bottom30 text-center">
                 <ul>
                     <li class="bg-white content-inner-block-20 content-box-shadow margin-bottom20">
