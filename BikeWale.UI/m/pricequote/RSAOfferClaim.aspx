@@ -108,7 +108,7 @@
                     <p class="font12 lightgray new-line10">All * marked fields are required.</p>
             	    <div class="new-line10">
                         <div class="avail-offer-form">
-                    	    <p><b>Booking Ref. No.<span class="red-text">*</span></b></p>
+                    	    <p><b>Booking Ref. No.</b></p>
                             <asp:TextBox id="txtBookingNum" runat="server" placeholder="e.g. BW201234"></asp:TextBox>
                             <span id="spnBookingNum" class="error"></span>
                         </div>
