@@ -20,7 +20,7 @@
             </div>
         </ItemTemplate>    
     </asp:Repeater>    
-    <div class="padding-bottom50 text-center">
+    <div class="padding-bottom30 text-center">
         <a href="/news/" class="font16">View more news</a>
     </div>
     <script type="text/javascript">

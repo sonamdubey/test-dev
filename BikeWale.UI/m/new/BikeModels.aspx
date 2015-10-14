@@ -45,7 +45,7 @@
                        { %><div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
                     <% } %>
                     <div class="jcarousel-wrapper model" id="bikeBannerImageCarousel">
-                        <div class="jcarousel stage">
+                        <div class="jcarousel">
                             <ul id="ulModelPhotos">
                                 <li>
                                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />

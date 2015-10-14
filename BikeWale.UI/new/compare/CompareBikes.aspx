@@ -29,7 +29,7 @@
     .tab_inner_container .maintd {border-right:0px;}
     .container-1 table table th { border-right:0px;}
     .tbl-compare td.headerSpecs { border-bottom:1px solid #FFFFFF;}
-    .tab_inner_container .tbl-compare td { height:51px; text-align:center; vertical-align:middle; padding:0px; }
+    .tab_inner_container .tbl-compare td { height:60px; text-align:center; vertical-align:middle; padding:0px; }
     .tab_inner_container .tbl-compare th { height:30px; text-align:center; vertical-align:middle; padding:0px; }
     .tab_inner_container .tbl-compare .maintd td { vertical-align:top;}
     .container-border td.maintd td {  border-bottom: 0px;}
@@ -44,7 +44,7 @@
     .tab_inner_container .container-1 .Colors td:last-child.repeater-1  { border-right:0px;}
     .tab_inner_container .tbl-compare .specs-title th, .tab_inner_container .tbl-compare .specs-title td {text-align:left; padding-left:5px; }
     .maintd .bikemain {border:0px solid red; overflow:hidden; }
-    .maintd .bikename { margin-bottom: 10px;text-align: center; font-size:12px;}
+    .maintd .bikename { margin-bottom: 10px;text-align: center; font-size:12px; min-height:34px;}
     .maintd .bikeclose {overflow:hidden; display:inline-block;  text-align: right; float:right;}
     .sixcolum{ width:123px; }
     .fivecolum{ width:149px; }
@@ -56,6 +56,10 @@
     .threecolum img.second-img { width: 228px; height:auto; }
     .featuredBike { background-color:#fffae8!important; }
     .blue {color: #0056cc;cursor: pointer;text-decoration: none;}
+    .info-td { position:relative; }
+    .info-popup { display:none; background-color: #fff; position: absolute; top: 45px; left:100px; box-shadow: 0px 0px 15px #ccc; width: 225px; min-height: 40px; border: 1px solid #e0e0e0; padding: 10px; z-index:2;}
+    .Specs .repeater-1 td.info-td, .Features .repeater-1 td.info-td { cursor:pointer; } 
+    .Specs .repeater-1 td.info-td:hover .info-popup, .Features .repeater-1 td.info-td:hover .info-popup {display:block;}
 </style>
 
          <div class="container_12">
@@ -207,7 +211,7 @@
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Bore").ToString())%></td></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Stroke").ToString())%></td></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"ValvesPerCylinder").ToString())%></td></tr>
-                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelDeliverySystem").ToString())%></td></tr>
+                                                    <tr><td class="info-td"><span class="info-shrt-data"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelDeliverySystem").ToString())%></span><span class="info-popup"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelDeliverySystem").ToString())%></span></td></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelType").ToString())%></td></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Ignition").ToString())%></td></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"SparkPlugsPerCylinder").ToString())%></td></tr>
@@ -216,7 +220,7 @@
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"GearboxType").ToString())%></td></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"NoOfGears").ToString())%></td></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"TransmissionType").ToString())%></td></tr>
-                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Clutch").ToString())%></td></tr>
+                                                    <tr><td class="info-td"><span class="info-shrt-data"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Clutch").ToString())%></span><span class="info-popup"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Clutch").ToString())%></span></td></tr>
                                                     <tr><th>&nbsp;</th></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Performance_0_60_kmph").ToString())%></td></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Performance_0_80_kmph").ToString())%></td></tr>
@@ -238,9 +242,9 @@
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelEfficiencyOverall").ToString())%></td></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelEfficiencyRange").ToString())%></td></tr>
                                                     <tr><th>&nbsp;</th></tr>
-                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"ChassisType").ToString())%></td></tr>
-                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FrontSuspension").ToString())%></td></tr>
-                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"RearSuspension").ToString())%></td></tr>
+                                                    <tr><td class="info-td"><span class="info-shrt-data"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"ChassisType").ToString())%></span><span class="info-popup"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"ChassisType").ToString())%></span></td></tr>
+                                                    <tr><td class="info-td"><span class="info-shrt-data"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FrontSuspension").ToString())%></span><span class="info-popup"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FrontSuspension").ToString())%></span></td></tr>
+                                                    <tr><td class="info-td"><span class="info-shrt-data"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"RearSuspension").ToString())%></span><span class="info-popup"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"RearSuspension").ToString())%></span></td></tr>
                                                     <tr><th>&nbsp;</th></tr>
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"BrakeType").ToString())%></td></tr>
                                                     <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"FrontDisc").ToString())%></td></tr>
@@ -395,7 +399,7 @@
                                                     <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"AntilockBrakingSystem").ToString())%></td></tr>
                                                     <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"Killswitch").ToString())%></td></tr>
                                                     <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"Clock").ToString())%></td></tr>
-                                                    <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Colors").ToString())%></td></tr>
+                                                    <tr><td class="info-td"><span class="info-shrt-data"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Colors").ToString())%></span><span class="info-popup"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Colors").ToString())%></span></td></tr>
                                                 </table>
                                             </td>
                                         </itemtemplate>

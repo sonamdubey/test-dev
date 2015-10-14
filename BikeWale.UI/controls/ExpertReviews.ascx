@@ -13,14 +13,14 @@
                     <p class="margin-bottom10 text-xt-light-grey font14"><%# Bikewale.Utility.FormatDate.GetDaysAgo(DataBinder.Eval(Container.DataItem, "DisplayDate").ToString()) %>, by <span class="text-light-grey"><%# DataBinder.Eval(Container.DataItem, "AuthorName").ToString()%></span></p>
                     <p class="margin-bottom15 font14 line-height"><%# Bikewale.Utility.FormatDescription.TruncateDescription(DataBinder.Eval(Container.DataItem, "Description").ToString()) %></p>
                     <div class="margin-bottom15">
-                        <a href="/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html" class="margin-right25 font14">Read More</a>
+                        <a href="/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html" class="margin-right25 font14">Read full review</a>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </ItemTemplate>
     </asp:Repeater>    
-    <div class="padding-bottom50 text-center">
+    <div class="padding-bottom30 text-center">
         <a href="/road-tests/" class="font16">View more reviews</a>
     </div>
     <script type="text/javascript">

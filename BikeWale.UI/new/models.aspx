@@ -39,8 +39,7 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="font30 text-black margin-top10"><%= _make.MakeName %> bikes</h1>
-                    <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+                    <h1 class="font30 text-black margin-top10 margin-bottom15"><%= _make.MakeName %> bikes</h1>
                 </div>
                 <div class="clear"></div>
             </div>

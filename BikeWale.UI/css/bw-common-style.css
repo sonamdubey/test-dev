@@ -118,8 +118,8 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .home-getFinalPrice-banner { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/images/get-final-price-banner.jpg) no-repeat center top; background-size: cover; height: 490px; }
 
 /* city popup classes */
-.globalcity-popup { width:450px; height:350px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left:5%; z-index: 10; }
-.globalcity-popup-data { padding: 20px 20px 30px; }
+.globalcity-popup { width:450px; min-height:320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left:5%; z-index: 10; }
+.globalcity-popup-data { padding: 30px 20px 30px; }
 .cityPopup-box { background: #565a5c; width: 70px; height: 70px; line-height: 2; display: inline-block; }
 .globalcity-input-box { width: 350px; margin: 0 auto; }
 .globalcity-close-btn.cross-lg-lgt-grey, .faqsCloseBtn.cross-lg-lgt-grey, .bw-popup .popup-close-btn { background-position: -36px -226px; }
