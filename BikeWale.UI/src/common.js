@@ -551,7 +551,8 @@ $(document).ready(function () {
 	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Hamburger_Menu_Item_Click', 'lab': menuItem });
 	    }
 	}
-	
+    
+
 });
 
 (function ($) {
@@ -592,6 +593,7 @@ $(document).ready(function () {
     };
 
 })(jQuery);
+
 (function ($) {
     $.fn.bw_autocomplete = function (options) {
         return this.each(function () {

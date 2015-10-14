@@ -208,7 +208,10 @@ namespace Bikewale.DAL.PriceQuote
                             {
                                 VersionId = Convert.ToUInt32(dr["VersionId"]),
                                 VersionName = Convert.ToString(dr["VersionName"]),
-                                OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"])
+                                OnRoadPrice = Convert.ToUInt64(dr["OnRoadPrice"]),
+                                Price = Convert.ToUInt32(dr["Price"]),
+                                RTO = Convert.ToUInt32(dr["RTO"]),
+                                Insurance = Convert.ToUInt32(dr["Insurance"])
                             });
                         }
                     }

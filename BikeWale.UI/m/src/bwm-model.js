@@ -23,7 +23,7 @@ jQuery(function () {
         return carouselStage2.jcarousel('items').eq(itemNavigation2.index());
     };
     var connector3 = function (itemNavigation3, carouselStage3) {
-        return carouselStage3.jcarousel('items').eq(itemNavigation3.index());
+        //return carouselStage3.jcarousel('items').eq(itemNavigation3.index());
     };
 
     jQuery('.jcarousel-wrapper.model .jcarousel')
@@ -37,6 +37,7 @@ jQuery(function () {
             threshold: 200
         });
     });
+
     $(".jcarousel-pagination").click(function () {
         $("img.lazy").lazyload({
             threshold: 200
@@ -50,7 +51,7 @@ jQuery(function () {
     var carouselStage2 = $('.carousel-stage-photos').jcarousel();
     var carouselNavigation2 = $('.carousel-navigation-photos').jcarousel();
 
-    var carouselStage3 = $('.carousel-stage-videos').jcarousel();
+   // var carouselStage3 = $('.carousel-stage-videos').jcarousel();
     var carouselNavigation3 = $('.carousel-navigation-videos').jcarousel();
 
 
@@ -73,7 +74,7 @@ jQuery(function () {
 
     carouselNavigation3.jcarousel('items').each(function () {
         var item3 = $(this);
-        var target = connector3(item3, carouselStage3);
+        var target = connector3(item3);
         item3
             .on('jcarouselcontrol:active', function () {
                 carouselNavigation3.jcarousel('scrollIntoView', this);
@@ -82,10 +83,6 @@ jQuery(function () {
             .on('jcarouselcontrol:inactive', function () {
                 item3.removeClass('active');
             })
-.jcarouselControl({
-    target: target,
-    carousel: carouselStage3
-});
     });
 
     $('.prev-stage, .photos-prev-stage, .videos-prev-stage')
@@ -135,7 +132,7 @@ jQuery(function () {
     });
 
 
-    $(".carousel-stage-photos, .carousel-navigation-photos,.carousel-navigation-videos,.carousel-stage-videos").swipe({
+    $(".carousel-stage-photos, .carousel-navigation-photos,.carousel-navigation-videos").swipe({
         fingers: 'all', swipeLeft: swipe2, swipeRight: swipe2, allowPageScroll: "auto",
         excludedElements: "label, button, input, select, textarea, .noSwipe",
     });
@@ -143,10 +140,11 @@ jQuery(function () {
 
     function swipe2(event, direction, distance, duration, fingerCount) {
         if (direction == "left") {
-            $(this).closest('.connected-carousels-photos,.navigation-photos,.connected-carousels-videos').find("a.jcarousel-control-next,a.photos-next-stage,a.photos-next-navigation,a.videos-next-stage,a.videos-next-navigation").click();
+            $(this).closest('.connected-carousels-photos .stage-photos,.navigation-photos,.navigation-videos').find("a.jcarousel-control-next,a.photos-next-stage,a.photos-next-navigation,a.videos-next-navigation").click();
         }
         else if (direction == "right") {
-            $(this).closest('.connected-carousels-photos,.navigation-photos,.connected-carousels-videos').find("a.jcarousel-control-prev,a.photos-prev-stage,a.photos-prev-navigation,a.videos-prev-stage,a.videos-prev-navigation").click();
+            $(this).closest('.connected-carousels-photos .stage-photos,.navigation-photos,.navigation-videos').find("a.jcarousel-control-prev,a.photos-prev-stage,a.photos-prev-navigation,a.videos-prev-navigation").click();
+
         }
     }
 
@@ -172,6 +170,17 @@ $("#bikeBannerImageCarousel .stage li").click(function () {
         $(".blackOut-window-model").show();
         $(".bike-gallery-popup").removeClass("hide").addClass("show");
         $(".modelgallery-close-btn").removeClass("hide").addClass("show");
+
+        $('.carousel-stage-photos')
+        .on('jcarousel:create jcarousel:reload', function () {
+            var element = $(this),
+                width = element.innerWidth();
+            element.jcarousel('items').css('width', width + 'px');
+        })
+        .jcarousel();
+        
+
+
     }
 });
 
@@ -337,6 +346,12 @@ function pqViewModel(modelId, cityId) {
     }
         return false;
 };
+
+    self.termsConditions = function (entity) {
+        if (entity != null && entity.offerId != 0) {
+            LoadTerms(entity.offerId);
+        }
+    };
 }
 
 
@@ -422,14 +437,27 @@ function fetchPriceQuote(vm) {
         }).done(function (data) {
             if (data) {
                 var pq = ko.toJS(data);
+                var cityName = $(ctrlSelectCity).find("option[value=" + vm.selectedCity() + "]").text();
                 vm.priceQuote(pq);
                 $(priceBlock).find("span.price-loader").hide();
                 vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
                 if (pq.IsDealerPriceAvailable) {
                     vm.DealerPriceList(pq.dealerPriceQuote.priceList);
+                    $.each(pq.bwPriceQuote.varients, function () {
+                        $("#price_" + this.versionId.toString()).text(this.onRoadPrice ? formatPrice(this.onRoadPrice) : "NA");
+                        $("#locprice_" + this.versionId.toString()).text("On-road price, " + cityName);
+                    });
+                    $.each(pq.dealerPriceQuote.varients, function () {
+                        $("#price_" + this.version.versionId.toString()).text(this.onRoadPrice ? formatPrice((this.onRoadPrice - pq.insuranceAmount)) : "NA");
+                        $("#locprice_" + this.version.versionId.toString()).text("On-road price, " + cityName);
+                    });
                 }
                 else {
                     vm.BWPriceList(pq.bwPriceQuote);
+                    $.each(pq.bwPriceQuote.varients, function () {
+                        $("#price_" + this.versionId.toString()).text(this.onRoadPrice ? formatPrice(this.onRoadPrice) : "NA");
+                        $("#locprice_" + this.versionId.toString()).text("On-road price, " + cityName);
+                    });
             }
                 if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                     var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
@@ -654,14 +682,53 @@ $(document).ready(function () {
         $(".blackOut-window").hide();
     });
 
+    $(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+        $("div#termsPopUpContainer").hide();
+        $(".blackOut-window").hide();
+    });
+
     $(document).on('keydown', function (e) {
-        if (e.keyCode === 27) $("div.breakupCloseBtn").click();
+        if (e.keyCode === 27) {
+            $("div.breakupCloseBtn").click();
+            $("div.termsPopUpCloseBtn").click();
+        }
     });
 
     //$(ctrlSelectCity).chosen({ no_results_text: "No matches found!!" });
     //$(ctrlSelectArea).chosen({ no_results_text: "No matches found!!" });
 
 });
+
+function LoadTerms(offerId) {
+
+    $(".termsPopUpContainer").css('height', '150')
+    $('#termspinner').show();
+    $('#terms').empty();
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+
+    var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+    if (offerId != '' && offerId != null) {
+        $.ajax({
+            type: "GET",
+            url: abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                $(".termsPopUpContainer").css('height', '500')
+                $('#termspinner').hide();
+                if (response.html != null)
+                    $('#terms').html(response.html);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        setTimeout(LoadTerms, 2000); // check again in a second
+    }
+}
 
 //photos corousel function
 (function ($) {

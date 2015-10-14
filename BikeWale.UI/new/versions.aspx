@@ -126,7 +126,19 @@
                                 <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span>
                                 <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>    
                                 <span style="font-size:14px;display:none" class="price-loader fa fa-spinner fa-spin  text-black"  ></span>
-                                
+
+                                <!-- Terms and condition Popup start -->
+                                <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                                    <h3>Terms and Conditions</h3>
+                                    <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                        <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                        <img src="/images/search-loading.gif" />
+                                    </div>
+                                    <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                    <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                                    </div>
+                                </div>
+                                <!-- Terms and condition Popup Ends -->
 
                                 <!-- View BreakUp Popup Starts here-->
                                 <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
@@ -306,7 +318,12 @@
                                         <!-- ko if:priceQuote() -->
                                          <!-- ko if : priceQuote().IsDealerPriceAvailable  -->
                                         <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers">
-                                            <li data-bind="text : offerText"></li>
+                                           <li>
+                                               <span data-bind="text: offerText" >
+                                               </span>
+                                               <span class="viewterms" data-bind="visible: isOfferTerms == true,  click: $root.termsConditions.bind(offerId)" >View Terms</span>
+                                           </li>
+                                            
                                         </ul>
                                         <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length == 0">
                                             <li >No offers available</li>
@@ -385,7 +402,7 @@
         <section class="container">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
-                <div class="content-box-shadow content-inner-block-10">
+                <div class="content-box-shadow content-inner-block-10 discover-bike-tabs-container">
                     <div class="bw-overall-rating">
                         <a class="active" href="#overview">Overview</a>
                         <a href="#specifications">Specifications</a>
@@ -394,7 +411,7 @@
                         <a href="#colours" style="<%= (modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0) ? "": "display:none;" %>">Colours</a>
                     </div>
                     <!-- Overview code starts here -->
-                    <div class="bw-tabs-data margin-bottom20" id="overview">
+                    <div class="bw-tabs-data margin-bottom20 active" id="overview">
                         <h2 class="font24 margin-top10 margin-bottom20 text-center">Overview</h2>
                         <div class="grid-3 border-solid-right">
                             <div class="font22 text-center padding-top20 padding-bottom20">
@@ -615,7 +632,7 @@
                                         <div class="clear"></div>
                                     </ul>
                                 </div>
-                                <div class="bw-tabs-data hide"id="brakeWheels">
+                                <div class="bw-tabs-data hide" id="brakeWheels">
                                     <ul>
                                         <li>
                                             <div class="text-light-grey">Brake Type</div>
@@ -933,7 +950,7 @@
                         </div>
                     </div>
                     <!-- variant code starts here -->
-                    <div class="bw-tabs-data <%= modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 ? "" : "hide" %>" id="variants">
+                    <div class="bw-tabs-data margin-bottom20 <%= modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 ? "" : "hide" %>" id="variants">
                         <h2 class="font24 margin-bottom20 text-center">Variants</h2>
                         <asp:Repeater runat="server" ID="rptVarients">
                             <ItemTemplate>
@@ -944,8 +961,8 @@
                                             <p class="font14"><%# FormatVarientMinSpec(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AlloyWheels")),Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "ElectricStart")),Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem")),Convert.ToString(DataBinder.Eval(Container.DataItem, "BrakeType"))) %></p>
                                         </div>
                                         <div class="grid-4 omega">
-                                            <p class="font18 margin-bottom10"><span class="fa fa-rupee margin-right5"></span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></p>
-                                            <p class="font12 text-light-grey">Ex-showroom, Mumbai</p>
+                                            <p class="font18 margin-bottom10"><span class="fa fa-rupee margin-right5"></span><span id="<%# "price_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></p>
+                                            <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">Ex-showroom, Mumbai</p>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -973,13 +990,43 @@
             </div>
         </section>
         <% } %>        
-        <% 
-            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlUserReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+        <%            
+            if (ctrlUserReviews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isUserReviewZero = false;
+                isUserReviewActive = true;
+                            
+            }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isExpertReviewZero = false;
+                if (!isUserReviewActive)
+                {
+                    isExpertReviewActive = true;                    
+                }                
+            }
+            if (ctrlNews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isNewsZero = false;
+                if (!isUserReviewActive && !isExpertReviewActive)
+                {
+                    isNewsActive = true;
+                }                
+            }
+            if (ctrlVideos.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isVideoZero = false;
+                if (!isUserReviewActive && !isExpertReviewActive && !isNewsActive)
+                {
+                    isVideoActive = true;
+                }                
+            } 
         %>
-        <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+        <section class="container <%= (reviewTabsCnt == 0) ? "hide" : "" %>">
             <!--  News Bikes latest updates code starts here -->
             <div class="newBikes-latest-updates-container">
                 <div class="grid-12">
@@ -988,17 +1035,18 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
-                                    <li class="active" style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
-                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                    
-                                    <li style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                    <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                    <li class= "<%= isUserReviewActive ? "active" : "hide" %>" style="<%= Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0 ? "" : "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
+                                    <li class= "<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                    
+                                    <li class= "<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                    <li class= "<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos" >Videos</li>
                                 </ul>
                             </div>
-                        </div>
-                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />                        
-                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                        <BW:News runat="server" ID="ctrlNews" />
-                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        </div>                        
+                        <%if (!isUserReviewZero) { %> <BW:UserReviews runat="server" ID="ctrlUserReviews" />  <% } %>                    
+                        <%if (!isExpertReviewZero) { %> <BW:ExpertReviews  runat="server" ID="ctrlExpertReviews" /> <% } %>
+                        <%if (!isNewsZero) { %> <BW:News runat="server" ID="ctrlNews" /> <% } %>
+                        <%if (!isVideoActive) { %> <BW:Videos runat="server" ID="ctrlVideos" /> <% } %>                      
+                        
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -1031,7 +1079,7 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?<%= staticFileVersion %>">"></script>
         <script type="text/javascript">
-            var myBikeName = '<%= this.bikeName %>';
+            var myBikeName = "<%= this.bikeName %>";
         var clientIP = "<%= clientIP%>";
             function applyLazyLoad() {
                 $("img.lazy").lazyload({
@@ -1048,37 +1096,75 @@
             });
         </script>
         <script type="text/javascript">
-        $(document).ready(function (e) {
-                $('.bw-overall-rating a[href^="#"], a[href^="#"].review-count-box').click(function () {
-                    $('.bw-overall-rating a').removeClass("active");
-                    $(this).addClass("active");
-                    var target = $(this.hash);
-                    if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
-                    if (target.length == 0) target = $('html');
-                    $('html, body').animate({ scrollTop: target.offset().top - 50 - $(".header-fixed").height() }, 1000);
-                    return false;
-                });
-                // ends                                
 
-                <% if (modelPage.ModelDetails.New)
-                { %>
-                var cityId = '<%= cityId%>'
-                InitVM(cityId);
-                <% } %>
+        $(document).ready(function (e) {
+            $('.bw-overall-rating a[href^="#"]').click(function () {
+                var target = $(this.hash);
+                if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+                if (target.length == 0) target = $('html');
+                $('html, body').animate({ scrollTop: target.offset().top -50- $(".header-fixed").height() }, 1000);
+                return false;
+            });
+            // ends                                
+
+            <% if (modelPage.ModelDetails.New)
+            { %>
+            var cityId = '<%= cityId%>'
+            InitVM(cityId);
+            <% } %>
 
             });
             // Cache selectors outside callback for performance.
 
             <% if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
                { %>
-            var $window = $(window);
-            $menu = $('.bw-overall-rating');
-            $menu2 = $('.alternative-section');
-            if ($menu != null && $menu2) {
-                menu2Top = $menu2.offset().top;
-                menuTop = $menu.offset().top;
-                $window.scroll(function () { $menu.toggleClass('affix', menu2Top >= $window.scrollTop() && $window.scrollTop() > menuTop); });
-            }
+            var $window = $(window),
+	        $menu = $('.bw-overall-rating'),
+	        menuTop = $menu.offset().top + 50;
+           
+            var sections = $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20'),
+                nav = $('div.bw-overall-rating'),
+                nav_height = nav.outerHeight(),
+                section_height = $(".discover-bike-tabs-container"),
+                sectionContainer_height = section_height.outerHeight() + menuTop - 250,
+                sectionStart = section_height.offset().top - 150;
+                    
+            section_height.bind('heightChangeBlock', function () {
+                $(".more-features").css("display","block");
+                sectionContainer_height = section_height.outerHeight() + menuTop - 250;
+                $(".more-features").css("display", "none");
+            });
+
+            section_height.bind('heightChangeNone', function () {
+                $(".more-features").css("display", "none");
+                sectionContainer_height = section_height.outerHeight() + menuTop - 250;
+                $(".more-features").css("display", "block");
+            });
+
+            $(".more-features-btn").click(function () {
+                if($(".more-features").css("display") == "none")
+                    section_height.trigger('heightChangeBlock');
+                else if($(".more-features").css("display") == "block") 
+                    section_height.trigger('heightChangeNone');
+            });
+                
+            $window.scroll(function () {
+                $menu.toggleClass('affix', sectionContainer_height >= $window.scrollTop() && $window.scrollTop() > sectionStart);
+                var cur_pos = $(this).scrollTop();
+
+                sections.each(function () {
+                    var top = $(this).offset().top -10- nav_height,
+                    bottom = top + $(this).outerHeight();
+
+                    if (cur_pos >= top && cur_pos <= bottom) {
+                        nav.find('a').removeClass('active');
+                        sections.removeClass('active');
+
+                        $(this).addClass('active');
+                        nav.find('a[href="#' + $(this).attr('id') + '"]').addClass('active');
+                    }
+                });
+            });
 
             <% } %> 
             ga_pg_id = '2';
@@ -1088,8 +1174,12 @@
                 modelViewModel = viewModel;
                 ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
                 viewModel.LoadCity();
-            }
+            }       
 
+            if('<%=isUserReviewActive%>'== 'False') $("#ctrlUserReviews").addClass("hide");
+            if('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
+            if('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
         </script>      
     </form>
 </body>

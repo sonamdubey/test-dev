@@ -14,13 +14,13 @@
                 </div>
                 <div class="grid-10">
                     <p class="margin-bottom5 font18 text-bold"><%#Eval("ReviewTitle").ToString() %> <span class="font14 text-unbold text-light-grey margin-left5"><%#Eval("ReviewDate").ToString() %>, by <%#Eval("WrittenBy").ToString() %></span></p>
-                    <p><%#Eval("Comments").ToString() %>...<a href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full story</a></p>
+                    <p><%#Eval("Comments").ToString() %>...<a href="/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html">Read full review</a></p>
                 </div>
             <div class="clear"></div>
         </div>
     </ItemTemplate>
 </asp:Repeater>
-        <div class="padding-bottom50 text-center">
+        <div class="padding-bottom30 text-center">
             <a href="/user-reviews/" class="font16">View more reviews</a>
         </div>
     </div>

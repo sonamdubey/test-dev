@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.LocateDealer_New" %>
-<div class="locate-dealer-container text-center margin-bottom50" id="NBLocateDealer">
+<div class="locate-dealer-container text-center margin-bottom30" id="NBLocateDealer">
     <div class="margin-bottom40">
         <span class="bw-circle-icon locate-dealer-logo"></span>
     </div>

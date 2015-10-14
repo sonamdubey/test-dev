@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.VideosControl" %>
-<div class="bw-tabs-data hide" id="ctrlVideos"><!-- Videos data code starts here-->
+<div class="bw-tabs-data" id="ctrlVideos"><!-- Videos data code starts here-->
     <asp:Repeater ID="rptVideos" runat="server">
         <ItemTemplate>
             <div class="padding-bottom30">
@@ -18,7 +18,7 @@
             </div>
         </ItemTemplate>
     </asp:Repeater>                        
-    <%--<div class="padding-bottom50 text-center">
+    <%--<div class="padding-bottom30 text-center">
         <a href="#" class="font16">View more videos</a>
     </div>--%>
 </div><!-- Ends here-->

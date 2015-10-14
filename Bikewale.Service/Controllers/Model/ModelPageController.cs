@@ -68,6 +68,8 @@ namespace Bikewale.Service.Controllers.Model
 
                     categorList = new List<EnumCMSContentType>();
                     categorList.Add(EnumCMSContentType.PhotoGalleries);
+                    categorList.Add(EnumCMSContentType.RoadTest);
+                    categorList.Add(EnumCMSContentType.ComparisonTests);
                     string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
                     string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
 

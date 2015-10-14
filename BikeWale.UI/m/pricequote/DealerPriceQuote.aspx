@@ -29,7 +29,7 @@
 <style>
     .grey-bullet li{ background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/images/bw-grey-bullet.png) no-repeat 0px 9px;display: block;list-style: square outside none;padding: 3px 0 3px 10px;}
 </style>
-<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/BikeBooking.js?<%= staticFileVersion %>"></script>
+<%--<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/BikeBooking.js?<%= staticFileVersion %>"></script>--%>
 
 <div class="padding5">
     <h1 class="margin-top-10" style="margin-left:0px;"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Price Quote</h1>
@@ -106,7 +106,7 @@
                     <td height="30" align="left" style="vertical-align:top; padding-top:5px;"><b>BikeWale On Road (after insurance offer)</b></td>
                     <td height="30" align="right" class="f-bold" style="padding-top:5px;">
                         <div><span class="WebRupee">Rs.</span><%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></div>                        
-                        <div class="margin-top-5"><a id="dealerPriceQuote" class="blue" style="color:#0056cc!important; font-weight:normal; text-decoration:none;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Get Dealer Details</a></div>
+                        <%--<div class="margin-top-5"><a id="dealerPriceQuote" class="blue" style="color:#0056cc!important; font-weight:normal; text-decoration:none;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Get Dealer Details</a></div>--%>
                     </td>
                 </tr>
                 <%
@@ -117,7 +117,7 @@
                     <td height="30" align="left" style="vertical-align:top; padding-top:5px;"><b>Total On Road Price</b></td>
                     <td height="30" align="right" class="f-bold" style="padding-top:5px;">
                         <div><span class="WebRupee">Rs.</span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></div>
-                        <div class="margin-top-5"><a id="dealerPriceQuote" class="blue" style="color:#0056cc!important; font-weight:normal; text-decoration:none;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Get Dealer Details</a></div>
+                        <%--<div class="margin-top-5"><a id="dealerPriceQuote" class="blue" style="color:#0056cc!important; font-weight:normal; text-decoration:none;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Avail offer</a></div>--%>
                     </td>
                 </tr>
         <%
@@ -139,7 +139,7 @@
         <% if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
         { %>        
         <div class="new-line10" id="divOffers"  style="background:#fff;">        
-            <h2 class="f-bold"><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Get Absolutely Free"%></h2>
+            <h2 class="f-bold"><%= IsInsuranceFree ? "BikeWale Offer" : "Get Absolutely Free"%></h2>
             <div class="margin-top5 margin-left5 new-line10">
                 <asp:Repeater ID="rptOffers" runat="server">
                     <HeaderTemplate>
@@ -164,7 +164,7 @@
     <%} %>        
            
     <!--Exciting Offers section ends here-->
-        <button type="button" data-role="none" id="getDealerDetails" class="rounded-corner5" style="margin-bottom:20px;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</button>
+        <button type="button" data-role="none" id="getDealerDetails" class="rounded-corner5" style="margin-bottom:20px;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</button>
     </div>
     <%--<button data-role="none" id="getDealerDetails" class="rounded-corner5" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details & Book Now</button>--%>
 </div>
@@ -248,7 +248,11 @@
             <a href="#" data-role="button" data-rel="back" data-theme="c" data-mini="true">OK</a>
         </div>
     </div>
-
+<script type="text/javascript">
+    $('#getDealerDetails').click(function(){
+        window.location.href='/m/pricequote/bookingsummary_new.aspx';
+    });
+</script>
 
 <!-- #include file="/includes/footermobile_noad.aspx" -->
 

@@ -224,7 +224,7 @@
                     <%-- End 102155010 --%>
                     <%if (_objPQ.objOffers != null && _objPQ.objOffers.Count > 0){ %>
                         <div class="bw-offer-box" id="divOffers">
-                            <h2><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Exclusive BikeWale Offers"%></h2>
+                            <h2><%= IsInsuranceFree ? "BikeWale Offer" : "Exclusive BikeWale Offers"%></h2>
                             <div class="margin-top5 margin-left5">
                                   <asp:Repeater ID="rptOffers" runat="server">
                                         <HeaderTemplate>

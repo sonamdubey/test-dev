@@ -45,7 +45,7 @@
                        { %><div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
                     <% } %>
                     <div class="jcarousel-wrapper model" id="bikeBannerImageCarousel">
-                        <div class="jcarousel stage">
+                        <div class="jcarousel">
                             <ul id="ulModelPhotos">
                                 <li>
                                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
@@ -102,6 +102,18 @@
                     <div class="bike-price-container font22 margin-bottom15">
                         <span class="fa fa-rupee"></span>
                         <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10 default-showroom-text">Ex-showroom <%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
+                        <!-- Terms and condition Popup start -->
+                                <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                                    <h3>Terms and Conditions</h3>
+                                    <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                        <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                        <img src="/images/search-loading.gif" />
+                                    </div>
+                                    <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+                                    <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                                    </div>
+                                </div>
+                                <!-- Terms and condition Popup Ends -->
                         <!-- View BreakUp Popup Starts here-->
                         <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
                             <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
@@ -246,7 +258,11 @@
                              <!-- ko if:priceQuote() -->
 	                         <!-- ko if : priceQuote().IsDealerPriceAvailable  -->
 	                        	<ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers">
-	                            <li data-bind="text: offerText"></li>
+	                            <%--<li data-bind="text: offerText"></li>--%>
+                                   <li>
+                                    <span data-bind="text: offerText" ></span>
+                                    <span class="viewterms" data-bind="visible: isOfferTerms == true, click: $root.termsConditions.bind(offerId)" >View Terms</span>
+                                   </li>
 	                        </ul>
 	                        <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length == 0">
 	                            <li >No offers available</li>
@@ -277,7 +293,7 @@
                     <div class="bikeTitle">
                         <h1 class="padding-bottom15 padding-left15"><%= bikeName %></h1>
                     </div>
-                    <div class="grid-6 alpha">
+                    <div class="leftfloat">
                         <div class="padding-left5 padding-right5 ">
                             <div>
                                 <span class="margin-bottom10 ">
@@ -286,7 +302,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grid-6 omega border-left1">
+                    <div class="leftfloat border-left1">
                         <div class="padding-left5 padding-right5 ">
                             <span class="font16 text-light-grey">
                                 <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> margin-right10 padding-left10 line-Ht22">
@@ -806,8 +822,8 @@
                                             <p class="font14"><%# Bikewale.Utility.FormatMinSpecs.GetMinVersionSpecs(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AlloyWheels")), Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "ElectricStart")), Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem")), Convert.ToString(DataBinder.Eval(Container.DataItem, "BrakeType"))) %></p>
                                         </div>
                                         <div class="grid-4 alpha omega">
-                                            <p class="font16 margin-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></p>
-                                            <p class="font12 text-light-grey">Ex-showroom, <%= Bikewale.Common.Configuration.GetDefaultCityName %></p>
+                                            <p class="font16 margin-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span id="<%# "price_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></p>
+                                            <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">Ex-showroom, <%= Bikewale.Common.Configuration.GetDefaultCityName %></p>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
@@ -845,10 +861,40 @@
         </section>
         <% } %>
         <% 
-            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlUserReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlUserReviews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isUserReviewZero = false;
+                isUserReviewActive = true;
+
+            }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isExpertReviewZero = false;
+                if (!isUserReviewActive)
+                {
+                    isExpertReviewActive = true;
+                }
+            }
+            if (ctrlNews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isNewsZero = false;
+                if (!isUserReviewActive && !isExpertReviewActive)
+                {
+                    isNewsActive = true;
+                }
+            }
+            if (ctrlVideos.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isVideoZero = false;
+                if (!isUserReviewActive && !isExpertReviewActive && !isNewsActive)
+                {
+                    isVideoActive = true;
+                }
+            }
         %>
         <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
             <!--  News, reviews and videos code starts here -->
@@ -859,18 +905,17 @@
                         <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
                             <div class="form-control-box">
                                 <select class="form-control">
-                                    <option class="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "" : "hide" %> active" value="ctrlUserReviews">User Reviews</option>                                    
-                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlExpertReviews">Expert Reviews</option>
-                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlNews">News</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %>" value="ctrlVideos">Videos</option>
-                                    
+                                    <option class="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "" : "hide"  %> <%= isUserReviewActive ? "active" : "" %> " value="ctrlUserReviews">User Reviews</option>                                    
+                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option>
+                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option>
+                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option>                                    
                                 </select>
                             </div>
                         </div>
-                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />                        
-                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
-                        <BW:News runat="server" ID="ctrlNews" />
-                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        <%if (!isUserReviewZero) { %> <BW:UserReviews runat="server" ID="ctrlUserReviews" />  <% } %>                    
+                        <%if (!isExpertReviewZero) { %> <BW:ExpertReviews  runat="server" ID="ctrlExpertReviews" /> <% } %>
+                        <%if (!isNewsZero) { %> <BW:News runat="server" ID="ctrlNews" /> <% } %>
+                        <%if (!isVideoActive) { %> <BW:Videos runat="server" ID="ctrlVideos" /> <% } %>
                         
                     </div>
                 </div>
@@ -909,8 +954,12 @@
 		    clientIP = '<%= clientIP%>';
 		    cityId = '<%= cityId%>';
 		    isUsed = '<%= !modelPage.ModelDetails.New %>';
-            var myBikeName = '<%= this.bikeName %>';
-            ga_pg_id = '2';
+            var myBikeName = "<%= this.bikeName %>";
+		    ga_pg_id = '2';
+		    if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
+		    if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
+		    if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+		    if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
         </script>
         
     </form>

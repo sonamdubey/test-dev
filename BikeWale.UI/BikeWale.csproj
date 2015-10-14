@@ -240,6 +240,7 @@
     </Compile>
     <Compile Include="BikeBooking\Common\BikeBookingOperations.cs" />
     <Compile Include="BikeBooking\Common\CustomerDetailCookie.cs" />
+    <Compile Include="BikeBooking\Common\CustomerPaymentCookie.cs" />
     <Compile Include="BikeBooking\Common\DealerPriceQuoteCookie.cs" />
     <Compile Include="BikeBooking\Common\SendEmailSMSToDealerCustomer.cs" />
     <Compile Include="BikeBooking\Common\TCApi_Inquiry.cs" />
@@ -854,6 +855,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\offerterms.aspx.cs">
+      <DependentUpon>offerterms.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\new\Search.aspx.cs">
       <DependentUpon>Search.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1020,6 +1025,10 @@
       <DependentUpon>VersionSpecs.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="offerterms.aspx.cs">
+      <DependentUpon>offerterms.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="PQCertificate.aspx.cs">
       <DependentUpon>PQCertificate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1050,6 +1059,10 @@
     </Compile>
     <Compile Include="pricequote\PaymentConfirmation.aspx.cs">
       <DependentUpon>PaymentConfirmation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\PaymentConfirmation_old.aspx.cs">
+      <DependentUpon>PaymentConfirmation_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\PaymentFailure.aspx.cs">
@@ -2076,6 +2089,7 @@
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
+    <Content Include="m\offerterms.aspx" />
     <Content Include="m\new\Search.aspx" />
     <Content Include="m\new\upcomingbikes\Default.aspx" />
     <Content Include="m\pagenotfound.aspx" />
@@ -2107,7 +2121,9 @@
     <Content Include="m\src\Plugins.js" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
+    <Content Include="offerterms.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
+    <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
     <Content Include="src\common.js" />
@@ -2155,7 +2171,7 @@
     <Content Include="pricequote\default.aspx" />
     <Content Include="pricequote\DetailedDealerQuotation.aspx" />
     <Content Include="pricequote\faq.aspx" />
-    <Content Include="pricequote\PaymentConfirmation.aspx" />
+    <Content Include="pricequote\PaymentConfirmation_old.aspx" />
     <Content Include="pricequote\PaymentFailure.aspx" />
     <Content Include="pricequote\quotation.aspx" />
     <Content Include="pricequote\RSAOfferClaim.aspx" />

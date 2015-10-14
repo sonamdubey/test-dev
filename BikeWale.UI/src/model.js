@@ -46,6 +46,7 @@ function pqViewModel(modelId, cityId) {
             return formatPrice(item);
         return "";
     };
+
     self.DealerOnRoadPrice = ko.computed(function () {
         var total = 0;
         for (i = 0; i < self.DealerPriceList().length; i++) {
@@ -101,6 +102,12 @@ function pqViewModel(modelId, cityId) {
             window.location.href = "/pricequote/bookingsummary_new.aspx";
         }
         return false;
+    };
+
+    self.termsConditions = function (entity) {
+        if (entity != null && entity.offerId != 0) {
+            LoadTerms(entity.offerId);
+        }
     };
 
 }
@@ -204,14 +211,26 @@ function fetchPriceQuote(vm) {
         }).done(function (data) {
             if (data) {
                 var pq = ko.toJS(data);
-                
+                var cityName = $(ctrlSelectCity).find("option[value=" + vm.selectedCity() + "]").text();
                 vm.priceQuote(pq);
                 vm.isDealerPQAvailable(pq.IsDealerPriceAvailable);
                 if (pq.IsDealerPriceAvailable) {
                     vm.DealerPriceList(pq.dealerPriceQuote.priceList);
+                    $.each(pq.bwPriceQuote.varients, function () {
+                        $("#price_" + this.versionId.toString()).text(this.onRoadPrice ? formatPrice(this.onRoadPrice) : "NA");
+                        $("#locprice_" + this.versionId.toString()).text("On-road price, " + cityName);
+                    });
+                    $.each(pq.dealerPriceQuote.varients,function () {
+                        $("#price_" + this.version.versionId.toString()).text(this.onRoadPrice ? formatPrice((this.onRoadPrice - pq.insuranceAmount)) : "NA");
+                        $("#locprice_" + this.version.versionId.toString()).text("On-road price, " + cityName);
+                    });
                 }
                 else {
                     vm.BWPriceList(pq.bwPriceQuote);
+                    $.each(pq.bwPriceQuote.varients, function () {                        
+                        $("#price_" + this.versionId.toString()).text(this.onRoadPrice ? formatPrice(this.onRoadPrice) : "NA");
+                        $("#locprice_" + this.versionId.toString()).text("On-road price, " + cityName);
+                    });
                 }
                 if (vm.areas().length > 0 && pq && pq.IsDealerPriceAvailable) {
                     var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + vm.selectedArea() + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=" + pq.priceQuote.dealerId;
@@ -402,7 +421,7 @@ $(document).ready(function () {
         
     });
 
-    $("#ctrlNews").addClass("hide");
+   
 
     $(".more-features-btn").click(function () {
         $(".more-features").slideToggle();
@@ -420,14 +439,55 @@ $(document).ready(function () {
         $(".blackOut-window").hide();        
     });
 
-    $(document).on('keydown', function (e) {
-        if (e.keyCode === 27) $("div.breakupCloseBtn").click();
+    $(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+        $("div#termsPopUpContainer").hide();
+        $(".blackOut-window").hide();
     });
+
+
+    $(document).on('keydown', function (e) {
+        if (e.keyCode === 27) {
+            $("div.breakupCloseBtn").click();
+            $("div.termsPopUpCloseBtn").click();
+        }
+    });
+
+
 
     //$(ctrlSelectCity).chosen({ no_results_text: "No matches found!!" });
     //$(ctrlSelectArea).chosen({ no_results_text: "No matches found!!" });
 
 });
+
+function LoadTerms(offerId) {
+    $(".termsPopUpContainer").css('height', '150')
+    $('#termspinner').show();
+    $('#terms').empty();
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+
+    var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+    if (offerId != '' && offerId != null) {
+        $.ajax({
+            type: "GET",
+            url: abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                $(".termsPopUpContainer").css('height', '500')
+                $('#termspinner').hide();
+                if (response.html != null)
+                    $('#terms').html(response.html);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });      
+    }
+    else {
+        setTimeout(LoadTerms, 2000); // check again in a second
+    }
+}
 
 //function to check pqCookies
 function PQcheckCookies() {
@@ -444,7 +504,6 @@ function PQcheckCookies() {
         }
     }
 }
-
 
 //photos corousel function
 (function ($) {

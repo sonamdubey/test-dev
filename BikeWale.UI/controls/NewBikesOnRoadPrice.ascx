@@ -63,7 +63,7 @@
 
 
     function FillCitiesOnRoad(modelId) {
-        toggleErrorMsg(onRoadcity, false);
+        showHideMatchError(onRoadcity, false);
         $.ajax({
             type: "POST",
             url: "/ajaxpro/Bikewale.Ajax.AjaxPriceQuote,Bikewale.ashx",
@@ -91,7 +91,7 @@
 
     function cityChangedOnRoad() {
         //gtmCodeAppenderWidget(pageId, "City Selected", null);
-        toggleErrorMsg(onRoadArea, false);
+        showHideMatchError(onRoadArea, false);
         if (viewModelOnRoad.selectedCity() != undefined) {
             $.ajax({
                 type: "POST",

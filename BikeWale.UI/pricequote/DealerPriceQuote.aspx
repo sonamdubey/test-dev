@@ -37,7 +37,7 @@
         Customername = '<%= CustomerDetailCookie.CustomerName%>', email = '<%= CustomerDetailCookie.CustomerEmail%>', mobileNo = '<%= CustomerDetailCookie.CustomerMobile %>';
     }
 </script>
-<script type="text/javascript"  src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/BikeBooking.js?<%= staticFileVersion %>"></script>
+<%--<script type="text/javascript"  src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/BikeBooking.js?<%= staticFileVersion %>"></script>--%>
 
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <PW:PopupWidget runat="server" ID="PopupWidget" />
@@ -227,9 +227,9 @@
                        }
                                      %>                                
                                 <%-- End 102155010 --%>
-                                <tr>
-                                    <td colspan="2" align="right"><a id="dealerPriceQuote" class="blue font14" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Get Dealer Details</a></td>
-                                </tr>
+                                <%--<tr>
+                                    <td colspan="2" align="right"><a id="dealerPriceQuote" class="blue font14" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Avail offer</a></td>
+                                </tr>--%>
                                 <tr class="hide">
                                 	<td colspan="3">
                                         <ul class="std-ul-list">
@@ -318,7 +318,7 @@
                 <%if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
                   { %>
                 <div id="divOffers" style="background:#fff;">                    
-                    <h2><%= IsInsuranceFree ? "BikeWale Ganapati Offer" : "Get Absolutely Free"%></h2>
+                    <h2><%= IsInsuranceFree ? "BikeWale Offer" : "Get Absolutely Free"%></h2>
                     <div class="margin-top5 margin-left5 font14">
                           <asp:Repeater ID="rptOffers" runat="server">
                                 <HeaderTemplate>
@@ -339,7 +339,7 @@
                                 </FooterTemplate>                              
                             </asp:Repeater>
                     <div style="text-align:center;" class="mid-box margin-top15">
-                        <a class="action-btn" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</a>
+                        <a class="action-btn" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</a>
                     </div>
                     </div>
                   </div>                   
@@ -364,6 +364,10 @@
     $('.white-close-btn').click(function () {
         $(".blackOut-window").hide();
         $('.rsa-popup').hide();
+    });
+
+    $('#btnGetDealerDetails').click(function(){
+        window.location.href='/pricequote/bookingsummary_new.aspx';
     });
 </script>    
 <!-- #include file="/includes/footerInner.aspx" -->

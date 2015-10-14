@@ -33,6 +33,11 @@ namespace Bikewale.Mobile
         protected int uCount = 0;
         protected short reviewTabsCnt = 0;
 
+        //Variable to Assing ACTIVE .css class
+        protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
+        //Varible to Hide or show controlers
+        protected bool isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

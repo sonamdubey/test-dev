@@ -32,5 +32,8 @@ namespace Bikewale.DTO.PriceQuote.DealerPriceQuote
 
         [JsonProperty("offerValue")]
         public UInt32 OfferValue { get; set; }
+
+        [JsonProperty("isOfferTerms")]
+        public bool IsOfferTerms { get; set; }
     }
 }

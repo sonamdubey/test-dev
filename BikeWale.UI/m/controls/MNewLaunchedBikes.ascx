@@ -24,7 +24,7 @@
                             <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>                             
                         </div>
                           <div class="padding-top5 clear">
-                            <div class="grid-6 alpha">
+                            <div class="leftfloat">
                                 <div class="padding-left5 padding-right5">                                                                
                                     <div>
                                         <span class="margin-bottom10 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
@@ -42,7 +42,7 @@
 
                                 </div>
                             </div>
-                            <div class="grid-6 omega border-left1">
+                            <div class="leftfloat border-left1">
                                 <div class="padding-left5 padding-right5">
                                     <span class="font16 text-light-grey"><%# Bikewale.Utility.FormatDate.GetDDMMYYYY(Convert.ToString(DataBinder.Eval(Container.DataItem, "LaunchDate"))) %></span>
                                 </div>

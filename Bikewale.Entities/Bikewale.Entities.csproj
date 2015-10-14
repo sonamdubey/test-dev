@@ -48,6 +48,7 @@
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
+    <Compile Include="BikeBooking\BikeBooking.cs" />
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntityBase.cs" />
     <Compile Include="BikeBooking\BookingResults.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="BikeBooking\PQCustomerDetail.cs" />
     <Compile Include="BikeBooking\PQOutputEntity.cs" />
     <Compile Include="BikeBooking\PQParameterEntity.cs" />
+    <Compile Include="BikeBooking\PQ_BikeVarient.cs" />
     <Compile Include="BikeBooking\PQ_DealerDetailEntity.cs" />
     <Compile Include="BikeBooking\PQ_Price.cs" />
     <Compile Include="BikeBooking\PQ_QuotationEntity.cs" />
@@ -121,7 +123,10 @@
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Customer\CustomerEntityBase.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
+    <Compile Include="Dealer\EnumNewBikeDealerClient.cs" />
     <Compile Include="Dealer\NewBikeDealerEntity.cs" />
+    <Compile Include="Dealer\NewBikeDealerEntityBase.cs" />
+    <Compile Include="Dealer\NewBikeDealerEntityList.cs" />
     <Compile Include="Dealer\NewBikeDealersListEntity.cs" />
     <Compile Include="Dealer\NewBikeDealersMakeEntity.cs" />
     <Compile Include="EditCMS\Articles\ArticleBase.cs" />
@@ -162,6 +167,7 @@
     <Compile Include="PriceQuote\DealerOfferEntity.cs" />
     <Compile Include="PriceQuote\DealerPriceCategoryItemEntity.cs" />
     <Compile Include="PriceQuote\DealerVersionPriceItemEntity.cs" />
+    <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

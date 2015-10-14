@@ -11,7 +11,6 @@ namespace Bikewale.Controls
     public class ExpertReviews : System.Web.UI.UserControl
     {
         protected Repeater rptExpertReviews;
-
         public int TotalRecords { get; set; }
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }

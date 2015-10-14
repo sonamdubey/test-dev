@@ -33,7 +33,7 @@ RewriteRule ^(.*)-bikes/road-tests/						/m/content/roadtest/default.aspx?make=$
 RewriteRule ^road-tests/page/(.*)/			/m/content/roadtest/default.aspx?pn=$1 [NC,L]
 RewriteRule ^road-tests/			/m/content/roadtest/default.aspx [NC,L]
 
-
+RewriteRule	^terms/(.*)	/m/offerterms.aspx?id=$1 [NC,L]
 
 
 RewriteRule  ^(.*)-bikes/(.*)/(.*)-specs-(.*).html	/m/($1)-bikes/($2)/ [R=301,NC,L]

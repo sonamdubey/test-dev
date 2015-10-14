@@ -428,7 +428,7 @@
     <section class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
         <!--  Discover bikes section code starts here -->
         <div class="grid-12">
-            <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Discover your bike</h2>
+            <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Featured bikes</h2>
             <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
                 <div class="bw-tabs bw-tabs-flex">
                     <ul>
@@ -501,7 +501,7 @@
                     </ul>
                 </div>
                 <div class="bw-tabs-data" id="getFinal-price">
-                    <div class="getFinal-price-container text-center margin-bottom50">
+                    <div class="getFinal-price-container text-center margin-bottom30">
                         <div class="margin-bottom40">
                             <span class="bw-circle-icon final-price-logo"></span>
                         </div>
@@ -522,9 +522,30 @@
     </section>
 
         <% 
-            if (ctrlNews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlExpertReviews.FetchedRecordsCount > 0) { reviewTabsCnt++; }
-            if (ctrlVideos.FetchedRecordsCount > 0) { reviewTabsCnt++; }
+            if (ctrlNews.FetchedRecordsCount > 0) 
+            { 
+                reviewTabsCnt++;
+                isNewsZero = false;
+                isNewsActive = true;
+            }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0) 
+            {
+                reviewTabsCnt++;
+                isExpertReviewZero = false;
+                if (!isNewsActive)
+                {
+                    isExpertReviewActive = true;
+                }   
+            }
+            if (ctrlVideos.FetchedRecordsCount > 0) 
+            {
+                reviewTabsCnt++;
+                isVideoZero = false;
+                if (!isExpertReviewActive && !isNewsActive)
+                {
+                    isVideoActive = true;
+                }   
+            }
         %>
         <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
             <!--  News Bikes latest updates code starts here -->
@@ -535,15 +556,15 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
-                                    <li class="active" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                   
-                                    <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                    <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                    <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                   
+                                    <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
                                 </ul>
                             </div>
                         </div>
-                        <BW:News runat="server" ID="ctrlNews" />
-                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />                         
-                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        <%if (!isNewsZero) { %>         <BW:News runat="server" ID="ctrlNews" />    <% } %>
+                        <%if (!isExpertReviewZero) { %> <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />  <% } %>                         
+                        <%if (!isVideoZero) { %>        <BW:Videos runat="server" ID="ctrlVideos" />    <% } %>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -579,7 +600,9 @@
                     });
                 }
             }
-
+            if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+            if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");            
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
         </script>
     </form>
 </body>

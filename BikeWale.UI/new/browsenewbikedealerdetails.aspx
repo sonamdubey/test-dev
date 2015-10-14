@@ -1,5 +1,6 @@
 ﻿<%@Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.BrowseNewBikeDealerDetails" Trace="false" Debug="false" %>
 <%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
+<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <% 
     keywords = makeName + " dealers city, Make showrooms " + strCity + "," + strCity + " bike dealers, " + makeName + " dealers, " + strCity + " bike showrooms, bike dealers, bike showrooms, dealerships";
@@ -12,8 +13,6 @@
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 
         <div class="container_12">
             <div class="grid_12">
@@ -62,4 +61,5 @@
             </div><!--    Right Container ends here -->
         </div>
 
+    <PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerInner.aspx" -->
