@@ -428,7 +428,7 @@
     <section class="container <%= ((ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount + ctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
         <!--  Discover bikes section code starts here -->
         <div class="grid-12">
-            <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Discover your bike</h2>
+            <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Featured bikes</h2>
             <div class="bw-tabs-panel newbike-discover-bike-container content-box-shadow">
                 <div class="bw-tabs bw-tabs-flex">
                     <ul>
@@ -501,7 +501,7 @@
                     </ul>
                 </div>
                 <div class="bw-tabs-data" id="getFinal-price">
-                    <div class="getFinal-price-container text-center margin-bottom50">
+                    <div class="getFinal-price-container text-center margin-bottom30">
                         <div class="margin-bottom40">
                             <span class="bw-circle-icon final-price-logo"></span>
                         </div>

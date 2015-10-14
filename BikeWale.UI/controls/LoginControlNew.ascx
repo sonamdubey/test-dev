@@ -22,8 +22,8 @@
                     <label for="<%= chkRemMe.ClientID %>">Remember me</label>
                 </div>
                 <asp:HiddenField ID="hdnAuthData" runat="server" />                
-                <asp:Button Text="log in" id="btnLogin" runat="server" class="btn btn-orange text-uppercase margin-bottom15 margin-right10" />
-                <button type="button" class="loginBtnSignUp btn btn-white btn-md text-uppercase margin-bottom15">sign up</button>
+                <asp:Button Text="Log in" id="btnLogin" runat="server" class="btn btn-orange margin-bottom15 margin-right10" />
+                <button type="button" class="loginBtnSignUp btn btn-white btn-md margin-bottom15">Sign up</button>
                 <div><a class="cur-pointer font12" id="forgotpass">Forgot password?</a></div>
                 <!-- Forget Password -->
                 <div id="forgotpassdiv" class="hide">
@@ -33,7 +33,7 @@
                             <span class="bwsprite error-icon hide"></span>
                             <div class="bw-blackbg-tooltip hide">Invalid Email</div>
                         </div>
-                        <input type="button" id="btnForgetPass" class="btn btn-orange text-uppercase" value="send">
+                        <input type="button" id="btnForgetPass" class="btn btn-orange" value="Send">
                     </div>
                     <b><span id="processing_pwd" class="hide"> Please wait...</span></b>
                 </div>
@@ -83,8 +83,8 @@
                     <label for="agreecheck">I have read and agree with the
                     <a href="/visitoragreement.aspx" target="_blank">User Agreement</a> & <a href="/privacypolicy.aspx" target="_blank">Privacy Policy</a></label>
                 </div>
-                <asp:Button class="signupBtnLogin btn btn-orange text-uppercase margin-bottom15 margin-right10" Text="sign up" ID="btnSignup" runat="server" />
-                <button type="button" id="btnSignUpBack" class="btn btn-white btn-md text-uppercase margin-bottom15">back</button>
+                <asp:Button class="signupBtnLogin btn btn-orange margin-bottom15 margin-right10" Text="Sign up" ID="btnSignup" runat="server" />
+                <button type="button" id="btnSignUpBack" class="btn btn-white btn-md margin-bottom15">Back</button>
             </div>
         </div>            
     </div>
