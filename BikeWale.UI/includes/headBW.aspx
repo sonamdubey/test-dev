@@ -9,7 +9,7 @@
             <div class="cityPopup-box rounded-corner50 margin-bottom20">
             	<span class="bwsprite cityPopup-icon margin-top10"></span>
             </div>
-            <p class="font20 margin-bottom15 text-capitalize">Please tell us your city</p>
+            <p class="font20 margin-bottom15">Please tell us your city</p>
             <p class="text-light-grey margin-bottom15">This allows us to provide relevant content for you.</p>
             <div class="form-control-box globalcity-input-box">
                 <div class="margin-bottom20">
@@ -21,7 +21,7 @@
                 </div>
             </div>
             <div>
-            	<a id="btnGlobalCityPopup" class="btn btn-orange font18 text-uppercase">Confirm city</a>
+            	<a id="btnGlobalCityPopup" class="btn btn-orange font18">Confirm city</a>
             </div>
         </div>
         <div class="clear"></div>

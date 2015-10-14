@@ -44,7 +44,7 @@
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
                                                 <a href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
-                                                    <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" src="http://img1.aeplcdn.com/grey.gif" width="310" height="174">
+                                                    <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="310" height="174">
                                                 </a>
                                             </div>
                                             <div class="bikeDescWrapper">
@@ -67,7 +67,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="grid-6 alpha">
+                                                    <div class="leftfloat">
                                                         <div class="padding-left5 padding-right5 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
                                                             <div>
                                                                 <span class="margin-bottom10 ">
@@ -76,7 +76,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="grid-6 omega border-left1">
+                                                    <div class="leftfloat border-left1">
                                                         <div class="padding-left5 padding-right5 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
                                                             <span class="font16 text-light-grey"><a href="/<%#DataBinder.Eval(Container.DataItem,"objMake.MaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"objModel.MaskingName").ToString() %>/user-reviews/"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ReviewCount")) %> Reviews</a></span>
                                                         </div>
@@ -156,9 +156,9 @@
                         <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
                             <div class="form-control-box">
                                 <select class="form-control">
-                                    <option  class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide"  %> <%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Reviews</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option>
+                                    <%if ((Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0)) {%> <option class="<%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option> <% } %>
+                                    <%if ((Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0)) {%><option class="<%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option> <% } %>
+                                    <%if ((Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0)) {%><option class="<%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option> <% } %>   
                                 </select>
                             </div>
                         </div>

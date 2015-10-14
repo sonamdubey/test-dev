@@ -18,7 +18,7 @@ h5 { font-size: 12px; }
 h6 { font-size: 10px; }
 
 /* css3 properties */
-.rounded-corner2, .bw-blackbg-tooltip, #globalCity-input input[type="text"], .home-tabs, .home-tabs li.active, .lang-changer-option { -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.rounded-corner2, .bw-blackbg-tooltip, #globalCity-input input[type="text"], .home-tabs, .home-tabs li.active, .lang-changer-option, div.chosen-container { -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
 .rounded-corner5 { -moz-border-radius: 5px; -webkit-border-radius: 5px; -o-border-radius: 5px; -ms-border-radius: 5px; border-radius: 5px; }
 .rounded-corner10 { -moz-border-radius:10px; -webkit-border-radius:10px; -o-border-radius:10px; -ms-border-radius:10px; border-radius:10px; }
 .rounded-corner50percent { -moz-border-radius:50%; -webkit-border-radius:50%; -o-border-radius:50%; -ms-border-radius:50%; border-radius:50%; }
@@ -216,17 +216,17 @@ footer ul li a:hover { text-decoration: underline; }
 	border-radius: 15px; text-indent: -9999px; margin: 5px; cursor: pointer; }
 .jcarousel-pagination a:hover { background: #4d5057; }
 .jcarousel-pagination a.active { background: #4d5057; cursor: default; border: 1px solid #4d5057; }
-
+img.lazy[src$="circleloader.gif"]{min-width:16px !important; width:16px !important; height:16px !important;}
 
 .cardWrapper { width:100%; height:100%; overflow:hidden; display:inline-block; }
 .front, .back { height: 330px; background: #fff; overflow:hidden; display: inline-block; /*border:1px solid #ccc;*/ border-radius:2px; box-shadow:0 2px 2px 0 #cacaca; -webkit-box-shadow:0 2px 2px 0 #cacaca; -moz-box-shadow:0 2px 2px 0 #cacaca; -ms-box-shadow:0 2px 2px 0 #cacaca; -o-box-shadow:0 2px 2px 0 #cacaca; -webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; -ms-backface-visibility: hidden; backface-visibility: hidden; width: 100%;}
 /*.front:hover, .back:hover { box-shadow:0px 0px 5px #ccc; }*/
 .contentWrapper, .formWrapper { position:relative; overflow:hidden; background:#fff; }
 .jcarousel .front .contentWrapper, .jcarousel .front .bikeDescWrapper { background:none;}
-.imageWrapper { width: 100%; height:174px; overflow: hidden; text-align: center; }
+.imageWrapper { display:table; width: 100%; height:174px; overflow: hidden; text-align: center; }
 .jcarousel .front .imageWrapper{ border-top-left-radius: 2px;    border-top-right-radius: 2px;}
-.imageWrapper a { display: block; }
-.imageWrapper img { max-width: 100%; }
+.imageWrapper a { /*display: block;*/ display:table-cell; vertical-align:middle; }
+.imageWrapper img { max-width: 100%; height: auto; }
 .bikeDescWrapper { padding: 15px; background:#fff; }
 .bikeTitle a { color: #1a1a1a; font-size: 16px; display: block; }  
 .formContent { padding: 30px 20px 20px 20px; }
@@ -285,7 +285,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
-.bw-logo { background-position: -31px 0px; width: 121px; height: 24px; }
+.bw-logo { background-position: -31px 0px; width: 84px; height: 24px; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
 .search-icon-grey { background-position: -62px -275px; }

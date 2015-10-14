@@ -39,8 +39,7 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="font30 text-black margin-top10"><%= _make.MakeName %> bikes</h1>
-                    <div class="border-solid-bottom margin-top10 margin-bottom15"></div>
+                    <h1 class="font30 text-black margin-top10 margin-bottom15"><%= _make.MakeName %> bikes</h1>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -58,7 +57,7 @@
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
                                                 <a href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
-                                                    <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" src="http://img1.aeplcdn.com/grey.gif" width="310" height="174">
+                                                    <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="310" height="174">
                                                 </a>
                                             </div>
                                             <div class="bikeDescWrapper">

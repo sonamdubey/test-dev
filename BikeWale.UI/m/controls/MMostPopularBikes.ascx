@@ -30,7 +30,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid-6 alpha">
+                            <div class="leftfloat">
                                 <div class="padding-left5 padding-right5 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">                                                                
                                     <div>
                                         <span class="margin-bottom10 ">
@@ -39,7 +39,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="grid-6 omega border-left1">
+                            <div class="leftfloat border-left1">
                                 <div class="padding-left5 padding-right5 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
                                     <span class="font16 text-light-grey"><%# DataBinder.Eval(Container.DataItem, "ReviewCount").ToString() %>  Reviews</span>
                                 </div>

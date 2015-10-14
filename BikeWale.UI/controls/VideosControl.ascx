@@ -18,7 +18,7 @@
             </div>
         </ItemTemplate>
     </asp:Repeater>                        
-    <%--<div class="padding-bottom50 text-center">
+    <%--<div class="padding-bottom30 text-center">
         <a href="#" class="font16">View more videos</a>
     </div>--%>
 </div><!-- Ends here-->
