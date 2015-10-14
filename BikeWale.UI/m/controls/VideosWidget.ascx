@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.VideosWidget" %>
-<div class="bw-tabs-data hide" id="ctrlVideos">
+<div class="bw-tabs-data" id="ctrlVideos">
     <div class="jcarousel-wrapper">
         <div class="jcarousel">
             <ul>
