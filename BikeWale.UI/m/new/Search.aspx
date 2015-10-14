@@ -83,7 +83,7 @@
                                     <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                     <div class="imageWrapper">
                                         <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' ) }">
-                                            <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'http://img1.aeplcdn.com/grey.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
+                                            <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
                                         </a>
                                     </div>
                                         <div class="bikeDescWrapper">

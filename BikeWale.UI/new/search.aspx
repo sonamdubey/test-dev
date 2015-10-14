@@ -322,7 +322,7 @@
                             <div class="contentWrapper">
                                 <div class="imageWrapper">
                                     <a  data-bind="attr:{href:'/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/'},click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }">
-                                        <img class="lazy" data-bind="attr: {title: bikeName, alt: bikeName, src:'../images/circleloader.gif'},lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
+                                        <img class="lazy" data-bind="attr: {title: bikeName, alt: bikeName, src:'http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif'},lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
                                     </a>
                                 </div>
                                 <div class="bikeDescWrapper">
@@ -364,7 +364,8 @@
 <!-- #include file="/includes/footerscript.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
+
     <PW:PopupWidget runat="server" ID="PopupWidget" />
 </form>
 </body>
