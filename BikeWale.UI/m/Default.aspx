@@ -300,7 +300,7 @@
                             </ul>
                         </div>
                         <div class="view-brandType text-center padding-top10 clear">
-                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View complete list</a>
+                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View More Brands</a>
                         </div>
                 	</div>
                     <div class="bw-tabs-data hide" id="discoverBudget">

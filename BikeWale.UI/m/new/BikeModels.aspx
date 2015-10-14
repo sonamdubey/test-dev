@@ -293,7 +293,7 @@
                     <div class="bikeTitle">
                         <h1 class="padding-bottom15 padding-left15"><%= bikeName %></h1>
                     </div>
-                    <div class="grid-6 alpha">
+                    <div class="leftfloat">
                         <div class="padding-left5 padding-right5 ">
                             <div>
                                 <span class="margin-bottom10 ">
@@ -302,7 +302,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="grid-6 omega border-left1">
+                    <div class="leftfloat border-left1">
                         <div class="padding-left5 padding-right5 ">
                             <span class="font16 text-light-grey">
                                 <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> margin-right10 padding-left10 line-Ht22">

@@ -1,5 +1,6 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 .discover-bike-carousel .front, .discover-bike-carousel .back, .discover-bike-carousel .jcarousel li { height: auto; }
 .search-bike-item { background: #fff; }
 .search-bike-item .front { height: auto; border-radius: 0; box-shadow: none; -moz-box-shadow: none; -ms-box-shadow: none; border: 0 none; }
+.search-bike-item div.border-top1:last-child{display:none;}

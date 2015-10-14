@@ -18,7 +18,7 @@ h5 { font-size: 12px; }
 h6 { font-size: 10px; }
 
 /* css3 properties */
-.rounded-corner2, .bw-blackbg-tooltip, #globalCity-input input[type="text"], .home-tabs, .home-tabs li.active, .lang-changer-option { -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+.rounded-corner2, .bw-blackbg-tooltip, #globalCity-input input[type="text"], .home-tabs, .home-tabs li.active, .lang-changer-option, div.chosen-container { -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
 .rounded-corner5 { -moz-border-radius: 5px; -webkit-border-radius: 5px; -o-border-radius: 5px; -ms-border-radius: 5px; border-radius: 5px; }
 .rounded-corner10 { -moz-border-radius:10px; -webkit-border-radius:10px; -o-border-radius:10px; -ms-border-radius:10px; border-radius:10px; }
 .rounded-corner50percent { -moz-border-radius:50%; -webkit-border-radius:50%; -o-border-radius:50%; -ms-border-radius:50%; border-radius:50%; }
@@ -285,7 +285,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
-.bw-logo { background-position: -31px 0px; width: 121px; height: 24px; }
+.bw-logo { background-position: -31px 0px; width: 84px; height: 24px; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
 .search-icon-grey { background-position: -62px -275px; }
