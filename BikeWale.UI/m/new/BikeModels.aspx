@@ -905,17 +905,17 @@
                         <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
                             <div class="form-control-box">
                                 <select class="form-control">
-                                    <option class="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "" : "hide"  %> <%= isUserReviewActive ? "active" : "" %> " value="ctrlUserReviews">User Reviews</option>                                    
-                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option>
-                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option>                                    
+                                    <%if ((Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0)) { %> <option class="<%=isUserReviewActive ? "active" : "" %>" value="ctrlUserReviews">User Reviews</option> <% } %>                                   
+                                    <%if ((Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0)) {%><option class="<%=isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option> <% } %> 
+                                    <%if ((Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0)) {%><option class="<%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option> <% } %> 
+                                    <%if ((Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0)) {%><option class="<%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option> <% } %>                                     
                                 </select>
                             </div>
                         </div>
                         <%if (!isUserReviewZero) { %> <BW:UserReviews runat="server" ID="ctrlUserReviews" />  <% } %>                    
                         <%if (!isExpertReviewZero) { %> <BW:ExpertReviews  runat="server" ID="ctrlExpertReviews" /> <% } %>
                         <%if (!isNewsZero) { %> <BW:News runat="server" ID="ctrlNews" /> <% } %>
-                        <%if (!isVideoActive) { %> <BW:Videos runat="server" ID="ctrlVideos" /> <% } %>
+                        <%if (!isVideoZero) { %> <BW:Videos runat="server" ID="ctrlVideos" /> <% } %>
                         
                     </div>
                 </div>
@@ -956,7 +956,7 @@
 		    isUsed = '<%= !modelPage.ModelDetails.New %>';
             var myBikeName = "<%= this.bikeName %>";
 		    ga_pg_id = '2';
-		    if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
+		    if ('<%=isUserReviewActive%>' == "False") $("#ctrlUserReviews").addClass("hide");
 		    if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
 		    if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
 		    if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
