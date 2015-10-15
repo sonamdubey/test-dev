@@ -1,20 +1,8 @@
 // JavaScript Document
 
-function applyLazyLoad() {
-    $("img.lazy").lazyload({
-        event: "imgLazyLoad"
-    });
-}
-
 $(function () {
-    applyLazyLoad();
-
     $(".carousel-navigation ul li").slice(0, 4).find("img.lazy").trigger("imgLazyLoad");
     $(".jcarousel.stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
-    $(".carousel-navigation-photos ul li").slice(0, 4).find("img.lazy").trigger("imgLazyLoad");
-    $(".carousel-stage-photos ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
-    $(".carousel-navigation-videos ul li").slice(0, 4).find("img.lazy").trigger("imgLazyLoad");
-
 });
 
 jQuery(function () {
@@ -31,19 +19,8 @@ jQuery(function () {
         var element = $(this),
             width = element.innerWidth();
         element.jcarousel('items').css('width', width + 'px');
-    })
-    .on('jcarousel:targetin', 'li', function () {
-        $("img.lazy").lazyload({
-            threshold: 200
-        });
     });
-
-    $(".jcarousel-pagination").click(function () {
-        $("img.lazy").lazyload({
-            threshold: 200
-        });
-    });
-
+   
     $(".alternatives-carousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
         $(this).find("img.lazy").trigger("imgLazyLoad");
     });
@@ -178,9 +155,9 @@ $("#bikeBannerImageCarousel .stage li").click(function () {
             element.jcarousel('items').css('width', width + 'px');
         })
         .jcarousel();
-        
-
-
+        $(".carousel-navigation-photos ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
+        $(".carousel-stage-photos ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
+        $(".carousel-navigation-videos ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
     }
 });
 
