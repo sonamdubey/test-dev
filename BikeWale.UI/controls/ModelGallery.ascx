@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.ModelGallery" %>
+﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.ModelGallery" %>
 <!-- Start of Model Page Gallery -->
 <section class="model-gallery-container">
     <div class="blackOut-window-model"></div>

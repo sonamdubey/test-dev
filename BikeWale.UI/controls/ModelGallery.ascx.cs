@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     public class ModelGallery : System.Web.UI.UserControl
     {
