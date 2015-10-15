@@ -255,7 +255,6 @@ function fetchPriceQuote(vm) {
                         $($(".bike-price-container")[1]).hide();
                         $($(".bike-price-container")[0]).show();
                     }
-                    debugger;
                     if (pq.dealerPriceQuote.offers.length > 0) {
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Avail_Offer_Shown', 'lab': myBikeName });
                     }
