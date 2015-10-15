@@ -435,7 +435,12 @@
                                                     <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"AntilockBrakingSystem").ToString())%></td></tr>
                                                     <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"Killswitch").ToString())%></td></tr>
                                                     <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"Clock").ToString())%></td></tr>
-                                                    <tr><td class="info-td"><span class="info-shrt-data"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Colors").ToString())%></span><span class="info-popup"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Colors").ToString())%></span></td></tr>
+                                                    <tr><%--<td class="info-td"><span class="info-shrt-data"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Colors").ToString())%></span><span class="info-popup"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Colors").ToString())%></span></td>--%>
+                                                         <%# (!String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem, "Colors"))) && (Convert.ToString(DataBinder.Eval(Container.DataItem, "Colors")).Length > trSize) )
+                                                        ?  String.Format("<td class='info-td'><span class='info-shrt-data'>{0}...</span><span class='info-popup'>{1}</span></td>",ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Colors")).Truncate(trSize)),ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Colors"))))                                                            
+                                                        : String.Format("<td>{0}</td>",ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Colors"))))
+                                                        %>
+                                                    </tr>
                                                 </table>
                                             </td>
                                         </itemtemplate>
