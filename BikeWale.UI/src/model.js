@@ -98,7 +98,7 @@ function pqViewModel(modelId, cityId) {
     self.availOfferBtn = function () {
         if (self.priceQuote() && self.priceQuote().IsDealerPriceAvailable && self.priceQuote().dealerPriceQuote.offers.length > 0) {
             var city_area = GetGlobalCityArea();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': city_area });
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Avail_Offers_Clicked', 'lab': myBikeName });
             window.location.href = "/pricequote/bookingsummary_new.aspx";
         }
         return false;
@@ -255,7 +255,10 @@ function fetchPriceQuote(vm) {
                         $($(".bike-price-container")[1]).hide();
                         $($(".bike-price-container")[0]).show();
                     }
-
+                    debugger;
+                    if (pq.dealerPriceQuote.offers.length > 0) {
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Avail_Offer_Shown', 'lab': myBikeName });
+                    }
                     animatePrice($(bikePrice), temptotalPrice, totalPrice);
                     $("#breakup").text("(" + priceBreakText + ")");
                     $("#pqCity").html($(ctrlSelectCity).find("option[value=" + vm.selectedCity() + "]").text());

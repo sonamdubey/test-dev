@@ -170,7 +170,8 @@ $(document).ready(function () {
 	        }
 	        MakeModelRedirection(make, model);
 	        // GA code
-	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': ui.item.label });
+	        var keywrd = ui.item.label +'_'+$('#newBikeList').val();
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
 	    },
 	    open: function (result) {
 	        objBikes.result = result;
@@ -819,3 +820,11 @@ function selectElementFromArray(dataArray, id) {
     return false;
 }
 
+$(".modelurl").click(function () {
+    var array = $(this).attr('href').split('/');
+    if (array.length > 2) {
+        dataLayer.push({
+            'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Model_Click', 'lab':_makeName +'_'+ array[2]
+        });
+    }
+});
