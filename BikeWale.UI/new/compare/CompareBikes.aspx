@@ -217,7 +217,7 @@
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"ValvesPerCylinder").ToString())%></td></tr>
                                                     <tr><%--<td class="info-td"><span class="info-shrt-data"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelDeliverySystem").ToString())%></span><span class="info-popup"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"FuelDeliverySystem").ToString())%></span></td>--%>
                                                          <%# (!String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelDeliverySystem"))) && (Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelDeliverySystem")).Length > trSize) )
-                                                        ?  String.Format("<td class='info-td'><span class='info-shrt-data'>{0}...</span><span class='info-popup'>{0}</span></td>",ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelDeliverySystem")).Truncate(trSize)),ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelDeliverySystem"))))                                                            
+                                                        ?  String.Format("<td class='info-td'><span class='info-shrt-data'>{0}...</span><span class='info-popup'>{1}</span></td>",ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelDeliverySystem")).Truncate(trSize)),ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelDeliverySystem"))))                                                            
                                                         : String.Format("<td>{0}</td>",ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "FuelDeliverySystem"))))
                                                         %>
                                                     </tr>
@@ -231,7 +231,7 @@
                                                     <tr><td><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"TransmissionType").ToString())%></td></tr>
                                                     <tr>
                                                          <%# (!String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem, "Clutch"))) && (Convert.ToString(DataBinder.Eval(Container.DataItem, "Clutch")).Length > trSize) )
-                                                        ?  String.Format("<td class='info-td'><span class='info-shrt-data'>{0}...</span><span class='info-popup'>{0}</span></td>",ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Clutch")).Truncate(trSize)),ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Clutch"))))                                                            
+                                                        ?  String.Format("<td class='info-td'><span class='info-shrt-data'>{0}...</span><span class='info-popup'>{1}</span></td>",ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Clutch")).Truncate(trSize)),ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Clutch"))))                                                            
                                                         : String.Format("<td>{0}</td>",ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Clutch"))))
                                                         %>
                                                     </tr>
