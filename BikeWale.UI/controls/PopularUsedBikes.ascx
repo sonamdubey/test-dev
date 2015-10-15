@@ -9,9 +9,9 @@
                         <ItemTemplate>
                             <li class="front">
                                 <div class="contentWrapper">
-                                    <div class="imageWrappekr">
+                                    <div class="imageWrapper">
                                         <a href="<%# FormatUsedBikeUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString(), DataBinder.Eval(Container.DataItem,"CityMaskingName").ToString()) %>">
-                                            <img src="<%# String.Format("{0}/{1}",DataBinder.Eval(Container.DataItem,"HostURL").ToString(),DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString()) %>" title="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>" alt="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>" width="310px">
+                                            <img class="lazy" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" data-original="<%# String.Format("{0}/{1}",DataBinder.Eval(Container.DataItem,"HostURL").ToString(),DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString()) %>" title="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>" alt="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>" width="310" >
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">

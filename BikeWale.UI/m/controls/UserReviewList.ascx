@@ -15,12 +15,12 @@
                                                 <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(Eval("OverAllRating.OverAllRating"))) %>
                                             </span>
                                         </div>
-                                        <span class="font16 text-bold"><%#Eval("ReviewTitle").ToString() %> </span>
+                                        <span class="font16"><%#Eval("ReviewTitle").ToString() %> </span>
                                     </div>
 
                                     <div class="font12 text-grey grid-12 margin-bottom15">on <%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %>, by <%#Eval("WrittenBy").ToString() %></div>
                                     <p class="font14 grid-12"><%#Eval("Comments").ToString() %> ...
-                                        <a href="/m/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html" class="text-bold">Read full story</a>
+                                        <a href="/m/<%# Eval("MakeMaskingName") %>-bikes/<%# Eval("ModelMaskingName") %>/user-reviews/<%# DataBinder.Eval(Container.DataItem, "ReviewId")%>.html" >Read full story</a>
                                     </p>
                                 </div>
                                 <div class="clear"></div>
