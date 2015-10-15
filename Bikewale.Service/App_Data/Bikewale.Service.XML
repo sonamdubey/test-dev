@@ -694,27 +694,46 @@
             Created On : 24th August 2015
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.UInt32,System.String,System.String)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.UInt32)">
             <summary>
-            To get Recent Categories Content List
+            Modified By : Ashish G. Kamble
+            Summary : API to get recent content of a specified category.
             </summary>
-            <param name="categoryId"></param>
-            <param name="makeId"></param>
-            <param name="modelId"></param>
-            <param name="posts"></param>
+            <param name="categoryId">Id of the category whose data is required.</param>      
+            <param name="posts">No of records needed. should be greater than 0.</param>
             <returns>Recent Articles List Summary</returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.UInt32,System.String,System.String)">
             <summary>
-             To get content of Specified category
+            Modified By : Ashish G. Kamble
+            Summary : API to get recent content of a specified category for a particular make or model
             </summary>
-            <param name="CategoryId"></param>
-            <param name="makeId"></param>
-            <param name="modelId"></param>
-            <param name="startIndex"></param>
-            <param name="endIndex"></param>
-            <param name="pageSize"></param>
-            <param name="pageNumber"></param>
+            <param name="categoryId">Id of the category whose data is required.</param>
+            <param name="posts">No of records needed. should be greater than 0.</param>
+            <param name="makeId">Mandetory field.</param>
+            <param name="modelId">Optional.</param>        
+            <returns>Recent Articles List Summary</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.Int32,System.Int32)">
+            <summary>
+            Modified By : Ashish G. Kamble
+            Summary : API to get recent content of specified category. This api returns data for given page number.
+            </summary>
+            <param name="categoryId">Id of the category whose data is required.</param>        
+            <param name="posts">No of records per page. Should be greater than 0.</param>
+            <param name="pageNumber">page number for which data is required.</param>
+            <returns>Category Content List</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSListController.Get(Bikewale.Entities.CMS.EnumCMSContentType,System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            Modified By : Ashish G. Kamble
+            Summary : API to get recent content of specified category for the given make or model. This api return data for given page number.
+            </summary>
+            <param name="categoryId">Id of the category whose data is required.</param>
+            <param name="makeId">Mandatory parameter.</param>
+            <param name="modelId">Optional parameter.</param>        
+            <param name="posts">No of records per page. Should be greater than 0.</param>
+            <param name="pageNumber">page number for which data is required.</param>
             <returns>Category Content List</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.Compare.BikeCompareController">
@@ -825,7 +844,7 @@
             <param name="modelId"></param>
             <returns>Model Synopsis</returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
+        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32})">
             <summary>
             
             </summary>
@@ -1442,21 +1461,32 @@
         </member>
         <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(Bikewale.Entities.Videos.EnumVideosCategory,System.UInt32,System.UInt32)">
             <summary>
-             To get list of Videos based on Categories defined in Enum
+             Modified By : Ashish G. Kamble
+             Summary : API to get the list of videos for the specified video subcategory.
             </summary>
             <param name="categoryId"></param>
-            <param name="pageNo">Min:0</param>
-            <param name="pageSize">Total Records to be Fetched</param>
+            <param name="pageNo">Compulsory. Value should be greater than 0.</param>
+            <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>
             <returns>Categorized Videos List</returns>
         </member>
-        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.Get(System.UInt32,System.UInt32,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.GetVideosByMakeId(System.UInt32,System.UInt32,System.Int32)">
             <summary>
-             To get Videos List based on Make or Model (Classes of Videos).
+             Modified By : Ashish G. Kamble
+             Summary : API to get the list of videos for the specified make.
             </summary>
             <param name="pageNo">Compulsory. Value should be greater than 0.</param>
-            <param name="pageSize">Compulsory.</param>
-            <param name="makeId">Optional if modelId is provided</param>
-            <param name="modelId">Optional if makeId is provided</param>
+            <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>
+            <param name="makeId">Mandatory.</param>        
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Videos.Controllers.VideosController.GetVideosByModelId(System.UInt32,System.UInt32,System.Int32)">
+            <summary>
+             Modified By : Ashish G. Kamble
+             Summary : API to get the list of videos for the specified model.
+            </summary>
+            <param name="pageNo">Compulsory. Value should be greater than 0.</param>
+            <param name="pageSize">Compulsory. No of videos to be shown on per page.</param>        
+            <param name="modelId">Mandatory.</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Feedback.FeedbackController">
@@ -1769,50 +1799,53 @@
             Created On : 24th August 2015
             </summary>
         </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.#ctor(Bikewale.Interfaces.Pager.IPager)">
+            <summary>
+            
+            </summary>
+            <param name="pager"></param>
+        </member>
         <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.Int32)">
             <summary>
-            EditCMS Api to get List of ModelImages
+            Modified By : Ashish G. Kamble.
+            Summary : API to get list of photos for the specified model.
             </summary>
-            <param name="modelId"></param>
+            <param name="modelId">Mandatory field. Value should be greater than 0.</param>
             <returns></returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.String,System.Boolean)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.GetOtherModelsPhotos(System.Int32,System.Int32,System.Int32)">
             <summary>
-             To get Details of articles
+            Modified By : Ashish G. Kamble.
+            Summary : API to get list of models with main image of each model for the same make as of specified model.
+            </summary>
+            <param name="modelId">Mandatory.</param>
+            <param name="posts">Mandatory. No of records on each page.</param>
+            <param name="pageNumber">Page number for which records are required.</param>        
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.String)">
+            <summary>
+            Modified By : Ashish G. Kamble.
+            Summary : API to get details of article. This is api is used for the articles having multiple pages. e.g. Road Tests, Expert Reviews, Features.
             </summary>
             <param name="basicId"></param>
-            <param name="article"></param>
             <returns>Article Details</returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.String,System.Boolean,System.Boolean)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.GetArticleDetailsPage(System.String)">
             <summary>
-            To get articles photos
+            Modified By : Ashish G. Kamble
+            Summary : API to get details of article. This is api is used for the articles single page. e.g. News.
             </summary>
             <param name="basicId"></param>
-            <param name="article"></param>
-            <param name="photos"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.String,System.Boolean,System.Boolean,System.Boolean)">
-            <summary>
-             To get News Details
-            </summary>
-            <param name="basicId"></param>
-            <param name="article"></param>
-            <param name="news"></param>
-            <param name="all"></param>
             <returns>News Details</returns>
         </member>
-        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.Get(System.Int32,System.Int32,System.Int32)">
+        <member name="M:Bikewale.Service.Controllers.CMS.CMSController.GetArticlePhotos(System.String)">
             <summary>
-            Edit CMS Api to get List of other model images list
+            Modified By : Ashish G. Kamble
+            Summary : API to get list of photos for the specified article.
             </summary>
-            <param name="modelId"></param>
-            <param name="pageSize"></param>
-            <param name="pageNumber"></param>
-            <param name="startIndex"></param>
-            <param name="endIndex"></param>
-            <returns></returns>
+            <param name="basicId">Mandatory field.</param>
+            <returns>Returns list of photos.</returns>
         </member>
     </members>
 </doc>

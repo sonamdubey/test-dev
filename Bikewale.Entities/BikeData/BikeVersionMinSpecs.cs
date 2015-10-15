@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
-    public class BikeVersionMinSpecs : BikeVersionsListEntity      {
+    [Serializable]
+    public class BikeVersionMinSpecs : BikeVersionsListEntity
+    {
        
         public string BrakeType { get; set; }
         public bool AlloyWheels { get; set; }

@@ -30,5 +30,14 @@ namespace Bikewale.DTO.Model
 
         [JsonProperty("upcomingBike")]
         public UpcomingBike UpcomingBike { get; set; }
+
+        [JsonProperty("overview")]
+        public Overview objOverview { get; set; }
+
+        [JsonProperty("features")]
+        public Features objFeatures { get; set; }
+
+        [JsonProperty("specs")]
+        public Specifications objSpecs { get; set; }
     }
 }

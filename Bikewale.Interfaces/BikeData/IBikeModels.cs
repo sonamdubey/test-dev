@@ -23,5 +23,6 @@ namespace Bikewale.Interfaces.BikeData
         UpcomingBikeEntity GetUpcomingBikeDetails(U modelId);
         List<UpcomingBikeEntity> GetUpcomingBikesList(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy, out int recordCount);
         List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int startIndex, int endIndex, out int recordCount);
+        BikeModelPageEntity GetModelPageDetails(U modelId);
     }
 }
