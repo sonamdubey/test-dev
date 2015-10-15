@@ -74,6 +74,7 @@
     <Compile Include="ReviewsRating.cs" />
     <Compile Include="SanitizeHtmlContent.cs" />
     <Compile Include="SqlReaderConvertor.cs" />
+    <Compile Include="StringHelper.cs" />
     <Compile Include="UrlFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
