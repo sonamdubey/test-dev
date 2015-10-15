@@ -23,7 +23,11 @@
                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._640x348) %>" title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="640" height="348">
+                                        <div class="gallery-photo-img-container">
+                                            <span>
+                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._640x348) %>" title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif">
+                                            </span>
+                                        </div>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>
@@ -45,7 +49,11 @@
                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
                                 <ItemTemplate>
                                     <li>
-                                        <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" width="144" height="81">
+                                        <div class="gallery-photo-nav-img-container">
+                                        <span>
+                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>">
+                                        </span>
+                                        </div>
                                     </li>
                                 </ItemTemplate>
                             </asp:Repeater>

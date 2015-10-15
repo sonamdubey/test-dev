@@ -71,12 +71,20 @@
                                     <div class="carousel carousel-stage">
                                         <ul>
                                             <li>
-                                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%= bikeName %>" alt="<%= bikeName %>" />
+                                                <div class="carousel-img-container">
+                                                <span>
+                                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%= bikeName %>" alt="<%= bikeName %>" />
+                                                </span>
+                                                </div>
                                             </li>
                                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                                 <ItemTemplate>
                                                     <li>
-                                                        <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="476" height="268"/>
+                                                        <div class="carousel-img-container">
+                                                        <span>
+                                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif"/>
+                                                        </span>
+                                                        </div>
                                                     </li>
                                                 </ItemTemplate>
                                             </asp:Repeater>
@@ -92,12 +100,21 @@
                                     <div class="carousel carousel-navigation">
                                         <ul>
                                             <li>
-                                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
+                                                <div class="carousel-nav-img-container">
+                                                <span>
+                                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
+                                                </span>
+                                                </div>
                                             </li>
                                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
                                                 <ItemTemplate>
                                                     <li>
-                                                        <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="110" height="61"/></li>
+                                                        <div class="carousel-nav-img-container">
+                                                        <span>
+                                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="/images/loader.gif"/>
+                                                        </span>
+                                                        </div>
+                                                    </li>
                                                 </ItemTemplate>
                                             </asp:Repeater>
                                         </ul>
@@ -1097,13 +1114,23 @@
         </script>
         <script type="text/javascript">
 
-        $(document).ready(function (e) {
+            $(document).ready(function (e) {
+
+            if ($(".bw-overall-rating a").last().css("display") == "none") {
+                var a = $(this);
+                var b = $(this).attr("href");
+                console.log(a);
+                $(this).remove();
+                $(a + ".bw-tabs-data.margin-bottom20.hide").remove();
+            }
+
             $('.bw-overall-rating a[href^="#"]').click(function () {
                 var target = $(this.hash);
                 if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
                 if (target.length == 0) target = $('html');
                 $('html, body').animate({ scrollTop: target.offset().top -50- $(".header-fixed").height() }, 1000);
                 return false;
+
             });
             // ends                                
 

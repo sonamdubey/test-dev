@@ -724,13 +724,14 @@ $("#bikeBannerImageCarousel .stage li").click(function () {
     }    
 });
 
-$(".modelgallery-close-btn").click(function () {
+$(".modelgallery-close-btn, .blackOut-window-model").click(function () {
     $('body').removeClass('lock-browser-scroll');
     $(".blackOut-window-model").hide();
     $(".bike-gallery-popup").removeClass("show").addClass("hide");
     $(".modelgallery-close-btn").removeClass("show").addClass("hide");
     videoiFrame.setAttribute("src", "");
 });
+
 
 $(document).ready(function () {
     imgTotalCount = $(".carousel-stage-photos ul li").length;    
