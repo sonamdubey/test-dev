@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 namespace Bikewale.Entities.BikeData
 {
     [Serializable]
-    public class BikeDescriptionEntity
+    public class Specs
     {
-        public string Name { get; set; }
-        public string SmallDescription { get; set; }
-        public string FullDescription { get; set; }
+        public string DisplayText { get; set; }
+        public string DisplayValue { get; set; }
     }
 }

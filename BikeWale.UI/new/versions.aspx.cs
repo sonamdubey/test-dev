@@ -16,7 +16,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Controls;
-using Bikewale.controls;
 
 namespace Bikewale.New
 {
@@ -131,6 +130,12 @@ namespace Bikewale.New
             this.Load += new EventHandler(Page_Load);
         }
 
+        private static readonly string _bwHostUrl;
+        static versions()
+        {
+            _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -139,8 +144,8 @@ namespace Bikewale.New
             dd.DetectDevice();
             #region Do Not change the sequence
             ParseQueryString();
-            CheckCityCookie();
-            FetchModelPageDetails();
+            CheckCityCookie();            
+            FetchModelPageDetails();            
             #endregion
             if (!IsPostBack)
             {
@@ -152,19 +157,23 @@ namespace Bikewale.New
                 #endregion
             }
 
+
+            int _modelId;
+            Int32.TryParse(modelId, out _modelId);
+
             ////news,videos,revews, user reviews
             ctrlNews.TotalRecords = 3;
-            ctrlNews.ModelId = Convert.ToInt32(modelId);
+            ctrlNews.ModelId = _modelId;
 
             ctrlExpertReviews.TotalRecords = 3;
-            ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+            ctrlExpertReviews.ModelId = _modelId;
             ctrlVideos.TotalRecords = 3;
-            ctrlVideos.ModelId = Convert.ToInt32(modelId);
+            ctrlVideos.ModelId = _modelId;
 
             ctrlUserReviews.ReviewCount = 4;
             ctrlUserReviews.PageNo = 1;
             ctrlUserReviews.PageSize = 4;
-            ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
+            ctrlUserReviews.ModelId = _modelId;
         }       
 
         private void BindAlternativeBikeControl()
@@ -300,8 +309,7 @@ namespace Bikewale.New
         }
 
         private void FetchModelPageDetails()
-        {
-            string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+        {            
             string _requestType = "application/json";
             string _apiUrl = String.Format("/api/model/details/?modelId={0}", modelId);
             modelPage = Bikewale.Utility.BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);

@@ -117,7 +117,7 @@ namespace Bikewale.CoreDAL
 				cmdParam.Connection = con;
 				con.Open();
 	
-		   		dataReader = cmdParam.ExecuteReader();
+		   		dataReader = cmdParam.ExecuteReader(CommandBehavior.CloseConnection);
 		   		cmdParam.Parameters.Clear();
 			}
 		   	catch(Exception err)
@@ -225,7 +225,7 @@ namespace Bikewale.CoreDAL
 		{
             try
             {
-                if (con.State == ConnectionState.Open)
+                if (con!=null && con.State == ConnectionState.Open)
                 {
                     objTrace.Trace.Warn("database:CloseConnection:Connection is closed successfully.");
                     con.Close();

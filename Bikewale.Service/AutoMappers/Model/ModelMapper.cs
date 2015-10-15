@@ -56,6 +56,13 @@ namespace Bikewale.Service.AutoMappers.Model
             Mapper.CreateMap<BikeModelColor,ModelColor>();
             Mapper.CreateMap<BikeDescriptionEntity, BikeDiscription>();
             Mapper.CreateMap<UpcomingBikeEntity, UpcomingBike>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.Overview, Bikewale.DTO.Model.Overview>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.Features, Bikewale.DTO.Model.Features>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.Specifications, Bikewale.DTO.Model.Specifications>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.Specs, Bikewale.DTO.Model.Specs>();
+            Mapper.CreateMap<Bikewale.Entities.BikeData.SpecsCategory, Bikewale.DTO.Model.SpecsCategory>();
+
+
             return Mapper.Map<BikeModelPageEntity, ModelPage>(objModelPage);
         }
 

@@ -7,6 +7,7 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
+    [Serializable]
     public class BikeModelEntityBase
     {
         public int ModelId { get; set; }

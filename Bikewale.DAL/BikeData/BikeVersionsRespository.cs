@@ -126,37 +126,29 @@ namespace Bikewale.DAL.BikeData
                     cmd.Parameters.Add("@New", SqlDbType.Bit).Value = isNew;
 
                     using(SqlDataReader dr = db.SelectQry(cmd))
-                    {                                           
-                        
-                        if(dr!=null)
+                    {                                                                   
+                        while(dr.Read())
                         {
-                            while(dr.Read())
-                            {
-                                objMinSpecs.Add( new BikeVersionMinSpecs(){
-                                   VersionId  = Convert.ToInt32(dr["ID"]),
-                                   VersionName = Convert.ToString(dr["Version"]),
-                                   ModelName =Convert.ToString(dr["Model"]),
-                                   Price  = Convert.ToUInt64(dr["VersionPrice"]),
-                                   BrakeType  = Convert.ToString(dr["BrakeType"]),
-                                   AlloyWheels  = Convert.ToBoolean(dr["AlloyWheels"]),
-                                   ElectricStart  = Convert.ToBoolean(dr["ElectricStart"]),
-                                   AntilockBrakingSystem  = Convert.ToBoolean(dr["AntilockBrakingSystem"])
-                                }) ;
-                            }
+                            objMinSpecs.Add( new BikeVersionMinSpecs(){
+                                VersionId  = Convert.ToInt32(dr["ID"]),
+                                VersionName = dr["Version"].ToString(),
+                                ModelName =dr["Model"].ToString(),
+                                Price = Convert.ToUInt64(dr["VersionPrice"]),
+                                BrakeType  = dr["BrakeType"].ToString(),
+                                AlloyWheels  = Convert.ToBoolean(dr["AlloyWheels"]),
+                                ElectricStart  = Convert.ToBoolean(dr["ElectricStart"]),
+                                AntilockBrakingSystem  = Convert.ToBoolean(dr["AntilockBrakingSystem"])
+                            }) ;
                         }
+                        dr.Close();
                     }
                 }                 
             
             }
-            catch (SqlException ex)
-            {                     
-                //ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                //objErr.SendMail();
-            }
             catch (Exception ex)
-            {   
-              //  ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-              //  objErr.SendMail();
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             finally
             {
@@ -205,7 +197,7 @@ namespace Bikewale.DAL.BikeData
                         cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 150).Direction = ParameterDirection.Output;
                         conn.Open();
                         cmd.ExecuteNonQuery();
-
+                        conn.Close();
                         HttpContext.Current.Trace.Warn("qry success");
 
                         if (!string.IsNullOrEmpty(cmd.Parameters["@MakeId"].Value.ToString()))
@@ -358,6 +350,8 @@ namespace Bikewale.DAL.BikeData
 
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();
+                        conn.Close();
+
                         int rowCount = Convert.ToInt16(cmd.Parameters["@RowCount"].Value);
 
                         if (rowCount > 0)
@@ -371,21 +365,21 @@ namespace Bikewale.DAL.BikeData
                             objSpecs.Bore = Convert.ToSingle(cmd.Parameters["@Bore"].Value);
                             objSpecs.Stroke = Convert.ToSingle(cmd.Parameters["@Stroke"].Value);
                             objSpecs.ValvesPerCylinder = Convert.ToUInt16(cmd.Parameters["@ValvesPerCylinder"].Value);
-                            objSpecs.FuelDeliverySystem = Convert.ToString(cmd.Parameters["@FuelDeliverySystem"].Value);
-                            objSpecs.FuelType = Convert.ToString(cmd.Parameters["@FuelType"].Value);
-                            objSpecs.Ignition = Convert.ToString(cmd.Parameters["@Ignition"].Value);
-                            objSpecs.SparkPlugsPerCylinder = Convert.ToString(cmd.Parameters["@SparkPlugsPerCylinder"].Value);
-                            objSpecs.CoolingSystem = Convert.ToString(cmd.Parameters["@CoolingSystem"].Value);
-                            objSpecs.GearboxType = Convert.ToString(cmd.Parameters["@GearboxType"].Value);
+                            objSpecs.FuelDeliverySystem = cmd.Parameters["@FuelDeliverySystem"].Value.ToString();
+                            objSpecs.FuelType = cmd.Parameters["@FuelType"].Value.ToString();
+                            objSpecs.Ignition = cmd.Parameters["@Ignition"].Value.ToString();
+                            objSpecs.SparkPlugsPerCylinder = cmd.Parameters["@SparkPlugsPerCylinder"].Value.ToString();
+                            objSpecs.CoolingSystem = cmd.Parameters["@CoolingSystem"].Value.ToString();
+                            objSpecs.GearboxType = cmd.Parameters["@GearboxType"].Value.ToString();
                             objSpecs.NoOfGears = Convert.ToUInt16(cmd.Parameters["@NoOfGears"].Value);
-                            objSpecs.TransmissionType = Convert.ToString(cmd.Parameters["@TransmissionType"].Value);
-                            objSpecs.Clutch = Convert.ToString(cmd.Parameters["@Clutch"].Value);
+                            objSpecs.TransmissionType = cmd.Parameters["@TransmissionType"].Value.ToString();
+                            objSpecs.Clutch = cmd.Parameters["@Clutch"].Value.ToString();
                             objSpecs.Performance_0_60_kmph = Convert.ToSingle(cmd.Parameters["@Performance_0_60_kmph"].Value);
                             objSpecs.Performance_0_80_kmph = Convert.ToSingle(cmd.Parameters["@Performance_0_80_kmph"].Value);
                             objSpecs.Performance_0_40_m = Convert.ToSingle(cmd.Parameters["@Performance_0_40_m"].Value);
                             objSpecs.TopSpeed = Convert.ToUInt16(cmd.Parameters["@TopSpeed"].Value);
-                            objSpecs.Performance_60_0_kmph = Convert.ToString(cmd.Parameters["@Performance_60_0_kmph"].Value);
-                            objSpecs.Performance_80_0_kmph = Convert.ToString(cmd.Parameters["@Performance_80_0_kmph"].Value);
+                            objSpecs.Performance_60_0_kmph = cmd.Parameters["@Performance_60_0_kmph"].Value.ToString();
+                            objSpecs.Performance_80_0_kmph = cmd.Parameters["@Performance_80_0_kmph"].Value.ToString();
                             objSpecs.KerbWeight = Convert.ToUInt16(cmd.Parameters["@KerbWeight"].Value);
                             objSpecs.OverallLength = Convert.ToUInt16(cmd.Parameters["@OverallLength"].Value);
                             objSpecs.OverallWidth = Convert.ToUInt16(cmd.Parameters["@OverallWidth"].Value);
@@ -397,36 +391,36 @@ namespace Bikewale.DAL.BikeData
                             objSpecs.ReserveFuelCapacity = Convert.ToSingle(cmd.Parameters["@ReserveFuelCapacity"].Value);
                             objSpecs.FuelEfficiencyOverall = Convert.ToUInt16(cmd.Parameters["@FuelEfficiencyOverall"].Value);
                             objSpecs.FuelEfficiencyRange = Convert.ToUInt16(cmd.Parameters["@FuelEfficiencyRange"].Value);
-                            objSpecs.ChassisType = Convert.ToString(cmd.Parameters["@ChassisType"].Value);
-                            objSpecs.FrontSuspension = Convert.ToString(cmd.Parameters["@FrontSuspension"].Value);
-                            objSpecs.RearSuspension = Convert.ToString(cmd.Parameters["@RearSuspension"].Value);
-                            objSpecs.BrakeType = Convert.ToString(cmd.Parameters["@BrakeType"].Value);
+                            objSpecs.ChassisType = cmd.Parameters["@ChassisType"].Value.ToString();
+                            objSpecs.FrontSuspension = cmd.Parameters["@FrontSuspension"].Value.ToString();
+                            objSpecs.RearSuspension = cmd.Parameters["@RearSuspension"].Value.ToString();
+                            objSpecs.BrakeType = cmd.Parameters["@BrakeType"].Value.ToString();
                             objSpecs.FrontDisc = Convert.ToBoolean(cmd.Parameters["@FrontDisc"].Value);
                             objSpecs.FrontDisc_DrumSize = Convert.ToUInt16(cmd.Parameters["@FrontDisc_DrumSize"].Value);
                             objSpecs.RearDisc = Convert.ToBoolean(cmd.Parameters["@RearDisc"].Value);
                             objSpecs.RearDisc_DrumSize = Convert.ToUInt16(cmd.Parameters["@RearDisc_DrumSize"].Value);
-                            objSpecs.CalliperType = Convert.ToString(cmd.Parameters["@CalliperType"].Value);
+                            objSpecs.CalliperType = cmd.Parameters["@CalliperType"].Value.ToString();
                             objSpecs.WheelSize = Convert.ToSingle(cmd.Parameters["@WheelSize"].Value);
-                            objSpecs.FrontTyre = Convert.ToString(cmd.Parameters["@FrontTyre"].Value);
-                            objSpecs.RearTyre = Convert.ToString(cmd.Parameters["@RearTyre"].Value);
+                            objSpecs.FrontTyre = cmd.Parameters["@FrontTyre"].Value.ToString();
+                            objSpecs.RearTyre = cmd.Parameters["@RearTyre"].Value.ToString();
                             objSpecs.TubelessTyres = Convert.ToBoolean(cmd.Parameters["@TubelessTyres"].Value);
                             objSpecs.RadialTyres = Convert.ToBoolean(cmd.Parameters["@RadialTyres"].Value);
                             objSpecs.AlloyWheels = Convert.ToBoolean(cmd.Parameters["@AlloyWheels"].Value);
-                            objSpecs.ElectricSystem = Convert.ToString(cmd.Parameters["@ElectricSystem"].Value);
-                            objSpecs.Battery = Convert.ToString(cmd.Parameters["@Battery"].Value);
-                            objSpecs.HeadlightType = Convert.ToString(cmd.Parameters["@HeadlightType"].Value);
-                            objSpecs.HeadlightBulbType = Convert.ToString(cmd.Parameters["@HeadlightBulbType"].Value);
-                            objSpecs.Brake_Tail_Light = Convert.ToString(cmd.Parameters["@Brake_Tail_Light"].Value);
-                            objSpecs.TurnSignal = Convert.ToString(cmd.Parameters["@TurnSignal"].Value);
+                            objSpecs.ElectricSystem = cmd.Parameters["@ElectricSystem"].Value.ToString();
+                            objSpecs.Battery = cmd.Parameters["@Battery"].Value.ToString();
+                            objSpecs.HeadlightType = cmd.Parameters["@HeadlightType"].Value.ToString();
+                            objSpecs.HeadlightBulbType = cmd.Parameters["@HeadlightBulbType"].Value.ToString();
+                            objSpecs.Brake_Tail_Light = cmd.Parameters["@Brake_Tail_Light"].Value.ToString();
+                            objSpecs.TurnSignal = cmd.Parameters["@TurnSignal"].Value.ToString();
                             objSpecs.PassLight = Convert.ToBoolean(cmd.Parameters["@PassLight"].Value);
-                            objSpecs.Speedometer = Convert.ToString(cmd.Parameters["@Speedometer"].Value);
+                            objSpecs.Speedometer = cmd.Parameters["@Speedometer"].Value.ToString();
                             objSpecs.Tachometer = Convert.ToBoolean(cmd.Parameters["@Tachometer"].Value);
-                            objSpecs.TachometerType = Convert.ToString(cmd.Parameters["@TachometerType"].Value);
+                            objSpecs.TachometerType = cmd.Parameters["@TachometerType"].Value.ToString();
                             objSpecs.ShiftLight = Convert.ToBoolean(cmd.Parameters["@ShiftLight"].Value);
                             objSpecs.ElectricStart = Convert.ToBoolean(cmd.Parameters["@ElectricStart"].Value);
                             objSpecs.Tripmeter = Convert.ToBoolean(cmd.Parameters["@Tripmeter"].Value);
-                            objSpecs.NoOfTripmeters = Convert.ToString(cmd.Parameters["@NoOfTripmeters"].Value);
-                            objSpecs.TripmeterType = Convert.ToString(cmd.Parameters["@TripmeterType"].Value);
+                            objSpecs.NoOfTripmeters = cmd.Parameters["@NoOfTripmeters"].Value.ToString();
+                            objSpecs.TripmeterType = cmd.Parameters["@TripmeterType"].Value.ToString();
                             objSpecs.LowFuelIndicator = Convert.ToBoolean(cmd.Parameters["@LowFuelIndicator"].Value);
                             objSpecs.LowOilIndicator = Convert.ToBoolean(cmd.Parameters["@LowOilIndicator"].Value);
                             objSpecs.LowBatteryIndicator = Convert.ToBoolean(cmd.Parameters["@LowBatteryIndicator"].Value);
@@ -443,7 +437,7 @@ namespace Bikewale.DAL.BikeData
                             objSpecs.Clock = Convert.ToBoolean(cmd.Parameters["@Clock"].Value);
                             objSpecs.MaxPowerRPM = Convert.ToSingle(cmd.Parameters["@MaxPowerRPM"].Value);
                             objSpecs.MaximumTorqueRPM = Convert.ToSingle(cmd.Parameters["@MaximumTorqueRPM"].Value);
-                            objSpecs.Colors = Convert.ToString(cmd.Parameters["@Colors"].Value);
+                            objSpecs.Colors = cmd.Parameters["@Colors"].Value.ToString();
                         }
                     }
                 }
@@ -494,25 +488,24 @@ namespace Bikewale.DAL.BikeData
                     {
                         objSimilarBikes = new List<SimilarBikeEntity>();
                 
-
                         while (dr.Read())
                         {
                             SimilarBikeEntity objBike = new SimilarBikeEntity();
 
                             objBike.MakeBase.MakeId = Convert.ToInt32(dr["MakeId"]);
-                            objBike.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
-                            objBike.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                            objBike.MakeBase.MakeName = dr["MakeName"].ToString();
+                            objBike.MakeBase.MaskingName = dr["MakeMaskingName"].ToString();
                             objBike.ModelBase.ModelId = Convert.ToInt32(dr["ModelId"]);
-                            objBike.ModelBase.ModelName = Convert.ToString(dr["ModelName"]);
-                            objBike.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
+                            objBike.ModelBase.ModelName = dr["ModelName"].ToString();
+                            objBike.ModelBase.MaskingName = dr["ModelMaskingName"].ToString();
                             objBike.VersionBase.VersionId = Convert.ToInt32(dr["VersionId"]);
-                            objBike.HostUrl = Convert.ToString(dr["HostUrl"]);
-                            objBike.LargePicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["LargePic"]);
-                            objBike.SmallPicUrl = "/bikewaleimg/models/" + Convert.ToString(dr["SmallPic"]);
+                            objBike.HostUrl = dr["HostUrl"].ToString();
+                            objBike.LargePicUrl = "/bikewaleimg/models/" + dr["LargePic"].ToString();
+                            objBike.SmallPicUrl = "/bikewaleimg/models/" + dr["SmallPic"].ToString();
                             objBike.MinPrice = Convert.ToInt32(dr["MinPrice"]);
                             objBike.MaxPrice = Convert.ToInt32(dr["MaxPrice"]);
                             objBike.VersionPrice = Convert.ToInt32(dr["VersionPrice"]);
-                            objBike.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
+                            objBike.OriginalImagePath = dr["OriginalImagePath"].ToString();
                             objBike.Displacement = SqlReaderConvertor.ToNullableFloat(dr["Displacement"]);
                             objBike.FuelEfficiencyOverall = SqlReaderConvertor.ToNullableUInt16(dr["FuelEfficiencyOverall"]);
                             objBike.MaximumTorque = SqlReaderConvertor.ToNullableFloat(dr["MaximumTorque"]);
@@ -521,13 +514,9 @@ namespace Bikewale.DAL.BikeData
                             objBike.ReviewRate = Convert.ToDouble(dr["ReviewRate"]);
                             objSimilarBikes.Add(objBike);
                         }
+                        dr.Close();
                     }
                 }
-            }
-            catch (SqlException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
-                objErr.SendMail();
             }
             catch (Exception ex)
             {

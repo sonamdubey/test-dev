@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeData
 {
+    [Serializable]
     public class BikeSeriesEntityBase
     {
         public int SeriesId { get; set; }

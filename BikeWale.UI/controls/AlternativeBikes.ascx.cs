@@ -43,5 +43,12 @@ namespace Bikewale.Controls
 
             FetchedRecordsCount = BindAlternativeBikesControl.FetchedRecordsCount;
         }
+
+        public override void Dispose()
+        {
+            rptAlternateBikes.DataSource = null;
+            rptAlternateBikes.Dispose();
+            base.Dispose();
+        }
     }
 }
