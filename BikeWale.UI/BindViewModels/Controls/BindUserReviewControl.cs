@@ -17,14 +17,49 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindUserReviewControl
     {
-        public static int ModelId { get; set; }
+      private static int m_ModelId;
+        public static int ModelId
+      {
+        get
+        {
+          return m_ModelId;
+        }
+        set
+        {
+          m_ModelId = value;
+        }
+      }
         public static int PageNo { get; set; }
         public static int PageSize { get; set; }
         public static int VersionId { get; set; }
+
+
         public static FilterBy Filter { get; set; }
-        public static int RecordCount { get; set; }
+
+        private static int m_RecordCount;
+      public static int RecordCount
+        {
+          get
+          {
+            return m_RecordCount;
+          }
+          set
+          {
+            m_RecordCount = value;
+          }
+        }
         public static int FetchedRecordsCount { get; set; }
 
+        static readonly string _bwHostUrl;
+        static readonly string _ApiURL;
+        static readonly string _requestType;
+
+        static BindUserReviewControl()
+        {
+          _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+          _ApiURL = "/api/UserReviewsList?modelId={0}&startIndex={1}&endIndex={2}&versionId={3}&filter={4}&totalRecords={5}";
+          _requestType = "application/json";
+        }
         public static void BindUserReview(Repeater rptUserReviews)
         {
             List<ReviewEntity> userReviewList = null;
@@ -36,20 +71,18 @@ namespace Bikewale.BindViewModels.Controls
                 int endIndex=4;
                 Paging.GetStartEndIndex(PageSize, PageNo, out stratIndex, out endIndex);
 
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = String.Format("/api/UserReviewsList?modelId={0}&startIndex={1}&endIndex={2}&versionId={3}&filter={4}&totalRecords={5}",
-                    ModelId, stratIndex, endIndex, 0, Filter, RecordCount);
+                string _apiUrl = String.Format(_ApiURL, m_ModelId, stratIndex, endIndex, 0, Filter, m_RecordCount);
 
                 userReviewList = Bikewale.Common.BWHttpClient.GetApiResponseSync<List<ReviewEntity>>(_bwHostUrl, _requestType, _apiUrl, userReviewList);
 
-                FetchedRecordsCount = userReviewList.Count;
-
-                if (userReviewList.Count > 0)
+                if (userReviewList != null && userReviewList.Count > 0)
                 {
-                    rptUserReviews.DataSource = userReviewList;
-                    rptUserReviews.DataBind();
+                  FetchedRecordsCount = userReviewList.Count;
+                  rptUserReviews.DataSource = userReviewList;
+                  rptUserReviews.DataBind();
                 }
+                else
+                  FetchedRecordsCount = 0;
             }
             catch (Exception ex)
             {

@@ -20,7 +20,7 @@ namespace Bikewale.Notifications.MailTemplates
             this.BikeName = bikeName;
             this.Helmet = helmet;
         }
-        public override StringBuilder ComposeBody()
+        public override string ComposeBody()
         {
             StringBuilder sb = new StringBuilder();
             string otherOffer = string.Empty;
@@ -47,7 +47,7 @@ namespace Bikewale.Notifications.MailTemplates
             sb.AppendFormat("Dealer Address: {0}<br/>", OfferEntity.DealerAddress);
             sb.Append("Best Regards,<br/>");
             sb.Append("Team BikeWale<br/>");
-            return sb;
+            return sb.ToString();
         }
     }
 }

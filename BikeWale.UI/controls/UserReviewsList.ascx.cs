@@ -30,7 +30,19 @@ namespace Bikewale.Controls
         public int PageNo { get; set; }
         public int PageSize { get; set; }
         public int VersionId { get; set; }
-        public int FetchedRecordsCount { get; set; }
+
+        private int m_FetchedRecordsCount;
+        public int FetchedRecordsCount
+        {
+          get
+          {
+            return m_FetchedRecordsCount;
+          }
+          set
+          {
+            m_FetchedRecordsCount = value;
+          }
+        }
 
         protected override void OnInit(EventArgs e)
         {
@@ -52,7 +64,7 @@ namespace Bikewale.Controls
             BindUserReviewControl.Filter = Filter;
             BindUserReviewControl.RecordCount = ReviewCount;
             BindUserReviewControl.BindUserReview(rptUserReview);
-            FetchedRecordsCount = BindUserReviewControl.FetchedRecordsCount;
+            m_FetchedRecordsCount = BindUserReviewControl.FetchedRecordsCount;
         }
     }
 }

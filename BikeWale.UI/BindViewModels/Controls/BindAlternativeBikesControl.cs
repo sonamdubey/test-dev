@@ -29,11 +29,16 @@ namespace Bikewale.BindViewModels.Controls
 
                 similarBikeList = BWHttpClient.GetApiResponseSync<SimilarBikeList>(_bwHostUrl, _requestType, _apiUrl, similarBikeList);
 
-                if (similarBikeList != null && similarBikeList.SimilarBike.ToList().Count > 0)
+                if (similarBikeList != null)
                 {
-                    FetchedRecordsCount = similarBikeList.SimilarBike.ToList().Count;
-                    rptAlternativeBikes.DataSource = similarBikeList.SimilarBike.ToList();
+                  var bikelist = similarBikeList.SimilarBike.ToList();
+
+                  if (bikelist.Count > 0)
+                  {
+                    FetchedRecordsCount = bikelist.Count;
+                    rptAlternativeBikes.DataSource = bikelist;
                     rptAlternativeBikes.DataBind();
+                  }
                 }
             }
             catch (Exception ex)
