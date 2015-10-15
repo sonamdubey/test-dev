@@ -160,13 +160,14 @@
                     </FooterTemplate>
                 </asp:Repeater>
             </div>
-        </div>       
-    <%} %>        
-           
+        </div>  
+        <button type="button" data-role="none" id="getDealerDetails" class="rounded-corner5" style="margin-bottom:20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</button>     
+    <%}else { %>        
+           <button type="button" data-role="none" id="btnBookBike" class="rounded-corner5" style="margin-bottom:20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</button>
+        <% } %>
     <!--Exciting Offers section ends here-->
-        <button type="button" data-role="none" id="getDealerDetails" class="rounded-corner5" style="margin-bottom:20px;" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</button>
+        
     </div>
-    <%--<button data-role="none" id="getDealerDetails" class="rounded-corner5" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details & Book Now</button>--%>
 </div>
 
 <!--contact details starts here-->
@@ -249,7 +250,7 @@
         </div>
     </div>
 <script type="text/javascript">
-    $('#getDealerDetails').click(function(){
+    $('#getDealerDetails,#btnBookBike').click(function(){
         window.location.href='/m/pricequote/bookingsummary_new.aspx';
     });
 </script>
