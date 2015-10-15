@@ -17,6 +17,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.BikeData;
+using Bikewale.Utility;
 
 namespace Bikewale.New
 {
@@ -32,6 +33,7 @@ namespace Bikewale.New
         protected int count = 0, totalComp = 5;
         public int featuredBikeIndex = 0;
         protected bool isFeatured = false;
+        protected Int16 trSize = 45;
 
         protected override void OnInit(EventArgs e)
         {
@@ -50,16 +52,16 @@ namespace Bikewale.New
             
             if (!IsPostBack)
             {
-                getVersionIdList();
+                getVersionIdList();              
                 BindRepeater();
-                if (count == 1)
+                if (count < 2)
                 {
                     Response.Redirect("/comparebikes/",false);//return;	
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
                 ltrTitle.Text = title;
-                pageTitle = title;
+                pageTitle = title;                 
             }
         }
         void BindRepeater()
@@ -77,13 +79,18 @@ namespace Bikewale.New
 
                     Trace.Warn("versionlist : ",versions);
                     cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 50).Value = versions;
-                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = Configuration.GetDefaultCityId;*/
-
+                    cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = Configuration.GetDefaultCityId;
+                 */
 
                 CompareBikes cb = new CompareBikes();
 
                 ds = cb.GetComparisonBikeListByVersion(versions);
                 count = ds.Tables[0].Rows.Count;
+
+                //to truncate data
+                if (count == 3) trSize = 40;
+                else if (count == 4) trSize = 35;
+                else if (count == 5) trSize = 30;
 
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -134,7 +141,7 @@ namespace Bikewale.New
                 ErrorClass objErr = new ErrorClass(err, "new.default.LoadMakes");
                 objErr.SendMail();
             }
-        }
+        }     
 
 
         protected void getVersionIdList()
