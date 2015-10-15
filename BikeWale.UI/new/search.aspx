@@ -322,7 +322,7 @@
                             <div class="contentWrapper">
                                 <div class="imageWrapper">
                                     <a  data-bind="attr:{href:'/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/'},click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }">
-                                        <img class="lazy" data-bind="attr: {title: bikeName, alt: bikeName, src:'../images/circleloader.gif'},lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
+                                        <img class="lazy" data-bind="attr: {title: bikeName, alt: bikeName, src:'/images/loader.gif'},lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
                                     </a>
                                 </div>
                                 <div class="bikeDescWrapper">
