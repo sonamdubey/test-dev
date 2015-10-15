@@ -13,7 +13,13 @@
         private bool Ad_320x50 = false, Ad_Bot_320x50 = false, Ad_300x250 = false;
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script> 
-   <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->    
+   <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->
+    <script type="text/javascript">
+        setTimeout(function(){var a=document.createElement("script");
+        var b=document.getElementsByTagName("script")[0];
+        a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0012/9477.js?"+Math.floor(new Date().getTime()/3600000);
+        a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+    </script>    
 </head>
 <body>
     <form runat="server">
