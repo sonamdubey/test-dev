@@ -967,7 +967,7 @@
                         </div>
                     </div>
                     <!-- variant code starts here -->
-                    <div class="bw-tabs-data margin-bottom20 <%= modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 ? "" : "hide" %>" id="variants">
+                    <div class="bw-tabs-data <%= modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 ? "" : "hide" %> margin-bottom20 " id="variants">
                         <h2 class="font24 margin-bottom20 text-center">Variants</h2>
                         <asp:Repeater runat="server" ID="rptVarients">
                             <ItemTemplate>
