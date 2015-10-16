@@ -14,7 +14,9 @@ namespace Bikewale.Entities.DTO
         public ushort Liked { get; set; }
         public ushort Disliked { get; set; }
         public uint Viewed { get; set; }
-        private ReviewRatingBase objRating { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
+        public ReviewRatingBase OverAllRating { get; set; }
         public ReviewTaggedBike TaggedBike { get; set; }
     }
 }

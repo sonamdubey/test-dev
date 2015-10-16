@@ -86,6 +86,7 @@ namespace Bikewale.Utility
                         {
                           objTask = _response.Content.ReadAsAsync<T>().Result;
                           _response.Content.Dispose();
+                            _response.Content=null;
                         }
                       }
                     }
