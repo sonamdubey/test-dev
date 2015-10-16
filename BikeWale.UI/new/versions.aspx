@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.versions" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.versions" trace="false"%>
 
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
@@ -11,23 +11,24 @@
 <html>
 <head>
     <%
-        title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
-        description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs."
-                    + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
-                    + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+      var modDetails = modelPage.ModelDetails;
+        title = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
+        description = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India - Rs."
+                    + Bikewale.Utility.Format.FormatPrice(modDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modDetails.MaxPrice.ToString())
+                    + ". Check out " + modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
 
-        canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
+        canonical = "http://www.bikewale.com/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
         AdId = "1017752";
         AdPath = "/1017752/Bikewale_NewBike_";        
-        TargetedModel = modelPage.ModelDetails.ModelName;
+        TargetedModel = modDetails.ModelName;
         fbTitle = title;
-        alternate = "http://www.bikewale.com/m/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
+        alternate = "http://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
         isAd970x90Shown = true;
     %>
 
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
  .chosen-results::-webkit-scrollbar { width: 10px;border-radius:5px; }
 .chosen-results::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2); }
@@ -60,10 +61,10 @@
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-10 padding-top20 padding-bottom20 rounded-corner2">
                         <div class="grid-6 alpha margin-minus10">
-                            <div class="<%= modelPage.ModelDetails.Futuristic ? "" : "hide" %>">
+                            <div class="<%= modelPage.ModelDetails.Futuristic ? string.Empty : "hide" %>">
                                 <span class="model-sprite bw-upcoming-bike-ico"></span>
                             </div>
-                            <div class="<%= !modelPage.ModelDetails.Futuristic && !modelPage.ModelDetails.New ? "" : "hide" %>">
+                            <div class="<%= !modelPage.ModelDetails.Futuristic && !modelPage.ModelDetails.New ? string.Empty : "hide" %>">
                                 <span class="model-sprite bw-discontinued-bike-ico"></span>
                             </div>
                             <div class="connected-carousels" id="bikeBannerImageCarousel">
@@ -123,11 +124,11 @@
                             </div>
                             <% if (modelPage.ModelDetails.New)
                                { %>
-                            <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : "" %>">
+                            <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : string.Empty %>">
                                 <p class="margin-left50	leftfloat margin-right20">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                 </p>
-                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20 <%= (modelPage.ModelDetails.ReviewCount > 0)?"":"hide" %>"><%= modelPage.ModelDetails.ReviewCount %> Reviews
+                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20 <%= (modelPage.ModelDetails.ReviewCount > 0)?string.Empty:"hide" %>"><%= modelPage.ModelDetails.ReviewCount %> Reviews
                                 </a>
                                 <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat margin-right20 padding-left20">Write a review
                                 </a>
@@ -252,7 +253,7 @@
                             </div>
                             <% if (!modelPage.ModelDetails.New)
                                { %>
-                            <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : "" %>">
+                            <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : string.Empty %>">
                                 <p class="leftfloat margin-right20">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                 </p>
@@ -394,7 +395,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
+        <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : string.Empty %>">
             <div id="SneakPeak" class="grid-12 margin-bottom20">
                 <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
                    { %>
@@ -424,8 +425,8 @@
                         <a class="active" href="#overview">Overview</a>
                         <a href="#specifications">Specifications</a>
                         <a href="#features">Features</a>
-                        <a href="#variants" style="<%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? "": "display:none;" %>">Variants</a>
-                        <a href="#colours" style="<%= (modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0) ? "": "display:none;" %>">Colours</a>
+                        <a href="#variants" style="<%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? string.Empty: "display:none;" %>">Variants</a>
+                        <a href="#colours" style="<%= (modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0) ? string.Empty: "display:none;" %>">Colours</a>
                     </div>
                     <!-- Overview code starts here -->
                     <div class="bw-tabs-data margin-bottom20 active" id="overview">
@@ -967,7 +968,7 @@
                         </div>
                     </div>
                     <!-- variant code starts here -->
-                    <div class="bw-tabs-data margin-bottom20 <%= modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 ? "" : "hide" %>" id="variants">
+                    <div class="bw-tabs-data <%= modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 ? string.Empty : "hide" %>" id="variants">
                         <h2 class="font24 margin-bottom20 text-center">Variants</h2>
                         <asp:Repeater runat="server" ID="rptVarients">
                             <ItemTemplate>
@@ -989,7 +990,7 @@
                         <div class="clear"></div>
                     </div>
                     <!-- colours code starts here -->
-                    <div class="bw-tabs-data margin-bottom20 <%= modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0 ? "" : "hide" %>" id="colours">
+                    <div class="bw-tabs-data margin-bottom20 <%= modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0 ? string.Empty : "hide" %>" id="colours">
                         <div class="border-solid-top margin-left10 margin-right10"></div>
                         <h2 class="font24 margin-top10 margin-bottom20 text-center">Colours</h2>
                         <div class="text-center">
@@ -1043,19 +1044,19 @@
                 }                
             } 
         %>
-        <section class="container <%= (reviewTabsCnt == 0) ? "hide" : "" %>">
+        <section class="container <%= reviewTabsCnt == 0 ? "hide" : string.Empty %>">
             <!--  News Bikes latest updates code starts here -->
             <div class="newBikes-latest-updates-container">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates on <%= bikeName %></h2>
                     <div class="bw-tabs-panel content-box-shadow margin-bottom30">
-                        <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
+                        <div class="text-center <%= reviewTabsCnt > 2 ? string.Empty : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
-                                    <li class= "<%= isUserReviewActive ? "active" : "hide" %>" style="<%= Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0 ? "" : "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
-                                    <li class= "<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                    
-                                    <li class= "<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                    <li class= "<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos" >Videos</li>
+                                    <li class="active" style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
+                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                    
+                                    <li style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                    <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
                                 </ul>
                             </div>
                         </div>                        
@@ -1070,7 +1071,7 @@
             </div>
         </section>
 
-        <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
+        <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div class="container">
                 <div class="grid-12 alternative-section">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternatives</h2>
@@ -1094,7 +1095,7 @@
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/model.js?<%= staticFileVersion %>">"></script>
+        <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>">"></script>
         <script type="text/javascript">
             var myBikeName = "<%= this.bikeName %>";
         var clientIP = "<%= clientIP%>";

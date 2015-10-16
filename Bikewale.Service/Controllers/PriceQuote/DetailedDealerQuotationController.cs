@@ -46,6 +46,42 @@ namespace Bikewale.Service.Controllers.PriceQuote
             if (dealerDetailEntity != null)
             {
                 output = DDQDealerDetailBaseMapper.Convert(dealerDetailEntity);
+
+                if (dealerDetailEntity.objFacilities != null)
+                {
+                    dealerDetailEntity.objFacilities.Clear();
+                    dealerDetailEntity.objFacilities = null; 
+                }
+
+                if (dealerDetailEntity.objOffers != null)
+                {
+                    dealerDetailEntity.objOffers.Clear();
+                    dealerDetailEntity.objOffers = null; 
+                }
+
+                if (dealerDetailEntity.objQuotation != null)
+                {
+                    if (dealerDetailEntity.objQuotation.Disclaimer != null)
+                    {
+                        dealerDetailEntity.objQuotation.Disclaimer.Clear();
+                        dealerDetailEntity.objQuotation.Disclaimer = null;
+                    }
+
+                    if (dealerDetailEntity.objQuotation.objOffers != null)
+                    {
+                        dealerDetailEntity.objQuotation.objOffers.Clear();
+                        dealerDetailEntity.objQuotation.objOffers = null;
+                    }
+
+                    if (dealerDetailEntity.objQuotation.PriceList != null)
+                    {
+                        dealerDetailEntity.objQuotation.PriceList.Clear();
+                        dealerDetailEntity.objQuotation.PriceList = null;
+                    }
+
+                    dealerDetailEntity.objQuotation.Varients = null; 
+                }
+
                 return Request.CreateResponse(HttpStatusCode.OK, output);
             }
             else

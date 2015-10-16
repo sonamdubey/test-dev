@@ -24,16 +24,23 @@ namespace Bikewale.Notifications.MailTemplates
             PageUrl = pageUrl;
         }
 
+        private static readonly string ErrorMessageBody = @"Person Accessing the Page : <br />\n\n<br />\nHOST : {0}<br />\nURL : {1}<br />\nREWRITE URL : {2}<br />\nREFERRER : {3}<br />\nIP ADD Remote Addr: {4}<br />\nIP ADD Remote Host: {5}<br />\nError on Page : {6}<br />\nError Message : {7}<br />\nInner Exception : {8}<br />\nStack Trace : {9}";
         /// <summary>
         /// Summary : Overrided Method to provide mail body.
         /// </summary>
         /// <returns></returns>
-        public override StringBuilder ComposeBody()
+        
+        public override string ComposeBody()
         {
-            StringBuilder sb = null;
-
+           // StringBuilder sb = null;
+          string retString=string.Empty;
             try
             {
+              var ServerVar = HttpContext.Current.Request.ServerVariables;
+              retString = string.Format(ErrorMessageBody, ServerVar["HTTP_HOST"], ServerVar["URL"], ServerVar["HTTP_X_REWRITE_URL"], ServerVar["HTTP_REFERER"], ServerVar["HTTP_CLIENT_IP"],
+                ServerVar["REMOTE_HOST"], PageUrl, err.Message, err.InnerException, err.StackTrace);
+
+              /*
                 sb = new StringBuilder();
 
                 sb.Append("Person Accessing the Page : <br />\n\n");
@@ -72,13 +79,13 @@ namespace Bikewale.Notifications.MailTemplates
 
                 //get the stack trace
                 sb.Append("<br />\nStack Trace : ");
-                sb.Append(err.StackTrace);                
+                sb.Append(err.StackTrace);      */       
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("Notifications.ErrorTempate ComposeBody : " + ex.Message);
             }
-            return sb;
+            return retString;
         }   // End of ComposeBody method
 
     }   // End of class

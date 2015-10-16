@@ -59,7 +59,13 @@ namespace Bikewale.Service.Controllers.BikeData
                                 
                 objLaunched.LaunchedBike = LaunchedBikeListMapper.Convert(objRecent);
 
-                if (objRecent != null && objRecent.Count > 0)
+                if (objRecent != null)
+                {
+                    objRecent.Clear();
+                    objRecent = null; 
+                }
+
+                if (objLaunched != null && objLaunched.LaunchedBike != null && objLaunched.LaunchedBike.Count() > 0)
                     return Ok(objLaunched);
                 else
                     return NotFound();

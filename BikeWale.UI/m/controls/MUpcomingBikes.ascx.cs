@@ -32,13 +32,14 @@ namespace Bikewale.Mobile.controls
 
         private void UpcomingBikes()
         {
-            BindUpcomingBikesControl.sortBy = this.sortBy;
-            BindUpcomingBikesControl.MakeId = this.MakeId;
-            BindUpcomingBikesControl.ModelId = this.ModelId;
-            BindUpcomingBikesControl.pageSize = this.pageSize;
+            BindUpcomingBikesControl objUpcoming = new BindUpcomingBikesControl();
+            objUpcoming.sortBy = this.sortBy;
+            objUpcoming.MakeId = this.MakeId;
+            objUpcoming.ModelId = this.ModelId;
+            objUpcoming.pageSize = this.pageSize;
 
-            BindUpcomingBikesControl.BindUpcomingBikes(rptUpcomingBikes);
-            this.FetchedRecordsCount = BindUpcomingBikesControl.FetchedRecordsCount;
+            objUpcoming.BindUpcomingBikes(rptUpcomingBikes);
+            this.FetchedRecordsCount = objUpcoming.FetchedRecordsCount;
         }
 
         protected string ShowEstimatedPrice(object estimatedPrice)

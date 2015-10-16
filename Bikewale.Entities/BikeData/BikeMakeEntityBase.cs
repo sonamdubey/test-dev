@@ -8,6 +8,7 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
+    [Serializable]
     public class BikeMakeEntityBase
     {
         [JsonProperty(PropertyName = "makeId")]

@@ -52,6 +52,9 @@ namespace Bikewale.Service.Controllers.PriceQuote.Version
                     objDTOVersionList = new PQVersionList();
                     objDTOVersionList.Versions = PQVersionListMapper.Convert(objVersionList);
 
+                    objVersionList.Clear();
+                    objVersionList = null;
+
                     return Ok(objDTOVersionList);
                 }
                 else

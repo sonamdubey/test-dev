@@ -51,10 +51,13 @@ namespace Bikewale.Service.Controllers.Dealer
 
                 if (objDealers != null && objDealers.Dealers !=null && objDealers.Dealers.Count() > 0)
                 {                    
-                        objDTODealerList = new NewBikeDealerList();
-                        objDTODealerList = DealerListMapper.Convert(objDealers);
-                        objDTODealerList.TotalDealers = objDealers.Dealers.Count();                       
-                        return Ok(objDTODealerList);                     
+                    objDTODealerList = new NewBikeDealerList();
+                    objDTODealerList = DealerListMapper.Convert(objDealers);
+                    objDTODealerList.TotalDealers = objDealers.Dealers.Count();
+
+                    objDealers.Dealers = null;
+
+                    return Ok(objDTODealerList);                     
                 }
                 else
                 {

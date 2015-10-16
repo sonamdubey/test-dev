@@ -57,7 +57,7 @@ namespace Bikewale.Service.Controllers.BookingSummary
 
                 if (objCustomer != null)
                 {
-                    dtoCustomer = PQCustomerMapper.Convert(objCustomer);
+                    dtoCustomer = PQCustomerMapper.Convert(objCustomer);                    
                 }
                 #endregion
 
@@ -68,6 +68,18 @@ namespace Bikewale.Service.Controllers.BookingSummary
                 if (dealerDetailEntity != null)
                 {
                     dtoQuotation = DDQDealerDetailBaseMapper.Convert(dealerDetailEntity);
+
+                    if (dealerDetailEntity.objOffers != null)
+                    {
+                        dealerDetailEntity.objOffers.Clear();
+                        dealerDetailEntity.objOffers = null;
+                    }
+
+                    if (dealerDetailEntity.objFacilities != null)
+                    {
+                        dealerDetailEntity.objFacilities.Clear();
+                        dealerDetailEntity.objFacilities = null;
+                    }
                 }
                 #endregion
 

@@ -45,11 +45,16 @@ namespace Bikewale.Service.Controllers.BikeData
             {
                 objFeature = _modelRepository.GetFeaturedBikes(topCount);                
                 FeaturedList.FeaturedBike = FeaturedBikeListMapper.Convert(objFeature);
+                
                 if (objFeature != null && objFeature.Count > 0)
+                {
+                    objFeature.Clear();
+                    objFeature = null;
+
                     return Ok(FeaturedList);
+                }
                 else
                     return NotFound();
-
             }
             catch (Exception ex)
             {

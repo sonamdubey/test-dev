@@ -68,7 +68,14 @@ namespace Bikewale.Service.Controllers.BikeData
                 List<UpcomingBikeEntity> objUpcoming = _modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
                                 
                 upcomingBikes.UpcomingBike = UpcomingBikeListMapper.Convert(objUpcoming);
-                if (objUpcoming != null && objUpcoming.Count > 0)
+
+                if (objUpcoming != null)
+                {
+                    objUpcoming.Clear();
+                    objUpcoming = null;
+                }
+
+                if (upcomingBikes != null && upcomingBikes.UpcomingBike != null && upcomingBikes.UpcomingBike.Count() > 0)
                     return Ok(upcomingBikes);
                 else
                     return NotFound();

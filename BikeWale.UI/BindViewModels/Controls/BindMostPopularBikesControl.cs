@@ -12,11 +12,14 @@ namespace Bikewale.BindViewModels.Controls
 {
     public class BindMostPopularBikesControl
     {
-        public static int? totalCount { get; set; }
-        public static int? makeId { get; set; }
-        public static int FetchedRecordsCount { get; set; }
+        public int? totalCount { get; set; }
+        public int? makeId { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
-        public static void BindMostPopularBikes(Repeater rptr)
+        readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+        readonly string _requestType = "application/json";
+
+        public void BindMostPopularBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
 
@@ -24,17 +27,20 @@ namespace Bikewale.BindViewModels.Controls
 
             try
             {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
+                                
                 string _apiUrl = String.Format("/api/ModelList/?totalCount={0}&makeId={1}", totalCount, makeId);
 
                 objBikeList = BWHttpClient.GetApiResponseSync<MostPopularBikesList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
 
-                if (objBikeList != null && objBikeList.PopularBikes.ToList().Count > 0)
+                if (objBikeList != null)
                 {
-                    FetchedRecordsCount = objBikeList.PopularBikes.ToList().Count;
-                    rptr.DataSource = objBikeList.PopularBikes.ToList();
+                  var bikeList = objBikeList.PopularBikes.ToList();
+                  if (bikeList.Count > 0)
+                  {
+                    FetchedRecordsCount = bikeList.Count;
+                    rptr.DataSource = bikeList;
                     rptr.DataBind();
+                  }
                 }
             }
             catch (Exception ex)

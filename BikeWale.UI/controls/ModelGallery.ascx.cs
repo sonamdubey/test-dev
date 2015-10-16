@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.controls
+namespace Bikewale.Controls
 {
     public class ModelGallery : System.Web.UI.UserControl
     {
@@ -32,10 +32,25 @@ namespace Bikewale.controls
 
         private void BindModelGalleryWidget()
         {
-            BindModelGallery.ModelId = modelId;
-            BindModelGallery.BindImages(rptModelPhotos,rptNavigationPhoto, Photos);
-            BindModelGallery.BindVideos(rptVideoNav);            
-            videoCount = BindModelGallery.FetchedVideoCount;
+            BindModelGallery bmg = new BindModelGallery();
+            bmg.ModelId = modelId;
+            bmg.BindImages(rptModelPhotos, rptNavigationPhoto, Photos);
+            bmg.BindVideos(rptVideoNav);
+            videoCount = bmg.FetchedVideoCount;
+        }
+
+        public override void Dispose()
+        {
+            rptVideoNav.DataSource = null;
+            rptVideoNav.Dispose();
+
+            rptModelPhotos.DataSource = null;
+            rptModelPhotos.Dispose();
+
+            rptNavigationPhoto.DataSource = null;
+            rptNavigationPhoto.Dispose();
+
+            base.Dispose();
         }
     }
 }

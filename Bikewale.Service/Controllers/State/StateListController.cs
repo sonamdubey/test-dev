@@ -50,6 +50,9 @@ namespace Bikewale.Service.Controllers.State
                     objDTOStateList = new StateList();
                     objDTOStateList.State = StateListMapper.Convert(objStateList);
 
+                    objStateList.Clear();
+                    objStateList = null;
+
                     return Ok(objDTOStateList);
                 }
             }

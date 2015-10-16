@@ -29,10 +29,11 @@ namespace Bikewale.Mobile.controls
 
         private void NewLaunchedBikes()
         {
-            BindNewLaunchedBikesControl.pageSize = this.pageSize;
-            BindNewLaunchedBikesControl.curPageNo = this.curPageNo;
-            BindNewLaunchedBikesControl.BindNewlyLaunchedBikes(rptNewLaunchedBikes);
-            this.FetchedRecordsCount = BindNewLaunchedBikesControl.FetchedRecordsCount;
+            BindNewLaunchedBikesControl objNewLaunch = new BindNewLaunchedBikesControl();
+            objNewLaunch.pageSize = this.pageSize;
+            objNewLaunch.curPageNo = this.curPageNo;
+            objNewLaunch.BindNewlyLaunchedBikes(rptNewLaunchedBikes);
+            this.FetchedRecordsCount = objNewLaunch.FetchedRecordsCount;
         }
     }
 }

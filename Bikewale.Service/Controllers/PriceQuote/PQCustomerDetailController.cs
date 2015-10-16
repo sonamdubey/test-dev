@@ -115,6 +115,30 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                         objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(input.CityId), Convert.ToUInt32(input.VersionId), input.DealerId);
                         objBookingPageDetailsDTO = BookingPageDetailsEntityMapper.Convert(objBookingPageDetailsEntity);
+
+                        if (objBookingPageDetailsEntity != null)
+                        {
+                            objBookingPageDetailsEntity.BikeModelColors = null;
+
+                            if (objBookingPageDetailsEntity.Disclaimers != null)
+                            {
+                                objBookingPageDetailsEntity.Disclaimers.Clear();
+                                objBookingPageDetailsEntity.Disclaimers = null;
+                            }
+
+                            if (objBookingPageDetailsEntity.Offers != null)
+                            {
+                                objBookingPageDetailsEntity.Offers.Clear();
+                                objBookingPageDetailsEntity.Offers = null;
+                            }
+
+                            if (objBookingPageDetailsEntity.Varients != null)
+                            {
+                                objBookingPageDetailsEntity.Varients.Clear();
+                                objBookingPageDetailsEntity.Varients = null;
+                            } 
+                        }
+
                         dealer = objBookingPageDetailsDTO.Dealer;
                         objCust = _objCustomer.GetByEmail(input.CustomerEmail);
 
