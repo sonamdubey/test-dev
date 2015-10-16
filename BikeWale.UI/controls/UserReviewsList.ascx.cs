@@ -31,6 +31,9 @@ namespace Bikewale.Controls
         public int PageSize { get; set; }
         public int VersionId { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -53,6 +56,9 @@ namespace Bikewale.Controls
             BindUserReviewControl.RecordCount = ReviewCount;
             BindUserReviewControl.BindUserReview(rptUserReview);
             FetchedRecordsCount = BindUserReviewControl.FetchedRecordsCount;
+            MakeMaskingName = BindUserReviewControl.MakeMaskingName;
+            ModelMaskingName = BindUserReviewControl.ModelMaskingName;
+            //ModelMaskingName = ((DataBoundLiteralControl)rptUserReview.Items[0].Controls[0]).Text;
         }
     }
 }
