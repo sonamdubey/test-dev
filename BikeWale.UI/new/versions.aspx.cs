@@ -530,6 +530,22 @@ namespace Bikewale.New
             }
             return format.Trim().Substring(0, format.Length - 1);
         }
+
+        public override void Dispose()
+        {
+            if (modelPage != null)
+            {
+                modelPage.Photos = null;
+                modelPage.ModelColors = null;
+                modelPage.ModelDesc = null;
+                modelPage.ModelDetails = null;
+                modelPage.ModelVersions = null;
+                modelPage.ModelVersionSpecs = null;
+                modelPage.UpcomingBike = null;
+                modelPage = null;
+            }
+            base.Dispose();
+        }
     }
 
 }

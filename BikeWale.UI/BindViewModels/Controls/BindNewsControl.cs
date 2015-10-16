@@ -18,8 +18,8 @@ namespace Bikewale.BindViewModels.Controls
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
 
-        readonly string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        readonly string _requestType = "application/json";
+        static readonly string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+        static readonly string _requestType = "application/json";
 
         public void BindNews(Repeater rptr)
         {

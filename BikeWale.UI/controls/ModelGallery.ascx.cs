@@ -32,10 +32,11 @@ namespace Bikewale.Controls
 
         private void BindModelGalleryWidget()
         {
-            BindModelGallery.ModelId = modelId;
-            BindModelGallery.BindImages(rptModelPhotos,rptNavigationPhoto, Photos);
-            BindModelGallery.BindVideos(rptVideoNav);            
-            videoCount = BindModelGallery.FetchedVideoCount;
+            BindModelGallery bmg = new BindModelGallery();
+            bmg.ModelId = modelId;
+            bmg.BindImages(rptModelPhotos, rptNavigationPhoto, Photos);
+            bmg.BindVideos(rptVideoNav);
+            videoCount = bmg.FetchedVideoCount;
         }
 
         public override void Dispose()

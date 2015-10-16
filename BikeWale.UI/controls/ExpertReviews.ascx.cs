@@ -23,13 +23,14 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindExpertReviewsControl.TotalRecords = this.TotalRecords;
-            BindExpertReviewsControl.MakeId = this.MakeId;
-            BindExpertReviewsControl.ModelId = this.ModelId;
+            BindExpertReviewsControl ber = new BindExpertReviewsControl();
+            ber.TotalRecords = this.TotalRecords;
+            ber.MakeId = this.MakeId;
+            ber.ModelId = this.ModelId;
 
-            BindExpertReviewsControl.BindExpertReviews(rptExpertReviews);
+            ber.BindExpertReviews(rptExpertReviews);
 
-            this.FetchedRecordsCount = BindExpertReviewsControl.FetchedRecordsCount;
+            this.FetchedRecordsCount = ber.FetchedRecordsCount;
         }
 
         public override void Dispose()

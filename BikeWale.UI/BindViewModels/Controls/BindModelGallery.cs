@@ -16,20 +16,20 @@ namespace Bikewale.BindViewModels.Controls
     /// Author  :   Sumit Kate
     /// Created :   30 Sept 2015
     /// </summary>
-    public static class BindModelGallery
+    public class BindModelGallery
     {
         /// <summary>
         /// Model Id
         /// </summary>
-        public static int ModelId { get; set; }
+        public int ModelId { get; set; }
         /// <summary>
         /// Fetched Image Count
         /// </summary>
-        public static int FetchedImageCount { get; set; }
+        public int FetchedImageCount { get; set; }
         /// <summary>
         /// Fetched Video Count
         /// </summary>
-        public static int FetchedVideoCount { get; set; }
+        public int FetchedVideoCount { get; set; }
 
         static string _cwHostUrl;
         static BindModelGallery()
@@ -43,7 +43,7 @@ namespace Bikewale.BindViewModels.Controls
         /// </summary>
         /// <param name="rptrVideos">Video repeater</param>
         /// <param name="rptrVideoNav">Video navigation repeater</param>
-        public static void BindVideos(Repeater rptrVideos, Repeater rptrVideoNav)
+        public void BindVideos(Repeater rptrVideos, Repeater rptrVideoNav)
         {
             try
             {
@@ -85,7 +85,7 @@ namespace Bikewale.BindViewModels.Controls
         /// </summary>
         /// <param name="rptrVideos">Video repeater</param>
         /// <param name="rptrVideoNav">Video navigation repeater</param>
-        public static void BindVideos(Repeater rptrVideoNav)
+        public void BindVideos(Repeater rptrVideoNav)
         {
           try
           {
@@ -122,7 +122,7 @@ namespace Bikewale.BindViewModels.Controls
         /// <param name="rptrImages">Image repeater</param>
         /// <param name="rptrImageNav">Image navigation repeater</param>
         /// <param name="photos">list of photos</param>
-        public static void BindImages(Repeater rptrImages, Repeater rptrImageNav, List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> photos)
+        public void BindImages(Repeater rptrImages, Repeater rptrImageNav, List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> photos)
         {
             try
             {
