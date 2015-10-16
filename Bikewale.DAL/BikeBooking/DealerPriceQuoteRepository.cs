@@ -296,6 +296,7 @@ namespace Bikewale.DAL.BikeBooking
                                 cityDetails = new Entities.Location.CityEntityBase() { CityName = dr["CityName"].ToString() }
                             };
                             objCustomer.IsTransactionCompleted = Convert.ToBoolean(dr["TransactionCompleted"]);
+                            objCustomer.AbInquiryId = Convert.ToString(dr["AbInquiryId"]);
                         }
                         
                         if (dr.NextResult())

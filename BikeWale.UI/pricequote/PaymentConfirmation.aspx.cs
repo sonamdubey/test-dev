@@ -214,7 +214,7 @@ namespace Bikewale.PriceQuote
                 BookingRequest request = new BookingRequest();
                 request.BookingDate = DateTime.Now;
                 request.BranchId = _objPQ.objDealer.DealerId;
-                request.InquiryId = Convert.ToUInt32(PriceQuoteCookie.PQId);
+                request.InquiryId = Convert.ToUInt32(objCustomer.AbInquiryId);
                 request.PaymentAmount = BooingAmt;
                 request.Price = totalPrice;
                 string _apiHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
