@@ -51,6 +51,10 @@ namespace Bikewale.Service.Controllers.City
                 {
                     objDTOCityList = new CityList();
                     objDTOCityList.City = CityListMapper.Convert(objCityList);
+
+                    objCityList.Clear();
+                    objCityList = null;
+
                     return Ok(objDTOCityList);
                 }
                 else
@@ -96,6 +100,9 @@ namespace Bikewale.Service.Controllers.City
 
                         Mapper.CreateMap<CityEntityBase, CityBase>();
                         objDTOCityList.City = Mapper.Map<List<CityEntityBase>, List<CityBase>>(objCityList);
+
+                        objCityList.Clear();
+                        objCityList = null;
 
                         return Request.CreateResponse(HttpStatusCode.OK, objDTOCityList);
                     }

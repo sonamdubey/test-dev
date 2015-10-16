@@ -53,7 +53,11 @@ namespace Bikewale.Service.Controllers.UserReviews
                     // Auto map the properties
                     objDTOUserReview = new List<ReviewTaggedBike>();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
-                    return Ok(objUserReview);
+
+                    objUserReview.Clear();
+                    objUserReview = null;
+
+                    return Ok(objDTOUserReview);
                 }
             }
             catch (Exception ex)
@@ -88,7 +92,10 @@ namespace Bikewale.Service.Controllers.UserReviews
                     objDTOUserReview = new List<ReviewTaggedBike>();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
-                    return Ok(objUserReview);
+                    objUserReview.Clear();
+                    objUserReview = null;
+
+                    return Ok(objDTOUserReview);
                 }
             }
             catch (Exception ex)
@@ -128,7 +135,10 @@ namespace Bikewale.Service.Controllers.UserReviews
                     objDTOUserReview = new List<Review>();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
-                    return Ok(objUserReview);
+                    objUserReview.Clear();
+                    objUserReview = null;
+
+                    return Ok(objDTOUserReview);
                 }
             }
             catch (Exception ex)

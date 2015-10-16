@@ -80,20 +80,75 @@ namespace Bikewale.Service.Controllers.Model
                         objModelPage.ModelVersionSpecs = null;
                     }
                     else {
-                        objModelPage.objFeatures = null;
-                        objModelPage.objOverview = null;
-                        objModelPage.objSpecs = null;
+                        //objModelPage.objFeatures = null;
+                        //objModelPage.objOverview = null;
+                        //objModelPage.objSpecs = null;
+                        if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
+                        {
+                            objModelPage.objFeatures.FeaturesList.Clear();
+                            objModelPage.objFeatures.FeaturesList = null;
+                            objModelPage.objFeatures = null;
+                        }
+                        if (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null)
+                        {
+                            objModelPage.objOverview.OverviewList.Clear();
+                            objModelPage.objOverview.OverviewList = null;
+                            objModelPage.objOverview = null;
+                        }
+                        if (objModelPage.objSpecs != null && objModelPage.objSpecs.SpecsCategory != null)
+                        {
+                            objModelPage.objSpecs.SpecsCategory.Clear();
+                            objModelPage.objSpecs.SpecsCategory = null;
+                            objModelPage.objSpecs = null;
+                        }
                     }
 
                     // Auto map the properties
                     objDTOModelPage = new ModelPage();
                     objDTOModelPage = ModelMapper.Convert(objModelPage);
 
+                    if (objModelPage != null)
+                    {
+                        if (objModelPage.ModelColors != null)
+                        {
+                            objModelPage.ModelColors = null;
+                        }
+                        if (objModelPage.ModelVersions != null)
+                        {
+                            objModelPage.ModelVersions.Clear();
+                            objModelPage.ModelVersions = null; 
+                        }
+                        if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
+                        {
+                            objModelPage.objFeatures.FeaturesList.Clear();
+                            objModelPage.objFeatures.FeaturesList = null; 
+                        }
+                        if (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null)
+                        {
+                            objModelPage.objOverview.OverviewList.Clear();
+                            objModelPage.objOverview.OverviewList = null; 
+                        }
+                        if (objModelPage.objSpecs != null && objModelPage.objSpecs.SpecsCategory != null)
+                        {
+                            objModelPage.objSpecs.SpecsCategory.Clear();
+                            objModelPage.objSpecs.SpecsCategory = null; 
+                        }
+                        if (objModelPage.Photos != null)
+                        {
+                            objModelPage.Photos.Clear();
+                            objModelPage.Photos = null; 
+                        }
+                    }
+
                     categorList = new List<EnumCMSContentType>();
                     categorList.Add(EnumCMSContentType.PhotoGalleries);
                     categorList.Add(EnumCMSContentType.RoadTest);
                     categorList.Add(EnumCMSContentType.ComparisonTests);
                     string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+
+                    categorList.Clear();
+                    categorList = null;
+
                     string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
 
                     objDTOModelPage.Photos = BWHttpClient.GetApiResponseSync<List<CMSModelImageBase>>(_cwHostUrl, _requestType, _apiUrl, objDTOModelPage.Photos);

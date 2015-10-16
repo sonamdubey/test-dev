@@ -29,10 +29,11 @@ namespace Bikewale.controls
 
         private void NewLaunchedBikes()
         {
-            BindNewLaunchedBikesControl.pageSize = this.pageSize;
-            BindNewLaunchedBikesControl.curPageNo = this.curPageNo;  
-            BindNewLaunchedBikesControl.BindNewlyLaunchedBikes(rptNewLaunchedBikes);
-            this.FetchedRecordsCount = BindNewLaunchedBikesControl.FetchedRecordsCount;
+            BindNewLaunchedBikesControl objNewLaunch = new BindNewLaunchedBikesControl();
+            objNewLaunch.pageSize = this.pageSize;
+            objNewLaunch.curPageNo = this.curPageNo;
+            objNewLaunch.BindNewlyLaunchedBikes(rptNewLaunchedBikes);
+            this.FetchedRecordsCount = objNewLaunch.FetchedRecordsCount;
         }
 
         protected string ShowEstimatedPrice(object estimatedPrice)
@@ -53,6 +54,12 @@ namespace Bikewale.controls
             return price;
         }
 
+        public override void Dispose()
+        {
+            rptNewLaunchedBikes.DataSource = null;
+            rptNewLaunchedBikes.Dispose();
 
+            base.Dispose();
+        }
     }
 }

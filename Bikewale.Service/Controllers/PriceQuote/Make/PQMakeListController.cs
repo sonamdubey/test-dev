@@ -44,6 +44,10 @@ namespace Bikewale.Service.Controllers.PriceQuote.Make
                     // Auto map the properties
                     objDTOMakeList = new PQMakeList();
                     objDTOMakeList.Makes = PQMakeListMapper.Convert(objMakeList);
+
+                    objMakeList.Clear();
+                    objMakeList = null;
+
                     return Ok(objDTOMakeList);
                 }
                 else

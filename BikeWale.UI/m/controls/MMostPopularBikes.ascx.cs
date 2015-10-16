@@ -29,10 +29,11 @@ namespace Bikewale.Mobile.controls
 
         private void MostPopularBikes()
         {
-            BindMostPopularBikesControl.totalCount = this.totalCount;
-            BindMostPopularBikesControl.makeId = this.makeId;
-            BindMostPopularBikesControl.BindMostPopularBikes(rptMostPopularBikes);
-            this.FetchedRecordsCount = BindMostPopularBikesControl.FetchedRecordsCount;
+            BindMostPopularBikesControl objPop = new BindMostPopularBikesControl();
+            objPop.totalCount = this.totalCount;
+            objPop.makeId = this.makeId;
+            objPop.BindMostPopularBikes(rptMostPopularBikes);
+            this.FetchedRecordsCount = objPop.FetchedRecordsCount;
         }
     }
 }

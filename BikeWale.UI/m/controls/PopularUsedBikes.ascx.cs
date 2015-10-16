@@ -30,10 +30,11 @@ namespace Bikewale.Mobile.controls
 
         private void BindPopularUsedBikes()
         {
-            BindUsedBikesControl.TotalRecords = TotalRecords;
-            BindUsedBikesControl.CityId = cityId;
-            BindUsedBikesControl.BindRepeater(rptPopularUsedBikes);
-            this.FetchedRecordsCount = BindUsedBikesControl.FetchedRecordsCount;
+            BindUsedBikesControl objUsed = new BindUsedBikesControl();
+            objUsed.TotalRecords = TotalRecords;
+            objUsed.CityId = cityId;
+            objUsed.BindRepeater(rptPopularUsedBikes);
+            this.FetchedRecordsCount = objUsed.FetchedRecordsCount;
         }
         private void CheckCityCookie(out int? cityId, out string cityName)
         {

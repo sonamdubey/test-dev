@@ -35,13 +35,22 @@ namespace Bikewale.Controls
 
         private void BindNews()
         {
-            BindNewsControl.TotalRecords = this.TotalRecords;
-            BindNewsControl.MakeId = this.MakeId;
-            BindNewsControl.ModelId = this.ModelId;
-            
-            BindNewsControl.BindNews(rptNews);
+            BindNewsControl objNews = new BindNewsControl();
+            objNews.TotalRecords = this.TotalRecords;
+            objNews.MakeId = this.MakeId;
+            objNews.ModelId = this.ModelId;
 
-            this.FetchedRecordsCount = BindNewsControl.FetchedRecordsCount;
+            objNews.BindNews(rptNews);
+
+            this.FetchedRecordsCount = objNews.FetchedRecordsCount;
+        }
+
+        public override void Dispose()
+        {
+            rptNews.DataSource = null;
+            rptNews.Dispose();
+
+            base.Dispose();
         }
     }
 }

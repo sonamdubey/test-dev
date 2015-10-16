@@ -51,8 +51,31 @@ namespace Bikewale.Service.Controllers.BikeBooking
                 if (objBookingPageDetailsEntity != null)
                 {
                     objBookingPageDetailsDTO = BookingPageDetailsEntityMapper.Convert(objBookingPageDetailsEntity);
-                    objBookingPageDetailsEntity.Offers.Clear();
-                    objBookingPageDetailsEntity.Varients.Clear();
+
+                    if (objBookingPageDetailsEntity != null)
+                    {
+                        if (objBookingPageDetailsEntity.Offers != null)
+                        {
+                            objBookingPageDetailsEntity.Offers.Clear();
+                            objBookingPageDetailsEntity.Offers = null; 
+                        }
+
+
+                        if (objBookingPageDetailsEntity.Varients != null)
+                        {
+                            objBookingPageDetailsEntity.Varients.Clear();
+                            objBookingPageDetailsEntity.Varients = null; 
+                        }
+
+                        if (objBookingPageDetailsEntity.Disclaimers != null)
+                        {
+                            objBookingPageDetailsEntity.Disclaimers.Clear();
+                            objBookingPageDetailsEntity.Disclaimers = null; 
+                        }
+                        
+                        objBookingPageDetailsEntity.BikeModelColors = null; 
+                    }
+                    
                     objBookingPageOutput = new BookingPageOutput();
                     objBookingPageOutput.BikeModelColors = objBookingPageDetailsDTO.BikeModelColors;
                     objBookingPageOutput.Disclaimers = objBookingPageDetailsDTO.Disclaimers;

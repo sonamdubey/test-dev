@@ -43,6 +43,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 if (quotation != null)
                 {
                     bwPriceQuote = PQBikePriceQuoteOutputMapper.Convert(quotation);
+
+                    quotation.Varients = null;
+
                     return Ok(bwPriceQuote);
                 }
                 else

@@ -37,5 +37,19 @@ namespace Bikewale.Controls
             BindModelGallery.BindVideos(rptVideoNav);            
             videoCount = BindModelGallery.FetchedVideoCount;
         }
+
+        public override void Dispose()
+        {
+            rptVideoNav.DataSource = null;
+            rptVideoNav.Dispose();
+
+            rptModelPhotos.DataSource = null;
+            rptModelPhotos.Dispose();
+
+            rptNavigationPhoto.DataSource = null;
+            rptNavigationPhoto.Dispose();
+
+            base.Dispose();
+        }
     }
 }

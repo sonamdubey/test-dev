@@ -241,6 +241,7 @@ namespace Bikewale.Utility
                   if (response.IsSuccessStatusCode)
                   {
                     objResponse = response.Content.ReadAsAsync<U>().Result;
+                  }
                 }
             }
             return objResponse;
@@ -271,10 +272,11 @@ namespace Bikewale.Utility
                 if (response.IsSuccessStatusCode)
                 {
                     objResponse = response.Content.ReadAsAsync<U>().Result;
-                  }
-                }
+                }                
             }
+
             return objResponse;
         }
-    }
-}
+
+    }   // class
+}   // namespace

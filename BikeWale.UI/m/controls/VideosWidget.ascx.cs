@@ -29,13 +29,14 @@ namespace Bikewale.Mobile.Controls
 
         protected void BindVideos()
         {
-            BindVideosControl.TotalRecords = this.TotalRecords;
-            BindVideosControl.MakeId = this.MakeId;
-            BindVideosControl.ModelId = this.ModelId;
+            BindVideosControl objVideo = new BindVideosControl();
+            objVideo.TotalRecords = this.TotalRecords;
+            objVideo.MakeId = this.MakeId;
+            objVideo.ModelId = this.ModelId;
 
-            BindVideosControl.BindVideos(rptVideos);
+            objVideo.BindVideos(rptVideos);
 
-            this.FetchedRecordsCount = BindVideosControl.FetchedRecordsCount;
+            this.FetchedRecordsCount = objVideo.FetchedRecordsCount;
         }
     }
 }

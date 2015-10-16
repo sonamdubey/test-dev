@@ -17,38 +17,13 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindUserReviewControl
     {
-      private static int m_ModelId;
-        public static int ModelId
-      {
-        get
-        {
-          return m_ModelId;
-        }
-        set
-        {
-          m_ModelId = value;
-        }
-      }
-        public static int PageNo { get; set; }
-        public static int PageSize { get; set; }
-        public static int VersionId { get; set; }
-
-
-        public static FilterBy Filter { get; set; }
-
-        private static int m_RecordCount;
-      public static int RecordCount
-        {
-          get
-          {
-            return m_RecordCount;
-          }
-          set
-          {
-            m_RecordCount = value;
-          }
-        }
-        public static int FetchedRecordsCount { get; set; }
+        public int ModelId { get; set; }
+        public int PageNo { get; set; }
+        public int PageSize { get; set; }
+        public int VersionId { get; set; }
+        public FilterBy Filter { get; set; }
+        public int RecordCount { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
         static readonly string _bwHostUrl;
         static readonly string _ApiURL;
@@ -56,33 +31,36 @@ namespace Bikewale.BindViewModels.Controls
 
         static BindUserReviewControl()
         {
-          _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-          _ApiURL = "/api/UserReviewsList?modelId={0}&startIndex={1}&endIndex={2}&versionId={3}&filter={4}&totalRecords={5}";
-          _requestType = "application/json";
+            _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            _ApiURL = "/api/UserReviewsList?modelId={0}&startIndex={1}&endIndex={2}&versionId={3}&filter={4}&totalRecords={5}";
+            _requestType = "application/json";
         }
-        public static void BindUserReview(Repeater rptUserReviews)
+
+        public void BindUserReview(Repeater rptUserReviews)
         {
-            List<ReviewEntity> userReviewList = null;
+            IEnumerable<ReviewEntity> userReviewList = null;
             FetchedRecordsCount = 0;
 
             try
             {
-                int stratIndex=1;
-                int endIndex=4;
+                int stratIndex = 1;
+                int endIndex = 4;
                 Paging.GetStartEndIndex(PageSize, PageNo, out stratIndex, out endIndex);
 
-                string _apiUrl = String.Format(_ApiURL, m_ModelId, stratIndex, endIndex, 0, Filter, m_RecordCount);
+                string _apiUrl = String.Format(_ApiURL, ModelId, stratIndex, endIndex, 0, Filter, RecordCount);
 
-                userReviewList = Bikewale.Common.BWHttpClient.GetApiResponseSync<List<ReviewEntity>>(_bwHostUrl, _requestType, _apiUrl, userReviewList);
+                userReviewList = Bikewale.Common.BWHttpClient.GetApiResponseSync<IEnumerable<ReviewEntity>>(_bwHostUrl, _requestType, _apiUrl, userReviewList);
 
-                if (userReviewList != null && userReviewList.Count > 0)
+                if (userReviewList != null)
                 {
-                  FetchedRecordsCount = userReviewList.Count;
-                  rptUserReviews.DataSource = userReviewList;
-                  rptUserReviews.DataBind();
+                    FetchedRecordsCount = userReviewList.Count();
+
+                    if (FetchedRecordsCount > 0)
+                    {
+                        rptUserReviews.DataSource = userReviewList;
+                        rptUserReviews.DataBind();
+                    }
                 }
-                else
-                  FetchedRecordsCount = 0;
             }
             catch (Exception ex)
             {

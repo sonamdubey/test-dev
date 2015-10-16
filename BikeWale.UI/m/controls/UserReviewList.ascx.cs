@@ -58,14 +58,15 @@ namespace Bikewale.Mobile.Controls
 
         private void BindUserReviews()
         {
-            BindUserReviewControl.ModelId = ModelId;
-            BindUserReviewControl.PageNo = PageNo;
-            BindUserReviewControl.PageSize = PageSize;
-            BindUserReviewControl.VersionId = VersionId;
-            BindUserReviewControl.Filter = Filter;
-            BindUserReviewControl.RecordCount = ReviewCount;
-            BindUserReviewControl.BindUserReview(rptUserReview);
-            m_FetchedRecordsCount = BindUserReviewControl.FetchedRecordsCount;
+            BindUserReviewControl objUserReview = new BindUserReviewControl();
+            objUserReview.ModelId = ModelId;
+            objUserReview.PageNo = PageNo;
+            objUserReview.PageSize = PageSize;
+            objUserReview.VersionId = VersionId;
+            objUserReview.Filter = Filter;
+            objUserReview.RecordCount = ReviewCount;
+            objUserReview.BindUserReview(rptUserReview);
+            m_FetchedRecordsCount = objUserReview.FetchedRecordsCount;
         }
     }
 }

@@ -22,105 +22,105 @@ namespace Bikewale.Controls
         private int m_TotalRecords;
         public int TotalRecords
         {
-          get
-          {
-            return m_TotalRecords;
-          }
-          set
-          {
-            m_TotalRecords = value;
-          }
+            get
+            {
+                return m_TotalRecords;
+            }
+            set
+            {
+                m_TotalRecords = value;
+            }
         }
 
         private int m_FetchedRecordsCount;
         public int FetchedRecordsCount
         {
-          get
-          {
-            return m_FetchedRecordsCount;
-          }
-          set
-          {
-            m_FetchedRecordsCount = value;
-          }
+            get
+            {
+                return m_FetchedRecordsCount;
+            }
+            set
+            {
+                m_FetchedRecordsCount = value;
+            }
         }
-        
+
         private TopBikeCompareBase m_TopRecord;
         public TopBikeCompareBase TopRecord
         {
-          get
-          {
-            return m_TopRecord;
-          }
-          set
-          {
-            m_TopRecord = value;
-          }
+            get
+            {
+                return m_TopRecord;
+            }
+            set
+            {
+                m_TopRecord = value;
+            }
         }
 
         private string m_Bike1ReviewLink;
         public string Bike1ReviewLink
         {
-          get
-          {
-            return m_Bike1ReviewLink;
-          }
-          set
-          {
-            m_Bike1ReviewLink = value;
-          }
+            get
+            {
+                return m_Bike1ReviewLink;
+            }
+            set
+            {
+                m_Bike1ReviewLink = value;
+            }
         }
 
         private string m_Bike2ReviewLink;
         public string Bike2ReviewLink
         {
-          get
-          {
-            return m_Bike2ReviewLink;
-          }
-          set
-          {
-            m_Bike2ReviewLink = value;
-          }
+            get
+            {
+                return m_Bike2ReviewLink;
+            }
+            set
+            {
+                m_Bike2ReviewLink = value;
+            }
         }
 
         private string m_Bike1ReviewText;
         public string Bike1ReviewText
         {
-          get
-          {
-            return m_Bike1ReviewText;
-          }
-          set
-          {
-            m_Bike1ReviewText = value;
-          }
+            get
+            {
+                return m_Bike1ReviewText;
+            }
+            set
+            {
+                m_Bike1ReviewText = value;
+            }
         }
 
         private string m_Bike2ReviewText;
         public string Bike2ReviewText
         {
-          get
-          {
-            return m_Bike2ReviewText;
-          }
-          set
-          {
-            m_Bike2ReviewText = value;
-          }
+            get
+            {
+                return m_Bike2ReviewText;
+            }
+            set
+            {
+                m_Bike2ReviewText = value;
+            }
         }
 
         private string m_TopCompareImage;
         public string TopCompareImage
         {
-          get
-          {
-            return m_TopCompareImage;
-          }
-          set
-          {
-            m_TopCompareImage = value;
-          }
+            get
+            {
+                return m_TopCompareImage;
+            }
+            set
+            {
+                m_TopCompareImage = value;
+            }
         }
 
         protected override void OnInit(EventArgs e)
@@ -133,42 +133,43 @@ namespace Bikewale.Controls
             BindControls();
         }
 
-       
+
 
         private void BindControls()
         {
-          BindBikeCompareControl.TotalRecords = this.m_TotalRecords;
-            BindBikeCompareControl.FetchBikeCompares();
-            BindBikeCompareControl.BindBikeCompare(rptCompareBike, 1);
-            this.m_TopRecord = BindBikeCompareControl.FetchTopRecord();
-            this.m_FetchedRecordsCount = BindBikeCompareControl.FetchedRecordCount;
+            BindBikeCompareControl objComp = new BindBikeCompareControl();
+            objComp.TotalRecords = this.m_TotalRecords;
+            objComp.FetchBikeCompares();
+            objComp.BindBikeCompare(rptCompareBike, 1);
+            this.m_TopRecord = objComp.FetchTopRecord();
+            this.m_FetchedRecordsCount = objComp.FetchedRecordCount;
 
             this.m_TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(m_TopRecord.OriginalImagePath, m_TopRecord.HostURL, Bikewale.Utility.ImageSize._310x174);
 
             if (this.m_TopRecord.ReviewCount1 > 0)
             {
-              this.m_Bike1ReviewText = String.Format(_ReviewCountString, this.m_TopRecord.ReviewCount1);
-              this.m_Bike1ReviewLink = String.Format(_ExistingReviewLink, this.m_TopRecord.MakeMaskingName1, this.m_TopRecord.ModelMaskingName1);
+                this.m_Bike1ReviewText = String.Format(_ReviewCountString, this.m_TopRecord.ReviewCount1);
+                this.m_Bike1ReviewLink = String.Format(_ExistingReviewLink, this.m_TopRecord.MakeMaskingName1, this.m_TopRecord.ModelMaskingName1);
             }
             else
             {
-              this.m_Bike1ReviewText = _WriteReviewString;
-              this.m_Bike1ReviewLink = String.Format(_WriteReviewLink, this.m_TopRecord.ModelId1);
+                this.m_Bike1ReviewText = _WriteReviewString;
+                this.m_Bike1ReviewLink = String.Format(_WriteReviewLink, this.m_TopRecord.ModelId1);
             }
 
             if (this.m_TopRecord.ReviewCount2 > 0)
             {
-              this.m_Bike2ReviewText = String.Format(_ReviewCountString, this.m_TopRecord.ReviewCount2);
-              this.m_Bike2ReviewLink = String.Format(_ExistingReviewLink, this.m_TopRecord.MakeMaskingName2, this.m_TopRecord.ModelMaskingName2);
+                this.m_Bike2ReviewText = String.Format(_ReviewCountString, this.m_TopRecord.ReviewCount2);
+                this.m_Bike2ReviewLink = String.Format(_ExistingReviewLink, this.m_TopRecord.MakeMaskingName2, this.m_TopRecord.ModelMaskingName2);
             }
             else
             {
-              this.m_Bike2ReviewText = _WriteReviewString;
-              this.m_Bike2ReviewLink = String.Format(_WriteReviewLink, this.m_TopRecord.ModelId2);
+                this.m_Bike2ReviewText = _WriteReviewString;
+                this.m_Bike2ReviewLink = String.Format(_WriteReviewLink, this.m_TopRecord.ModelId2);
             }
         }
 
-        
+
         protected string FormatComparisonUrl(string make1MaskName, string model1MaskName, string make2MaskName, string model2MaskName)
         {
             string url = String.Empty;
@@ -176,12 +177,20 @@ namespace Bikewale.Controls
             return url;
         }
 
-        
+
         protected string FormatBikeCompareAnchorText(string bike1, string bike2)
         {
             string anchorText = String.Empty;
             anchorText = String.Format(_Bike1VsBike2, bike1, bike2);
             return anchorText;
+        }
+
+        public override void Dispose()
+        {
+            rptCompareBike.DataSource = null;
+            rptCompareBike.Dispose();
+
+            base.Dispose();
         }
     }
 }

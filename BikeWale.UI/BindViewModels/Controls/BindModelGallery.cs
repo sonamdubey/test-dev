@@ -32,9 +32,9 @@ namespace Bikewale.BindViewModels.Controls
         public static int FetchedVideoCount { get; set; }
 
         static string _cwHostUrl;
-      static BindModelGallery()
+        static BindModelGallery()
         {
-          _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
         }
 
         /// <summary>

@@ -45,6 +45,10 @@ namespace Bikewale.Service.Controllers.Make
                 {
                     makes = new NewBikeDealersMakeList();
                     makes.Makes = objMakes.Select(s => new NewBikeDealersMakeBase() { Text = s.MakeName, Value = String.Format("{0}_{1}", s.MakeId, s.MaskingName) });
+
+                    objMakes.Clear();
+                    objMakes = null;
+
                     return Ok(makes.Makes);
                 }
                 else

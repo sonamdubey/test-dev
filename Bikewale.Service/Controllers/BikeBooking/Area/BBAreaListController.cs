@@ -44,6 +44,9 @@ namespace Bikewale.Service.Controllers.BikeBooking.Area
                 {
                     objDTOAreaList = new BBAreaList();
                     objDTOAreaList.Areas = BBAreaListMapper.Convert(objAreaList);
+
+                    objAreaList = null;                    
+
                     return Ok(objDTOAreaList);
                 }
                 else

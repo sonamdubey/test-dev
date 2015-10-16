@@ -492,6 +492,20 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:Bikewale.Service.AutoMappers.Dealer.DealerListMapper">
+            <summary>
+            Created By : Sushil Kumar
+            Created On : 7th October 2015
+            dealers Entity - DTO Mapping
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Dealer.DealerListMapper.Convert(Bikewale.Entities.Dealer.NewBikeDealerEntityList)">
+            <summary>
+            Created By : Sushil Kumar
+            Created On : 7th October 2015
+            Get list of all dealers with details for a given make and city
+            </summary>
+        </member>
         <member name="T:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController">
             <summary>
             Auto Suggest Controller
@@ -788,6 +802,30 @@
             <param name="password"></param>
             <param name="clientIP"></param>
             <returns>Returns registered customers data.</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Dealer.DealersListController">
+            <summary>
+            To Get List of Dealers
+            Author : Sushil Kumar
+            Created On : 7th October 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Dealer.DealersListController.#ctor(Bikewale.Interfaces.Dealer.IDealer)">
+            <summary>
+            
+            </summary>
+            <param name="dealer"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Dealer.DealersListController.Get(System.Int32,System.Int32,System.Nullable{Bikewale.Entities.Dealer.EnumNewBikeDealerClient})">
+            <summary>
+            Created By : Sushil Kumar
+            Created On : 7th October 2015
+            Get list of all dealers with details for a given make and city
+            </summary>
+            <param name="makeId"></param>
+            <param name="cityId"></param>
+            <param name="clientId"></param>
+            <returns>List of dealers of paticular make in city</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.Make.DealerMakesController">
             <summary>

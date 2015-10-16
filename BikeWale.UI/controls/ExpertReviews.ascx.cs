@@ -31,5 +31,13 @@ namespace Bikewale.Controls
 
             this.FetchedRecordsCount = BindExpertReviewsControl.FetchedRecordsCount;
         }
+
+        public override void Dispose()
+        {
+            rptExpertReviews.DataSource = null;
+            rptExpertReviews.Dispose();
+
+            base.Dispose();
+        }
     }
 }

@@ -85,6 +85,30 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                             {
                                 objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(input.CityId, input.VersionId, input.BranchId);
                                 objBookingPageDetailsDTO = BookingPageDetailsEntityMapper.Convert(objBookingPageDetailsEntity);
+
+                                if (objBookingPageDetailsEntity != null)
+                                {
+                                    objBookingPageDetailsEntity.BikeModelColors = null;
+
+                                    if (objBookingPageDetailsEntity.Disclaimers != null)
+                                    {
+                                        objBookingPageDetailsEntity.Disclaimers.Clear();
+                                        objBookingPageDetailsEntity.Disclaimers = null; 
+                                    }
+
+                                    if (objBookingPageDetailsEntity.Offers != null)
+                                    {
+                                        objBookingPageDetailsEntity.Offers.Clear();
+                                        objBookingPageDetailsEntity.Offers = null; 
+                                    }
+
+                                    if (objBookingPageDetailsEntity.Varients != null)
+                                    {
+                                        objBookingPageDetailsEntity.Varients.Clear();
+                                        objBookingPageDetailsEntity.Varients = null; 
+                                    }
+                                }
+
                                 dealer = objBookingPageDetailsDTO.Dealer;
                                 objCust = _objCustomer.GetByEmail(input.CustomerEmail);
                                                                 
@@ -146,6 +170,35 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                                     {
                                         SendEmailSMSToDealerCustomer.SendEmailToDealer(dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, objCust.CustomerName, objCust.CustomerEmail, objCust.CustomerMobile, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName, dealerDetailEntity.objQuotation.PriceList, Convert.ToInt32(TotalPrice), dealerDetailEntity.objOffers, insuranceAmount);
                                         SendEmailSMSToDealerCustomer.SMSToDealer(dealerDetailEntity.objDealer.MobileNo, objCust.CustomerName, objCust.CustomerMobile, bikeName, objCust.AreaDetails.AreaName, objCust.cityDetails.CityName);
+                                    }
+
+                                    if (dealerDetailEntity.objFacilities != null)
+                                    {
+                                        dealerDetailEntity.objFacilities.Clear();
+                                        dealerDetailEntity.objFacilities = null; 
+                                    }
+
+                                    if (dealerDetailEntity.objOffers != null)
+                                    {
+                                        dealerDetailEntity.objOffers.Clear();
+                                        dealerDetailEntity.objOffers = null; 
+                                    }
+
+                                    if (dealerDetailEntity.objQuotation != null)
+                                    {
+                                        if (dealerDetailEntity.objQuotation.PriceList != null)
+                                        {
+                                            dealerDetailEntity.objQuotation.PriceList.Clear();
+                                            dealerDetailEntity.objQuotation.PriceList = null;
+                                        }
+
+                                        if (dealerDetailEntity.objQuotation.objOffers != null)
+                                        {
+                                            dealerDetailEntity.objQuotation.objOffers.Clear();
+                                            dealerDetailEntity.objQuotation.objOffers = null;
+                                        }
+
+                                        dealerDetailEntity.objQuotation.Varients = null; 
                                     }
 
                                     AutoBizAdaptor.PushInquiryInAB(input.BranchId.ToString(), input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail, input.VersionId.ToString(), input.CityId.ToString()); 

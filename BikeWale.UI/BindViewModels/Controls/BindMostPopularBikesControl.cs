@@ -12,14 +12,14 @@ namespace Bikewale.BindViewModels.Controls
 {
     public class BindMostPopularBikesControl
     {
-        public static int? totalCount { get; set; }
-        public static int? makeId { get; set; }
-        public static int FetchedRecordsCount { get; set; }
+        public int? totalCount { get; set; }
+        public int? makeId { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
-        static readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-        static readonly string _requestType = "application/json";
+        readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+        readonly string _requestType = "application/json";
 
-        public static void BindMostPopularBikes(Repeater rptr)
+        public void BindMostPopularBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
 

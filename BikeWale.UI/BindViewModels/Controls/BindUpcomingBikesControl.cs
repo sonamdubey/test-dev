@@ -12,26 +12,25 @@ namespace Bikewale.BindViewModels.Controls
 {
     public class BindUpcomingBikesControl
     {
-        
-        public static int sortBy {get;set;}
-        public static int pageSize { get; set; }
-        public static int? MakeId { get; set; }
-        public static int? ModelId { get; set; }
-        public static int? curPageNo { get; set; }
-        public static int  FetchedRecordsCount {get;set;}
 
-        static readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-        static readonly string _requestType = "application/json";
+        public int sortBy { get; set; }
+        public int pageSize { get; set; }
+        public int? MakeId { get; set; }
+        public int? ModelId { get; set; }
+        public int? curPageNo { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
-        public static void BindUpcomingBikes(Repeater rptr)
+        readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+        readonly string _requestType = "application/json";
+
+        public void BindUpcomingBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
 
             UpcomingBikeList objBikeList = null;
-            
+
             try
             {
-                
                 string _apiUrl = String.Format("/api/UpcomingBike/?sortBy={0}&pageSize={1}", sortBy, pageSize);
 
 
@@ -47,15 +46,16 @@ namespace Bikewale.BindViewModels.Controls
 
                 objBikeList = BWHttpClient.GetApiResponseSync<UpcomingBikeList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
 
-                if (objBikeList != null)
+                if (objBikeList != null && objBikeList.UpcomingBike != null)
                 {
-                  var bikeList = objBikeList.UpcomingBike.ToList();
-                  if (bikeList.Count > 0)
-                  {
-                    FetchedRecordsCount = bikeList.Count;
-                    rptr.DataSource = bikeList;
-                    rptr.DataBind();
-                  }
+                    FetchedRecordsCount = objBikeList.UpcomingBike.Count();
+
+                    if (FetchedRecordsCount > 0)
+                    {
+
+                        rptr.DataSource = objBikeList.UpcomingBike;
+                        rptr.DataBind();
+                    }
                 }
             }
             catch (Exception ex)
