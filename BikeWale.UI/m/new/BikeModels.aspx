@@ -390,7 +390,7 @@
                             <option value="engineTransmission">Engine &amp; Transmission </option>
                             <option value="brakeWheels">Brakes, Wheels and Suspension</option>
                             <option value="dimensions">Dimensions and Chassis</option>
-                            <option value="fuelEffiency">Fuel effieciency and Performance</option>
+                            <option value="fuelEffiency">Fuel efficiency and Performance</option>
                         </select>
 
                         <div class="leftfloat bw-horz-tabs-data font16">
