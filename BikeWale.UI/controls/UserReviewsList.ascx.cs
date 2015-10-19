@@ -59,6 +59,7 @@ namespace Bikewale.Controls
             objUserReview.BindUserReview(rptUserReview);
             MakeMaskingName = objUserReview.MakeMaskingName;
             ModelMaskingName = objUserReview.ModelMaskingName;
+            this.FetchedRecordsCount = objUserReview.FetchedRecordsCount;
         }
             
         public override void Dispose()
