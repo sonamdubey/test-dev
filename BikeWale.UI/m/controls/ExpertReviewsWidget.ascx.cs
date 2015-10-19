@@ -18,6 +18,8 @@ namespace Bikewale.Mobile.Controls
         public int FetchedRecordsCount { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
+        public string MoreExpertReviewUrl { get; set; }
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -29,10 +31,21 @@ namespace Bikewale.Mobile.Controls
             BindExpertReviewsControl.TotalRecords = this.TotalRecords;
             BindExpertReviewsControl.MakeId = this.MakeId;
             BindExpertReviewsControl.ModelId = this.ModelId;
-
             BindExpertReviewsControl.BindExpertReviews(rptExpertReviews);
-
             this.FetchedRecordsCount = BindExpertReviewsControl.FetchedRecordsCount;
+
+            if (String.IsNullOrEmpty(MakeMaskingName) && String.IsNullOrEmpty(ModelMaskingName))
+            {
+                MoreExpertReviewUrl = "/m/road-tests/";
+            }
+            else if (String.IsNullOrEmpty(ModelMaskingName))
+            {
+                MoreExpertReviewUrl = String.Format("/m/{0}-bikes/road-tests/", MakeMaskingName);
+            }
+            else
+            {
+                MoreExpertReviewUrl = String.Format("/m/{0}-bikes/{1}/road-tests/", MakeMaskingName, ModelMaskingName); 
+            }
         }
     }
 }
