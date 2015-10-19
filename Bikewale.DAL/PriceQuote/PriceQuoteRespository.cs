@@ -16,6 +16,9 @@ namespace Bikewale.DAL.PriceQuote
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// Summary : class have functions related to price quote.
+    /// Modified By :   Sumit Kate
+    /// Date        :   16 Oct 2015
+    /// Description :   Implemented newly added method of IPriceQuote interface
     /// </summary>
     public class PriceQuoteRepository : IPriceQuote
     {
@@ -169,7 +172,7 @@ namespace Bikewale.DAL.PriceQuote
         public BikeQuotationEntity GetPriceQuote(PriceQuoteParametersEntity pqParams)
         {
             ulong pqId = RegisterPriceQuote(pqParams);
-            
+
             BikeQuotationEntity objQuotation = GetPriceQuoteById(pqId);
 
             return objQuotation;
@@ -238,5 +241,51 @@ namespace Bikewale.DAL.PriceQuote
             return objVersionInfo;
         }
 
+
+        /// <summary>
+        /// Author      :   Sumit Kate
+        /// Created On  :   16 Oct 2015
+        /// Description :   Updates the price quote data
+        /// </summary>
+        /// <param name="pqParams"></param>
+        /// <returns></returns>
+        public bool UpdatePriceQuote(UInt32 pqId, PriceQuoteParametersEntity pqParams)
+        {
+            bool isUpdated = false;
+            Database db = null;
+            try
+            {
+                db = new Database();
+
+                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "UpdatePriceQuoteBikeVersion";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
+                        cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
+
+                        conn.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            isUpdated = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return isUpdated;
+        }
     }   // Class
 }   // namespace

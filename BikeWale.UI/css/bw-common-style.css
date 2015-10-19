@@ -115,7 +115,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 .home-top-banner { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/images/home-top-banner.jpg) no-repeat right top; background-size: cover; height: 490px; padding-top: 1px; }
-.home-getFinalPrice-banner { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/images/get-final-price-banner.jpg) no-repeat center top; background-size: cover; height: 490px; }
+.home-getFinalPrice-banner { background-color:#cbcbcb; background-size: cover; height: 490px; }
 
 /* city popup classes */
 .globalcity-popup { width:450px; min-height:320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left:5%; z-index: 10; }
@@ -411,7 +411,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .login-logout-icon { background-position:-150px -250px; }
 
 /* Brand sprite */
-.brandlogosprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/brand-type-sprite.png) no-repeat; display: inline-block; }
+.brandlogosprite { background-repeat:no-repeat; display: inline-block; }
 .brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-enfeild, .brand-guzzi, .brand-harley, .brand-hero-elec, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-royal { height:50px; }
 
 .brand-aprilia { width: 87px; background-position: 0 0; }

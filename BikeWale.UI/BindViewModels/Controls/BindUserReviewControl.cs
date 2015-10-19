@@ -38,7 +38,7 @@ namespace Bikewale.BindViewModels.Controls
 
         public void BindUserReview(Repeater rptUserReviews)
         {
-            IEnumerable<ReviewEntity> userReviewList = null;
+            IEnumerable<Review> userReviewList = null;
             FetchedRecordsCount = 0;
 
             try
@@ -49,7 +49,7 @@ namespace Bikewale.BindViewModels.Controls
 
                 string _apiUrl = String.Format(_ApiURL, ModelId, stratIndex, endIndex, 0, Filter, RecordCount);
 
-                userReviewList = Bikewale.Common.BWHttpClient.GetApiResponseSync<IEnumerable<ReviewEntity>>(_bwHostUrl, _requestType, _apiUrl, userReviewList);
+                userReviewList = Bikewale.Common.BWHttpClient.GetApiResponseSync<IEnumerable<Review>>(_bwHostUrl, _requestType, _apiUrl, userReviewList);
 
                 if (userReviewList != null)
                 {

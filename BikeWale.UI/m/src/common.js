@@ -64,6 +64,9 @@ function navbarShow() {
 }
 
 $(document).ready(function () {
+    $(".lazy").lazyload({
+        effect: "fadeIn"
+    });
     $('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
 

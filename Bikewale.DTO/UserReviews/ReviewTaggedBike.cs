@@ -11,12 +11,10 @@ using System.Threading.Tasks;
 namespace Bikewale.Entities.DTO
 {
     public class ReviewTaggedBike
-    {   
-        private MakeBase objmakeBase { get; set; }
-
-        private ModelBase objModelBase { get; set; }
-
-        private VersionBase objVersionBase { get; set; }
+    {
+        public MakeBase MakeEntity { get; set; }
+        public ModelBase ModelEntity { get; set; }
+        public VersionBase VersionEntity { get; set; }
 
         public uint ReviewsCount { get; set; }
         public uint Price { get; set; }
