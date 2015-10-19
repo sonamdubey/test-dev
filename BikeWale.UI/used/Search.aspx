@@ -80,14 +80,14 @@
 		            <li><a name="4" class="filter unchecked" href="#year=4" rel="nofollow">8 years or older</a></li>
 	            </ul>
 	            <div class="hr-sep"></div>
-	            <h3>How Much Driven?</h3>
+	            <h3>How Much Ridden?</h3>
 	            <ul id="kms" class="ul-params">
-		            <li><a name="0" class="filter unchecked" href="#kms=0" rel="nofollow">Up to 5000 kms</a></li>
-		            <li><a name="1" class="filter unchecked" href="#kms=1" rel="nofollow">5000-15000 kms</a></li>
-		            <li><a name="2" class="filter unchecked" href="#kms=2">15000-30000 kms</a></li>
-		            <li><a name="3" class="filter unchecked" href="#kms=3" rel="nofollow">30000-50000 kms</a></li>
-		            <li><a name="4" class="filter unchecked" href="#kms=4" rel="nofollow">50000-80000 kms</a></li>
-		            <li><a name="5" class="filter unchecked" href="#kms=5" rel="nofollow">80000 kms or above</a></li>
+		            <li><a name="0" class="filter unchecked" href="#kms=0" rel="nofollow">Up to 5000 km</a></li>
+		            <li><a name="1" class="filter unchecked" href="#kms=1" rel="nofollow">5000-15000 km</a></li>
+		            <li><a name="2" class="filter unchecked" href="#kms=2">15000-30000 km</a></li>
+		            <li><a name="3" class="filter unchecked" href="#kms=3" rel="nofollow">30000-50000 km</a></li>
+		            <li><a name="4" class="filter unchecked" href="#kms=4" rel="nofollow">50000-80000 km</a></li>
+		            <li><a name="5" class="filter unchecked" href="#kms=5" rel="nofollow">80000 km or above</a></li>
 	            </ul>
 	            <div class="hr-sep"></div>		
 	            <h3>Preferred Manufacturer?</h3>                  
@@ -110,7 +110,7 @@
 			    <li id="_city"><span class="f-small-b">City: </span></li>
 			    <li id="_budget" class="hide"><span class="f-small-b">Budget: </span></li>
 			    <li id="_year" class="hide"><span class="f-small-b">Year: </span></li>
-			    <li id="_kms" class="hide"><span class="f-small-b">Kms: </span></li>
+			    <li id="_kms" class="hide"><span class="f-small-b">Km: </span></li>
 			    <li id="_bs" class="hide"><span class="f-small-b">Body: </span></li>
 			    <li id="_make" class="hide"><span class="f-small-b">Make: </span></li>
 			    <li id="_model" class="hide"><span class="f-small-b">Model: </span></li>
@@ -138,7 +138,7 @@
 			<td id="city_row"></td>
 		  </tr>
 		  <tr>
-			<th>Kms</th>
+			<th>km</th>
 			<td id="kms_row"></td>
 			<th>Transmission</th>
 			<td id="_trans"></td>

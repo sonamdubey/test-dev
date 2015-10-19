@@ -19,6 +19,8 @@ namespace Bikewale.Mobile.Controls
         protected Repeater rptUserReview;
 
         public int ModelId { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
 
         private int _reviewCount = 4;
         public int ReviewCount
@@ -32,18 +34,8 @@ namespace Bikewale.Mobile.Controls
         public int PageSize { get; set; }
         public int VersionId { get; set; }
 
-        private int m_FetchedRecordsCount;
-        public int FetchedRecordsCount
-        {
-          get
-          {
-            return m_FetchedRecordsCount;
-          }
-          set
-          {
-            m_FetchedRecordsCount = value;
-          }
-        }
+
+        public int FetchedRecordsCount { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -66,7 +58,9 @@ namespace Bikewale.Mobile.Controls
             objUserReview.Filter = Filter;
             objUserReview.RecordCount = ReviewCount;
             objUserReview.BindUserReview(rptUserReview);
-            m_FetchedRecordsCount = objUserReview.FetchedRecordsCount;
+            FetchedRecordsCount = objUserReview.FetchedRecordsCount;
+            MakeMaskingName = objUserReview.MakeMaskingName;            
+            ModelMaskingName = objUserReview.ModelMaskingName;
         }
     }
 }

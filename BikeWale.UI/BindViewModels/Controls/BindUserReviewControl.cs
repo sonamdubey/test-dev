@@ -15,6 +15,10 @@ namespace Bikewale.BindViewModels.Controls
     /// Author:rakesh yadav On 08 Sep 2015
     /// Desc: Call UserReviewsList service and bind review list to repeater
     /// </summary>
+    /// <summary>
+    /// Author:Lucky Rathore On 16 oct 2015
+    /// Desc: Add ModelMaskingName and MakeMaskingName
+    /// </summary>
     public class BindUserReviewControl
     {
         public int ModelId { get; set; }
@@ -24,6 +28,8 @@ namespace Bikewale.BindViewModels.Controls
         public FilterBy Filter { get; set; }
         public int RecordCount { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
 
         static readonly string _bwHostUrl;
         static readonly string _ApiURL;
@@ -54,9 +60,10 @@ namespace Bikewale.BindViewModels.Controls
                 if (userReviewList != null)
                 {
                     FetchedRecordsCount = userReviewList.Count();
-
                     if (FetchedRecordsCount > 0)
                     {
+                        MakeMaskingName = userReviewList.FirstOrDefault().MakeMaskingName;
+                        ModelMaskingName = userReviewList.FirstOrDefault().ModelMaskingName;
                         rptUserReviews.DataSource = userReviewList;
                         rptUserReviews.DataBind();
                     }

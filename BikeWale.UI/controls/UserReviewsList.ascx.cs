@@ -31,18 +31,10 @@ namespace Bikewale.Controls
         public int PageSize { get; set; }
         public int VersionId { get; set; }
 
-        private int m_FetchedRecordsCount;
-        public int FetchedRecordsCount
-        {
-          get
-          {
-            return m_FetchedRecordsCount;
-          }
-          set
-          {
-            m_FetchedRecordsCount = value;
-          }
-        }
+        public int FetchedRecordsCount { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
+
 
         protected override void OnInit(EventArgs e)
         {
@@ -65,9 +57,10 @@ namespace Bikewale.Controls
             objUserReview.Filter = Filter;
             objUserReview.RecordCount = ReviewCount;
             objUserReview.BindUserReview(rptUserReview);
-            m_FetchedRecordsCount = objUserReview.FetchedRecordsCount;
+            MakeMaskingName = objUserReview.MakeMaskingName;
+            ModelMaskingName = objUserReview.ModelMaskingName;
         }
-
+            
         public override void Dispose()
         {
             rptUserReview.DataSource = null;
