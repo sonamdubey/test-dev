@@ -377,7 +377,8 @@
                                 $("#ddlCity option[value=" + onCookieObj.PQCitySelectedId + "]").prop("selected", true);
                                 $("#ddlCity").prop('selectedIndex', onCookieObj.PQCitySelectedId);
                             }
-                            $("#ddlCity").find("option[value='0']").prop('disabled', true).trigger('chosen:updated');
+                            $("#ddlCity").find("option[value='0']").prop('disabled', true);
+                            $("#ddlCity").trigger('chosen:updated');
                             $("#ddlCity-button").removeClass().find("span.textAlignLeft").hide();
                         }
                         else viewModelPQ.cities([]);

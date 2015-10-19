@@ -80,7 +80,8 @@
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelOnRoad.bookingCities() && selectElementFromArray(viewModelOnRoad.bookingCities(), onCookieObj.PQCitySelectedId)) {
                         viewModelOnRoad.selectedCity(onCookieObj.PQCitySelectedId);
                     }
-                    onRoadcity.find("option[value='0']").prop('disabled', true).trigger('chosen:updated');
+                    onRoadcity.find("option[value='0']").prop('disabled', true);
+                    onRoadcity.trigger('chosen:updated');
                     cityChangedOnRoad();
                 }
                 else {
