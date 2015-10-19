@@ -826,7 +826,7 @@ $.pushGACode = function (qs,noOfRecords)
     var params = $.getAllParamsFromQS();
     for (var i = 0; i < params.length; i++) {
         if (params[i].length > 0) {
-            if (params[i] != "pageno" && params[i] != "so" && params[i] != "sc") {
+            if (params[i] != "pageno" && params[i] != "so" && params[i] != "sc" && params[i] != "budget") {
                 $.pushGTACode(noOfRecords, params[i]);
             } else if (params[i] == "sc") {
                 var sc = $.getFilterFromQS('sc'), so = $.getFilterFromQS('so');
@@ -843,9 +843,13 @@ $.pushGACode = function (qs,noOfRecords)
                         filterName = 'Mileage :High to Low';
                         break;
                 }
-
                 $.pushGTACode(noOfRecords,filterName);
+            } else if (params[i] == "budget") {
+                var budget = $.getFilterFromQS('budget').split('-');
+                if (!(budget[0] == '0' && budget[1] == '6000000'))
+                    $.pushGTACode(noOfRecords, filterName);
             }
+
         }
     }
 };
@@ -881,6 +885,7 @@ $.PricePopUpClickGA = function (makeName) {
 
         $(window).on('scroll', flagForLoadCheck);
         $(window).on('resize', flagForLoadCheck);
+        $(window).on('load', flagForLoadCheck);
 
         function isInViewport(element) {
             var rect = element.getBoundingClientRect();
