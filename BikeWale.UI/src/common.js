@@ -832,6 +832,14 @@ $(".modelurl").click(function () {
     }
 });
 
+$(".jcarousel-control-next").click(function () {
+    $('.imageWrapper img').each(function () {
+        if ($(this).attr('src') == '') {
+            $(this).attr('src', $(this).attr('data-original'));
+        }
+    });
+});
+
 function insertCitySeparator(response) {
     l = (response != null) ? response.length : 0;
     if (l > 0) {

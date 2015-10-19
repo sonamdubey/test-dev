@@ -750,3 +750,4 @@ a.action-btn:hover{text-decoration:none;}
    .jcarousel-control-prev.inactive {background-position: -21px -16px;}
    .jcarousel-control-next.inactive {background-position: -42px -16px;}
 }
+.popular-used-bikes-container .imageWrapper a img { width:310px; height:175px; background-color:#cbcbcb; }
