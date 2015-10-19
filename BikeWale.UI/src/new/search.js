@@ -857,7 +857,60 @@ minInput.on("click focus", function () {
     });
 });
 
+maxInput.on("click focus", function () {
+    if (!maxList.hasClass("refMinList")) {
+        var defaultValue = 30000;
+        $.generateMaxList(defaultValue);
+    }
+
+    minList.hide();
+    maxList.show();
+
+    $.inputValFormatting(minInput);
+
+    var userMaxAmount = $(this).val();
+    if (userMaxAmount == "")
+        maxInput.val("");
+    else {
+        var userMaxInput = maxInput.attr("data-value");
+        maxInput.val($.formatPrice(userMaxInput));
+    }
+
+    maxInput.on("keyup", function (e) {
+        userMaxAmount = $(this).val();
+        /* when the user deletes the last digit left in the input field */
+        if (e.keyCode == 8 && userMaxAmount.length == 0)
+            maxAmount.html(" - MAX");
+
+        if (userMaxAmount.length == 0 && $('#budgetBtn').not(':visible')) {
+            maxInput.val("");
+            maxInput.attr("data-value", "");
+        }
+        else {
+            $("#budgetBtn").hide();
+            userMinAmount = minInput.val();
+            if (userMinAmount == "")
+                minAmount.html("0");
+
+            formattedValue = $.newUserInputPrice(userMaxAmount);
+            maxInput.attr("data-value", parseInt(userMaxAmount.replace(/\D/g, ''), 10)).val($.formatPrice(userMaxAmount.replace(/\D/g, ''), 10));
+            maxAmount.html("- " + formattedValue);
+        }
+    });
+
+    /* based on user input value generate max list */
+    var userInputMin = minInput.val();
+    var userInputDataValue = minInput.attr("data-value");
+    if (userInputMin.length != 0)
+        $.generateMaxList(userInputDataValue);
+});
+
 minInput.on('focusout', function () {
+    if ($.validateInputValue())
+        $.applyMinMaxFilter('budget', minInput.attr('data-value') + '-' + (maxInput.attr('data-value') == 0 || maxInput.attr('data-value') == undefined ? '' : maxInput.attr('data-value')), $(this));
+});
+
+maxInput.on('focusout', function () {
     if ($.validateInputValue())
         $.applyMinMaxFilter('budget', minInput.attr('data-value') + '-' + (maxInput.attr('data-value') == 0 || maxInput.attr('data-value') == undefined ? '' : maxInput.attr('data-value')), $(this));
 });
@@ -914,59 +967,6 @@ $.fn.validateKeyPress = function ()
 minInput.validateKeyPress();
 maxInput.validateKeyPress();
 
-maxInput.on("click focus", function () {
-    if (!maxList.hasClass("refMinList")) {
-        var defaultValue = 30000;
-        $.generateMaxList(defaultValue);
-    }
-
-    minList.hide();
-    maxList.show();
-
-    $.inputValFormatting(minInput);
-
-    var userMaxAmount = $(this).val();
-    if (userMaxAmount == "")
-        maxInput.val("");
-    else {
-        var userMaxInput = maxInput.attr("data-value");
-        maxInput.val($.formatPrice(userMaxInput));
-    }
-
-    maxInput.on("keyup", function (e) {
-        userMaxAmount = $(this).val();
-        /* when the user deletes the last digit left in the input field */
-        if (e.keyCode == 8 && userMaxAmount.length == 0)
-            maxAmount.html(" - MAX");
-
-        if (userMaxAmount.length == 0 && $('#budgetBtn').not(':visible')) {
-            maxInput.val("");
-            maxInput.attr("data-value", "");
-        }
-        else {
-            $("#budgetBtn").hide();
-            userMinAmount = minInput.val();
-            if (userMinAmount == "")
-                minAmount.html("0");
-
-            formattedValue = $.newUserInputPrice(userMaxAmount);
-            maxInput.attr("data-value", parseInt(userMaxAmount.replace(/\D/g, ''), 10)).val($.formatPrice(userMaxAmount.replace(/\D/g, ''), 10));
-            maxAmount.html("- " + formattedValue);
-        }
-    });
-
-    /* based on user input value generate max list */
-    var userInputMin = minInput.val();
-    var userInputDataValue = minInput.attr("data-value");
-    if (userInputMin.length != 0)
-        $.generateMaxList(userInputDataValue);
-});
-
-maxInput.on('focusout', function () {
-    if ($.validateInputValue())
-        $.applyMinMaxFilter('budget', minInput.attr('data-value') + '-' + (maxInput.attr('data-value') == 0 || maxInput.attr('data-value') == undefined ? '' : maxInput.attr('data-value')), $(this));
-});
-
 minList.delegate("li", "click", function () {
     var clickedLI = $(this);
     var amount = clickedLI.text();
@@ -978,19 +978,19 @@ minList.delegate("li", "click", function () {
         $(".maxAmount").html("- MAX");
     $("#budgetBtn").hide();
     $.generateMaxList(dataValue);
+    $.setMinAmount(dataValue);
 
     minList.hide();
     maxList.show().addClass("refMinList");
-    if ($.validateInputValue())
+    if (dataValue <= maxInput.attr('data-value'))
         $.applyMinMaxFilter('budget', dataValue + '-' + (maxDataValue == 0 ? '' : maxDataValue), clickedLI);
-    else
-        minInput.attr('data-value', prevVal);
 });
 
 maxList.delegate("li", "click", function () {
     var clickedLI = $(this);
     var amount = clickedLI.text();
     var dataValue = clickedLI.attr("data-value");
+    maxInput.attr('data-value', dataValue);
 
     if (minInput.val() == 0) {
         $("#budgetBtn").hide();
@@ -998,16 +998,13 @@ maxList.delegate("li", "click", function () {
         minInput.attr("data-value", 0);
         minAmount.html("0");
     }
-
-    //maxInput.val(amount).attr("data-value", dataValue);
-    //maxAmount.html(" - " + amount);
-
-    maxList.hide();
-    budgetListContainer.removeClass('show').addClass('hide');
     
     $("#minMaxContainer").removeClass("open");
-    if ($.validateInputValue())
+    if ($.validateInputValue()) {
+        maxList.hide();
+        budgetListContainer.removeClass('show').addClass('hide');
         $.applyMinMaxFilter('budget', minInput.attr('data-value') + '-' + dataValue, clickedLI);
+    }
 });
 
 $.newUserInputPrice = function (newMinMaxValue) {
