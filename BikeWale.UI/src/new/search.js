@@ -7,22 +7,35 @@ var appendText = $(".filter-select-title"),
     sortByDiv = $(".sort-div"),
     sortListDiv = $(".sort-selection-div"),
     sortListLI = $(".sort-selection-div ul li");
-
-var count = 0;
+var arr, a, p, minDataValue, maxDataValue;
+var count = 0, counter = 0;
 var searchUrl = "";
+arr = [
+	{ amount: "0", value: 0 },
+	{ amount: "30K", value: 30000 },
+	{ amount: "40K", value: 40000 },
+	{ amount: "50K", value: 50000 },
+	{ amount: "60K", value: 60000 },
+	{ amount: "70K", value: 70000 },
+	{ amount: "80K", value: 80000 },
+	{ amount: "90K", value: 90000 },
+	{ amount: "1L", value: 100000 },
+	{ amount: "1.5L", value: 150000 },
+	{ amount: "2L", value: 200000 },
+	{ amount: "2.5L", value: 250000 },
+	{ amount: "3L", value: 300000 },
+	{ amount: "3.5L", value: 350000 },
+	{ amount: "5L", value: 500000 },
+	{ amount: "7.5L", value: 750000 },
+	{ amount: "10L", value: 1000000 },
+	{ amount: "12.5L", value: 1250000 },
+	{ amount: "15L", value: 1500000 },
+	{ amount: "30L", value: 3000000 },
+	{ amount: "60L", value: 6000000 }
+];
 $.pageNo = "";
-$.budget = "";
-$.Displacement = "";
-$.Bike = "";
-$.Mileage = "";
-$.RideStyle = "";
-$.ABS = "";
-$.brack = "";
-$.AlloyWheel = "";
-$.StartType = "";
 $.so = "";
 $.sc = "";
-$.queryString = "";
 $.nextPageUrl = "";
 $.totalCount;
 $.lazyLoadingStatus = true;
@@ -39,36 +52,6 @@ $(document).ready(function () {
     var completeQs = window.location.hash.replace('#', '');
     completeQs = $.removeFilterFromQS('pageno');
     $.pushState(completeQs,"");
-});
-
-$(document).mouseup(function (e) {
-    var filterDivContainer = $(".filter-div");
-    var filterDivTitle = $(".filter-select-title");
-    var filterSelectedText = $(".filter-select-title span.selected");
-    var filterArrow = $(".fa-angle-down");
-    var filterSelectBtn = $(".filter-select-btn");
-    var filterSelectionDiv = $(".filter-selection-div");
-    var filterSelectionUL = $(".filter-selection-div ul");
-    var filterSelectionList = $(".filter-selection-div ul li");
-    var filterSelectionLIText = filterSelectionList.find("span");
-    if (filterSelectionDiv.hasClass("open")) {
-        if (!filterDivContainer.is(e.target) && !filterDivTitle.is(e.target) && !filterSelectedText.is(e.target) && !filterArrow.is(e.target) && !filterSelectBtn.is(e.target) && !filterSelectionUL.is(e.target) && !filterSelectionList.is(e.target) && !filterSelectionLIText.is(e.target)) {
-            filterSelectionDiv.slideUp();
-            filterDivContainer.removeClass("open");
-            filterSelectionDiv.removeClass("open");
-        }
-    }
-
-    var container = $("#budgetListContainer");
-    if (container.hasClass('show') && $("#budgetListContainer").is(":visible")) {
-        if (!container.is(e.target) && container.has(e.target).length === 0) {
-            var elementId = $('#' + e.target.id).parent().attr('id');
-            var elementClass = $('#' + e.target.id).parent().attr('class');
-            if (elementId != "minMaxContainer" && elementClass != "budget-box")
-                $('#minMaxContainer').trigger('click');
-        }
-    }
-
 });
 
 $(".filter-div").on("click", function () {
@@ -480,8 +463,10 @@ $.fn.resetAll = function () {
         $('.filter-select-title .default-text').each(function () {
             $(this).text($(this).prev().text());
         });
-        $('#minInput').val('');
-        $('#maxInput').val('');
+        $('#minInput').val('').attr("data-value",'');
+        $('#maxInput').val('').attr("data-value",'');
+        minAmount.text('');
+        maxAmount.text('');
         defaultText.show();
         count = 0;
         resetBWTabs();
@@ -551,11 +536,9 @@ $.getSelectedQSFilterText = function () {
                 count++;
                 node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
             } else if (params[i] == 'budget') {
-                var min = $('#minInput'), max = $('#maxInput');
                 var values = $.getFilterFromQS(params[i]).split('-');
-                min.val(values[0]);
-                max.val(values[1]);
-                $.formatPrice(min, max);
+                $.setMaxAmount(values[1]);
+                $.setMinAmount(values[0]);
                 count++;
             }
         }
@@ -569,37 +552,14 @@ $.updateFilters = function (node, name, value, type) {
     else if (type == 2)
         $.applyToggelFilter(name, value, node);
     else if (type == 5)
-        $.applyMinMaxFilter(name, value,node);
+        $.applyMinMaxFilter(name, value, node);
 };
 
 liList.onCheckBoxClick();
 
 liToggelFilter.onToggelFilterClick();
 
-$(".budget-box").click(function (e) {
-    $("#minMaxContainer").toggleClass("open");
-    $("#budgetListContainer, #minPriceList").toggleClass("hide show");
-});
-
-$('.priceBox').keyup(function () {
-    $.formatPrice($('#minInput'), $('#maxInput'));
-});
-
-$.formatPrice = function (minId,maxId) {
-    var minValue = '', maxValue = '';
-    var minBudget = minId.val();
-    var maxBudget = maxId.val();
-
-    minValue = minBudget != '' && minBudget != undefined ? $.valueFormatter(minBudget) : '';
-    maxValue = maxBudget != '' && maxBudget != undefined ? $.valueFormatter(maxBudget) : '';
-
-    $("#budgetBtn").html("<span class='minbudgetvalue'>" + minValue + "</span> - <span class='maxbudgetvalue'> " + maxValue + "</span>");
-
-    if (minBudget == '' && maxBudget == '')
-        $("#budgetBtn").text("Select budget");
-};
-
-$.valueFormatter=function(num) {
+$.valueFormatter = function (num) {
     if (num >= 100000) {
         return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
     }
@@ -609,37 +569,17 @@ $.valueFormatter=function(num) {
     return num;
 }
 
-$.fn.applyBudgetFilter = function () {
-    return $(this).focusout(function () {
-        var min = $('#minInput'), max = $('#maxInput');
-        if ($.budgetValidator(min.val(), max.val())) {
-            var budgetValue = (min.val() == '' ? 0 : min.val()) + '-' + max.val();
-            $.updateFilters($(this), $(this).parent().parent().attr('name'), budgetValue, 5);
-            $("#minPriceList").removeClass("hide").addClass("show");
-            $("#maxPriceList").css("display", "none");
+$.generateMaxList = function (dataValue) {
+    counter = 0;
+    maxList.empty();
+    dataValue = parseInt(dataValue);
+    for (p in arr) {
+        var a = arr[p].value;
+        if (dataValue < a && counter <= 8) {
+            maxList.append("<li data-value=" + arr[p].value + ">" + arr[p].amount + "</li>");
+            counter++;
         }
-        else {
-            completeQs = $.removeFilterFromQS('budget');
-            $.pushState(completeQs,"budget");
-        }
-    });
-};
-
-$.budgetValidator = function (minValue, maxValue) {
-    var isValid = true;
-    if (maxValue != '') {
-        if (parseInt(maxValue) <= parseInt(minValue)) {
-            $(".bw-blackbg-tooltip.bw-blackbg-tooltip-max").removeClass("hide").addClass("show");
-            isValid = false;
-        }
-        else {
-            $(".bw-blackbg-tooltip.bw-blackbg-tooltip-max").addClass("hide").removeClass("show");
-            isValid = true;
-        }
-    } else if (minValue == '' && maxValue == '') {
-        isValid = false;
     }
-    return isValid;
 };
 
 $.applyMinMaxFilter = function (name, value, node) {
@@ -658,8 +598,6 @@ $.applyMinMaxFilter = function (name, value, node) {
 
     $.pushState(tempQS,name);
 };
-
-$('.priceBox').applyBudgetFilter();
 
 $.pushGTACode = function (noOfRecords, filterName) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_'+ noOfRecords, 'lab': filterName });
@@ -737,6 +675,7 @@ sortListLI.applySortFilter();
 
         $(window).on('scroll', flagForLoadCheck);
         $(window).on('resize', flagForLoadCheck);
+        $(window).on('load', flagForLoadCheck);
 
         function isInViewport(element) {
             var rect = element.getBoundingClientRect();
@@ -785,3 +724,311 @@ sortListLI.applySortFilter();
     ko.bindingHandlers.lazyload = new KoLazyLoad();
 
 })(jQuery, ko);
+
+var minAmount = $(".minAmount"),
+    maxAmount = $(".maxAmount");
+    maxInputVal = "",
+    minList = $("#minList"),
+    maxList = $("#maxList"),
+    minInput = $("#minInput"),
+    maxInput = $("#maxInput"),
+    budgetListContainer = $("#budgetListContainer");
+
+$(document).mouseup(function (e) {
+
+    var filterDivContainer = $(".filter-div");
+    var filterDivTitle = $(".filter-select-title");
+    var filterSelectedText = $(".filter-select-title span.selected");
+    var filterArrow = $(".fa-angle-down");
+    var filterSelectBtn = $(".filter-select-btn");
+    var filterSelectionDiv = $(".filter-selection-div");
+    var filterSelectionUL = $(".filter-selection-div ul");
+    var filterSelectionList = $(".filter-selection-div ul li");
+    var filterSelectionLIText = filterSelectionList.find("span");
+    if (filterSelectionDiv.hasClass("open")) {
+        if (!filterDivContainer.is(e.target) && !filterDivTitle.is(e.target) && !filterSelectedText.is(e.target) && !filterArrow.is(e.target) && !filterSelectBtn.is(e.target) && !filterSelectionUL.is(e.target) && !filterSelectionList.is(e.target) && !filterSelectionLIText.is(e.target)) {
+            filterSelectionDiv.slideUp();
+            filterDivContainer.removeClass("open");
+            filterSelectionDiv.removeClass("open");
+        }
+    }
+
+    var container = $("#budgetListContainer");
+    if (container.hasClass('show') && $("#budgetListContainer").is(":visible")) {
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            var elementId = $('#' + e.target.id).parent().attr('id');
+            var elementClass = $('#' + e.target.id).parent().attr('class');
+            minDataValue = parseInt(minInput.attr("data-value")) || 0;
+            maxDataValue = parseInt(maxInput.attr("data-value")) || 0;
+
+            if (elementId != "minMaxContainer" && elementClass != "budget-box" && (minDataValue <= maxDataValue || maxDataValue == 0)) {
+                $('#minMaxContainer').trigger('click');
+                maxList.hide();
+                maxInput.removeClass("border-red");
+                $(".bw-blackbg-tooltip-max").hide();
+                container.removeClass("invalid show").addClass("hide");
+                
+                $.inputValFormatting(minInput);
+                $.inputValFormatting(maxInput);
+            }
+            else if (minDataValue > maxDataValue) {
+                maxInput.addClass("border-red");
+                $(".bw-blackbg-tooltip-max").show();
+            }
+        }
+    }
+
+});
+
+$.validateInputValue = function () {
+    minDataValue = parseInt(minInput.attr("data-value")) || 0;
+    maxDataValue = parseInt(maxInput.attr("data-value")) || 0;
+    var isValid = false;
+    if (minDataValue <= maxDataValue) {
+        maxInput.removeClass("border-red");
+        $(".bw-blackbg-tooltip-max").hide();
+        isValid = true;
+    }
+    else if (maxDataValue > 0 && minDataValue > maxDataValue) {
+        maxInput.addClass("border-red");
+        $(".bw-blackbg-tooltip-max").show();
+        isValid = false;
+    }
+    else if (maxDataValue == 0)
+        isValid = true;
+    return isValid;
+}
+
+$(".budget-box").click(function () {
+    minDataValue = parseInt(minInput.attr("data-value")) || 0;
+    maxDataValue = parseInt(maxInput.attr("data-value")) || 0;
+
+    if (minDataValue <= maxDataValue || maxDataValue == 0) {
+        $("#minMaxContainer").toggleClass("open");
+        budgetListContainer.toggleClass("hide show");
+        minList.show();
+        maxList.hide();
+        maxInput.removeClass("border-red");
+        $(".bw-blackbg-tooltip-max").hide();
+    }
+    else if (minDataValue > 1)
+        $.validateInputValue();
+});
+
+for (p in arr) {
+    if (counter <= 8) {
+        minList.append("<li data-value=" + arr[p].value + ">" + arr[p].amount + "</li>");
+        counter++;
+    }
+}
+
+minInput.on("click focus", function () {
+    minList.show();
+    maxList.hide();
+
+    $.inputValFormatting(maxInput);
+
+    minInputVal = $(this).val();
+    if (minInputVal == "")
+        minInput.val("");
+    else {
+        var userMinInput = minInput.attr("data-value");
+        minInput.val($.formatPrice(userMinInput));
+    }
+
+    minInput.on("keyup", function () {
+        maxInputVal = maxInput.val();
+        userMinAmount = $(this).val();
+        if (userMinAmount == "") {
+            minInput.val("");
+            minInput.attr("data-value", "");
+            minAmount.html("0");
+        }
+        else {
+            $("#budgetBtn").hide();
+            minInput.attr("data-value", parseInt(userMinAmount.replace(/\D/g, ''), 10)).val($.formatPrice(userMinAmount.replace(/\D/g, ''), 10));
+            formattedValue = $.newUserInputPrice(userMinAmount);
+            minAmount.html(formattedValue);
+            if (maxInputVal == "")
+                maxAmount.html(" - MAX");
+        }
+        if ($("#budgetBtn").is(':visible'))
+            minAmount.html("");
+    });
+});
+
+minInput.on('focusout', function () {
+    if ($.validateInputValue())
+        $.applyMinMaxFilter('budget', minInput.attr('data-value') + '-' + (maxInput.attr('data-value') == 0 || maxInput.attr('data-value') == undefined ? '' : maxInput.attr('data-value')), $(this));
+});
+
+$.setMinAmount = function (userMinAmount) {
+    if (userMinAmount == "") {
+        minInput.val("").attr("data-value", "");
+        minAmount.html("0");
+    }
+    else {
+        $("#budgetBtn").hide();
+        var formattedValue = $.newUserInputPrice(userMinAmount);
+        minAmount.text(formattedValue);
+        minInput.val(formattedValue).attr('data-value', userMinAmount);
+    }
+    if ($("#budgetBtn").is(':visible'))
+        minAmount.html("");
+};
+
+$.setMaxAmount = function (userMaxAmount) {
+    if (e.keyCode == 8 && userMaxAmount.length == 0)
+        maxAmount.html(" - MAX");
+
+    if (userMaxAmount.length == 0 && $('#budgetBtn').not(':visible')) {
+        maxInput.val("").attr("data-value", "");
+        maxAmount.html("- MAX");
+    }
+    else {
+        $("#budgetBtn").hide();
+        var userMinAmount = minInput.val();
+        if (userMinAmount == "")
+            minAmount.html("0");
+
+        var formattedValue = $.newUserInputPrice(userMaxAmount);
+        maxAmount.html("- " + formattedValue);
+        maxInput.val(formattedValue).attr('data-value', userMaxAmount);
+    }
+};
+
+/* allow only digits in the input field */
+$.isNumberKey = function (evt) {
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+}
+
+$.fn.validateKeyPress = function ()
+{
+    return this.keypress(function () {
+        return $.isNumberKey(event);
+    });
+};
+minInput.validateKeyPress();
+maxInput.validateKeyPress();
+
+maxInput.on("click focus", function () {
+    if (!maxList.hasClass("refMinList")) {
+        var defaultValue = 30000;
+        $.generateMaxList(defaultValue);
+    }
+
+    minList.hide();
+    maxList.show();
+
+    $.inputValFormatting(minInput);
+
+    var userMaxAmount = $(this).val();
+    if (userMaxAmount == "")
+        maxInput.val("");
+    else {
+        var userMaxInput = maxInput.attr("data-value");
+        maxInput.val($.formatPrice(userMaxInput));
+    }
+
+    maxInput.on("keyup", function (e) {
+        userMaxAmount = $(this).val();
+        /* when the user deletes the last digit left in the input field */
+        if (e.keyCode == 8 && userMaxAmount.length == 0)
+            maxAmount.html(" - MAX");
+
+        if (userMaxAmount.length == 0 && $('#budgetBtn').not(':visible')) {
+            maxInput.val("");
+            maxInput.attr("data-value", "");
+        }
+        else {
+            $("#budgetBtn").hide();
+            userMinAmount = minInput.val();
+            if (userMinAmount == "")
+                minAmount.html("0");
+
+            formattedValue = $.newUserInputPrice(userMaxAmount);
+            maxInput.attr("data-value", parseInt(userMaxAmount.replace(/\D/g, ''), 10)).val($.formatPrice(userMaxAmount.replace(/\D/g, ''), 10));
+            maxAmount.html("- " + formattedValue);
+        }
+    });
+
+    /* based on user input value generate max list */
+    var userInputMin = minInput.val();
+    var userInputDataValue = minInput.attr("data-value");
+    if (userInputMin.length != 0)
+        $.generateMaxList(userInputDataValue);
+});
+
+maxInput.on('focusout', function () {
+    if ($.validateInputValue())
+        $.applyMinMaxFilter('budget', minInput.attr('data-value') + '-' + (maxInput.attr('data-value') == 0 || maxInput.attr('data-value') == undefined ? '' : maxInput.attr('data-value')), $(this));
+});
+
+minList.delegate("li", "click", function () {
+    var clickedLI = $(this);
+    var amount = clickedLI.text();
+    var dataValue = clickedLI.attr("data-value");
+    minInput.attr('data-value', dataValue);
+    maxInputVal = maxInput.val();
+    if (maxInputVal == "")
+        $(".maxAmount").html("- MAX");
+    $("#budgetBtn").hide();
+    $.generateMaxList(dataValue);
+
+    minList.hide();
+    maxList.show().addClass("refMinList");
+    if ($.validateInputValue())
+        $.applyMinMaxFilter('budget', dataValue + '-' + (maxDataValue == 0 ? '' : maxDataValue), clickedLI);
+});
+
+maxList.delegate("li", "click", function () {
+    var clickedLI = $(this);
+    var amount = clickedLI.text();
+    var dataValue = clickedLI.attr("data-value");
+
+    if (minInput.val() == 0) {
+        $("#budgetBtn").hide();
+        minInput.val(0);
+        minInput.attr("data-value", 0);
+        minAmount.html("0");
+    }
+
+    //maxInput.val(amount).attr("data-value", dataValue);
+    //maxAmount.html(" - " + amount);
+
+    maxList.hide();
+    budgetListContainer.removeClass('show').addClass('hide');
+    
+    $("#minMaxContainer").removeClass("open");
+    if ($.validateInputValue())
+        $.applyMinMaxFilter('budget', minInput.attr('data-value') + '-' + dataValue, clickedLI);
+});
+
+$.newUserInputPrice = function (newMinMaxValue) {
+    var newAmount = parseInt(newMinMaxValue.replace(/\D/g, ''), 10);
+    var formattedValue = $.valueFormatter(newAmount);
+    return formattedValue;
+}
+
+/* convert the comma seperated price into INR format*/
+$.inputValFormatting = function (priceInput) {
+    var inputVal = priceInput.val();
+    var str = '';
+    var regex = new RegExp(',', 'g');
+    if (inputVal.length > 0) {
+        str = new String(priceInput.attr("data-value"));
+        str = str.replace(regex, '');
+        priceInput.val($.valueFormatter(str));
+    }
+};
+
+/* priceFormatter */
+$.formatPrice = function (price) {
+    var thMatch = /(\d+)(\d{3})$/;
+    var thRest = thMatch.exec(price);
+    if (!thRest) return price;
+    return (thRest[1].replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + thRest[2]);
+}
