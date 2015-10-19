@@ -971,6 +971,7 @@ minList.delegate("li", "click", function () {
     var clickedLI = $(this);
     var amount = clickedLI.text();
     var dataValue = clickedLI.attr("data-value");
+    var prevVal = minInput.attr('data-value');
     minInput.attr('data-value', dataValue);
     maxInputVal = maxInput.val();
     if (maxInputVal == "")
@@ -982,6 +983,8 @@ minList.delegate("li", "click", function () {
     maxList.show().addClass("refMinList");
     if ($.validateInputValue())
         $.applyMinMaxFilter('budget', dataValue + '-' + (maxDataValue == 0 ? '' : maxDataValue), clickedLI);
+    else
+        minInput.attr('data-value', prevVal);
 });
 
 maxList.delegate("li", "click", function () {
