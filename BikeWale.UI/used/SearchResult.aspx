@@ -45,7 +45,7 @@
                                     <td><%# DataBinder.Eval(Container.DataItem, "City")%></td>
                                 </tr>
                                 <tr>
-                                    <th>Kms</th>
+                                    <th>Km</th>
                                     <td><%# CommonOpn.FormatNumeric( Convert.ToString(DataBinder.Eval(Container.DataItem, "Kilometers")) ) %></td>
                                     <th>Transmission</th>
                                     <td><%# GetTransmissionText(DataBinder.Eval(Container.DataItem, "BikeTransmission").ToString())%>, <%# GetFuelType(DataBinder.Eval(Container.DataItem, "BikeFuelType").ToString())%></td>
@@ -107,7 +107,7 @@
                                     <td><%# DataBinder.Eval(Container.DataItem, "City")%></td>
                                 </tr>
                                 <tr>
-                                    <th>Kms</th>
+                                    <th>Km</th>
                                     <td><%# CommonOpn.FormatNumeric( Convert.ToString(DataBinder.Eval(Container.DataItem, "Kilometers")) ) %></td>
                                     <th>Transmission</th>
                                     <td><%# GetTransmissionText(DataBinder.Eval(Container.DataItem, "BikeTransmission").ToString())%>, <%# GetFuelType(DataBinder.Eval(Container.DataItem, "BikeFuelType").ToString())%></td>

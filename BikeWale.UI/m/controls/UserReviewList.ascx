@@ -36,6 +36,6 @@
         <p class="text-center jcarousel-pagination margin-bottom30"></p>
     </div>
     <div class="text-center">
-        <a class="font16" href="/m/road-tests/">View more reviews</a>
+        <a class="font16" href="/m/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/">View more reviews</a>
     </div>
 </div>

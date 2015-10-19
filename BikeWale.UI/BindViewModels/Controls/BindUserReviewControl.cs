@@ -31,7 +31,6 @@ namespace Bikewale.BindViewModels.Controls
         public static string MakeMaskingName { get; set; }
         public static string ModelMaskingName { get; set; }
 
-
         public static void BindUserReview(Repeater rptUserReviews)
         {
             List<ReviewEntity> userReviewList = null;

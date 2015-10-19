@@ -19,6 +19,8 @@ namespace Bikewale.Mobile.Controls
         protected Repeater rptUserReview;
 
         public int ModelId { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
 
         private int _reviewCount = 4;
         public int ReviewCount
@@ -54,6 +56,8 @@ namespace Bikewale.Mobile.Controls
             BindUserReviewControl.RecordCount = ReviewCount;
             BindUserReviewControl.BindUserReview(rptUserReview);
             FetchedRecordsCount = BindUserReviewControl.FetchedRecordsCount;
+            MakeMaskingName = BindUserReviewControl.MakeMaskingName;
+            ModelMaskingName = BindUserReviewControl.ModelMaskingName;
         }
     }
 }
