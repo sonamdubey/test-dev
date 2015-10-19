@@ -69,7 +69,7 @@
 .customize-icon-grey { background-position:-43px -52px; }
 .confirmation-icon-grey { background-position: -43px -102px; }
 
-.white-back-arrow{background:url("http://img.aeplcdn.com/bikewaleimg/m/images/white-back-arrow.png") no-repeat scroll left top; top:0;}
+.white-back-arrow{background:url("http://img.aeplcdn.com/bikewaleimg/m/images/white-back-arrow.png") no-repeat scroll left top; width: 27px; height: 20px; cursor: pointer; position: relative; top:0; display: block; }
 .white-back-arrow:hover{background-position:left top;}
 .call-text-green{border:1px solid #5bc033;padding:0 10px;}
 

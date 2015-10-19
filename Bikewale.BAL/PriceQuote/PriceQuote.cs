@@ -13,6 +13,9 @@ namespace Bikewale.BAL.PriceQuote
     /// <summary>
     /// Created By: Ashish G. Kamble
     /// Summary : Class have functions for the price quote business layer.
+    /// Modified By :   Sumit Kate
+    /// Date        :   16 Oct 2015
+    /// Description :   Implemented newly added method of IPriceQuote interface
     /// </summary>
     public class PriceQuote : IPriceQuote
     {
@@ -83,5 +86,24 @@ namespace Bikewale.BAL.PriceQuote
             return objVersionsList;
         }
 
+        /// <summary>
+        /// Author  :   Sumit Kate
+        /// Created On  :   16 Oct 2015
+        /// Description :   Updates the price quote data
+        /// </summary>
+        /// <param name="pqId">Price Quote Id is mandatory</param>
+        /// <param name="pqParams">Price Quote data that needs to be updated</param>
+        /// <returns></returns>
+        public bool UpdatePriceQuote(UInt32 pqId, PriceQuoteParametersEntity pqParams)
+        {
+            if (pqId > 0)
+            {
+                return objPQ.UpdatePriceQuote(pqId, pqParams);
+            }
+            else
+            {
+                return false;
+            }
+        }
     }   // class
 }   // namespace
