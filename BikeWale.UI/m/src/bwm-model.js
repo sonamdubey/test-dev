@@ -347,6 +347,7 @@ function loadCity(vm) {
             function (data) {
 
                 if (data) {
+                    insertModelCitySeparator(data.cities);
                     var city = ko.toJS(data);
                     vm.cities(city.cities);
                     ctrlSelectCity = $("#ddlCity");
@@ -355,7 +356,8 @@ function loadCity(vm) {
                         vm.selectedCity(pqCookieObj.PQCitySelectedId);
                         vm.popularCityClicked(true);
                         pqCookieObj.PQCitySelectedId = 0;
-                }
+                    }
+                    ctrlSelectCity.find("option[value='0']").prop('disabled', true).trigger('chosen:updated');
                     $(ctrlSelectCity).prev().hide();
             }
         });
@@ -845,4 +847,17 @@ $('#ddlArea').change(function () {
 $("#btnShowOffers").on("click", function () {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName });
 });
+
+function insertModelCitySeparator(response) {
+    l = (response != null) ? response.length : 0;
+    if (l > 0) {
+        for (i = 0; i < l; i++) {
+            if (!response[i].isPopular) {
+                if (i > 0)
+                    response.splice(i, 0, { cityId: 0, cityName: "--------------------", cityMaskingName: "", isPopular: false });
+                break;
+            }
+        }
+    }
+}
 

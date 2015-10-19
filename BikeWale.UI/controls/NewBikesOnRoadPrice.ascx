@@ -74,15 +74,18 @@
                 var cities = JSON.parse(obj.value);
                 var citySelected = null; 
                 if (cities) {
+                    insertCitySeparator(cities);
                     nbCheckCookies();
                     viewModelOnRoad.bookingCities(cities);
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelOnRoad.bookingCities() && selectElementFromArray(viewModelOnRoad.bookingCities(), onCookieObj.PQCitySelectedId)) {
                         viewModelOnRoad.selectedCity(onCookieObj.PQCitySelectedId);
                     }
+                    onRoadcity.find("option[value='0']").prop('disabled', true).trigger('chosen:updated');
                     cityChangedOnRoad();
                 }
                 else {
                     viewModelOnRoad.bookingCities([]);
+                    calcWidth();
                 }
             }
         });
@@ -117,6 +120,7 @@
             });
         } else {
             viewModelOnRoad.bookingAreas([]);
+            calcWidth();
         }
     }
 
