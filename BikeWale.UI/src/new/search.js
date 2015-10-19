@@ -982,7 +982,7 @@ minList.delegate("li", "click", function () {
 
     minList.hide();
     maxList.show().addClass("refMinList");
-    if (dataValue <= maxInput.attr('data-value'))
+    if (parseInt(dataValue) <= parseInt(maxInput.attr('data-value')))
         $.applyMinMaxFilter('budget', dataValue + '-' + (maxDataValue == 0 ? '' : maxDataValue), clickedLI);
 });
 
