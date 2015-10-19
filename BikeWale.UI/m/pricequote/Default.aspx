@@ -17,6 +17,7 @@
     .ui-filterable div input {
         height : 40px;
     }
+    .chosen-container.chosen-container-single span { font-weight:normal; }
 </style>
     <asp:TextBox id="txtMake" runat="server" style="display:none;" Text="" data-role="none"/>
     <asp:TextBox id="txtModel" runat="server" style="display:none;" Text="" data-role="none"/>
@@ -40,9 +41,9 @@
 		        </div>
             </div>
             <%} %>            
-            <div class="new-line15">
+            <div class="new-line15" data-bind="visible : selectedModel() > 0">
                 <img id="imgLoaderCity" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
-	            <div class="new-line15"><asp:dropdownlist id="ddlCity" class="textAlignLeft" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, optionsCaption: '--Select City--'" runat="server"><asp:ListItem Text="--Select City--" Value="0" /></asp:dropdownlist></div>
+	            <div class="new-line15"><asp:dropdownlist id="ddlCity" class="textAlignLeft" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, optionsCaption: '--Select City--',chosen: { width: '100%' }" runat="server"><asp:ListItem Text="--Select City--" Value="0" /></asp:dropdownlist></div>
             </div>              
              <div class="new-line5" id="divArea" style="display:none;">
                 <img id="imgLoaderArea" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
@@ -104,6 +105,28 @@
     };
     var preSelectedCityId = 0;
     var preSelectedCityName = "";
+
+
+    //for jquery chosen 
+    ko.bindingHandlers.chosen = {
+        init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var $element = $(element);
+            var options = ko.unwrap(valueAccessor());
+            if (typeof options === 'object')
+                $element.chosen(options);
+
+            ['options', 'selectedOptions', 'value'].forEach(function (propName) {
+                if (allBindings.has(propName)) {
+                    var prop = allBindings.get(propName);
+                    if (ko.isObservable(prop)) {
+                        prop.subscribe(function () {
+                            $element.trigger('chosen:updated');
+                        });
+                    }
+                }
+            });
+        }
+    }
 
     function autosearch(event) {
         var matchingAreas = [];
@@ -275,7 +298,7 @@
             var cityId = $(this).val();
             $("#divArea").hide();
             $("#imgLoaderArea").show();
-
+            $("#ddlCity-button").find("span.textAlignLeft").hide();
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/Bikewale.Ajax.AjaxPriceQuote,Bikewale.ashx",
@@ -343,17 +366,19 @@
                         var responseJSON = eval('(' + response + ')');
                         var resObj = eval('(' + responseJSON.value + ')');
                         if (resObj!=null && resObj.length > 0) {
-                            var initIndex = 0;
-                            checkCookies();
-                            
+                            var initIndex = 0;                            
+                            checkCookies();                            
                             $("#ddlCity").empty();
+                            insertCitySeparator(resObj);
                             viewModelPQ.cities(resObj);
-                            viewModelPQ.bookingCities(cities);
-                            if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPQ.bookingCities() && selectElementFromArray(viewModelPQ.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                            //viewModelPQ.bookingCities(cities);
+                            if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPQ.cities() && selectElementFromArray(viewModelPQ.cities(), onCookieObj.PQCitySelectedId)) {
                                 viewModelPQ.selectedCity(onCookieObj.PQCitySelectedId);
-                                $("#ddlCity option[value=" + citySelected.CityId + "]").prop("selected", true);
-                                $("#ddlCity").prop('selectedIndex', citySelected.CityId);
+                                $("#ddlCity option[value=" + onCookieObj.PQCitySelectedId + "]").prop("selected", true);
+                                $("#ddlCity").prop('selectedIndex', onCookieObj.PQCitySelectedId);
                             }
+                            $("#ddlCity").find("option[value='0']").prop('disabled', true).trigger('chosen:updated');
+                            $("#ddlCity-button").removeClass().find("span.textAlignLeft").hide();
                         }
                         else viewModelPQ.cities([]);
                     },
@@ -424,6 +449,7 @@
     });
 
     function UpdateArea() {
+       
         var cityId = $("#txtCity").val();
         var modelId = $("#txtModel").val();
         if (cityId != undefined) {

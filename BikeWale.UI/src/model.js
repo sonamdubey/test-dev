@@ -140,17 +140,18 @@ function loadCity(vm) {
         $.get("/api/PQCityList/?modelId=" + vm.selectedModel(),
             function (data) {               
                 if (data) {
+                    insertModelCitySeparator(data.cities);
                     var city = ko.toJS(data);
                     vm.cities(city.cities);
                     ctrlSelectCity = $("#ddlCity");
-                    //$(ctrlSelectCity).trigger("chosen:updated");
                     PQcheckCookies();
                     if (!isNaN(pqCookieObj.PQCitySelectedId) && pqCookieObj.PQCitySelectedId > 0 && vm.cities() && selectElementFromArray(vm.cities(), pqCookieObj.PQCitySelectedId)) {
                         vm.selectedCity(pqCookieObj.PQCitySelectedId);
                         vm.popularCityClicked(true);
                         pqCookieObj.PQCitySelectedId = 0;
                     }
-                    $(ctrlSelectCity).prev().hide();                    
+                    $(ctrlSelectCity).prev().hide();
+                    ctrlSelectCity.find("option[value='0']").prop('disabled', true).trigger('chosen:updated');
                 }
             });
     }
@@ -794,3 +795,16 @@ navigationVideosLI.click(function () {
     var newSrc = $(this).find("img").attr("iframe-data");
     videoiFrame.setAttribute("src", newSrc);
 });
+
+function insertModelCitySeparator(response) {
+    l = (response != null) ? response.length : 0;
+    if (l > 0) {
+        for (i = 0; i < l; i++) {
+            if (!response[i].isPopular) {
+                if (i > 0)
+                    response.splice(i, 0, { cityId: 0, cityName: "--------------------",cityMaskingName:"",isPopular: false });
+                break;
+            }
+        }
+    }
+}

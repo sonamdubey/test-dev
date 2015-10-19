@@ -831,3 +831,16 @@ $(".modelurl").click(function () {
         });
     }
 });
+
+function insertCitySeparator(response) {
+    l = (response != null) ? response.length : 0;
+    if (l > 0) {
+        for (i = 0; i < l; i++) {
+            if (!response[i].IsPopular) {
+                if (i > 0)
+                    response.splice(i, 0, { CityId: 0, CityName: "--------------------", CityMaskingName: "", IsPopular: false });
+                break;
+            }
+        }
+    }
+}
