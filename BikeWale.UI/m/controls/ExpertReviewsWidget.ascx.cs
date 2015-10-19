@@ -16,6 +16,8 @@ namespace Bikewale.Mobile.Controls
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

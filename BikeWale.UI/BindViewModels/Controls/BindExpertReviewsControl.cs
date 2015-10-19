@@ -21,6 +21,7 @@ namespace Bikewale.BindViewModels.Controls
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
+        
 
         /// <summary>
         /// Summary : Function to bind the expert reviews control.
@@ -28,7 +29,6 @@ namespace Bikewale.BindViewModels.Controls
         public void BindExpertReviews(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-
             try
             {
                 IEnumerable<ArticleSummary> _objArticleList = null;
