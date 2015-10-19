@@ -17,6 +17,7 @@ namespace Bikewale.Controls
         public int FetchedRecordsCount { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
+        public string MoreExpertReviewUrl { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -29,13 +30,24 @@ namespace Bikewale.Controls
             ber.TotalRecords = this.TotalRecords;
             ber.MakeId = this.MakeId;
             ber.ModelId = this.ModelId;
-
             ber.BindExpertReviews(rptExpertReviews);
-
             this.FetchedRecordsCount = ber.FetchedRecordsCount;
-        }
 
-        public override void Dispose()
+            if (String.IsNullOrEmpty(MakeMaskingName) && String.IsNullOrEmpty(ModelMaskingName))
+            {
+                MoreExpertReviewUrl = "/road-tests/";
+            }
+            else if (String.IsNullOrEmpty(ModelMaskingName))
+            {
+                MoreExpertReviewUrl = String.Format("/{0}-bikes/road-tests/", MakeMaskingName);
+            }
+            else
+            {
+                MoreExpertReviewUrl = String.Format("/{0}-bikes/{1}/road-tests/", MakeMaskingName, ModelMaskingName);
+            }
+        }
+        
+         public override void Dispose()
         {
             rptExpertReviews.DataSource = null;
             rptExpertReviews.Dispose();
