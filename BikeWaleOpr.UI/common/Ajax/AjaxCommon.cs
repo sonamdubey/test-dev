@@ -41,6 +41,7 @@ namespace BikeWaleOpr.Common
 
             return jsonModels;
         }
+
         /// <summary>
         ///     Written By : Ashish G. Kamble on 2 Apr 2013
         ///     Summary : This function returns json string containing the name and id of the models

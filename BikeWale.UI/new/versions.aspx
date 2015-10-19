@@ -307,6 +307,9 @@
                                     <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
                                     <input type="button" class="btn btn-orange" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
                                     <!-- /ko -->
+                                    <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && !(priceQuote().dealerPriceQuote.offers.length > 0) -->
+                                    <input type="button" class="btn btn-orange" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />
+                                    <!-- /ko -->
                                 </div>
                                 <!-- /ko -->
                                 <!-- On Road Price mesasge ends  -->
