@@ -61,6 +61,9 @@ function GetGlobalCityArea() {
 }
 
 $(document).ready(function () {
+    $(".lazy").lazyload({
+        effect: "fadeIn"
+    });
     $('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
     var blackOut = $(".blackOut-window")[0];

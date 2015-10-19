@@ -473,7 +473,7 @@
                                         <li data-tabs="engineTransmission"><span class="model-sprite bw-engine-ico"></span>Engine & Transmission </li>
                                         <li data-tabs="brakeWheels"><span class="model-sprite bw-brakeswheels-ico"></span>Brakes, Wheels and Suspension</li>
                                         <li data-tabs="dimensions"><span class="model-sprite bw-dimensions-ico"></span>Dimensions and Chassis</li>
-                                        <li data-tabs="fuelEffiency"><span class="model-sprite bw-performance-ico"></span>Fuel effieciency and Performance</li>
+                                        <li data-tabs="fuelEffiency"><span class="model-sprite bw-performance-ico"></span>Fuel efficiency and Performance</li>
                                     </ul>
                                 </div>
                             </div>

@@ -13,5 +13,6 @@ namespace Bikewale.Entities.BikeBooking
         public CustomerEntity objCustomerBase { get; set; }
         public VersionColor objColor { get; set; }
         public bool IsTransactionCompleted {get;set;}
+        public string AbInquiryId { get; set; }
     }
 }
