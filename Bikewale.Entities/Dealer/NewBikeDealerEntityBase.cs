@@ -24,5 +24,9 @@ namespace Bikewale.Entities.Dealer
         public string Fax { get; set; }
         public string PinCode { get; set; }
         public string WorkingHours { get; set; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string BikeMake { get; set; }
+        public string MakeMaskingName { get; set; }
     }
 }

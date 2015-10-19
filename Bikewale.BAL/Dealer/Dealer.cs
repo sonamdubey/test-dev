@@ -79,9 +79,9 @@ namespace Bikewale.BAL.Dealer
         /// <param name="cityId"></param>
         /// <param name="clientId"></param>
         /// <returns></returns>
-        public NewBikeDealerEntityList GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null)
+        public IEnumerable<NewBikeDealerEntityBase> GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null)
         {
-            NewBikeDealerEntityList objDealersList = null; 
+            IEnumerable<NewBikeDealerEntityBase> objDealersList = null; 
             objDealersList = dealerRepository.GetNewBikeDealersList(makeId, cityId,clientId);
             return objDealersList;
         }

@@ -25,11 +25,11 @@ namespace Bikewale.Service.AutoMappers.Dealer
         /// Created On : 7th October 2015
         /// Get list of all dealers with details for a given make and city
        /// </summary>
-        internal static NewBikeDealerList Convert(NewBikeDealerEntityList objDealers)
+
+        internal static IEnumerable<NewBikeDealerBase> Convert(IEnumerable<NewBikeDealerEntityBase> objDealers)
         {
             Mapper.CreateMap<NewBikeDealerEntityBase, NewBikeDealerBase>();
-            Mapper.CreateMap<NewBikeDealerEntityList, NewBikeDealerList>();
-            return Mapper.Map<NewBikeDealerEntityList, NewBikeDealerList>(objDealers);
+            return Mapper.Map<IEnumerable<NewBikeDealerEntityBase>, IEnumerable<NewBikeDealerBase>>(objDealers);
         }
     }
 }

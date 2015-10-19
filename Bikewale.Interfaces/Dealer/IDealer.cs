@@ -21,6 +21,6 @@ namespace Bikewale.Interfaces.Dealer
         List<BikeMakeEntityBase> GetDealersMakeListByCityId(uint cityId);
         List<CityEntityBase> GetDealersCitiesList();
         //Added by sushil kumar on 7th Oct 2015
-        NewBikeDealerEntityList GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null);
+        IEnumerable<NewBikeDealerEntityBase> GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null);
     }
 }

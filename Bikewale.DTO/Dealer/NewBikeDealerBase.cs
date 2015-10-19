@@ -42,5 +42,17 @@ namespace Bikewale.DTO.Dealer
         [JsonProperty("workingHours")]
         public string WorkingHours { get; set; }
 
+        [JsonProperty("city")]
+        public string City { get; set; }
+
+        [JsonProperty("state")]
+        public string State { get; set; }
+
+        [JsonProperty("bikeMake")]
+        public string BikeMake { get; set; }
+
+        [JsonProperty("makeMaskingName")]
+        public string MakeMaskingName { get; set; }
+
     }
 }
