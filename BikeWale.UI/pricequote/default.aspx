@@ -317,15 +317,21 @@
                         viewModel.areas(resObj);
                         if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && viewModel.areas() && selectElementFromArray(viewModel.areas(), onCookieObj.PQAreaSelectedId)) {
                             viewModel.selectedArea(onCookieObj.PQAreaSelectedId);
-                            onCookieObj.PQAreaSelectedId = 0;
                         }
                         $("#hdn_ddlArea").val($("#ddlArea").chosen().val());
                         isAreaShown = true;
                     } else {
                         isAreaShown = false;
+                        viewModel.areas([]);
+                        viewModel.selectedArea(undefined);
                     }
 
                     $('#hdnIsAreaShown').val(isAreaShown);
+                },
+                error : function()
+                {
+                    viewModel.areas([]);
+                    viewModel.selectedArea(undefined);
                 }
             });
         }

@@ -40,22 +40,22 @@ namespace Bikewale.Service.Controllers.Dealer
         /// <param name="cityId"></param>
         /// <param name="clientId"></param>
         /// <returns>List of dealers of paticular make in city</returns>
-        [ResponseType(typeof(NewBikeDealerEntityList)), Route("api/dealers/make/{makeId}/city/{cityId}/")]
+        [ResponseType(typeof(NewBikeDealerList)), Route("api/dealers/make/{makeId}/city/{cityId}/")]
         public IHttpActionResult Get(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null)
         {
-            NewBikeDealerEntityList objDealers = null;
+            IEnumerable<NewBikeDealerEntityBase> objDealers = null;
             NewBikeDealerList objDTODealerList = null;
             try
             {
                 objDealers = _dealer.GetNewBikeDealersList(makeId, cityId, clientId);
 
-                if (objDealers != null && objDealers.Dealers !=null && objDealers.Dealers.Count() > 0)
+                if (objDealers != null && objDealers.Count() > 0)
                 {                    
                     objDTODealerList = new NewBikeDealerList();
-                    objDTODealerList = DealerListMapper.Convert(objDealers);
-                    objDTODealerList.TotalDealers = objDealers.Dealers.Count();
+                    objDTODealerList.Dealers = DealerListMapper.Convert(objDealers);
+                    objDTODealerList.TotalDealers = objDealers.Count();
 
-                    objDealers.Dealers = null;
+                    objDealers = null;
 
                     return Ok(objDTODealerList);                     
                 }
