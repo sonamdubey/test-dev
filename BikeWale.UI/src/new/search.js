@@ -858,6 +858,9 @@ minInput.on("click focus", function () {
 });
 
 maxInput.on("click focus", function () {
+    maxInput.removeClass("border-red");
+    $(".bw-blackbg-tooltip-max").hide();
+
     if (!maxList.hasClass("refMinList")) {
         var defaultValue = 30000;
         $.generateMaxList(defaultValue);
