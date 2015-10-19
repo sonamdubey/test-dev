@@ -151,7 +151,8 @@ function loadCity(vm) {
                         pqCookieObj.PQCitySelectedId = 0;
                     }
                     $(ctrlSelectCity).prev().hide();
-                    ctrlSelectCity.find("option[value='0']").prop('disabled', true).trigger('chosen:updated');
+                    ctrlSelectCity.find("option[value='0']").prop('disabled', true);
+                    ctrlSelectCity.trigger('chosen:updated');
                 }
             });
     }

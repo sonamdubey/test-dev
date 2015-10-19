@@ -284,7 +284,8 @@
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModel.cities() && selectElementFromArray(viewModel.cities(), onCookieObj.PQCitySelectedId)) {
                         viewModel.selectedCity(onCookieObj.PQCitySelectedId);
                     }
-                    $("#ddlCity").find("option[value='0']").prop('disabled', true).trigger('chosen:updated');
+                    $("#ddlCity").find("option[value='0']").prop('disabled', true);
+                    $("#ddlCity").trigger('chosen:updated');
                     UpdateArea();
                 }
                 else {
