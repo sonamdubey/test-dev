@@ -87,81 +87,54 @@ function BookingPageVMModel() {
         });
     };
     self.generatePQ = function () {
-        
-        var objPQ =
-        {
-            "cityId": cityId,
-            "areaId": areaId,
-            "modelId": self.SelectedVarient().model().modelId(),
-            "clientIP": clientIP,
-            "sourceType": 2,
-            "versionId": self.SelectedVarient().minSpec().versionId()
-        }
         // Push GA Analytics
         var cityArea = GetGlobalCityArea();
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_2', 'lab': thisBikename + '_' + cityArea });
+        var objPQ =
+        {
+            "pqId": pqId,
+            "versionId": self.SelectedVarient().minSpec().versionId()
+        }
+        var isSameVersion = getCookie("_MPQ").indexOf("&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&") > 0 ? true : false;
+        if (!isSameVersion) {
+            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
+            SetCookie("_MPQ", cookieValue);
+            $.ajax({
+                type: "POST",
+                url: "/api/UpdatePQ/",
+                data: ko.toJSON(objPQ),
+                async: false,
+                contentType: "application/json",
+                success: function (response) {
 
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert("Some error has occured while registering new price quote.");
+                    return false;
+                }
+            });
+        }
+        if (self.SelectedModelColor()) {
+            self.updateColor(pqId, self.SelectedModelColor().id());
+        }
+    }
+
+    self.updateColor = function (pqId, colorId) {
+        var objPQColor = {
+            "pqId": pqId,
+            "colorId": colorId
+        }
         $.ajax({
             type: "POST",
-            url: "/api/PriceQuote/",
+            url: "/api/PQBikeColor/",
             async: false,
-            data: ko.toJSON(objPQ),
+            data: ko.toJSON(objPQColor),
             contentType: "application/json",
             success: function (response) {
                 var obj = ko.toJS(response);
-                if (obj) {
-                    pqId = obj.quoteId;
-                    var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + obj.quoteId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
-                    SetCookie("_MPQ", cookieValue);
-                    var objCust = {
-                        "dealerId": dealerId,
-                        "pqId": pqId,
-                        "customerName": self.CustomerVM().fullName(),
-                        "customerMobile": self.CustomerVM().mobileNo(),
-                        "customerEmail": self.CustomerVM().emailId(),
-                        "clientIP": clientIP,
-                        "pageUrl": pageUrl,
-                        "versionId": verId,
-                        "cityId": cityId
-                    }
-                    $.ajax({
-                        type: "POST",
-                        url: "/api/PQCustomerDetail/",
-                        async: false,
-                        data: ko.toJSON(objCust),
-                        contentType: "application/json",
-                        success: function (response) {
-                            var obj = ko.toJS(response);
-                            if (self.SelectedModelColor()) {
-                                var objPQColor = {
-                                    "pqId": pqId,
-                                    "colorId": self.SelectedModelColor().id()
-                                }
-                                $.ajax({
-                                    type: "POST",
-                                    url: "/api/PQBikeColor/",
-                                    async: false,
-                                    data: ko.toJSON(objPQColor),
-                                    contentType: "application/json",
-                                    success: function (response) {
-                                        var obj = ko.toJS(response);
-                                    },
-                                    error: function (xhr, ajaxOptions, thrownError) {
-                                        alert("Some error has occured while updating the Bike color.");
-                                        return false;
-                                    }
-                                });
-                            }
-                        },
-                        error: function (xhr, ajaxOptions, thrownError) {
-                            alert("Error while registering the price quote");
-                        }
-                    });
-                    return;
-                }
             },
             error: function (xhr, ajaxOptions, thrownError) {
-                alert("Some error has occured while registering new price quote.");
+                alert("Some error has occured while updating the Bike color.");
                 return false;
             }
         });
