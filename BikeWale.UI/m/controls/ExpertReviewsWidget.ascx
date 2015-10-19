@@ -33,7 +33,7 @@
         <p class="text-center jcarousel-pagination margin-bottom30"></p>
     </div>
     <div class="text-center margin-bottom40">
-        <a class="font16" href="/m/road-tests/">View more reviews</a>
+        <a class="font16" href="/m/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/road-tests/">View more reviews</a>
     </div>
     <script type="text/javascript">
         $(document).ready(function () { $("img.lazy").lazyload(); });

@@ -21,7 +21,7 @@
         </ItemTemplate>
     </asp:Repeater>    
     <div class="padding-bottom30 text-center">
-        <a href="/road-tests/" class="font16">View more reviews</a>
+        <a href="/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/road-tests/" class="font16">View more reviews</a>
     </div>
     <script type="text/javascript">
         $(document).ready(function () { $("img.lazy").lazyload(); });

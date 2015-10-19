@@ -158,6 +158,8 @@ namespace Bikewale.New
 
             ctrlExpertReviews.TotalRecords = 3;
             ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+            ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();            
+            ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
             ctrlVideos.TotalRecords = 3;
             ctrlVideos.ModelId = Convert.ToInt32(modelId);
 

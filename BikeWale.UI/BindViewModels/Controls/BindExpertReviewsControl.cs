@@ -21,6 +21,7 @@ namespace Bikewale.BindViewModels.Controls
         public static int? MakeId { get; set; }
         public static int? ModelId { get; set; }
         public static int FetchedRecordsCount { get; set; }
+        
 
         /// <summary>
         /// Summary : Function to bind the expert reviews control.
@@ -28,7 +29,6 @@ namespace Bikewale.BindViewModels.Controls
         public static void BindExpertReviews(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-
             try
             {
                 List<ArticleSummary> _objArticleList = null;
@@ -47,6 +47,7 @@ namespace Bikewale.BindViewModels.Controls
                         _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId;
                 }
 
+                
                 _objArticleList = BWHttpClient.GetApiResponseSync<List<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
 
                 if (_objArticleList != null && _objArticleList.Count > 0)
