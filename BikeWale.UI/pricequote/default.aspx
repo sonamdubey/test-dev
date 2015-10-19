@@ -178,6 +178,7 @@
                 setLocationCookie($('#ddlCity option:selected'), $('#ddlArea option:selected'));
             }
         });
+
     });
 
     function isValidated() {
@@ -277,11 +278,13 @@
                 var cities = eval('(' + responseJSON.value + ')');
                 var citySelected = null;
                 if (cities && cities.length > 0) {
+                    insertCitySeparator(cities);
                     checkCookies();
                     viewModel.cities(cities);
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModel.cities() && selectElementFromArray(viewModel.cities(), onCookieObj.PQCitySelectedId)) {
                         viewModel.selectedCity(onCookieObj.PQCitySelectedId);
                     }
+                    $("#ddlCity").find("option[value='0']").prop('disabled', true).trigger('chosen:updated');
                     UpdateArea();
                 }
                 else {

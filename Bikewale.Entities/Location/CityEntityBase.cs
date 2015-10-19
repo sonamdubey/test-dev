@@ -22,5 +22,9 @@ namespace Bikewale.Entities.Location
 
         [JsonProperty("cityMaskingName")]
         public string CityMaskingName { get; set; }
+
+        [JsonProperty("isPopular")]
+        public bool IsPopular { get; set; }
+
     }
 }

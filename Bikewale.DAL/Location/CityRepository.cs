@@ -153,7 +153,8 @@ namespace Bikewale.DAL.Location
                                 objCities.Add(new CityEntityBase()
                                 {
                                     CityId = Convert.ToUInt32(dr["Value"]),
-                                    CityName = dr["Text"].ToString()
+                                    CityName = Convert.ToString(dr["Text"]),
+                                    IsPopular = Convert.ToBoolean(dr["IsPopular"])
                                 });
                         }
                     }

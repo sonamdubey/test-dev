@@ -16,9 +16,14 @@ namespace Bikewale.DTO.PriceQuote.City
     {
         [JsonProperty("cityId")]
         public uint CityId { get; set; }
+
         [JsonProperty("cityName")]
         public string CityName { get; set; }
+
         [JsonProperty("maskingName")]
         public string MaskingName { get; set; }
+
+        [JsonProperty("isPopular")]
+        public bool IsPopular { get; set; }
     }
 }
