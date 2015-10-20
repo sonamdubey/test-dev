@@ -101,6 +101,10 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     mvList = new List<ModelVersionList>();
                     mvList = ModelMapper.Convert(mvEntityList);
+
+                    mvEntityList.Clear();
+                    mvEntityList = null;
+
                     return Ok(mvList);
                 }
                 else

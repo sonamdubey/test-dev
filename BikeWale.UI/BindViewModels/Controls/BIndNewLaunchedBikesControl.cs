@@ -11,29 +11,34 @@ namespace Bikewale.BindViewModels.Controls
 {
     public class BindNewLaunchedBikesControl
     {
-        public static int pageSize { get; set; }
-        public static int? curPageNo { get; set; }
-        public static int FetchedRecordsCount { get; set; }
+        public int pageSize { get; set; }
+        public int? curPageNo { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
-        public static void BindNewlyLaunchedBikes(Repeater rptr)
+        readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+        readonly string _requestType = "application/json";
+
+        public void BindNewlyLaunchedBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-
             LaunchedBikeList objBikeList = null;
 
             try
             {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = String.Format("/api/NewLaunchedBike/?pageSize={0}&curPageNo={1}",pageSize,curPageNo);
+
+                string _apiUrl = String.Format("/api/NewLaunchedBike/?pageSize={0}&curPageNo={1}", pageSize, curPageNo);
 
                 objBikeList = BWHttpClient.GetApiResponseSync<LaunchedBikeList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
 
-                if (objBikeList != null && objBikeList.LaunchedBike.ToList().Count > 0)
+                if (objBikeList != null)
                 {
-                    FetchedRecordsCount = objBikeList.LaunchedBike.ToList().Count;
-                    rptr.DataSource = objBikeList.LaunchedBike.ToList();
-                    rptr.DataBind();
+                    FetchedRecordsCount = objBikeList.LaunchedBike.Count();
+
+                    if (FetchedRecordsCount > 0)
+                    {
+                        rptr.DataSource = objBikeList.LaunchedBike;
+                        rptr.DataBind();
+                    }
                 }
             }
             catch (Exception ex)

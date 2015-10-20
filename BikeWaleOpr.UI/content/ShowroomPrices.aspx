@@ -192,7 +192,7 @@
 	}
 	for ( var i = 0; i < model.options.length; i++ )
 	{
-	    alert(qryStrModel + " " + model.options.length);
+	    //alert(qryStrModel + " " + model.options.length);
 		if ( model.options[ i ].value == qryStrModel ) model.options[ i ].selected = true;
 	}
 	

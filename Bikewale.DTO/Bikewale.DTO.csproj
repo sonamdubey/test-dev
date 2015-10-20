@@ -88,8 +88,13 @@
     <Compile Include="Make\MakePage.cs" />
     <Compile Include="Make\NewBikeDealersMakeBase.cs" />
     <Compile Include="Make\NewBikedealersMakeList.cs" />
+    <Compile Include="Model\Features.cs" />
     <Compile Include="Model\ModelColor.cs" />
     <Compile Include="Model\ModelDetail.cs" />
+    <Compile Include="Model\Overview.cs" />
+    <Compile Include="Model\Specifications.cs" />
+    <Compile Include="Model\Specs.cs" />
+    <Compile Include="Model\SpecsCategory.cs" />
     <Compile Include="NewBikeSearch\Pager.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
     <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
@@ -110,6 +115,8 @@
     <Compile Include="PriceQuote\BikeQuotation\OtherVersionInfoDTO.cs" />
     <Compile Include="PriceQuote\DealerPriceQuote\DPQ_BikeVarient.cs" />
     <Compile Include="PriceQuote\PQOnRoad.cs" />
+    <Compile Include="PriceQuote\PQUpdateInput.cs" />
+    <Compile Include="PriceQuote\PQUpdateOutput.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesBase.cs" />
     <Compile Include="Version\ModelVersionList.cs" />
     <Compile Include="PriceQuote\BikeQuotation\PQBikePriceQuoteInput.cs" />

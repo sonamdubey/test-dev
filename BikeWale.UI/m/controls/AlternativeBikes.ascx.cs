@@ -39,12 +39,13 @@ namespace Bikewale.Mobile.Controls
 
         private void BindAlternativeBikes()
         {
-            BindAlternativeBikesControl.VersionId = VersionId;
-            BindAlternativeBikesControl.TopCpunt = TopCount;
-            BindAlternativeBikesControl.Deviation = Deviation;
-            BindAlternativeBikesControl.BindAlternativeBikes(rptAlternateBikes);
+            BindAlternativeBikesControl objAlt = new BindAlternativeBikesControl();
+            objAlt.VersionId = VersionId;
+            objAlt.TopCpunt = TopCount;
+            objAlt.Deviation = Deviation;
+            objAlt.BindAlternativeBikes(rptAlternateBikes);
 
-            FetchedRecordsCount = BindAlternativeBikesControl.FetchedRecordsCount;
+            FetchedRecordsCount = objAlt.FetchedRecordsCount;
         }
     }
 }

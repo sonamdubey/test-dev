@@ -33,7 +33,6 @@
     var preSelectedCityName = "", selectedMakeName = '', selectedCityName = '', gaLabel = '', selectedAreaName = '';
     var selectedModel = 0;
     var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
-    var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
     var pageId;
     $onRoadContent = $('#OnRoadContent');
     onRoadcity  = $('#ddlCitiesOnRoad');
@@ -64,16 +63,20 @@
                 var cities = JSON.parse(obj.value);
                 var citySelected = null; 
                 if (cities) {
+                    insertCitySeparator(cities);
                     checkCookies();
                     viewModelOnRoad.bookingCities(cities);
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelOnRoad.bookingCities() && selectElementFromArray(viewModelOnRoad.bookingCities(), onCookieObj.PQCitySelectedId)) {
                         viewModelOnRoad.selectedCity(onCookieObj.PQCitySelectedId);
                     }
+                    onRoadcity.find("option[value='0']").prop('disabled', true);
+                    onRoadcity.trigger('chosen:updated');
                     cityChangedOnRoad();                    
                     
                 }
                 else {
                     viewModelOnRoad.bookingCities([]);
+                    $('.chosen - drop').hide();
                 }
             }
         });

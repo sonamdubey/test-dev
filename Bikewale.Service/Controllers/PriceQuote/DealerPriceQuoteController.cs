@@ -82,6 +82,27 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 if (objPrice != null)
                 {
                     output = DPQuotationOutputMapper.Convert(objPrice);
+
+                    if (objPrice.Disclaimer != null)
+                    {
+                        objPrice.Disclaimer.Clear();
+                        objPrice.Disclaimer = null; 
+                    }
+
+                    if (objPrice.objOffers != null)
+                    {
+                        objPrice.objOffers.Clear();
+                        objPrice.objOffers = null; 
+                    }
+
+                    if (objPrice.PriceList != null)
+                    {
+                        objPrice.PriceList.Clear();
+                        objPrice.PriceList = null; 
+                    }
+
+                    objPrice.Varients = null;
+
                     return Ok(output);
                 }
                 else

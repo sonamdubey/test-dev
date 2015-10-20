@@ -96,11 +96,15 @@ function pqViewModel(modelId, cityId) {
     });
 
     self.availOfferBtn = function () {
+        var city_area = GetGlobalCityArea();
         if (self.priceQuote() && self.priceQuote().IsDealerPriceAvailable && self.priceQuote().dealerPriceQuote.offers.length > 0) {
-            var city_area = GetGlobalCityArea();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': city_area });
-            window.location.href = "/pricequote/bookingsummary_new.aspx";
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Avail_Offers_Clicked', 'lab': myBikeName });
         }
+        else
+        {
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Book_Now_Clicked', 'lab': city_area });
+        }
+        window.location.href = "/pricequote/bookingsummary_new.aspx";
         return false;
     };
 
@@ -140,17 +144,19 @@ function loadCity(vm) {
         $.get("/api/PQCityList/?modelId=" + vm.selectedModel(),
             function (data) {               
                 if (data) {
+                    insertModelCitySeparator(data.cities);
                     var city = ko.toJS(data);
                     vm.cities(city.cities);
                     ctrlSelectCity = $("#ddlCity");
-                    //$(ctrlSelectCity).trigger("chosen:updated");
                     PQcheckCookies();
                     if (!isNaN(pqCookieObj.PQCitySelectedId) && pqCookieObj.PQCitySelectedId > 0 && vm.cities() && selectElementFromArray(vm.cities(), pqCookieObj.PQCitySelectedId)) {
                         vm.selectedCity(pqCookieObj.PQCitySelectedId);
                         vm.popularCityClicked(true);
                         pqCookieObj.PQCitySelectedId = 0;
                     }
-                    $(ctrlSelectCity).prev().hide();                    
+                    $(ctrlSelectCity).prev().hide();
+                    ctrlSelectCity.find("option[value='0']").prop('disabled', true);
+                    ctrlSelectCity.trigger('chosen:updated');
                 }
             });
     }
@@ -255,7 +261,9 @@ function fetchPriceQuote(vm) {
                         $($(".bike-price-container")[1]).hide();
                         $($(".bike-price-container")[0]).show();
                     }
-
+                    if (pq.dealerPriceQuote.offers.length > 0) {
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Avail_Offer_Shown', 'lab': myBikeName });
+                    }
                     animatePrice($(bikePrice), temptotalPrice, totalPrice);
                     $("#breakup").text("(" + priceBreakText + ")");
                     $("#pqCity").html($(ctrlSelectCity).find("option[value=" + vm.selectedCity() + "]").text());
@@ -792,3 +800,16 @@ navigationVideosLI.click(function () {
     var newSrc = $(this).find("img").attr("iframe-data");
     videoiFrame.setAttribute("src", newSrc);
 });
+
+function insertModelCitySeparator(response) {
+    l = (response != null) ? response.length : 0;
+    if (l > 0) {
+        for (i = 0; i < l; i++) {
+            if (!response[i].isPopular) {
+                if (i > 0)
+                    response.splice(i, 0, { cityId: 0, cityName: "--------------------",cityMaskingName:"",isPopular: false });
+                break;
+            }
+        }
+    }
+}

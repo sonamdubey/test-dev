@@ -4,7 +4,7 @@
 	.qr-ver li{padding:2px 0;}
 </style>
 
-<ul id="ulAddBike" runat="server" class="qr-ver ul-normal center-align">
+<ul id="ulAddBike" runat="server" class="addAnotherBikeUL qr-ver ul-normal center-align">
 	<li><select id="drpMake" runat="server" /></li>
 	<li><select id="drpModel" runat="server"><option selected="selected" Value="-1">--Select Model--</option></select></li>
 	<li><select id="drpVersion" runat="server"><option selected="selected" Value="-1">--Select Version--</option></select></li>
@@ -13,6 +13,14 @@
 </ul>
 
 <script type="text/javascript">
+
+    $(window).on("load", function () {
+        if ($("#addAnotherBike").hasClass("fivecolum")) {
+            $(".addAnotherBikeUL li select").css({ "width": "130px", "font-size": "12px" });
+            $(".addAnotherBikeUL li input").addClass("btn-xs");
+        };
+    });
+
     var drpMake = "#<%=drpMake.ClientID.ToString()%>";
     var drpModel = "#<%=drpModel.ClientID.ToString()%>";
     var drpVersion = "#<%=drpVersion.ClientID.ToString()%>";
@@ -71,9 +79,8 @@
             alert("Please Select Bike Version for Comparison.");
             isError = true;
         }
-        
-        if (isError == false)
-        {
+
+        if (isError == false) {
             var isDuplicate = false;
             var verIdlist = new Array();
             verIdlist = versionId.split(',');
@@ -83,16 +90,14 @@
                     isDuplicate = true;
                 }
             }
-            if (isDuplicate == false)
-            {
+            if (isDuplicate == false) {
                 AddBike();
             }
         }
-        
+
     });
-    
-    function AddBike()
-    {
+
+    function AddBike() {
         var queryStr = "?";
         var count = 1;
         var verIdCount;
@@ -100,7 +105,7 @@
         var isFeatured = '<%= IsFeatured%>';
 
         if (isFeatured == 'True') {
-            versionId = versionId.substring(0,versionId.lastIndexOf(','));
+            versionId = versionId.substring(0, versionId.lastIndexOf(','));
         }
 
         url = url.substring(0, url.length - 1) + "-vs-" + $(drpMake).val().split('_')[1] + "-" + $(drpModel).val().split('_')[1] + "/";

@@ -88,7 +88,11 @@ namespace Bikewale.Service.Controllers.Model
                 {
                     // Auto map the properties
                     objDTOModelList = new MostPopularBikesList();
-                    objDTOModelList.PopularBikes = ModelMapper.Convert(objModelList); 
+                    objDTOModelList.PopularBikes = ModelMapper.Convert(objModelList);
+
+                    objModelList.Clear();
+                    objModelList = null;
+
                     return Ok(objDTOModelList);
                 }
             }
@@ -122,6 +126,10 @@ namespace Bikewale.Service.Controllers.Model
                     {
                         objDTOModelList = new ModelList();
                         objDTOModelList.Model = ModelMapper.Convert(objModelList);
+
+                        objModelList.Clear();
+                        objModelList = null;
+
                         return Ok(objDTOModelList);
                     }
             }

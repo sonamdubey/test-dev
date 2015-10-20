@@ -49,6 +49,10 @@ namespace Bikewale.Service.Controllers.Series
                 {
                     objDTOSeriesList = new ModelList();
                     objDTOSeriesList.Model = SeriesListMapper.Convert(objModelsList);
+
+                    objModelsList.Clear();
+                    objModelsList = null;
+
                     return Ok(objDTOSeriesList);
                 }
             }

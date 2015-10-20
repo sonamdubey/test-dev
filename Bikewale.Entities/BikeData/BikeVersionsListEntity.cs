@@ -10,6 +10,7 @@ namespace Bikewale.Entities.BikeData
     /// Created By : Ashish G. Kamble on 24 Apr 2014
     /// Summary : Class to hold the properties for bike versions list on the models page.
     /// </summary>
+    [Serializable]
     public class BikeVersionsListEntity
     {
         public int VersionId { get; set; }

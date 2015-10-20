@@ -50,7 +50,7 @@ namespace Bikewale.PriceQuote
             }
             else
             {
-                PushBikeBookingFailure();
+                //PushBikeBookingFailure();
                 Response.Redirect("/pricequote/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;

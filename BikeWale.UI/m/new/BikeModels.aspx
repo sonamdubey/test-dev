@@ -233,6 +233,9 @@
                             <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
                             <input type="button" class="btn btn-orange btn-full-width" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
                         	<!-- /ko -->
+                            <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && !(priceQuote().dealerPriceQuote.offers.length > 0) -->
+                            <input type="button" class="btn btn-orange btn-full-width" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />
+                        	<!-- /ko -->
                         </div>
                         <!-- /ko -->
                         <div class="city-area-wrapper">
@@ -390,7 +393,7 @@
                             <option value="engineTransmission">Engine &amp; Transmission </option>
                             <option value="brakeWheels">Brakes, Wheels and Suspension</option>
                             <option value="dimensions">Dimensions and Chassis</option>
-                            <option value="fuelEffiency">Fuel effieciency and Performance</option>
+                            <option value="fuelEffiency">Fuel efficiency and Performance</option>
                         </select>
 
                         <div class="leftfloat bw-horz-tabs-data font16">

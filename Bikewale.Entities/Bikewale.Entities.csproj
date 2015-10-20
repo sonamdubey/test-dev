@@ -85,11 +85,16 @@
     <Compile Include="BikeData\EnumBikeData.cs" />
     <Compile Include="BikeData\EnumUpcomingBikesFilter.cs" />
     <Compile Include="BikeData\FeaturedBikeEntity.cs" />
+    <Compile Include="BikeData\Features.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
     <Compile Include="BikeData\MostPopularBikesBase.cs" />
     <Compile Include="BikeData\NewLaunchedBikeEntity.cs" />
+    <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
+    <Compile Include="BikeData\Specifications.cs" />
+    <Compile Include="BikeData\Specs.cs" />
+    <Compile Include="BikeData\SpecsCategory.cs" />
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
@@ -126,7 +131,6 @@
     <Compile Include="Dealer\EnumNewBikeDealerClient.cs" />
     <Compile Include="Dealer\NewBikeDealerEntity.cs" />
     <Compile Include="Dealer\NewBikeDealerEntityBase.cs" />
-    <Compile Include="Dealer\NewBikeDealerEntityList.cs" />
     <Compile Include="Dealer\NewBikeDealersListEntity.cs" />
     <Compile Include="Dealer\NewBikeDealersMakeEntity.cs" />
     <Compile Include="EditCMS\Articles\ArticleBase.cs" />

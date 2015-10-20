@@ -16,7 +16,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Controls;
-using Bikewale.controls;
 
 namespace Bikewale.New
 {
@@ -27,7 +26,6 @@ namespace Bikewale.New
         MaxPower,
         Weight
     }
-
     public enum SummarySpec
     {
         Displacement,
@@ -126,6 +124,15 @@ namespace Bikewale.New
         //Varible to Hide or show controlers
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
+        static readonly string _PageNotFoundPath;
+        static readonly string _bwHostUrl;
+
+        static versions()
+        {
+            _PageNotFoundPath = Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx";
+            _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+        }
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -135,8 +142,9 @@ namespace Bikewale.New
         {
 
             //device detection
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"]);
             dd.DetectDevice();
+
             #region Do Not change the sequence
             ParseQueryString();
             CheckCityCookie();
@@ -152,46 +160,61 @@ namespace Bikewale.New
                 #endregion
             }
 
+
+            int _modelId;
+            Int32.TryParse(modelId, out _modelId);
+
             ////news,videos,revews, user reviews
             ctrlNews.TotalRecords = 3;
-            ctrlNews.ModelId = Convert.ToInt32(modelId);
+            ctrlNews.ModelId = _modelId;
 
             ctrlExpertReviews.TotalRecords = 3;
-            ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+            ctrlExpertReviews.ModelId = _modelId;
+            ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();            
+            ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
             ctrlVideos.TotalRecords = 3;
-            ctrlVideos.ModelId = Convert.ToInt32(modelId);
+            ctrlVideos.ModelId = _modelId;
 
             ctrlUserReviews.ReviewCount = 4;
             ctrlUserReviews.PageNo = 1;
             ctrlUserReviews.PageSize = 4;
-            ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
-        }       
+            ctrlUserReviews.ModelId = _modelId;
+
+        }
 
         private void BindAlternativeBikeControl()
         {
             ctrlAlternativeBikes.TopCount = 6;
 
-            if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+            if (modelPage != null)
             {
-                ctrlAlternativeBikes.VersionId = modelPage.ModelVersions[0].VersionId;
+                var modelVersions = modelPage.ModelVersions;
+                if (modelVersions != null && modelVersions.Count > 0)
+                {
+                    ctrlAlternativeBikes.VersionId = modelVersions[0].VersionId;
+                }
             }
         }
 
         private void BindModelGallery()
         {
-            List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> photos = null;
-            if (modelPage != null && modelPage.Photos != null && modelPage.Photos.Count > 0)
+
+            if (modelPage != null)
             {
-                photos = modelPage.Photos;
-                photos.Insert(0, new DTO.CMS.Photos.CMSModelImageBase()
+                List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> photos = modelPage.Photos;
+
+                if (photos != null && photos.Count > 0)
                 {
-                    HostUrl = modelPage.ModelDetails.HostUrl,
-                    OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
-                    ImageCategory = bikeName,
-                });
-                ctrlModelGallery.bikeName = bikeName;
-                ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                ctrlModelGallery.Photos = photos;
+                    photos.Insert(0, new DTO.CMS.Photos.CMSModelImageBase()
+                    {
+                        HostUrl = modelPage.ModelDetails.HostUrl,
+                        OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
+                        ImageCategory = bikeName,
+                    });
+                    ctrlModelGallery.bikeName = bikeName;
+                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
+                    ctrlModelGallery.Photos = photos;
+                }
             }
         }
 
@@ -199,7 +222,8 @@ namespace Bikewale.New
         {
             if (modelPage != null)
             {
-                if (modelPage.Photos != null && modelPage.Photos.Count > 0)
+                var photos = modelPage.Photos;
+                if (photos != null && photos.Count > 0)
                 {
                     //if (modelPage.Photos.Count > 2)
                     //{
@@ -220,10 +244,10 @@ namespace Bikewale.New
                     //    rptNavigationPhoto.DataSource = modelPage.Photos;
                     //}
 
-                    rptModelPhotos.DataSource = modelPage.Photos;
+                    rptModelPhotos.DataSource = photos;
                     rptModelPhotos.DataBind();
 
-                    rptNavigationPhoto.DataSource = modelPage.Photos;
+                    rptNavigationPhoto.DataSource = photos;
                     rptNavigationPhoto.DataBind();
                 }
 
@@ -243,7 +267,8 @@ namespace Bikewale.New
 
         private void ParseQueryString()
         {
-            if (!string.IsNullOrEmpty(Request.QueryString["model"]))
+            string modelQuerystring = Request.QueryString["model"];
+            if (!string.IsNullOrEmpty(modelQuerystring))
             {
                 ModelMaskingResponse objResponse = null;
 
@@ -255,7 +280,7 @@ namespace Bikewale.New
                             ;
                     var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
 
-                    objResponse = objCache.GetModelMaskingResponse(Request.QueryString["model"]);
+                    objResponse = objCache.GetModelMaskingResponse(modelQuerystring);
 
                     if (objResponse != null && objResponse.StatusCode == 200)
                     {
@@ -266,12 +291,12 @@ namespace Bikewale.New
                         if (objResponse.StatusCode == 301)
                         {
                             //redirect permanent to new page                             
-                            Bikewale.Common.CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
+                            Bikewale.Common.CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelQuerystring, objResponse.MaskingName));
 
                         }
                         else
                         {
-                            Response.Redirect(Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            Response.Redirect(_PageNotFoundPath, false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
                             //isSuccess = false;
@@ -288,10 +313,11 @@ namespace Bikewale.New
         private void CheckCityCookie()
         {
             string location = String.Empty;
-            if (this.Context.Request.Cookies.AllKeys.Contains("location"))
+            var cookies = this.Context.Request.Cookies;
+            if (cookies.AllKeys.Contains("location"))
             {
-                location = this.Context.Request.Cookies["location"].Value;
-                cityId = location.Split('_')[0];
+                location = cookies["location"].Value;
+                cityId = location.Substring(0, location.IndexOf('_'));//location.Split('_')[0];
             }
             else
             {
@@ -299,16 +325,19 @@ namespace Bikewale.New
             }
         }
 
+        static readonly string apiURL = "/api/model/details/?modelId={0}";
+        static readonly string _requestType = "application/json";
         private void FetchModelPageDetails()
         {
-            string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-            string _requestType = "application/json";
-            string _apiUrl = String.Format("/api/model/details/?modelId={0}", modelId);
-            modelPage = Bikewale.Utility.BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
-
-            if (modelPage != null)
+            if (!string.IsNullOrEmpty(modelId))
             {
-                bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+                string _apiUrl = String.Format(apiURL, modelId);
+                modelPage = Bikewale.Utility.BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+
+                if (modelPage != null)
+                {
+                    bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+                }
             }
         }
 
@@ -322,21 +351,22 @@ namespace Bikewale.New
             return String.Format("/content/userreviews/writereviews.aspx?bikem={0}", modelId);
         }
 
+        static readonly String strSpec = "<span class=\"font26 text-bold text-black\">{0}</span><span class=\"font24 text-light-grey margin-left5\">{1}</span>";
         protected string FormatOverview(object spec, Overviews overview)
         {
-            String strSpec = "<span class=\"font26 text-bold text-black\">{0}</span><span class=\"font24 text-light-grey margin-left5\">{1}</span>";
+
             if (spec != null && !string.IsNullOrEmpty(spec.ToString()))
             {
                 switch (overview)
                 {
                     case Overviews.Capacity:
-                        return String.Format(strSpec, spec.ToString(), "cc");
+                        return String.Format(strSpec, spec, "cc");
                     case Overviews.Mileage:
-                        return String.Format(strSpec, spec.ToString(), "kmpl");
+                        return String.Format(strSpec, spec, "kmpl");
                     case Overviews.MaxPower:
-                        return String.Format(strSpec, spec.ToString(), "bhp");
+                        return String.Format(strSpec, spec, "bhp");
                     case Overviews.Weight:
-                        return String.Format(strSpec, spec.ToString(), "kgs");
+                        return String.Format(strSpec, spec, "kgs");
                     default:
                         return String.Format(strSpec, "-", "");
                 }
@@ -347,12 +377,13 @@ namespace Bikewale.New
             }
         }
 
+        static readonly string formatMaxPower = "<div class=\"text-bold\">{0} bhp @ {1} rpm</div>";
         protected string FormatMaxPower(object bhp, object rpm)
         {
-            string format = "<div class=\"text-bold\">{0} bhp @ {1} rpm</div>";
+
             if (bhp != null && !String.IsNullOrEmpty(bhp.ToString()) && rpm != null && !String.IsNullOrEmpty(rpm.ToString()) && rpm.ToString() != "0")
             {
-                return String.Format(format, bhp.ToString(), rpm.ToString());
+                return String.Format(formatMaxPower, bhp.ToString(), rpm.ToString());
             }
             return "<div class=\"text-bold\">-</div>";
         }
@@ -466,7 +497,7 @@ namespace Bikewale.New
 
         protected string FormatVarientMinSpec(bool alloyWheel, bool elecStart, bool abs, string breakType)
         {
-            string format = "";
+            string format = string.Empty;
             if (alloyWheel)
             {
                 format = String.Concat(format.Trim(), " Alloy Wheels,");
@@ -500,6 +531,22 @@ namespace Bikewale.New
                 return "No specifications.";
             }
             return format.Trim().Substring(0, format.Length - 1);
+        }
+
+        public override void Dispose()
+        {
+            if (modelPage != null)
+            {
+                modelPage.Photos = null;
+                modelPage.ModelColors = null;
+                modelPage.ModelDesc = null;
+                modelPage.ModelDetails = null;
+                modelPage.ModelVersions = null;
+                modelPage.ModelVersionSpecs = null;
+                modelPage.UpcomingBike = null;
+                modelPage = null;
+            }
+            base.Dispose();
         }
     }
 

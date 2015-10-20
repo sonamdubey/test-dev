@@ -15,23 +15,23 @@ namespace Bikewale.BindViewModels.Controls
     /// Created By : Ashish G. Kamble on 1 Sept 2015
     /// Summary : Class have functions to bind the expert reviews.
     /// </summary>
-    public static class BindExpertReviewsControl
+    public class BindExpertReviewsControl
     {
-        public static int TotalRecords { get; set; }
-        public static int? MakeId { get; set; }
-        public static int? ModelId { get; set; }
-        public static int FetchedRecordsCount { get; set; }
+        public int TotalRecords { get; set; }
+        public int? MakeId { get; set; }
+        public int? ModelId { get; set; }
+        public int FetchedRecordsCount { get; set; }
+        
 
         /// <summary>
         /// Summary : Function to bind the expert reviews control.
         /// </summary>
-        public static void BindExpertReviews(Repeater rptr)
+        public void BindExpertReviews(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-
             try
             {
-                List<ArticleSummary> _objArticleList = null;
+                IEnumerable<ArticleSummary> _objArticleList = null;
 
                 string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
                 string _requestType = "application/json";
@@ -47,11 +47,11 @@ namespace Bikewale.BindViewModels.Controls
                         _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId;
                 }
 
-                _objArticleList = BWHttpClient.GetApiResponseSync<List<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
+                _objArticleList = BWHttpClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
 
-                if (_objArticleList != null && _objArticleList.Count > 0)
+                if (_objArticleList != null && _objArticleList.Count() > 0)
                 {
-                    FetchedRecordsCount = _objArticleList.Count;
+                    FetchedRecordsCount = _objArticleList.Count();
 
                     rptr.DataSource = _objArticleList;
                     rptr.DataBind();

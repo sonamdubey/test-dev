@@ -2050,6 +2050,7 @@
     <Content Include="m\css\new.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
+    <Content Include="m\customerror.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
     <Content Include="m\fonts\fontawesome-webfont.svg" />
@@ -2122,6 +2123,7 @@
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
+    <Content Include="customerror.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
     <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\autocomplete.js" />
@@ -2373,7 +2375,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>57738</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9011</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

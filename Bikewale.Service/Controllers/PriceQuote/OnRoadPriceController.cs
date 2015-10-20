@@ -75,7 +75,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 if (objPQOutput != null)
                 {
                     onRoadPrice = new PQOnRoad();
-                    objPQ = PQOutputMapper.Convert(objPQOutput);
+                    objPQ = PQOutputMapper.Convert(objPQOutput);                    
+
                     onRoadPrice.PriceQuote = objPQ;
                     if (objPQ != null && objPQ.PQId > 0)
                     {
@@ -84,6 +85,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         if (bpqOutput != null)
                         {
                             bwPriceQuote = PQBikePriceQuoteOutputMapper.Convert(bpqOutput);
+                            
+                            bpqOutput.Varients = null;
+                            
                             onRoadPrice.BPQOutput = bwPriceQuote;
                         }
                         if (objPQ.DealerId != 0)
@@ -104,6 +108,26 @@ namespace Bikewale.Service.Controllers.PriceQuote
                                 onRoadPrice.IsInsuranceFree = true;                                
                                 onRoadPrice.DPQOutput = dpqOutput;
                                 onRoadPrice.InsuranceAmount = insuranceAmount;
+
+                                if (objPrice.Disclaimer != null)
+                                {
+                                    objPrice.Disclaimer.Clear();
+                                    objPrice.Disclaimer = null; 
+                                }
+
+                                if (objPrice.objOffers != null)
+                                {
+                                    objPrice.objOffers.Clear();
+                                    objPrice.objOffers = null; 
+                                }
+
+                                if (objPrice.PriceList != null)
+                                {
+                                    objPrice.PriceList.Clear();
+                                    objPrice.PriceList = null; 
+                                }
+
+                                objPrice.Varients = null;
                             }
                         }
                         return Ok(onRoadPrice);

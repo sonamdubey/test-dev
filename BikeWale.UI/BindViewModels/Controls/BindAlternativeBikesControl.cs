@@ -11,12 +11,12 @@ namespace Bikewale.BindViewModels.Controls
 {
     public class BindAlternativeBikesControl
     {
-        public static int VersionId { get; set; }
-        public static int TopCpunt { get; set; }
-        public static int? Deviation { get; set; }
-        public static int FetchedRecordsCount { get; set; }
+        public int VersionId { get; set; }
+        public int TopCpunt { get; set; }
+        public int? Deviation { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
-        public static void BindAlternativeBikes(Repeater rptAlternativeBikes)
+        public void BindAlternativeBikes(Repeater rptAlternativeBikes)
         {
             SimilarBikeList similarBikeList = null;
             FetchedRecordsCount = 0;
@@ -29,11 +29,16 @@ namespace Bikewale.BindViewModels.Controls
 
                 similarBikeList = BWHttpClient.GetApiResponseSync<SimilarBikeList>(_bwHostUrl, _requestType, _apiUrl, similarBikeList);
 
-                if (similarBikeList != null && similarBikeList.SimilarBike.ToList().Count > 0)
-                {
-                    FetchedRecordsCount = similarBikeList.SimilarBike.ToList().Count;
-                    rptAlternativeBikes.DataSource = similarBikeList.SimilarBike.ToList();
-                    rptAlternativeBikes.DataBind();
+                if (similarBikeList != null && similarBikeList.SimilarBike != null)
+                {                       
+                    FetchedRecordsCount = similarBikeList.SimilarBike.Count();
+
+                    if (FetchedRecordsCount > 0)
+                    {
+                    
+                        rptAlternativeBikes.DataSource = similarBikeList.SimilarBike;
+                        rptAlternativeBikes.DataBind();
+                    }
                 }
             }
             catch (Exception ex)

@@ -39,14 +39,15 @@ namespace Bikewale.New
         //Varible to Hide or show controlers
         protected bool isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
+        private string makeMaskingName;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
         }
 
 		protected void Page_Load(object sender, EventArgs e)
-		{
-
+		{            
             //Function to process and validate Query String  
             if (ProcessQueryString())
             {
@@ -75,9 +76,12 @@ namespace Bikewale.New
                     ctrlVideos.TotalRecords = 3;
                     ctrlVideos.MakeId = Convert.ToInt32(makeId);
 
+
                     //To find min and max modelPrice
                     _minModelPrice = BindMakePage.MinPrice;
                     _maxModelPrice = BindMakePage.MaxPrice;
+
+                    ctrlExpertReviews.MakeMaskingName = makeMaskingName;
 
                 }
             } 
@@ -90,7 +94,8 @@ namespace Bikewale.New
 
             if (!String.IsNullOrEmpty(Request.QueryString["make"]))
             {
-                makeId = MakeMapping.GetMakeId(Request.QueryString["make"]);
+                makeMaskingName = Request.QueryString["make"];
+                makeId = MakeMapping.GetMakeId(makeMaskingName);
                 //verify the id as passed in the url
                 if (CommonOpn.CheckId(makeId) == false)
                 {

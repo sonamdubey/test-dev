@@ -68,6 +68,9 @@ namespace Bikewale.Service.Controllers.CMS
                     List<CMSArticleSummary> objCMSRArticles = new List<CMSArticleSummary>();
                     objCMSRArticles = CMSMapper.Convert(objRecentArticles);
 
+                    objRecentArticles.Clear();
+                    objRecentArticles = null;
+
                     objCMSRArticles.ForEach(s => s.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(s.DisplayDate));
 
                     return Ok(objCMSRArticles);
@@ -123,9 +126,11 @@ namespace Bikewale.Service.Controllers.CMS
 
                 if (objRecentArticles != null && objRecentArticles.Count > 0)
                 {
-
                     List<CMSArticleSummary> objCMSRArticles = new List<CMSArticleSummary>();
                     objCMSRArticles = CMSMapper.Convert(objRecentArticles);
+
+                    objRecentArticles.Clear();
+                    objRecentArticles = null;
 
                     objCMSRArticles.ForEach(s => s.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(s.DisplayDate));
 
@@ -181,6 +186,9 @@ namespace Bikewale.Service.Controllers.CMS
                 {
                     Bikewale.DTO.CMS.Articles.CMSContent objCMSFArticles = new Bikewale.DTO.CMS.Articles.CMSContent();
                     objCMSFArticles = CMSMapper.Convert(objFeaturedArticles);
+
+                    objFeaturedArticles.Articles.Clear();
+                    objFeaturedArticles.Articles = null;
                     
                     foreach (var article in objCMSFArticles.Articles)
                     {
@@ -264,6 +272,12 @@ namespace Bikewale.Service.Controllers.CMS
                 {
                     Bikewale.DTO.CMS.Articles.CMSContent objCMSFArticles = new Bikewale.DTO.CMS.Articles.CMSContent();
                     objCMSFArticles = CMSMapper.Convert(objFeaturedArticles);
+
+                    if (objFeaturedArticles.Articles != null)
+                    {
+                        objFeaturedArticles.Articles.Clear();
+                        objFeaturedArticles.Articles = null; 
+                    }
 
                     objCMSFArticles.Articles.ToList().ForEach(s => s.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(s.DisplayDate));
 

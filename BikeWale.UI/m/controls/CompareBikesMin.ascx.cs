@@ -31,10 +31,11 @@ namespace Bikewale.Mobile.Controls
 
         private void BindControls()
         {
-            BindBikeCompareControl.TotalRecords = this.TotalRecords;
-            BindBikeCompareControl.FetchBikeCompares();
-            this.TopRecord = BindBikeCompareControl.FetchTopRecord();
-            this.FetchedRecordsCount = BindBikeCompareControl.FetchedRecordCount;
+            BindBikeCompareControl objComp = new BindBikeCompareControl();
+            objComp.TotalRecords = this.TotalRecords;
+            objComp.FetchBikeCompares();
+            this.TopRecord = objComp.FetchTopRecord();
+            this.FetchedRecordsCount = objComp.FetchedRecordCount;
 
             this.TopCompareImage = Bikewale.Utility.Image.GetPathToShowImages(TopRecord.OriginalImagePath, TopRecord.HostURL, Bikewale.Utility.ImageSize._640x348);
 

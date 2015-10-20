@@ -11,23 +11,24 @@ using Bikewale.Utility;
 
 namespace Bikewale.BindViewModels.Controls
 {
-    public static class BindNewsControl
+    public class BindNewsControl
     {        
-        public static int TotalRecords { get; set; }
-        public static int? MakeId { get; set; }
-        public static int? ModelId { get; set; }
-        public static int FetchedRecordsCount { get; set; }
+        public int TotalRecords { get; set; }
+        public int? MakeId { get; set; }
+        public int? ModelId { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
-        public static void BindNews(Repeater rptr)
+        static readonly string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+        static readonly string _requestType = "application/json";
+
+        public void BindNews(Repeater rptr)
         {
             FetchedRecordsCount = 0;
 
             try
             {
-                List<ArticleSummary> _objArticleList = null;
-                
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
+                IEnumerable<ArticleSummary> _objArticleList = null;
+                                
                 int _contentType = (int)EnumCMSContentType.News;
                 string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + TotalRecords;
 
@@ -40,11 +41,11 @@ namespace Bikewale.BindViewModels.Controls
                         _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId;
                 }
 
-                _objArticleList = BWHttpClient.GetApiResponseSync<List<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
+                _objArticleList = BWHttpClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
 
-                if (_objArticleList != null && _objArticleList.Count > 0)
+                if (_objArticleList != null && _objArticleList.Count() > 0)
                 {
-                    FetchedRecordsCount = _objArticleList.Count;
+                    FetchedRecordsCount = _objArticleList.Count();
 
                     rptr.DataSource = _objArticleList;
                     rptr.DataBind();

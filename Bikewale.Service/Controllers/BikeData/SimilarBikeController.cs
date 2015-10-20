@@ -51,7 +51,15 @@ namespace Bikewale.Service.Controllers.BikeData
                 List<SimilarBikeEntity> objSimilarBikes = _objVersion.GetSimilarBikesList(versionId, topCount, percentDeviation);
                                 
                 objSimilar.SimilarBike = SimilarBikeListMapper.Convert(objSimilarBikes);
-                if (objSimilarBikes != null && objSimilarBikes.Count > 0)
+
+
+                if (objSimilarBikes != null)
+                {
+                    objSimilarBikes.Clear();
+                    objSimilarBikes = null; 
+                }
+
+                if (objSimilar != null && objSimilar.SimilarBike != null && objSimilar.SimilarBike.Count() > 0)
                     return Ok(objSimilar);
                 else
                     return NotFound();

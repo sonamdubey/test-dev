@@ -48,6 +48,9 @@ namespace Bikewale.Service.Controllers.UsedBikes
                 {
                     objDTOUsedBikesList = new List<PopularUsedBikesBase>();
                     objDTOUsedBikesList = PopularUsedBikesMapper.Convert(objUsedBikesList);
+
+                    objUsedBikesList = null;
+
                     return Ok(objDTOUsedBikesList);
                 }
             }

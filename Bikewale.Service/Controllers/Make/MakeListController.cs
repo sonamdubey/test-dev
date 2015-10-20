@@ -55,6 +55,9 @@ namespace Bikewale.Service.Controllers.Make
                     objDTOMakeList = new MakeList();
                         
                     objDTOMakeList.Makes = MakeListMapper.Convert(objMakeList);
+
+                    objMakeList.Clear();
+                    objMakeList = null;
                         
                     return Ok(objDTOMakeList);
                 }

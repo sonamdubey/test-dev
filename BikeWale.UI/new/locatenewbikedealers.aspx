@@ -5,6 +5,7 @@
 <%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
 <%@ Register TagPrefix="uc" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMin.ascx" %>
+<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%
     title = "New Bike Dealers in India - Locate Authorized Showrooms - BikeWale";
@@ -15,10 +16,6 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
-
-
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/headNew.aspx" -->
 
         <div class="container_12">
@@ -70,7 +67,7 @@
                 <div class="grid_4 margin-top20">
                     <uc:UpcomingBikes ID="ucUpcoming" runat="server" HeaderText="Upcoming Bikes" TopRecords="2" ControlWidth="grid_2" />
                 </div>
-                <div class="grid_8 comparison-container alpha omega margin-top5" style="border:1px solid #E2E2E2;">
+                <div class="grid_12 comparison-container alpha omega margin-top5" style="border:1px solid #E2E2E2;">
                     <CM:ComparisonMin ID="ctrl_ComparisonMin" runat="server" ShowCompButton="true"/>
                 </div>
             </div><!--    Left Container ends here -->
@@ -167,4 +164,5 @@
     <style type="text/css">
         .grid_8.comparison-container .container { width:620px; padding-bottom:10px; }
     </style>
+<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerInner.aspx" -->

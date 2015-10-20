@@ -108,11 +108,14 @@ function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr) {
             var citySelected = null;
             if (cities)
             {
+                insertCitySeparator(cities);
                 checkCookies();
                 viewModelPopup.bookingCities(cities);
                 if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
                     viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
-                } 
+                }
+                popupcity.find("option[value='0']").prop('disabled', true);
+                popupcity.trigger('chosen:updated');
                 cityChangedPopup();
             }
             else {

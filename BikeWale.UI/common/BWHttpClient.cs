@@ -40,14 +40,15 @@ namespace Bikewale.Common
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(requestType));
 
                     //HTTP GET
-                    HttpResponseMessage _response = await client.GetAsync(apiUrl);
-
-                    _response.EnsureSuccessStatusCode(); //Throw if not a success code.
-
-                    if (_response.IsSuccessStatusCode)
+                    using (HttpResponseMessage _response = await client.GetAsync(apiUrl))
                     {
+                      //_response.EnsureSuccessStatusCode(); //Throw if not a success code.
+
+                      if (_response.IsSuccessStatusCode)
+                      {
                         if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status
-                        objTask = await _response.Content.ReadAsAsync<T>();                
+                          objTask = await _response.Content.ReadAsAsync<T>();
+                      }
                     }
                 }
             }
@@ -93,14 +94,15 @@ namespace Bikewale.Common
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(requestType));
 
                     //HTTP GET
-                    HttpResponseMessage _response = client.GetAsync(apiUrl).Result;
-
-                    _response.EnsureSuccessStatusCode(); //Throw if not a success code.                    
-
-                    if (_response.IsSuccessStatusCode)
+                    using (HttpResponseMessage _response = client.GetAsync(apiUrl).Result)
                     {
+                      //_response.EnsureSuccessStatusCode(); //Throw if not a success code.                    
+
+                      if (_response.IsSuccessStatusCode)
+                      {
                         if (_response.StatusCode == System.Net.HttpStatusCode.OK) //Check 200 OK Status        
-                            objTask = _response.Content.ReadAsAsync<T>().Result;
+                          objTask = _response.Content.ReadAsAsync<T>().Result;
+                      }
                     }
                 }
             }
@@ -132,13 +134,14 @@ namespace Bikewale.Common
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(requestType));
                 // HTTP POST
 
-                HttpResponseMessage response = await client.PostAsJsonAsync(apiUrl, "xyz");
-
-                if (response.IsSuccessStatusCode)
+                using (HttpResponseMessage response = await client.PostAsJsonAsync(apiUrl, "xyz"))
                 {
+                  if (response.IsSuccessStatusCode)
+                  {
                     //// Get the URI of the created resource.
                     //Uri gizmoUrl = response.Headers.Location;
                     isSuccess = true;
+                  }
                 }
             }
             return isSuccess;
@@ -162,12 +165,13 @@ namespace Bikewale.Common
             {
                 client.BaseAddress = new Uri(hostUrl);
 
-                var response = client.DeleteAsync(apiUrl).Result;
-
-                if (response.IsSuccessStatusCode)
+                using (var response = client.DeleteAsync(apiUrl).Result)
                 {
+                  if (response.IsSuccessStatusCode)
+                  {
                     isSuccess = true;
-                }                   
+                  }
+                }
             }
 
             return isSuccess;
@@ -192,11 +196,12 @@ namespace Bikewale.Common
                 client.DefaultRequestHeaders.Accept.Clear();
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(requestType));
 
-                var response = client.PostAsJsonAsync(apiUrl, objResponse).Result;
-
-                if (response.IsSuccessStatusCode)
+                using (var response = client.PostAsJsonAsync(apiUrl, objResponse).Result)
                 {
+                  if (response.IsSuccessStatusCode)
+                  {
                     isSuccess = true;
+                  }
                 }
             }
             return isSuccess;

@@ -29,13 +29,14 @@ namespace Bikewale.Mobile.Controls
 
         private void BindNews()
         {
-            BindNewsControl.TotalRecords = this.TotalRecords;
-            BindNewsControl.MakeId = this.MakeId;
-            BindNewsControl.ModelId = this.ModelId;
+            BindNewsControl objNews = new BindNewsControl();
+            objNews.TotalRecords = this.TotalRecords;
+            objNews.MakeId = this.MakeId;
+            objNews.ModelId = this.ModelId;
 
-            BindNewsControl.BindNews(rptNews);
+            objNews.BindNews(rptNews);
 
-            this.FetchedRecordsCount = BindNewsControl.FetchedRecordsCount;
+            this.FetchedRecordsCount = objNews.FetchedRecordsCount;
         }
     }
 }
