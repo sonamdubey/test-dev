@@ -8,16 +8,16 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
-    [Serializable]
+    [Serializable, DataContract]
     public class BikeMakeEntityBase
     {
-        [JsonProperty(PropertyName = "makeId")]
+        [JsonProperty(PropertyName = "makeId"), DataMember]        
         public int MakeId { get; set; }
 
-        [JsonProperty(PropertyName = "makeName")]
+        [JsonProperty(PropertyName = "makeName"), DataMember]
         public string MakeName { get; set; }
 
-        [JsonProperty(PropertyName = "maskingName")]
+        [JsonProperty(PropertyName = "maskingName"), DataMember]
         public string MaskingName { get; set; }
     }
 }
