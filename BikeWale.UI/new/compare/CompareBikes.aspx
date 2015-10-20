@@ -124,7 +124,7 @@
                                     </asp:Repeater>
                                      <% if(isFeatured ? (count < 5) : (count < 4)){ %>
                                      <td class="maintd">
-                                        <table cellpadding="0" border="0" cellspacing="0" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
+                                        <table cellpadding="0" border="0" cellspacing="0" id="addAnotherBike" class="<%=!isFeatured ? ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fourcolum" : ""))) : ((count==2) ? "threecolum": (count==3 ? "fourcolum" : (count==4 ? "fivecolum" : (count==5 ? "fivecolum" : ""))))%>">
                                             <tr>
                                                 <td>
                                                     <AddBike:AddBike id="addBike" runat="server"></AddBike:AddBike>
