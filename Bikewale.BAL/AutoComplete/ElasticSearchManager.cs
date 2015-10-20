@@ -10,14 +10,17 @@ using System.Threading.Tasks;
 
 namespace Bikewale.BAL.AutoComplete
 {
-    public class ElasticSearchManager
+    /// <summary>
+    /// Author      :   Sadhana Upadhyay
+    /// Description :   Elastic Search Manager
+    /// </summary>
+    public class ElasticSearchManager : IDisposable
     {
         private ElasticClient _client;
 
         public ElasticClient Client
         {
-            get { return _client; }
-            set { _client = value; }
+            get { return _client; }            
         }
 
         public ElasticSearchManager(string esIndex)
@@ -78,5 +81,10 @@ namespace Bikewale.BAL.AutoComplete
             }
             return _client;
         }   //End of GetElasticClient
+    
+        public void Dispose()
+        {
+            _client=null;
+        }
     }
 }
