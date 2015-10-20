@@ -286,7 +286,7 @@
                                         <span class="brand-type">
                                             <span class="lazy brandlogosprite brand-vespa" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
-                                        <span class="brand-type-title">Vespac</span>
+                                        <span class="brand-type-title">Vespa</span>
                                     </a>
                                 </li>
                                 <li>
