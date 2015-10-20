@@ -221,6 +221,9 @@
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
         </script>
     </form>
+    <a href="javascript:void(0)" class="scrollTo-top">
+        <span class="fa fa-angle-double-up"></span>
+    </a>
 </body>
 </html>
 

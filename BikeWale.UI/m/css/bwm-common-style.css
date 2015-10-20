@@ -168,9 +168,9 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .compare-list-home li { border-bottom: 1px solid #ccc; padding-bottom: 15px; text-align: center; }
 
 /* city popup classes */
-.globalcity-popup, .bw-city-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
+.globalcity-popup, .bw-city-popup { background: #fff; margin: auto; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height:480px; right: 5%; left: 5%; z-index: 10; }
 .globalcity-popup-data, .popup-inner-container { padding: 20px 20px 30px; }
-.cityPopup-box { background: #333333; width: 65px; height: 65px; line-height: 2; display: inline-block; }
+.cityPopup-box { background: #333333; width: 60px; height: 60px; line-height: 2; display: inline-block; }
 .globalcity-close-btn.cross-lg-lgt-grey, .bw-city-popup .close-btn { background-position: -36px -226px; }
 .globalcity-close-btn.cross-lg-lgt-grey:hover, .bw-city-popup .close-btn:hover { background-position: -36px -252px; }
 ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
@@ -683,6 +683,9 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .unchecked { background: url("http://img.aeplcdn.com/bikewaleimg/m/images/inputUnchecked.png?v=150915") no-repeat 0 center; }
 .checked { background: url("http://img.aeplcdn.com/bikewaleimg/m/images/inputChecked.png?v=150915") no-repeat 0 center; }
 
+.scrollTo-top {display: none;position: fixed;bottom: 16px;right: 20px;font-size: 32px;background-color: rgba(0, 0, 0, 0.5); color:#fff;border-radius: 0.3rem;z-index: 500;}
+.scrollTo-top:hover {background-color: rgba(0, 0, 0, 0.6);}
+.scrollTo-top  span {padding: 3px 10px;}
 
 .clearfix:before,
 .clearfix:after {

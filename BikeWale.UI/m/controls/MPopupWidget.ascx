@@ -8,7 +8,7 @@
         <div class="cityPopup-box rounded-corner50percent margin-bottom20">
             	<span class="bwmsprite cityPopup-icon margin-top10"></span>
             </div>
-    	<p class="font20 margin-bottom10 text-capitalize">Please Tell Us Your Location</p>
+    	<p class="font18 margin-bottom10 text-capitalize">Please Tell Us Your Location</p>
         <div class="padding-top5" id="popupContent">
             <div class="text-light-grey margin-bottom15"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
          <div>
