@@ -21,7 +21,7 @@ namespace Bikewale.BAL.AutoComplete
         /// <param name="inputText"></param>
         /// <param name="noOfRecords"></param>
         /// <returns></returns>
-        public List<SuggestOption> GetAutoSuggestResult(string inputText, int noOfRecords,AutoSuggestEnum source)
+        public List<SuggestOption> GetAutoSuggestResult(string inputText, int noOfRecords, AutoSuggestEnum source)
         {
             List<SuggestOption> suggestionList = null;
             string completion_field = "mm_suggest";
@@ -30,16 +30,18 @@ namespace Bikewale.BAL.AutoComplete
             {
                 indexName = GetIndexName(source);
 
-                ElasticSearchManager objEs = new ElasticSearchManager(indexName);
-                ElasticClient client = objEs.Client;
+                using (ElasticSearchManager objEs = new ElasticSearchManager(indexName))
+                {
+                    ElasticClient client = objEs.Client;
 
-                ISuggestResponse _result = client.Suggest<SuggestionOutput>(s => s.GlobalText(inputText)
-                    .Completion(completion_field, c => c.OnField(completion_field).Size(noOfRecords)
-                    ));
+                    ISuggestResponse _result = client.Suggest<SuggestionOutput>(s => s.GlobalText(inputText)
+                        .Completion(completion_field, c => c.OnField(completion_field).Size(noOfRecords)
+                        ));
 
-                suggestionList = _result.Suggestions[completion_field][0].Options.ToList<Nest.SuggestOption>();
+                    suggestionList = _result.Suggestions[completion_field][0].Options.ToList<Nest.SuggestOption>();
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.ElasticSearchManger.GetAutoSuggestResult");
                 objErr.SendMail();
