@@ -279,7 +279,7 @@ namespace Bikewale.BikeBooking
 
                 _objPQ = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, _objPQ);
 
-                if (_objPQ != null)
+                if (_objPQ != null && _objPQ.objQuotation != null)
                 {
                     //_objPQ.objQuotation.HostUrl + _objPQ.objQuotation.LargePicUrl + _objPQ.objQuotation.objMake.MakeName + _objPQ.objQuotation.objModel.ModelName + _objPQ.objQuotation.objVersion.VersionName +
                     ImgPath = Bikewale.Utility.Image.GetPathToShowImages(_objPQ.objQuotation.OriginalImagePath, _objPQ.objQuotation.HostUrl, Bikewale.Utility.ImageSize._210x118);
