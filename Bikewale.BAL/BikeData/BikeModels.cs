@@ -169,7 +169,7 @@ namespace Bikewale.BAL.BikeData
             {
                 objModelPage = modelRepository.GetModelPage(modelId);
 
-                if (objModelPage != null)
+                if (objModelPage != null && objModelPage.ModelVersionSpecs != null)
                 {                    
                     #region Set Overview
                     objModelPage.objOverview = new Overview()
