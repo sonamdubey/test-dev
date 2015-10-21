@@ -219,7 +219,7 @@
                         <div class="booking-available-colors">
                             <ul data-bind="foreach: viewModel.ModelColors()">
                                 <li>
-                                    <div class="booking-color-box" data-bind="style: { 'background-color': '#' + hexCode() }, click: function () { $parent.selectModelColor($data, event); }">
+                                    <div class="booking-color-box" data-bind="style: { 'background-color': '#' + hexCode() }, click: function (data,event) { $parent.selectModelColor($data, event); }">
                                         <span class="ticked hide"></span>
                                     </div>
                                     <p class="font16 margin-top20" data-bind="text: colorName"></p>
