@@ -62,3 +62,11 @@
     //	new\default.aspx  = 3//	new\versions.aspx = 2//	default.aspx = 1//	includes\headscript.aspx = 0
 </script>
 <!-- #include file="\includes\gacode.aspx" -->
+<script type="text/javascript">
+    setTimeout(function () {
+        var a = document.createElement("script");
+        var b = document.getElementsByTagName("script")[0];
+        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+    }, 1);
+</script>

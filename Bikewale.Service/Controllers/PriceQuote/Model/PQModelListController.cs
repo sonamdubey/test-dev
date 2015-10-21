@@ -50,6 +50,10 @@ namespace Bikewale.Service.Controllers.PriceQuote.Model
                     // Auto map the properties
                     objDTOModelList = new PQModelList();
                     objDTOModelList.Models = PQModelListMapper.Convert(objModelList);
+
+                    objModelList.Clear();
+                    objModelList = null;
+
                     return Ok(objDTOModelList);
                 }
                 else

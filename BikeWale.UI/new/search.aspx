@@ -81,21 +81,29 @@
                                 </div>
                             </div>
                             <div class="grid-3 alpha">
-                            	<div class="rounded-corner2 budget-box">
-                                	<div id="minMaxContainer" class="filter-select-title">
+                                <div class="rounded-corner2 budget-box">
+                                    <div id="minMaxContainer" class="filter-select-title">
                                         <span class="hide">Select budget</span>
-                                        <span class="leftfloat default-text" id="budgetBtn">Select budget</span>
+                                        <span class="default-text" id="budgetBtn">Select budget</span>
+                                        <span class="minAmount"></span>
+                                        <span class="maxAmount"></span>
                                         <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
                                         <span class="clear"></span>
                                     </div>
                                 </div>
+
                                 <div name="budget" id="budgetListContainer" class="hide">
                                     <div id="userBudgetInput">
-                                        <input type="text" class="priceBox" id="minInput" placeholder="Min" maxlength="7">
-                                        <div class="bw-blackbg-tooltip bw-blackbg-tooltip-min text-center hide">Min budget should be filled.</div>
-                                        <input type="text" class="priceBox" id="maxInput" placeholder="Max" maxlength="7">
-                                        <div class="bw-blackbg-tooltip bw-blackbg-tooltip-max text-center hide">Max budget should be greater than Min budget.</div>
+                                        <input type="text" id="minInput" class="priceBox" maxLength="9" placeholder="Min">
+                                        <input type="text" id="maxInput" class="priceBox" maxLength="9" placeholder="Max">
+                                        <div class="bw-blackbg-tooltip bw-blackbg-tooltip-max text-center hide">
+        	                                Max budget should be greater than Min budget.
+                                        </div>
                                     </div>
+                                    <ul id="minList" class="text-left">
+                                    </ul>
+                                    <ul id="maxList" class="text-right">
+                                    </ul>
                                 </div>
                             </div>
                             <div class="grid-3 alpha">
@@ -269,18 +277,6 @@
                     	<div class="leftfloat grid-8">
                         	<h2><span id="bikecount"></span></h2>
                         </div>
-                        <!--
-                        <div class="rightfloat padding-right10 grid-3">
-                            <div class="form-control-box">
-                                <select id="sort" class="form-control">
-                                    <option so="" sc="" value="" >Popular</option>
-                                    <option so="0" sc="1" value="so=0&sc=1" >Price :Low to High</option>
-                                    <option so="1" sc="1" value="so=1&sc=1">Price :High to Low</option>
-                                    <option so="0" sc="2" value="so=0&sc=2" >Mileage :High to Low</option>
-                                </select>
-                            </div>
-                        </div>
-                        -->
                         <div class="rightfloat padding-right10 padding-left30 grid-3">
                             <div class="sort-div rounded-corner2">
                             	<div class="sort-by-title" id="sort-by-container">
@@ -322,7 +318,7 @@
                             <div class="contentWrapper">
                                 <div class="imageWrapper">
                                     <a  data-bind="attr:{href:'/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/'},click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': bikemodel.modelName() }); return true; }">
-                                        <img class="lazy" data-bind="attr: {title: bikeName, alt: bikeName, src:'../images/circleloader.gif'},lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
+                                        <img class="lazy" data-bind="attr: { title: bikeName, alt: bikeName, src: 'http://img.aeplcdn.com/bikewaleimg/images/loader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
                                     </a>
                                 </div>
                                 <div class="bikeDescWrapper">
@@ -364,7 +360,8 @@
 <!-- #include file="/includes/footerscript.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
+
     <PW:PopupWidget runat="server" ID="PopupWidget" />
 </form>
 </body>

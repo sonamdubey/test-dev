@@ -19,6 +19,8 @@ namespace Bikewale.Mobile.Controls
         protected Repeater rptUserReview;
 
         public int ModelId { get; set; }
+        public string MakeMaskingName { get; set; }
+        public string ModelMaskingName { get; set; }
 
         private int _reviewCount = 4;
         public int ReviewCount
@@ -31,6 +33,8 @@ namespace Bikewale.Mobile.Controls
         public int PageNo { get; set; }
         public int PageSize { get; set; }
         public int VersionId { get; set; }
+
+
         public int FetchedRecordsCount { get; set; }
 
         protected override void OnInit(EventArgs e)
@@ -46,14 +50,17 @@ namespace Bikewale.Mobile.Controls
 
         private void BindUserReviews()
         {
-            BindUserReviewControl.ModelId = ModelId;
-            BindUserReviewControl.PageNo = PageNo;
-            BindUserReviewControl.PageSize = PageSize;
-            BindUserReviewControl.VersionId = VersionId;
-            BindUserReviewControl.Filter = Filter;
-            BindUserReviewControl.RecordCount = ReviewCount;
-            BindUserReviewControl.BindUserReview(rptUserReview);
-            FetchedRecordsCount = BindUserReviewControl.FetchedRecordsCount;
+            BindUserReviewControl objUserReview = new BindUserReviewControl();
+            objUserReview.ModelId = ModelId;
+            objUserReview.PageNo = PageNo;
+            objUserReview.PageSize = PageSize;
+            objUserReview.VersionId = VersionId;
+            objUserReview.Filter = Filter;
+            objUserReview.RecordCount = ReviewCount;
+            objUserReview.BindUserReview(rptUserReview);
+            FetchedRecordsCount = objUserReview.FetchedRecordsCount;
+            MakeMaskingName = objUserReview.MakeMaskingName;            
+            ModelMaskingName = objUserReview.ModelMaskingName;
         }
     }
 }

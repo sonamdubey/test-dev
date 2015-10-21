@@ -48,7 +48,11 @@ namespace Bikewale.Service.Videos.Controllers
                 if (objVideosList != null && objVideosList.Count > 0)
                 {
                     VideosList videoDTOList = new VideosList();
-                    videoDTOList.Videos = VideosMapper.Convert(objVideosList); 
+                    videoDTOList.Videos = VideosMapper.Convert(objVideosList);
+
+                    objVideosList.Clear();
+                    objVideosList = null;
+
                     return Ok(videoDTOList);
                 }
                 else
@@ -94,6 +98,10 @@ namespace Bikewale.Service.Videos.Controllers
                     {
                         VideosList videoDTOList = new VideosList();
                         videoDTOList.Videos = VideosMapper.Convert(objVideosList);
+
+                        objVideosList.Clear();
+                        objVideosList = null;
+
                         return Ok(videoDTOList);
                     }
                 }
@@ -139,6 +147,10 @@ namespace Bikewale.Service.Videos.Controllers
                     {
                         VideosList videoDTOList = new VideosList();
                         videoDTOList.Videos = VideosMapper.Convert(objVideosList);
+
+                        objVideosList.Clear();
+                        objVideosList = null;
+
                         return Ok(videoDTOList);
                     }
                 }

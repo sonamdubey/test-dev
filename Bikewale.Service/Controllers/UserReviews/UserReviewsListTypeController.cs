@@ -70,7 +70,10 @@ namespace Bikewale.Service.Controllers.UserReviews
                     objDTOUserReview = new List<ReviewsList>();
                     objDTOUserReview = UserReviewsMapper.Convert(objUserReview);
 
-                    return Ok(objUserReview);
+                    objUserReview.Clear();
+                    objUserReview = null;
+
+                    return Ok(objDTOUserReview);
                 }
             }
             catch (Exception ex)

@@ -49,6 +49,9 @@ namespace Bikewale.Service.Controllers.Area
                 {
                     objDTOAreaList = new AreaList();
                     objDTOAreaList.Area = AreaListMapper.Convert(objAreaList);
+                                        
+                    objAreaList.Clear();
+                    objAreaList = null;
 
                     return Ok(objDTOAreaList);
                 }

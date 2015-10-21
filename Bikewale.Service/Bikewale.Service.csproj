@@ -40,12 +40,17 @@
     <DocumentationFile>App_Data\Bikewale.Service.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AutoMapper">
+    <Reference Include="AutoMapper, Version=4.0.4.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\AutoMapper.dll</HintPath>
     </Reference>
     <Reference Include="Elasticsearch.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=96c599bbe3e70f5d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Enyim.Caching, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\Enyim.Caching.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.Unity">
@@ -232,6 +237,7 @@
     <Compile Include="Controllers\PriceQuote\PQBikeColorController.cs" />
     <Compile Include="Controllers\PriceQuote\PQCustomerDetailController.cs" />
     <Compile Include="Controllers\PriceQuote\PriceQuoteController.cs" />
+    <Compile Include="Controllers\PriceQuote\UpdatePQController.cs" />
     <Compile Include="Controllers\PriceQuote\Version\PQVersionListController.cs" />
     <Compile Include="AutoMappers\Area\AreaListMapper.cs" />
     <Compile Include="AutoMappers\City\CityListMapper.cs" />
@@ -311,6 +317,10 @@
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
       <Project>{3ca0d7b6-7e09-449c-a34d-c08ca8118876}</Project>
       <Name>Bikewale.BAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.Cache.Core\Bikewale.Cache.Core.csproj">
+      <Project>{038bc901-9d7f-4a95-8ca6-117db3aa48cc}</Project>
+      <Name>Bikewale.Cache.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Cache\Bikewale.Cache.csproj">
       <Project>{c5f8b7d6-4b62-4169-a73b-87215314d8cb}</Project>

@@ -11,81 +11,39 @@ namespace Bikewale.Utility
     {
         public static bool? ToNullableBool(object reader)
         {
-            bool? retVal = null;
-            if (!Convert.IsDBNull(reader))
-            {
-                return Convert.ToBoolean(reader);
-            }
-            else
-            {
-                return retVal;
-            }
+            bool? retVal = null;          
+            return ((DBNull.Value != reader) ? Convert.ToBoolean(reader) : retVal);
         }
 
         public static UInt16? ToNullableUInt16(object reader)
         {
-            UInt16? retVal = null;
-            if (!Convert.IsDBNull(reader))
-            {
-                return Convert.ToUInt16(reader);
-            }
-            else
-            {
-                return retVal;
-            }
+            UInt16? retVal = null;           
+            return ((DBNull.Value != reader) ? Convert.ToUInt16(reader) : retVal);
         }
 
         public static UInt32? ToNullableUInt32(object reader)
         {
-            UInt32? retVal = null;
-            if (!Convert.IsDBNull(reader))
-            {
-                return Convert.ToUInt32(reader);
-            }
-            else
-            {
-                return retVal;
-            }
+            UInt32? retVal = null;           
+            return ((DBNull.Value != reader) ? Convert.ToUInt32(reader) : retVal);
         }
 
         public static UInt64? ToNullableUInt64(object reader)
         {
             UInt64? retVal = null;
-            if (!Convert.IsDBNull(reader))
-            {
-                return Convert.ToUInt64(reader);
-            }
-            else
-            {
-                return retVal;
-            }
+            return ((DBNull.Value != reader) ? Convert.ToUInt64(reader) : retVal);
         }
 
         public static float? ToNullableFloat(object reader)
         {
-            float? retVal = null;
-            if (!Convert.IsDBNull(reader))
-            {
-                return Convert.ToSingle(reader);
-            }
-            else
-            {
-                return retVal;
-            }
+            float? retVal = null;           
+            return ((DBNull.Value != reader) ? Convert.ToSingle(reader) : retVal);
         }
 
 
         public static Int64 ToNullableInt64(object reader)
         {
             Int64 retVal = 0;
-            if (!Convert.IsDBNull(reader))
-            {
-                return Convert.ToInt64(reader);
-            }
-            else
-            {
-                return retVal;
-            }
+            return ((DBNull.Value != reader) ? Convert.ToInt64(reader) : retVal);
         }
     }
 }

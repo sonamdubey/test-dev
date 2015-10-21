@@ -111,7 +111,7 @@
                                 <li>
                                     <a href="/m/honda-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-honda"></span>
+                                            <span class="lazy brandlogosprite brand-honda" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Honda</span>
                                     </a>
@@ -119,7 +119,7 @@
                                 <li>
                                     <a href="/m/bajaj-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-bajaj"></span>
+                                             <span class="lazy brandlogosprite brand-bajaj" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Bajaj
                                         </span>
@@ -128,7 +128,7 @@
                                 <li>
                                     <a href="/m/hero-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-hero"></span>
+                                            <span class="lazy brandlogosprite brand-hero" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Hero</span>
                                     </a>
@@ -136,7 +136,7 @@
                                 <li>
                                     <a href="/m/tvs-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-tvs"></span>
+                                            <span class="lazy brandlogosprite brand-tvs" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">TVS</span>
                                     </a>
@@ -144,7 +144,7 @@
                                 <li>
                                     <a href="/m/royalenfield-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-royal"></span>
+                                             <span class="lazy brandlogosprite brand-royal" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Royal Enfield</span>
                                     </a>
@@ -152,7 +152,7 @@
                                 <li>
                                     <a href="/m/yamaha-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-yamaha"></span>
+                                            <span class="lazy brandlogosprite brand-yamaha" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Yamaha</span>
                                     </a>
@@ -164,7 +164,7 @@
                                 <li>
                                     <a href="/m/aprilia-bikes/">
                                         <span class="brand-type">
-                                           	<span class="brandlogosprite brand-aprilia"></span>
+                                           	<span class="lazy brandlogosprite brand-aprilia" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Aprilia</span>
                                     </a>
@@ -172,7 +172,7 @@
                                 <li>
                                     <a href="/m/benelli-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-benelli"></span>
+                                             <span class="lazy brandlogosprite brand-benelli" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Benelli</span>
                                     </a>
@@ -180,7 +180,7 @@
                                 <li>
                                     <a href="/m/bmw-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-bmw"></span>
+                                            <span class="lazy brandlogosprite brand-bmw" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">BMW</span>
                                     </a>
@@ -188,7 +188,7 @@
                                 <li>
                                     <a href="/m/ducati-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-ducati"></span>
+                                            <span class="lazy brandlogosprite brand-ducati" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Ducati</span>
                                     </a>
@@ -196,7 +196,7 @@
                                 <li>
                                     <a href="/m/harleydavidson-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-harley"></span>
+                                             <span class="lazy brandlogosprite brand-harley" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Harley Davidson</span>
                                     </a>
@@ -204,7 +204,7 @@
                                 <li>
                                     <a href="/m/heroelectric-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-hero-elec"></span>
+                                            <span class="lazy brandlogosprite brand-hero-elec" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Hero Electric</span>
                                     </a>
@@ -212,7 +212,7 @@
                                 <li>
                                     <a href="/m/hyosung-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-hyosung"></span>
+                                            <span class="lazy brandlogosprite brand-hyosung" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Hyosung</span>
                                     </a>
@@ -220,7 +220,7 @@
                                 <li>
                                     <a href="/m/indian-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-indian"></span>
+                                             <span class="lazy brandlogosprite brand-indian" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Indian</span>
                                     </a>
@@ -228,7 +228,7 @@
                                 <li>
                                     <a href="/m/kawasaki-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-kawasaki"></span>
+                                            <span class="lazy brandlogosprite brand-kawasaki" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Kawasaki</span>
                                     </a>
@@ -236,7 +236,7 @@
                                 <li>
                                     <a href="/m/ktm-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-ktm"></span>
+                                            <span class="lazy brandlogosprite brand-ktm" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">KTM</span>
                                     </a>
@@ -244,7 +244,7 @@
                                 <li>
                                     <a href="/m/lml-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-lml"></span>
+                                             <span class="lazy brandlogosprite brand-lml" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">LML</span>
                                     </a>
@@ -252,7 +252,7 @@
                                 <li>
                                     <a href="/m/mahindra-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-mahindra"></span>
+                                            <span class="lazy brandlogosprite brand-mahindra" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Mahindra</span>
                                     </a>
@@ -260,7 +260,7 @@
                                 <li>
                                     <a href="/m/motoguzzi-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-guzzi"></span>
+                                            <span class="lazy brandlogosprite brand-guzzi" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Moto Guzzi</span>
                                     </a>
@@ -268,7 +268,7 @@
                                 <li>
                                     <a href="/m/suzuki-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-suzuki"></span>
+                                             <span class="lazy brandlogosprite brand-suzuki" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Suzuki</span>
                                     </a>
@@ -276,7 +276,7 @@
                                 <li>
                                     <a href="/m/triumph-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-triumph"></span>
+                                            <span class="lazy brandlogosprite brand-triumph" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Triumph</span>
                                     </a>
@@ -284,15 +284,15 @@
                                 <li>
                                     <a href="/m/vespa-bikes/">
                                         <span class="brand-type">
-                                            <span class="brandlogosprite brand-vespa"></span>
+                                            <span class="lazy brandlogosprite brand-vespa" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
-                                        <span class="brand-type-title">Vespac</span>
+                                        <span class="brand-type-title">Vespa</span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/m/yo-bikes/">
                                         <span class="brand-type">
-                                             <span class="brandlogosprite brand-yo"></span>
+                                             <span class="lazy brandlogosprite brand-yo" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                         </span>
                                         <span class="brand-type-title">Yo</span>
                                     </a>
@@ -457,7 +457,7 @@
             <div class="clear"></div>
         </div>
     </section><!-- Upcoming, new launches Ends here -->
-    <section class="home-getFinalPrice-banner"><!--  Get Final Price code starts here -->
+    <section class="lazy home-getFinalPrice-banner" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/onroad-price-banner.jpg" ><!--  Get Final Price code starts here -->
         <BW:MOnRoadPricequote PageId="5" ID="MOnRoadPricequote" runat="server"/> 
     </section><!-- Get Final Price code Ends here -->
     <section class="home-compare"><!--  Compare section code starts here -->
@@ -499,10 +499,9 @@
                         <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
                             <div class="form-control-box">
                                 <select class="form-control">
-                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option>
-                                   
+                                    <%if ((Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0)) {%> <option class="<%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option> <% } %>
+                                    <%if ((Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0)) {%><option class="<%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option> <% } %>
+                                    <%if ((Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0)) {%><option class="<%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option> <% } %>
                                 </select>
                             </div>
                         </div>                        

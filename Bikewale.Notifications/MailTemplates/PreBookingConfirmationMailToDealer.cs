@@ -48,7 +48,7 @@ namespace Bikewale.Notifications.MailTemplates
             InsuranceAmount = insuranceAmount;
         }
 
-        public override StringBuilder ComposeBody()
+        public override string ComposeBody()
         {
             StringBuilder sb = null;
 
@@ -121,7 +121,7 @@ namespace Bikewale.Notifications.MailTemplates
             {
                 HttpContext.Current.Trace.Warn("Notifications.ErrorTempate ComposeBody : " + ex.Message);
             }
-            return sb;
+            return sb.ToString();
         }
     }
 }

@@ -50,6 +50,10 @@ namespace Bikewale.Service.Controllers.Version
                 {
                     objDTOMVSpecsList = new List<VersionMinSpecs>();
                     objDTOMVSpecsList = VersionListMapper.Convert(objMVSpecsList);
+
+                    objMVSpecsList.Clear();
+                    objMVSpecsList = null;
+
                     return Ok(objDTOMVSpecsList);
                 }
             }
@@ -84,6 +88,10 @@ namespace Bikewale.Service.Controllers.Version
                 {
                     objDTOVersionList = new VersionList();
                     objDTOVersionList.Version = VersionListMapper.Convert(objVersionList);
+
+                    objVersionList.Clear();
+                    objVersionList = null;
+
                     return Ok(objDTOVersionList);
                 }
             }

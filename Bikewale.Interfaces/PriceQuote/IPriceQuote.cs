@@ -10,6 +10,9 @@ namespace Bikewale.Interfaces.PriceQuote
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// Summary : Interface for the price quote.
+    /// Modified By :   Sumit Kate
+    /// Date        :   16 Oct 2015
+    /// Description :   Added new method UpdatePriceQuote to update the price quote details
     /// </summary>
     public interface IPriceQuote
     {
@@ -17,5 +20,6 @@ namespace Bikewale.Interfaces.PriceQuote
         BikeQuotationEntity GetPriceQuoteById(ulong pqId);
         BikeQuotationEntity GetPriceQuote(PriceQuoteParametersEntity pqParams);
         List<OtherVersionInfoEntity> GetOtherVersionsPrices(ulong pqId);
+        bool UpdatePriceQuote(UInt32 pqId, PriceQuoteParametersEntity pqParams);
     }
 }

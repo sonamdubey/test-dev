@@ -61,6 +61,9 @@ function GetGlobalCityArea() {
 }
 
 $(document).ready(function () {
+    $(".lazy").lazyload({
+        effect: "fadeIn"
+    });
     $('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
     var blackOut = $(".blackOut-window")[0];
@@ -170,7 +173,8 @@ $(document).ready(function () {
 	        }
 	        MakeModelRedirection(make, model);
 	        // GA code
-	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': ui.item.label });
+	        var keywrd = ui.item.label +'_'+$('#newBikeList').val();
+	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
 	    },
 	    open: function (result) {
 	        objBikes.result = result;
@@ -819,3 +823,32 @@ function selectElementFromArray(dataArray, id) {
     return false;
 }
 
+$(".modelurl").click(function () {
+    var array = $(this).attr('href').split('/');
+    if (array.length > 2) {
+        dataLayer.push({
+            'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Model_Click', 'lab':_makeName +'_'+ array[2]
+        });
+    }
+});
+
+$(".jcarousel-control-next").click(function () {
+    $('.imageWrapper img').each(function () {
+        if ($(this).attr('src') == '') {
+            $(this).attr('src', $(this).attr('data-original'));
+        }
+    });
+});
+
+function insertCitySeparator(response) {
+    l = (response != null) ? response.length : 0;
+    if (l > 0) {
+        for (i = 0; i < l; i++) {
+            if (!response[i].IsPopular) {
+                if (i > 0)
+                    response.splice(i, 0, { CityId: 0, CityName: "--------------------", CityMaskingName: "", IsPopular: false });
+                break;
+            }
+        }
+    }
+}

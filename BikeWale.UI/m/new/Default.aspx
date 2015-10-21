@@ -47,142 +47,189 @@
                     <ul class="text-center">
                         <li>
                             <a href="/m/honda-bikes/">
-                                <span class="brandlogosprite brand-honda"></span>
-                                <span class="brand-type-title">honda</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-honda" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Honda</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/bajaj-bikes/">
-                                <span class="brandlogosprite brand-bajaj"></span>
-                                <span class="brand-type-title">Bajaj</span>
+                                <span class="brand-type">
+                                        <span class="lazy brandlogosprite brand-bajaj" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Bajaj
+                                </span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/hero-bikes/">
-                                <span class="brandlogosprite brand-hero"></span>
-                                <span class="brand-type-title">hero</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-hero" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Hero</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/tvs-bikes/">
-                                <span class="brandlogosprite brand-tvs"></span>
-                                <span class="brand-type-title">tvs</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-tvs" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">TVS</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/royalenfield-bikes/">
-                                <span class="brandlogosprite brand-royal"></span>
+                                <span class="brand-type">
+                                        <span class="lazy brandlogosprite brand-royal" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
                                 <span class="brand-type-title">Royal Enfield</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/yamaha-bikes/">
-                                <span class="brandlogosprite brand-yamaha"></span>
-                                <span class="brand-type-title">yamaha</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-yamaha" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Yamaha</span>
                             </a>
                         </li>
                     </ul>
                     <ul id="more-brand-nav" class="text-center hide">
                         <li>
                             <a href="/m/aprilia-bikes/">
-                                <span class="one brandlogosprite brand-aprilia"></span>
-                                <span class="brand-type-title">aprilia</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-aprilia" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Aprilia</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/benelli-bikes/">
-                                <span class="brandlogosprite brand-benelli"></span>
-                                <span class="brand-type-title">benelli</span>
+                                <span class="brand-type">
+                                        <span class="lazy brandlogosprite brand-benelli" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Benelli</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/bmw-bikes/">
-                                <span class="brandlogosprite brand-bmw"></span>
-                                <span class="brand-type-title">bmw</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-bmw" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">BMW</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/ducati-bikes/">
-                                <span class="brandlogosprite brand-ducati"></span>
-                                <span class="brand-type-title">ducati</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-ducati" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Ducati</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/harleydavidson-bikes/">
-                                <span class="brandlogosprite brand-harley"></span>
-                                <span class="brand-type-title">harley</span>
+                                <span class="brand-type">
+                                        <span class="lazy brandlogosprite brand-harley" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Harley Davidson</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/heroelectric-bikes/">
-                                <span class="brandlogosprite brand-hero-elec"></span>
-                                <span class="brand-type-title">hero-elec</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-hero-elec" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Hero Electric</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/hyosung-bikes/">
-                                <span class="brandlogosprite brand-hyosung"></span>
-                                <span class="brand-type-title">hyosung</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-hyosung" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Hyosung</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/indian-bikes/">
-                                <span class="brandlogosprite brand-indian"></span>
-                                <span class="brand-type-title">indian</span>
+                                <span class="brand-type">
+                                        <span class="lazy brandlogosprite brand-indian" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Indian</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/kawasaki-bikes/">
-                                <span class="brandlogosprite brand-kawasaki"></span>
-                                <span class="brand-type-title">kawasaki</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-kawasaki" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Kawasaki</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/ktm-bikes/">
-                                <span class="brandlogosprite brand-ktm"></span>
-                                <span class="brand-type-title">ktm</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-ktm" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">KTM</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/lml-bikes/">
-                                <span class="brandlogosprite brand-lml"></span>
-                                <span class="brand-type-title">lml</span>
+                                <span class="brand-type">
+                                        <span class="lazy brandlogosprite brand-lml" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">LML</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/mahindra-bikes/">
-                                <span class="brandlogosprite brand-mahindra"></span>
-                                <span class="brand-type-title">mahindra</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-mahindra" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Mahindra</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/motoguzzi-bikes/">
-                                <span class="brandlogosprite brand-guzzi"></span>
-                                <span class="brand-type-title">moto guzzi</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-guzzi" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Moto Guzzi</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/suzuki-bikes/">
-                                <span class="brandlogosprite brand-suzuki"></span>
-                                <span class="brand-type-title">suzuki</span>
+                                <span class="brand-type">
+                                        <span class="lazy brandlogosprite brand-suzuki" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Suzuki</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/triumph-bikes/">
-                                <span class="brandlogosprite brand-triumph"></span>
-                                <span class="brand-type-title">triumph</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-triumph" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Triumph</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/vespa-bikes/">
-                                <span class="brandlogosprite brand-vespa"></span>
-                                <span class="brand-type-title">vespa</span>
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-vespa" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Vespac</span>
                             </a>
                         </li>
                         <li>
                             <a href="/m/yo-bikes/">
-                                <span class="brandlogosprite brand-yo"></span>
-                                <span class="brand-type-title">yo</span>
+                                <span class="brand-type">
+                                        <span class="lazy brandlogosprite brand-yo" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">Yo</span>
                             </a>
                         </li>
 
@@ -344,9 +391,9 @@
                         <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
                             <div class="form-control-box">
                                 <select class="form-control">
-                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Reviews</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option>                                   
+                                    <%if ((Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0)) {%> <option class="<%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option> <% } %>
+                                    <%if ((Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0)) {%><option class="<%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option> <% } %>
+                                    <%if ((Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0)) {%><option class="<%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option> <% } %>                                   
                                 </select>
                             </div>
                         </div>

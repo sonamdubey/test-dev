@@ -46,6 +46,10 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
                     // Auto map the properties
                     objDTOCityList = new PQCityList();
                     objDTOCityList.Cities = PQCityListMapper.Convert(objCityList);
+
+                    objCityList.Clear();
+                    objCityList = null;
+
                     return Ok(objDTOCityList);
                 }
                 else

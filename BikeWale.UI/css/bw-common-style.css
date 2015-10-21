@@ -115,7 +115,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 /* layout properties */
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 .home-top-banner { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/images/home-top-banner.jpg) no-repeat right top; background-size: cover; height: 490px; padding-top: 1px; }
-.home-getFinalPrice-banner { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/images/get-final-price-banner.jpg) no-repeat center top; background-size: cover; height: 490px; }
+.home-getFinalPrice-banner { background-color:#cbcbcb; background-size: cover; height: 490px; }
 
 /* city popup classes */
 .globalcity-popup { width:450px; min-height:320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left:5%; z-index: 10; }
@@ -168,7 +168,9 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .compare-list-home li {padding-bottom: 25px; text-align: center; }
 
 /* news, review and videos section on home page classes */
-.img-preview img { width: 100% }
+#ctrlNews .img-preview, #ctrlExpertReviews .img-preview { width:310px; height:174px; display:table; text-align:center;}
+#ctrlNews .img-preview a, #ctrlExpertReviews .img-preview a { width:310px; display:table-cell; vertical-align:middle; }
+
 .yt-iframe-preview iframe { width: 100%; height: 176px; }
 
 @-moz-document url-prefix() {
@@ -217,17 +219,15 @@ footer ul li a:hover { text-decoration: underline; }
 
 .cardWrapper { width:100%; height:100%; overflow:hidden; display:inline-block; }
 
-.front, .back { height: 330px; background: #fff; overflow:hidden; display: inline-block; border-radius: 3px; border:1px solid #ccc; -webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; -ms-backface-visibility: hidden; backface-visibility: hidden; }
+.front, .back { height: 290px; background: #fff; overflow:hidden; display: inline-block; border-radius: 3px; border:1px solid #ccc; -webkit-backface-visibility: hidden; -moz-backface-visibility: hidden; -ms-backface-visibility: hidden; backface-visibility: hidden; }
 .contentWrapper, .formWrapper { position:relative; overflow:hidden; background:#fff; }
 .imageWrapper { display:table; width:310px; height:174px; overflow: hidden; text-align: center; }
 .imageWrapper a { display:table-cell; vertical-align:middle; }
-/*.imageWrapper img { width: 100%; } */
-/*.imageWrapper img {background-image: url(../images/circleloader.gif); background-position:center; background-repeat: no-repeat; }*/
 .bikeDescWrapper { padding: 15px; background:#fff; }
 .bikeTitle a { color: #2a2a2a; font-size: 18px; display: block; }
 .formContent { padding: 30px 20px 20px 20px; }
 .bike-preview { text-align: center; }
-.bike-preview img { width: 100%; }
+/*.bike-preview img { width: 100%; }*/
 
 .vs-circle-vert { position: relative; border-radius: 50%; background: #f2f2f2; border: 1px solid #e2e2e2; padding: 20px; display: block; font-size: 25px; margin: 110px auto 0 auto; width: 72px; height: 72px; }
 .vs-circle-vert-line { width: 1px; height: 265px; background:#e4e4e4; position: absolute; top: -90px; left: 70px; }
@@ -411,7 +411,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .login-logout-icon { background-position:-150px -250px; }
 
 /* Brand sprite */
-.brandlogosprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/brand-type-sprite.png) no-repeat; display: inline-block; }
+.brandlogosprite { background-repeat:no-repeat; display: inline-block; }
 .brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-enfeild, .brand-guzzi, .brand-harley, .brand-hero-elec, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-royal { height:50px; }
 
 .brand-aprilia { width: 87px; background-position: 0 0; }
@@ -750,3 +750,4 @@ a.action-btn:hover{text-decoration:none;}
    .jcarousel-control-prev.inactive {background-position: -21px -16px;}
    .jcarousel-control-next.inactive {background-position: -42px -16px;}
 }
+.popular-used-bikes-container .imageWrapper a img { width:310px; height:175px; background-color:#cbcbcb; }

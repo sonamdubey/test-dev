@@ -45,7 +45,7 @@
                        { %><div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
                     <% } %>
                     <div class="jcarousel-wrapper model" id="bikeBannerImageCarousel">
-                        <div class="jcarousel">
+                        <div class="jcarousel stage">
                             <ul id="ulModelPhotos">
                                 <li>
                                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
@@ -53,7 +53,7 @@
                                 <asp:Repeater ID="rptModelPhotos" runat="server">
                                     <ItemTemplate>
                                         <li>
-                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img1.aeplcdn.com/grey.gif" />
+                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" />
                                         </li>
                                     </ItemTemplate>
                                 </asp:Repeater>
@@ -233,6 +233,9 @@
                             <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
                             <input type="button" class="btn btn-orange btn-full-width" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
                         	<!-- /ko -->
+                            <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && !(priceQuote().dealerPriceQuote.offers.length > 0) -->
+                            <input type="button" class="btn btn-orange btn-full-width" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />
+                        	<!-- /ko -->
                         </div>
                         <!-- /ko -->
                         <div class="city-area-wrapper">
@@ -390,7 +393,7 @@
                             <option value="engineTransmission">Engine &amp; Transmission </option>
                             <option value="brakeWheels">Brakes, Wheels and Suspension</option>
                             <option value="dimensions">Dimensions and Chassis</option>
-                            <option value="fuelEffiency">Fuel effieciency and Performance</option>
+                            <option value="fuelEffiency">Fuel efficiency and Performance</option>
                         </select>
 
                         <div class="leftfloat bw-horz-tabs-data font16">
@@ -905,17 +908,17 @@
                         <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
                             <div class="form-control-box">
                                 <select class="form-control">
-                                    <option class="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? "" : "hide"  %> <%= isUserReviewActive ? "active" : "" %> " value="ctrlUserReviews">User Reviews</option>                                    
-                                    <option class="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option>
-                                    <option class=" <%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option>
-                                    <option class="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "" : "hide" %> <%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option>                                    
+                                    <%if ((Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0)) { %> <option class="<%=isUserReviewActive ? "active" : "" %>" value="ctrlUserReviews">User Reviews</option> <% } %>                                   
+                                    <%if ((Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0)) {%><option class="<%=isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option> <% } %> 
+                                    <%if ((Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0)) {%><option class="<%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option> <% } %> 
+                                    <%if ((Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0)) {%><option class="<%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option> <% } %>                                     
                                 </select>
                             </div>
                         </div>
                         <%if (!isUserReviewZero) { %> <BW:UserReviews runat="server" ID="ctrlUserReviews" />  <% } %>                    
                         <%if (!isExpertReviewZero) { %> <BW:ExpertReviews  runat="server" ID="ctrlExpertReviews" /> <% } %>
                         <%if (!isNewsZero) { %> <BW:News runat="server" ID="ctrlNews" /> <% } %>
-                        <%if (!isVideoActive) { %> <BW:Videos runat="server" ID="ctrlVideos" /> <% } %>
+                        <%if (!isVideoZero) { %> <BW:Videos runat="server" ID="ctrlVideos" /> <% } %>
                         
                     </div>
                 </div>
@@ -956,7 +959,7 @@
 		    isUsed = '<%= !modelPage.ModelDetails.New %>';
             var myBikeName = "<%= this.bikeName %>";
 		    ga_pg_id = '2';
-		    if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
+		    if ('<%=isUserReviewActive%>' == "False") $("#ctrlUserReviews").addClass("hide");
 		    if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
 		    if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
 		    if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");

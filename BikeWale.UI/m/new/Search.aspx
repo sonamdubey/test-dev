@@ -16,6 +16,7 @@
     <body class="bg-light-grey">
         <!-- #include file="/includes/Navigation_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+        <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
         <div class="blackOut-window"></div>
         <header>
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
@@ -83,7 +84,7 @@
                                     <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                     <div class="imageWrapper">
                                         <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' ) }">
-                                            <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'http://img1.aeplcdn.com/grey.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
+                                            <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
                                         </a>
                                     </div>
                                         <div class="bikeDescWrapper">
@@ -311,6 +312,7 @@
         <!-- all other js plugins -->    
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
         <BW:MPopupWidget runat="server" ID="MPopupWidget1" />        
     </body>
 </html>

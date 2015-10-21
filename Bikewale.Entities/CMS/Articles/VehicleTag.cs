@@ -14,6 +14,6 @@ namespace Bikewale.Entities.CMS.Articles
     {
         public BikeMakeEntityBase MakeBase { get; set; }
         public BikeModelEntityBase ModelBase { get; set; }
-        public BikeVersionEntity VersionBase { get; set; }
+        public BikeVersionEntityBase VersionBase { get; set; }
     }
 }

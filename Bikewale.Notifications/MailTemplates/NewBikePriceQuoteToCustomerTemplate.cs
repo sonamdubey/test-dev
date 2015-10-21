@@ -34,6 +34,9 @@ namespace Bikewale.Notifications.MailTemplates
         public string ModelId { get; set; }
         public string DealerId { get; set; }
         public uint InsuranceAmount { get; set; }
+
+
+
         public NewBikePriceQuoteToCustomerTemplate(string bikeName, string bikeImage, string dealerName, string dealerEmailId, string dealerMobileNo,
             string organization, string website, string address, string customerName, DateTime date, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, uint insuranceAmount)
         {
@@ -57,7 +60,7 @@ namespace Bikewale.Notifications.MailTemplates
             InsuranceAmount = insuranceAmount;
         }
 
-        public override StringBuilder ComposeBody()
+        public override string ComposeBody()
         {
             StringBuilder sb = null;
             try
@@ -176,7 +179,7 @@ namespace Bikewale.Notifications.MailTemplates
             }
 
             HttpContext.Current.Trace.Warn(sb.ToString());
-            return sb;
+            return sb.ToString();
         }
     }
 }

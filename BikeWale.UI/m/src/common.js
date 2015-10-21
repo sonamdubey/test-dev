@@ -64,6 +64,9 @@ function navbarShow() {
 }
 
 $(document).ready(function () {
+    $(".lazy").lazyload({
+        effect: "fadeIn"
+    });
     $('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
 
@@ -110,7 +113,8 @@ $(document).ready(function () {
             }
             MakeModelRedirection(make, model);
             // GA code
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': ui.item.label });
+            var keywrd = ui.item.label + '_' + $('#newBikeList').val();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
         },
 
         open: function (result) {
@@ -359,12 +363,18 @@ $(document).ready(function () {
 		var panelId = $(this).val();
 		panel.find(".bw-tabs-data").hide();
 		$('#' + panelId).show();
+	    try{
+	        var panelIdCarousel = $('#' + panelId + " .jcarousel ul li");
+	    }catch(e){}
+		if (panelIdCarousel.length > 0)
+		panelIdCarousel.slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
 	}); // ends
 	/* jCarousel custom methods */
 	$(function () {
 	    var jcarousel = $('.jcarousel').jcarousel({
 	        vertical: false
 	    });
+	    
 		$('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
 			$(this).removeClass('inactive');
 		}).on('jcarouselcontrol:inactive', function () {
@@ -390,6 +400,7 @@ $(document).ready(function () {
 				return '<a href="#' + page + '">' + page + '</a>';
 			}
 		});
+
 		// Swipe handlers for mobile
 	   
 		$('.jcarousel a').on('click', function (e) {
@@ -415,6 +426,20 @@ $(document).ready(function () {
 				$(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-prev").click();
 			}
 		}
+
+		function applyLazyLoad() {
+		    $("img.lazy").lazyload({
+		        event: "imgLazyLoad"
+		    });
+		}
+
+		applyLazyLoad();
+		$(".jcarousel ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
+
+		$(".jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
+		    $(this).find("img.lazy").trigger("imgLazyLoad");
+		});
+
 	});
 	// common autocomplete data call function
 	function dataListDisplay(availableTags,request,response){
@@ -796,4 +821,27 @@ function selectElementFromArray(dataArray, id) {
         }
     }
     return false;
+}
+
+$(".modelurl").click(function () {
+    var array = $(this).attr('href').split('/');
+    if (array.length > 2) {
+        dataLayer.push({
+            'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Model_Click', 'lab': _makeName + '_' + array[2]
+        });
+    }
+});
+
+
+function insertCitySeparator(response) {
+    l = (response != null) ? response.length : 0;
+    if (l > 0) {
+        for (i = 0; i < l; i++) {
+            if (!response[i].IsPopular) {
+                if (i > 0)
+                response.splice(i, 0, { CityId: 0, CityName: "--------------------", CityMaskingName: "", IsPopular: false });
+                break;
+            }
+        }
+    }
 }

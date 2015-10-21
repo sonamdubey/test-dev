@@ -34,6 +34,9 @@ using Bikewale.DAL.NewBikeSearch;
 using Bikewale.BAL.Dealer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.DAL.Customer;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Cache.Core;
+using Bikewale.Cache.BikeData;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -75,6 +78,8 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IUserReviews, UserReviewsRepository>();
             container.RegisterType<ISearchResult, SearchResult>();
             container.RegisterType<IProcessFilter, ProcessFilter>();
+            container.RegisterType<ICacheManager, MemcacheManager>();
+            container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
 
             return container;
         }

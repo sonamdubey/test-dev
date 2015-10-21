@@ -1,10 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.PopupWidget" %>
 <!--bw popup code starts here-->
 <script runat="server">
-    private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
-    private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+    private string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
+    private string staticFileVersion1 = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
 </script>
-<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%=staticFileVersion %>" rel="stylesheet" />
+<link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
     <div class="popup-inner-container" stopBinding: true>
@@ -77,12 +77,14 @@
                 var cities = JSON.parse(obj.value);
                 var citySelected = null; 
                 if (cities) {
+                    insertCitySeparator(cities);
                     checkCookies();
                     viewModelPopup.bookingCities(cities);
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
                         viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
                     }
-                    $('#ddlCitiesPopup').trigger("chosen:updated");
+                    popupcity.find("option[value='0']").prop('disabled', true);
+                    popupcity.trigger('chosen:updated');
                     cityChangedPopup();
                 }
                 else {
@@ -276,4 +278,4 @@
         
 
 </script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/src/common/chosen.jquery.min.js?<%= staticFileVersion1 %>"></script>

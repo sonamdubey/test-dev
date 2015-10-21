@@ -12,41 +12,50 @@ using Bikewale.Utility;
 
 namespace Bikewale.BindViewModels.Controls
 {
-    public static class BindVideosControl
+    public class BindVideosControl
     {
-        public static int TotalRecords { get; set; }
-        public static int? MakeId { get; set; }
-        public static int? ModelId { get; set; }
-        public static int FetchedRecordsCount { get; set; }
+        public int TotalRecords { get; set; }
+        public int? MakeId { get; set; }
+        public int? ModelId { get; set; }
+        public int FetchedRecordsCount { get; set; }
 
-        public static void BindVideos(Repeater rptr)
+        static string _cwHostUrl;
+        static string _requestType;
+
+        static BindVideosControl()
+        {
+            _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            _requestType = "application/json";
+        }
+
+        public void BindVideos(Repeater rptr)
         {
             try
             {
                 FetchedRecordsCount = 0;
                 VideosList objVideos = null;
 
-                string _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
-
-                string _apiUrl = "/api/videos/cat/" + EnumVideosCategory.JustLatest + "/pn/1/ps/" + TotalRecords;                 
+                string _apiUrl = String.Format("/api/videos/cat/{0}/pn/1/ps/{1}", EnumVideosCategory.JustLatest, TotalRecords);
 
                 if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                 {
                     if (ModelId.HasValue && ModelId.Value > 0)
-                        _apiUrl = "/api/videos/pn/1/ps/" + TotalRecords + "/model/" + ModelId.Value;
+                        _apiUrl = String.Format("/api/videos/pn/1/ps/{0}/model/{1}", TotalRecords, ModelId.Value);
                     else
-                        _apiUrl = "/api/videos/pn/1/ps/" + TotalRecords + "/make/" + MakeId.Value;
+                        _apiUrl = String.Format("/api/videos/pn/1/ps/{0}/make/{1}", TotalRecords, MakeId.Value);
                 }
 
                 objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
 
-                if (objVideos != null && objVideos.Videos.ToList().Count > 0)
-                {
-                    FetchedRecordsCount = objVideos.Videos.ToList().Count;
+                if (objVideos != null)
+                {                    
+                    FetchedRecordsCount = objVideos.Videos.Count();
 
-                    rptr.DataSource = objVideos.Videos.ToList();
-                    rptr.DataBind();
+                    if (FetchedRecordsCount > 0)
+                    {                        
+                        rptr.DataSource = objVideos.Videos;
+                        rptr.DataBind();
+                    }
                 }
             }
             catch (Exception ex)
@@ -55,5 +64,5 @@ namespace Bikewale.BindViewModels.Controls
                 objErr.SendMail();
             }
         }
-    }    
+    }
 }

@@ -212,6 +212,7 @@ namespace Bikewale.DAL.BikeData
                                     }
                                 );
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -276,6 +277,7 @@ namespace Bikewale.DAL.BikeData
                                     AntilockBrakingSystem = !Convert.IsDBNull(dr["AntilockBrakingSystem"]) ? Convert.ToBoolean(dr["AntilockBrakingSystem"]) : false,
                                 });
                             }
+                            dr.Close();
                         }
                     }
                 }
@@ -283,13 +285,13 @@ namespace Bikewale.DAL.BikeData
             }
             catch (SqlException ex)
             {
-                //ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                //objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             catch (Exception ex)
             {
-                //  ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
-                //  objErr.SendMail();
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
             finally
             {
@@ -354,6 +356,7 @@ namespace Bikewale.DAL.BikeData
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
+                        conn.Close();
 
                         HttpContext.Current.Trace.Warn("qry success");
 
@@ -498,6 +501,7 @@ namespace Bikewale.DAL.BikeData
                                 SmallDescription = Convert.ToString(dr["SmallDescription"]),
                                 FullDescription = Convert.ToString(dr["FullDescription"])
                             };
+                            dr.Close();
                         }
                     }
                 }
@@ -556,6 +560,7 @@ namespace Bikewale.DAL.BikeData
                                 LargePicImagePath = Convert.ToString(dr["LargePicImagePath"]),
                                 OriginalImagePath = Convert.ToString(dr["OriginalImagePath"])
                             };
+                            dr.Close();
                         }
                     }
                 }

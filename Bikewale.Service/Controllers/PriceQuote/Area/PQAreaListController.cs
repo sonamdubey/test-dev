@@ -46,6 +46,10 @@ namespace Bikewale.Service.Controllers.PriceQuote.Area
                     // Auto map the properties
                     objDTOAreaList = new PQAreaList();
                     objDTOAreaList.Areas = PQAreaListMapper.Convert(objAreaList);
+
+                    objAreaList.Clear();
+                    objAreaList = null;
+
                     return Ok(objDTOAreaList);
                 }
                 else

@@ -53,12 +53,16 @@ namespace Bikewale.Service.Controllers.Make
             {
                 objModelList = _modelRepository.GetMostPopularBikesByMake(makeId);
                 description = _makesRepository.GetMakeDescription(makeId);
+                
                 if (objModelList != null && objModelList.Count() > 0 && description != null)
                 {
                     entity = new BikeMakePageEntity();
                     entity.Description = description;
                     entity.PopularBikes = objModelList;
                     makePage = MakePageEntityMapper.Convert(entity);
+
+                    objModelList = null;                    
+
                     return Ok(makePage);
                 }
             }

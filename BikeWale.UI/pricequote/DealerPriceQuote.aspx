@@ -82,7 +82,7 @@
             <p>A verification code will be sent to the above Mobile Number. You will need the code for further Verification Process.</p>
         </div>
         <div class="mid-box margin-top15 center-align">
-        	<input type="button" name="btnNext" value="Next" id="btnNext" class="action-btn" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });">
+        	<input type="button" name="btnNext" value="Next" id="btnNext" class="action-btn" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });">
         </div>
     </div>
 </div>
@@ -113,7 +113,7 @@
             </p>
         </div>
         <div class="mid-box margin-top15 center-align">
-        	<input type="button" name="btnSavePriceQuote" value="Verify" id="btnSavePriceQuote" class="action-btn" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Verified Mobile Number' });">
+        	<input type="button" name="btnSavePriceQuote" value="Verify" id="btnSavePriceQuote" class="action-btn" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Verified Mobile Number' });">
        </div>
     </div>
 </div>
@@ -223,9 +223,13 @@
                                     <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><b><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></b></td>
                            </tr>
 
-                    <%
-                       }
-                                     %>                                
+                    <% } %>     
+                    <% if(!(objPrice.objOffers != null && objPrice.objOffers.Count > 0)) { %>
+                        <tr class="margin-top15">
+                            <td>&nbsp;</td>
+                            <td  align="right"><a class="action-btn" id="btnBikeBooking" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</a></td>
+                        </tr>
+                    <% } %>                           
                                 <%-- End 102155010 --%>
                                 <%--<tr>
                                     <td colspan="2" align="right"><a id="dealerPriceQuote" class="blue font14" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Avail offer</a></td>
@@ -251,6 +255,7 @@
                     </div>
                     <% } %>
             </div>
+
             <%--<div class="dotted-hr margin-bottom10 margin-top10"></div>--%>
 
             </div>
@@ -339,11 +344,12 @@
                                 </FooterTemplate>                              
                             </asp:Repeater>
                     <div style="text-align:center;" class="mid-box margin-top15">
-                        <a class="action-btn" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</a>
+                        <a class="action-btn" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</a>
                     </div>
                     </div>
                   </div>                   
-                <%} %>
+                <%}%>
+                    
                 <!--Exciting offers div ends here-->
                 </div>
             <%--<SB:SimilarBike ID="ctrl_similarBikes" TopCount="2" runat="server" Visible="false"/>--%>
@@ -366,7 +372,7 @@
         $('.rsa-popup').hide();
     });
 
-    $('#btnGetDealerDetails').click(function(){
+    $('#btnGetDealerDetails, #btnBikeBooking').click(function(){
         window.location.href='/pricequote/bookingsummary_new.aspx';
     });
 </script>    
