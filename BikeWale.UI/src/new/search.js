@@ -104,12 +104,27 @@ $(".more-filters-btn").click(function () {
         a.removeClass("open");
         a.next(".filter-selection-div").slideUp();
         a.next(".filter-selection-div").removeClass("open");
+        moreLessTextChange($(this));
     }
     else {
         $(this).removeClass("open");
         $(".more-filters-container").slideUp();
+        moreLessTextChange($(this));
     }
 });
+
+$(".filter-close-btn").click(function () {
+    $(".more-filters-container").slideUp();
+    var a = $(".more-filters-btn");
+    moreLessTextChange(a);
+    $(".more-filters-btn").removeClass("open");
+});
+
+var moreLessTextChange = function (p) {
+    var morelessFilter = $("#more-less-filter-text");
+    var q = p.find(morelessFilter);
+    q.text(q.text() === "More" ? "Less" : "More");
+};
 
 $(".filter-done-btn").click(function () {
     $(".more-filters-container").slideUp();
@@ -470,6 +485,10 @@ $.fn.resetAll = function () {
         defaultText.show();
         count = 0;
         resetBWTabs();
+        var a = $(".more-filters-btn");
+        if (a.hasClass("open"))
+            moreLessTextChange(a);
+        $(".more-filters-btn").removeClass("open");
         $(".more-filters-container").slideUp();
         $('.filter-counter').text(count);
         $.pageNo = 1;
