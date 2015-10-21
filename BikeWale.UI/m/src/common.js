@@ -845,3 +845,20 @@ function insertCitySeparator(response) {
         }
     }
 }
+
+//Scroll To Top function
+$(function () {
+    
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 180) {
+            $('.back-to-top').fadeIn(500);
+        } else {
+            $('.back-to-top').fadeOut(500);
+        }
+    });
+
+    $('.back-to-top').click(function (event) {
+        $('html, body').animate({ scrollTop: 0 }, 600);
+        event.preventDefault();
+    });
+});
