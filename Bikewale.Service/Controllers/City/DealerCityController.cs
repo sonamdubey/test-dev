@@ -48,7 +48,7 @@ namespace Bikewale.Service.Controllers.City
                         CityId = city.CityId,
                         CityName = city.CityName,
                         CityMaskingName = city.CityId + "_" + city.CityMaskingName.Trim()
-                    });
+                    }).ToList();
 
                     objDealerList.CityWiseDealers.Clear();
                     objDealerList.CityWiseDealers = null;

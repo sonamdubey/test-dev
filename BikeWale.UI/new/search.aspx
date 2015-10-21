@@ -148,17 +148,22 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="grid-2">
-                            <div class="rightfloat">
-                               	<div class="more-filters-btn position-rel rounded-corner2">
-                                	<span class="bwsprite filter-icon inline-block"></span>
-                                    <span class="font14 inline-block">More</span>
-                                    <div class="filter-count-container">
-                                    	<div class="filter-counter">0</div>
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="grid-2 alpha">
+	                        <div class="leftfloat">
+		                        <div id="reset-btn-container" class="margin-top20">
+			                        <p id="btnReset" class="filter-reset-btn font14">Reset</p>
+		                        </div>
+	                        </div>
+	                        <div class="rightfloat">
+		                        <div class="more-filters-btn position-rel rounded-corner2">
+			                        <span class="font14"><span id="more-less-filter-text">More</span> Filters</span>
+			                        <div class="filter-count-container">
+				                        <div class="filter-counter">0</div>
+				                        <span></span>
+			                        </div>
+		                        </div>
+	                        </div>
+	                        <div class="clear"></div>
                         </div>
                         <div class="clear"></div>
                 	</div>
@@ -260,7 +265,7 @@
                         <div class="clear"></div>
                         <div class="padding-left10 margin-top10 margin-bottom10">
                         	<input type="button" class="filter-done-btn btn btn-orange margin-right15" value="Done"/>
-                        	<input type="button"  id="btnReset" class="filter-reset-btn btn btn-grey"  value="Reset"/>
+                        	<input type="button" id="btnClose" class="filter-close-btn btn btn-grey" value="Close"/>
                             <div class="clear"></div>                          
                         </div>
                     </div>

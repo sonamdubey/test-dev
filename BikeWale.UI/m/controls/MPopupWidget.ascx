@@ -12,7 +12,7 @@
         <div class="padding-top5" id="popupContent">
             <div class="text-light-grey margin-bottom15"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
          <div>
-                <select id="ddlCitiesPopup" class="form-control" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }, chosen: { width: '100%' }" ></select> 
+                <select id="ddlCitiesPopup" class="form-control chosen-select" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }, chosen: { width: '100%' }" ></select> 
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>   
          </div>
