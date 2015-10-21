@@ -37,7 +37,7 @@
 					    <td valign="top">
                             <table style="width:100%">
                                     <tr>
-                                        <td style="width:110px;" class="darkgray"><span style="position:relative;top:2px;"><b>Overall Average</b></span></td>
+                                        <td style="width:105px;" class="darkgray"><span style="position:relative;top:2px;"><b>Overall Average</b></span></td>
                                         <td style="font-size:0px;"> 
                                             <%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(objRating.OverAllRating))%>
                                         </td>

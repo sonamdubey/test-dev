@@ -313,6 +313,7 @@
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
-        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />        
+        <BW:MPopupWidget runat="server" ID="MPopupWidget1" /> 
+        <div class="back-to-top" id="back-to-top"><a><span></span></a></div>       
     </body>
 </html>

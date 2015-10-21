@@ -221,6 +221,7 @@
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
         </script>
     </form>
+    <div class="back-to-top" id="back-to-top"><a><span></span></a></div>
 </body>
 </html>
 
