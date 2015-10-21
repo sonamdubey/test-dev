@@ -541,7 +541,11 @@ emailid.on("focus keyup", function () {
     emailid.siblings("span, div").hide();
     detailsSubmitBtn.show();
     otpText.val('');
-    otpContainer.removeClass("show").addClass("hide");
+    otpContainer.removeClass("show").addClass("hide");    
+});
+
+emailid.on("keyup", function () {
+    $('#confirmation-tab,#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
 });
 
 var mobileValTrue = function () {
@@ -552,7 +556,7 @@ var mobileValTrue = function () {
 var prevMob;
 
 mobile.change(function () {
-    viewModel.CustomerVM().IsVerified(false);
+    viewModel.CustomerVM().IsVerified(false);    
     var b = validateMobile();
     if (b == false) {
         mobileVal();
@@ -569,6 +573,10 @@ mobile.change(function () {
         detailsSubmitBtn.show();
     }
 });
+
+mobile.on("keyup", function () {
+    $('#confirmation-tab,#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+})
 
 var fnameVal = function () {
     firstname.addClass("border-red");
@@ -731,26 +739,17 @@ $(".customize-submit-btn").click(function (e) {
     }
 });
 
-$("#personal-info-tab").click(function () {
+$(document).on('click',"#personal-info-tab, .customizeBackBtn", function () {
     if (!$(this).hasClass('disabled-tab')) {
         $.personalInfoState();
         $.showCurrentTab('personalInfo');
         $('#personal-info-tab').addClass('active-tab text-bold');
-        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
-        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
+        $('#customize-tab').addClass('active-tab').removeClass('text-bold');
     }
 });
 
-$(".customizeBackBtn").click(function () {
-    $.personalInfoState();
-    $.showCurrentTab('personalInfo');
-    $('#personal-info-tab').addClass('active-tab text-bold');
-    $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
-    $('#customize-tab').addClass('active-tab').removeClass('text-bold');
-});
-
-
-$('#customize-tab, .confirmationBackBtn').on('click', function () {
+$(document).on('click','#customize-tab, .confirmationBackBtn', function () {
     if (!$(this).hasClass('disabled-tab')) {
         $.customizeState();
         $.showCurrentTab('customize');
