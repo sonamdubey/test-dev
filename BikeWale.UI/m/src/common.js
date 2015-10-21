@@ -851,13 +851,13 @@ $(function () {
     
     $(window).scroll(function () {
         if ($(this).scrollTop() > 180) {
-            $('.scrollTo-top').fadeIn();
+            $('.back-to-top').fadeIn(500);
         } else {
-            $('.scrollTo-top').fadeOut();
+            $('.back-to-top').fadeOut(500);
         }
     });
 
-    $('.scrollTo-top').click(function (event) {
+    $('.back-to-top').click(function (event) {
         $('html, body').animate({ scrollTop: 0 }, 600);
         event.preventDefault();
     });

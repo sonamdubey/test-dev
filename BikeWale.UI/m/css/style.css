@@ -788,3 +788,8 @@ footer .border-solid-top {
 .ui-select a.ui-btn:hover,.ui-select a.ui-btn:focus{background:#fff url(http://img.aeplcdn.com/bikewaleimg/m/images/dropArrowBg.png?v=150915) no-repeat 96% 50%;}
 .filtered-list{border-radius:0;}
 .divAutoSuggest .filtered-list li .ui-btn{font-size:13px;font-weight:normal; background:#fff; border-bottom:none; text-shadow:none;}
+
+.back-to-top {bottom: 30px;position: fixed;z-index:8; right: 20px;display:none;}
+.back-to-top a {color: #d1d1d1;display: block;text-align: center;text-decoration: none;transition: color 1s ease 0s;width: 30px;}
+.back-to-top a:hover span {background-color: rgb(0, 0, 0);}
+.back-to-top span {background: #cb2100 url("http://img1.aeplcdn.com/tyreguide/up-arrow.png") no-repeat scroll center center;border-radius: 30px;cursor: pointer;display: block;height: 30px;margin-bottom: 7px;transition: all 1s ease 0s;width: 30px;}
