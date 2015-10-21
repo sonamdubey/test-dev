@@ -356,6 +356,11 @@ $(document).ready(function () {
 	    var panelId = $(this).attr("data-tabs");
 	    panel.find(".bw-tabs-data").hide();
 	    $("#" + panelId).show();
+	    try {
+	        var panelIdCarousel = $('#' + panelId + " .jcarousel ul li");
+	    } catch (e) { }
+	    if (panelIdCarousel.length > 0)
+	        panelIdCarousel.slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
 	}); // ends
 	// Common CW select box tabs code
 	$(".bw-tabs select").change( function (){
@@ -363,11 +368,6 @@ $(document).ready(function () {
 		var panelId = $(this).val();
 		panel.find(".bw-tabs-data").hide();
 		$('#' + panelId).show();
-	    try{
-	        var panelIdCarousel = $('#' + panelId + " .jcarousel ul li");
-	    }catch(e){}
-		if (panelIdCarousel.length > 0)
-		panelIdCarousel.slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
 	}); // ends
 	/* jCarousel custom methods */
 	$(function () {
