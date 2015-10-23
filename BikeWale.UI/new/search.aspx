@@ -265,7 +265,6 @@
                         <div class="clear"></div>
                         <div class="padding-left10 margin-top10 margin-bottom10">
                         	<input type="button" class="filter-done-btn btn btn-orange margin-right15" value="Done"/>
-                        	<input type="button" id="btnClose" class="filter-close-btn btn btn-grey" value="Close"/>
                             <div class="clear"></div>                          
                         </div>
                     </div>
