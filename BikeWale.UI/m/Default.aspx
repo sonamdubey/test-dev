@@ -91,20 +91,19 @@
     
     <section><!--  Upcoming, New Launches and Top Selling code starts here -->
         <div class="container bg-white">
-        	<div class="grid-12">
+        	<div class="grid-12 alpha omega">
                 <h2 class="text-center margin-top30 margin-bottom20">Discover your bike</h2>
                 <div class="bw-tabs-panel padding-bottom20">
-                    <div class="bw-tabs margin-bottom15">
-                    	<div class="form-control-box">
-                            
-                            <select class="form-control">
-                                <option value="discoverBrand">Brand</option>
-                                <option value="discoverBudget">Budget</option>
-                                <option value="discoverMileage">Mileage</option>
-                                <option value="discoverStyle">Style</option>                                
-                            </select>
-                        </div>
+                    
+                    <div class="bw-tabs bw-tabs-flex">
+                        <ul class="brand-budget-mileage-style-UL">
+                            <li class="active" data-tabs="discoverBrand">Brand</li>
+                            <li data-tabs="discoverBudget">Budget</li>
+                            <li data-tabs="discoverMileage">Mileage</li>
+                            <li data-tabs="discoverStyle">Style</li>
+                        </ul>
                     </div>
+
                     <div class="bw-tabs-data" id="discoverBrand">
                         <div class="brand-type-container">
                             <ul class="text-center">
@@ -493,22 +492,25 @@
     <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
             <!--  News, reviews and videos code starts here -->
             <div class="container">
-                <div class="grid-12">
+                <div class="grid-12 alpha omega">
                     <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
                     <div class="bw-tabs-panel">
-                        <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
-                            <div class="form-control-box">
-                                <select class="form-control">
-                                    <%if ((Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0)) {%> <option class="<%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option> <% } %>
-                                    <%if ((Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0)) {%><option class="<%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option> <% } %>
-                                    <%if ((Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0)) {%><option class="<%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option> <% } %>
-                                </select>
+                        <div class="bw-tabs">
+                            <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
+                                <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
+                                    <ul>
+                                        <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                        <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                   
+                                        <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>                        
+                        </div> 
+                        <div class="grid-12">                       
                         <%if (!isNewsZero) { %>         <BW:News runat="server" ID="ctrlNews" />    <% } %>
                         <%if (!isExpertReviewZero) { %> <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />  <% } %>                         
                         <%if (!isVideoZero) { %>        <BW:Videos runat="server" ID="ctrlVideos" />    <% } %>
-                       
+                       </div>
                     </div>
                 </div>
                 <div class="clear"></div>

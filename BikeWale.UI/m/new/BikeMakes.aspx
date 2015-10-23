@@ -150,21 +150,25 @@
     <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
             <!--  News, reviews and videos code starts here -->
             <div class="container">
-                <div class="grid-12">
+                <div class="grid-12 alpha omega">
                     <h2 class="text-center margin-top40 margin-bottom30 padding-left30 padding-right30">Latest Updates from <%= _make.MakeName %></h2>
                     <div class="bw-tabs-panel">
-                        <div class="bw-tabs margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
-                            <div class="form-control-box">
-                                <select class="form-control">
-                                    <%if ((Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0)) {%> <option class="<%= isNewsActive ? "active" : "" %>" value="ctrlNews">News</option> <% } %>
-                                    <%if ((Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0)) {%><option class="<%= isExpertReviewActive ? "active" : "" %>" value="ctrlExpertReviews">Expert Reviews</option> <% } %>
-                                    <%if ((Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0)) {%><option class="<%= isVideoActive ? "active" : "" %>" value="ctrlVideos">Videos</option> <% } %>   
-                                </select>
+                        <div class="bw-tabs">
+                            <div class="text-center <%= reviewTabsCnt > 2 ? "" : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
+                                <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
+                                    <ul>
+                                        <li class="<%= isNewsActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                        <li class="<%= isExpertReviewActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                   
+                                        <li class="<%= isVideoActive ? "active" : "hide" %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? "": "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                    </ul>
+                                </div>
                             </div>
-                        </div>
+                        </div> 
+                        <div class="grid-12">                       
                         <%if (!isNewsZero) { %>         <BW:News runat="server" ID="ctrlNews" />    <% } %>
                         <%if (!isExpertReviewZero) { %> <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />  <% } %>                         
-                        <%if (!isVideoZero) { %>        <BW:Videos runat="server" ID="ctrlVideos" />    <% } %>                       
+                        <%if (!isVideoZero) { %>        <BW:Videos runat="server" ID="ctrlVideos" />    <% } %>
+                       </div>
                     </div>
                 </div>
                 <div class="clear"></div>
