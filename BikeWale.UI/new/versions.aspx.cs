@@ -16,6 +16,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Controls;
+using System.Web.Services;
 
 namespace Bikewale.New
 {
@@ -327,6 +328,7 @@ namespace Bikewale.New
 
         static readonly string apiURL = "/api/model/details/?modelId={0}";
         static readonly string _requestType = "application/json";
+
         private void FetchModelPageDetails()
         {
             if (!string.IsNullOrEmpty(modelId))
@@ -531,7 +533,7 @@ namespace Bikewale.New
                 return "No specifications.";
             }
             return format.Trim().Substring(0, format.Length - 1);
-        }
+        }           
 
         public override void Dispose()
         {

@@ -129,6 +129,7 @@
     <Compile Include="Customer\CustomerEntityBase.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
     <Compile Include="Dealer\EnumNewBikeDealerClient.cs" />
+    <Compile Include="Dealer\ManufacturerLeadEntity.cs" />
     <Compile Include="Dealer\NewBikeDealerEntity.cs" />
     <Compile Include="Dealer\NewBikeDealerEntityBase.cs" />
     <Compile Include="Dealer\NewBikeDealersListEntity.cs" />
