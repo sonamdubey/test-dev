@@ -8,6 +8,10 @@ using System.Runtime.Serialization;
 
 namespace Bikewale.Entities.BikeData
 {
+    /// <summary>
+    /// Modified By : Lucky Rathore
+    /// Summary : HostUrl and LogoUrl Added
+    /// </summary>
     [Serializable, DataContract]
     public class BikeMakeEntityBase
     {
@@ -19,5 +23,11 @@ namespace Bikewale.Entities.BikeData
 
         [JsonProperty(PropertyName = "maskingName"), DataMember]
         public string MaskingName { get; set; }
+        
+        [JsonProperty(PropertyName = "hostUrl"), DataMember]
+        public string HostUrl { get; set; }
+        
+        [JsonProperty(PropertyName = "logoUrl"), DataMember]
+        public string LogoUrl { get; set; }        
     }
 }
