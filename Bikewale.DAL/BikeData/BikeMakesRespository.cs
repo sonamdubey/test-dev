@@ -15,10 +15,6 @@ namespace Bikewale.DAL.BikeData
 {
     /// <summary>
     /// Created By : Ashish G. Kamble
-    /// </summary>
-    /// <typeparam name="T">Generic type (need to specify type while implementing this class)</typeparam>
-    /// <typeparam name="U">Generic type (need to specify type while implementing this class)</typeparam>
-    /// <summary>
     /// Modified By : Lucky Rathore
     /// Summary : changes in function GetMakesByType
     /// </summary>
@@ -28,15 +24,11 @@ namespace Bikewale.DAL.BikeData
     {
         /// <summary>
         /// Summary : Function to get all makes base entities
-        /// </summary>
-        /// <param name="makeType">Type of bike data</param>
-        /// <returns>Returns list of type BikeMakeEntityBase</returns>
-        /// <summary>
         /// Modified By : Lucky Rathore
         /// Summary : Added HostUrl and LogoUrl for BikeMakeEntityBase in GetMakesByType function.
         /// </summary>
-        /// <typeparam name="T">Generic type (need to specify type while implementing this class)</typeparam>
-        /// <typeparam name="U">Generic type (need to specify type while implementing this class)</typeparam>
+        /// <param name="makeType">Type of bike data</param>
+        /// <returns>Returns list of type BikeMakeEntityBase</returns>
         public List<BikeMakeEntityBase> GetMakesByType(EnumBikeType makeType)
         {
             List<BikeMakeEntityBase> objMakesList = null;
