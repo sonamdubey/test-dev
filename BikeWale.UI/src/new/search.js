@@ -113,13 +113,6 @@ $(".more-filters-btn").click(function () {
     }
 });
 
-$(".filter-close-btn").click(function () {
-    $(".more-filters-container").slideUp();
-    var a = $(".more-filters-btn");
-    moreLessTextChange(a);
-    $(".more-filters-btn").removeClass("open");
-});
-
 var moreLessTextChange = function (p) {
     var morelessFilter = $("#more-less-filter-text");
     var q = p.find(morelessFilter);
@@ -129,6 +122,9 @@ var moreLessTextChange = function (p) {
 $(".filter-done-btn").click(function () {
     $(".more-filters-container").slideUp();
     stateChangeUp($('.filter-div'), $('.filter-div'));
+    var a = $(".more-filters-btn");
+    moreLessTextChange(a);
+    $(".more-filters-btn").removeClass("open");
 });
 
 var AppendCertificationStar = function (abStars) {
