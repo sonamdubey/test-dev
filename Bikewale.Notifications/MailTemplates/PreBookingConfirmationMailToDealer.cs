@@ -111,15 +111,14 @@ namespace Bikewale.Notifications.MailTemplates
                     sb.Append("</div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat center center; height:2px; width:100%\"></div>");
                 }
                 sb.Append("<div style=\"padding:10px 0;\"><p style=\" margin:7px 0;\">Please let us know when customer makes further payment / takes delivery, and we will transfer the pre-booking amount to your bank account.</p>");
-                sb.Append("<p style=\" margin:7px 0;\">Please feel free to call Rohit at 99203 13466 for any queries or help required in the process.</p></div>");
+                sb.Append("<p style=\" margin:7px 0;\">Please feel free to call 8828305054 for any queries or help required in the process.</p></div>");
                 sb.Append("<div style=\"padding:10px 0 0;\"><p style=\" margin:5px 0;\">Best Regards,</p><p style=\" margin:5px 0;font-weight:bold; margin:0;\">Team BikeWale</p></div>");
                 sb.Append("</div></div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bottom-shadow.png) center center #eeeeee no-repeat; height:9px; width:100%\"></div></div>");
-
-                HttpContext.Current.Trace.Warn("DealerEmail", sb.ToString());
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("Notifications.ErrorTempate ComposeBody : " + ex.Message);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Notification.PreBookingConfirmationMailToDealer.ComposeBody");
+                objErr.SendMail();
             }
             return sb.ToString();
         }

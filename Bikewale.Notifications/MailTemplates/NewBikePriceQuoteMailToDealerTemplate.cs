@@ -286,13 +286,14 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append("<div><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/documentation.png\" border=\"0\"></div><div style=\"font-size:12px; font-weight:bold; color:#333; margin:15px 0 19px;\">Close the Sale</div>");
                 sb.Append("<div style=\"color:#666666; text-align:left;\">Please collect the payment, required documents, get all the formalities done  &amp; deliver the vehicle.</div></div>");
                 sb.Append("<div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></div></div><div style=\"padding:10px;\">");
-                sb.Append("<div style=\"color:#666666; padding-bottom:20px;\">Please feel free to call us at 9920313466 (Rohit Chauhan, Manager, BikeWale Sales) for any queries.</div>");
+                sb.Append("<div style=\"color:#666666; padding-bottom:20px;\">Please feel free to call us at 8828305054 for any queries.</div>");
                 sb.Append("<div style=\"color:#666666; padding-bottom:5px;\">Best Regards,</div><div style=\"color:#666666;\">Team BikeWale</div>");
                 sb.Append("</div></div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bottom-shadow.png) center center no-repeat; height:6px;\"></div>");
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Trace.Warn("Notifications.ErrorTempate ComposeBody : " + ex.Message);
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.Notification.NewBikePriceQuoteMailToDealerTemplate.ComposeBody");
+                objErr.SendMail();
             }
             return sb.ToString();
         }
