@@ -137,6 +137,12 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .bw-tabs-flex li:hover { color: #4d5057; }
 .bw-tabs-flex li.active { border-bottom: 4px solid #ef3f30; padding-bottom:4px; color: #4d5057; cursor:default; }
 
+/* Let's get this party started */
+.bw-tabs::-webkit-scrollbar {width: 0;}
+ 
+/* Track & Handle */
+.bw-tabs::-webkit-scrollbar-track, .bw-tabs::-webkit-scrollbar-thumb {display:none;}
+
 .home-tabs { background: #fff; display: inline-block; overflow: hidden; border: 1px solid #cccccc; margin: 30px 0; }
 .home-tabs li { color: #ccc; display: inline-block; padding: 6px 20px; font-size: 16px; cursor: pointer; }
 .home-tabs li.active { background: #333333; color: #fff; cursor: default; }

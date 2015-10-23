@@ -348,6 +348,23 @@ $(document).ready(function () {
 		$("#LangName").text(langTxt);
 		$(".lang-changer-option").hide();
 	}); // ends	
+
+	
+	function centerItVariableWidth(target, outer) {
+	    var out = $(outer);
+	    var tar = target;
+	    var x = out.width();
+	    var y = tar.outerWidth(true);
+	    var z = tar.index();
+	    var q = 0;
+	    var m = out.find('li');
+	    //Just need to add up the width of all the elements before our target. 
+	    for (var i = 0; i < z; i++) {
+	        q += $(m[i]).outerWidth(true);
+	    }
+	    out.animate({scrollLeft : Math.max(0, q - (x - y) / 2)}, 500, 'swing');
+	}
+
     // Common BW tabs code
 	$(".bw-tabs li").on('click', function () {
 	    var panel = $(this).closest(".bw-tabs-panel");
@@ -356,6 +373,9 @@ $(document).ready(function () {
 	    var panelId = $(this).attr("data-tabs");
 	    panel.find(".bw-tabs-data").hide();
 	    $("#" + panelId).show();
+
+	    centerItVariableWidth($(this), '.bw-tabs');
+
 	    try {
 	        var panelIdCarousel = $('#' + panelId + " .jcarousel ul li");
 	    } catch (e) { }

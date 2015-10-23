@@ -246,7 +246,7 @@
     <section> <!--  Upcoming, New Launches and Top Selling code starts here -->
         <div class="container <%= ((mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
             <div class="grid-12 alpha omega">
-                <h2 class="text-center margin-top30 margin-bottom20">Discover your bike</h2>
+                <h2 class="text-center margin-top30 margin-bottom20">Featured bikes</h2>
                 <div class="bw-tabs-panel">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul>
