@@ -18,6 +18,12 @@ namespace Bikewale.DAL.BikeData
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this class)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this class)</typeparam>
+    /// <summary>
+    /// Modified By : Lucky Rathore
+    /// Summary : changes in function GetMakesByType
+    /// </summary>
+    /// <typeparam name="T">Generic type (need to specify type while implementing this class)</typeparam>
+    /// <typeparam name="U">Generic type (need to specify type while implementing this class)</typeparam>
     public class BikeMakesRepository<T, U> : IBikeMakes<T, U> where T : BikeMakeEntity, new()
     {
         /// <summary>
@@ -25,6 +31,12 @@ namespace Bikewale.DAL.BikeData
         /// </summary>
         /// <param name="makeType">Type of bike data</param>
         /// <returns>Returns list of type BikeMakeEntityBase</returns>
+        /// <summary>
+        /// Modified By : Lucky Rathore
+        /// Summary : Added HostUrl and LogoUrl for BikeMakeEntityBase in GetMakesByType function.
+        /// </summary>
+        /// <typeparam name="T">Generic type (need to specify type while implementing this class)</typeparam>
+        /// <typeparam name="U">Generic type (need to specify type while implementing this class)</typeparam>
         public List<BikeMakeEntityBase> GetMakesByType(EnumBikeType makeType)
         {
             List<BikeMakeEntityBase> objMakesList = null;
@@ -52,7 +64,9 @@ namespace Bikewale.DAL.BikeData
                                 {
                                     MakeId = Convert.ToInt32(dr["ID"]),
                                     MakeName = dr["NAME"].ToString(),
-                                    MaskingName = dr["MaskingName"].ToString()
+                                    MaskingName = dr["MaskingName"].ToString(),
+                                    HostUrl = Convert.IsDBNull(dr["HostUrl"]) ? "" : dr["HostUrl"].ToString(),
+                                    LogoUrl = Convert.IsDBNull(dr["LogoUrl"]) ? "" : dr["LogoUrl"].ToString()                                    
                                 });
                             }
                         }
