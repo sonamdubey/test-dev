@@ -889,32 +889,26 @@
                                 <li>
                                     <div class="text-light-grey">Speedometer</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Speedometer) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Fuel Guage</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelGauge) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Tachometer Type</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TachometerType) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Digital Fuel Guage</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.DigitalFuelGauge) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Tripmeter</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Tripmeter) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Electric Start</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ElectricStart) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <div class="clear"></div>
                             </ul>
