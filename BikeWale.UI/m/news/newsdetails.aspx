@@ -69,4 +69,5 @@
     <%} %>
 </div>
 
+<div class="back-to-top" id="back-to-top"><a><span></span></a></div>
 <!-- #include file="/includes/footermobile.aspx" -->
