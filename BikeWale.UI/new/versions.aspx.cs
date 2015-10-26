@@ -127,11 +127,13 @@ namespace Bikewale.New
 
         static readonly string _PageNotFoundPath;
         static readonly string _bwHostUrl;
+        protected static bool isManufacturer = false;
 
         static versions()
         {
             _PageNotFoundPath = Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx";
             _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            isManufacturer = (ConfigurationManager.AppSettings["TVSManufacturerId"] != "0") ? true : false;
         }
 
         protected override void OnInit(EventArgs e)
@@ -318,7 +320,8 @@ namespace Bikewale.New
             if (cookies.AllKeys.Contains("location"))
             {
                 location = cookies["location"].Value;
-                cityId = location.Substring(0, location.IndexOf('_'));//location.Split('_')[0];
+                if(!String.IsNullOrEmpty(location))
+                    cityId = location.Substring(0, location.IndexOf('_'));//location.Split('_')[0];
             }
             else
             {

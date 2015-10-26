@@ -250,7 +250,7 @@ namespace Bikewale.Mobile.BikeBooking
                     {
                         bookingAmount = _objPQ.objBookingAmt.Amount;
                         divBookBike.Visible = true;
-                        if (objCustomer.IsTransactionCompleted)
+                        if (objCustomer!=null && objCustomer.IsTransactionCompleted)
                         {
                             divBikeBooked.Visible = true;
                             divBookBike.Visible = false;
@@ -326,7 +326,7 @@ namespace Bikewale.Mobile.BikeBooking
                         rptFacility.DataBind();
                     }
 
-                    if (_objPQ.objDealer != null)
+                    if (_objPQ.objDealer != null  && objCustomer!=null)
                     {
                         contactNo = _objPQ.objDealer.PhoneNo + (!String.IsNullOrEmpty(_objPQ.objDealer.PhoneNo) && !String.IsNullOrEmpty(_objPQ.objDealer.MobileNo) ? ", " : "") + _objPQ.objDealer.MobileNo;
                         organization = _objPQ.objDealer.Organization;

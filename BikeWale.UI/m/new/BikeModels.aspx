@@ -27,7 +27,6 @@
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
-    
 </head>
 <body>
     <form id="form1" runat="server">        
@@ -236,6 +235,48 @@
                             <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && !(priceQuote().dealerPriceQuote.offers.length > 0) -->
                             <input type="button" class="btn btn-orange btn-full-width" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />
                         	<!-- /ko -->
+                             <% if (modelId == "395" && isManufacturer)
+                                       {%>                                     
+                                    <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible: IsValidManufacturer(), event: { click: $root.notifyAvailable }" value="Contact TVS for details" /> 
+                                    <!-- Notify Availablity Popup starts here -->
+                                    <div class="notifyAvailabilityContainer rounded-corner2 hide" id="notifyAvailabilityContainer">
+                                        <div class="notify-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+                                        <div id="notify-form">
+                                           <div class="grid-12">
+                                                <div class="notify-lead-info-form">
+                                                    <p class="text-center font16 margin-bottom10">To know more provide your details & TVS will call you back</p>
+                                                    <div class="form-control-box personal-info-notify-container margin-bottom20">
+                                                        <input type="text" class="form-control get-lead-name" placeholder="Name (mandatory)" id="getLeadName">
+                                                        <span class="bwmsprite error-icon errorIcon hide"></span>
+                                                        <div class="bw-blackbg-tooltip errorText hide">Please enter your name</div>
+                                                    </div>
+                                                    <div class="form-control-box personal-info-notify-container margin-bottom20">
+                                                        <input type="text" class="form-control get-lead-email" placeholder="Email address (mandatory)" id="getLeadEmail">
+                                                        <span class="bwmsprite error-icon errorIcon hide"></span>
+                                                        <div class="bw-blackbg-tooltip errorText hide">Please enter your email</div>
+                                                    </div>
+                                                    <div class="form-control-box personal-info-notify-container margin-bottom25">
+                                                        <input type="text" class="form-control get-lead-mobile" maxlength="10" placeholder="Mobile no. (mandatory)" id="getLeadMobile">
+                                                        <span class="bwmsprite error-icon errorIcon hide"></span>
+                                                        <div class="bw-blackbg-tooltip errorText hide">Please enter your mobile no.</div>
+                                                    </div>
+                                                    <div class="text-center margin-bottom20">
+                                                        <input type="button" id="notifySubmitInfo" class="btn btn-orange" value="Submit" />
+                                                    </div>
+                                                    <p class="font12 text-light-grey">By proceeding ahead, you agree to BikeWale <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a>.</p>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+                                            <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+                                            <p class="font16 margin-bottom40">TVS Motor Company would get back to you shortly with additional information on TVS Scooty Zest.</p>
+                                            <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
+
+                                        </div>
+                                    </div>
+                                    <!-- Notify popup ends here -->
+                                    <%} %>
                         </div>
                         <!-- /ko -->
                         <div class="city-area-wrapper">
@@ -254,7 +295,7 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
+                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" data-bind="visible : IsValidManufacturer()">
                         <div class="available-offers-container content-inner-block-10">
                             <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                             <div class="offer-list-container" id="dvAvailableOffer">
@@ -963,6 +1004,82 @@
 		    if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
 		    if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
 		    if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+
+             <% if (modelId == "395" && isManufacturer)
+               {%>
+		    //notify availablilty 
+		    var bwNotify = $('#notifyAvailabilityContainer');
+		    $("#notifyAvailabilityContainer .notify-close-btn, .blackOut-window, #notifyOkayBtn").on("click", function () {
+		        $(".blackOut-window").hide();
+		        $(".notifyAvailabilityContainer").hide();
+		        $("#notify-form").show();
+		        $("#notify-response").hide();
+		    });
+
+		    $("#submit-details").on("click", function () {
+		        $("#notify-form").hide();
+		        $("#notify-response").show();
+		    });
+
+		    $('#btnBWLead').on('click', function () {
+		        bwNotify.find(".get-lead-name").val("")
+		        bwNotify.find(".get-lead-email").val("")
+		        bwNotify.find(".get-lead-mobile").val("");
+		        $("#notifySubmitInfo").val("Submit");
+
+		    });
+
+		    $("#notifySubmitInfo").on("click", function () {
+		        var leadName = bwNotify.find(".get-lead-name").val().trim();
+		        var leadEmail = bwNotify.find(".get-lead-email").val().trim();
+		        var leadMobile = bwNotify.find(".get-lead-mobile").val();
+		        var regName = /^[a-zA-Z ]+$/;
+		        var regEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
+		        var regMobile = /^[0-9]{10}$/;
+		        if (leadName.length > 0 && regName.test(leadName)) {
+		            validationSuccess($(".get-lead-name"));
+		            if (regEmail.test(leadEmail)) {
+		                validationSuccess($(".get-lead-email"));
+		                if (regMobile.test(leadMobile)) {
+		                    $.get('/api/ManufacturerLead/?name=' + leadName + '&email=' + leadEmail + '&mobile=' + leadMobile + '&pqId=' + modelViewModel.priceQuote().priceQuote.quoteId + '&cityId=' + modelViewModel.selectedCity() + '&versionId=' + modelViewModel.priceQuote().priceQuote.quoteId, function (response) {
+		                        if (response) {
+		                            validationSuccess($(".get-lead-mobile"));
+		                            $("#notify-form").hide();
+		                            $('#notify-response .notify-leadUser').text(leadName);
+		                            $('#notify-response').show();
+		                        }
+		                        else {
+		                            $("#notifySubmitInfo").val("Try Again");
+		                            return false;
+
+		                        }
+		                    });
+		                }
+		                else
+		                    validationError($(".get-lead-mobile"));
+		            }
+		            else
+		                validationError($(".get-lead-email"));
+		        }
+		        else
+		            validationError($(".get-lead-name"));
+		    });
+
+		    $(".get-lead-name, .get-lead-email, .get-lead-mobile").on("focus", function () {
+		        validationSuccess($(this));
+		    });
+
+		    var validationError = function (a) {
+		        a.addClass("border-red");
+		        a.siblings("span, div").show();
+		    };
+
+		    var validationSuccess = function (a) {
+		        a.removeClass("border-red");
+		        a.siblings("span, div").hide();
+		    };
+            <% } %>
+
         </script>
         
     </form>

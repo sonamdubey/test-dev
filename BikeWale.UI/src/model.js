@@ -111,7 +111,16 @@ function pqViewModel(modelId, cityId) {
     self.notifyAvailable = function () {
         $(".notifyAvailabilityContainer").show();
         $(".blackOut-window").show();
-    }
+    };
+
+    self.IsValidManufacturer = ko.computed(function () {
+        if (self.selectedModel() == 395)
+            if (self.selectedCity() != 1 && self.selectedCity() != 12 && self.selectedCity() != 2)
+                if (self.priceQuote() && !self.priceQuote().IsDealerPriceAvailable && self.priceQuote().bwPriceQuote.onRoadPrice > 0)
+                    return true;
+        return false;
+
+    },this);
 
     self.termsConditions = function (entity) {
         if (entity != null && entity.offerId != 0) {
