@@ -310,6 +310,9 @@
                                     <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && !(priceQuote().dealerPriceQuote.offers.length > 0) -->
                                     <input type="button" class="btn btn-orange" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />
                                     <!-- /ko -->
+                                    <!-- ko if : selectedModel()==99 && priceQuote() && !priceQuote().IsDealerPriceAvailable -->
+                                    <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="event: { click: $root.notifyAvailable }" value="Notify Availability" />
+                                    <!-- /ko -->
                                 </div>
                                 <!-- /ko -->
                                 <!-- On Road Price mesasge ends  -->
@@ -331,6 +334,51 @@
                                 </div>
                                 <!-- City/Area Select controls ends -->
                             </div>
+
+                            <!-- Notify Availablity Popup starts here -->
+                            <div class="notifyAvailabilityContainer rounded-corner2 hide" id="notifyAvailabilityContainer">
+                                <div class="notify-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                <div id="notify-form">
+                                    <div class="grid-6">
+                                        <p class="font18 margin-bottom10">Know about latest Scooty Zest features from TVS</p>
+                                        <ul class="notify-offers-list font14 margin-bottom10">
+                                            <li>New colour options</li>
+                                            <li>Charging</li>
+                                        </ul>
+                                    </div>
+                                    <div class="grid-6 border-solid-left">
+                                        <div class="notify-lead-info-form">
+                                            <div class="form-control-box personal-info-notify-container margin-bottom20">
+                                                <input type="text" class="form-control get-lead-name" placeholder="Name (mandatory)" id="getLeadName">
+                                                <span class="bwsprite error-icon errorIcon hide"></span>
+                                                <div class="bw-blackbg-tooltip errorText hide">Please enter your name</div>
+                                            </div>
+                                            <div class="form-control-box personal-info-notify-container margin-bottom20">
+                                                <input type="text" class="form-control get-lead-email" placeholder="Email address (mandatory)" id="getLeadEmail">
+                                                <span class="bwsprite error-icon errorIcon hide"></span>
+                                                <div class="bw-blackbg-tooltip errorText hide">Please enter your email</div>
+                                            </div>
+                                            <div class="form-control-box personal-info-notify-container margin-bottom25">
+                                                <input type="text" class="form-control get-lead-mobile" maxlength="10" placeholder="Mobile no. (mandatory)" id="getLeadMobile">
+                                                <span class="bwsprite error-icon errorIcon hide"></span>
+                                                <div class="bw-blackbg-tooltip errorText hide">Please enter your mobile no.</div>
+                                            </div>
+                                            <div class="text-center margin-bottom20">
+                                                <input type="button" id="notifySubmitInfo" class="btn btn-orange" value="Submit"/> 
+                                            </div>
+                                            <p class="font12 text-light-grey">By proceeding ahead, you agree to BikeWale <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a>.</p>
+                                        </div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+                                    <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser">John Doe</span></p>
+                                    <p class="font16 margin-bottom40">TVS Motor Company would get back to you shortly with additional information on TVS Scooty Zest.</p>
+                                    <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay"/>
+
+                                </div>
+                            </div>
+
                             <!-- City and Area  msgs and select controls ends  -->
                             <div id="offersBlock" class="city-unveil-offer-container position-rel">
                                 <div class="available-offers-container content-inner-block-10">
@@ -841,32 +889,26 @@
                                 <li>
                                     <div class="text-light-grey">Speedometer</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Speedometer) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Fuel Guage</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelGauge) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Tachometer Type</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TachometerType) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Digital Fuel Guage</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.DigitalFuelGauge) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Tripmeter</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Tripmeter) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Electric Start</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ElectricStart) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <div class="clear"></div>
                             </ul>
@@ -1211,6 +1253,89 @@
             if('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+
+            $(".notify-close-btn, .blackOut-window, #notifyOkayBtn").on("click", function () {
+                $(".blackOut-window").hide();
+                $(".notifyAvailabilityContainer").hide();
+                $("#notify-form").show();
+                $("#notify-response").hide();
+            });
+
+            $("#submit-details").on("click", function () {
+                $("#notify-form").hide();
+                $("#notify-response").show();
+            });
+
+            $("#notifySubmitInfo").on("click", function () {
+                var leadName = $(".get-lead-name").val().length;
+                var leadEmail = $(".get-lead-email").val();
+                var leadMobile = $(".get-lead-mobile").val();
+                if (validateName(leadName)) {
+                    validationSuccess($(".get-lead-name"));
+                    if (validateEmail(leadEmail)) {
+                        validationSuccess($(".get-lead-email"));
+                        if (validateMobile(leadMobile)) {
+                            validationSuccess($(".get-lead-mobile"));
+                            $("#notify-form").hide();
+                            $("#notify-response").show();
+                        }
+                        else
+                            validationError($(".get-lead-mobile"));
+                    }
+                    else
+                        validationError($(".get-lead-email"));
+                }
+                else
+                    validationError($(".get-lead-name"));
+            });
+
+            /* Name Validation */
+            var validateName = function (leadName) {
+                var isValid = true;
+                var a = leadName;
+                if (a == 0)
+                    isValid = false;
+                else if (a >= 1)
+                    isValid = true;
+                return isValid;
+            }
+
+            /* Email validation */
+            var validateEmail = function (leadEmail) {
+                var isValid = true;
+                var emailID = leadEmail;
+                var reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
+                if (!reEmail.test(emailID))
+                    isValid = false;
+                return isValid;
+            }
+
+            /* Mobile validation */
+            var validateMobile = function (leadMobile) {
+                var isValid = true;
+                var reMobile = /^[0-9]{10}$/;
+                var mobileNo = leadMobile;
+                if (mobileNo == "")
+                    isValid = false;
+                if (!reMobile.test(mobileNo) && isValid)
+                    isValid = false;
+                return isValid;
+            }
+
+            $(".get-lead-name, .get-lead-email, .get-lead-mobile").on("focus", function () {
+                validationSuccess($(this));
+            });
+
+            var validationError = function (a) {
+                a.addClass("border-red");
+                a.siblings("span, div").show();
+            };
+
+            var validationSuccess = function (a) {
+                a.removeClass("border-red");
+                a.siblings("span, div").hide();
+            };
+
         </script>      
     </form>
 </body>

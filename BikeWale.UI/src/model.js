@@ -108,6 +108,11 @@ function pqViewModel(modelId, cityId) {
         return false;
     };
 
+    self.notifyAvailable = function () {
+        $(".notifyAvailabilityContainer").show();
+        $(".blackOut-window").show();
+    }
+
     self.termsConditions = function (entity) {
         if (entity != null && entity.offerId != 0) {
             LoadTerms(entity.offerId);
@@ -433,6 +438,7 @@ $(document).ready(function () {
 
     $(".more-features-btn").click(function () {
         $(".more-features").slideToggle();
+        $("html, body").animate({scrollTop: $("#features").offset().top }, 1000);
         var a = $(this).find("span");
         a.text(a.text() === "+" ? "-" : "+");
     });
@@ -739,7 +745,6 @@ $(".modelgallery-close-btn, .blackOut-window-model").click(function () {
     $(".modelgallery-close-btn").removeClass("show").addClass("hide");
     videoiFrame.setAttribute("src", "");
 });
-
 
 $(document).ready(function () {
     imgTotalCount = $(".carousel-stage-photos ul li").length;    

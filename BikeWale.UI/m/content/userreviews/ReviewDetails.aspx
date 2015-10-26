@@ -36,7 +36,7 @@
                             <table style="width:100%">
                                    <tr><td class="darkgray" colspan="2"><b> <%=  objReview.ReviewEntity.WrittenBy %>'s Ratings</b></td></tr>
                                     <tr>
-                                        <td style="width:110px;" class="darkgray"><span style="position:relative;top:2px;">Overall Average</span></td>
+                                        <td style="width:105px;" class="darkgray"><span style="position:relative;top:2px;">Overall Average</span></td>
                                         <td style="font-size:0px;"><%= Bikewale.Common.CommonOpn.GetRateImage(Convert.ToDouble(objReview.ReviewRatingEntity.OverAllRating))%></td>
                                     </tr>
                                     <tr>
