@@ -76,7 +76,7 @@
                                         <li class="uncheck" filterId="14"><span>Yo</span></li>
                                         <li class="uncheck" filterId="5"><span>Harley Davidson</span></li>
                                         <li class="uncheck" filterId="19"><span>LML</span></li>
-                                        <li class="uncheck" filterId=""><span>MV Agusta</span></li>
+                                        <li class="uncheck" filterId="41"><span>MV Agusta</span></li>
                                     </ul>
                                     <div class="clear"></div>
                                 </div>
