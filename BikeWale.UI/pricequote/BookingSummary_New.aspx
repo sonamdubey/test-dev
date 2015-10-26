@@ -199,7 +199,7 @@
                         <ul class="varientsList" data-bind="foreach: viewModel.Varients()">
                             <li>
                                 <div class="grid-6 text-left">
-                                    <div data-bind="attr: { class: (minSpec().versionId() == $parent.SelectedVarient().minSpec().versionId()) ? 'selected border-dark varient-item border-solid content-inner-block-10 rounded-corner2' : 'varient-item border-solid content-inner-block-10 rounded-corner2' }, click: function () { $parent.selectVarient($data, event); }">
+                                    <div data-bind="attr: { class: (minSpec().versionId() == $parent.SelectedVarient().minSpec().versionId()) ? 'selected border-dark varient-item border-solid content-inner-block-10 rounded-corner2' : 'varient-item border-solid content-inner-block-10 rounded-corner2' }, click: function (data, event) { $parent.selectVarient($data, event); }">
                                         <div class="grid-8 alpha">
                                             <h3 class="font16 margin-bottom10" data-bind="text: minSpec().versionName"></h3>
                                             <p class="font14" data-bind="text: minSpec().displayMinSpec"></p>

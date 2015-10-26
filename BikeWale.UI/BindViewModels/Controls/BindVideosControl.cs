@@ -47,7 +47,7 @@ namespace Bikewale.BindViewModels.Controls
 
                 objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
 
-                if (objVideos != null)
+                if (objVideos != null && objVideos.Videos != null)
                 {                    
                     FetchedRecordsCount = objVideos.Videos.Count();
 
