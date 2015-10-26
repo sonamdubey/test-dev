@@ -43,10 +43,16 @@ namespace Bikewale.Mobile.New
         protected bool isUserReviewActive = false, isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
         //Varible to Hide or show controlers
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
+        protected static bool isManufacturer = false;
 
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
+        }
+
+        static BikeModels()
+        {
+            isManufacturer = (ConfigurationManager.AppSettings["TVSManufacturerId"] != "0") ? true : false;
         }
 
         protected void Page_Load(object sender, EventArgs e)

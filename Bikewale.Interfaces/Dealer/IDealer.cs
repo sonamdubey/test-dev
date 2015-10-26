@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Location;
+using Bikewale.Entities.Customer;
 
 namespace Bikewale.Interfaces.Dealer
 {
@@ -22,5 +23,6 @@ namespace Bikewale.Interfaces.Dealer
         List<CityEntityBase> GetDealersCitiesList();
         //Added by sushil kumar on 7th Oct 2015
         IEnumerable<NewBikeDealerEntityBase> GetNewBikeDealersList(int makeId, int cityId, EnumNewBikeDealerClient? clientId = null);
+        bool SaveManufacturerLead(ManufacturerLeadEntity customer);
     }
 }
