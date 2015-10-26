@@ -200,3 +200,38 @@
 .notify-lead-info-form { width:250px; margin:0 auto; }
 .personal-info-notify-container input { width:250px; margin:0 auto; } 
 .notify-offers-list { list-style:disc; margin-left:18px; }
+
+@media all and (min-width: 800px) and (max-width: 996px){
+	.city-unveil-offer-container { width:320px; }
+    .city-area-wrapper .chosen-container.chosen-container-single { width:150px !important; }
+    .connected-carousels .stage { width:379px; overflow:hidden; }
+    .connected-carousels .carousel-stage { height:215px; }
+    .stage .carousel-stage li { width:379px; height:214px; }
+    .stage .carousel li .carousel-img-container, .connected-carousels .carousel li .carousel-img-container span, .connected-carousels .carousel li .carousel-img-container span img { width:379px; height:214px; }
+    .connected-carousels .navigation { width:379px; }
+    .connected-carousels .carousel-navigation { width:320px; }
+    .bw-overall-rating.affix { width:760px; }
+    .bw-horz-tabs { width:300px; }
+    .bw-horz-tabs li { padding:25px 0 25px 25px; }
+    .bw-horz-tabs-data { width:430px; }
+
+    .alternatives-carousel .jcarousel li { width:248px; margin-right:0px; }
+    .alternatives-carousel .jcarousel li .imageWrapper { width:245px; height:138px; }
+    .alternatives-carousel .jcarousel li .imageWrapper a img { width:100%; height:138px; }
+    .jcarousel-wrapper { margin-left: 20px; width: 96%; }
+    .alternative-section .jcarousel-control-left { left: 2px; }
+    .alternative-section .jcarousel-control-right { right: 2px; }
+
+    .header-not-fixed { width:800px; }
+
+    .bw-horz-tabs-data .bw-tabs-data li div { width:190px; }
+    .equal-width-list li { width:330px; }
+    .equal-width-list li div { width:165px; }
+
+    .alternatives-carousel .imageWrapper a img { background: url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
+    #ctrlNews .img-preview, #ctrlExpertReviews .img-preview { width:240px; height:140px; }
+    #ctrlNews .img-preview a, #ctrlExpertReviews .img-preview a { width:240px; }
+    #ctrlNews .img-preview a img, #ctrlExpertReviews .img-preview a img { width:100%; background: url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
+    .yt-iframe-preview iframe { height:140px; }
+
+}

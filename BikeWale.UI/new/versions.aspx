@@ -125,12 +125,12 @@
                             <% if (modelPage.ModelDetails.New)
                                { %>
                             <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : string.Empty %>">
-                                <p class="margin-left50	leftfloat margin-right20">
+                                <p class="margin-left50	bikeModel-user-ratings leftfloat margin-right20">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                 </p>
                                 <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20 <%= (modelPage.ModelDetails.ReviewCount > 0)?string.Empty:"hide" %>"><%= modelPage.ModelDetails.ReviewCount %> Reviews
                                 </a>
-                                <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat margin-right20 padding-left20">Write a review
+                                <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat padding-left20">Write a review
                                 </a>
                                 <div class="clear"></div>
                             </div>
