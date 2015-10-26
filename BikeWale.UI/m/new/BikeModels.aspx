@@ -237,7 +237,7 @@
                         	<!-- /ko -->
                              <% if (modelId == "395" && isManufacturer)
                                        {%>                                     
-                                    <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible: IsValidManufacturer(), event: { click: $root.notifyAvailable }" value="Contact TVS for details" /> 
+                                    <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible: !IsValidManufacturer(), event: { click: $root.notifyAvailable }" value="Contact TVS for details" /> 
                                     <!-- Notify Availablity Popup starts here -->
                                     <div class="notifyAvailabilityContainer rounded-corner2 hide" id="notifyAvailabilityContainer">
                                         <div class="notify-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
