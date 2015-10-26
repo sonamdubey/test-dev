@@ -22,13 +22,13 @@ namespace Bikewale.Mobile.New
     /// <summary>
     /// Created By : Ashish G. Kamble on 9 Sept 2015    
     /// </summary>
-	public class BikeModels : System.Web.UI.Page
-	{
+    public class BikeModels : System.Web.UI.Page
+    {
         // Register controls
         protected AlternativeBikes ctrlAlternateBikes;
         protected NewsWidget ctrlNews;
         protected ExpertReviewsWidget ctrlExpertReviews;
-        protected VideosWidget ctrlVideos;        
+        protected VideosWidget ctrlVideos;
         protected UserReviewList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
         // Register global variables
@@ -49,21 +49,21 @@ namespace Bikewale.Mobile.New
             this.Load += new EventHandler(Page_Load);
         }
 
-		protected void Page_Load(object sender, EventArgs e)
-		{
+        protected void Page_Load(object sender, EventArgs e)
+        {
             #region Do not change the sequence
             ParseQueryString();
             CheckCityCookie();
-            FetchModelPageDetails(); 
+            FetchModelPageDetails();
             #endregion
             if (!IsPostBack)
-            {                
-                #region Do not change the sequence of these functions                    
-                    BindRepeaters();
-                    BindModelGallery();
-                    BindAlternativeBikeControl();
-                    clientIP = CommonOpn.GetClientIP(); 
-                #endregion                
+            {
+                #region Do not change the sequence of these functions
+                BindRepeaters();
+                BindModelGallery();
+                BindAlternativeBikeControl();
+                clientIP = CommonOpn.GetClientIP();
+                #endregion
 
                 ////news,videos,revews, user reviews
                 ctrlNews.TotalRecords = 3;
@@ -83,7 +83,7 @@ namespace Bikewale.Mobile.New
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
             }
-		}
+        }
 
         private void BindModelGallery()
         {
@@ -119,30 +119,33 @@ namespace Bikewale.Mobile.New
         private void BindRepeaters()
         {
 
-            if (modelPage.Photos != null && modelPage.Photos.Count > 0)
+            if (modelPage != null)
             {
-                //if (modelPage.Photos.Count > 2)
-                //{
-                //    rptModelPhotos.DataSource = modelPage.Photos.Take(3);
-                //}
-                //else
-                //{
-                //    rptModelPhotos.DataSource = modelPage.Photos;
-                //}
-                rptModelPhotos.DataSource = modelPage.Photos;
-                rptModelPhotos.DataBind();
-            }
+                if (modelPage.Photos != null && modelPage.Photos.Count > 0)
+                {
+                    //if (modelPage.Photos.Count > 2)
+                    //{
+                    //    rptModelPhotos.DataSource = modelPage.Photos.Take(3);
+                    //}
+                    //else
+                    //{
+                    //    rptModelPhotos.DataSource = modelPage.Photos;
+                    //}
+                    rptModelPhotos.DataSource = modelPage.Photos;
+                    rptModelPhotos.DataBind();
+                }
 
-            if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
-            {
-                rptVarients.DataSource = modelPage.ModelVersions;
-                rptVarients.DataBind();
-            }
+                if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                {
+                    rptVarients.DataSource = modelPage.ModelVersions;
+                    rptVarients.DataBind();
+                }
 
-            if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
-            {
-                rptColors.DataSource = modelPage.ModelColors;
-                rptColors.DataBind();
+                if (modelPage.ModelColors != null && modelPage.ModelColors.Count() > 0)
+                {
+                    rptColors.DataSource = modelPage.ModelColors;
+                    rptColors.DataBind();
+                }
             }
         }
 
@@ -181,7 +184,7 @@ namespace Bikewale.Mobile.New
                             }
                             else
                             {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);                                
+                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                                 this.Page.Visible = false;
                                 //isSuccess = false;
@@ -241,5 +244,5 @@ namespace Bikewale.Mobile.New
                 objErr.SendMail();
             }
         }
-	}
+    }
 }
