@@ -227,12 +227,19 @@
                         <li>
                             <a href="/m/yo-bikes/">
                                 <span class="brand-type">
-                                        <span class="lazy brandlogosprite brand-yo" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                    <span class="lazy brandlogosprite brand-yo" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
                                 </span>
                                 <span class="brand-type-title">Yo</span>
                             </a>
                         </li>
-
+                        <li>
+                            <a href="/m/mv-agusta-bikes/">
+                                <span class="brand-type">
+                                    <span class="lazy brandlogosprite brand-agusta" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                </span>
+                                <span class="brand-type-title">MV Agusta</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
                 <div class="text-center padding-bottom20">

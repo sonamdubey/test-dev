@@ -296,6 +296,14 @@
                                         <span class="brand-type-title">Yo</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="/m/mv-agusta-bikes/">
+                                        <span class="brand-type">
+                                             <span class="lazy brandlogosprite brand-agusta" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png"></span>
+                                        </span>
+                                        <span class="brand-type-title">MV Agusta</span>
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div class="view-brandType text-center padding-top10 clear">

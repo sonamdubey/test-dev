@@ -175,6 +175,7 @@
                                     <li class="unchecked" filterId="14"><span>Yo</span></li>
                                     <li class="unchecked" filterId="39"><span>Hero Electric</span></li>
                                     <li class="unchecked" filterId="20"><span>Moto Guzzi</span></li>
+                                    <li class="unchecked" filterId="41"><span>MV Agusta</span></li>
                             </ul>
                             </div>
                         </div>
