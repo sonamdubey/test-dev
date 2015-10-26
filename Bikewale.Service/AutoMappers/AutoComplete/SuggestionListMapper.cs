@@ -10,10 +10,10 @@ namespace Bikewale.Service.AutoMappers.AutoComplete
 {
     public class SuggestionListMapper
     {
-        internal static List<DTO.AutoComplete.SuggestionList> Convert(List<Nest.SuggestOption> objSuggestion)
+        internal static List<DTO.AutoComplete.SuggestionList> Convert(IEnumerable<Nest.SuggestOption> objSuggestion)
         {
             Mapper.CreateMap<SuggestOption, SuggestionList>();
-            return Mapper.Map<List<SuggestOption>, List<SuggestionList>>(objSuggestion);
+            return Mapper.Map<List<SuggestOption>, List<SuggestionList>>(objSuggestion.ToList());
         }
     }
 }

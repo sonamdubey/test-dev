@@ -41,10 +41,13 @@ namespace Bikewale.Service.Controllers.AutoComplete
                 BikeList objBikes = new BikeList();
                 int noOfSuggestion = noOfRecords.HasValue ? noOfRecords.Value : 10;
 
-                List<SuggestOption> objSuggestion = _autoSuggest.GetAutoSuggestResult(HttpContext.Current.Server.UrlDecode(inputText), noOfSuggestion, source);
+                IEnumerable<SuggestOption> objSuggestion = _autoSuggest.GetAutoSuggestResult(HttpContext.Current.Server.UrlDecode(inputText), noOfSuggestion, source);
 
                 objBikes.Bikes = SuggestionListMapper.Convert(objSuggestion);
-                if (objSuggestion != null && objSuggestion.Count > 0)
+
+                objSuggestion = null;
+
+                if (objBikes != null && objBikes.Bikes != null)
                     return Ok(objBikes);
                 else
                     return NotFound();

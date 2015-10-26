@@ -184,7 +184,7 @@ $.hitAPI = function (searchUrl,filterName) {
             $.totalCount = response.totalCount;
             $.pageNo = response.curPageNo;
             $.nextPageUrl = response.pageUrl.nextUrl;
-            $('#bikecount').text($.totalCount+' Bikes');
+            $('#bikecount').text($.totalCount + ' Bikes');
             if (!isNaN($.pageNo) && $.pageNo == 1) {
                 $.bindSearchResult(response);
             }
@@ -641,14 +641,14 @@ $.sortChangeUp = function(sortByDiv){
 
 $.fn.applySortFilter = function () {
     return $(this).click(function () {
+        $.removeKnockouts();
+        $.removePageNoParam();
+        
         var node = $(this);
         var completeQS = $.removeFilterFromQS('so');
         window.location.hash = completeQS;
         completeQS = $.removeFilterFromQS('sc');
         window.location.hash = completeQS;
-
-        $.removePageNoParam();
-        $.removeKnockouts();
 
         sortListLI.removeClass('selected');
         node.addClass('selected');
