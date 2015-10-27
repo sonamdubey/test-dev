@@ -67,16 +67,16 @@
                                         <li class="uncheck" filterId="20"><span>Moto Guzzi</span></li>
                                         <li class="uncheck" filterId="40"><span>Benelli</span></li>
                                         <li class="uncheck" filterId="8"><span>Hyosung</span></li>
-                                        <li class="uncheck" filterId="22"><span>Triumph</span></li>
+                                        <li class="uncheck" filterId="41"><span>MV Agusta</span></li>
                                         <li class="uncheck" filterId="3"><span>BMW</span></li>
                                         <li class="uncheck" filterId="34"><span>Indian</span></li>
-                                        <li class="uncheck" filterId="16"><span>Vespa</span></li>
+                                        <li class="uncheck" filterId="22"><span>Triumph</span></li>
                                         <li class="uncheck" filterId="4"><span>Ducati</span></li>
                                         <li class="uncheck" filterId="17"><span>Kawasaki</span></li>
-                                        <li class="uncheck" filterId="14"><span>Yo</span></li>
+                                        <li class="uncheck" filterId="16"><span>Vespa</span></li>
                                         <li class="uncheck" filterId="5"><span>Harley Davidson</span></li>
                                         <li class="uncheck" filterId="19"><span>LML</span></li>
-                                        <li class="uncheck" filterId="41"><span>MV Agusta</span></li>
+                                        <li class="uncheck" filterId="14"><span>Yo</span></li>
                                     </ul>
                                     <div class="clear"></div>
                                 </div>
