@@ -37,13 +37,13 @@
             <div id="divModel" style="display:none;">
 		        <div class="new-line15">
                     <img id="imgLoaderModel" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
-                    <asp:dropdownlist id="ddlModel" class="textAlignLeft" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake" runat="server"><asp:ListItem Text="--Select Model--" Value="0" /></asp:dropdownlist>
+                    <asp:dropdownlist id="ddlModel" class="textAlignLeft" data-bind="options: models, optionsText: 'ModelName', optionsValue: 'ModelId', value: selectedModel, optionsCaption: '--Select Model--', enable: selectedMake" runat="server"><asp:ListItem Text="--Select Model--" Value="" /></asp:dropdownlist>
 		        </div>
             </div>
             <%} %>            
             <div class="new-line15" data-bind="visible : selectedModel() > 0">
                 <img id="imgLoaderCity" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
-	            <div class="new-line15"><asp:dropdownlist id="ddlCity" class="textAlignLeft" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, optionsCaption: '--Select City--',chosen: { width: '100%' }" runat="server"><asp:ListItem Text="--Select City--" Value="0" /></asp:dropdownlist></div>
+	            <div class="new-line15"><asp:dropdownlist id="ddlCity" class="textAlignLeft" data-bind="options: cities, optionsText: 'CityName', optionsValue: 'CityId', value: selectedCity, optionsCaption: '--Select City--',chosen: { width: '100%' }" runat="server"><asp:ListItem Text="--Select City--" Value="" /></asp:dropdownlist></div>
             </div>              
              <div class="new-line5" id="divArea" style="display:none;">
                 <img id="imgLoaderArea" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="16" height="16" style="position:relative;top:3px;display:none;" /> 
@@ -368,18 +368,19 @@
                         if (resObj!=null && resObj.length > 0) {
                             var initIndex = 0;                            
                             checkCookies();                            
-                            $("#ddlCity").empty();
+                            //$("#ddlCity").empty();
                             insertCitySeparator(resObj);
                             viewModelPQ.cities(resObj);
                             //viewModelPQ.bookingCities(cities);
                             if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPQ.cities() && selectElementFromArray(viewModelPQ.cities(), onCookieObj.PQCitySelectedId)) {
                                 viewModelPQ.selectedCity(onCookieObj.PQCitySelectedId);
-                                $("#ddlCity option[value=" + onCookieObj.PQCitySelectedId + "]").prop("selected", true);
-                                $("#ddlCity").prop('selectedIndex', onCookieObj.PQCitySelectedId);
+                                $("#ddlCity option[value=" + onCookieObj.PQCitySelectedId + "]").attr("selected", "selected");
+                                //$("#ddlCity").prop('selectedIndex', onCookieObj.PQCitySelectedId);
                             }
                             $("#ddlCity").find("option[value='0']").prop('disabled', true);
                             $("#ddlCity").trigger('chosen:updated');
                             $("#ddlCity-button").removeClass().find("span.textAlignLeft").hide();
+                            $("#txtCity").val($("#ddlCity").val());
                         }
                         else viewModelPQ.cities([]);
                     },
@@ -492,14 +493,14 @@
     }
 
     if (window.location.search != '' || window.location.search != null) {
-        MetroCities($("#ddlCity"));
+        //MetroCities($("#ddlCity"));
     }
 
     function pqSetLocationCookie()
     {
         if (parseInt($("#ddlCity").val()) > 0) {
             cookieValue = parseInt($("#ddlCity").val()) + "_" + $("#ddlCity option:selected").text();
-            if (parseInt(pqAreaId) > 0)
+            if ($("#txtArea").val() > 0)
                 cookieValue += "_" + parseInt(pqAreaId) + "_" + pqAreaName;
             SetCookieInDays("location", cookieValue, 365);
         }
