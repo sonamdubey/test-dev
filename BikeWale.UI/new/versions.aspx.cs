@@ -334,7 +334,7 @@ namespace Bikewale.New
             if (cookies.AllKeys.Contains("location"))
             {
                 location = cookies["location"].Value;
-                if(!String.IsNullOrEmpty(location))
+                if (!String.IsNullOrEmpty(location) && location.IndexOf('_') != -1)
                     cityId = location.Substring(0, location.IndexOf('_'));//location.Split('_')[0];
             }
             else
