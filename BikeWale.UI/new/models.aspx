@@ -148,7 +148,7 @@
         %>
         <section>
             <!--  News Bikes code starts here -->
-            <div class="container newBikes-latest-updates-container">
+            <div class="container newBikes-latest-updates-container <%= reviewTabsCnt == 0 ? "hide" : string.Empty %>">
                 <div class="grid-12 margin-bottom20">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates from the industry</h2>
                     <div class="bw-tabs-panel content-box-shadow margin-bottom30">
