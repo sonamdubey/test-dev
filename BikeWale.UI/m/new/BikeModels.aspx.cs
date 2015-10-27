@@ -161,12 +161,11 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void ParseQueryString()
         {
+            ModelMaskingResponse objResponse = null;
             try
             {
                 if (!string.IsNullOrEmpty(Request.QueryString["model"]))
                 {
-                    ModelMaskingResponse objResponse = null;
-
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
@@ -175,32 +174,7 @@ namespace Bikewale.Mobile.New
                         var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
 
                         objResponse = objCache.GetModelMaskingResponse(Request.QueryString["model"]);
-
-                        if (objResponse != null && objResponse.StatusCode == 200)
-                        {
-                            modelId = objResponse.ModelId.ToString();
-                        }
-                        else
-                        {
-                            if (objResponse.StatusCode == 301)
-                            {
-                                //redirect permanent to new page 
-                                CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
-
-                            }
-                            else
-                            {
-                                Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
-                                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                                this.Page.Visible = false;
-                                //isSuccess = false;
-                            }
-                        }
                     }
-                }
-                else
-                {
-
                 }
             }
             catch (Exception ex)
@@ -208,10 +182,37 @@ namespace Bikewale.Mobile.New
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : FetchModelPageDetails");
                 objErr.SendMail();
 
-                // If any error occurred redirect to the new default page
-                Response.Redirect("/m/new/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                Response.Redirect("/m/new/", true);
+            }
+            finally
+            {
+                if (!string.IsNullOrEmpty(Request.QueryString["model"]))
+                {
+                    if (objResponse != null)
+                    {
+                        if (objResponse.StatusCode == 200)
+                        {
+                            modelId = objResponse.ModelId.ToString();
+                        }
+                        else if (objResponse.StatusCode == 301)
+                        {
+                            //redirect permanent to new page 
+                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(Request.QueryString["model"], objResponse.MaskingName));
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                    }
+                }
+                else
+                {
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                }
             }
         }
 
