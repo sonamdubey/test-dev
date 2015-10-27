@@ -219,10 +219,12 @@ namespace Bikewale.Mobile.New
         private void CheckCityCookie()
         {
             string location = String.Empty;
-            if (this.Context.Request.Cookies.AllKeys.Contains("location"))
+            var cookies = this.Context.Request.Cookies;
+            if (cookies.AllKeys.Contains("location"))
             {
-                location = this.Context.Request.Cookies["location"].Value;
-                cityId = location.Split('_')[0];
+                location = cookies["location"].Value;
+                if (!String.IsNullOrEmpty(location) && location.IndexOf('_') != -1)
+                    cityId = location.Substring(0, location.IndexOf('_'));//location.Split('_')[0];
             }
             else
             {
