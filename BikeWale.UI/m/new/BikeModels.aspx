@@ -67,8 +67,11 @@
                     <% if (modelPage.ModelDetails.New)
                        { %>
                     <div class="padding-left10 padding-right10">
-                        <p class="leftfloat margin-right10 rating-wrap">
+                        <p class=" <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> leftfloat margin-right10 rating-wrap">
                             <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
+                        </p>
+                        <p class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "hide" : ""  %> leftfloat margin-right10 rating-wrap">
+                           Not rated yet
                         </p>
                         <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
                             <%= modelPage.ModelDetails.ReviewCount %> Reviews
@@ -340,8 +343,11 @@
                     <div class="leftfloat">
                         <div class="padding-left5 padding-right5 ">
                             <div>
-                                <span class="margin-bottom10 ">
+                                <span class="margin-bottom10  <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %>">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
+                                </span>
+                                <span class="margin-bottom10 <%= modelPage.ModelDetails.ReviewCount > 0 ? "hide" : ""  %>">
+                                    Not rated yet
                                 </span>
                             </div>
                         </div>
