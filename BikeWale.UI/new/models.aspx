@@ -57,7 +57,7 @@
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
                                                 <a class="modelurl" href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
-                                                    <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif">
+                                                    <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" src="">
                                                 </a>
                                             </div>
                                             <div class="bikeDescWrapper">
@@ -73,15 +73,15 @@
                                                     <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
                                                 </div>
                                                 <div class="leftfloat">
-                                                    <p class=" inline-block border-solid-right padding-right10 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
+                                                    <p class=" inline-block rating-stars-container border-solid-right padding-right10 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
                                                         <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ModelRating"))) %>
                                                     </p>
                                                 </div>
-                                                <div class="leftfloat margin-left10 font16 text-light-grey <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
+                                                <div class="leftfloat rated-container margin-left10 font16 text-light-grey <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
                                                     <span><a href="/<%# Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName"))%>-bikes/<%#Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName")) %>/user-reviews/"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ReviewCount")) %> Reviews</a></span>
                                                 </div>
 
-                                                <div class="leftfloat font16 text-light-grey <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">
+                                                <div class="leftfloat not-rated-container font16 text-light-grey <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">
                                                     <span class="border-solid-right">Not rated yet  </span><a href="/content/userreviews/writereviews.aspx?bikem=<%# DataBinder.Eval(Container.DataItem,"objModel.ModelId") %>"><span class="margin-left10">Write a review</span></a>
                                                 </div>
 
@@ -104,8 +104,8 @@
             <div class="container">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30">Upcoming bikes from <%= _make.MakeName %></h2>
-                    <div class="content-box-shadow padding-top20 rounded-corner2">
-                        <div class="jcarousel-wrapper upcoming-brand-bikes-container">
+                    <div class="content-box-shadow rounded-corner2">
+                        <div class="jcarousel-wrapper upcoming-brand-bikes-container margin-top20">
                             <div class="jcarousel">
                                 <ul>
                                     <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
@@ -206,9 +206,18 @@
             $(".upcoming-brand-bikes-container").on('jcarousel:visiblein', 'li', function (event, carousel) {
                 $(this).find("img.lazy").trigger("imgLazyLoad");
             });
-         if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
-         if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-         if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+        if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+        if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
+        if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+
+        //800X600
+        if ($(window).width() < 996 && $(window).width() > 790) {
+            $(".rated-container, .not-rated-container").removeClass("font16").css("font-size", "15px")
+            $(".rated-container").removeClass("margin-left10").addClass("margin-left5");
+            $(".not-rated-container").find("span.write-review-span").removeClass("margin-left10").addClass("margin-left5");
+            $(".rating-stars-container").removeClass("padding-right10").addClass("padding-right5");
+        }
+
     </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->

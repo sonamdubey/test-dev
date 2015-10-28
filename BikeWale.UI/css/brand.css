@@ -2,9 +2,11 @@
 /* CSS Document */
 .brand-bikes-list-container li { width:303px; height:442px; margin-right:10px; margin-bottom:5px; }
 .brand-bikes-list-container li.front, .upcoming-brand-bikes-container li.front { border:none;}
-.brand-bikes-list-container li .imageWrapper, .upcoming-brand-bikes-container li .imageWrapper { width:303px; }
+.brand-bikes-list-container li .imageWrapper, .upcoming-brand-bikes-container li .imageWrapper { width:303px; height:174px; }
+.brand-bikes-list-container li .imageWrapper a, .upcoming-brand-bikes-container li .imageWrapper a { width:303px; height:174px; display: block; background: url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
 
-.upcoming-brand-bikes-container li { width:298px; height:auto; }
+.upcoming-brand-bikes-container li { width:303px; height:auto; margin-right: 12px; }
+.brand-bikes-list-container li .imageWrapper a img , .upcoming-brand-bikes-container li .imageWrapper a img { width:303px; height:174px; }
 .upcoming-brand-bikes-container .jcarousel { width: 934px; overflow: hidden; left: 20px; }
 
 /*news-videos tabs*/
@@ -12,3 +14,17 @@
 .newBikes-latest-updates-container .home-tabs li { width:170px; text-align:center; font-size:18px; padding:13px 14px; background:#f5f5f5;}
 .newBikes-latest-updates-container .home-tabs li:first-child { margin-right:-2px;}
 .newBikes-latest-updates-container .home-tabs li.active{ background:#fff; color:#2a2a2a;}
+
+@media all and (min-width: 800px) and (max-width: 996px) {
+    .brand-bikes-list-container li { width: 245px; height: 410px; margin-right: 5px; margin-bottom: 5px; }
+    .brand-bikes-list-container li .imageWrapper, .brand-bikes-list-container li .imageWrapper a { width: 245px; height: 138px; }
+    .brand-bikes-list-container li .imageWrapper a img { width: 100%; height: 138px; }
+    
+    .upcoming-brand-bikes-container .jcarousel li { width:248px; margin-right:0px; }
+    .upcoming-brand-bikes-container .jcarousel li .imageWrapper, .upcoming-brand-bikes-container .jcarousel li .imageWrapper a { width:245px; height:138px; }
+    .upcoming-brand-bikes-container .jcarousel li .imageWrapper a { background:url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; display:block; }
+    .upcoming-brand-bikes-container .jcarousel li .imageWrapper a img { width:100%; height:138px; }
+    .jcarousel-wrapper { margin-left: 20px; width: 96%; }
+    .upcoming-brand-bikes-container .jcarousel-control-left { left: -28px; }
+    .upcoming-brand-bikes-container .jcarousel-control-right { right: -24px; }    
+}

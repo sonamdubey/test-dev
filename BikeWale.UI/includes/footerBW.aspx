@@ -1,4 +1,4 @@
-﻿<footer class="bg-footer padding-top40 padding-bottom20"><!-- Footer section code starts here -->
+﻿<footer class="bg-footer padding-top40 padding-bottom20" id="bg-footer"><!-- Footer section code starts here -->
     <div class="container">
         <div class="grid-4">
             <a href="/" class="bwsprite bw-logo"></a>
@@ -15,7 +15,7 @@
                 </a>
             </div>
         </div>
-        <div class="grid-2">
+        <div class="grid-2 footer-company-section-one">
             <p class="font18 text-white margin-bottom20">Company</p>
             <ul>
                 <li><a href="/visitoragreement.aspx">Visitor Agreement</a></li>
@@ -24,7 +24,7 @@
                 <li><a href="http://www.carwale.com">CarWale.com</a></li>
             </ul>
         </div>
-        <div class="grid-3">
+        <div class="grid-3 footer-company-section-two">
             <ul class="margin-top45">
                 <li><a href="/advertisewithus.aspx">Advertise with us</a></li>
                 <li><a href="/contactus.aspx">Contact Us</a></li>
@@ -32,7 +32,7 @@
                 <li><a href="http://www.bikewale.com/m/">View Mobile Version</a></li>
             </ul>
         </div>
-        <div class="grid-3">
+        <div class="grid-3 footer-company-section-three">
             
         </div>
         <div class="clear"></div>

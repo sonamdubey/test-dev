@@ -28,6 +28,7 @@
 .newbike-discover-bike-container .jcarousel .imageWrapper { width: 303px; }
 .discover-bike-carousel .jcarousel li { width:303px; height:auto; margin-right:10px; }
 .discover-bike-carousel .jcarousel li.front { border:none;}
+.discover-bike-carousel .jcarousel li .imageWrapper a { width:303px; }
 
 /* tools you may required */
 .tools-may-need-wrapper { background:#fff; }

@@ -88,8 +88,8 @@
 .connected-carousels .carousel ul { width: 20000em; position: relative; list-style: none; margin: 0; padding: 0; }
 .connected-carousels .carousel li { float: left; width:476px; height:268px; }
 .connected-carousels .carousel li .carousel-img-container { display:table; width:476px; height:268px; text-align:center; }
-.connected-carousels .carousel li .carousel-img-container span { display: table-cell; vertical-align: middle; width: 476px; }
-/*.connected-carousels .carousel li img { width:100%; } */
+.connected-carousels .carousel li .carousel-img-container span { display: table-cell; vertical-align:middle; width: 476px; height: 268px; background:url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
+.connected-carousels .carousel li .carousel-img-container span img { width: 100%; height: 268px; }
 /** Stage carousel specific styles **/
 .connected-carousels .carousel-stage { height: 270px; }
 /** Navigation carousel specific styles **/
@@ -214,24 +214,17 @@
     .bw-horz-tabs { width:300px; }
     .bw-horz-tabs li { padding:25px 0 25px 25px; }
     .bw-horz-tabs-data { width:430px; }
-
+    .connected-carousels .carousel li .carousel-img-container span { width:379px; height:214px; display:block; background:url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
     .alternatives-carousel .jcarousel li { width:248px; margin-right:0px; }
-    .alternatives-carousel .jcarousel li .imageWrapper { width:245px; height:138px; }
+    .alternatives-carousel .jcarousel li .imageWrapper, .alternatives-carousel .jcarousel li .imageWrapper a { width:245px; height:138px; }
+    .alternatives-carousel .jcarousel li .imageWrapper a { background:url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; display:block; }
     .alternatives-carousel .jcarousel li .imageWrapper a img { width:100%; height:138px; }
     .jcarousel-wrapper { margin-left: 20px; width: 96%; }
     .alternative-section .jcarousel-control-left { left: 2px; }
     .alternative-section .jcarousel-control-right { right: 2px; }
-
     .header-not-fixed { width:800px; }
-
     .bw-horz-tabs-data .bw-tabs-data li div { width:190px; }
     .equal-width-list li { width:330px; }
     .equal-width-list li div { width:165px; }
-
-    .alternatives-carousel .imageWrapper a img { background: url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
-    #ctrlNews .img-preview, #ctrlExpertReviews .img-preview { width:240px; height:140px; }
-    #ctrlNews .img-preview a, #ctrlExpertReviews .img-preview a { width:240px; }
-    #ctrlNews .img-preview a img, #ctrlExpertReviews .img-preview a img { width:100%; background: url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
-    .yt-iframe-preview iframe { height:140px; }
 
 }

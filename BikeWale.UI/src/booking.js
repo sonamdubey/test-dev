@@ -364,5 +364,12 @@ $('#btnMakePayment').on('click', function (e) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step 3_Pay_Click', 'lab': cityArea });
 });
 
-
+//800x600 
+if ($(window).width() < 996 && $(window).width() > 790) {
+    $(".bike-booking-title").find("p").removeClass("font16").addClass("font14");
+    $(".confirm-otp-text").removeClass("font16").addClass("font14");
+    $(".bikeModel-details-table table tr td").first().attr("width", "150");
+    $(".bikeModel-balance-text").removeClass("font12").addClass("font11");
+    $(".bikeModel-dealerMap-container").css("width", "230px");
+}
 
