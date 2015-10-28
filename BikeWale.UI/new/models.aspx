@@ -65,8 +65,7 @@
                                                     <h3><a class="modelurl" href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>"><%# DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %></a></h3>
                                                 </div>
                                                 <div class="font20">
-                                                    <span class="fa fa-rupee " style="display: <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"none":"inline-block"%>"></span>
-                                                    <span class="font22"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
+                                                    <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %>
                                                 </div>
                                                 <div class="font12 text-light-grey margin-bottom10">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                                                 <div class="font14 margin-bottom10">
@@ -82,7 +81,7 @@
                                                 </div>
 
                                                 <div class="leftfloat font16 text-light-grey <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">
-                                                    <span class="border-solid-right">Not rated yet  </span><a href="/content/userreviews/writereviews.aspx?bikem=<%# DataBinder.Eval(Container.DataItem,"objModel.ModelId") %>"><span class="margin-left10">Write a review</span></a>
+                                                    <span class="border-solid-right padding-right10">Not rated yet  </span><a href="/content/userreviews/writereviews.aspx?bikem=<%# DataBinder.Eval(Container.DataItem,"objModel.ModelId") %>"><span class="margin-left10">Write a review</span></a>
                                                 </div>
 
                                                 <div class="clear"></div>

@@ -16,8 +16,7 @@
                             <h3><a href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MakeName")) + " " +Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelName"))%>"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MakeName")) + " " +Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelName"))%></a></h3>
                         </div>
                         <div class="font22 text-grey margin-bottom5">
-                            <span class="fa fa-rupee"></span>
-                            <span class="font24"><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))) %></span><span class="font16"> onwards</span>
+                            <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "MinPrice")) %>                             
                         </div>
                         <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                         <div class="font13 margin-bottom10">
@@ -27,14 +26,14 @@
                             <div class="leftfloat">
                                 <div class="padding-left5 padding-right5">                                                                
                                     <div>
-                                        <span class="margin-bottom10 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
+                                        <span class="margin-bottom10 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? string.Empty : "hide" %>">
                                            <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ReviewRate"))) %>
                                         </span>
                                     </div>
 
-                                    <div class="padding-left5 padding-right5 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">                                                                
+                                    <div class="padding-left5 padding-right5 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "hide" : string.Empty %>">                                                                
                                     <div>
-                                        <span class="font14 text-light-grey margin-bottom10">
+                                        <span class="font16 text-light-grey margin-bottom10">
                                           Not Rated Yet
                                         </span>
                                     </div>

@@ -44,38 +44,26 @@ namespace Bikewale.controls
 
         protected string ShowEstimatedPrice(object estimatedPrice)
         {
-            string price = String.Empty;
-            if (estimatedPrice != null)
+            if (estimatedPrice != null && Convert.ToInt32(estimatedPrice) > 0)
             {
-                price = Bikewale.Utility.Format.FormatPrice(estimatedPrice.ToString());
-                if (price == "N/A")
-                {
-                    price = "Price unavailable";
-                }
-                else
-                {
-                    price += " Onwards";
-                }
+                return String.Format("<span class='fa fa-rupee'></span> <span class='font22'>{0}</span><span class='font16'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(estimatedPrice)));
             }
-            return price;
+            else
+            {
+                return "<span class='font22'>Price Unavailable</span>";
+            }
         }
 
         protected string ShowLaunchDate(object launchDate)
         {
-            string ldate = String.Empty;
-            if (launchDate != null)
+            if (launchDate != null && !String.IsNullOrEmpty(Convert.ToString(launchDate)))
             {
-                ldate = Convert.ToString(launchDate);
-                if (ldate.Trim() != "")
-                {
-                    ldate += "<span class='font14 text-light-grey'> (Expected launch)</span>";
-                }
-                else
-                {
-                    ldate = "Launch date unavailable";
-                }
+                return String.Format("<div class='font12 text-light-grey margin-bottom10'>Expected Price</div> <p class='font16 border-solid-top margin-top10 padding-top10'>{0}<span class='font14 text-light-grey'> (Expected launch)</span></p>", Convert.ToString(launchDate));
             }
-            return ldate;
+            else
+            {
+                return "<p class='font16 border-solid-top margin-top20 padding-top10'><span>Launch date unavailable</span></p>";
+            }
         }
 
         public override void Dispose()

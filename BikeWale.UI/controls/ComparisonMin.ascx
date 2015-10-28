@@ -16,12 +16,19 @@
                 <div class="grid-6 alpha border-solid-right">
                     <div class="content-inner-block-5 text-center">
                         <div class="font18 margin-bottom5">
-                            <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price1.ToString()) %>
+                            <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(TopRecord.Price1)) %>
                         </div>
                         <div>
-                            <p class="margin-bottom10">
+                            <% if (Convert.ToDouble(TopRecord.Review1) > 0)
+                               {%>
+                            <p class="margin-bottom10 ">
                                 <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review1)) %>
                             </p>
+                            <%} else { %>
+                            <p class="margin-bottom10 font14 ">
+                                Not rated yet
+                            </p>
+                            <%} %>
                             <p class="font14"><a href="<%= Bike1ReviewLink %>" class="margin-left5"><%= Bike1ReviewText %></a></p>
                         </div>
                     </div>
@@ -32,9 +39,16 @@
                             <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price2.ToString()) %>
                         </div>
                         <div>
-                            <p class="margin-bottom5">
+                            <% if (Convert.ToDouble(TopRecord.Review2) > 0)
+                               {%>
+                            <p class="margin-bottom5 ">
                                 <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review2)) %>
                             </p>
+                            <%} else { %>
+                            <p class="margin-bottom5 font14 ">
+                                Not rated yet
+                            </p>
+                            <%} %>
                             <p class="font14"><a href="<%= Bike2ReviewLink %>" class="margin-left5"><%= Bike2ReviewText %></a></p>
                         </div>
                     </div>
