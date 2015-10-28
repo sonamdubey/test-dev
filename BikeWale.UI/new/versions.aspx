@@ -131,19 +131,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <% if (modelPage.ModelDetails.New)
+                            <% if (modelPage.ModelDetails!=null && modelPage.ModelDetails.New)
                                { %>
                             <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : string.Empty %>">
+                                <% if (Convert.ToDouble(modelPage.ModelDetails.ReviewRate) > 0)
+                                   { %>
                                 <p class="margin-left50	bikeModel-user-ratings leftfloat margin-right20">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                 </p>
-                                <p class="<%= (modelPage.ModelDetails.ReviewCount > 0)?"hide":string.Empty %> margin-left50	leftfloat margin-right20 ">
-                           Not rated yet
-                        </p>
-                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20 <%= (modelPage.ModelDetails.ReviewCount > 0)?string.Empty:"hide" %>"><%= modelPage.ModelDetails.ReviewCount %> Reviews
+                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20 "><%= modelPage.ModelDetails.ReviewCount %> Reviews
                                 </a>
+                                <% }
+                                   else
+                                   { %>
+                                <p class="margin-left50 leftfloat margin-right20">Not rated yet</p>
                                 <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat padding-left20">Write a review
                                 </a>
+                                <% } %>
+
                                 <div class="clear"></div>
                             </div>
                             <% } %>
@@ -266,19 +271,22 @@
                             <% if (!modelPage.ModelDetails.New)
                                { %>
                             <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : string.Empty %>">
-                                <p class="leftfloat margin-right20">
+                                <% if (Convert.ToDouble(modelPage.ModelDetails.ReviewRate) > 0)
+                                   { %>
+                                <p class="margin-left50	bikeModel-user-ratings leftfloat margin-right20">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                 </p>
-                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20"><%= modelPage.ModelDetails.ReviewCount %> Reviews
+                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20 "><%= modelPage.ModelDetails.ReviewCount %> Reviews
                                 </a>
-                                <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat margin-right20 padding-left20">Write a review
+                                <% }
+                                   else
+                                   { %>
+                                <p class="margin-left50 leftfloat margin-right20">Not rated yet</p>
+                                <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat padding-left20">Write a review
                                 </a>
+                                <% } %>
+
                                 <div class="clear"></div>
-                            </div>
-                            <div class="margin-top20 bike-price-container margin-bottom15">
-                                <span class="font14 text-light-grey default-showroom-text"><%= bikeName %> is discontinued in India.</span>
-                            </div>
-                            <div class="clear"></div>
                             <% } %>
                             <% if (modelPage.ModelDetails.New)
                                { %>
