@@ -14,8 +14,7 @@
                             <h3><a href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MakeName")) + " " +Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelName"))%>"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MakeName")) + " " +Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelName"))%></a></h3>
                         </div>
                         <div class="font20 ">
-                            <span class="fa fa-rupee" style="display:<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))=="0")?"none":"inline-block"%>"></span>
-                            <span class="font22"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "MinPrice")) %> </span>
+                            <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "MinPrice")) %>  
                         </div>
                         <div class="font12 text-light-grey margin-bottom10">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
                         <div class="font14 margin-bottom10">
@@ -27,9 +26,9 @@
                             </p>
                         </div>
                         <div class=" leftfloat font16 text-light-grey <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">
-                         <p class="inline-block border-solid-right padding-right10">
+                         <span class="border-solid-right padding-right10">
                             Not rated yet
-                         </p>
+                         </span>
                         </div>
 
                         <div class="leftfloat margin-left10 font16 text-light-grey">

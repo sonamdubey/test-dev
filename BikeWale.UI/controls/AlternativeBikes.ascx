@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.AlternativeBikes" %>
 
-<!-- Alternative Bikes Starts here-->
-    
+<!-- Alternative Bikes Starts here-->    
     <asp:Repeater ID="rptAlternateBikes" runat="server">        
         <ItemTemplate>
             <li class="front">
