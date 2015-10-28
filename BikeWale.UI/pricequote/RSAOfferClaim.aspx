@@ -173,7 +173,7 @@
                                                 <b>Mobile Number<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:textbox id="txtMobile" runat="server"></asp:textbox>
+                                                <asp:textbox id="txtMobile" MaxLength="10" runat="server"></asp:textbox>
                                                 <span id="spnMobile" class="error"></span>
                                             </td>
                                         </tr>

@@ -75,12 +75,13 @@ namespace Bikewale.PriceQuote
                     VersionId = Convert.ToUInt32(hdnVersion.Value),
                     HelmetId = Convert.ToUInt16(hdnSelHelmet.Value)
                 };
-
                 objDealer.SaveRSAOfferClaim(objOffer, hdnBikeName.Value);
                 isOfferClaimed = true;
                 RSAMessage.Visible = true;
                 RSAMessage.InnerText = "Thank you for submitting your bike purchase information in order to claim the offers. Please give us 30 days to ship the gifts to your given address after verifying your purchase with the dealership. You can also write to us at contact@bikewale.com in case of any concerns.";
             }
+            Bikewale.Notifications.SMSTypes smsTypes = new Bikewale.Notifications.SMSTypes();
+            smsTypes.ClaimedOfferSMSToCustomer(txtMobile.Text, "/pricequote/rsaofferclaim.aspx"); 
         }
 
         /// <summary>
