@@ -26,6 +26,7 @@
     }
 
     #get-pq-new select, #get-pq-new textarea { width:170px; }
+    #div_GetPQ ul li { cursor:pointer; }
 </style>
 <div class="main-container">
     <div class="container_12">
@@ -413,6 +414,7 @@
             if (selHelmet == "" || selHelmet <= 0) {            
                 $("#errHelmetOffer").text("Please select helmet.");
                 isError = true;
+                $("html, body").animate({ scrollTop: $("#div_GetPQ").offset().top }, 300);
             } else {
                 $("#errHelmetOffer").text("");
             }
