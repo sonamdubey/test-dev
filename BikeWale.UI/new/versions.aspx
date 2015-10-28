@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.versions" trace="false"%>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.versions" Trace="false" %>
 
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
@@ -11,7 +11,7 @@
 <html>
 <head>
     <%
-      var modDetails = modelPage.ModelDetails;
+        var modDetails = modelPage.ModelDetails;
         title = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
         description = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India - Rs."
                     + Bikewale.Utility.Format.FormatPrice(modDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modDetails.MaxPrice.ToString())
@@ -30,14 +30,23 @@
     <% isHeaderFix = false; %>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
- .chosen-results::-webkit-scrollbar { width: 10px;border-radius:5px; }
-.chosen-results::-webkit-scrollbar-track { -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2); }
-.chosen-results::-webkit-scrollbar-thumb { background-color: rgba(204, 204, 204,0.7); }
+        .chosen-results::-webkit-scrollbar {
+            width: 10px;
+            border-radius: 5px;
+        }
+
+        .chosen-results::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.2);
+        }
+
+        .chosen-results::-webkit-scrollbar-thumb {
+            background-color: rgba(204, 204, 204,0.7);
+        }
     </style>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW.aspx" -->        
+        <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10">
             <div class="container">
                 <div class="grid-12">
@@ -73,18 +82,18 @@
                                         <ul>
                                             <li>
                                                 <div class="carousel-img-container">
-                                                <span>
-                                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%= bikeName %>" alt="<%= bikeName %>" />
-                                                </span>
+                                                    <span>
+                                                        <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%= bikeName %>" alt="<%= bikeName %>" />
+                                                    </span>
                                                 </div>
                                             </li>
                                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                                 <ItemTemplate>
                                                     <li>
                                                         <div class="carousel-img-container">
-                                                        <span>
-                                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif"/>
-                                                        </span>
+                                                            <span>
+                                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" />
+                                                            </span>
                                                         </div>
                                                     </li>
                                                 </ItemTemplate>
@@ -97,23 +106,23 @@
 
                                 <div class="navigation">
                                     <a href="#" class="prev prev-navigation bwsprite"></a>
-		                            <a href="#" class="next next-navigation bwsprite"></a>
+                                    <a href="#" class="next next-navigation bwsprite"></a>
                                     <div class="carousel carousel-navigation">
                                         <ul>
                                             <li>
                                                 <div class="carousel-nav-img-container">
-                                                <span>
-                                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
-                                                </span>
+                                                    <span>
+                                                        <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
+                                                    </span>
                                                 </div>
                                             </li>
                                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
                                                 <ItemTemplate>
                                                     <li>
                                                         <div class="carousel-nav-img-container">
-                                                        <span>
-                                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif"/>
-                                                        </span>
+                                                            <span>
+                                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" />
+                                                            </span>
                                                         </div>
                                                     </li>
                                                 </ItemTemplate>
@@ -125,9 +134,12 @@
                             <% if (modelPage.ModelDetails.New)
                                { %>
                             <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : string.Empty %>">
-                                <p class="margin-left50	leftfloat margin-right20">
+                                <p class="margin-left50	leftfloat margin-right20 <%= (modelPage.ModelDetails.ReviewCount > 0)?string.Empty:"hide" %>">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                 </p>
+                                <p class="<%= (modelPage.ModelDetails.ReviewCount > 0)?"hide":string.Empty %> margin-left50	leftfloat margin-right20 ">
+                           Not rated yet
+                        </p>
                                 <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20 <%= (modelPage.ModelDetails.ReviewCount > 0)?string.Empty:"hide" %>"><%= modelPage.ModelDetails.ReviewCount %> Reviews
                                 </a>
                                 <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat margin-right20 padding-left20">Write a review
@@ -142,8 +154,8 @@
                             <div class="bike-price-container font28 margin-bottom15">
                                 <span class="fa fa-rupee"></span>
                                 <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) %></span>
-                                <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>    
-                                <span style="font-size:14px;display:none" class="price-loader fa fa-spinner fa-spin  text-black"  ></span>
+                                <span class="font12 text-light-grey default-showroom-text">Ex-showroom <%= ConfigurationManager.AppSettings["defaultName"] %></span>
+                                <span style="font-size: 14px; display: none" class="price-loader fa fa-spinner fa-spin  text-black"></span>
 
                                 <!-- Terms and condition Popup start -->
                                 <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
@@ -276,7 +288,7 @@
                                     <p class="font16 offer-error">Select city for accurate on-road price and exclusive offers</p>
                                 </div>
                                 <ul id="mainCity">
-                                    <li cityid="1" ><span>Mumbai</span></li>
+                                    <li cityid="1"><span>Mumbai</span></li>
                                     <li cityid="12"><span>Pune</span></li>
                                     <li cityid="2"><span>Bangalore</span></li>
                                     <li cityid="40"><span>Thane</span></li>
@@ -286,19 +298,19 @@
                             </div>
                             <!-- /ko -->
                             <!-- City and Area  msgs and select controls starts-->
-                            <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible:popularCityClicked()">
-                               
-                                <div id="locationError" >
-                                <div class="city-select-text text-left margin-bottom15 " data-bind="visible:!selectedCity() || cities()">
-                                    <p class="font16">Select city for accurate on-road price and exclusive offers</p>
+                            <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible: popularCityClicked()">
+
+                                <div id="locationError">
+                                    <div class="city-select-text text-left margin-bottom15 " data-bind="visible: !selectedCity() || cities()">
+                                        <p class="font16">Select city for accurate on-road price and exclusive offers</p>
+                                    </div>
+
+                                    <!-- ko if : selectedCity() && areas()  && areas().length > 0-->
+                                    <div class="area-select-text text-left margin-bottom15 ">
+                                        <p class="font16">Select area for on-road price and exclusive offers</p>
+                                    </div>
+                                    <!-- /ko -->
                                 </div>
-                                
-                                <!-- ko if : selectedCity() && areas()  && areas().length > 0-->
-                                <div class="area-select-text text-left margin-bottom15 " >
-                                    <p class="font16">Select area for on-road price and exclusive offers</p>
-                                </div>
-                                <!-- /ko -->
-                                </div> 
                                 <!-- On Road Price mesasge starts -->
                                 <!-- ko if : BWPriceList() || DealerPriceList() -->
                                 <div class="city-onRoad-price-container font16 margin-bottom15 hide">
@@ -310,21 +322,73 @@
                                     <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && !(priceQuote().dealerPriceQuote.offers.length > 0) -->
                                     <input type="button" class="btn btn-orange" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />
                                     <!-- /ko -->
+
+                                    <% if (modelId == "395" && isManufacturer)
+                                       {%>
+                                    <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible : IsValidManufacturer(),event: { click: $root.notifyAvailable }" value="Contact TVS for details" />
+
+                                    <!-- Notify Availablity Popup starts here -->
+                                    <div class="notifyAvailabilityContainer rounded-corner2 hide" id="notifyAvailabilityContainer">
+                                        <div class="notify-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                        <div id="notify-form">
+                                            <div class="grid-6">
+                                                <p class="font18 margin-bottom15 text-center">Latest Scooty Zest Features</p>
+                                                <ul class="notify-offers-list font14 margin-bottom10">
+                                                    <li>First Scooter with a built in Smart phone charger</li>
+                                                    <li>Available in Pearl Peach Color</li>
+                                                    <li>First 110cc Scooter to conquer the highest motorable Himalayan road</li>
+                                                </ul>
+                                            </div>
+                                            <div class="grid-6 border-solid-left">
+                                                <div class="notify-lead-info-form">
+                                                    <p class="text-center font18 margin-bottom10">To know more provide your details & TVS will call you back</p>
+                                                    <div class="form-control-box personal-info-notify-container margin-bottom20">
+                                                        <input type="text" class="form-control get-lead-name" placeholder="Name (mandatory)" id="getLeadName">
+                                                        <span class="bwsprite error-icon errorIcon hide"></span>
+                                                        <div class="bw-blackbg-tooltip errorText hide">Please enter your name</div>
+                                                    </div>
+                                                    <div class="form-control-box personal-info-notify-container margin-bottom20">
+                                                        <input type="text" class="form-control get-lead-email" placeholder="Email address (mandatory)" id="getLeadEmail">
+                                                        <span class="bwsprite error-icon errorIcon hide"></span>
+                                                        <div class="bw-blackbg-tooltip errorText hide">Please enter your email</div>
+                                                    </div>
+                                                    <div class="form-control-box personal-info-notify-container margin-bottom25">
+                                                        <input type="text" class="form-control get-lead-mobile" maxlength="10" placeholder="Mobile no. (mandatory)" id="getLeadMobile">
+                                                        <span class="bwsprite error-icon errorIcon hide"></span>
+                                                        <div class="bw-blackbg-tooltip errorText hide">Please enter your mobile no.</div>
+                                                    </div>
+                                                    <div class="text-center margin-bottom20">
+                                                        <input type="button" id="notifySubmitInfo" class="btn btn-orange" value="Submit" />
+                                                    </div>
+                                                    <p class="font12 text-light-grey">By proceeding ahead, you agree to BikeWale <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a>.</p>
+                                                </div>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+                                            <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+                                            <p class="font16 margin-bottom40">TVS Motor Company would get back to you shortly with additional information on TVS Scooty Zest.</p>
+                                            <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
+
+                                        </div>
+                                    </div>
+                                    <!-- Notify popup ends here -->
+                                    <%} %>
                                 </div>
                                 <!-- /ko -->
                                 <!-- On Road Price mesasge ends  -->
                                 <!-- City/Area Select controls starts -->
                                 <div class="city-area-wrapper">
-                                    <!-- ko if : cities()  && cities().length > 0 -->            
+                                    <!-- ko if : cities()  && cities().length > 0 -->
                                     <div class="city-select leftfloat margin-right20 position-rel">
-                                          <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
-                                        <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', chosen: { width: '190px' }"></select>                                   
+                                        <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display: none"></span>
+                                        <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', chosen: { width: '190px' }"></select>
                                     </div>
                                     <!-- /ko -->
                                     <!-- ko if : selectedCity() && areas()  && areas().length > 0 -->
                                     <div class="area-select leftfloat position-rel">
-                                        <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display:none"></span>
-                                        <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', chosen: { width: '190px' }"></select>                                        
+                                        <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display: none"></span>
+                                        <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', chosen: { width: '190px' }"></select>
                                     </div>
                                     <!-- /ko -->
                                     <div class="clear"></div>
@@ -332,42 +396,39 @@
                                 <!-- City/Area Select controls ends -->
                             </div>
                             <!-- City and Area  msgs and select controls ends  -->
-                            <div id="offersBlock" class="city-unveil-offer-container position-rel">
+                            <div id="offersBlock" class="city-unveil-offer-container position-rel" data-bind="visible: !IsValidManufacturer() ">
                                 <div class="available-offers-container content-inner-block-10">
                                     <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                                     <div class="offer-list-container" id="dvAvailableOffer">
                                         <!-- ko if:priceQuote() -->
-                                         <!-- ko if : priceQuote().IsDealerPriceAvailable  -->
+                                        <!-- ko if : priceQuote().IsDealerPriceAvailable  -->
                                         <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers">
-                                           <li>
-                                               <span data-bind="text: offerText" >
-                                               </span>
-                                               <span class="viewterms" data-bind="visible: isOfferTerms == true,  click: $root.termsConditions.bind(offerId)" >View Terms</span>
-                                           </li>
-                                            
+                                            <li>
+                                                <span data-bind="text: offerText"></span>
+                                                <span class="viewterms" data-bind="visible: isOfferTerms == true, click: $root.termsConditions.bind(offerId)">View Terms</span>
+                                            </li>
+
                                         </ul>
                                         <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length == 0">
-                                            <li >No offers available</li>
+                                            <li>No offers available</li>
                                         </ul>
                                         <!-- /ko -->
-                                         <!-- ko if : !priceQuote().IsDealerPriceAvailable -->
-                                        <ul >
-                                             <li data-bind="visible:areas() && areas().length > 0">
-                                                Currently there are no offers in your area. We hope to serve your area soon!
-                                            </li> 
-                                            <li data-bind="visible: !(areas() && areas().length > 0)">
-                                                Currently there are no offers in your city. We hope to serve your city soon!
-                                            </li> 
+                                        <!-- ko if : !priceQuote().IsDealerPriceAvailable -->
+                                        <ul>
+                                            <li data-bind="visible: areas() && areas().length > 0">Currently there are no offers in your area. We hope to serve your area soon!
+                                            </li>
+                                            <li data-bind="visible: !(areas() && areas().length > 0)">Currently there are no offers in your city. We hope to serve your city soon!
+                                            </li>
                                         </ul>
                                         <!-- /ko -->
                                         <!-- /ko -->
                                     </div>
                                 </div>
-                                                                
+
                                 <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
                                     <input type="button" id="btnShowOffers" class="btn btn-orange unveil-offer-btn" value="Show Offers" />
-                                </div> 
-                                                             
+                                </div>
+
                             </div>
                             <% } %>
                             <% } %>
@@ -436,7 +497,7 @@
                         <h2 class="font24 margin-top10 margin-bottom20 text-center">Overview</h2>
                         <div class="grid-3 border-solid-right">
                             <div class="font22 text-center padding-top20 padding-bottom20">
-                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %> 
+                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %>
                                 <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>cc</small>
                                 <p class="font20 text-black">Capacity</p>
                             </div>
@@ -457,7 +518,7 @@
                         </div>
                         <div class="grid-3">
                             <div class="font22 text-center padding-top20 padding-bottom20">
-                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %> 
+                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %>
                                 <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>kg</small>
                                 <p class="font20 text-black">Weight</p>
                             </div>
@@ -486,21 +547,21 @@
                                         <li>
                                             <div class="text-light-grey">Displacement</div>
                                             <div class="text-bold">
-                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement,"cc") %> 
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement,"cc") %>
                                             </div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
                                             <div class="text-light-grey">Max Power</div>
                                             <div class="text-bold">
-                                            <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %>
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %>
                                             </div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
                                             <div class="text-light-grey">Maximum Torque</div>
                                             <div class="text-bold">
-                                            <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable( modelPage.ModelVersionSpecs.MaximumTorque, "Nm", modelPage.ModelVersionSpecs.MaximumTorqueRPM,"rpm") %>
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable( modelPage.ModelVersionSpecs.MaximumTorque, "Nm", modelPage.ModelVersionSpecs.MaximumTorqueRPM,"rpm") %>
                                             </div>
                                             <div class="clear"></div>
                                         </li>
@@ -537,7 +598,7 @@
                                         <li>
                                             <div class="text-light-grey">Kerb Weight</div>
                                             <div class="text-bold">
-                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight,"kg") %>                                                
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight,"kg") %>
                                             </div>
                                             <div class="clear"></div>
                                         </li>
@@ -579,14 +640,14 @@
                                         <li>
                                             <div class="text-light-grey">Max Power</div>
                                             <div class="text-bold">
-                                            <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %>                                             
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %>
                                             </div>
                                             <div class="clear"></div>
                                         </li>
                                         <li>
                                             <div class="text-light-grey">Maximum Torque</div>
                                             <div class="text-bold">
-                                            <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm", modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %>
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm", modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %>
                                             </div>
                                             <div class="clear"></div>
                                         </li>
@@ -841,32 +902,26 @@
                                 <li>
                                     <div class="text-light-grey">Speedometer</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Speedometer) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Fuel Guage</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelGauge) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Tachometer Type</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TachometerType) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Digital Fuel Guage</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.DigitalFuelGauge) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Tripmeter</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Tripmeter) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <li>
                                     <div class="text-light-grey">Electric Start</div>
                                     <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ElectricStart) %></div>
-                                    <div class="clear"></div>
                                 </li>
                                 <div class="clear"></div>
                             </ul>
@@ -1010,14 +1065,14 @@
                 </div>
             </div>
         </section>
-        <% } %>        
+        <% } %>
         <%            
             if (ctrlUserReviews.FetchedRecordsCount > 0)
             {
                 reviewTabsCnt++;
                 isUserReviewZero = false;
                 isUserReviewActive = true;
-                            
+
             }
             if (ctrlExpertReviews.FetchedRecordsCount > 0)
             {
@@ -1025,8 +1080,8 @@
                 isExpertReviewZero = false;
                 if (!isUserReviewActive)
                 {
-                    isExpertReviewActive = true;                    
-                }                
+                    isExpertReviewActive = true;
+                }
             }
             if (ctrlNews.FetchedRecordsCount > 0)
             {
@@ -1035,7 +1090,7 @@
                 if (!isUserReviewActive && !isExpertReviewActive)
                 {
                     isNewsActive = true;
-                }                
+                }
             }
             if (ctrlVideos.FetchedRecordsCount > 0)
             {
@@ -1044,7 +1099,7 @@
                 if (!isUserReviewActive && !isExpertReviewActive && !isNewsActive)
                 {
                     isVideoActive = true;
-                }                
+                }
             } 
         %>
         <section class="container <%= reviewTabsCnt == 0 ? "hide" : string.Empty %>">
@@ -1057,17 +1112,28 @@
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
                                     <li class="active" style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
-                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>                                    
+                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
                                     <li style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlNews">News</li>
                                     <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
                                 </ul>
                             </div>
-                        </div>                        
-                        <%if (!isUserReviewZero) { %> <BW:UserReviews runat="server" ID="ctrlUserReviews" />  <% } %>                    
-                        <%if (!isExpertReviewZero) { %> <BW:ExpertReviews  runat="server" ID="ctrlExpertReviews" /> <% } %>
-                        <%if (!isNewsZero) { %> <BW:News runat="server" ID="ctrlNews" /> <% } %>
-                        <%if (!isVideoZero) { %> <BW:Videos runat="server" ID="ctrlVideos" /> <% } %>                      
-                        
+                        </div>
+                        <%if (!isUserReviewZero)
+                          { %>
+                        <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                        <% } %>
+                        <%if (!isExpertReviewZero)
+                          { %>
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <% } %>
+                        <%if (!isNewsZero)
+                          { %>
+                        <BW:News runat="server" ID="ctrlNews" />
+                        <% } %>
+                        <%if (!isVideoZero)
+                          { %>
+                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        <% } %>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -1093,21 +1159,21 @@
                 <div class="clear"></div>
             </div>
         </section>
-        
-         <BW:PriceQuotePopup ID="ctrlPriceQuotePopup" runat="server" />
+
+        <BW:PriceQuotePopup ID="ctrlPriceQuotePopup" runat="server" />
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>">"></script>
         <script type="text/javascript">
             var myBikeName = "<%= this.bikeName %>";
-        var clientIP = "<%= clientIP%>";
+            var clientIP = "<%= clientIP%>";
             function applyLazyLoad() {
                 $("img.lazy").lazyload({
                     event: "imgLazyLoad",
                     effect: "fadeIn"
                 });
-            }            
+            }
             $(document).ready(function (e) {
                 applyLazyLoad();
 
@@ -1120,29 +1186,29 @@
 
             $(document).ready(function (e) {
 
-            if ($(".bw-overall-rating a").last().css("display") == "none") {
-                var a = $(this);
-                var b = $(this).attr("href");
-                console.log(a);
-                $(this).remove();
-                $(a + ".bw-tabs-data.margin-bottom20.hide").remove();
-            }
+                if ($(".bw-overall-rating a").last().css("display") == "none") {
+                    var a = $(this);
+                    var b = $(this).attr("href");
+                    console.log(a);
+                    $(this).remove();
+                    $(a + ".bw-tabs-data.margin-bottom20.hide").remove();
+                }
 
-            $('.bw-overall-rating a[href^="#"]').click(function () {
-                var target = $(this.hash);
-                if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
-                if (target.length == 0) target = $('html');
-                $('html, body').animate({ scrollTop: target.offset().top -50- $(".header-fixed").height() }, 1000);
-                return false;
+                $('.bw-overall-rating a[href^="#"]').click(function () {
+                    var target = $(this.hash);
+                    if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+                    if (target.length == 0) target = $('html');
+                    $('html, body').animate({ scrollTop: target.offset().top - 50 - $(".header-fixed").height() }, 1000);
+                    return false;
 
-            });
-            // ends                                
+                });
+                // ends                                
 
             <% if (modelPage.ModelDetails.New)
-            { %>
-            var cityId = '<%= cityId%>'
-            InitVM(cityId);
-            <% } %>
+               { %>
+                var cityId = '<%= cityId%>';
+                InitVM(cityId);
+                <% } %>
 
             });
             // Cache selectors outside callback for performance.
@@ -1152,16 +1218,16 @@
             var $window = $(window),
 	        $menu = $('.bw-overall-rating'),
 	        menuTop = $menu.offset().top + 50;
-           
+
             var sections = $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20'),
                 nav = $('div.bw-overall-rating'),
                 nav_height = nav.outerHeight(),
                 section_height = $(".discover-bike-tabs-container"),
                 sectionContainer_height = section_height.outerHeight() + menuTop - 250,
                 sectionStart = section_height.offset().top - 150;
-                    
+
             section_height.bind('heightChangeBlock', function () {
-                $(".more-features").css("display","block");
+                $(".more-features").css("display", "block");
                 sectionContainer_height = section_height.outerHeight() + menuTop - 250;
                 $(".more-features").css("display", "none");
             });
@@ -1173,18 +1239,18 @@
             });
 
             $(".more-features-btn").click(function () {
-                if($(".more-features").css("display") == "none")
+                if ($(".more-features").css("display") == "none")
                     section_height.trigger('heightChangeBlock');
-                else if($(".more-features").css("display") == "block") 
+                else if ($(".more-features").css("display") == "block")
                     section_height.trigger('heightChangeNone');
             });
-                
+
             $window.scroll(function () {
                 $menu.toggleClass('affix', sectionContainer_height >= $window.scrollTop() && $window.scrollTop() > sectionStart);
                 var cur_pos = $(this).scrollTop();
 
                 sections.each(function () {
-                    var top = $(this).offset().top -10- nav_height,
+                    var top = $(this).offset().top - 10 - nav_height,
                     bottom = top + $(this).outerHeight();
 
                     if (cur_pos >= top && cur_pos <= bottom) {
@@ -1197,21 +1263,96 @@
                 });
             });
 
-            <% } %> 
+            <% } %>
             ga_pg_id = '2';
-            
+
             function InitVM(cityId) {
                 var viewModel = new pqViewModel('<%= modelId%>', cityId);
                 modelViewModel = viewModel;
                 ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
                 viewModel.LoadCity();
-            }       
+            }
 
-            if('<%=isUserReviewActive%>'== 'False') $("#ctrlUserReviews").addClass("hide");
-            if('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-            if('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+            if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
+            if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
+            if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-        </script>      
+
+            <% if (modelId == "395" && isManufacturer)
+               {%>
+            //notify availablilty 
+            var bwNotify = $('#notifyAvailabilityContainer');
+            $("#notifyAvailabilityContainer .notify-close-btn, .blackOut-window, #notifyOkayBtn").on("click", function () {
+                $(".blackOut-window").hide();
+                $(".notifyAvailabilityContainer").hide();
+                $("#notify-form").show();
+                $("#notify-response").hide();
+            });
+
+            $("#submit-details").on("click", function () {
+                $("#notify-form").hide();
+                $("#notify-response").show();
+            });
+
+            $('#btnBWLead').on('click', function () {
+                bwNotify.find(".get-lead-name").val("")
+                bwNotify.find(".get-lead-email").val("")
+                bwNotify.find(".get-lead-mobile").val("");
+                $("#notifySubmitInfo").val("Submit");
+
+            });
+
+            $("#notifySubmitInfo").on("click", function () {
+                var leadName = bwNotify.find(".get-lead-name").val().trim();
+                var leadEmail = bwNotify.find(".get-lead-email").val().trim();
+                var leadMobile = bwNotify.find(".get-lead-mobile").val();
+                var regName = /^[a-zA-Z ]+$/;
+                var regEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
+                var regMobile = /^[0-9]{10}$/;                 
+                if (leadName.length > 0 && regName.test(leadName)) {
+                    validationSuccess($(".get-lead-name"));
+                    if (regEmail.test(leadEmail)) {
+                        validationSuccess($(".get-lead-email"));
+                        if (regMobile.test(leadMobile)) {
+                            $.get('/api/ManufacturerLead/?name=' + leadName + '&email=' + leadEmail + '&mobile=' + leadMobile + '&pqId=' + modelViewModel.priceQuote().priceQuote.quoteId + '&cityId=' + modelViewModel.selectedCity() + '&versionId=' + modelViewModel.priceQuote().priceQuote.quoteId, function (response) {
+                                if (response) {
+                                    validationSuccess($(".get-lead-mobile"));
+                                    $("#notify-form").hide();
+                                    $('#notify-response .notify-leadUser').text(leadName);
+                                    $('#notify-response').show();
+                                }
+                                else {
+                                    $("#notifySubmitInfo").val("Try Again");
+                                    return false;
+                                    
+                                }
+                            });
+                        }
+                        else
+                            validationError($(".get-lead-mobile"));
+                    }
+                    else
+                        validationError($(".get-lead-email"));
+                }
+                else
+                    validationError($(".get-lead-name"));
+            }); 
+
+            $(".get-lead-name, .get-lead-email, .get-lead-mobile").on("focus", function () {
+                validationSuccess($(this));
+            });
+
+            var validationError = function (a) {
+                a.addClass("border-red");
+                a.siblings("span, div").show();
+            };
+
+            var validationSuccess = function (a) {
+                a.removeClass("border-red");
+                a.siblings("span, div").hide();
+            };
+            <% } %>
+        </script>
     </form>
 </body>
 </html>

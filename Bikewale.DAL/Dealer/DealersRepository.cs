@@ -12,6 +12,9 @@ using Bikewale.CoreDAL;
 using System.Data.SqlClient;
 using System.Data;
 using System.Web;
+using Bikewale.Entities.Customer;
+using Bikewale.DAL.PriceQuote;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.DAL.Dealer
 {
@@ -342,7 +345,9 @@ namespace Bikewale.DAL.Dealer
         }
 
         /// <summary>
-        /// Method to get list of all cities in which dealers are available
+        /// Created By : Sushil Kumar
+        /// Created On : 7th October 2015 
+        /// Summary : Method to get list of all cities in which dealers are available
         /// </summary>
         /// <returns></returns>
         public List<CityEntityBase> GetDealersCitiesList()
@@ -393,6 +398,68 @@ namespace Bikewale.DAL.Dealer
             }
 
             return objCityList;
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar
+        /// Created On : 21th October 2015
+        /// Summary : To capture maufacturer lead for bikewale pricequotes 
+        /// </summary>
+        /// <param name="objLead"></param>
+        /// <returns>Lead submission status</returns>
+        public bool SaveManufacturerLead(ManufacturerLeadEntity objLead)
+        {
+            Database db = null;
+            bool status = false;
+            try
+            {
+                db = new Database();
+
+                if (objLead!=null && objLead.PQId > 0 && objLead.DealerId > 0)
+                    {
+                        using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                        {
+                            using (SqlCommand cmd = new SqlCommand())
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.CommandText = "SaveManufacturerLead";
+                                cmd.Connection = conn;
+
+                                cmd.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = objLead.Name;
+                                cmd.Parameters.Add("@Email", SqlDbType.VarChar, 150).Value = objLead.Email;
+                                cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 10).Value = objLead.Mobile;
+                                cmd.Parameters.Add("@PQId", SqlDbType.BigInt).Value = objLead.PQId;
+
+                                //TVS Dealer ID to be sent to update pricequote ID
+                                cmd.Parameters.Add("@DealerId", SqlDbType.BigInt).Value = objLead.DealerId; 
+
+                                conn.Open();
+                                if(cmd.ExecuteNonQuery() < 0)
+                                    status = true;
+                                
+                            }
+                        }
+                    }
+            }
+            catch (SqlException ex)
+            {
+                HttpContext.Current.Trace.Warn("SaveManufacturerLead sql ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("SaveManufacturerLead ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return status;
+            
         }
 
     }//End class

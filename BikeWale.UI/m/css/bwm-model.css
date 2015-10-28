@@ -92,7 +92,7 @@
 
 .upcoming-text-label{background:#4c4c4c;z-index:1;padding:2px 25px 4px 20px;line-height:22px;left:-10px}
 .upcoming-text-label:after{content: "";background:url(http://img.aeplcdn.com/bikewaleimg/m/images/upcoming-ribbon.png) no-repeat right top;width:12px;position: absolute;height: 28px;top: 0;padding:0 0 0 35px;}
-.reviews-rating{width:42%;}
+.reviews-rating{width:45%;}
 #ctrlExpertReviews li{min-height:236px;height:auto;}
 #ctrlExpertReviews li .front{height:100%;}
 .view-breakup-text {cursor:pointer;color:#0288d1;}
@@ -101,7 +101,7 @@
 #SneakPeak img { width:100%; }
 
 /* photo gallery */
-.bike-gallery-popup { width:100%; height:100%; margin:0 auto; overflow-y:auto; position:fixed; top:4%; right:0; left:0; z-index:10; }
+.bike-gallery-popup { width:100%; max-width: 476px; height:100%; margin:0 auto; overflow-y:auto; position:fixed; top:4%; right:0; left:0; z-index:10; }
 .blackOut-window-model { background:#222; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=95); -moz-opacity:0.95; -khtml-opacity: 0.95; }
 .modelgallery-close-btn { z-index:11; }
 /* offers popup */
@@ -176,3 +176,10 @@
 .connected-carousels-photos .photos-next-navigation, .connected-carousels-videos .videos-next-navigation { right: 0; top:3%; }
 
 .carousel-stage-videos .yt-iframe-container iframe { width:100%; height:180px; }
+
+/*notify availability*/
+#notifyAvailabilityContainer {min-height: 320px; background: #fff; margin: 0 auto; padding:10px;position: fixed; top: 10%; right: 5%; left: 5%; z-index: 10; }
+#notify-form .grid-12 { padding: 10px 20px; }
+.personal-info-notify-container input { margin:0 auto; } 
+.notify-offers-list { list-style:disc; margin-left:10px; }
+#notifyAvailabilityContainer .notify-close-btn {z-index:2;} 

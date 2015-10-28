@@ -67,15 +67,16 @@
                                         <li class="uncheck" filterId="20"><span>Moto Guzzi</span></li>
                                         <li class="uncheck" filterId="40"><span>Benelli</span></li>
                                         <li class="uncheck" filterId="8"><span>Hyosung</span></li>
-                                        <li class="uncheck" filterId="22"><span>Triumph</span></li>
+                                        <li class="uncheck" filterId="41"><span>MV Agusta</span></li>
                                         <li class="uncheck" filterId="3"><span>BMW</span></li>
                                         <li class="uncheck" filterId="34"><span>Indian</span></li>
-                                        <li class="uncheck" filterId="16"><span>Vespa</span></li>
+                                        <li class="uncheck" filterId="22"><span>Triumph</span></li>
                                         <li class="uncheck" filterId="4"><span>Ducati</span></li>
                                         <li class="uncheck" filterId="17"><span>Kawasaki</span></li>
-                                        <li class="uncheck" filterId="14"><span>Yo</span></li>
+                                        <li class="uncheck" filterId="16"><span>Vespa</span></li>
                                         <li class="uncheck" filterId="5"><span>Harley Davidson</span></li>
                                         <li class="uncheck" filterId="19"><span>LML</span></li>
+                                        <li class="uncheck" filterId="14"><span>Yo</span></li>
                                     </ul>
                                     <div class="clear"></div>
                                 </div>
@@ -148,17 +149,22 @@
                             </div>
                             <div class="clear"></div>
                         </div>
-                        <div class="grid-2">
-                            <div class="rightfloat">
-                               	<div class="more-filters-btn position-rel rounded-corner2">
-                                	<span class="bwsprite filter-icon inline-block"></span>
-                                    <span class="font14 inline-block">More</span>
-                                    <div class="filter-count-container">
-                                    	<div class="filter-counter">0</div>
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="grid-2 alpha">
+	                        <div class="leftfloat">
+		                        <div id="reset-btn-container" class="margin-top20">
+			                        <p id="btnReset" class="filter-reset-btn font14">Reset</p>
+		                        </div>
+	                        </div>
+	                        <div class="rightfloat">
+		                        <div class="more-filters-btn position-rel rounded-corner2">
+			                        <span class="font14"><span id="more-less-filter-text">More</span> Filters</span>
+			                        <div class="filter-count-container">
+				                        <div class="filter-counter">0</div>
+				                        <span></span>
+			                        </div>
+		                        </div>
+	                        </div>
+	                        <div class="clear"></div>
                         </div>
                         <div class="clear"></div>
                 	</div>
@@ -260,7 +266,6 @@
                         <div class="clear"></div>
                         <div class="padding-left10 margin-top10 margin-bottom10">
                         	<input type="button" class="filter-done-btn btn btn-orange margin-right15" value="Done"/>
-                        	<input type="button"  id="btnReset" class="filter-reset-btn btn btn-grey"  value="Reset"/>
                             <div class="clear"></div>                          
                         </div>
                     </div>

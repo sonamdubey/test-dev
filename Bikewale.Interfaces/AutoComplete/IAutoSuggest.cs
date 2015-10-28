@@ -13,6 +13,6 @@ namespace Bikewale.Interfaces.AutoComplete
     /// </summary>
     public interface IAutoSuggest
     {
-        List<SuggestOption> GetAutoSuggestResult(string inputText, int noOfRecords,AutoSuggestEnum source);
+        IEnumerable<SuggestOption> GetAutoSuggestResult(string inputText, int noOfRecords,AutoSuggestEnum source);
     }
 }

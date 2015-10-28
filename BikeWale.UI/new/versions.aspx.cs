@@ -16,6 +16,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Controls;
+using System.Web.Services;
 
 namespace Bikewale.New
 {
@@ -126,11 +127,13 @@ namespace Bikewale.New
 
         static readonly string _PageNotFoundPath;
         static readonly string _bwHostUrl;
+        protected static bool isManufacturer = false;
 
         static versions()
         {
             _PageNotFoundPath = Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx";
             _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            isManufacturer = (ConfigurationManager.AppSettings["TVSManufacturerId"] != "0") ? true : false;
         }
 
         protected override void OnInit(EventArgs e)
@@ -267,46 +270,60 @@ namespace Bikewale.New
 
         private void ParseQueryString()
         {
+            ModelMaskingResponse objResponse = null;
             string modelQuerystring = Request.QueryString["model"];
-            if (!string.IsNullOrEmpty(modelQuerystring))
+            try
             {
-                ModelMaskingResponse objResponse = null;
-
-                using (IUnityContainer container = new UnityContainer())
+                if (!string.IsNullOrEmpty(modelQuerystring))
                 {
-                    container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>()
-                             .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
-                            ;
-                    var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
-
-                    objResponse = objCache.GetModelMaskingResponse(modelQuerystring);
-
-                    if (objResponse != null && objResponse.StatusCode == 200)
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        modelId = objResponse.ModelId.ToString();
-                    }
-                    else
-                    {
-                        if (objResponse.StatusCode == 301)
-                        {
-                            //redirect permanent to new page                             
-                            Bikewale.Common.CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelQuerystring, objResponse.MaskingName));
+                        container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
+                                 .RegisterType<ICacheManager, MemcacheManager>()
+                                 .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                                ;
+                        var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
 
-                        }
-                        else
-                        {
-                            Response.Redirect(_PageNotFoundPath, false);
-                            HttpContext.Current.ApplicationInstance.CompleteRequest();
-                            this.Page.Visible = false;
-                            //isSuccess = false;
-                        }
+                        objResponse = objCache.GetModelMaskingResponse(modelQuerystring);
                     }
                 }
             }
-            else
+            catch(Exception ex)
             {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : FetchModelPageDetails");
+                objErr.SendMail();
 
+                Response.Redirect("/new/", true);
+            }
+            finally
+            {
+                if (!string.IsNullOrEmpty(modelQuerystring))
+                {
+                    if (objResponse != null)
+                    {
+                        if (objResponse.StatusCode == 200)
+                        {
+                            modelId = objResponse.ModelId.ToString();
+                        }
+                        else if (objResponse.StatusCode == 301)
+                        {
+                            //redirect permanent to new page 
+                            CommonOpn.RedirectPermanent(Request.RawUrl.Replace(modelQuerystring, objResponse.MaskingName));
+                        }
+                        else
+                        {
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                        }
+                    }
+                    else
+                    {
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                    }
+                }
+                else
+                {
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                }
             }
         }
 
@@ -317,7 +334,8 @@ namespace Bikewale.New
             if (cookies.AllKeys.Contains("location"))
             {
                 location = cookies["location"].Value;
-                cityId = location.Substring(0, location.IndexOf('_'));//location.Split('_')[0];
+                if (!String.IsNullOrEmpty(location) && location.IndexOf('_') != -1)
+                    cityId = location.Substring(0, location.IndexOf('_'));//location.Split('_')[0];
             }
             else
             {
@@ -327,6 +345,7 @@ namespace Bikewale.New
 
         static readonly string apiURL = "/api/model/details/?modelId={0}";
         static readonly string _requestType = "application/json";
+
         private void FetchModelPageDetails()
         {
             if (!string.IsNullOrEmpty(modelId))
@@ -531,7 +550,7 @@ namespace Bikewale.New
                 return "No specifications.";
             }
             return format.Trim().Substring(0, format.Length - 1);
-        }
+        }           
 
         public override void Dispose()
         {

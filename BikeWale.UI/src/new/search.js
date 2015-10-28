@@ -104,16 +104,27 @@ $(".more-filters-btn").click(function () {
         a.removeClass("open");
         a.next(".filter-selection-div").slideUp();
         a.next(".filter-selection-div").removeClass("open");
+        moreLessTextChange($(this));
     }
     else {
         $(this).removeClass("open");
         $(".more-filters-container").slideUp();
+        moreLessTextChange($(this));
     }
 });
+
+var moreLessTextChange = function (p) {
+    var morelessFilter = $("#more-less-filter-text");
+    var q = p.find(morelessFilter);
+    q.text(q.text() === "More" ? "Less" : "More");
+};
 
 $(".filter-done-btn").click(function () {
     $(".more-filters-container").slideUp();
     stateChangeUp($('.filter-div'), $('.filter-div'));
+    var a = $(".more-filters-btn");
+    moreLessTextChange(a);
+    $(".more-filters-btn").removeClass("open");
 });
 
 var AppendCertificationStar = function (abStars) {
@@ -173,7 +184,7 @@ $.hitAPI = function (searchUrl,filterName) {
             $.totalCount = response.totalCount;
             $.pageNo = response.curPageNo;
             $.nextPageUrl = response.pageUrl.nextUrl;
-            $('#bikecount').text($.totalCount+' Bikes');
+            $('#bikecount').text($.totalCount + ' Bikes');
             if (!isNaN($.pageNo) && $.pageNo == 1) {
                 $.bindSearchResult(response);
             }
@@ -470,6 +481,10 @@ $.fn.resetAll = function () {
         defaultText.show();
         count = 0;
         resetBWTabs();
+        var a = $(".more-filters-btn");
+        if (a.hasClass("open"))
+            moreLessTextChange(a);
+        $(".more-filters-btn").removeClass("open");
         $(".more-filters-container").slideUp();
         $('.filter-counter').text(count);
         $.pageNo = 1;
@@ -626,14 +641,14 @@ $.sortChangeUp = function(sortByDiv){
 
 $.fn.applySortFilter = function () {
     return $(this).click(function () {
+        $.removeKnockouts();
+        $.removePageNoParam();
+        
         var node = $(this);
         var completeQS = $.removeFilterFromQS('so');
         window.location.hash = completeQS;
         completeQS = $.removeFilterFromQS('sc');
         window.location.hash = completeQS;
-
-        $.removePageNoParam();
-        $.removeKnockouts();
 
         sortListLI.removeClass('selected');
         node.addClass('selected');

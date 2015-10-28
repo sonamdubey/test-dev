@@ -193,3 +193,11 @@
 .connected-carousels-photos:hover { /*cursor:pointer;*/ }
 .carousel-stage ul li { cursor:pointer; }
 .carousel-stage-videos .yt-iframe-container iframe { width:100%; height:360px; }
+
+/**/
+.notifyAvailabilityContainer { width: 700px; min-height: 320px; background: #fff; margin: 0 auto; padding:30px 40px; overflow-y: auto; position: fixed; top: 15%; right: 5%; left: 5%; z-index: 10; }
+#notify-form .grid-6 { padding:10px 0; }
+.notify-lead-info-form { width:260px; margin:0 auto; }
+.personal-info-notify-container input { width:250px; margin:0 auto; } 
+.notify-offers-list { list-style:disc; margin-left:18px; }
+.notify-offers-list li { margin-bottom:10px; }

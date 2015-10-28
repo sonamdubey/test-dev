@@ -21,9 +21,9 @@ namespace Bikewale.BAL.AutoComplete
         /// <param name="inputText"></param>
         /// <param name="noOfRecords"></param>
         /// <returns></returns>
-        public List<SuggestOption> GetAutoSuggestResult(string inputText, int noOfRecords, AutoSuggestEnum source)
+        public IEnumerable<SuggestOption> GetAutoSuggestResult(string inputText, int noOfRecords, AutoSuggestEnum source)
         {
-            List<SuggestOption> suggestionList = null;
+            IEnumerable<SuggestOption> suggestionList = null;
             string completion_field = "mm_suggest";
             string indexName = string.Empty;
             try
@@ -38,7 +38,7 @@ namespace Bikewale.BAL.AutoComplete
                         .Completion(completion_field, c => c.OnField(completion_field).Size(noOfRecords)
                         ));
 
-                    suggestionList = _result.Suggestions[completion_field][0].Options.ToList<Nest.SuggestOption>();
+                    suggestionList = _result.Suggestions[completion_field][0].Options;//.ToList<Nest.SuggestOption>();
                 }
             }
             catch (Exception ex)

@@ -153,28 +153,29 @@
                             <div name="bike" class="multiSelect">
                                 <ul>
                                     <li class="unchecked" filterId="2"><span>Aprilia</span></li>
-                                    <li class="unchecked" filterId="7"><span>Honda</span></li>
-                                    <li class="unchecked" filterId="11"><span>Royal Enfield</span></li>
                                     <li class="unchecked" filterId="1"><span>Bajaj</span></li>
-                                    <li class="unchecked" filterId="8"><span>Hyosung</span></li>
-                                    <li class="unchecked" filterId="12"><span>Suzuki</span></li>
                                     <li class="unchecked" filterId="40"><span>Benelli</span></li>
-                                    <li class="unchecked" filterId="34"><span>Indian</span></li>
-                                    <li class="unchecked" filterId="22"><span>Triumph</span></li>
                                     <li class="unchecked" filterId="3"><span>BMW</span></li>
-                                    <li class="unchecked" filterId="17"><span>Kawasaki</span></li>
-                                    <li class="unchecked" filterId="15"><span>TVS</span></li>
                                     <li class="unchecked" filterId="4"><span>Ducati</span></li>
-                                    <li class="unchecked" filterId="9"><span>KTM</span></li>
-                                    <li class="unchecked" filterId="16"><span>Vespa</span></li>
                                     <li class="unchecked" filterId="5"><span>Harley Davidson</span></li>
-                                    <li class="unchecked" filterId="19"><span>LML</span></li>
-                                    <li class="unchecked" filterId="13"><span>Yamaha</span></li>
-                                    <li class="unchecked" filterId="6"><span>Hero</span></li>
-                                    <li class="unchecked" filterId="10"><span>Mahindra</span></li>
-                                    <li class="unchecked" filterId="14"><span>Yo</span></li>
                                     <li class="unchecked" filterId="39"><span>Hero Electric</span></li>
+                                    <li class="unchecked" filterId="6"><span>Hero</span></li>
+                                    <li class="unchecked" filterId="7"><span>Honda</span></li>
+                                    <li class="unchecked" filterId="8"><span>Hyosung</span></li>
+                                    <li class="unchecked" filterId="34"><span>Indian</span></li>
+                                    <li class="unchecked" filterId="17"><span>Kawasaki</span></li>
+                                    <li class="unchecked" filterId="9"><span>KTM</span></li>
+                                    <li class="unchecked" filterId="19"><span>LML</span></li>
+                                    <li class="unchecked" filterId="10"><span>Mahindra</span></li>
                                     <li class="unchecked" filterId="20"><span>Moto Guzzi</span></li>
+                                    <li class="unchecked" filterId="41"><span>MV Agusta</span></li>
+                                    <li class="unchecked" filterId="11"><span>Royal Enfield</span></li>
+                                    <li class="unchecked" filterId="12"><span>Suzuki</span></li>
+                                    <li class="unchecked" filterId="22"><span>Triumph</span></li>
+                                    <li class="unchecked" filterId="15"><span>TVS</span></li>
+                                    <li class="unchecked" filterId="16"><span>Vespa</span></li>
+                                    <li class="unchecked" filterId="13"><span>Yamaha</span></li>
+                                    <li class="unchecked" filterId="14"><span>Yo</span></li>
                             </ul>
                             </div>
                         </div>
@@ -313,6 +314,7 @@
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
-        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />        
+        <BW:MPopupWidget runat="server" ID="MPopupWidget1" /> 
+        <div class="back-to-top" id="back-to-top"><a><span></span></a></div>       
     </body>
 </html>

@@ -22,7 +22,7 @@ namespace Bikewale.Service.Controllers.Dealer
     {
         private readonly IDealer _dealer = null;
         /// <summary>
-        /// 
+        /// Constructor
         /// </summary>
         /// <param name="dealer"></param>
         public DealersListController(IDealer dealer)

@@ -112,5 +112,17 @@ namespace Bikewale.BAL.Dealer
 
             return objCitiesList;          
         }
+
+        /// <summary>
+        ///  To capture manufacturer lead against bikewale pricequote
+        /// </summary>
+        /// <param name="lead"></param>
+        /// <returns></returns>
+        public bool SaveManufacturerLead(ManufacturerLeadEntity lead)
+        {
+            bool status = false;
+            status = dealerRepository.SaveManufacturerLead(lead);
+            return status;
+        }
     }
 }

@@ -64,6 +64,7 @@ $(document).ready(function () {
     $(".lazy").lazyload({
         effect: "fadeIn"
     });
+    applyLazyLoad();
     $('#newBikeList').val('').focus();
     $('#globalCityPopUp').val('');
     var blackOut = $(".blackOut-window")[0];
@@ -420,6 +421,7 @@ $(document).ready(function () {
 	    var panelId = $(this).attr("data-tabs");
 	    panel.find(".bw-tabs-data").hide();
 	    $("#" + panelId).show();
+	    applyTabsLazyLoad();
 	});
 
 	/* jCarousel custom methods */
@@ -462,8 +464,32 @@ $(document).ready(function () {
 				$(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-prev").click();
 			}
 		}
+		$(".jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
+		    $(this).find("img.lazy").trigger("imgLazyLoad");
+		});
 	});
-	// common autocomplete data call function
+
+	function applyTabsLazyLoad() {
+	    $("img.lazy").lazyload({
+	        event: "imgLazyLoad"
+	    });
+	}
+
+	function applyLazyLoad() {
+	    $("img.lazy").lazyload({
+	        event: "imgLazyLoad",
+	        effect: "fadeIn"
+	    });
+	}
+
+	$(".jcarousel-wrapper .jcarousel-control-next").on("click", function () {
+	    var jcaourselDiv = $(this).parent("span").prev("div");
+	    jcaourselDiv.on('jcarousel:visiblein', 'li', function (event, carousel) {
+	        $(this).find("img.lazy").trigger("imgLazyLoad");
+	    });
+	});
+
+    // common autocomplete data call function
 	function dataListDisplay(availableTags,request,response){
 		var results = $.ui.autocomplete.filter(availableTags, request.term);
 		response(results.slice(0, 5));
@@ -832,13 +858,6 @@ $(".modelurl").click(function () {
     }
 });
 
-$(".jcarousel-control-next").click(function () {
-    $('.imageWrapper img').each(function () {
-        if ($(this).attr('src') == '') {
-            $(this).attr('src', $(this).attr('data-original'));
-        }
-    });
-});
 
 function insertCitySeparator(response) {
     l = (response != null) ? response.length : 0;
