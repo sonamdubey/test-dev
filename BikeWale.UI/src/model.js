@@ -827,3 +827,14 @@ function insertModelCitySeparator(response) {
         }
     }
 }
+
+//800x600
+if ($(window).width() < 996 && $(window).width() > 790) {
+    $(".bikeModel-user-ratings").removeClass("margin-left50").addClass("margin-left20");
+    $(".modelgallery-close-btn").removeClass("pos-right20");
+    $(".modelgallery-close-btn").css("right", "185px");
+    $(".photos-videos-tabs").removeClass("margin-top20");
+    if ($("#bike-gallery-popup .home-tabs").hasClass("hide"))
+        $("#bike-gallery-popup").find("div.bike-gallery-heading").removeClass("margin-top90").addClass("margin-top40");
+    $("#alternative-bikes-section .bikeTitle, #alternative-bikes-section .bikeStartPrice, #alternative-bikes-section .bikeShowroomName, #alternative-bikes-section .bikeSpecs, #alternative-bikes-section .fillPopupData").removeClass("margin-bottom10").addClass("margin-bottom5");
+}

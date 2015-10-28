@@ -36,13 +36,13 @@
             <div class="grid-12">
                 <div class="content-box-shadow content-inner-block-10">
                     <!-- ko with: viewModel.SelectedVarient() -->
-                    <div class="grid-4 inline-block">
+                    <div class="grid-4 bikeModel-image-container inline-block">
                         <div class="imageWrapper margin-top10">
                             <%--<img src="http://imgd8.aeplcdn.com/227x128//bikewaleimg/models/490b.jpg?20140909123254" alt="<%= bikeName %>" title="<%= bikeName %>">--%>
                             <img data-bind="attr: { src: imageUrl, alt: bikeName, title: bikeName }" />
                         </div>
                     </div>
-                    <div class="grid-4 inline-block">
+                    <div class="grid-4 bikeModel-details-table inline-block">
                         <h3 class="margin-bottom15" data-bind="text: bikeName"></h3>
                         <div class="font14">
                             <table>
@@ -68,7 +68,7 @@
                                         <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: remainingAmount"></span></td>
                                     </tr>
                                     <tr>
-                                        <td class="font12" colspan="2">*Balance amount payable at the dealership</td>
+                                        <td class="font12 bikeModel-balance-text" colspan="2">*Balance amount payable at the dealership</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -86,7 +86,7 @@
                             <div>
                                 <%--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.9863262686094!2d72.99639100000005!3d19.06433880000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b2c080cb%3A0x225353b221740ef0!2sCarWale!5e0!3m2!1sen!2sin!4v1441706839659" width="290" height="90" frameborder="0" style="border: 0" allowfullscreen></iframe>--%>
                                 <%--<div id="divMap" data-bind="style: { width: showMap ? '290px' : 0, height: showMap ? '90px' : 0 }"></div>--%>
-                                <div style="width: 290px; height: 90px" data-bind="googlemap: { latitude: lattitude(), longitude: longitude() }"></div>
+                                <div class="bikeModel-dealerMap-container" style="width: 290px; height: 90px" data-bind="googlemap: { latitude: lattitude(), longitude: longitude() }"></div>
                             </div>
                         </div>
                         <!-- /ko -->
@@ -179,7 +179,7 @@
                         <div class="mobile-verification-container hide">
                             <div class="input-border-bottom"></div>
                             <div class="margin-top20">
-                                <p class="font16 leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
+                                <p class="font16 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
                                 <div class="form-control-box">
                                     <input type="text" class="form-control get-otp-code rightfloat" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
                                     <span class="bwsprite error-icon errorIcon hide"></span>
