@@ -215,6 +215,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="common\MakeModelVersion.cs" />
+    <Compile Include="common\ManageArea.cs" />
     <Compile Include="common\ManageBikeSeries.cs" />
     <Compile Include="common\ManageCities.cs" />
     <Compile Include="common\ManageFeaturedBike.cs" />
@@ -466,6 +467,10 @@
     <Compile Include="Entities\StateEntityBase.cs" />
     <Compile Include="Entities\VersionEntity.cs" />
     <Compile Include="Entities\VersionEntityBase.cs" />
+    <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
+      <DependentUpon>DealerDetailedPriceQuote.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="newbikebooking\DealerShowroomPrices.aspx.cs">
       <DependentUpon>DealerShowroomPrices.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1900,6 +1905,7 @@
     <Content Include="includes\footerNew.aspx" />
     <Content Include="includes\headerNew.aspx" />
     <Content Include="includes\HeaderUser.aspx" />
+    <Content Include="newbikebooking\DealerDetailedPriceQuote.aspx" />
     <Content Include="newbikebooking\DealerShowroomPrices.aspx" />
     <Content Include="newbikebooking\Default.aspx" />
     <Content Include="newbikebooking\ManageBikeAvailability.aspx" />
@@ -1919,6 +1925,7 @@
     <Content Include="src\graybox.js" />
     <Content Include="src\greybox.js" />
     <Content Include="src\jquery-1.6.min.js" />
+    <Content Include="src\knockout.js" />
     <Content Include="src\PopUpDiv.js" />
     <Content Include="users\Login.aspx" />
   </ItemGroup>

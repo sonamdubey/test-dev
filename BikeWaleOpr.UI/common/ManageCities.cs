@@ -328,5 +328,40 @@ namespace BikeWaleOpr.Common
             return ds;
         }//End GetCities
 
-    }
-}
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 28 Oct 2015
+        /// Summary : To get Price quote cities by modelId
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        public DataSet GetPriceQuoteCities(uint modelId)
+        {
+            Database db = null;
+            DataSet ds = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "GetPriceQuoteCities";
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@modelId", SqlDbType.Int).Value = modelId;
+
+                    db = new Database();
+
+                    ds = db.SelectAdaptQry(cmd);
+                }
+            }
+            catch (SqlException ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "sqlex in BikewaleOpr.ManageCities.GetPriceQuoteCities : " + ex.Message);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ex in BikewaleOpr.ManageCities.GetPriceQuoteCities : " + ex.Message);
+                objErr.SendMail();
+            }
+            return ds;
+        }   //End of GetPriceQuoteCities
+    }   //End of Class
+}   //End of namespace
