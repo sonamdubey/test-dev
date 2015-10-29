@@ -506,5 +506,76 @@ namespace BikeWaleOpr.Common
             }
             return isSuccess;
         }
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay ob 28 Oct 2015
+        /// Summary : To get City whose model prices are available
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
+        [AjaxPro.AjaxMethod()]
+        public string GetPriceQuoteCities(string modelId)
+        {
+            string jsonCities = string.Empty;
+
+            DataSet ds = null;
+            DataTable dt = null;
+            try
+            {
+                ManageCities objMC = new ManageCities();
+
+                ds = objMC.GetPriceQuoteCities(Convert.ToUInt32(modelId));
+
+                if (ds != null)
+                    dt = ds.Tables[0];
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    jsonCities = JSON.GetJSONString(dt);
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetPriceQuoteCities");
+                objErr.SendMail();
+            }
+
+            return jsonCities;
+        }
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay ob 28 Oct 2015
+        /// Summary : To get area list for cityid
+        /// </summary>
+        /// <param name="cityId"></param>
+        /// <returns></returns>
+        [AjaxPro.AjaxMethod()]
+        public string GetAreas(string cityId)
+        {
+            string jsonCities = string.Empty;
+
+            DataSet ds = null;
+            DataTable dt = null;
+            try
+            {
+                ManageArea objMa = new ManageArea();
+
+                ds = objMa.GetArea(Convert.ToUInt32(cityId));
+
+                if (ds != null)
+                    dt = ds.Tables[0];
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    jsonCities = JSON.GetJSONString(dt);
+                }
+            }
+            catch(Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikewaleOpr.AjaxCommon.GetAreas");
+                objErr.SendMail();
+            }
+            return jsonCities;
+        }
     }   // End of class
 }   // End of namespace
