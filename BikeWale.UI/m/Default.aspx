@@ -36,56 +36,7 @@
             </div>
         </div>
     </section>
-    <%--<section class="bg-light-grey">
-        <div class="container">
-        <div class="grid-12 margin-bottom20">
-            <h2 class="text-center margin-top30 padding-left30 padding-right30">Comforts of booking online</h2>
-            <div class="jcarousel-wrapper bike-booking-online-wrapper">
-                <div class="jcarousel">
-                    <ul>
-                        <li>
-                        	<div class="booking-online-item">
-                                <div class="booking-online-pic bg-white text-center">
-                                    <div class="bookingcomforts-sprite get-price-icon"></div>
-                                </div>
-                                <div class="bg-white font20 booking-online-box">Get real prices upfront</div>
-                            </div>
-                        </li>
-                        <li>
-                        	<div class="booking-online-item">
-                                <div class="booking-online-pic bg-white text-center">
-                                    <div class="bookingcomforts-sprite get-deal-icon"></div>
-                                </div>
-                                <div class="bg-white font20 booking-online-box">Get best deals & offers</div>
-                            </div>
-                        </li>
-                        <li>
-                        	<div class="booking-online-item">
-                                <div class="booking-online-pic bg-white text-center">
-                                    <div class="bookingcomforts-sprite save-visit-icon"></div>
-                                </div>
-                                <div class="bg-white font20 booking-online-box">Save on dealer visits</div>
-                            </div>
-                        </li>
-                        <li>
-                        	<div class="booking-online-item">
-                                <div class="booking-online-pic bg-white text-center">
-                                    <div class="bookingcomforts-sprite buying-asst-icon"></div>
-                                </div>
-                                <div class="bg-white font20 booking-online-box">Complete buying assistance</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <span class="jcarousel-control-left"><a class="bwmsprite jcarousel-control-prev"></a></span>
-                <span class="jcarousel-control-right"><a class="bwmsprite jcarousel-control-next"></a></span>
-                <p class="text-center jcarousel-pagination margin-top20 margin-bottom10"></p>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-    </section>--%>
-
+    
     <section><!--  Upcoming, New Launches and Top Selling code starts here -->
         <div class="container bg-white">
         	<div class="grid-12 alpha omega">
