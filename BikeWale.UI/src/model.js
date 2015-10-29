@@ -753,37 +753,56 @@ $(".modelgallery-close-btn, .blackOut-window-model").click(function () {
     $(".bike-gallery-popup").removeClass("show").addClass("hide");
     $(".modelgallery-close-btn").removeClass("show").addClass("hide");
     videoiFrame.setAttribute("src", "");
+    var galleryThumbIndex = $(".carousel-navigation-photos ul li.active").index();
+    $(".carousel-stage").jcarousel('scroll', galleryThumbIndex);
 });
 
 $(document).ready(function () {
-    imgTotalCount = $(".carousel-stage-photos ul li").length;    
+    getImageDetails();
+});
+
+var mainImgIndexA;
+
+$(".carousel-stage ul li").click(function () {
+    mainImgIndexA = $(".carousel-navigation ul li.active").index();
+    setGalleryImage(mainImgIndexA);
+});
+
+var setGalleryImage = function (currentImgIndex) {
+    $(".carousel-stage-photos").jcarousel('scroll', currentImgIndex);
+    getImageDetails();
+};
+
+var getImageDetails = function () {
+    imgTotalCount = $(".carousel-stage-photos ul li").length;
     var imgIndexA = $(".carousel-navigation-photos ul li.active");
     var imgIndex = imgIndexA.index() + 1;
     var imgTitle = imgIndexA.find("img").attr("title");
     setImageDetails(imgTitle, imgIndex);
-});
+};
 
-function getImageNextIndex() {
+var getImageNextIndex = function () {
     var imgIndexA = $(".carousel-navigation-photos ul li.active").next();
     var imgIndex = imgIndexA.index() + 1;
     var imgTitle = imgIndexA.find("img").attr("title");
     setImageDetails(imgTitle, imgIndex);
 }
 
-function getImagePrevIndex() {
+var getImagePrevIndex = function () {
     var imgIndexA = $(".carousel-navigation-photos ul li.active").prev();
     var imgIndex = imgIndexA.index() + 1;
     var imgTitle = imgIndexA.find("img").attr("title");    
     setImageDetails(imgTitle, imgIndex);
 }
 
-function getImageIndex() {
+var getImageIndex = function () {
     var imgIndexA = $(".carousel-navigation-photos ul li.active");
     var imgIndex = imgIndexA.index() + 1;
     var imgTitle = imgIndexA.find("img").attr("title");
     setImageDetails(imgTitle, imgIndex);
 }
-function setImageDetails(imgTitle,imgIndex) {            
+
+var setImageDetails = function (imgTitle,imgIndex) {            
     $(".leftfloatbike-gallery-details").text(imgTitle);
     if (imgIndex > 0) {
         $(".bike-gallery-count").text(imgIndex.toString() + "/" + imgTotalCount.toString());
