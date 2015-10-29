@@ -57,7 +57,7 @@
                     <div class="search-bike-container">
                         <div class="search-bike-item">
                             <!-- Most Popular Bikes Starts here-->
-                            <div class="listitems">
+                            <div id="listitems" class="listitems">
                                 <asp:Repeater ID="rptMostPopularBikes" runat="server">
                                     <ItemTemplate>
                                         <div class="front" ind="<%#DataBinder.Eval(Container, "ItemIndex", "")%>" prc="<%# DataBinder.Eval(Container.DataItem, "VersionPrice") %>" mlg="<%# DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall") %>">
