@@ -36,9 +36,7 @@
             </div>
         </div>
     </section>
-    
-    <section class="bg-light-grey">
-    
+    <%--<section class="bg-light-grey">
         <div class="container">
         <div class="grid-12 margin-bottom20">
             <h2 class="text-center margin-top30 padding-left30 padding-right30">Comforts of booking online</h2>
@@ -86,9 +84,8 @@
         </div>
         <div class="clear"></div>
     </div>
-        
-    </section>
-    
+    </section>--%>
+
     <section><!--  Upcoming, New Launches and Top Selling code starts here -->
         <div class="container bg-white">
         	<div class="grid-12 alpha omega">

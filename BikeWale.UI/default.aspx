@@ -45,7 +45,8 @@
             </div>
         </div>
     </header>
-    <section class="bg-light-grey">
+    
+<%--    <section class="bg-light-grey">
         <!--  Booking online code starts here -->
         <div class="container ">
             <div class="grid-12 alpha omega margin-bottom30">
@@ -86,6 +87,7 @@
         </div>
     </section>
     <!--  Ends here -->
+    --%>
     <section class="bg-white">
         <!--  Discover your bike code starts here -->
         <div class="container">
