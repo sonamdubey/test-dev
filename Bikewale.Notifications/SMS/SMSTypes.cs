@@ -265,5 +265,21 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
+
+        public void ClaimedOfferSMSToCustomer(string customerMobile, string pageUrl)
+        {
+            try 
+            {
+                EnumSMSServiceType esms = EnumSMSServiceType.ClaimedOffer;
+                string message = "Thank you for providing your bike details. After verifying, we will ship the gifts to you within 30 days. Write to contact@bikewale.com in case of any concerns.";
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(customerMobile, message, esms, pageUrl);
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Notifications.ClaimedOfferSMSToCustomer");
+                objErr.SendMail();
+            }
+        }
     }
 }
