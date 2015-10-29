@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.DAL.BikeBooking;
 
-namespace Bikewale.AjaxGetPriceQuoteArea
+namespace Bikewale.Ajax
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 8/3/2012
