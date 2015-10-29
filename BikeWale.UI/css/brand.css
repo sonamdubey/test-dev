@@ -16,6 +16,8 @@
 .newBikes-latest-updates-container .home-tabs li.active{ background:#fff; color:#2a2a2a;}
 
 @media all and (min-width: 800px) and (max-width: 996px) {
+    body { overflow-x:hidden; }
+	.container { width:800px; margin:0; }
     .brand-bikes-list-container li { width: 245px; height: 410px; margin-right: 5px; margin-bottom: 5px; }
     .brand-bikes-list-container li .imageWrapper, .brand-bikes-list-container li .imageWrapper a { width: 245px; height: 138px; }
     .brand-bikes-list-container li .imageWrapper a img { width: 100%; height: 138px; }

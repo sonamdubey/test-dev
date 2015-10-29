@@ -46,3 +46,7 @@
         <div class="clear"></div>
     </div>
 </footer><!-- Ends here -->
+<script>
+    if ($(window).width() < 996 && $(window).width() > 790)
+        $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
+</script>

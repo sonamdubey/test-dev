@@ -211,7 +211,7 @@
 
         //800X600
         if ($(window).width() < 996 && $(window).width() > 790) {
-            $(".rated-container, .not-rated-container").removeClass("font16").css("font-size", "15px")
+            $(".rated-container, .not-rated-container").removeClass("font16").css("font-size", "14px")
             $(".rated-container").removeClass("margin-left10").addClass("margin-left5");
             $(".not-rated-container").find("span.write-review-span").removeClass("margin-left10").addClass("margin-left5");
             $(".rating-stars-container").removeClass("padding-right10").addClass("padding-right5");
