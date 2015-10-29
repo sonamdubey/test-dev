@@ -1,131 +1,8 @@
 // JavaScript Document
-
-$(function () {
-    $(".carousel-navigation ul li").slice(0, 4).find("img.lazy").trigger("imgLazyLoad");
-    $(".jcarousel.stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
-});
-
 jQuery(function () {
 
-    var connector2 = function (itemNavigation2, carouselStage2) {
-        return carouselStage2.jcarousel('items').eq(itemNavigation2.index());
-    };
-    var connector3 = function (itemNavigation3, carouselStage3) {
-        //return carouselStage3.jcarousel('items').eq(itemNavigation3.index());
-    };
-
-    jQuery('.jcarousel-wrapper.model .jcarousel')
-    .on('jcarousel:create jcarousel:reload', function () {
-        var element = $(this),
-            width = element.innerWidth();
-        element.jcarousel('items').css('width', width + 'px');
-    });
+    
    
-    $(".alternatives-carousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
-        $(this).find("img.lazy").trigger("imgLazyLoad");
-    });
-
-    var carouselStage2 = $('.carousel-stage-photos').jcarousel();
-    var carouselNavigation2 = $('.carousel-navigation-photos').jcarousel();
-
-   // var carouselStage3 = $('.carousel-stage-videos').jcarousel();
-    var carouselNavigation3 = $('.carousel-navigation-videos').jcarousel();
-
-
-    carouselNavigation2.jcarousel('items').each(function () {
-        var item2 = $(this);
-        var target = connector2(item2, carouselStage2);
-        item2
-            .on('jcarouselcontrol:active', function () {
-                carouselNavigation2.jcarousel('scrollIntoView', this);
-                item2.addClass('active');
-            })
-            .on('jcarouselcontrol:inactive', function () {
-                item2.removeClass('active');
-            })
-            .jcarouselControl({
-                target: target,
-                carousel: carouselStage2
-            });
-    });
-
-    carouselNavigation3.jcarousel('items').each(function () {
-        var item3 = $(this);
-        var target = connector3(item3);
-        item3
-            .on('jcarouselcontrol:active', function () {
-                carouselNavigation3.jcarousel('scrollIntoView', this);
-                item3.addClass('active');
-            })
-            .on('jcarouselcontrol:inactive', function () {
-                item3.removeClass('active');
-            })
-    });
-
-    $('.prev-stage, .photos-prev-stage, .videos-prev-stage')
-            .on('jcarouselcontrol:inactive', function () {
-                $(this).addClass('inactive');
-            })
-            .on('jcarouselcontrol:active', function () {
-                $(this).removeClass('inactive');
-            })
-            .jcarouselControl({
-                target: '-=1'
-            });
-    $('.next-stage, .photos-next-stage, .videos-next-stage')
-        .on('jcarouselcontrol:inactive', function () {
-            $(this).addClass('inactive');
-        })
-        .on('jcarouselcontrol:active', function () {
-            $(this).removeClass('inactive');
-        })
-        .jcarouselControl({
-            target: '+=1'
-        });
-    $('.prev-navigation, .photos-prev-navigation, .videos-prev-navigation')
-        .on('jcarouselcontrol:inactive', function () {
-            $(this).addClass('inactive');
-        })
-        .on('jcarouselcontrol:active', function () {
-            $(this).removeClass('inactive');
-        })
-        .jcarouselControl({
-            target: '-=4'
-        });
-    $('.next-navigation, .photos-next-navigation, .videos-next-navigation')
-        .on('jcarouselcontrol:inactive', function () {
-            $(this).addClass('inactive');
-        })
-        .on('jcarouselcontrol:active', function () {
-            $(this).removeClass('inactive');
-        })
-        .jcarouselControl({
-            target: '+=4'
-        });
-
-
-    $(".jcarousel.stage, .carousel-navigation-photos, .carousel-stage-photos,.carousel-navigation-videos").on('jcarousel:visiblein', 'li', function (event, carousel) {
-        $(this).find("img.lazy").trigger("imgLazyLoad");
-    });
-
-
-    $(".carousel-stage-photos, .carousel-navigation-photos,.carousel-navigation-videos").swipe({
-        fingers: 'all', swipeLeft: swipe2, swipeRight: swipe2, allowPageScroll: "auto",
-        excludedElements: "label, button, input, select, textarea, .noSwipe",
-    });
-
-
-    function swipe2(event, direction, distance, duration, fingerCount) {
-        if (direction == "left") {
-            $(this).closest('.connected-carousels-photos .stage-photos,.navigation-photos,.navigation-videos').find("a.jcarousel-control-next,a.photos-next-stage,a.photos-next-navigation,a.videos-next-navigation").click();
-        }
-        else if (direction == "right") {
-            $(this).closest('.connected-carousels-photos .stage-photos,.navigation-photos,.navigation-videos').find("a.jcarousel-control-prev,a.photos-prev-stage,a.photos-prev-navigation,a.videos-prev-navigation").click();
-
-        }
-    }
-
-
 });
 
 $(".photos-next-stage").click(function () {
@@ -140,7 +17,40 @@ $(".carousel-navigation-photos").click(function () {
     getImageIndex();
 });
 
-$("#bikeBannerImageCarousel .stage li").click(function () {
+//photos corousel function
+
+var galleryThumbs = new Swiper('.carousel-navigation-photos', {
+    spaceBetween: 10,
+    centeredSlides: true,
+    slidesPerView: 'auto',
+    touchRatio: 0.2,
+    slideToClickedSlide: true,
+    preloadImages: false,
+    lazyLoading: true,
+    lazyLoadingInPrevNext: true,
+    watchSlidesProgress: true,
+    watchSlidesVisibility: true
+});
+
+var slidegalleryThumbs = function (swiper) {
+    galleryThumbs.slideTo(swiper.activeIndex, 500);
+    galleryThumbs.slides.removeClass('swiper-slide-active');
+    galleryThumbs.slides[swiper.activeIndex].className += ' swiper-slide-active';
+};
+
+var galleryTop = new Swiper('.carousel-stage-photos', {
+    nextButton: '.swiper-button-next',
+    prevButton: '.swiper-button-prev',
+    spaceBetween: 10,
+    preloadImages: false,
+    lazyLoading: true,
+    lazyLoadingInPrevNext: true,
+    watchSlidesProgress: true,
+    watchSlidesVisibility: true,
+    onSlideChangeEnd: slidegalleryThumbs
+});
+
+$("#bikeBannerImageCarousel .stage .swiper-slide").click(function () {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Photo_Clicked', 'lab': myBikeName });
     if (imgTotalCount > 0) {
         $('body').addClass('lock-browser-scroll');
@@ -148,16 +58,15 @@ $("#bikeBannerImageCarousel .stage li").click(function () {
         $(".bike-gallery-popup").removeClass("hide").addClass("show");
         $(".modelgallery-close-btn").removeClass("hide").addClass("show");
 
-        $('.carousel-stage-photos')
-        .on('jcarousel:create jcarousel:reload', function () {
-            var element = $(this),
-                width = element.innerWidth();
-            element.jcarousel('items').css('width', width + 'px');
-        })
-        .jcarousel();
-        $(".carousel-navigation-photos ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
-        $(".carousel-stage-photos ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
-        $(".carousel-navigation-videos ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
+        galleryTop.onResize();
+        galleryThumbs.onResize();
+        
+        $(document).on('click', '.carousel-navigation-photos .swiper-slide', function () {
+            $('.carousel-navigation-photos .swiper-slide').removeClass('swiper-slide-active');
+            $(this).addClass('swiper-slide-active');
+            galleryTop.slideTo($(this).index(), 500);
+        });
+        
     }
 });
 
@@ -170,29 +79,29 @@ $(".modelgallery-close-btn").click(function () {
 });
 
 $(document).ready(function () {
-    imgTotalCount = $(".carousel-stage-photos ul li").length;
-    var imgIndexA = $(".carousel-navigation-photos ul li.active");
+    imgTotalCount = $(".carousel-stage-photos .swiper-slide").length;
+    var imgIndexA = $(".carousel-navigation-photos .swiper-slide.active");
     var imgIndex = imgIndexA.index() + 1;
     var imgTitle = imgIndexA.find("img").attr("title");
     setImageDetails(imgTitle, imgIndex);
 });
 
 function getImageNextIndex() {
-    var imgIndexA = $(".carousel-navigation-photos ul li.active").next();
+    var imgIndexA = $(".carousel-navigation-photos .swiper-slide.active").next();
     var imgIndex = imgIndexA.index() + 1;
     var imgTitle = imgIndexA.find("img").attr("title");
     setImageDetails(imgTitle, imgIndex);
 }
 
 function getImagePrevIndex() {
-    var imgIndexA = $(".carousel-navigation-photos ul li.active").prev();
+    var imgIndexA = $(".carousel-navigation-photos .swiper-slide.active").prev();
     var imgIndex = imgIndexA.index() + 1;
     var imgTitle = imgIndexA.find("img").attr("title");
     setImageDetails(imgTitle, imgIndex);
 }
 
 function getImageIndex() {
-    var imgIndexA = $(".carousel-navigation-photos ul li.active");
+    var imgIndexA = $(".carousel-navigation-photos .swiper-slide.active");
     var imgIndex = imgIndexA.index() + 1;
     var imgTitle = imgIndexA.find("img").attr("title");
     setImageDetails(imgTitle, imgIndex);
@@ -711,87 +620,7 @@ function LoadTerms(offerId) {
         setTimeout(LoadTerms, 2000); // check again in a second
     }
 }
-
-//photos corousel function
-(function ($) {
-
-    var connector = function (itemNavigation, carouselStage) {
-        return carouselStage.jcarousel('items').eq(itemNavigation.index());
-};
-
-    $(function () {
-
-        var carouselStage = $('.carousel-stage').jcarousel();
-        var carouselNavigation = $('.carousel-navigation').jcarousel();
-
-
-        carouselNavigation.jcarousel('items').each(function () {
-            var item = $(this);
-
-
-            var target = connector(item, carouselStage);
-
-            item
-                .on('jcarouselcontrol:active', function () {
-                    carouselNavigation.jcarousel('scrollIntoView', this);
-                    item.addClass('active');
-            })
-                .on('jcarouselcontrol:inactive', function () {
-                    item.removeClass('active');
-            })
-                .jcarouselControl({
-                        target: target,
-                        carousel: carouselStage
-            });
-        });
-
-
-        $('.prev-stage')
-            .on('jcarouselcontrol:inactive', function () {
-                $(this).addClass('inactive');
-        })
-            .on('jcarouselcontrol:active', function () {
-                $(this).removeClass('inactive');
-        })
-            .jcarouselControl({
-                    target: '-=1'
-        });
-
-        $('.next-stage')
-            .on('jcarouselcontrol:inactive', function () {
-                $(this).addClass('inactive');
-        })
-            .on('jcarouselcontrol:active', function () {
-                $(this).removeClass('inactive');
-        })
-            .jcarouselControl({
-                    target: '+=1'
-        });
-
-
-        $('.prev-navigation')
-            .on('jcarouselcontrol:inactive', function () {
-                $(this).addClass('inactive');
-        })
-            .on('jcarouselcontrol:active', function () {
-                $(this).removeClass('inactive');
-        })
-            .jcarouselControl({
-                    target: '-=1'
-        });
-
-        $('.next-navigation')
-            .on('jcarouselcontrol:inactive', function () {
-                $(this).addClass('inactive');
-        })
-            .on('jcarouselcontrol:active', function () {
-                $(this).removeClass('inactive');
-        })
-            .jcarouselControl({
-                    target: '+=1'
-        });
-    });
-})(jQuery);
+    
 
 //Animate the element's value from start to end:
 function animatePrice(ele, start, end) {

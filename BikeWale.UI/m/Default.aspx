@@ -42,46 +42,49 @@
         <div class="container">
         <div class="grid-12 margin-bottom20">
             <h2 class="text-center margin-top30 padding-left30 padding-right30">Comforts of booking online</h2>
-            <div class="jcarousel-wrapper bike-booking-online-wrapper">
-                <div class="jcarousel">
-                    <ul>
-                        <li>
-                        	<div class="booking-online-item">
-                                <div class="booking-online-pic bg-white text-center">
-                                    <div class="bookingcomforts-sprite get-price-icon"></div>
-                                </div>
-                                <div class="bg-white font20 booking-online-box">Get real prices upfront</div>
+
+           <div class="swiper-container padding-bottom60">
+                <div class="swiper-wrapper bike-booking-online-wrapper">
+                    <div class="swiper-slide">
+                        <div class="booking-online-item">
+                            <div class="booking-online-pic bg-white text-center">
+                                <div class="bookingcomforts-sprite get-price-icon"></div>
                             </div>
-                        </li>
-                        <li>
-                        	<div class="booking-online-item">
-                                <div class="booking-online-pic bg-white text-center">
-                                    <div class="bookingcomforts-sprite get-deal-icon"></div>
-                                </div>
-                                <div class="bg-white font20 booking-online-box">Get best deals & offers</div>
+                            <div class="bg-white font20 booking-online-box">Get real prices upfront</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="booking-online-item">
+                            <div class="booking-online-pic bg-white text-center">
+                                <div class="bookingcomforts-sprite get-deal-icon"></div>
                             </div>
-                        </li>
-                        <li>
-                        	<div class="booking-online-item">
-                                <div class="booking-online-pic bg-white text-center">
-                                    <div class="bookingcomforts-sprite save-visit-icon"></div>
-                                </div>
-                                <div class="bg-white font20 booking-online-box">Save on dealer visits</div>
+                            <div class="bg-white font20 booking-online-box">Get best deals & offers</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="booking-online-item">
+                            <div class="booking-online-pic bg-white text-center">
+                                <div class="bookingcomforts-sprite save-visit-icon"></div>
                             </div>
-                        </li>
-                        <li>
-                        	<div class="booking-online-item">
-                                <div class="booking-online-pic bg-white text-center">
-                                    <div class="bookingcomforts-sprite buying-asst-icon"></div>
-                                </div>
-                                <div class="bg-white font20 booking-online-box">Complete buying assistance</div>
+                            <div class="bg-white font20 booking-online-box">Save on dealer visits</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="booking-online-item">
+                            <div class="booking-online-pic bg-white text-center">
+                                <div class="bookingcomforts-sprite buying-asst-icon"></div>
                             </div>
-                        </li>
-                    </ul>
+                            <div class="bg-white font20 booking-online-box">Complete buying assistance</div>
+                        </div>
+                    </div>
                 </div>
-                <span class="jcarousel-control-left"><a class="bwmsprite jcarousel-control-prev"></a></span>
-                <span class="jcarousel-control-right"><a class="bwmsprite jcarousel-control-next"></a></span>
-                <p class="text-center jcarousel-pagination margin-top20 margin-bottom10"></p>
+                
+               
+                <div class="swiper-pagination"></div>
+                
+                <div class="bwmsprite swiper-button-next hide"></div>
+                <div class="bwmsprite swiper-button-prev hide"></div>
+
             </div>
         </div>
         <div class="clear"></div>

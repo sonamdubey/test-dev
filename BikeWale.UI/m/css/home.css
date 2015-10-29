@@ -1,14 +1,10 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 header { background: #161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/home-top-banner.jpg?v=150915) no-repeat scroll right top; background-size:cover;}
-.btn-search { position:absolute; padding:8px 12px 9px; top: 1px; right:1px; border-top-left-radius: 0;
-border-bottom-left-radius: 0;height:41px;}
+.btn-search { position:absolute; padding:8px 12px 9px; top: 1px; right:1px; border-top-left-radius: 0;border-bottom-left-radius: 0;height:41px;}
 
-.jcarousel-wrapper.bike-booking-online-wrapper {width:100%;}
-.jcarousel-wrapper.bike-booking-online-wrapper .jcarousel-control-left { left:-10px; }
-.jcarousel-wrapper.bike-booking-online-wrapper .jcarousel-control-right { right:-10px; }
-.bike-booking-online-wrapper .jcarousel ul li { width:300px; height:210px;  margin-top:-15px; margin-right:0; }
-.booking-online-item { width:230px; height:200px; margin:0 auto; text-align:center; }
+.bike-booking-online-wrapper .swiper-slide{width:300px;}
+.booking-online-item { width:230px; /*height:200px;*/ margin:0 auto; text-align:center; }
 .booking-online-box { height:140px; padding:50px 20px 10px;}
 .booking-online-pic {width:130px; height:92px; margin:0 auto; position:relative; top:35px; border:1px solid #ddd\9; -moz-box-shadow:0px 2px 5px #ccc; -o-box-shadow:0px 2px 5px #ccc; -webkit-box-shadow:0px 2px 5px #ccc; -ms-box-shadow:0px 2px 5px #ccc; box-shadow:0px 2px 5px #ccc;}
 

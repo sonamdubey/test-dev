@@ -1,16 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.ExpertReviewsWidget" %>
 <div class="bw-tabs-data" id="ctrlExpertReviews">
-    <div class="jcarousel-wrapper">
-        <div class="jcarousel">
-            <ul>
+    <div class="swiper-container padding-bottom60">
+         <div class="swiper-wrapper">
                 <asp:Repeater ID="rptExpertReviews" runat="server">
                     <ItemTemplate>
-                        <li>
+                        <div class="swiper-slide">
                             <div class="front">
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
                                         <a href="/m/road-tests/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl").ToString() + "-" + DataBinder.Eval(Container.DataItem,"BasicId").ToString() %>.html">
-                                            <img class="lazy" alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._370x208) %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="370" height="208">
+                                            <img class="swiper-lazy" alt="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" title="<%# DataBinder.Eval(Container.DataItem, "Title").ToString()%>" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgUrl").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._370x208) %>" />
+                                            <span class="swiper-lazy-preloader"></span>
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
@@ -23,14 +23,15 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
+                        </div>
                     </ItemTemplate>
                 </asp:Repeater>
-            </ul>
         </div>
-        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-        <p class="text-center jcarousel-pagination margin-bottom30"></p>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Navigation -->
+        <div class="bwmsprite swiper-button-next hide"></div>
+        <div class="bwmsprite swiper-button-prev hide"></div>
     </div>
     <div class="text-center margin-bottom40">
         <a class="font16" href="<%=MoreExpertReviewUrl%>">View more reviews</a>

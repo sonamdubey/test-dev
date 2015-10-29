@@ -1,11 +1,10 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.UserReviewList" %>
 <div class="bw-tabs-data" id="ctrlUserReviews">
-    <div class="jcarousel-wrapper">
-        <div class="jcarousel">
-            <ul>
+    <div class="swiper-container padding-bottom60">
+         <div class="swiper-wrapper">
                 <asp:Repeater ID="rptUserReview" runat="server">
                     <ItemTemplate>
-                        <li>
+                        <div class="swiper-slide">
                             <div class="front padding-bottom20">
                                 <div class="contentWrapper content-inner-block-10">
                                     <div class="grid-12 alpha omega padding-top10">
@@ -25,15 +24,16 @@
                                 </div>
                                 <div class="clear"></div>
                             </div>
-                        </li>
+                        </div>
                     </ItemTemplate>
                 </asp:Repeater>
 
-            </ul>
         </div>
-        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-        <p class="text-center jcarousel-pagination margin-bottom30"></p>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Navigation -->
+        <div class="bwmsprite swiper-button-next hide"></div>
+        <div class="bwmsprite swiper-button-prev hide"></div>
     </div>
     <div class="text-center">
         <a class="font16" href="/m/<%=MakeMaskingName%>-bikes/<%=ModelMaskingName%>/user-reviews/">View more reviews</a>
