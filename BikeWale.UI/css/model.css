@@ -202,7 +202,9 @@
 .notify-offers-list { list-style:disc; margin-left:18px; }
 .notify-offers-list li { margin-bottom:10px; }
 @media all and (min-width: 800px) and (max-width: 996px){
-	.city-unveil-offer-container { width:320px; }
+	body { overflow-x:hidden; }
+	.container { width:800px; margin:0; }
+    .city-unveil-offer-container { width:320px; }
     .city-area-wrapper .chosen-container.chosen-container-single { width:150px !important; }
     .connected-carousels .stage { width:379px; overflow:hidden; }
     .connected-carousels .carousel-stage { height:215px; }

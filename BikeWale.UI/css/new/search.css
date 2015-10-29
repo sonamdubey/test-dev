@@ -5,7 +5,7 @@
 .search-bike-list ul li .bikeDescWrapper { min-height: 260px; }
 .header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #0e405b\9; padding: 10px 20px; z-index: 3; }
 .stick { position: fixed; top: 0; width:976px; z-index: 3; }
-.filter-div { width:187px; height:40px; padding:9px; border:1px solid #ccc; margin-top:10px; color:#a8afb3; position:relative; cursor:pointer; }
+.filter-div { width:187px; height:40px; padding:9px; border:1px solid #ccc; margin-top:10px; color:#555; position:relative; cursor:pointer; }
 .filter-select-btn { width: 154px; text-align: left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
@@ -39,7 +39,7 @@
 .filter-counter { background: #ef3f30 none repeat scroll 0 0; border-radius: 2px; color: #fff; padding: 0 2px; }
 .more-filter-item-data .bw-tabs li.active { cursor:pointer; }
 
-.sort-div { width:200px; height:40px; padding:9px; border:1px solid #ccc; color:#a8afb3; position:relative; cursor:pointer; }
+.sort-div { width:200px; height:40px; padding:9px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; }
 .sort-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:154px; }
 .sort-selection-div { width:200px; background:#fff; margin-top:10px; border:1px solid #ccc; position:absolute; z-index:2; }
 .sort-selection-div ul li { padding:2px 0 2px 8px; margin-bottom:5px; margin-top:5px; font-size:14px; }
@@ -49,17 +49,11 @@
 .sort-list-items ul::after { border-bottom: 10px solid #ffffff; border-left: 10px solid transparent; border-right: 10px solid transparent; content: ""; left: 87px; position: absolute; top: -10px; z-index: 1; }
 
 /*Budget CSS*/
-body { font-size:13px; font-family: 'Open Sans', sans-serif, Arial; color:#4d5057; }
-.show { display:block; }
-.hide { display:none; }
-ul { margin:0; padding:0;list-style:none; }
 #budgetListContainer li { display: block; padding: 7px 12px; color: #666; cursor: pointer; background: none; }
 #budgetListContainer li:hover { background:#f2f2f2; }
 #minList li { text-align:left; }
 #maxList li { text-align:right; }
-
-div, input[type="text"]{ box-sizing:border-box; }
-.budget-box { width:187px; height:40px; padding: 9px; border:1px solid #ccc; margin-top:10px; color:#a8afb3; position:relative; cursor:pointer; }
+.budget-box { width:187px; height:40px; padding: 9px; border:1px solid #ccc; margin-top:10px; color:#555; position:relative; cursor:pointer; }
 .filter-select-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width: 154px; }
 #budgetListContainer { position: absolute; z-index: 3; width: 185px; background: #fff; border: 1px solid #ccc; border-radius: 0 0 2px 2px; margin-top: 13px; }
 #userBudgetInput { background: #e2e2e2; }

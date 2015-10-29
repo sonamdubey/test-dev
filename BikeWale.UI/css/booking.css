@@ -70,6 +70,8 @@
 .booking-success-alert { padding:15px 25px;  -moz-box-shadow: 0 3px 2px #e5e5e5; -webkit-box-shadow: 0 3px 2px #e5e5e5; -o-box-shadow: 0 3px 2px #e5e5e5; -ms-box-shadow: 0 3px 2px #e5e5e5; box-shadow: 0 3px 2px #e5e5e5; }
 
 @media all and (min-width: 800px) and (max-width: 996px) {
+    body { overflow-x:hidden; }
+	.container { width:800px; margin:0; }
     .personal-info-form-container, .mobile-verification-container, .feedback-container { width:730px; }
     .personal-info-form-container .personal-info-list { width:345px; }
     .booking-tabs ul li { width:190px; }
