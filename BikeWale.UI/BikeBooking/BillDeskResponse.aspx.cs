@@ -67,8 +67,7 @@ namespace Bikewale.BikeBooking
 
                     containerTran.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                     IDealerPriceQuote objDealer = containerTran.Resolve<IDealerPriceQuote>();
-
-
+                    
                     if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
                     {
                         isUpdated = objDealer.UpdatePQTransactionalDetail(Convert.ToUInt32(PriceQuoteCookie.PQId), Convert.ToUInt32(PGCookie.PGTransId), true, ConfigurationManager.AppSettings["OfferUniqueTransaction"]);
