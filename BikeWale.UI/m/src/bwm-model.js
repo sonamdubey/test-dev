@@ -20,10 +20,10 @@ $(".carousel-navigation-photos").click(function () {
 //photos corousel function
 
 var galleryThumbs = new Swiper('.carousel-navigation-photos', {
+    slideActiveClass: '',
     spaceBetween: 10,
     centeredSlides: true,
     slidesPerView: 'auto',
-    touchRatio: 0.2,
     slideToClickedSlide: true,
     preloadImages: false,
     lazyLoading: true,

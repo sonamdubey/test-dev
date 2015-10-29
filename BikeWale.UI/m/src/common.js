@@ -374,12 +374,15 @@ $(document).ready(function () {
 	    panel.find(".bw-tabs-data").hide();
 	    $("#" + panelId).show();
 	    centerItVariableWidth($(this), '.bw-tabs');
-
-	    var sIndex = $('#' + panelId + " .swiper-container").attr('class');
-	    var regEx = /sw-([0-9]+)/i;
-	    var index = regEx.exec(sIndex)[1]
-	    //console.log($('.sw-' + index).data('swiper'));
-	    $('.sw-' + index).data('swiper').onResize();
+	    var swiperContainer = $('#' + panelId + " .swiper-container");
+	    if (swiperContainer.length > 0) {
+	        var sIndex = swiperContainer.attr('class');
+	        var regEx = /sw-([0-9]+)/i;
+	        try{
+	            var index = regEx.exec(sIndex)[1]
+	            $('.sw-' + index).data('swiper').onResize();
+	        }catch(e){console.log(e.toString())}
+	    }
 
 	}); // ends
 	// Common CW select box tabs code
@@ -599,16 +602,6 @@ if ($('.swiper-wrapper iframe').length > 0 /*&& iOS != true*/) {
         }
     });
 
-    function slideChangeStart() {
-        console.log('slideChangeStart');
-        if (playerState == 'playing' || playerState == 'buffering') {
-            console.log('if: ' + playerState);
-            try {
-                videoPause();
-            } catch (e) { console.log(e.toString()); }
-        }
-    };
-
     $('.yt-iframe-preview').append('<span class="overlay" />');
     function videoPlay() {
         //console.log(targetOverlay);
@@ -629,6 +622,16 @@ if ($('.swiper-wrapper iframe').length > 0 /*&& iOS != true*/) {
 
 
 }
+
+function slideChangeStart() {
+    //console.log('slideChangeStart');
+    if (playerState == 'playing' || playerState == 'buffering') {
+        //console.log(playerState);
+        try {
+            videoPause();
+        } catch (e) { console.log(e.toString()); }
+    }
+};
 
 (function ($) {
     $.fn.hint = function (blurClass) {

@@ -96,7 +96,7 @@
 #SneakPeak img { width:100%; }
 
 /* photo gallery */
-.bike-gallery-popup { width:100%; max-width: 476px; height:100%; margin:0 auto; overflow-y:auto; position:fixed; top:4%; right:0; left:0; z-index:10; }
+.bike-gallery-popup { width:100%; max-width: 476px; height:100%; margin:0 auto;padding-top: 40px; overflow-y:auto; position:fixed; top:0; right:0; left:0; z-index:10; }
 .blackOut-window-model { background:#222; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=95); -moz-opacity:0.95; -khtml-opacity: 0.95; }
 .modelgallery-close-btn { z-index:11; }
 /* offers popup */
@@ -120,7 +120,7 @@
 
 .connected-carousels-photos .stage-photos, .connected-carousels-videos .stage-videos { width: 100%; margin: 0 auto 20px; position: relative; }
 /** Navigation container **/
-.connected-carousels-photos .navigation-photos, .connected-carousels-videos .navigation-videos { width: 100%; padding-left:10px; padding-right:10px; max-width:476px; position: relative; margin: 0 auto; }
+.connected-carousels-photos .navigation-photos, .connected-carousels-videos .navigation-videos { width: 100%; padding-left:10px; padding-right:10px; max-width:476px; position: relative; margin: 0 auto 20px; }
 /** Shared carousel styles **/
 .connected-carousels-photos .carousel-photos, .connected-carousels-videos .carousel-videos { overflow: hidden; position: relative; }
 .connected-carousels-photos .carousel-photos .swiper-slide, .connected-carousels-videos .carousel-videos .swiper-slide { width:100%; background-color:#fff; margin:0;max-height:268px; font-size:0; position:relative;height: auto; text-align:center;}
@@ -129,7 +129,7 @@
 .connected-carousels-videos .carousel-videos .yt-iframe-preview iframe { width:100%; max-width:476px; }
 
 /** Navigation carousel specific styles **/
-.connected-carousels-photos .carousel-navigation-photos, .connected-carousels-videos .carousel-navigation-videos { height: 100%; width: 100%; background: none; padding-left:0;}
+.connected-carousels-photos .carousel-navigation-photos, .connected-carousels-videos .carousel-navigation-videos { height: 100%; width: 100%; background: none; padding-left:0; }
 .navigation-photos .carousel-navigation-photos .swiper-slide, .navigation-videos .carousel-navigation-videos .swiper-slide { display: block; background-color: #fff; position:relative; width:83px; }
 .navigation-photos .carousel-navigation-photos .swiper-slide img { width:100%; height:auto; border: 2px solid #333; }
 .navigation-photos .carousel-navigation-photos .swiper-slide.swiper-slide-active img { border:2px solid #ccc; }
