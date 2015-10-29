@@ -39,11 +39,14 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <div class="grid-12">
-                        <div class="grid-8">
+                    <div class="grid-12 alpha omega">
+                        <div class="grid-8 alpha">
                             <h1 class="leftfloat font30 text-black margin-top10 margin-bottom15"><%= _make.MakeName %> bikes</h1>
                         </div>
-                        <div class="grid-4 rightfloat margin-top10 padding-right10">
+                        <div class="grid-4 rightfloat margin-top10 omega">
+                            <div class="leftfloat sort-by-text margin-left50">
+                                <p>Sort by:</p>
+                            </div>
                             <div class="rightfloat">
                                 <div class="sort-div rounded-corner2">
                                     <div class="sort-by-title" id="sort-by-container">
@@ -54,7 +57,7 @@
                                 </div>
                                 <div class="sort-selection-div sort-list-items hide">
                                     <ul id="sortbike">
-                                        <li id="0">Popular</li>
+                                        <li id="0" class="selected">Popular</li>
                                         <li id="1">Price: Low to High</li>
                                         <li id="2">Price: High to Low</li>
                                         <li id="3">Mileage: High to Low</li>
@@ -73,7 +76,7 @@
             <div class="container">
                 <div class="grid-12">
                     <div class="brand-bikes-list-container content-box-shadow content-inner-block-10 rounded-corner2">
-                        <ul class="listitems">
+                        <ul id="listitems" class="listitems">
                             <!-- Most Popular Bikes Starts here-->
                             <asp:Repeater ID="rptMostPopularBikes" runat="server">
                                 <ItemTemplate>

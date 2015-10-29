@@ -1,29 +1,36 @@
-﻿$("#sortbike li").on("click", function () {
+﻿var dt = '';
+
+$("#sortbike li").on("click", function () {
     sortListLI.removeClass("selected");
     $(this).addClass('selected');
     var sortByText = $(this).text();
     $(".sort-by-title").find(".sort-select-btn").html(sortByText);
     $.sortChangeUp(sortByDiv);
     var id = $(this).attr('id');
-    var dt = '';
     switch (id) {
         case '0':
-            dt =  sortResults($(".listitems li"), 'ind', true);
+            dt = sortResults($(".listitems li"), 'ind', true);
             break;
-        case '1': 
-            dt =  sortResults($(".listitems li"), 'prc', true);
+        case '1':
+            dt = sortResults($(".listitems li"), 'prc', true);
             break;
-        case '2': 
+        case '2':
             dt = sortResults($(".listitems li"), 'prc', false);
             break;
-        case '3': 
+        case '3':
             dt = sortResults($(".listitems li"), 'mlg', false);
             break;
     }
-    $(".listitems").html('')
-    $(".listitems").append(dt);
+    var htm = '';
+    for (var i = 0, l = dt.length; i < l; i++) {
+        htm += dt[i].outerHTML;
+    }
+    $(".listitems").html('');
+    var ul = document.getElementById('listitems');
+    ul.insertAdjacentHTML('beforeend', htm);
     applyTabsLazyLoad();
 });
+
 
 function sortResults(mydata, prop, asc) {
     return mydata.sort(function (a, b) {

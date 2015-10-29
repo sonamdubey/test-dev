@@ -48,8 +48,13 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
     $('#sort-by-div a[data-title="sort"]').removeClass('text-bold');
     $(this).addClass('text-bold');
     $(this).parent().removeClass('text-bold');
+    var htm = '';
+    for (var i = 0, l = dt.length; i < l; i++) {
+        htm += dt[i].outerHTML;
+    }
     $(".listitems").html('')
-    $(".listitems").append(dt);
+    var ul = document.getElementById('listitems');
+    ul.insertAdjacentHTML('beforeend', htm);
     applyTabsLazyLoad();
 });
 
@@ -60,7 +65,6 @@ $.scrollToTop = function () {
 };
 
 function sortResults(mydata, prop, asc) {
-    debugger;
     return mydata.sort(function (a, b) {
         if (asc) return (parseInt($(a).attr(prop)) > parseInt($(b).attr(prop))) ? 1 : ((parseInt($(a).attr(prop)) < parseInt($(b).attr(prop))) ? -1 : 0);
         else return (parseInt($(b).attr(prop)) > parseInt($(a).attr(prop))) ? 1 : ((parseInt($(b).attr(prop)) < parseInt($(a).attr(prop))) ? -1 : 0);

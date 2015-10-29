@@ -13,7 +13,7 @@
 .newBikes-latest-updates-container .home-tabs li:first-child { margin-right:-2px;}
 .newBikes-latest-updates-container .home-tabs li.active{ background:#fff; color:#2a2a2a;}
 
-.sort-div { width:200px; height:40px; padding:9px; border:1px solid #ccc; color:#a8afb3; position:relative; cursor:pointer; background:#fff; }
+.sort-div { width:200px; height:40px; padding:9px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
 .sort-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:154px; }
 .sort-selection-div { width:200px; background:#fff; margin-top:10px; border:1px solid #ccc; position:absolute; z-index:2; }
 .sort-selection-div ul li { padding:2px 0 2px 8px; margin-bottom:5px; margin-top:5px; font-size:14px; }
@@ -25,3 +25,4 @@
 #upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
 .sort-div .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
 .sort-div.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
+.sort-by-text p { height:40px; line-height:40px; }
