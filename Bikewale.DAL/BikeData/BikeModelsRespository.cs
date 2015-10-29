@@ -586,7 +586,8 @@ namespace Bikewale.DAL.BikeData
         }   // End of GetUpcomingBikeDetails
 
         /// <summary>
-        /// 
+        /// Modified By : Sadhana Upadhyay on 29 Oct 2015
+        /// Summary : To fetch
         /// </summary>
         /// <param name="inputParams"></param>
         /// <param name="sortBy"></param>
@@ -642,8 +643,10 @@ namespace Bikewale.DAL.BikeData
                                 objModel.HostUrl = Convert.ToString(dr["HostURL"]);
                                 objModel.LargePicImagePath = Convert.ToString(dr["LargePicImagePath"]);
                                 objModel.BikeDescription.SmallDescription = Convert.ToString(dr["Description"]);
+                                objModel.MakeBase.MakeId = Convert.ToInt32(dr["MakeId"]);
                                 objModel.MakeBase.MakeName = Convert.ToString(dr["MakeName"]);
                                 objModel.MakeBase.MaskingName = Convert.ToString(dr["MakeMaskingName"]);
+                                objModel.ModelBase.ModelId = Convert.ToInt32(dr["ModelId"]);
                                 objModel.ModelBase.ModelName = Convert.ToString(dr["ModelName"]);
                                 objModel.ModelBase.MaskingName = Convert.ToString(dr["ModelMaskingName"]);
                                 objModel.OriginalImagePath = Convert.ToString(dr["OriginalImagePath"]);
