@@ -27,7 +27,7 @@
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
-    <!-- Brand Page Starts Here-->    
+        <!-- Brand Page Starts Here-->
         <section class="bg-light-grey padding-top10">
             <div class="container">
                 <div class="grid-12">
@@ -39,7 +39,31 @@
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="font30 text-black margin-top10 margin-bottom15"><%= _make.MakeName %> bikes</h1>
+                    <div class="grid-12">
+                        <div class="grid-8">
+                            <h1 class="leftfloat font30 text-black margin-top10 margin-bottom15"><%= _make.MakeName %> bikes</h1>
+                        </div>
+                        <div class="grid-4 rightfloat margin-top10 padding-right10">
+                            <div class="rightfloat">
+                                <div class="sort-div rounded-corner2">
+                                    <div class="sort-by-title" id="sort-by-container">
+                                        <span class="leftfloat sort-select-btn">Popular</span>
+                                        <span class="clear"></span>
+                                    </div>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                </div>
+                                <div class="sort-selection-div sort-list-items hide">
+                                    <ul id="sortbike">
+                                        <li id="0">Popular</li>
+                                        <li id="1">Price: Low to High</li>
+                                        <li id="2">Price: High to Low</li>
+                                        <li id="3">Mileage: High to Low</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
@@ -49,11 +73,11 @@
             <div class="container">
                 <div class="grid-12">
                     <div class="brand-bikes-list-container content-box-shadow content-inner-block-10 rounded-corner2">
-                        <ul>
+                        <ul class="listitems">
                             <!-- Most Popular Bikes Starts here-->
                             <asp:Repeater ID="rptMostPopularBikes" runat="server">
                                 <ItemTemplate>
-                                    <li class="front">
+                                    <li class="front" ind="<%#DataBinder.Eval(Container, "ItemIndex", "")%>" prc="<%# DataBinder.Eval(Container.DataItem, "VersionPrice") %>" mlg="<%# DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall") %>">
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
                                                 <a class="modelurl" href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
@@ -86,7 +110,7 @@
                                                 </div>
 
                                                 <div class="clear"></div>
-                                            <a href="Javascript:void(0)" pageCatId="1" makeName="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelName="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>"  modelId="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
+                                                <a href="Javascript:void(0)" pagecatid="1" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
                                             </div>
                                         </div>
                                     </li>
@@ -99,7 +123,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-    <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? "" : "hide" %>"><!-- Upcoming bikes from brands -->
+        <section class="<%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
             <!-- Upcoming bikes from brands -->
             <div class="container">
                 <div class="grid-12">
@@ -161,15 +185,21 @@
                                 </ul>
                             </div>
                         </div>
-                        <%if (!isNewsZero) { %>         <BW:News runat="server" ID="ctrlNews" />    <% } %>
-                        <%if (!isExpertReviewZero) { %> <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />  <% } %>                         
-                        <%if (!isVideoZero) { %>        <BW:Videos runat="server" ID="ctrlVideos" />    <% } %>
+                        <%if (!isNewsZero) { %>
+                        <BW:News runat="server" ID="ctrlNews" />
+                        <% } %>
+                        <%if (!isExpertReviewZero) { %>
+                        <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                        <% } %>
+                        <%if (!isVideoZero) { %>
+                        <BW:Videos runat="server" ID="ctrlVideos" />
+                        <% } %>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-    <section class="<%= (isDescription)? "": "hide" %>" ><!-- About Brand code starts here-->
+        <section class="<%= (isDescription)? "": "hide" %>">
             <!-- About Brand code starts here-->
             <div class="container">
                 <div class="grid-12" style="<%= (isDescription) ? "": "display:none;" %>">
@@ -194,7 +224,7 @@
             <!-- Popup Section Ends here-->
         </section>
 
-    <script>
+        <script>
         $("a.read-more-btn").click(function () {
             $("span.brand-about-main").toggleClass('hide');
             $("span.brand-about-more-desc").toggleClass('hide');
@@ -212,6 +242,7 @@
     </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
+        <script type="text/javascript" src="../src/new/bikemake.js?<%= staticFileVersion %>"></script>
     </form>
     <script type="text/javascript">
         ga_pg_id = '3';

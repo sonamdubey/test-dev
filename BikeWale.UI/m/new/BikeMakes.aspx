@@ -33,63 +33,84 @@
             <!--  Used Search code starts here -->
             <div class="container">
                 <div>
+                    <div class="hide" id="sort-by-div">
+                    	    <div  class="filter-sort-div font14 bg-white">
+                                <div sc="1" so="">
+                                    <a data-title="sort" class="price-sort position-rel">
+                                	    Price<span class="hide" so="0" class="sort-text"></span>
+                                    </a>
+                                </div>
+                                <div sc="" class="border-solid-left">
+                                    <a data-title="sort" class="position-rel text-bold">
+                                	    Popularity 
+                                    </a>
+                                </div>
+                                <div sc="2" class="border-solid-left">
+                                    <a data-title="sort" class="position-rel">
+                                	    Mileage 
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     <!--  class="grid-12"-->
-                    <h2 class="text-center margin-top20 margin-bottom20"><%= _make.MakeName %> Bikes</h2>
+                    <h2 class="text-center margin-bottom20"><%= _make.MakeName %> Bikes</h2>
                     <div class="search-bike-container">
                         <div class="search-bike-item">
                             <!-- Most Popular Bikes Starts here-->
-                            <asp:Repeater ID="rptMostPopularBikes" runat="server">
-                                <ItemTemplate>
-                                    <div class="front">
-                                        <div class="contentWrapper">
-                                            <div class="imageWrapper">
-                                                <a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
-                                                    <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="310" height="174">
-                                                </a>
-                                            </div>
-                                            <div class="bikeDescWrapper">
-                                                <div class="bikeTitle">
-                                                    <h3><a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %></a></h3>
+                            <div class="listitems">
+                                <asp:Repeater ID="rptMostPopularBikes" runat="server">
+                                    <ItemTemplate>
+                                        <div class="front" ind="<%#DataBinder.Eval(Container, "ItemIndex", "")%>" prc="<%# DataBinder.Eval(Container.DataItem, "VersionPrice") %>" mlg="<%# DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall") %>">
+                                            <div class="contentWrapper">
+                                                <div class="imageWrapper">
+                                                    <a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
+                                                        <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" width="310" height="174">
+                                                    </a>
                                                 </div>
-                                                <div class="font22 text-grey margin-bottom5">
-                                                    <span class="fa fa-rupee " style="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"display:none;": "display:inline-block;"%>"></span>
-                                                    <span class="font24"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
-                                                </div>
-                                                <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
-                                                <div class="font13 margin-bottom10">
-                                                    <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
-                                                </div>
-                                                <div class="padding-top5 clear">
-                                                    <div class="grid-12 alpha <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">
-                                                        <div class="padding-left5 padding-right5 ">
-                                                            <div>
-                                                                <span class="font16 text-light-grey">Not rated yet  </span>
+                                                <div class="bikeDescWrapper">
+                                                    <div class="bikeTitle">
+                                                        <h3><a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %></a></h3>
+                                                    </div>
+                                                    <div class="font22 text-grey margin-bottom5">
+                                                        <span class="fa fa-rupee " style="<%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionPrice"))=="0")?"display:none;": "display:inline-block;"%>"></span>
+                                                        <span class="font24"><%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %></span>
+                                                    </div>
+                                                    <div class="margin-bottom10 font14 text-light-grey">Ex-showroom, <%=ConfigurationManager.AppSettings["defaultName"].ToString() %></div>
+                                                    <div class="font13 margin-bottom10">
+                                                        <%# Bikewale.Utility.FormatMinSpecs.GetMinSpecs(Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.Displacement")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall")),Convert.ToString(DataBinder.Eval(Container.DataItem, "Specs.MaxPower"))) %>
+                                                    </div>
+                                                    <div class="padding-top5 clear">
+                                                        <div class="grid-12 alpha <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) == "0" ? "" : "hide" %>">
+                                                            <div class="padding-left5 padding-right5 ">
+                                                                <div>
+                                                                    <span class="font16 text-light-grey">Not rated yet  </span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="leftfloat">
-                                                        <div class="padding-left5 padding-right5 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
-                                                            <div>
-                                                                <span class="margin-bottom10 ">
-                                                                    <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ModelRating"))) %>
-                                                                </span>
+                                                        <div class="leftfloat">
+                                                            <div class="padding-left5 padding-right5 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
+                                                                <div>
+                                                                    <span class="margin-bottom10 ">
+                                                                        <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(DataBinder.Eval(Container.DataItem,"ModelRating"))) %>
+                                                                    </span>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="leftfloat border-left1">
-                                                        <div class="padding-left5 padding-right5 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
-                                                            <span class="font16 text-light-grey"><a href="/m/<%#DataBinder.Eval(Container.DataItem,"objMake.MaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"objModel.MaskingName").ToString() %>/user-reviews/"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ReviewCount")) %> Reviews</a></span>
+                                                        <div class="leftfloat border-left1">
+                                                            <div class="padding-left5 padding-right5 <%# Convert.ToString(DataBinder.Eval(Container.DataItem,"ReviewCount")) != "0" ? "" : "hide" %>">
+                                                                <span class="font16 text-light-grey"><a href="/m/<%#DataBinder.Eval(Container.DataItem,"objMake.MaskingName").ToString()%>-bikes/<%#DataBinder.Eval(Container.DataItem,"objModel.MaskingName").ToString() %>/user-reviews/"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ReviewCount")) %> Reviews</a></span>
+                                                            </div>
                                                         </div>
+                                                        <div class="clear"></div>
+                                                        <a href="javascript:void(0)" makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName")) %>" modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" pagecatid="1" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
                                                     </div>
-                                                    <div class="clear"></div>
-                                            <a href="javascript:void(0)" makeName="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName")) %>" modelName="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>"  pagecatid="1" modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>                                          
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="border-top1 margin-left20 margin-right20 padding-top20 clear"></div>
-                                </ItemTemplate>
-                            </asp:Repeater>
+                                        <div class="border-top1 margin-left20 margin-right20 padding-top20 clear"></div>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </div>
                             <!--- Most Popular Bikes Ends Here-->
 
                         </div>
