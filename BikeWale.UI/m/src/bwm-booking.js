@@ -142,11 +142,20 @@ function BookingPageVMModel() {
 }
 
 function CustomerModel() {
+    var arr = setuserDetails();
     var self = this;
-    self.firstName = ko.observable();
-    self.lastName = ko.observable();
-    self.emailId = ko.observable();
-    self.mobileNo = ko.observable();
+    if (arr != null && arr.length > 0) {
+        self.firstName = ko.observable(arr[0]);
+        self.lastName = ko.observable(arr[1]);
+        self.emailId = ko.observable(arr[2]);
+        self.mobileNo = ko.observable(arr[3]);
+    }
+    else {
+        self.firstName = ko.observable();
+        self.lastName = ko.observable();
+        self.emailId = ko.observable();
+        self.mobileNo = ko.observable();
+    }
     self.IsVerified = ko.observable();
     self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
     self.otpCode = ko.observable();
@@ -465,27 +474,24 @@ var normalHeader = $('header .navbarBtn, header .global-location');
 var mobileValue = '';
 
 detailsSubmitBtn.click(function () {
-    
     var a = validateEmail();
     var b = validateMobile();
     var c = validateName();
+    var d = validateLastName();
     var cityArea = GetGlobalCityArea();
     if (c == false) {
-        fnameVal();
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Name', 'lab': cityArea });
     }
     else {
         if (a == false) {
-            emailVal();
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Email', 'lab': cityArea });
         }
         else {
             if (b == false) {
-                mobileVal();
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': cityArea });
             }
         }
-        if (a == true && b == true && c == true) {
+        if (a == true && b == true && c == true && d == true) {
             viewModel.CustomerVM().verifyCustomer();
             if (viewModel.CustomerVM().IsValid()) {
                 $.customizeState();
@@ -510,20 +516,41 @@ detailsSubmitBtn.click(function () {
                 otpText.val('').removeClass("border-red");
                 otpText.siblings("span, div").css("display", "none");
             }
-            // Push 
-        var getCityArea = GetGlobalCityArea();
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_Successful_Submit', 'lab': getCityArea });
+            setPQUserCookie();
+            var getCityArea = GetGlobalCityArea();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_Successful_Submit', 'lab': getCityArea });
         }
     }
     mobileValue = mobile.val();
 });
 
 var validateName = function () {
+    var isValid;
     var a = firstname.val().length;
-    if (a == 0)
-        return false;
-    else if (a >= 1)
-        return true;
+    if (firstname.val().indexOf('&') != -1) {
+        isValid = false;
+        setError(firstname, 'Invalid name');
+    }
+    else if (a == 0) {
+        isValid = false;
+        setError(firstname, 'Please enter your first name');
+    }
+    else if (a >= 1) {
+        isValid = true;
+        hideError(firstname)
+    }
+    return isValid;
+}
+var validateLastName = function () {
+    var isError = true;
+    if (lastname.val().indexOf('&') != -1) {
+        setError(lastname, 'Invalid name');
+        isError = false;
+    }
+    else {
+        hideError(lastname)
+}
+    return isError;
 }
 
 var nameValTrue = function () {
@@ -578,16 +605,22 @@ mobile.on("keyup", function () {
     $('#confirmation-tab,#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
 })
 
-var fnameVal = function () {
-    firstname.addClass("border-red");
-    firstname.siblings("span, div").css("display", "block");
-};
+//var fnameVal = function () {
+//    firstname.addClass("border-red");
+//    firstname.siblings("span, div").css("display", "block");
+//};
 
-var emailVal = function (msg) {
-    emailid.addClass("border-red");
-    emailid.siblings("span, div").css("display", "block")
-    emailid.siblings("div").text(msg);
-};
+var setError = function (ele, msg) {
+    ele.addClass("border-red");
+    ele.siblings("span, div").show();
+    ele.siblings("div").text(msg);
+}
+
+function hideError(ele) {
+    ele.removeClass("border-red");
+    ele.siblings("span, div").hide();
+}
+
 
 var mobileVal = function (msg) {
     mobile.addClass("border-red");
@@ -601,13 +634,14 @@ function validateEmail() {
     var reEmail = /^[A-z0-9._%+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
 
     if (emailID == "") {
-        emailVal('Please enter email address');
+        setError(emailid, 'Please enter email address');
         return false;
     }
     else if (!reEmail.test(emailID)) {
-        emailVal('Invalid Email');
+        setError(emailid, 'Invalid Email');
         return false;
     }
+    hideError(emailid);
     return true;
 }
 
@@ -615,17 +649,18 @@ function validateMobile() {
     var reMobile = /^[0-9]*$/;
     var mobileNo = mobile.val();
     if (mobileNo == "") {
-        mobileVal("Please enter your Mobile Number");
+        setError(mobile, "Please enter your Mobile Number");
         return false;
     }
     else if (!reMobile.test(mobileNo)) {
-        mobileVal("Mobile Number should be numeric");
+        setError(mobile, "Mobile Number should be numeric");
         return false;
     }
     else if (mobileNo.length != 10) {
-        mobileVal("Mobile Number should be of 10 digits");
+        setError(mobile, "Mobile Number should be of 10 digits");
         return false;
     }
+    hideError(mobile);
     return true;
 }
 
@@ -663,7 +698,6 @@ mobile.change(function () {
 });
 
 otpText.on("focus", function () {
-    otpText.val('');
     otpText.siblings("span, div").css("display", "none");
 });
 
@@ -671,6 +705,7 @@ mobile.on("keyup focus", function () {
     detailsSubmitBtn.show();
     otpText.val('');
     otpContainer.removeClass("show").addClass("hide");
+    hideError(mobile);
 })
 
 emailid.change(function () {
@@ -692,6 +727,8 @@ otpBtn.click(function () {
     if (isValid == false) {
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_OTP_Submit_Error_Name', 'lab': getCityArea });
     }
+    isValid &= validateLastName();
+    
     $('#processing').show();
     if (!validateOTP())
         $('#processing').hide();
@@ -849,7 +886,24 @@ var varientSelection = function () {
 }
 
 $('#btnMakePayment').on('click', function (e) {
-    
     var cityArea = GetGlobalCityArea();
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step 3_Pay_Click', 'lab': cityArea });
 });
+
+function eraseCookie(name) {
+    document.cookie = name + '=; Max-Age=0'
+}
+
+function setPQUserCookie() {
+    eraseCookie('_PQUser');
+    var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
+    SetCookie("_PQUser", val);
+}
+
+function setuserDetails() {
+    var cookieName = "_PQUser";
+    if (isCookieExists(cookieName)) {
+        var arr = getCookie(cookieName).split("&");
+        return arr;
+    }
+}
