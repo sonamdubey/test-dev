@@ -64,6 +64,17 @@ function navbarShow() {
 }
 
 $(document).ready(function () {
+    try {
+        if (quotationPage && quotationPage != undefined) {
+            $('header .bw-logo, header .navbarBtn, header .global-location').hide();
+            $('.headerTitle,.white-back-arrow').show();
+
+            $('#book-back').on('click', function () {
+                window.history.back();
+            });
+        }
+    } catch (e) {}
+
     $(".lazy").lazyload({
         effect: "fadeIn"
     });

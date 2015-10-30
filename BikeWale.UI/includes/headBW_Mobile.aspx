@@ -126,13 +126,14 @@
         	<a href="/m/" id="bwheader-logo" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
             <div class="leftfloat">
                 <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>                
-                <span id="book-back" class="white-back-arrow margin-right10 hide"></span>
+                <span id="book-back" class="white-back-arrow margin-right10 leftfloat hide"></span>
+                <h2 class="headerTitle font18 text-white leftfloat hide">On-road price quote</h2>
             </div>
             <div class="rightfloat">
                 <div class="global-location">
                     <span class="fa fa-map-marker"></span>
                 </div>
-                <a class="sort-btn" id="sort-btn">
+                <a class="sort-btn hide" id="sort-btn">
                     <span class="bwmsprite sort-icon"></span>
                 </a>
             </div>

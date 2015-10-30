@@ -9,6 +9,7 @@
     AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
     AdId = "1398766000399";
 %>
+<script>var quotationPage = true;</script>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
 <link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" />
 <script type="text/javascript">
