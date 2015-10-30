@@ -20,5 +20,9 @@ namespace Bikewale.DTO.PriceQuote
 
         [JsonProperty("dealer")]
         public DealerDetailsDTO Dealer { get; set; }
+
+        [JsonProperty("noOfAttempts")]
+        public sbyte NoOfAttempts { get; set; }
+
     }
 }
