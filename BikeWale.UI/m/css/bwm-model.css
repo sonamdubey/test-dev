@@ -97,6 +97,9 @@
 
 /* photo gallery */
 .bike-gallery-popup { width:100%; max-width: 476px; height:100%; margin:0 auto;padding-top: 40px; overflow-y:auto; position:fixed; top:0; right:0; left:0; z-index:10; }
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 2/3){ 
+    .bike-gallery-popup{padding-top: 0 }
+}
 .blackOut-window-model { background:#222; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=95); -moz-opacity:0.95; -khtml-opacity: 0.95; }
 .modelgallery-close-btn { z-index:11; }
 /* offers popup */
@@ -107,7 +110,7 @@
 .viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
 .viewterms:hover{text-decoration:underline;}
 
-.bike-gallery-heading h3 { width:320px; margin:0 auto 10px; }
+.bike-gallery-heading h3 { margin:0 auto 10px; }
 
 /*image-videos tabs*/
 .bike-gallery-popup .home-tabs { background:#ccc; margin-top:0; margin-bottom:0;}

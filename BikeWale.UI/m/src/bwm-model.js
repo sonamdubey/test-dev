@@ -18,6 +18,12 @@ $(".carousel-navigation-photos").click(function () {
 });
 
 //photos corousel function
+var slideToClick = function (swiper) {
+    var clickedSlide = swiper.slides[swiper.clickedIndex];
+    $('.carousel-navigation-photos .swiper-slide').removeClass('swiper-slide-active');
+    $(clickedSlide).addClass('swiper-slide-active');
+    galleryTop.slideTo(swiper.clickedIndex, 500);
+};
 
 var galleryThumbs = new Swiper('.carousel-navigation-photos', {
     slideActiveClass: '',
@@ -29,7 +35,8 @@ var galleryThumbs = new Swiper('.carousel-navigation-photos', {
     lazyLoading: true,
     lazyLoadingInPrevNext: true,
     watchSlidesProgress: true,
-    watchSlidesVisibility: true
+    watchSlidesVisibility: true,
+    onTap: slideToClick
 });
 
 var slidegalleryThumbs = function (swiper) {
@@ -60,13 +67,8 @@ $("#bikeBannerImageCarousel .stage .swiper-slide").click(function () {
 
         galleryTop.onResize();
         galleryThumbs.onResize();
-        
-        $(document).on('click', '.carousel-navigation-photos .swiper-slide', function () {
-            $('.carousel-navigation-photos .swiper-slide').removeClass('swiper-slide-active');
-            $(this).addClass('swiper-slide-active');
-            galleryTop.slideTo($(this).index(), 500);
-        });
-        
+        galleryTop.slideTo($(this).index(), 500);
+        galleryThumbs.slideTo($(this).index(), 500);
     }
 });
 
@@ -76,6 +78,7 @@ $(".modelgallery-close-btn").click(function () {
     $(".bike-gallery-popup").removeClass("show").addClass("hide");
     $(".modelgallery-close-btn").removeClass("show").addClass("hide");
     videoiFrame.setAttribute("src", "");
+    $('.sw-0').data('swiper').slideTo(galleryTop.activeIndex, 500);
 });
 
 $(document).ready(function () {
