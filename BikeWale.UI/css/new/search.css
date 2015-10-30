@@ -27,7 +27,7 @@
 .filter-select-title span.selected:after { content:","; }
 .filter-select-title span.selected:last-child:after { display:none; }
 /* filter reset button */
-.filter-reset-btn { color:#a8afb3; cursor:pointer; }
+.filter-reset-btn { color:#555; cursor:pointer; }
 /* filter more-less button */
 .more-filters-container { width:976px;  }
 .more-filter-item-data .form-control { width:99%; }

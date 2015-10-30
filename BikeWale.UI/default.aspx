@@ -14,11 +14,13 @@
         AdPath = "/1017752/BikeWale_HomePage_";
         AdId = "1395985604192";
         alternate = "http://www.bikewale.com/m/";
-        canonical = "http://www.bikewale.com/";        
+        canonical = "http://www.bikewale.com/";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+            
+    <%  isTransparentHeader = true;   %>
 </head>
 <body class="bg-white">
 <form runat="server">    

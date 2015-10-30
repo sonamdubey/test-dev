@@ -24,3 +24,6 @@
 <script type="text/javascript">
     bwHostUrl = "<%= ConfigurationManager.AppSettings["bwHostUrl"] %>";
 </script>
+<script language="c#" runat="server">	
+    private bool isTransparentHeader = false;  
+</script>

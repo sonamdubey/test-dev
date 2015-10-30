@@ -18,3 +18,10 @@ $("ul.brand-budget-mileage-style-UL li").click(function(){
 	$("ul.brand-style-moreBtn").slideUp();
 	b.slideUp();
 });
+
+$(window).on("scroll", function () {
+    if ($(window).scrollTop() > 40)
+        $('#header').removeClass("header-landing").addClass("header-fixed");
+    else
+        $('#header').removeClass("header-fixed").addClass("header-landing");
+});

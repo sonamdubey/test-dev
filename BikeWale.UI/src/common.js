@@ -311,22 +311,6 @@ $(document).ready(function () {
         }
     });
 	
-	function headerOnScroll() {
-		if ($(window).scrollTop() > 40) {
-			$('#header').addClass('header-fixed-with-bg');
-		} else {
-			$('#header').removeClass('header-fixed-with-bg');
-		}
-	}
-
-	// for landing pages header scroll with bg effect
-    if (typeof (landingPage) != "undefined" && landingPage == true) {
-        $('#header').removeClass('header-fixed').addClass('header-landing');
-        headerOnScroll();
-        $(window).scroll(headerOnScroll);
-    }
-
-	
 	//global city popup
 	$("#header div.gl-default-stage").click( function(){
 		$(".blackOut-window").show();

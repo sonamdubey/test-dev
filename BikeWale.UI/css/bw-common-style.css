@@ -238,7 +238,7 @@ footer ul li a:hover { text-decoration: underline; }
 .breadcrumb li span.fa-angle-right { font-size: 18px; vertical-align: top; }
 /* nav classes */
 .header-fixed { background: rgba(51, 51, 51, 0.8); background: #333333\9; position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
-.header-landing { background: none; position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
+.header-landing { background: none !important; position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
 .header-fixed-with-bg { background: rgba(51, 51, 51, 0.8); background: #333333\9; }
 .header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #333333\9; padding: 10px 20px; z-index: 3; }
 .header-fixed-inner { padding-top: 65px; }
