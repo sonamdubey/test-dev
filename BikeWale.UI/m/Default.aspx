@@ -41,7 +41,7 @@
         <div class="container bg-white">
         	<div class="grid-12 alpha omega">
                 <h2 class="text-center margin-top30 margin-bottom20">Discover your bike</h2>
-                <div class="bw-tabs-panel padding-bottom20">
+                <div class="bw-tabs-panel padding-bottom20" id="discoverBikesContainer">
                     
                     <div class="bw-tabs bw-tabs-flex">
                         <ul class="brand-budget-mileage-style-UL">
@@ -255,7 +255,7 @@
                             </ul>
                         </div>
                         <div class="view-brandType text-center padding-top10 clear">
-                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View More Brands</a>
+                            <a href="javascript:void(0)" id="view-brandType" class="view-more-btn font16">View more Brands</a>
                         </div>
                 	</div>
                     <div class="bw-tabs-data hide" id="discoverBudget">
