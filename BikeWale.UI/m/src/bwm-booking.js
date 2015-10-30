@@ -780,7 +780,7 @@ $.personalInfoState = function () {
     container.find('li:eq(1)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon customize-icon-grey');
     container.find('li:eq(2)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon confirmation-icon-grey');
     container.find('li').removeClass('ticked');
-    $('#book-back').removeClass('customizeBackBtn').addClass('hide');
+    $('#book-back').removeClass('customizeBackBtn').addClass('hide').hide();
     normalHeader.removeClass('hide');
     //$('header').removeClass('fixed');
 
@@ -802,7 +802,7 @@ $.customizeState = function () {
     $('.booking-tabs ul li:eq(1)').removeClass('middle').addClass('middle');
     normalHeader.addClass('hide');
     //$('header').addClass('fixed');
-    $('#book-back').removeClass('hide');
+    $('#book-back').removeClass('hide').show();
     $('#book-back').removeClass('confirmationBackBtn').addClass('customizeBackBtn');
 };
 
@@ -818,7 +818,7 @@ $.confirmationState = function () {
     $('.booking-tabs ul li:eq(1)').removeClass('middle');
     normalHeader.addClass('hide');
     //$('header').addClass('fixed');
-    $('#book-back').removeClass('hide');
+    $('#book-back').removeClass('hide').show();
     $('#book-back').removeClass('customizeBackBtn').addClass('confirmationBackBtn');
 };
 
