@@ -188,7 +188,12 @@
 
                                 <div class="clear"></div>
                             </div>
-                            <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a><br />
+                            <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() < 2), click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a>
+                            <p class="margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() >= 2)">
+                             OTP has been already sent to your mobile
+                            </p>
+                            <div class="clear"></div>
+                            <br />
                                 <a class="btn btn-orange margin-top30" id="otp-submit-btn">Confirm OTP</a>
                                 <div style="margin-right:70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
                         </div>
@@ -337,7 +342,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12 alternative-section">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom20">What next!</h2>
+                    <h2 class="text-bold text-center margin-top50 margin-bottom20">What's next!</h2>
                     <div class="content-box-shadow content-inner-block-20">
                         <div class="next-step-box">
                             <img src="../images/next-steps-thumb.jpg" usemap="#nextSteps">
@@ -561,6 +566,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                     self.mobileNo = ko.observable();
                 }
                 self.IsVerified = ko.observable();
+                self.NoOfAttempts = ko.observable(0);
                 self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
                 self.otpCode = ko.observable();
                 self.fullName = ko.computed(function () {
@@ -612,6 +618,9 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                                             obj.dealer.state,
                                             obj.dealer.websiteUrl));
                                     }
+                                }
+                                else {
+                                    self.NoOfAttempts(obj.noOfAttempts);
                                 }
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
@@ -670,7 +679,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                     }
                 }
                 self.regenerateOTP = function () {
-                    if (!self.IsVerified()) {
+                    if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
                         var url = '/api/ResendVerificationCode/';
                         var objCustomer = {
                             "customerName": self.fullName(),
@@ -686,6 +695,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                             contentType: "application/json",
                             success: function (response) {
                                 self.IsVerified(false);
+                                self.NoOfAttempts(response.noOfAttempts);
                                 alert("You will receive the new OTP via SMS shortly.");
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
