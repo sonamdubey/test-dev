@@ -546,11 +546,20 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
             }
 
             function CustomerModel() {
+                var arr = setuserDetails();
                 var self = this;
-                self.firstName = ko.observable();
-                self.lastName = ko.observable();
-                self.emailId = ko.observable();
-                self.mobileNo = ko.observable();
+                if (arr != null && arr.length > 0) {
+                    self.firstName = ko.observable(arr[0]);
+                    self.lastName = ko.observable(arr[1]);
+                    self.emailId = ko.observable(arr[2]);
+                    self.mobileNo = ko.observable(arr[3]);
+                }
+                else {
+                    self.firstName = ko.observable();
+                    self.lastName = ko.observable();
+                    self.emailId = ko.observable();
+                    self.mobileNo = ko.observable();
+                }
                 self.IsVerified = ko.observable();
                 self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
                 self.otpCode = ko.observable();
