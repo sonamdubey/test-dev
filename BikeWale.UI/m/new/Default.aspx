@@ -95,7 +95,7 @@
                             </a>
                         </li>
                     </ul>
-                    <ul id="more-brand-nav" class="text-center hide">
+                    <ul id="more-brand-nav" class="brand-style-moreBtn brandTypeMore border-top1 padding-top25 text-center hide">
                         <li>
                             <a href="/m/aprilia-bikes/">
                                 <span class="brand-type">

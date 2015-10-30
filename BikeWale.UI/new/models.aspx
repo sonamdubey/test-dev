@@ -86,7 +86,7 @@
                                             </div>
                                             <div class="bikeDescWrapper">
                                                 <div class="bikeTitle margin-bottom10">
-                                                    <h3><a class="modelurl" href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>"><%=_make.MakeName %> <%# DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %></a></h3>
+                                                    <h3><a class="modelurl" href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>' title="<%= _make.MakeName %> <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>"><%=_make.MakeName %> <%# DataBinder.Eval(Container.DataItem, "objModel.ModelName").ToString() %></a></h3>
                                                 </div>
                                                 <div class="font20">
                                                     <%# ShowEstimatedPrice(DataBinder.Eval(Container.DataItem, "VersionPrice")) %>
