@@ -23,14 +23,17 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
             if (sortedText.text() === ': Low') {
                 $.so = '1';
                 dt = sortResults(list, 'prc', false);
+                pushGaTags('Price_High_to_Low');
             }
             else {
                 $.so = '0';
                 dt = sortResults(list, 'prc', true);
+                pushGaTags('Price_Low_to_High');
             }
         }
         else {
             dt = sortResults(list, 'prc', true);
+            pushGaTags('Price_Low_to_High');
         }
         if ($.so.length > 0) {
             sortedText.css('display', 'inline-block');
@@ -39,10 +42,14 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
     }
     else {
         $.sc = $(this).parent().attr('sc');
-        if ($.sc == '')
+        if ($.sc == '') {
             dt = sortResults(list, 'ind', true);
-        else
+            pushGaTags('Popular');
+        }
+        else {
             dt = sortResults(list, 'mlg', false);
+            pushGaTags('Mileage_High_to_Low');
+        }
         $('.price-sort').find('span').text('');
     }
     $('#sort-by-div a[data-title="sort"]').removeClass('text-bold');
@@ -61,7 +68,7 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
 $.scrollToTop = function () {
     $('body,html').animate({
         scrollTop: 0
-    }, 800);
+    }, 1000);
 };
 
 function sortResults(mydata, prop, asc) {
@@ -83,3 +90,7 @@ $(window).scroll(function () {
     else
         $('#sort-by-div,header').removeClass('fixed');
 });
+
+function pushGaTags(label) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Sort_Clicked', 'lab': label });
+}

@@ -236,6 +236,7 @@
                         threshold: 300
                     });
                 });
+                $('#sort-by-div').insertAfter('header');
             });
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");

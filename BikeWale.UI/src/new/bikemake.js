@@ -10,15 +10,19 @@ $("#sortbike li").on("click", function () {
     switch (id) {
         case '0':
             dt = sortResults($(".listitems li"), 'ind', true);
+            pushGaTags('Popular');
             break;
         case '1':
             dt = sortResults($(".listitems li"), 'prc', true);
+            pushGaTags('Price_Low_to_High');
             break;
         case '2':
             dt = sortResults($(".listitems li"), 'prc', false);
+            pushGaTags('Price_High_to_Low');
             break;
         case '3':
             dt = sortResults($(".listitems li"), 'mlg', false);
+            pushGaTags('Mileage_High_to_Low');
             break;
     }
     var htm = '';
@@ -67,4 +71,8 @@ function applyTabsLazyLoad() {
     $("img.lazy").lazyload({
         failure_limit: 20
     });
+}
+
+function pushGaTags(label) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Sort_Clicked', 'lab': label });
 }
