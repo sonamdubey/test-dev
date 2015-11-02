@@ -98,8 +98,8 @@ namespace BikeWaleOpr.Content
 			Ajax.Utility.RegisterTypeForAjax(typeof(AjaxFunctions));
 			AjaxFunctions aj = new AjaxFunctions();
 			
-			if ( !IsPostBack )
-			{ 
+            if ( !IsPostBack )
+            { 
                 getStates();
 
 				sql = "SELECT ID, Name FROM BikeMakes WHERE IsDeleted <> 1 ORDER BY NAME";
@@ -113,7 +113,7 @@ namespace BikeWaleOpr.Content
                 //op.FillDropDown( sql, drpCity, "Name", "ID" );
                 //drpCity.Items.Insert( 0, new ListItem( "--Select City--", "0" ));
 				//drpCity.Items.Insert( 1, new ListItem( "Mumbai", "1" ));
-			}
+		    }
 			
 			sql = "SELECT ID, Name, BikeMakeId FROM BikeModels WHERE IsDeleted <> 1 ORDER BY Name";
 			string Script = op.GenerateChainScript( "cmbMake", "cmbModel", sql, "Select Model" );
@@ -451,6 +451,24 @@ namespace BikeWaleOpr.Content
             catch (Exception ex)
             {
                 Trace.Warn("objMS.FillStates  ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+        }
+
+        protected void BindModelDropDown()
+        {
+            DataTable dt = null;
+            string makeId=cmbMake.SelectedValue;
+            try
+            {
+                MakeModelVersion objMMV = new MakeModelVersion();
+                dt = objMMV.GetModels(makeId, "ALL");
+
+            }
+            catch(Exception ex)
+            {
+                Trace.Warn("ShowroomPrices.BindModelDropDown  ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }

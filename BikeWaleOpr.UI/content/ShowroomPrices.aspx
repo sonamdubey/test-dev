@@ -27,7 +27,7 @@
 			<legend>Search Vehicle</legend>
 			<label>Make</label>
 			<asp:DropDownList ID="cmbMake" runat="server" tabindex="1"></asp:DropDownList>
-			<asp:DropDownList ID="cmbModel" Enabled="false" runat="server" tabindex="2">
+			<asp:DropDownList ID="cmbModel" Enabled="true" runat="server" tabindex="2">
 				<asp:ListItem Value="0" Text="--Select--" />
 			</asp:DropDownList>
 			<span  style="color:#FF3300; font-weight:bold;" id="selectModel"></span>
