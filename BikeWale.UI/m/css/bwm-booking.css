@@ -23,7 +23,9 @@
 
 .booking-tabs ul{ display:table; margin:0 auto 20px; width: 270px; overflow: hidden; }
 .booking-tabs ul li { float:left; width:90px; height:42px; background:#fff; text-align:center; position:relative; }
-.booking-tabs ul li:before, .booking-tabs ul li:after{content:''; height:1px; position:absolute; z-index:0; background:#e2e2e2; width:50%; top:0; bottom:0; margin:auto;}
+.booking-tabs ul li:before, .booking-tabs ul li:after{content:''; height:1px; position:absolute; z-index:0; background:#e2e2e2; width:50%;  top:0; bottom:0; margin:auto;}
+.booking-tabs ul li:before {left:0;}
+.booking-tabs ul li:after {right:0;}
 .booking-tabs ul li.ticked:before, .booking-tabs ul li.ticked:after{background:#4d5057; height:3px;}
 .booking-tabs ul li.middle.ticked:after{background:#e2e2e2; height:1px;}
 .booking-tabs ul li.first:before{display:none;}
