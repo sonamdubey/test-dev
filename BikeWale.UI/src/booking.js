@@ -419,6 +419,7 @@ if ($(window).width() < 996 && $(window).width() > 790) {
     $(".bikeModel-details-table table tr td").first().attr("width", "150");
     $(".bikeModel-balance-text").removeClass("font12").addClass("font11");
     $(".bikeModel-dealerMap-container").css("width", "230px");
+    $(".finalBalanceAmount").removeClass("font18").addClass("font14");
 
 }
 function setuserDetails() {
