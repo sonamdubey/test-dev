@@ -128,7 +128,9 @@ mobile.on("blur", function () {
             otpText.val('');
             otpContainer.removeClass("show").addClass("hide");
             hideError(mobile);
-        }         
+        }
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
     }
     else
         viewModel.CustomerVM().IsVerified(true);
