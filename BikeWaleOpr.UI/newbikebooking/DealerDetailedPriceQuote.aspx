@@ -8,6 +8,7 @@
     select { padding:10px; cursor:pointer;}
     .footer {margin-top:20px;}
     .top_info_left { text-transform:capitalize; }
+    .dtItem {font-size:larger;}
 </style>
 <div>
     <div>
@@ -121,13 +122,13 @@
     });
     
     ddlMake.change(function () {
-        var modelId = $(this).val()
-        fillmodels(modelId);
-        fillCities(modelId);
+        var makeId = $(this).val()
+        fillmodels(makeId);
     });
 
     ddlModel.change(function () {
         fillVersions($(this).val())
+        fillCities($(this).val());
     });
 
     ddlCity.change(function () {
@@ -166,7 +167,6 @@
                                         $('#DealerDetailsList').hide();
                                         alert("No Dealer Present For perticular Area");
                                     }
-                                    //alert(JSON.stringify(response));
                                 }
                             });
                         }
@@ -184,6 +184,11 @@
     function fillmodels(makeid) {
         var requestType = "PRICEQUOTE";
         if (makeid > 0) {
+            ddlModel.val("0").attr("disabled", true);
+            ddlVersion.val("0").attr("disabled", true);
+            ddlCity.val("0").attr("disabled", true);
+            ddlArea.val("0").attr("disabled", true);
+
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
@@ -207,6 +212,9 @@
     function fillVersions(modelId) {
         var requestType = "PRICEQUOTE";
         if (modelId > 0) {
+            ddlVersion.val("0").attr("disabled", true);
+            ddlArea.val("0").attr("disabled", true);
+
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
@@ -228,39 +236,57 @@
 
     function fillCities(modelId) {
         if (modelId > 0) {
+            ddlCity.val("0").attr("disabled", true);
+            ddlArea.val("0").attr("disabled", true);
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
                 data: '{"modelId":"' + modelId + '"}',
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCities"); },
                 success: function (response) {
-                    var responseJSON = eval('(' + response + ')');
-                    var resObj = eval('(' + responseJSON.value + ')');
-                    bindDropDownList(resObj, ddlCity, "", "--Select City--");
+                    alert(response);
+                    if (response.length > 1) {
+                        var responseJSON = eval('(' + response + ')');
+                        var resObj = eval('(' + responseJSON.value + ')');
+                        bindDropDownList(resObj, ddlCity, "", "--Select City--");
+                    }
+                    else {
+                        $('#DealerDetailsList').hide();
+                        alert("No Dealer Present For perticular Area");
+                    }
                 }
             });
         }
         else {
             ddlCity.val("0").attr("disabled", true);
+            ddlArea.val("0").attr("disabled", true);
         }
     }
 
     function fillAreas(cityId) {
         if (cityId > 0) {
+            ddlArea.val("0").attr("disabled", true);
             $.ajax({
                 type: "POST",
                 url: "/ajaxpro/BikeWaleOpr.Common.AjaxCommon,BikewaleOpr.ashx",
                 data: '{"cityId":"' + cityId + '"}',
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetAreas"); },
                 success: function (response) {
-                    var responseJSON = eval('(' + response + ')');
-                    var resObj = eval('(' + responseJSON.value + ')');
-                    bindDropDownList(resObj, ddlArea, "", "--Select Area--");
+
+                    if (response.length > 1) {
+                        var responseJSON = eval('(' + response + ')');
+                        var resObj = eval('(' + responseJSON.value + ')');
+                        bindDropDownList(resObj, ddlArea, "", "--Select Area--");
+                    }
+                    else {
+                        $('#DealerDetailsList').hide();
+                        alert("No Dealer Present For perticular Area");
+                    }
                 }
             });
         }
         else {
-            ddlCity.val("0").attr("disabled", true);
+            ddlArea.val("0").attr("disabled", true);
         }
     }
 

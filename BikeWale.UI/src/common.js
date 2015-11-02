@@ -27,40 +27,10 @@ if (!Array.prototype.indexOf) {
     };
 }
 
-function GetCatForNav() {
-    var ret_category = null;
-    if (ga_pg_id != null && ga_pg_id != "0") {
-        switch (ga_pg_id) {
-            case "1":
-                ret_category = "HP";
-                break;
-            case "2":
-                ret_category = "Model_Page";
-                break;
-            case "3":
-                ret_category = "Make_Page";
-                break;
-            case "4":
-                ret_category = "New_Bikes_Page";
-                break;
-        }
-        return ret_category;
-    }
-}
-
-function GetGlobalCityArea() {
-    var cookieName = "location";
-    var cityArea = '';
-    if (isCookieExists(cookieName)) {
-        var arrays = getCookie(cookieName).split("_");
-        if (arrays.length > 2) {
-            cityArea = arrays[1] + '_' + arrays[3];
-        }
-        return cityArea;
-    }
-}
-
 $(document).ready(function () {
+    if (ga_pg_id == '1')
+        $('#globalSearch').parent().hide();
+
     $(".lazy").lazyload({
         effect: "fadeIn"
     });
@@ -108,52 +78,6 @@ $(document).ready(function () {
 	            showHideMatchError(element,true);
 	    }
 	}).autocomplete("widget").addClass("globalCity-auto-desktop").css({ 'position': 'fixed' });
-
-	$('#newBikeList').on('keypress', function (e) {
-	    var id = $('#newBikeList');
-	    var searchVal = id.val();
-	    var placeHolder = id.attr('placeholder');
-	    if (e.keyCode == 13)
-	        if (btnFindBikeNewNav() || searchVal == placeHolder || searchVal == "") {
-	            window.location.href = 'new/';
-	            return false;
-	        }
-	        else {
-	            window.location.href = 'new/';
-	            return false;
-	        }
-	});
-
-	$('#btnSearch').on('click', function (e) {
-	    var id = $('#newBikeList');
-	    var searchVal = id.val();
-	    var placeHolder = id.attr('placeholder');
-	    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
-	    if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
-	        return false;
-	    } else {
-	        window.location.href += 'new/';
-	        return false;
-	    }
-	   
-	});
-
-	function btnFindBikeNewNav() {
-	    if (focusedMakeModel == undefined || focusedMakeModel == null) {
-	        window.location.href += 'new/';
-	        return true;
-	    }
-	    var make = new Object();
-	    make.maskingName = focusedMakeModel.payload.makeMaskingName;
-	    make.id = focusedMakeModel.payload.makeId;
-	    var model = null;
-	    if (focusedMakeModel.payload.modelId > 0) {
-	        model = new Object();
-	        model.maskingName = focusedMakeModel.payload.modelMaskingName;
-	        model.id = focusedMakeModel.payload.modelId;
-	    }
-	    return MakeModelRedirection(make, model);
-	}
 	
 	$("#newBikeList").bw_autocomplete({
 	    width: 469,
@@ -205,15 +129,6 @@ $(document).ready(function () {
 	$(".navbarBtn").click(function(){
 		navbarShow();
 	});
-
-	function navbarShow() {
-	    var category = GetCatForNav();
-	    if (category != null) {
-	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Hamburger_Menu_Icon', 'lab': 'Icon_Click' });
-	    }
-		$("#nav").addClass('open').animate({'left':'0px'});
-		$(".blackOut-window").show();
-	}	
 	$(".blackOut-window").mouseup(function(e){
 		var nav = $("#nav"); 
         if(e.target.id !== nav.attr('id') && !nav.has(e.target).length)		
@@ -243,15 +158,6 @@ $(document).ready(function () {
 			$(this).removeClass("open").next("ul").slideUp(350);
 		}
 	}); // nav bar code ends here
-	
-	function navbarHide(){
-		$("#nav").removeClass('open').animate({'left':'-300px'});
-		$(".blackOut-window").hide();
-	}
-	function navbarHideOnESC() {
-		$("#nav").removeClass('open').animate({ 'left': '-300px' });
-		$(".blackOut-window").hide();
-	}
 	
 	// login code starts 
 	$("#firstLogin").click(function(){
@@ -287,10 +193,6 @@ $(document).ready(function () {
     $("#btnSignUpBack").click(function () {
         loginSignupSwitch();
     });
-    function loginSignupSwitch() {
-        $(".loginStage").show();
-        $(".signUpStage").hide();
-    }
 	
 	//user logged in code
 	$("#userLoggedin").click(function(){
@@ -310,14 +212,6 @@ $(document).ready(function () {
 			unlockPopup();
         }
     });
-	
-	function headerOnScroll() {
-		if ($(window).scrollTop() > 40) {
-			$('#header').addClass('header-fixed-with-bg');
-		} else {
-			$('#header').removeClass('header-fixed-with-bg');
-		}
-	}
 
 	// for landing pages header scroll with bg effect
     if (typeof (landingPage) != "undefined" && landingPage == true) {
@@ -346,20 +240,6 @@ $(document).ready(function () {
 	    CloseCityPopUp();
 	});
 	
-	function CloseCityPopUp() {
-		var globalLocation = $("#globalcity-popup");
-		globalLocation.removeClass("show").addClass("hide");
-		unlockPopup();
-		if (!isCookieExists("location"))
-		    SetCookieInDays("location", "0", 365);
-	}
-
-	function popupHideOnESC()
-	{
-	    $('.bw-popup').fadeOut(100);
-	    unlockPopup();
-	}
-	
 	$(document).keydown(function (e) {
 		// ESCAPE key pressed
 		if (e.keyCode == 27) {
@@ -384,23 +264,6 @@ $(document).ready(function () {
 	    } 
 	    return false;
 	});
-	
-	function loginHideOnESC() {
-		$(".loginPopUpWrapper").animate({ right: '-400px' });
-		$(".loggedinProfileWrapper").animate({
-			right: '-280px'
-		});
-	}
-		
-	function lockPopup() {
-	    $('body').addClass('lock-browser-scroll');
-		$(".blackOut-window").show();
-	}
-	
-	function unlockPopup() {
-		$('body').removeClass('lock-browser-scroll');
-		$(".blackOut-window").hide();
-	}
 
     // Common BW tabs code
 	$(".more-filter-item-data .bw-tabs li").live('click', function () {
@@ -424,89 +287,12 @@ $(document).ready(function () {
 	    applyTabsLazyLoad();
 	});
 
-	/* jCarousel custom methods */
-	$(function () {
-	    var jcarousel = $('.jcarousel').jcarousel({
-	        vertical: false
-	    });
-		$('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
-			$(this).removeClass('inactive');
-		}).on('jcarouselcontrol:inactive', function () {
-			$(this).addClass('inactive');
-		}).jcarouselControl({
-			target: '-=3'
-		});
-		$('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
-			$(this).removeClass('inactive');
-		}).on('jcarouselcontrol:inactive', function () {
-			$(this).addClass('inactive');
-		}).jcarouselControl({
-			target: '+=3'
-		});
-		$('.jcarousel-pagination').on('jcarouselpagination:active', 'a', function () {
-			$(this).addClass('active');
-		}).on('jcarouselpagination:inactive', 'a', function () {
-			$(this).removeClass('active');
-		}).on('click', function (e) {
-			e.preventDefault();
-		}).jcarouselPagination({
-			item: function (page) {
-				return '<a href="#' + page + '">' + page + '</a>';
-			}
-		});
-		// Swipe handlers for mobile
-		$(".jcarousel").swipe({ fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto" });
-		function swipe1(event, direction, distance, duration, fingerCount) {
-			if (direction == "left") {
-				$(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-next").click();
-			}
-			else if (direction == "right") {
-				$(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-prev").click();
-			}
-		}
-		$(".jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
-		    $(this).find("img.lazy").trigger("imgLazyLoad");
-		});
-	});
-
-	function applyTabsLazyLoad() {
-	    $("img.lazy").lazyload({
-	        event: "imgLazyLoad"
-	    });
-	}
-
-	function applyLazyLoad() {
-	    $("img.lazy").lazyload({
-	        event: "imgLazyLoad",
-	        effect: "fadeIn"
-	    });
-	}
-
 	$(".jcarousel-wrapper .jcarousel-control-next").on("click", function () {
 	    var jcaourselDiv = $(this).parent("span").prev("div");
 	    jcaourselDiv.on('jcarousel:visiblein', 'li', function (event, carousel) {
 	        $(this).find("img.lazy").trigger("imgLazyLoad");
 	    });
 	});
-
-    // common autocomplete data call function
-	function dataListDisplay(availableTags,request,response){
-		var results = $.ui.autocomplete.filter(availableTags, request.term);
-		response(results.slice(0, 5));
-	}
-
-
-	function MakeModelRedirection(make, model) {
-	    if (model != null && model != undefined) {
-	        window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/";
-	        return true;
-	    }
-	    else if (make != null && make != undefined) {
-	        window.location.href = "/" + make.maskingName + "-bikes/";
-	        return true;
-	    }
-	}
-
     // Contents Widegt Clicked
 	
 	$("#ctrlNews a").on("click", function () {
@@ -574,16 +360,151 @@ $(document).ready(function () {
 	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Logo', 'lab': 'Logo_Clicked' });
 	    }
 	});
+});
 
-	function pushNavMenuAnalytics(menuItem) {
-	    var categ = GetCatForNav();
-	    if (categ != null) {
-	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Hamburger_Menu_Item_Click', 'lab': menuItem });
-	    }
-	}
-    
+function GetCatForNav() {
+    var ret_category = null;
+    if (ga_pg_id != null && ga_pg_id != "0") {
+        switch (ga_pg_id) {
+            case "1":
+                ret_category = "HP";
+                break;
+            case "2":
+                ret_category = "Model_Page";
+                break;
+            case "3":
+                ret_category = "Make_Page";
+                break;
+            case "4":
+                ret_category = "New_Bikes_Page";
+                break;
+        }
+        return ret_category;
+    }
+}
+
+function GetGlobalCityArea() {
+    var cookieName = "location";
+    var cityArea = '';
+    if (isCookieExists(cookieName)) {
+        var arrays = getCookie(cookieName).split("_");
+        if (arrays.length > 2) {
+            cityArea = arrays[1] + '_' + arrays[3];
+        }
+        return cityArea;
+    }
+}
+
+$('#newBikeList').on('keypress', function (e) {
+    var id = $('#newBikeList');
+    var searchVal = id.val();
+    var placeHolder = id.attr('placeholder');
+    if (e.keyCode == 13)
+        if (btnFindBikeNewNav() || searchVal == placeHolder || searchVal == "") {
+            window.location.href = 'new/';
+            return false;
+        }
+        else {
+            window.location.href = 'new/';
+            return false;
+        }
+});
+
+$('#btnSearch').on('click', function (e) {
+    var id = $('#newBikeList');
+    var searchVal = id.val();
+    var placeHolder = id.attr('placeholder');
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
+    if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
+        return false;
+    } else {
+        window.location.href += 'new/';
+        return false;
+    }
 
 });
+
+/* jCarousel custom methods */
+$(function () {
+    var jcarousel = $('.jcarousel').jcarousel({
+        vertical: false
+    });
+    $('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
+        $(this).removeClass('inactive');
+    }).on('jcarouselcontrol:inactive', function () {
+        $(this).addClass('inactive');
+    }).jcarouselControl({
+        target: '-=3'
+    });
+    $('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
+        $(this).removeClass('inactive');
+    }).on('jcarouselcontrol:inactive', function () {
+        $(this).addClass('inactive');
+    }).jcarouselControl({
+        target: '+=3'
+    });
+    $('.jcarousel-pagination').on('jcarouselpagination:active', 'a', function () {
+        $(this).addClass('active');
+    }).on('jcarouselpagination:inactive', 'a', function () {
+        $(this).removeClass('active');
+    }).on('click', function (e) {
+        e.preventDefault();
+    }).jcarouselPagination({
+        item: function (page) {
+            return '<a href="#' + page + '">' + page + '</a>';
+        }
+    });
+    // Swipe handlers for mobile
+    $(".jcarousel").swipe({ fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto" });
+    function swipe1(event, direction, distance, duration, fingerCount) {
+        if (direction == "left") {
+            $(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-next").click();
+        }
+        else if (direction == "right") {
+            $(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-prev").click();
+        }
+    }
+    $(".jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
+        $(this).find("img.lazy").trigger("imgLazyLoad");
+    });
+});
+
+function applyTabsLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "imgLazyLoad"
+    });
+}
+
+function applyLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "imgLazyLoad",
+        effect: "fadeIn"
+    });
+}
+
+// common autocomplete data call function
+function dataListDisplay(availableTags, request, response) {
+    var results = $.ui.autocomplete.filter(availableTags, request.term);
+    response(results.slice(0, 5));
+}
+
+function MakeModelRedirection(make, model) {
+    if (model != null && model != undefined) {
+        window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+        return true;
+    }
+    else if (make != null && make != undefined) {
+        window.location.href = "/" + make.maskingName + "-bikes/";
+        return true;
+    }
+}
+
+function pushNavMenuAnalytics(menuItem) {
+    var categ = GetCatForNav();
+    if (categ != null) {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': categ, 'act': 'Hamburger_Menu_Item_Click', 'lab': menuItem });
+    }
+}
 
 (function ($) {
     $.fn.hint = function (blurClass) {
@@ -771,7 +692,6 @@ function toggleErrorMsg(element, error, msg) {
     }
 }
 
-
 function showHideMatchError(element, error) {    
     if (error) {
         element.parent().find('.error-icon').removeClass('hide');
@@ -858,7 +778,6 @@ $(".modelurl").click(function () {
     }
 });
 
-
 function insertCitySeparator(response) {
     l = (response != null) ? response.length : 0;
     if (l > 0) {
@@ -870,4 +789,132 @@ function insertCitySeparator(response) {
             }
         }
     }
+}
+
+function btnFindBikeNewNav() {
+    if (focusedMakeModel == undefined || focusedMakeModel == null) {
+        window.location.href += 'new/';
+        return true;
+    }
+    var make = new Object();
+    make.maskingName = focusedMakeModel.payload.makeMaskingName;
+    make.id = focusedMakeModel.payload.makeId;
+    var model = null;
+    if (focusedMakeModel.payload.modelId > 0) {
+        model = new Object();
+        model.maskingName = focusedMakeModel.payload.modelMaskingName;
+        model.id = focusedMakeModel.payload.modelId;
+    }
+    return MakeModelRedirection(make, model);
+}
+
+function navbarHide() {
+    $("#nav").removeClass('open').animate({ 'left': '-300px' });
+    $(".blackOut-window").hide();
+}
+
+function navbarHideOnESC() {
+    $("#nav").removeClass('open').animate({ 'left': '-300px' });
+    $(".blackOut-window").hide();
+}
+
+function navbarShow() {
+    var category = GetCatForNav();
+    if (category != null) {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Hamburger_Menu_Icon', 'lab': 'Icon_Click' });
+    }
+    $("#nav").addClass('open').animate({ 'left': '0px' });
+    $(".blackOut-window").show();
+}
+
+function loginSignupSwitch() {
+    $(".loginStage").show();
+    $(".signUpStage").hide();
+}
+
+$('#btnGlobalSearch').on('click', function () {
+    if (focusedMakeModel != null && btnGlobalSearch != undefined)
+        btnFindBikeNewNav()
+    else {
+        var searchText = $('#globalSearch').val();
+        window.location.replace('/search/result.aspx?cx=002963291331112848676:ccmsgcrw20s&cof=FORID:9&ie=UTF-8&q=' + searchText + '&sa=Search&siteurl=www.bikewale.com-F#1200');
+    }
+});
+
+$("#globalSearch").bw_autocomplete({
+    width: 469,
+    source: 1,
+    recordCount: 10,
+    onClear: function () {
+        objBikes = new Object();
+    },
+    click: function (event, ui, orgTxt) {
+        var make = new Object();
+        make.maskingName = ui.item.payload.makeMaskingName;
+        make.id = ui.item.payload.makeId;
+        var model = null;
+        if (ui.item.payload.modelId > 0) {
+            model = new Object();
+            model.maskingName = ui.item.payload.modelMaskingName;
+            model.id = ui.item.payload.modelId;
+        }
+        MakeModelRedirection(make, model);
+        //// GA code
+        //var keywrd = ui.item.label + '_' + $('#newBikeList').val();
+        //dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+    },
+    open: function (result) {
+        objBikes.result = result;
+    },
+    focusout: function () {
+        if ($('li.ui-state-focus a:visible').text() != "") {
+            focusedMakeModel = new Object();
+            focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
+            //$('#btnSearch').click();
+        }
+    },
+    afterfetch: function (result, searchtext) {
+        if (result != undefined && result.length > 0)
+            return false;
+        else
+            focusedMakeModel = null;
+    }
+});
+
+function CloseCityPopUp() {
+    var globalLocation = $("#globalcity-popup");
+    globalLocation.removeClass("show").addClass("hide");
+    unlockPopup();
+    if (!isCookieExists("location"))
+        SetCookieInDays("location", "0", 365);
+}
+
+function popupHideOnESC() {
+    $('.bw-popup').fadeOut(100);
+    unlockPopup();
+}
+
+function headerOnScroll() {
+    if ($(window).scrollTop() > 40) {
+        $('#header').addClass('header-fixed-with-bg');
+    } else {
+        $('#header').removeClass('header-fixed-with-bg');
+    }
+}
+
+function loginHideOnESC() {
+    $(".loginPopUpWrapper").animate({ right: '-400px' });
+    $(".loggedinProfileWrapper").animate({
+        right: '-280px'
+    });
+}
+
+function lockPopup() {
+    $('body').addClass('lock-browser-scroll');
+    $(".blackOut-window").show();
+}
+
+function unlockPopup() {
+    $('body').removeClass('lock-browser-scroll');
+    $(".blackOut-window").hide();
 }

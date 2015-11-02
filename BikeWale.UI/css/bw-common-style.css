@@ -117,6 +117,14 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .home-top-banner { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/images/home-top-banner.jpg) no-repeat right top; background-size: cover; height: 490px; padding-top: 1px; }
 .home-getFinalPrice-banner { background-color:#cbcbcb; background-size: cover; height: 490px; }
 
+/* global-search classes */
+.global-search { width: 240px; position: relative; float: left; margin-right: 30px; }
+.global-search span.search-icon-grey { position: absolute; right: 10px; top: 5px; cursor: pointer; }
+.global-search input[type="text"], #globalCity-input input[type="text"] { width: 100%; padding: 7px 5px; border: none; outline: none; }
+.global-location { position: relative; float: left; color: #fff; margin-right: 20px; }
+.gl-default-stage { border: 1px solid #acaba7; padding: 4px 10px; cursor: pointer; }
+.gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
+
 /* city popup classes */
 .globalcity-popup { width:450px; min-height:320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left:5%; z-index: 10; }
 .globalcity-popup-data { padding: 30px 20px 30px; }
