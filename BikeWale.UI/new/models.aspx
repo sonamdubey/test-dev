@@ -43,7 +43,7 @@
                         <div class="grid-8 alpha">
                             <h1 class="leftfloat font30 text-black margin-top10 margin-bottom15"><%= _make.MakeName %> bikes</h1>
                         </div>
-                        <div class="grid-4 rightfloat margin-top10 omega">
+                        <div class="grid-4 rightfloat margin-top10 omega" id="sortByContainer">
                             <div class="leftfloat sort-by-text margin-left50">
                                 <p>Sort by:</p>
                             </div>
@@ -241,14 +241,6 @@
         if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
         if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
         if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-
-        //800X600
-        if ($(window).width() < 996 && $(window).width() > 790) {
-            $(".rated-container, .not-rated-container").removeClass("font16").css("font-size", "14px")
-            $(".rated-container").removeClass("margin-left10").addClass("margin-left5");
-            $(".not-rated-container").find("span.write-review-span").removeClass("margin-left10").addClass("margin-left5");
-            $(".rating-stars-container").removeClass("padding-right10").addClass("padding-right5");
-        }
 
     </script>
         <!-- #include file="/includes/footerBW.aspx" -->
