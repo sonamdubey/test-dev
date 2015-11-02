@@ -245,6 +245,8 @@
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+
+            $('#sort-btn').removeClass('hide').addClass("show");
         </script>
     </form>
     <div class="back-to-top" id="back-to-top"><a><span></span></a></div>

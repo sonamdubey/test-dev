@@ -132,7 +132,7 @@
                 <div class="global-location">
                     <span class="fa fa-map-marker"></span>
                 </div>
-                <a class="sort-btn" id="sort-btn">
+                <a class="sort-btn rightfloat hide" id="sort-btn">
                     <span class="bwmsprite sort-icon"></span>
                 </a>
             </div>
