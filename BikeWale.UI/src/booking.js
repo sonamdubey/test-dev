@@ -104,11 +104,14 @@ emailid.on("blur", function () {
     if (prevEmail != emailid.val().trim())
     {
         var getCityArea = GetGlobalCityArea(); 
-        isValid = validateEmail(getCityArea);
-        viewModel.CustomerVM().IsVerified(false);
-        detailsSubmitBtn.show();
-        otpText.val('');
-        otpContainer.removeClass("show").addClass("hide");
+        if (validateEmail(getCityArea))
+        {
+            viewModel.CustomerVM().IsVerified(false);
+            detailsSubmitBtn.show();
+            otpText.val('');
+            otpContainer.removeClass("show").addClass("hide");
+            hideError(emailid);
+        }       
     }
     else
         viewModel.CustomerVM().IsVerified(true);
@@ -118,12 +121,14 @@ mobile.on("blur", function () {
     if(prevMobile != mobile.val().trim())
     {
         var getCityArea = GetGlobalCityArea();
-        isValid &= validateMobile(getCityArea);
-        viewModel.CustomerVM().IsVerified(false);
-        detailsSubmitBtn.show();
-        otpText.val('');
-        otpContainer.removeClass("show").addClass("hide");
-        hideError(mobile);
+        if (validateMobile(getCityArea))
+        {
+            viewModel.CustomerVM().IsVerified(false);
+            detailsSubmitBtn.show();
+            otpText.val('');
+            otpContainer.removeClass("show").addClass("hide");
+            hideError(mobile);
+        }         
     }
     else
         viewModel.CustomerVM().IsVerified(true);
