@@ -17,7 +17,7 @@ namespace Bikewale.controls
         private static readonly string _ReviewCountString = "{0} reviews";
         private static readonly string _WriteReviewString = "Write reviews";
         private static readonly string _Bike1VsBike2 = "{0} vs {1}";
-        private static readonly string _ComparisonURL = "/comparebikes/{0}-{1}-vs-{2}-{3}";
+        private static readonly string _ComparisonURL = "/comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}";
 
         private int _totalRecords = 4;
 
@@ -166,12 +166,20 @@ namespace Bikewale.controls
             }
         }
 
-        protected string FormatComparisonUrl(string make1MaskName, string model1MaskName, string make2MaskName, string model2MaskName)
+        /*protected string FormatComparisonUrl(string make1MaskName, string model1MaskName, string make2MaskName, string model2MaskName)
         {
             string url = String.Empty;
             url = String.Format(_ComparisonURL, make1MaskName, model1MaskName, make2MaskName, model2MaskName);
             return url;
+        }*/
+
+        protected string FormatComparisonUrl(string make1MaskName, string model1MaskName, string make2MaskName, string model2MaskName, string versionId1, string versionId2)
+        {
+            string url = String.Empty;
+            url = String.Format(_ComparisonURL, make1MaskName, model1MaskName, make2MaskName, model2MaskName, versionId1, versionId2);
+            return url;
         }
+
 
         protected string FormatBikeCompareAnchorText(string bike1, string bike2)
         {

@@ -10,6 +10,9 @@ var detailsSubmitBtn = $("#user-details-submit-btn");
 var otpText = $("#getOTP");
 var otpBtn = $("#otp-submit-btn");
 
+var prevEmail = "";
+var prevMobile = "";
+
 detailsSubmitBtn.click(function () {
     if (ValidateUserDetail()) {
         viewModel.CustomerVM().verifyCustomer();
@@ -86,35 +89,69 @@ firstname.on("focus", function () {
     hideError(firstname);
 });
 
-emailid.on("focus keyup", function () {
+emailid.on("focus", function () {
     hideError(emailid);
-    detailsSubmitBtn.show();
-    otpText.val('');
-    otpContainer.removeClass("show").addClass("hide");
+    prevEmail = emailid.val().trim();
+});
+
+mobile.on("focus", function () {
+    hideError(mobile)
+    prevMobile = mobile.val().trim();
+   
+});
+
+emailid.on("blur", function () {
+    if (prevEmail != emailid.val().trim())
+    {
+        var getCityArea = GetGlobalCityArea(); 
+        if (validateEmail(getCityArea))
+        {
+            viewModel.CustomerVM().IsVerified(false);
+            detailsSubmitBtn.show();
+            otpText.val('');
+            otpContainer.removeClass("show").addClass("hide");
+            hideError(emailid);
+        }       
+    }
+    else
+        viewModel.CustomerVM().IsVerified(true);
+});
+
+mobile.on("blur", function () {
+    if(prevMobile != mobile.val().trim())
+    {
+        var getCityArea = GetGlobalCityArea();
+        if (validateMobile(getCityArea))
+        {
+            viewModel.CustomerVM().IsVerified(false);
+            detailsSubmitBtn.show();
+            otpText.val('');
+            otpContainer.removeClass("show").addClass("hide");
+            hideError(mobile);
+        }         
+    }
+    else
+        viewModel.CustomerVM().IsVerified(true);
+
 });
 
 var mobileValTrue = function () {
-    hideError(mobile)
+    mobile.removeClass("border-red");
+    mobile.siblings("span, div").hide();
 };
 
-mobile.change(function () {
-    viewModel.CustomerVM().IsVerified(false);
-});
+//emailid.change(function () {
+//    viewModel.CustomerVM().IsVerified(false);
+//});
+
+//mobile.change(function () {
+//    viewModel.CustomerVM().IsVerified(false);
+//});
 
 otpText.on("focus", function () {
-    otpText.siblings("span, div").css("display", "none");
-});
-
-mobile.on("keyup focus", function () {
-    detailsSubmitBtn.show();
     otpText.val('');
-    otpContainer.removeClass("show").addClass("hide");
-    hideError(mobile);
-})
-
-emailid.change(function () {
-    viewModel.CustomerVM().IsVerified(false);
-});
+    otpText.siblings("span, div").css("display", "none");
+}); 
 
 var setError = function (ele, msg) {
     ele.addClass("border-red");
@@ -219,6 +256,11 @@ otpBtn.click(function () {
             $(".booking-dealer-details").removeClass("hide").addClass("show");
             $(".call-for-queries").hide();
             $('#processing').hide();
+
+            detailsSubmitBtn.show();
+            otpText.val('');
+            otpContainer.removeClass("show").addClass("hide");
+
             // OTP Success
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
         }
@@ -244,7 +286,6 @@ $(".customize-submit-btn").click(function (e) {
         $(".varient-heading-text").addClass("text-orange");
     }
 });
-
 $("#personal-info-tab").click(function () {
     if (!$(this).hasClass('disabled-tab')) {
         $.personalInfoState();
@@ -256,14 +297,14 @@ $("#personal-info-tab").click(function () {
 });
 
 $(".customizeBackBtn").click(function () {
-        $.personalInfoState();
-        $.showCurrentTab('personalInfo');
-        $('#personal-info-tab').addClass('active-tab text-bold');
-        $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
-        $('#customize-tab').addClass('active-tab').removeClass('text-bold');
+    $.personalInfoState();
+    $.showCurrentTab('personalInfo');
+    $('#personal-info-tab').addClass('active-tab text-bold');
+    $('#confirmation-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
+    $('#customize-tab').addClass('active-tab').removeClass('text-bold');
 });
 
-$('#customize-tab, .confirmationBackBtn').click(function () {    
+$('#customize-tab, .confirmationBackBtn').click(function () {
     if (!$(this).hasClass('disabled-tab')) {
         $.customizeState();
         $.showCurrentTab('customize');
@@ -272,6 +313,7 @@ $('#customize-tab, .confirmationBackBtn').click(function () {
         $('#personal-info-tab').addClass('active-tab').removeClass('disabled-tab text-bold');
     }
 });
+
 
 $("#confirmation-tab").click(function () {
     if (!$(this).hasClass('disabled-tab')) {
@@ -336,6 +378,7 @@ $('booking-available-colors .booking-color-box').click(function (e) {
         $(this).find('span.ticked').removeClass("selected");
     }
 });
+
 
 var varientSelection = function () {
     var total = viewModel.SelectedVarient();

@@ -66,6 +66,60 @@ namespace Bikewale.DAL.MobileVerification
         }
 
         /// <summary>
+        /// To get number of attempts made for otp within specified time
+        /// Internally it also checks whether mobile number is verfied or not
+        /// If count is 0 then mobile number is not verfied
+        /// </summary>
+        /// <param name="mobileNo"></param>
+        /// <param name="emailId"></param>
+        /// <returns></returns>
+        public sbyte OTPAttemptsMade(string mobileNo, string emailId)
+        {
+            sbyte noOfOTPSend = 0;
+            Database db = null;
+            try
+            {
+                db = new Database();
+
+                using (SqlConnection con = new SqlConnection(db.GetConString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "CV_IsVerifiedMobAndNoOfOTPSend";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = con;
+
+                        cmd.Parameters.Add("@EmailId", SqlDbType.VarChar, 100).Value = emailId;
+                        cmd.Parameters.Add("@MobileNo", SqlDbType.VarChar, 50).Value = mobileNo;
+                        cmd.Parameters.Add("@NoOfAttempts", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
+
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+
+                        noOfOTPSend = Convert.ToSByte(cmd.Parameters["@NoOfAttempts"].Value);
+
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return noOfOTPSend;
+        }
+
+        /// <summary>
         /// Summary : Function will add mobile number into the customer mobile verification pending list.
         /// </summary>
         /// <param name="mobileNo"></param>

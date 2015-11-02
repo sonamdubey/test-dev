@@ -16,5 +16,8 @@ namespace Bikewale.DTO.PriceQuote.MobileVerification
     {
         [JsonProperty("isSuccess")]
         public bool IsSuccess { get; set; }
+
+        [JsonProperty("noOfAttempts")]
+        public sbyte NoOfAttempts { get; set; }
     }
 }

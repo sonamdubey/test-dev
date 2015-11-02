@@ -13,6 +13,7 @@ namespace Bikewale.Interfaces.MobileVerification
     public interface IMobileVerificationRepository
     {
         bool IsMobileVerified(string mobileNo, string emailId);
+        sbyte OTPAttemptsMade(string mobileNo, string emailId);
         ulong AddMobileNoToPendingList(string mobileNo, string emailId, string cwiCode, string cuiCode);
         bool VerifyMobileVerificationCode(string mobileNo, string cwiCode, string cuiCode);
     }

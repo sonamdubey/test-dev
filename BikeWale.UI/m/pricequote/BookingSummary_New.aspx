@@ -86,9 +86,13 @@
                                 <span class="bwmsprite error-icon hide"></span>
                                 <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
                             </div>
-                            <div class="text-center padding-top10">
-                                <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" href="#" data-bind="click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a><br />
+                            <div class="text-center padding-top10">                                 
+                                <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() < 2), click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a>
+                                <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() >= 2)">
+                                    OTP has been already sent to your mobile
+                                </p>
                             </div>
+
                             <div class="clear"></div>
                             <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
                             <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>

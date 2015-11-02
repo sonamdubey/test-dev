@@ -69,6 +69,8 @@
 .booking-success-icon { width:34px; height:34px; background-position:-52px -111px; }
 .booking-success-alert { padding:15px 25px;  -moz-box-shadow: 0 3px 2px #e5e5e5; -webkit-box-shadow: 0 3px 2px #e5e5e5; -o-box-shadow: 0 3px 2px #e5e5e5; -ms-box-shadow: 0 3px 2px #e5e5e5; box-shadow: 0 3px 2px #e5e5e5; }
 
+.mobile-verification-container p.otp-notify-text { width:250px; line-height:1.5; text-align:right; height:20px; }
+
 @media all and (min-width: 800px) and (max-width: 996px) {
     body { overflow-x:hidden; }
 	.container { width:800px; margin:0; }

@@ -86,6 +86,22 @@ namespace Bikewale.BAL.MobileVerification
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mobileNo"></param>
+        /// <param name="emailId"></param>
+        /// <returns></returns>
+        public sbyte OTPAttemptsMade(string mobileNo, string emailId)
+        {
+            sbyte noOfOTPSend = 0;
+
+            noOfOTPSend = mobileVerRespo.OTPAttemptsMade(mobileNo, emailId);
+
+            return noOfOTPSend;
+        }
+
+
+        /// <summary>
         /// Function to add mobile and email to the verification pending list.
         /// </summary>
         /// <param name="mobileNo"></param>
