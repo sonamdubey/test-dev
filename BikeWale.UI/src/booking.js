@@ -363,7 +363,6 @@ function eraseCookie(name) {
 }
 
 function setPQUserCookie() {
-    eraseCookie('_PQUser');
     var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
     SetCookie("_PQUser", val);
 }
