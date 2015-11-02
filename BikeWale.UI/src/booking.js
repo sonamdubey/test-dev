@@ -403,12 +403,8 @@ $('#btnMakePayment').on('click', function (e) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step 3_Pay_Click', 'lab': cityArea });
 });
 
-function eraseCookie(name) {
-    document.cookie = name + '=; Max-Age=0'
-}
 
 function setPQUserCookie() {
-    eraseCookie('_PQUser');
     var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
     SetCookie("_PQUser", val);
 }
