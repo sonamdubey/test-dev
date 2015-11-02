@@ -81,7 +81,7 @@ namespace Bikewale.Notifications.MailTemplates
                     foreach (var items in PriceList)
                     {
                         sb.Append("<tr><td style=\"padding:5px 0 0;\" width=\"200\">" + items.CategoryName + "</td>");
-                        if (items.CategoryName.ToUpper().Contains("INSURANCE"))
+                        if (items.CategoryName.ToUpper().Contains("INSURANCE") && (InsuranceAmount > 0))
                         {
                             sb.Append("<td style=\"padding:5px 0 0;text-decoration: line-through;\" width=\"100\" align=\"right\" class=\"numeri-cell\"><span>" + Format.FormatPrice(items.Price.ToString()) + "</span></td></tr>");
                         }
