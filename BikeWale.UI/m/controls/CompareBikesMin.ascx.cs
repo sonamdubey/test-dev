@@ -62,10 +62,10 @@ namespace Bikewale.Mobile.Controls
             }
         }
 
-        protected string FormatComparisonUrl(string make1MaskName, string model1MaskName, string make2MaskName, string model2MaskName)
+        protected string FormatComparisonUrl(string make1MaskName, string model1MaskName, string make2MaskName, string model2MaskName, uint versionId1, uint versionId2)
         {
             string url = String.Empty;
-            url = String.Format("/m/comparebikes/{0}-{1}-vs-{2}-{3}/", make1MaskName, model1MaskName, make2MaskName, model2MaskName);
+            url = String.Format("/m/comparebikes/{0}-{1}-vs-{2}-{3}/?bike1={4}&bike2={5}", make1MaskName, model1MaskName, make2MaskName, model2MaskName, versionId1, versionId2);
             return url;
         }
 
