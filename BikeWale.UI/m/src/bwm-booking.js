@@ -596,6 +596,8 @@ emailid.on("blur", function () {
             otpContainer.removeClass("show").addClass("hide");
             hideError(emailid);
         }
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
     }
     else
         viewModel.CustomerVM().IsVerified(true);
