@@ -178,6 +178,9 @@
                     }
                 }
             });
+        }else
+        {
+            alert("Please select all fields.");
         }
     });
 
@@ -244,7 +247,6 @@
                 data: '{"modelId":"' + modelId + '"}',
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCities"); },
                 success: function (response) {
-                    alert(response);
                     if (response.length > 1) {
                         var responseJSON = eval('(' + response + ')');
                         var resObj = eval('(' + responseJSON.value + ')');
