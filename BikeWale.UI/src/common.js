@@ -28,8 +28,8 @@ if (!Array.prototype.indexOf) {
 }
 
 $(document).ready(function () {
-    if (ga_pg_id == '1')
-        $('#globalSearch').parent().hide();
+    //if (ga_pg_id != '1')
+    //    $('#globalSearch').parent().show();
 
     $(".lazy").lazyload({
         effect: "fadeIn"
@@ -833,6 +833,7 @@ $('#btnGlobalSearch').on('click', function () {
     }
 });
 
+
 $("#globalSearch").bw_autocomplete({
     width: 469,
     source: 1,
@@ -851,6 +852,9 @@ $("#globalSearch").bw_autocomplete({
             model.id = ui.item.payload.modelId;
         }
         MakeModelRedirection(make, model);
+
+        if (event.keyCode == 13)
+            $('#btnGlobalSearch').trigger("click");
         //// GA code
         //var keywrd = ui.item.label + '_' + $('#newBikeList').val();
         //dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
@@ -871,6 +875,9 @@ $("#globalSearch").bw_autocomplete({
         else
             focusedMakeModel = null;
     }
+}).keydown(function (e) {
+    if (e.keyCode == 13)
+        $('#btnGlobalSearch').click();
 });
 
 function CloseCityPopUp() {
