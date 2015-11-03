@@ -93,9 +93,9 @@ namespace Bikewale.Notifications.MailTemplates
                     if (InsuranceAmount > 0)
                     {
                         sb.Append("<tr><td colspan=\"2\" style=\" border-bottom:1px solid #e2e2e2; padding:5px 0 0;\"></td></tr><tr>");
-                        sb.Append("<td style=\"padding:5px 0 0;\" class=\"price2\">Total On Road Price</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice(TotalPrice.ToString()) + "</td></tr>");
-                        sb.Append("<td style=\"padding:5px 0 0;\" class=\"price2\">Minus Insurance</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice(InsuranceAmount.ToString()) + "</td></tr>");
-                        sb.Append("<td style=\"padding:5px 0 0;\" class=\"price2\">BikeWale On Road (after insurance offer) Quoted to Customer</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice((TotalPrice - InsuranceAmount).ToString()) + "</td></tr>"); 
+                        sb.Append("<tr><td style=\"padding:5px 0 0;\" class=\"price2\">Total On Road Price</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice(TotalPrice.ToString()) + "</td></tr>");
+                        sb.Append("<tr><td style=\"padding:5px 0 0;\" class=\"price2\">Minus Insurance</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice(InsuranceAmount.ToString()) + "</td></tr>");
+                        sb.Append("<tr><td style=\"padding:5px 0 0;\" class=\"price2\">BikeWale On Road (after insurance offer) Quoted to Customer</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice((TotalPrice - InsuranceAmount).ToString()) + "</td></tr>"); 
                     }
                     else
                     {
