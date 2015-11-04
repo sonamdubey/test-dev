@@ -111,8 +111,7 @@ namespace BikeWaleOpr.NewBikeBooking
 			}
 			
 			sql = "SELECT ID, Name, BikeMakeId FROM BikeModels WHERE IsDeleted <> 1 AND New = 1 AND Futuristic = 0 ORDER BY Name";
-			string Script = op.GenerateChainScript( "cmbMake", "cmbModel", sql, "Select Model" );
-	
+            string Script = op.GenerateChainScript("cmbMake", "cmbModel", sql, hdnCmbModel.Value); 	
 			ClientScript.RegisterStartupScript(this.GetType(), "ChainScript", Script );
 		}
 

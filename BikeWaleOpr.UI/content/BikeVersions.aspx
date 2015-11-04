@@ -23,7 +23,7 @@
 		</asp:DropDownList>&nbsp;<span style="font-weight:bold;color:red;" id="selectModel" class="error"></span>
 		<asp:Button ID="btnShow" Text="Show Versions" runat="server" />
 	</fieldset>
-	<br>
+	<br/>
 	<asp:DataGrid ID="dtgrdMembers" runat="server"
 			DataKeyField="ID"
 			CellPadding="5"

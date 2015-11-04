@@ -100,7 +100,7 @@ namespace BikeWaleOpr.Content
 			}
 			
 			sql = "SELECT ID, Name, BikeMakeId FROM BikeModels WHERE IsDeleted <> 1 ORDER BY Name";
-            string Script = op.GenerateChainScript("cmbMake", "cmbModel", sql, "Select Model");
+            string Script = op.GenerateChainScript("cmbMake", "cmbModel", sql, Request.Form["cmbModel"]);
 			//RegisterStartupScript( "ChainScript", Script );
 			ClientScript.RegisterStartupScript(this.GetType(), "ChainScript", Script );
 		} // Page_Load

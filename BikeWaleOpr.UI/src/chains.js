@@ -237,6 +237,32 @@ function fillChainTwo( cmbToFill, parentCombo, arValues, selId )
 		cmb.disabled = true;
 }
 
+
+//function fillChainTwo(cmbToFill, parentCombo, arValues, selId,selectedValue) {
+//    var k;
+//    var cmb = document.getElementById(cmbToFill);
+//    var _parent = parentCombo.value;
+//    clearCombo(cmb);
+
+//    k = 1;
+//    var j = 1;
+//    for (i = 0; i < arValues.length; i++) {
+//        //alert(i);
+//        if (_parent == arValues[i][2]) {
+//            cmb.options[j] = new Option(arValues[i][1], arValues[i][0]);
+//            if ((selId != "-1") && (arValues[i][0] == selId)) {
+//                //alert("matched");
+//                cmb.options[j].selected = true;
+//            }
+//            j++;
+//        }
+//    }
+//    if (j > 1)
+//        cmb.disabled = false;
+//    else
+//        cmb.disabled = true;
+//}
+
 /*******************************************
  *	
  *	Chains for filling two related combos that does match the values

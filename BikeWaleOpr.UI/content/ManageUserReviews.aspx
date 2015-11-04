@@ -12,7 +12,7 @@
         <fieldset>
             <legend>Select Criteria</legend>
             Make : <asp:DropdownList ID="ddlMakes" runat="server" />
-            Model : <asp:DropdownList ID="ddlModels" runat="server" disabled="disabled" />
+            Model : <asp:DropdownList ID="ddlModels" runat="server" ViewStateMode="Enabled" />
             <asp:HiddenField ID="hdnSelectedModel" runat="server" />
             <asp:RadioButton ID="rdoPending" runat="server" GroupName="reviewType" Text="Pending" />
             <asp:RadioButton ID="rdoApproved" runat="server" GroupName="reviewType" Text="Approved"/>
@@ -69,17 +69,12 @@
             $("#hdnSelectedModel").val($(this).val());
         });
 
-        if ($("#ddlMakes").val() > 0)
-        {            
-            getModels($("#ddlMakes"));
 
-            var selectedModelId = $("#hdnSelectedModel").val();
-            
-            if (selectedModelId != "" && selectedModelId > 0)
-            {                
-                $("#ddlModels").val(selectedModelId);
-            }
-        }        
+        if ($("#ddlMakes").val() > 0 )
+        {            
+            getModels($("#ddlMakes"));            
+        } 
+
     });
 
     function getModels(e)
@@ -96,6 +91,13 @@
                     var responseJSON = eval('(' + response + ')');
                     var resObj = eval('(' + responseJSON.value + ')');
                     bindDropDownList(resObj, $("#ddlModels"), "", "--Select Models--");
+
+                    var selectedModelId = '<%= hdnSelectedModel.Value %>';
+
+                    if (selectedModelId != "" && selectedModelId > 0) {
+                        $("#ddlModels").val(selectedModelId);
+                    }
+
                 }
             });
         } else {
