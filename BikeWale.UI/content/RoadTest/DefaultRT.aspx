@@ -15,6 +15,10 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
+
+
+
+
 <!-- #include file="/includes/headNew.aspx" -->
 <script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <div class="container_12 margin-bottom20 padding-bottom20">
@@ -40,7 +44,7 @@
                             </a>
 						</div>	
                         <div class="grid_5 alpha">
-							<abbr><%# Bikewale.Utility.FormatDate.GetDaysAgo(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString()) %></abbr> by 
+							<abbr><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy") %></abbr> by 
 							<%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
 						</div><div class="clear"></div>
                         <div class="margin-top10">

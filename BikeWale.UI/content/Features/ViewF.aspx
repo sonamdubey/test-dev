@@ -56,7 +56,7 @@
         <div class="grid_8 margin-top10">	
 		
 		    <h1><%= articleTitle%></h1>        
-		    <span><%= authorName + ", " + Bikewale.Utility.FormatDate.GetDaysAgo(displayDate) %> </span> 
+		    <span><%= authorName + ", " + Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %> </span> 
             <div class="clear"></div>
 		    <div class="block-spacing" id="topNav" runat="server">		
                 <div class="text-bold">

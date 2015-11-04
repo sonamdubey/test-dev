@@ -116,5 +116,21 @@ namespace Bikewale.Utility
 
             return retVal;
         }
+
+        /// <summary>
+        /// Created By : Lucky Rathore on 04 Nov. 2015.
+        /// </summary>
+        /// <param name="date">string of date in proper formate.</param>
+        /// <param name="formate">Formate in which date needed to convert.</param>
+        /// <returns>formeted date.</returns>
+        public static string GetFormatDate(string date, string format)
+        {
+            if (string.IsNullOrEmpty(date) || string.IsNullOrEmpty(format))
+            {
+                return string.Empty;
+            }
+            return Convert.ToDateTime(date).ToString(format);
+        }
+    
     }
 }
