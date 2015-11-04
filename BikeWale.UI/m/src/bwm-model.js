@@ -666,6 +666,7 @@ $(document).ready(function () {
         $(".more-features").slideToggle();
         var a = $(this).find("span");
         a.text(a.text() === "+" ? "-" : "+");
+        $("html, body").animate({ scrollTop: $("#features").offset().top }, 1000);
     });
 
     $(priceBlock).on('click', 'span.view-breakup-text', function () {

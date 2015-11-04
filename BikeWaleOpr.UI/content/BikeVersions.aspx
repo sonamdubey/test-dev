@@ -283,7 +283,7 @@
     });
 
     var model = document.getElementById('cmbModels');
-    cmbMakes_OnChange();
+    //cmbMakes_OnChange();
 
     for (var i = 0; i < model.options.length; i++) {
         if (model.options[i].value == '<%=Request.Form["cmbModels"]%>') model.options[i].selected = true;

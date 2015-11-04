@@ -65,7 +65,7 @@
                                     </tr>
                                     <tr>
                                         <td>Balance amount:</td>
-                                        <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: remainingAmount"></span></td>
+                                        <td align="right" class="font18 text-bold finalBalanceAmount"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: remainingAmount"></span></td>
                                     </tr>
                                     <tr>
                                         <td class="font12 bikeModel-balance-text" colspan="2">*Balance amount payable at the dealership</td>

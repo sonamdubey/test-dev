@@ -111,7 +111,9 @@ emailid.on("blur", function () {
             otpText.val('');
             otpContainer.removeClass("show").addClass("hide");
             hideError(emailid);
-        }       
+        }
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
     }
     else
         viewModel.CustomerVM().IsVerified(true);
@@ -128,7 +130,9 @@ mobile.on("blur", function () {
             otpText.val('');
             otpContainer.removeClass("show").addClass("hide");
             hideError(mobile);
-        }         
+        }
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
     }
     else
         viewModel.CustomerVM().IsVerified(true);
@@ -401,9 +405,6 @@ $('#btnMakePayment').on('click', function (e) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step 3_Pay_Click', 'lab': cityArea });
 });
 
-function eraseCookie(name) {
-    document.cookie = name + '=; Max-Age=0'
-}
 
 function setPQUserCookie() {
     var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
@@ -416,6 +417,7 @@ if ($(window).width() < 996 && $(window).width() > 790) {
     $(".bikeModel-details-table table tr td").first().attr("width", "150");
     $(".bikeModel-balance-text").removeClass("font12").addClass("font11");
     $(".bikeModel-dealerMap-container").css("width", "230px");
+    $(".finalBalanceAmount").removeClass("font18").addClass("font14");
 
 }
 function setuserDetails() {
