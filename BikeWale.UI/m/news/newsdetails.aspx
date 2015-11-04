@@ -25,7 +25,7 @@
         <span class="lightgray"><%= newsTitle %></span>
     </div>
     <div class="pgsubhead"><%= newsTitle %></div>
-    <div class="new-line5 lightgray f-12" style="font-size:13px;"><%= Bikewale.Utility.FormatDate.GetDaysAgo(displayDate) %>  | By <%= author  %></div>    
+    <div class="new-line5 lightgray f-12" style="font-size:13px;"><%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %>  | By <%= author  %></div>    
     <div class="new-line5">
         <ul class="socialplugins  new-line10">
             <li><fb:like href="http://www.bikewale.com/news/<%= pageUrl%>" send="false" layout="button_count"  show_faces="false"></fb:like></li>

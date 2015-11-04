@@ -41,7 +41,7 @@
 							</a></h2>
                         </div>		
                         <div class="grid_5 alpha">
-							<abbr><%# Bikewale.Utility.FormatDate.GetDaysAgo(Eval("DisplayDate").ToString()) %></abbr> by 
+							<abbr><%# Bikewale.Utility.FormatDate.GetFormatDate(Eval("DisplayDate").ToString(),"MMMM dd, yyyy") %></abbr> by 
 							<%# Eval("AuthorName") %>                                                        
 						</div>                        
                         <ul class="social">

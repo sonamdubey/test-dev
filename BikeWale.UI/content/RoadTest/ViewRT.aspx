@@ -54,7 +54,7 @@
         <div class="grid_8 margin-top10">            
 		    <h1 class="hd1"><%= articleTitle%></h1>
             <div class="byline" style="display:none;"><%=articleTitle %> </div>        
-		    <div class="byline" style="padding-bottom:5px;"><%= authorName %>, <%= displayDate %>. <%=_bikeTested%></div>
+		    <div class="byline" style="padding-bottom:5px;"><%= authorName %>, <%= Bikewale.Utility.FormatDate.GetFormatDate(displayDate, "MMMM dd, yyyy hh:mm tt") %>. <%=_bikeTested%></div>
 		    <ul class="social">
                 <li><fb:like href="http://www.bikewale.com/road-tests/<%= articleUrl%>-<%= basicId %>.html" send="false" layout="button_count" width="80" show_faces="false"></fb:like></li>
                 <li><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.bikewale.com/road-tests/<%= articleUrl%>-<%= basicId %>.html" data-via='<%=articleTitle %>' data-lang="en">Tweet</a></li>
