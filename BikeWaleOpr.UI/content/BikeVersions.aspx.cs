@@ -16,6 +16,7 @@ namespace BikeWaleOpr.Content
         protected HtmlGenericControl spnError;
         protected DropDownList cmbMakes, cmbModels, cmbBodyStyles, cmbFuelType, cmbTransmission, cmbSegments, cmbSubSegments;
         protected TextBox txtVersion;
+        protected HiddenField hdnSelectedModelId; 
         protected Button btnSave, btnShow;
         protected DataGrid dtgrdMembers;
         protected CheckBox chkUsed, chkNew, chkIndian, chkImported,
@@ -100,7 +101,7 @@ namespace BikeWaleOpr.Content
             sql = " SELECT ID, Name, BikeMakeId FROM BikeModels "
                 + " WHERE IsDeleted=0 ORDER BY Name";
 
-            string script = op.GenerateChainScript("cmbMakes", "cmbModels", sql, "");
+            string script = op.GenerateChainScript("cmbMakes", "cmbModels", sql, Request["cmbModels"]);
             //RegisterStartupScript( "Chain", script );
             ClientScript.RegisterStartupScript(this.GetType(), "ChainScript", script);
 

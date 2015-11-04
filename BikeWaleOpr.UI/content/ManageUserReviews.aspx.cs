@@ -21,7 +21,7 @@ namespace BikeWaleOpr.Content
         protected DropDownList ddlMakes, ddlModels;        
         protected RadioButton rdoPending, rdoApproved, rdoDiscarded;
         protected Button btnShowReviews;
-        protected HiddenField hdnSelectedModel;
+        protected HiddenField hdnSelectedModel= null;
 
         protected HtmlGenericControl errMsg;
         
@@ -45,6 +45,7 @@ namespace BikeWaleOpr.Content
                 
                 GetReviews();
             }
+
         }
 
 
@@ -77,7 +78,7 @@ namespace BikeWaleOpr.Content
         /// </summary>
         protected void FillModels()
         {
-            ddlModels.Items.Insert(0, new ListItem("--Select Model--", "0"));
+            ddlModels.Items.Insert(0, new ListItem("--Select Model--", "0"));             
         }
 
 
