@@ -40,7 +40,8 @@ namespace Bikewale.Notifications
         BikeBookedSMSToCustomer = 23,
         BikeBookedSMSToDealer = 24,
         RSAFreeHelmetSMS = 25,
-        LimitedBikeBookedOffer = 26
+        LimitedBikeBookedOffer = 26,
+        ClaimedOffer = 27
     }
 
     public class SMSCommon

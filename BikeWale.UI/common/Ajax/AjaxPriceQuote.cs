@@ -79,7 +79,7 @@ namespace Bikewale.Ajax
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 21 July 2015
-        /// Summary : To get AreaId and AreaName list
+        /// Summary : To get AreaId and AreaName listGetPriceQuoteCitiesNew
         /// </summary>
         /// <param name="modelId"></param>
         /// <returns></returns>
@@ -105,7 +105,7 @@ namespace Bikewale.Ajax
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "AjaxPriceQuote.GetPriceQuoteCitiesNew");
+                ErrorClass objErr = new ErrorClass(ex, "AjaxPriceQuote.GetPriceQuoteArea");
                 objErr.SendMail();
             }
             return jsonCities;

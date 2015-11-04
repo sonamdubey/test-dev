@@ -36,13 +36,13 @@
             <div class="grid-12">
                 <div class="content-box-shadow content-inner-block-10">
                     <!-- ko with: viewModel.SelectedVarient() -->
-                    <div class="grid-4 inline-block">
+                    <div class="grid-4 bikeModel-image-container inline-block">
                         <div class="imageWrapper margin-top10">
                             <%--<img src="http://imgd8.aeplcdn.com/227x128//bikewaleimg/models/490b.jpg?20140909123254" alt="<%= bikeName %>" title="<%= bikeName %>">--%>
                             <img data-bind="attr: { src: imageUrl, alt: bikeName, title: bikeName }" />
                         </div>
                     </div>
-                    <div class="grid-4 inline-block">
+                    <div class="grid-4 bikeModel-details-table inline-block">
                         <h3 class="margin-bottom15" data-bind="text: bikeName"></h3>
                         <div class="font14">
                             <table>
@@ -65,10 +65,10 @@
                                     </tr>
                                     <tr>
                                         <td>Balance amount:</td>
-                                        <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: remainingAmount"></span></td>
+                                        <td align="right" class="font18 text-bold finalBalanceAmount"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: remainingAmount"></span></td>
                                     </tr>
                                     <tr>
-                                        <td class="font12" colspan="2">*Balance amount payable at the dealership</td>
+                                        <td class="font12 bikeModel-balance-text" colspan="2">*Balance amount payable at the dealership</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -86,7 +86,7 @@
                             <div>
                                 <%--<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3770.9863262686094!2d72.99639100000005!3d19.06433880000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c136b2c080cb%3A0x225353b221740ef0!2sCarWale!5e0!3m2!1sen!2sin!4v1441706839659" width="290" height="90" frameborder="0" style="border: 0" allowfullscreen></iframe>--%>
                                 <%--<div id="divMap" data-bind="style: { width: showMap ? '290px' : 0, height: showMap ? '90px' : 0 }"></div>--%>
-                                <div style="width: 290px; height: 90px" data-bind="googlemap: { latitude: lattitude(), longitude: longitude() }"></div>
+                                <div class="bikeModel-dealerMap-container" style="width: 290px; height: 90px" data-bind="googlemap: { latitude: lattitude(), longitude: longitude() }"></div>
                             </div>
                         </div>
                         <!-- /ko -->
@@ -179,7 +179,7 @@
                         <div class="mobile-verification-container hide">
                             <div class="input-border-bottom"></div>
                             <div class="margin-top20">
-                                <p class="font16 leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
+                                <p class="font16 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
                                 <div class="form-control-box">
                                     <input type="text" class="form-control get-otp-code rightfloat" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
                                     <span class="bwsprite error-icon errorIcon hide"></span>
@@ -188,7 +188,12 @@
 
                                 <div class="clear"></div>
                             </div>
-                            <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a><br />
+                            <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() < 2), click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a>
+                            <p class="margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() >= 2)">
+                             OTP has been already sent to your mobile
+                            </p>
+                            <div class="clear"></div>
+                            <br />
                                 <a class="btn btn-orange margin-top30" id="otp-submit-btn">Confirm OTP</a>
                                 <div style="margin-right:70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
                         </div>
@@ -337,7 +342,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
         <section>
             <div class="container margin-bottom20">
                 <div class="grid-12 alternative-section">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom20">What next!</h2>
+                    <h2 class="text-bold text-center margin-top50 margin-bottom20">What's next!</h2>
                     <div class="content-box-shadow content-inner-block-20">
                         <div class="next-step-box">
                             <img src="../images/next-steps-thumb.jpg" usemap="#nextSteps">
@@ -546,12 +551,22 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
             }
 
             function CustomerModel() {
+                var arr = setuserDetails();
                 var self = this;
-                self.firstName = ko.observable();
-                self.lastName = ko.observable();
-                self.emailId = ko.observable();
-                self.mobileNo = ko.observable();
+                if (arr != null && arr.length > 0) {
+                    self.firstName = ko.observable(arr[0]);
+                    self.lastName = ko.observable(arr[1]);
+                    self.emailId = ko.observable(arr[2]);
+                    self.mobileNo = ko.observable(arr[3]);
+                }
+                else {
+                    self.firstName = ko.observable();
+                    self.lastName = ko.observable();
+                    self.emailId = ko.observable();
+                    self.mobileNo = ko.observable();
+                }
                 self.IsVerified = ko.observable();
+                self.NoOfAttempts = ko.observable(0);
                 self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
                 self.otpCode = ko.observable();
                 self.fullName = ko.computed(function () {
@@ -603,6 +618,9 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                                             obj.dealer.state,
                                             obj.dealer.websiteUrl));
                                     }
+                                }
+                                else {
+                                    self.NoOfAttempts(obj.noOfAttempts);
                                 }
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
@@ -661,7 +679,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                     }
                 }
                 self.regenerateOTP = function () {
-                    if (!self.IsVerified()) {
+                    if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
                         var url = '/api/ResendVerificationCode/';
                         var objCustomer = {
                             "customerName": self.fullName(),
@@ -677,6 +695,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                             contentType: "application/json",
                             success: function (response) {
                                 self.IsVerified(false);
+                                self.NoOfAttempts(response.noOfAttempts);
                                 alert("You will receive the new OTP via SMS shortly.");
                             },
                             error: function (xhr, ajaxOptions, thrownError) {

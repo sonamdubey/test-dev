@@ -13,20 +13,36 @@
         <img id="imgCompBike" src="<%=imageUrl %>" border="0" width="300" />
     </a>        
     <div class="grid_2 alpha omega margin-top10 right-align" style="border-right:1px solid #E2E2E2;">
+        <% if (review1 > 0){ %>
         <div class="margin-right10"><%= Bikewale.Common.CommonOpn.GetRateImage(review1) %></div>
+        <div class="margin-top15 margin-right10">Rs. <%= Bikewale.Common.CommonOpn.FormatPrice(price1) %></div>
+        <div class="margin-top10 margin-right10">
+            <a class="link-decoration" href="/<%= makeMaskingName1%>-bikes/<%=modelMaskingName1 %>/user-reviews/" ><%= reviewCount1 %> reviews</a>             
+        </div>
+        <%} else { %>
+        <div class="margin-right10">Not rated yet</div>
         <div class="margin-top10 margin-right10">Rs. <%= Bikewale.Common.CommonOpn.FormatPrice(price1) %></div>
         <div class="margin-top10 margin-right10">
-            <a class="link-decoration <%=reviewCount1 == "0" ? "hide" : "" %>" href="/<%= makeMaskingName1%>-bikes/<%=modelMaskingName1 %>/user-reviews/" ><%= reviewCount1 %> reviews</a>
-            <a class="link-decoration <%=reviewCount1 == "0" ? "show" : "hide" %>" href="/content/userreviews/writereviews.aspx?bikem=<%= modelId1%>">Write a review</a>
+            <a class="link-decoration" href="/content/userreviews/writereviews.aspx?bikem=<%= modelId1%>">Write a review</a>            
         </div>
+                 
+        <% } %>
     </div>
     <div class="grid_2 omega margin-top10">
-        <div><%= Bikewale.Common.CommonOpn.GetRateImage(review2) %></div>
-        <div class="margin-top10">Rs. <%= Bikewale.Common.CommonOpn.FormatPrice(price2) %></div>
-        <div class="margin-top10">
-            <a class='link-decoration <%=reviewCount2 == "0" ? "hide" : "" %>' href="/<%= makeMaskingName2%>-bikes/<%=modelMaskingName2 %>/user-reviews/" ><%= reviewCount2 %> reviews</a>
-            <a class="link-decoration <%=reviewCount2 == "0" ? "show" : "hide" %>" href="/content/userreviews/writereviews.aspx?bikem=<%= modelId2%>">Write a review</a>
+        <% if (review2 > 0){ %>
+        <div class="margin-right10"><%= Bikewale.Common.CommonOpn.GetRateImage(review2) %></div>
+        <div class="margin-top15 margin-right10">Rs. <%= Bikewale.Common.CommonOpn.FormatPrice(price2) %></div>
+        <div class="margin-top10 margin-right10">
+            <a class="link-decoration" href="/<%= makeMaskingName1%>-bikes/<%=modelMaskingName2 %>/user-reviews/" ><%= reviewCount2 %> reviews</a>             
         </div>
+        <%} else { %>
+        <div class="margin-right10">Not rated yet</div>
+        <div class="margin-top10 margin-right10">Rs. <%= Bikewale.Common.CommonOpn.FormatPrice(price2) %></div>
+        <div class="margin-top10 margin-right10">
+            <a class="link-decoration" href="/content/userreviews/writereviews.aspx?bikem=<%= modelId2%>">Write a review</a>            
+        </div>
+                 
+        <% } %>
     </div>
 </div>
 <div class="grid_4 margin-bottom15 alpha">

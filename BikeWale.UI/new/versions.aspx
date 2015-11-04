@@ -92,7 +92,7 @@
                                                     <li>
                                                         <div class="carousel-img-container">
                                                             <span>
-                                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" />
+                                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="" border="0"/>
                                                             </span>
                                                         </div>
                                                     </li>
@@ -121,7 +121,7 @@
                                                     <li>
                                                         <div class="carousel-nav-img-container">
                                                             <span>
-                                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" />
+                                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" border="0"/>
                                                             </span>
                                                         </div>
                                                     </li>
@@ -131,19 +131,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <% if (modelPage.ModelDetails.New)
+                            <% if (modelPage.ModelDetails!=null && modelPage.ModelDetails.New)
                                { %>
                             <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : string.Empty %>">
-                                <p class="margin-left50	leftfloat margin-right20 <%= (modelPage.ModelDetails.ReviewCount > 0)?string.Empty:"hide" %>">
+                                <% if (Convert.ToDouble(modelPage.ModelDetails.ReviewRate) > 0)
+                                   { %>
+                                <p class="margin-left50	bikeModel-user-ratings leftfloat margin-right20">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                 </p>
-                                <p class="<%= (modelPage.ModelDetails.ReviewCount > 0)?"hide":string.Empty %> margin-left50	leftfloat margin-right20 ">
-                           Not rated yet
-                        </p>
-                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20 <%= (modelPage.ModelDetails.ReviewCount > 0)?string.Empty:"hide" %>"><%= modelPage.ModelDetails.ReviewCount %> Reviews
+                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20 "><%= modelPage.ModelDetails.ReviewCount %> Reviews
                                 </a>
-                                <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat margin-right20 padding-left20">Write a review
+                                <% }
+                                   else
+                                   { %>
+                                <p class="margin-left50 leftfloat margin-right20">Not rated yet</p>
+                                <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat padding-left20">Write a review
                                 </a>
+                                <% } %>
+
                                 <div class="clear"></div>
                             </div>
                             <% } %>
@@ -266,19 +271,22 @@
                             <% if (!modelPage.ModelDetails.New)
                                { %>
                             <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : string.Empty %>">
-                                <p class="leftfloat margin-right20">
+                                <% if (Convert.ToDouble(modelPage.ModelDetails.ReviewRate) > 0)
+                                   { %>
+                                <p class="margin-left50	bikeModel-user-ratings leftfloat margin-right20">
                                     <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                 </p>
-                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20"><%= modelPage.ModelDetails.ReviewCount %> Reviews
+                                <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box border-solid-left leftfloat margin-right20 padding-left20 "><%= modelPage.ModelDetails.ReviewCount %> Reviews
                                 </a>
-                                <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat margin-right20 padding-left20">Write a review
+                                <% }
+                                   else
+                                   { %>
+                                <p class="margin-left50 leftfloat margin-right20">Not rated yet</p>
+                                <a href="<%= FormatWriteReviewLink() %>" class="border-solid-left leftfloat padding-left20">Write a review
                                 </a>
+                                <% } %>
+
                                 <div class="clear"></div>
-                            </div>
-                            <div class="margin-top20 bike-price-container margin-bottom15">
-                                <span class="font14 text-light-grey default-showroom-text"><%= bikeName %> is discontinued in India.</span>
-                            </div>
-                            <div class="clear"></div>
                             <% } %>
                             <% if (modelPage.ModelDetails.New)
                                { %>
@@ -1111,10 +1119,10 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? string.Empty : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
-                                    <li class="active" style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
-                                    <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
-                                    <li style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                    <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                    <li class="<%= isUserReviewActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
+                                    <li class="<%= isExpertReviewActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
+                                    <li class="<%= isNewsActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlNews">News</li>
+                                    <li class="<%= isVideoActive ? "active" : String.Empty  %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
                                 </ul>
                             </div>
                         </div>
@@ -1142,7 +1150,7 @@
 
         <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div class="container">
-                <div class="grid-12 alternative-section">
+                <div class="grid-12 alternative-section" id="alternative-bikes-section">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternatives</h2>
                     <div class="content-box-shadow">
                         <div class="jcarousel-wrapper alternatives-carousel margin-top20">

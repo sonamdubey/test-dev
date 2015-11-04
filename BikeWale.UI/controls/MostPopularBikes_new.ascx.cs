@@ -38,20 +38,14 @@ namespace Bikewale.controls
 
         protected string ShowEstimatedPrice(object estimatedPrice)
         {
-            string price = String.Empty;
-            if (estimatedPrice != null)
+            if (estimatedPrice != null && Convert.ToInt32(estimatedPrice) > 0)
             {
-                price = Bikewale.Utility.Format.FormatPrice(estimatedPrice.ToString());
-                if (price == "N/A")
-                {
-                    price = "Price unavailable";
-                }
-                else
-                {
-                    price += " <span class='font16'> Onwards</span>";
-                }
+                return String.Format("<span class='fa fa-rupee'></span> <span class='font22'>{0}</span><span class='font16'> onwards</span>",Bikewale.Utility.Format.FormatPrice(Convert.ToString(estimatedPrice)));
             }
-            return price;
+            else
+            {
+                return "<span class='font22'>Price Unavailable</span>";  
+            }
         }
 
         public override void Dispose()

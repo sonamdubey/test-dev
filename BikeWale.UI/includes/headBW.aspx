@@ -1,5 +1,6 @@
 ﻿<%@ Register Src="~/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>
 <%@ Register Src="~/controls/LoginStatusNew.ascx" TagPrefix="BW" TagName="LoginStatus" %>
+
 	<div class="blackOut-window"></div>
     <!-- #include file="/includes/Navigation.aspx" -->
     <BW:Login ID="ctrlLogin" runat="server" />    
@@ -26,12 +27,17 @@
         </div>
         <div class="clear"></div>
     </div>
-    <div id="header" class='<%= isHeaderFix ? "header-fixed": "header-not-fixed" %>'> <!-- Fixed Header code starts here -->
+    <div id="header" class='<%= isHeaderFix ? "header-fixed": "header-not-fixed" %> <%=  isTransparentHeader?"header-landing":String.Empty   %>'> <!-- Fixed Header code starts here -->
         <div class="leftfloat">
             <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
             <a href="/" id="bwheader-logo" class="bwsprite bw-logo"></a>
         </div>
         <div class="rightfloat">
+            <div class="global-search position-rel hide">
+                <span class="bwsprite search-icon-grey" id="btnGlobalSearch"></span>
+                <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
+                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top10 text-black" style="display:none;right:35px;"></span>
+            </div>
             <div class="global-location">
                 <div class="gl-default-stage">
                 	<div id="globalCity-text">

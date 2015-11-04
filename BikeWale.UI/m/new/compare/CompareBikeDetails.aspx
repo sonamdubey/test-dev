@@ -851,6 +851,7 @@
 
 
     $(".divCompareBikeMenu li").click(function () {
+        $('html, body').animate({ scrollTop: 340 });
         var contentType = $(this).attr("contentType");
         $(".divCompareBikeMenu li").each(function () {
             if ($(this).attr("contentType") == contentType) {

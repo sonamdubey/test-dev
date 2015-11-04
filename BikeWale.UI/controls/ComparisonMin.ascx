@@ -3,12 +3,12 @@
     <div class="grid-6 margin-top20 margin-bottom20">
         <div class="border-solid-right">
             <h3 class="font16 text-center padding-bottom15">
-                <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2)%>">
+                <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2, TopRecord.VersionId1.ToString(), TopRecord.VersionId2.ToString())%>">
                     <%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>
                 </a>
             </h3>
             <div class="bike-preview margin-bottom10">
-                <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2)%>">
+                <a href="<%= FormatComparisonUrl(TopRecord.MakeMaskingName1,TopRecord.ModelMaskingName1,TopRecord.MakeMaskingName2,TopRecord.ModelMaskingName2, TopRecord.VersionId1.ToString(), TopRecord.VersionId2.ToString())%>">
                     <img class="lazy" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" data-original="<%= TopCompareImage %>" title="<%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>" alt="<%= FormatBikeCompareAnchorText(TopRecord.Bike1,TopRecord.Bike2) %>">
                 </a>
             </div>
@@ -16,12 +16,19 @@
                 <div class="grid-6 alpha border-solid-right">
                     <div class="content-inner-block-5 text-center">
                         <div class="font18 margin-bottom5">
-                            <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price1.ToString()) %>
+                            <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(TopRecord.Price1)) %>
                         </div>
                         <div>
-                            <p class="margin-bottom10">
+                            <% if (Convert.ToDouble(TopRecord.Review1) > 0)
+                               {%>
+                            <p class="margin-bottom10 ">
                                 <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review1)) %>
                             </p>
+                            <%} else { %>
+                            <p class="margin-bottom10 font14 ">
+                                Not rated yet
+                            </p>
+                            <%} %>
                             <p class="font14"><a href="<%= Bike1ReviewLink %>" class="margin-left5"><%= Bike1ReviewText %></a></p>
                         </div>
                     </div>
@@ -32,9 +39,16 @@
                             <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(TopRecord.Price2.ToString()) %>
                         </div>
                         <div>
-                            <p class="margin-bottom5">
+                            <% if (Convert.ToDouble(TopRecord.Review2) > 0)
+                               {%>
+                            <p class="margin-bottom5 ">
                                 <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(TopRecord.Review2)) %>
                             </p>
+                            <%} else { %>
+                            <p class="margin-bottom5 font14 ">
+                                Not rated yet
+                            </p>
+                            <%} %>
                             <p class="font14"><a href="<%= Bike2ReviewLink %>" class="margin-left5"><%= Bike2ReviewText %></a></p>
                         </div>
                     </div>
@@ -50,7 +64,7 @@
                     <ItemTemplate>
                         <li>
                             <p class="font16 text-center padding-bottom15">
-                                <a href="<%# FormatComparisonUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName1").ToString(),DataBinder.Eval(Container.DataItem,"ModelMaskingName1").ToString(),DataBinder.Eval(Container.DataItem,"MakeMaskingName2").ToString(),DataBinder.Eval(Container.DataItem,"ModelMaskingName2").ToString()) %>">
+                                <a href="<%# FormatComparisonUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName1").ToString(),DataBinder.Eval(Container.DataItem,"ModelMaskingName1").ToString(),DataBinder.Eval(Container.DataItem,"MakeMaskingName2").ToString(),DataBinder.Eval(Container.DataItem,"ModelMaskingName2").ToString(), DataBinder.Eval(Container.DataItem,"VersionId1").ToString(), DataBinder.Eval(Container.DataItem,"VersionId2").ToString()) %>">
                                     <%# FormatBikeCompareAnchorText(DataBinder.Eval(Container.DataItem,"Bike1").ToString(),DataBinder.Eval(Container.DataItem,"Bike2").ToString()) %>
                                 </a>
                             </p>

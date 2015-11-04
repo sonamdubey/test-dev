@@ -41,7 +41,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
         private readonly IDealerPriceQuote _objDealerPriceQuote = null;
         private readonly IMobileVerificationRepository _mobileVerRespo = null;
-        private readonly IMobileVerification _mobileVerificetion = null;
+        private readonly IMobileVerification _mobileVerification = null;
         private readonly IDealer _objDealer = null;
         public PQCustomerDetailController(
             ICustomerAuthentication<CustomerEntity, UInt32> objAuthCustomer,
@@ -55,7 +55,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             _objCustomer = objCustomer;
             _objDealerPriceQuote = objDealerPriceQuote;
             _mobileVerRespo = mobileVerRespo;
-            _mobileVerificetion = mobileVerificetion;
+            _mobileVerification = mobileVerificetion;
             _objDealer = objDealer;
         }
         /// <summary>
@@ -84,6 +84,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             UInt32 insuranceAmount = 0;
             bool IsInsuranceFree = false;
             bool hasBumperDealerOffer = false;
+            sbyte noOfAttempts = 0;
             try
             {
                 if (input != null && !String.IsNullOrEmpty(input.CustomerEmail) && !String.IsNullOrEmpty(input.CustomerMobile))
@@ -101,14 +102,37 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                     isSuccess = _objDealerPriceQuote.SaveCustomerDetail(input.DealerId, input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail);
 
-                    if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
+                    //if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
+                    //{
+                    //    mobileVer = _mobileVerificetion.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
+                    //    isVerified = false;
+
+                    //    SMSTypes st = new SMSTypes();
+                    //    st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.PageUrl);
+                    //}
+
+                    noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
+
+                    //here -1 implies mobile number is verified and resend OTP attempts is 2
+                    if (noOfAttempts > -1)
                     {
-                        mobileVer = _mobileVerificetion.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
+                        if (noOfAttempts < 3)
+                        {
+                            mobileVer = _mobileVerification.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
+
+                            SMSTypes st = new SMSTypes();
+                            st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.PageUrl);
+                        }                       
+
                         isVerified = false;
 
-                        SMSTypes st = new SMSTypes();
-                        st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.PageUrl);
-                    }
+                        output = new PQCustomerDetailOutput();
+                        output.IsSuccess = isVerified;
+                        output.NoOfAttempts = noOfAttempts;
+                        output.Dealer = null;
+
+                        return Ok(output);
+                    }                    
                     else
                     {
                         isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
@@ -220,6 +244,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         output = new PQCustomerDetailOutput();
                         output.IsSuccess = isVerified;
                         output.Dealer = dealer;
+                        output.NoOfAttempts = noOfAttempts;
                         return Ok(output);
                     }
                     else

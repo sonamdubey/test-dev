@@ -14,11 +14,13 @@
         AdPath = "/1017752/BikeWale_HomePage_";
         AdId = "1395985604192";
         alternate = "http://www.bikewale.com/m/";
-        canonical = "http://www.bikewale.com/";        
+        canonical = "http://www.bikewale.com/";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css">
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
+            
+    <%  isTransparentHeader = true;   %>
 </head>
 <body class="bg-white">
 <form runat="server">    
@@ -45,47 +47,7 @@
             </div>
         </div>
     </header>
-    <section class="bg-light-grey">
-        <!--  Booking online code starts here -->
-        <div class="container ">
-            <div class="grid-12 alpha omega margin-bottom30">
-                <h2 class="text-bold text-center margin-top50 font28">Comforts of booking online</h2>
-                <div class="grid-3 text-center">
-                    <div class="booking-online-pic bg-white text-center">
-                        <div class="bookingcomforts-sprite get-price-icon"></div>
-                    </div>
-                    <div class="bg-white font20 booking-online-box">Get real prices upfront</div>
-                </div>
-                <div class="grid-3 text-center">
-                    <div class="booking-online-pic bg-white text-center">
-                        <div class="bookingcomforts-sprite get-deal-icon"></div>
-                    </div>
-                    <div class="bg-white font20 booking-online-box">Get best deals & offers</div>
-                </div>
-                <div class="grid-3 text-center">
-                    <div class="booking-online-pic bg-white text-center">
-                        <div class="bookingcomforts-sprite save-visit-icon"></div>
-                    </div>
-                    <div class="bg-white font20 booking-online-box">
-                        Save on<br />
-                        dealer visits
-                    </div>
-                </div>
-                <div class="grid-3 text-center">
-                    <div class="booking-online-pic bg-white text-center">
-                        <div class="bookingcomforts-sprite buying-asst-icon"></div>
-                    </div>
-                    <div class="bg-white font20 booking-online-box">
-                        Complete<br />
-                        buying assistance
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-    <!--  Ends here -->
+
     <section class="bg-white">
         <!--  Discover your bike code starts here -->
         <div class="container">

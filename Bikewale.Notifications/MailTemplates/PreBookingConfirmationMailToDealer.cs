@@ -81,16 +81,33 @@ namespace Bikewale.Notifications.MailTemplates
                     foreach (var items in PriceList)
                     {
                         sb.Append("<tr><td style=\"padding:5px 0 0;\" width=\"200\">" + items.CategoryName + "</td>");
-                        sb.Append("<td style=\"padding:5px 0 0;\" width=\"100\" align=\"right\" class=\"numeri-cell\"><span>" + Format.FormatPrice(items.Price.ToString()) + "</span></td></tr>");
+                        if (items.CategoryName.ToUpper().Contains("INSURANCE") && (InsuranceAmount > 0))
+                        {
+                            sb.Append("<td style=\"padding:5px 0 0;text-decoration: line-through;\" width=\"100\" align=\"right\" class=\"numeri-cell\"><span>" + Format.FormatPrice(items.Price.ToString()) + "</span></td></tr>");
+                        }
+                        else
+                        {
+                            sb.Append("<td style=\"padding:5px 0 0;\" width=\"100\" align=\"right\" class=\"numeri-cell\"><span>" + Format.FormatPrice(items.Price.ToString()) + "</span></td></tr>");
+                        }
                     }
-                    sb.Append("<tr><td colspan=\"2\" style=\" border-bottom:1px solid #e2e2e2; padding:5px 0 0;\"></td></tr><tr>");
-                    sb.Append("<td style=\"padding:5px 0 0;\" class=\"price2\">Total On Road Price</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice(TotalPrice.ToString()) + "</td></tr>");
+                    if (InsuranceAmount > 0)
+                    {
+                        sb.Append("<tr><td colspan=\"2\" style=\" border-bottom:1px solid #e2e2e2; padding:5px 0 0;\"></td></tr><tr>");
+                        sb.Append("<tr><td style=\"padding:5px 0 0;\" class=\"price2\">Total On Road Price</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice(TotalPrice.ToString()) + "</td></tr>");
+                        sb.Append("<tr><td style=\"padding:5px 0 0;\" class=\"price2\">Minus Insurance</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice(InsuranceAmount.ToString()) + "</td></tr>");
+                        sb.Append("<tr><td style=\"padding:5px 0 0;\" class=\"price2\">BikeWale On Road (after insurance offer) Quoted to Customer</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice((TotalPrice - InsuranceAmount).ToString()) + "</td></tr>"); 
+                    }
+                    else
+                    {
+                        sb.Append("<tr><td colspan=\"2\" style=\" border-bottom:1px solid #e2e2e2; padding:5px 0 0;\"></td></tr><tr>");
+                        sb.Append("<td style=\"padding:5px 0 0;\" class=\"price2\">Total On Road Price</td><td style=\"padding:5px 0 0; font-weight:bold;\" width=\"100\" align=\"right\" class=\"price2 numeri-cell\">Rs. " + Format.FormatPrice(TotalPrice.ToString()) + "</td></tr>");
+                    }
                     sb.Append("</tbody></table></div>");
                 }
                 sb.Append("<div style=\"display:inline-block; vertical-align:top; margin:0 10px; color:#333;\"><div style=\"text-align:center; width:170px; margin:0 0 15px; padding:10px 0; border:1px solid #e2e2e2; background:#c0ffa7;\">");
                 sb.Append("<div style=\" font-size:14px; text-align:center;\">Paid Amount</div><div style=\" font-size:14px; font-weight:bold;\">Rs. " + Format.FormatPrice(BookingAmount.ToString()) + "</div></div>");
                 sb.Append("<div style=\"text-align:center; width:170px; margin:0 0 10px; padding:10px 0; border:1px solid #e2e2e2; background:#ff9c69;\">");
-                sb.Append("<div style=\" font-size:14px; text-align:center;\">Balance Amount</div><div style=\" font-size:14px; font-weight:bold;\">Rs. " + Format.FormatPrice(BalanceAmount.ToString()) + "</div></div>");
+                sb.Append("<div style=\" font-size:14px; text-align:center;\">Balance Amount</div><div style=\" font-size:14px; font-weight:bold;\">Rs. " + Format.FormatPrice((BalanceAmount - InsuranceAmount).ToString()) + "</div></div>");
                 sb.Append("</div></div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat center center; height:2px; width:100%\"></div>");
 
                 if (OfferList != null && OfferList.Count > 0)

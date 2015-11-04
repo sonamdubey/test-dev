@@ -21,3 +21,10 @@ $(document).ready(function() {
 	});
 
 });
+
+$(window).on("scroll", function () {
+    if ($(window).scrollTop() > 40)
+        $('#header').removeClass("header-landing").addClass("header-fixed");
+    else
+        $('#header').removeClass("header-fixed").addClass("header-landing");
+});

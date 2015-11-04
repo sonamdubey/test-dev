@@ -1309,9 +1309,9 @@ namespace BikeWaleOpr.Common
             StringBuilder sb = new StringBuilder();
 
             sb.Append("<script language=\"javascript\" src=\"/src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");
+            sb.Append("<script language=\"javascript\">");            
             sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");
+            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");            
             sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
             sb.Append("var arrayValues = new Array(); var i = 0;");
             SqlDataReader dr;

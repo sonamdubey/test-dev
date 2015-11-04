@@ -44,38 +44,35 @@ namespace Bikewale.Mobile.controls
 
         protected string ShowEstimatedPrice(object estimatedPrice)
         {
-            string price = String.Empty;
-            if (estimatedPrice != null)
+            if (estimatedPrice != null && Convert.ToInt32(estimatedPrice) > 0)
             {
-                price = Bikewale.Utility.Format.FormatPrice(estimatedPrice.ToString());
-                if (price == "N/A")
-                {
-                    price = "Price unavailable";
-                }
-                else
-                {
-                    price += " Onwards";
-                }
+                return String.Format("<span class='fa fa-rupee'></span> <span class='font24'>{0}</span><span class='font16'> onwards</span>", Bikewale.Utility.Format.FormatPrice(Convert.ToString(estimatedPrice)));
             }
-            return price;
+            else
+            {
+                return "<span class='font22'>Price Unavailable</span>";
+            }
         }
 
         protected string ShowLaunchDate(object launchDate)
         {
-            string ldate = String.Empty;
-            if(launchDate!=null)
+            if (launchDate != null && !String.IsNullOrEmpty(Convert.ToString(launchDate)))
             {
-                ldate = Convert.ToString(launchDate);
-                if (ldate.Trim() != "")
-                {
-                    ldate += "<span class='font14 text-light-grey'> (Expected launch)</span>";
-                }
-                else
-                {
-                    ldate = "Launch date unavailable";
-                }
+                return String.Format("<div class='padding-top5 clear border-top1'><span class='font16 text-grey'>{0} <span class='font14 text-light-grey'> (Expected launch)</span></span></div>", Convert.ToString(launchDate));
             }
-            return ldate;
+            else
+            {
+                return "<div class='padding-top5 clear border-top1 margin-top30'><span class='font16 text-grey'>Launch date unavailable</span></div>";
+            }
         }
+
+        public override void Dispose()
+        {
+            rptUpcomingBikes.DataSource = null;
+            rptUpcomingBikes.Dispose();
+
+            base.Dispose();
+        }
+
     }
 }

@@ -119,7 +119,7 @@
                         </div>
                         <div class="avail-offer-form">
                     	    <p><b>Mobile Number<span class="red-text">*</span></b></p>                            
-                            <asp:TextBox id="txtMobile" runat="server" placeholder="As Per Registration"></asp:TextBox>
+                            <asp:TextBox id="txtMobile" runat="server" MaxLength="10" placeholder="As Per Registration"></asp:TextBox>
                             <span id="spnMobile" class="error"></span>
                         </div>
                         <div class="avail-offer-form">

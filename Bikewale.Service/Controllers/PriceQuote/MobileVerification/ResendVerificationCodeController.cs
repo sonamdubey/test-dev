@@ -38,22 +38,32 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
         {
             PQResendMobileVerificationOutput output = null;
             bool isSuccess = false;
+            sbyte noOfAttempts = 0;
             MobileVerificationEntity mobileVer = null;
             try
             {
                 if (input != null && !String.IsNullOrEmpty(input.CustomerEmail) && !String.IsNullOrEmpty(input.CustomerMobile))
                 {
-                    if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
+                    noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
+                    
+                    //here -1 implies mobile number is verified and resend OTP attempts is 2
+                    if (noOfAttempts > -1 )
                     {
-                        mobileVer = _mobileVerification.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
+                        if (noOfAttempts < 3)
+                        {
+                            mobileVer = _mobileVerification.ProcessMobileVerification(input.CustomerEmail, input.CustomerMobile);
 
-                        SMSTypes st = new SMSTypes();
-                        st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.Source);
+                            SMSTypes st = new SMSTypes();
+                            st.SMSMobileVerification(mobileVer.CustomerMobile, input.CustomerName, mobileVer.CWICode, input.Source);
+                        }
 
                         isSuccess = true;
                     }
+                    
                     output = new PQResendMobileVerificationOutput();
                     output.IsSuccess = isSuccess;
+                    output.NoOfAttempts = noOfAttempts;
+
                     if (isSuccess)
                     {
                         return Ok(output);

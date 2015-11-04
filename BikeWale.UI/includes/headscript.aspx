@@ -4,7 +4,8 @@
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "";
     private string fbTitle = "", fbImage;
     private ushort feedbackTypeId = 0;
-    private bool isHeaderFix = true, isAd970x90Shown = false;   
+    private bool isHeaderFix = true, isAd970x90Shown = false;
+    private bool isTransparentHeader = false;  
 </script>
 
 <title><%= title %></title>
