@@ -22,7 +22,7 @@
     alternate   ="http://www.bikewale.com/m/";
 %>
 <!-- #include file="/includes/headhome.aspx" -->
-<PW:PopupWidget runat="server" ID="PopupWidget" />
+
 
 <!--BW Gallery code start here -->
 <style type="text/javascript">
@@ -215,4 +215,5 @@
     }
 </script>
 <!--3 Content code end here -->
+<PW:PopupWidget runat="server" ID="PopupWidget" />
  <!-- #include file="/includes/footerInner.aspx" -->       

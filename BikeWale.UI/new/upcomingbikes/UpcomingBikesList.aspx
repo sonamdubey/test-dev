@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/controls/RepeaterPager.ascx" %>
 <%@ Register TagPrefix="BikeWale" TagName="UpcomingBikeSearch" Src="~/controls/UpcomingBikeSearch.ascx" %>
 <%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
+<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%
     title = "Upcoming Bikes in India - Expected Launches in 2012";
@@ -14,9 +15,6 @@
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
 %>
-
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 
 <!-- #include file="/includes/headNew.aspx" -->
 <div class="container_12">
@@ -71,4 +69,5 @@
         </div>--%>
     </div>
 </div>
+<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerInner.aspx" -->

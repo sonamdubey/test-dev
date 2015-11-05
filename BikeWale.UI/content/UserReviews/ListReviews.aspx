@@ -4,6 +4,7 @@
 <%@ Register TagPrefix="BW" TagName="RepeaterPagerReviews" src="/content/userreviews/RepeaterPagerReviews.ascx" %>
 <%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%@ Register TagPrefix="LD" TagName="LocateDealer" Src="/controls/locatedealer.ascx" %>
+<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%
     title = "User Reviews: " + BikeName;
 	description = BikeName + " User Reviews - Read first-hand reviews of actual " + BikeName + " owners. Find out what buyers of " + BikeName + " have to say about the bike.";
@@ -14,8 +15,8 @@
  %>
 <!-- #include file="/includes/headnew.aspx" -->
 
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
+
+
 <style type="text/css">
     .action-btn.write-review-btn { padding:8px 12px !important; }
 </style>
@@ -115,4 +116,5 @@
         </div>
     </div>
 </div>
+<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerinner.aspx" -->
