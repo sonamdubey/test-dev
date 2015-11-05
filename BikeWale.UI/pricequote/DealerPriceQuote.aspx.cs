@@ -36,13 +36,14 @@ namespace Bikewale.BikeBooking
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
 
-        protected SimilarBikesHorizontal ctrl_similarBikes;
+        protected AlternativeBikes ctrlAlternativeBikes;
         protected UInt64 totalPrice = 0;
         protected string pqId = string.Empty, areaId = string.Empty, BikeName = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;
         protected UInt32 insuranceAmount = 0;
         protected bool IsInsuranceFree = false;
         protected CustomerEntity objCustomer = new CustomerEntity();
+        protected string cityArea = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -78,13 +79,14 @@ namespace Bikewale.BikeBooking
                     GetDealerPriceQuote(cityId, versionId, dealerId);
                     GetVersionColors(versionId);
                     PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, areaId, versionId.ToString(), dealerId.ToString());
+                    BindAlternativeBikeControl(versionId.ToString());
                 }
                 else
                     SavePriceQuote();
 
                 PreFillCustomerDetails();
+                cityArea = GetLocationCookie();
 
-                ctrl_similarBikes.VersionId = versionId.ToString();
             }
             else
             {
@@ -308,5 +310,37 @@ namespace Bikewale.BikeBooking
                 objErr.SendMail();
             }
         }
+
+        private void BindAlternativeBikeControl(String versionId)
+        {
+            ctrlAlternativeBikes.TopCount = 6;
+
+            if (!String.IsNullOrEmpty(versionId) && versionId!="0")
+            {
+                ctrlAlternativeBikes.VersionId = Convert.ToInt32(versionId);
+            }
+        }
+
+        private string GetLocationCookie()
+        {
+            string location = String.Empty;
+            if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value != "0")
+            {
+                location = this.Context.Request.Cookies["location"].Value;
+                string[] arr = location.Split('_');
+
+                if (arr.Length > 0)
+                {
+                    if (arr.Length > 2)
+                    {
+                        return String.Format("<span>{0}</span>, <span>{1}</span>", arr[3], arr[1]);
+                    }
+                    return String.Format("<span>{0}</span>",arr[1]);
+                }
+            }
+            return string.Empty;
+        }
+
+
     }   //End of Class
 }   //End of namespace

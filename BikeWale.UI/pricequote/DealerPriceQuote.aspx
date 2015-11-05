@@ -1,27 +1,40 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.DealerPriceQuote" Trace="false" Async="true" EnableEventValidation="false"%>
-<%@ Register TagPrefix="SB" TagName="SimilarBike" Src="~/controls/SimilarBikesHorizontal.ascx" %>
+<%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="Bikewale.BikeBooking" %>
+
+<!doctype html>
+<html>
+<head>
 <%
     title =  objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " Price Quote ";
 	description =  objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " price quote";
     keywords = "";
     AdId = "1395986297721";
     AdPath = "/1017752/Bikewale_PriceQuote_";
+    isAd970x90Shown = true;
     //canonical = "http://www.bikewale.com/pricequote/";
     //alternate = "http://www.bikewale.com/m/pricequote/";
 %>
-<!-- #include file="/includes/headNew.aspx" -->
-<%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
-<link rel="stylesheet" href="/css/bw-pq.css?<%= staticFileVersion %>" />
-<link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
-<link rel="stylesheet" type="text/css" href="/css/rsa.css?v=3.0"/>
+<!-- #include file="/includes/headscript.aspx" -->
 <style type="text/css">
-    .minLength { width:95px !important;}
-    .colours { list-style : outside none none; display:inline;}
-    .colours li {float :left;}
-    .edit-done-mob input { padding:5px; }
-    #txtName, #txtEmail { width:260px; }
+    #PQImageVariantContainer img { width:100%; }
+    .PQDetailsTableTitle { color:#82888b; }
+    .PQDetailsTableAmount, .PQOnRoadPrice { color:#4d5057; }
+    .PQOffersUL { margin-left:18px; list-style:disc; }
+    .PQOffersUL li { padding-bottom:15px; }
+    .pqVariants .form-control-box { width:92%; }
+    .form-control-box select.form-control { color:#4d5057; }
+
+    .jcarousel-wrapper.alternatives-carousel { width: 974px; }
+    .alternatives-carousel .jcarousel li {height: auto; margin-right:18px;}
+    .alternatives-carousel .jcarousel li.front { border:none;}
+    .alternative-section .jcarousel-control-left { left:-24px; }
+    .alternative-section .jcarousel-control-right { right:-24px; }
+    .alternative-section .jcarousel-control-left, .alternative-section .jcarousel-control-right { top:50%; }
+    .newBikes-latest-updates-container .grid-4 { padding-left:10px;}
+    .available-colors { display:inline-block; width:150px; text-align:center; margin-bottom: 20px; padding:0 5px; vertical-align: top; }
+    .available-colors .color-box {width:60px; height:60px; margin:0 auto 15px; border-radius:3px; background:#f00; border:1px solid #ccc;}
 </style>
 <script type="text/javascript">
     var dealerId = '<%= dealerId%>';
@@ -37,345 +50,213 @@
         Customername = '<%= CustomerDetailCookie.CustomerName%>', email = '<%= CustomerDetailCookie.CustomerEmail%>', mobileNo = '<%= CustomerDetailCookie.CustomerMobile %>';
     }
 </script>
-<%--<script type="text/javascript"  src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/BikeBooking.js?<%= staticFileVersion %>"></script>--%>
-
 <%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
-
-<!--bw contact popup code starts here-->
-<div class="bw-contact-popup hide">
-	<div class="popup-inner-container">
-    	<div class="bw-sprite close-btn right-float"></div>
-    	<h2>Provide Contact Details</h2>
-        <div class="popup-inner-container">
-    		<p class="margin-bottom20">For you to see BikeWale Dealer pricing and get a printable Certificate, we need your valid contact details. We promise to keep this information confidential and not use for any other purpose.</p>
-            <span class="error" id="spnName"></span>
-            <div class="input-div">
-                <div class="input-icon-div">
-                    <span class="bw-sprite user"></span>
+</head>
+<body class="bg-light-grey">
+    <form runat="server">
+    <!-- #include file="/includes/headBW.aspx" -->
+    <section class="bg-light-grey padding-top10">
+        <div class="container">
+            <div class="grid-12">
+                <div class="breadcrumb margin-bottom15"><!-- breadcrumb code starts here -->
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><span class="fa fa-angle-right margin-right10"></span><a href="/new/">New</a></li>
+                        <li><span class="fa fa-angle-right margin-right10"></span><a href="/pricequote/">On-Road Price Quote</a></li>
+                        <li><span class="fa fa-angle-right margin-right10"></span>Dealer Price Quote</li>
+                    </ul>
+                    <div class="clear"></div>
                 </div>
-                <div class="left-float">
-                    <input id="txtName" type="text" placeholder="Name" name="">
-                </div>
+                <h1 class="font30 text-black margin-top10 margin-bottom10">On-road price quote</h1>
                 <div class="clear"></div>
             </div>
-            <span class="error" id="spnMobile"></span>
-            <div class="input-div">
-                <div class="input-icon-div">
-                    <span class="bw-sprite call"></span>
-                </div>
-                <div class="left-float">
-                    <input id="txtMobile" type="text" placeholder="Mobile Number" name="" maxlength="10">
-                </div>
-                <div class="clear"></div>
-            </div>
-            <span class="error" id="spnEmail"></span>
-            <div class="input-div">
-                <div class="input-icon-div">
-                    <span class="bw-sprite email"></span>
-                </div>
-                <div class="left-float">
-                    <input id="txtEmail" type="text" placeholder="Email" name="">
-                </div>
-                <div class="clear"></div>
-            </div>            
-            <p>A verification code will be sent to the above Mobile Number. You will need the code for further Verification Process.</p>
-        </div>
-        <div class="mid-box margin-top15 center-align">
-        	<input type="button" name="btnNext" value="Next" id="btnNext" class="action-btn" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });">
-        </div>
-    </div>
-</div>
-<!--bw popup code ends here-->
-<!--bw verification popup code starts here-->
-<div class="verify-popup bw-popup hide">
-	<div class="popup-inner-container">
-    <div class="bw-sprite close-btn right-float"></div>
-    	<h2>Mobile Verification</h2>
-        <div class="popup-inner-container">
-        	<p class="margin-bottom20">We like to make sure that sellers get contacted by genuinely interested people like you. Kindly verify your Mobile Number</p>
-            <p class="margin-bottom15">Enter the five digit verification code sent on 
-                <span class="edit-mob new-line5 margin-bottom10">
-                    <strong class="f-bold" id="mobNo"></strong>
-                    <span class="blue" id="editNum">Edit</span>
-                </span>
-                <span class="edit-done-mob new-line5 margin-bottom10">
-                    <input type="text" placeholder="Mobile Number" class="border-solid" id="editedMobNo" maxlength="10" />
-                    <span class="blue" id="done-btn">Done</span><br />
-                    <span class="error" id="spnEditNo"></span>
-                </span>
-            </p>
-            <p>
-                <span class="margin-right10">Enter Verification Code:</span> 
-                <input type="text" id="txtCwi" class="minLength"/>
-                <a class="margin-left10 blue" id="resendCwiCode"> Resend Code</a><br />
-                <span class="error" id="spnCwi"></span>
-            </p>
-        </div>
-        <div class="mid-box margin-top15 center-align">
-        	<input type="button" name="btnSavePriceQuote" value="Verify" id="btnSavePriceQuote" class="action-btn" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details', lab: 'Verified Mobile Number' });">
-       </div>
-    </div>
-</div>
-<!--bw verification popup ends starts here-->
-<div class="main-container">
-	<div class="container_12">
-        <div class="grid_12">
-            <ul class="breadcrumb">
-                <li>You are here: </li>
-                <li><a class="blue" href="/">Home</a></li>
-                <li class="fwd-arrow">&rsaquo;</li>
-                <li><a class="blue" href="/new/">New</a></li>
-                <li class="fwd-arrow">&rsaquo;</li>
-                <li><a class="blue" href="/pricequote/">On-Road Price Quote</a></li>
-                <li class="fwd-arrow">&rsaquo;</li>
-                <li class="current"><strong>Dealer Price Quote</strong></li>
-            </ul><div class="clear"></div>
-        </div>
-        <div class="grid_12 margin-top10">
-            <% if(objPrice != null) { %><h1 class="margin-bottom5">Dealer Price Quote - <%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " +objPrice.objVersion.VersionName%></h1><% } %>
             <div class="clear"></div>
         </div>
-        <div class="grid_12 margin-top10" style="border:1px solid #eaeaea; padding-bottom:10px;">
-    	<div class="grid_8 margin-top5 alpha">
-            <div class="padding5" style="border-right:1px solid #eaeaea;">
-            <div  id="div_GetPQ" runat="server">
-            <div id="get-pq-new">
-                <%--<h2 class="border-red"></h2>--%>
-            	<div id="div_ShowPQ">
-                <% if(objPrice != null) { %>
-                <table cellspacing="0" cellpadding="0" width="100%" border="0" class="tbl-default margin-top10">
-			        <tr>
-                        <td style="width:100px;vertical-align:top;">
-                             <div class="show-pq-pic">
-                             	<img alt="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPrice.OriginalImagePath,objPrice.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" title="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" />
-                                 <%--<div class="margin-top5 dotted-hr margin-bottom5" style="margin-right:10px;"></div>--%>
-                                <div class="hide">
-                                    <div class="<%= objColors.Count == 0 ? "hide" : "" %>" style="float:left; margin-right:3px; padding-top:3px;">Color: </div>
-                                    <div style="overflow:hidden;">
-                                        <ul class="colours <%= objColors.Count == 0 ? "hide" : "" %>">
-                                        
-                                            <asp:Repeater id="rptColors" runat="server">
-                                                <ItemTemplate>
-                                                    <li>
-                                                        <div title="<%#DataBinder.Eval(Container.DataItem,"ColorName") %>" style="background-color:#<%# DataBinder.Eval(Container.DataItem,"ColorCode")%>;height:15px;width:15px;margin:5px;border:1px solid #a6a9a7;"></div>
-                                                    </li>
-                                                </ItemTemplate>
-                                            </asp:Repeater>
-                                        </ul>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                                <% if(versionList.Count > 1) { %><div class="margin-top15" style="text-align:center;"><asp:DropDownList id="ddlVersion" runat="server" AutoPostBack="true"></asp:DropDownList></div><% } %>
-                        	 </div>
-                        </td>
-                        <td valign="top" style="padding-left:20px;">
-                            <table>
-                                <%--<a href="<%="/" + objPrice.objMake.MaskingName + "-bikes/" + objPrice.objModel.MaskingName + "/" %>"><h2><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %></h2></a>--%>
-                                <asp:Repeater id="rptPriceList" runat="server">
-                                    <ItemTemplate>
-                                        <%-- Start 102155010 --%>
-                                        <%--<tr class="font14">
-                                            <td width="370">
-                                                 <%# DataBinder.Eval(Container.DataItem,"CategoryName") %>
-                                            </td>
-                                            <td width="100" class="numeri-cell" align="right"><span class="WebRupee">Rs.</span><span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span></td>
-                                        </tr>--%>
-                                        <tr class="font14">
-                                            <td width="370">
-                                                 <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
-                                            </td>
-                                            <td width="100" class="numeri-cell" align="right"><span class="WebRupee">Rs.</span><span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span></td>
-                                        </tr>
-                                        <%-- End 102155010 --%>
-                                    </ItemTemplate>
-                                </asp:Repeater>
-                                <tr><td colspan="2"><div class="dotted-hr"></div><td></tr>
-                                <%-- Start 102155010 --%>
-                                <%--<tr>
-                                    <td class="price2 font14">Total On Road Price</td>
-                                    <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><b><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></b></td>
-                                </tr>--%>                                
-                                <%
-                       if (IsInsuranceFree)
-                       {
-                           %>
-                                <tr>
-                                    <td class="font14">Total On Road Price</td>
-                                    <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><span style="text-decoration: line-through"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span></td>
-                                </tr>
-                                <tr>
-                                    <td class="font14">Minus Insurance</td>
-                                    <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><%= CommonOpn.FormatPrice(insuranceAmount.ToString()) %></td>
-                                </tr>
-                                <tr>
-                                    <td class="price2 font14">BikeWale On Road (after insurance offer)</td>
-                                    <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><b><%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></b></td>
-                                </tr>
-                                <%
-                       }
-                       else
-                       {
-                           %>
-                           <tr>
-                                    <td class="price2 font14">Total On Road Price</td>
-                                    <td width="100" class="numeri-cell font14" align="right"><span class="WebRupee">Rs.</span><b><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></b></td>
-                           </tr>
-
-                    <% } %>     
-                    <% if(!(objPrice.objOffers != null && objPrice.objOffers.Count > 0)) { %>
-                        <tr class="margin-top15">
-                            <td>&nbsp;</td>
-                            <td  align="right"><a class="action-btn" id="btnBikeBooking" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</a></td>
-                        </tr>
-                    <% } %>                           
-                                <%-- End 102155010 --%>
-                                <%--<tr>
-                                    <td colspan="2" align="right"><a id="dealerPriceQuote" class="blue font14" onclick="dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Link Get_Dealer_Details',lab: 'Clicked on Link Get_Dealer_Details' });">Avail offer</a></td>
-                                </tr>--%>
-                                <tr class="hide">
-                                	<td colspan="3">
-                                        <ul class="std-ul-list">
-                                            <asp:Repeater id="rptDisclaimer" runat="server">
-                                                <ItemTemplate>
-                                                    <li><i><%# Container.DataItem %></i></li>
-                                                </ItemTemplate>
-                                            </asp:Repeater>
-                                        </ul>
-                                	</td>
-                                </tr>	
-			              </table>
-                        </td>
-			        </tr>
-		        </table>
-                    <% } else { %>
-                    <div class="grey-bg border-light padding5 margin-top10 margin-bottom20">
-                        <h3>Dealer Prices for this Version is not available.</h3>
+    </section>
+    
+    <section class="container">
+        <div class="grid-12 margin-bottom20" id="dealerPriceQuoteContainer">
+            <div class="content-box-shadow content-inner-block-20 rounded-corner2">
+    	        <div class="grid-3 alpha" id="PQImageVariantContainer">
+                    <% if(objPrice != null) { %>
+                    <div class="pqBikeImage margin-bottom20 margin-top5">
+                        <img alt="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPrice.OriginalImagePath,objPrice.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" title="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" />
                     </div>
                     <% } %>
-            </div>
-
-            <%--<div class="dotted-hr margin-bottom10 margin-top10"></div>--%>
-
-            </div>
-                <%--<div id="blackOut-window" class="hide"></div>--%>
-    <!--bw rsa popup starts here-->
-    <div class="rsa-popup bw-popup hide">
-        <!--header starts here-->
-        <div class="rsa-header">
-            <div class="bw-sprite white-close-btn right-float margin-top5"></div>
-            <div class="left-float margin-right10 header-seperator">
-                <img class="margin-right10" src="http://img1.carwale.com/bikewaleimg/images/bikebooking/images/rsa-logo.png" border="0">
-                        
-            </div>
-            <div class=" left-float margin-top5">
-                <h1>FREE Helmet & Bike RSA Offer</h1>
-            </div>
-            <div class="clear"></div>
-        </div>
-        <!--header ends here-->
-        <!--inner content starts here-->
-        <div class="popup-inner-content">
-            <h2>Three simple steps to avail the offers:</h2>
-            <div class="steps">
-                <h2>Step 1:</h2>
-                <p>Purchase your bike and get it registered with RTO.</p>
-            </div>
-            <div class="seperator"></div>
-            
-            <div class="steps">
-                <h2>Step 2:</h2>
-                <p>Provide your bike purchase details on <a class="blue" href="/pricequote/RSAOfferClaim.aspx">this link.</a></p>
-                <p>OR</p>
-                <p>Email the following details to <a class="blue" href="#">contact@bikewale.com</a> with subject as <span class="color-text">"Free Helmet and RSA Offer"</span>:</p>
-                
-                    <div class="rsa-details margin-left20 margin-top10">
-                        <ol>
-                            <li>Mobile number and Email address used to avail the Dealer Price Certificate</li>
-                            <li>Vehicle Registration Number (e.g. MH 06 AT 8875)</li>
-                            <li>Full Name as per Vehicle Registration</li>
-                            <li>Complete Communication Address as per Vehicle Registration</li>
-                            <li>Date of vehicle Delivery</li>
-                            <li>Name and address of the dealership from where the bike was purchased  </li>
-                        </ol>
+                    <div class="hide">
+                        <div class="<%= objColors.Count == 0 ? "hide" : "" %>" style="float:left; margin-right:3px; padding-top:3px;">Color: </div>
+                        <div style="overflow:hidden;">
+                            <ul class="colours <%= objColors.Count == 0 ? "hide" : "" %>">
+                                        
+                                <asp:Repeater id="Repeater1" runat="server">
+                                    <ItemTemplate>
+                                        <li>
+                                            <div title="<%#DataBinder.Eval(Container.DataItem,"ColorName") %>" style="background-color:#<%# DataBinder.Eval(Container.DataItem,"ColorCode")%>;height:15px;width:15px;margin:5px;border:1px solid #a6a9a7;"></div>
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="clear"></div>
                     </div>
-            </div>
-            <div class="seperator"></div>
-            
-            <div class="steps">
-                <h2>Step 3:</h2>
-                <p>On receipt of above details we will verify your purchase from the dealership and dispatch your<strong> FREE Helmet and Bike Roadside Assistance Certificate</strong> on your provided address within 30 days.
-            </p>
-            </div>
-        </div>
-        <!--header starts here-->
-    </div>
-    <!--bw rsa popup ends here-->
+                    <% if(versionList.Count > 1) { %>
+                    <div class="pqVariants">
+                        <p class="font16 margin-bottom5">Select Variant</p>
+                        <div class="form-control-box">
+                            <asp:DropDownList id="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
+                        </div>
+                    </div>
+                    <% } %>
                 </div>
-            <div id="div_ShowErrorMsg" runat="server" class="grey-bg border-light content-block text-highlight margin-top15"></div>
-            </div>
-        </div>
-        <div class="grid_4  margin-top5 alpha omega">
-            <div class="padding5">
-            <div class="dealer-offers red-bullets">
+                <div class="grid-5 padding-right20 <%= (objPrice.objOffers != null && objPrice.objOffers.Count > 0) ? "border-solid-right" : string.Empty %>" id="PQDetailsContainer">
+                    <% if(objPrice != null) { %>
+                        <p class="font20 text-bold margin-bottom20"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " +objPrice.objVersion.VersionName%></p>
+                    <% } %>
+                    <p class="font16 margin-bottom15">On-road price in <%= cityArea %></p>
+                    <div runat="server">
+                        <div>
+                        <% if(objPrice != null) { %>
+                        <table class="font14" cellspacing="0" cellpadding="0" width="100%" border="0">
+                            <asp:Repeater id="rptPriceList" runat="server">
+                                <ItemTemplate>
+                                    <tr>
+                                        <td width:"245" class="PQDetailsTableTitle padding-bottom10">
+                                            <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
+                                        </td>
+                                        <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
+                                            <span class="fa fa-rupee margin-right5"></span><span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
+                                        </td>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <tr><td colspan="2"><div class="border-solid-top padding-bottom10"></div><td></tr>                                 
+                         <%
+                            if (IsInsuranceFree)
+                            {
+                                %>
+                                    <tr>
+                                        <td class="PQDetailsTableTitle padding-bottom10">Total on road price</td>
+                                        <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
+                                            <span class="fa fa-rupee"></span><span style="text-decoration:line-through;"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="PQDetailsTableTitle padding-bottom10">Minus insurance</td>
+                                        <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
+                            	            <span class="fa fa-rupee"></span><span><%= CommonOpn.FormatPrice(insuranceAmount.ToString()) %></span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="middle" class="PQDetailsTableTitle font18 text-bold PQOnRoadPrice">Total on road price</td>
+                                        <td align="right" class="PQDetailsTableAmount font20 text-bold">
+                            	            <span class="fa fa-rupee"></span><span><%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></span>
+                                        </td>
+                                    </tr>
+                                    <%
+                            }
+                            else
+                            {
+                                %>
+                                <tr>
+                                    <td class="PQDetailsTableTitle font18 text-bold PQOnRoadPrice padding-bottom10">Total on road price</td>
+                                    <td align="right" class="PQDetailsTableAmount padding-bottom10 font20 text-bold">
+                                        <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
+                                    </td>
+                                </tr>
+
+                        <% } %>     
+                        <% if(!(objPrice.objOffers != null && objPrice.objOffers.Count > 0)) { %>
+                            <tr>
+                                <td colspan="2" class="border-solid-top" align="right"><a class="margin-top15 btn btn-orange" id="btnBikeBooking" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</a></td>
+                            </tr>
+                        <% } %>
+                            <tr class="hide">
+                                <td colspan="3">
+                                    <ul class="std-ul-list">
+                                        <asp:Repeater id="rptDisclaimer" runat="server">
+                                            <ItemTemplate>
+                                                <li><i><%# Container.DataItem %></i></li>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </ul>
+                                </td>
+                            </tr>	
+			            </table>
+                        <% } else { %>
+                        <div class="grey-bg border-light padding5 margin-top10 margin-bottom20">
+                            <h3>Dealer Prices for this Version is not available.</h3>
+                        </div>
+                        <% } %>
+                    </div>
+                    
+                    </div>
+
+                    <div id="div_ShowErrorMsg" runat="server" class="grey-bg border-light content-block text-highlight margin-top15"></div>
+                    </div>
+                <div class="grid-4 omega padding-left20" id="PQOffersContainer">
                     <!--Exciting offers div starts here-->
-                <%if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
-                  { %>
-                <div id="divOffers" style="background:#fff;">                    
-                    <h2><%= IsInsuranceFree ? "BikeWale Offer" : "Get Absolutely Free"%></h2>
-                    <div class="margin-top5 margin-left5 font14">
-                          <asp:Repeater ID="rptOffers" runat="server">
+                    <% if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
+                    { %>
+                    <div id="divOffers">                    
+                        <p class="font20 text-bold margin-bottom10 border-solid-bottom padding-bottom5"><%= IsInsuranceFree ? "BikeWale Offer" : "Available Offer"%></p>
+                        <div>
+                            <asp:Repeater ID="rptOffers" runat="server">
                                 <HeaderTemplate>
-                                        <ul>                                        
+                                    <ul class="font14 text-light-grey PQOffersUL">                                        
                                 </HeaderTemplate>
                                 <ItemTemplate>                                        
-                                    <%-- Start 102155010 --%>
-                                        <%--<li style="<%# DataBinder.Eval(Container.DataItem,"OfferCategoryId").ToString() == "3" ? "display:none;" : ""%>"><%# DataBinder.Eval(Container.DataItem,"OfferText")%> </li>--%>
                                     <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
-                                    <%-- End 102155010 --%>
                                 </ItemTemplate>                                                            
                                 <FooterTemplate>                                                                        
-                                    <%-- Start 102155010 --%>
-                                        <%--<li>Vega Helmet worth Rs. 1500</li>
-                                        <li>1 year of <a target="_blank" href="/Absure Bike RSA.pdf">Roadside Assistance</a>.</li>--%>
-                                    <%-- End 102155010 --%>
                                     </ul>
                                 </FooterTemplate>                              
                             </asp:Repeater>
-                    <div style="text-align:center;" class="mid-box margin-top15">
-                        <a class="action-btn" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</a>
-                    </div>
-                    </div>
-                  </div>                   
-                <%}%>
+                            <div class="margin-top10">
+                                <a class="btn btn-orange" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</a>
+                            </div>
+                        </div>
+                    </div>                   
+                    <%}%>
                     
-                <!--Exciting offers div ends here-->
+                    <!--Exciting offers div ends here-->
+                        
+                    <%--<SB:SimilarBike ID="ctrl_similarBikes" TopCount="2" runat="server" Visible="false"/>--%>
                 </div>
-            <%--<SB:SimilarBike ID="ctrl_similarBikes" TopCount="2" runat="server" Visible="false"/>--%>
+                <div class="clear"></div>
             </div>
         </div>
+        <div class="clear"></div>
+    </section>
+
+    <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
+        <div class="container">
+        <div class="grid-12 alternative-section" id="alternative-bikes-section">
+            <h2 class="text-bold text-center margin-top20 margin-bottom30"><%= BikeName %> alternatives</h2>
+            <div class="content-box-shadow">
+                <div class="jcarousel-wrapper alternatives-carousel margin-top20">
+                    <div class="jcarousel">
+                        <ul>
+                            <BW:AlternativeBikes ID="ctrlAlternativeBikes" runat="server" />
+                        </ul>
+                    </div>
+                    <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>
+                    <span class="jcarousel-control-right"><a href="#" class="bwsprite jcarousel-control-next"></a></span>
+                </div>
+            </div>
         </div>
-        <div class="grid_12 margin-top10 padding-bottom20">
-            <SB:SimilarBike ID="ctrl_similarBikes" TopCount="3" runat="server"/>
-        </div>     
-    </div>
-</div>
+        <div class="clear"></div>
+        </div>
+    </section>
+
+<PW:PopupWidget runat="server" ID="PopupWidget" />   
+<!-- #include file="/includes/footerBW.aspx" -->
+<!-- #include file="/includes/footerscript.aspx" -->
 <script type="text/javascript">
-    $("#rsa").click(function () {
-        $('.blackOut-window').show();
-        $('.rsa-popup').show();
-    });
-
-    $('.white-close-btn').click(function () {
-        $(".blackOut-window").hide();
-        $('.rsa-popup').hide();
-    });
-
-    $('#btnGetDealerDetails, #btnBikeBooking').click(function(){
-        window.location.href='/pricequote/bookingsummary_new.aspx';
-    });
-</script>    
-<!-- #include file="/includes/footerInner.aspx" -->
-
-
+$('#btnGetDealerDetails, #btnBikeBooking').click(function () {
+    window.location.href = '/pricequote/bookingsummary_new.aspx';
+});
+</script> 
+</form>
+</body>
+</html>

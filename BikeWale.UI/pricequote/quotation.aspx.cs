@@ -18,6 +18,7 @@ using Bikewale.Entities.BikeData;
 using Bikewale.BAL.BikeData;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.controls;
 
 namespace Bikewale.PriceQuote
 {
@@ -29,10 +30,10 @@ namespace Bikewale.PriceQuote
     {
         //protected Repeater rptAllVersions;
         protected UserReviewsMin ucUserReviewsMin;
-        protected UpcomingBikesMin ucUpcoming;
         protected LocateDealer ucLocateDealer;
         protected NewsMin newsMin;
-        protected SimilarBikes ctrl_similarBikes;
+        protected UpcomingBikes_new ctrlUpcomingBikes;
+        protected AlternativeBikes ctrlAlternativeBikes;
         protected HtmlGenericControl divAllVersions, div_ShowPQ, divUserReviews;
 
         protected string cityId = string.Empty, city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty;
@@ -100,15 +101,16 @@ namespace Bikewale.PriceQuote
                     //imgPath = ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/" + mmv.LargePic, mmv.HostUrl);
                     imgPath = Bikewale.Utility.Image.GetPathToShowImages(mmv.OriginalImagePath, mmv.HostUrl, Bikewale.Utility.ImageSize._210x118);
 
-                    // Added By Sadhana Upadhyay on 6th Aug 2014 to show news and similar bike widget
-                    ctrl_similarBikes.VersionId = mmv.VersionId;
-
-                    ucUpcoming.HeaderText = "Upcoming Bikes from " + mmv.Make;
-                    ucUpcoming.MakeId = mmv.MakeId;
-                    // newsMin.MakeId = mmv.MakeId;
                     ucLocateDealer.Make = mmv.MakeId + '_' + mmv.MakeMappingName;
 
                     BindVersion(mmv.ModelId);
+
+                    BindAlternativeBikeControl(Convert.ToString(PriceQuoteCookie.VersionId));
+
+                    //To get Upcoming Bike List Details 
+                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                    ctrlUpcomingBikes.pageSize = 6;
+                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(mmv.MakeId);
                 }
             }
             else
@@ -232,13 +234,12 @@ namespace Bikewale.PriceQuote
                 {
                     priceQuoteId = PriceQuoteCookie.PQId;
 
-                    Trace.Warn("pq id : " + priceQuoteId);
-
+                    Trace.Warn("pq id : " + priceQuoteId);                   
                     if (priceQuoteId != "0")
                     {
 
                         versionId = Convert.ToUInt32(PriceQuoteCookie.VersionId);
-                        ShowPriceQuote();
+                        ShowPriceQuote();                         
                     }
                     else
                     {
@@ -253,6 +254,16 @@ namespace Bikewale.PriceQuote
                 Response.Redirect("/pricequote/default.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
+            }
+        }
+
+        private void BindAlternativeBikeControl(String versionId)
+        {
+            ctrlAlternativeBikes.TopCount = 6;
+
+            if (!String.IsNullOrEmpty(versionId) && versionId != "0")
+            {
+                ctrlAlternativeBikes.VersionId = Convert.ToInt32(versionId);
             }
         }
     }   // End of class
