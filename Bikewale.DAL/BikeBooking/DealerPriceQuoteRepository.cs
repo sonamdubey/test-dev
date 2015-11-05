@@ -1013,9 +1013,15 @@ namespace Bikewale.DAL.BikeBooking
                             entity.Varients = BikeDealerPriceDetails;
                             if (entity.Varients != null && entity.Varients.Count > 0)
                             {
-                                bikeModelColors = GetModelColor(entity.Varients[0].Model.ModelId);
+                                int modelId = entity.Varients[0].Model.ModelId;
+                                IEnumerable<BikeModelColor> colorList = GetVariantColorByModel(entity.Varients[0].Model.ModelId);
+                                foreach (var variant in entity.Varients)
+                                {
+                                    variant.BikeModelColors = from color in colorList
+                                                              where color.ModelId == variant.MinSpec.VersionId
+                                                              select color;
+                                }
                             }
-                            entity.BikeModelColors = bikeModelColors;
                         }
                     }
                 }
@@ -1086,6 +1092,62 @@ namespace Bikewale.DAL.BikeBooking
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("GetModelColor ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return colors;
+        }
+        /// <summary>
+        /// Get Version Id and respective color id for model id
+        /// Author  :   Sangram Nandkhile
+        /// Created On  :   04 Nov 2015
+        /// </summary>
+        private IEnumerable<BikeModelColor> GetVariantColorByModel(int modelId)
+        {
+            List<BikeModelColor> colors = null;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.CommandText = "GetVariantColorByModel";
+                    cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
+                    db = new Database();
+                    using (SqlDataReader dr = db.SelectQry(cmd))
+                    {
+                        if (dr != null)
+                        {
+                            colors = new List<BikeModelColor>();
+
+                            while (dr.Read())
+                            {
+                                colors.Add(
+                                    new BikeModelColor
+                                    {
+                                        Id = Convert.ToUInt32(dr["ID"]),
+                                        ColorName = Convert.ToString(dr["Color"]),
+                                        HexCode = Convert.ToString(dr["HexCode"]),
+                                        ModelId = Convert.ToUInt32(dr["VersionId"]),
+                                    }
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }

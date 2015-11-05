@@ -73,11 +73,9 @@ namespace Bikewale.Service.Controllers.BikeBooking
                             objBookingPageDetailsEntity.Disclaimers = null; 
                         }
                         
-                        objBookingPageDetailsEntity.BikeModelColors = null; 
                     }
                     
                     objBookingPageOutput = new BookingPageOutput();
-                    objBookingPageOutput.BikeModelColors = objBookingPageDetailsDTO.BikeModelColors;
                     objBookingPageOutput.Disclaimers = objBookingPageDetailsDTO.Disclaimers;
                     objBookingPageOutput.Offers = objBookingPageDetailsDTO.Offers;
                     objBookingPageOutput.Varients = objBookingPageDetailsDTO.Varients;

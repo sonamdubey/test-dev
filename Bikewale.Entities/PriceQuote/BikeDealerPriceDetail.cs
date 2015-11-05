@@ -34,12 +34,10 @@ namespace Bikewale.Entities.PriceQuote
         /// Waiting Days
         /// </summary>
         public uint NoOfWaitingDays { get; set; }
-
         /// <summary>
         /// Price breakup list
         /// </summary>
         public IList<DealerVersionPriceItemEntity> PriceList { get; set; }
-
         /// <summary>
         /// Bike Version with min specifications
         /// </summary>
@@ -51,6 +49,10 @@ namespace Bikewale.Entities.PriceQuote
         /// <summary>
         /// Model Entity
         /// </summary>
-        public BikeModelEntityBase Model { get; set; }        
+        public BikeModelEntityBase Model { get; set; }
+        /// <summary>
+        /// Bike Model Colors
+        /// </summary>
+        public IEnumerable<BikeModelColor> BikeModelColors { get; set; }
     }
 }

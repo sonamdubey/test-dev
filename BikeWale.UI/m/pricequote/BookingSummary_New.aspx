@@ -108,7 +108,7 @@
                         <ul class="varientsList margin-top10" data-bind="foreach: viewModel.Varients()">
                             <li>
                                 <div class="clear text-left">
-                                    <div class="varient-item border-solid content-inner-block-10 rounded-corner2" data-bind="attr: { class: (minSpec().versionId() == $parent.SelectedVarient().minSpec().versionId()) ? 'selected border-dark varient-item border-solid content-inner-block-10 rounded-corner2' : 'varient-item border-solid content-inner-block-10 rounded-corner2' }, click: function () { $parent.selectVarient($data, event); }">
+                                    <div class="varient-item border-solid content-inner-block-10 rounded-corner2" data-bind="attr: { class: (minSpec().versionId() == $parent.SelectedVarient().minSpec().versionId()) ? 'selected border-dark varient-item content-inner-block-10 rounded-corner2' : 'varient-item border-solid content-inner-block-10 rounded-corner2' }, click: function () { $parent.selectVarient($data, event); }">
                                         <div class="grid-12 alpha margin-bottom10">
                                             <h3 class="font16" data-bind="text: minSpec().versionName"></h3>
                                             <p class="font14" data-bind="text: minSpec().displayMinSpec"></p>
@@ -122,7 +122,7 @@
                                 </div>
                             </li>
                         </ul>
-                        <!-- /ko -->
+                        
                         <div class="clear"></div>
                         <div class="border-solid-top margin-bottom20"></div>
 
@@ -131,9 +131,9 @@
                             <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
                             <div class="jcarousel-wrapper">
                                 <div class="jcarousel">
-                                    <ul class="text-center" data-bind="foreach: viewModel.ModelColors()">
+                                    <ul class="text-center" data-bind="foreach: viewModel.SelectedVarient().bikeModelColors()">
                                         <li class="available-colors">
-                                            <div class="color-box" data-bind="style: { 'background-color': '#' + hexCode() }, click: function () { $parent.selectModelColor($data, event); }"><span class="ticked hide"></span></div>
+                                            <div class="color-box" data-bind="style: { 'background-color': '#' + hexCode }, click: function () { $parent.selectModelColor($data, event); }"><span class="ticked hide"></span></div>
                                             <p class="font16 text-medium-grey" data-bind="text: colorName"></p>
                                         </li>
                                     </ul>
@@ -144,7 +144,7 @@
 
                             </div>
                         </div>
-
+                        <!-- /ko -->
                         <p class="font12 margin-bottom20">* Colours are subject to availabilty, can be selected at the dealership</p>
                         <button class="customize-submit-btn btn btn-full-width btn-orange margin-bottom20" data-bind="click: function () { viewModel.generatePQ(); }">Next</button>
                         <div class="clear"></div>
