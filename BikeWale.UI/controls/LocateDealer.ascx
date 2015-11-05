@@ -1,11 +1,11 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Controls.LocateDealer" %>
 <%@ Import Namespace="Bikewale.Common" %>
-<h1>Locate Dealer</h1>
-<p>Find a new bike dealer & authorized showroom</p>
-<div class="left-float margin-top10 margin-right10 padding-bottom20">   
-    <asp:DropDownList id="ddlMake" runat="server" CssClass="brand"></asp:DropDownList>  
+<p class="font20 text-bold margin-bottom10">Locate Dealer</p>
+<p class="font14 margin-bottom15">Find a new bike dealer & authorized showroom</p>
+<div class="form-control-box margin-bottom20">   
+    <asp:DropDownList id="ddlMake" runat="server" CssClass="form-control brand"></asp:DropDownList>  
 </div>
-<div class="margin-top10"><a id="btnGo" class="action-btn" runat="server" >Go</a></div>                            
+<div class="margin-top10"><a id="btnGo" class="action-btn btn-lg" runat="server" >Go</a></div>                            
 <div class="clear"></div>
 
 <script type="text/javascript">
