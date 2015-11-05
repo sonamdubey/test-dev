@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -15,13 +12,12 @@ using Microsoft.Practices.Unity;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Entities.Customer;
 using Bikewale.BAL.Customer;
-using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeBooking;
-using Bikewale.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.BAL.BikeData;
+using Bikewale.Mobile.Controls;
 
 namespace Bikewale.Mobile.BikeBooking
 {
@@ -41,6 +37,8 @@ namespace Bikewale.Mobile.BikeBooking
         protected BikeVersionEntity objVersionDetails = null;
         protected List<BikeVersionsListEntity> versionList = null;
         protected bool IsInsuranceFree = false;
+        protected AlternativeBikes ctrlAlternateBikes;
+        protected string cityArea = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -73,11 +71,14 @@ namespace Bikewale.Mobile.BikeBooking
                     GetDealerPriceQuote(cityId, versionId, dealerId);
                     GetVersionColors(versionId);
                     PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, areaId, versionId.ToString(), dealerId.ToString());
+                    BindAlternativeBikeControl(versionId.ToString());
                 }
                 else
                     SavePriceQuote();
 
                 PreFillCustomerDetails();
+
+                cityArea = GetLocationCookie();
             }
             else
             {
@@ -297,5 +298,36 @@ namespace Bikewale.Mobile.BikeBooking
                 objErr.SendMail();
             }
         }
+
+        private string GetLocationCookie()
+        {
+            string location = String.Empty;
+            if (this.Context.Request.Cookies.AllKeys.Contains("location") && this.Context.Request.Cookies["location"].Value != "0")
+            {
+                location = this.Context.Request.Cookies["location"].Value;
+                string[] arr = location.Split('_');
+
+                if (arr.Length > 0)
+                {
+                    if (arr.Length > 2)
+                    {
+                        return String.Format("<span>{0}</span>, <span>{1}</span>", arr[3], arr[1]);
+                    }
+                    return String.Format("<span>{0}</span>", arr[1]);
+                }
+            }
+            return string.Empty;
+        }
+
+        private void BindAlternativeBikeControl(string versionId)
+        {
+            ctrlAlternateBikes.TopCount = 6;
+
+            if (!String.IsNullOrEmpty(versionId) && versionId != "0")
+            {
+                ctrlAlternateBikes.VersionId = Convert.ToInt32(versionId);
+            }
+        }
+
     }   //End of class
 }   //End of namespace

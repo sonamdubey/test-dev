@@ -328,6 +328,7 @@
                     else {
                         isAreaShown = false;
                         $("#imgLoaderArea").hide();
+                        $("#hdnIsAreaShown").val(isAreaShown);
                     }                    
                 }
             });
@@ -381,6 +382,8 @@
                             $("#ddlCity").trigger('chosen:updated');
                             $("#ddlCity-button").removeClass().find("span.textAlignLeft").hide();
                             $("#txtCity").val($("#ddlCity").val());
+
+                            if ($("#ddlCity").val() != "0") $("#ddlCity").trigger("change");
                         }
                         else viewModelPQ.cities([]);
                     },
