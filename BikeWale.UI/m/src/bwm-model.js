@@ -664,6 +664,7 @@ $(document).ready(function () {
 
     $(".more-features-btn").click(function () {
         $(".more-features").slideToggle();
+        $("html, body").animate({ scrollTop: $("#features").offset().top }, 1000);
         var a = $(this).find("span");
         a.text(a.text() === "+" ? "-" : "+");
         $("html, body").animate({ scrollTop: $("#features").offset().top }, 1000);

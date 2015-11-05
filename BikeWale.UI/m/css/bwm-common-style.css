@@ -291,6 +291,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
+.headerTitle,.white-back-arrow {display:none;}
 .bw-logo { background-position: -31px 0px; width: 84px; height: 24px; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
