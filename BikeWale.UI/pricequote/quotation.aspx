@@ -87,7 +87,11 @@
                 </div>
                 <div class="grid-5 border-solid-right padding-right20" id="PQDetailsContainer">
                     <p class="font20 text-bold margin-bottom20"><%= mmv.BikeName %></p>
-                    <p class="font16 margin-bottom15">On-road price in <span><%= objQuotation.City %></span></p>
+                    <%if (objQuotation != null && objQuotation.ExShowroomPrice > 0) { %>
+                    <p class="font16 margin-bottom15">On-road price in 
+                        <span><%= (String.IsNullOrEmpty(objQuotation.Area))?objQuotation.City:(objQuotation.Area + ", " + objQuotation.City) %></span>
+                    </p>
+                    <% } %>
                     <div>
                         <%if (objQuotation != null && objQuotation.ExShowroomPrice > 0)
                             {%>
@@ -146,7 +150,7 @@
     <section class="margin-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
         <div class="container">
         <div class="grid-12 alternative-section" id="alternative-bikes-section">
-            <h2 class="text-bold text-center margin-top20 margin-bottom30"><%= mmv.BikeName %> alternatives</h2>
+            <h2 class="text-bold text-center margin-top20 margin-bottom30"><%= mmv.Make + " " + mmv.Model %> alternatives</h2>
             <div class="content-box-shadow">
                 <div class="jcarousel-wrapper alternatives-carousel margin-top20">
                     <div class="jcarousel">
@@ -167,13 +171,12 @@
         <!-- Upcoming bikes from brands -->
         <div class="container">
             <div class="grid-12">
-                <h2 class="text-bold text-center margin-top20 margin-bottom30">Upcoming bikes from <%= mmv.BikeName %></h2>
+                <h2 class="text-bold text-center margin-top20 margin-bottom30">Upcoming bikes from <%= mmv.Make %></h2>
                 <div class="content-box-shadow rounded-corner2">
                     <div class="jcarousel-wrapper upcoming-brand-bikes-container margin-top20">
                         <div class="jcarousel">
                             <ul>
                                 <BW:UpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
-                                <!-- Upcoming Bikes Control-->
                             </ul>
                         </div>
                         <span class="jcarousel-control-left"><a href="#" class="bwsprite jcarousel-control-prev"></a></span>

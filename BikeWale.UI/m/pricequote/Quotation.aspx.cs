@@ -16,6 +16,8 @@ using System.Data;
 using System.Configuration;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Mobile.controls;
+using Bikewale.Mobile.Controls;
 
 
 namespace Bikewale.Mobile.PriceQuote
@@ -30,6 +32,8 @@ namespace Bikewale.Mobile.PriceQuote
         protected DropDownList ddlVersion;
         ulong pqId = 0;
         uint versionId = 0;
+        protected AlternativeBikes ctrlAlternateBikes;
+        protected MUpcomingBikes ctrlUpcomingBikes;
         //protected Repeater rptAllVersions;
 
         protected List<BikeVersionsListEntity> versionList = null;
@@ -43,6 +47,7 @@ namespace Bikewale.Mobile.PriceQuote
         protected void Page_Load(object sender, EventArgs e)
         {
             ProcessPriceQuoteData();
+
         }
 
         protected void ProcessPriceQuoteData()
@@ -69,6 +74,15 @@ namespace Bikewale.Mobile.PriceQuote
                     {
                         GetPriceQuoteById();
                         BindVersion(objVersionDetails.ModelBase.ModelId);
+
+                    //alternative bikes
+                     BindAlternativeBikeControl(Convert.ToString(objVersionDetails.VersionId));
+
+                    //To get Upcoming Bike List Details 
+                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                    ctrlUpcomingBikes.pageSize = 6;
+                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(objVersionDetails.MakeBase.MakeId);
+
                     }
                 }
                 else
@@ -201,6 +215,19 @@ namespace Bikewale.Mobile.PriceQuote
                     this.Page.Visible = false;
                 }
             }
+
         }
+
+        private void BindAlternativeBikeControl(string versionId)
+        {
+            ctrlAlternateBikes.TopCount = 6;
+            string versionIdd = Convert.ToString(objVersionDetails.VersionId);
+
+            if (!String.IsNullOrEmpty(versionIdd) && versionIdd != "0")
+            {
+                ctrlAlternateBikes.VersionId = Convert.ToInt32(versionIdd);
+            }
+        }
+
     }   // class
 }   // namespace

@@ -113,7 +113,9 @@
                     <% if(objPrice != null) { %>
                         <p class="font20 text-bold margin-bottom20"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " +objPrice.objVersion.VersionName%></p>
                     <% } %>
+                    <% if(!String.IsNullOrEmpty(cityArea)){ %>
                     <p class="font16 margin-bottom15">On-road price in <%= cityArea %></p>
+                    <% } %>
                     <div runat="server">
                         <div>
                         <% if(objPrice != null) { %>

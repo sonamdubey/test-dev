@@ -292,6 +292,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
+.headerTitle { position:relative; top:-2px; left:-10px;}
+.white-back-arrow{background:url("http://img.aeplcdn.com/bikewaleimg/m/images/white-back-arrow.png") no-repeat scroll left top; width: 27px; height: 20px; cursor: pointer; position: relative; top:0; display: block; }
+.white-back-arrow:hover{background-position:left top;}
 .bw-logo { background-position: -31px 0px; width: 84px; height: 24px; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }
