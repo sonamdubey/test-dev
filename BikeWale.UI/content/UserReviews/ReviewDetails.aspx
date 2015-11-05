@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="BikeWale" TagName="DiscussIt" Src="/Controls/DiscussIt.ascx" %>
 <%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%@ Register TagPrefix="LD" TagName="LocateDealer" Src="/controls/locatedealer.ascx" %>
+<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%
     title 			= _title + " - A Review on " + BikeMake + " " + BikeModel + " by " + reviewerName;
 	description 	= BikeMake + " User Review - " + "A review/feedback on " + BikeName + " by " + reviewerName + ". Find out what " + reviewerName + " has to say about " + BikeName + ".";
@@ -11,10 +12,7 @@
     AdPath = "/1017752/BikeWale_New_";
     alternate = "http://www.bikewale.com/m/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/user-reviews/" + reviewerId + ".html";
  %>
-<!-- #include file="/includes/headnew.aspx" -->
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
-
+<!-- #include file="/includes/headnew.aspx" --> 
     <div class="container_12">
         <div class="grid_12">
             <ul class="breadcrumb">
@@ -234,4 +232,5 @@
             }
         }
 </script>
+<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerinner.aspx" -->

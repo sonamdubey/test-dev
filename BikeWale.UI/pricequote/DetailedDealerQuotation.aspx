@@ -15,7 +15,7 @@
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 
-<PW:PopupWidget runat="server" ID="PopupWidget" />
+
 
 <%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
 <link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
@@ -806,6 +806,7 @@
 <noscript>
     <img src="//bat.bing.com/action/0?ti=4051835&Ver=2" height="0" width="0" style="display: none; visibility: hidden;" /></noscript>
 <!-- Bing Code Ends here -->
+<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerInner.aspx" -->
 
 
