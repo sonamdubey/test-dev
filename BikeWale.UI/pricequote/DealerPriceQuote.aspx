@@ -102,7 +102,7 @@
                     </div>
                     <% if(versionList.Count > 1) { %>
                     <div class="pqVariants">
-                        <p class="font16 margin-bottom5">Select Variant</p>
+                        <p class="font14 margin-bottom5">Variants</p>
                         <div class="form-control-box">
                             <asp:DropDownList id="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
                         </div>
