@@ -36,10 +36,10 @@ namespace Bikewale.DTO.PriceQuote.BikeBooking
         [JsonProperty("offers")]
         public IList<DealerOfferDTO> Offers { get; set; }
 
-        /// <summary>
-        /// Bike Model Colors
-        /// </summary>
-        [JsonProperty("modelColors")]
-        public IEnumerable<ModelColor> BikeModelColors { get; set; }
+        ///// <summary>
+        ///// Bike Model Colors
+        ///// </summary>
+        //[JsonProperty("modelColors")]
+        //public IEnumerable<ModelColor> BikeModelColors { get; set; }
     }
 }
