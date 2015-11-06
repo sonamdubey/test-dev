@@ -12,6 +12,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using Bikewale.Cache.UsedBikes;
 
 namespace Bikewale.Service.Controllers.UsedBikes
 {
@@ -23,9 +24,11 @@ namespace Bikewale.Service.Controllers.UsedBikes
     public class PopularUsedBikesController : ApiController
     { 
         private readonly  IUsedBikes _usedBikesRepo = null;
-        public PopularUsedBikesController(IUsedBikes usedBikesRepo)
+        private readonly IPopularUsedBikesCacheRepository _cache = null;
+        public PopularUsedBikesController(IUsedBikes usedBikesRepo, IPopularUsedBikesCacheRepository cache)
         {
             _usedBikesRepo = usedBikesRepo;
+            _cache = cache;
         }
         
         #region Popular Used Bikes List
@@ -42,7 +45,8 @@ namespace Bikewale.Service.Controllers.UsedBikes
             IEnumerable<PopularUsedBikesBase> objDTOUsedBikesList = null;
             try
             {
-                objUsedBikesList = _usedBikesRepo.GetPopularUsedBikes(topCount, cityId);
+                objUsedBikesList = _cache.GetPopularUsedBikes(topCount, cityId);
+                    //_usedBikesRepo.GetPopularUsedBikes(topCount, cityId);
 
                 if (objUsedBikesList != null)
                 {
