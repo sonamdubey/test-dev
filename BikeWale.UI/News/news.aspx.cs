@@ -86,7 +86,7 @@ namespace Bikewale.News
                 string _requestType = "application/json";
                 string _apiUrl = "webapi/article/contentdetail/?basicid=" + _basicId;
 
-                objArticle = await BWHttpClient.GetApiResponse<ArticleDetails>(_cwHostUrl, _requestType, _apiUrl, objArticle);
+                objArticle = await Bikewale.Utility.BWHttpClient.GetApiResponse<ArticleDetails>(_cwHostUrl, _requestType, _apiUrl, objArticle);
 
                 if (objArticle == null)
                     _isContentFount = false;
