@@ -38,6 +38,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Compare;
+using Bikewale.Cache.UsedBikes;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -82,6 +83,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IProcessFilter, ProcessFilter>();
             container.RegisterType<ICacheManager, MemcacheManager>();
             container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
+            container.RegisterType<IPopularUsedBikesCacheRepository,PopularUsedBikesCacheRepository>();
             container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
 
 
