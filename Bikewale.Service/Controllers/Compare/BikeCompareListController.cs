@@ -17,17 +17,30 @@ namespace Bikewale.Service.Controllers.Compare
     /// Bike Compare List Controller
     /// Author  :   Sumit Kate
     /// Created On : 27 Aug 2015
+    /// Modified By : Lucky Rathore on 06 Nov. 2015
+    /// Description : cache functionality added.  
     /// </summary>
     public class BikeCompareListController : ApiController
     {
         private readonly IBikeCompare _bikeCompare = null;
-        public BikeCompareListController(IBikeCompare bikeCompare)
+        private readonly IBikeCompareCacheRepository _cache = null;
+
+        /// <summary>
+        /// Modified By : Lucky Rathore on 06 Nov. 2015
+        /// Desctption : add 'IBikeCompareCacheRepository cache' parameter 
+        /// </summary>
+        /// <param name="bikeCompare"></param>
+        /// <param name="cache"></param>
+        public BikeCompareListController(IBikeCompare bikeCompare,IBikeCompareCacheRepository cache)
         {
             _bikeCompare = bikeCompare;
+            _cache = cache;
         }
 
         /// <summary>
         /// Gets the Top 'n' Bike Compare List
+        /// Modified by : Lucky Rathore on 06 Nov. 2015
+        /// Description : compare List called by cache.
         /// </summary>
         /// <param name="topCount">Top count</param>
         /// <returns></returns>
@@ -37,7 +50,7 @@ namespace Bikewale.Service.Controllers.Compare
             IEnumerable<TopBikeCompareBase> topBikeComapreList = null;
             try
             {
-                topBikeComapreList = _bikeCompare.CompareList(topCount);
+                topBikeComapreList = _cache.CompareList(topCount);
                 if (topBikeComapreList != null)
                 {
                     return Ok(topBikeComapreList);

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="BikeData\BikeModelMaskingCache.cs" />
     <Compile Include="BikeData\BikeModelsCacheRepository.cs" />
+    <Compile Include="Compare\BikeCompareCacheRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

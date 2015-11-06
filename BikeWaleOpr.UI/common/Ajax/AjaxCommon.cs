@@ -5,6 +5,8 @@ using System.Data.SqlClient;
 using AjaxPro;
 using BikeWaleOpr.VO;
 using BikeWaleOpr.Classified;
+using System.Configuration;
+using Enyim.Caching;
 
 namespace BikeWaleOpr.Common
 {
@@ -14,6 +16,7 @@ namespace BikeWaleOpr.Common
     /// </summary>
     public class AjaxCommon
     {
+        protected static MemcachedClient _mc = null;
         /// <summary>
         ///  Written By : Ashish G. Kamble on 6 Aug 2013
         ///  Method to get model id and model name to fill the drop down list
@@ -339,18 +342,30 @@ namespace BikeWaleOpr.Common
         /// <summary>
         /// Craeted By : Sadhana Upadhyay on 12th Feb 2014
         /// Description : To update Compare Bike priorities
+        /// Modified By : Sadhana Upadhyay on 06 Nov. 2015
+        /// Description : Invaliding Cache for compare Bikes Introduce. 
         /// </summary>
         /// <param name="prioritiesList"></param>
         [AjaxPro.AjaxMethod()]
         public void UpdatePriorities(string prioritiesList)
         {
+            bool _isMemcachedUsed = false;
             if (prioritiesList.Length > 0)
                 prioritiesList = prioritiesList.Substring(0, prioritiesList.Length - 1);
 
             try
             {
+                _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
+                if (_mc == null)
+                {
+                    _mc = new MemcachedClient("memcached");
+                }
+
                 CompareBike compBike = new CompareBike();
                 compBike.UpdatePriorities(prioritiesList);
+
+                if (_mc.Get("BW_CompareBikes") != null)
+                    _mc.Remove("BW_CompareBikes");
             }
             catch (Exception err)
             {
