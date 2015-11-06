@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.BikeBooking.DealerPriceQuote" trace="false" Async="true" %>
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="Bikewale.BikeBooking" %>
 <!doctype html>
@@ -15,7 +16,8 @@
 %>
 <script>var quotationPage = true;</script>
 <!-- #include file="/includes/headscript_mobile.aspx" -->
-<link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" />
+<link rel="stylesheet"  href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
+<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" />
 <script type="text/javascript">
     var dealerId = '<%= dealerId%>';
     var pqId = '<%= pqId%>';
@@ -201,9 +203,11 @@
     });
 </script>
 
+<BW:MPopupWidget runat="server" ID="MPopupWidget" />
 <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 <!-- all other js plugins -->
 <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
 </form>
 </body>
 </html>
