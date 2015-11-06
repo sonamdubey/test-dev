@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Bikewale.Entities.Compare
 {
     /// <summary>
-    /// Modified By : Sadhna Upadhayay on 06-11-2015.
+    /// Modified By : Sadhna Upadhayay on 06 Nov. 2015.
     /// Description : Introduce [Serializable].
     /// </summary>
     [Serializable]

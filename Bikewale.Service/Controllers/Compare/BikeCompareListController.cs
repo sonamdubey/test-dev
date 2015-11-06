@@ -17,7 +17,7 @@ namespace Bikewale.Service.Controllers.Compare
     /// Bike Compare List Controller
     /// Author  :   Sumit Kate
     /// Created On : 27 Aug 2015
-    /// Modified By : Lucky Rathore on 06-11-2015
+    /// Modified By : Lucky Rathore on 06 Nov. 2015
     /// Description : cache functionality added.  
     /// </summary>
     public class BikeCompareListController : ApiController
@@ -26,7 +26,7 @@ namespace Bikewale.Service.Controllers.Compare
         private readonly IBikeCompareCacheRepository _cache = null;
 
         /// <summary>
-        /// Modified By : Lucky Rathore on 06-11-2015
+        /// Modified By : Lucky Rathore on 06 Nov. 2015
         /// Desctption : add 'IBikeCompareCacheRepository cache' parameter 
         /// </summary>
         /// <param name="bikeCompare"></param>
@@ -39,7 +39,7 @@ namespace Bikewale.Service.Controllers.Compare
 
         /// <summary>
         /// Gets the Top 'n' Bike Compare List
-        /// Modified by : Lucky Rathore on 06-11-2015
+        /// Modified by : Lucky Rathore on 06 Nov. 2015
         /// Description : compare List called by cache.
         /// </summary>
         /// <param name="topCount">Top count</param>

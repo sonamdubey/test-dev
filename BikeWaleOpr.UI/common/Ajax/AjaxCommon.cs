@@ -342,7 +342,7 @@ namespace BikeWaleOpr.Common
         /// <summary>
         /// Craeted By : Sadhana Upadhyay on 12th Feb 2014
         /// Description : To update Compare Bike priorities
-        /// Modified By : Sadhana Upadhyay on 06-11-2015
+        /// Modified By : Sadhana Upadhyay on 06 Nov. 2015
         /// Description : Invaliding Cache for compare Bikes Introduce. 
         /// </summary>
         /// <param name="prioritiesList"></param>

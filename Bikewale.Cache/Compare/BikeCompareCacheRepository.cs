@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace Bikewale.Cache.Compare
 {
     /// <summary>
-    /// Created By : Lucky Rathore on 06-11-2015
+    /// Created By : Lucky Rathore on 06 Nov. 2015.
     /// Description : Use for caching Popular compare bike Widget.
     /// </summary>
     public class BikeCompareCacheRepository : IBikeCompareCacheRepository
@@ -23,7 +23,7 @@ namespace Bikewale.Cache.Compare
         }
 
         /// <summary>
-        /// Created by : Lucky Rathore on 06-11-2015
+        /// Created by : Lucky Rathore on 06 Nov. 2015.
         /// Description : For getting information of popular bikes.
         /// </summary>
         /// <param name="topCount"></param>
