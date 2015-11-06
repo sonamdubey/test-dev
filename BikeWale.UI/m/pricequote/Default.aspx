@@ -10,7 +10,7 @@
     menu = "3";
 %>
 <!-- #include file="/includes/headermobile_noad.aspx" -->
-<script type="text/javascript" src="/m/src/placeholder.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/placeholder.js?v=1.0"></script>
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
 <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
 <style type="text/css">

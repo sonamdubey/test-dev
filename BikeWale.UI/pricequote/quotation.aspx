@@ -196,37 +196,10 @@
 
         makeMapName = '<%= mmv.MakeMappingName%>';
         modelMapName = '<%= mmv.ModelMappingName%>';
-        $("#version_" + '<%= versionId%>').html("<b>this bike</b>");
-
+        $("#version_" + '<%= versionId%>').html("<b>this bike</b>"); 
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': selectedModel });
     });
 
-    //function compareSelected() {
-    //    var compareURL = "/comparebikes/";
-    //    var objSelCompare = $("#tblAllVersions :checkbox:checked");
-    //    var i = 1;
-
-    //    if (objSelCompare.length < 2) {
-    //        alert("Please select atleast two versions to compare");
-    //    } else if (objSelCompare.length > 4) {
-    //        alert("You can select upto 4 versions for comparison");
-    //    } else {
-    //        var compareQS = "?";
-    //        objSelCompare.each(function () {
-    //            if (i == 1) {
-    //                compareURL += makeMapName + "-" + modelMapName;
-    //                compareQS += "bike" + i + "=" + $(this).val();
-    //            } else {
-    //                compareURL += "-vs-" + makeMapName + "-" + modelMapName;
-    //                compareQS += "&bike" + i + "=" + $(this).val();
-    //            }
-    //            i++;
-    //        });
-    //        compareURL += "/" + compareQS;
-
-    //        window.open(compareURL, "", "", "");
-    //    }
-    //}
 </script>
 </form>
 </body>

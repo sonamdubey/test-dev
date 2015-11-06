@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.DealerPriceQuote" Trace="false" Async="true" EnableEventValidation="false"%>
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
+<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="Bikewale.BikeBooking" %>
 
@@ -13,8 +14,6 @@
     AdId = "1395986297721";
     AdPath = "/1017752/Bikewale_PriceQuote_";
     isAd970x90Shown = true;
-    //canonical = "http://www.bikewale.com/pricequote/";
-    //alternate = "http://www.bikewale.com/m/pricequote/";
 %>
 <!-- #include file="/includes/headscript.aspx" -->
 <style type="text/css">
@@ -50,7 +49,6 @@
         Customername = '<%= CustomerDetailCookie.CustomerName%>', email = '<%= CustomerDetailCookie.CustomerEmail%>', mobileNo = '<%= CustomerDetailCookie.CustomerMobile %>';
     }
 </script>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
