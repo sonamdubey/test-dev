@@ -325,12 +325,13 @@
                                     <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10">change location</span></p>
                                     <p class="font12 margin-bottom15 text-light-grey" id="breakup"></p>
                                     <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
-                                    <input type="button" class="btn btn-orange" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
+                                    <%--<input type="button" class="btn btn-orange" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />--%>
                                     <!-- /ko -->
                                     <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && !(priceQuote().dealerPriceQuote.offers.length > 0) -->
-                                    <input type="button" class="btn btn-orange" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />
+                                    <%--<input type="button" class="btn btn-orange" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />--%>
                                     <!-- /ko -->
-
+                                    <input type="button" class="btn btn-orange" id="leadBtnBookNow" value="Book Now" />
+                                    
                                     <% if (modelId == "395" && isManufacturer)
                                        {%>
                                     <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible : IsValidManufacturer(),event: { click: $root.notifyAvailable }" value="Contact TVS for details" />
@@ -1167,6 +1168,63 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+        <!-- lead capture popup -->
+        <div id="leadCapturePopup" class="text-center rounded-corner2">
+            <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+            <p class="font20 margin-bottom10">Provide Contact Details</p>
+            <p class="text-light-grey margin-bottom20">For you to see BikeWale Dealer pricing and get a printable Certificate, we need your valid contact details. We promise to keep this information confidential and not use for any other purpose.</p>
+            <div class="personal-info-form-container">
+                <div class="form-control-box personal-info-list">
+                    <input type="text" class="form-control get-first-name" placeholder="First name (mandatory)"
+                        id="getFirstName" data-bind="value: viewModel.CustomerVM().firstName">
+                    <span class="bwsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                </div>
+                <div class="form-control-box personal-info-list">
+                    <input type="text" class="form-control get-last-name" placeholder="Last name"
+                        id="getLastName" data-bind="value: viewModel.CustomerVM().lastName">
+                    <span class="bwsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
+                </div>
+                <div class="form-control-box personal-info-list">
+                    <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
+                        id="getEmailID" data-bind="value: viewModel.CustomerVM().emailId">
+                    <span class="bwsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+                </div>
+                <div class="form-control-box personal-info-list">
+                    <input type="text" class="form-control get-mobile-no" placeholder="Mobile no. (mandatory)"
+                        id="getMobile" maxlength="10" data-bind="value: viewModel.CustomerVM().mobileNo">
+                    <span class="bwsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                </div>
+                <div class="clear"></div>
+                <a class="btn btn-orange margin-top20" id="user-details-submit-btn">Next</a>
+            </div>
+            <div class="mobile-verification-container hide">
+                <div class="input-border-bottom"></div>
+                <div class="margin-top20">
+                    <p class="font14 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
+                    <div class="form-control-box">
+                        <input type="text" class="form-control get-otp-code rightfloat" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
+                        <span class="bwsprite error-icon errorIcon hide"></span>
+                        <div class="bw-blackbg-tooltip errorText hide"></div>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+                <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() < 2), click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a>
+                <p class="otp-alert-text margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() >= 2)">
+                    OTP has been already sent to your mobile
+                </p>
+                <div class="clear"></div>
+                <br />
+                    <a class="btn btn-orange" id="otp-submit-btn">Confirm OTP</a>
+                    <div style="margin-right:70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
+            </div>
+        </div>
+
 
         <BW:PriceQuotePopup ID="ctrlPriceQuotePopup" runat="server" />
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />

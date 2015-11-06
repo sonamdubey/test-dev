@@ -472,6 +472,7 @@ $(document).ready(function () {
         if (e.keyCode === 27) {
             $("div.breakupCloseBtn").click();
             $("div.termsPopUpCloseBtn").click();
+            $("div.leadCapture-close-btn").click();
         }
     });
 
@@ -846,6 +847,21 @@ function insertModelCitySeparator(response) {
         }
     }
 }
+
+var leadBtnBookNow = $("#leadBtnBookNow"),
+    leadCapturePopup = $("#leadCapturePopup");
+
+leadBtnBookNow.on("click", function () {
+    leadCapturePopup.show();
+    $('body').addClass('lock-browser-scroll');
+    $(".blackOut-window-model").show();
+});
+
+$(".leadCapture-close-btn, .blackOut-window-model").click(function () {
+    leadCapturePopup.hide();
+    $('body').removeClass('lock-browser-scroll');
+    $(".blackOut-window-model").hide();
+});
 
 //800x600
 if ($(window).width() < 996 && $(window).width() > 790) {
