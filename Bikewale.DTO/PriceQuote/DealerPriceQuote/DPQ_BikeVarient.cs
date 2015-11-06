@@ -27,6 +27,8 @@ namespace Bikewale.DTO.PriceQuote.DealerPriceQuote
         public string OriginalImagePath { get; set; }
         [JsonProperty("onRoadPrice")]
         public UInt32 OnRoadPrice { get; set; }
+        [JsonProperty("bookingAmount")]
+        public UInt32 BookingAmount { get; set; }
         [JsonProperty("priceList")]
         public IList<DPQ_Price> PriceList { get; set; }
     }
