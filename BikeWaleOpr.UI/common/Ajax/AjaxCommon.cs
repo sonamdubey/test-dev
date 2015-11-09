@@ -17,6 +17,15 @@ namespace BikeWaleOpr.Common
     public class AjaxCommon
     {
         protected static MemcachedClient _mc = null;
+        bool _isMemcachedUsed = false;
+        public AjaxCommon()
+        {
+            _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
+            if (_mc == null && _isMemcachedUsed)
+            {
+                _mc = new MemcachedClient("memcached");
+            }
+        }
         /// <summary>
         ///  Written By : Ashish G. Kamble on 6 Aug 2013
         ///  Method to get model id and model name to fill the drop down list
@@ -348,24 +357,14 @@ namespace BikeWaleOpr.Common
         /// <param name="prioritiesList"></param>
         [AjaxPro.AjaxMethod()]
         public void UpdatePriorities(string prioritiesList)
-        {
-            bool _isMemcachedUsed = false;
+        {            
             if (prioritiesList.Length > 0)
                 prioritiesList = prioritiesList.Substring(0, prioritiesList.Length - 1);
-
             try
             {
-                _isMemcachedUsed = bool.Parse(ConfigurationManager.AppSettings.Get("IsMemcachedUsed"));
-                if (_mc == null)
-                {
-                    _mc = new MemcachedClient("memcached");
-                }
-
                 CompareBike compBike = new CompareBike();
                 compBike.UpdatePriorities(prioritiesList);
-
-                if (_mc.Get("BW_CompareBikes") != null)
-                    _mc.Remove("BW_CompareBikes");
+                _mc.Remove("BW_CompareBikes");
             }
             catch (Exception err)
             {
