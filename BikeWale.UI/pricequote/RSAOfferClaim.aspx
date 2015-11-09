@@ -269,7 +269,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">To complete your offer claim, please send a scanned copy / photograph of the invoice to <a href="mailto:contact@bikewale.com">contact@bikewale.com</a> to verify that the bike has been delivered to you.</td>                                            
+                                            <td colspan="2">To complete your offer claim, please send a scanned copy / photograph of the dealer invoice to <a href="mailto:contact@bikewale.com">contact@bikewale.com</a> to verify that the bike has been delivered to you.</td>                                            
                                         </tr>
                                         <tr>
                                             <td>&nbsp;</td>

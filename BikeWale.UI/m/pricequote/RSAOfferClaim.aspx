@@ -176,7 +176,7 @@
                             <asp:TextBox id="txtComments" rows="2" columns="60" textmode="MultiLine"  runat="server" placeholder="As Per Registration"></asp:TextBox>
                         </div>
                         <div>
-                            <p>To complete your offer claim, please send a scanned copy / photograph of the invoice to <a href="mailto:contact@bikewale.com">contact@bikewale.com</a> to verify that the bike has been delivered to you.</p>
+                            <p>To complete your offer claim, please send a scanned copy / photograph of the dealer invoice to <a href="mailto:contact@bikewale.com">contact@bikewale.com</a> to verify that the bike has been delivered to you.</p>
                         </div>
                         <div class="avail-offer-form margin-top20" data-role="none">                    	    
                             <asp:Button class="rounded-corner5" id="btnSubmit" Text="Claim Offer" runat="server" data-role="none" />
