@@ -229,6 +229,8 @@ navigationVideosLI.click(function () {
     videoiFrame.setAttribute("src", newSrc);
 });
 
+var viewModel = null;
+
 var pqCookieObj = {
         PQCitySelectedId: 0,
         PQAreaSelectedId: 0,
@@ -265,6 +267,7 @@ function pqViewModel(modelId, cityId) {
     self.selectedCity = ko.observable(cityId);
     self.selectedArea = ko.observable();
     self.selectedModel = ko.observable(modelId);
+    self.CustomerVM = ko.observable(new CustomerModel());
     self.priceQuote = ko.observable();
     self.DealerPriceList = ko.observableArray([]);
     self.BWPriceList = ko.observable();
@@ -372,7 +375,7 @@ function pqViewModel(modelId, cityId) {
 
     self.showLeadForm = function () {
 
-        $("#leadCapturePopup").show();
+        leadCapturePopup.show();
         $('body').addClass('lock-browser-scroll');
         $(".blackOut-window-model").show();
 
@@ -511,7 +514,7 @@ function CustomerModel() {
 
 
 function InitVM(cityId) {
-    var viewModel = new pqViewModel(vmModelId, cityId);
+    viewModel = new pqViewModel(vmModelId, cityId);
     modelViewModel = viewModel;
     ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
     viewModel.LoadCity();
@@ -1051,7 +1054,8 @@ var lastname = $("#getLastName");
 var emailid = $("#getEmailID");
 var mobile = $("#getMobile");
 var otpContainer = $(".mobile-verification-container");
-
+var leadBtnBookNow = $("#leadBtnBookNow"),
+   leadCapturePopup = $("#leadCapturePopup");
 var detailsSubmitBtn = $("#user-details-submit-btn");
 var otpText = $("#getOTP");
 var otpBtn = $("#otp-submit-btn");
@@ -1066,7 +1070,7 @@ detailsSubmitBtn.click(function () {
             $("#personalInfo").hide();
             $(".call-for-queries").hide();
 
-            window.location.href = "/pricequote/bookingsummary_new.aspx";
+            window.location.href = "/m/pricequote/bookingsummary_new.aspx";
         }
         else {
             otpContainer.removeClass("hide").addClass("show");
@@ -1291,7 +1295,7 @@ otpBtn.click(function () {
             // OTP Success
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
 
-            window.location.href = "/pricequote/bookingsummary_new.aspx";
+            window.location.href = "/m/pricequote/bookingsummary_new.aspx";
         }
         else {
             $('#processing').hide();

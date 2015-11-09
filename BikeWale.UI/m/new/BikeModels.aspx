@@ -235,9 +235,67 @@
                             <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
                             <input type="button" class="btn btn-orange btn-full-width" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
                             <!-- /ko -->
-                            <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length <= 0) -->
-                            <input type="button" class="btn btn-orange btn-full-width" id="btnBook" onclick="$('.blackOut-window').show(); $('#contact-details').removeClass('hide')" <%--data-bind="    event: { click: $root.availOfferBtn }"--%> value="Book Now" />
+                            <!-- ko if : showBookNow() -->
+                            <input type="button" class="btn btn-orange" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />
                             <!-- /ko -->
+                            <!-- ko if : captureLead()  -->
+                            <input type="button" class="btn btn-orange" data-bind="event: { click: $root.showLeadForm }" id="leadBtnBookNow" value="Get Dealer Details" />
+                            <!-- /ko -->
+                            <!-- lead capture popup -->
+                            <div id="leadCapturePopup" class="bw-popup contact-details hide">
+                                <div class="popup-inner-container">
+                                    <div class="bwmsprite close-btn rightfloat"></div>
+                                    <h2>Please provide us contact details</h2>
+
+                                    <div class="personal-info-form-container margin-top10">
+                                        <div class="form-control-box">
+                                            <input type="text" class="form-control get-first-name" placeholder="First name" id="getFirstName" data-bind="value: viewModel.CustomerVM().firstName">
+                                            <span class="bwmsprite error-icon "></span>
+                                            <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                                        </div>
+                                        <div class="form-control-box margin-top20">
+                                            <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: viewModel.CustomerVM().lastName">
+                                            <span class="bwmsprite error-icon"></span>
+                                            <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
+                                        </div>
+                                        <div class="form-control-box margin-top20">
+                                            <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: viewModel.CustomerVM().emailId">
+                                            <span class="bwmsprite error-icon"></span>
+                                            <div class="bw-blackbg-tooltip errorText">Please enter your email adress</div>
+                                        </div>
+                                        <div class="form-control-box margin-top20">
+                                            <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: viewModel.CustomerVM().mobileNo">
+                                            <span class="bwmsprite error-icon"></span>
+                                            <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn">Submit</a>
+                                    </div>
+
+                                    <div class="mobile-verification-container margin-top20 hide">
+                                        <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
+                                        <div class="form-control-box  padding-left15 padding-right15">
+                                            <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
+                                            <span class="bwmsprite error-icon hide"></span>
+                                            <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
+                                        </div>
+                                        <div class="text-center padding-top10">
+                                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() < 2), click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a>
+                                            <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() >= 2)" style="display: none;">
+                                                OTP has been already sent to your mobile
+                                            </p>
+                                        </div>
+
+                                        <div class="clear"></div>
+                                        <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
+                                        <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
+                                    </div>
+
+                                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails(); dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - TVS Wego&gt;', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });" class="rounded-corner5" data-role="none" id="btnSubmit" />
+                                </div>
+                            </div>
+
+
                             <% if (modelId == "395" && isManufacturer)
                                {%>
                             <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible: IsValidManufacturer(), event: { click: $root.notifyAvailable }" value="Contact TVS for details" />
@@ -1112,62 +1170,6 @@
             <% } %>
 
         </script>
-
-
-
-        <!-------------------------- contact-details popup ---------------------------->
-        <div id="contact-details" class="bw-popup contact-details hide">
-            <div class="popup-inner-container">
-                <div class="bwmsprite close-btn rightfloat"></div>
-                <h2>Please provide us contact details</h2>
-
-                <div class="personal-info-form-container margin-top10">
-                    <div class="form-control-box">
-                        <input type="text" class="form-control get-first-name" placeholder="First name" id="getFirstName" data-bind="value: viewModel.CustomerVM().firstName">
-                        <span class="bwmsprite error-icon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
-                    </div>
-                    <div class="form-control-box margin-top20">
-                        <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: viewModel.CustomerVM().lastName">
-                        <span class="bwmsprite error-icon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
-                    </div>
-                    <div class="form-control-box margin-top20">
-                        <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: viewModel.CustomerVM().emailId">
-                        <span class="bwmsprite error-icon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter your email adress</div>
-                    </div>
-                    <div class="form-control-box margin-top20">
-                        <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: viewModel.CustomerVM().mobileNo">
-                        <span class="bwmsprite error-icon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-                    </div>
-                    <div class="clear"></div>
-                    <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" onclick="$('.mobile-verification-container').removeClass('hide')">Next</a>
-                </div>
-
-                <div class="mobile-verification-container margin-top20 hide">
-                            <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
-                            <div class="form-control-box  padding-left15 padding-right15">
-                                <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
-                                <span class="bwmsprite error-icon hide"></span>
-                                <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
-                            </div>
-                            <div class="text-center padding-top10">                                 
-                                <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() < 2), click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a>
-                                <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() >= 2)" style="display: none;">
-                                    OTP has been already sent to your mobile
-                                </p>
-                            </div>
-
-                            <div class="clear"></div>
-                            <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
-                            <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
-                        </div>
-
-                <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails(); dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - TVS Wego&gt;', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });" class="rounded-corner5" data-role="none" id="btnSubmit" />
-            </div>
-        </div>
 
     </form>
 </body>
