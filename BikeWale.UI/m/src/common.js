@@ -86,7 +86,11 @@ $(document).ready(function () {
 	
 	 $('.globalcity-close-btn').click(function () {
         CloseCityPopUp();
-    });
+	 });
+
+	 $('.bw-popup .close-btn').click(function () {
+	     closePopUp();
+	 });
 	
 	function CloseCityPopUp() {
 		var globalLocation = $("#globalcity-popup");
@@ -95,6 +99,11 @@ $(document).ready(function () {
 		unlockPopup();
 		if (!isCookieExists("location"))
 		    SetCookieInDays("location", "0", 365);
+	}
+
+	function closePopUp() {
+	    var bwPopup = $(document).find('.bw-popup');
+	    bwPopup.removeClass("show").addClass("hide");
 	}
 
 	$("#globalCity").autocomplete({

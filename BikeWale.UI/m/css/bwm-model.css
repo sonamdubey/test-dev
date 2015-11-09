@@ -182,4 +182,5 @@
 #notify-form .grid-12 { padding: 10px 20px; }
 .personal-info-notify-container input { margin:0 auto; } 
 .notify-offers-list { list-style:disc; margin-left:10px; }
-#notifyAvailabilityContainer .notify-close-btn {z-index:2;} 
+#notifyAvailabilityContainer .notify-close-btn {z-index:2;}
+#leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 

@@ -144,13 +144,6 @@ var mobileValTrue = function () {
     mobile.siblings("span, div").hide();
 };
 
-//emailid.change(function () {
-//    viewModel.CustomerVM().IsVerified(false);
-//});
-
-//mobile.change(function () {
-//    viewModel.CustomerVM().IsVerified(false);
-//});
 
 otpText.on("focus", function () {
     otpText.val('');
