@@ -306,104 +306,162 @@
                             </div>
                             <!-- /ko -->
                             <!-- City and Area  msgs and select controls starts-->
-                            <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible: popularCityClicked()">
+                                <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible: popularCityClicked()">
 
-                                <div id="locationError">
-                                    <div class="city-select-text text-left margin-bottom15 " data-bind="visible: !selectedCity() || cities()">
-                                        <p class="font16">Select city for accurate on-road price and exclusive offers</p>
+                                    <div id="locationError">
+                                        <div class="city-select-text text-left margin-bottom15 " data-bind="visible: !selectedCity() || cities()">
+                                            <p class="font16">Select city for accurate on-road price and exclusive offers</p>
+                                        </div>
+
+                                        <!-- ko if : selectedCity() && areas()  && areas().length > 0-->
+                                        <div class="area-select-text text-left margin-bottom15 ">
+                                            <p class="font16">Select area for on-road price and exclusive offers</p>
+                                        </div>
+                                        <!-- /ko -->
                                     </div>
+                                    <!-- On Road Price mesasge starts -->
+                                    <!-- ko if : BWPriceList() || DealerPriceList() -->
+                                    <div class="city-onRoad-price-container font16 margin-bottom15 hide">
+                                        <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10">change location</span></p>
+                                        <p class="font12 margin-bottom15 text-light-grey" id="breakup"></p>
+                                        <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
+                                        <input type="button" class="btn btn-orange" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
+                                        <!-- /ko -->
+                                        <!-- ko if : showBookNow() -->
+                                        <input type="button" class="btn btn-orange" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />
+                                        <!-- /ko -->
+                                        <!-- ko if : captureLead()  -->
+                                        <input type="button" class="btn btn-orange" data-bind="event: { click: $root.showLeadForm }" id="leadBtnBookNow" value="Get Dealer Details" />
+                                        <!-- /ko -->
 
-                                    <!-- ko if : selectedCity() && areas()  && areas().length > 0-->
-                                    <div class="area-select-text text-left margin-bottom15 ">
-                                        <p class="font16">Select area for on-road price and exclusive offers</p>
-                                    </div>
-                                    <!-- /ko -->
-                                </div>
-                                <!-- On Road Price mesasge starts -->
-                                <!-- ko if : BWPriceList() || DealerPriceList() -->
-                                <div class="city-onRoad-price-container font16 margin-bottom15 hide">
-                                    <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10">change location</span></p>
-                                    <p class="font12 margin-bottom15 text-light-grey" id="breakup"></p>
-                                    <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
-                                    <%--<input type="button" class="btn btn-orange" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />--%>
-                                    <!-- /ko -->
-                                    <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && !(priceQuote().dealerPriceQuote.offers.length > 0) -->
-                                    <%--<input type="button" class="btn btn-orange" id="btnBook" data-bind="event: { click: $root.availOfferBtn }" value="Book Now" />--%>
-                                    <!-- /ko -->
-                                    <input type="button" class="btn btn-orange" id="leadBtnBookNow" value="Book Now" />
-                                    
-                                    <% if (modelId == "395" && isManufacturer)
-                                       {%>
-                                    <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible : IsValidManufacturer(),event: { click: $root.notifyAvailable }" value="Contact TVS for details" />
-
-                                    <!-- Notify Availablity Popup starts here -->
-                                    <div class="notifyAvailabilityContainer rounded-corner2 hide" id="notifyAvailabilityContainer">
-                                        <div class="notify-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                                        <div id="notify-form">
-                                            <div class="grid-6">
-                                                <p class="font18 margin-bottom15 text-center">Latest Scooty Zest Features</p>
-                                                <ul class="notify-offers-list font14 margin-bottom10">
-                                                    <li>First Scooter with a built in Smart phone charger</li>
-                                                    <li>Available in Pearl Peach Color</li>
-                                                    <li>First 110cc Scooter to conquer the highest motorable Himalayan road</li>
-                                                </ul>
-                                            </div>
-                                            <div class="grid-6 border-solid-left">
-                                                <div class="notify-lead-info-form">
-                                                    <p class="text-center font18 margin-bottom10">To know more provide your details & TVS will call you back</p>
-                                                    <div class="form-control-box personal-info-notify-container margin-bottom20">
-                                                        <input type="text" class="form-control get-lead-name" placeholder="Name (mandatory)" id="getLeadName">
-                                                        <span class="bwsprite error-icon errorIcon hide"></span>
-                                                        <div class="bw-blackbg-tooltip errorText hide">Please enter your name</div>
-                                                    </div>
-                                                    <div class="form-control-box personal-info-notify-container margin-bottom20">
-                                                        <input type="text" class="form-control get-lead-email" placeholder="Email address (mandatory)" id="getLeadEmail">
-                                                        <span class="bwsprite error-icon errorIcon hide"></span>
-                                                        <div class="bw-blackbg-tooltip errorText hide">Please enter your email</div>
-                                                    </div>
-                                                    <div class="form-control-box personal-info-notify-container margin-bottom25">
-                                                        <input type="text" class="form-control get-lead-mobile" maxlength="10" placeholder="Mobile no. (mandatory)" id="getLeadMobile">
-                                                        <span class="bwsprite error-icon errorIcon hide"></span>
-                                                        <div class="bw-blackbg-tooltip errorText hide">Please enter your mobile no.</div>
-                                                    </div>
-                                                    <div class="text-center margin-bottom20">
-                                                        <input type="button" id="notifySubmitInfo" class="btn btn-orange" value="Submit" />
-                                                    </div>
-                                                    <p class="font12 text-light-grey">By proceeding ahead, you agree to BikeWale <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a>.</p>
+                                        <!-- lead capture popup -->
+                                        <div id="leadCapturePopup" class="text-center rounded-corner2">
+                                            <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                            <p class="font20 margin-bottom10">Provide Contact Details</p>
+                                            <p class="text-light-grey margin-bottom20">For you to see BikeWale Dealer pricing and get a printable Certificate, we need your valid contact details. We promise to keep this information confidential and not use for any other purpose.</p>
+                                            <div class="personal-info-form-container">
+                                                <div class="form-control-box personal-info-list">
+                                                    <input type="text" class="form-control get-first-name" placeholder="First name (mandatory)"
+                                                        id="getFirstName" data-bind="value: viewModel.CustomerVM().firstName">
+                                                    <span class="bwsprite error-icon errorIcon"></span>
+                                                    <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
                                                 </div>
+                                                <div class="form-control-box personal-info-list">
+                                                    <input type="text" class="form-control get-last-name" placeholder="Last name"
+                                                        id="getLastName" data-bind="value: viewModel.CustomerVM().lastName">
+                                                    <span class="bwsprite error-icon errorIcon"></span>
+                                                    <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
+                                                </div>
+                                                <div class="form-control-box personal-info-list">
+                                                    <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
+                                                        id="getEmailID" data-bind="value: viewModel.CustomerVM().emailId">
+                                                    <span class="bwsprite error-icon errorIcon"></span>
+                                                    <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+                                                </div>
+                                                <div class="form-control-box personal-info-list">
+                                                    <input type="text" class="form-control get-mobile-no" placeholder="Mobile no. (mandatory)"
+                                                        id="getMobile" maxlength="10" data-bind="value: viewModel.CustomerVM().mobileNo">
+                                                    <span class="bwsprite error-icon errorIcon"></span>
+                                                    <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                                                </div>
+                                                <div class="clear"></div>
+                                                <a class="btn btn-orange margin-top20" id="user-details-submit-btn">Submit</a>
                                             </div>
-                                            <div class="clear"></div>
-                                        </div>
-                                        <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
-                                            <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                                            <p class="font16 margin-bottom40">TVS Motor Company would get back to you shortly with additional information on TVS Scooty Zest.</p>
-                                            <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
+                                            <div class="mobile-verification-container hide">
+                                                <div class="input-border-bottom"></div>
+                                                <div class="margin-top20">
+                                                    <p class="font14 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
+                                                    <div class="form-control-box">
+                                                        <input type="text" class="form-control get-otp-code rightfloat" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
+                                                        <span class="bwsprite error-icon errorIcon hide"></span>
+                                                        <div class="bw-blackbg-tooltip errorText hide"></div>
+                                                    </div>
 
+                                                    <div class="clear"></div>
+                                                </div>
+                                                <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() < 2), click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a>
+                                                <p class="otp-alert-text margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() >= 2)">
+                                                    OTP has been already sent to your mobile
+                                                </p>
+                                                <div class="clear"></div>
+                                                <br />
+                                                <a class="btn btn-orange" id="otp-submit-btn">Confirm OTP</a>
+                                                <div style="margin-right: 70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- Notify popup ends here -->
-                                    <%} %>
-                                </div>
-                                <!-- /ko -->
-                                <!-- On Road Price mesasge ends  -->
-                                <!-- City/Area Select controls starts -->
-                                <div class="city-area-wrapper">
-                                    <!-- ko if : cities()  && cities().length > 0 -->
-                                    <div class="city-select leftfloat margin-right20 position-rel">
-                                        <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display: none"></span>
-                                        <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', chosen: { width: '190px' }"></select>
+
+                                        <% if (modelId == "395" && isManufacturer)
+                                           {%>
+                                        <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible: IsValidManufacturer(), event: { click: $root.notifyAvailable }" value="Contact TVS for details" />
+
+                                        <!-- Notify Availablity Popup starts here -->
+                                        <div class="notifyAvailabilityContainer rounded-corner2 hide" id="notifyAvailabilityContainer">
+                                            <div class="notify-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                            <div id="notify-form">
+                                                <div class="grid-6">
+                                                    <p class="font18 margin-bottom15 text-center">Latest Scooty Zest Features</p>
+                                                    <ul class="notify-offers-list font14 margin-bottom10">
+                                                        <li>First Scooter with a built in Smart phone charger</li>
+                                                        <li>Available in Pearl Peach Color</li>
+                                                        <li>First 110cc Scooter to conquer the highest motorable Himalayan road</li>
+                                                    </ul>
+                                                </div>
+                                                <div class="grid-6 border-solid-left">
+                                                    <div class="notify-lead-info-form">
+                                                        <p class="text-center font18 margin-bottom10">To know more provide your details & TVS will call you back</p>
+                                                        <div class="form-control-box personal-info-notify-container margin-bottom20">
+                                                            <input type="text" class="form-control get-lead-name" placeholder="Name (mandatory)" id="getLeadName">
+                                                            <span class="bwsprite error-icon errorIcon hide"></span>
+                                                            <div class="bw-blackbg-tooltip errorText hide">Please enter your name</div>
+                                                        </div>
+                                                        <div class="form-control-box personal-info-notify-container margin-bottom20">
+                                                            <input type="text" class="form-control get-lead-email" placeholder="Email address (mandatory)" id="getLeadEmail">
+                                                            <span class="bwsprite error-icon errorIcon hide"></span>
+                                                            <div class="bw-blackbg-tooltip errorText hide">Please enter your email</div>
+                                                        </div>
+                                                        <div class="form-control-box personal-info-notify-container margin-bottom25">
+                                                            <input type="text" class="form-control get-lead-mobile" maxlength="10" placeholder="Mobile no. (mandatory)" id="getLeadMobile">
+                                                            <span class="bwsprite error-icon errorIcon hide"></span>
+                                                            <div class="bw-blackbg-tooltip errorText hide">Please enter your mobile no.</div>
+                                                        </div>
+                                                        <div class="text-center margin-bottom20">
+                                                            <input type="button" id="notifySubmitInfo" class="btn btn-orange" value="Submit" />
+                                                        </div>
+                                                        <p class="font12 text-light-grey">By proceeding ahead, you agree to BikeWale <a target="_blank" href="/visitoragreement.aspx">visitor agreement</a> and <a target="_blank" href="/privacypolicy.aspx">privacy policy</a>.</p>
+                                                    </div>
+                                                </div>
+                                                <div class="clear"></div>
+                                            </div>
+                                            <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+                                                <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+                                                <p class="font16 margin-bottom40">TVS Motor Company would get back to you shortly with additional information on TVS Scooty Zest.</p>
+                                                <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
+
+                                            </div>
+                                        </div>
+                                        <!-- Notify popup ends here -->
+                                        <%} %>
                                     </div>
                                     <!-- /ko -->
-                                    <!-- ko if : selectedCity() && areas()  && areas().length > 0 -->
-                                    <div class="area-select leftfloat position-rel">
-                                        <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display: none"></span>
-                                        <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', chosen: { width: '190px' }"></select>
+                                    <!-- On Road Price mesasge ends  -->
+                                    <!-- City/Area Select controls starts -->
+                                    <div class="city-area-wrapper">
+                                        <!-- ko if : cities()  && cities().length > 0 -->
+                                        <div class="city-select leftfloat margin-right20 position-rel">
+                                            <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display: none"></span>
+                                            <select id="ddlCity" data-bind="options: cities, optionsText: 'cityName', optionsValue: 'cityId', value: selectedCity, optionsCaption: 'Select City', chosen: { width: '190px' }"></select>
+                                        </div>
+                                        <!-- /ko -->
+                                        <!-- ko if : selectedCity() && areas()  && areas().length > 0 -->
+                                        <div class="area-select leftfloat position-rel">
+                                            <span class="fa fa-spinner fa-spin position-abt pos-right5 pos-top15 text-black bg-white" style="display: none"></span>
+                                            <select id="ddlArea" data-bind="options: areas, optionsText: 'areaName', optionsValue: 'areaId', value: selectedArea, optionsCaption: 'Select Area', chosen: { width: '190px' }"></select>
+                                        </div>
+                                        <!-- /ko -->
+                                        <div class="clear"></div>
                                     </div>
-                                    <!-- /ko -->
-                                    <div class="clear"></div>
+                                    <!-- City/Area Select controls ends -->
                                 </div>
-                                <!-- City/Area Select controls ends -->
-                            </div>
                             <!-- City and Area  msgs and select controls ends  -->
                             <div id="offersBlock" class="city-unveil-offer-container position-rel" data-bind="visible: !IsValidManufacturer() ">
                                 <div class="available-offers-container content-inner-block-10">
@@ -1169,62 +1227,6 @@
             </div>
         </section>
 
-        <!-- lead capture popup -->
-        <div id="leadCapturePopup" class="text-center rounded-corner2">
-            <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-            <p class="font20 margin-bottom10">Provide Contact Details</p>
-            <p class="text-light-grey margin-bottom20">For you to see BikeWale Dealer pricing and get a printable Certificate, we need your valid contact details. We promise to keep this information confidential and not use for any other purpose.</p>
-            <div class="personal-info-form-container">
-                <div class="form-control-box personal-info-list">
-                    <input type="text" class="form-control get-first-name" placeholder="First name (mandatory)"
-                        id="getFirstName" data-bind="value: viewModel.CustomerVM().firstName">
-                    <span class="bwsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
-                </div>
-                <div class="form-control-box personal-info-list">
-                    <input type="text" class="form-control get-last-name" placeholder="Last name"
-                        id="getLastName" data-bind="value: viewModel.CustomerVM().lastName">
-                    <span class="bwsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
-                </div>
-                <div class="form-control-box personal-info-list">
-                    <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-                        id="getEmailID" data-bind="value: viewModel.CustomerVM().emailId">
-                    <span class="bwsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
-                </div>
-                <div class="form-control-box personal-info-list">
-                    <input type="text" class="form-control get-mobile-no" placeholder="Mobile no. (mandatory)"
-                        id="getMobile" maxlength="10" data-bind="value: viewModel.CustomerVM().mobileNo">
-                    <span class="bwsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-                </div>
-                <div class="clear"></div>
-                <a class="btn btn-orange margin-top20" id="user-details-submit-btn">Next</a>
-            </div>
-            <div class="mobile-verification-container hide">
-                <div class="input-border-bottom"></div>
-                <div class="margin-top20">
-                    <p class="font14 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
-                    <div class="form-control-box">
-                        <input type="text" class="form-control get-otp-code rightfloat" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
-                        <span class="bwsprite error-icon errorIcon hide"></span>
-                        <div class="bw-blackbg-tooltip errorText hide"></div>
-                    </div>
-
-                    <div class="clear"></div>
-                </div>
-                <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() < 2), click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a>
-                <p class="otp-alert-text margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() >= 2)">
-                    OTP has been already sent to your mobile
-                </p>
-                <div class="clear"></div>
-                <br />
-                    <a class="btn btn-orange" id="otp-submit-btn">Confirm OTP</a>
-                    <div style="margin-right:70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
-            </div>
-        </div>
-
 
         <BW:PriceQuotePopup ID="ctrlPriceQuotePopup" runat="server" />
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
@@ -1331,9 +1333,9 @@
 
             <% } %>
             ga_pg_id = '2';
-
+            var viewModel=null;
             function InitVM(cityId) {
-                var viewModel = new pqViewModel('<%= modelId%>', cityId);
+                viewModel = new pqViewModel('<%= modelId%>', cityId);
                 modelViewModel = viewModel;
                 ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
                 viewModel.LoadCity();
