@@ -1293,7 +1293,7 @@ otpBtn.click(function () {
             otpContainer.removeClass("show").addClass("hide");
 
             // OTP Success
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
 
             window.location.href = "/m/pricequote/bookingsummary_new.aspx";
         }
@@ -1301,7 +1301,7 @@ otpBtn.click(function () {
             $('#processing').hide();
             otpVal("Please enter a valid OTP.");
             // push OTP invalid
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
         }
     }
 });
