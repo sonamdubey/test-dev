@@ -26,6 +26,7 @@ namespace Bikewale.Notifications.MailTemplates
         public string DealerAddress { get; set; }
         public string DealerMobile { get; set; }
         public uint InsuranceAmount { get; set; }
+        public string BikeName { get; set; }
         public PreBookingConfirmationToCustomer(string customerName, List<OfferEntity> offerList, string bookingReferenceNo, uint preBookingAmount, string makeName, string modelName, string dealerName, string dealerAddress, string dealerMobile, DateTime date, uint insuranceAmount = 0)
         {
             CustomerName = customerName;
@@ -41,6 +42,22 @@ namespace Bikewale.Notifications.MailTemplates
             InsuranceAmount = insuranceAmount;
         }
 
+        public PreBookingConfirmationToCustomer(string customerName, List<OfferEntity> offerList, string bookingReferenceNo, uint preBookingAmount, string bikeName ,string makeName, string modelName, string dealerName, string dealerAddress, string dealerMobile, DateTime date, uint insuranceAmount = 0)
+        {
+            CustomerName = customerName;
+            OfferList = offerList;
+            BookingReferenceNo = bookingReferenceNo;
+            PreBookingAmount = preBookingAmount;
+            MakeName = makeName;
+            ModelName = modelName;
+            DealerName = dealerName;
+            DealerMobile = dealerMobile;
+            DealerAddress = dealerAddress;
+            Date = date;
+            InsuranceAmount = insuranceAmount;
+            BikeName = bikeName;
+        }
+
         public override string ComposeBody()
         {
             StringBuilder sb = null;
@@ -54,7 +71,7 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append("<a target=\"_blank\" href=\"http://www.bikewale.com/\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bw-logo.png\" border=\"0\" alt=\"\" title=\"\"></a></div><div style=\" font-size:18px; font-weight:bold; float:left; margin:5px 0 0;\">Pre-Booking Confirmation</div>");
                 sb.Append("<div style=\"float:right; color:#666; margin:5px 0 0;\">" + Date.ToString("MMM dd, yyyy") + "</div><div style=\"clear:both;\"></div></div><div style=\" background:#fff; padding:10px; margin:10px 0 0;\">");
                 sb.Append("<div style=\"padding:10px 0;\"><p style=\" margin:0; font-size:14px; font-weight:bold; color:#333;\">Dear " + CustomerName + ",</p>");
-                sb.Append("<p style=\"margin:10px 0 0;\">Thank you for making a payment of Rs. " + Format.FormatPrice(PreBookingAmount.ToString()) + " to pre-book the " + MakeName + " " + ModelName + ".</p>");
+                sb.Append("<p style=\"margin:10px 0 0;\">Thank you for making a payment of Rs. " + Format.FormatPrice(PreBookingAmount.ToString()) + " to pre-book the " + BikeName + ".</p>");
                 sb.Append("<p style=\"margin:7px 0;\">Your BikeWale Pre-Booking Reference Number is <span style=\" font-size:14px; font-weight:bold;\">" + BookingReferenceNo + "</span>.</p>");
                 sb.Append("<p style=\"margin:7px 0;\">You have just secured the following offers that come with purchase:</p></div>");
 

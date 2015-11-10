@@ -1237,6 +1237,7 @@
         <script type="text/javascript">
             var myBikeName = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP%>";
+            var pageUrl = "<%= canonical %>"
             function applyLazyLoad() {
                 $("img.lazy").lazyload({
                     event: "imgLazyLoad",
