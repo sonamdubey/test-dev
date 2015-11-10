@@ -86,7 +86,7 @@
                         <div style="overflow:hidden;">
                             <ul class="colours <%= objColors.Count == 0 ? "hide" : "" %>">
                                         
-                                <asp:Repeater id="Repeater1" runat="server">
+                                <asp:Repeater id="rptColors" runat="server">
                                     <ItemTemplate>
                                         <li>
                                             <div title="<%#DataBinder.Eval(Container.DataItem,"ColorName") %>" style="background-color:#<%# DataBinder.Eval(Container.DataItem,"ColorCode")%>;height:15px;width:15px;margin:5px;border:1px solid #a6a9a7;"></div>
