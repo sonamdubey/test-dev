@@ -1087,6 +1087,7 @@
             clientIP = '<%= clientIP%>';
             cityId = '<%= cityId%>';
             isUsed = '<%= !modelPage.ModelDetails.New %>';
+            var pageUrl = "<%= canonical %>";
             var myBikeName = "<%= this.bikeName %>";
             ga_pg_id = '2';
             if ('<%=isUserReviewActive%>' == "False") $("#ctrlUserReviews").addClass("hide");

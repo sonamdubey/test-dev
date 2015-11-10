@@ -72,10 +72,10 @@ namespace Bikewale.Notifications
         /// <param name="dealerName"></param>
         /// <param name="dealerAddress"></param>
         /// <param name="dealerMobile"></param>
-        public static void BookingEmailToCustomer(string customerEmail, string customerName, List<OfferEntity> offerList, string bookingReferenceNo, uint preBookingAmount, string makeName, string modelName, string dealerName, string dealerAddress, string dealerMobile, uint insuranceAmount = 0)
+        public static void BookingEmailToCustomer(string customerEmail, string customerName, List<OfferEntity> offerList, string bookingReferenceNo, uint preBookingAmount, string bikeName, string makeName, string modelName, string dealerName, string dealerAddress, string dealerMobile, uint insuranceAmount = 0)
         {
-            ComposeEmailBase objEmail = new PreBookingConfirmationToCustomer(customerName, offerList, bookingReferenceNo, preBookingAmount, makeName, modelName, dealerName, dealerAddress, dealerMobile, DateTime.Now, insuranceAmount);
-            objEmail.Send(customerEmail, "Congratulations on pre-booking the " + makeName + "" + modelName, "");
+            ComposeEmailBase objEmail = new PreBookingConfirmationToCustomer(customerName, offerList, bookingReferenceNo, preBookingAmount, bikeName,makeName, modelName, dealerName, dealerAddress, dealerMobile, DateTime.Now, insuranceAmount);
+            objEmail.Send(customerEmail, "Congratulations on pre-booking the " + bikeName, "");
         }
 
         /// <summary>

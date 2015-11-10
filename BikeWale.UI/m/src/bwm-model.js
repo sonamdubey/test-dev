@@ -423,8 +423,8 @@ function CustomerModel() {
                 "customerName": viewModel.CustomerVM().fullName,
                 "customerMobile": viewModel.CustomerVM().mobileNo,
                 "customerEmail": viewModel.CustomerVM().emailId,
-                "clientIP": "",
-                "pageUrl": "",
+                "clientIP": clientIP,
+                "pageUrl": pageUrl,
                 "versionId": viewModel.priceQuote().priceQuote.versionId,
                 "cityId": viewModel.selectedCity()
             }
