@@ -222,9 +222,12 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             SendEmailSMSToDealerCustomer.SendEmailToCustomer(bikeName, imagePath, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.EmailId, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Organization, dealerDetailEntity.objDealer.Address, objCust.CustomerName, objCust.CustomerEmail, dealerDetailEntity.objQuotation.PriceList, dealerDetailEntity.objOffers, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName, dealerDetailEntity.objDealer.objCity.CityName, TotalPrice, insuranceAmount);
 
                             hasBumperDealerOffer = OfferHelper.HasBumperDealerOffer(dealerDetailEntity.objDealer.DealerId.ToString(), "");
+                            if (bookingAmount > 0 )
+                            {
 
-                            SendEmailSMSToDealerCustomer.SMSToCustomer(objCust.CustomerMobile, objCust.CustomerName, bikeName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Address, bookingAmount, insuranceAmount, hasBumperDealerOffer);
-
+                                SendEmailSMSToDealerCustomer.SMSToCustomer(objCust.CustomerMobile, objCust.CustomerName, bikeName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Address, bookingAmount, insuranceAmount, hasBumperDealerOffer);
+                                
+                            }
                             bool isDealerNotified = _objDealerPriceQuote.IsDealerNotified(input.DealerId, objCust.CustomerMobile, objCust.CustomerId);
                             if (!isDealerNotified)
                             {
