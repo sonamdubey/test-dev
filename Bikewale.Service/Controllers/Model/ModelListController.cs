@@ -16,6 +16,8 @@ using Bikewale.DTO.Widgets;
 using Bikewale.DTO.Version;
 using Bikewale.DTO.Make;
 using Bikewale.Notifications;
+using Bikewale.DTO.BikeData;
+using Bikewale.Service.AutoMappers.BikeData;
 
 namespace Bikewale.Service.Controllers.Model
 {
@@ -143,6 +145,40 @@ namespace Bikewale.Service.Controllers.Model
         }   // Get Models list  
         #endregion
 
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 9 Nov 2015
+        /// Summary : To get Model by request type
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(List<BikeMakeModel>)), Route("api/model/all/{requestType}/")]
+        public IHttpActionResult GetAllModels(EnumBikeType requestType)
+        {
+            IEnumerable<BikeMakeModelEntity> objList = null;
+            List<BikeMakeModel> objModelList = null;
+            try
+            {
+                objList = _modelRepository.GetAllModels(requestType);
+
+                if (objList != null && objList.Count() > 0)
+                {
+                    objModelList = new List<BikeMakeModel>();
+
+                    objModelList = MakeModelEntityMapper.Convert(objList.ToList());
+
+                    objList = null;
+
+                    return Ok(objModelList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.AllModels");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return NotFound();
+        }
 
     } //class
 }  //namespace

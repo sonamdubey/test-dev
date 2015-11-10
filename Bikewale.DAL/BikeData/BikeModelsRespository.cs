@@ -1100,5 +1100,62 @@ namespace Bikewale.DAL.BikeData
             return objFeatured;
         }
         #endregion
+
+        #region GetAllModels Method
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 9 Nov 2015
+        /// Summary : To Get ModelList According to request type
+        /// </summary>
+        /// <param name="requestType"></param>
+        /// <returns></returns>
+        public IEnumerable<BikeMakeModelEntity> GetAllModels(EnumBikeType requestType)
+        {
+            Database db = null;
+            IList<BikeMakeModelEntity> objList = null;
+            try
+            {
+                using(SqlCommand cmd =new SqlCommand())
+                {
+                    cmd.CommandText = "GetAllModels";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@RequestType", SqlDbType.TinyInt).Value = (int)requestType;
+
+                    db = new Database();
+                    using (SqlDataReader reader=db.SelectQry(cmd))
+                    {
+                        if(reader!=null)
+                        {
+                            objList = new List<BikeMakeModelEntity>();
+                            while(reader.Read())
+                            {
+                                objList.Add(new BikeMakeModelEntity()
+                                {
+                                    MakeBase = new BikeMakeEntityBase()
+                                    {
+                                        MakeId = Convert.ToInt32(reader["MakeId"]),
+                                        MakeName = reader["MakeName"].ToString(),
+                                        MaskingName = reader["MakeMaskingName"].ToString()
+                                    },
+                                    ModelBase = new BikeModelEntityBase()
+                                    {
+                                        ModelId = Convert.ToInt32(reader["ModelId"]),
+                                        ModelName = reader["ModelName"].ToString(),
+                                        MaskingName = reader["ModelMaskingName"].ToString()
+                                    }
+                                });
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.DAL.BikeModelRepository.GetFeaturedBikes");
+                objErr.SendMail();
+            }
+            return objList;
+        }   //End of GetAllModels Method
+        #endregion
     }   // class
 }   // namespace
