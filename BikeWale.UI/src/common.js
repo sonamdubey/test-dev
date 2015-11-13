@@ -28,8 +28,8 @@ if (!Array.prototype.indexOf) {
 }
 
 $(document).ready(function () {
-    //if (ga_pg_id != '1')
-    //    $('#globalSearch').parent().show();
+    if (ga_pg_id != '1')
+        $('#globalSearch').parent().show();
 
     $(".lazy").lazyload({
         effect: "fadeIn"
@@ -826,11 +826,7 @@ function loginSignupSwitch() {
 
 $('#btnGlobalSearch').on('click', function () {
     if (focusedMakeModel != null && btnGlobalSearch != undefined)
-        btnFindBikeNewNav()
-    else {
-        var searchText = $('#globalSearch').val();
-        window.location.replace('/search/result.aspx?cx=002963291331112848676:ccmsgcrw20s&cof=FORID:9&ie=UTF-8&q=' + searchText + '&sa=Search&siteurl=www.bikewale.com-F#1200');
-    }
+        btnFindBikeNewNav();
 });
 
 
@@ -866,18 +862,27 @@ $("#globalSearch").bw_autocomplete({
         if ($('li.ui-state-focus a:visible').text() != "") {
             focusedMakeModel = new Object();
             focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
-            //$('#btnSearch').click();
+        }
+        else {
+            $('#errGlobalSearch').addClass('hide');
         }
     },
     afterfetch: function (result, searchtext) {
-        if (result != undefined && result.length > 0)
-            return false;
-        else
+        if (result != undefined && result.length > 0) {
+            $('#errGlobalSearch').addClass('hide');
+        }
+        else {
             focusedMakeModel = null;
+            $('#errGlobalSearch').removeClass('hide');
+        }
     }
 }).keydown(function (e) {
     if (e.keyCode == 13)
         $('#btnGlobalSearch').click();
+}).keyup(function () {
+    if ($('#globalSearch').val() == '') {
+        $('#errGlobalSearch').addClass('hide');
+    }
 });
 
 function CloseCityPopUp() {

@@ -37,6 +37,9 @@
                 <span class="bwsprite search-icon-grey" id="btnGlobalSearch"></span>
                 <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
                 <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top10 text-black" style="display:none;right:35px;"></span>
+                <ul id="errGlobalSearch" style="background-color:#fff;" class="hide">
+                    <li><span>No Result</span></li>
+                </ul>
             </div>
             <div class="global-location">
                 <div class="gl-default-stage">
