@@ -174,13 +174,13 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .compare-list-home li { border-bottom: 1px solid #ccc; padding-bottom: 15px; text-align: center; }
 
 /* city popup classes */
-.globalcity-popup, .bw-city-popup { background: #fff; margin: auto; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height:480px; right: 5%; left: 5%; z-index: 10; }
+.bw-popup,.globalcity-popup, .bw-city-popup { background: #fff; margin: auto; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height:480px; right: 5%; left: 5%; z-index: 10; }
 .globalcity-popup-data, .popup-inner-container { padding: 20px 20px 30px; }
 .cityPopup-box { background: #333333; width: 60px; height: 60px; line-height: 2; display: inline-block; }
-.globalcity-close-btn.cross-lg-lgt-grey, .bw-city-popup .close-btn { background-position: -36px -226px; }
-.globalcity-close-btn.cross-lg-lgt-grey:hover, .bw-city-popup .close-btn:hover { background-position: -36px -252px; }
+.bw-popup .close-btn, .globalcity-close-btn.cross-lg-lgt-grey, .bw-city-popup .close-btn { background-position: -36px -226px; }
+.bw-popup .close-btn:hover, .globalcity-close-btn.cross-lg-lgt-grey:hover, .bw-city-popup .close-btn:hover { background-position: -36px -252px; }
 ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
-.bw-city-popup .close-btn {width:16px; height:16px;}
+.bw-popup .close-btn, .bw-city-popup .close-btn {width:16px; height:16px;}
 
 /* global-search-popup classes */
 .global-search-popup { position:fixed; left: 5px; top: 5px; right: 5px; z-index: 10; }
@@ -291,6 +291,10 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
+.headerTitle,.white-back-arrow {display:none;}
+.headerTitle { position:relative; top:-2px; left:-10px;}
+.white-back-arrow{background:url("http://img.aeplcdn.com/bikewaleimg/m/images/white-back-arrow.png") no-repeat scroll left top; width: 27px; height: 20px; cursor: pointer; position: relative; top:0; display: block; }
+.white-back-arrow:hover{background-position:left top;}
 .bw-logo { background-position: -31px 0px; width: 84px; height: 24px; }
 .bw-logo.bw-lg-fixed-position { position: absolute; left: 52px; }
 .search-icon-grey, .search-icon-white { width: 18px; height: 18px; }

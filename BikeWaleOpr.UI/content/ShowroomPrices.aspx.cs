@@ -20,7 +20,7 @@ namespace BikeWaleOpr.Content
 		protected HtmlGenericControl spnError;
 		protected Button btnSave, btnShow, btnRemove;
 		protected Repeater rptPrices;
-        protected DropDownList cmbMake, ddlStates;
+        protected DropDownList cmbMake, ddlStates, cmbModel;
 		protected RadioButton optNew, optUsed;
 		protected DropDownList drpCity;
 
@@ -113,14 +113,20 @@ namespace BikeWaleOpr.Content
                 //op.FillDropDown( sql, drpCity, "Name", "ID" );
                 //drpCity.Items.Insert( 0, new ListItem( "--Select City--", "0" ));
 				//drpCity.Items.Insert( 1, new ListItem( "Mumbai", "1" ));
+
+                //sql = "SELECT ID, Name, BikeMakeId FROM BikeModels WHERE IsDeleted <> 1 ORDER BY Name";
+                //op.FillDropDown(sql, cmbModel, "Name", "ID");
+                //item = new ListItem("--Select--", "0");
+                //cmbModel.Items.Insert(0, item);
+
+                
 		    }
+
+            sql = "SELECT ID, Name, BikeMakeId FROM BikeModels WHERE IsDeleted <> 1 ORDER BY Name";
+            string Script = op.GenerateChainScript("cmbMake", "cmbModel", sql, Request["cmbModel"]);
+            //RegisterStartupScript( "ChainScript", Script );
+            ClientScript.RegisterStartupScript(this.GetType(), "ChainScript", Script);
 			
-			sql = "SELECT ID, Name, BikeMakeId FROM BikeModels WHERE IsDeleted <> 1 ORDER BY Name";
-			string Script = op.GenerateChainScript( "cmbMake", "cmbModel", sql, "Select Model" );
-			//RegisterStartupScript( "ChainScript", Script );
-			ClientScript.RegisterStartupScript(this.GetType(), "ChainScript", Script );
-
-
             Trace.Warn("make : ", qryStrMake);
             Trace.Warn("qryStrModel : ", qryStrModel);
             Trace.Warn("qryStrVersion : ", qryStrVersion);

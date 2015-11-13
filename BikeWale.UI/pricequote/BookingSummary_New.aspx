@@ -217,14 +217,13 @@
                                     </div>
                                 </div>
                             </li>
-                        </ul>
-                        <!-- /ko -->
+                        </ul>                        
                         <div class="clear"></div>
                         <div class="border-solid-top margin-bottom20"></div>
                         <div class="booking-available-colors">
-                            <ul data-bind="foreach: viewModel.ModelColors()">
+                            <ul data-bind="foreach: viewModel.SelectedVarient().bikeModelColors()">
                                 <li>
-                                    <div class="booking-color-box" data-bind="style: { 'background-color': '#' + hexCode() }, click: function (data,event) { $parent.selectModelColor($data, event); }">
+                                    <div class="booking-color-box" data-bind="style: { 'background-color': '#' + hexCode }, click: function (data,event) { $parent.selectModelColor($data, event); }">
                                         <span class="ticked hide"></span>
                                     </div>
                                     <p class="font16 margin-top20" data-bind="text: colorName"></p>
@@ -232,6 +231,7 @@
                             </ul>
                             <div class="clear"></div>
                         </div>
+                        <!-- /ko -->
                         <p class="font12 margin-bottom20">* Colours are subject to availabilty, can be selected at the dealership</p>
                         <a class="customize-submit-btn btn btn-orange margin-bottom20" data-bind="click: function () { viewModel.generatePQ(); }">Next</a>
                         <div class="clear"></div>
@@ -404,17 +404,18 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                 self.CustomerVM = ko.observable(new CustomerModel());
                 self.SelectedModelColor = ko.observable();
                 self.selectModelColor = function (model, event) {
-                    var curElement = $(event.currentTarget);
-                    self.SelectedModelColor(model);
+                    var curElement = $(event.currentTarget);                    
                     if (!curElement.find('span.ticked').hasClass("selected")) {
                         $('.booking-color-box').find('span.ticked').hide();
                         $('.booking-color-box').find('span.ticked').removeClass("selected");
                         curElement.find('span.ticked').show();
                         curElement.find('span.ticked').addClass("selected");
+                        self.SelectedModelColor(model);
                     }
                     else {
                         curElement.find('span.ticked').hide();
                         curElement.find('span.ticked').removeClass("selected");
+                        self.SelectedModelColor(undefined);
                     }
                 }
                 self.selectVarient = function (varient, event) {
@@ -438,9 +439,6 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                     .done(function (data) {
                         if (data) {
                             bookPage = ko.toJS(data);
-                            $.each(bookPage.modelColors, function (key, value) {
-                                self.ModelColors.push(new ModelColorsModel(value.id, value.colorName, value.hexCode, value.modelId));
-                            });
                             $.each(bookPage.varients, function (key, value) {
                                 
                                 if (parseInt(verId) == value.minSpec.versionId) {
@@ -462,7 +460,8 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                                         value.imagePath,
                                         value.noOfWaitingDays,
                                         value.onRoadPrice,
-                                        priceList
+                                        priceList,
+                                        value.bikeModelColors
                                     ));
                                 }
                                 self.Varients.push(
@@ -483,7 +482,8 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                                         value.imagePath,
                                         value.noOfWaitingDays,
                                         value.onRoadPrice,
-                                        priceList
+                                        priceList,
+                                        value.bikeModelColors
                                     ));
 
                                 var priceList = [];
@@ -523,8 +523,11 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                             }
                         });
                     }
-                    if (self.SelectedModelColor()) {
-                        self.updateColor(pqId, self.SelectedModelColor().id());
+                    if (self.SelectedModelColor() && self.SelectedModelColor() != undefined) {
+                        self.updateColor(pqId, self.SelectedModelColor().id);
+                    }
+                    else {
+                        self.updateColor(pqId, 0);
                     }
                 };
 
@@ -754,7 +757,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                 self.value = ko.observable(value);
             }
 
-            function VarientModel(bookingAmount, hostUrl, make, minSpec, model, imagePath, noOfWaitingDays, onRoadPrice, priceList) {
+            function VarientModel(bookingAmount, hostUrl, make, minSpec, model, imagePath, noOfWaitingDays, onRoadPrice, priceList, bikeModelColors) {
                 var self = this;
                 self.bookingAmount = ko.observable(bookingAmount);
                 self.hostUrl = ko.observable(hostUrl);
@@ -765,7 +768,7 @@ For further assistance call on <span class="text-bold">1800 120 8300</span>
                 self.noOfWaitingDays = ko.observable(noOfWaitingDays);
                 self.onRoadPrice = ko.observable(onRoadPrice);
                 self.priceList = ko.observableArray(priceList);
-
+                self.bikeModelColors = ko.observableArray(bikeModelColors);
                 self.availText = ko.computed(function () {
                     var _days = self.noOfWaitingDays();
                     var _availText = _days ? '<p class="font12 text-light-grey">Waiting of ' + _days + ' days</p>' : '<p class="font12 text-green text-bold">Now available</p>';

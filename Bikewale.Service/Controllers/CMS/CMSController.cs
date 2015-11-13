@@ -206,7 +206,7 @@ namespace Bikewale.Service.Controllers.CMS
                         }
                     }
 
-                    objCMSFArticles.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(objFeaturedArticles.DisplayDate);
+                    objCMSFArticles.FormattedDisplayDate = objFeaturedArticles.DisplayDate.ToString("MMMM dd, yyyy hh:mm tt");
 
                     // If android, IOS client sanitize the article content 
                     string platformId = string.Empty;
@@ -293,7 +293,7 @@ namespace Bikewale.Service.Controllers.CMS
                         objNews.VehiclTagsList = null; 
                     }
 
-                    objCMSFArticles.FormattedDisplayDate = Bikewale.Utility.FormatDate.GetDaysAgo(objNews.DisplayDate);
+                    objCMSFArticles.FormattedDisplayDate = objNews.DisplayDate.ToString("MMMM dd, yyyy hh:mm tt");
                     
                     // If android, IOS client execute this code
                     string platformId = string.Empty;

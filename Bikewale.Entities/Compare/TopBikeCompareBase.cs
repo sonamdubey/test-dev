@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Compare
 {
+    /// <summary>
+    /// Modified By : Sadhna Upadhayay on 06 Nov. 2015.
+    /// Description : Introduce [Serializable].
+    /// </summary>
+    [Serializable]
     public class TopBikeCompareBase
     {
         public int ID { get; set; }

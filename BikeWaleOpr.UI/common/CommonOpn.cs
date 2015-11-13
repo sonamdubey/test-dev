@@ -1309,11 +1309,13 @@ namespace BikeWaleOpr.Common
             StringBuilder sb = new StringBuilder();
 
             sb.Append("<script language=\"javascript\" src=\"/src/chains.js\"></script>");
-            sb.Append("<script language=\"javascript\">");            
-            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; ");
-            sb.Append("function " + DropDownList1 + "_OnChange( e ) {");            
-            sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
-            sb.Append("var arrayValues = new Array(); var i = 0;");
+            sb.Append("<script language=\"javascript\">");
+
+            sb.Append("document.getElementById('" + DropDownList1 + "').onchange = " + DropDownList1 + "_OnChange; var arrayValues = new Array(); ");
+            //sb.Append("$(function(){$('#" + DropDownList1 + "').on('change',function(){});});
+                        
+            //sb.Append("var DropDownList1 = document.getElementById('" + DropDownList1 + "');");
+            sb.Append("\n var i = 0;");
             SqlDataReader dr;
             Database db = new Database();
             try
@@ -1322,11 +1324,15 @@ namespace BikeWaleOpr.Common
 
                 while (dr.Read())
                 {
-                    sb.Append("arrayValues[i] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ]; i++;");
+                    sb.Append("\narrayValues[i++] = [ " + dr[0] + ",\"" + dr[1] + "\"," + dr[2] + " ];");
                 }
 
-                sb.Append("fillChainTwo( '" + DropDownList2 + "', DropDownList1, arrayValues, '0' , '" + selectString + "' ); }");
+                sb.Append("\nfunction " + DropDownList1 + "_OnChange( e ) {"); 
+                sb.Append("\nfillChainTwo( '" + DropDownList2 + "', " + DropDownList1 + ", arrayValues, '" + selectString + "' ); }");
 
+                //sb.Append("document.getElementById('" + DropDownList1 + "').trigger('change');");
+                sb.Append("fillChainTwo( '" + DropDownList2 + "', " + DropDownList1 + ", arrayValues, '" + selectString + "' );");
+                
                 dr.Close();
             }
             catch (SqlException ex)

@@ -30,6 +30,7 @@ namespace Bikewale.News
         protected string displayDate = string.Empty, mainImgCaption = string.Empty, largePicUrl = string.Empty, content = string.Empty, prevPageUrl = string.Empty, nextPageUrl = string.Empty, hostUrl = string.Empty;
         protected bool isMainImageSet = false;
 
+
         protected override void OnInit(EventArgs e)
         {
             base.Load += new EventHandler(Page_Load);
@@ -85,7 +86,7 @@ namespace Bikewale.News
                 string _requestType = "application/json";
                 string _apiUrl = "webapi/article/contentdetail/?basicid=" + _basicId;
 
-                objArticle = await BWHttpClient.GetApiResponse<ArticleDetails>(_cwHostUrl, _requestType, _apiUrl, objArticle);
+                objArticle = await Bikewale.Utility.BWHttpClient.GetApiResponse<ArticleDetails>(_cwHostUrl, _requestType, _apiUrl, objArticle);
 
                 if (objArticle == null)
                     _isContentFount = false;

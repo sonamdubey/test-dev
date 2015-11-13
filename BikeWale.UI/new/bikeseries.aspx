@@ -6,6 +6,7 @@
 <%@ Register TagPrefix="RT" TagName="RoadTest" Src="/controls/RoadTestControl.ascx" %>
 <%@ Register TagPrefix="uc" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMin.ascx" %>
 <%@ Register TagPrefix="BikeBooking" TagName="BookBikeWidget" Src="~/controls/BikeBookingWidget.ascx" %>
+<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%
     title = make+ " " + series +" Price in India, Review, Mileage,Photos & More - BikeWale";
@@ -19,10 +20,6 @@
     TargetedSeries = series.Trim();
 %>
 <!-- #include file="/includes/headNew.aspx" -->
-
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
-
 
 <div class="container_12">
     <div class="grid_12">
@@ -104,4 +101,5 @@
         </div>
     </div><!--    Right Container ends here -->
 </div>
+<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerInner.aspx" -->

@@ -8,16 +8,17 @@ function BookingPageVMModel() {
     self.SelectedModelColor = ko.observable();
     self.selectModelColor = function (model, event) {
         var curElement = $(event.currentTarget);
-        self.SelectedModelColor(model);
         if (!curElement.find('span.ticked').hasClass("selected")) {
             $('.color-box').find('span.ticked').hide();
             $('.color-box').find('span.ticked').removeClass("selected");
             curElement.find('span.ticked').show();
             curElement.find('span.ticked').addClass("selected");
+            self.SelectedModelColor(model);
         }
         else {
             curElement.find('span.ticked').hide();
             curElement.find('span.ticked').removeClass("selected");
+            self.SelectedModelColor(undefined);
         }
     }
     self.selectVarient = function (varient, event) {
@@ -32,9 +33,9 @@ function BookingPageVMModel() {
         .done(function (data) {
             if (data) {
                 bookPage = ko.toJS(data);
-                $.each(bookPage.modelColors, function (key, value) {
-                    self.ModelColors.push(new ModelColorsModel(value.id, value.colorName, value.hexCode, value.modelId));
-                });
+                //$.each(bookPage.modelColors, function (key, value) {
+                //    self.ModelColors.push(new ModelColorsModel(value.id, value.colorName, value.hexCode, value.modelId));
+                //});
                 $.each(bookPage.varients, function (key, value) {
                     var priceList = [];
                     $.each(value.priceList, function (key, value) {
@@ -59,7 +60,8 @@ function BookingPageVMModel() {
                             value.imagePath,
                             value.noOfWaitingDays,
                             value.onRoadPrice,
-                            priceList
+                            priceList,
+                            value.bikeModelColors
                         ));
                     }
                     self.Varients.push(
@@ -80,7 +82,8 @@ function BookingPageVMModel() {
                             value.imagePath,
                             value.noOfWaitingDays,
                             value.onRoadPrice,
-                            priceList
+                            priceList,
+                            value.bikeModelColors
                         ));
                 });
             }
@@ -114,8 +117,11 @@ function BookingPageVMModel() {
                 }
             });
         }
-        if (self.SelectedModelColor()) {
-            self.updateColor(pqId, self.SelectedModelColor().id());
+        if (self.SelectedModelColor() && self.SelectedModelColor() != undefined) {
+            self.updateColor(pqId, self.SelectedModelColor().id);
+        }
+        else {
+            self.updateColor(pqId, 0);
         }
     }
 
@@ -343,7 +349,7 @@ function OfferModel(id, text, type, value) {
     self.value = ko.observable(value);
 }
 
-function VarientModel(bookingAmount, hostUrl, make, minSpec, model, imagePath, noOfWaitingDays, onRoadPrice, priceList) {
+function VarientModel(bookingAmount, hostUrl, make, minSpec, model, imagePath, noOfWaitingDays, onRoadPrice, priceList, bikeModelColors) {
     var self = this;
     self.bookingAmount = ko.observable(bookingAmount);
     self.hostUrl = ko.observable(hostUrl);
@@ -354,7 +360,7 @@ function VarientModel(bookingAmount, hostUrl, make, minSpec, model, imagePath, n
     self.noOfWaitingDays = ko.observable(noOfWaitingDays);
     self.onRoadPrice = ko.observable(onRoadPrice);
     self.priceList = ko.observableArray(priceList);
-
+    self.bikeModelColors = ko.observableArray(bikeModelColors);
     self.availText = ko.computed(function () {
         var _days = self.noOfWaitingDays();
         var _availText = _days ? '<p class="font12 text-light-grey">Waiting of ' + _days + ' days</p>' : '<p class="font12 text-green text-bold">Now available</p>';
@@ -878,7 +884,7 @@ $.personalInfoState = function () {
     container.find('li:eq(1)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon customize-icon-grey');
     container.find('li:eq(2)').find('span.buy-icon').attr('class', '').attr('class', 'booking-sprite buy-icon confirmation-icon-grey');
     container.find('li').removeClass('ticked');
-    $('#book-back').removeClass('customizeBackBtn').addClass('hide');
+    $('#book-back').removeClass('customizeBackBtn').addClass('hide').hide();
     normalHeader.removeClass('hide');
     //$('header').removeClass('fixed');
 
@@ -900,7 +906,7 @@ $.customizeState = function () {
     $('.booking-tabs ul li:eq(1)').removeClass('middle').addClass('middle');
     normalHeader.addClass('hide');
     //$('header').addClass('fixed');
-    $('#book-back').removeClass('hide');
+    $('#book-back').removeClass('hide').show();
     $('#book-back').removeClass('confirmationBackBtn').addClass('customizeBackBtn');
 };
 
@@ -916,7 +922,7 @@ $.confirmationState = function () {
     $('.booking-tabs ul li:eq(1)').removeClass('middle');
     normalHeader.addClass('hide');
     //$('header').addClass('fixed');
-    $('#book-back').removeClass('hide');
+    $('#book-back').removeClass('hide').show();
     $('#book-back').removeClass('customizeBackBtn').addClass('confirmationBackBtn');
 };
 

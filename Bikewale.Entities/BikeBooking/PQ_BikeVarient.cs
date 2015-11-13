@@ -20,6 +20,7 @@ namespace Bikewale.Entities.BikeBooking
         public string HostUrl { get; set; }
         public string OriginalImagePath { get; set; }
         public UInt32 OnRoadPrice { get; set; }
+        public UInt32 BookingAmount { get; set; }
         public IList<PQ_Price> PriceList { get; set; }
     }
 }

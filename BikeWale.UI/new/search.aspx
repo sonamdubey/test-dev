@@ -367,7 +367,7 @@
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
 
-    <PW:PopupWidget runat="server" ID="PopupWidget" />
+<PW:PopupWidget runat="server" ID="PopupWidget" />
 </form>
 </body>
 </html>

@@ -6,7 +6,7 @@ PQCitySelectedName: "",
 PQAreaSelectedName:""
 };
 var temptotalPrice = 0;
-var modelViewModel;
+var viewModel;
 var priceBlock = $('#dvBikePrice');
 var mainCity = $("#mainCity");
 var cityAreaContainer = $("#city-area-select-container");
@@ -27,6 +27,10 @@ var offerError = $(".offer-error");
 var bikePrice = $("#bike-price");
 var showroomPrice = $(".default-showroom-text");
 var temptotalPrice = $(bikePrice).text();
+var leadBtnBookNow = $("#leadBtnBookNow"),
+    leadCapturePopup = $("#leadCapturePopup");
+
+
 
 
 function pqViewModel(modelId, cityId) {
@@ -36,6 +40,7 @@ function pqViewModel(modelId, cityId) {
     self.selectedCity = ko.observable(cityId);
     self.selectedArea = ko.observable();
     self.selectedModel = ko.observable(modelId);
+    self.CustomerVM = ko.observable(new CustomerModel());
     self.priceQuote = ko.observable();
     self.DealerPriceList = ko.observableArray([]);
     self.BWPriceList = ko.observable();
@@ -128,8 +133,168 @@ function pqViewModel(modelId, cityId) {
         }
     };
 
+    self.captureLead = ko.computed(function () {
+        state = false;
+        if(self.priceQuote() && self.priceQuote().IsDealerPriceAvailable && (self.priceQuote().dealerPriceQuote.offers.length <= 0))
+        {
+            var v = self.priceQuote().dealerPriceQuote.varients;
+            $.each(v,function () {
+                if (this.version.versionId === self.priceQuote().priceQuote.versionId && this.bookingAmount <= 0)
+                     state = true;
+            });
+        }
+        return state;
+    });
+
+    self.showBookNow = ko.computed(function () {
+        state = false;
+        if (self.priceQuote() && self.priceQuote().IsDealerPriceAvailable && (self.priceQuote().dealerPriceQuote.offers.length <= 0)) {
+            var v = self.priceQuote().dealerPriceQuote.varients;
+            $.each(v, function () {
+                if (this.version.versionId === self.priceQuote().priceQuote.versionId && this.bookingAmount > 0)
+                    state = true;
+            });
+        }
+        return state;
+    });
+
+    self.showLeadForm = function () {
+            
+        $("#leadCapturePopup").show();
+        $('body').addClass('lock-browser-scroll');
+        $(".blackOut-window-model").show();
+
+        $(".leadCapture-close-btn, .blackOut-window-model").on("click", function () {
+            leadCapturePopup.hide();
+            $('body').removeClass('lock-browser-scroll');
+            $(".blackOut-window-model").hide();
+        });
+    };
+
+    
+
 }
 
+
+function CustomerModel() {
+    var arr = setuserDetails();
+    var self = this;
+    if (arr != null && arr.length > 0) {
+        self.firstName = ko.observable(arr[0]);
+        self.lastName = ko.observable(arr[1]);
+        self.emailId = ko.observable(arr[2]);
+        self.mobileNo = ko.observable(arr[3]);
+    }
+    else {
+        self.firstName = ko.observable();
+        self.lastName = ko.observable();
+        self.emailId = ko.observable();
+        self.mobileNo = ko.observable();
+    }
+    self.IsVerified = ko.observable();
+    self.NoOfAttempts = ko.observable(0);
+    self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
+    self.otpCode = ko.observable();
+    self.fullName = ko.computed(function () {
+        var _firstName = self.firstName() != undefined ? self.firstName() : "";
+        var _lastName = self.lastName() != undefined ? self.lastName() : "";
+        return _firstName + ' ' + _lastName;
+    }, this);
+    self.verifyCustomer = function () {
+        if (!self.IsVerified()) {
+            var objCust = {
+                "dealerId": viewModel.priceQuote().priceQuote.dealerId,
+                "pqId": viewModel.priceQuote().priceQuote.quoteId,
+                "customerName": viewModel.CustomerVM().fullName,
+                "customerMobile": viewModel.CustomerVM().mobileNo,
+                "customerEmail": viewModel.CustomerVM().emailId,
+                "clientIP": clientIP,
+                "pageUrl": pageUrl,
+                "versionId": viewModel.priceQuote().priceQuote.versionId,
+                "cityId": viewModel.selectedCity()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/PQCustomerDetail/",
+                data: ko.toJSON(objCust),
+                async: false,
+                contentType: "application/json",
+                success: function (response) {
+                    var obj = ko.toJS(response);
+                    self.IsVerified(obj.isSuccess);
+                    if (self.IsVerified()) {                                    
+                    }
+                    else {
+                        self.NoOfAttempts(obj.noOfAttempts);
+                    }
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    self.IsVerified(false);
+                }
+            });
+        }
+    };
+    self.generateOTP = function () {
+        if (!self.IsVerified()) {
+            var objCust = {
+                "pqId": viewModel.priceQuote().priceQuote.quoteId,
+                "customerMobile": viewModel.CustomerVM().mobileNo,
+                "customerEmail": viewModel.CustomerVM().emailId,
+                "cwiCode": viewModel.CustomerVM().otpCode,
+                "branchId": viewModel.priceQuote().priceQuote.dealerId,
+                "customerName": viewModel.CustomerVM().fullName,
+                "versionId": viewModel.priceQuote().priceQuote.versionId,
+                "cityId": viewModel.selectedCity()
+            }
+            $.ajax({
+                type: "POST",
+                url: "/api/PQMobileVerification/",
+                data: ko.toJSON(objCust),
+                async: false,
+                contentType: "application/json",
+                success: function (response) {
+                    var obj = ko.toJS(response);
+                    self.IsVerified(obj.isSuccess);
+                    
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    self.IsVerified(false);
+                }
+            });
+        }
+    }
+    self.regenerateOTP = function () {
+        if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
+            var url = '/api/ResendVerificationCode/';
+            var objCustomer = {
+                "customerName": self.fullName(),
+                "customerMobile": self.mobileNo(),
+                "customerEmail": self.emailId(),
+                "source": 1
+            }
+            $.ajax({
+                type: "POST",
+                url: url,
+                async: false,
+                data: ko.toJSON(objCustomer),
+                contentType: "application/json",
+                success: function (response) {
+                    self.IsVerified(false);
+                    self.NoOfAttempts(response.noOfAttempts);
+                    alert("You will receive the new OTP via SMS shortly.");
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    self.IsVerified(false);
+                }
+            });
+        }
+    }
+    self.fullName = ko.computed(function () {
+        var _firstName = self.firstName() != undefined ? self.firstName() : "";
+        var _lastName = self.lastName() != undefined ? self.lastName() : "";
+        return _firstName + ' ' + _lastName;
+    }, this);
+}
 
 //for jquery chosen 
 ko.bindingHandlers.chosen = {
@@ -370,12 +535,12 @@ $(document).ready(function () {
 
     $(offerBtnContainer).show();
     $(offerBtn).click(function () {
-        if ( modelViewModel.cities() && modelViewModel.selectedCity() === undefined ) {
+        if ( viewModel.cities() && viewModel.selectedCity() === undefined ) {
             $('.offer-error').addClass("text-red").shake();
             $('.city-select-text').addClass("text-red").shake();
             //transferEffect($(priceBlock).find("#ddlCity_chosen"));
         }
-        else if(modelViewModel.selectedCity != undefined && modelViewModel.areas() || modelViewModel.selectedArea() === undefined)
+        else if(viewModel.selectedCity != undefined && viewModel.areas() || viewModel.selectedArea() === undefined)
         {
             $('.area-select-text').addClass("text-red").shake();
             //transferEffect($(priceBlock).find("#ddlArea_chosen"));
@@ -396,7 +561,7 @@ $(document).ready(function () {
         $(priceBlock).find("#city-list-container").hide();
         $(cityAreaContainer).show();        
         $('.offer-error').removeClass("text-red");
-        modelViewModel.popularCityClicked(true);
+        viewModel.popularCityClicked(true);
         if (val) {
             $(ctrlSelectCity).find(" option[value=" + val + "]").prop('selected', 'selected');
             $(ctrlSelectCity).trigger('change');
@@ -409,7 +574,7 @@ $(document).ready(function () {
         $(priceBlock).find("#ddlCity_chosen").show();
         $(".city-area-wrapper").show();
 
-        if (modelViewModel.areas() && modelViewModel.selectedArea())
+        if (viewModel.areas() && viewModel.selectedArea())
         {
             $(".available-offers-container").removeClass("text-red").show();
             $('.area-select-text').removeClass("text-red").show();
@@ -472,6 +637,7 @@ $(document).ready(function () {
         if (e.keyCode === 27) {
             $("div.breakupCloseBtn").click();
             $("div.termsPopUpCloseBtn").click();
+            $("div.leadCapture-close-btn").click();
         }
     });
 
@@ -856,4 +1022,299 @@ if ($(window).width() < 996 && $(window).width() > 790) {
     if ($("#bike-gallery-popup .home-tabs").hasClass("hide"))
         $("#bike-gallery-popup").find("div.bike-gallery-heading").removeClass("margin-top90").addClass("margin-top40");
     $("#alternative-bikes-section .bikeTitle, #alternative-bikes-section .bikeStartPrice, #alternative-bikes-section .bikeShowroomName, #alternative-bikes-section .bikeSpecs, #alternative-bikes-section .fillPopupData").removeClass("margin-bottom10").addClass("margin-bottom5");
+}
+
+//lead
+// JavaScript Document
+
+var firstname = $("#getFirstName");
+var lastname = $("#getLastName");
+var emailid = $("#getEmailID");
+var mobile = $("#getMobile");
+var otpContainer = $(".mobile-verification-container");
+
+var detailsSubmitBtn = $("#user-details-submit-btn");
+var otpText = $("#getOTP");
+var otpBtn = $("#otp-submit-btn");
+
+var prevEmail = "";
+var prevMobile = "";
+
+detailsSubmitBtn.click(function () {
+    if (ValidateUserDetail()) {
+        viewModel.CustomerVM().verifyCustomer();
+        if (viewModel.CustomerVM().IsValid()) {
+            $("#personalInfo").hide();
+            $(".call-for-queries").hide();
+
+            window.location.href = "/pricequote/bookingsummary_new.aspx";
+        }
+        else {
+            otpContainer.removeClass("hide").addClass("show");
+            $(this).hide();
+            nameValTrue();
+            hideError(mobile);
+            otpText.val('').removeClass("border-red");
+            otpText.siblings("span, div").css("display", "none");
+        }
+        //setPQUserCookie();
+        //var getCityArea = GetGlobalCityArea();
+        //dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_Successful_Submit', 'lab': getCityArea });
+    }
+});
+
+var ValidateUserDetail = function () {
+
+    var isValid = true;
+    var getCityArea = GetGlobalCityArea();
+
+    isValid = validateEmail(getCityArea);
+    isValid &= validateMobile(getCityArea);
+    isValid &= validateName(getCityArea);
+    isValid &= validateLastName(getCityArea);
+    if (!isValid) {
+        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab  text-bold');
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+    }
+    return isValid;
+};
+
+var validateName = function (cityArea) {
+    var isValid = true;
+    var a = firstname.val().length;
+    if (firstname.val().indexOf('&') != -1) {
+        isValid = false;
+        setError(firstname, 'Invalid name');
+    }
+    else if (a == 0) {
+        isValid = false;
+        setError(firstname, 'Please enter your first name');
+    }
+    else if (a >= 1) {
+        isValid = true;
+        nameValTrue()
+    }
+    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Name', 'lab': cityArea }); }
+    return isValid;
+}
+
+var lastnameValTrue = function () {
+    hideError(lastname)
+    lastname.siblings("div").text('');
+};
+var nameValTrue = function () {
+    hideError(firstname)
+    firstname.siblings("div").text('');
+};
+
+firstname.on("focus", function () {
+    hideError(firstname);
+});
+
+emailid.on("focus", function () {
+    hideError(emailid);
+    prevEmail = emailid.val().trim();
+});
+
+mobile.on("focus", function () {
+    hideError(mobile)
+    prevMobile = mobile.val().trim();
+
+});
+
+emailid.on("blur", function () {
+    if (prevEmail != emailid.val().trim()) {
+        var getCityArea = GetGlobalCityArea();
+        if (validateEmail(getCityArea)) {
+            viewModel.CustomerVM().IsVerified(false);
+            detailsSubmitBtn.show();
+            otpText.val('');
+            otpContainer.removeClass("show").addClass("hide");
+            hideError(emailid);
+        }
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+    }
+    else
+        viewModel.CustomerVM().IsVerified(true);
+});
+
+mobile.on("blur", function () {
+    if (prevMobile != mobile.val().trim()) {
+        var getCityArea = GetGlobalCityArea();
+        if (validateMobile(getCityArea)) {
+            viewModel.CustomerVM().IsVerified(false);
+            detailsSubmitBtn.show();
+            otpText.val('');
+            otpContainer.removeClass("show").addClass("hide");
+            hideError(mobile);
+        }
+        $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+        $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
+    }
+    else
+        viewModel.CustomerVM().IsVerified(true);
+
+});
+
+var mobileValTrue = function () {
+    mobile.removeClass("border-red");
+    mobile.siblings("span, div").hide();
+};
+
+
+otpText.on("focus", function () {
+    otpText.val('');
+    otpText.siblings("span, div").css("display", "none");
+});
+
+var setError = function (ele, msg) {
+    ele.addClass("border-red");
+    ele.siblings("span, div").show();
+    ele.siblings("div").text(msg);
+}
+
+function hideError(ele) {
+    ele.removeClass("border-red");
+    ele.siblings("span, div").hide();
+}
+/* Email validation */
+function validateEmail(cityArea) {
+    var isValid = true;
+    var emailID = emailid.val();
+    var reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
+
+    if (emailID == "") {
+        setError(emailid, 'Please enter email address');
+        isValid = false;
+    }
+    else if (!reEmail.test(emailID)) {
+        setError(emailid, 'Invalid Email');
+        isValid = false;
+    }
+    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Email', 'lab': cityArea }); }
+    return isValid;
+}
+
+function validateMobile(cityArea) {
+    var isValid = true;
+    var reMobile = /^[0-9]{10}$/;
+    var mobileNo = mobile.val();
+    if (mobileNo == "") {
+        isValid = false;
+        setError(mobile, "Please enter your Mobile Number");
+    }
+    else if (!reMobile.test(mobileNo) && isValid) {
+        isValid = false;
+        setError(mobile, "Mobile Number should be 10 digits");
+    }
+    else {
+        hideError(mobile)
+    }
+    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': cityArea }); }
+    return isValid;
+}
+
+var otpVal = function (msg) {
+    otpText.addClass("border-red");
+    otpText.siblings("span, div").css("display", "block");
+    otpText.siblings("div").text(msg);
+};
+
+function validateOTP() {
+    var retVal = true;
+    var isNumber = /^[0-9]{5}$/;
+    var cwiCode = otpText.val();
+    viewModel.CustomerVM().IsVerified(false);
+    if (cwiCode == "") {
+        retVal = false;
+        otpVal("Please enter your Verification Code");
+    }
+    else {
+        if (isNaN(cwiCode)) {
+            retVal = false;
+            otpVal("Verification Code should be numeric");
+        }
+        else if (cwiCode.length != 5) {
+            retVal = false;
+            otpVal("Verification Code should be of 5 digits");
+        }
+    }
+    return retVal;
+
+}
+
+otpBtn.click(function () {
+    var isValid = true;
+    var getCityArea = GetGlobalCityArea();
+    isValid = validateEmail(getCityArea);
+    isValid &= validateMobile(getCityArea);
+    isValid &= validateName(getCityArea);
+    isValid &= validateLastName(getCityArea);
+    $('#processing').show();
+    if (!validateOTP())
+        $('#processing').hide();
+
+    if (validateOTP() && isValid) {
+        viewModel.CustomerVM().generateOTP();
+        var getCityArea = GetGlobalCityArea();
+
+        if (viewModel.CustomerVM().IsVerified()) {
+           // $.customizeState();
+            $("#personalInfo").hide();
+            $(".booking-dealer-details").removeClass("hide").addClass("show");
+            $('#processing').hide();
+
+            detailsSubmitBtn.show();
+            otpText.val('');
+            otpContainer.removeClass("show").addClass("hide");
+
+            // OTP Success
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
+
+            window.location.href = "/pricequote/bookingsummary_new.aspx";
+
+        }
+        else {
+            $('#processing').hide();
+            otpVal("Please enter a valid OTP.");
+            // push OTP invalid
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
+        }
+    }
+});
+
+//$(".customize-submit-btn").click(function (e) {
+//    var a = varientSelection();
+//    if (a == true) {
+//        $.confirmationState();
+//        $("#customize").hide();
+//        $("#customize-tab").removeClass('text-bold');
+//        $("#confirmation").show();
+//        $('#confirmation-tab').addClass('active-tab text-bold').removeClass('disabled-tab');
+//    }
+//    else {
+//        $(".varient-heading-text").addClass("text-orange");
+//    }
+//});
+
+function setuserDetails() {
+    var cookieName = "_PQUser";
+    if (isCookieExists(cookieName)) {
+        var arr = getCookie(cookieName).split("&");
+        return arr;
+    }
+}
+
+var validateLastName = function (cityArea) {
+    var isValid = true;
+    if (lastname.val().indexOf('&') != -1) {
+        isValid = false;
+        setError(lastname, 'Invalid name');
+    }
+    else {
+        isValid = true;
+        lastnameValTrue();
+    }
+    return isValid;
 }

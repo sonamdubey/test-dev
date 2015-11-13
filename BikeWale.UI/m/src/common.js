@@ -64,6 +64,17 @@ function navbarShow() {
 }
 
 $(document).ready(function () {
+    try {
+        if (quotationPage && quotationPage != undefined) {
+            $('header .bw-logo, header .navbarBtn, header .global-location').hide();
+            $('.headerTitle,.white-back-arrow').show();
+
+            $('#book-back').on('click', function () {
+                window.history.back();
+            });
+        }
+    } catch (e) {}
+
     $(".lazy").lazyload({
         effect: "fadeIn"
     });
@@ -75,7 +86,11 @@ $(document).ready(function () {
 	
 	 $('.globalcity-close-btn').click(function () {
         CloseCityPopUp();
-    });
+	 });
+
+	 $('.bw-popup .close-btn').click(function () {
+	     closePopUp();
+	 });
 	
 	function CloseCityPopUp() {
 		var globalLocation = $("#globalcity-popup");
@@ -84,6 +99,11 @@ $(document).ready(function () {
 		unlockPopup();
 		if (!isCookieExists("location"))
 		    SetCookieInDays("location", "0", 365);
+	}
+
+	function closePopUp() {
+	    var bwPopup = $(document).find('.bw-popup');
+	    bwPopup.removeClass("show").addClass("hide");
 	}
 
 	$("#globalCity").autocomplete({

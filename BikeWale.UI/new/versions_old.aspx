@@ -10,6 +10,7 @@
 <%@ Register TagPrefix="BV" TagName="BikeVideos" Src="~/controls/BikeVideos.ascx" %>
 <%@ Register TagPrefix="SB" TagName="SimilarBike" Src="~/controls/SimilarBikes.ascx" %>
 <%@ Register TagPrefix="BikeBooking" TagName="BikeBookingMin" Src="~/controls/BikeBookingMinWidget.ascx"  %>
+<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 
 <%
     title = makeName + " " + modelName + " Price in India, Review, Mileage & Photos - Bikewale";
@@ -87,8 +88,8 @@
     }
 </style>
 
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
+
+
 
 <div class="container_12">
     <div class="grid_12">
@@ -458,6 +459,7 @@
     });
 </script>
 <!--    Left Container ends here -->
+    <PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerInner.aspx" -->
 
       

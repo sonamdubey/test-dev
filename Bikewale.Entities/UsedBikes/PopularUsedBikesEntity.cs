@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.UsedBikes
 {
+    [Serializable]
     public class PopularUsedBikesEntity
     {
         public string MakeMaskingName { get; set; }

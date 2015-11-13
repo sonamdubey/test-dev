@@ -28,7 +28,11 @@ namespace BikewaleOpr.newbikebooking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindMakes();
+            if(!IsPostBack)
+            {
+               BindMakes();
+            }
+            
         }
 
         /// <summary>
