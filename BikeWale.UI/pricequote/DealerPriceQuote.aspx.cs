@@ -150,18 +150,21 @@ namespace Bikewale.BikeBooking
                     {
                         rptOffers.DataSource = objPrice.objOffers;
                         rptOffers.DataBind();
+                    }
 
-                        //Capture Lead
-                        foreach(var i in objPrice.Varients)
+                    if (objPrice.Varients != null && objPrice.Varients.Count() > 0)
+                    {
+                        foreach (var i in objPrice.Varients)
                         {
-                           if(i.objVersion.VersionId == versionId)
-                           {
-                               bookingAmount = i.BookingAmount;
-                               break;
-                           }
+                            if (i.objVersion.VersionId == versionId)
+                            {
+                                bookingAmount = i.BookingAmount;
+                                break;
+                            }
                         }
 
                     }
+
                 }
             }
             catch (Exception ex)

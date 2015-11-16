@@ -375,13 +375,20 @@
                     isClicked = true;
                     leadCapturePopup.show();
                     $('body').addClass('lock-browser-scroll');
-                    $(".blackOut-window").show();
+                    $(".blackOut-window").show();                     
 
-                    $(".leadCapture-close-btn, .blackOut-window").on("click", function () {
+                    $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
                         leadCapturePopup.hide();
                         $('body').removeClass('lock-browser-scroll');
                         $(".blackOut-window").hide();
                     });
+
+                    $(document).on('keydown', function (e) {
+                        if (e.keyCode === 27) {
+                            $("#leadCapturePopup .leadCapture-close-btn").click();
+                        }
+                    });
+
                 });
 
             });
