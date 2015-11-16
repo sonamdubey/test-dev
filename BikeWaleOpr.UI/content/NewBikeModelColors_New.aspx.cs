@@ -1,5 +1,4 @@
 ﻿using BikewaleOpr.Common;
-using BikewaleOpr.controls;
 using BikewaleOpr.Entities;
 using BikeWaleOpr;
 using BikeWaleOpr.Common;
@@ -14,7 +13,7 @@ using System.Web.UI.WebControls;
 
 namespace BikewaleOpr.content
 {
-    public partial class NewBikeModelColors_New : System.Web.UI.Page
+    public class NewBikeModelColors_New : System.Web.UI.Page
     {
         protected HtmlGenericControl spnError;
         protected HtmlInputHidden hdnVersionColor;
@@ -22,8 +21,7 @@ namespace BikewaleOpr.content
         protected DataGrid dtgrdColors;
         protected DropDownList cmbMake, cmbModel;
         protected TextBox txtColor, txtCode, txtHexCode, txtHexCode1, txtHexCode2, txtHexCode3;
-        protected Repeater rptModelColor, rptVersionColor, rptColor;
-        protected EditModelColor ctrlEditModelColor;
+        protected Repeater rptModelColor, rptVersionColor, rptColor;        
         protected int modelColorCount = 0;
         protected int versionCount = 0;
         public string SelectedModel
