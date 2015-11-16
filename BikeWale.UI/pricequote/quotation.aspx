@@ -18,7 +18,6 @@
     isAd970x90Shown = true;
 %>
 <!-- #include file="/includes/headscript.aspx" -->
-<%--<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/price_quote.js?v=1.1"></script>--%>
 
 <style type="text/css">
     #PQImageVariantContainer img { width:100%; }
@@ -50,8 +49,7 @@
 </head>
 <body class="bg-light-grey">
 <form runat="server">
-    <!-- #include file="/includes/headBW.aspx" -->
-	
+    <!-- #include file="/includes/headBW.aspx" -->	
     <section class="bg-light-grey padding-top10">
         <div class="container">
             <div class="grid-12">
@@ -122,10 +120,7 @@
                                     <td align="right" class="PQDetailsTableAmount padding-bottom10 font20 text-bold">
                                         <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
                                     </td>
-                                </tr>
-                                <%--<tr>
-                                    <td colspan="3">Bike available with Zero Dep insurance for <span class="WebRupee">Rs.</span>1,33,000</td>
-                                </tr>	--%>	
+                                </tr>	
                             </table>
                         <%}else{ %>
                         <table class="font14" cellspacing="0" cellpadding="0" width="100%" border="0">
@@ -187,6 +182,7 @@
             <div class="clear"></div>
         </div>
     </section>
+
 
 <PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerBW.aspx" -->
