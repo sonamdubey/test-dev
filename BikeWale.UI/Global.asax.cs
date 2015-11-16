@@ -13,7 +13,8 @@ namespace Bikewale
         protected void Application_Start(object sender, EventArgs e)
         {
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
-            GlobalConfiguration.Configuration.EnsureInitialized(); 
+            GlobalConfiguration.Configuration.EnsureInitialized();
+            Bikewale.Common.BWConfiguration.CreateInstance();
         }
     }
 }
