@@ -185,7 +185,14 @@
                 </div>
             </div>
             <div class="padding-left10 padding-right10">
+                <% if (bookingAmount > 0)
+                   { %>
                 <button type="button" data-role="none" id="getDealerDetails" class="btn btn-full-width btn-orange" style="margin-bottom: 20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</button>
+                <% }
+                   else
+                   { %>
+                <button type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange" style="margin-bottom: 20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</button>
+                <% } %>
                 <%}
                else
                {

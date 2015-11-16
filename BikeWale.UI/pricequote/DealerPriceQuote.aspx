@@ -201,7 +201,7 @@
                                                 </tr>
                                           <% } else {%>
                                                 <tr>
-                                                    <td colspan="2" class="border-solid-top" align="right"><a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow">Get Dealer Details</a></td>
+                                                    <td colspan="2" class="border-solid-top" align="right"><a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</a></td>
                                                 </tr>
 
                                     <% } } %>
@@ -248,9 +248,18 @@
                                         </ul>
                                     </FooterTemplate>
                                 </asp:Repeater>
+                                <% if (bookingAmount > 0)
+                                   { %>
                                 <div class="margin-top10">
                                     <a class="btn btn-orange" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</a>
                                 </div>
+                                <% }
+                                   else
+                                   { %>
+                                <div class="margin-top10">
+                                    <a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</a>
+                                </div>
+                                <%} %>
                             </div>
                         </div>
                         <%}%>
