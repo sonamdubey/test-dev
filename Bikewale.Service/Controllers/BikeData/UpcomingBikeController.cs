@@ -9,6 +9,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Pager;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.BikeData;
+using Bikewale.Service.AutoMappers.Make;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Description;
 using System.Web.Mvc;
 
 namespace Bikewale.Service.Controllers.BikeData
@@ -28,11 +30,13 @@ namespace Bikewale.Service.Controllers.BikeData
     public class UpcomingBikeController : ApiController
     {
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
+        private readonly IBikeMakes<BikeMakeEntity, int> _makeRepository = null;
         private readonly IPager _objPager = null;
-        public UpcomingBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager)
+        public UpcomingBikeController(IBikeModelsRepository<BikeModelEntity, int> modelRepository, IPager objPager, IBikeMakes<BikeMakeEntity, int> makeRepository)
         {
             _modelRepository = modelRepository;
             _objPager = objPager;
+            _makeRepository = makeRepository;
         }
 
         #region GetUpcomingBikeList PopulateWhere
@@ -89,5 +93,39 @@ namespace Bikewale.Service.Controllers.BikeData
             }
         }
         #endregion
+
+        /// <summary>
+        /// Created By  :   Sumit Kate on 16 Nov 2015
+        /// Summary     :   Returns the Upcoming Bike's Make list
+        /// </summary>
+        /// <returns></returns>
+        [ResponseType(typeof(MakeList))]
+        public IHttpActionResult Get()
+        {
+            IEnumerable<BikeMakeEntityBase> objMakeList = null;
+            MakeList objDTOMakeList = null;
+            try
+            {
+                objMakeList = _makeRepository.UpcomingBikeMakes();
+
+                if (objMakeList != null && objMakeList.Count() > 0)
+                {
+                    objDTOMakeList = new MakeList();
+
+                    objDTOMakeList.Makes = MakeListMapper.Convert(objMakeList);
+
+                    objMakeList = null;
+
+                    return Ok(objDTOMakeList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.UpcomingBikeController.Get");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+            return NotFound();
+        }
     }
 }

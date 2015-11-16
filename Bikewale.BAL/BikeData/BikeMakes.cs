@@ -93,5 +93,11 @@ namespace Bikewale.BAL.BikeData
 
             return t;
         }
+
+
+        public IEnumerable<BikeMakeEntityBase> UpcomingBikeMakes()
+        {
+            return makesRepository.UpcomingBikeMakes();
+        }
     }   // Class
 }   //Namespace

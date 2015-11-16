@@ -17,6 +17,8 @@ namespace Bikewale.DAL.BikeData
     /// Created By : Ashish G. Kamble
     /// Modified By : Lucky Rathore
     /// Summary : changes in function GetMakesByType
+    /// Modified By :   Sumit Kate on 16 Nov 2015
+    /// Summary :   Added new function UpcomingBikeMakes
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this class)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this class)</typeparam>
@@ -375,5 +377,54 @@ namespace Bikewale.DAL.BikeData
             return makeDetails;
         }   // End of getMakeDetails
 
+        /// <summary>
+        /// Returns the Upcoming Bike's Make list
+        /// Author  :   Sumit Kate
+        /// Created :   16 Nov 2015
+        /// </summary>
+        /// <returns>Upcoming Bike's Make list</returns>
+        public IEnumerable<BikeMakeEntityBase> UpcomingBikeMakes()
+        {
+            IList<BikeMakeEntityBase> makes = null;
+            Database db = null;            
+            try
+            {
+                using (SqlCommand sqlCommand = new SqlCommand("GetUpcomingBikeMakes"))
+                {
+                    db = new Database();
+                    sqlCommand.CommandType = CommandType.StoredProcedure;
+                    using (SqlDataReader reader= db.SelectQry(sqlCommand))
+                    {
+                        if (reader != null && reader.HasRows)
+                        {
+                            makes = new List<BikeMakeEntityBase>();
+                            while (reader.Read())
+                            {
+                                makes.Add(
+                                    new BikeMakeEntityBase()
+                                    {
+                                        MakeId = Convert.ToInt32(reader["ID"]),
+                                        MakeName = Convert.ToString(reader["Name"]),
+                                        MaskingName = Convert.ToString(reader["MaskingName"]),
+                                        LogoUrl = Convert.ToString(reader["LogoUrl"]),
+                                        HostUrl = Convert.ToString(reader["HostURL"])
+                                    }
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return makes;
+        }
     }
 }
