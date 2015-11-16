@@ -139,7 +139,12 @@ namespace Bikewale.Mobile.BikeBooking
                         rptOffers.DataSource = objPrice.objOffers;
                         rptOffers.DataBind();
 
-                        //Capture Lead
+                    }
+
+                    if (objPrice.Varients != null && objPrice.Varients.Count() > 0)
+                    {
+
+                       //Capture Lead
                         foreach (var i in objPrice.Varients)
                         {
                             if (i.objVersion.VersionId == versionId)
