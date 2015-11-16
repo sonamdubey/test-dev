@@ -538,12 +538,10 @@ $(document).ready(function () {
         if ( viewModel.cities() && viewModel.selectedCity() === undefined ) {
             $('.offer-error').addClass("text-red").shake();
             $('.city-select-text').addClass("text-red").shake();
-            //transferEffect($(priceBlock).find("#ddlCity_chosen"));
         }
         else if(viewModel.selectedCity != undefined && viewModel.areas() || viewModel.selectedArea() === undefined)
         {
             $('.area-select-text').addClass("text-red").shake();
-            //transferEffect($(priceBlock).find("#ddlArea_chosen"));
         }
     });
 
@@ -640,11 +638,6 @@ $(document).ready(function () {
             $("div.leadCapture-close-btn").click();
         }
     });
-
-
-
-    //$(ctrlSelectCity).chosen({ no_results_text: "No matches found!!" });
-    //$(ctrlSelectArea).chosen({ no_results_text: "No matches found!!" });
 
 });
 
@@ -1057,9 +1050,9 @@ detailsSubmitBtn.click(function () {
             otpText.val('').removeClass("border-red");
             otpText.siblings("span, div").css("display", "none");
         }
-        //setPQUserCookie();
-        //var getCityArea = GetGlobalCityArea();
-        //dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_Successful_Submit', 'lab': getCityArea });
+        setPQUserCookie();
+        var getCityArea = GetGlobalCityArea();
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Step_1_Successful_Submit', 'lab': getCityArea });
     }
 });
 
@@ -1094,7 +1087,7 @@ var validateName = function (cityArea) {
         isValid = true;
         nameValTrue()
     }
-    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Name', 'lab': cityArea }); }
+    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model Page', 'act': 'Step_1_Submit_Error_Name', 'lab': cityArea }); }
     return isValid;
 }
 
@@ -1192,7 +1185,7 @@ function validateEmail(cityArea) {
         setError(emailid, 'Invalid Email');
         isValid = false;
     }
-    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Email', 'lab': cityArea }); }
+    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model Page', 'act': 'Step_1_Submit_Error_Email', 'lab': cityArea }); }
     return isValid;
 }
 
@@ -1211,7 +1204,7 @@ function validateMobile(cityArea) {
     else {
         hideError(mobile)
     }
-    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': cityArea }); }
+    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': cityArea }); }
     return isValid;
 }
 
@@ -1270,7 +1263,7 @@ otpBtn.click(function () {
             otpContainer.removeClass("show").addClass("hide");
 
             // OTP Success
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
 
             window.location.href = "/pricequote/bookingsummary_new.aspx";
 
@@ -1279,24 +1272,10 @@ otpBtn.click(function () {
             $('#processing').hide();
             otpVal("Please enter a valid OTP.");
             // push OTP invalid
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
         }
     }
 });
-
-//$(".customize-submit-btn").click(function (e) {
-//    var a = varientSelection();
-//    if (a == true) {
-//        $.confirmationState();
-//        $("#customize").hide();
-//        $("#customize-tab").removeClass('text-bold');
-//        $("#confirmation").show();
-//        $('#confirmation-tab').addClass('active-tab text-bold').removeClass('disabled-tab');
-//    }
-//    else {
-//        $(".varient-heading-text").addClass("text-orange");
-//    }
-//});
 
 function setuserDetails() {
     var cookieName = "_PQUser";
@@ -1317,4 +1296,9 @@ var validateLastName = function (cityArea) {
         lastnameValTrue();
     }
     return isValid;
+}
+
+function setPQUserCookie() {
+    var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
+    SetCookie("_PQUser", val);
 }

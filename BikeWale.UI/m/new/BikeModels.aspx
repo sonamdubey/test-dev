@@ -291,7 +291,7 @@
                                         <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
                                     </div>
 
-                                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails(); dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - TVS Wego&gt;', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });" class="rounded-corner5" data-role="none" id="btnSubmit" />
+                                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
                                 </div>
                             </div>
 

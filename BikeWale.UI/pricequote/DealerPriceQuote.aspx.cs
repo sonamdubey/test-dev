@@ -44,6 +44,8 @@ namespace Bikewale.BikeBooking
         protected bool IsInsuranceFree = false;
         protected CustomerEntity objCustomer = new CustomerEntity();
         protected string cityArea = string.Empty;
+        protected uint bookingAmount = 0;
+        protected String clientIP = string.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -80,6 +82,7 @@ namespace Bikewale.BikeBooking
                     GetVersionColors(versionId);
                     PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, areaId, versionId.ToString(), dealerId.ToString());
                     BindAlternativeBikeControl(versionId.ToString());
+                    clientIP = CommonOpn.GetClientIP();
                 }
                 else
                     SavePriceQuote();
@@ -147,6 +150,17 @@ namespace Bikewale.BikeBooking
                     {
                         rptOffers.DataSource = objPrice.objOffers;
                         rptOffers.DataBind();
+
+                        //Capture Lead
+                        foreach(var i in objPrice.Varients)
+                        {
+                           if(i.objVersion.VersionId == versionId)
+                           {
+                               bookingAmount = i.BookingAmount;
+                               break;
+                           }
+                        }
+
                     }
                 }
             }
