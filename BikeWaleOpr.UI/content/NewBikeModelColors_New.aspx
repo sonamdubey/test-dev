@@ -1,6 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.content.NewBikeModelColors_New" EnableEventValidation="false" %>
-
-<%@ Register Src="~/controls/EditModelColor.ascx" TagName="EditModelColor" TagPrefix="BW" %>
 <%@ Import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <script language="javascript" src="/src/AjaxFunctions.js"></script>
