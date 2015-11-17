@@ -19,7 +19,8 @@
     <form id="form1" runat="server">
         <div>
             <h2>Update Model Color</h2>            
-            <h3 class="margin-left10 margin-bottom10;"><%= ModelColorName %></h3>
+            <h3 class="margin-left10 margin-bottom10;">Color Name : <%= ModelColorName %></h3>
+            <asp:button id="btnDelete" style="margin-left:13px; margin-bottom:10px;" ToolTip="Deletes the model color" runat="server" text="Delete" />
             <span id="spnError" class="error" runat="server"></span>
             <asp:Repeater ID="rptHexCode" runat="server" EnableViewState="false">
                 <HeaderTemplate>                 
@@ -44,7 +45,7 @@
                     <td><asp:button id="btnSave" text="Add Color" runat="server"/></td>
                 </tr>
             </table>  
-            <asp:button id="btnUpdate" runat="server" text="Update Model Color" Enabled="false" />
+            <asp:button id="btnUpdate" style="margin-left:13px;" runat="server" text="Update Model Color" Enabled="false" />            
         </div>
     </form>
     <script type="text/javascript">

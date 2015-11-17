@@ -17,7 +17,7 @@ namespace BikewaleOpr.content
         protected string ModelColorName;
         protected string modelId;
         protected Repeater rptHexCode;
-        protected Button btnSave, btnUpdate;
+        protected Button btnSave, btnUpdate,btnDelete;
         protected TextBox txtNewHexCode;
         protected HtmlGenericControl spnError;
 
@@ -30,6 +30,33 @@ namespace BikewaleOpr.content
             base.Load += new EventHandler(Page_Load);
             btnSave.Click += new EventHandler(btnSave_Cilck);
             btnUpdate.Click += new EventHandler(btnUpdate_Click);
+            btnDelete.Click += new EventHandler(btnDelete_Click);
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            bool isSaved = false;
+            ManageModelColor obj = null;
+            try
+            {
+                obj = new ManageModelColor();
+                ProcessQueryString();
+                isSaved = obj.DeleteModelColor(Convert.ToInt32(modelColorId),CurrentUser.UserName);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                spnError.InnerHtml = "<b>Error occured while deleting.</b>";
+            }
+            if (isSaved)
+            {
+                spnError.InnerHtml = "<b>Deleted.</b>";
+            }
+            else
+            {
+                spnError.InnerHtml = "<b>Not Deleted.</b>";
+            } 
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
@@ -105,7 +132,7 @@ namespace BikewaleOpr.content
             else
             {
                 spnError.InnerHtml = "<b>Not Updated.</b>";
-            }
+            }            
         }
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -149,6 +176,5 @@ namespace BikewaleOpr.content
                 objErr.SendMail();
             }
         }
-
     }
 }

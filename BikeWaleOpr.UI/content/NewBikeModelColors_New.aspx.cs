@@ -16,11 +16,11 @@ namespace BikewaleOpr.content
     public class NewBikeModelColors_New : System.Web.UI.Page
     {
         protected HtmlGenericControl spnError;
-        protected HtmlInputHidden hdnVersionColor;
+        protected HtmlInputHidden hdnVersionColor, hdnHexCodes;
         protected Button btnSave, btnShowColors, btnUpdateVersionColor;
         protected DataGrid dtgrdColors;
         protected DropDownList cmbMake, cmbModel;
-        protected TextBox txtColor, txtCode, txtHexCode, txtHexCode1, txtHexCode2, txtHexCode3;
+        protected TextBox txtColor, txtCode;
         protected Repeater rptModelColor, rptVersionColor, rptColor;        
         protected int modelColorCount = 0;
         protected int versionCount = 0;
@@ -126,32 +126,16 @@ namespace BikewaleOpr.content
         private void btnSave_Click(object sender, EventArgs e)
         {
             bool isSaved = false;
-            string strHexCode1 = String.Empty, strHexCode2 = String.Empty, strHexCode3 = String.Empty, colorName = String.Empty, hexCodes = String.Empty;
+            string strHexCode = String.Empty, colorName = String.Empty, hexCodes = String.Empty;
             ManageModelColor objManageModelColor = null;
             try
             {
-                strHexCode1 = txtHexCode1.Text.Trim();
-                strHexCode2 = txtHexCode2.Text.Trim();
-                strHexCode3 = txtHexCode3.Text.Trim();
+                strHexCode = hdnHexCodes.Value.Trim();
                 colorName = txtColor.Text.Trim();
-                if (!String.IsNullOrEmpty(strHexCode1))
+                if (!String.IsNullOrEmpty(strHexCode))
                 {
-                    hexCodes = strHexCode1;
-                }
-                if (!String.IsNullOrEmpty(strHexCode2))
-                {
-                    if (String.IsNullOrEmpty(hexCodes))
-                        hexCodes = strHexCode2;
-                    else
-                        hexCodes += "," + strHexCode2;
-                }
-                if (!String.IsNullOrEmpty(strHexCode3))
-                {
-                    if (String.IsNullOrEmpty(hexCodes))
-                        hexCodes = strHexCode3;
-                    else
-                        hexCodes += "," + strHexCode3;
-                }
+                    hexCodes = strHexCode;
+                }                
                 objManageModelColor = new ManageModelColor();
                 if (!String.IsNullOrEmpty(hexCodes))
                 {
@@ -172,10 +156,7 @@ namespace BikewaleOpr.content
                 objErr.SendMail();
                 spnError.InnerHtml = "<b>Error occured while saving the model color</b>";
             }
-            txtColor.Text = String.Empty;
-            txtHexCode1.Text = String.Empty;
-            txtHexCode2.Text = String.Empty;
-            txtHexCode3.Text = String.Empty;
+            txtColor.Text = String.Empty;            
             BindModelColorRepeater();
         }
 
