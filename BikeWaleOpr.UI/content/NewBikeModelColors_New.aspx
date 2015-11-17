@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="BikewaleOpr.content.NewBikeModelColors_New" EnableEventValidation="false" %>
+
 <%@ Import Namespace="BikeWaleOpr.Common" %>
 <!-- #Include file="/includes/headerNew.aspx" -->
 <script language="javascript" src="/src/AjaxFunctions.js"></script>
@@ -11,7 +12,9 @@
     td, tr, table {
         border-color: white;
     }
-
+    .ismodified{
+        background-color: yellow;
+    }
     .savedModelColors li {
         margin-top: 10px;
         min-width: 120px;
@@ -66,6 +69,10 @@
             width: 80px;
             margin-right: 15px;
         }
+
+        
+        .versionNameText { width:120px; text-align:center; }
+        .versionsBoxList { width:1080px; border-left:1px solid #aaa; }
 </style>
 <div class="urh">
     You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Add Bike Model Colors
@@ -75,7 +82,7 @@
 
     <span id="spnError" class="error" runat="server"></span>
     <fieldset>
-        <legend>Select Model</legend>
+        <legend style="font-weight: bold">Select Model</legend>
         <asp:dropdownlist id="cmbMake" runat="server" tabindex="1" />
         <asp:dropdownlist id="cmbModel" runat="server" tabindex="2">
 			<asp:ListItem Value="0" Text="--Select--" />
@@ -86,16 +93,25 @@
     </fieldset>
     <br>
     <fieldset>
-        <legend>Add New Color To Model</legend>
-        Color Name
+        <legend style="font-weight: bold">Add New Color To Model</legend>
+        Color Name: 
 		<asp:textbox runat="server" id="txtColor" maxlength="50" columns="15" runat="server" tabindex="4" />
         <br />
         <br />
-        Color Code
-		<asp:textbox runat="server" id="txtHexCode1" maxlength="6" columns="6" runat="server" tabindex="5" />
+        Color Codes: 
+		<%--<asp:textbox runat="server" id="txtHexCode1" maxlength="6" columns="6" runat="server" tabindex="5" />
         <asp:textbox runat="server" id="txtHexCode2" maxlength="6" columns="6" runat="server" tabindex="6" />
-        <asp:textbox runat="server" id="txtHexCode3" maxlength="6" columns="6" runat="server" tabindex="7" />
-        <asp:button id="btnSave" text="Save Model Color" runat="server" tabindex="8" />
+        <asp:textbox runat="server" id="txtHexCode3" maxlength="6" columns="6" runat="server" tabindex="7" />--%>
+        <div class="input_fields_wrap">            
+            <span>
+                <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width:59px;" name="mytext[]" tabindex="5"/></span>
+            <span>
+                <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width:59px;" name="mytext[]" tabindex="6"/></span>
+            <span>
+                <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width:59px;" name="mytext[]" tabindex="7"/></span>
+            <button class="add_field_button">Add New Code</button>
+        </div>
+        <asp:button id="btnSave" text="Save Model Color" style='margin-top:15px' runat="server" tabindex="8" />
         <hr />
         <%
             if (modelColorCount > 0)
@@ -120,20 +136,23 @@
         <span>No content.</span>
         <%} %>
         <div class="clear"></div>
-        <hr />
-        <%
-            if (modelColorCount > 0)
-            {
+        <input type="hidden" id="hdnVersionColor" runat="server" />
+        <input type="hidden" id="hdnHexCodes" runat="server" />
+    </fieldset>
+    <%
+        if (modelColorCount > 0)
+        {
                 
-        %>
-        Add color to model versions:
+    %>
+    <fieldset style="margin-top: 15px;">
+        <legend style="font-weight: bold">Add color to model versions:</legend>
         <div class="addColorToVersions">
             <asp:repeater id="rptVersionColor" runat="server" enableviewstate="false">
                 <ItemTemplate>
-                    <div class="addColorToVersionsBox">
-                        <span class="inline-block" style="width:120px;"><%# DataBinder.Eval(Container.DataItem,"VersionName") %></span>                        
+                    <div class="addColorToVersionsBox inline-block">
+                        <span class="inline-block versionNameText"><%# DataBinder.Eval(Container.DataItem,"VersionName") %></span>                        
                         <asp:HiddenField id="BikeVersionId" runat="server" value='<%# DataBinder.Eval(Container.DataItem,"VersionId") %>' />
-                        <ul class="inline-block">
+                        <ul class="inline-block versionsBoxList">
                             <asp:Repeater ID="rptColor" runat="server" enableviewstate="false">
                                 <ItemTemplate>
                                     <li>
@@ -144,20 +163,42 @@
                                 </ItemTemplate>
                             </asp:Repeater>
                         </ul>
+                        <div class="clear"></div>
+                        <hr />
                     </div>
+                    <div class="clear"></div>
                 </ItemTemplate>
             </asp:repeater>
             <asp:button id="btnUpdateVersionColor" text="Update Version Colors" runat="server" />
         </div>
-        <%} %>
-        <input type="hidden" id="hdnVersionColor" runat="server" />
     </fieldset>
-    <br>
-    <br>
+    <%} %>
 </div>
 <script type="text/javascript">
 
     document.getElementById("cmbMake").onchange = cmbMake_Change;
+    var max_fields = 10; //maximum input boxes allowed
+    var wrapper = $(".input_fields_wrap"); //Fields wrapper
+    var add_button = $(".add_field_button"); //Add button ID
+
+    var x = 1; //initlal text box count
+    $(document).ready(function () {        
+        $(add_button).click(function (e) { //on add input button click
+            e.preventDefault();
+            if (x < max_fields) { //max input box allowed
+                x++; //text box increment
+                //$(this).parent().find('span').last().append('<span><input style="width:59px;"  type="text" maxlength="6" columns="6" name="mytext[]"/><a href="#" class="remove_field">Remove</a></span>'); //add input box
+                $('<span style=\'padding-left: 4px;\'><input style="width:59px;" class="hexCodeText" type="text" maxlength="6" columns="6" name="mytext[]" tabindex="' + eval(8 + x) + '"/><a href="#" class="remove_field">Remove</a></span>').insertAfter($(this).parent().find('span').last());
+            }
+        });
+    });
+
+    $(".remove_field").live("click", function (e) { //user click on remove text
+        if (x >= 2) {
+            $(this).parent('span').remove(); x--;
+        }
+        return false;
+    })
 
     function cmbMake_Change(e) {
         var makeId = document.getElementById("cmbMake").value;
@@ -168,8 +209,6 @@
         //call the function to consume this data
         FillCombo_Callback(response, document.getElementById("cmbModel"), "hdn_cmbModel", dependentCmbs);
     }
-
-
     function checkFind(e) {
         if (document.getElementById('cmbMake').options[0].selected) {
             document.getElementById('selectModel').innerHTML = "Select Make First";
@@ -193,6 +232,7 @@
     });
     $(":checkbox").live("click", function isChecked(e) {
         $(this).attr("isModified", "true");
+        $(this).parent().first().addClass("ismodified");
     });
 
     $("#btnUpdateVersionColor").live("click", function () {
@@ -227,36 +267,40 @@
     $("#btnSave").live("click", function () {
         var isValid = true;
         if ($("#txtColor").val().length > 0 && $("#cmbMake").val() > 0 && $("#cmbModel").val() > 0) {
-            if ($("#txtHexCode1").val().length > 0 || $("#txtHexCode2").val().length > 0 || $("#txtHexCode3").val().length > 0) {
-                if ($("#txtHexCode1").val().length > 0)
-                    if (!validateHexColorCode($("#txtHexCode1").val()))
+            if ($(".hexCodeText").length > 0) {
+                $('#hdnHexCodes').val('');
+                $(".hexCodeText").each(function () {
+                    if (($(this).val().length > 0) && (!validateHexColorCode($(this).val()))) {
                         isValid = false;
-                if ($("#txtHexCode2").val().length > 0)
-                    if (!validateHexColorCode($("#txtHexCode2").val()))
-                        isValid = false;
-                if ($("#txtHexCode3").val().length > 0)
-                    if (!validateHexColorCode($("#txtHexCode3").val()))
-                        isValid = false;
+                    }                    
+                })
             }
             else {
                 alert("Please enter a valid hexcode.");
                 isValid = false;
             }
         }
-        else {            
+        else {
             isValid = false;
         }
         if (!isValid) {
             alert("Invalid input.");
         }
+        else {
+            $('#hdnHexCodes').val($('#hdnHexCodes').val().substring(0, $('#hdnHexCodes').val().length - 1));
+        }
         return isValid;
     });
 
     function validateHexColorCode(val) {
-        var patt = new RegExp("^(?:[0-9a-fA-F]{3}){1,2}$");
-        return patt.test(val);
+        var patt = new RegExp("^(?:[0-9a-fA-F]{3}){1,2}$");        
+        var retVal = patt.test(val);
+        if (retVal) {
+            $('#hdnHexCodes').val(val + ',' + $('#hdnHexCodes').val());            
+        }
+        return retVal;
     }
-    function openEditColorWindow(modelColorId,modelId) {
+    function openEditColorWindow(modelColorId, modelId) {
         window.open('/content/ManageNewModelColor.aspx?modelColorId=' + modelColorId + '&modelId=' + modelId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
     }
 </script>

@@ -149,17 +149,16 @@ namespace BikewaleOpr.Common
         /// UsedBikeSpecs = 10,
         /// NewBikeSpecification = 11</param>
         /// <returns></returns>
-        public IEnumerable<VersionEntityBase> FetchBikeVersion(int modelId,int requestType = 7)
+        public IEnumerable<VersionEntityBase> FetchBikeVersion(int modelId)
         {
             IList<VersionEntityBase> bikeVersions = null;
             Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetBikeVersions_New"))
+                using (SqlCommand cmd = new SqlCommand("SELECT ID AS VersionId,Name AS VersionName FROM BikeVersions WHERE BikeModelId = @ModelId AND IsDeleted = 0"))
                 {
                     db = new Database();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@RequestType", requestType);
+                    cmd.CommandType = CommandType.Text;                    
                     cmd.Parameters.AddWithValue("@ModelId", modelId);
 
                     using (SqlDataReader reader = db.SelectQry(cmd))
@@ -336,6 +335,33 @@ namespace BikewaleOpr.Common
                 db = null;
             }
             return isSaved;
+        }
+
+        public bool DeleteModelColor(int modelColorId,string userId)
+        {
+            bool isDeleted = false;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("DeleteModelColor"))
+                {
+                    db = new Database();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@modelColorId", modelColorId);
+                    cmd.Parameters.AddWithValue("@userId", userId);
+                    isDeleted = db.UpdateQry(cmd);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageModelColor.DeleteModelColor");
+                objErr.SendMail();
+            }
+            finally
+            {
+                db = null;
+            }
+            return isDeleted;
         }
     }
 }
