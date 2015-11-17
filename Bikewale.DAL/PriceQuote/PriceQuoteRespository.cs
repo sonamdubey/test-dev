@@ -287,5 +287,45 @@ namespace Bikewale.DAL.PriceQuote
             }
             return isUpdated;
         }
+
+
+        public bool SaveBookingState(uint pqId, PriceQuoteStates state)
+        {
+            bool isUpdated = false;
+            Database db = null;
+            try
+            {
+                db = new Database();
+
+                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "SavePQState";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
+                        cmd.Parameters.Add("@stateId", SqlDbType.Int).Value = state;
+
+                        conn.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            isUpdated = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return isUpdated;
+        }
     }   // Class
 }   // namespace
