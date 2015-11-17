@@ -12,9 +12,11 @@
     td, tr, table {
         border-color: white;
     }
-    .ismodified{
+
+    .ismodified {
         background-color: yellow;
     }
+
     .savedModelColors li {
         margin-top: 10px;
         min-width: 120px;
@@ -70,9 +72,23 @@
             margin-right: 15px;
         }
 
-        
-        .versionNameText { width:120px; text-align:center; }
-        .versionsBoxList { width:1080px; border-left:1px solid #aaa; }
+
+    .versionNameText {
+        width: 90px;
+        text-align: center;
+    }
+
+    .versionsBoxList {
+        width: 950px;
+        border-left: 1px solid #aaa;
+    }
+
+    #one {
+        width: 50px;
+        height: 50px;
+        border: 1px solid #ccc;
+        margin:0 auto 10px;
+    }
 </style>
 <div class="urh">
     You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Add Bike Model Colors
@@ -102,16 +118,16 @@
 		<%--<asp:textbox runat="server" id="txtHexCode1" maxlength="6" columns="6" runat="server" tabindex="5" />
         <asp:textbox runat="server" id="txtHexCode2" maxlength="6" columns="6" runat="server" tabindex="6" />
         <asp:textbox runat="server" id="txtHexCode3" maxlength="6" columns="6" runat="server" tabindex="7" />--%>
-        <div class="input_fields_wrap">            
+        <div class="input_fields_wrap">
             <span>
-                <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width:59px;" name="mytext[]" tabindex="5"/></span>
+                <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width: 59px;" name="mytext[]" tabindex="5" /></span>
             <span>
-                <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width:59px;" name="mytext[]" tabindex="6"/></span>
+                <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width: 59px;" name="mytext[]" tabindex="6" /></span>
             <span>
-                <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width:59px;" name="mytext[]" tabindex="7"/></span>
+                <input type="text" class="hexCodeText" maxlength="6" columns="6" style="width: 59px;" name="mytext[]" tabindex="7" /></span>
             <button class="add_field_button">Add New Code</button>
         </div>
-        <asp:button id="btnSave" text="Save Model Color" style='margin-top:15px' runat="server" tabindex="8" />
+        <asp:button id="btnSave" text="Save Model Color" style='margin-top: 15px' runat="server" tabindex="8" />
         <hr />
         <%
             if (modelColorCount > 0)
@@ -123,6 +139,14 @@
             <asp:repeater id="rptModelColor" runat="server" enableviewstate="false">
                 <itemtemplate>
                     <li>
+                        <asp:HiddenField id="hdnModelColorId" runat="server" value='<%# DataBinder.Eval(Container.DataItem,"Id") %>' />
+                        <table border="0" id="one" cellspacing="0">
+                            <asp:repeater id="rptColorCode" runat="server" enableviewstate="false">
+                                <itemtemplate>
+                                    <tr style='background:#<%#DataBinder.Eval(Container.DataItem,"HexCode")%>'><td></td><td></td></tr>
+                                </itemtemplate>
+                            </asp:repeater>
+                        </table>
                         <p><%#DataBinder.Eval(Container.DataItem,"Name") %></p>
                         <a href="javascript:openEditColorWindow(<%#DataBinder.Eval(Container.DataItem,"Id") %>, <%= ModelId %>)" class="editBtn">Edit</a>
                     </li>
@@ -182,7 +206,7 @@
     var add_button = $(".add_field_button"); //Add button ID
 
     var x = 1; //initlal text box count
-    $(document).ready(function () {        
+    $(document).ready(function () {
         $(add_button).click(function (e) { //on add input button click
             e.preventDefault();
             if (x < max_fields) { //max input box allowed
@@ -272,7 +296,7 @@
                 $(".hexCodeText").each(function () {
                     if (($(this).val().length > 0) && (!validateHexColorCode($(this).val()))) {
                         isValid = false;
-                    }                    
+                    }
                 })
             }
             else {
@@ -293,10 +317,10 @@
     });
 
     function validateHexColorCode(val) {
-        var patt = new RegExp("^(?:[0-9a-fA-F]{3}){1,2}$");        
+        var patt = new RegExp("^(?:[0-9a-fA-F]{3}){1,2}$");
         var retVal = patt.test(val);
         if (retVal) {
-            $('#hdnHexCodes').val(val + ',' + $('#hdnHexCodes').val());            
+            $('#hdnHexCodes').val(val + ',' + $('#hdnHexCodes').val());
         }
         return retVal;
     }

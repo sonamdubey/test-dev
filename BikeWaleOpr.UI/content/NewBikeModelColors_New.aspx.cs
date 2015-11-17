@@ -70,6 +70,23 @@ namespace BikewaleOpr.content
             rptVersionColor.ItemDataBound += new RepeaterItemEventHandler(rptVersionColor_ItemDataBound);
             btnSave.Click += new EventHandler(btnSave_Click);
             btnUpdateVersionColor.Click += new EventHandler(btnUpdateVersionColor_Click);
+            rptModelColor.ItemDataBound += new RepeaterItemEventHandler(rptModelColor_ItemDataBound);
+        }
+
+        private void rptModelColor_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            RepeaterItem item = e.Item;
+            if ((item.ItemType == ListItemType.Item) ||
+                (item.ItemType == ListItemType.AlternatingItem))
+            {
+                rptColor = (Repeater)item.FindControl("rptColorCode");
+                string modelColorId = ((HiddenField)item.FindControl("hdnModelColorId")).Value;
+                IEnumerable<ModelColorBase> modelColors = (new ManageModelColor()).FetchModelColors(Convert.ToInt32(ModelId));
+                rptColor.DataSource = (from color in modelColors
+                                       where color.Id == Convert.ToUInt32(modelColorId)
+                                       select color).FirstOrDefault().ColorCodes;
+                rptColor.DataBind();
+            }
         }
 
         private void btnUpdateVersionColor_Click(object sender, EventArgs e)
