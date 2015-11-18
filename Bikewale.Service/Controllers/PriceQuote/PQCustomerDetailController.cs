@@ -1,11 +1,8 @@
-﻿using AutoMapper;
-using Bikewale.BAL.BikeBooking;
-using Bikewale.BAL.Customer;
+﻿using Bikewale.BAL.Customer;
 using Bikewale.DTO.PriceQuote;
 using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.DTO.PriceQuote.CustomerDetails;
 using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.BikeData;
 using Bikewale.Entities.Customer;
 using Bikewale.Entities.MobileVerification;
 using Bikewale.Entities.PriceQuote;
@@ -13,18 +10,14 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.MobileVerification;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking;
 using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.TCAPI;
 using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -32,7 +25,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 {
     /// <summary>
     /// Price Quote Customer Detail Controller
-    /// Author  :   Sumit Kate
+    /// Author      :   Sumit Kate
     /// Created On  :   21 Aug 2015
     /// </summary>
     public class PQCustomerDetailController : ApiController
@@ -43,13 +36,15 @@ namespace Bikewale.Service.Controllers.PriceQuote
         private readonly IMobileVerificationRepository _mobileVerRespo = null;
         private readonly IMobileVerification _mobileVerification = null;
         private readonly IDealer _objDealer = null;
+        private readonly IPriceQuote _objPriceQuote = null;
         public PQCustomerDetailController(
             ICustomerAuthentication<CustomerEntity, UInt32> objAuthCustomer,
             ICustomer<CustomerEntity, UInt32> objCustomer,
             IDealerPriceQuote objDealerPriceQuote,
             IMobileVerificationRepository mobileVerRespo,
             IMobileVerification mobileVerificetion,
-            IDealer objDealer)
+            IDealer objDealer,
+            IPriceQuote objPriceQuote)
         {
             _objAuthCustomer = objAuthCustomer;
             _objCustomer = objCustomer;
@@ -57,10 +52,13 @@ namespace Bikewale.Service.Controllers.PriceQuote
             _mobileVerRespo = mobileVerRespo;
             _mobileVerification = mobileVerificetion;
             _objDealer = objDealer;
+            _objPriceQuote = objPriceQuote;
         }
         /// <summary>
         /// Saves the Customer details if it is a new customer.
         /// generated the OTP for the non verified customer
+        /// Modified By :   Sumit Kate on 18 Nov 2015
+        /// Description :   Save the State of the Booking Journey as Described in Task# 107795062 
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -238,6 +236,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                             // If customer is mobile verified push lead to autobiz
                             if (isVerified)
                             {
+                                _objPriceQuote.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
                                 AutoBizAdaptor.PushInquiryInAB(input.DealerId.ToString(), input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail, input.VersionId, input.CityId);
                             }
                         }

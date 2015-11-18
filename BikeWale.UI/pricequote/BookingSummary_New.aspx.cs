@@ -1,22 +1,18 @@
 ﻿using Bikewale.Common;
 using Bikewale.DTO.BookingSummary;
 using Bikewale.DTO.PriceQuote.BikeBooking;
-using Bikewale.DTO.PriceQuote.CustomerDetails;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.PriceQuote;
-using Bikewale.Notifications;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
 using Carwale.Entity.PaymentGateway;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.BikeBooking
@@ -111,6 +107,11 @@ namespace Bikewale.BikeBooking
             }
         }
 
+        /// <summary>
+        /// Modified By :   Sumit Kate on 18 Nov 2015
+        /// Description :   Save the State of the Booking Journey as Described in Task# 107795062
+        /// </summary>
+        /// <param name="sourceType"></param>
         protected void BeginTransaction(string sourceType)
         {
             string transresp = string.Empty;
@@ -153,6 +154,11 @@ namespace Bikewale.BikeBooking
                     container.RegisterType<IPaymentGateway, BillDesk>();
                     transaction.SourceId = Convert.ToInt16(sourceType);
                 }
+
+                IPriceQuote _objPriceQuote = null;
+                container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                _objPriceQuote = container.Resolve<IPriceQuote>();
+                _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteCookie.PQId), Entities.PriceQuote.PriceQuoteStates.InitiatedPayment);
 
                 ITransaction begintrans = container.Resolve<ITransaction>();
                 transresp = begintrans.BeginTransaction(transaction);
