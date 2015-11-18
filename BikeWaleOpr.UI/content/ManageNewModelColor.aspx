@@ -19,8 +19,7 @@
     <form id="form1" runat="server">
         <div>
             <h2>Update Model Color</h2>            
-            <h3 class="margin-left10 margin-bottom10;">Color Name : <%= ModelColorName %></h3>
-            <asp:button id="btnDelete" style="margin-left:13px; margin-bottom:10px;" ToolTip="Deletes the model color" runat="server" text="Delete" />
+            <h3 class="margin-left10 margin-bottom10;">Color Name : <%= ModelColorName %></h3>            
             <span id="spnError" class="error" runat="server"></span>
             <asp:Repeater ID="rptHexCode" runat="server" EnableViewState="false">
                 <HeaderTemplate>                 

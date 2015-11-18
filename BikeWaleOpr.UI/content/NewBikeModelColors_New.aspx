@@ -110,7 +110,7 @@
     <br>
     <fieldset>
         <legend style="font-weight: bold">Add New Color To Model</legend>
-        Color Name: 
+        Color Name:* 
 		<asp:textbox runat="server" id="txtColor" maxlength="50" columns="15" runat="server" tabindex="4" />
         <br />
         <br />
@@ -149,6 +149,8 @@
                         </table>
                         <p><%#DataBinder.Eval(Container.DataItem,"Name") %></p>
                         <a href="javascript:openEditColorWindow(<%#DataBinder.Eval(Container.DataItem,"Id") %>, <%= ModelId %>)" class="editBtn">Edit</a>
+                        <%--<a runat="server" id="lnkDelete" href="javascript:confirmDelete(<%#DataBinder.Eval(Container.DataItem,"Id") %>" class="editBtn">Delete</a>--%>                                                
+                        <asp:button id="btnDelete" text="Delete" runat="server" />
                     </li>
                 </itemtemplate>
             </asp:repeater>
@@ -162,6 +164,7 @@
         <div class="clear"></div>
         <input type="hidden" id="hdnVersionColor" runat="server" />
         <input type="hidden" id="hdnHexCodes" runat="server" />
+        <input type="hidden" id="hdnDeleteModelId" runat="server" />
     </fieldset>
     <%
         if (modelColorCount > 0)
@@ -246,6 +249,16 @@
         else document.getElementById('selectModel').innerHTML = "";
     }
 
+    function confirmDelete(modelColorId) {
+        if (modelColorId) {
+            if (confirm("Do you want to delete the model color?")) {
+                $("#hdnDeleteModelId").val(modelColorId);
+                return true;
+            }
+        }
+        return false;
+    }
+
     //document.getElementById('btnFind').onclick = checkFind;
 
     $(".editBtn").live("click", function () {
@@ -324,6 +337,11 @@
         }
         return retVal;
     }
+
+    $("input[id*='rptModelColor_btnDelete']").live("click", function () {        
+        confirmDelete($(this).parent().find(":hidden").val());
+    });
+
     function openEditColorWindow(modelColorId, modelId) {
         window.open('/content/ManageNewModelColor.aspx?modelColorId=' + modelColorId + '&modelId=' + modelId + '', 'mywin', 'scrollbars=yes,left=0,top=0,width=1350,height=600');
     }

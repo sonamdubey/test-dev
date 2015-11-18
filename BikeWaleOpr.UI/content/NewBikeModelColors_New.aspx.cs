@@ -16,8 +16,8 @@ namespace BikewaleOpr.content
     public class NewBikeModelColors_New : System.Web.UI.Page
     {
         protected HtmlGenericControl spnError;
-        protected HtmlInputHidden hdnVersionColor, hdnHexCodes;
-        protected Button btnSave, btnShowColors, btnUpdateVersionColor;
+        protected HtmlInputHidden hdnVersionColor, hdnHexCodes, hdnDeleteModelId;
+        protected Button btnSave, btnShowColors, btnUpdateVersionColor, btnDelete;
         protected DataGrid dtgrdColors;
         protected DropDownList cmbMake, cmbModel;
         protected TextBox txtColor, txtCode;
@@ -70,8 +70,36 @@ namespace BikewaleOpr.content
             rptVersionColor.ItemDataBound += new RepeaterItemEventHandler(rptVersionColor_ItemDataBound);
             btnSave.Click += new EventHandler(btnSave_Click);
             btnUpdateVersionColor.Click += new EventHandler(btnUpdateVersionColor_Click);
-            rptModelColor.ItemDataBound += new RepeaterItemEventHandler(rptModelColor_ItemDataBound);
+            rptModelColor.ItemDataBound += new RepeaterItemEventHandler(rptModelColor_ItemDataBound);            
         }
+
+        protected void btnDelete_Click(object sender, EventArgs e)
+        {
+            bool isSaved = false;
+            ManageModelColor obj = null;
+            try
+            {
+                obj = new ManageModelColor();
+
+                isSaved = obj.DeleteModelColor(Convert.ToInt32(hdnDeleteModelId.Value), CurrentUser.UserName);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                spnError.InnerHtml = "<b>Error occured while deleting.</b>";
+            }
+            if (isSaved)
+            {
+                spnError.InnerHtml = "<b>Deleted.</b>";
+                BindModelColorRepeater();
+                hdnDeleteModelId.Value = "";
+            }
+            else
+            {
+                spnError.InnerHtml = "<b>Not Deleted.</b>";
+            }
+        }        
 
         private void rptModelColor_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
@@ -81,6 +109,8 @@ namespace BikewaleOpr.content
             {
                 rptColor = (Repeater)item.FindControl("rptColorCode");
                 string modelColorId = ((HiddenField)item.FindControl("hdnModelColorId")).Value;
+                Button btnDelete = (Button)item.FindControl("btnDelete");
+                btnDelete.Click += new EventHandler(btnDelete_Click);
                 IEnumerable<ModelColorBase> modelColors = (new ManageModelColor()).FetchModelColors(Convert.ToInt32(ModelId));
                 rptColor.DataSource = (from color in modelColors
                                        where color.Id == Convert.ToUInt32(modelColorId)
