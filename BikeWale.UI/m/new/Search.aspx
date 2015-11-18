@@ -12,12 +12,31 @@
             AdId = "1398766000399";
          %>
         <!-- #include file="/includes/headscript_mobile.aspx" -->
+        <script>ga_pg_id = '5';</script>
     </head>
     <body class="bg-light-grey">
         <!-- #include file="/includes/Navigation_Mobile.aspx" -->
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/new/bwm-search.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
         <div class="blackOut-window"></div>
+            <!-- global-search-popup code starts here -->
+    <div id="global-search-popup" class="global-search-popup" style="display:none"> 
+    	<div class="form-control-box">
+        	<span class="back-arrow-box" id="gs-close">
+            	<span class="bwmsprite back-long-arrow-left"></span>
+            </span>           
+            <span class="cross-box hide" id="gs-text-clear">
+                <span class="bwmsprite cross-md-dark-grey" ></span>
+            </span>
+        	<input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="form-control padding-right30" autocomplete="off">
+            <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display:none;right:35px;top:13px"></span>
+            <ul id="errGlobalSearch" style="width:100%;margin-left:0" class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content hide">
+                <li class="ui-menu-item" tabindex="-1">
+                     <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                </li>
+            </ul>
+        </div>
+    </div> <!-- global-search-popup code ends here -->
         <header>
     	    <div class="header-fixed"> <!-- Fixed Header code starts here -->
         	    <span id="bikecount" class="font18 text-white brand-total"></span>
@@ -25,13 +44,14 @@
                     <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>                
                 </div>
                 <div class="rightfloat">
-                    <a class="sort-btn" id="sort-btn">
-                        <span class="bwmsprite sort-icon"></span>
-                    </a>
-                </div>
-                <div class="rightfloat">
+                    <a class="global-search" id="global-search" style="display: none">
+                        <span class="bwmsprite search-icon-grey"></span>
+                    </a> 
                     <a class="filter-btn" id="filter-btn">
                         <span class="bwmsprite filter-icon"></span>
+                    </a>
+                    <a class="sort-btn" id="sort-btn">
+                        <span class="bwmsprite sort-icon"></span>
                     </a>
                 </div>
             
