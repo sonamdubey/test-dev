@@ -11,6 +11,8 @@ namespace Bikewale.Entities.PriceQuote
         LeadSubmitted = 1,
         InitiatedBooking = 2,
         InitiatedPayment = 3,
-        SuccessfulPayment = 4
+        SuccessfulPayment = 4,
+        FailurePayment = 5,
+        PaymentAborted = 6
     }
 }

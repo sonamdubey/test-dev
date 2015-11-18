@@ -18,6 +18,7 @@ using Bikewale.Notifications;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Mobile.PriceQuote;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Interfaces.PriceQuote;
 
 namespace Bikewale.BikeBooking
 {
@@ -89,26 +90,51 @@ namespace Bikewale.BikeBooking
             {
                 if (Request.QueryString["sourceid"] != null && Request.QueryString["sourceid"] != "")
                 {
-                    if (Request.QueryString["sourceid"].ToString() == "1")
+                    using (IUnityContainer container = new UnityContainer())
                     {
-                        if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
+                        IPriceQuote _objPriceQuote = null;
+                        container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                        _objPriceQuote = container.Resolve<IPriceQuote>();                       
+
+                        if (Request.QueryString["sourceid"].ToString() == "1")
                         {
-                            HttpContext.Current.Response.Redirect("/pricequote/paymentconfirmation.aspx", false);
+                            if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
+                            {
+                                _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteCookie.PQId), Entities.PriceQuote.PriceQuoteStates.SuccessfulPayment);
+                                HttpContext.Current.Response.Redirect("/pricequote/paymentconfirmation.aspx", false);
+                            }
+                            else
+                            {
+                                if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.InvalidAuthentication))
+                                {
+                                    _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteCookie.PQId), Entities.PriceQuote.PriceQuoteStates.PaymentAborted); 
+                                }
+                                else
+                                {
+                                    _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteCookie.PQId), Entities.PriceQuote.PriceQuoteStates.FailurePayment); 
+                                }
+                                HttpContext.Current.Response.Redirect("/pricequote/paymentfailure.aspx", false);
+                            }
                         }
-                        else
+                        if (Request.QueryString["sourceid"].ToString() == "2")
                         {
-                            HttpContext.Current.Response.Redirect("/pricequote/paymentfailure.aspx", false);
-                        }
-                    }
-                    if (Request.QueryString["sourceid"].ToString() == "2")
-                    {
-                        if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
-                        {
-                            HttpContext.Current.Response.Redirect("/m/pricequote/paymentconfirmation.aspx", false);
-                        }
-                        else
-                        {
-                            HttpContext.Current.Response.Redirect("/m/pricequote/paymentfailure.aspx", false);
+                            if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
+                            {
+                                _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteCookie.PQId), Entities.PriceQuote.PriceQuoteStates.SuccessfulPayment);
+                                HttpContext.Current.Response.Redirect("/m/pricequote/paymentconfirmation.aspx", false);
+                            }
+                            else
+                            {
+                                if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.InvalidAuthentication))
+                                {
+                                    _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteCookie.PQId), Entities.PriceQuote.PriceQuoteStates.PaymentAborted);
+                                }
+                                else
+                                {
+                                    _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteCookie.PQId), Entities.PriceQuote.PriceQuoteStates.FailurePayment);
+                                }
+                                HttpContext.Current.Response.Redirect("/m/pricequote/paymentfailure.aspx", false);
+                            }
                         }
                     }
                 }
