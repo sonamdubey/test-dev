@@ -44,6 +44,9 @@ function GetCatForNav() {
             case "4":
                 ret_category = "New_Bikes_Page";
                 break;
+            case "5":
+                ret_category = "Search_Page";
+                break;
         }
         return ret_category;
     }
@@ -73,7 +76,10 @@ $(document).ready(function () {
                 window.history.back();
             });
         }
-    } catch (e) {}
+    } catch (e) { }
+
+    if (ga_pg_id != '1')
+        $("#global-search").show();
 
     $(".lazy").lazyload({
         effect: "fadeIn"
@@ -113,6 +119,16 @@ $(document).ready(function () {
 	}).css({ 'width': '179px' });
 	
 
+	$("#gs-close").click(function () {
+	    $(".global-search-popup").hide();
+	    unlockPopup();
+	});
+
+	$("#gs-text-clear").click(function () {
+	    $("#globalSearch").val("").change();
+	    $("#globalSearch").focus();
+	    $(this).hide();
+	});
 	
     
     $("#newBikeList").bw_autocomplete({
@@ -211,7 +227,6 @@ $(document).ready(function () {
             SetCookieInDays("location", CookieValue, oneYear);
             CloseCityPopUp();
             showGlobalCity(ui.item.label);
-            // City is selected
             var cityName = $(".cityName").html();
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'City_Popup_Default', 'lab': cityName });
         },
@@ -235,8 +250,6 @@ $(document).ready(function () {
                 showHideMatchError(element, true);
         }
     }).autocomplete("widget").addClass("globalCity-autocomplete").css({ 'z-index': '11', 'font-weight': 'normal', 'text-align': 'left' });
-
-
 	
 	$("#citySelectionFinalPrice").autocomplete({
 		source: function(request, response) {
@@ -246,8 +259,8 @@ $(document).ready(function () {
 	
 	
 	
-	$(".blackOut-window").mouseup(function(e){
-		var globalSearchPopup = $(".global-search-popup"); 
+	$(".blackOut-window").mouseup(function (e) {
+        var globalSearchPopup = $(".global-search-popup"); 
         if(e.target.id !== globalSearchPopup.attr('id') && !globalSearchPopup.has(e.target).length)		
         {
 		    globalSearchPopup.hide();
@@ -260,6 +273,7 @@ $(document).ready(function () {
 	    lockPopup();
 	    CheckGlobalCookie();
 	});
+
 	$(".blackOut-window").mouseup(function(e){
 		var globalLocation = $("#globalcity-popup"); 
         if(e.target.id !== globalLocation.attr('id') && !globalLocation.has(e.target).length)		
@@ -586,6 +600,88 @@ $(document).ready(function () {
 	    return false;
 	});
 
+    // global-search code 
+	$("#global-search").click(function () {
+	    $("#global-search-popup").show();
+	    $("#global-search-popup input").focus()
+	    lockPopup();
+	});
+
+
+	$("#globalSearch").bw_autocomplete({
+	    source: 1,
+	    recordCount: 5,
+	    onClear: function () {
+	        objBikes = new Object();
+	    },
+	    click: function (event, ui, orgTxt) {
+	        var make = new Object();
+	        make.maskingName = ui.item.payload.makeMaskingName;
+	        make.id = ui.item.payload.makeId;
+	        var model = null;
+	        if (ui.item.payload.modelId > 0) {
+	            model = new Object();
+	            model.maskingName = ui.item.payload.modelMaskingName;
+	            model.id = ui.item.payload.modelId;
+	        }
+	        MakeModelRedirection(make, model);
+
+	        if (event.keyCode == 13)
+	        {
+	            if (focusedMakeModel != null && btnGlobalSearch != undefined)
+	                btnFindBikeNewNav();
+	            $("#globalSearch").siblings('.fa-spinner').hide();
+	        }
+	        
+            var keywrd = ui.item.label + '_' + $('#globalSearch').val();
+            var category = GetCatForNav();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
+
+
+	        
+	    },
+	    open: function (result) {
+	        objBikes.result = result;
+	    },
+	    focusout: function () {
+	        if ($('li.ui-state-focus a:visible').text() != "") {
+	            focusedMakeModel = new Object();
+	            focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
+	        }
+	        else {
+	            $('#errGlobalSearch').addClass('hide');
+	        }
+	    },
+	    afterfetch: function (result, searchtext) {
+	        $("#globalSearch").siblings('.fa-spinner').hide();
+	        $("#gs-text-clear").show();
+	        if (result != undefined && result.length > 0) {
+	            $('#errGlobalSearch').addClass('hide');
+	        }
+	        else {
+	            focusedMakeModel = null;
+	            $('#errGlobalSearch').removeClass('hide');
+	            var keywrd = $('#globalSearch').val();
+	            var category = GetCatForNav();
+	            dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Not_Present_in_Autosuggest', 'lab': keywrd });
+	        }
+	    }
+	}).keydown(function (e) {
+	    if (e.keyCode == 13)
+	    {
+	        if (focusedMakeModel != null && btnGlobalSearch != undefined)
+	            btnFindBikeNewNav();
+	    }
+	}).keyup(function (e) {
+	    $("#globalSearch").siblings('.fa-spinner').show();
+	    if ($('#globalSearch').val() == '' || e.keyCode == 27) {
+	        $('#errGlobalSearch').addClass('hide');  	        
+	        $("#globalSearch").siblings('.fa-spinner').hide();
+	        $("#gs-text-clear").hide();
+	    }
+
+	});
+
 });
 
 
@@ -796,12 +892,6 @@ function CheckGlobalCookie() {
         $(".fa-spinner").hide();
         $("#globalCityPopUp").val(cityName);
     }
-    //else
-    //{
-    //    showHideMatchError($("#globalCityPopUp"), false);
-    //    $("#globalcity-popup").show();
-    //    lockPopup();
-    //}
 }
 
 function GetGlobalCityArea() {
@@ -902,3 +992,4 @@ $(function () {
         event.preventDefault();
     });
 });
+
