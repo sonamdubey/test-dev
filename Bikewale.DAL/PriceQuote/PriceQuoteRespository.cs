@@ -288,7 +288,14 @@ namespace Bikewale.DAL.PriceQuote
             return isUpdated;
         }
 
-
+        /// <summary>
+        /// Author          :   Sumit Kate
+        /// Description     :   18 Nov 2015
+        /// Created On      :   Saves the Booking Journey State
+        /// </summary>
+        /// <param name="pqId">PQ Id</param>
+        /// <param name="state">PriceQuoteStates enum</param>
+        /// <returns></returns>
         public bool SaveBookingState(uint pqId, PriceQuoteStates state)
         {
             bool isUpdated = false;
@@ -296,16 +303,16 @@ namespace Bikewale.DAL.PriceQuote
             try
             {
                 db = new Database();
-
+                
                 using (SqlConnection conn = new SqlConnection(db.GetConString()))
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "SavePQState";
+                        cmd.CommandText = "SavePQBookingState";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
                         cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
-                        cmd.Parameters.Add("@stateId", SqlDbType.Int).Value = state;
+                        cmd.Parameters.Add("@stateId", SqlDbType.Int).Value = Convert.ToInt32(state);
 
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();

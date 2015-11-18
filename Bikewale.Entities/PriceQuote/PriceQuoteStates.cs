@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.PriceQuote
 {
-    enum PriceQuoteStates
+    public enum PriceQuoteStates
     {
         LeadSubmitted = 1,
         InitiatedBooking = 2,
