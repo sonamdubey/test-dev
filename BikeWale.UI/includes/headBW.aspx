@@ -33,10 +33,15 @@
             <a href="/" id="bwheader-logo" class="bwsprite bw-logo"></a>
         </div>
         <div class="rightfloat">
-            <div class="global-search position-rel hide">
+            <div class="global-search position-rel " style="display:none">
                 <span class="bwsprite search-icon-grey" id="btnGlobalSearch"></span>
                 <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
-                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top10 text-black" style="display:none;right:35px;"></span>
+                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top10 text-black" style="display:none;right:14px;top:8px"></span>
+                <ul id="errGlobalSearch" style="margin-left: 0px;width:240px;position:absolute" class="ui-autocomplete ui-front ui-menu hide">
+                    <li class="ui-menu-item" tabindex="-1">
+                       <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                    </li>
+                </ul>
             </div>
             <div class="global-location">
                 <div class="gl-default-stage">
