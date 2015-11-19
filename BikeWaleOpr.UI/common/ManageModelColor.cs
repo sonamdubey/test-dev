@@ -80,6 +80,8 @@ namespace BikewaleOpr.Common
             }
             finally
             {
+                if(db!=null)
+                    db.CloseConnection();
                 db = null;
             }
             return modelColors;
@@ -127,6 +129,8 @@ namespace BikewaleOpr.Common
             }
             finally
             {
+                if (db != null)
+                    db.CloseConnection();
                 db = null;
             }
             return versionColors;
@@ -185,6 +189,8 @@ namespace BikewaleOpr.Common
             }
             finally
             {
+                if (db != null)
+                    db.CloseConnection();
                 db = null;
             }
             return bikeVersions;
@@ -223,6 +229,8 @@ namespace BikewaleOpr.Common
             }
             finally
             {
+                if (db != null)
+                    db.CloseConnection();
                 db = null;
             }
             return isSaved;
@@ -259,6 +267,8 @@ namespace BikewaleOpr.Common
             }
             finally
             {
+                if (db != null)
+                    db.CloseConnection();
                 db = null;
             }
             return isSaved;
@@ -295,6 +305,8 @@ namespace BikewaleOpr.Common
             }
             finally
             {
+                if (db != null)
+                    db.CloseConnection();
                 db = null;
             }
             return isUpdated;
@@ -332,6 +344,8 @@ namespace BikewaleOpr.Common
             }
             finally
             {
+                if (db != null)
+                    db.CloseConnection();
                 db = null;
             }
             return isSaved;
@@ -365,6 +379,8 @@ namespace BikewaleOpr.Common
             }
             finally
             {
+                if (db != null)
+                    db.CloseConnection();
                 db = null;
             }
             return isDeleted;
