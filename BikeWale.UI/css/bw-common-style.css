@@ -749,7 +749,7 @@ a.action-btn:hover{text-decoration:none;}
 .popular-used-bikes-container .imageWrapper a { width:310px; height:175px;  display:block; }
 .popular-used-bikes-container .imageWrapper a img { width:310px; height:175px; background: url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
 .not-rated-container { height:24px; }
-
+ #globalSearch::-ms-clear {width:0;height:0;display:none;}
 @media all and (min-width:996px) and (max-width:1024px){
    .container{width:960px;}
    .jcarousel-wrapper{width:100%;}

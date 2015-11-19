@@ -112,7 +112,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 /* global-search classes */
 .global-search { float: left; padding: 0 10px; position: relative; top: 2px; cursor: pointer; }
 .global-search input[type="text"], #globalCity-input input[type="text"] { width: 100%; padding: 7px 5px; border: none; outline: none; }
-.global-location { float: left; color: #fff; padding: 0 10px; position: relative; top: -4px; cursor: pointer; font-size: 20px; }
+.global-location { float: left; color: #fff; padding: 0 10px; position: relative; top: -1px; cursor: pointer; font-size: 17px; }
 .gl-default-stage { cursor: pointer; padding: 0 10px; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
 
