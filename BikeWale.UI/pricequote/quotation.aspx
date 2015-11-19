@@ -83,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid-5 border-solid-right padding-right20" id="PQDetailsContainer">
+                <div class="grid-5 padding-right20" id="PQDetailsContainer">
                     <p class="font20 text-bold margin-bottom20"><%= mmv.BikeName %></p>
                     <%if (objQuotation != null && objQuotation.ExShowroomPrice > 0) { %>
                     <p class="font16 margin-bottom15">On-road price in 
@@ -133,7 +133,7 @@
                             <%} %>
                     </div>
                 </div>
-                <div class="grid-4 omega padding-left20">
+                <div class="grid-4 omega padding-left20 border-solid-left">
                     <LD:LocateDealer ID="ucLocateDealer" runat="server" />
                 </div>
                 <div class="clear"></div>
