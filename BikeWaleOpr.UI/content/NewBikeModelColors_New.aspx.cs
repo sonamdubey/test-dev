@@ -21,7 +21,7 @@ namespace BikewaleOpr.content
         protected DataGrid dtgrdColors;
         protected DropDownList cmbMake, cmbModel;
         protected TextBox txtColor, txtCode;
-        protected Repeater rptModelColor, rptVersionColor, rptColor;        
+        protected Repeater rptModelColor, rptVersionColor, rptColor, rptVColor;
         protected int modelColorCount = 0;
         protected int versionCount = 0;
         public string SelectedModel
@@ -70,7 +70,23 @@ namespace BikewaleOpr.content
             rptVersionColor.ItemDataBound += new RepeaterItemEventHandler(rptVersionColor_ItemDataBound);
             btnSave.Click += new EventHandler(btnSave_Click);
             btnUpdateVersionColor.Click += new EventHandler(btnUpdateVersionColor_Click);
-            rptModelColor.ItemDataBound += new RepeaterItemEventHandler(rptModelColor_ItemDataBound);            
+            rptModelColor.ItemDataBound += new RepeaterItemEventHandler(rptModelColor_ItemDataBound);
+        }
+
+        private void rptColor_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            RepeaterItem item = e.Item;
+            if ((item.ItemType == ListItemType.Item) ||
+                (item.ItemType == ListItemType.AlternatingItem))
+            {
+                rptVColor = (Repeater)item.FindControl("rptVColor");
+                string modelColorId = ((HiddenField)item.FindControl("hdnModelColorId")).Value;
+                IEnumerable<ModelColorBase> modelColors = (new ManageModelColor()).FetchModelColors(Convert.ToInt32(ModelId));
+                rptVColor.DataSource = (from color in modelColors
+                                       where color.Id == Convert.ToUInt32(modelColorId)
+                                       select color).FirstOrDefault().ColorCodes;
+                rptVColor.DataBind();
+            }
         }
 
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -81,7 +97,7 @@ namespace BikewaleOpr.content
             {
                 obj = new ManageModelColor();
 
-                isSaved = obj.DeleteModelColor(Convert.ToInt32(hdnDeleteModelId.Value), CurrentUser.UserName);
+                isSaved = obj.DeleteModelColor(Convert.ToInt32(hdnDeleteModelId.Value), Convert.ToInt32(CurrentUser.Id));
             }
             catch (Exception ex)
             {
@@ -99,7 +115,7 @@ namespace BikewaleOpr.content
             {
                 spnError.InnerHtml = "<b>Not Deleted.</b>";
             }
-        }        
+        }
 
         private void rptModelColor_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
@@ -115,7 +131,7 @@ namespace BikewaleOpr.content
                 rptColor.DataSource = (from color in modelColors
                                        where color.Id == Convert.ToUInt32(modelColorId)
                                        select color).FirstOrDefault().ColorCodes;
-                rptColor.DataBind();
+                rptColor.DataBind();                
             }
         }
 
@@ -147,7 +163,8 @@ namespace BikewaleOpr.content
                                     {
                                         ModelColorID = Convert.ToUInt32(modelColor.Split('_')[0]),
                                         IsActive = modelColor.Split('_')[1].Equals("1")
-                                    }, Convert.ToInt32(bikeVersionId), CurrentUser.UserName);
+                                    }, Convert.ToInt32(bikeVersionId),
+                                    Convert.ToInt32(CurrentUser.Id));
                             }
                         }
                     }
@@ -182,11 +199,11 @@ namespace BikewaleOpr.content
                 if (!String.IsNullOrEmpty(strHexCode))
                 {
                     hexCodes = strHexCode;
-                }                
+                }
                 objManageModelColor = new ManageModelColor();
                 if (!String.IsNullOrEmpty(hexCodes))
                 {
-                    isSaved = objManageModelColor.SaveModelColor(ModelId, colorName, CurrentUser.UserName, hexCodes);
+                    isSaved = objManageModelColor.SaveModelColor(ModelId, colorName, Convert.ToInt32(CurrentUser.Id), hexCodes);
                 }
                 if (isSaved)
                 {
@@ -203,7 +220,7 @@ namespace BikewaleOpr.content
                 objErr.SendMail();
                 spnError.InnerHtml = "<b>Error occured while saving the model color</b>";
             }
-            txtColor.Text = String.Empty;            
+            txtColor.Text = String.Empty;
             BindModelColorRepeater();
         }
 
@@ -214,9 +231,10 @@ namespace BikewaleOpr.content
                 (item.ItemType == ListItemType.AlternatingItem))
             {
                 rptColor = (Repeater)item.FindControl("rptColor");
+                rptColor.ItemDataBound += new RepeaterItemEventHandler(rptColor_ItemDataBound);
                 string versionId = ((HiddenField)item.FindControl("BikeVersionId")).Value;
                 rptColor.DataSource = (new ManageModelColor()).FetchVersionColors(Convert.ToInt32(versionId));
-                rptColor.DataBind();
+                rptColor.DataBind();                
             }
         }
 
@@ -232,21 +250,21 @@ namespace BikewaleOpr.content
             IEnumerable<VersionEntityBase> versions = null;
             try
             {
-                objManageModelColor = new ManageModelColor();                
+                objManageModelColor = new ManageModelColor();
                 modelColors = objManageModelColor.FetchModelColors(ModelId);
                 versions = objManageModelColor.FetchBikeVersion(ModelId);
 
-                if (modelColors !=null && modelColors.Count() > 0)
+                if (modelColors != null && modelColors.Count() > 0)
                 {
                     modelColorCount = modelColors.Count();
                     rptModelColor.DataSource = modelColors;
                     rptModelColor.DataBind();
                 }
-                if (versions!=null && versions.Count() > 0)
+                if (versions != null && versions.Count() > 0)
                 {
                     versionCount = versions.Count();
                     rptVersionColor.DataSource = versions;
-                    rptVersionColor.DataBind(); 
+                    rptVersionColor.DataBind();
                 }
 
             }

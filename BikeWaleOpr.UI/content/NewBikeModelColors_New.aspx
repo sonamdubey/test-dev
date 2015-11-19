@@ -87,8 +87,16 @@
         width: 50px;
         height: 50px;
         border: 1px solid #ccc;
-        margin:0 auto 10px;
+        margin: 0 auto 10px;
     }
+
+    #minVColor{
+        width: 25px;
+        height: 25px;
+        border: 1px solid #ccc;
+        margin: 0 auto 10px;
+    }
+
 </style>
 <div class="urh">
     You are here &raquo; <a href="/content/default.aspx">Contents</a> &raquo; Add Bike Model Colors
@@ -143,7 +151,7 @@
                         <table border="0" id="one" cellspacing="0">
                             <asp:repeater id="rptColorCode" runat="server" enableviewstate="false">
                                 <itemtemplate>
-                                    <tr style='background:#<%#DataBinder.Eval(Container.DataItem,"HexCode")%>'><td></td><td></td></tr>
+                                    <tr style='background:#<%#DataBinder.Eval(Container.DataItem,"HexCode")%>'><td></td></tr>
                                 </itemtemplate>
                             </asp:repeater>
                         </table>
@@ -183,6 +191,13 @@
                             <asp:Repeater ID="rptColor" runat="server" enableviewstate="false">
                                 <ItemTemplate>
                                     <li>
+                                        <table border="0" id="minVColor" cellspacing="0">
+                                            <asp:repeater id="rptVColor" runat="server" enableviewstate="false">
+                                                <itemtemplate>
+                                                    <tr style='background:#<%#DataBinder.Eval(Container.DataItem,"HexCode")%>'><td></td></tr>
+                                                </itemtemplate>
+                                            </asp:repeater>
+                                        </table>
                                         <p><%# DataBinder.Eval(Container.DataItem,"ModelColorName") %></p>
                                         <asp:CheckBox id="chkActive" runat="server" Checked='<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsActive"))%>'/>
                                         <asp:HiddenField id="hdnModelColorID" runat="server" value='<%# DataBinder.Eval(Container.DataItem,"ModelColorID") %>' />
@@ -338,7 +353,7 @@
         return retVal;
     }
 
-    $("input[id*='rptModelColor_btnDelete']").live("click", function () {        
+    $("input[id*='rptModelColor_btnDelete']").live("click", function () {
         confirmDelete($(this).parent().find(":hidden").val());
     });
 

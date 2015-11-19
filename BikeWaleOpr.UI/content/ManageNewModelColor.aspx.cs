@@ -54,7 +54,7 @@ namespace BikewaleOpr.content
                         hexCode = txtHexCode.Text.Trim();
                         colorId = Convert.ToInt32(hdnColorID.Value);
                         isActive = chkActive.Checked;
-                        isSaved = objManageModelColor.UpdateColorCode(colorId, hexCode, CurrentUser.UserName, isActive);
+                        isSaved = objManageModelColor.UpdateColorCode(colorId, hexCode, Convert.ToInt32(CurrentUser.Id), isActive);
                     }
                 }
             }
@@ -88,7 +88,7 @@ namespace BikewaleOpr.content
                     if (!String.IsNullOrEmpty(hexCode))
                     {
                         objManageModelColor = new ManageModelColor();
-                        isSaved = objManageModelColor.AddColorCode(Convert.ToInt32(modelColorId), hexCode, CurrentUser.UserName);
+                        isSaved = objManageModelColor.AddColorCode(Convert.ToInt32(modelColorId), hexCode, Convert.ToInt32(CurrentUser.Id));
                     }
                 }
             }
