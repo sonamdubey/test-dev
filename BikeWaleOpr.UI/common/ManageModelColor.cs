@@ -198,7 +198,7 @@ namespace BikewaleOpr.Common
         /// <param name="userId">User Id</param>
         /// <param name="hexCodes">Hex Codes (E.g. fff000,ababab)</param>
         /// <returns></returns>
-        public bool SaveModelColor(int modelId, string colorName, string userId, string hexCodes)
+        public bool SaveModelColor(int modelId, string colorName, int userId, string hexCodes)
         {
             bool isSaved = false;
             Database db = null;
@@ -234,7 +234,7 @@ namespace BikewaleOpr.Common
         /// <param name="versionColor">Version Color Entity</param>
         /// <param name="userId">User Id</param>
         /// <returns>Success/Failure</returns>
-        public bool SaveVersionColor(VersionColorBase versionColor, int versionId ,string userId)
+        public bool SaveVersionColor(VersionColorBase versionColor, int versionId ,int userId)
         {
             bool isSaved = false;
             Database db = null;
@@ -271,7 +271,7 @@ namespace BikewaleOpr.Common
         /// <param name="hexCode"></param>
         /// <param name="userId"></param>
         /// <returns></returns>
-        public bool UpdateColorCode(int colorId, string hexCode, string userId,bool isActive)
+        public bool UpdateColorCode(int colorId, string hexCode, int userId,bool isActive)
         {
             bool isUpdated = false;
             Database db = null;
@@ -308,7 +308,7 @@ namespace BikewaleOpr.Common
         /// <param name="userId">User Id</param>
         /// <param name="isActive">Active/Inactive(true by default)</param>
         /// <returns></returns>
-        public bool AddColorCode(int modelColorId,string hexCode,string userId,bool isActive = true)
+        public bool AddColorCode(int modelColorId,string hexCode,int userId,bool isActive = true)
         {
             bool isSaved = false;
             Database db = null;
@@ -337,7 +337,13 @@ namespace BikewaleOpr.Common
             return isSaved;
         }
 
-        public bool DeleteModelColor(int modelColorId,string userId)
+        /// <summary>
+        /// Deletes the Model Color
+        /// </summary>
+        /// <param name="modelColorId"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public bool DeleteModelColor(int modelColorId,int userId)
         {
             bool isDeleted = false;
             Database db = null;
