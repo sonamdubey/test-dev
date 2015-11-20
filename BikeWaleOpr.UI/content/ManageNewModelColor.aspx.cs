@@ -57,6 +57,7 @@ namespace BikewaleOpr.content
                         isSaved = objManageModelColor.UpdateColorCode(colorId, hexCode, Convert.ToInt32(CurrentUser.Id), isActive);
                     }
                 }
+                BindControls();
             }
             catch (Exception ex)
             {
@@ -89,8 +90,10 @@ namespace BikewaleOpr.content
                     {
                         objManageModelColor = new ManageModelColor();
                         isSaved = objManageModelColor.AddColorCode(Convert.ToInt32(modelColorId), hexCode, Convert.ToInt32(CurrentUser.Id));
+                        txtNewHexCode.Text = "";
                     }
                 }
+                BindControls();
             }
             catch (Exception ex)
             {
