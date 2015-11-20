@@ -48,6 +48,10 @@
         </div>
     </form>
     <script type="text/javascript">
+        
+        function refreshParent() {
+            window.opener.location.reload();
+        }
         $(":checkbox").live("click", function isChecked(e) {
             $("#btnUpdate").prop("disabled",false);
             $(this).attr("isModified", "true");
@@ -61,6 +65,11 @@
             var patt = new RegExp("^(?:[0-9a-fA-F]{3}){1,2}$");
             return patt.test(val);
         }
+
+        $("#btnSave").live("click", function () {
+            refreshParent();
+        });
+
         $("#btnUpdate").live("click", function () {
             var itemCount = 0;
             var isValid = true;
@@ -75,6 +84,7 @@
                 return false;
             }
             else {
+                refreshParent();
                 return true;
             }
         });
