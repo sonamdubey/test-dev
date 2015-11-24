@@ -385,5 +385,6 @@ namespace BikewaleOpr.Common
             }
             return isDeleted;
         }
+
     }
 }
