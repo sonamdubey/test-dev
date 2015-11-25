@@ -136,17 +136,11 @@
     <h1>Manage Bike Availability By Colors</h1>
     <hr />
     <form id="MangeBikeAvailabilityByColor" runat="server">
-         <span id="spnError" class="error" runat="server"></span>
+        
         <div style="padding:20px">
             <div style="margin-top: 15px;">
                 <div class="addColorToVersions">                    
                     <ul class="inline-block ">
-                        <%--<li class="colorTab">
-                            <table border="0" id="minVColor" cellspacing="0">
-                                Colors
-                            </table>
-                            <p> Availability (Days)</p>
-                        </li> --%>
                         <asp:Repeater ID="rptColor" runat="server" EnableViewState="false">
                             <ItemTemplate>
                                 <li class="colorTab <%# (Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsActive")))?string.Empty:"hide" %>" >
@@ -159,8 +153,7 @@
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </table>
-                                    <p><%# DataBinder.Eval(Container.DataItem,"ModelColorName") %></p> 
-                                   
+                                    <p><%# DataBinder.Eval(Container.DataItem,"ModelColorName") %></p>                                     
                                     <asp:HiddenField ID="hdnModelColorID" runat="server" Value='<%# DataBinder.Eval(Container.DataItem,"ModelColorID") %>' />
                                     <asp:TextBox ID="NoOfDaysByColor" runat="server" CssClass="noOfDays" Value='<%# DataBinder.Eval(Container.DataItem,"NoOfDays") %>' ></asp:TextBox> 
                                 </li>
@@ -168,7 +161,7 @@
                         </asp:Repeater>
                     </ul>
                     <br />
-                    <asp:Button ID="btnUpdateVersionColorAvailability" Text="Update Version Colors" runat="server" /> 
+                    <asp:Button ID="btnUpdateVersionColorAvailability" Text="Update Version Colors" runat="server" />   <span id="spnError" class="margin-left20 error" runat="server"></span>
                     <input type="hidden" id="hdnColorDayObject" runat="server" value="" />
                 </div>  
             </div>
@@ -186,8 +179,14 @@
                 var colorDays = [];
                 var i = 0;
                 $("li.colorTab").each(function () {
-                    colorDays[$(this).find("input[type='hidden']").val()] = $(this).find("input[type='text']").val();                     
+                    if ($(this).find("table tr").length <=0)
+                        $(this).hide();
+
+                    colorDays[$(this).find("input[type='hidden']").val()] = $(this).find("input[type='text']").val();
+                                      
                 });
+
+                
 
                 $("#btnUpdateVersionColorAvailability").live("click", function () {
                     str = "";
@@ -204,11 +203,10 @@
 
                     if (str.length > 0)
                     {
-                        str.substring(0, str.length - 1);
+                        str = str.substring(0, str.length - 1);
                         $("#hdnColorDayObject").val(str);
 
-                    }
-                   
+                    }                   
                });
             });
             
