@@ -58,14 +58,14 @@
     </div> <!-- ends here -->
     <div class="clear"></div>    
 <% if(isAd970x90Shown){ %>
-    <section class="bg-white <%= isHeaderFix ? "header-fixed-inner": "padding-top10" %>">
+    <div class="bg-white <%= isHeaderFix ? "header-fixed-inner": "" %>">
         <div class="container">
             <div class="grid-12">
-                <div class="padding-bottom15 text-center">
+                <div class="margin-bottom15 margin-top15 text-center">
                     <!-- #include file="/ads/Ad970x90.aspx" -->
                 </div>
             </div>
             <div class="clear"></div>
         </div>
-    </section>
+    </div>
 <% } %>

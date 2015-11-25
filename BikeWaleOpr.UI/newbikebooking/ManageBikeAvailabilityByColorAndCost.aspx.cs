@@ -63,30 +63,15 @@ namespace BikewaleOpr.NewBikeBooking
                 rptVColor = (Repeater)item.FindControl("rptVColor");
                 string modelColorId = ((HiddenField)item.FindControl("hdnModelColorId")).Value;
                 IEnumerable<ModelColorBase> modelColors = (new ManageModelColor()).FetchModelColors(modelId);
-                rptVColor.DataSource = (from color in modelColors
-                                        where color.Id == Convert.ToUInt32(modelColorId)
-                                        select color).FirstOrDefault().ColorCodes;
-                rptVColor.DataBind();
+                ModelColorBase vColors = (from color in modelColors where color.Id == Convert.ToUInt32(modelColorId) select color).FirstOrDefault();
+                if(vColors!=null)
+                {
+                    rptVColor.DataSource = vColors.ColorCodes;
+                    rptVColor.DataBind();
+                }
+                
             }
         }
-
-        //private void rptModelColor_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        //{
-        //    RepeaterItem item = e.Item;
-        //    if ((item.ItemType == ListItemType.Item) ||
-        //        (item.ItemType == ListItemType.AlternatingItem))
-        //    {
-        //        rptColor = (Repeater)item.FindControl("rptColorCode");
-        //        string modelColorId = ((HiddenField)item.FindControl("hdnModelColorId")).Value;
-        //        Button btnDelete = (Button)item.FindControl("btnDelete");
-        //        btnDelete.Click += new EventHandler(btnDelete_Click);
-        //        IEnumerable<ModelColorBase> modelColors = (new ManageModelColor()).FetchModelColors(Convert.ToInt32(ModelId));
-        //        rptColor.DataSource = (from color in modelColors
-        //                               where color.Id == Convert.ToUInt32(modelColorId)
-        //                               select color).FirstOrDefault().ColorCodes;
-        //        rptColor.DataBind();
-        //    }
-        //}
 
         private void btnUpdateVersionColor_Click(object sender, EventArgs e)
         {
