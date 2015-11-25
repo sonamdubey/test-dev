@@ -20,7 +20,21 @@ jQuery(function () {
             width = element.innerWidth();
         element.jcarousel('items').css('width', width + 'px');
     });
+
+    $(".jcarousel.stage").on('jcarousel:visiblein', 'li', function (event, carousel) {
+        $('.jcarousel-wrapper.model .jcarousel li').removeClass('activeSlide');
+        $(this).addClass('activeSlide');
+    });
    
+    $(".jcarousel-wrapper.model .jcarousel-control-right").click(function () {
+        getModelImageNextIndex();
+    });
+
+    $(".jcarousel-wrapper.model .jcarousel-control-left").click(function () {
+        getModelImagePrevIndex();
+    });
+
+
     $(".alternatives-carousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
         $(this).find("img.lazy").trigger("imgLazyLoad");
     });
@@ -191,6 +205,21 @@ function getImagePrevIndex() {
     setImageDetails(imgTitle, imgIndex);
 }
 
+function getModelImageNextIndex() {
+   // debugger;
+    var imgIndexA = $(".jcarousel-wrapper.model .jcarousel ul li.activeSlide").next();
+    var imgIndex = imgIndexA.index();
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setModelImageDetails(imgTitle, imgIndex);
+}
+
+function getModelImagePrevIndex() {
+    var imgIndexA = $(".jcarousel-wrapper.model .jcarousel ul li.activeSlide").next();
+    var imgIndex = imgIndexA.index();
+    var imgTitle = imgIndexA.find("img").attr("title");
+    setModelImageDetails(imgTitle, imgIndex);
+}
+
 function getImageIndex() {
     var imgIndexA = $(".carousel-navigation-photos ul li.active");
     var imgIndex = imgIndexA.index() + 1;
@@ -201,6 +230,13 @@ function setImageDetails(imgTitle, imgIndex) {
     $(".leftfloatbike-gallery-details").text(imgTitle);
     if (imgIndex > 0) {
         $(".bike-gallery-count").text(imgIndex.toString() + "/" + imgTotalCount.toString());
+    }
+}
+
+function setModelImageDetails(imgTitle, imgIndex) {
+   // $(".leftfloatbike-gallery-details").text(imgTitle);
+    if (imgIndex > 0) {
+        $(".bike-model-gallery-count").text(imgIndex.toString() + "/" + imgTotalCount.toString());
     }
 }
 

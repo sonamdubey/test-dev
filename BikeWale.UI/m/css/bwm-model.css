@@ -13,6 +13,21 @@
 
 .rating-wrap img { width:18px;}
 .line-Ht22{line-height:22px;}
+.pos-top3{top:3px;}
+.pos-top8{top:8px;}
+.pos-left3 {left: 3px;}
+.font6{font-size:6px}
+.btn-grey:hover {
+    background: #82888b;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #82888b;
+}
+.btn-grey {
+    background: #fff;
+    color: #82888b;
+    border: 1px solid #82888b;
+}
 
 
 .city-list-container { width:100%; }
@@ -23,14 +38,14 @@
 .city-list-container ul li:hover, .city-list-container ul li.focused { border: 1px solid #4d5057; cursor:pointer; color:#4d5057;  }
 /*.city-list-container ul li.focused { min-width: 100%;}*/
 
-.city-unveil-offer-container { border:1px dashed #f00; width:100%; min-height:115px; }
-.offer-list-container ul { list-style-type:disc; }
-.offer-list-container ul li { margin-left:20px; padding-bottom:5px; font-size: 12px;}
+.city-unveil-offer-container { border:1px dashed #82888b; width:100%; min-height:115px; }
+/*.offer-list-container ul { list-style-type:disc; }*/
+.offer-list-container ul li { /*margin-left:20px;*/ position:relative; margin-top:5px; padding-bottom:5px; font-size: 14px;}
 .unveil-offer-btn-container { width:100%; height:100%; background:rgba(255,255,255,0.8); }
 .unveil-offer-btn-container input[type='button'] { position:relative; margin:0 auto; top:50%; margin-top: -20px; }
 .offer-error-text { color:#f00; }
 
-.city-area-select-container { width:100%; min-height:100px; }
+.city-area-select-container { width:100%; /*min-height:100px;*/ }
 
 .city-edit-btn { color:#0288d1; }
 .city-edit-btn:hover { cursor:pointer; text-decoration:underline; }

@@ -35,7 +35,7 @@
             <div class="container bg-white clearfix">
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)
-                       { %><h1 class="padding-top15 padding-bottom20 padding-left20 padding-right20"><%= bikeName %></h1>
+                       { %><h1 class="padding-top15 padding-left20 padding-right20"><%= bikeName %></h1>
                     <% } %>
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %><div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Upcoming</div>
@@ -43,6 +43,23 @@
                     <% if (!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                        { %><div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
                     <% } %>
+
+                    <% if (modelPage.ModelDetails.New)
+                       { %>
+                    <div class="padding-left20 padding-right10 margin-top10 margin-bottom20">
+                        <p class=" <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> leftfloat margin-right10 rating-wrap">
+                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
+                        </p>
+                        <p class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "hide" : ""  %> leftfloat margin-right10 rating-wrap">
+                            Not rated yet
+                        </p>
+                        <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
+                            <%= modelPage.ModelDetails.ReviewCount %> Reviews
+                        </a>
+                        <div class="clear"></div>
+                    </div>
+                    <% } %>
+
                     <div class="jcarousel-wrapper model" id="bikeBannerImageCarousel">
                         <div class="jcarousel stage">
                             <ul id="ulModelPhotos">
@@ -62,23 +79,10 @@
                            { %>
                         <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
                         <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
+                        <p class="pagination-number margin margin-bottom10 text-center font16 text-light-grey" style="margin-top:-10px;"><span class="bike-model-gallery-count">1/<%= modelPage.Photos.Count %></span></p>
                         <% } %>
                     </div>
-                    <% if (modelPage.ModelDetails.New)
-                       { %>
-                    <div class="padding-left10 padding-right10">
-                        <p class=" <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> leftfloat margin-right10 rating-wrap">
-                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
-                        </p>
-                        <p class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "hide" : ""  %> leftfloat margin-right10 rating-wrap">
-                            Not rated yet
-                        </p>
-                        <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
-                            <%= modelPage.ModelDetails.ReviewCount %> Reviews
-                        </a>
-                        <div class="clear"></div>
-                    </div>
-                    <% } %>
+                    
                     <% if (modelPage.ModelDetails.Futuristic)
                        { %>
                     <div class="bikeDescWrapper text-center">
@@ -101,9 +105,32 @@
                 <% if (modelPage.ModelDetails.New)
                    { %>
                 <div class="grid-12 bg-white box-shadow" style="display: none" data-bind="visible: true" id="dvBikePrice">
+
+                    <div class="clearfix">
+                    	<div class="font14 text-light-grey alpha omega grid-2 margin-top10">Variant:</div>
+                        <div class="leftfloat grid-10 omega">
+                        	<select class="form-control">
+	                            <option>Alloy, Self</option>
+                            	<option>Alloy, Double Disc, Self</option>
+                                <option>Double Disc, Self</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="margin-top20 margin-bottom20 clearfix">
+                    	<input type="button" value="Get more details" class="btn btn-orange btn-sm margin-right10 leftfloat" id="getMoreDetailsBtn" />
+                        <input type="button" value="Book now" class="btn btn-grey btn-sm rightfloat" id="bookNowBtn" />
+                    </div>
+
                     <div class="bike-price-container font22 margin-bottom15">
-                        <span class="fa fa-rupee"></span>
-                        <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10 default-showroom-text">Ex-showroom <%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
+                        <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
+                            On-road price in <span id="pqArea"></span><span id="pqCity" class="font14 text-dark-grey"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>change location</span>
+                        </p>
+                        <p>
+                            <span class="fa fa-rupee"></span>
+                            <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font12 default-showroom-text">Ex-showroom <%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
+                        </p>
+                        <p style="margin-top:-10px"><span class="font12 text-light-grey">Ex-showroom + RTO + Insurance(Comprehensive)</span></p>
                         <!-- Terms and condition Popup start -->
                         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
                             <h3>Terms and Conditions</h3>
@@ -230,7 +257,7 @@
                         <!-- /ko -->
                         <!-- ko if : BWPriceList() || DealerPriceList() -->
                         <div class="city-onRoad-price-container font14 margin-bottom15 hide">
-                            <p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>change location</span></p>
+                            <!--<p class="margin-bottom10">On-road price in <span id="pqArea"></span><span id="pqCity"></span><span class="city-edit-btn font12 margin-left10" <%--data-bind="click: $root.EditButton"--%>>change location</span></p>-->
                             <p class="font12 margin-bottom15"></p>
                             <!-- ko if : priceQuote() && priceQuote().IsDealerPriceAvailable && priceQuote().dealerPriceQuote.offers.length > 0 -->
                             <input type="button" class="btn btn-orange btn-full-width" id="btnBookNow" data-bind="event: { click: $root.availOfferBtn }" value="Avail Offers" />
@@ -358,28 +385,61 @@
                     </div>
                     <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" data-bind="visible: !IsValidManufacturer()">
                         <div class="available-offers-container content-inner-block-10">
-                            <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
+                            <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="fa fa-gift text-red"></span> Pay <span class="fa fa-rupee font12"></span>3000 to book your bike to get:</h4>
                             <div class="offer-list-container" id="dvAvailableOffer">
                                 <!-- ko if:priceQuote() -->
                                 <!-- ko if : priceQuote().IsDealerPriceAvailable  -->
-                                <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers">
+                                <ul <%--data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers"--%>>
                                     <%--<li data-bind="text: offerText"></li>--%>
-                                    <li>
+                                    <!--<li>
                                         <span data-bind="text: offerText"></span>
                                         <span class="viewterms" data-bind="visible: isOfferTerms == true, click: $root.termsConditions.bind(offerId)">View Terms</span>
+                                    </li>-->
+                                    <li>
+                                        <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
+                                        <span class="padding-left20 show">Free Vega Cruiser Helmet worth <span class="fa fa-rupee font12"></span> 1500 from BikeWale</span>
+                                    </li>
+                                    <li>
+                                        <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
+                                        <span class="padding-left20 show">Free Vega Cruiser Helmet worth <span class="fa fa-rupee font12"></span> 1500 from BikeWale <a href="#">(view more)</a></span>
                                     </li>
                                 </ul>
                                 <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length == 0">
-                                    <li>No offers available</li>
+                                    <li>
+                                        <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
+                                        <span class="padding-left20 show">No offers available</span>
+                                    </li>
                                 </ul>
+                                <div class="border-top1 margin-top10 margin-bottom10"></div>
                                 <!-- /ko -->
+                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="fa fa-info-circle text-red"></span> Get following details on the bike</h4>
+                                <ul>
+                                    </li>
+
+                                    <li>
+                                        <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
+                                        <span class="padding-left20 show">Offers from the nearest dealers</span>
+                                    </li>
+                                    <li>
+                                        <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
+                                        <span class="padding-left20 show">Offers from the nearest dealers</span>
+                                    </li>
+                                    <li>
+                                        <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
+                                        <span class="padding-left20 show">Nearest dealership from your place</span>
+                                    </li>
+                                    <li>
+                                        <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
+                                        <span class="padding-left20 show">Nearest dealership from your place</span>
+                                    </li>
+                                </ul>
                                 <!-- ko if : !priceQuote().IsDealerPriceAvailable -->
                                 <ul>
                                     <li data-bind="visible: areas() && areas().length > 0">Currently there are no offers in your area. We hope to serve your area soon!
                                     </li>
                                     <li data-bind="visible: !(areas() && areas().length > 0)">Currently there are no offers in your city. We hope to serve your city soon!
-                                    </li>
                                 </ul>
+                                
                                 <!-- /ko -->
                                 <!-- /ko -->
                             </div>
