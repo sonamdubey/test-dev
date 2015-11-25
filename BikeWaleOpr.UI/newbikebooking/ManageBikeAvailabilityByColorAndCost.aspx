@@ -206,7 +206,12 @@
                         str = str.substring(0, str.length - 1);
                         $("#hdnColorDayObject").val(str);
 
-                    }                   
+                    }
+                    else
+                    {
+                        alert("Nothing to update");
+                        return false
+                    }
                });
             });
             
