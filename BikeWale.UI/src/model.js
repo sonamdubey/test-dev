@@ -443,7 +443,7 @@ function fetchPriceQuote(vm) {
                     if (pq.dealerPriceQuote.offers.length > 0) {
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Avail_Offer_Shown', 'lab': myBikeName });
                     }
-                    animatePrice($(bikePrice), temptotalPrice, totalPrice);
+                   // animatePrice($(bikePrice), temptotalPrice, totalPrice);
                     $("#breakup").text("(" + priceBreakText + ")");
                     $("#pqCity").html($(ctrlSelectCity).find("option[value=" + vm.selectedCity() + "]").text());
                     $("#pqArea").html($(ctrlSelectArea).find("option[value=" + vm.selectedArea() + "]").text() + ', ');
@@ -595,14 +595,14 @@ $(document).ready(function () {
             $(".model-about-main").hide();
             $(".model-about-more-desc").show();
             var a = $(this).find("span");
-            a.text(a.text() === "more" ? "less" : "more");
+            a.text(a.text() === "full story" ? "less" : "full story");
             $(this).addClass("open");
         }
         else if($(this).hasClass("open")) {
             $(".model-about-main").show();
             $(".model-about-more-desc").hide();
             var a = $(this).find("span");
-            a.text(a.text() === "more" ? "less" : "more");
+            a.text(a.text() === "full story" ? "less" : "full story");
             $(this).removeClass("open");
         }
         
@@ -622,6 +622,10 @@ $(document).ready(function () {
         $(".blackOut-window").show();
     });
 
+    $("#viewBreakupText").on('click', function (e) {
+        $("div#breakupPopUpContainer").show();
+        $(".blackOut-window").show();
+    });
     $(".breakupCloseBtn,.blackOut-window").on('mouseup click',function (e) {         
         $("div#breakupPopUpContainer").hide();
         $(".blackOut-window").hide();        
@@ -925,6 +929,10 @@ $(".modelgallery-close-btn, .blackOut-window-model").click(function () {
 
 $(document).ready(function () {
     getImageDetails();
+    //var val = '1';
+    //$(ctrlSelectCity).chosen();
+    ////$(ctrlSelectCity).find(" option[value=" + val + "]").prop('selected', 'selected');
+    //$(ctrlSelectCity).trigger('change');
 });
 
 var mainImgIndexA;
@@ -1318,3 +1326,28 @@ var validateLastName = function (cityArea) {
     }
     return isValid;
 }
+
+var getOnRoadPriceBtn = $("#getOnRoadPriceBtn"),
+	onroadPriceConfirmBtn = $("#onroadPriceConfirmBtn");
+
+$("#getOnRoadPriceBtn, .city-area-edit-btn").on("click", function () {
+    $("#onRoadPricePopup").show();
+    $(".blackOut-window").show();
+});
+
+$(".onroadPriceCloseBtn").on("click", function () {
+    $("#onRoadPricePopup").hide();
+    $(".blackOut-window").hide();
+});
+
+onroadPriceConfirmBtn.on("click", function () {
+    $("#modelPriceContainer .default-showroom-text").hide().siblings("#getOnRoadPriceBtn").hide();
+    $("#modelPriceContainer .onroad-price-text").show().next("div.modelPriceContainer").find("span.viewBreakupText").show().next("span.showroom-text").show();
+    $("#onRoadPricePopup").hide();
+    $(".blackOut-window").hide();
+});
+
+$(".viewMoreOffersBtn").on("click", function () {
+    $(this).hide();
+    $(this).prev("ul.moreOffersList").slideToggle();
+});

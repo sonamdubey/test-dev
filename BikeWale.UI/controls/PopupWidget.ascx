@@ -1,5 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.PopupWidget" %>
 <!--bw popup code starts here-->
+<script type="text/javascript">
+    var sourceHref = '0';
+</script>
 <script runat="server">
     private string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     private string staticFileVersion1 = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
@@ -154,46 +157,49 @@
     function getPriceQuotePopup() {
         var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
         if (isValidInfoPopup()) {
-
-            //set global cookie
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
-            $.ajax({
-                type: 'POST',
-                url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
-                data: '{"cityId":"' + cityId + '", "areaId":"' + areaId + '", "modelId":"' + selectedModel + '", "isMobileSource":false}',
-                dataType: 'json',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
-                success: function (json) {
-                    var jsonObj = $.parseJSON(json.value);
-                    
-                    selectedCityName = $("#ddlCitiesPopup option:selected").text();
+            if (ga_pg_id != null && ga_pg_id == 2 && sourceHref=='1') {
+                window.location.reload();// = "/new/bikeModel.aspx?model=cbshine#modelDetailsContainer";
+            }
+            else {
+                $.ajax({
+                    type: 'POST',
+                    url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
+                    data: '{"cityId":"' + cityId + '", "areaId":"' + areaId + '", "modelId":"' + selectedModel + '", "isMobileSource":false}',
+                    dataType: 'json',
+                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
+                    success: function (json) {
+                        var jsonObj = $.parseJSON(json.value);
 
-                    if (areaId > 0)
-                        selectedAreaName = $("#ddlAreaPopup option:selected").text();
+                        selectedCityName = $("#ddlCitiesPopup option:selected").text();
 
-                    if (selectedMakeName != "" && selectedModelName != "" && selectedCityName != "") {
-                        gaLabel = selectedMakeName + ',' + selectedModelName + ',' + selectedCityName;
+                        if (areaId > 0)
+                            selectedAreaName = $("#ddlAreaPopup option:selected").text();
 
-                        if (selectedAreaName != '')
-                            gaLabel += ',' + selectedAreaName;
-                    }
-                    if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-                        gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit' , gaLabel);
-                        window.location = "/pricequote/dealerpricequote.aspx";
-                    }
-                    else if (jsonObj != undefined && jsonObj.quoteId > 0) {
-                        gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
-                        window.location = "/pricequote/quotation.aspx";
-                    } else {
+                        if (selectedMakeName != "" && selectedModelName != "" && selectedCityName != "") {
+                            gaLabel = selectedMakeName + ',' + selectedModelName + ',' + selectedCityName;
+
+                            if (selectedAreaName != '')
+                                gaLabel += ',' + selectedAreaName;
+                        }
+                        if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+                            gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                            window.location = "/pricequote/dealerpricequote.aspx";
+                        }
+                        else if (jsonObj != undefined && jsonObj.quoteId > 0) {
+                            gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
+                            window.location = "/pricequote/quotation.aspx";
+                        } else {
+                            gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+                            $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
+                        }
+                    },
+                    error: function (e) {
                         gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
-                        $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
+                        $("#errMsg").text("Oops. Some error occured. Please try again.").show();
                     }
-                },
-                error: function (e) {
-                    gtmCodeAppender(pageId,'BW_PriceQuote_Error_Submit', gaLabel);
-                    $("#errMsg").text("Oops. Some error occured. Please try again.").show();
-                }
-            });
+                });
+            }
         } else {
             gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
             $("#errMsgPopup").text("Please select all the details").show();
@@ -247,7 +253,6 @@
                 onCookieObj.PQCitySelectedName = cData[1];
                 onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
                 onCookieObj.PQAreaSelectedName = cData[3];
-
             }
         }
     }
@@ -255,6 +260,16 @@
     $(document).ready(function () {
 
         $('a.fillPopupData').on('click', function (e) {
+            debugger;
+            if (ga_pg_id != null & ga_pg_id == 2) {
+                var attr = $(this).attr('ismodel');
+                if (typeof attr !== typeof undefined && attr !== false) {
+                    $('html, body').animate({
+                        scrollTop: $("#modelDetailsContainer").offset().top
+                    }, 10);
+                    sourceHref = '1';
+                }
+            }
             pageIdAttr = $(this).attr('pageCatId');
             e.preventDefault();
             $("#errMsgPopUp").empty();
