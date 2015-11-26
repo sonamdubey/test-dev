@@ -261,7 +261,7 @@
                         <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
                     </div>
                     <div class="clear"></div>
-                    <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead() }">Submit</a>
+                    <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                 </div>
 
                 <div class="mobile-verification-container margin-top20 hide">
@@ -558,7 +558,7 @@
                     isValid = true;
                     nameValTrue()
                 }
-                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Name', 'lab': cityArea }); }
+                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Name', 'lab': getCityArea }); }
                 return isValid;
             }
 
@@ -586,10 +586,9 @@
 
             });
 
-            emailid.on("blur", function () {
+            emailid.on("keyup keydown blur", function () {
                 if (prevEmail != emailid.val().trim()) {
-                    var getCityArea = GetGlobalCityArea();
-                    if (validateEmail(getCityArea)) {
+                    if (validateEmail()) {
                         customerViewModel.IsVerified(false);
                         detailsSubmitBtn.show();
                         otpText.val('');
@@ -599,13 +598,14 @@
                     $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
                     $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
                 }
-                else
-                    customerViewModel.IsVerified(true);
             });
 
-            mobile.on("blur", function () {
+            mobile.on("keyup keydown blur", function () {
+                if (mobile.val().length < 10) {
+                    $("#user-details-submit-btn").show();
+                    $(".mobile-verification-container").removeClass("show").addClass("hide");
+                }
                 if (prevMobile != mobile.val().trim()) {
-                    var getCityArea = GetGlobalCityArea();
                     if (validateMobile(getCityArea)) {
                         customerViewModel.IsVerified(false);
                         detailsSubmitBtn.show();
@@ -616,8 +616,6 @@
                     $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
                     $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
                 }
-                else
-                    customerViewModel.IsVerified(true);
 
             });
 
@@ -656,7 +654,7 @@
                     setError(emailid, 'Invalid Email');
                     isValid = false;
                 }
-                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Email', 'lab': cityArea }); }
+                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Email', 'lab': getCityArea }); }
                 return isValid;
             }
 
@@ -675,7 +673,7 @@
                 else {
                     hideError(mobile)
                 }
-                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': cityArea }); }
+                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': getCityArea }); }
                 return isValid;
             }
 

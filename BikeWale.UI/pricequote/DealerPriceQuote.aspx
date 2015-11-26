@@ -325,7 +325,7 @@
                     <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
                 </div>
                 <div class="clear"></div>
-                <a class="btn btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead() }">Submit</a>
+                <a class="btn btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
             </div>
             <div class="mobile-verification-container hide">
                 <div class="input-border-bottom"></div>
@@ -434,9 +434,9 @@
                         var objCust = {
                             "dealerId": dealerId,
                             "pqId": pqId,
-                            "customerName": self.fullName,
-                            "customerMobile": self.mobileNo,
-                            "customerEmail": self.emailId,
+                            "customerName": self.fullName(),
+                            "customerMobile": self.mobileNo(),
+                            "customerEmail": self.emailId(),
                             "clientIP": clientIP,
                             "pageUrl": pageUrl,
                             "versionId": versionId,
@@ -465,11 +465,11 @@
                     if (!self.IsVerified()) {
                         var objCust = {
                             "pqId": pqId,
-                            "customerMobile": self.mobileNo,
-                            "customerEmail": self.emailId,
-                            "cwiCode": self.otpCode,
+                            "customerMobile": self.mobileNo(),
+                            "customerEmail": self.emailId(),
+                            "cwiCode": self.otpCode(),
                             "branchId": dealerId,
-                            "customerName": self.fullName,
+                            "customerName": self.fullName(),
                             "versionId": versionId,
                             "cityId": cityId
                         }
@@ -619,7 +619,7 @@
                     isValid = true;
                     nameValTrue()
                 }
-                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Name', 'lab': cityArea }); }
+                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Name', 'lab': getCityArea }); }
                 return isValid;
             }
 
@@ -647,10 +647,9 @@
 
             });
 
-            emailid.on("blur", function () {
+            emailid.on("keyup keydown blur", function () {
                 if (prevEmail != emailid.val().trim()) {
-                    var getCityArea = GetGlobalCityArea();
-                    if (validateEmail(getCityArea)) {
+                    if (validateEmail()) {
                         customerViewModel.IsVerified(false);
                         detailsSubmitBtn.show();
                         otpText.val('');
@@ -660,14 +659,15 @@
                     $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
                     $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
                 }
-                else
-                    customerViewModel.IsVerified(true);
             });
 
-            mobile.on("blur", function () {
+            mobile.on("keyup keydown blur", function () {
+                if (mobile.val().length < 10) {
+                    $("#user-details-submit-btn").show();
+                    $(".mobile-verification-container").removeClass("show").addClass("hide");
+                }
                 if (prevMobile != mobile.val().trim()) {
-                    var getCityArea = GetGlobalCityArea();
-                    if (validateMobile(getCityArea)) {
+                    if (validateMobile()) {
                         customerViewModel.IsVerified(false);
                         detailsSubmitBtn.show();
                         otpText.val('');
@@ -677,8 +677,6 @@
                     $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
                     $('#customize-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
                 }
-                else
-                    customerViewModel.IsVerified(true);
 
             });
 
@@ -717,7 +715,7 @@
                     setError(emailid, 'Invalid Email');
                     isValid = false;
                 }
-                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Email', 'lab': cityArea }); }
+                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Email', 'lab': getCityArea }); }
                 return isValid;
             }
 
@@ -736,7 +734,7 @@
                 else {
                     hideError(mobile)
                 }
-                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': cityArea }); }
+                if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': getCityArea }); }
                 return isValid;
             }
 

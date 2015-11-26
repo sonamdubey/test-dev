@@ -46,7 +46,7 @@
 
 /* color box css */
 .colours-wrap .jcarousel li {width:120px; height:auto;}
-.available-colors { display:inline-block; width:150px; text-align:center; margin-bottom:10px; padding:0 5px;}
+.available-colors { display:inline-block; vertical-align:top; width:150px; text-align:center; margin-bottom:10px; padding:0 5px;}
 .available-colors .color-box {width:60px; height:60px; margin:0 auto 15px; border-radius:3px; position:relative;}
 .color-box.red {background:#f00;}
 .color-box.blue {background:#3749a4;}

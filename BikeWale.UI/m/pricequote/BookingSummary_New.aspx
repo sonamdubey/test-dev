@@ -129,19 +129,13 @@
                         <!-- colours code starts here -->
                         <div class="colours-wrap margin-bottom20">
                             <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
-                            <div class="jcarousel-wrapper">
-                                <div class="jcarousel">
-                                    <ul class="text-center" data-bind="foreach: viewModel.SelectedVarient().bikeModelColors()">
-                                        <li class="available-colors">
-                                            <div class="color-box" data-bind="style: { 'background-color': '#' + hexCode }, click: function (data, event) { $parent.selectModelColor($data, event); }"><span class="ticked hide"></span></div>
-                                            <p class="font16 text-medium-grey" data-bind="text: colorName"></p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                                <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                                <p class="text-center jcarousel-pagination"></p>
-
+                            <div class="colors-box-wrapper">
+                                <ul class="text-center" data-bind="foreach: viewModel.SelectedVarient().bikeModelColors()">
+                                    <li class="available-colors">
+                                        <div class="color-box" data-bind="style: { 'background-color': '#' + hexCode }, click: function (data, event) { $parent.selectModelColor($data, event); }"><span class="ticked hide"></span></div>
+                                        <p class="font16 text-medium-grey" data-bind="text: colorName"></p>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                         <!-- /ko -->
