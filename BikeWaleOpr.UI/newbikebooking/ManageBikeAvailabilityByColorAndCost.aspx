@@ -161,7 +161,7 @@
                         </asp:Repeater>
                     </ul>
                     <br />
-                    <asp:Button ID="btnUpdateVersionColorAvailability" Text="Update Version Colors" runat="server" />   <span id="spnError" class="margin-left20 error" runat="server"></span>
+                    <asp:Button ID="btnUpdateVersionColorAvailability" Text="Update Availability for Colors" runat="server" />   <span id="spnError" class="margin-left20 error" runat="server"></span>
                     <input type="hidden" id="hdnColorDayObject" runat="server" value="" />
                 </div>  
             </div>
