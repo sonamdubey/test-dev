@@ -85,14 +85,13 @@ namespace BikewaleOpr.Common
                         {
                             versionColors = new List<VersionColorWithAvailability>();
                             while (reader.Read())
-                            {
+                            {                                            
                                 versionColors.Add(new VersionColorWithAvailability()
                                 {
                                     ModelColorID = Convert.ToUInt32(reader["ID"]),
                                     IsActive = Convert.ToBoolean(reader["IsActive"]),
                                     ModelColorName = Convert.ToString(reader["ColorName"]),
-                                    Hexcode = Convert.ToString(reader["HexCode"]),
-                                    NoOfDays = Convert.ToString(reader["NoOfDays"])
+                                    NoOfDays = (String.IsNullOrEmpty(Convert.ToString(reader["NoOfDays"])))?"NA":Convert.ToString(reader["NoOfDays"])
                                 });
                             }
                         }
