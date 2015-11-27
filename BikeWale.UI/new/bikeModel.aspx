@@ -132,11 +132,11 @@
                         </div>
                         <div class="grid-7 model-details-wrapper omega">
                             <div class="model-name-review-container">
-                                <p class="font26 text-black text-bold"><%= bikeName %></p>
+                                <p class="font24 text-black text-bold"><%= bikeName %></p>
                                 <% if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
                                    { %>
                                 <!-- Review & ratings -->
-                                <div id="modelRatingsContainer" class="margin-top10 padding-bottom10 <%= modelPage.ModelDetails.Futuristic ? "hide " : string.Empty %>">
+                                <div id="modelRatingsContainer" class="margin-top5 padding-bottom10 <%= modelPage.ModelDetails.Futuristic ? "hide " : string.Empty %>">
                                     <% if (Convert.ToDouble(modelPage.ModelDetails.ReviewRate) > 0)
                                        { %>
                                     <p class="bikeModel-user-ratings leftfloat margin-right10">
@@ -158,12 +158,36 @@
                             <!-- Variants -->
                             <div id="variantDetailsContainer" class="variants-dropDown margin-top15 padding-bottom15 <%= modelPage.ModelDetails.Futuristic ? "hide": string.Empty%>">
                                 <div>
-                                    <p class="variantText text-light-grey margin-right20">Variant: </p>
-                                    <% if (ddlVariant.Items.Count > 0)
+                                    <p class="variantText text-light-grey margin-right10">Variant: </p>
+
+                                    <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
                                        { %>
                                     <div class="form-control-box variantDropDown">
-                                        <asp:DropDownList class="form-control" style="min-width:150px;" ID="ddlVariant" CssClass="form-control" runat="server" EnableViewState="true" AutoPostBack="true"></asp:DropDownList>
+                                    <div class="sort-div rounded-corner2">
+                                        <div class="sort-by-title" id="sort-by-container">
+                                            <span class="leftfloat sort-select-btn">
+                                                <asp:Label runat="server" ID="defaultVariant"></asp:Label>
+                                            </span>
+                                            <span class="clear"></span>
+                                        </div>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
                                     </div>
+                                    <div class="sort-selection-div sort-list-items hide">
+                                        <ul id="sortbike">
+                                            <asp:Repeater ID="rptVariants" runat="server">
+                                                <ItemTemplate>
+                                                    <li>
+                                                        <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button></li>
+                                                    <asp:HiddenField ID="hdn" Value='<%#Eval("VersionId") %>' runat="server" />
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </ul>
+                                        <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />
+                                    </div>
+                                        </div>
+                                    <%--<div class="form-control-box variantDropDown">
+                                        <asp:DropDownList class="form-control" style="min-width:150px;" ID="ddlVariant" CssClass="form-control" runat="server" EnableViewState="true" AutoPostBack="true"></asp:DropDownList>
+                                    </div>--%>
                                     <% }
                                        else
                                        { %>
@@ -171,23 +195,40 @@
                                     <% } %>
                                     <div class="clear"></div>
                                 </div>
+                                <%--<div class="sort-div rounded-corner2">
+                                    <div class="sort-by-title" id="sort-by-container">
+                                        <span class="leftfloat sort-select-btn">Popular</span>
+                                        <span class="clear"></span>
+                                    </div>
+                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                </div>
+                                <div class="sort-selection-div sort-list-items">
+                                    <ul id="sortbike1">
+                                        <li id="0" class="selected">Popular</li>
+                                        <li id="1">Price: Low to High</li>
+                                        <li id="2">Price: High to Low</li>
+                                        <li id="3">Mileage: High to Low</li>
+                                    </ul>
+                                </div>--%>
+
+
                                 <%if (modelPage.ModelVersionSpecs != null)
                                   { %>
                                 <ul class="variantList margin-top15">
                                     <li>
-                                        <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement).Equals("--") ? "font16 text-medium-grey hide":"text-bold text-light-grey" %>'><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %></span>
+                                        <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %></span>
                                         <span>cc</span>
                                     </li>
                                     <li>
-                                        <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--") ? "font16 text-medium-grey hide":"text-bold text-light-grey" %>'><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall) %></span>
+                                        <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall) %></span>
                                         <span>kmpl</span>
                                     </li>
                                     <li>
-                                        <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "font16 text-medium-grey hide":"text-bold text-light-grey" %>'><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %></span>
+                                        <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %></span>
                                         <span>bhp</span>
                                     </li>
                                     <li>
-                                        <span class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight).Equals("--") ? "font16 text-medium-grey hide":"text-bold text-light-grey" %>'><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %></span>
+                                        <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %></span>
                                         <span>kg</span>
                                     </li>
                                 </ul>
@@ -226,11 +267,11 @@
                                     <br>
                                         <%if (isBikeWalePQ && price != "0")
                                           {%>
-                                        <span class="font12 text-light-grey showroom-text">(Ex-showroom + Insurance (comprehensive) + RTO)</span>
+                                        <span class="font12 text-xt-light-grey">(Ex-showroom + Insurance (comprehensive) + RTO)</span>
                                         <%}
                                           else
                                           { %>
-                                        <span class="font12 text-light-grey showroom-text"><%=viewbreakUpText %></span>
+                                        <span class="font12 text-xt-light-grey"><%=viewbreakUpText %></span>
                                         <%} %>
                                     <% } %>
                                 </div>
@@ -284,8 +325,6 @@
                         <%if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
                           { %>
                         <div id="modelDetailsOffersContainer" class="grid-12 margin-top20">
-                            <!-- offers: grid 5 -->
-                            <!-- No offers: grid 9 -->
                             <div class="grid-<%=grid1_size %> modelGetDetails padding-right20">
                                 <h3 class="padding-bottom10"><span></span>Get following details on this bike:</h3>
                                 <ul>
@@ -325,11 +364,9 @@
                                 </ul>
                                 <% if (isOfferAvailable && pqOnRoad.DPQOutput.objOffers.Count > 2)
                                    { %>
-                                <p class="viewMoreOffersBtn">view more</p>
+                                <p class="viewMoreOffersBtn">(view more)</p>
                                 <% } %>
                             </div>
-                            <!-- offers: grid 7 remove class: noOffers-->
-                            <!-- No offers: grid 3  add class: noOffers-->
                             <div class="grid-<%= grid2_size %> rightfloat moreDetailsBookBtns <%=cssOffers %> margin-top20">
                                 <input type="button" value="Get more details" class="btn btn-orange margin-right20" id="getMoreDetailsBtn">
                                 <%if (isBookingAvailable)
@@ -1177,6 +1214,7 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>">"></script>
+        <%--<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
         <script type="text/javascript">
             var myBikeName = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP%>";

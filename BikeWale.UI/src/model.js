@@ -1351,3 +1351,30 @@ $(".viewMoreOffersBtn").on("click", function () {
     $(this).hide();
     $(this).prev("ul.moreOffersList").slideToggle();
 });
+
+var sortByDiv = $(".sort-div"),
+    sortListDiv = $(".sort-selection-div"),
+    sortCriteria = $('#sort'),
+    sortByDiv = $(".sort-div"),
+    sortListDiv = $(".sort-selection-div"),
+    sortListLI = $(".sort-selection-div ul li");
+
+sortByDiv.click(function () {
+    if (!sortByDiv.hasClass("open"))
+        $.sortChangeDown(sortByDiv);
+    else
+        $.sortChangeUp(sortByDiv);
+});
+
+$.sortChangeDown = function (sortByDiv) {
+    sortByDiv.addClass("open");
+    sortListDiv.show();
+};
+
+$.sortChangeUp = function (sortByDiv) {
+    sortByDiv.removeClass("open");
+    sortListDiv.slideUp();
+};
+$("input[name*='btnVariant']").on("click", function () {
+    $('#hdnVariant').val($(this).attr('title'));
+});
