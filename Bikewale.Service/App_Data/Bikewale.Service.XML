@@ -499,7 +499,7 @@
             dealers Entity - DTO Mapping
             </summary>
         </member>
-        <member name="M:Bikewale.Service.AutoMappers.Dealer.DealerListMapper.Convert(Bikewale.Entities.Dealer.NewBikeDealerEntityList)">
+        <member name="M:Bikewale.Service.AutoMappers.Dealer.DealerListMapper.Convert(System.Collections.Generic.IEnumerable{Bikewale.Entities.Dealer.NewBikeDealerEntityBase})">
             <summary>
             Created By : Sushil Kumar
             Created On : 7th October 2015
@@ -664,6 +664,13 @@
             <param name="curPageNo">Current Page No (Optional)</param>
             <returns></returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.BikeData.UpcomingBikeController.Get">
+            <summary>
+            Created By  :   Sumit Kate on 16 Nov 2015
+            Summary     :   Returns the Upcoming Bike's Make list
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.BookingSummary.BookingSummaryController">
             <summary>
             Booking Summary Controller
@@ -769,11 +776,23 @@
             Bike Compare List Controller
             Author  :   Sumit Kate
             Created On : 27 Aug 2015
+            Modified By : Lucky Rathore on 06 Nov. 2015
+            Description : cache functionality added.  
             </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Compare.BikeCompareListController.#ctor(Bikewale.Interfaces.Compare.IBikeCompare,Bikewale.Interfaces.Compare.IBikeCompareCacheRepository)">
+            <summary>
+            Modified By : Lucky Rathore on 06 Nov. 2015
+            Desctption : add 'IBikeCompareCacheRepository cache' parameter 
+            </summary>
+            <param name="bikeCompare"></param>
+            <param name="cache"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.Compare.BikeCompareListController.Get(System.UInt16)">
             <summary>
             Gets the Top 'n' Bike Compare List
+            Modified by : Lucky Rathore on 06 Nov. 2015
+            Description : compare List called by cache.
             </summary>
             <param name="topCount">Top count</param>
             <returns></returns>
@@ -812,7 +831,7 @@
         </member>
         <member name="M:Bikewale.Service.Controllers.Dealer.DealersListController.#ctor(Bikewale.Interfaces.Dealer.IDealer)">
             <summary>
-            
+            Constructor
             </summary>
             <param name="dealer"></param>
         </member>
@@ -826,6 +845,32 @@
             <param name="cityId"></param>
             <param name="clientId"></param>
             <returns>List of dealers of paticular make in city</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.LeadsGeneration.ManufacturerLeadController">
+            <summary>
+            Craeted By  : Sushil Kumar
+            Created On  : 23rd October 2015
+            Summary     : To generate manufacturer Lead against the bikewale pricequote
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.LeadsGeneration.ManufacturerLeadController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.Dealer.IDealer)">
+            <summary>
+            Constructor 
+            </summary>
+            <param name="objIPQ"></param>
+            <param name="dealer"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.LeadsGeneration.ManufacturerLeadController.Get(System.UInt32,System.UInt32,System.String,System.String,System.String,System.String)">
+            <summary>
+            To genearate manufacturer Lead
+            </summary>
+            <param name="name"></param>
+            <param name="email"></param>
+            <param name="mobile"></param>
+            <param name="pqId"></param>
+            <param name="cityId"></param>
+            <param name="versionId"></param>
+            <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.Make.DealerMakesController">
             <summary>
@@ -1041,7 +1086,7 @@
             Mobile Verification Controller
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.MobileVerification.IMobileVerificationRepository,Bikewale.Interfaces.Customer.ICustomer{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.Dealer.IDealer)">
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.MobileVerification.IMobileVerificationRepository,Bikewale.Interfaces.Customer.ICustomer{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.Dealer.IDealer,Bikewale.Interfaces.PriceQuote.IPriceQuote)">
             <summary>
             Constructor
             </summary>
@@ -1053,6 +1098,8 @@
         <member name="M:Bikewale.Service.Controllers.PriceQuote.MobileVerification.PQMobileVerificationController.Post(Bikewale.DTO.PriceQuote.PQMobileVerificationInput)">
             <summary>
             Mobile Verification method
+            Modified By :   Sumit Kate on 18 Nov 2015
+            Description :   Save the State of the Booking Journey as Described in Task# 107795062 
             </summary>
             <param name="input">Mobile Verification Input</param>
             <returns></returns>
@@ -1128,7 +1175,7 @@
         <member name="T:Bikewale.Service.Controllers.PriceQuote.PQCustomerDetailController">
             <summary>
             Price Quote Customer Detail Controller
-            Author  :   Sumit Kate
+            Author      :   Sumit Kate
             Created On  :   21 Aug 2015
             </summary>
         </member>
@@ -1136,6 +1183,8 @@
             <summary>
             Saves the Customer details if it is a new customer.
             generated the OTP for the non verified customer
+            Modified By :   Sumit Kate on 18 Nov 2015
+            Description :   Save the State of the Booking Journey as Described in Task# 107795062 
             </summary>
             <param name="input">Customer details with price quote details</param>
             <returns></returns>
@@ -1165,6 +1214,18 @@
             Bikewale Price Quote and Dealer Price Quote
             </summary>
             <param name="input">Entity contains the required details to get the price quote details</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.UpdatePQController">
+            <summary>
+            Controller to update the PQ details
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Post(Bikewale.DTO.PriceQuote.PQUpdateInput)">
+            <summary>
+            Updates the Price Quote data for given Price Quote Id
+            </summary>
+            <param name="input"></param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController">
@@ -1308,6 +1369,14 @@
             <param name="requestType"></param>
             <param name="makeId"></param>
             <returns>Models List for Dropdowns</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelListController.GetAllModels(Bikewale.Entities.BikeData.EnumBikeType)">
+            <summary>
+            Created By : Sadhana Upadhyay on 9 Nov 2015
+            Summary : To get Model by request type
+            </summary>
+            <param name="requestType"></param>
+            <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.Series.SeriesListController">
             <summary>
@@ -1795,7 +1864,8 @@
         </member>
         <member name="M:Bikewale.Service.UnityConfiguration.UnityBootstrapper.Initialize">
             <summary>
-            
+            Modified By : Lucky Rathore on on 06 Nov. 2015.
+            Description : Register BikeCompareCacheRepository.
             </summary>
             <returns></returns>
         </member>

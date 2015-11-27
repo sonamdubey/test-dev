@@ -511,7 +511,7 @@
                                     <span class="font12 text-light-grey default-showroom-text">Expected price</span>
                                 </div>
                                 <div class="upcoming-bike-date-container margin-bottom20">
-                                    <span class="font20 text-black"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
+                                    <span class="font20 text-black"><%= Convert.ToDateTime(modelPage.UpcomingBike.ExpectedLaunchDate).ToString("MMM yyyy") %></span>
                                     <span class="font12 text-light-grey">Expected launch date</span>
                                 </div>
                                 <div class="upcoming-bike-default-text">
