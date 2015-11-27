@@ -781,8 +781,7 @@
                 SetCookie("_PQUser", val);
             }
 
-            <% } %>
-
+            <% } %>  
         </script>
     </form>
 </body>

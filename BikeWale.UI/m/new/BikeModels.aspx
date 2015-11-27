@@ -91,7 +91,7 @@
                         </div>
                         <div class="margin-bottom10 font12 text-light-grey">Expected price</div>
                         <div class="font18 text-grey margin-bottom5 margin-top15">
-                            <span><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
+                            <span><%= Convert.ToDateTime(modelPage.UpcomingBike.ExpectedLaunchDate).ToString("MMM yyyy") %></span>
                         </div>
                         <div class="margin-bottom10 font12 text-light-grey">Expected launch date</div>
                         <p class="font14 text-grey"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
