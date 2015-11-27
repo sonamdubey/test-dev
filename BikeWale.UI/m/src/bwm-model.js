@@ -485,7 +485,7 @@ function CustomerModel() {
                 "customerName": self.fullName(),
                 "customerMobile": self.mobileNo(),
                 "customerEmail": self.emailId(),
-                "source": 1
+                "source": 2
             }
             $.ajax({
                 type: "POST",
@@ -591,7 +591,7 @@ function fetchPriceQuote(vm) {
     $(priceBlock).find("span.price-loader").show();
     if (vm.selectedModel() != undefined && vm.selectedCity() != undefined) {
         $.ajax({
-                url: "/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea() != undefined ? vm.selectedArea() : 0),
+                url: "/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 2 + "&areaId=" + (vm.selectedArea() != undefined ? vm.selectedArea() : 0),
                 type: "GET",
                 contentType: "application/json",
         }).done(function (data) {

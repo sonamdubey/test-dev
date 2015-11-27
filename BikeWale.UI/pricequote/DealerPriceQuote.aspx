@@ -540,7 +540,7 @@
                             otpText.val('').removeClass("border-red").siblings("span, div").hide();
                         }
                         setPQUserCookie();
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Step_1_Successful_Submit', 'lab': getCityArea });
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_Successful_Submit', 'lab': getCityArea });
                     }
                     
                 };                
