@@ -46,7 +46,7 @@
 
                     <% if (modelPage.ModelDetails.New)
                        { %>
-                    <div class="padding-left20 padding-right10 margin-top10 margin-bottom20">
+                    <div class="padding-left20 padding-right10 margin-top5 margin-bottom15">
                         <p class=" <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> leftfloat margin-right10 rating-wrap">
                             <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
                         </p>
@@ -117,10 +117,7 @@
                         </div>
                     </div>
 
-                    <div class="margin-top20 margin-bottom20 clearfix">
-                    	<input type="button" value="Get more details" class="btn btn-orange btn-sm margin-right10 leftfloat" id="getMoreDetailsBtn" />
-                        <input type="button" value="Book now" class="btn btn-grey btn-sm rightfloat" id="bookNowBtn" />
-                    </div>
+                   
 
                     <div class="bike-price-container font22 margin-bottom15">
                         <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
@@ -490,6 +487,16 @@
                 </div>
                 <% } %>
             </div>
+
+            <!-- floating buttons -->
+            <div class="grid-12 float-button float-fixed clearfix">
+                <div class="show">
+                    <div class="grid-5 omega"><input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" /></div>
+                    <div class="grid-7"><input type="button" value="Get more details" class="btn btn-orange btn-full-width btn-sm margin-right10 leftfloat" id="getMoreDetailsBtn" /></div>
+                </div>
+                <div class="grid-12 hide"><input type="button" value="Get On-Road Price" class="btn btn-orange btn-full-width" /></div>
+            </div>
+
         </section>
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
             <div id="SneakPeak" class="container clearfix box-shadow margin-bottom20 margin-top20">
@@ -1135,6 +1142,7 @@
                 <div class="clear"></div>
             </div>
         </section>
+
         <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->

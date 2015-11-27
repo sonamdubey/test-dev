@@ -1363,3 +1363,13 @@ var validateLastName = function (cityArea) {
     return isValid;
 }
 
+var bodHt, footerHt, scrollPosition;
+$(window).scroll(function () {
+    bodHt = $('body').height();
+    footerHt = $('footer').height();
+    scrollPosition = $(this).scrollTop();
+    if (scrollPosition + $(window).height() > (bodHt - footerHt))
+        $('.float-button').removeClass('float-fixed');
+    else
+        $('.float-button').addClass('float-fixed');
+});
