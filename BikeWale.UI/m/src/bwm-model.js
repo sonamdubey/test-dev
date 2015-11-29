@@ -689,6 +689,7 @@ function fetchPriceQuote(vm) {
             }
                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
                 $(priceBlock).find("span.price-loader").hide();
+                bindInsuranceText();
             }
             else {
                 vm.areas([]);
