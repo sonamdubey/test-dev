@@ -134,7 +134,7 @@
                                             <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().rto)"></span></td>
                                         </tr>
                                         <tr>
-                                            <td class="padding-bottom10">Insurance (comprehensive)</td>
+                                            <td class="padding-bottom10" id="bw-insurance-text">Insurance (comprehensive)</td>
                                             <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().insurance)"></span></td>
                                         </tr>
                                         <tr>
@@ -153,7 +153,7 @@
                                 <!-- /ko -->
 
                                 <!-- ko if : isDealerPQAvailable() -->
-                                <table class="font14" width="100%">
+                                <table id="dp-insurance-text" class="font14" width="100%">
                                     <tbody>
                                         <!-- ko foreach : DealerPriceList -->
                                         <tr>
@@ -1094,6 +1094,17 @@
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+
+            function bindInsuranceText() {
+                cityArea = GetGlobalCityArea();
+                if (!viewModel.isDealerPQAvailable()) {
+                    $("td#bw-insurance-text").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
+                }
+                else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
+
+                    $("table#dp-insurance-text tr td:contains('Insurance')").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
+                }
+            }
 
              <% if (modelId == "395" && isManufacturer)
                 {%>

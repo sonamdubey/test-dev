@@ -144,7 +144,7 @@
                                         <ItemTemplate>
                                             <tr>
                                                 <td width="245" class="PQDetailsTableTitle padding-bottom10">
-                                                    <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
+                                                    <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %>
                                                 </td>
                                                 <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
                                                     <span class="fa fa-rupee margin-right5"></span><span id="exShowroomPrice"><%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
@@ -358,6 +358,13 @@
             $('#btnGetDealerDetails, #btnBikeBooking').click(function () {
                 window.location.href = '/pricequote/bookingsummary_new.aspx';
             });
+
+            var freeInsurance = $("img.insurance-free-icon");
+            if (!freeInsurance.length)
+            {
+                cityArea = GetGlobalCityArea();
+                $("table tr td.PQDetailsTableTitle:contains('Insurance')").append(" <br/><div style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objPrice.objMake.MakeName,objPrice.objModel.ModelName,objPrice.objVersion.VersionName)%>"+cityArea+"' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
+            }
 
             <% if(bookingAmount <= 0) { %>
             var isClicked = false;
