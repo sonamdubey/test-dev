@@ -9,15 +9,23 @@ namespace PriceQuoteLeadSMS
 {
     class Program
     {
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="args"></param>
         static void Main(string[] args)
         {
             Logs.WriteInfoLog("Started the Price quote Lead SMS Job");
 
             try
             {
-                LeadSMS obj = new LeadSMS();
+                //After each 5 mins notify customer and dealer via mail and sms
+                System.Timers.Timer timer = new System.Timers.Timer();
 
-                obj.SendSMS();
+                timer.Start();
+                timer.Interval = 500000;
+
+                timer.Elapsed += SendLeadsToCustDealer;
             }
             catch (Exception ex)
             {
@@ -25,6 +33,18 @@ namespace PriceQuoteLeadSMS
             }
 
             Logs.WriteInfoLog("Ended the Price quote Lead SMS Job");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private static void SendLeadsToCustDealer(object sender, System.Timers.ElapsedEventArgs e)
+        {
+            LeadSMS obj = new LeadSMS();
+
+            obj.SendLeadsToCustDealer();
         }
     }
 }

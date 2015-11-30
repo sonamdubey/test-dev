@@ -144,5 +144,56 @@ namespace Bikewale.Notifications
                 }
             }
         }
+
+
+        #region Save sms and email information of the customer and dealer after generating the leads
+
+        public static void SaveEmailToDealer(string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, uint insuranceAmount = 0)
+        {
+            if (!String.IsNullOrEmpty(dealerEmail))
+            {
+                string[] arrDealerEmail = dealerEmail.Split(',');
+
+                foreach (string email in arrDealerEmail)
+                {
+                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeName, modelName, dealerName, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, DateTime.Now, insuranceAmount);
+
+                    string emailBody = objEmail.ComposeBody();
+
+                    // Save the template into database and other parameters
+
+                    //objEmail.Send(email, "BikeWale Purchase Inquiry - " + makeName + " " + modelName + " " + versionName, customerEmail);
+                }
+            }
+        }
+
+        public static void SaveEmailToCustomer(string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, uint isInsuranceFree = 0)
+        {
+            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, "", address, customerName, DateTime.Now, priceList, offerList, pinCode, stateName, cityName, totalPrice, isInsuranceFree);
+
+            objEmail.ComposeBody();
+
+            // Save the template into database and other parameters
+
+            //objEmail.Send(customerEmail, "Your Dealer Price Certificate - " + bikeName, dealerEmail);
+        }
+
+        public static void SaveSMSToDealer(string dealerMobile, string customerName, string customerMobile, string bikeName, string areaName, string cityName)
+        {
+            Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
+            obj.NewBikePriceQuoteSMSToDealer(dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString());
+
+            // Save the template into database and other parameters
+        }
+
+        public static void SaveSMSToCustomer(string customerMobile, string customerName, string BikeName, string dealerName, string dealerContactNo, string dealerAddress, uint bookingAmount, uint insuranceAmount = 0, bool hasBumperDealerOffer = false)
+        {
+            Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
+            obj.NewBikePriceQuoteSMSToCustomer(customerMobile, customerName, BikeName, dealerName, dealerContactNo, dealerAddress, HttpContext.Current.Request.ServerVariables["URL"].ToString(), bookingAmount, insuranceAmount, hasBumperDealerOffer);
+
+            // Save the template into database and other parameters
+        }
+
+        #endregion
     }
 }
