@@ -851,14 +851,14 @@
 
 
     $(".divCompareBikeMenu li").click(function () {
-        $('html, body').animate({ scrollTop: 340 });
+        $('html, body').animate({ scrollTop: 270 });
         var contentType = $(this).attr("contentType");
         $(".divCompareBikeMenu li").each(function () {
             if ($(this).attr("contentType") == contentType) {
                 if ($(this).hasClass("list")) {
                     $(this).removeClass("list").addClass("listActive");
                     $("#" + contentType).show();
-                    window.scrollTo(0,1);
+                    //window.scrollTo(0,1);
                 }
             }
             else {
