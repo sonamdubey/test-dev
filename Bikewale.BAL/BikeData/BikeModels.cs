@@ -320,97 +320,97 @@ namespace Bikewale.BAL.BikeData
 
                     List<Specs> objEngTransSpecs = new List<Specs>();
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Displacement",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.Displacement, "cc")
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Cylinders",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.Cylinders)
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Max Power",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.MaxPower, "bhp", objModelPage.ModelVersionSpecs.MaxPowerRPM, "rpm")
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Maximum Torque",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.MaximumTorque, "Nm", objModelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm")
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Bore",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.Bore, "mm")
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Stroke",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.Stroke, "mm")
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Valves Per Cylinder",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.ValvesPerCylinder)
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Fuel Delivery System",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.FuelDeliverySystem)
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Fuel Type",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.FuelType)
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Ignition",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.Ignition)
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Spark Plugs",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.SparkPlugsPerCylinder, "Per Cylinder")
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Cooling System",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.CoolingSystem)
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Gearbox Type",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.GearboxType)
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "No. of Gears",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.NoOfGears)
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Transmission Type",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.TransmissionType)
                     });
 
-                    objSummarySpecs.Add(new Specs()
+                    objEngTransSpecs.Add(new Specs()
                     {
                         DisplayText = "Clutch",
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.Clutch)
