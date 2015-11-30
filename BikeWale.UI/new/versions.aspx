@@ -1091,7 +1091,7 @@
                             </ul>
                         </div>
                         <div class="or-text">
-                            <div class="more-features-btn"><span>+</span></div>
+                            <div class="more-features-btn"><a href="javascript:void(0)">+</a></div>
                         </div>
                     </div>
                     <!-- variant code starts here -->

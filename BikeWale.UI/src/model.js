@@ -606,13 +606,13 @@ $(document).ready(function () {
         
     });
 
-   
-
     $(".more-features-btn").click(function () {
         $(".more-features").slideToggle();
-        $("html, body").animate({scrollTop: $("#features").offset().top }, 1000);
-        var a = $(this).find("span");
+        var a = $(this).find("a");
         a.text(a.text() === "+" ? "-" : "+");
+        if (a.text() === "+")
+            a.attr("href", "#features");
+        else a.attr("href", "javascript:void(0)");
     });
 
     $(priceBlock).on('click', 'span.view-breakup-text', function () {
