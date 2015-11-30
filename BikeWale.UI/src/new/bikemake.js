@@ -9,12 +9,12 @@ $("#sortbike li").on("click", function () {
     var id = $(this).attr('id');
     switch (id) {
         case '0':
-            dt = sortResults($(".listitems li"), 'ind', true);
-            pushGaTags('Popular');
-            break;
-        case '1':
             dt = sortResults($(".listitems li"), 'prc', true);
             pushGaTags('Price_Low_to_High');
+            break;
+        case '1':
+             dt = sortResults($(".listitems li"), 'pop', true);
+            pushGaTags('Popular');
             break;
         case '2':
             dt = sortResults($(".listitems li"), 'prc', false);

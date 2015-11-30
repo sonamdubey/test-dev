@@ -50,15 +50,15 @@
                             <div class="rightfloat">
                                 <div class="sort-div rounded-corner2">
                                     <div class="sort-by-title" id="sort-by-container">
-                                        <span class="leftfloat sort-select-btn">Popular</span>
+                                        <span class="leftfloat sort-select-btn">Price: Low to High</span>
                                         <span class="clear"></span>
                                     </div>
                                     <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
                                 </div>
                                 <div class="sort-selection-div sort-list-items hide">
                                     <ul id="sortbike">
-                                        <li id="0" class="selected">Popular</li>
-                                        <li id="1">Price: Low to High</li>
+                                        <li id="0" class="selected">Price: Low to High</li>
+                                        <li id="1">Popular</li>
                                         <li id="2">Price: High to Low</li>
                                         <li id="3">Mileage: High to Low</li>
                                     </ul>
@@ -80,7 +80,7 @@
                             <!-- Most Popular Bikes Starts here-->
                             <asp:Repeater ID="rptMostPopularBikes" runat="server">
                                 <ItemTemplate>
-                                    <li class="front" ind="<%#DataBinder.Eval(Container, "ItemIndex", "")%>" prc="<%# DataBinder.Eval(Container.DataItem, "VersionPrice") %>" mlg="<%# DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall") %>">
+                                    <li class="front" ind="<%#DataBinder.Eval(Container, "ItemIndex", "")%>" prc="<%# DataBinder.Eval(Container.DataItem, "VersionPrice") %>" mlg="<%# DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall") %>" pop="<%# DataBinder.Eval(Container.DataItem, "BikePopularityIndex") %>">
                                         <div class="contentWrapper">
                                             <div class="imageWrapper">
                                                 <a class="modelurl" href='<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>

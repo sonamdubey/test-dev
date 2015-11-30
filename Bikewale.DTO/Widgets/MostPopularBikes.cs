@@ -2,6 +2,7 @@
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,8 @@ namespace Bikewale.DTO.Widgets
         public int ReviewCount { get; set; }
         public double ModelRating { get; set; }
         public Int64 VersionPrice { get; set; }
-        public MinSpecs Specs { get; set; }
+        public MinSpecs Specs { get; set; } 
+        [JsonProperty("popularityIndex")]
+        public ushort BikePopularityIndex { get; set; }  
     }
 }
