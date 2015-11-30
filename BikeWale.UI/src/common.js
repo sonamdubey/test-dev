@@ -386,6 +386,9 @@ function GetGlobalCityArea() {
         if (arrays.length > 2) {
             cityArea = arrays[1] + '_' + arrays[3];
         }
+        else if (arrays.length) {
+            cityArea = arrays[1];
+        }
         return cityArea;
     }
 }
