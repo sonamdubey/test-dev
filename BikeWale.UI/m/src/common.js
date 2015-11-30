@@ -910,6 +910,9 @@ function GetGlobalCityArea() {
         if (arrays.length > 3) {
             cityArea = arrays[1] +'_'+arrays[3];
         }
+        else if (arrays.length) {
+            cityArea = arrays[1];
+        }
         return cityArea;
     }
 }
