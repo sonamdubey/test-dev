@@ -41,6 +41,8 @@ namespace Bikewale.Mobile.BikeBooking
         /// <summary>
         /// Modified by : Ashish G. Kamble on 28 May 2015
         /// Modified : Added helmet offer id to claim the helmet offer also.
+        /// Modified By  : Sushil Kumar on 30th Nov 2015
+        /// Modified : Remove value for helmet as helmet offer section hidden from UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -66,7 +68,7 @@ namespace Bikewale.Mobile.BikeBooking
                     BikeRegistrationNo = txtVehicle.Text,
                     Comments = txtComments.Text,
                     VersionId = Convert.ToUInt32(hdnVersion.Value),
-                    HelmetId = Convert.ToUInt16(hdnSelHelmet.Value)
+                   // HelmetId = Convert.ToUInt16(hdnSelHelmet.Value)
                 };
 
                 objDealer.SaveRSAOfferClaim(objOffer, hdnBikeName.Value);
