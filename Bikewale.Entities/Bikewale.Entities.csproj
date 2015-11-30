@@ -149,6 +149,7 @@
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
+    <Compile Include="Insurance\InsuranceLead.cs" />
     <Compile Include="Location\AreaEntityBase.cs" />
     <Compile Include="Location\CityEntityBase.cs" />
     <Compile Include="Location\StateEntityBase.cs" />

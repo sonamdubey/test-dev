@@ -58,6 +58,12 @@
                 </ul>
             </li>
             <li>
+                <a href="/insurance/">
+                    <span class="bwsprite insurance-icon"></span>
+                    <span class="navbarTitle">Insurance</span>
+                </a>
+            </li>
+            <li>
                 <a href="/finance/emicalculator.aspx">
                     <span class="bwsprite forum-icon"></span>
                     <span class="navbarTitle">Tools</span>

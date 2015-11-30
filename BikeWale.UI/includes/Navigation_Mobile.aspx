@@ -58,6 +58,12 @@
                     <li><a href="/m/features/">Features</a></li>
                 </ul>
             </li>
+            <li>
+                <a href="/insurance/">
+                    <span class="bwmsprite insurance-icon"></span>
+                    <span class="navbarTitle">Insurance</span>
+                </a>
+            </li>
             <%--<li>
                 <a href="#">
                     <span class="bwmsprite forum-icon"></span>

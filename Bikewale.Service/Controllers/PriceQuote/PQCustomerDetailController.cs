@@ -67,6 +67,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         [ResponseType(typeof(PQCustomerDetailOutput))]
         public IHttpActionResult Post([FromBody]PQCustomerDetailInput input)
         {
+
             PQCustomerDetailOutput output = null;
             bool isSuccess = false;
             bool isVerified = false;
@@ -91,12 +92,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 {
                     if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail))
                     {
-                        RegisterCustomer rc = new RegisterCustomer();
-                        password = rc.GenerateRandomPassword();
-                        salt = rc.GenerateRandomSalt();
-                        hash = rc.GenerateHashCode(password, salt);
-
-                        objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, PasswordSalt = salt, PasswordHash = hash, ClientIP = input.ClientIP };
+                        objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, ClientIP = input.ClientIP };
                         UInt32 CustomerId = _objCustomer.Add(objCust);
                     }
 

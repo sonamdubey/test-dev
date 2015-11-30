@@ -7,7 +7,7 @@
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+<%@ Register Src="/m/controls/MPopupWidget.ascx" TagPrefix="BW" TagName="MPopupWidget"  %>
 
 <!doctype html>
 <html>
