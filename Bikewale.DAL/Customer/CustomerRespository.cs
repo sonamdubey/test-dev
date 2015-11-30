@@ -20,6 +20,11 @@ namespace Bikewale.DAL.Customer
     /// <typeparam name="U"></typeparam>
     public class CustomerRepository<T, U> : ICustomerRepository<T, U> where T : CustomerEntity, new()
     {
+        /// <summary>
+        /// Function to save the new customer into bikewale database
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
         #region Register new customer
         public U Add(T t)
         {

@@ -72,6 +72,9 @@
     <Compile Include="Customer\RegisteredCustomer.cs" />
     <Compile Include="Dealer\NewBikeDealerBase.cs" />
     <Compile Include="Dealer\NewBikeDealerList.cs" />
+    <Compile Include="Insurance\ClientResponse.cs" />
+    <Compile Include="Insurance\InsuranceLead.cs" />
+    <Compile Include="Insurance\PostInsuranceDetail.cs" />
     <Compile Include="Make\BikeDescription.cs" />
     <Compile Include="Make\MakeBase.cs" />
     <Compile Include="Make\MakeList.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="NewBikeSearch\Pager.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
     <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
+    <Compile Include="NewBikeSearch\UserInsuranceDetail.cs" />
     <Compile Include="PriceQuote\Area\PQAreaBase.cs" />
     <Compile Include="PriceQuote\Area\PQAreaList.cs" />
     <Compile Include="Model\ModelBase.cs" />

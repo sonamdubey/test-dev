@@ -32,6 +32,23 @@ namespace Bikewale.BAL.Customer
 
         public U Add(T t)
         {
+            // If password is not given by customer generate random password (In case of automate registration).
+            // Else use customer given password.
+            // Create salt and hash for the password.
+            RegisterCustomer objCust = new RegisterCustomer();
+
+            if (String.IsNullOrEmpty(t.Password))
+            {
+                t.Password = objCust.GenerateRandomPassword();
+                t.PasswordSalt = objCust.GenerateRandomSalt();
+                t.PasswordHash = objCust.GenerateHashCode(t.Password, t.PasswordSalt);
+            }
+            else
+            {
+                t.PasswordSalt = objCust.GenerateRandomSalt();
+                t.PasswordHash = objCust.GenerateHashCode(t.Password, t.PasswordSalt);
+            }
+
             U u = customerRepository.Add(t);
 
             return u;

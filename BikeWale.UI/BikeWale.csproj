@@ -671,6 +671,10 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="insurance\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="memcache\BasicIdMapping.cs" />
     <Compile Include="memcache\BikeMakes.cs" />
     <Compile Include="memcache\BWMemcache.cs" />
@@ -810,6 +814,10 @@
     </Compile>
     <Compile Include="m\Default_old.aspx.cs">
       <DependentUpon>Default_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\Insurance\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\news\Default.aspx.cs">
@@ -1613,6 +1621,7 @@
     <Content Include="css\chosen.min.css" />
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
+    <Content Include="css\datepicker.css" />
     <Content Include="css\global.css" />
     <Content Include="css\home.css" />
     <Content Include="css\images\animated-overlay.gif" />
@@ -1628,11 +1637,13 @@
     <Content Include="css\images\ui-icons_004276_256x240.png" />
     <Content Include="css\images\ui-icons_cc0000_256x240.png" />
     <Content Include="css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\insurance.css" />
     <Content Include="css\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="css\jquery.ad-gallery.css" />
     <Content Include="css\model.css" />
     <Content Include="css\newbikes.css" />
     <Content Include="css\new\search.css" />
+    <Content Include="css\pikaday.css" />
     <Content Include="css\rsa.css" />
     <Content Include="css\search.css" />
     <Content Include="css\slideshow.css" />
@@ -1948,6 +1959,7 @@
     <Content Include="images\icons-sheet.png" />
     <Content Include="images\inputChecked.png" />
     <Content Include="images\inputUnchecked.png" />
+    <Content Include="images\insurance-banner.jpg" />
     <Content Include="images\light-grey-bg.jpg" />
     <Content Include="images\light-sept.jpg" />
     <Content Include="images\nav-bg-org.jpg" />
@@ -1958,9 +1970,13 @@
     <Content Include="images\next-steps-thumb.jpg" />
     <Content Include="images\pattern-bg.jpg" />
     <Content Include="images\Pratikphoto.JPG" />
+    <Content Include="images\radio-btn.png" />
     <Content Include="images\ratings\0.png" />
     <Content Include="images\ratings\1.png" />
     <Content Include="images\ratings\half.png" />
+    <Content Include="images\ratings\ratings\0.png" />
+    <Content Include="images\ratings\ratings\1.png" />
+    <Content Include="images\ratings\ratings\half.png" />
     <Content Include="images\rsa-logo.png" />
     <Content Include="images\search-bg.jpg" />
     <Content Include="images\seperator-m.png" />
@@ -2011,6 +2027,7 @@
     <Content Include="includes\pgheader.aspx" />
     <Content Include="Forums\ISAPI\ISAPI_Rewrite.dll" />
     <Content Include="Forums\ISAPI\ISAPI_Rewrite_x64.dll" />
+    <Content Include="insurance\Default.aspx" />
     <Content Include="mybikewale\buyerdetails.aspx" />
     <Content Include="mybikewale\Default.aspx" />
     <Content Include="mybikewale\MyListing.aspx" />
@@ -2052,12 +2069,14 @@
     <Content Include="m\css\bwm-newbikes.css" />
     <Content Include="m\css\design.css" />
     <Content Include="m\css\home.css" />
+    <Content Include="m\css\insurance.css" />
     <Content Include="m\css\jqm-demos.css" />
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\new.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
+    <Content Include="m\css\zebra_datepicker.css" />
     <Content Include="m\customerror.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
@@ -2087,6 +2106,7 @@
     <Content Include="m\images\rightArrowBg.png" />
     <Content Include="m\images\style-type-sprite.png" />
     <Content Include="m\images\valentino-rossi.jpg" />
+    <Content Include="m\Insurance\Default.aspx" />
     <Content Include="m\news\Default.aspx" />
     <Content Include="m\news\newsdetails.aspx" />
     <Content Include="m\new\BikeMakes.aspx" />
@@ -2123,12 +2143,14 @@
     <Content Include="m\src\home.js" />
     <Content Include="m\src\html5.js" />
     <Content Include="m\src\index.js" />
+    <Content Include="m\src\insurance.js" />
     <Content Include="m\src\jquery-1.10.2.min.js" />
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\new\bwm-search.js" />
     <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
+    <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
@@ -2137,6 +2159,7 @@
     <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
+    <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
@@ -2205,6 +2228,7 @@
     <Content Include="src\graybox.js" />
     <Content Include="src\home.js" />
     <Content Include="src\html5.js" />
+    <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="src\knockout.js" />
     <Content Include="src\login\login.js" />
@@ -2214,6 +2238,9 @@
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\new\search.js" />
+    <Content Include="src\picker.date.js" />
+    <Content Include="src\picker.js" />
+    <Content Include="src\pikaday.js" />
     <Content Include="src\Plugins.js" />
     <Content Include="src\pq\MetroCities.js" />
     <Content Include="src\pq\price_quote.js" />
@@ -2304,6 +2331,8 @@
     <Content Include="m\fonts\fontawesome-webfont.woff" />
     <Content Include="m\fonts\FontAwesome.otf" />
     <Content Include="images\ratings\Thumbs.db" />
+    <Content Include="images\model-sprite_tmp5443" />
+    <Content Include="images\ratings\ratings\Thumbs.db" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2369,6 +2398,9 @@
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>
       <Name>Bikewale.Utility</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
