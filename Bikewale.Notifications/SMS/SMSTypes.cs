@@ -172,7 +172,7 @@ namespace Bikewale.Notifications
                     {
                         if (isFlipkartOffer)
                         {
-                            message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Rs. 1,000 Flipkart vouchers & 1-year RSA from BikeWale.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
+                            message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Rs. 1,000 Flipkart vouchers %26 1-year RSA from BikeWale.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
                         }
                         else
                         {
