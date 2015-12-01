@@ -217,6 +217,9 @@
     <Compile Include="Controllers\Customer\LoginInputParameters.cs" />
     <Compile Include="Controllers\Customer\RegisterInputParameters.cs" />
     <Compile Include="Controllers\Dealer\DealersListController.cs" />
+    <Compile Include="Controllers\Insurance\InsuranceLeadController.cs" />
+    <Compile Include="Controllers\Insurance\InsuranceModelsController.cs" />
+    <Compile Include="Controllers\Insurance\InsuranceVersionsController.cs" />
     <Compile Include="Controllers\LeadsGeneration\ManufacturerLeadController.cs" />
     <Compile Include="Controllers\Make\DealerMakesController.cs" />
     <Compile Include="Controllers\Make\MakePageController.cs" />
@@ -314,6 +317,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="APISecurity\" />
+    <Folder Include="Views\InsuranceLead\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.BAL\Bikewale.BAL.csproj">
@@ -347,6 +351,10 @@
     <ProjectReference Include="..\Bikewale.Notifications\Bikewale.Notifications.csproj">
       <Project>{db695e13-ed0e-4349-a32e-a6d03d06c597}</Project>
       <Name>Bikewale.Notifications</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.UI.Entities\Bikewale.UI.Entities.csproj">
+      <Project>{115cad90-615e-4e59-89d5-45f4696fce59}</Project>
+      <Name>Bikewale.UI.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Utility\Bikewale.Utility.csproj">
       <Project>{ea0864e7-7715-4d93-80be-3300bb542e42}</Project>

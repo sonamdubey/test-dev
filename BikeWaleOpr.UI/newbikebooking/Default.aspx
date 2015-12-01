@@ -116,6 +116,7 @@
                                 </ItemTemplate>
                             </asp:Repeater>
                             <th>Availability(days)</th>
+                            <th>Availability By Color</th>
                         </tr>
                 </HeaderTemplate>
                 <AlternatingItemTemplate>
@@ -146,6 +147,9 @@
                             <span class="spnDays"><%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %></span>
                             <asp:Textbox class="metAvailableBlack hide" id="lblAvailableDays" runat="server" style="width:60px;" Text='<%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %>'></asp:Textbox>
                         </td>
+                        <td>
+                            <a class="availabilityByColor text-blue" NoOfDays="<%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %>" href="Javascript:void(0)" >View Colors</a> 
+                        </td>
                     </tr>
                 </AlternatingItemTemplate>
                 <ItemTemplate>
@@ -173,6 +177,9 @@
                         <td>
                             <span class="spnDays"><%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %></span>
                             <asp:Textbox class="metAvailableWhite hide"  id="lblAvailableDays" runat="server" style="width:60px;" Text='<%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %>'></asp:Textbox>
+                        </td>
+                        <td>
+                            <a class="availabilityByColor text-blue" NoOfDays="<%# String.IsNullOrEmpty(Eval("NumOfDays").ToString())?"NA":Eval("NumOfDays") %>" href="Javascript:void(0)" >View Colors</a> 
                         </td>
                     </tr>
                 </ItemTemplate>
@@ -500,6 +507,7 @@
             }
         });
 
+
         $("#btnManagefacilities").click(function () {
             $("#bindModels").addClass("hide");
             $("#selectCityPriceHead").addClass("hide");
@@ -565,6 +573,22 @@
             else
                 alert("Please select dealer");
         });
+
+        //manage availability by color and cost script goes here
+        $("a.availabilityByColor").click(function () {            
+            var versionId = $(this).parent().parent().attr('id');
+            var versionAvailDays = $(this).attr("NoOfDays");
+            var dealerId = $("#hdnDealerId").val();
+            if (dealerId > 0) {
+                window.open('/newbikebooking/ManageBikeAvailabilityByColorAndCost.aspx?dealerId=' + dealerId + '&versionId=' + versionId + '&versionAvailDays=' + versionAvailDays, 'mywin', 'scrollbars=yes,left=25%,top=25%,width=600,height=400');
+            }
+            else
+                alert("Please select dealer");
+        });
+
+        //ends here
+
     });
 </script>
+
 <!-- #Include file="/includes/footerNew.aspx" -->

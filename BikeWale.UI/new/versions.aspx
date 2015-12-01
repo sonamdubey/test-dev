@@ -193,7 +193,8 @@
                                                     <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().rto)"></span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="padding-bottom10">Insurance (comprehensive)</td>
+                                                    <td class="padding-bottom10" id="bw-insurance-text">Insurance (comprehensive)                                                         
+                                                    </td>
                                                     <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().insurance)"></span></td>
                                                 </tr>
                                                 <tr>
@@ -217,7 +218,7 @@
                                         <!-- /ko -->
 
                                         <!-- ko if : isDealerPQAvailable() -->
-                                        <table class="font16">
+                                        <table id="model-view-breakup" class="font16">
                                             <tbody>
                                                 <!-- ko foreach : DealerPriceList -->
                                                 <tr>
@@ -511,7 +512,7 @@
                                     <span class="font12 text-light-grey default-showroom-text">Expected price</span>
                                 </div>
                                 <div class="upcoming-bike-date-container margin-bottom20">
-                                    <span class="font20 text-black"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
+                                    <span class="font20 text-black"><%= Convert.ToDateTime(modelPage.UpcomingBike.ExpectedLaunchDate).ToString("MMM yyyy") %></span>
                                     <span class="font12 text-light-grey">Expected launch date</span>
                                 </div>
                                 <div class="upcoming-bike-default-text">
@@ -1090,7 +1091,7 @@
                             </ul>
                         </div>
                         <div class="or-text">
-                            <div class="more-features-btn"><span>+</span></div>
+                            <div class="more-features-btn"><a href="javascript:void(0)">+</a></div>
                         </div>
                     </div>
                     <!-- variant code starts here -->
@@ -1235,6 +1236,22 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>">"></script>
         <script type="text/javascript">
+
+            function bindInsuranceText() {
+                icityArea = GetGlobalCityArea();
+                if (!viewModel.isDealerPQAvailable())
+                {
+                    var d = $("#bw-insurance-text");
+                    d.find("div.insurance-breakup-text").remove();
+                    d.append(" <div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
+                }
+                else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
+                    var e = $("table#model-view-breakup tr td:contains('Insurance')");
+                    e.find("div.insurance-breakup-text").remove();
+                    e.append("<div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
+                }
+            }
+
             var myBikeName = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP%>";
             var pageUrl = "<%= canonical %>"

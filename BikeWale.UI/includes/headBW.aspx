@@ -34,10 +34,10 @@
         </div>
         <div class="rightfloat">
             <div class="global-search position-rel " style="display:none">
-                <span class="bwsprite search-icon-grey" id="btnGlobalSearch"></span>
+                <span class="bwsprite search-icon-grey" id="btnGlobalSearch" style="z-index:2"></span>
                 <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
-                <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top10 text-black" style="display:none;right:14px;top:8px"></span>
-                <ul id="errGlobalSearch" style="margin-left: 0px;width:240px;position:absolute" class="ui-autocomplete ui-front ui-menu hide">
+                <span class="fa fa-spinner fa-spin position-abt  text-black" style="display:none;right:14px;top:7px;background:#fff"></span>
+                <ul id="errGlobalSearch" style="width:240px;position:absolute;top:30px;left:3px" class="ui-autocomplete ui-front ui-menu hide">
                     <li class="ui-menu-item" tabindex="-1">
                        <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                     </li>
@@ -58,14 +58,14 @@
     </div> <!-- ends here -->
     <div class="clear"></div>    
 <% if(isAd970x90Shown){ %>
-    <section class="bg-white <%= isHeaderFix ? "header-fixed-inner": "padding-top10" %>">
+    <div class="bg-white <%= isHeaderFix ? "header-fixed-inner": "" %>">
         <div class="container">
             <div class="grid-12">
-                <div class="padding-bottom15 text-center">
+                <div class="margin-bottom15 margin-top15 text-center">
                     <!-- #include file="/ads/Ad970x90.aspx" -->
                 </div>
             </div>
             <div class="clear"></div>
         </div>
-    </section>
+    </div>
 <% } %>

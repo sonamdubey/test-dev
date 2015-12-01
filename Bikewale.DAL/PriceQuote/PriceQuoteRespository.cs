@@ -287,5 +287,52 @@ namespace Bikewale.DAL.PriceQuote
             }
             return isUpdated;
         }
+
+        /// <summary>
+        /// Author          :   Sumit Kate
+        /// Description     :   18 Nov 2015
+        /// Created On      :   Saves the Booking Journey State
+        /// </summary>
+        /// <param name="pqId">PQ Id</param>
+        /// <param name="state">PriceQuoteStates enum</param>
+        /// <returns></returns>
+        public bool SaveBookingState(uint pqId, PriceQuoteStates state)
+        {
+            bool isUpdated = false;
+            Database db = null;
+            try
+            {
+                db = new Database();
+                
+                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "SavePQBookingState";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
+                        cmd.Parameters.Add("@stateId", SqlDbType.Int).Value = Convert.ToInt32(state);
+
+                        conn.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        if (rowsAffected > 0)
+                        {
+                            isUpdated = true;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+            return isUpdated;
+        }
     }   // Class
 }   // namespace

@@ -61,6 +61,7 @@
     <Compile Include="Customer\CustomerRespository.cs" />
     <Compile Include="Dealer\DealersRepository.cs" />
     <Compile Include="Feedback\FeedbackRepository.cs" />
+    <Compile Include="Insurance\InsuranceLeadRespositry.cs" />
     <Compile Include="Location\AreaRepository.cs" />
     <Compile Include="Location\CityRepository.cs" />
     <Compile Include="Location\StateRepository.cs" />

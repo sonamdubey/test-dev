@@ -72,6 +72,9 @@
     <Compile Include="Customer\RegisteredCustomer.cs" />
     <Compile Include="Dealer\NewBikeDealerBase.cs" />
     <Compile Include="Dealer\NewBikeDealerList.cs" />
+    <Compile Include="Insurance\ClientResponse.cs" />
+    <Compile Include="Insurance\InsuranceLead.cs" />
+    <Compile Include="Insurance\PostInsuranceDetail.cs" />
     <Compile Include="Make\BikeDescription.cs" />
     <Compile Include="Make\MakeBase.cs" />
     <Compile Include="Make\MakeList.cs" />

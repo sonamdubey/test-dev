@@ -71,7 +71,7 @@ namespace Bikewale.Service.Controllers.CMS
                     objRecentArticles.Clear();
                     objRecentArticles = null;
 
-                    objCMSRArticles.ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMMM dd, yyyy"));
+                    objCMSRArticles.ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
 
                     return Ok(objCMSRArticles);
                 }
@@ -132,7 +132,7 @@ namespace Bikewale.Service.Controllers.CMS
                     objRecentArticles.Clear();
                     objRecentArticles = null;
 
-                    objCMSRArticles.ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMMM dd, yyyy"));
+                    objCMSRArticles.ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
 
                     return Ok(objCMSRArticles);
                 }
@@ -207,7 +207,7 @@ namespace Bikewale.Service.Controllers.CMS
                             default:
                                 break;
                         }
-                        article.FormattedDisplayDate = article.DisplayDate.ToString("MMMM dd, yyyy");
+                        article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
                     }
                     return Ok(objCMSFArticles);
                 }
@@ -279,7 +279,7 @@ namespace Bikewale.Service.Controllers.CMS
                         objFeaturedArticles.Articles = null; 
                     }
 
-                    objCMSFArticles.Articles.ToList().ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMMM dd, yyyy"));
+                    objCMSFArticles.Articles.ToList().ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
 
                     return Ok(objCMSFArticles);
 

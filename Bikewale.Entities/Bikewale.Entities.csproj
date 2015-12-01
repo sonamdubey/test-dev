@@ -67,10 +67,10 @@
     <Compile Include="BikeBooking\PQ_QuotationEntity.cs" />
     <Compile Include="BikeBooking\RSAOfferClaimEntity.cs" />
     <Compile Include="BikeData\BikeMakeModelEntity.cs" />
+    <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeModelColor.cs" />
     <Compile Include="BikeData\BikeDescriptionEntity.cs" />
     <Compile Include="BikeData\BikeMakeEntity.cs" />
-    <Compile Include="BikeData\BikeMakeEntityBase.cs" />
     <Compile Include="BikeData\BikeMakePageEntity.cs" />
     <Compile Include="BikeData\BikeModelEntity.cs" />
     <Compile Include="BikeData\BikeModelEntityBase.cs" />
@@ -149,6 +149,7 @@
     <Compile Include="EditCMS\Photos\CMSImage.cs" />
     <Compile Include="EditCMS\Photos\ModelImage.cs" />
     <Compile Include="Feedback\FeedbackTypeEnum.cs" />
+    <Compile Include="Insurance\InsuranceLead.cs" />
     <Compile Include="Location\AreaEntityBase.cs" />
     <Compile Include="Location\CityEntityBase.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
@@ -176,6 +177,7 @@
     <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
+    <Compile Include="PriceQuote\PriceQuoteStates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsedBikes\PopularUsedBikesEntity.cs" />
     <Compile Include="UserReviews\FilterBy.cs" />

@@ -138,7 +138,7 @@
             </div>
             <div class="rightfloat">
                 <div class="global-search" id="global-search" style="display:none">
-                    <span class="bwmsprite search-icon-grey"></span>
+                    <span class="fa fa-search text-white" style="font-size:16px"></span>
                 </div>
                 <div class="global-location">
                     <span class="fa fa-map-marker"></span>

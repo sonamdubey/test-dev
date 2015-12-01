@@ -512,9 +512,9 @@ detailsSubmitBtn.click(function () {
                 $("#personalInfo").hide();
                 $("#personal-info-tab").removeClass('text-bold');
                 $("#customize").show();
-                $('.colours-wrap .jcarousel').jcarousel('reload', {
-                    'animation': 'slow'
-                });
+                //$('.colours-wrap .jcarousel').jcarousel('reload', {
+                  //  'animation': 'slow'
+                //});
                 $('#customize-tab').addClass('text-bold');
                 $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
                 $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');
@@ -785,9 +785,9 @@ otpBtn.click(function () {
             $("#personalInfo").hide();
             $("#personal-info-tab").removeClass('text-bold');
             $("#customize").show();
-            $('.colours-wrap .jcarousel').jcarousel('reload', {
-                'animation': 'slow'
-            });
+            //$('.colours-wrap .jcarousel').jcarousel('reload', {
+            //    'animation': 'slow'
+            //});
             $('#customize-tab').addClass('text-bold');
             $('#customize-tab').addClass('active-tab').removeClass('disabled-tab');
             $('#confirmation-tab').addClass('disabled-tab').removeClass('active-tab text-bold');

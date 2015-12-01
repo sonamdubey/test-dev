@@ -39,7 +39,7 @@
 					            <td valign="top" style="padding-left:10px;">
 						            <div><h2><b><%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName") %> <%# DataBinder.Eval(Container.DataItem,"ModelBase.ModelName") %></b>&nbsp;&nbsp;<span class="arr-small">&raquo;</span></h2></div>
 						            <div class="darkgray new-line5">When to expect</div>
-						            <div class="darkgray new-line"> <%# DataBinder.Eval(Container.DataItem,"ExpectedLaunchDate") %></div>
+						            <div class="darkgray new-line"> <%# String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem, "ExpectedLaunchDate"))) ? "N/A" : Convert.ToDateTime(DataBinder.Eval(Container.DataItem, "ExpectedLaunchDate")).ToString("MMM yyyy") %></div>
 						            <div class="darkgray new-line5">Estimated price</div>
 						            <div class="darkgray new-line">Rs.<%# Bikewale.Common.CommonOpn.FormatPrice( DataBinder.Eval(Container.DataItem,"EstimatedPriceMin").ToString(), DataBinder.Eval(Container.DataItem,"EstimatedPriceMax").ToString())%></div>
 					            </td>

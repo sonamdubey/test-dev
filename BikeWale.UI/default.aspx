@@ -489,7 +489,6 @@
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
     <script type="text/javascript">
         ga_pg_id = '1';
-
         //for jquery chosen : knockout event 
         ko.bindingHandlers.chosen = {
             init: function (element, valueAccessor, allBindings, viewModel, bindingContext) {

@@ -10,6 +10,8 @@ namespace Bikewale.Interfaces.BikeData
     /// <summary>
     /// Created By : Ashish G. Kamble
     /// Summary : Interface for bike makes data.
+    /// Modified By :   Sumit Kate on 16 Nov 2015
+    /// Summary :   Added new function UpcomingBikeMakes
     /// </summary>
     /// <typeparam name="T">Generic type (need to specify type while implementing this interface)</typeparam>
     /// <typeparam name="U">Generic type (need to specify type while implementing this interface)</typeparam>
@@ -19,5 +21,6 @@ namespace Bikewale.Interfaces.BikeData
         List<BikeModelsListEntity> GetModelsList(U makeId);       
         BikeDescriptionEntity GetMakeDescription(U makeId);
         BikeMakeEntityBase GetMakeDetails(string makeId);
+        IEnumerable<BikeMakeEntityBase> UpcomingBikeMakes();
     }
 }

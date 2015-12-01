@@ -36,7 +36,7 @@ namespace Bikewale.Service.Controllers.Model
         private string _requestType = "application/json";
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _cache;
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -60,11 +60,11 @@ namespace Bikewale.Service.Controllers.Model
             BikeModelPageEntity objModelPage = null;
             ModelPage objDTOModelPage = null;
             List<EnumCMSContentType> categorList = null;
-            
+
             try
             {
                 objModelPage = _cache.GetModelPageDetails(modelId);
-                
+
                 if (objModelPage != null)
                 {
                     // If android, IOS client sanitize the article content 
@@ -79,7 +79,8 @@ namespace Bikewale.Service.Controllers.Model
                     {
                         objModelPage.ModelVersionSpecs = null;
                     }
-                    else {
+                    else
+                    {
                         //objModelPage.objFeatures = null;
                         //objModelPage.objOverview = null;
                         //objModelPage.objSpecs = null;
@@ -116,27 +117,27 @@ namespace Bikewale.Service.Controllers.Model
                         if (objModelPage.ModelVersions != null)
                         {
                             objModelPage.ModelVersions.Clear();
-                            objModelPage.ModelVersions = null; 
+                            objModelPage.ModelVersions = null;
                         }
                         if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
                         {
                             objModelPage.objFeatures.FeaturesList.Clear();
-                            objModelPage.objFeatures.FeaturesList = null; 
+                            objModelPage.objFeatures.FeaturesList = null;
                         }
                         if (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null)
                         {
                             objModelPage.objOverview.OverviewList.Clear();
-                            objModelPage.objOverview.OverviewList = null; 
+                            objModelPage.objOverview.OverviewList = null;
                         }
                         if (objModelPage.objSpecs != null && objModelPage.objSpecs.SpecsCategory != null)
                         {
                             objModelPage.objSpecs.SpecsCategory.Clear();
-                            objModelPage.objSpecs.SpecsCategory = null; 
+                            objModelPage.objSpecs.SpecsCategory = null;
                         }
                         if (objModelPage.Photos != null)
                         {
                             objModelPage.Photos.Clear();
-                            objModelPage.Photos = null; 
+                            objModelPage.Photos = null;
                         }
                     }
 
@@ -152,7 +153,31 @@ namespace Bikewale.Service.Controllers.Model
                     string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
 
                     objDTOModelPage.Photos = BWHttpClient.GetApiResponseSync<List<CMSModelImageBase>>(_cwHostUrl, _requestType, _apiUrl, objDTOModelPage.Photos);
-                    
+                    if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
+                    {
+                        if (objDTOModelPage.Photos != null)
+                        {
+                            objDTOModelPage.Photos.Insert(0,
+                                new CMSModelImageBase()
+                                {
+                                    HostUrl = objDTOModelPage.ModelDetails.HostUrl,
+                                    OriginalImgPath = objDTOModelPage.ModelDetails.OriginalImagePath,
+                                    Caption = objDTOModelPage.ModelDetails.ModelName,
+                                    ImageCategory = "Model Image"
+                                });
+                        }
+                        else
+                        {
+                            objDTOModelPage.Photos = new List<CMSModelImageBase>();
+                            objDTOModelPage.Photos.Add(new CMSModelImageBase()
+                            {
+                                HostUrl = objDTOModelPage.ModelDetails.HostUrl,
+                                OriginalImgPath = objDTOModelPage.ModelDetails.OriginalImagePath,
+                                Caption = objDTOModelPage.ModelDetails.ModelName,
+                                ImageCategory = "Model Image"
+                            });
+                        }
+                    }
                     return Ok(objDTOModelPage);
                 }
                 else

@@ -46,6 +46,10 @@
     <Compile Include="Customer\AuthenticatedCustomer.cs" />
     <Compile Include="Customer\CustomerBase.cs" />
     <Compile Include="Customer\RegisteredCustomer.cs" />
+    <Compile Include="Insurance\CityDetail.cs" />
+    <Compile Include="Insurance\MakeDetail.cs" />
+    <Compile Include="Insurance\ModelDetail.cs" />
+    <Compile Include="Insurance\VersionDetail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

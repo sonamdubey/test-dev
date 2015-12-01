@@ -624,21 +624,21 @@ $(document).ready(function () {
 	            model.maskingName = ui.item.payload.modelMaskingName;
 	            model.id = ui.item.payload.modelId;
 	        }
-	        MakeModelRedirection(make, model);
 
-	        if (event.keyCode == 13)
-	        {
-	            if (focusedMakeModel != null && btnGlobalSearch != undefined)
-	                btnFindBikeNewNav();
-	            $("#globalSearch").siblings('.fa-spinner').hide();
-	        }
-	        
             var keywrd = ui.item.label + '_' + $('#globalSearch').val();
             var category = GetCatForNav();
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
 
-
-	        
+            MakeModelRedirection(make, model);
+	    },
+	    loaderStatus: function (status) {
+	        if (!status) { 
+	            $("#globalSearch").siblings('.fa-spinner').show();
+	        }
+	        else {
+	            $("#globalSearch").siblings('.fa-spinner').hide();
+	            $("#gs-text-clear").show();
+	        }
 	    },
 	    open: function (result) {
 	        objBikes.result = result;
@@ -653,8 +653,6 @@ $(document).ready(function () {
 	        }
 	    },
 	    afterfetch: function (result, searchtext) {
-	        $("#globalSearch").siblings('.fa-spinner').hide();
-	        $("#gs-text-clear").show();
 	        if (result != undefined && result.length > 0) {
 	            $('#errGlobalSearch').addClass('hide');
 	        }
@@ -672,11 +670,15 @@ $(document).ready(function () {
 	        if (focusedMakeModel != null && btnGlobalSearch != undefined)
 	            btnFindBikeNewNav();
 	    }
+        
 	}).keyup(function (e) {
-	    $("#globalSearch").siblings('.fa-spinner').show();
-	    if ($('#globalSearch').val() == '' || e.keyCode == 27) {
-	        $('#errGlobalSearch').addClass('hide');  	        
-	        $("#globalSearch").siblings('.fa-spinner').hide();
+	    if ($('#globalSearch').val() != '' || e.keyCode == 27 || e.keyCode==13) {
+	        $('#errGlobalSearch').addClass('hide');
+
+	    }
+	    if ($('#globalSearch').val()=="")
+	    {
+	        $('#errGlobalSearch').addClass('hide');
 	        $("#gs-text-clear").hide();
 	    }
 
@@ -769,6 +771,9 @@ $(document).ready(function () {
                         $.ajax({
                             async: true, type: "GET", contentType: "application/json; charset=utf-8", dataType: "json",
                             url: path,
+                            beforeSend: function (xhr) {
+                                if (options.loaderStatus != null && typeof (options.loaderStatus) == "function") options.loaderStatus(false);
+                            },
                             success: function (jsonData) {
                                 $(".fa-spinner").hide();
                                 jsonData = jsonData.suggestionList;
@@ -783,6 +788,9 @@ $(document).ready(function () {
                                 result = undefined;
                                 options.afterfetch(result, reqTerm);
                                 response(cache[cacheProp]);
+                            },
+                            complete: function (xhr, status) {
+                                if (options.loaderStatus != null && typeof (options.loaderStatus) == "function") options.loaderStatus(true);
                             }
                         });
                     }
@@ -901,6 +909,9 @@ function GetGlobalCityArea() {
         var arrays = getCookie(cookieName).split("_");
         if (arrays.length > 3) {
             cityArea = arrays[1] +'_'+arrays[3];
+        }
+        else if (arrays.length) {
+            cityArea = arrays[1];
         }
         return cityArea;
     }
