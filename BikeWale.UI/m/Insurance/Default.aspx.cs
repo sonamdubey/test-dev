@@ -9,20 +9,20 @@ using Bikewale.Utility;
 using Bikewale.Notifications;
 using System.Configuration;
 
-namespace Bikewale.m.Insurance
+namespace Bikewale.Mobile.Insurance
 {
     /// <summary>
     /// Created By : Lucky Rathore
     /// Creted On : 28 Nov. 2015
     /// </summary>
-    public partial class Default : System.Web.UI.Page
+    public class Default : System.Web.UI.Page
     {
         string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         string _requestType = "application/json";
-        Dictionary<string, string> _headerParameters;
-        public IEnumerable<CityDetail> cityList = null;
-        public IEnumerable<MakeDetail> makeList = null;
+        IDictionary<string, string> _headerParameters;
+        protected IEnumerable<CityDetail> cityList = null;
+        protected IEnumerable<MakeDetail> makeList = null;
         
         protected override void OnInit(EventArgs e)
         {
@@ -36,11 +36,11 @@ namespace Bikewale.m.Insurance
             _headerParameters.Add("clientid", "5");
             _headerParameters.Add("platformid", "2");
 
-            if (!IsPostBack)
-            {
+            //if (!IsPostBack)
+            //{
                 GetCities();
                 GetMakes();
-            }
+            //}
         }
 
         /// <summary>

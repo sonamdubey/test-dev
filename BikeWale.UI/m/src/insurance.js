@@ -127,8 +127,14 @@ function nextSection() {
 
 /**************/
 
-var modelList = [], versionList = [];
-var insauranceModel = new insuranceDetailViewModel();
+var isDataAvailable = true,
+    modelList = [],
+    versionList = [],
+    cityIndex,
+    makeIndex,
+    modelIndex,
+    versionIndex,
+    insauranceModel = new insuranceDetailViewModel();
 
 $(function () {
     //$("#bikeRegistrationDate").keydown(function (e) {
@@ -145,7 +151,6 @@ $("#userSelectCity").blur(function () {
     else {
         validationError($("#userSelectCity"));
     }
-
 });
 
 $("#makeName").blur(function () {
@@ -155,7 +160,6 @@ $("#makeName").blur(function () {
     else {
         validationSuccess($("#userSelectCity"));
     }
-
     if (isValidMake()) {
         $("#modelName").removeAttr("disabled");
         $("#versionName").removeAttr("disabled");
@@ -169,7 +173,7 @@ $("#makeName").blur(function () {
         $("#versionName").attr("disabled", "disabled");
         validationError($("#makeName"));
     }
-    $("#modelName").next().show();
+    $("#modelLoader").show();
     $("#modelName").val("");
     $("#versionName").val("");
     $("#modelName").focus();
@@ -184,7 +188,7 @@ $("#modelName").blur(function () {
     else {
         validationError($("#modelName"));
     }
-    $("#versionName").next().show();
+    $("#versionLoader").show();
     $("#versionName").val("");
 });
 
@@ -225,7 +229,7 @@ $("#email").blur(function () {
 });
 
 
-function cityAutoComplete() {
+function cityAutoComplete() {    
     var citySrc;
     $("#userSelectCity").autocomplete({
         source: function (request, response) {
@@ -249,7 +253,7 @@ function cityAutoComplete() {
             }
         },
         minLength: 0
-    }).on('focus', function () { $(this).keydown(); });;
+    }).on('focus', function () { $(this).keydown(); });
 }
 
 function makeAutoComplete() {
@@ -292,7 +296,6 @@ function modelAutoSuggest() {
             response(modelSrc.slice(0, 6));
         },
         select: function (event, ui) {
-            $('#hdnModelId').val(ui.item.id);
             insauranceModel.modelName = ui.item.label;
             if (isValidModel()) {
                 validationSuccess($("#modelName"));
@@ -321,7 +324,6 @@ function versionAutoSuggest() {
 
         },
         select: function (event, ui) {
-            $('#hdnVersionId').val(ui.item.id);
             insauranceModel.versionName = ui.item.label;
             if (isValidVersion()) {
                 validationSuccess($("#versionName"));
@@ -341,21 +343,21 @@ function isValidCity() {
     var state = city.split(", ")[1];
     city = city.split(", ")[0];
     if (city == null && city.length == 0) return false;
-    var cityIndex = $.map(cities, function (cities) {
+    var isCityPresent = $.map(cities, function (cities, index) {
         if (city.indexOf(cities.CityName) != -1 && state.indexOf(cities.StateName) != -1) {
-            $("#hdnCityId").val(cities.CityId);
+            cityIndex = index;
             return true;
         }
     });
-    return (cityIndex[0] == true) ? true : false;
+    return (isCityPresent[0] == true) ? true : false;
 }
 
 function isValidMake() {
     var makeName = $("#makeName").val().toUpperCase();
     if (makeName == null || makeName.length == 0) return false;
-    var isMakePresent = $.map(makes, function (makes) {
+    var isMakePresent = $.map(makes, function (makes, index) {
         if (makeName.indexOf(makes.MakeName) != -1) {
-            $("#hdnMakeId").val(makes.MakeId);
+            makeIndex = index;
             return true;
         }
     });
@@ -366,9 +368,9 @@ function isValidModel() {
     var modelName = $("#modelName").val().toUpperCase();
     if (modelName == null || modelName.length == 0) return false;
 
-    var isModelPresent = $.map(modelList, function (modelList) {
+    var isModelPresent = $.map(modelList, function (modelList, index) {
         if (modelName.indexOf(modelList.modelName) != -1) {
-            $("#hdnModelId").val(modelList.modelId);
+            modelIndex = index;
             return true;
         }
     });
@@ -378,10 +380,9 @@ function isValidModel() {
 function isValidVersion() {
     var name = $("#versionName").val();
     if (name == null || name.length == 0) return false;
-    var isVersionPresent = $.map(versionList, function (versionList) {
+    var isVersionPresent = $.map(versionList, function (versionList, index) {
         if (name.indexOf(versionList.versionName) != -1) {
-            $("#hdnVersionId").val(versionList.versionId);
-            $("#hdnClientPrice").val(versionList.exShowroomPrice);
+            versionIndex = index;
             return true;
         }
     });
@@ -409,11 +410,11 @@ function insuranceDetailViewModel() {
     self.saveUserDetail = function () {
         if (!isValidPersonalDetail()) return;
 
-        self.cityId = $("#hdnCityId").val();
-        self.makeId = $("#hdnMakeId").val();
-        self.modelId = $("#hdnModelId").val();
-        self.versionId = $("#hdnVersionId").val();
-        self.clientPrice = $("#hdnClientPrice").val();
+        self.cityId = cities[cityIndex].CityId;
+        self.makeId = makes[makeIndex].MakeId;
+        self.modelId = modelList[modelIndex].modelId;
+        self.versionId = versionList[versionIndex].versionId;
+        self.clientPrice = versionList[versionIndex].exShowroomPrice;
         self.insurancePolicyType = getInsuranceType();
         self.cityName = ko.computed(function () { return $("#userSelectCity").val().split(", ")[0]; }, this);
         self.stateName = ko.computed(function () { return $("#userSelectCity").val().split(", ")[1]; }, this);
@@ -443,29 +444,44 @@ function getInsuranceType() {
 }
 
 function setMakeList() {
+    var makeId = makes[makeIndex].MakeId;;
+    if (makeId == null) {
+        return;
+    }
     $.ajax({
         type: "GET",
-        url: "/api/InsuranceModels?makeid=" + $("#hdnMakeId").val(),
+        url: "/api/InsuranceModels?makeid=" + makeId,
         contentType: "application/json",
         dataType: "json",
         success: function (models) {
+            if (models == null) {
+                return;
+            }
             modelList = models;
             $("#modelName").keydown();
-            $("#modelName").next().hide();
+            $("#modelLoader").hide();
         }
+        
     });
 }
 
 function setVersionList() {
+    var modelId = modelList[modelIndex].modelId;
+    if (modelId == null) {
+        return;
+    }
     $.ajax({
         type: "GET",
-        url: "/api/InsuranceVersions?modelId=" + $("#hdnModelId").val(),
+        url: "/api/InsuranceVersions?modelId=" + modelId,
         contentType: "application/json",
         dataType: "json",
         success: function (response) {
+            if (response == null) {
+                return;
+            }
             versionList = response;
-            $("#versionName").next().hide();
-            $("#versionName").keydown();            
+            $("#versionName").keydown();
+            $("#versionLoader").hide();
         }
     });
 }

@@ -29,3 +29,5 @@ footer { margin-top: 34px; }
 .phone-box a { background-color: #fff; border: 1px solid #05c24f; color: #4d5057; font-size: 20px; padding: 7px 55px; }
 ol.note-type-num, ol.note-type-num li { list-style: inside decimal; }
 ol.note-type-num li { padding: 10px 0; }
+.faqBox li { list-style:disc inside; padding:5px 0 5px 15px;}
+.faqBox {padding-top:5px; padding-bottom:5px;}

@@ -59,7 +59,7 @@
                 </ul>
             </li>
             <li>
-                <a href="/insurance/">
+                <a href="/m/insurance/">
                     <span class="bwmsprite insurance-icon"></span>
                     <span class="navbarTitle">Insurance</span>
                 </a>
