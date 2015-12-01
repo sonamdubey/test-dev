@@ -59,7 +59,7 @@
                         <td class="text-grey text-bold" align="right"><span class="fa fa-rupee"></span><%= CommonOpn.FormatPrice(objQuotation.RTO.ToString()) %></td>
                     </tr>
                     <tr>
-                        <td class="text-medium-grey" align="left">Insurance (<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" href="/insurance/" style="display:inline-block;position: relative;font-size: 11px; margin-top: 1px;">
+                        <td class="text-medium-grey" align="left">Insurance (<a target="_blank" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" href="/m/insurance/" style="display:inline-block;position: relative;font-size: 11px; margin-top: 1px;">
                                 Up to 60% off - PolicyBoss                                
                             </a>)<span style="margin-left: 5px; vertical-align: super; font-size: 9px;">Ad</span>
                         </td>
