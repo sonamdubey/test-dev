@@ -102,7 +102,6 @@
     <Compile Include="NewBikeSearch\Pager.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
     <Compile Include="NewBikeSearch\SearchOutputBase.cs" />
-    <Compile Include="NewBikeSearch\UserInsuranceDetail.cs" />
     <Compile Include="PriceQuote\Area\PQAreaBase.cs" />
     <Compile Include="PriceQuote\Area\PQAreaList.cs" />
     <Compile Include="Model\ModelBase.cs" />

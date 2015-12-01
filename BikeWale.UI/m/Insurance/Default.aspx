@@ -104,19 +104,19 @@
                     <input value="" class="form-control rounded-corner2" type="text" id="customerName" data-bind="textInput: customerName" placeholder="Name" />
                     <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                     <span class="bwmsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter Name</div>
+                    <div class="bw-blackbg-tooltip hide">Please enter name</div>
                 </div>
                 <div class="form-control-box margin-bottom20">
                     <input value="" class="form-control rounded-corner2" type="text" id="mobile" maxlength="10" data-bind="textInput: mobile" placeholder="Mobile no" />
                     <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                     <span class="bwmsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter valid 10 digit Mobile</div>
+                    <div class="bw-blackbg-tooltip hide">Please enter valid 10 digit mobile</div>
                 </div>
                 <div class="form-control-box margin-bottom20">
                     <input value="" class="form-control-box form-control rounded-corner2" type="text" id="email" data-bind="textInput: email" placeholder="Email id" />
                     <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                     <span class="bwmsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter Email</div>
+                    <div class="bw-blackbg-tooltip hide">Please enter email</div>
                 </div>
                 <div class="margin-top20 text-center">
                     <input type="button" value="Submit" class="btn btn-full-width btn-orange" data-bind="click: saveUserDetail" />
