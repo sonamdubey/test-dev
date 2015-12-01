@@ -71,9 +71,7 @@ namespace Bikewale.DAL.Insurance
                         cmd.Parameters.Add("@VersionID", SqlDbType.Int).Value = lead.VersionId;
                         
                         cmd.Parameters.Add("@ClientPrice", SqlDbType.Int).Value = lead.ClientPrice;
-
-                        
-                        cmd.Parameters.Add("@RequestDateTime", SqlDbType.DateTime).Value = System.DateTime.Now;
+                                                
                         cmd.Parameters.Add("@SubmitStatus", SqlDbType.VarChar, 50).Value = String.IsNullOrEmpty(lead.SubmitStatus) ? Convert.DBNull : lead.SubmitStatus;
                         cmd.Parameters.Add("@SubmitId", SqlDbType.Int).Value = lead.SubmitStatusId;
                         cmd.Parameters.Add("@ClientId", SqlDbType.Int).Value = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["InsuranceClientId"]);

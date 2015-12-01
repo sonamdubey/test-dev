@@ -14,7 +14,7 @@ namespace Bikewale.DTO.Insurance
     class InsuranceLead
     {
         [JsonProperty("customerId")]
-        public uint CustomerId{ get; set; }
+        public ulong CustomerId{ get; set; }
 
         [JsonProperty("customerName")]
         public string CustomerName { get; set; }

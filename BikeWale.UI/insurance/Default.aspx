@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <%
          title = "BikeWale - Insurance";
@@ -86,7 +86,7 @@
                             <li>
                                 <div class="bikeDetailsBox form-control-box">
                                     <input type="text" class="form-control text-uppercase" id="modelName" placeholder="Select model" tabindex="4" data-bind="textInput: modelName"/>
-                                    <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
+                                    <span id="modelLoader" style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
                                     <span class="bwsprite error-icon"></span>
                                     <div class="bw-blackbg-tooltip">Please select model</div>
                                 </div>
@@ -94,7 +94,7 @@
                             <li>
                                 <div class="bikeDetailsBox form-control-box">
                                     <input type="text" class="form-control " id="versionName" placeholder="Select variant" tabindex="5" data-bind="textInput: versionName"/>
-                                    <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
+                                    <span id="versionLoader" style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
                                     <span class="bwsprite error-icon"></span>
                                     <div class="bw-blackbg-tooltip">Please select variant</div>
                                 </div>
@@ -146,13 +146,8 @@
                             </li>
                         </ul>
                         <div class="clear"></div>
-                        <p class="font14 margin-bottom30">By continuing you agree that we or our partner Policy Boss may contact you for an enquiry</p>
                         <input type="button" value="Next" id="contactDetailsBtn" class="btn btn-orange margin-bottom10" tabindex="5" data-bind="click: saveUserDetail"/>
-                        <input type="hidden" id="hdnCityId" />
-                        <input type="hidden" id="hdnMakeId" />
-                        <input type="hidden" id="hdnModelId" />
-                        <input type="hidden" id="hdnVersionId" />
-                        <input type="hidden" id="hdnClientPrice" />
+                        <p class="font14 margin-bottom30">By continuing you agree that we or our partner Policy Boss may contact you for an enquiry</p>
                     </div>
                 </div>
                 
