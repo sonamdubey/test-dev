@@ -35,12 +35,12 @@
                     <div class="hide" id="sort-by-div">
                     	    <div  class="filter-sort-div font14 bg-white">
                                 <div sc="1" so="">
-                                    <a data-title="sort" class="price-sort position-rel">
-                                	    Price<span class="hide" so="0" class="sort-text"></span>
+                                    <a data-title="sort" class="price-sort position-rel text-bold">
+                                	    Price <span class="hide" so="0" class="sort-text "> : Low</span>
                                     </a>
                                 </div>
                                 <div sc="" class="border-solid-left">
-                                    <a data-title="sort" class="position-rel text-bold">
+                                    <a data-title="sort" class="position-rel">
                                 	    Popularity 
                                     </a>
                                 </div>
@@ -59,7 +59,7 @@
                             <div id="listitems" class="listitems">
                                 <asp:Repeater ID="rptMostPopularBikes" runat="server">
                                     <ItemTemplate>
-                                        <div class="front" ind="<%#DataBinder.Eval(Container, "ItemIndex", "")%>" prc="<%# DataBinder.Eval(Container.DataItem, "VersionPrice") %>" mlg="<%# DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall") %>">
+                                        <div class="front" ind="<%#DataBinder.Eval(Container, "ItemIndex", "")%>" prc="<%# DataBinder.Eval(Container.DataItem, "VersionPrice") %>" mlg="<%# DataBinder.Eval(Container.DataItem, "Specs.FuelEfficiencyOverall") %>"  pop="<%# DataBinder.Eval(Container.DataItem, "BikePopularityIndex") %>" >
                                             <div class="contentWrapper">
                                                 <div class="imageWrapper">
                                                     <a class="modelurl" href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"objMake.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"objModel.MaskingName"))) %>'>
