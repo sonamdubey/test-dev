@@ -43,8 +43,8 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
     else {
         $.sc = $(this).parent().attr('sc');
         if ($.sc == '') {
-            dt = sortResults(list, 'ind', true);
-            pushGaTags('Popular');
+            dt = sortResults(list, 'pop', true);
+            pushGaTags('Popularity');
         }
         else {
             dt = sortResults(list, 'mlg', false);

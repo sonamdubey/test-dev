@@ -1098,11 +1098,11 @@
             function bindInsuranceText() {
                 cityArea = GetGlobalCityArea();
                 if (!viewModel.isDealerPQAvailable()) {
-                    $("td#bw-insurance-text").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
+                    $("td#bw-insurance-text").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/m/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
                 }
                 else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
 
-                    $("table#dp-insurance-text tr td:contains('Insurance')").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
+                    $("table#dp-insurance-text tr td:contains('Insurance')").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/m/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
                 }
             }
 
