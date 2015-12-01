@@ -14,7 +14,7 @@
 .divInsuranceForm .box.accordion, .faqs .box.accordion { margin: 0; padding: 0; }
 .faqs .box.accordion:last-child { border-bottom: none; }
 .custSelect { background: none; -webkit-appearance: none; padding: 8px; width: 100%; }
-.newcars-banner-div { background: #161209 url(http://img.aeplcdn.com/bikewaleimg/images/insurance-banner.jpg) no-repeat left top; background-size: cover; height: 130px; }
+.newcars-banner-div { background: #57605e url(http://img.aeplcdn.com/bikewaleimg/images/insurance-banner.jpg) no-repeat left top; background-size: cover; height: 130px; }
 .accordion h3 .icon { position: absolute; right: 8px; top: 15px; width: 18px; height: 18px; text-align: center; color: #565a5c; }
 .accordion h3 .icon.edit-icon { background: url(../images/edit-icon.png) no-repeat right top; }
 .accordion h3 .icon.plus-minus { display: block; }
