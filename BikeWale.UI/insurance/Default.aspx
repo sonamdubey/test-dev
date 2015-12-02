@@ -13,7 +13,6 @@
          %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
     
@@ -78,14 +77,14 @@
                         <ul>
                             <li>
                                 <div class="bikeDetailsBox form-control-box">
-                                    <input type="text" class="form-control text-uppercase" id="makeName" placeholder="Select make" tabindex="3" data-bind="textInput: makeName" />
+                                    <input type="text" class="form-control" id="makeName" placeholder="Select make" tabindex="3" data-bind="textInput: makeName" />
                                     <span class="bwsprite error-icon"></span>
                                     <div class="bw-blackbg-tooltip">Please select make</div>
                                 </div>
                             </li>
                             <li>
                                 <div class="bikeDetailsBox form-control-box">
-                                    <input type="text" class="form-control text-uppercase" id="modelName" placeholder="Select model" tabindex="4" data-bind="textInput: modelName"/>
+                                    <input type="text" class="form-control" id="modelName" placeholder="Select model" tabindex="4" data-bind="textInput: modelName"/>
                                     <span id="modelLoader" style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
                                     <span class="bwsprite error-icon"></span>
                                     <div class="bw-blackbg-tooltip">Please select model</div>
@@ -279,7 +278,6 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/insurance.js?<%= staticFileVersion %>"></script>
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/pikaday.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">

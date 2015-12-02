@@ -82,6 +82,11 @@ namespace Bikewale.Service.Controllers.Insurance
                     objCust = new CustomerEntity() { CustomerName = detail.Name, CustomerEmail = detail.Email, CustomerMobile = detail.Mobile, ClientIP = insuranceLead.ClientIP, SourceId = insuranceLead.LeadSourceId };
                     insuranceLead.CustomerId = _objCustomer.Add(objCust);
                 }
+                else
+                {
+                    insuranceLead.CustomerId = _objCustomer.GetByEmail(insuranceLead.Email).CustomerId;
+                }
+
                 //else 
                 //{
                 //    insuranceLead.CustomerId = _objCustomer.GetByEmail(insuranceLead.Email).CustomerId; 

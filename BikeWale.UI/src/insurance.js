@@ -386,7 +386,7 @@ function insuranceDetailViewModel() {
     self.firstName = ko.observable();
     self.lastName = ko.observable();
     self.customerName = ko.computed(function () {
-        return (this.lastName() == null ? this.firstName : (this.firstName() + " " + this.lastName()));
+        return ((self.lastName() == undefined || self.lastName() == "") ? self.firstName() : (self.firstName() + " " + self.lastName()));
     }, this);
     self.email = ko.observable();
     self.mobile = ko.observable();
