@@ -167,15 +167,13 @@ $("#makeName").blur(function () {
         validationSuccess($("#makeName"));
         setMakeList();
         modelAutoSuggest();
+        $("#modelLoader").show();
     }
     else {
         $("#modelName").attr("disabled", "disabled");
         $("#versionName").attr("disabled", "disabled");
         validationError($("#makeName"));
     }
-    $("#modelLoader").show();
-    $("#modelName").val("");
-    $("#versionName").val("");
     $("#modelName").focus();
 });
 
@@ -184,12 +182,11 @@ $("#modelName").blur(function () {
         setVersionList();
         versionAutoSuggest();
         validationSuccess($("#modelName"));
+        $("#versionLoader").show();
     }
     else {
         validationError($("#modelName"));
     }
-    $("#versionLoader").show();
-    $("#versionName").val("");
 });
 
 $("#versionName").blur(function () {
@@ -253,7 +250,7 @@ function cityAutoComplete() {
             }
         },
         minLength: 0
-    }).on('focus', function () { $(this).keydown(); });
+    });
 }
 
 function makeAutoComplete() {
@@ -281,7 +278,7 @@ function makeAutoComplete() {
             }
         },
         minLength: 0
-    }).on('focus', function () { $(this).keydown(); });
+    });
 }
 
 function modelAutoSuggest() {
@@ -458,7 +455,6 @@ function setMakeList() {
                 return;
             }
             modelList = models;
-            $("#modelName").keydown();
             $("#modelLoader").hide();
         }
         
@@ -480,7 +476,6 @@ function setVersionList() {
                 return;
             }
             versionList = response;
-            $("#versionName").keydown();
             $("#versionLoader").hide();
         }
     });
@@ -553,3 +548,28 @@ var validateMobile = function (leadMobile) {
         isValid = false;
     return isValid;
 }
+
+$("#makeName").focus(function () {
+    $("#makeName").keydown();
+});
+
+$("#userSelectCity").focus(function () {
+    $("#userSelectCity").keydown();
+});
+
+$("#versionName").focus(function () {
+    $("#versionName").keydown();
+});
+
+$("#modelName").focus(function () {
+    $("#modelName").keydown();
+});
+
+$("#makeName").keyup(function () {
+    $("#modelName").val("");
+    $("#versionName").val("");
+});
+
+$("#modelName").keyup(function () {
+    $("#versionName").val("");
+});

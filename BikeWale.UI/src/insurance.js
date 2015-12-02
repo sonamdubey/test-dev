@@ -179,7 +179,9 @@ $("#makeName").blur(function () {
         $("#insuranceDetailsBtn").removeAttr("disabled");
         validationSuccess($("#makeName"));
         setMakeList();
-        modelAutoSuggest();        
+        modelAutoSuggest();
+
+        $("#modelLoader").show();
     }
     else {
         $("#modelName").attr("disabled", "disabled");
@@ -187,10 +189,9 @@ $("#makeName").blur(function () {
         validationError($("#makeName"));
     }
     
-    $("#modelName").val("");
-    $("#versionName").val("");
+    //$("#modelName").val("");
+    //$("#versionName").val("");
     $("#modelName").focus();
-    $("#modelLoader").show();
 });
 
 $("#modelName").blur(function () {
@@ -198,12 +199,13 @@ $("#modelName").blur(function () {
         setVersionList();
         versionAutoSuggest();
         validationSuccess($("#modelName"));
+        $("#versionLoader").show();
     }
     else {
         validationError($("#modelName"));
     }
-    $("#versionName").val("");
-    $("#versionLoader").show();
+    //$("#versionName").val("");
+    
 });
 
 $("#versionName").blur(function () {
@@ -239,7 +241,7 @@ function cityAutoComplete() {
             }
         },
         minLength: 0
-    }).on('focus', function () { $(this).keydown(); });;
+    });
 }
 
 function makeAutoComplete() {
@@ -267,7 +269,7 @@ function makeAutoComplete() {
             }
         },
         minLength: 0
-    }).on('focus', function () { $(this).keydown(); });
+    });
 }
 
 function modelAutoSuggest() {
@@ -446,7 +448,6 @@ function setMakeList() {
                 return;
             }
             modelList = response;
-            $("#modelName").keydown();
             $("#modelLoader").hide();
         }
     });
@@ -467,10 +468,33 @@ function setVersionList() {
                 return;
             }
             versionList = response;
-            $("#versionName").keydown();
             $("#versionLoader").hide();
         }
     });
 
 }
 
+$("#makeName").focus(function () { 
+    $("#makeName").keydown();
+});
+
+$("#userSelectCity").focus(function () {
+    $("#userSelectCity").keydown();
+});
+
+$("#versionName").focus(function () {
+    $("#versionName").keydown();
+});
+
+$("#modelName").focus(function () {
+    $("#modelName").keydown();
+});
+
+$("#makeName").keyup(function(){
+    $("#modelName").val("");
+    $("#versionName").val("");
+});
+
+$("#modelName").keyup(function () {
+    $("#versionName").val("");
+});
