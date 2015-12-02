@@ -36,11 +36,11 @@ namespace Bikewale.Mobile.Insurance
             _headerParameters.Add("clientid", "5");
             _headerParameters.Add("platformid", "2");
 
-            //if (!IsPostBack)
-            //{
+            if (!IsPostBack)
+            {
                 GetCities();
                 GetMakes();
-            //}
+            }
         }
 
         /// <summary>

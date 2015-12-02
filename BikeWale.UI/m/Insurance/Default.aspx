@@ -11,13 +11,11 @@
         canonical = "http://www.bikewale.com/m/insurance/";
      %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" /> 
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
+     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/zebra_datepicker.css?<%= staticFileVersion %>" rel="stylesheet" />
 </head>
 <body class="bg-light-grey">
-    <form runat="server">
+    <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <!--Add banner ends here-->
         <section class="clearfix">
@@ -48,7 +46,7 @@
 
             <div id="step1" class="container bg-white content-inner-block-10 content-box-shadow rounded-corner2">
                 <div class="form-control-box margin-bottom20">
-                    <input value="" class="form-control rounded-corner2" type="text" id="userSelectCity" data-bind="textInput: userSelectCity" placeholder="Select your city" />
+                    <input value="" class="form-control rounded-corner2" type="text" id="userSelectCity" tabindex="1" data-bind="textInput: userSelectCity" placeholder="Select your city" />
                     <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                     <span class="bwmsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please enter city name</div>
@@ -70,30 +68,30 @@
                 </div>
                 <div>
                     <div class="form-control-box margin-bottom20">
-                        <input value="" class="form-control rounded-corner2 ui-autocomplete-input" type="text" id="makeName" data-bind="textInput: makeName" placeholder="Type to select Make" />
+                        <input value="" class="form-control rounded-corner2 ui-autocomplete-input" type="text" id="makeName" tabindex="2" data-bind="textInput: makeName" placeholder="Type to select Make" />
                         <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span><span class="bwmsprite error-icon hide"></span>
                         <div class="bw-blackbg-tooltip hide">Please enter make name</div>
                     </div>
                     <div class="form-control-box margin-bottom20">
-                        <input value="" class="form-control rounded-corner2 ui-autocomplete-input" type="text" id="modelName" data-bind="textInput: modelName" placeholder="Type to select Model" />
+                        <input value="" class="form-control rounded-corner2 ui-autocomplete-input" type="text" id="modelName" tabindex="3" data-bind="textInput: modelName" placeholder="Type to select Model" />
                         <span id="modelLoader" style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                         <span class="bwmsprite error-icon hide"></span>
                         <div class="bw-blackbg-tooltip hide">Please enter model name</div>
                     </div>
                     <div class="form-control-box margin-bottom20">
-                        <input value="" class="form-control rounded-corner2" type="text" id="versionName" data-bind="textInput: versionName" placeholder="Select version" />
+                        <input value="" class="form-control rounded-corner2" type="text" id="versionName" tabindex="4" data-bind="textInput: versionName" placeholder="Select version" />
                         <span id="versionLoadaer" style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                         <span class="bwmsprite error-icon hide"></span>
                         <div class="bw-blackbg-tooltip hide">Please enter version name</div>
                     </div>
                     <div class="form-control-box car-month-year margin-top20 main-select-div font14 form-control" style="padding: 0;" id="divRegDate">
-                        <input name="txtRegDate" id="bikeRegistrationDate" type="text" placeholder="Select registration date" />
+                        <input name="txtRegDate" id="bikeRegistrationDate" type="text" tabindex="5" placeholder="Select registration date" />
                         <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                         <span class="bwmsprite error-icon hide"></span>
                         <div class="bw-blackbg-tooltip hide">Please select Date</div>
                     </div>
                     <div class="margin-top20 text-center">
-                        <input type="button" id="insuranceDetailsBtn" value="Next" class="btn btn-full-width btn-orange" onclick="nextSection()" />
+                        <input type="button" id="insuranceDetailsBtn" value="Next" class="btn btn-full-width btn-orange" tabindex="6" onclick="nextSection()" />
                     </div>
                 </div>
             </div>
@@ -101,32 +99,32 @@
             <div id="step2" class="container bg-white content-inner-block-10 content-box-shadow rounded-corner2 hide">
                 <h2 class="text-center font20 margin-bottom15">Enter your personal details</h2>
                 <div class="form-control-box margin-bottom20">
-                    <input value="" class="form-control rounded-corner2" type="text" id="customerName" data-bind="textInput: customerName" placeholder="Name" />
+                    <input value="" class="form-control rounded-corner2" type="text" id="customerName" tabindex="7" data-bind="textInput: customerName" placeholder="Name" />
                     <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                     <span class="bwmsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter Name</div>
+                    <div class="bw-blackbg-tooltip hide">Please enter name</div>
                 </div>
                 <div class="form-control-box margin-bottom20">
-                    <input value="" class="form-control rounded-corner2" type="text" id="mobile" maxlength="10" data-bind="textInput: mobile" placeholder="Mobile no" />
+                    <input value="" class="form-control rounded-corner2" type="text" id="mobile" maxlength="10" tabindex="8" data-bind="textInput: mobile" placeholder="Mobile no" />
                     <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                     <span class="bwmsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter valid 10 digit Mobile</div>
+                    <div class="bw-blackbg-tooltip hide">Please enter valid 10 digit mobile</div>
                 </div>
                 <div class="form-control-box margin-bottom20">
-                    <input value="" class="form-control-box form-control rounded-corner2" type="text" id="email" data-bind="textInput: email" placeholder="Email id" />
+                    <input value="" class="form-control-box form-control rounded-corner2" type="text" id="email" tabindex="9" data-bind="textInput: email" placeholder="Email id" />
                     <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span>
                     <span class="bwmsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter Email</div>
+                    <div class="bw-blackbg-tooltip hide">Please enter email</div>
                 </div>
                 <div class="margin-top20 text-center">
-                    <input type="button" value="Submit" class="btn btn-full-width btn-orange" data-bind="click: saveUserDetail" />
+                    <input type="button" value="Submit" class="btn btn-full-width btn-orange" tabindex="10" data-bind="click: saveUserDetail" />
                 </div>
                 <p class="font12 text-medium-grey margin-top15">By continuing you accept that we or our partner Policy Boss may contact you regarding your enquiry. </p>
             </div>
-            <div id="responseContainer" class="text-center hide">
+            <div id="responseContainer" class="text-center container bg-white content-inner-block-10 content-box-shadow  hide">
                 <!-- responseContainer -->
                 <p class="font18 margin-top10 text-bold">Thank You!</p>
-                <p class="font16">
+                <p class="font14">
                     Hi <span id="responseUserName"></span>!
                     <br>
                     Thank you for your interest in our Insurance policy. You can expect a call back soon from our Excutives regarding the same. We assure you, your details will not shared with anyone.
@@ -141,7 +139,7 @@
                         <h3 class="stepStrip">What is bike insurance? <span class="icon plus-minus"><span class="fa fa-plus"></span></span></h3>
                         <div class="hide">
                             <p class="content-inner-block-4 font14 text-grey line-height">
-                                Bike or Two Wheeler Insurance extends protection against theft or any damage to your bike. It also safeguards your bike against third party liabilities. A comprehensive policy not only provides coverage in accidental injuries but also pays specified compensation for death sustained by the owner & driver of the vehicle in direct connection with the vehicle insured or while mounting into / dismounting from or traveling in the insured vehicle as a co-driver, caused by violent, accidental, external and visible means.
+                                bike or Two Wheeler Insurance extends protection against theft or any damage to your bike. It also safeguards your bike against third party liabilities. A comprehensive policy not only provides coverage in accidental injuries but also pays specified compensation for death sustained by the owner & driver of the vehicle in direct connection with the vehicle insured or while mounting into / dismounting from or traveling in the insured vehicle as a co-driver, caused by violent, accidental, external and visible means.
                             </p>
                         </div>
                     </div>
@@ -154,7 +152,7 @@
                         </div>
                     </div>
                     <div class="text-black box accordion">
-                        <h3 class="stepStrip">What does my Bike insurance cover?<span class="icon plus-minus"><span class="fa fa-plus"></span></span></h3>
+                        <h3 class="stepStrip">What does my bike insurance cover?<span class="icon plus-minus"><span class="fa fa-plus"></span></span></h3>
                         <div class="hide">
                             <p class="content-inner-block-4 font14 text-grey line-height">
                                 Following things get covered in your two wheeler insurance:
@@ -225,8 +223,6 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-newbikes.js?<%= staticFileVersion %>"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/m/src/insurance.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/m/src/zebra_datepicker.js?<%= staticFileVersion %>"></script>
 
@@ -237,7 +233,17 @@
             insauranceModel.leadSourceId = <%= Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["mobileSourceId"]) %>;
             cityAutoComplete();
             makeAutoComplete();
-            versionAutoSuggest();       
+            versionAutoSuggest();   
+           
+
+            $("#step1 input[type='text'],#step2 input[type='text']").keypress(function(e){
+                if(e.keyCode==13) 
+                {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
         </script>
     </form>
 </body>
