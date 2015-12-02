@@ -356,7 +356,7 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" data-bind="visible: !IsValidManufacturer()">
+                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" >
                         <div class="available-offers-container content-inner-block-10">
                             <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                             <div class="offer-list-container" id="dvAvailableOffer">
