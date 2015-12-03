@@ -1,4 +1,6 @@
-﻿using Bikewale.DTO.PriceQuote.BikeQuotation;
+﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.Model;
+using Bikewale.DTO.PriceQuote.BikeQuotation;
 using Bikewale.DTO.PriceQuote.DealerPriceQuote;
 using Newtonsoft.Json;
 using System;
@@ -26,6 +28,8 @@ namespace Bikewale.DTO.PriceQuote
         [JsonProperty("isInsuranceFree")]
         public bool IsInsuranceFree { get; set; }
         [JsonProperty("insuranceAmount")]
-        public uint InsuranceAmount { get; set; }
+        public uint InsuranceAmount { get; set; } 
+        [JsonProperty("bikeDetails")]
+        public ModelDetail BikeDetails { get; set; }
     }
 }
