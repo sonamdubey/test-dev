@@ -1,9 +1,12 @@
-﻿using Bikewale.DTO.PriceQuote;
+﻿using Bikewale.DTO.Model;
+using Bikewale.DTO.PriceQuote;
 using Bikewale.DTO.PriceQuote.BikeQuotation;
 using Bikewale.DTO.PriceQuote.DealerPriceQuote;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.PriceQuote;
@@ -28,20 +31,25 @@ namespace Bikewale.Service.Controllers.PriceQuote
     {
         private readonly IDealerPriceQuote _objIPQ = null;
         private readonly IPriceQuote _objPriceQuote = null;
+        private readonly IBikeModels<BikeModelEntity, int> _modelsRepository = null;
         /// <summary>
         /// Constructor
         /// </summary>
         /// <param name="objIPQ"></param>
         /// <param name="objPriceQuote"></param>
-        public OnRoadPriceController(IDealerPriceQuote objIPQ, IPriceQuote objPriceQuote)
+        /// <param name="modelsRepository"></param>
+        public OnRoadPriceController(IDealerPriceQuote objIPQ, IPriceQuote objPriceQuote,IBikeModels<BikeModelEntity, int> modelsRepository)
         {
             _objIPQ = objIPQ;
             _objPriceQuote = objPriceQuote;
+            _modelsRepository = modelsRepository;
         }
 
         /// <summary>
         /// Gets the On Road Price Quote
         /// Includes the Bike Wale price quote and Dealer price quote
+        /// Modified By : Sushil kumar  on  2nd Dec 2015
+        /// Description : Added bike details to response (for android)
         /// </summary>
         /// <param name="cityId">city id</param>
         /// <param name="modelId">model id</param>
@@ -55,6 +63,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
             string response = string.Empty;
             string api = String.Empty;
             Bikewale.DTO.PriceQuote.PQOutput objPQ = null;
+            BikeModelEntity objModel = null;
+            ModelDetail objModelDetails = null;
             PQOutputEntity objPQOutput = null;
             PQ_QuotationEntity objPrice = null;
             DPQuotationOutput dpqOutput = null;
@@ -75,9 +85,14 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 if (objPQOutput != null)
                 {
                     onRoadPrice = new PQOnRoad();
-                    objPQ = PQOutputMapper.Convert(objPQOutput);                    
-
+                    objPQ = PQOutputMapper.Convert(objPQOutput);
                     onRoadPrice.PriceQuote = objPQ;
+
+                    //To get bike details 
+                    objModel = _modelsRepository.GetById(Convert.ToInt32(modelId));
+                    objModelDetails = PQOutputMapper.Convert(objModel);
+                    onRoadPrice.BikeDetails = objModelDetails;
+
                     if (objPQ != null && objPQ.PQId > 0)
                     {
                         bpqOutput = _objPriceQuote.GetPriceQuoteById(objPQ.PQId);
@@ -134,7 +149,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     }
                     else
                     {
-                        return NotFound();
+                       return Ok(onRoadPrice);
                     }
                 }
                 else
@@ -144,7 +159,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post");
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.GET");
                 objErr.SendMail();
                 return InternalServerError();
             }
