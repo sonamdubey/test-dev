@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
     <%
          title = "BikeWale - Insurance";
@@ -13,7 +13,6 @@
          %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
     
@@ -78,15 +77,15 @@
                         <ul>
                             <li>
                                 <div class="bikeDetailsBox form-control-box">
-                                    <input type="text" class="form-control text-uppercase" id="makeName" placeholder="Select make" tabindex="3" data-bind="textInput: makeName" />
+                                    <input type="text" class="form-control" id="makeName" placeholder="Select make" tabindex="3" data-bind="textInput: makeName" />
                                     <span class="bwsprite error-icon"></span>
                                     <div class="bw-blackbg-tooltip">Please select make</div>
                                 </div>
                             </li>
                             <li>
                                 <div class="bikeDetailsBox form-control-box">
-                                    <input type="text" class="form-control text-uppercase" id="modelName" placeholder="Select model" tabindex="4" data-bind="textInput: modelName"/>
-                                    <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
+                                    <input type="text" class="form-control" id="modelName" placeholder="Select model" tabindex="4" data-bind="textInput: modelName"/>
+                                    <span id="modelLoader" style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
                                     <span class="bwsprite error-icon"></span>
                                     <div class="bw-blackbg-tooltip">Please select model</div>
                                 </div>
@@ -94,7 +93,7 @@
                             <li>
                                 <div class="bikeDetailsBox form-control-box">
                                     <input type="text" class="form-control " id="versionName" placeholder="Select variant" tabindex="5" data-bind="textInput: versionName"/>
-                                    <span style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
+                                    <span id="versionLoader" style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
                                     <span class="bwsprite error-icon"></span>
                                     <div class="bw-blackbg-tooltip">Please select variant</div>
                                 </div>
@@ -146,20 +145,15 @@
                             </li>
                         </ul>
                         <div class="clear"></div>
-                        <p class="font14 margin-bottom30">By continuing you agree that we or our partner Policy Boss may contact you for an enquiry</p>
                         <input type="button" value="Next" id="contactDetailsBtn" class="btn btn-orange margin-bottom10" tabindex="5" data-bind="click: saveUserDetail"/>
-                        <input type="hidden" id="hdnCityId" />
-                        <input type="hidden" id="hdnMakeId" />
-                        <input type="hidden" id="hdnModelId" />
-                        <input type="hidden" id="hdnVersionId" />
-                        <input type="hidden" id="hdnClientPrice" />
+                        <p class="font14 margin-bottom30">By continuing you agree that we or our partner Policy Boss may contact you for an enquiry</p>
                     </div>
                 </div>
                 
                 <div id="responseContainer"><!-- responseContainer -->
                 	<p class="font18 margin-top10 text-bold">Thank You!</p>
                     <p class="font16">Hi <span id="responseUserName"></span>! <br>
-                    Thank you for your interest in our Insurance policy. You can expect a call back soon from our Excutives regarding the same. We assure you, your details will not shared with anyone.
+                    Thank you for expressing interest. You will get a call from our partner, PolicyBoss (Landmark Insurance Brokers), with exciting insurance offers.
                     </p>
                 </div>
                 
@@ -284,7 +278,6 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/home.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/insurance.js?<%= staticFileVersion %>"></script>
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/pikaday.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">

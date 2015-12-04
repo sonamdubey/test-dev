@@ -21,8 +21,8 @@
         AdId = "1017752";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
-        Ad_300x250 = true;
-        TargetedModel = modelPage.ModelDetails.ModelName;
+        Ad_300x250 = false;
+        TargetedModel = modelPage.ModelDetails.ModelName;        
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -356,7 +356,7 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" data-bind="visible: !IsValidManufacturer()">
+                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" >
                         <div class="available-offers-container content-inner-block-10">
                             <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                             <div class="offer-list-container" id="dvAvailableOffer">
@@ -431,6 +431,12 @@
                 <% } %>
             </div>
         </section>
+        <% if(Ad_300x250) { %>
+        <section class="grid-12 container box-shadow margin-bottom20 margin-top20">            
+            <!-- #include file="/ads/Ad300x250_mobile.aspx" -->            
+        </section>
+        <% } %>
+
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
             <div id="SneakPeak" class="container clearfix box-shadow margin-bottom20 margin-top20">
                 <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
@@ -1098,11 +1104,11 @@
             function bindInsuranceText() {
                 cityArea = GetGlobalCityArea();
                 if (!viewModel.isDealerPQAvailable()) {
-                    $("td#bw-insurance-text").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
+                    $("td#bw-insurance-text").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/m/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
                 }
                 else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
 
-                    $("table#dp-insurance-text tr td:contains('Insurance')").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
+                    $("table#dp-insurance-text tr td:contains('Insurance')").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/m/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
                 }
             }
 

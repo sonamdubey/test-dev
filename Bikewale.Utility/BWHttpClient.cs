@@ -104,7 +104,6 @@ namespace Bikewale.Utility
                 ErrorClass objErr = new ErrorClass(err, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponseSync<T>");
                 objErr.SendMail();
             }
-
             return objTask;
         }
 
@@ -118,7 +117,7 @@ namespace Bikewale.Utility
         /// <param name="apiUrl"></param>
         /// <param name="responseType"></param>
         /// <returns></returns>
-        public static T GetApiResponseSync<T>(string hostUrl, string requestType, string apiUrl, T responseType, Dictionary<string,string> headerParameters)
+        public static T GetApiResponseSync<T>(string hostUrl, string requestType, string apiUrl, T responseType, IDictionary<string,string> headerParameters)
         {
             T objTask = responseType;
             try
@@ -329,7 +328,7 @@ namespace Bikewale.Utility
         /// <param name="objToPost"></param>
         /// <param name="headerParameter"></param>
         /// <returns></returns>
-        public static U PostSync<T, U>(string hostUrl, string requestType, string apiUrl, T objToPost, Dictionary<string, string> headerParameters)
+        public static U PostSync<T, U>(string hostUrl, string requestType, string apiUrl, T objToPost, IDictionary<string, string> headerParameters)
         {
             U objResponse = default(U);
 

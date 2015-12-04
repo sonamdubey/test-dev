@@ -55,7 +55,7 @@ namespace Bikewale.Service.Controllers.Insurance
             string _apiUrl = "/api/insurance/quote/";
 
             //http Header Parameter
-            Dictionary<string, string> _headerParameters = new Dictionary<string, string>();
+            IDictionary<string, string> _headerParameters = new Dictionary<string, string>();
              _headerParameters.Add("clientid", "5");
             _headerParameters.Add("platformid", "2");
 
@@ -82,6 +82,15 @@ namespace Bikewale.Service.Controllers.Insurance
                     objCust = new CustomerEntity() { CustomerName = detail.Name, CustomerEmail = detail.Email, CustomerMobile = detail.Mobile, ClientIP = insuranceLead.ClientIP, SourceId = insuranceLead.LeadSourceId };
                     insuranceLead.CustomerId = _objCustomer.Add(objCust);
                 }
+                else
+                {
+                    insuranceLead.CustomerId = _objCustomer.GetByEmail(insuranceLead.Email).CustomerId;
+                }
+
+                //else 
+                //{
+                //    insuranceLead.CustomerId = _objCustomer.GetByEmail(insuranceLead.Email).CustomerId; 
+                //}
                 //Send at client Plicy boss side
                 response = BWHttpClient.PostSync<PostInsuranceDetail, ClientResponse>(_abHostUrl, _requestType, _apiUrl, detail, _headerParameters);
                 //setting client reponse

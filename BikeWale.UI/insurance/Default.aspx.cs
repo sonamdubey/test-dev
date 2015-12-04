@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Bikewale.UI.Entities.Insurance;
 using Bikewale.Utility;
 using Bikewale.Notifications;
+using Bikewale.Common;
 
 namespace Bikewale.Insurance
 {
@@ -20,7 +21,7 @@ namespace Bikewale.Insurance
         string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         string _requestType = "application/json";
-        Dictionary<string, string> _headerParameters;
+        IDictionary<string, string> _headerParameters;
         public IEnumerable<CityDetail> cityList = null;
         public IEnumerable<MakeDetail> makeList = null;
                 
@@ -38,6 +39,8 @@ namespace Bikewale.Insurance
 
             if (!IsPostBack)
             {
+                DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+                dd.DetectDevice();
                 GetCities();
                 GetMakes();
             }            
@@ -53,11 +56,11 @@ namespace Bikewale.Insurance
             try
             {   
                string apiUrl = "/api/insurance/cities/";
-                cityList = BWHttpClient.GetApiResponseSync<IEnumerable<CityDetail>>(_cwHostUrl, _requestType, apiUrl, cityList, _headerParameters);                
+                cityList = Bikewale.Utility.BWHttpClient.GetApiResponseSync<IEnumerable<CityDetail>>(_cwHostUrl, _requestType, apiUrl, cityList, _headerParameters);                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Insurance.Default.GetCities");
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Exception : Bikewale.Insurance.Default.GetCities");
                 objErr.SendMail();                
             }
         }
@@ -72,11 +75,11 @@ namespace Bikewale.Insurance
             try
             {  
                 string apiUrl = "/api/insurance/makes/";
-                makeList = BWHttpClient.GetApiResponseSync<IEnumerable<MakeDetail>>(_cwHostUrl, _requestType, apiUrl, makeList, _headerParameters);                
+                makeList = Bikewale.Utility.BWHttpClient.GetApiResponseSync<IEnumerable<MakeDetail>>(_cwHostUrl, _requestType, apiUrl, makeList, _headerParameters);                
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Insurance.Default.GetMakes");
+                Bikewale.Common.ErrorClass objErr = new Bikewale.Common.ErrorClass(ex, "Exception : Bikewale.Insurance.Default.GetMakes");
                 objErr.SendMail();
             }
         }

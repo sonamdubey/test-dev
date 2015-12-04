@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.versions" Trace="false" %>
-
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
@@ -464,7 +463,7 @@
                                     <!-- City/Area Select controls ends -->
                                 </div>
                             <!-- City and Area  msgs and select controls ends  -->
-                            <div id="offersBlock" class="city-unveil-offer-container position-rel" data-bind="visible: !IsValidManufacturer() ">
+                            <div id="offersBlock" class="city-unveil-offer-container position-rel">
                                 <div class="available-offers-container content-inner-block-10">
                                     <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                                     <div class="offer-list-container" id="dvAvailableOffer">
