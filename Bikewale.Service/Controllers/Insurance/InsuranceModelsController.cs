@@ -23,7 +23,7 @@ namespace Bikewale.Service.Controllers.Insurance
         string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         string _requestType = "application/json";
         IEnumerable<ModelDetail> modelDetail = null;
-        Dictionary<string, string> _headerParameters;
+        IDictionary<string, string> _headerParameters;
 
         /// <summary>
         /// Description : Send Client Models detail on specified Make ID.

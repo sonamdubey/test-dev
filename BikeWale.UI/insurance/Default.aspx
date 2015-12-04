@@ -153,7 +153,7 @@
                 <div id="responseContainer"><!-- responseContainer -->
                 	<p class="font18 margin-top10 text-bold">Thank You!</p>
                     <p class="font16">Hi <span id="responseUserName"></span>! <br>
-                    Thank you for your interest in our Insurance policy. You can expect a call back soon from our Excutives regarding the same. We assure you, your details will not shared with anyone.
+                    Thank you for expressing interest. You will get a call from our partner, PolicyBoss (Landmark Insurance Brokers), with exciting insurance offers.
                     </p>
                 </div>
                 

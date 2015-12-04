@@ -104,7 +104,6 @@ namespace Bikewale.Utility
                 ErrorClass objErr = new ErrorClass(err, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponseSync<T>");
                 objErr.SendMail();
             }
-
             return objTask;
         }
 

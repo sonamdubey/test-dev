@@ -21,8 +21,8 @@
         AdId = "1017752";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
-        Ad_300x250 = true;
-        TargetedModel = modelPage.ModelDetails.ModelName;
+        Ad_300x250 = false;
+        TargetedModel = modelPage.ModelDetails.ModelName;        
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -431,6 +431,12 @@
                 <% } %>
             </div>
         </section>
+        <% if(Ad_300x250) { %>
+        <section class="grid-12 container box-shadow margin-bottom20 margin-top20">            
+            <!-- #include file="/ads/Ad300x250_mobile.aspx" -->            
+        </section>
+        <% } %>
+
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
             <div id="SneakPeak" class="container clearfix box-shadow margin-bottom20 margin-top20">
                 <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)

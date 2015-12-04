@@ -121,6 +121,7 @@ function nextSection() {
     if (isValidDetail) {
         $('#step1').addClass('hide');
         $('#step2').removeClass('hide');
+        $('html,body').animate({ 'scrollTop': $('#insuranceQuote').offset().top }, 0);
     }
 	
 }
