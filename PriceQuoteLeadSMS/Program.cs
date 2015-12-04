@@ -19,13 +19,22 @@ namespace PriceQuoteLeadSMS
 
             try
             {
-                //After each 5 mins notify customer and dealer via mail and sms
-                System.Timers.Timer timer = new System.Timers.Timer();
+                LeadSMS obj = new LeadSMS();
 
-                timer.Start();
-                timer.Interval = 500000;
+                //System.Timers.Timer timer = new System.Timers.Timer();
 
-                timer.Elapsed += SendLeadsToCustDealer;
+                //timer.Start();
+                while (true)
+                {
+                    
+                   // After each 5 mins notify customer and dealer via mail and sms
+                    
+                    //timer.Interval = 5000;
+
+                    obj.SendLeadsToCustDealer();
+                    //timer.Elapsed += SendLeadsToCustDealer;
+                    System.Threading.Thread.Sleep(500000);
+                }
             }
             catch (Exception ex)
             {
@@ -42,6 +51,7 @@ namespace PriceQuoteLeadSMS
         /// <param name="e"></param>
         private static void SendLeadsToCustDealer(object sender, System.Timers.ElapsedEventArgs e)
         {
+            Console.WriteLine(System.DateTime.Now);
             LeadSMS obj = new LeadSMS();
 
             obj.SendLeadsToCustDealer();

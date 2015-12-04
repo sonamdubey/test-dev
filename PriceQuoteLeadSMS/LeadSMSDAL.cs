@@ -28,9 +28,9 @@ namespace PriceQuoteLeadSMS
         /// <param name="retMsg"></param>
         /// <param name="status"></param>
         /// <returns></returns>
-        public string InsertSMS(string number, string message, EnumSMSServiceType smsType, string retMsg, bool status)
+        public uint InsertSMS(string number, string message, ushort smsType, string retMsg, bool status)
         {
-            string currentId = string.Empty;
+            uint currentId = 0;
             try
             {
                 using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -42,7 +42,7 @@ namespace PriceQuoteLeadSMS
                         command.Connection = connection;
                         command.Parameters.AddWithValue("@Number", number);
                         command.Parameters.AddWithValue("@Message", message);
-                        command.Parameters.AddWithValue("@ServiceType", smsType);
+                        command.Parameters.Add("@ServiceType", SqlDbType.Int).Value = smsType;
                         command.Parameters.AddWithValue("@SMSSentDateTime", DateTime.Now);
                         command.Parameters.AddWithValue("@Successfull", status);
                         command.Parameters.AddWithValue("@ReturnedMsg", String.Empty);
@@ -50,7 +50,7 @@ namespace PriceQuoteLeadSMS
                         
                         connection.Open();
                         
-                        currentId = Convert.ToString(command.ExecuteScalar());
+                        currentId = Convert.ToUInt32(command.ExecuteScalar());
 
                         connection.Close();
                     }
@@ -107,5 +107,46 @@ namespace PriceQuoteLeadSMS
             return isSuccess;
         }
 
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 30 Nov 2015
+        /// Summary : Update IsNotified flag for perticular Pqid.
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <returns></returns>
+        public bool UpdatePQLeadNotifiedFlag(uint pqId)
+        {
+            bool isUpdated = false;
+            try
+            {
+                using (SqlConnection conn = new SqlConnection(_connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "UpdatePQLeadNotifiedFlag";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+
+                        cmd.Parameters.Add("@PQId", SqlDbType.BigInt).Value = pqId;
+
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                        conn.Close();
+                    }
+                }
+            }
+            catch (SqlException ex)
+            {
+                Logs.WriteErrorLog("UpdatePQLeadNotifiedFlag sqlex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, "PriceQuoteLeadSMS.LeadSMSDAL.UpdatePQLeadNotifiedFlag sqlex");
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("UpdatePQLeadNotifiedFlag ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, "PriceQuoteLeadSMS.LeadSMSDAL.UpdatePQLeadNotifiedFlag ex");
+                objErr.SendMail();
+            }
+            return isUpdated;
+        }
     }   // class
 }   // namespace

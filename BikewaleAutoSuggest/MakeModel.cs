@@ -27,6 +27,7 @@ namespace BikewaleAutoSuggest
         public string ModelId { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
+        public bool Futuristic { get; set; }
     }
 
     public class TempList
