@@ -40,7 +40,7 @@
             </li>
             <li>
                 <a href="/pricequote/rsaofferclaim.aspx">
-                    <span class="bwsprite claim-offer-icon"></span>
+                    <span class="bwsprite claim-offer-icon opacity60"></span>
                     <span class="navbarTitle">Claim Your Offer</span>
                 </a>
             </li>
@@ -56,6 +56,12 @@
                     <li><a href="/user-reviews/">User Reviews</a></li>
                     <li><a href="/features/">Features</a></li>
                 </ul>
+            </li>
+            <li>
+                <a href="/insurance/">
+                    <span class="bwsprite insurance-icon"></span>
+                    <span class="navbarTitle">Insurance</span>
+                </a>
             </li>
             <li>
                 <a href="/finance/emicalculator.aspx">

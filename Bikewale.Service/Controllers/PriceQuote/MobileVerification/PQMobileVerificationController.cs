@@ -7,17 +7,13 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.MobileVerification;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
 using Bikewale.Service.AutoMappers.Bikebooking;
 using Bikewale.Service.TCAPI;
 using Bikewale.Utility;
-using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -32,6 +28,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
         private readonly ICustomer<CustomerEntity, UInt32> _objCustomer = null;
         private readonly IMobileVerificationRepository _mobileVerRespo = null;
         private readonly IDealer _objDealer = null;
+        private readonly IPriceQuote _objPriceQuote = null;
         /// <summary>
         /// Constructor
         /// </summary>
@@ -39,15 +36,18 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
         /// <param name="mobileVerRespo"></param>
         /// <param name="objCustomer"></param>
         /// <param name="objDealer"></param>
-        public PQMobileVerificationController(IDealerPriceQuote objDealerPriceQuote, IMobileVerificationRepository mobileVerRespo, ICustomer<CustomerEntity, UInt32> objCustomer, IDealer objDealer)
+        public PQMobileVerificationController(IDealerPriceQuote objDealerPriceQuote, IMobileVerificationRepository mobileVerRespo, ICustomer<CustomerEntity, UInt32> objCustomer, IDealer objDealer, IPriceQuote objPriceQuote)
         {
             _objDealerPriceQuote = objDealerPriceQuote;
             _objCustomer = objCustomer;
             _mobileVerRespo = mobileVerRespo;
             _objDealer = objDealer;
+            _objPriceQuote = objPriceQuote;
         }
         /// <summary>
         /// Mobile Verification method
+        /// Modified By :   Sumit Kate on 18 Nov 2015
+        /// Description :   Save the State of the Booking Journey as Described in Task# 107795062 
         /// </summary>
         /// <param name="input">Mobile Verification Input</param>
         /// <returns></returns>
@@ -167,9 +167,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                                     hasBumperDealerOffer = OfferHelper.HasBumperDealerOffer(dealerDetailEntity.objDealer.DealerId.ToString(), "");
                                     if (bookingAmount > 0)
                                     {
-
-                                        SendEmailSMSToDealerCustomer.SMSToCustomer(objCust.CustomerMobile, objCust.CustomerName, bikeName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Address, bookingAmount, insuranceAmount, hasBumperDealerOffer);
-                                        
+                                        SendEmailSMSToDealerCustomer.SMSToCustomer(dealerDetailEntity, objCust.CustomerMobile, objCust.CustomerName, bikeName, dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.MobileNo, dealerDetailEntity.objDealer.Address, bookingAmount, insuranceAmount, hasBumperDealerOffer);
                                     }
                                     bool isDealerNotified = _objDealerPriceQuote.IsDealerNotified(input.BranchId, objCust.CustomerMobile, objCust.CustomerId);
                                     if (!isDealerNotified)
@@ -206,7 +204,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
 
                                         dealerDetailEntity.objQuotation.Varients = null; 
                                     }
-
+                                    _objPriceQuote.SaveBookingState(input.PQId, PriceQuoteStates.LeadSubmitted);
                                     AutoBizAdaptor.PushInquiryInAB(input.BranchId.ToString(), input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail, input.VersionId.ToString(), input.CityId.ToString()); 
                                 }
                             }

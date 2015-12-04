@@ -7,7 +7,7 @@
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+<%@ Register Src="/m/controls/MPopupWidget.ascx" TagPrefix="BW" TagName="MPopupWidget"  %>
 
 <!doctype html>
 <html>
@@ -32,7 +32,7 @@
             <div class="newbikes-banner-div">
                 <!-- Top banner code starts here -->
                 <h1 class="text-uppercase text-white text-center padding-top25 font24">NEW Bikes</h1>
-                <p class=" font16 text-white text-center">View every bike under one roof</p>
+                <p class=" font16 text-white text-center">View all bikes under one roof</p>
             </div>
             <!-- Top banner code ends here -->
         </div>

@@ -206,36 +206,7 @@ namespace Bikewale.PriceQuote
                     this.Page.Visible = false;
                 }
             }
-        }
-
-        /// <summary>
-        /// created By : Sangram Nandkhile 8 Oct 2015
-        /// Modified By : Sushil Kumar on 9th Oct 2015
-        /// Function used to Push Booking Request in AutoBiz
-        /// </summary>
-        //private void PushBikeBookingSuccess()
-        //{
-        //    try
-        //    {
-        //        BookingRequest request = new BookingRequest();
-        //        request.BookingDate = DateTime.Now;
-        //        request.BranchId = _objPQ.objDealer.DealerId;
-        //        request.InquiryId = Convert.ToUInt32(objCustomer.AbInquiryId);
-        //        request.PaymentAmount = BooingAmt;
-        //        request.Price = totalPrice;
-        //        string _apiHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-        //        string _requestType = "application/json";
-        //        string _apiUrl = String.Format("/webapi/booking/");
-        //        uint bookingId = default(uint);
-        //        bookingId = Bikewale.Utility.BWHttpClient.PostSync<BookingRequest, uint>(_apiHostUrl, _requestType, _apiUrl, request);
-        //    }
-        //    catch (Exception err)
-        //    {
-        //        Trace.Warn(err.Message);
-        //        ErrorClass objErr = new ErrorClass(err, Request.ServerVariables["URL"]);
-        //        objErr.SendMail();
-        //    }
-        //}   
+        }  
 
     }
 }

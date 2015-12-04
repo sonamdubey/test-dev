@@ -18,7 +18,6 @@
     isAd970x90Shown = true;
 %>
 <!-- #include file="/includes/headscript.aspx" -->
-<%--<script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/pq/price_quote.js?v=1.1"></script>--%>
 
 <style type="text/css">
     #PQImageVariantContainer img { width:100%; }
@@ -50,8 +49,7 @@
 </head>
 <body class="bg-light-grey">
 <form runat="server">
-    <!-- #include file="/includes/headBW.aspx" -->
-	
+    <!-- #include file="/includes/headBW.aspx" -->	
     <section class="bg-light-grey padding-top10">
         <div class="container">
             <div class="grid-12">
@@ -85,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="grid-5 border-solid-right padding-right20" id="PQDetailsContainer">
+                <div class="grid-5 padding-right20" id="PQDetailsContainer">
                     <p class="font20 text-bold margin-bottom20"><%= mmv.BikeName %></p>
                     <%if (objQuotation != null && objQuotation.ExShowroomPrice > 0) { %>
                     <p class="font16 margin-bottom15">On-road price in 
@@ -111,7 +109,11 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="PQDetailsTableTitle padding-bottom10">Insurance (Comprehensive)</td>
+                                    <td class="PQDetailsTableTitle padding-bottom10">Insurance (Comprehensive)<br />
+                                        <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">Save up to 60% on insurance - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'BW_PQ', act: 'Insurance_Clicked',lab: '<%= (objQuotation!=null)?(objQuotation.MakeName + "_" + objQuotation.ModelName + "_" + objQuotation.VersionName + "_" + objQuotation.City):string.Empty %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
+                                            <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>  
+                                        </div>
+                                    </td>
                                     <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
                                         <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric(  objQuotation.Insurance.ToString()  ) %></span>
                                     </td>
@@ -122,10 +124,7 @@
                                     <td align="right" class="PQDetailsTableAmount padding-bottom10 font20 text-bold">
                                         <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatNumeric( objQuotation.OnRoadPrice.ToString()  ) %></span>
                                     </td>
-                                </tr>
-                                <%--<tr>
-                                    <td colspan="3">Bike available with Zero Dep insurance for <span class="WebRupee">Rs.</span>1,33,000</td>
-                                </tr>	--%>	
+                                </tr>	
                             </table>
                         <%}else{ %>
                         <table class="font14" cellspacing="0" cellpadding="0" width="100%" border="0">
@@ -138,7 +137,7 @@
                             <%} %>
                     </div>
                 </div>
-                <div class="grid-4 omega padding-left20">
+                <div class="grid-4 omega padding-left20 border-solid-left">
                     <LD:LocateDealer ID="ucLocateDealer" runat="server" />
                 </div>
                 <div class="clear"></div>
@@ -187,6 +186,7 @@
             <div class="clear"></div>
         </div>
     </section>
+
 
 <PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerBW.aspx" -->

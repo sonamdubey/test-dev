@@ -1,0 +1,33 @@
+﻿.box { border-bottom: 1px solid #e2e2e2; background-color: #ffffff; padding: 10px; margin: 5px; position: relative; }
+.newcars-banner-div { background: #000; height: 130px; }
+.ins-container { padding: 10px; }
+.ins-content-box { position: relative; padding: 10px; background: #fff; border: 1px solid #e2e2e2; -moz-box-shadow: 0 2px 2px #e5e5e5; -webkit-box-shadow: 0 2px 2px #e5e5e5; box-shadow: 0 2px 2px #e5e5e5; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; text-align: center; }
+.ins-content-box .tag-txt { font-size: 11px; color: #82888b; position: absolute; right: 10px; top: 10px; }
+.ins-content-box p { margin: 10px 0 0; font-size: 16px; font-weight: bold; color: #565a5b; }
+.radioGroup input[type="radio"] { margin-left: 3px; }
+.radioGroup input[type="radio"], .radioGroup label { display: inline-block; vertical-align: middle; }
+.radioGroup label { padding-left: 10px; color: #82888b; font-size: 15px; }
+.radioGroup input[type="radio"]:checked + label { color: #565a5c; font-weight: bold; }
+.content-inner-block-4 { padding: 4px; }
+.ins-tabs { border: 0px; margin-top: 0px; }
+.ui-content { padding: 0; }
+.divInsuranceForm .box.accordion, .faqs .box.accordion { margin: 0; padding: 0; }
+.faqs .box.accordion:last-child { border-bottom: none; }
+.custSelect { background: none; -webkit-appearance: none; padding: 8px; width: 100%; }
+.newcars-banner-div { background: #161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/insurance-banner.jpg) no-repeat center center; background-size: cover; height: 130px; }
+.accordion h3 .icon { position: absolute; right: 8px; top: 15px; width: 18px; height: 18px; text-align: center; color: #565a5c; }
+.accordion h3 .icon.edit-icon { background: url(../images/edit-icon.png) no-repeat right top; }
+.accordion h3 .icon.plus-minus { display: block; }
+.accordion h3 .icon.plus-minus .fa-plus, .accordion h3 .icon.plus-minus .fa-minus { font-size: 10px; position: absolute; top: 50%; left: 0; right: 0; margin-top: -4px; }
+.stepStrip { color: #82888b; font-size: 15px; font-weight: 500; padding: 10px 30px 10px 4px; cursor: pointer; border-bottom-left-radius: 3px; border-bottom-right-radius: 3px; position: relative; }
+.accordion.open .stepStrip { color: #4d5057; }
+.accordion.open .stepStrip + div { border-top: 1px solid #e2e2e2; }
+.stepStrip.disabled { cursor: not-allowed; background-color: #fff; }
+.car-month-year input[type="text"] { height: 38px; padding: 10px; font-size: 14px; width: 100%; }
+footer { margin-top: 34px; }
+.contact-fixed { position: relative; }
+.phone-box a { background-color: #fff; border: 1px solid #05c24f; color: #4d5057; font-size: 20px; padding: 7px 55px; }
+ol.note-type-num, ol.note-type-num li { list-style: inside decimal; }
+ol.note-type-num li { padding: 10px 0; }
+.faqBox li { list-style:disc inside; padding:5px 0 5px 15px;}
+.faqBox {padding-top:5px; padding-bottom:5px;}

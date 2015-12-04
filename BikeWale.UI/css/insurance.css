@@ -1,0 +1,36 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.insurance-top-banner { background:#57605e url(http://img.aeplcdn.com/bikewaleimg/images/insurance-banner.jpg) no-repeat center top; height: 285px; padding-top: 1px; }
+
+.faqWrapper { padding:0 20px; }
+.faqWrapper ul li { border-top:1px solid #ccc; }
+.faqWrapper ul li:first-child { border-top:none; }
+.faqWrapper ul li h3 { padding:0 15px; position:relative; cursor:pointer; height: 55px; line-height: 55px; font-weight: 400; color:#82888b;}
+.faqWrapper ul li h3.active { color:#2a2a2a; }
+.faqWrapper .morelessSign { position:absolute; right:15px; top:20px; border: 1px solid #777; width: 20px; height: 20px; text-align: center; line-height: 1.2; border-radius: 50%; color:#82888b; font-size:16px; }
+.faqAnswerBox { display:none; }
+.faqAnswerBox p { padding:0 15px 15px; font-size:14px; color:#4d5057; }
+.faqAnswerBox ul { list-style:disc; margin-left: 50px; }
+.faqAnswerBox ul li { padding-bottom:10px; border-top:none; }
+
+.typeOfInsuranceContainer ul { margin:0 auto; }
+.typeOfInsuranceContainer ul li { width:190px; height:40px; line-height:40px; display:inline-block; *display:inline; *zoom:1; font-size:16px; color:#82888b; cursor:pointer; }
+.typeOfInsuranceContainer ul li span { display:inline-block; vertical-align:middle; }
+
+.selectCityContainer { width:400px; margin:0 auto 30px; }
+.bikeDetailsContainer ul li, .contactDetailsContainer ul li { width: 400px; display:inline-block; *display:inline; *zoom:1; margin:15px; }
+.bikeDetailsBox .error-icon, .bikeDetailsBox .bw-blackbg-tooltip, .contactDetailsBox .error-icon, .contactDetailsBox .bw-blackbg-tooltip { display:none; }
+
+.radio-btn-checked, .radio-btn-unchecked { width: 18px; height: 18px; }
+.radio-btn-checked { background-position:-177px -65px; }
+.radio-btn-unchecked { background-position:-177px -93px; }
+
+#contactDetails, #responseContainer { display:none; }
+#responseContainer p { line-height:2; }
+.selectCityContainer .ui-autocomplete-input, .bikeDetailsContainer .ui-autocomplete-input, .bikeDetailsContainer .hasDatepicker { color:#4d5057; }
+.sponsored-icon { background: #fff url(http://img.aeplcdn.com/bikewaleimg/images/policy-boss-logo.png) no-repeat; width:142px; height:42px; display:inline-block; }
+.sponsored-heading { color:#565a5c; }
+li:focus { outline:none; }
+
+
+

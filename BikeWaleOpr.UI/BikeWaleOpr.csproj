@@ -216,9 +216,11 @@
     </Compile>
     <Compile Include="common\MakeModelVersion.cs" />
     <Compile Include="common\ManageArea.cs" />
+    <Compile Include="common\ManageBikeAvailbilityByColor.cs" />
     <Compile Include="common\ManageBikeSeries.cs" />
     <Compile Include="common\ManageCities.cs" />
     <Compile Include="common\ManageFeaturedBike.cs" />
+    <Compile Include="common\ManageModelColor.cs" />
     <Compile Include="common\ManageStates.cs" />
     <Compile Include="common\ManageVideos.cs" />
     <Compile Include="common\ReviewDetail.cs" />
@@ -299,6 +301,10 @@
       <DependentUpon>MakeSynopsis.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="content\ManageNewModelColor.aspx.cs">
+      <DependentUpon>ManageNewModelColor.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="content\ManageUserReviews.aspx.cs">
       <DependentUpon>ManageUserReviews.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -317,6 +323,10 @@
     </Compile>
     <Compile Include="content\NewBikeModelColors.aspx.cs">
       <DependentUpon>NewBikeModelColors.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="content\NewBikeModelColors_New.aspx.cs">
+      <DependentUpon>NewBikeModelColors_New.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="content\NewBikeSpecification.aspx.cs">
@@ -449,6 +459,7 @@
     <Compile Include="Entities\BookingAmountEntityBase.cs" />
     <Compile Include="Entities\CalculatedEMI.cs" />
     <Compile Include="Entities\CityEntityBase.cs" />
+    <Compile Include="Entities\ColorCodeBase.cs" />
     <Compile Include="Entities\DealerAreaDetails.cs" />
     <Compile Include="Entities\DealerDisclaimerEntity.cs" />
     <Compile Include="Entities\DealerPriceEntity.cs" />
@@ -456,6 +467,7 @@
     <Compile Include="Entities\FacilityEntity.cs" />
     <Compile Include="Entities\MakeEntity.cs" />
     <Compile Include="Entities\MakeEntityBase.cs" />
+    <Compile Include="Entities\ModelColorBase.cs" />
     <Compile Include="Entities\ModelEntity.cs" />
     <Compile Include="Entities\ModelEntityBase.cs" />
     <Compile Include="Entities\NewBikeDealers.cs" />
@@ -465,6 +477,8 @@
     <Compile Include="Entities\PQ_Price.cs" />
     <Compile Include="Entities\PQ_QuotationEntity.cs" />
     <Compile Include="Entities\StateEntityBase.cs" />
+    <Compile Include="Entities\VersionColorBase.cs" />
+    <Compile Include="Entities\VersionColorWithAvailability.cs" />
     <Compile Include="Entities\VersionEntity.cs" />
     <Compile Include="Entities\VersionEntityBase.cs" />
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
@@ -481,6 +495,10 @@
     </Compile>
     <Compile Include="newbikebooking\ManageBikeAvailability.aspx.cs">
       <DependentUpon>ManageBikeAvailability.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="newbikebooking\ManageBikeAvailabilityByColorAndCost.aspx.cs">
+      <DependentUpon>ManageBikeAvailabilityByColorAndCost.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="newbikebooking\ManageBookingAmount.aspx.cs">
@@ -1351,6 +1369,7 @@
     <Content Include="content\FeaturedBikes.aspx" />
     <Content Include="content\FeaturedListing.aspx" />
     <Content Include="content\MakeSynopsis.aspx" />
+    <Content Include="content\ManageNewModelColor.aspx" />
     <Content Include="content\ManageUserReviews.aspx" />
     <Content Include="content\ManageVideos.aspx" />
     <Content Include="content\mappingfiles\MappedBikeData.xml" />
@@ -1359,6 +1378,7 @@
     <Content Include="content\NewBikeFeatureItems.aspx" />
     <Content Include="content\NewBikeFeatures.aspx" />
     <Content Include="content\NewBikeModelColors.aspx" />
+    <Content Include="content\NewBikeModelColors_New.aspx" />
     <Content Include="content\NewBikeSpecification.aspx" />
     <Content Include="content\NewBikeStandardFeaturesStep2.aspx" />
     <Content Include="content\NewBikeVersionColors.aspx" />
@@ -1909,6 +1929,7 @@
     <Content Include="newbikebooking\DealerShowroomPrices.aspx" />
     <Content Include="newbikebooking\Default.aspx" />
     <Content Include="newbikebooking\ManageBikeAvailability.aspx" />
+    <Content Include="newbikebooking\ManageBikeAvailabilityByColorAndCost.aspx" />
     <Content Include="newbikebooking\ManageBookingAmount.aspx" />
     <Content Include="newbikebooking\ManageDealerAreaMapping.aspx" />
     <Content Include="newbikebooking\ManageDealerDisclaimer.aspx" />

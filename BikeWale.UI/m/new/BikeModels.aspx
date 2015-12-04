@@ -21,8 +21,8 @@
         AdId = "1017752";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
-        Ad_300x250 = true;
-        TargetedModel = modelPage.ModelDetails.ModelName;
+        Ad_300x250 = false;
+        TargetedModel = modelPage.ModelDetails.ModelName;        
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -91,7 +91,7 @@
                         </div>
                         <div class="margin-bottom10 font12 text-light-grey">Expected price</div>
                         <div class="font18 text-grey margin-bottom5 margin-top15">
-                            <span><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
+                            <span><%= Convert.ToDateTime(modelPage.UpcomingBike.ExpectedLaunchDate).ToString("MMM yyyy") %></span>
                         </div>
                         <div class="margin-bottom10 font12 text-light-grey">Expected launch date</div>
                         <p class="font14 text-grey"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
@@ -134,7 +134,7 @@
                                             <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().rto)"></span></td>
                                         </tr>
                                         <tr>
-                                            <td class="padding-bottom10">Insurance (comprehensive)</td>
+                                            <td class="padding-bottom10" id="bw-insurance-text">Insurance (comprehensive)</td>
                                             <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><span data-bind="text: $root.FormatPricedata(BWPriceList().insurance)"></span></td>
                                         </tr>
                                         <tr>
@@ -153,7 +153,7 @@
                                 <!-- /ko -->
 
                                 <!-- ko if : isDealerPQAvailable() -->
-                                <table class="font14" width="100%">
+                                <table id="dp-insurance-text" class="font14" width="100%">
                                     <tbody>
                                         <!-- ko foreach : DealerPriceList -->
                                         <tr>
@@ -291,7 +291,7 @@
                                         <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
                                     </div>
 
-                                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails(); dataLayer.push({ event: 'product_bw_gtm', cat: 'New Bike Booking - TVS Wego&gt;', act: 'Click Button Get_Dealer_Details', lab: 'Provided User Info' });" class="rounded-corner5" data-role="none" id="btnSubmit" />
+                                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
                                 </div>
                             </div>
 
@@ -356,7 +356,7 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" data-bind="visible: !IsValidManufacturer()">
+                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" >
                         <div class="available-offers-container content-inner-block-10">
                             <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                             <div class="offer-list-container" id="dvAvailableOffer">
@@ -431,6 +431,12 @@
                 <% } %>
             </div>
         </section>
+        <% if(Ad_300x250) { %>
+        <section class="grid-12 container box-shadow margin-bottom20 margin-top20">            
+            <!-- #include file="/ads/Ad300x250_mobile.aspx" -->            
+        </section>
+        <% } %>
+
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
             <div id="SneakPeak" class="container clearfix box-shadow margin-bottom20 margin-top20">
                 <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
@@ -922,7 +928,7 @@
                                 </ul>
                             </div>
                             <div class="or-text">
-                                <div class="more-features-btn"><span>+</span></div>
+                                <div class="more-features-btn"><a href="javascript:void(0)">+</a></div>
                             </div>
                         </div>
                     </div>
@@ -1094,6 +1100,17 @@
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+
+            function bindInsuranceText() {
+                cityArea = GetGlobalCityArea();
+                if (!viewModel.isDealerPQAvailable()) {
+                    $("td#bw-insurance-text").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/m/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
+                }
+                else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
+
+                    $("table#dp-insurance-text tr td:contains('Insurance')").html("Insurance (<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/m/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
+                }
+            }
 
              <% if (modelId == "395" && isManufacturer)
                 {%>

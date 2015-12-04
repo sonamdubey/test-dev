@@ -90,7 +90,7 @@ namespace Bikewale.Notifications.MailTemplates
                     }
                     sb.Append("</div>");
                 }
-                sb.Append("<div style=\"padding:10px 0;\"><p style=\" margin:7px 0;\">If you are eligible for free Road Side Assistance (RSA) or free helmet offer, <a target=\"_blank\" href=\"http://www.bikewale.com/pricequote/rsaofferclaim.aspx\" style=\"text-decoration:none; color:#034fb6;\">click here</a> to claim your offer after bike delivery. </p></div>");
+                sb.Append("<div style=\"padding:10px 0;\"><p style=\" margin:7px 0;\">If you are eligible for free Road Side Assistance (RSA) or free Flipkart voucher/ helmet offer, <a target=\"_blank\" href=\"http://www.bikewale.com/pricequote/rsaofferclaim.aspx\" style=\"text-decoration:none; color:#034fb6;\">click here</a> to claim your offer after bike delivery. </p></div>");
                 sb.Append("<div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat center center; height:2px; width:100%;\"></div><div style=\" padding:10px 0;\">");
                 sb.Append("<div style=\"font-size:14px; font-weight:bold; color:#333; margin-bottom:10px;\">Contact Details of the Assigned " + MakeName + " Dealership:</div><table cellpadding=\"0\" cellspacing=\"0\" style=\"color:#666;\">");
                 sb.Append("<tbody><tr><td width=\"140\" style=\"font-weight:bold; color:#333; padding-bottom:5px; font-size:14px;\">Dealership Name:</td><td style=\"padding-bottom:5px; font-size:12px;\">" + DealerName + "</td>");

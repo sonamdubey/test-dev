@@ -17,6 +17,7 @@ namespace Bikewale.Entities.BikeData
         public int ReviewCount {get; set; }
         public double ModelRating { get; set; }
         public Int64 VersionPrice { get; set; }
-        public MinSpecsEntity Specs { get; set; }                           
+        public MinSpecsEntity Specs { get; set; }
+        public ushort BikePopularityIndex { get; set; }                 
     }
 }

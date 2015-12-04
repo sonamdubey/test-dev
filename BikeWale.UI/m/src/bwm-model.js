@@ -485,7 +485,7 @@ function CustomerModel() {
                 "customerName": self.fullName(),
                 "customerMobile": self.mobileNo(),
                 "customerEmail": self.emailId(),
-                "source": 1
+                "source": 2
             }
             $.ajax({
                 type: "POST",
@@ -591,7 +591,7 @@ function fetchPriceQuote(vm) {
     $(priceBlock).find("span.price-loader").show();
     if (vm.selectedModel() != undefined && vm.selectedCity() != undefined) {
         $.ajax({
-                url: "/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 1 + "&areaId=" + (vm.selectedArea() != undefined ? vm.selectedArea() : 0),
+                url: "/api/OnRoadPrice/?cityId=" + vm.selectedCity() + "&modelId=" + vm.selectedModel() + "&clientIP=" + clientIP + "&sourceType=" + 2 + "&areaId=" + (vm.selectedArea() != undefined ? vm.selectedArea() : 0),
                 type: "GET",
                 contentType: "application/json",
         }).done(function (data) {
@@ -689,6 +689,7 @@ function fetchPriceQuote(vm) {
             }
                 $(".default-showroom-text").html("View Breakup").addClass('view-breakup-text');
                 $(priceBlock).find("span.price-loader").hide();
+                bindInsuranceText();
             }
             else {
                 vm.areas([]);
@@ -828,10 +829,11 @@ $(document).ready(function () {
 
     $(".more-features-btn").click(function () {
         $(".more-features").slideToggle();
-        $("html, body").animate({ scrollTop: $("#features").offset().top }, 1000);
-        var a = $(this).find("span");
+        var a = $(this).find("a");
         a.text(a.text() === "+" ? "-" : "+");
-        $("html, body").animate({ scrollTop: $("#features").offset().top }, 1000);
+        if (a.text() === "+")
+            a.attr("href", "#features");
+        else a.attr("href", "javascript:void(0)");
     });
 
     $(priceBlock).on('click', 'span.view-breakup-text', function () {
