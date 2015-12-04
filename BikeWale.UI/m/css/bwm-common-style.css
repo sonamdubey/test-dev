@@ -229,7 +229,7 @@ z-index: 1; }
 .swiper-wp8-vertical { -ms-touch-action: pan-x; touch-action: pan-x; }
 /* Arrows */
 .swiper-button-prev, .swiper-button-next { position: absolute; top: 50%; width: 26px; height: 43px; margin-top: -22px; z-index: 10; text-indent: -9999px; padding: 5px; border: 1px solid #e6e6e6; background-color: #fff !important; }
-.swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled { opacity: 0.35; cursor: auto; pointer-events: none; }
+.swiper-button-prev.swiper-button-disabled, .swiper-button-next.swiper-button-disabled { opacity: 0.35; cursor: not-allowed; /*pointer-events: none;*/ }
 .swiper-button-prev { left: 0; right: auto; }
 .swiper-container .swiper-button-prev { background-position: -153px -207px; }
 .swiper-button-next { right: 0; left: auto; }

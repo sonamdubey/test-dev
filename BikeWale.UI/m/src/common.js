@@ -408,13 +408,14 @@ $(document).ready(function () {
 	    panel.find(".bw-tabs-data").hide();
 	    $("#" + panelId).show();
 	    centerItVariableWidth($(this), '.bw-tabs');
+	    
 	    var swiperContainer = $('#' + panelId + " .swiper-container");
 	    if (swiperContainer.length > 0) {
 	        var sIndex = swiperContainer.attr('class');
 	        var regEx = /sw-([0-9]+)/i;
 	        try{
 	            var index = regEx.exec(sIndex)[1]
-	            $('.sw-' + index).data('swiper').onResize();
+	            $('.sw-' + index).data('swiper').update(true);
 	        }catch(e){console.log(e.toString())}
 	    }
 
