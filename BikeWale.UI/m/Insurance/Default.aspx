@@ -36,13 +36,13 @@
                     <p>
                         Save upto 60% on
                         <br />
-                        Car Insurance Premium
+                        Bike Insurance Premium
                     </p>
                 </div>
             </div>
         </section>
-        <section class="grid-12 clearfix">
-            <h2 class="font24 text-center margin-top20 margin-bottom20">Get your insurance quote</h2>
+        <section id="insuranceQuote" class="grid-12 clearfix">
+            <h2 class="font24 text-center margin-top20 margin-bottom20">Get an insurance quote</h2>
 
             <div id="step1" class="container bg-white content-inner-block-10 content-box-shadow rounded-corner2">
                 <div class="form-control-box margin-bottom20">
@@ -126,9 +126,9 @@
                 <p class="font18 margin-top10 text-bold">Thank You!</p>
                 <p class="font14">
                     Hi <span id="responseUserName"></span>!
-                    <br>
-                    Thank you for your interest in our Insurance policy. You can expect a call back soon from our Excutives regarding the same. We assure you, your details will not shared with anyone.
-                </p>
+                    <br/>
+                    Thank you for expressing interest. You will get a call from our partner, PolicyBoss (Landmark Insurance Brokers), with exciting insurance offers.
+                 </p>
             </div>
         </section>
         <section class="container margin-bottom20">
@@ -139,7 +139,7 @@
                         <h3 class="stepStrip">What is bike insurance? <span class="icon plus-minus"><span class="fa fa-plus"></span></span></h3>
                         <div class="hide">
                             <p class="content-inner-block-4 font14 text-grey line-height">
-                                bike or Two Wheeler Insurance extends protection against theft or any damage to your bike. It also safeguards your bike against third party liabilities. A comprehensive policy not only provides coverage in accidental injuries but also pays specified compensation for death sustained by the owner & driver of the vehicle in direct connection with the vehicle insured or while mounting into / dismounting from or traveling in the insured vehicle as a co-driver, caused by violent, accidental, external and visible means.
+                                Bike or Two Wheeler Insurance extends protection against theft or any damage to your bike. It also safeguards your bike against third party liabilities. A comprehensive policy not only provides coverage in accidental injuries but also pays specified compensation for death sustained by the owner & driver of the vehicle in direct connection with the vehicle insured or while mounting into / dismounting from or traveling in the insured vehicle as a co-driver, caused by violent, accidental, external and visible means.
                             </p>
                         </div>
                     </div>

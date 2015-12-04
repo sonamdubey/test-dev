@@ -55,7 +55,7 @@ namespace Bikewale.Service.Controllers.Insurance
             string _apiUrl = "/api/insurance/quote/";
 
             //http Header Parameter
-            Dictionary<string, string> _headerParameters = new Dictionary<string, string>();
+            IDictionary<string, string> _headerParameters = new Dictionary<string, string>();
              _headerParameters.Add("clientid", "5");
             _headerParameters.Add("platformid", "2");
 

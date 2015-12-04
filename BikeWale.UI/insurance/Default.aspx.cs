@@ -21,7 +21,7 @@ namespace Bikewale.Insurance
         string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
         string _applicationid = ConfigurationManager.AppSettings["applicationId"];
         string _requestType = "application/json";
-        Dictionary<string, string> _headerParameters;
+        IDictionary<string, string> _headerParameters;
         public IEnumerable<CityDetail> cityList = null;
         public IEnumerable<MakeDetail> makeList = null;
                 
