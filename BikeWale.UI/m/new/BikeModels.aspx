@@ -43,25 +43,25 @@
                     <% if (!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                        { %><div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
                     <% } %>
-                    <div class="jcarousel-wrapper model" id="bikeBannerImageCarousel">
-                        <div class="jcarousel stage">
-                            <ul id="ulModelPhotos">
-                                <li>
+                    
+                    <div class="swiper-container padding-bottom20 model" id="bikeBannerImageCarousel">
+                            <div class="swiper-wrapper stage" id="ulModelPhotos">
+                                <div class="swiper-slide">
                                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
-                                </li>
+                                </div>
                                 <asp:Repeater ID="rptModelPhotos" runat="server">
                                     <ItemTemplate>
-                                        <li>
-                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" />
-                                        </li>
+                                        <div class="swiper-slide">
+                                            <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
+                                            <span class="swiper-lazy-preloader"></span>
+                                        </div>
                                     </ItemTemplate>
                                 </asp:Repeater>
-                            </ul>
                         </div>
                         <% if (modelPage.Photos != null && modelPage.Photos.Count > 1)
                            { %>
-                        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
+                        <div class="bwmsprite swiper-button-next"></div>
+                        <div class="bwmsprite swiper-button-prev"></div>
                         <% } %>
                     </div>
                     <% if (modelPage.ModelDetails.New)
@@ -956,22 +956,22 @@
                     <div class="grid-12">
                         <div class="colours-wrap margin-bottom20 <%= modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0 ? "" : "hide" %>">
                             <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
-                            <div class="jcarousel-wrapper">
-                                <div class="jcarousel">
-                                    <ul class="text-center">
+                        <div class="swiper-container padding-bottom60">
+                                <div class="swiper-wrapper text-center">
                                         <asp:Repeater ID="rptColors" runat="server">
                                             <ItemTemplate>
-                                                <li class="available-colors">
+                                            <div class="swiper-slide available-colors">
                                                     <div class="color-box" style="background-color: #<%# DataBinder.Eval(Container.DataItem, "HexCode")%>;"></div>
                                                     <p class="font16 text-medium-grey"><%# DataBinder.Eval(Container.DataItem, "ColorName") %></p>
-                                                </li>
+                                            </div>
                                             </ItemTemplate>
                                         </asp:Repeater>
-                                    </ul>
                                 </div>
-                                <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                                <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                                <p class="text-center jcarousel-pagination"></p>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Navigation -->
+                            <div class="bwmsprite swiper-button-next hide"></div>
+                            <div class="bwmsprite swiper-button-prev hide"></div>
 
                             </div>
                         </div>
@@ -1062,13 +1062,15 @@
                     <!-- Most Popular Bikes Starts here-->
                     <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> alternatives</h2>
 
-                    <div class="jcarousel-wrapper discover-bike-carousel alternatives-carousel">
-                        <div class="jcarousel">
+                    <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
+                        <div class="swiper-wrapper">
                             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
                         </div>
-                        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                        <p class="text-center jcarousel-pagination"></p>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Navigation -->
+                        <div class="bwmsprite swiper-button-next hide"></div>
+                        <div class="bwmsprite swiper-button-prev hide"></div>
                     </div>
 
                 </div>

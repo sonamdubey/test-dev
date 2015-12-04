@@ -37,6 +37,49 @@
         </div>
     </section>
     
+
+           <div class="swiper-container padding-bottom60">
+                <div class="swiper-wrapper bike-booking-online-wrapper">
+                    <div class="swiper-slide">
+                        <div class="booking-online-item">
+                            <div class="booking-online-pic bg-white text-center">
+                                <div class="bookingcomforts-sprite get-price-icon"></div>
+                            </div>
+                            <div class="bg-white font20 booking-online-box">Get real prices upfront</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="booking-online-item">
+                            <div class="booking-online-pic bg-white text-center">
+                                <div class="bookingcomforts-sprite get-deal-icon"></div>
+                            </div>
+                            <div class="bg-white font20 booking-online-box">Get best deals & offers</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="booking-online-item">
+                            <div class="booking-online-pic bg-white text-center">
+                                <div class="bookingcomforts-sprite save-visit-icon"></div>
+                            </div>
+                            <div class="bg-white font20 booking-online-box">Save on dealer visits</div>
+                        </div>
+                    </div>
+                    <div class="swiper-slide">
+                        <div class="booking-online-item">
+                            <div class="booking-online-pic bg-white text-center">
+                                <div class="bookingcomforts-sprite buying-asst-icon"></div>
+                            </div>
+                            <div class="bg-white font20 booking-online-box">Complete buying assistance</div>
+                        </div>
+                    </div>
+                </div>
+                
+               
+                <div class="swiper-pagination"></div>
+                
+                <div class="bwmsprite swiper-button-next hide"></div>
+                <div class="bwmsprite swiper-button-prev hide"></div>
+
     <section><!--  Upcoming, New Launches and Top Selling code starts here -->
         <div class="container bg-white">
         	<div class="grid-12 alpha omega">

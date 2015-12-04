@@ -264,40 +264,40 @@
                     </div>
                     <div class="grid-12">
                     <div class="bw-tabs-data " id="mctrlMostPopularBikes">
-                        <div class="jcarousel-wrapper discover-bike-carousel">
-                            <div class="jcarousel">
-                                <ul>
-                                    <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
-                                </ul>
+                        <div class="swiper-container padding-bottom60">
+                            <div class="swiper-wrapper discover-bike-carousel">
+                                 <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
                             </div>
-                            <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                            <p class="jcarousel-pagination text-center"></p>
+                           <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Navigation -->
+                            <div class="bwmsprite swiper-button-next hide"></div>
+                            <div class="bwmsprite swiper-button-prev hide"></div>
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="mctrlNewLaunchedBikes">
-                        <div class="jcarousel-wrapper discover-bike-carousel">
-                            <div class="jcarousel">
-                                <ul>
+                        <div class="swiper-container padding-bottom60">
+                            <div class="swiper-wrapper discover-bike-carousel">
                                     <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
-                                </ul>
                             </div>
-                            <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                            <p class="text-center jcarousel-pagination"></p>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Navigation -->
+                            <div class="bwmsprite swiper-button-next hide"></div>
+                            <div class="bwmsprite swiper-button-prev hide"></div>
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="mctrlUpcomingBikes">
-                        <div class="jcarousel-wrapper upComingBikes">
-                            <div class="jcarousel">
-                                <ul>
+                        <div class="swiper-container padding-bottom60">
+                            <div class="swiper-wrapper discover-bike-carousel">
                                     <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
                                     <!-- Upcoming Bikes Control-->
-                                </ul>
                             </div>
-                            <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                            <p class="text-center jcarousel-pagination"></p>
+                           <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Navigation -->
+                            <div class="bwmsprite swiper-button-next hide"></div>
+                            <div class="bwmsprite swiper-button-prev hide"></div>
                         </div>
                     </div>
                     </div>

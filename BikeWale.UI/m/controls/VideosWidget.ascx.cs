@@ -11,7 +11,7 @@ namespace Bikewale.Mobile.Controls
     public class VideosWidget : System.Web.UI.UserControl
     {
         protected Repeater rptVideos;
-
+        protected uint counter = 1;
         public int TotalRecords { get; set; }
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
