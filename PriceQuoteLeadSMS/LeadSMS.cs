@@ -1,12 +1,10 @@
-﻿using Consumer;
+﻿using Bikewale.Notifications;
+using Consumer;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Bikewale.Notifications;
-using System.Data.SqlClient;
-using System.Data;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace PriceQuoteLeadSMS
 {
@@ -19,7 +17,7 @@ namespace PriceQuoteLeadSMS
         /// Summary : To get Lead information
         /// </summary>
         /// <returns></returns>
-        private IList<LeadNotificationEntity> GetLeadInformation()
+        private IEnumerable<LeadNotificationEntity> GetLeadInformation()
         {
             IList<LeadNotificationEntity> objLeadEntity = null;
             try
@@ -36,7 +34,7 @@ namespace PriceQuoteLeadSMS
 
                         using(SqlDataReader dr=cmd.ExecuteReader())
                         {
-                            if(dr!=null)
+                            if(dr!=null && dr.HasRows)
                             {
                                 objLeadEntity = new List<LeadNotificationEntity>();
                                 while(dr.Read())
@@ -86,38 +84,41 @@ namespace PriceQuoteLeadSMS
             try
             {
                 // Get lead info
-                IList<LeadNotificationEntity> objLeads = GetLeadInformation();
+                IEnumerable<LeadNotificationEntity> objLeads = GetLeadInformation();
                 SMSCommon objLead = new SMSCommon();
                 LeadSMSDAL objSmsDal=new LeadSMSDAL();
                 Bikewale.Notifications.SendMails sendEmail = new SendMails();
 
-                foreach (LeadNotificationEntity item in objLeads)
+                if (objLeads!=null)
                 {
-                    Logs.WriteInfoLog(string.Format("process Lead for pqId {0}, Dealer Id : {1}", item.PQId, item.DealerId));
-                    if (!String.IsNullOrEmpty(item.SMSToCustomerMessage))
+                    foreach (LeadNotificationEntity item in objLeads)
                     {
-                        uint smsId = objSmsDal.InsertSMS(item.SMSToCustomerNumbers, item.SMSToCustomerMessage, item.SMSToCustomerServiceType, string.Empty, true);
-                        objLead.PushSMSInQueue(smsId, item.SMSToCustomerMessage, item.SMSToCustomerNumbers);
-
-                        sendEmail.SendMail(item.CustomerEmail, item.EmailToCustomerSubject, item.EmailToCustomerMessageBody, item.EmailToCustomerReplyTo.Split(',')[0]);
-                    }
-
-                    if (!String.IsNullOrEmpty(item.SMSToDealerMessage))
-                    {
-                        uint smsId = objSmsDal.InsertSMS(item.SMSToDealerNumbers, item.SMSToDealerMessage, item.SMSToDealerServiceType, string.Empty, true);
-                        objLead.PushSMSInQueue(smsId, item.SMSToDealerMessage, item.SMSToDealerNumbers);
-
-                        string[] dealerEmails = item.EmailToCustomerReplyTo.Split(',');
-
-                        foreach (string email in dealerEmails)
+                        Logs.WriteInfoLog(string.Format("process Lead for pqId {0}, Dealer Id : {1}", item.PQId, item.DealerId));
+                        if (!String.IsNullOrEmpty(item.SMSToCustomerMessage))
                         {
-                            sendEmail.SendMail(email, item.EmailToDealerSubject, item.EmailToDealerMessageBody, item.EmailToDealerReplyTo);   
-                        }
-                    }
+                            uint smsId = objSmsDal.InsertSMS(item.SMSToCustomerNumbers, item.SMSToCustomerMessage, item.SMSToCustomerServiceType, string.Empty, true);
+                            objLead.PushSMSInQueue(smsId, item.SMSToCustomerMessage, item.SMSToCustomerNumbers);
 
-                    //SendMail(string email, string subject, string body, string replyTo)
-                    AutoBizAdaptor.PushInquiryInAB(item.DealerId.ToString(), item.PQId, item.CustomerName, item.CustomerMobile, item.CustomerEmail, item.BikeVersionId.ToString(), item.CityId.ToString());
-                    objSmsDal.UpdatePQLeadNotifiedFlag(item.PQId);
+                            sendEmail.SendMail(item.CustomerEmail, item.EmailToCustomerSubject, item.EmailToCustomerMessageBody, item.EmailToCustomerReplyTo.Split(',')[0]);
+                        }
+
+                        if (!String.IsNullOrEmpty(item.SMSToDealerMessage))
+                        {
+                            uint smsId = objSmsDal.InsertSMS(item.SMSToDealerNumbers, item.SMSToDealerMessage, item.SMSToDealerServiceType, string.Empty, true);
+                            objLead.PushSMSInQueue(smsId, item.SMSToDealerMessage, item.SMSToDealerNumbers);
+
+                            string[] dealerEmails = item.EmailToCustomerReplyTo.Split(',');
+
+                            foreach (string email in dealerEmails)
+                            {
+                                sendEmail.SendMail(email, item.EmailToDealerSubject, item.EmailToDealerMessageBody, item.EmailToDealerReplyTo);
+                            }
+                        }
+
+                        //SendMail(string email, string subject, string body, string replyTo)
+                        AutoBizAdaptor.PushInquiryInAB(item.DealerId.ToString(), item.PQId, item.CustomerName, item.CustomerMobile, item.CustomerEmail, item.BikeVersionId.ToString(), item.CityId.ToString());
+                        objSmsDal.UpdatePQLeadNotifiedFlag(item.PQId);
+                    } 
                 }
             }
             catch (Exception ex)

@@ -24,17 +24,13 @@ namespace PriceQuoteLeadSMS
                 //System.Timers.Timer timer = new System.Timers.Timer();
 
                 //timer.Start();
-                while (true)
-                {
-                    
-                   // After each 5 mins notify customer and dealer via mail and sms
-                    
-                    //timer.Interval = 5000;
 
-                    obj.SendLeadsToCustDealer();
-                    //timer.Elapsed += SendLeadsToCustDealer;
-                    System.Threading.Thread.Sleep(500000);
-                }
+                // After each 5 mins notify customer and dealer via mail and sms
+
+                //timer.Interval = 5000;
+
+                obj.SendLeadsToCustDealer();
+                //timer.Elapsed += SendLeadsToCustDealer;
             }
             catch (Exception ex)
             {
