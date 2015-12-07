@@ -10,49 +10,21 @@ using System.Threading.Tasks;
 
 namespace PriceQuoteLeadSMS
 {
-    public enum EnumSMSServiceType
-    {
-        UsedPurchaseInquiryIndividualSeller = 1,
-        UsedPurchaseInquiryDealerSeller = 2,
-        UsedPurchaseInquiryIndividualBuyer = 3,
-        UsedPurchaseInquiryDealerBuyer = 4,
-        NewBikeSellOpr = 5,
-        NewBikeBuyOpr = 6,
-        AccountDetails = 7,
-        CustomerRegistration = 8,
-        DealerAddressRequest = 9,
-        SellInquiryReminder = 10,
-        PromotionalOffer = 11,
-        NewBikeQuote = 12,
-        CustomSMS = 13,
-        CustomerPassword = 14,
-        MobileVerification = 15,
-        PaidRenewalAlert = 16,
-        PaidRenewal = 17,
-        MyGarageSMS = 18,
-        MyGarageAlerts = 19,
-        InsuranceRenewal = 20,
-        NewBikePriceQuoteSMSToDealer = 21,
-        NewBikePriceQuoteSMSToCustomer = 22,
-        BikeBookedSMSToCustomer = 23,
-        BikeBookedSMSToDealer = 24,
-        RSAFreeHelmetSMS = 25
-    }
-
     public class SMSCommon
     {
-        protected RabbitMqPublish publish = new RabbitMqPublish();
-
         /// <summary>
         /// Queues the SMS to RabbitMq
         /// </summary>
         /// <param name="sms"></param>
-        private void SendSMSEx(uint smsId, string message, string customerContact)
+        public void PushSMSInQueue(uint smsId, string message, string customerContact)
         {
             string appName = String.Empty;
             NameValueCollection nvcSMS = null;
+            RabbitMqPublish publish = null;
             try
             {
+                Logs.WriteInfoLog(String.Format("Added Into Queue : {0}", smsId));
+
                 appName = ConfigurationManager.AppSettings["rabbitMqAppName"];
 
                 Logs.WriteInfoLog(String.Format("Added Into DB : {0}", smsId));
@@ -64,14 +36,15 @@ namespace PriceQuoteLeadSMS
                 nvcSMS.Add("prefix", "BW");
                 nvcSMS.Add("provider", "");
 
+                publish = new RabbitMqPublish();
                 publish.PublishToQueue(appName, nvcSMS);
-                Logs.WriteInfoLog(String.Format("Added Into Queue : {0}", smsId));
+
+                Logs.WriteInfoLog("SMS Pushed in Queue Successfully.");
             }
             catch (Exception ex)
             {
                 Logs.WriteErrorLog("Exception in SendSMSEx : " + ex.Message);
             }
-
         }
-    }
-}
+    }   //End of class
+}   //End of namespace

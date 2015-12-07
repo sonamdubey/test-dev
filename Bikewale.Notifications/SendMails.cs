@@ -57,7 +57,6 @@ namespace Bikewale.Notifications
         /// <param name="replyTo">Email address to which reply will be send. Optional parameter.</param>
         public void SendMail(string email, string subject, string body, string replyTo)
         {
-            HttpContext.Current.Trace.Warn("Mail Subject " + subject);
             ConfigureMailSettings(email, subject, body, replyTo, null, null);
 
         }   // End of SendMail method
@@ -139,13 +138,13 @@ namespace Bikewale.Notifications
 
                     for (int iTmp = 0; iTmp < cc.Length; iTmp++)
                     {
-                        HttpContext.Current.Trace.Warn("CC " + iTmp + " : ", cc[iTmp] + " cc length : " + cc.Length.ToString());
+                        //HttpContext.Current.Trace.Warn("CC " + iTmp + " : ", cc[iTmp] + " cc length : " + cc.Length.ToString());
 
                         addCC = new MailAddress(cc[iTmp]);
 
                         msg.CC.Add(addCC);
 
-                        HttpContext.Current.Trace.Warn("CC count : ", msg.CC.Count.ToString());
+                        //HttpContext.Current.Trace.Warn("CC count : ", msg.CC.Count.ToString());
                     }
                 }
                 
@@ -156,13 +155,13 @@ namespace Bikewale.Notifications
 
                     for (int iTmp = 0; iTmp < bcc.Length; iTmp++)
                     {
-                        HttpContext.Current.Trace.Warn("BCC " + iTmp + " : ", bcc[iTmp]);
+                        // HttpContext.Current.Trace.Warn("BCC " + iTmp + " : ", bcc[iTmp]);
 
                         addBCC = new MailAddress(bcc[iTmp]);
 
                         msg.Bcc.Add(addBCC);
 
-                        HttpContext.Current.Trace.Warn("BCC count : ", msg.Bcc.Count.ToString());
+                        //HttpContext.Current.Trace.Warn("BCC count : ", msg.Bcc.Count.ToString());
                     }
                 }
                 
@@ -179,7 +178,7 @@ namespace Bikewale.Notifications
                 // Send the e-mail
                 client.Send(msg);
 
-                objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
+                //objTrace.Trace.Warn(msg.From + "," + msg.To + "," + msg.Subject + "," + msg.Body);
             }
             catch (Exception err)
             {

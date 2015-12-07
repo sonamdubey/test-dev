@@ -19,6 +19,7 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Mobile.PriceQuote;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Service.TCAPI;
 
 namespace Bikewale.BikeBooking
 {
@@ -73,6 +74,7 @@ namespace Bikewale.BikeBooking
                     {
                         isUpdated = objDealer.UpdatePQTransactionalDetail(Convert.ToUInt32(PriceQuoteCookie.PQId), Convert.ToUInt32(PGCookie.PGTransId), true, ConfigurationManager.AppSettings["OfferUniqueTransaction"]);
                         SentSuccessNotification();
+
                         PushBikeBookingSuccess();
                     }
                     else
@@ -139,7 +141,7 @@ namespace Bikewale.BikeBooking
                     }
                 }
             }
-        }   //End of CompleteTransaction
+        }  //End of CompleteTransaction
         #endregion
 
         /// <summary>
@@ -273,6 +275,8 @@ namespace Bikewale.BikeBooking
                     {
                         bikeColor = objCustomer.objColor.ColorName;
                     }
+
+                    PushBikeLeadInAutoBiz(objCustomer);
                 }
             }
             catch (Exception ex)
@@ -309,5 +313,20 @@ namespace Bikewale.BikeBooking
             }
         }
 
+
+        private void PushBikeLeadInAutoBiz(PQCustomerDetail customerDetails)
+        {
+            string abInquiryId = string.Empty;
+            try
+            {
+                abInquiryId = AutoBizAdaptor.PushInquiryInAB(PriceQuoteCookie.DealerId, Convert.ToUInt32(PriceQuoteCookie.PQId), customerDetails.objCustomerBase.CustomerName, customerDetails.objCustomerBase.CustomerMobile, customerDetails.objCustomerBase.CustomerEmail, Convert.ToUInt32(PriceQuoteCookie.VersionId), PriceQuoteCookie.CityId);
+                objCustomer.AbInquiryId = abInquiryId;
+            }
+            catch (Exception err)
+            {
+                ErrorClass objErr = new ErrorClass(err, "Bikewale.BikeBooking.BillDeskResponse.PushBikeBookingSuccess");
+                objErr.SendMail();
+            }
+        } 
     }   //End of class
 }   //End of namespace
