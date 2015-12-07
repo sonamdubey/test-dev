@@ -1,13 +1,9 @@
-﻿using Consumer;
+﻿using Bikewale.Notifications;
+using Consumer;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Bikewale.Notifications;
 
 namespace PriceQuoteLeadSMS
 {
@@ -87,11 +83,16 @@ namespace PriceQuoteLeadSMS
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 
-                        cmd.Parameters.Add("@pqId", SqlDbType.BigInt).Value = pqId;
-                        cmd.Parameters.Add("@ABInquiryId", SqlDbType.BigInt).Value = abInquiryId;
+                        cmd.Parameters.Add("@pqId", SqlDbType.Int).Value = pqId;
+                        cmd.Parameters.Add("@ABInquiryId", SqlDbType.Int).Value = abInquiryId;
 
                         conn.Open();
-                        cmd.ExecuteNonQuery();
+                        int noOfRows=cmd.ExecuteNonQuery();
+
+                        if (noOfRows>0)
+                        {
+                            isSuccess = true;
+                        }
                         conn.Close();
                     }
                 }
@@ -101,7 +102,6 @@ namespace PriceQuoteLeadSMS
                 Logs.WriteErrorLog("PushedToAB sqlex : " + sqEx.Message + sqEx.Source);
                 ErrorClass objErr = new ErrorClass(sqEx, "PriceQuoteLeadSMS.LeadSMSDAL.PushedToAB");
                 objErr.SendMail();
-                isSuccess = false;
             }            
 
             return isSuccess;
@@ -126,10 +126,15 @@ namespace PriceQuoteLeadSMS
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 
-                        cmd.Parameters.Add("@PQId", SqlDbType.BigInt).Value = pqId;
+                        cmd.Parameters.Add("@PQId", SqlDbType.Int).Value = pqId;
 
                         conn.Open();
-                        cmd.ExecuteNonQuery();
+                        int noOfRows= cmd.ExecuteNonQuery();
+
+                        if (noOfRows > 0)
+                        {
+                            isUpdated = true;
+                        }
                         conn.Close();
                     }
                 }
