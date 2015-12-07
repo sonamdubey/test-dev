@@ -1040,7 +1040,7 @@ detailsSubmitBtn.click(function () {
             $("#personalInfo").hide();
             $(".call-for-queries").hide();
 
-            window.location.href = "/pricequote/bookingsummary_new.aspx";
+            window.location.href = "/pricequote/bookingConfig.aspx";
         }
         else {
             otpContainer.removeClass("hide").addClass("show");
@@ -1265,7 +1265,7 @@ otpBtn.click(function () {
             // OTP Success
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
 
-            window.location.href = "/pricequote/bookingsummary_new.aspx";
+            window.location.href = "/pricequote/bookingConfig.aspx";
 
         }
         else {
