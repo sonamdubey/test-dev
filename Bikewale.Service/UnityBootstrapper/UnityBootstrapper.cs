@@ -50,8 +50,10 @@ namespace Bikewale.Service.UnityConfiguration
     public static class UnityBootstrapper
     {
         /// <summary>
-        /// Modified By : Lucky Rathore on on 06 Nov. 2015.
-        /// Description : Register BikeCompareCacheRepository.
+        /// Modified By :   Lucky Rathore on on 06 Nov. 2015.
+        /// Description :   Register BikeCompareCacheRepository.
+        /// Modified By :   Sumit Kate on 08 Dec 2015
+        /// Description :   Register AppVersionRepository.
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
