@@ -59,6 +59,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// generated the OTP for the non verified customer
         /// Modified By :   Sumit Kate on 18 Nov 2015
         /// Description :   Save the State of the Booking Journey as Described in Task# 107795062 
+        /// Modified By :   Sumit Kate on 08 Dec 2015
+        /// Description :   Update the Bike Version. Fixed the APP functionality.
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -75,6 +77,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             CustomerEntity objCust = null;
             MobileVerificationEntity mobileVer = null;
             BookingPageDetailsEntity objBookingPageDetailsEntity = null;
+            PriceQuoteParametersEntity pqParam = null;
             BookingPageDetailsDTO objBookingPageDetailsDTO = null;
             DealerDetailsDTO dealer = null;
             uint exShowroomCost = 0;
@@ -88,6 +91,13 @@ namespace Bikewale.Service.Controllers.PriceQuote
             {
                 if (input != null && !String.IsNullOrEmpty(input.CustomerEmail) && !String.IsNullOrEmpty(input.CustomerMobile))
                 {
+                    if (input != null && ((input.PQId > 0) && (Convert.ToUInt32(input.VersionId) > 0)))
+                    {
+                        pqParam = new PriceQuoteParametersEntity();
+                        pqParam.VersionId = Convert.ToUInt32(input.VersionId);
+
+                        _objPriceQuote.UpdatePriceQuote(input.PQId, pqParam);
+                    }
                     if (!_objAuthCustomer.IsRegisteredUser(input.CustomerEmail))
                     {
                         objCust = new CustomerEntity() { CustomerName = input.CustomerName, CustomerEmail = input.CustomerEmail, CustomerMobile = input.CustomerMobile, ClientIP = input.ClientIP };
