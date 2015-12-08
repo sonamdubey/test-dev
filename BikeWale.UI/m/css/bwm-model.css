@@ -30,7 +30,7 @@
 .unveil-offer-btn-container input[type='button'] { position:relative; margin:0 auto; top:50%; margin-top: -20px; }
 .offer-error-text { color:#f00; }
 
-.city-area-select-container { width:100%; min-height:100px; }
+.city-area-select-container { width:100%;}
 
 .city-edit-btn { color:#0288d1; }
 .city-edit-btn:hover { cursor:pointer; text-decoration:underline; }

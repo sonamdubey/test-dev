@@ -391,7 +391,7 @@
                                             </div>
                                         </div>
 
-                                        <% if (modelId == "395" && isManufacturer)
+                                        <%--<% if (modelId == "395" && isManufacturer)
                                            {%>
                                         <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible: IsValidManufacturer(), event: { click: $root.notifyAvailable }" value="Contact TVS for details" />
 
@@ -441,7 +441,7 @@
                                             </div>
                                         </div>
                                         <!-- Notify popup ends here -->
-                                        <%} %>
+                                        <%} %>--%>
                                     </div>
                                     <!-- /ko -->
                                     <!-- On Road Price mesasge ends  -->
@@ -462,6 +462,10 @@
                                         <div class="clear"></div>
                                     </div>
                                     <!-- City/Area Select controls ends -->
+                                </div>
+                                 <div class="insurance-breakup-text" data-bind="visible: IsValidManufacturer()" style="position: relative; color: #999; font-size: 12px; margin-top: 1px;">
+                                <a target="_blank" href="/insurance/" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked_Model',lab: '" + myBikeName + "_" + icityArea + "' });">
+                                    Save up to 60% on insurance - PolicyBoss</a>
                                 </div>
                             <!-- City and Area  msgs and select controls ends  -->
                             <div id="offersBlock" class="city-unveil-offer-container position-rel" data-bind="visible: !IsValidManufacturer() ">
@@ -1365,80 +1369,7 @@
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
 
-            <% if (modelId == "395" && isManufacturer)
-               {%>
-            //notify availablilty 
-            var bwNotify = $('#notifyAvailabilityContainer');
-            $("#notifyAvailabilityContainer .notify-close-btn, .blackOut-window, #notifyOkayBtn").on("click", function () {
-                $(".blackOut-window").hide();
-                $(".notifyAvailabilityContainer").hide();
-                $("#notify-form").show();
-                $("#notify-response").hide();
-            });
-
-            $("#submit-details").on("click", function () {
-                $("#notify-form").hide();
-                $("#notify-response").show();
-            });
-
-            $('#btnBWLead').on('click', function () {
-                bwNotify.find(".get-lead-name").val("")
-                bwNotify.find(".get-lead-email").val("")
-                bwNotify.find(".get-lead-mobile").val("");
-                $("#notifySubmitInfo").val("Submit");
-
-            });
-
-            $("#notifySubmitInfo").on("click", function () {
-                var leadName = bwNotify.find(".get-lead-name").val().trim();
-                var leadEmail = bwNotify.find(".get-lead-email").val().trim();
-                var leadMobile = bwNotify.find(".get-lead-mobile").val();
-                var regName = /^[a-zA-Z ]+$/;
-                var regEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
-                var regMobile = /^[0-9]{10}$/;                 
-                if (leadName.length > 0 && regName.test(leadName)) {
-                    validationSuccess($(".get-lead-name"));
-                    if (regEmail.test(leadEmail)) {
-                        validationSuccess($(".get-lead-email"));
-                        if (regMobile.test(leadMobile)) {
-                            $.get('/api/ManufacturerLead/?name=' + leadName + '&email=' + leadEmail + '&mobile=' + leadMobile + '&pqId=' + modelViewModel.priceQuote().priceQuote.quoteId + '&cityId=' + modelViewModel.selectedCity() + '&versionId=' + modelViewModel.priceQuote().priceQuote.quoteId, function (response) {
-                                if (response) {
-                                    validationSuccess($(".get-lead-mobile"));
-                                    $("#notify-form").hide();
-                                    $('#notify-response .notify-leadUser').text(leadName);
-                                    $('#notify-response').show();
-                                }
-                                else {
-                                    $("#notifySubmitInfo").val("Try Again");
-                                    return false;
-                                    
-                                }
-                            });
-                        }
-                        else
-                            validationError($(".get-lead-mobile"));
-                    }
-                    else
-                        validationError($(".get-lead-email"));
-                }
-                else
-                    validationError($(".get-lead-name"));
-            }); 
-
-            $(".get-lead-name, .get-lead-email, .get-lead-mobile").on("focus", function () {
-                validationSuccess($(this));
-            });
-
-            var validationError = function (a) {
-                a.addClass("border-red");
-                a.siblings("span, div").show();
-            };
-
-            var validationSuccess = function (a) {
-                a.removeClass("border-red");
-                a.siblings("span, div").hide();
-            };
-            <% } %>
+           
         </script>
     </form>
 </body>
