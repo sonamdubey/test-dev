@@ -1,0 +1,1187 @@
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.NewBikeModels" %>
+
+<%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
+<%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
+<%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
+<%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
+<%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <%
+        title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
+        description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs."
+                    + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
+                    + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+
+        canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
+        AdPath = "/1017752/Bikewale_Mobile_Model";
+        AdId = "1017752";
+        Ad_320x50 = true;
+        Ad_Bot_320x50 = true;
+        Ad_300x250 = true;
+        TargetedModel = modelPage.ModelDetails.ModelName;
+    %>
+    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <section>
+            <div class="container bg-white clearfix">
+                <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
+                    <% if (modelPage.ModelDetails.New)
+                       { %><h1 class="padding-top15 padding-left20 padding-right20"><%= bikeName %></h1>
+                    <% } %>
+                    <% if (modelPage.ModelDetails.Futuristic)
+                       { %>
+                    <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Upcoming</div>
+                     <div class="bikeTitle">
+                            <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
+                        </div>
+                    <% } %>
+                    <% if (!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
+                       { %>
+                        <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
+                         <div class="bikeTitle">
+                            <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
+                        </div>
+                    <% } %>
+
+                    <% if (modelPage.ModelDetails.New || !modelPage.ModelDetails.New )
+                       { %>
+                    <div class="padding-left20 padding-right10 margin-top5 margin-bottom15">
+                        <p class=" <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> leftfloat margin-right10 rating-wrap">
+                            <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
+                        </p>
+                        <p class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "hide" : ""  %> leftfloat margin-right10 rating-wrap">
+                            Not rated yet
+                        </p>
+                        <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
+                            <%= modelPage.ModelDetails.ReviewCount %> Reviews
+                        </a>
+                        <div class="clear"></div>
+                    </div>
+                    <% } %>
+
+                    <div class="jcarousel-wrapper model" id="bikeBannerImageCarousel">
+                        <div class="jcarousel stage">
+                            <ul id="ulModelPhotos">
+                                <li>
+                                    <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
+                                </li>
+                                <asp:Repeater ID="rptModelPhotos" runat="server">
+                                    <ItemTemplate>
+                                        <li>
+                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" />
+                                        </li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                        </div>
+                        <% if (modelPage.Photos != null && modelPage.Photos.Count > 1)
+                           { %>
+                        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
+                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
+                        <p class="pagination-number margin margin-bottom10 text-center font16 text-light-grey" style="margin-top:-10px;"><span class="bike-model-gallery-count">1/<%= modelPage.Photos.Count %></span></p>
+                        <% } %>
+                    </div>
+                    
+                    <% if (modelPage.ModelDetails.Futuristic)
+                       { %>
+                    <div class="bikeDescWrapper">
+                       <%-- <div class="bikeTitle">
+                            <h1 class="padding-bottom10"><%= bikeName %></h1>
+                        </div>--%>
+                        <div class="margin-bottom10 font14 text-light-grey">Expected price</div>
+                        <div class="font22 text-grey">
+                            
+                            <span class="font24 text-bold"><span class="fa fa-rupee"></span><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %> - <%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
+                        </div>
+                        <div class="border-light-bottom margin-top15 margin-bottom15"></div>
+                        <div class="margin-bottom10 font14 text-light-grey">Expected launch date</div>
+                        <div class="font18 text-grey margin-bottom5">
+                            <span class="text-bold"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></span>
+                        </div>
+                        
+                        <p class="font14 text-grey"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
+                    </div>
+                    <% } %>
+                </div>
+                <% if (modelPage.ModelDetails.New)
+                   { %>
+                <div class="grid-12 bg-white box-shadow" id="dvBikePrice">
+
+                    <div class="clearfix">
+                    	<div class="font14 text-light-grey alpha omega grid-2 margin-top10">Variant:</div>
+                        <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
+                           { %>
+                        <div class="form-control-box variantDropDown leftfloat grid-10 omega"> 
+                                    <div class="sort-div rounded-corner2">
+                                        <div class="sort-by-title" id="sort-by-container">
+                                            <span class="leftfloat sort-select-btn">
+                                                <asp:Label runat="server" ID="defaultVariant"></asp:Label>
+                                            </span>
+                                            <span class="clear"></span>
+                                        </div>
+                                        <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+                                    </div>
+                                    <div class="sort-selection-div sort-list-items hide">
+                                        <ul id="sortbike">
+                                            <asp:Repeater ID="rptVariants" runat="server">
+                                                <ItemTemplate>
+                                                    <li>
+                                                        <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>
+                                                    </li>
+                                                    <asp:HiddenField ID="hdn" Value='<%#Eval("VersionId") %>' runat="server" />
+                                                </ItemTemplate>
+                                            </asp:Repeater>
+                                        </ul>
+                                        <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />
+                                    </div>
+                         </div>
+                        <% } 
+                           else
+                          {  %>
+                        <p class="variantText text-medium-grey grid-10 text-bold font14 margin-top10"><%= variantText %></p>
+                        <% } %>
+                        <%--<div class="leftfloat grid-10 omega">
+                        	<select class="form-control">
+	                            <option>Alloy, Self</option>
+                            	<option>Alloy, Double Disc, Self</option>
+                                <option>Double Disc, Self</option>
+                            </select>
+                        </div>--%>
+                    </div>
+                    <div>
+                        <% if (isDiscontinued)
+                                    { %>
+                                <p class="margin-top20 margin-left10 font14 text-light-grey clear fillPopupData">Last known Ex-showroom price</p>
+                                <%  } 
+                          else if (isCityAreaSelected || isBikeWalePQ)
+                                    { %>
+                                <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">On-road Price in 
+                                    <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
+                                        <span class="font14 text-grey text-bold">
+                                        <%= areaName %> <%= cityName %></span></a></p>
+                                 <% }
+                                   else
+                                    { %>
+                                <p class="font14 fillPopupData">Ex-showroom in <span href="javascript:void(0)" class="text-light-grey clear"><%= Bikewale.Common.Configuration.GetDefaultCityName %></span></p>
+                                <%  } %>
+                        <p class="leftfloat">
+
+                            <%if(price!="0")
+                            { %>
+                            <span class="font24 text-bold"> <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(price) %></span>
+                            <% } else { %>
+                             <span class="font24 text-bold">Price Unavailable</span>
+                            <%  } %>
+                        </p>
+                        <%if (pqOnRoad != null && price != "0")
+                                      {%>
+                                    <p id="viewBreakupText" class="font14 text-light-grey leftfloat viewBreakupText">View Breakup</p>
+                                    
+                                        <%if (isBikeWalePQ && price != "0")
+                                          {%>
+                                        <p class="font12 text-light-grey clear">Ex-showroom + RTO + Insurance(Comprehensive)</p>
+                                        <%}
+                                          else
+                                          { %>
+                                        <p class="font12 text-xt-light-grey clear"><%=viewbreakUpText %></p>
+                                        <%} %>
+                                    <% } %>
+                        <!-- Terms and condition Popup start -->
+                        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                            <h3>Terms and Conditions</h3>
+                            <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                <img src="/images/search-loading.gif" />
+                            </div>
+                            <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+                            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                            </div>
+                        </div>
+                        <!-- Terms and condition Popup Ends -->
+                        <!-- View BreakUp Popup Starts here-->
+                        <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
+                            <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+                            <div class="breakup-text-container padding-bottom10">
+                                <h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
+                                <% if (isBikeWalePQ)
+                                   { %>
+                                <table class="font14" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td width="60%" class="padding-bottom10">Ex-showroom (Mumbai)</td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price)) %></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding-bottom10">RTO</td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.RTO)) %></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding-bottom10">Insurance (comprehensive)</td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="border-solid-top padding-bottom10"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <!-- ko if :BWPriceList -->
+                                            <td class="padding-bottom10 text-bold">Total on road price</td>
+                                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price + objSelectedVariant.RTO + objSelectedVariant.Insurance)) %></td>
+                                            <!-- /ko -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <% }
+                                   else if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
+                                   {    %>
+                                <table class="font14" width="100%">
+                                    <tbody>
+
+                                        <asp:Repeater ID="rptCategory" runat="server">
+                                            <ItemTemplate>
+                                                <tr class="carwale">
+                                                    <td width="60%" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %></td>
+                                                    <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                                                        <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+
+                                        <% if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
+                                           {  %>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="border-solid-top padding-bottom10"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding-bottom10">Total on road price</td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right" style="text-decoration: line-through;">
+                                                <span class="fa fa-rupee margin-right5"></span>
+                                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="padding-bottom10">Minus insurance</td>
+                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %>
+                                            </td>
+                                        </tr>
+                                        <% } %>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="border-solid-top padding-bottom10"></div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <% if (pqOnRoad.DPQOutput.PriceList.Count > 0)
+                                               {%>
+                                            <td class="padding-bottom10 text-bold">Total on road price</td>
+                                            <% if (pqOnRoad.InsuranceAmount > 0)
+                                               {
+                                            %>
+                                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - pqOnRoad.InsuranceAmount)) %>
+
+                                            </td>
+                                            <% }
+                                               else
+                                               { %>
+                                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                                                <%= Bikewale.Utility.Format.FormatPrice(price) %>
+                                              <%} %>
+                                            <%} %>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="border-solid-top padding-bottom10"></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <% } %>
+
+                            </div>
+                        </div>
+                        <!--View Breakup popup ends here-->
+                    </div>
+                   
+                    <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible: popularCityClicked()">
+                        <div class="city-onRoad-price-container font14 margin-bottom15 hide">
+                            <!-- lead capture popup -->
+                            <div id="leadCapturePopup" class="bw-popup contact-details hide">
+                                <div class="popup-inner-container">
+                                    <div class="bwmsprite close-btn rightfloat"></div>
+                                    <h2>Please provide us contact details</h2>
+
+                                    <div class="personal-info-form-container margin-top10">
+                                        <div class="form-control-box">
+                                            <input type="text" class="form-control get-first-name" placeholder="First name" id="getFirstName" data-bind="value: viewModel.CustomerVM().firstName">
+                                            <span class="bwmsprite error-icon "></span>
+                                            <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                                        </div>
+                                        <div class="form-control-box margin-top20">
+                                            <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: viewModel.CustomerVM().lastName">
+                                            <span class="bwmsprite error-icon"></span>
+                                            <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
+                                        </div>
+                                        <div class="form-control-box margin-top20">
+                                            <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: viewModel.CustomerVM().emailId">
+                                            <span class="bwmsprite error-icon"></span>
+                                            <div class="bw-blackbg-tooltip errorText">Please enter your email adress</div>
+                                        </div>
+                                        <div class="form-control-box margin-top20">
+                                            <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: viewModel.CustomerVM().mobileNo">
+                                            <span class="bwmsprite error-icon"></span>
+                                            <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                                        </div>
+                                        <div class="clear"></div>
+                                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn">Submit</a>
+                                    </div>
+
+                                    <div class="mobile-verification-container margin-top20 hide">
+                                        <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
+                                        <div class="form-control-box  padding-left15 padding-right15">
+                                            <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
+                                            <span class="bwmsprite error-icon hide"></span>
+                                            <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
+                                        </div>
+                                        <div class="text-center padding-top10">
+                                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() < 2), click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a>
+                                            <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() >= 2)" style="display: none;">
+                                                OTP has been already sent to your mobile
+                                            </p>
+                                        </div>
+
+                                        <div class="clear"></div>
+                                        <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
+                                        <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
+                                    </div>
+
+                                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (pqOnRoad!= null && pqOnRoad.IsDealerPriceAvailable) {%>
+                        <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
+                        <div class="available-offers-container content-inner-block-10">
+                            <div class="offer-list-container" id="dvAvailableOffer">
+                                <% if (isOfferAvailable)
+                                    { %>
+                                    <%if (isBookingAvailable && bookingAmt > 0)
+                                        { %>
+                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="fa fa-gift text-red"></span> Pay
+                                    Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike and get:
+                                </h4>
+                                  <%    } %>
+                                    <ul>
+                                            <asp:Repeater ID="rptOffers" runat="server">
+                                        <ItemTemplate>
+                                            <li>
+                                                <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
+                                                <span class="padding-left20 show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    </ul>
+                                    <ul class="moreOffersList hide">
+                                        <asp:Repeater ID="rptMoreOffers" runat="server">
+                                        <ItemTemplate>
+                                            <li>
+                                                <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
+                                                    <span class="padding-left20 show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    </ul>
+                                <% } %>
+                                <% if (isOfferAvailable && pqOnRoad.DPQOutput.objOffers.Count > 2)
+                                    { %>
+                                        <p class="viewMoreOffersBtn">(view more)</p>
+                                <% } %>
+                            <div class="border-top1 margin-top10 margin-bottom10"></div>
+                            <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="fa fa-info-circle text-red"></span> Get following details on the bike</h4>
+                                <ul>
+                                    
+                            <li>
+                                <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
+                                <span class="padding-left20 show">Offers from the nearest dealers</span>
+                            </li>
+                            <li>
+                                <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
+                                <span class="padding-left20 show">Offers from the nearest dealers</span>
+                            </li>
+                            <li>
+                                <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
+                                <span class="padding-left20 show">Nearest dealership from your place</span>
+                            </li>
+                            <li>
+                                <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
+                                <span class="padding-left20 show">Nearest dealership from your place</span>
+                            </li>
+                        </ul>
+                    </div>
+                        </div>
+                        </div>
+                    <% } %>
+                </div>
+                <% } %>
+                <% if (!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
+                   { %>
+                <div class="container clearfix box-shadow">
+<%--                    <div class="bikeTitle">
+                        <h1 class="padding-bottom15 padding-left15"><%= bikeName %></h1>
+                    </div>
+                    <div class="leftfloat">
+                        <div class="padding-left5 padding-right5 ">
+                            <div>
+                                <span class="margin-bottom10  <%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %>">
+                                    <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble((modelPage.ModelDetails == null || modelPage.ModelDetails.ReviewRate == null) ? 0 : modelPage.ModelDetails.ReviewRate )) %>
+                                </span>
+                                <span class="margin-bottom10 <%= modelPage.ModelDetails.ReviewCount > 0 ? "hide" : ""  %>">Not rated yet
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leftfloat border-left1">
+                        <div class="padding-left5 padding-right5 ">
+                            <span class="font16 text-light-grey">
+                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> margin-right10 padding-left10 line-Ht22">
+                                    <%= modelPage.ModelDetails.ReviewCount %> Reviews</a>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="clear"></div>--%>
+                    <div class="bike-price-container margin-bottom15">
+                            <span class="font14 text-grey padding-left10">Last known Ex-showroom Price</span>
+                        </div>
+                    <div class="bike-price-container margin-top10 font22 margin-bottom10 padding-left10">
+                        <div class="bike-price-container font22 margin-bottom15">
+                            <span class="fa fa-rupee"></span>
+                            <span class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span>
+                        </div>
+                    </div>
+                    <div class="bike-price-container margin-bottom15 padding-left10">
+                        <div class="bike-price-container margin-bottom15">
+                            <span class="font14 text-grey"><%= bikeName %> is now discontinued in India.</span>
+                        </div>
+                    </div>
+                </div>
+                <% } %>
+            </div>
+            <!-- floating buttons -->
+            <div class="grid-12 float-button float-fixed clearfix">
+                <% if (cityId == "0" && areaId == "0")
+                       {   %>
+                <div class="grid-12">
+                    <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
+                    <%    }
+                   else
+                   {   %>
+                    <div class="show">
+                        <% if (modelPage.ModelDetails.New)
+                           {
+                               if (bookingAmt > 0)
+                               { %>
+                        <div class="grid-5 omega">
+                            <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" /></div>
+                        <%} %>
+                        <% if(pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable){ %>
+                        <div class="grid-<%=btMoreDtlsSize %>">
+                            <input type="button" value="Get more details" class="btn btn-orange btn-full-width btn-sm margin-right10 leftfloat" id="getMoreDetailsBtn" />
+                        </div>
+                         <%} %>
+                        <%} %>
+                    </div>
+                    <%} %>
+                </div>
+
+        </section>
+        <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
+            <div id="SneakPeak" class="container clearfix box-shadow margin-bottom20 margin-top20">
+                <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
+                   { %>
+                <h2 class="padding-bottom15  text-center">Sneak-peek</h2>
+                <% } %>
+                <div class="content-box-shadow content-inner-block-20">
+                    <p class="font14 text-grey padding-left10 padding-right10">
+                        <span class="model-about-main">
+                            <%= modelPage.ModelDesc.SmallDescription %>
+                        </span>
+                        <span class="model-about-more-desc hide" style="display: none;">
+                            <%= modelPage.ModelDesc.FullDescription %>
+                        </span>
+                        <span><a href="javascript:void(0)" class="read-more-btn">Read <span>full story</span></a></span>
+                    </p>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+        <% if (modelPage.ModelVersionSpecs != null)
+           { %>
+        <section class="<%= modelPage.ModelVersionSpecs == null ? "hide" : "" %>">
+            <div class="container bg-white text-center clearfix">
+                <div class="grid-12">
+                    <h2 class="text-center margin-top20 margin-bottom20">Overview</h2>
+                    <div class="overview-box">
+                        <div class="odd btmAftBorder">
+                            <span class="font22"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %>
+                                <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>cc</small></span>
+                            <span class="font14">Capacity</span>
+                        </div>
+                        <div class="even btmAftBorder">
+                            <span class="font22"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall) %>
+                                <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>kmpl</small></span>
+                            <span class="font14">Mileage</span>
+                        </div>
+                        <div class="odd">
+                            <span class="font22"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %>
+                                <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>bhp</small></span>
+                            <span class="font14">Max power</span>
+                        </div>
+                        <div class="even">
+                            <span class="font22"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %>
+                                <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>kg</small></span>
+                            <span class="font14">Weight</span>
+                        </div>
+                    </div>
+                    <div class="border-top1"></div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container bg-white clearfix">
+                <div class="grid-12 alpha omega">
+                    <h2 class="text-center margin-top30 margin-bottom20">Specifications</h2>
+
+
+                    <div class="bw-tabs-panel clearfix">
+
+                        <div class="bw-tabs bw-tabs-flex">
+                            <ul>
+                                <li class="active" data-tabs="summary">Summary</li>
+                                <li data-tabs="engineTransmission">Engine &amp; Transmission </li>
+                                <li data-tabs="brakeWheels">Brakes, Wheels and Suspension</li>
+                                <li data-tabs="dimensions">Dimensions and Chassis</li>
+                                <li data-tabs="fuelEffiency">Fuel efficiency and Performance</li>
+                            </ul>
+                        </div>
+                        <div class="grid-12">
+                            <div class="leftfloat bw-horz-tabs-data font16">
+                                <div class="bw-tabs-data" id="summary">
+                                    <ul>
+                                        <li>
+                                            <div class="text-light-grey">Displacement</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement,"cc") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Max Power</div>
+                                            <div class="text-bold">
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", 
+                                                                    modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Maximum Torque</div>
+                                            <div class="text-bold">
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm",
+                                                                    modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">No. of gears</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfGears) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Fuel Efficiency</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall, "kmpl") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Brake Type</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.BrakeType) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Front Disc</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FrontDisc) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Rear Disc</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.RearDisc) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Alloy Wheels</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.AlloyWheels) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Kerb Weight</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight, "kg") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Chassis Type</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ChassisType) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Top Speed</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TopSpeed, "kmph") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Tubeless Tyres</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TubelessTyres) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Fuel Tank Capacity</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelTankCapacity, "litres") %></div>
+                                        </li>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                                <div class="bw-tabs-data hide" id="engineTransmission">
+                                    <ul>
+                                        <li>
+                                            <div class="text-light-grey">Displacement</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement, "cc") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Cylinders</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Cylinders) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Max Power</div>
+                                            <div class="text-bold">
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower, "bhp", 
+                                                                   modelPage.ModelVersionSpecs.MaxPowerRPM, "rpm") %>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Maximum Torque</div>
+                                            <div class="text-bold">
+                                                <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaximumTorque, "Nm",
+                                                                       modelPage.ModelVersionSpecs.MaximumTorqueRPM, "rpm") %>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Bore</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Bore, "mm") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Stroke</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Stroke, "mm") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Valves Per Cylinder</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ValvesPerCylinder) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Fuel Delivery System</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelDeliverySystem) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Fuel Type</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelType) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Ignition</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Ignition) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Spark Plugs</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.SparkPlugsPerCylinder, "Per Cylinder") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Cooling System</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.CoolingSystem) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Gearbox Type</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.GearboxType) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">No. of Gears</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfGears) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Transmission Type</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TransmissionType) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Clutch</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Clutch) %></div>
+                                        </li>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                                <div class="bw-tabs-data hide" id="brakeWheels">
+                                    <ul>
+                                        <li>
+                                            <div class="text-light-grey">Brake Type</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.BrakeType) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Front Disc</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FrontDisc) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Front Disc/Drum Size</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FrontDisc_DrumSize, "mm") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Rear Disc</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.RearDisc) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Rear Disc/Drum Size</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.RearDisc_DrumSize, "mm") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Calliper Type</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.CalliperType) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Wheel Size</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.WheelSize, "inches") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Front Tyre</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FrontTyre) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Rear Tyre</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.RearTyre) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Tubeless Tyres</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TubelessTyres) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Radial Tyres</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.RadialTyres) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Alloy Wheels</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.AlloyWheels) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Front Suspension</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FrontSuspension) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Rear Suspension</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.RearSuspension) %></div>
+                                        </li>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                                <div class="bw-tabs-data hide" id="dimensions">
+                                    <ul>
+                                        <li>
+                                            <div class="text-light-grey">Kerb Weight</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight, "kg") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Overall Length</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.OverallLength, "mm") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Overall Width</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.OverallWidth, "mm") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Overall Height</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.OverallHeight, "mm") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Wheelbase</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Wheelbase, "mm") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Ground Clearance</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.GroundClearance, "mm") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Seat Height</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.SeatHeight, "mm") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Chassis Type</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ChassisType) %></div>
+                                        </li>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                                <div class="bw-tabs-data hide" id="fuelEffiency">
+                                    <ul>
+                                        <li>
+                                            <div class="text-light-grey">Fuel Tank Capacity</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelTankCapacity, "litres") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Reserve Fuel Capacity</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ReserveFuelCapacity, "litres") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Fuel Efficiency Overall</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall, "kmpl") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Fuel Efficiency Range</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyRange, "km") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">0 to 60 kmph</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_0_60_kmph, "seconds") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">0 to 80 kmph</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_0_80_kmph, "seconds") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">0 to 40 kmph</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_0_40_m, "seconds") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">Top Speed</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TopSpeed, "kmph") %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">60 to 0 kmph</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_60_0_kmph) %></div>
+                                        </li>
+                                        <li>
+                                            <div class="text-light-grey">80 to 0 kmph</div>
+                                            <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Performance_80_0_kmph) %></div>
+                                        </li>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- bw-tabs ends here -->
+
+                    <!-- features code starts here -->
+                    <div class="grid-12">
+                        <div class="bw-tabs-data margin-bottom20" id="features">
+                            <div class="border-top1"></div>
+                            <h2 class="text-center margin-top30 margin-bottom20 text-center">Features</h2>
+                            <div class="bw-horz-tabs-data font16">
+                                <ul class="bw-tabs-data">
+                                    <li>
+                                        <div class="text-light-grey">Speedometer</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Speedometer) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Fuel Guage</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelGauge) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Tachometer Type</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Tachometer) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Digital Fuel Gauge</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.DigitalFuelGauge) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Tripmeter</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Tripmeter) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Electric Start</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ElectricStart) %></div>
+                                    </li>
+                                    <div class="clear"></div>
+                                </ul>
+                                <ul class="more-features bw-tabs-data hide">
+                                    <li>
+                                        <div class="text-light-grey">Tachometer</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Tachometer) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Shift Light</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ShiftLight) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">No. of Tripmeters</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.NoOfTripmeters) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Tripmeter Type</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TripmeterType) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Low Fuel Indicator</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.LowFuelIndicator) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Low Oil Indicator</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.LowOilIndicator) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Low Battery Indicator</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.LowBatteryIndicator) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Pillion Seat</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionSeat) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Pillion Footrest</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionFootrest) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Pillion Backrest</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionBackrest) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Pillion Grabrail</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PillionGrabrail) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Stand Alarm</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.StandAlarm) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Stepped Seat</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.SteppedSeat) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Antilock Braking System</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.AntilockBrakingSystem) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Killswitch</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Killswitch) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Clock</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Clock) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Electric System</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.ElectricSystem) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Battery</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Battery) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Headlight Type</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.HeadlightType) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Headlight Bulb</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.HeadlightBulbType) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Brake/Tail Light</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Brake_Tail_Light) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Turn Signal</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.TurnSignal) %></div>
+                                    </li>
+                                    <li>
+                                        <div class="text-light-grey">Pass Light</div>
+                                        <div class="text-bold"><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.PassLight) %></div>
+                                    </li>
+                                    <div class="clear"></div>
+                                </ul>
+                            </div>
+                            <div class="or-text">
+                                <div class="more-features-btn"><span>+</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- variant code starts here -->
+                    <div class="grid-12">
+                        <div class="bw-tabs-data <%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? "" : "hide" %>" id="variants">
+                            <h2 class="text-center margin-top30 margin-bottom20 text-center">Variants</h2>
+                            <asp:Repeater ID="rptVarients" runat="server" OnItemDataBound="rptVarients_ItemDataBound2">
+                                <ItemTemplate>
+                                    <div>
+                                        <div class="border-solid content-inner-block-10 margin-bottom20">
+                                            <div class="grid-8 alpha">
+                                                <h3 class="font16 margin-bottom10"><%# DataBinder.Eval(Container.DataItem, "VersionName") %></h3>
+                                                <%--<p class="font14">220 CC, 38 Kmpl, 103 bhp @ 11000 rpm</p>--%>
+                                                <p class="font14"><%# Bikewale.Utility.FormatMinSpecs.GetMinVersionSpecs(Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AlloyWheels")), Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "ElectricStart")), Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "AntilockBrakingSystem")), Convert.ToString(DataBinder.Eval(Container.DataItem, "BrakeType"))) %></p>
+                                            </div>
+                                            <div class="grid-4 alpha omega">
+                                                <p class="font16 margin-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>
+                                                    <span id="<%# "priced_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
+                                                    <asp:Label Text='<%#Eval("Price") %>' ID="txtComment" runat="server"></asp:Label>
+                                                    </span></p>
+                                                <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
+                                                    Ex-showroom,
+                                                 <%= Bikewale.Common.Configuration.GetDefaultCityName %></p>
+                                                <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                    <!-- colours code starts here -->
+                    <div class="grid-12">
+                        <div class="colours-wrap margin-bottom20 <%= modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0 ? "" : "hide" %>">
+                            <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
+                            <div class="jcarousel-wrapper">
+                                <div class="jcarousel">
+                                    <ul class="text-center">
+                                        <asp:Repeater ID="rptColors" runat="server">
+                                            <ItemTemplate>
+                                                <li class="available-colors">
+                                                    <div class="color-box" style="background-color: #<%# DataBinder.Eval(Container.DataItem, "HexCode")%>;"></div>
+                                                    <p class="font16 text-medium-grey"><%# DataBinder.Eval(Container.DataItem, "ColorName") %></p>
+                                                </li>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                    </ul>
+                                </div>
+                                <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
+                                <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
+                                <p class="text-center jcarousel-pagination"></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <% } %>
+        <% 
+            if (ctrlUserReviews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isUserReviewZero = false;
+                isUserReviewActive = true;
+
+            }
+            if (ctrlExpertReviews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isExpertReviewZero = false;
+                if (!isUserReviewActive)
+                {
+                    isExpertReviewActive = true;
+                }
+            }
+            if (ctrlNews.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isNewsZero = false;
+                if (!isUserReviewActive && !isExpertReviewActive)
+                {
+                    isNewsActive = true;
+                }
+            }
+            if (ctrlVideos.FetchedRecordsCount > 0)
+            {
+                reviewTabsCnt++;
+                isVideoZero = false;
+                if (!isUserReviewActive && !isExpertReviewActive && !isNewsActive)
+                {
+                    isVideoActive = true;
+                }
+            }
+        %>
+        <section class="container <%= reviewTabsCnt == 0 ? "hide" : "" %>">
+            <!--  News, reviews and videos code starts here -->
+            <div class="container padding-bottom10">
+                <div class="grid-12 alpha omega">
+                    <h2 class="text-center margin-top30 margin-bottom20">Latest Updates</h2>
+                    <div class="bw-tabs-panel">
+                        <div class="bw-tabs bw-tabs-flex margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
+                            <ul>
+
+                                <li style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%=isUserReviewActive ? "active" : "hide" %>" data-tabs="ctrlUserReviews">User Reviews</li>
+                                <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%=isExpertReviewActive ? "active" : "hide" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
+                                <li style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%= isNewsActive ? "active" : "hide" %>" data-tabs="ctrlNews">News</li>
+                                <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%= isVideoActive ? "active" : "hide" %>" data-tabs="ctrlVideos">Videos</li>
+
+                            </ul>
+                        </div>
+                        <div class="grid-12">
+                            <%if (!isUserReviewZero)
+                              { %>
+                            <BW:UserReviews runat="server" ID="ctrlUserReviews" />
+                            <% } %>
+                            <%if (!isExpertReviewZero)
+                              { %>
+                            <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
+                            <% } %>
+                            <%if (!isNewsZero)
+                              { %>
+                            <BW:News runat="server" ID="ctrlNews" />
+                            <% } %>
+                            <%if (!isVideoZero)
+                              { %>
+                            <BW:Videos runat="server" ID="ctrlVideos" />
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
+            <div class="container margin-bottom30">
+                <div class="grid-12">
+                    <!-- Most Popular Bikes Starts here-->
+                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> alternatives</h2>
+
+                    <div class="jcarousel-wrapper discover-bike-carousel alternatives-carousel">
+                        <div class="jcarousel">
+                            <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
+                        </div>
+                        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
+                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
+                        <p class="text-center jcarousel-pagination"></p>
+                    </div>
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
+        <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- all other js plugins -->
+        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript">
+            vmModelId = '<%= modelId%>';
+            clientIP = '<%= clientIP%>';
+            cityId = '<%= cityId%>';
+            isUsed = '<%= !modelPage.ModelDetails.New %>';
+            var pageUrl = "<%= canonical %>";
+            var myBikeName = "<%= this.bikeName %>";
+            ga_pg_id = '2';
+            if ('<%=isUserReviewActive%>' == "False") $("#ctrlUserReviews").addClass("hide");
+            if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
+            if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+        </script>
+
+    </form>
+</body>
+</html>

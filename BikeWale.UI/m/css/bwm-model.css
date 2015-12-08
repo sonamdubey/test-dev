@@ -29,6 +29,15 @@
     border: 1px solid #82888b;
 }
 
+.sort-div { height:40px; padding:9px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
+.sort-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:100%; }
+.sort-selection-div { background:#fff; border:1px solid #ccc; position:absolute; z-index:2; left:10px; right:0; }
+.sort-selection-div ul li { margin-bottom:5px; margin-top:5px; font-size:14px; }
+.sort-selection-div ul li.selected { font-weight:bold; }
+.sort-selection-div ul li input{background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px; font-family: 'Open Sans', sans-serif, Arial;}
+.sort-selection-div ul li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff; }
+.viewMoreOffersBtn { cursor: pointer; color: #0288d1; margin-left:25px; }
+.viewBreakupText { cursor: pointer; color: #0288d1; margin-left:5px; margin-top: 9px; }
 
 .city-list-container { width:100%; }
 .city-list-container ul { overflow: auto; }

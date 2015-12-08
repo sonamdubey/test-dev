@@ -13,7 +13,7 @@
 .unveil-offer-btn-container input[type='button'] { position:absolute; top:40%; left:28%; }
 .offer-error-text { color:#f00; }
 
-.city-area-select-container { width:100%; min-height:100px; }
+.city-area-select-container { width:100%; }
 .city-area-select-container select { border:1px solid #ccc; width:190px; padding:10px; font-size:14px; }
 
 .city-edit-btn { color:#0288d1; }

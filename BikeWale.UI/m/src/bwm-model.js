@@ -191,6 +191,7 @@ $(document).ready(function () {
     setImageDetails(imgTitle, imgIndex);
 });
 
+
 function getImageNextIndex() {
     var imgIndexA = $(".carousel-navigation-photos ul li.active").next();
     var imgIndex = imgIndexA.index() + 1;
@@ -552,8 +553,8 @@ function CustomerModel() {
 function InitVM(cityId) {
     viewModel = new pqViewModel(vmModelId, cityId);
     modelViewModel = viewModel;
-    ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
-    viewModel.LoadCity();
+    //ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
+    //viewModel.LoadCity();
 }
 
 function loadCity(vm) {
@@ -849,14 +850,14 @@ $(document).ready(function () {
             $(".model-about-main").hide();
             $(".model-about-more-desc").show();
             var a = $(this).find("span");
-            a.text(a.text() === "more" ? "less" : "more");
+            a.text(a.text() === "full story" ? "less" : "full story");
             $(this).addClass("open");
         }
         else if ($(this).hasClass("open")) {
             $(".model-about-main").show();
             $(".model-about-more-desc").hide();
             var a = $(this).find("span");
-            a.text(a.text() === "more" ? "less" : "more");
+            a.text(a.text() === "full story" ? "less" : "full story");
             $(this).removeClass("open");
         }
 
@@ -1363,6 +1364,11 @@ var validateLastName = function (cityArea) {
     return isValid;
 }
 
+$(".viewMoreOffersBtn").on("click", function () {
+    $(this).hide();
+    $(this).prev("ul.moreOffersList").slideToggle();
+});
+
 var bodHt, footerHt, scrollPosition;
 $(window).scroll(function () {
     bodHt = $('body').height();
@@ -1372,4 +1378,45 @@ $(window).scroll(function () {
         $('.float-button').removeClass('float-fixed');
     else
         $('.float-button').addClass('float-fixed');
+});
+
+var sortByDiv = $(".sort-div"),
+    sortListDiv = $(".sort-selection-div"),
+    sortCriteria = $('#sort'),
+    sortByDiv = $(".sort-div"),
+    sortListDiv = $(".sort-selection-div"),
+    sortListLI = $(".sort-selection-div ul li");
+
+sortByDiv.click(function () {
+    if (!sortByDiv.hasClass("open"))
+        $.sortChangeDown(sortByDiv);
+    else
+        $.sortChangeUp(sortByDiv);
+});
+
+$.sortChangeDown = function (sortByDiv) {
+    sortByDiv.addClass("open");
+    sortListDiv.show();
+};
+
+$.sortChangeUp = function (sortByDiv) {
+    sortByDiv.removeClass("open");
+    sortListDiv.slideUp();
+};
+$("input[name*='btnVariant']").on("click", function () {
+    $('#hdnVariant').val($(this).attr('title'));
+});
+
+$("#viewBreakupText").on('click', function (e) {
+    $("div#breakupPopUpContainer").show();
+    $(".blackOut-window").show();
+});
+$(".breakupCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+    $("div#breakupPopUpContainer").hide();
+    $(".blackOut-window").hide();
+});
+
+$(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+    $("div#termsPopUpContainer").hide();
+    $(".blackOut-window").hide();
 });

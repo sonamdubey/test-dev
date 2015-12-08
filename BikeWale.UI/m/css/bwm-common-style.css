@@ -423,7 +423,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .text-bold { font-weight: bold; }
 .text-unbold { font-weight: normal; }
 .text-italic { font-style: italic; }
-.text-light-grey { color: #a8afb3; }
+.text-light-grey { color: #82888b; }
 .text-medium-grey { color: #82888b; }
 .text-grey { color: #4d5057; }
 .text-dark-grey { color: #2a2a2a; }
@@ -601,6 +601,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .border-solid-right { border-right: 1px solid #ccc; }
 .border-solid-top { border-top: 1px solid #ccc; }
 .border-solid-bottom { border-bottom: 1px solid #ccc; }
+
+.border-light-bottom { border-bottom: 1px solid #f4f4f4; }
 
 .cur-pointer { cursor: pointer; }
 .cur-default { cursor: default; }
