@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App\AppVersion.cs" />
+    <Compile Include="App\AppVersionMessageCode.cs" />
     <Compile Include="AutoComplete\BikeList.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionList.cs" />
