@@ -71,7 +71,27 @@ namespace Bikewale.Service.Controllers.CMS
                     objRecentArticles.Clear();
                     objRecentArticles = null;
 
-                    objCMSRArticles.ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
+                    foreach (var article in objCMSRArticles)
+                    {
+                        EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
+                        switch (contentType)
+                        {
+                            case EnumCMSContentType.News:
+                                article.ShareUrl = _cwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                                break;
+                            case EnumCMSContentType.Features:
+                                article.ShareUrl = _cwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
+                                break;
+                            case EnumCMSContentType.RoadTest:
+                                article.ShareUrl = _cwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                                break;
+                            default:
+                                break;
+                        }
+                        article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+                    }
+
+                   // objCMSRArticles.ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
 
                     return Ok(objCMSRArticles);
                 }
@@ -132,7 +152,27 @@ namespace Bikewale.Service.Controllers.CMS
                     objRecentArticles.Clear();
                     objRecentArticles = null;
 
-                    objCMSRArticles.ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
+                    foreach (var article in objCMSRArticles)
+                    {
+                        EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
+                        switch (contentType)
+                        {
+                            case EnumCMSContentType.News:
+                                article.ShareUrl = _cwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                                break;
+                            case EnumCMSContentType.Features:
+                                article.ShareUrl = _cwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
+                                break;
+                            case EnumCMSContentType.RoadTest:
+                                article.ShareUrl = _cwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                                break;
+                            default:
+                                break;
+                        }
+                        article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+                    }
+
+                    //objCMSRArticles.ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
 
                     return Ok(objCMSRArticles);
                 }
@@ -279,7 +319,27 @@ namespace Bikewale.Service.Controllers.CMS
                         objFeaturedArticles.Articles = null; 
                     }
 
-                    objCMSFArticles.Articles.ToList().ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
+                    foreach (var article in objCMSFArticles.Articles)
+                    {
+                        EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
+                        switch (contentType)
+                        {
+                            case EnumCMSContentType.News:
+                                article.ShareUrl = _cwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                                break;
+                            case EnumCMSContentType.Features:
+                                article.ShareUrl = _cwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
+                                break;
+                            case EnumCMSContentType.RoadTest:
+                                article.ShareUrl = _cwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                                break;
+                            default:
+                                break;
+                        }
+                        article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+                    }
+
+                   // objCMSFArticles.Articles.ToList().ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
 
                     return Ok(objCMSFArticles);
 
