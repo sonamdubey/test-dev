@@ -20,5 +20,9 @@ namespace Bikewale.DTO.App
         public bool IsSupported { get; set; }
         [JsonProperty("isLatest")]
         public bool IsLatest { get; set; }
+        [JsonProperty("message")]
+        public string Message { get; set; }
+        [JsonProperty("code")]
+        public AppVersionMessageCode Code { get; set; }
     }
 }
