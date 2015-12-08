@@ -182,7 +182,7 @@ namespace Bikewale.Notifications
             }
             catch (Exception err)
             {
-                objTrace.Trace.Warn("Notifications.SendMails ConfigureMailSettings : " + err.Message);
+                //objTrace.Trace.Warn("Notifications.SendMails ConfigureMailSettings : " + err.Message);
                 //ErrorClass objErr = new ErrorClass(err, "Notifications.SendMails ConfigureMailSettings");
                 //objErr.SendMail();
             }
