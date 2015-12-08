@@ -52,7 +52,7 @@ namespace Bikewale.Mobile.New
 
         static BikeModels()
         {
-            isManufacturer = (ConfigurationManager.AppSettings["TVSManufacturerId"] != "0") ? true : false;
+            //isManufacturer = (ConfigurationManager.AppSettings["TVSManufacturerId"] != "0") ? true : false;
         }
 
         protected void Page_Load(object sender, EventArgs e)

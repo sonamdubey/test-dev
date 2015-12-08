@@ -341,13 +341,11 @@ function pqViewModel(modelId, cityId) {
     };
 
     self.IsValidManufacturer = ko.computed(function () {
-        if (self.selectedModel() == 395)
-            if (self.selectedCity() != 1 && self.selectedCity() != 12 && self.selectedCity() != 2)
-                if (self.priceQuote() && !self.priceQuote().IsDealerPriceAvailable && self.priceQuote().bwPriceQuote.onRoadPrice > 0)
-                    return true;
+        if (self.priceQuote() && !self.priceQuote().IsDealerPriceAvailable && self.priceQuote().bwPriceQuote.onRoadPrice > 0) {
+            return true;
+        }
         return false;
-
-    }, this);
+     });
 
     self.captureLead = ko.computed(function () {
         state = false;
