@@ -25,8 +25,13 @@
         padding: 3px 0 3px 10px;
     }
 
-    #get-pq-new select, #get-pq-new textarea { width:170px; }
-    #div_GetPQ ul li { cursor:pointer; }
+    #get-pq-new select, #get-pq-new textarea {
+        width: 170px;
+    }
+
+    #div_GetPQ ul li {
+        cursor: pointer;
+    }
 </style>
 <div class="main-container">
     <div class="container_12">
@@ -77,7 +82,7 @@
                                                 <b>Mobile Number<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:textbox id="txtMobile" MaxLength="10" runat="server"></asp:textbox>
+                                                <asp:textbox id="txtMobile" maxlength="10" runat="server"></asp:textbox>
                                                 <span id="spnMobile" class="error"></span>
                                             </td>
                                         </tr>
@@ -135,7 +140,7 @@
                                                 <b>Pincode<span class="error">*</span></b>
                                             </td>
                                             <td>
-                                                <asp:textbox id="txtPincode" runat="server" MaxLength="6"></asp:textbox>
+                                                <asp:textbox id="txtPincode" runat="server" maxlength="6"></asp:textbox>
                                                 <span id="spnPincode" class="error"></span>
                                             </td>
                                         </tr>
@@ -172,7 +177,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td colspan="2">To complete your offer claim, please send a scanned copy / photograph of the dealer invoice to <a href="mailto:contact@bikewale.com">contact@bikewale.com</a> to verify that the bike has been delivered to you.</td>                                            
+                                            <td colspan="2">To complete your offer claim, please send a scanned copy / photograph of the dealer invoice to <a href="mailto:contact@bikewale.com">contact@bikewale.com</a> to verify that the bike has been delivered to you.</td>
                                         </tr>
                                         <tr>
                                             <td>&nbsp;</td>
@@ -243,7 +248,7 @@
         var deliveryDate = $("#txtPreferredDate").val();
         var dealerName = $("#txtdealerName").val();
         var dealerAddress = $("#txtDealerAddress").val();
-       // var selHelmet = $("#hdnSelHelmet").val();
+        // var selHelmet = $("#hdnSelHelmet").val();
 
         var pincodeReg = /^\d{6}$/;
 
@@ -418,6 +423,10 @@
 
 </script>
 <style type="text/css">
-    .ui-datepicker-trigger { position:relative; top:6px; left:4px; }
+    .ui-datepicker-trigger {
+        position: relative;
+        top: 6px;
+        left: 4px;
+    }
 </style>
 <!-- #include file="/includes/footerInner.aspx" -->

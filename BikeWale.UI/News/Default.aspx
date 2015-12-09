@@ -1,19 +1,20 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.News.Default" Trace="false" EnableViewState="false" Async="true" %>
-<%@ Import NameSpace="Bikewale.Common" %>
-<%@ Register TagPrefix="RP" TagName="RepeaterPager" src="/News/RepeaterPagerNews.ascx" %>
+
+<%@ Import Namespace="Bikewale.Common" %>
+<%@ Register TagPrefix="RP" TagName="RepeaterPager" Src="/News/RepeaterPagerNews.ascx" %>
 <%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="/controls/LinkPagerControl.ascx" %>
 <%
-    title 			= "Bike News - Latest Indian Bike News & Views | BikeWale";
-	description 	= "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
-	keywords		= "news, bike news, auto news, latest bike news, indian bike news, bike news of india";
-    canonical       = "http://www.bikewale.com/news/";
-    prevPageUrl     = prevUrl;
-    nextPageUrl     = nextUrl;
-    alternate       =  "http://www.bikewale.com/m/news/";
-    AdId="1395995626568";
-    AdPath="/1017752/BikeWale_News_HomePage_";
+    title = "Bike News - Latest Indian Bike News & Views | BikeWale";
+    description = "Latest news updates on Indian bikes industry, expert views and interviews exclusively on BikeWale.";
+    keywords = "news, bike news, auto news, latest bike news, indian bike news, bike news of india";
+    canonical = "http://www.bikewale.com/news/";
+    prevPageUrl = prevUrl;
+    nextPageUrl = nextUrl;
+    alternate = "http://www.bikewale.com/m/news/";
+    AdId = "1395995626568";
+    AdPath = "/1017752/BikeWale_News_HomePage_";
 %>
 <!-- #include file="/includes/headnews.aspx" -->
 <script type="text/javascript">
@@ -28,11 +29,12 @@
             <li><a href="/">Home</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>News</strong></li>
-        </ul><div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
     </div>
-    <div id="content" class="grid_8 margin-top10">        
-        <h1 class="black-text">Bike News <span>Latest Indian Bikes News and Views</span></h1>        
-        <asp:Repeater ID="rptNews" runat="server">
+    <div id="content" class="grid_8 margin-top10">
+        <h1 class="black-text">Bike News <span>Latest Indian Bikes News and Views</span></h1>
+        <asp:repeater id="rptNews" runat="server">
 				<itemtemplate>
 					<div id='post-<%# Eval("BasicId") %>' class="margin-bottom15">
 						<div class="anchor-title">
@@ -65,9 +67,9 @@
 					</div>
                     <div class="sept-dashed margin-bottom15"></div>
 				</itemtemplate>
-			</asp:Repeater>		  		
-        <BikeWale:RepeaterPager id="linkPager" runat="server"/>       
-	</div>
+			</asp:repeater>
+        <BikeWale:RepeaterPager ID="linkPager" runat="server" />
+    </div>
     <div class="grid_4">
         <%--<div class="margin-top15">
             <!-- BikeWale_News/BikeWale_News_300x250 -->
@@ -75,17 +77,20 @@
         </div>--%>
         <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top15">
             <BP:InstantBikePrice runat="server" ID="InstantBikePrice" />
-        </div>        
+        </div>
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20">
             <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
-        </div>  
-        <%--<div class="margin-top15">
-            <!-- BikeWale_News/BikeWale_News_300x250 -->
+        </div>
+        <div>
+            <%--    <!-- BikeWale_News/BikeWale_News_300x250 -->--%>
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>--%>
-    </div>  
+        </div>
+    </div>
 </div>
 <script language="javascript">
     //$("a[rel='slide']").colorbox({ width: "700px", height: "500px" });
 </script>
+
+
+
 <!-- #include file="/includes/footerInner.aspx" -->

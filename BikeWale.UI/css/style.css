@@ -26,6 +26,7 @@ select.brand:hover, select.small-brand:hover, select:hover{border:1px solid #9d9
 .city-code {width:50px!important;}
 .container_12 input[type="text"].yearField, .container_12 select.monthField, .container_12 select.dayField { width: 120px; }
 .container_12 .buttons input[type="submit"] { color:#fff; }
+.container_12 { margin-top: 15px; }
 .text_white { color:#fff !important; }
 /*
 #txtCwi { border:1px solid #ccc; padding:5px; }

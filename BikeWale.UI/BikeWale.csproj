@@ -1207,12 +1207,15 @@
   <ItemGroup>
     <Content Include=".htaccess" />
     <Content Include="AboutUs.aspx" />
+    <Content Include="ads\Ad300x250_mobile.aspx" />
     <Content Include="ads\Ad300x250.aspx" />
     <Content Include="ads\Ad300x250BTF.aspx" />
     <Content Include="ads\Ad320x50_Bottom_mobile.aspx" />
     <Content Include="ads\Ad320x50_mobile.aspx" />
     <Content Include="ads\Ad970x90.aspx" />
     <Content Include="ads\Ad728x90.aspx" />
+    <Content Include="ads\Ad970x90_BTF.aspx" />
+    <Content Include="ads\Ad970x90_Bottom.aspx" />
     <Content Include="adtest\Default.aspx" />
     <Content Include="AdvertiseWithUs.aspx" />
     <Content Include="BikeBooking\BillDeskResponse.aspx" />
@@ -1990,6 +1993,8 @@
     <Content Include="images\user-profile-banner.jpg" />
     <Content Include="images\v-seperator.png" />
     <Content Include="images\white-shadow.png" />
+    <Content Include="ads\Ad976x400_First.aspx" />
+    <Content Include="ads\Ad976x400_Second.aspx" />
     <Content Include="includes\footer.aspx" />
     <Content Include="includes\footerBW.aspx" />
     <Content Include="includes\footerBW_Mobile.aspx" />

@@ -1,10 +1,12 @@
 ﻿<%@ Page Language="C#" %>
+
 <%
-    title = "EMI Calculator | Calculate Bike Loan EMI - BikeWale";       
+    title = "EMI Calculator | Calculate Bike Loan EMI - BikeWale";
     keywords = "calculate emi, emi calculator, calculate loan, loan calculator, indian emi calculator, used Bike emi, new Bike emi, BMW, Chevrolet, Daewoo, Fiat, Ford, Hindustan Motors, Honda, Hyundai, Mahindra, Maruti, Mercedes-Benz, Mitsubishi, Opel, Premier, Skoda, Tata, Toyota";
     description = "EMI Calculator for new and used Bike loans. Calculate accurate Bike loan emi in advanced and arrears finance modes.";
     AdId = "1395991249804";
     AdPath = "/1017752/BikeWale_EMICalculator_";
+    
 %>
 <!-- #include file="/includes/headTools.aspx" -->
 <script type="text/javascript" src="/src/calculateemi.js?v=1.0"></script>
@@ -55,7 +57,8 @@
             <li><a href="/finance/emicalculator.aspx">Tools</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>EMI Calculator</strong></li>
-        </ul><div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
     </div>
     <div class="grid_8 margin-top10">
         <div id="ncd_bikes_testdrive">
@@ -66,12 +69,12 @@
                     <tr>
                         <td class="td-width">Loan Amount (&#8377;)</td>
                         <td>
-                            <input style="text-align: right; width:160px; height:40px;" type="text" maxlength="10" id="txtloanamount" size="10" value="100000" runat="server" /></td>
+                            <input style="text-align: right; width: 160px; height: 40px;" type="text" maxlength="10" id="txtloanamount" size="10" value="100000" runat="server" /></td>
                     </tr>
                     <tr>
                         <td>Rate Of Interest (<strong>% </strong>)</td>
                         <td>
-                            <input style="text-align: right; width:160px; height:40px;" id="interestRate" type="text" maxlength="5" value="12.5" size="5" runat="server" /></td>
+                            <input style="text-align: right; width: 160px; height: 40px;" id="interestRate" type="text" maxlength="5" value="12.5" size="5" runat="server" /></td>
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
@@ -83,8 +86,8 @@
                     </tr>
                     <tr>
                         <td>&nbsp;</td>
-                        <td>                         
-                            <input id="btnCalcEmi" class="buttons text_white" type="submit" title="Calculate EMI" name="Button" value="Calculate EMI" />                        
+                        <td>
+                            <input id="btnCalcEmi" class="buttons text_white" type="submit" title="Calculate EMI" name="Button" value="Calculate EMI" />
                         </td>
                     </tr>
                 </table>
@@ -152,7 +155,6 @@
         </div>--%>
     </div>
 </div>
-</form>
 
 <script type="text/javascript">
     if (document.getElementById("txtloanamount").value != '') {
@@ -183,7 +185,7 @@
             var lamt = $("#txtLoanAmount").val();
             window.location = "/finance/emicalculator.aspx?la=" + lamt;
         }
-    });    
+    });
 </script>
 <!-- #include file="/includes/footerInner.aspx" -->
 

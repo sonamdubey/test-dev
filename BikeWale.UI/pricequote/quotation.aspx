@@ -20,31 +20,114 @@
 <!-- #include file="/includes/headscript.aspx" -->
 
 <style type="text/css">
-    #PQImageVariantContainer img { width:100%; }
-    .PQDetailsTableTitle { color:#82888b; }
-    .PQDetailsTableAmount, .PQOnRoadPrice { color:#4d5057; }
-    .PQOffersUL { margin-left:18px; list-style:disc; }
-    .PQOffersUL li { padding-bottom:15px; }
-    .pqVariants .form-control-box { width:92%; }
-    .form-control-box select.form-control { color:#4d5057; }
+    #PQImageVariantContainer img {
+        width: 100%;
+    }
 
-    .jcarousel-wrapper.alternatives-carousel { width: 974px; }
-    .alternatives-carousel .jcarousel li {height: auto; margin-right:18px;}
-    .alternatives-carousel .jcarousel li.front { border:none;}
-    .alternative-section .jcarousel-control-left { left:-24px; }
-    .alternative-section .jcarousel-control-right { right:-24px; }
-    .alternative-section .jcarousel-control-left, .alternative-section .jcarousel-control-right { top:50%; }
-    .newBikes-latest-updates-container .grid-4 { padding-left:10px;}
-    .available-colors { display:inline-block; width:150px; text-align:center; margin-bottom: 20px; padding:0 5px; vertical-align: top; }
-    .available-colors .color-box {width:60px; height:60px; margin:0 auto 15px; border-radius:3px; background:#f00; border:1px solid #ccc;}
+    .PQDetailsTableTitle {
+        color: #82888b;
+    }
 
-    .upcoming-brand-bikes-container li.front { border:none;}
-    .upcoming-brand-bikes-container li .imageWrapper { width:303px; height:174px; }
-    .upcoming-brand-bikes-container li .imageWrapper a { width:303px; height:174px; display: block; background: url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center; }
-    .upcoming-brand-bikes-container li { width:303px; height:auto; margin-right: 12px; }
-    .upcoming-brand-bikes-container li .imageWrapper a img { width:303px; height:174px; }
-    .upcoming-brand-bikes-container .jcarousel { width: 934px; overflow: hidden; left: 20px; }
+    .PQDetailsTableAmount, .PQOnRoadPrice {
+        color: #4d5057;
+    }
 
+    .PQOffersUL {
+        margin-left: 18px;
+        list-style: disc;
+    }
+
+        .PQOffersUL li {
+            padding-bottom: 15px;
+        }
+
+    .pqVariants .form-control-box {
+        width: 92%;
+    }
+
+    .form-control-box select.form-control {
+        color: #4d5057;
+    }
+
+    .jcarousel-wrapper.alternatives-carousel {
+        width: 974px;
+    }
+
+    .alternatives-carousel .jcarousel li {
+        height: auto;
+        margin-right: 18px;
+    }
+
+        .alternatives-carousel .jcarousel li.front {
+            border: none;
+        }
+
+    .alternative-section .jcarousel-control-left {
+        left: -24px;
+    }
+
+    .alternative-section .jcarousel-control-right {
+        right: -24px;
+    }
+
+    .alternative-section .jcarousel-control-left, .alternative-section .jcarousel-control-right {
+        top: 50%;
+    }
+
+    .newBikes-latest-updates-container .grid-4 {
+        padding-left: 10px;
+    }
+
+    .available-colors {
+        display: inline-block;
+        width: 150px;
+        text-align: center;
+        margin-bottom: 20px;
+        padding: 0 5px;
+        vertical-align: top;
+    }
+
+        .available-colors .color-box {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            border-radius: 3px;
+            background: #f00;
+            border: 1px solid #ccc;
+        }
+
+    .upcoming-brand-bikes-container li.front {
+        border: none;
+    }
+
+    .upcoming-brand-bikes-container li .imageWrapper {
+        width: 303px;
+        height: 174px;
+    }
+
+        .upcoming-brand-bikes-container li .imageWrapper a {
+            width: 303px;
+            height: 174px;
+            display: block;
+            background: url('http://img.aeplcdn.com/bikewaleimg/images/loader.gif') no-repeat center center;
+        }
+
+    .upcoming-brand-bikes-container li {
+        width: 303px;
+        height: auto;
+        margin-right: 12px;
+    }
+
+        .upcoming-brand-bikes-container li .imageWrapper a img {
+            width: 303px;
+            height: 174px;
+        }
+
+    .upcoming-brand-bikes-container .jcarousel {
+        width: 934px;
+        overflow: hidden;
+        left: 20px;
+    }
 </style>
 </head>
 <body class="bg-light-grey">
@@ -85,14 +168,15 @@
                 </div>
                 <div class="grid-5 padding-right20" id="PQDetailsContainer">
                     <p class="font20 text-bold margin-bottom20"><%= mmv.BikeName %></p>
-                    <%if (objQuotation != null && objQuotation.ExShowroomPrice > 0) { %>
+                    <%if (objQuotation != null && objQuotation.ExShowroomPrice > 0)
+                      { %>
                     <p class="font16 margin-bottom15">On-road price in 
                         <span><%= (String.IsNullOrEmpty(objQuotation.Area))?objQuotation.City:(objQuotation.Area + ", " + objQuotation.City) %></span>
                     </p>
                     <% } %>
                     <div>
                         <%if (objQuotation != null && objQuotation.ExShowroomPrice > 0)
-                            {%>
+                          {%>
                             <table class="font14" cellspacing="0" cellpadding="0" width="100%" border="0">
                                 <tr>
                                     <td width:"245" class="PQDetailsTableTitle padding-bottom10">
@@ -126,7 +210,9 @@
                                     </td>
                                 </tr>	
                             </table>
-                        <%}else{ %>
+                        <%}
+                          else
+                          { %>
                         <table class="font14" cellspacing="0" cellpadding="0" width="100%" border="0">
                             <tr>
                                 <td colspan="2" style="vertical-align:central">
@@ -186,8 +272,6 @@
             <div class="clear"></div>
         </div>
     </section>
-
-
 <PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerBW.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
@@ -196,7 +280,7 @@
 
         makeMapName = '<%= mmv.MakeMappingName%>';
         modelMapName = '<%= mmv.ModelMappingName%>';
-        $("#version_" + '<%= versionId%>').html("<b>this bike</b>"); 
+        $("#version_" + '<%= versionId%>').html("<b>this bike</b>");
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': selectedModel });
     });
 

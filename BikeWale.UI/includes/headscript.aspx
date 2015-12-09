@@ -4,7 +4,12 @@
     private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "";
     private string fbTitle = "", fbImage;
     private ushort feedbackTypeId = 0;
-    private bool isHeaderFix = true, isAd970x90Shown = false;
+    private bool isHeaderFix = true,
+        isAd970x90Shown = true,
+        isAd970x90BTFShown = false,
+        isAd970x90BottomShown = true,
+        isAd976x400FirstShown = false,
+        isAd976x400SecondShown = false;
     private bool isTransparentHeader = false;  
 </script>
 
@@ -40,13 +45,26 @@
     googletag.cmd.push(function () {
         googletag.defineSlot('<%= AdPath%>728x90', [728, 90], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
         googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());                    
-        googletag.defineSlot('<%= AdPath%>300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
+        googletag.defineSlot('<%= AdPath%>300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());        
         <% if(isAd970x90Shown){ %>
-        googletag.defineSlot('<%= AdPath%>970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads()); 
+        googletag.defineSlot('/1017752/Bikewale_NewBike_970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads()); 
         <% } %>
-            <% if(!String.IsNullOrEmpty(TargetedModel)){%>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");<%}%>             
-            <% if(!String.IsNullOrEmpty(TargetedMake)){%>googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");<%}%>
-            <% if(!String.IsNullOrEmpty(TargetedModels)){%>googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels %>");<%}%>
+        <% if(isAd970x90BTFShown){ %>
+        googletag.defineSlot('<%= AdPath%>970x90_BTF', [[970, 200],[970, 150],[960, 60], [970, 66], [960, 90], [970, 60], [728, 90], [970, 90], [960, 66]], 'div-gpt-ad-<%= AdId%>-4').addService(googletag.pubads());
+        <% } %>
+        <% if(isAd970x90BottomShown){ %>
+        googletag.defineSlot('/1017752/Bikewale_NewBike_Bottom_970x90', [[970, 60], [960, 90], [970, 66], [960, 66], [728, 90], [970, 90], [950, 90], [960, 60]], 'div-gpt-ad-<%= AdId%>-5').addService(googletag.pubads());
+        <% } %>
+        <% if (isAd976x400FirstShown){ %>
+        googletag.defineSlot('<%= AdPath%>FirstSlot_976x400',[[976, 150], [976, 100], [976, 250], [976, 300], [976, 350], [976, 400], [970, 90], [976, 200]],'div-gpt-ad-<%= AdId%>-6').addService(googletag.pubads());
+        <% } %>
+        <% if (isAd976x400SecondShown) { %>
+        googletag.defineSlot('<%= AdPath%>SecondSlot_976x400',[[976, 150], [976, 100], [976, 250], [976, 300], [976, 350], [976, 400], [970, 90], [976, 200]],'div-gpt-ad-<%= AdId%>-7').addService(googletag.pubads());
+        <% } %>        
+        googletag.pubads().enableSingleRequest();
+        <% if(!String.IsNullOrEmpty(TargetedModel)){%>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");<%}%>             
+        <% if(!String.IsNullOrEmpty(TargetedMake)){%>googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");<%}%>
+        <% if(!String.IsNullOrEmpty(TargetedModels)){%>googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels %>");<%}%>
         
         googletag.pubads().collapseEmptyDivs();
         googletag.pubads().enableSingleRequest();
@@ -59,8 +77,7 @@
 <![endif]-->
 <script type="text/javascript">
     bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
-    var ga_pg_id = '0';
-    //	new\default.aspx  = 3//	new\versions.aspx = 2//	default.aspx = 1//	includes\headscript.aspx = 0
+    var ga_pg_id = '0';   
 </script>
 <!-- #include file="\includes\gacode.aspx" -->
 <script type="text/javascript">
