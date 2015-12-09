@@ -50,6 +50,7 @@ namespace Bikewale.Service.Controllers.CMS
             try
             {
                 string apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&totalrecords=" + posts;
+                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
 
                 if (categoryId == EnumCMSContentType.RoadTest)
                 {
@@ -77,13 +78,13 @@ namespace Bikewale.Service.Controllers.CMS
                         switch (contentType)
                         {
                             case EnumCMSContentType.News:
-                                article.ShareUrl = _cwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                                article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
                                 break;
                             case EnumCMSContentType.Features:
-                                article.ShareUrl = _cwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
+                                article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
                                 break;
                             case EnumCMSContentType.RoadTest:
-                                article.ShareUrl = _cwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                                article.ShareUrl = _bwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
                                 break;
                             default:
                                 break;
@@ -123,6 +124,7 @@ namespace Bikewale.Service.Controllers.CMS
             try
             {
                 string apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&totalrecords=" + posts;
+                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
 
                 if (categoryId == EnumCMSContentType.RoadTest)
                 {
@@ -158,13 +160,13 @@ namespace Bikewale.Service.Controllers.CMS
                         switch (contentType)
                         {
                             case EnumCMSContentType.News:
-                                article.ShareUrl = _cwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                                article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
                                 break;
                             case EnumCMSContentType.Features:
-                                article.ShareUrl = _cwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
+                                article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
                                 break;
                             case EnumCMSContentType.RoadTest:
-                                article.ShareUrl = _cwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                                article.ShareUrl = _bwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
                                 break;
                             default:
                                 break;
@@ -280,6 +282,7 @@ namespace Bikewale.Service.Controllers.CMS
             Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles = null;
             try
             {
+                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 int startIndex = 0, endIndex = 0;
                 _pager.GetStartEndIndex(Convert.ToInt32(posts), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
 
@@ -325,13 +328,13 @@ namespace Bikewale.Service.Controllers.CMS
                         switch (contentType)
                         {
                             case EnumCMSContentType.News:
-                                article.ShareUrl = _cwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                                article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
                                 break;
                             case EnumCMSContentType.Features:
-                                article.ShareUrl = _cwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
+                                article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
                                 break;
                             case EnumCMSContentType.RoadTest:
-                                article.ShareUrl = _cwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                                article.ShareUrl = _bwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
                                 break;
                             default:
                                 break;

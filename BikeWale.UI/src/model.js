@@ -1300,3 +1300,7 @@ function setPQUserCookie() {
     var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
     SetCookie("_PQUser", val);
 }
+
+$('#insuranceLink').on('click', function (e) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Insurance_Clicked_Model', 'lab': myBikeName + "_" + icityArea });
+});

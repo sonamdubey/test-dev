@@ -356,7 +356,7 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <a data-bind="visible: IsValidManufacturer()" style="position: relative; font-size: 12px; margin-top: 1px;" target="_blank" href="/m/insurance/" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked_Model',lab: '" + myBikeName + "_" + cityArea + "' });">
+                    <a data-bind="visible: IsValidManufacturer()" style="position: relative; font-size: 12px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">
                         Save up to 60% on insurance - PolicyBoss
                     </a>
 

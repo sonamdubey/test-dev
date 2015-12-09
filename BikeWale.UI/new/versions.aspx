@@ -463,7 +463,7 @@
                                     <!-- City/Area Select controls ends -->
                                 </div>
                                  <div class="insurance-breakup-text" data-bind="visible: IsValidManufacturer()" style="position: relative; color: #999; font-size: 12px; margin-top: 1px;">
-                                <a target="_blank" href="/insurance/" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked_Model',lab: '" + myBikeName + "_" + icityArea + "' });">
+                                <a target="_blank" id="insuranceLink" href="/insurance/" >
                                     Save up to 60% on insurance - PolicyBoss</a>
                                 </div>
                             <!-- City and Area  msgs and select controls ends  -->

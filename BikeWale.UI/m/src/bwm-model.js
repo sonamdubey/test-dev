@@ -1327,3 +1327,6 @@ var validateLastName = function (cityArea) {
     return isValid;
 }
 
+$('#insuranceLink').on('click', function (e) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Insurance_Clicked_Model', 'lab': myBikeName + "_" + cityArea });
+});
