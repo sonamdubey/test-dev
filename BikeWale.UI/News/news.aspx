@@ -86,7 +86,10 @@
         </div>--%>
     </div>    
 </div>
-</form>
+
+
+
+
 <script type="text/javascript" type="text/javascript">
     $(document).ready(function () {
         $("#btnSubmit").click(function () {

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.versions" Trace="false" %>
+
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
@@ -18,13 +19,14 @@
 
         canonical = "http://www.bikewale.com/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
         AdId = "1017752";
-        AdPath = "/1017752/Bikewale_NewBike_";        
+        AdPath = "/1017752/Bikewale_NewBike_";
         TargetedModel = modDetails.ModelName;
         fbTitle = title;
         alternate = "http://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
         isAd970x90Shown = true;
     %>
 
+    <% isAd970x90BTFShown = true; %>
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -91,7 +93,7 @@
                                                     <li>
                                                         <div class="carousel-img-container">
                                                             <span>
-                                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="" border="0"/>
+                                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="" border="0" />
                                                             </span>
                                                         </div>
                                                     </li>
@@ -120,7 +122,7 @@
                                                     <li>
                                                         <div class="carousel-nav-img-container">
                                                             <span>
-                                                            <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" border="0"/>
+                                                                <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# bikeName + ' ' + DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/loader.gif" border="0" />
                                                             </span>
                                                         </div>
                                                     </li>
@@ -130,7 +132,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <% if (modelPage.ModelDetails!=null && modelPage.ModelDetails.New)
+                            <% if (modelPage.ModelDetails != null && modelPage.ModelDetails.New)
                                { %>
                             <div class="margin-top20 <%= modelPage.ModelDetails.Futuristic ? "hide" : string.Empty %>">
                                 <% if (Convert.ToDouble(modelPage.ModelDetails.ReviewRate) > 0)
@@ -287,25 +289,25 @@
                                 <% } %>
 
                                 <div class="clear"></div>
-                            <% } %>
-                            <% if (modelPage.ModelDetails.New)
-                               { %>
-                            <!-- ko if :!popularCityClicked()-->
-                            <div id="city-list-container" class="city-list-container margin-bottom20 ">
-                                <div class="text-left margin-bottom15">
-                                    <p class="font16 offer-error">Select city for accurate on-road price and exclusive offers</p>
+                                <% } %>
+                                <% if (modelPage.ModelDetails.New)
+                                   { %>
+                                <!-- ko if :!popularCityClicked()-->
+                                <div id="city-list-container" class="city-list-container margin-bottom20 ">
+                                    <div class="text-left margin-bottom15">
+                                        <p class="font16 offer-error">Select city for accurate on-road price and exclusive offers</p>
+                                    </div>
+                                    <ul id="mainCity">
+                                        <li cityid="1"><span>Mumbai</span></li>
+                                        <li cityid="12"><span>Pune</span></li>
+                                        <li cityid="2"><span>Bangalore</span></li>
+                                        <li cityid="40"><span>Thane</span></li>
+                                        <li cityid="13"><span>Navi Mumbai</span></li>
+                                        <li class="city-other-btn"><span>Others</span></li>
+                                    </ul>
                                 </div>
-                                <ul id="mainCity">
-                                    <li cityid="1"><span>Mumbai</span></li>
-                                    <li cityid="12"><span>Pune</span></li>
-                                    <li cityid="2"><span>Bangalore</span></li>
-                                    <li cityid="40"><span>Thane</span></li>
-                                    <li cityid="13"><span>Navi Mumbai</span></li>
-                                    <li class="city-other-btn"><span>Others</span></li>
-                                </ul>
-                            </div>
-                            <!-- /ko -->
-                            <!-- City and Area  msgs and select controls starts-->
+                                <!-- /ko -->
+                                <!-- City and Area  msgs and select controls starts-->
                                 <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible: popularCityClicked()">
 
                                     <div id="locationError">
@@ -462,70 +464,74 @@
                                     </div>
                                     <!-- City/Area Select controls ends -->
                                 </div>
-                            <!-- City and Area  msgs and select controls ends  -->
-                            <div id="offersBlock" class="city-unveil-offer-container position-rel">
-                                <div class="available-offers-container content-inner-block-10">
-                                    <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
-                                    <div class="offer-list-container" id="dvAvailableOffer">
-                                        <!-- ko if:priceQuote() -->
-                                        <!-- ko if : priceQuote().IsDealerPriceAvailable  -->
-                                        <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers">
-                                            <li>
-                                                <span data-bind="text: offerText"></span>
-                                                <span class="viewterms" data-bind="visible: isOfferTerms == true, click: $root.termsConditions.bind(offerId)">View Terms</span>
-                                            </li>
+                                <!-- City and Area  msgs and select controls ends  -->
+                                <div id="offersBlock" class="city-unveil-offer-container position-rel">
+                                    <div class="available-offers-container content-inner-block-10">
+                                        <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
+                                        <div class="offer-list-container" id="dvAvailableOffer">
+                                            <!-- ko if:priceQuote() -->
+                                            <!-- ko if : priceQuote().IsDealerPriceAvailable  -->
+                                            <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length > 0, foreach: priceQuote().dealerPriceQuote.offers">
+                                                <li>
+                                                    <span data-bind="text: offerText"></span>
+                                                    <span class="viewterms" data-bind="visible: isOfferTerms == true, click: $root.termsConditions.bind(offerId)">View Terms</span>
+                                                </li>
 
-                                        </ul>
-                                        <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length == 0">
-                                            <li>No offers available</li>
-                                        </ul>
-                                        <!-- /ko -->
-                                        <!-- ko if : !priceQuote().IsDealerPriceAvailable -->
-                                        <ul>
-                                            <li data-bind="visible: areas() && areas().length > 0">Currently there are no offers in your area. We hope to serve your area soon!
-                                            </li>
-                                            <li data-bind="visible: !(areas() && areas().length > 0)">Currently there are no offers in your city. We hope to serve your city soon!
-                                            </li>
-                                        </ul>
-                                        <!-- /ko -->
-                                        <!-- /ko -->
+                                            </ul>
+                                            <ul data-bind="visible: priceQuote().dealerPriceQuote.offers.length == 0">
+                                                <li>No offers available</li>
+                                            </ul>
+                                            <!-- /ko -->
+                                            <!-- ko if : !priceQuote().IsDealerPriceAvailable -->
+                                            <ul>
+                                                <li data-bind="visible: areas() && areas().length > 0">Currently there are no offers in your area. We hope to serve your area soon!
+                                                </li>
+                                                <li data-bind="visible: !(areas() && areas().length > 0)">Currently there are no offers in your city. We hope to serve your city soon!
+                                                </li>
+                                            </ul>
+                                            <!-- /ko -->
+                                            <!-- /ko -->
+                                        </div>
+                                    </div>
+
+                                    <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
+                                        <input type="button" id="btnShowOffers" class="btn btn-orange unveil-offer-btn" value="Show Offers" />
+                                    </div>
+
+                                </div>
+                                <% } %>
+                                <% } %>
+                                <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
+                                   { %>
+                                <div class="upcoming-bike-details-container margin-top30">
+                                    <div class="upcoming-bike-price-container font28 margin-bottom20">
+                                        <span class="fa fa-rupee"></span>
+                                        <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %></span>
+                                        <span class="font30 text-black">-</span>
+                                        <span class="fa fa-rupee"></span>
+                                        <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
+                                        <span class="font12 text-light-grey default-showroom-text">Expected price</span>
+                                    </div>
+                                    <div class="upcoming-bike-date-container margin-bottom20">
+                                        <span class="font20 text-black"><%= Convert.ToDateTime(modelPage.UpcomingBike.ExpectedLaunchDate).ToString("MMM yyyy") %></span>
+                                        <span class="font12 text-light-grey">Expected launch date</span>
+                                    </div>
+                                    <div class="upcoming-bike-default-text">
+                                        <p class="font14"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
                                     </div>
                                 </div>
-
-                                <div class="unveil-offer-btn-container position-abt pos-left0 pos-top0 text-center">
-                                    <input type="button" id="btnShowOffers" class="btn btn-orange unveil-offer-btn" value="Show Offers" />
-                                </div>
-
+                                <% } %>
                             </div>
-                            <% } %>
-                            <% } %>
-                            <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
-                               { %>
-                            <div class="upcoming-bike-details-container margin-top30">
-                                <div class="upcoming-bike-price-container font28 margin-bottom20">
-                                    <span class="fa fa-rupee"></span>
-                                    <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMin)) %></span>
-                                    <span class="font30 text-black">-</span>
-                                    <span class="fa fa-rupee"></span>
-                                    <span id="bike-price" class="font30 text-black"><%= Bikewale.Utility.Format.FormatNumeric(Convert.ToString(modelPage.UpcomingBike.EstimatedPriceMax)) %></span>
-                                    <span class="font12 text-light-grey default-showroom-text">Expected price</span>
-                                </div>
-                                <div class="upcoming-bike-date-container margin-bottom20">
-                                    <span class="font20 text-black"><%= Convert.ToDateTime(modelPage.UpcomingBike.ExpectedLaunchDate).ToString("MMM yyyy") %></span>
-                                    <span class="font12 text-light-grey">Expected launch date</span>
-                                </div>
-                                <div class="upcoming-bike-default-text">
-                                    <p class="font14"><%= bikeName %> is not launched in India yet. Information on this page is tentative.</p>
-                                </div>
-                            </div>
-                            <% } %>
+                            <div class="clear"></div>
                         </div>
                         <div class="clear"></div>
                     </div>
-                        <div class="clear"></div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
             </div>
+        </section>
+        <section class="container margin-top15 margin-bottom15 text-center">
+            <!-- #include file="/ads/Ad970x90_BTF.aspx" -->
         </section>
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : string.Empty %>">
             <div id="SneakPeak" class="grid-12 margin-bottom20">
@@ -1238,8 +1244,7 @@
 
             function bindInsuranceText() {
                 icityArea = GetGlobalCityArea();
-                if (!viewModel.isDealerPQAvailable())
-                {
+                if (!viewModel.isDealerPQAvailable()) {
                     var d = $("#bw-insurance-text");
                     d.find("div.insurance-breakup-text").remove();
                     d.append(" <div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
@@ -1351,7 +1356,7 @@
 
             <% } %>
             ga_pg_id = '2';
-            var viewModel=null;
+            var viewModel = null;
             function InitVM(cityId) {
                 viewModel = new pqViewModel('<%= modelId%>', cityId);
                 modelViewModel = viewModel;
@@ -1394,7 +1399,7 @@
                 var leadMobile = bwNotify.find(".get-lead-mobile").val();
                 var regName = /^[a-zA-Z ]+$/;
                 var regEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
-                var regMobile = /^[0-9]{10}$/;                 
+                var regMobile = /^[0-9]{10}$/;
                 if (leadName.length > 0 && regName.test(leadName)) {
                     validationSuccess($(".get-lead-name"));
                     if (regEmail.test(leadEmail)) {
@@ -1410,7 +1415,7 @@
                                 else {
                                     $("#notifySubmitInfo").val("Try Again");
                                     return false;
-                                    
+
                                 }
                             });
                         }
@@ -1422,7 +1427,7 @@
                 }
                 else
                     validationError($(".get-lead-name"));
-            }); 
+            });
 
             $(".get-lead-name, .get-lead-email, .get-lead-mobile").on("focus", function () {
                 validationSuccess($(this));

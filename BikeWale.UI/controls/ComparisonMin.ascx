@@ -70,7 +70,7 @@
                             </p>
                             <div class="font16 text-light-grey">
                                 <span class="margin-right50">
-                                    <span class="fa fa-rupee"></span><span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price1").ToString()) %></span>
+                                    <span class="fa fa-rupee"></span> <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price1").ToString()) %></span>
                                 </span>
                                 <span class="fa fa-rupee"></span> <span><%# Bikewale.Utility.Format.FormatPrice(DataBinder.Eval(Container.DataItem,"Price2").ToString()) %></span>
                             </div>

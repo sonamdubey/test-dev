@@ -249,7 +249,7 @@ footer ul li a:hover { text-decoration: underline; }
 .header-landing { background: none !important; position: fixed; top: 0; right: 0; left: 0; padding: 10px 20px; z-index: 3; }
 .header-fixed-with-bg { background: rgba(51, 51, 51, 0.8); background: #333333\9; }
 .header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #333333\9; padding: 10px 20px; z-index: 3; }
-.header-fixed-inner { padding-top: 65px; }
+.header-fixed-inner { padding-top: 55px; }
 #nav, .loginPopUpWrapper { background: #fff; width:300px; position: fixed; top: 0; right: 0; bottom: 0; left: -300px; overflow-y: hidden; z-index: 10; }
 #nav:hover, .loginPopUpWrapper:hover { overflow-y: auto; }
 .navUL { padding-top: 20px; }
