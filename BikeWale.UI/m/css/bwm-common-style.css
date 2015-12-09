@@ -181,7 +181,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .bw-popup .close-btn:hover, .globalcity-close-btn.cross-lg-lgt-grey:hover, .bw-city-popup .close-btn:hover { background-position: -36px -252px; }
 ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .bw-popup .close-btn, .bw-city-popup .close-btn {width:16px; height:16px;}
-
+#popupWrapper .chosen-drop ul.chosen-results { max-height:120px }
 /* global-search-popup classes */
 .global-search-popup { position:fixed; left: 5px; top: 5px; right: 5px; z-index: 10; }
 .global-search-popup .form-control { border: none; padding: 10px 50px; }
