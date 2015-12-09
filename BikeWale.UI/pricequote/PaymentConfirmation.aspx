@@ -16,11 +16,11 @@
         }
     </style>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
-        <section class="bg-white header-fixed-inner">
+        <section class="bg-white">
             <div class="container">
                 <div class="grid-12">
                     <div class="padding-bottom15 text-center">
