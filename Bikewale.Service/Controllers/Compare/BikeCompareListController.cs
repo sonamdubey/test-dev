@@ -50,7 +50,7 @@ namespace Bikewale.Service.Controllers.Compare
             IEnumerable<TopBikeCompareBase> topBikeComapreList = null;
             try
             {
-                topBikeComapreList = _cache.CompareList(topCount);
+                topBikeComapreList = _bikeCompare.CompareList(topCount);
                 if (topBikeComapreList != null)
                 {
                     return Ok(topBikeComapreList);
