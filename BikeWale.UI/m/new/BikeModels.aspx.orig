@@ -21,8 +21,8 @@
         AdId = "1017752";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
-        Ad_300x250 = false;
-        TargetedModel = modelPage.ModelDetails.ModelName;        
+        Ad_300x250 = true;
+        TargetedModel = modelPage.ModelDetails.ModelName;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -100,7 +100,7 @@
                 </div>
                 <% if (modelPage.ModelDetails.New)
                    { %>
-                <div class="grid-12 bg-white box-shadow padding-bottom10" style="display: none" data-bind="visible: true" id="dvBikePrice">
+                <div class="grid-12 bg-white box-shadow" style="display: none" data-bind="visible: true" id="dvBikePrice">
                     <div class="bike-price-container font22 margin-bottom15">
                         <span class="fa fa-rupee"></span>
                         <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10 default-showroom-text">Ex-showroom <%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
@@ -296,7 +296,7 @@
                             </div>
 
 
-                            <%--<% if (modelId == "395" && isManufacturer)
+                            <% if (modelId == "395" && isManufacturer)
                                {%>
                             <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible: IsValidManufacturer(), event: { click: $root.notifyAvailable }" value="Contact TVS for details" />
                             <!-- Notify Availablity Popup starts here -->
@@ -337,7 +337,7 @@
                                 </div>
                             </div>
                             <!-- Notify popup ends here -->
-                            <%} %>--%>
+                            <%} %>
                         </div>
                         <!-- /ko -->
                         <div class="city-area-wrapper">
@@ -356,11 +356,7 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <a data-bind="visible: IsValidManufacturer()" style="position: relative; font-size: 12px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">
-                        Save up to 60% on insurance - PolicyBoss
-                    </a>
-
-                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" data-bind="visible: !IsValidManufacturer()">
+                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" >
                         <div class="available-offers-container content-inner-block-10">
                             <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                             <div class="offer-list-container" id="dvAvailableOffer">
@@ -435,12 +431,6 @@
                 <% } %>
             </div>
         </section>
-        <% if(Ad_300x250) { %>
-        <section class="grid-12 container box-shadow margin-bottom20 margin-top20">            
-            <!-- #include file="/ads/Ad300x250_mobile.aspx" -->            
-        </section>
-        <% } %>
-
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : "" %>">
             <div id="SneakPeak" class="container clearfix box-shadow margin-bottom20 margin-top20">
                 <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
@@ -963,25 +953,47 @@
                         </div>
                     </div>
                     <!-- colours code starts here -->
+<<<<<<< HEAD
                     <div class="grid-12">
                         <div class="colours-wrap margin-bottom20 <%= modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0 ? "" : "hide" %>">
                             <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
-                        <div class="swiper-container padding-bottom60">
-                                <div class="swiper-wrapper text-center">
+                            <div class="jcarousel-wrapper">
+                                <div class="jcarousel">
+                                    <ul class="text-center">
                                         <asp:Repeater ID="rptColors" runat="server">
                                             <ItemTemplate>
-                                            <div class="swiper-slide available-colors">
+                                                <li class="available-colors">
                                                     <div class="color-box" style="background-color: #<%# DataBinder.Eval(Container.DataItem, "HexCode")%>;"></div>
                                                     <p class="font16 text-medium-grey"><%# DataBinder.Eval(Container.DataItem, "ColorName") %></p>
-                                            </div>
+                                                </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
+                                    </ul>
                                 </div>
+                                <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
+                                <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
+                                <p class="text-center jcarousel-pagination"></p>
+=======
+                        <div class="grid-12">
+                    <div class="colours-wrap margin-bottom20 <%= modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0 ? "" : "hide" %>">
+                        <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
+                        <div class="swiper-container padding-bottom60">
+                                <div class="swiper-wrapper text-center">
+                                    <asp:Repeater ID="rptColors" runat="server">
+                                        <ItemTemplate>
+                                            <div class="swiper-slide available-colors">
+                                                <div class="color-box" style="background-color: #<%# DataBinder.Eval(Container.DataItem, "HexCode")%>;"></div>
+                                                <p class="font16 text-medium-grey"><%# DataBinder.Eval(Container.DataItem, "ColorName") %></p>
+                                            </div>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                            </div>
                             <!-- Add Pagination -->
                             <div class="swiper-pagination"></div>
                             <!-- Navigation -->
                             <div class="bwmsprite swiper-button-next hide"></div>
                             <div class="bwmsprite swiper-button-prev hide"></div>
+>>>>>>> caraousel-to-swiper-mobile
 
                             </div>
                         </div>
@@ -1118,7 +1130,7 @@
                 }
             }
 
-            <%-- <% if (modelId == "395" && isManufacturer)
+             <% if (modelId == "395" && isManufacturer)
                 {%>
             //notify availablilty 
             var bwNotify = $('#notifyAvailabilityContainer');
@@ -1191,7 +1203,7 @@
                 a.removeClass("border-red");
                 a.siblings("span, div").hide();
             };
-            <% } %>--%>
+            <% } %>
 
         </script>
 

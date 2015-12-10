@@ -407,14 +407,18 @@ $(document).ready(function () {
 	    var panelId = $(this).attr("data-tabs");
 	    panel.find(".bw-tabs-data").hide();
 	    $("#" + panelId).show();
-
 	    centerItVariableWidth($(this), '.bw-tabs');
+	    
+	    var swiperContainer = $('#' + panelId + " .swiper-container");
+	    if (swiperContainer.length > 0) {
+	        var sIndex = swiperContainer.attr('class');
+	        var regEx = /sw-([0-9]+)/i;
+	        try{
+	            var index = regEx.exec(sIndex)[1]
+	            $('.sw-' + index).data('swiper').update(true);
+	        }catch(e){console.log(e.toString())}
+	    }
 
-	    try {
-	        var panelIdCarousel = $('#' + panelId + " .jcarousel ul li");
-	    } catch (e) { }
-	    if (panelIdCarousel.length > 0)
-	        panelIdCarousel.slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
 	}); // ends
 	// Common CW select box tabs code
 	$(".bw-tabs select").change( function (){
@@ -423,76 +427,42 @@ $(document).ready(function () {
 		panel.find(".bw-tabs-data").hide();
 		$('#' + panelId).show();
 	}); // ends
-	/* jCarousel custom methods */
+
+	/* Swiper custom methods */
 	$(function () {
-	    var jcarousel = $('.jcarousel').jcarousel({
-	        vertical: false
-	    });
+
+	    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 	    
-		$('.jcarousel-control-prev').on('jcarouselcontrol:active', function () {
-			$(this).removeClass('inactive');
-		}).on('jcarouselcontrol:inactive', function () {
-			$(this).addClass('inactive');
-		}).jcarouselControl({
-			target: '-=1'
-		});
-		$('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
-			$(this).removeClass('inactive');
-		}).on('jcarouselcontrol:inactive', function () {
-			$(this).addClass('inactive');
-		}).jcarouselControl({
-			target: '+=1'
-		});
-		$('.jcarousel-pagination').on('jcarouselpagination:active', 'a', function () {
-			$(this).addClass('active');
-		}).on('jcarouselpagination:inactive', 'a', function () {
-			$(this).removeClass('active');
-		}).on('click', function (e) {
-			e.preventDefault();
-		}).jcarouselPagination({
-			item: function (page) {
-				return '<a href="#' + page + '">' + page + '</a>';
-			}
-		});
+	    $('.swiper-container:not(".noSwiper")').each(function (index, element) {
+	        $(this).addClass('sw-' + index);
+	        $('.sw-' + index).swiper({
+	            effect: 'slide',
+	            speed: 300,
+	            //autoplay: 3000,
+	            nextButton: $(this).find('.swiper-button-next'),
+	            prevButton: $(this).find('.swiper-button-prev'),
+	            pagination: $(this).find('.swiper-pagination'),
+	            slidesPerView: 'auto',
+	            paginationClickable: true,
+	            spaceBetween: 10,
+	            //freeMode: true,
+	            //freeModeSticky: true,
+	            preloadImages: false,
+	            lazyLoading: true,
+	            lazyLoadingInPrevNext: true,
+	            watchSlidesProgress: true,
+	            watchSlidesVisibility: true,
+	            onSlideChangeStart: slideChangeStart
+	        });
 
-		// Swipe handlers for mobile
-	   
-		$('.jcarousel a').on('click', function (e) {
-		    e.preventDefault();
-		    var targetHref = $(this).attr('href');
-		    if (targetHref != '' || targetHref != 'javascript:void(0);')
-		        window.open(targetHref, '_self');
-		});
-
-	    //$(".jcarousel").swipe({ fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto" });
-
-		$(".jcarousel").swipe({
-		    fingers: 'all', swipeLeft: swipe1, swipeRight: swipe1, allowPageScroll: "auto",
-		    excludedElements: "label, button, input, select, textarea, .noSwipe",
-		});
-
-
-		function swipe1(event, direction, distance, duration, fingerCount) {
-			if (direction == "left") {
-				$(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-next").click();
-			}
-			else if (direction == "right") {
-				$(this).closest('.jcarousel-wrapper').find("a.jcarousel-control-prev").click();
-			}
-		}
-
-		function applyLazyLoad() {
-		    $("img.lazy").lazyload({
-		        event: "imgLazyLoad"
-		    });
-		}
-
-		applyLazyLoad();
-		$(".jcarousel ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
-
-		$(".jcarousel").on('jcarousel:visiblein', 'li', function (event, carousel) {
-		    $(this).find("img.lazy").trigger("imgLazyLoad");
-		});
+	    });
+        
+	    //Load the visible images
+	    $(".swiper-slide-visible img,.swiper-slide-active img").each(function () {
+	        var src = $(this).attr("data-src");
+	        $(this).attr("src", src);
+	        $(this).parent().find('.swiper-lazy-preloader').remove();
+	    });
 
 	});
 	// common autocomplete data call function
@@ -686,6 +656,101 @@ $(document).ready(function () {
 
 });
 
+if ($('.swiper-wrapper iframe').length > 0 /*&& iOS != true*/) {
+
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // This function takes the existing <iframe> (and YouTube player)
+    // with id 'player1' and adds an event listener for state changes.
+    var player = new Array(), id, count, countArray = [], playerState = '';
+
+    window.onYouTubeIframeAPIReady = function () {
+        var i = 1;
+        $('.swiper-wrapper iframe').each(function () {
+            id = $(this).attr('id');
+            //console.log('ids: ' + id);
+            player[i] = new YT.Player(id, {
+                events: {
+                    'onStateChange': onPlayerStateChange,
+                    "onReady":onPlayerReady,
+                    "onError":onPlayerError
+                }
+            });
+            //console.log(player[i]);
+            i++;
+        });
+    }
+
+    function onPlayerStateChange(event) {
+        switch (event.data) {
+            case YT.PlayerState.UNSTARTED:
+                playerState = 'unstarted';
+                break;
+            case YT.PlayerState.ENDED:
+                playerState = 'ended';
+                $('.yt-iframe-preview .overlay').show();
+                break;
+            case YT.PlayerState.PLAYING:
+                playerState = 'playing';
+                break;
+            case YT.PlayerState.PAUSED:
+                $('.yt-iframe-preview .overlay').show();
+                playerState = 'paused';
+                break;
+            case YT.PlayerState.BUFFERING:
+                playerState = 'buffering';
+                break;
+            case YT.PlayerState.CUED:
+                playerState = 'cued';
+                break;
+        }
+    }
+    function onPlayerReady(event) {  }
+    function onPlayerError(event) { alert('error!'); }
+
+    var targetClick,targetOverlay;
+    $(document).on('click tap', '.swiper-slide', function (event) {
+        targetClick = $(event.target).attr('class');
+        //console.log("targetClick: " + targetClick);
+        if (targetClick == 'overlay') {
+            targetOverlay = $(this).find('span.overlay');
+            videoPlay();
+        }
+    });
+
+    $('.yt-iframe-preview').append('<span class="overlay" />');
+    function videoPlay() {
+        //console.log(targetOverlay);
+        count = targetOverlay.prev().attr('id').replace('video_', '');
+        //console.log('count: ' + count);
+        player[count].playVideo();
+        $('.swiper-slide-active .overlay').hide();
+        countArray.push(count);
+    };
+
+    function videoPause() {
+        for (var j = 0; j < countArray.length; j++) {
+            player[countArray[j]].pauseVideo();
+        }
+        $('.swiper-slide-active .overlay').show();
+        countArray = [];
+    };
+
+
+}
+
+function slideChangeStart() {
+    //console.log('slideChangeStart');
+    if (playerState == 'playing' || playerState == 'buffering') {
+        //console.log(playerState);
+        try {
+            videoPause();
+        } catch (e) { console.log(e.toString()); }
+    }
+};
 
 (function ($) {
     $.fn.hint = function (blurClass) {

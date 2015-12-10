@@ -2,16 +2,16 @@
 <div class="container">
     <div class="grid-12 <%= (FetchedRecordsCount > 0)?"":"hide" %>">
         <h2 class="text-center margin-top40 margin-bottom30"><%= FormatControlHeader() %></h2>
-        <div class="jcarousel-wrapper">
-            <div class="jcarousel">
-                <ul>
+        <div class="swiper-container padding-bottom60">
+         <div class="swiper-wrapper">
                     <asp:Repeater ID="rptPopularUsedBikes" runat="server">
                         <ItemTemplate>
-                            <li class="front">
+                            <div class="swiper-slide front">
                                 <div class="contentWrapper">
                                     <div class="imageWrapper">
                                         <a href="<%#  FormatUsedBikeUrl(DataBinder.Eval(Container.DataItem,"MakeMaskingName").ToString(), DataBinder.Eval(Container.DataItem,"CityMaskingName").ToString()) %>">
-                                            <img src="" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(), Bikewale.Utility.ImageSize._310x174) %>" title="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>" alt="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>">
+                                            <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(),DataBinder.Eval(Container.DataItem,"HostURL").ToString(), Bikewale.Utility.ImageSize._310x174) %>" title="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>" alt="<%# FormatImgAltTitle(DataBinder.Eval(Container.DataItem,"MakeName").ToString()) %>" />
+                                            <span class="swiper-lazy-preloader"></span>
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
@@ -27,14 +27,15 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </div>
                         </ItemTemplate>
                     </asp:Repeater>
-                </ul>
             </div>
-            <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-            <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-            <p class="text-center jcarousel-pagination margin-bottom30"></p>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+            <!-- Navigation -->
+            <div class="bwmsprite swiper-button-next hide"></div>
+            <div class="bwmsprite swiper-button-prev hide"></div>
         </div>
         <div class="text-center margin-bottom40">
             <a class="font16" href="<%= FormatCompleteListUrl() %>">View More used Bikes</a>
