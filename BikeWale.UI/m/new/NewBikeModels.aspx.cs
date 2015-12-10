@@ -57,7 +57,7 @@ namespace Bikewale.Mobile.New
         protected static bool isManufacturer = false;
 
         // New Model Revamp
-        protected bool isBookingAvailable, isOfferAvailable, isBikeWalePQ, isDiscontinued;
+        protected bool isBookingAvailable, isOfferAvailable, isBikeWalePQ, isDiscontinued, isAreaAvailable;
         protected Repeater rptOffers, rptMoreOffers, rptCategory, rptVariants;
         static readonly string _bwHostUrl, _PageNotFoundPath;
         protected VersionSpecifications bikeSpecs;
@@ -100,6 +100,7 @@ namespace Bikewale.Mobile.New
                 variantId = Convert.ToInt32(hdnVariant.Value);
 
             #endregion
+
             if (!IsPostBack)
             {
                 #region Do not change the sequence of these functions
@@ -352,6 +353,7 @@ namespace Bikewale.Mobile.New
             // If No then drop area cookie
             string location = String.Empty;
             var cookies = this.Context.Request.Cookies;
+            objAreaList = GetAreaForCityAndModel();
             if (cookies.AllKeys.Contains("location"))
             {
                 location = cookies["location"].Value;
@@ -373,6 +375,10 @@ namespace Bikewale.Mobile.New
                             cityName = locArray[1];
                             isCityAreaSelected = true;
                         }
+                        if (GetAreaForCityAndModel() != null)
+                        {
+                            isAreaAvailable = true;
+                        }
                     }
                     if (locArray.Length > 3 && cityId != "0")
                     {
@@ -380,6 +386,7 @@ namespace Bikewale.Mobile.New
                         objAreaList = GetAreaForCityAndModel();
                         if (objAreaList != null)
                         {
+                            isAreaAvailable = true;
                             if (!objAreaList.Areas.Any(p => p.AreaId.ToString() == areaId))
                             {
                                 areaId = "0";

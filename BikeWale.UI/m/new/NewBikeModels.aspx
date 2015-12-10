@@ -180,7 +180,7 @@
                             { %>
                             <span class="font24 text-bold"> <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(price) %></span>
                             <% } else { %>
-                             <span class="font24 text-bold">Price Unavailable</span>
+                             <span class="font20 text-bold">Price unavailable</span>
                             <%  } %>
                         </p>
                         <%if (pqOnRoad != null && price != "0")
@@ -484,7 +484,7 @@
             </div>
             <!-- floating buttons -->
             <div class="grid-12 float-button float-fixed clearfix">
-                <% if (cityId == "0" && areaId == "0")
+                <% if ((cityId == "0" && areaId == "0") || (cityId != "0" && areaId == "0" && isAreaAvailable))
                        {   %>
                 <div class="grid-12">
                     <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
@@ -1022,7 +1022,7 @@
                                             <div class="grid-4 alpha omega">
                                                 <p class="font16 margin-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>
                                                     <span id="<%# "priced_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
-                                                    <asp:Label Text='<%#Eval("Price") %>' ID="txtComment" runat="server"></asp:Label>
+                                                    <asp:Label Text='<%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %>' ID="txtComment" runat="server"></asp:Label>
                                                     </span></p>
                                                 <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
                                                     <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>,
