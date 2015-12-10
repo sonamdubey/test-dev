@@ -22,6 +22,11 @@
                         <%--<li><a href="/forums/">Forums</a></li>--%>
                         <%--<li><a href="/m/sitemap.aspx">Sitemap</a></li>--%>
                     </ul>
+                    <p class="font13 text-white margin-bottom10">Download Mobile App</p>
+                    <div class="margin-bottom15">
+                        <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DBikeWaleWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Website%2520Footer" target="_blank" class="bwsprite gplay-icon margin-right5">
+			            </a>
+                    </div>
                 </div>
                 <div class="margin-top15 margin-bottom15">
                 	<a href="/?site=desktop" target="_blank" class="text-white">View Desktop Version</a>
