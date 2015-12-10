@@ -11,7 +11,7 @@
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
-<body class="header-fixed-inner">
+<body class="header-fixed-inner" id="bookingConfig">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section>
@@ -27,7 +27,7 @@
                         <div class="clear"></div>
                     </div>
                     <h1 class="font30 text-black margin-top10">Booking configurator - 
-                	<span><%= bikeName %></span>
+                	<span data-bind="text : $root.Bike().bikeName()"></span>
                     </h1>
                 </div>
                 <div class="clear"></div>
@@ -35,14 +35,14 @@
         </section>
 
         <section>
-            <div class="container margin-bottom20 " id="bookingConfig" style="min-height: 500px;display: none;" data-bind="visible: true">
+            <div class="container margin-bottom20 "  style="min-height: 500px; display: none;" data-bind="visible: true">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20 rounded-corner2">
                         <div id="configTabsContainer" class="margin-bottom10">
                             <div class="horizontal-line position-rel margin-auto"></div>
                             <ul>
                                 <li>
-                                    <div id="customizeBikeTab" class="bike-config-part"  data-bind="click: function () { if (CurrentStep() > 1 ) CurrentStep(1); }, css: (CurrentStep() >= 1) ? 'active-tab' : ''" >
+                                    <div id="customizeBikeTab" class="bike-config-part" data-bind="click: function () { if (CurrentStep() > 1 ) CurrentStep(1); }, css: (CurrentStep() >= 1) ? 'active-tab' : ''">
                                         <p>Customize your bike</p>
                                         <div class="config-tabs-image">
                                             <span class="booking-sprite booking-config-icon " data-bind="css: (CurrentStep() == 1) ? 'customize-icon-selected' : 'booking-tick-blue'"></span>
@@ -50,7 +50,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div id="financeDetailsTab" class="bike-config-part " data-bind="click: function () { if (CurrentStep() > 2 || ActualSteps() > 1) CurrentStep(2); }, css: (CurrentStep() >= 2 || ActualSteps() > 1) ? 'active-tab' : 'disabled-tab'" >
+                                    <div id="financeDetailsTab" class="bike-config-part " data-bind="click: function () { if (CurrentStep() > 2 || ActualSteps() > 1) CurrentStep(2); }, css: (CurrentStep() >= 2 || ActualSteps() > 1) ? 'active-tab' : 'disabled-tab'">
                                         <p>Finance details</p>
                                         <div class="config-tabs-image">
                                             <span class="booking-sprite booking-config-icon " data-bind="css: (CurrentStep() == 2) ? 'finance-icon-selected' : (CurrentStep() > 2 || ActualSteps() > 1) ? 'booking-tick-blue' : 'finance-icon-grey'"></span>
@@ -58,7 +58,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div id="dealerDetailsTab" class="bike-config-part disabled-tab" data-bind="click: function () { if ((CurrentStep() > 3) || ActualSteps() > 2) CurrentStep(3); }, css: (CurrentStep() >= 3 || ActualSteps() > 2) ? 'active-tab' : 'disabled-tab'" >
+                                    <div id="dealerDetailsTab" class="bike-config-part disabled-tab" data-bind="click: function () { if ((CurrentStep() > 3) || ActualSteps() > 2) CurrentStep(3); }, css: (CurrentStep() >= 3 || ActualSteps() > 2) ? 'active-tab' : 'disabled-tab'">
                                         <p>Dealer details</p>
                                         <div class="config-tabs-image">
                                             <span class="booking-sprite booking-config-icon " data-bind="css: (CurrentStep() == 3) ? 'confirmation-icon-selected' : (CurrentStep() > 3 || ActualSteps() > 2) ? 'booking-tick-blue' : 'confirmation-icon-grey'"></span>
@@ -73,7 +73,7 @@
                                 <ul class="select-versionUL">
                                     <asp:Repeater ID="rptVarients" runat="server">
                                         <ItemTemplate>
-                                            <li class="text-light-grey border-light-grey" versionid="<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>" data-bind="click: getVersion()  ">
+                                            <li class="text-light-grey border-light-grey" versionid="<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>" data-bind="click: function () { getVersion(<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>); $root.ActualSteps(1); }">
                                                 <span class="bwsprite radio-btn radio-sm-unchecked margin-right5 margin-left10"></span>
                                                 <span class="version-title-box"><%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionName") %></span>
                                             </li>
@@ -117,7 +117,7 @@
                             <div class="select-color-container border-light-bottom padding-bottom10 margin-bottom15">
                                 <h4 class="select-colorh4 margin-top15">Select color</h4>
                                 <ul class="select-colorUL" data-bind="foreach: versionColors">
-                                    <li class="text-light-grey border-light-grey">
+                                    <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.Id},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
                                         <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode }"></span>
                                         <span class="color-title-box" data-bind="text: ColorName"></span>
                                     </li>
@@ -262,15 +262,20 @@
                                         </li>
                                         <li>
                                             <p class="text-bold">Availability</p>
-                                            <p class="text-light-grey">Waiting period of <span class="text-default"></span></p>
+                                            <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
+                                            <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</p>
                                         </li>
+                                           
                                     </ul>
                                 </div>
                                 <div class="grid-7 omega offer-details-container">
-
+                                    
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span> Pay <span class="fa fa-rupee" style="font-size:15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                                    
                                     <% if (isOfferAvailable)
                                        { %>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom"><span class="fa fa-gift margin-right5"></span>Pay <span class="font16"><span class="fa fa-rupee"></span></span><%= bookingAmount %></span> to book your bike and get:</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 text-red font-24"></span> Available Offers </h3>
+
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
                                             <ItemTemplate>
@@ -378,8 +383,7 @@
 
 
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingConfig.Varients)%>' />
-        <input id="hdnDealerData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingConfig.DealerQuotation)%>' />
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
+
         <script type="text/javascript">
             //Need to uncomment the below script
             var thisBikename = '<%= this.bikeName %>';
@@ -392,144 +396,28 @@
                         $(this).removeClass("text-light-grey border-light-grey").addClass("selected-version text-bold border-dark-grey").find("span.radio-btn").removeClass("radio-sm-unchecked").addClass("radio-sm-checked");
                     }
                 });
+            });
 
-                var steps = 0;
-            });          
-
-            //var versionList = ([{ "hostUrl": "http://imgd1.aeplcdn.com/", "imagePath": "/bw/models/honda-cb-trigger-standard-304.jpg?20151209184418", "onRoadPrice": 78708, "bookingAmount": 0, "noOfWaitingDays": 5, "priceList": [{ "ItemName": "Ex-showroom ", "Price": 73409, "DealerId": 11348, "ItemId": 3 }, { "ItemName": "RTO", "Price": 5299, "DealerId": 11348, "ItemId": 5 }], "minSpec": { "brakeType": "Disc", "alloyWheels": true, "electricStart": true, "antilockBrakingSystem": false, "versionId": 304, "versionName": "Standard", "modelName": "CB Trigger", "price": 78708 }, "make": { "makeId": 7, "makeName": "Honda", "maskingName": "honda", "hostUrl": null, "logoUrl": null }, "model": { "modelId": 220, "modelName": "CB Trigger", "maskingName": "cbtrigger" }, "bikeModelColors": [{ "id": 891, "modelId": 304, "colorName": "Black", "hexCode": "4f4e4e" }, { "id": 892, "modelId": 304, "colorName": "Meteor Green Metallic", "hexCode": "dbc774" }, { "id": 893, "modelId": 304, "colorName": "Peral Siena Red", "hexCode": "af1126" }, { "id": 1853, "modelId": 304, "colorName": "Pearl Sunbeam White", "hexCode": "eeeeee" }] }, { "hostUrl": "http://imgd1.aeplcdn.com/", "imagePath": "/bw/models/honda-cb-trigger-standard-304.jpg?20151209184418", "onRoadPrice": 78908, "bookingAmount": 10, "noOfWaitingDays": 10, "priceList": [{ "ItemName": "Ex-showroom ", "Price": 73609, "DealerId": 11348, "ItemId": 3 }, { "ItemName": "RTO", "Price": 5299, "DealerId": 11348, "ItemId": 5 }], "minSpec": { "brakeType": "Disc", "alloyWheels": true, "electricStart": true, "antilockBrakingSystem": false, "versionId": 467, "versionName": "DLX", "modelName": "CB Trigger", "price": 78908 }, "make": { "makeId": 7, "makeName": "Honda", "maskingName": "honda", "hostUrl": null, "logoUrl": null }, "model": { "modelId": 220, "modelName": "CB Trigger", "maskingName": "cbtrigger" }, "bikeModelColors": [{ "id": 888, "modelId": 467, "colorName": "Black", "hexCode": "4f4e4e" }, { "id": 889, "modelId": 467, "colorName": "Meteor Green Metallic", "hexCode": "dbc774" }, { "id": 890, "modelId": 467, "colorName": "Peral Siena Red", "hexCode": "af1126" }, { "id": 1852, "modelId": 467, "colorName": "Pearl Sunbeam White", "hexCode": "eeeeee" }] }, { "hostUrl": "http://imgd1.aeplcdn.com/", "imagePath": "/bw/models/honda-cb-trigger-standard-304.jpg?20151209184418", "onRoadPrice": 78808, "bookingAmount": 0, "noOfWaitingDays": 15, "priceList": [{ "ItemName": "Ex-showroom ", "Price": 73509, "DealerId": 11348, "ItemId": 3 }, { "ItemName": "RTO", "Price": 5299, "DealerId": 11348, "ItemId": 5 }], "minSpec": { "brakeType": "Disc", "alloyWheels": true, "electricStart": true, "antilockBrakingSystem": false, "versionId": 469, "versionName": "CBS", "modelName": "CB Trigger", "price": 78808 }, "make": { "makeId": 7, "makeName": "Honda", "maskingName": "honda", "hostUrl": null, "logoUrl": null }, "model": { "modelId": 220, "modelName": "CB Trigger", "maskingName": "cbtrigger" }, "bikeModelColors": [{ "id": 885, "modelId": 469, "colorName": "Black", "hexCode": "4f4e4e" }, { "id": 886, "modelId": 469, "colorName": "Meteor Green Metallic", "hexCode": "dbc774" }, { "id": 887, "modelId": 469, "colorName": "Peral Siena Red", "hexCode": "af1126" }, { "id": 1851, "modelId": 469, "colorName": "Pearl Sunbeam White", "hexCode": "eeeeee" }] }]);
-            var first = true;
             var versionList = JSON.parse($("#hdnBikeData").val());
-            var objDealer = JSON.parse($("#hdnDealerData").val());
-
-            var BookingConfigViewModel = function () {
-                var self = this;
-                self.Bike = ko.observable(new BikeDetails);
-                self.Dealer = ko.observable(new BikeDealerDetails);
-                self.EMI = ko.observable(new BikeEMI);
-                self.CurrentStep = ko.observable(1);
-                self.SelectedVersion = ko.observable(0);
-                self.SelectedColor = ko.observable(0);
-                self.ActualSteps = ko.observable(1);
-                self.changedSteps = function () {
-                    if (self.Bike().selectedVersionId() > 0) {
-                        if (self.Bike().selectedColor() > 0) {
-                            self.SelectedVersion(self.Bike().selectedVersionId());
-                            self.SelectedColor(self.Bike().selectedColor());
-                            if (self.CurrentStep() != 3)
-                            {
-                              self.CurrentStep(self.CurrentStep() + 1);
-                              self.ActualSteps(self.ActualSteps() + 1)
-                            }
-                            
-                        }
-                        else {
-                            $("#customizeBike .select-colorh4").addClass("text-red");
-                            return false;
-                        }
-                    }
-                    else {
-                        $("#customizeBike .select-versionh4").addClass("text-red");
-                        return false;
-                    }
-
-                };
-            }
-
+            var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
+            var insAmt = '<%= insuranceAmount %>';
             var BikeDealerDetails = function () {
                 var self = this;
-                self.Dealer = ko.observable(objDealer);
-                self.DealerId = ko.observable(0);
-                self.DealerDetails = ko.observable(objDealer.objDealer);
-                self.DealerQuotation = ko.observable(objDealer.objQuotation);
-                self.IsInsuranceFree = ko.observable(objDealer.IsInsuranceFree);
-                self.InsuranceAmount = ko.observable(objDealer.InsuranceAmount);
-                self.latitude = ko.observable(objDealer.objDealer.objArea.Latitude);
-                self.longitude = ko.observable(objDealer.objDealer.objArea.Longitude);
+                // self.Dealer = ko.observable(objDealer);
+                // self.DealerId = ko.observable(0);
+                // self.DealerDetails = ko.observable(objDealer.objDealer);
+                // self.DealerQuotation = ko.observable(objDealer.objQuotation);
+                self.IsInsuranceFree = ko.observable(insFree);
+                self.InsuranceAmount = ko.observable(insAmt);
+                self.latitude = ko.observable(<%= latitude %>);
+                self.longitude = ko.observable(<%= longitude %>);
             }
-
-            var BikeEMI = function () {
-                var self = this;
-                self.MinPrice = ko.observable();
-                self.MaxPrice = ko.observable();
-            }
-
-            var BikeDetails = function () {
-                var self = this;
-                self.bikeVersions = ko.observableArray(versionList);
-                self.selectedVersionId = ko.observable(bikeVersionId);
-                self.selectedVersion = ko.observable();
-                self.versionPriceBreakUp = ko.observableArray([]);
-                self.bookingAmount = ko.observable();
-                self.waitingPeriod = ko.observable();
-                self.selectedColor = ko.observable();
-                self.isInsuranceFree = ko.observable(objDealer.IsInsuranceFree);
-                self.insuranceAmount = ko.observable(objDealer.InsuranceAmount);
-
-                self.versionPrice = ko.computed(function () {
-                    var total = 0;
-                    for (i = 0; i < self.versionPriceBreakUp().length; i++) {
-                        total += self.versionPriceBreakUp()[i].Price;
-                    }
-                    return total;
-                }, this);
-
-                self.versionColors = ko.observableArray([]);
-                self.priceListBreakup = ko.observableArray([]);
-                self.versionSpecs = ko.observable();
-                self.getVersion = function () {
-                    $.each(self.bikeVersions(), function (key, value) {
-                        if (self.selectedVersionId() != undefined && self.selectedVersionId() > 0 && self.selectedVersionId() == value.MinSpec.VersionId) {
-                            self.versionColors(value.BikeModelColors);
-                            self.versionSpecs(value.MinSpec);
-                            self.versionPriceBreakUp(value.PriceList);
-                            self.waitingPeriod(value.NoOfWaitingDays);
-                            self.bookingAmount(value.BookingAmount);                             
-                        }
-                    });
-                }
-
-            }
-
-            ko.bindingHandlers.googlemap = {
-                init: function (element, valueAccessor) {
-                    var
-                      value = valueAccessor(),
-                      latLng = new google.maps.LatLng(value.latitude, value.longitude),
-                      mapOptions = {
-                          zoom: 10,
-                          center: latLng,
-                          mapTypeId: google.maps.MapTypeId.ROADMAP
-                      },
-                      map = new google.maps.Map(element, mapOptions),
-                      marker = new google.maps.Marker({
-                          position: latLng,
-                          map: map
-                      });
-                }
-            };
-
-            ko.bindingHandlers.CurrencyText = {
-                update: function (element, valueAccessor) {
-                    var amount = valueAccessor();
-                    var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
-                    $(element).text(formattedAmount);
-                }
-            };
-
-            function formatPrice(price) {
-                price = price.toString();
-                var lastThree = price.substring(price.length - 3);
-                var otherNumbers = price.substring(0, price.length - 3);
-                if (otherNumbers != '')
-                    lastThree = ',' + lastThree;
-                var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
-                return price;
-            }
-
-            var viewModel = new BookingConfigViewModel;
-            ko.applyBindings(viewModel, $("#bookingConfig")[0]);
 
         </script>
+
+
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
+
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
 
