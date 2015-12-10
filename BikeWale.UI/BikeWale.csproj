@@ -1042,6 +1042,10 @@
       <DependentUpon>PQCertificate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="pricequote\BookingConfig.aspx.cs">
+      <DependentUpon>BookingConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="pricequote\BookingSummary.aspx.cs">
       <DependentUpon>BookingSummary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1616,6 +1620,7 @@
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
+    <Content Include="css\bookingconfig.css" />
     <Content Include="css\brand.css" />
     <Content Include="css\booking.css" />
     <Content Include="css\bw-common-style.css" />
@@ -2160,10 +2165,12 @@
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
     <Content Include="customerror.aspx" />
+    <Content Include="pricequote\BookingConfig.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
     <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
+    <Content Include="src\bookingconfig.js" />
     <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />
