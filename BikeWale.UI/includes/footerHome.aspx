@@ -1,4 +1,8 @@
-﻿
+﻿<% if(isAd970x90Shown){ %>
+<section class="text-center margin-bottom15 margin-top15">
+        <!-- #include file="/ads/Ad970x90_Bottom.aspx" -->
+</section>
+<% } %>
         <!--footer code start here -->
         <div id="footer">
             <div class="padding-bottom20 padding-top20 container_12 ">

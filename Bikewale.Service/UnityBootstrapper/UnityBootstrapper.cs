@@ -39,6 +39,8 @@ using Bikewale.Cache.Core;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Compare;
 using Bikewale.Cache.UsedBikes;
+using Bikewale.Interfaces.App;
+using Bikewale.DAL.App;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -48,8 +50,10 @@ namespace Bikewale.Service.UnityConfiguration
     public static class UnityBootstrapper
     {
         /// <summary>
-        /// Modified By : Lucky Rathore on on 06 Nov. 2015.
-        /// Description : Register BikeCompareCacheRepository.
+        /// Modified By :   Lucky Rathore on on 06 Nov. 2015.
+        /// Description :   Register BikeCompareCacheRepository.
+        /// Modified By :   Sumit Kate on 08 Dec 2015
+        /// Description :   Register AppVersionRepository.
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -85,7 +89,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>();
             container.RegisterType<IPopularUsedBikesCacheRepository,PopularUsedBikesCacheRepository>();
             container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
-
+            container.RegisterType<IAppVersion, AppVersionRepository>();
 
             return container;
         }

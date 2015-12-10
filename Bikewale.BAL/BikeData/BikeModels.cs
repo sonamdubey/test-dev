@@ -577,7 +577,7 @@ namespace Bikewale.BAL.BikeData
                     SpecsCategory objFuel = new SpecsCategory() 
                     {
                         CategoryName = "FuelEffieciency",
-                        DisplayName = "Fuel effieciency and Performance"
+                        DisplayName = "Fuel efficiency and Performance"
                     };
 
                     List<Specs> objFuelSpecs = new List<Specs>();

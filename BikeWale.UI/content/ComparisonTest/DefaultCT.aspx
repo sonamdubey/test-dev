@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultCT" Trace="false" %>
+
 <%@ Register TagPrefix="BW" TagName="RepeaterPager" Src="/content/RepeaterPager.ascx" %>
 <%@ Register TagPrefix="Mms" TagName="MakeModelSearch" Src="/Controls/MakeModelSearch.ascx" %>
 <%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
@@ -44,11 +45,12 @@
             </BW:RepeaterPager>
         </div>
     </div>
-    <div class="grid_4"><!--    Right Container starts here -->
+    <div class="grid_4">
+        <!--    Right Container starts here -->
         <div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>                
+        </div>
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
             <uc:InstantBikePrice runat="server" ID="ucInstantBikePrice" />
         </div>

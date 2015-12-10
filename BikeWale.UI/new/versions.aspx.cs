@@ -133,7 +133,7 @@ namespace Bikewale.New
         {
             _PageNotFoundPath = Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx";
             _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-            isManufacturer = (ConfigurationManager.AppSettings["TVSManufacturerId"] != "0") ? true : false;
+           // isManufacturer = (ConfigurationManager.AppSettings["TVSManufacturerId"] != "0") ? true : false;
         }
 
         protected override void OnInit(EventArgs e)

@@ -119,13 +119,11 @@ function pqViewModel(modelId, cityId) {
     };
 
     self.IsValidManufacturer = ko.computed(function () {
-        if (self.selectedModel() == 395)
-            if (self.selectedCity() != 1 && self.selectedCity() != 12 && self.selectedCity() != 2)
-                if (self.priceQuote() && !self.priceQuote().IsDealerPriceAvailable && self.priceQuote().bwPriceQuote.onRoadPrice > 0)
-                    return true;
+        if (self.priceQuote() && !self.priceQuote().IsDealerPriceAvailable && self.priceQuote().bwPriceQuote.onRoadPrice > 0) {
+            return true;
+        }
         return false;
-
-    },this);
+     });
 
     self.termsConditions = function (entity) {
         if (entity != null && entity.offerId != 0) {
@@ -1302,3 +1300,7 @@ function setPQUserCookie() {
     var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
     SetCookie("_PQUser", val);
 }
+
+$('#insuranceLink').on('click', function (e) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Insurance_Clicked_Model', 'lab': myBikeName + "_" + icityArea });
+});

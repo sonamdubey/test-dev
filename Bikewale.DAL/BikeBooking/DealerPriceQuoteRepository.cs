@@ -88,6 +88,8 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 29 Oct 2014
         /// Summary : To update isverified flag in newbikedealerpricequote table
+        /// Modified By : Sadhana Upadhyay on 30 Nov 2015
+        /// Summary : to add record in PQ_LeadNotifications table
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns></returns>
@@ -170,7 +172,6 @@ namespace Bikewale.DAL.BikeBooking
 
             return isSuccess;
         }
-
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 3 Nov 2014
@@ -850,7 +851,6 @@ namespace Bikewale.DAL.BikeBooking
         }   //End of GetAreaList
         #endregion
 
-
         public PQOutputEntity ProcessPQ(Entities.PriceQuote.PriceQuoteParametersEntity PQParams)
         {
             throw new NotImplementedException();
@@ -1158,6 +1158,5 @@ namespace Bikewale.DAL.BikeBooking
 
             return colors;
         }
-
     }   //End of class
 }   //End of namespace

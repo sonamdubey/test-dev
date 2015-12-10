@@ -100,7 +100,7 @@
                 </div>
                 <% if (modelPage.ModelDetails.New)
                    { %>
-                <div class="grid-12 bg-white box-shadow" style="display: none" data-bind="visible: true" id="dvBikePrice">
+                <div class="grid-12 bg-white box-shadow padding-bottom10" style="display: none" data-bind="visible: true" id="dvBikePrice">
                     <div class="bike-price-container font22 margin-bottom15">
                         <span class="fa fa-rupee"></span>
                         <span id="bike-price" class="font24 text-bold"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(modelPage.ModelDetails.MinPrice)) %></span> <span class="font10 default-showroom-text">Ex-showroom <%= Bikewale.Common.Configuration.GetDefaultCityName %></span>
@@ -296,7 +296,7 @@
                             </div>
 
 
-                            <% if (modelId == "395" && isManufacturer)
+                            <%--<% if (modelId == "395" && isManufacturer)
                                {%>
                             <input type="button" class="btn btn-orange" id="btnBWLead" data-bind="visible: IsValidManufacturer(), event: { click: $root.notifyAvailable }" value="Contact TVS for details" />
                             <!-- Notify Availablity Popup starts here -->
@@ -337,7 +337,7 @@
                                 </div>
                             </div>
                             <!-- Notify popup ends here -->
-                            <%} %>
+                            <%} %>--%>
                         </div>
                         <!-- /ko -->
                         <div class="city-area-wrapper">
@@ -356,7 +356,11 @@
                             <div class="clear"></div>
                         </div>
                     </div>
-                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" >
+                    <a data-bind="visible: IsValidManufacturer()" style="position: relative; font-size: 12px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">
+                        Save up to 60% on insurance - PolicyBoss
+                    </a>
+
+                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20" data-bind="visible: !IsValidManufacturer()">
                         <div class="available-offers-container content-inner-block-10">
                             <h4 class="border-solid-bottom padding-bottom5 margin-bottom5">Available Offers</h4>
                             <div class="offer-list-container" id="dvAvailableOffer">
@@ -1112,7 +1116,7 @@
                 }
             }
 
-             <% if (modelId == "395" && isManufacturer)
+            <%-- <% if (modelId == "395" && isManufacturer)
                 {%>
             //notify availablilty 
             var bwNotify = $('#notifyAvailabilityContainer');
@@ -1185,7 +1189,7 @@
                 a.removeClass("border-red");
                 a.siblings("span, div").hide();
             };
-            <% } %>
+            <% } %>--%>
 
         </script>
 
