@@ -1,4 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" %>
+
+<%
+    title = "Advertise with CarWale and reach your customers - BikeWale";
+    description = "Advertise your brands and products through BikeWale. BikeWale provides sophisticated tools for appropriate placing of your advertisement to target relavant customers. BikeWale provides various inputs to track visitor's behavious for better marketing decisions.";
+    keywords = "Visitor Agreement, Relationship and Notice, Fees and Services, Use of the Site, Privacy";
+    AdId = "1395986297721";
+    AdPath = "/1017752/BikeWale_New_";
+%>
 <script runat="server">
     protected void Page_Load(object Sender, EventArgs e)
     {
