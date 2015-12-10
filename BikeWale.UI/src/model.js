@@ -457,6 +457,8 @@ function fetchPriceQuote(vm) {
                     setLocationCookie($(ctrlSelectCity).find('option:selected'), $(ctrlSelectArea).find('option:selected'));
                 }
                 else {
+                    var cookieValue = "CityId=" + vm.selectedCity() + "&AreaId=" + ((!vm.selectedArea()) ? "0" : vm.selectedArea()) + "&PQId=" + pq.priceQuote.quoteId + "&VersionId=" + pq.priceQuote.versionId + "&DealerId=0";
+                    SetCookie("_MPQ", cookieValue);
                     temptotalPrice = checkNumeric($(bikePrice).text());
                     totalPrice = pq.bwPriceQuote.onRoadPrice;
                     priceBreakText = "Ex-showroom + Insurance + RTO"; 

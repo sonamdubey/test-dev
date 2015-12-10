@@ -84,6 +84,18 @@ namespace Bikewale.Service.Controllers.BookingSummary
                 {
                     dtoQuotation = DDQDealerDetailBaseMapper.Convert(dealerDetailEntity);
 
+                    uint insuranceAmount = 0;
+                    bool isFreeInsurance = false;
+                    foreach (var price in dtoQuotation.objQuotation.PriceList)
+                    {
+                        isFreeInsurance = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
+                        if (isFreeInsurance)
+                            break;
+                    }
+
+                    dtoQuotation.IsInsuranceFree = isFreeInsurance;
+                    dtoQuotation.InsuranceAmount = insuranceAmount;
+
                     if (dealerDetailEntity.objOffers != null)
                     {
                         dealerDetailEntity.objOffers.Clear();

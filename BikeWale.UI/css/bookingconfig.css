@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /* CSS Document */
 #configTabsContainer ul li { width:309px; height:85px; display:inline-block; vertical-align:top; text-align:center; font-size:18px; }
 #configTabsContainer .bike-config-part { width:250px; display:inline-block; cursor:pointer; }
@@ -61,12 +61,6 @@
 .viewBreakupText { cursor: pointer; color: #0288d1; margin-left:5px; }
 .disabled-tab { cursor: not-allowed !important;}
 
-/*sample code*/
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(1) span.color-box { background-color:#e34f4f; }
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(2) span.color-box { background-color:#4f9fe3; }
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(3) span.color-box { background-color:#080808; }
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(4) span.color-box { background-color:#6e6e6e; }
-
 /* finance-details */
 #financeDetails ul.select-financeUL li { display:inline-block; vertical-align:top; width:210px; height:32px; margin:15px 12px 8px 0; }
 #financeDetailsv .emi-slider-box .emi-slider-box-left-section p { font-size:14px; margin-bottom:10px; }
@@ -74,8 +68,8 @@
 /* dealer-details */
 #dealerDetails .contact-details-container ul { list-style:disc; margin:15px 25px; font-size:14px; }
 #dealerDetails .contact-details-container li { line-height:1.7; margin-bottom:10px; }
-#dealerDetails .offer-details-container ul { color:#82888b; margin-left:15px; font-size:14px; }
-#dealerDetails .offer-details-container li { background: url("../images/star-icon.png") no-repeat 0 3px; margin-top:12px; padding-left:22px; }
+#dealerDetails .offer-details-container ul { color:#82888b;font-size:14px; }
+#dealerDetails .offer-details-container li { margin-top:12px;padding-left:15px }
 
 /* booking-config */
 .emi-slider-box { border-top:1px solid #e2e2e2; padding-bottom:20px; padding-top:20px; margin-right:20px; }
@@ -95,9 +89,9 @@
 /* disclaimer-onroadprice-container */
 .disclaimer-onroadprice-container { width:100%; border-top:1px solid #e2e2e2; padding-top:20px; margin-top:20px }
 .disclaimer-container { width:639px; float:left; }
-.disclaimer-onRoadPrice-container { width:290px; float:left; }
-#financeDetails .disclaimer-onroadprice-container ul { list-style:disc; margin:15px 25px; font-size:14px; }
-#financeDetails .disclaimer-onroadprice-container li { line-height:1.7; margin-bottom:10px; color:#82888b; }
+.onRoadPrice-container { width:290px; float:right;text-align:right }
+ ul.disclaimerUL { list-style:disc; margin:15px 25px; font-size:14px; }
+ ul.disclaimerUL li { line-height:1.7; margin-bottom:10px; color:#82888b; }
 
 /* range points */
 .slider-range-points ul li { float:left; position:relative; }
@@ -115,5 +109,17 @@
 .offers-icon { background-position:-115px -146px; }
 .disclaimer-icon { background-position:-115px -175px; }
 .call-icon { background-position:-115px -201px; }
+
+/*breakup container*/
+.breakupPopUpContainer { width: 670px; min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:50px 100px; }
+.breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
+
+/* new */
+.disclaimer-onroadprice-container { width:100%; border-top:1px solid #e2e2e2; padding-top:20px; margin-top:20px }
+#configBtnWrapper .disclaimer-container { width:639px; float:left; }
+#configBtnWrapper .grid-4{ width:290px; float:right; }
+#configBtnWrapperul { list-style:disc; margin:15px 25px; font-size:14px; }
+#configBtnWrapper li { line-height:1.7; margin-bottom:10px; color:#82888b; }
+
 
 
