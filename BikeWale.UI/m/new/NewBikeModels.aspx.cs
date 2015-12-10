@@ -179,8 +179,11 @@ namespace Bikewale.Mobile.New
                 {
                     if (pqOnRoad != null)
                     {
+                        
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
+                        Label lblExOn = (Label)e.Item.FindControl("lblExOn");
+                        lblExOn.Text = "On-road price";
                         if (pqOnRoad.IsDealerPriceAvailable)
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
@@ -202,38 +205,7 @@ namespace Bikewale.Mobile.New
                 objErr.SendMail();
             }
         }
-        protected void rptVarients_ItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            try
-            {
-                if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
-                {
-                    if (pqOnRoad != null)
-                    {
-                        Label currentTextBox = (Label)e.Item.FindControl("txtComment");
-                        HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
-                        if (pqOnRoad.IsDealerPriceAvailable)
-                        {
-                            var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
-                            if (selecteVersionList != null && selecteVersionList.Count() > 0)
-                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selecteVersionList.First().OnRoadPrice));
-                        }
-                        else
-                        {
-                            var selected = pqOnRoad.BPQOutput.Varients.Where(p => Convert.ToString(p.VersionId) == hdn.Value).First();
-                            if (selected != null)
-                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.OnRoadPrice));
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
-                objErr.SendMail();
-            }
-        }
-
+        
         #endregion
 
         #region methods

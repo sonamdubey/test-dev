@@ -1025,7 +1025,7 @@
                                                     <asp:Label Text='<%#Eval("Price") %>' ID="txtComment" runat="server"></asp:Label>
                                                     </span></p>
                                                 <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
-                                                    Ex-showroom,
+                                                    <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>,
                                                  <%= Bikewale.Common.Configuration.GetDefaultCityName %></p>
                                                 <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />
                                             </div>
