@@ -98,7 +98,9 @@ function BookingPageVMModel() {
             "pqId": pqId,
             "versionId": self.SelectedVarient().minSpec().versionId()
         }
-        var isSameVersion = getCookie("_MPQ").indexOf("&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&") > 0 ? true : false;
+        //var isSameVersion = getCookie("_MPQ").indexOf("&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&") > 0 ? true : false;
+        var reVersionId = new RegExp("&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&", "g");
+        var isSameVersion = reVersionId.test(getCookie("_MPQ"));
         if (!isSameVersion) {
             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
             SetCookie("_MPQ", cookieValue);
@@ -541,7 +543,8 @@ detailsSubmitBtn.click(function () {
 var validateName = function () {
     var isValid;
     var a = firstname.val().length;
-    if (firstname.val().indexOf('&') != -1) {
+    //if (firstname.val().indexOf('&') != -1) {
+    if ((/&/).test(firstname.val())) {
         isValid = false;
         setError(firstname, 'Invalid name');
     }
@@ -557,7 +560,8 @@ var validateName = function () {
 }
 var validateLastName = function () {
     var isError = true;
-    if (lastname.val().indexOf('&') != -1) {
+    //if (lastname.val().indexOf('&') != -1) {
+    if ((/&/).test(lastname.val())) {
         setError(lastname, 'Invalid name');
         isError = false;
     }
@@ -586,8 +590,6 @@ emailid.on("focus", function () {
 mobile.on("focus", function () {
     hideError(mobile);
     prevMobile = mobile.val().trim();
-    
-
 });
 
 emailid.on("blur", function () {
