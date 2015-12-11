@@ -28,6 +28,14 @@
 
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
+    <script type="text/javascript">
+        var dealerId = '<%= dealerId%>';
+        var pqId = '<%= pqId%>';
+        var versionId = '<%= variantId%>';
+        var cityId = '<%= cityId%>';
+        var clientIP = "<%= clientIP%>";
+        var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
+</script>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
         .chosen-results::-webkit-scrollbar {
@@ -245,7 +253,7 @@
                                 <% } %>
                                 <% else if (isCityAreaSelected || isBikeWalePQ)
                                    { %>
-                                <p class="font14">On-road Price in <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></a></p>
+                                <p class="font14">On-road Price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid='<%= modelId %>' href="javascript:void(0)" class="bwsprite edit-blue-icon fillPopupData"></a></p>
                                 <% }
                                    else
                                    { %>
@@ -279,13 +287,18 @@
                                    { %>
                                 <p class="default-showroom-text font14 text-light-grey margin-top5"><%= bikeName %> is now discontinued in India.</p>
                                 <% } %>
-                                <% if (cityId == "0" && areaId == "0")
+                                <% if ((cityId == "0" && areaId == "0") || (cityId != "0" && areaId == "0" && isAreaAvailable))
                                    { %>
                                 <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
                                 <% } %>
                             </div>
                             <% } %>
-
+                            <% if (isBikeWalePQ)
+                                   { %>
+                             <div class="insurance-breakup-text text-bold padding-top10" data-bind="visible: IsValidManufacturer()" style="position: relative; color: rgb(153, 153, 153); font-size: 14px; margin-top: 1px; text-decoration:solid">
+                                <a target="_blank" id="insuranceLink" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a>
+                            </div>
+                               <% } %>
                             <!-- upcoming -->
                             <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
                                { %>
@@ -326,7 +339,7 @@
                           { %>
                         <div id="modelDetailsOffersContainer" class="grid-12 margin-top20">
                             <div class="grid-<%=grid1_size %> modelGetDetails padding-right20">
-                                <h3 class="padding-bottom10"><span></span>Get following details on this bike:</h3>
+                                <h3 class="padding-bottom10"><span class="bwsprite disclaimer-icon margin-right5"></span>Get following details on this bike:</h3>
                                 <ul>
                                     <li>Offers from the nearest dealers</li>
                                     <li>Waiting period on this bike at the dealership</li>
@@ -338,11 +351,11 @@
                             <div class="grid-7 modelGetDetails offersList <%= offerDivHide %>">
                                 <%if (isBookingAvailable)
                                   { %>
-                                <h3 class="padding-bottom10"><span></span>Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike and get:</h3>
+                                <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Pay <span class="fa fa-rupee"></span> <%=bookingAmt %> to book your bike and get:</h3>
                                 <%}
                                   else
                                   { %>
-                                <h3 class="padding-bottom10"><span></span>Avail Offers</h3>
+                                <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Avail Offers</h3>
                                 <%} %>
                                 <ul>
                                     <asp:Repeater ID="rptOffers" runat="server">
@@ -486,6 +499,63 @@
                 </div>
             </div>
             <!--View Breakup popup ends here-->
+
+            <!-- lead capture popup start-->
+            <div id="leadCapturePopup" class="text-center rounded-corner2"  >
+            <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+            <p class="font20 margin-bottom10">Provide Contact Details</p>
+            <p class="text-light-grey margin-bottom20">For you to see BikeWale Dealer pricing and get a printable Certificate, we need your valid contact details. We promise to keep this information confidential and not use for any other purpose.</p>
+            <div class="personal-info-form-container">
+                <div class="form-control-box personal-info-list">
+                    <input type="text" class="form-control get-first-name" placeholder="First name (mandatory)"
+                        id="getFirstName" data-bind="value: firstName">
+                    <span class="bwsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                </div>
+                <div class="form-control-box personal-info-list">
+                    <input type="text" class="form-control get-last-name" placeholder="Last name"
+                        id="getLastName" data-bind="value: lastName">
+                    <span class="bwsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
+                </div>
+                <div class="form-control-box personal-info-list">
+                    <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
+                        id="getEmailID" data-bind="value: emailId">
+                    <span class="bwsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+                </div>
+                <div class="form-control-box personal-info-list">
+                    <input type="text" class="form-control get-mobile-no" placeholder="Mobile no. (mandatory)"
+                        id="getMobile" maxlength="10" data-bind="value: mobileNo">
+                    <span class="bwsprite error-icon errorIcon"></span>
+                    <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                </div>
+                <div class="clear"></div>
+                <a class="btn btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+            </div>
+            <div class="mobile-verification-container hide">
+                <div class="input-border-bottom"></div>
+                <div class="margin-top20">
+                    <p class="font14 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
+                    <div class="form-control-box">
+                        <input type="text" class="form-control get-otp-code rightfloat" maxlength="5" placeholder="Enter OTP" id="getOTP" data-bind="value: otpCode">
+                        <span class="bwsprite error-icon errorIcon hide"></span>
+                        <div class="bw-blackbg-tooltip errorText hide"></div>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+                <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                <p class="otp-alert-text margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
+                    OTP has been already sent to your mobile
+                </p>
+                <div class="clear"></div>
+                <br />
+                <a class="btn btn-orange" id="otp-submit-btn">Confirm OTP</a>
+                <div style="margin-right: 70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
+            </div>
+        </div>
+             <!-- lead capture popup End-->
         </section>
 
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : string.Empty %>">
@@ -1073,7 +1143,9 @@
                                                     <asp:Label Text='<%#Eval("Price") %>' ID="txtComment" runat="server"></asp:Label>
                                                 </span>
                                             </p>
-                                            <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">Ex-showroom, Mumbai</p>
+                                            <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
+                                               <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>, 
+                                                <%= Bikewale.Common.Configuration.GetDefaultCityName %></p>
 
                                             <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />
                                         </div>
@@ -1254,11 +1326,11 @@
                 });
                 // ends                                
 
-            <% if (modelPage.ModelDetails.New)
+            <%--<% if (modelPage.ModelDetails.New)
                { %>
                 var cityId = '<%= cityId%>';
                 InitVM(cityId);
-                <% } %>
+                <% } %>--%>
 
             });
             // Cache selectors outside callback for performance.
@@ -1315,93 +1387,20 @@
 
             <% } %>
             ga_pg_id = '2';
-            var viewModel = null;
+           <%-- var viewModel = null;
             function InitVM(cityId) {
+                debugger;
                 viewModel = new pqViewModel('<%= modelId%>', cityId);
                 modelViewModel = viewModel;
                 ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
                 viewModel.LoadCity();
-            }
+            }--%>
 
             if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
 
-            <% if (modelId == "395" && isManufacturer)
-               {%>
-            //notify availablilty 
-            var bwNotify = $('#notifyAvailabilityContainer');
-            $("#notifyAvailabilityContainer .notify-close-btn, .blackOut-window, #notifyOkayBtn").on("click", function () {
-                $(".blackOut-window").hide();
-                $(".notifyAvailabilityContainer").hide();
-                $("#notify-form").show();
-                $("#notify-response").hide();
-            });
-
-            $("#submit-details").on("click", function () {
-                $("#notify-form").hide();
-                $("#notify-response").show();
-            });
-
-            $('#btnBWLead').on('click', function () {
-                bwNotify.find(".get-lead-name").val("")
-                bwNotify.find(".get-lead-email").val("")
-                bwNotify.find(".get-lead-mobile").val("");
-                $("#notifySubmitInfo").val("Submit");
-
-            });
-
-            $("#notifySubmitInfo").on("click", function () {
-                var leadName = bwNotify.find(".get-lead-name").val().trim();
-                var leadEmail = bwNotify.find(".get-lead-email").val().trim();
-                var leadMobile = bwNotify.find(".get-lead-mobile").val();
-                var regName = /^[a-zA-Z ]+$/;
-                var regEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
-                var regMobile = /^[0-9]{10}$/;
-                if (leadName.length > 0 && regName.test(leadName)) {
-                    validationSuccess($(".get-lead-name"));
-                    if (regEmail.test(leadEmail)) {
-                        validationSuccess($(".get-lead-email"));
-                        if (regMobile.test(leadMobile)) {
-                            $.get('/api/ManufacturerLead/?name=' + leadName + '&email=' + leadEmail + '&mobile=' + leadMobile + '&pqId=' + modelViewModel.priceQuote().priceQuote.quoteId + '&cityId=' + modelViewModel.selectedCity() + '&versionId=' + modelViewModel.priceQuote().priceQuote.quoteId, function (response) {
-                                if (response) {
-                                    validationSuccess($(".get-lead-mobile"));
-                                    $("#notify-form").hide();
-                                    $('#notify-response .notify-leadUser').text(leadName);
-                                    $('#notify-response').show();
-                                }
-                                else {
-                                    $("#notifySubmitInfo").val("Try Again");
-                                    return false;
-
-                                }
-                            });
-                        }
-                        else
-                            validationError($(".get-lead-mobile"));
-                    }
-                    else
-                        validationError($(".get-lead-email"));
-                }
-                else
-                    validationError($(".get-lead-name"));
-            });
-
-            $(".get-lead-name, .get-lead-email, .get-lead-mobile").on("focus", function () {
-                validationSuccess($(this));
-            });
-
-            var validationError = function (a) {
-                a.addClass("border-red");
-                a.siblings("span, div").show();
-            };
-
-            var validationSuccess = function (a) {
-                a.removeClass("border-red");
-                a.siblings("span, div").hide();
-            };
-            <% } %>
         </script>
     </form>
 </body>

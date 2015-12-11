@@ -21,6 +21,7 @@ using Bikewale.DTO.PriceQuote.City;
 using Bikewale.DTO.PriceQuote.Area;
 using Bikewale.DTO.PriceQuote.BikeQuotation;
 using System.Reflection;
+using Bikewale.Mobile.PriceQuote;
 
 namespace Bikewale.New
 {
@@ -53,7 +54,7 @@ namespace Bikewale.New
         //Variable to Assing ACTIVE class
         protected bool isUserReviewActive = false, isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
         //Varible to Hide or show controlers
-        protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
+        protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true, isAreaAvailable;
         protected bool isBookingAvailable, isOfferAvailable = false;
         protected bool isDiscontinued = false;
         static readonly string _PageNotFoundPath;
@@ -75,6 +76,10 @@ namespace Bikewale.New
         protected ListView ListBox1;
         protected Label defaultVariant;
         protected HiddenField hdnVariant;
+
+
+        protected string dealerId = string.Empty;
+        protected string pqId = string.Empty;
         #endregion
 
         #region Events
@@ -106,7 +111,6 @@ namespace Bikewale.New
                 FetchModelPageDetails();
                 BindPhotoRepeater();
                 BindModelGallery();
-                BindAlternativeBikeControl();
                 clientIP = CommonOpn.GetClientIP();
                 LoadVariants();
                 #endregion
@@ -126,6 +130,7 @@ namespace Bikewale.New
                     rptVarients.DataBind();
                 }
             }
+            BindAlternativeBikeControl();
             // Set BikeName
             if (modelPage.ModelDetails!=null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
@@ -172,6 +177,8 @@ namespace Bikewale.New
                     {
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
+                        Label lblExOn = (Label)e.Item.FindControl("lblExOn");
+                        lblExOn.Text = "On-road price";
                         if (pqOnRoad.IsDealerPriceAvailable)
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
@@ -416,6 +423,10 @@ namespace Bikewale.New
                             cityName = locArray[1];
                             isCityAreaSelected = true;
                         }
+                        if (GetAreaForCityAndModel() != null)
+                        {
+                            isAreaAvailable = true;
+                        }
                     }
                     if(locArray.Length > 3 && cityId != "0")
                     {
@@ -493,8 +504,12 @@ namespace Bikewale.New
                 {
                     string _apiUrl = String.Format(onRoadApi, cityId, modelId, null, 0, areaId);
                     pqOnRoad = Bikewale.Utility.BWHttpClient.GetApiResponseSync<PQOnRoad>(_bwHostUrl, _requestType, _apiUrl, pqOnRoad);
+                    // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
+                        dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
+                        pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
+                        PriceQuoteCookie.SavePQCookie(cityId, pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
                         if (pqOnRoad.IsDealerPriceAvailable)
                         {
                             #region when dealer Price is Available
@@ -547,7 +562,7 @@ namespace Bikewale.New
                             //if (ViewState["variantVal"] != null)
                             if (hdnVariant.Value != "0")
                             {
-                                int variantId = Convert.ToInt32(hdnVariant.Value);
+                                variantId = Convert.ToInt32(hdnVariant.Value);
                                     //Convert.ToInt32(ViewState["variantVal"].ToString());
                                 if (variantId != 0)
                                 {
