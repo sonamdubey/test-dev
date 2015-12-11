@@ -3,8 +3,6 @@ using Bikewale.DTO.BookingSummary;
 using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
 using Bikewale.Mobile.PriceQuote;
-using Microsoft.Practices.Unity;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -13,7 +11,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Pricequote
+namespace Bikewale.Mobile.Pricequote
 {
     /// <summary>
     /// Author  : Sushil Kumar
@@ -22,11 +20,12 @@ namespace Bikewale.Pricequote
     /// </summary>
     public class BookingConfig : System.Web.UI.Page
     {
-        protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0,insuranceAmount = 0;
+        protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
         protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty;
         protected BookingSummaryBase objBookingConfig = null;
         protected Repeater rptVarients = null, rptVersionColors = null, rptDealerOffers = null, rptPriceBreakup = null;
         protected BikeDealerPriceDetailDTO selectedVarient = null;
+        protected HiddenField selectedVersionId = null;
         protected DDQDealerDetailBase DealerDetails = null;
         protected bool isOfferAvailable = false, isInsuranceFree = false;
         protected string versionWaitingPeriod = String.Empty, dealerAddress = String.Empty, latitude = "0", longitude = "0";
@@ -39,10 +38,6 @@ namespace Bikewale.Pricequote
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            //device detection
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-            dd.DetectDevice();
-
             if (!IsPostBack)
             {
                 ProcessCookie();
@@ -72,7 +67,7 @@ namespace Bikewale.Pricequote
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                         return;
-                    }                     
+                    }
 
                     if (objBookingConfig.Varients != null)
                     {
@@ -114,7 +109,7 @@ namespace Bikewale.Pricequote
                 //location details
                 if (DealerDetails.objDealer != null && DealerDetails.objDealer.objCity != null && !String.IsNullOrEmpty(DealerDetails.objDealer.objCity.CityName))
                 {
-                    if (DealerDetails.objDealer.objArea != null )
+                    if (DealerDetails.objDealer.objArea != null)
                     {
                         if (!String.IsNullOrEmpty(DealerDetails.objDealer.objArea.AreaName))
                             location = String.Format("{0}, {1}", DealerDetails.objDealer.objArea.AreaName, DealerDetails.objDealer.objCity.CityName);
@@ -143,9 +138,9 @@ namespace Bikewale.Pricequote
                         rptDealerOffers.DataSource = DealerDetails.objOffers;
                         rptDealerOffers.DataBind();
 
-                    }  
+                    }
                     insuranceAmount = DealerDetails.InsuranceAmount;
-                    isInsuranceFree = DealerDetails.IsInsuranceFree; 
+                    isInsuranceFree = DealerDetails.IsInsuranceFree;
                 }
 
             }
