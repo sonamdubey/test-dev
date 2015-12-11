@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Pricequote.BookingConfig" Trace="false" EnableEventValidation="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Pricequote.BookingConfig" %>
 
 <!DOCTYPE html>
 <html>
@@ -35,7 +35,7 @@
         </section>
 
         <section>
-            <div class="container margin-bottom20 "  style="min-height: 500px; display: none;" data-bind="visible: true">
+            <div class="container margin-bottom20 " style="min-height: 500px; display: none;" data-bind="visible: true">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20 rounded-corner2">
                         <div id="configTabsContainer" class="margin-bottom10">
@@ -58,7 +58,7 @@
                                     </div>
                                 </li>
                                 <li>
-                                    <div id="dealerDetailsTab" class="bike-config-part disabled-tab" data-bind="click: function () { if ((CurrentStep() > 3) || ActualSteps() > 2) CurrentStep(3); }, css: (CurrentStep() >= 3 || ActualSteps() > 2) ? 'active-tab' : 'disabled-tab'">
+                                    <div id="dealerDetailsTab" class="bike-config-part " data-bind="click: function () { if ((CurrentStep() > 3) || ActualSteps() > 2) CurrentStep(3); }, css: (CurrentStep() >= 3 || ActualSteps() > 2) ? 'active-tab' : 'disabled-tab'">
                                         <p>Dealer details</p>
                                         <div class="config-tabs-image">
                                             <span class="booking-sprite booking-config-icon " data-bind="css: (CurrentStep() == 3) ? 'confirmation-icon-selected' : (CurrentStep() > 3 || ActualSteps() > 2) ? 'booking-tick-blue' : 'confirmation-icon-grey'"></span>
@@ -79,7 +79,6 @@
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
-                                    <asp:HiddenField ID="selectedVersionId" runat="Server"></asp:HiddenField>
                                 </ul>
                                 <p class="font14 margin-top5">Features</p>
 
@@ -265,16 +264,15 @@
                                             <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
                                             <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</p>
                                         </li>
-                                           
+
                                     </ul>
                                 </div>
-                                <div class="grid-7 omega offer-details-container">
-                                    
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span> Pay <span class="fa fa-rupee" style="font-size:15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
-                                    
+                                <div class="grid-7 omega offer-details-container"> 
+
                                     <% if (isOfferAvailable)
                                        { %>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 text-red font-24"></span> Available Offers </h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 text-red font-24"></span>Available Offers </h3>                                    
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
 
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
@@ -286,7 +284,9 @@
                                     <%}
                                        else
                                        {%>
-                                    <div class="bikeModel-dealerMap-container" style="width: 250px; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                                    <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
+                                    <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
                                     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
                                     <% } %>
                                 </div>
@@ -312,6 +312,7 @@
                                     <span class="font28"><span class="fa fa-rupee"></span></span>
                                     <span class="font30" data-bind="CurrencyText: (versionPrice() - insuranceAmount())"></span>
                                     <span class="font14 text-light-grey viewBreakupText">View breakup</span>
+                                    <div class="font12 text-light-grey " data-bind="text : priceBreakupText"></div>
                                     <!-- /ko -->
                                     <!-- ko ifnot : (versionPrice() - insuranceAmount()) > 0 -->
                                     <span class="font30">Price unavailable</span>
@@ -324,7 +325,7 @@
                             <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
                                 <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                                 <div class="breakup-text-container padding-bottom10">
-                                    <h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
+                                    <h3 class="breakup-header font26 margin-bottom20"><span data-bind="text : bikeName()"></span>  <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
                                     <table id="model-view-breakup" class="font16">
                                         <tbody>
                                             <!-- ko foreach: versionPriceBreakUp -->
@@ -417,8 +418,6 @@
 
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
-
-        <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
 
     </form>

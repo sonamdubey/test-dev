@@ -1,3 +1,89 @@
+var sliderComponentA, sliderComponentB;
+
+$(document).ready(function(e) {
+	
+	sliderComponentA = $("#downPaymentSlider").slider({
+		range: "min",
+		min: 0,
+		max: 1000000,
+		step: 50000,
+		value: 50000,
+		slide: function( e, ui ) {
+			changeComponentBSlider(e,ui);
+		},
+		change: function(e, ui) {
+			changeComponentBSlider(e,ui);
+		}
+	})
+	
+	sliderComponentB = $("#loanAmountSlider").slider({
+		range: "min",
+		min: 0,
+		max: 1000000,
+		step: 50000,
+		value: 1000000 - $('#downPaymentSlider').slider("option", "value"),
+		slide: function( e, ui ) {
+			changeComponentASlider(e,ui);
+		},
+		change: function(e, ui) {
+			changeComponentASlider(e,ui);
+		}
+	});
+	
+	$("#tenureSlider").slider({
+		range: "min",
+		min: 12,
+		max: 84,
+		step: 6,
+		value: 36,
+		slide: function(e,ui) {
+			$("#tenurePeriod").text(ui.value);
+		}
+	});
+	
+	$("#rateOfInterestSlider").slider({
+		range: "min",
+		min: 0,
+		max: 20,
+		step: 0.25,
+		value: 5,
+		slide: function(e,ui) {
+			$("#rateOfInterestPercentage").text(ui.value);
+		}
+	});
+	
+	$("#downPaymentAmount").text($("#downPaymentSlider").slider("value"));
+	$("#loanAmount").text($("#loanAmountSlider").slider("value"));
+	$("#tenurePeriod").text($("#tenureSlider").slider("value"));
+	$("#rateOfInterestPercentage").text($("#rateOfInterestSlider").slider("value"));
+
+});
+
+function changeComponentBSlider(e,ui) {
+	if (!e.originalEvent) return;
+	var totalAmount = 1000000;
+	var amountRemaining = totalAmount - ui.value;
+	$('#loanAmountSlider').slider("option", "value", amountRemaining);
+	$("#loanAmount").text(amountRemaining);
+	$("#downPaymentAmount").text(ui.value);
+};
+
+function changeComponentASlider(e,ui) {
+	if (!e.originalEvent) return;
+	var totalAmount = 1000000;
+	var amountRemaining = totalAmount - ui.value;
+	$('#downPaymentSlider').slider("option", "value", amountRemaining);
+	$("#downPaymentAmount").text(amountRemaining);
+	$("#loanAmount").text(ui.value);
+};
+
+function viewMore(id){
+	$(id).closest('li').nextAll('li').toggleClass('hide');
+	$(id).text($(id).text() == '(view more)' ? '(view less)' : '(view more)');
+};
+
+
+
 
 var versionul = $("#customizeBike ul.select-versionUL");
 var colorsul = $("#customizeBike ul.select-colorUL");
@@ -23,11 +109,13 @@ var BookingConfigViewModel = function () {
 
             }
             else {
+                $('html, body').animate({ scrollTop: $(".select-colorh4").offset().top }, 300);
                 $("#customizeBike .select-colorh4").addClass("text-red");
                 return false;
             }
         }
         else {
+            $('html, body').animate({ scrollTop: $(".select-versionh4").offset().top }, 300);
             $("#customizeBike .select-versionh4").addClass("text-red");
             return false;
         }
@@ -51,28 +139,26 @@ var BikeDetails = function () {
     self.waitingPeriod = ko.observable();
     self.selectedColorId = ko.observable();
     self.isInsuranceFree = ko.observable(insFree);
-    self.insuranceAmount = ko.observable(insAmt); 
+    self.insuranceAmount = ko.observable(insAmt);
     self.priceBreakupText = ko.observable();
 
     self.versionPrice = ko.computed(function () {
         var priceTxt = '';
-        if(self.versionPriceBreakUp()!=undefined && self.versionPriceBreakUp().length > 0)
-        {
+        if (self.versionPriceBreakUp() != undefined && self.versionPriceBreakUp().length > 0) {
             var total = 0, vlen = self.versionPriceBreakUp().length;
-            
+
             for (i = 0; i < vlen ; i++) {
                 total += self.versionPriceBreakUp()[i].Price;
                 priceTxt += (self.versionPriceBreakUp()[i].ItemName).trim() + ' + ';
             }
         }
-        self.priceBreakupText('(' + priceTxt.substr(0,priceTxt.length-2) + ')');
+        self.priceBreakupText('(' + priceTxt.substr(0, priceTxt.length - 2) + ')');
         return total;
     }, this);
 
     self.bikeName = ko.computed(function () {
         var _bikeName = '';
-        if (self.selectedVersion() != undefined && self.selectedVersionId != undefined)
-        {
+        if (self.selectedVersion() != undefined && self.selectedVersionId != undefined) {
             _bikeName = self.selectedVersion().Make.MakeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
 
         }
@@ -93,7 +179,7 @@ var BikeDetails = function () {
                 self.versionSpecs(value.MinSpec);
                 self.versionPriceBreakUp(value.PriceList);
                 self.waitingPeriod(value.NoOfWaitingDays);
-                self.bookingAmount(value.BookingAmount); 
+                self.bookingAmount(value.BookingAmount);
                 versionul.find("li").removeClass("selected-version text-bold border-dark-grey").addClass("text-light-grey border-light-grey").find("span.radio-btn").removeClass("radio-sm-checked").addClass("radio-sm-unchecked");
                 versionul.find("li[versionId=" + self.selectedVersionId() + "]").removeClass("text-light-grey border-light-grey").addClass("selected-version text-bold border-dark-grey").find("span.radio-btn").removeClass("radio-sm-unchecked").addClass("radio-sm-checked");
                 $("#customizeBike").find("h4.select-versionh4").removeClass("text-red");
@@ -153,6 +239,11 @@ function formatPrice(price) {
     return price;
 }
 
+var viewModel = new BookingConfigViewModel;
+ko.applyBindings(viewModel, $("#bookingConfig")[0]);
+
+
+
 $("#configBtnWrapper").on('click', 'span.viewBreakupText', function () {
     $("div#breakupPopUpContainer").show();
     $(".blackOut-window").show();
@@ -168,101 +259,6 @@ $(document).on('keydown', function (e) {
         $("div.breakupCloseBtn").click();
     }
 });
-
-$("#financeDetails ul.select-financeUL li").click(function () {
-    if (!$(this).hasClass("selected-finance")) {
-        $("#financeDetails ul.select-financeUL li").removeClass("selected-finance text-bold border-dark-grey").addClass("text-light-grey border-light-grey").find("span.radio-btn").removeClass("radio-sm-checked").addClass("radio-sm-unchecked");
-        $(this).removeClass("text-light-grey border-light-grey").addClass("selected-finance text-bold border-dark-grey").find("span.radio-btn").removeClass("radio-sm-unchecked").addClass("radio-sm-checked");
-        $("#financeDetails").find("h4.select-financeh4").removeClass("text-red");
-        validateTabC = 0;
-        $('#dealerDetailsTab').addClass('disabled-tab').removeClass('active-tab text-bold');
-    }
-});
-
-$("#financeDetails ul.select-financeUL li").click(function () {
-    if ($(this).hasClass("finance-required"))
-        $(".finance-emi-container").show();
-    else $(".finance-emi-container").hide();
-});
-
-var sliderComponentA, sliderComponentB;
-
-$(document).ready(function (e) {
-
-    sliderComponentA = $("#downPaymentSlider").slider({
-        range: "min",
-        min: 0,
-        max: 1000000,
-        step: 50000,
-        value: 50000,
-        slide: function (e, ui) {
-            changeComponentBSlider(e, ui);
-        },
-        change: function (e, ui) {
-            changeComponentBSlider(e, ui);
-        }
-    })
-
-    sliderComponentB = $("#loanAmountSlider").slider({
-        range: "min",
-        min: 0,
-        max: 1000000,
-        step: 50000,
-        value: 1000000 - $('#downPaymentSlider').slider("option", "value"),
-        slide: function (e, ui) {
-            changeComponentASlider(e, ui);
-        },
-        change: function (e, ui) {
-            changeComponentASlider(e, ui);
-        }
-    });
-
-    $("#tenureSlider").slider({
-        range: "min",
-        min: 12,
-        max: 84,
-        step: 6,
-        value: 36,
-        slide: function (e, ui) {
-            $("#tenurePeriod").text(ui.value);
-        }
-    });
-
-    $("#rateOfInterestSlider").slider({
-        range: "min",
-        min: 0,
-        max: 20,
-        step: 0.25,
-        value: 5,
-        slide: function (e, ui) {
-            $("#rateOfInterestPercentage").text(ui.value);
-        }
-    });
-
-    $("#downPaymentAmount").text($("#downPaymentSlider").slider("value"));
-    $("#loanAmount").text($("#loanAmountSlider").slider("value"));
-    $("#tenurePeriod").text($("#tenureSlider").slider("value"));
-    $("#rateOfInterestPercentage").text($("#rateOfInterestSlider").slider("value"));
-
-});
-
-function changeComponentBSlider(e, ui) {
-    if (!e.originalEvent) return;
-    var totalAmount = 1000000;
-    var amountRemaining = totalAmount - ui.value;
-    $('#loanAmountSlider').slider("option", "value", amountRemaining);
-    $("#loanAmount").text(amountRemaining);
-    $("#downPaymentAmount").text(ui.value);
-};
-
-function changeComponentASlider(e, ui) {
-    if (!e.originalEvent) return;
-    var totalAmount = 1000000;
-    var amountRemaining = totalAmount - ui.value;
-    $('#downPaymentSlider').slider("option", "value", amountRemaining);
-    $("#downPaymentAmount").text(amountRemaining);
-    $("#loanAmount").text(ui.value);
-};
 
 function getContrastYIQ(colorCode) {
 
@@ -294,10 +290,3 @@ function getContrastYIQ(colorCode) {
     }
 
 }
-
-
-var viewModel = new BookingConfigViewModel;
-ko.applyBindings(viewModel, $("#bookingConfig")[0]);
-
-
-

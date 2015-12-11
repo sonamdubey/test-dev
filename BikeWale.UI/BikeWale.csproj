@@ -876,6 +876,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\pricequote\BookingConfig.aspx.cs">
+      <DependentUpon>BookingConfig.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\pricequote\BookingSummary.aspx.cs">
       <DependentUpon>BookingSummary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2073,6 +2077,7 @@
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
     <Content Include="m\css\bwm-booking.css" />
+    <Content Include="m\css\bwm-bookingconfig.css" />
     <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-common-style.css" />
     <Content Include="m\css\bwm-model.css" />
@@ -2132,6 +2137,7 @@
     <Content Include="m\new\Search.aspx" />
     <Content Include="m\new\upcomingbikes\Default.aspx" />
     <Content Include="m\pagenotfound.aspx" />
+    <Content Include="m\pricequote\BookingConfig.aspx" />
     <Content Include="m\pricequote\BookingSummary.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
@@ -2144,6 +2150,7 @@
     <Content Include="m\pricequote\RSAOfferClaim.aspx" />
     <Content Include="m\src\BikeBooking\BikeBooking.js" />
     <Content Include="m\src\bwm-booking.js" />
+    <Content Include="m\src\bwm-bookingconfig.js" />
     <Content Include="m\src\bwm-brand.js" />
     <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
