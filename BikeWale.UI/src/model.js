@@ -1,8 +1,7 @@
 // JavaScript Document
 
 var leadBtnBookNow = $("#leadBtnBookNow"), leadCapturePopup = $("#leadCapturePopup");
-var firstname = $("#getFirstName");
-var lastname = $("#getLastName");
+var fullName = $("#getFullName");
 var emailid = $("#getEmailID");
 var mobile = $("#getMobile");
 var otpContainer = $(".mobile-verification-container");
@@ -44,14 +43,12 @@ function CustomerModel() {
     var arr = setuserDetails();
     var self = this;
     if (arr != null && arr.length > 0) {
-        self.firstName = ko.observable(arr[0]);
-        self.lastName = ko.observable(arr[1]);
-        self.emailId = ko.observable(arr[2]);
-        self.mobileNo = ko.observable(arr[3]);
+        self.fullName = ko.observable(arr[0]);
+        self.emailId = ko.observable(arr[1]);
+        self.mobileNo = ko.observable(arr[2]);
     }
     else {
-        self.firstName = ko.observable();
-        self.lastName = ko.observable();
+        self.fullName = ko.observable();
         self.emailId = ko.observable();
         self.mobileNo = ko.observable();
     }
@@ -60,9 +57,8 @@ function CustomerModel() {
     self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
     self.otpCode = ko.observable();
     self.fullName = ko.computed(function () {
-        var _firstName = self.firstName() != undefined ? self.firstName() : "";
-        var _lastName = self.lastName() != undefined ? self.lastName() : "";
-        return _firstName + ' ' + _lastName;
+        var _fullName = self.fullName() != undefined ? self.fullName() : "";
+        return _fullName;
     }, this);
 
     self.verifyCustomer = function () {
@@ -155,9 +151,8 @@ function CustomerModel() {
     };
 
     self.fullName = ko.computed(function () {
-        var _firstName = self.firstName() != undefined ? self.firstName() : "";
-        var _lastName = self.lastName() != undefined ? self.lastName() : "";
-        return _firstName + ' ' + _lastName;
+        var _fullName = self.fullName() != undefined ? self.fullName() : "";
+        return _fullName;
     }, this);
 
     self.submitLead = function () {
@@ -169,8 +164,13 @@ function CustomerModel() {
                 window.location.href = "/pricequote/bookingConfig.aspx";
             }
             else {
+                $("#contactDetailsPopup").hide();
+                $("#otpPopup").show();
+                var leadMobileVal = mobile.val();
+                $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
+                console.log(mobile);
                 otpContainer.removeClass("hide").addClass("show");
-                detailsSubmitBtn.hide();
+                //detailsSubmitBtn.hide();
                 nameValTrue();
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
@@ -222,34 +222,19 @@ function ValidateUserDetail() {
     isValid = validateEmail();
     isValid &= validateMobile();
     isValid &= validateName();
-    isValid &= validateLastName();
     return isValid;
 };
 
-function validateLastName() {
-    var isValid = true;
-    if (lastname.val().indexOf('&') != -1) {
-        isValid = false;
-        setError(lastname, 'Invalid name');
-    }
-    else {
-        isValid = true;
-        lastnameValTrue();
-    }
-    return isValid;
-}
-
-
 function validateName() {
     var isValid = true;
-    var a = firstname.val().length;
-    if (firstname.val().indexOf('&') != -1) {
+    var a = fullName.val().length;
+    if (fullName.val().indexOf('&') != -1) {
         isValid = false;
-        setError(firstname, 'Invalid name');
+        setError(fullName, 'Invalid name');
     }
     else if (a == 0) {
         isValid = false;
-        setError(firstname, 'Please enter your first name');
+        setError(fullName, 'Please enter your first name');
     }
     else if (a >= 1) {
         isValid = true;
@@ -259,17 +244,13 @@ function validateName() {
     return isValid;
 }
 
-function  lastnameValTrue() {
-    hideError(lastname)
-    lastname.siblings("div").text('');
-};
 function nameValTrue() {
-    hideError(firstname)
-    firstname.siblings("div").text('');
+    hideError(fullName)
+    fullName.siblings("div").text('');
 };
 
-firstname.on("focus", function () {
-    hideError(firstname);
+fullName.on("focus", function () {
+    hideError(fullName);
 });
 
 emailid.on("focus", function () {
@@ -413,10 +394,43 @@ function setuserDetails() {
 }
 
 function setPQUserCookie() {
-    var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
+    var val = fullName.val() + '&' + emailid.val() + '&' + mobile.val();
     SetCookie("_PQUser", val);
 }
 
+$(".edit-mobile-btn").on("click", function () {
+    var prevMobile = $(this).prev("span.lead-mobile").text();
+    $(".lead-otp-box-container").hide();
+    $(".update-mobile-box").show();
+    $("#getUpdatedMobile").val(prevMobile).focus();
+});
+
+$("#generateNewOTP").on("click", function () {
+    if (validateUpdatedMobile()) {
+        var updatedNumber = $(".update-mobile-box").find("#getUpdatedMobile").val();
+        $(".update-mobile-box").hide();
+        $(".lead-otp-box-container").show();
+        $(".lead-mobile-box").find(".lead-mobile").text(updatedNumber);
+    }
+});
+
+var validateUpdatedMobile = function () {
+    var isValid = true,
+		mobileNo = $("#getUpdatedMobile"),
+		mobileVal = mobileNo.val(),
+		reMobile = /^[0-9]{10}$/;
+    if (mobileVal == "") {
+        setError(mobileNo, "Please enter your Mobile Number");
+        isValid = false;
+    }
+    else if (!reMobile.test(mobileVal) && isValid) {
+        setError(mobileNo, "Mobile Number should be 10 digits");
+        isValid = false;
+    }
+    else
+        hideError(mobileNo)
+    return isValid;
+};
 
 //var pqCookieObj = {
 //PQCitySelectedId: 0,
@@ -1440,6 +1454,8 @@ $(".leadCapture-close-btn, .blackOut-window-model").on("click", function () {
     leadCapturePopup.hide();
     $('body').removeClass('lock-browser-scroll');
     $(".blackOut-window-model").hide();
+    $("#contactDetailsPopup").show();
+    $("#otpPopup").hide();
 });
 
 $(".more-features-btn").click(function () {
@@ -1474,4 +1490,8 @@ $(document).on('keydown', function (e) {
         $("div.termsPopUpCloseBtn").click();
         $("div.leadCapture-close-btn").click();
     }
+});
+
+$("#submit-btn").on("click", function () {
+    $("#otpPopup").show();
 });

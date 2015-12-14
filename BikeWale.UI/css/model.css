@@ -227,16 +227,24 @@
 .notify-offers-list li { margin-bottom:10px; }
 
 /* lead capture popup */
-#leadCapturePopup { display:none; width:650px; min-height:250px; background:#fff; margin:0 auto; position:fixed; top:15%; right:5%; left:5%; z-index:10; padding: 30px 20px 30px; }
-.personal-info-form-container { margin: 10px auto; width: 600px; min-height: 100px; }
-.personal-info-form-container .personal-info-list { margin:0 auto; width:270px; float:left; margin-left:15px; margin-right:15px; margin-bottom:25px; border-radius:0; }
+#leadCapturePopup { display:none; width:450px; min-height:470px; background:#fff; margin:0 auto; position:fixed; top:15%; right:5%; left:5%; z-index:10; padding: 30px 40px; }
+.personal-info-form-container { margin: 10px auto; width: 300px; min-height: 100px; }
+.personal-info-form-container .personal-info-list { margin:0 auto; width:280px; float:left; margin-bottom:20px; border-radius:0; }
 .personal-info-list .errorIcon, .personal-info-list .errorText { display:none; }
-.mobile-verification-container .errorIcon, .mobile-verification-container .errorText { display:none; }
-.mobile-verification-container { width: 610px; min-height:50px; margin:0 auto; padding:0 10px; }
-.mobile-verification-container p.confirm-otp-text { height:40px; width: 400px; text-align:left; }
-.mobile-verification-container p.otp-alert-text { min-height:20px; width: 240px; }
-.get-otp-code { width: 160px; }
-.resend-otp-btn:hover { cursor:pointer; }
+#otpPopup { display:none; }
+#otpPopup .otp-box, #otpPopup .update-mobile-box { width:280px; margin:15px auto 0; }
+#otpPopup .update-mobile-box .form-control-box { margin-top:25px; margin-bottom:50px; }
+#otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
+#otpPopup .update-mobile-box { display:none; }
+#otpPopup .edit-mobile-btn { cursor:pointer; }
+
+.icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
+.icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
+.user-contact-details-icon { width:36px; height:44px; background-position: 0 -391px; }
+.otp-icon { width:30px; height:40px; background-position: -46px -391px; }
+.mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; }
+#otpPopup .errorIcon, #otpPopup .errorText { display:none; }
+
 .input-border-bottom { border-bottom:1px solid #ccc; }
 
 @media all and (min-width: 800px) and (max-width: 996px){

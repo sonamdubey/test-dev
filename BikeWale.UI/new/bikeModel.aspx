@@ -501,59 +501,101 @@
             <!--View Breakup popup ends here-->
 
             <!-- lead capture popup start-->
-            <div id="leadCapturePopup" class="text-center rounded-corner2"  >
+            <div id="leadCapturePopup" class="text-center rounded-corner2">
             <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-            <p class="font20 margin-bottom10">Provide Contact Details</p>
-            <p class="text-light-grey margin-bottom20">For you to see BikeWale Dealer pricing and get a printable Certificate, we need your valid contact details. We promise to keep this information confidential and not use for any other purpose.</p>
-            <div class="personal-info-form-container">
-                <div class="form-control-box personal-info-list">
-                    <input type="text" class="form-control get-first-name" placeholder="First name (mandatory)"
-                        id="getFirstName" data-bind="value: firstName">
-                    <span class="bwsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
-                </div>
-                <div class="form-control-box personal-info-list">
-                    <input type="text" class="form-control get-last-name" placeholder="Last name"
-                        id="getLastName" data-bind="value: lastName">
-                    <span class="bwsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
-                </div>
-                <div class="form-control-box personal-info-list">
-                    <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
-                        id="getEmailID" data-bind="value: emailId">
-                    <span class="bwsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
-                </div>
-                <div class="form-control-box personal-info-list">
-                    <input type="text" class="form-control get-mobile-no" placeholder="Mobile no. (mandatory)"
-                        id="getMobile" maxlength="10" data-bind="value: mobileNo">
-                    <span class="bwsprite error-icon errorIcon"></span>
-                    <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-                </div>
-                <div class="clear"></div>
-                <a class="btn btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-            </div>
-            <div class="mobile-verification-container hide">
-                <div class="input-border-bottom"></div>
-                <div class="margin-top20">
-                    <p class="font14 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
-                    <div class="form-control-box">
-                        <input type="text" class="form-control get-otp-code rightfloat" maxlength="5" placeholder="Enter OTP" id="getOTP" data-bind="value: otpCode">
-                        <span class="bwsprite error-icon errorIcon hide"></span>
-                        <div class="bw-blackbg-tooltip errorText hide"></div>
+                <!-- contact details starts here -->
+                <div id="contactDetailsPopup">
+                    <div class="icon-outer-container rounded-corner50">
+                        <div class="icon-inner-container rounded-corner50">
+                            <span class="bwsprite user-contact-details-icon margin-top25"></span>
+                        </div>
                     </div>
+                    <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
+                    <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
+                    <div class="personal-info-form-container">
+                        <div class="form-control-box personal-info-list">
+                            <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
+                                id="getFullName" data-bind="value: fullName">
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                        </div>
+                        <div class="form-control-box personal-info-list">
+                            <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
+                                id="getEmailID" data-bind="value: emailId">
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+                        </div>
+                        <div class="form-control-box personal-info-list">
+                            <input type="text" class="form-control get-mobile-no" placeholder="Mobile no. (mandatory)"
+                                id="getMobile" maxlength="10" data-bind="value: mobileNo">
+                            <span class="bwsprite error-icon errorIcon"></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                        </div>
+                        <div class="clear"></div>
+                        <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                    </div>
+                    <!--
+                    <div class="mobile-verification-container hide">
+                        <div class="input-border-bottom"></div>
+                        <div class="margin-top20">
+                            <p class="font14 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
+                            <div class="form-control-box">
+                                <input type="text" class="form-control get-otp-code rightfloat" maxlength="5" placeholder="Enter OTP" id="getOTP" data-bind="value: otpCode">
+                                <span class="bwsprite error-icon errorIcon hide"></span>
+                                <div class="bw-blackbg-tooltip errorText hide"></div>
+                            </div>
 
-                    <div class="clear"></div>
+                            <div class="clear"></div>
+                        </div>
+                        <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                        <p class="otp-alert-text margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
+                            OTP has been already sent to your mobile
+                        </p>
+                        <div class="clear"></div>
+                        <br />
+                        <a class="btn btn-orange" id="otp-submit-btn">Confirm OTP</a>
+                        <div style="margin-right: 70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
+                    </div>
+                    -->
                 </div>
-                <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
-                <p class="otp-alert-text margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
-                    OTP has been already sent to your mobile
-                </p>
-                <div class="clear"></div>
-                <br />
-                <a class="btn btn-orange" id="otp-submit-btn">Confirm OTP</a>
-                <div style="margin-right: 70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
-            </div>
+                <!-- contact details ends here -->
+                <!-- otp starts here -->
+                <div id="otpPopup">
+                    <div class="icon-outer-container rounded-corner50">
+                        <div class="icon-inner-container rounded-corner50">
+                            <span class="bwsprite otp-icon margin-top25"></span>
+                        </div>
+                    </div>
+                    <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
+                    <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                    <div>
+                        <div class="lead-mobile-box lead-otp-box-container font22">
+                            <span class="fa fa-phone"></span>
+                            <span class="text-light-grey font24">+91</span>
+                            <span class="lead-mobile font24"></span>
+                            <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
+                        </div>
+                        <div class="otp-box lead-otp-box-container">
+                            <div class="form-control-box margin-bottom10">
+                                <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP">
+                                <span class="bwsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <p class="resend-otp-btn margin-bottom20" id="resendCwiCode">Resend OTP</p>
+                            <input type="button" class="btn btn-orange" value="Confirm OTP" id="otp-submit-btn">
+                        </div>
+                        <div class="update-mobile-box">
+                            <div class="form-control-box text-left">
+                                <p class="mobile-prefix">+91</p>
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile">
+                                <span class="bwsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP">
+                        </div>
+                    </div>
+                </div>
+                <!-- otp ends here -->
         </div>
              <!-- lead capture popup End-->
         </section>
