@@ -60,7 +60,8 @@ var ValidateUserDetail = function () {
 var validateName = function (cityArea) {
     var isValid = true;
     var a = firstname.val().length;
-    if (firstname.val().indexOf('&') != -1) {
+    //if (firstname.val().indexOf('&') != -1) {
+    if ((/&/).test(firstname.val())) {
         isValid = false;
         setError(firstname,'Invalid name');
     }
@@ -423,7 +424,7 @@ function setuserDetails() {
 
 var validateLastName = function (cityArea) {
     var isValid = true;
-    if (lastname.val().indexOf('&') != -1) {
+    if ((/&/).test(lastname.val())) {
         isValid = false;
         setError(lastname, 'Invalid name');
     }
