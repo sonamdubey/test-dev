@@ -322,7 +322,7 @@
                             </div>
                         </div>
 
-                            <input state="customize" id="bookingConfigNextBtn" data-bind="click: $root.changedSteps" type="button" value="Next" class="btn btn-orange btn-full-width">
+                            <input state="customize" id="bookingConfigNextBtn" data-bind="visible : (bookingAmount() > 0),click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.ActualSteps() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button"type="button" value="Next" class="btn btn-orange btn-full-width">
 
                             <div class="grid-12 alpha omega query-number-container text-center margin-top10" data-bind="visible: $root.CurrentStep() == 3">
                             <p class="font14 padding-left5"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>

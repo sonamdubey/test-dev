@@ -2082,6 +2082,7 @@
     <Content Include="m\css\bw-new-style.css" />
     <Content Include="m\css\bwm-booking.css" />
     <Content Include="m\css\bwm-bookingconfig.css" />
+    <Content Include="m\css\bwm-bookingflow.css" />
     <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-common-style.css" />
     <Content Include="m\css\bwm-model.css" />
@@ -2155,6 +2156,7 @@
     <Content Include="m\src\BikeBooking\BikeBooking.js" />
     <Content Include="m\src\bwm-booking.js" />
     <Content Include="m\src\bwm-bookingconfig.js" />
+    <Content Include="m\src\bwm-bookingflow.js" />
     <Content Include="m\src\bwm-brand.js" />
     <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />

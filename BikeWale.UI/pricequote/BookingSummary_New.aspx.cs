@@ -11,9 +11,7 @@ using Carwale.DAL.PaymentGateway;
 using Carwale.Entity.PaymentGateway;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -24,15 +22,8 @@ namespace Bikewale.BikeBooking
 {
     public class BookingSummary_New : System.Web.UI.Page
     {
-        //protected string pageName, description, bikeName, keywords, title;
-        //protected Button btnMakePayment;
-        //protected string dealerId, versionId, cityId, pqId, clientIP, pageUrl, areaId, color;
-        //protected BookingPageDetailsDTO objBookingPageDetailsDTO = null;
-        //protected BookingSummaryBase objBooking = null;
+
         protected PQCustomerDetail objCustomer = null;
-        //bool isDealerNotified = false;
-
-
         protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
         protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty;
         protected BookingSummaryBase objBooking = null;
@@ -46,7 +37,6 @@ namespace Bikewale.BikeBooking
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
-            // btnMakePayment.Click += new EventHandler(btnMakePayment_click);
             deliveryDetailsNextBtn.ServerClick += new EventHandler(btnMakePayment_click);
             generateNewOTP.ServerClick += new EventHandler(btnMakePayment_click);
             processOTP.ServerClick += new EventHandler(btnMakePayment_click);
