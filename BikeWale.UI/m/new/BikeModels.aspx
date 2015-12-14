@@ -21,7 +21,7 @@
         AdId = "1017752";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
-        Ad_300x250 = false;
+        Ad_300x250 = true;
         TargetedModel = modelPage.ModelDetails.ModelName;        
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
