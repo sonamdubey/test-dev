@@ -117,7 +117,6 @@ namespace Bikewale.New
             }
             else
             {
-                modelPage = (ModelPage)Session["modelPage"];
                 if (ViewState["modelPage"] != null)
                 {
                     string json = (string)ViewState["modelPage"];
@@ -481,7 +480,6 @@ namespace Bikewale.New
 
                         string jsonModel = JsonConvert.SerializeObject(modelPage);
                         ViewState["modelPage"] = jsonModel;
-                        Session["modelPage"] = modelPage;
                     }
                 }
             }

@@ -236,7 +236,7 @@
 #otpPopup .update-mobile-box .form-control-box { margin-top:25px; margin-bottom:50px; }
 #otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
 #otpPopup .update-mobile-box { display:none; }
-#otpPopup .edit-mobile-btn { cursor:pointer; }
+#otpPopup .edit-mobile-btn, .resend-otp-btn { cursor:pointer; }
 
 .icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }

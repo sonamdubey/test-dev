@@ -63,6 +63,7 @@ function CustomerModel() {
 
     self.verifyCustomer = function () {
         if (!self.IsVerified()) {
+            debugger;
             var objCust = {
                 "dealerId": dealerId,
                 "pqId": pqId,
@@ -95,6 +96,7 @@ function CustomerModel() {
     };
     self.generateOTP = function () {
         if (!self.IsVerified()) {
+            debugger;
             var objCust = {
                 "pqId": pqId,
                 "customerMobile": self.mobileNo(),
@@ -124,6 +126,7 @@ function CustomerModel() {
     };
 
     self.regenerateOTP = function () {
+        alert(3)
         if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
             var url = '/api/ResendVerificationCode/';
             var objCustomer = {
@@ -156,6 +159,7 @@ function CustomerModel() {
     }, this);
 
     self.submitLead = function () {
+        debugger;
         if (ValidateUserDetail()) {
             self.verifyCustomer();
             if (self.IsValid()) {                             
@@ -168,7 +172,6 @@ function CustomerModel() {
                 $("#otpPopup").show();
                 var leadMobileVal = mobile.val();
                 $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
-                console.log(mobile);
                 otpContainer.removeClass("hide").addClass("show");
                 //detailsSubmitBtn.hide();
                 nameValTrue();
@@ -203,7 +206,7 @@ function CustomerModel() {
 
                 $("#leadCapturePopup .leadCapture-close-btn").click();
 
-                window.location.href = "/pricequote/detaileddealerquotation.aspx";
+                window.location.href = "/pricequote/bookingConfig.aspx";
 
             }
             else {

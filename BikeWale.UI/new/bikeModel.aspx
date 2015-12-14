@@ -295,7 +295,7 @@
                             <% } %>
                             <% if (isBikeWalePQ)
                                    { %>
-                             <div class="insurance-breakup-text text-bold padding-top10" data-bind="visible: IsValidManufacturer()" style="position: relative; color: rgb(153, 153, 153); font-size: 14px; margin-top: 1px; text-decoration:solid">
+                             <div class="insurance-breakup-text text-bold padding-top10" style="position: relative; color: rgb(153, 153, 153); font-size: 14px; margin-top: 1px; text-decoration:solid">
                                 <a target="_blank" id="insuranceLink" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a>
                             </div>
                                <% } %>
@@ -413,7 +413,9 @@
                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.RTO)) %>  </td>
                             </tr>
                             <tr>
-                                <td class="padding-bottom10">Insurance (comprehensive)</td>
+                                <td class="padding-bottom10">Insurance (comprehensive)
+                                    <div class="insurance-breakup-text" style="position: relative; color: #999; font-size: 11px; margin-top: 1px;"><a target="_blank" href="/insurance/" >Save up to 60% on insurance - PolicyBoss</a> <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span></div>
+                                </td>
                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %>  </td>
                             </tr>
                             <tr>
@@ -577,21 +579,23 @@
                         </div>
                         <div class="otp-box lead-otp-box-container">
                             <div class="form-control-box margin-bottom10">
-                                <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP">
+                                <input type="text" class="form-control" maxlength="5" placeholder="Enter your OTP" id="getOTP" data-bind="value: otpCode">
                                 <span class="bwsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <p class="resend-otp-btn margin-bottom20" id="resendCwiCode">Resend OTP</p>
-                            <input type="button" class="btn btn-orange" value="Confirm OTP" id="otp-submit-btn">
+                            <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                            <div class="clear"></div>
+                            <%--<p class="resend-otp-btn margin-bottom20" id="resendCwiCode">Resend OTP</p>--%>
+                            <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
                         </div>
                         <div class="update-mobile-box">
                             <div class="form-control-box text-left">
                                 <p class="mobile-prefix">+91</p>
-                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile">
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
                                 <span class="bwsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP">
+                            <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
                         </div>
                     </div>
                 </div>
