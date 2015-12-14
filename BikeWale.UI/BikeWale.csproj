@@ -272,7 +272,6 @@
     <Compile Include="common\Ajax\AjaxUserReviews.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWCommon.cs" />
-    <Compile Include="common\BWConfiguration.cs" />
     <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
     <Compile Include="common\BWSecurity\ScreenInput.cs" />
     <Compile Include="common\Cities.cs" />
@@ -312,7 +311,6 @@
     <Compile Include="common\StateCity.cs" />
     <Compile Include="common\UrlRewrite.cs" />
     <Compile Include="common\Validations.cs" />
-    <Compile Include="common\BWHttpClient.cs" />
     <Compile Include="community\pms\CommonMessage.cs" />
     <Compile Include="content\ComparisonTest\DefaultCT.aspx.cs">
       <DependentUpon>DefaultCT.aspx</DependentUpon>

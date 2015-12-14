@@ -19,15 +19,6 @@ namespace Bikewale.BindViewModels.Controls
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
 
-        static string _cwHostUrl;
-        static string _requestType;
-
-        static BindVideosControl()
-        {
-            _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-            _requestType = "application/json";
-        }
-
         public void BindVideos(Repeater rptr)
         {
             try
@@ -45,7 +36,11 @@ namespace Bikewale.BindViewModels.Controls
                         _apiUrl = String.Format("/api/videos/pn/1/ps/{0}/make/{1}", TotalRecords, MakeId.Value);
                 }
 
-                objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objVideos = objClient.GetApiResponseSync<VideosList>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideos);
+                    objVideos = objClient.GetApiResponseSync<VideosList>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideos);
+                }
 
                 if (objVideos != null && objVideos.Videos != null)
                 {                    

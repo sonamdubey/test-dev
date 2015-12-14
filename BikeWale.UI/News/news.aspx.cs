@@ -82,11 +82,13 @@ namespace Bikewale.News
             try
             {
                 //sets the base URI for HTTP requests
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = "webapi/article/contentdetail/?basicid=" + _basicId;
+                string _apiUrl = String.Format("webapi/article/contentdetail/?basicid={0}", _basicId);
 
-                objArticle = await Bikewale.Utility.BWHttpClient.GetApiResponse<ArticleDetails>(_cwHostUrl, _requestType, _apiUrl, objArticle);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objArticle = await objClient.GetApiResponse<ArticleDetails>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
+                    objArticle = await objClient.GetApiResponse<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objArticle);
+                }
 
                 if (objArticle == null)
                     _isContentFount = false;

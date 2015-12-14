@@ -171,13 +171,15 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         objCust = _objCustomer.GetByEmail(input.CustomerEmail);
 
                         PQ_DealerDetailEntity dealerDetailEntity = null;
-                        string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                        string _requestType = "application/json";
-
+                        
                         string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", input.VersionId, input.DealerId, input.CityId);
                         // Send HTTP GET requests 
 
-                        dealerDetailEntity = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, dealerDetailEntity);
+                        using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                        {
+                            //dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                            dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                        }
 
                         if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null)
                         {

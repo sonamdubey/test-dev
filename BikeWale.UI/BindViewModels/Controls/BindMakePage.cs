@@ -28,13 +28,16 @@ namespace Bikewale.BindViewModels.Controls
             Make = new MakeBase();
             BikeDesc = new BikeDescription();
             FetchedRecordsCount = 0;
+            
             try
-            {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
+            {                
                 string _apiUrl = String.Format("/api/MakePage/?makeId={0}", makeId);
 
-                objBikeList = BWHttpClient.GetApiResponseSync<MakePage>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objBikeList = objClient.GetApiResponseSync<MakePage>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBikeList);
+                    objBikeList = objClient.GetApiResponseSync<MakePage>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBikeList);
+                }
 
                 if (objBikeList != null && objBikeList.PopularBikes != null && objBikeList.PopularBikes.Count() > 0)
                 {

@@ -16,9 +16,6 @@ namespace Bikewale.BindViewModels.Controls
         public int? makeId { get; set; }
         public int FetchedRecordsCount { get; set; }
 
-        readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-        readonly string _requestType = "application/json";
-
         public void BindMostPopularBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
@@ -27,20 +24,23 @@ namespace Bikewale.BindViewModels.Controls
 
             try
             {
-                                
                 string _apiUrl = String.Format("/api/ModelList/?totalCount={0}&makeId={1}", totalCount, makeId);
 
-                objBikeList = BWHttpClient.GetApiResponseSync<MostPopularBikesList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objBikeList = objClient.GetApiResponseSync<MostPopularBikesList>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBikeList);
+                    objBikeList = objClient.GetApiResponseSync<MostPopularBikesList>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBikeList);
+                }
 
                 if (objBikeList != null)
                 {
-                  var bikeList = objBikeList.PopularBikes.ToList();
-                  if (bikeList.Count > 0)
-                  {
-                    FetchedRecordsCount = bikeList.Count;
-                    rptr.DataSource = bikeList;
-                    rptr.DataBind();
-                  }
+                    var bikeList = objBikeList.PopularBikes.ToList();
+                    if (bikeList.Count > 0)
+                    {
+                        FetchedRecordsCount = bikeList.Count;
+                        rptr.DataSource = bikeList;
+                        rptr.DataBind();
+                    }
                 }
             }
             catch (Exception ex)

@@ -49,9 +49,6 @@ namespace Bikewale.Service.Controllers.BookingSummary
             BookingSummaryBase bookingSummary = null;
             try
             {
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
                 #region Customer Details
                 objCustomer = _objDealer.GetCustomerDetails(pqId);
 
@@ -64,7 +61,12 @@ namespace Bikewale.Service.Controllers.BookingSummary
                 #region Detailed Dealer Quotation
                 string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", versionId, dealerId, cityId);
 
-                dealerDetailEntity = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, dealerDetailEntity);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                    dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
+                }
+
                 if (dealerDetailEntity != null)
                 {
                     dtoQuotation = DDQDealerDetailBaseMapper.Convert(dealerDetailEntity);

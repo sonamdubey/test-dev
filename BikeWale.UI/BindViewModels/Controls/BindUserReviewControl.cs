@@ -30,16 +30,12 @@ namespace Bikewale.BindViewModels.Controls
         public int FetchedRecordsCount { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
-
-        static readonly string _bwHostUrl;
-        static readonly string _ApiURL;
-        static readonly string _requestType;
+        
+        static readonly string _ApiURL;        
 
         static BindUserReviewControl()
-        {
-            _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-            _ApiURL = "/api/UserReviewsList?modelId={0}&startIndex={1}&endIndex={2}&versionId={3}&filter={4}&totalRecords={5}";
-            _requestType = "application/json";
+        {            
+            _ApiURL = "/api/UserReviewsList?modelId={0}&startIndex={1}&endIndex={2}&versionId={3}&filter={4}&totalRecords={5}";            
         }
 
         public void BindUserReview(Repeater rptUserReviews)
@@ -55,8 +51,11 @@ namespace Bikewale.BindViewModels.Controls
 
                 string _apiUrl = String.Format(_ApiURL, ModelId, stratIndex, endIndex, 0, Filter, RecordCount);
 
-                userReviewList = Bikewale.Common.BWHttpClient.GetApiResponseSync<IEnumerable<Review>>(_bwHostUrl, _requestType, _apiUrl, userReviewList);
-
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    userReviewList = objClient.GetApiResponseSync<IEnumerable<Review>>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, userReviewList);
+                }
+                
                 if (userReviewList != null)
                 {
                     FetchedRecordsCount = userReviewList.Count();

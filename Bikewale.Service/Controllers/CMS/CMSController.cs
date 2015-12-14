@@ -34,11 +34,8 @@ namespace Bikewale.Service.Controllers.CMS
     /// Created On : 24th August 2015
     /// </summary>
     public class CMSController : ApiController
-    {
-        string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        string _requestType = "application/json";
-
+    {        
+        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;        
 
         private readonly IPager _pager = null;
 
@@ -78,7 +75,11 @@ namespace Bikewale.Service.Controllers.CMS
 
                 string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
 
-                objImageList = BWHttpClient.GetApiResponseSync<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, objImageList);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objImageList = objClient.GetApiResponseSync<List<ModelImage>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImageList);
+                    objImageList = objClient.GetApiResponseSync<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImageList);
+                }
 
                 if (objImageList != null && objImageList.Count > 0)
                 {
@@ -135,7 +136,12 @@ namespace Bikewale.Service.Controllers.CMS
                 _pager.GetStartEndIndex(Convert.ToInt32(posts), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
 
                 string _apiUrl = "/webapi/image/othermodelphotolist/?applicationid=2&startindex=" + startIndex + "&endindex=" + endIndex + "&modelid=" + modelId + "&categoryidlist=" + contentTypeList;
-                objPhotos = BWHttpClient.GetApiResponseSync<CMSImage>(_cwHostUrl, _requestType, _apiUrl, objPhotos);
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objPhotos = objClient.GetApiResponseSync<CMSImage>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objPhotos);
+                    objPhotos = objClient.GetApiResponseSync<CMSImage>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objPhotos);
+                }
 
                 if (objPhotos != null)
                 {
@@ -178,7 +184,11 @@ namespace Bikewale.Service.Controllers.CMS
                 
                 string _apiUrl = "/webapi/article/contentpagedetail/?basicid=" + basicId;
 
-                objFeaturedArticles = BWHttpClient.GetApiResponseSync<ArticlePageDetails>(_cwHostUrl, _requestType, _apiUrl, objFeaturedArticles);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objFeaturedArticles = objClient.GetApiResponseSync<ArticlePageDetails>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeaturedArticles);
+                    objFeaturedArticles = objClient.GetApiResponseSync<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeaturedArticles);
+                }
 
                 if (objFeaturedArticles != null)
                 {
@@ -274,7 +284,12 @@ namespace Bikewale.Service.Controllers.CMS
                 ArticleDetails objNews = null;
 
                 string _apiUrl = "/webapi/article/contentdetail/?basicid=" + basicId;
-                objNews = BWHttpClient.GetApiResponseSync<ArticleDetails>(_cwHostUrl, _requestType, _apiUrl, objNews);
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objNews = objClient.GetApiResponseSync<ArticleDetails>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objNews);
+                    objNews = objClient.GetApiResponseSync<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objNews);
+                }
 
                 if (objNews != null)
                 {                    
@@ -355,7 +370,11 @@ namespace Bikewale.Service.Controllers.CMS
                 string _apiUrl = String.Format("/webapi/image/GetArticlePhotos/?basicid={0}", basicId);
                 List<ModelImage> objImg = null;
 
-                objImg = BWHttpClient.GetApiResponseSync<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, objImg);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objImg = objClient.GetApiResponseSync<List<ModelImage>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
+                    objImg = objClient.GetApiResponseSync<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
+                }
 
                 if (objImg != null && objImg.Count > 0)
                 {

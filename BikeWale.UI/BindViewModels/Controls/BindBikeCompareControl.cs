@@ -17,10 +17,6 @@ namespace Bikewale.BindViewModels.Controls
     /// </summary>
     public class BindBikeCompareControl
     {
-        static readonly string m_bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-        static readonly string m_requestType = "application/json";
-        static readonly string m_BikeCompareListString = "/api/BikeCompareList/?topCount=";
-
         /// <summary>
         /// Total records requested
         /// </summary>    
@@ -69,14 +65,19 @@ namespace Bikewale.BindViewModels.Controls
         public void FetchBikeCompares()
         {
             IEnumerable<TopBikeCompareBase> topBikeCompares = null;
-
-            string apiUrl = String.Empty;
+            
             FetchedRecordCount = 0;
+
             try
             {
-                apiUrl = m_BikeCompareListString + TotalRecords;// String.Format("/api/BikeCompareList/?topCount={0}", m_TotalRecords);
+                string apiUrl = String.Format("/api/BikeCompareList/?topCount={0}", TotalRecords);
 
-                topBikeCompares = BWHttpClient.GetApiResponseSync<IEnumerable<TopBikeCompareBase>>(m_bwHostUrl, m_requestType, apiUrl, topBikeCompares);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //topBikeCompares = objClient.GetApiResponseSync<IEnumerable<TopBikeCompareBase>>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, topBikeCompares);
+                    topBikeCompares = objClient.GetApiResponseSync<IEnumerable<TopBikeCompareBase>>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, topBikeCompares);
+                }
+                                
                 if (topBikeCompares != null && topBikeCompares.Count() > 0)
                 {
                     FetchedRecordCount = topBikeCompares.Count();

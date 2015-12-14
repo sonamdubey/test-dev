@@ -49,15 +49,13 @@ namespace Bikewale.Mobile.PriceQuote
             bool _isContentFound = true;
             try
             {
-                //sets the base URI for HTTP requests
-                string _abHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
+                string _apiUrl = String.Format("api/BookingSummary?pqId={0}&versionId={1}&dealerId={2}&cityId={3}", PriceQuoteCookie.PQId, PriceQuoteCookie.VersionId, PriceQuoteCookie.DealerId, PriceQuoteCookie.CityId);                
 
-                string _apiUrl = String.Format("api/BookingSummary?pqId={0}&versionId={1}&dealerId={2}&cityId={3}", PriceQuoteCookie.PQId, PriceQuoteCookie.VersionId, PriceQuoteCookie.DealerId, PriceQuoteCookie.CityId);
-                // Send HTTP GET requests 
-
-                objBooking = BWHttpClient.GetApiResponseSync<BookingSummaryBase>(_abHostUrl, _requestType, _apiUrl, objBooking);
-
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objBooking = objClient.GetApiResponseSync<BookingSummaryBase>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBooking);
+                }
+                
                 if (objBooking != null && objBooking.DealerQuotation != null && objBooking.Customer != null)
                 {
                     if (objBooking.DealerQuotation.objBookingAmt == null || (objBooking.DealerQuotation.objBookingAmt != null && objBooking.DealerQuotation.objBookingAmt.Amount == 0))

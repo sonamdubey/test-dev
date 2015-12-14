@@ -343,15 +343,17 @@ namespace Bikewale.New
             }
         }
 
-        static readonly string apiURL = "/api/model/details/?modelId={0}";
-        static readonly string _requestType = "application/json";
-
         private void FetchModelPageDetails()
         {
             if (!string.IsNullOrEmpty(modelId))
             {
-                string _apiUrl = String.Format(apiURL, modelId);
-                modelPage = Bikewale.Utility.BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+                string _apiUrl = String.Format("/api/model/details/?modelId={0}", modelId);
+
+                using (Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //modelPage = objClient.GetApiResponseSync<ModelPage>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, modelPage);
+                    modelPage = objClient.GetApiResponseSync<ModelPage>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, modelPage);
+                }
 
                 if (modelPage != null)
                 {

@@ -25,15 +25,16 @@ using Bikewale.Service.AutoMappers.CMS;
 using Bikewale.Entities.CMS.Photos;
 using System.Web;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Interfaces.BikeData;
 
 namespace Bikewale.Service.Controllers.Model
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class ModelPageController : ApiController
-    {
-        private string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        private string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        private string _requestType = "application/json";
+    {        
+        private string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
+     
         private readonly IBikeModelsRepository<BikeModelEntity, int> _modelRepository = null;
         private readonly IBikeModelsCacheRepository<int> _cache;
 
@@ -152,7 +153,12 @@ namespace Bikewale.Service.Controllers.Model
 
                     string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
 
-                    objDTOModelPage.Photos = BWHttpClient.GetApiResponseSync<List<CMSModelImageBase>>(_cwHostUrl, _requestType, _apiUrl, objDTOModelPage.Photos);
+                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    {
+                        //objDTOModelPage.Photos = objClient.GetApiResponseSync<List<CMSModelImageBase>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objDTOModelPage.Photos);
+                        objDTOModelPage.Photos = objClient.GetApiResponseSync<List<CMSModelImageBase>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objDTOModelPage.Photos);
+                    }
+
                     if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
                     {
                         if (objDTOModelPage.Photos != null)
