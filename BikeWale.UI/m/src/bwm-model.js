@@ -158,7 +158,6 @@ function CustomerModel() {
     }, this);
 
     self.submitLead = function () {
-        debugger;
         if (ValidateUserDetail()) {
             self.verifyCustomer();
             if (self.IsValid()) {
@@ -601,7 +600,6 @@ function getImagePrevIndex() {
 }
 
 function getModelImageNextIndex() {
-   // debugger;
     var imgIndexA = $(".jcarousel-wrapper.model .jcarousel ul li.activeSlide").next();
     var imgIndex = imgIndexA.index();
     var imgTitle = imgIndexA.find("img").attr("title");
