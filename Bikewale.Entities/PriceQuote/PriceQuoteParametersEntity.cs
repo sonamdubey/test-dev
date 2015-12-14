@@ -7,6 +7,8 @@ using Bikewale.Entities.Customer;
 
 namespace Bikewale.Entities.PriceQuote
 {
+    /// Modified By : Sushil Kumar On 11th Nov 2015
+    /// Summary : Added colorId to Update colorId in PQ_NewBikeDealerPriceQuotes
     public class PriceQuoteParametersEntity
     {
         public uint VersionId { get; set; }
@@ -22,5 +24,6 @@ namespace Bikewale.Entities.PriceQuote
         //Added By : Sadhana Upadhyay on 20 July 2015
         public uint DealerId { get; set; }  
         public uint ModelId { get; set; }
+        public uint ColorId { get; set; }
     }
 }
