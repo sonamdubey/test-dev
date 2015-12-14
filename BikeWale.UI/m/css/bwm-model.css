@@ -209,5 +209,5 @@
 #notifyAvailabilityContainer .notify-close-btn {z-index:2;}
 #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
 
-.float-button { background-color:#f5f5f5; padding:10px 0; }
+.float-button { background-color:#f5f5f5; padding: 0px 10px 10px 10px; }
 .float-button.float-fixed{position:fixed; bottom:0; z-index:10; left:0; right:0;}

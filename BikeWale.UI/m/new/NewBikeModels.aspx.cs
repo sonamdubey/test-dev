@@ -24,6 +24,7 @@ using Bikewale.DTO.PriceQuote.City;
 using Bikewale.DTO.PriceQuote.Area;
 using Bikewale.DTO.PriceQuote.BikeQuotation;
 using System.Reflection;
+using Bikewale.Mobile.PriceQuote;
 
 namespace Bikewale.Mobile.New
 {
@@ -84,6 +85,9 @@ namespace Bikewale.Mobile.New
         protected ListView ListBox1;
         protected Label defaultVariant;
         protected HiddenField hdnVariant;
+        protected string dealerId = string.Empty;
+        protected string pqId = string.Empty;
+
         #region Events
         protected override void OnInit(EventArgs e)
         {
@@ -517,8 +521,13 @@ namespace Bikewale.Mobile.New
                 {
                     string _apiUrl = String.Format(onRoadApi, cityId, modelId, null, 0, areaId);
                     pqOnRoad = Bikewale.Utility.BWHttpClient.GetApiResponseSync<PQOnRoad>(_bwHostUrl, _requestType, _apiUrl, pqOnRoad);
+
                     if (pqOnRoad != null)
                     {
+                        dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
+                        pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
+                        PriceQuoteCookie.SavePQCookie(cityId, pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
+
                         if (pqOnRoad.IsDealerPriceAvailable)
                         {
                             #region when dealer Price is Available
@@ -575,7 +584,7 @@ namespace Bikewale.Mobile.New
                             #region BikeWale PQ
                             if (hdnVariant.Value != "0")
                             {
-                                int variantId = Convert.ToInt32(hdnVariant.Value);
+                                variantId = Convert.ToInt32(hdnVariant.Value);
                                 //Convert.ToInt32(ViewState["variantVal"].ToString());
                                 if (variantId != 0)
                                 {

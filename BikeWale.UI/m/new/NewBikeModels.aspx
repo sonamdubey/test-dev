@@ -26,6 +26,14 @@
         TargetedModel = modelPage.ModelDetails.ModelName;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <script type="text/javascript">
+        var dealerId = '<%= dealerId%>';
+        var pqId = '<%= pqId%>';
+        var versionId = '<%= variantId%>';
+        var cityId = '<%= cityId%>';
+        var clientIP = "<%= clientIP%>";
+        var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
+    </script>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
 </head>
@@ -118,7 +126,7 @@
                 <div class="grid-12 bg-white box-shadow" id="dvBikePrice">
 
                     <div class="clearfix">
-                    	<div class="font14 text-light-grey alpha omega grid-2 margin-top10">Variant:</div>
+                    	<div class="font14 text-light-grey alpha omega grid-2 margin-top10">Version:</div>
                         <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
                            { %>
                         <div class="form-control-box variantDropDown leftfloat grid-10 omega"> 
@@ -186,7 +194,6 @@
                         <%if (pqOnRoad != null && price != "0")
                                       {%>
                                     <p id="viewBreakupText" class="font14 text-light-grey leftfloat viewBreakupText">View Breakup</p>
-                                    
                                         <%if (isBikeWalePQ && price != "0")
                                           {%>
                                         <p class="font12 text-light-grey clear">Ex-showroom + RTO + Insurance(Comprehensive)</p>
@@ -196,6 +203,11 @@
                                         <p class="font12 text-xt-light-grey clear"><%=viewbreakUpText %></p>
                                         <%} %>
                                     <% } %>
+                        <% if (isBikeWalePQ)
+                           { %>
+                        <a class='padding-top10 text-bold' style="position: relative; font-size: 14px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">Save up to 60% on insurance - PolicyBoss
+                        </a>
+                        <% } %>
                         <!-- Terms and condition Popup start -->
                         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
                             <h3>Terms and Conditions</h3>
@@ -226,7 +238,7 @@
                                             <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.RTO)) %></td>
                                         </tr>
                                         <tr>
-                                            <td class="padding-bottom10">Insurance (comprehensive)</td>
+                                            <td class="padding-bottom10">Insurance<a style="position: relative; font-size: 11px; margin-top: 1px;" target="_blank" href="/m/insurance/" > Up to 60% off - PolicyBoss </a></td>
                                             <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %></td>
                                         </tr>
                                         <tr>
@@ -251,7 +263,8 @@
                                         <asp:Repeater ID="rptCategory" runat="server">
                                             <ItemTemplate>
                                                 <tr class="carwale">
-                                                    <td width="60%" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %></td>
+                                                    <td width="60%" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
+                                                    </td>
                                                     <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
                                                         <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>
                                                 </tr>
@@ -315,66 +328,63 @@
                             </div>
                         </div>
                         <!--View Breakup popup ends here-->
-                    </div>
-                   
-                    <div id="city-area-select-container" class="city-area-select-container margin-bottom20 " data-bind="visible: popularCityClicked()">
-                        <div class="city-onRoad-price-container font14 margin-bottom15 hide">
-                            <!-- lead capture popup -->
-                            <div id="leadCapturePopup" class="bw-popup contact-details hide">
-                                <div class="popup-inner-container">
-                                    <div class="bwmsprite close-btn rightfloat"></div>
-                                    <h2>Please provide us contact details</h2>
 
-                                    <div class="personal-info-form-container margin-top10">
-                                        <div class="form-control-box">
-                                            <input type="text" class="form-control get-first-name" placeholder="First name" id="getFirstName" data-bind="value: viewModel.CustomerVM().firstName">
-                                            <span class="bwmsprite error-icon "></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
-                                        </div>
-                                        <div class="form-control-box margin-top20">
-                                            <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: viewModel.CustomerVM().lastName">
-                                            <span class="bwmsprite error-icon"></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
-                                        </div>
-                                        <div class="form-control-box margin-top20">
-                                            <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: viewModel.CustomerVM().emailId">
-                                            <span class="bwmsprite error-icon"></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter your email adress</div>
-                                        </div>
-                                        <div class="form-control-box margin-top20">
-                                            <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: viewModel.CustomerVM().mobileNo">
-                                            <span class="bwmsprite error-icon"></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn">Submit</a>
+                        <!-- Lead Capture pop up start  -->
+                        <div id="leadCapturePopup" class="bw-popup contact-details hide">
+                            <div class="popup-inner-container">
+                                <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
+                                <h2>Please provide us contact details</h2>
+
+                                <div class="personal-info-form-container margin-top10">
+                                    <div class="form-control-box">
+                                        <input type="text" class="form-control get-first-name" placeholder="First name" id="getFullName" data-bind="value: fullName">
+                                        <span class="bwmsprite error-icon "></span>
+                                        <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
                                     </div>
-
-                                    <div class="mobile-verification-container margin-top20 hide">
-                                        <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
-                                        <div class="form-control-box  padding-left15 padding-right15">
-                                            <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" id="getOTP" data-bind="value: viewModel.CustomerVM().otpCode">
-                                            <span class="bwmsprite error-icon hide"></span>
-                                            <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
-                                        </div>
-                                        <div class="text-center padding-top10">
-                                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() < 2), click: function () { viewModel.CustomerVM().regenerateOTP() }">Resend OTP</a>
-                                            <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (viewModel.CustomerVM().NoOfAttempts() >= 2)" style="display: none;">
-                                                OTP has been already sent to your mobile
-                                            </p>
-                                        </div>
-
-                                        <div class="clear"></div>
-                                        <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
-                                        <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
+                                    <%--<div class="form-control-box margin-top20">
+                                        <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: lastName">
+                                        <span class="bwmsprite error-icon"></span>
+                                        <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
+                                    </div>--%>
+                                    <div class="form-control-box margin-top20">
+                                        <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId">
+                                        <span class="bwmsprite error-icon"></span>
+                                        <div class="bw-blackbg-tooltip errorText">Please enter your email adress</div>
                                     </div>
-
-                                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
+                                    <div class="form-control-box margin-top20">
+                                        <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: mobileNo">
+                                        <span class="bwmsprite error-icon"></span>
+                                        <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                                    </div>
+                                    <div class="clear"></div>
+                                    <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                                 </div>
+
+                                <div class="mobile-verification-container margin-top20 hide">
+                                    <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
+                                    <div class="form-control-box  padding-left15 padding-right15">
+                                        <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" maxlength="5" id="getOTP" data-bind="value: otpCode">
+                                        <span class="bwmsprite error-icon hide"></span>
+                                        <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
+                                    </div>
+                                    <div class="text-center padding-top10">
+                                        <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                                        <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
+                                            OTP has been already sent to your mobile
+                                        </p>
+                                    </div>
+
+                                    <div class="clear"></div>
+                                    <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
+                                    <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
+                                </div>
+
+                                <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
                             </div>
                         </div>
+                        <!-- Lead Capture pop up end  -->
                     </div>
-
+                   
                     <% if (pqOnRoad!= null && pqOnRoad.IsDealerPriceAvailable) {%>
                         <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
                         <div class="available-offers-container content-inner-block-10">
@@ -482,16 +492,18 @@
                 </div>
                 <% } %>
             </div>
+
             <!-- floating buttons -->
-            <div class="grid-12 float-button float-fixed clearfix">
+           <%-- <div class="grid-12 float-button float-fixed clearfix">--%>
                 <% if ((cityId == "0" && areaId == "0") || (cityId != "0" && areaId == "0" && isAreaAvailable))
                        {   %>
-                <div class="grid-12">
+                <div class="grid-12 float-button float-fixed clearfix">
                     <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
-                    <%    }
+                    <% }
                    else
                    {   %>
-                    <div class="show">
+                    <div class="grid-12 float-button float-fixed clearfix">
+                    <div class="show padding-top10">
                         <% if (modelPage.ModelDetails.New)
                            {
                                if (bookingAmt > 0)
@@ -506,6 +518,7 @@
                          <%} %>
                         <%} %>
                     </div>
+                        </div>
                     <%} %>
                 </div>
 
@@ -1009,7 +1022,7 @@
                     <!-- variant code starts here -->
                     <div class="grid-12">
                         <div class="bw-tabs-data <%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? "" : "hide" %>" id="variants">
-                            <h2 class="text-center margin-top30 margin-bottom20 text-center">Variants</h2>
+                            <h2 class="text-center margin-top30 margin-bottom20 text-center">Versions</h2>
                             <asp:Repeater ID="rptVarients" runat="server" OnItemDataBound="rptVarients_ItemDataBound2">
                                 <ItemTemplate>
                                     <div>
