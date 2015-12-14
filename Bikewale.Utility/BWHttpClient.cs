@@ -223,14 +223,9 @@ namespace Bikewale.Utility
                     }
                 }
             }
-            catch (HttpRequestException ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponseSync<T>");
-                objErr.SendMail();
-            }
             catch (Exception err)
             {
-                ErrorClass objErr = new ErrorClass(err, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponseSync<T>");
+                ErrorClass objErr = new ErrorClass(err, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponseSync<T>({0},{1})", apiHost, apiUrl));
                 objErr.SendMail();
             }
             return objTask;
@@ -345,7 +340,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponseSync<T>");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponseSync<T>({0},{1})", apiHost, apiUrl));
                 objErr.SendMail();
             }
             finally
