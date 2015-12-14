@@ -166,8 +166,12 @@ function CustomerModel() {
                 window.location.href = "/pricequote/bookingConfig.aspx";
             }
             else {
+                $("#contactDetailsPopup").hide();
+                $("#otpPopup").show();
+                var leadMobileVal = mobile.val();
+                $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
                 otpContainer.removeClass("hide").addClass("show");
-                detailsSubmitBtn.hide();
+                //detailsSubmitBtn.hide();
                 nameValTrue();
                 hideError(mobile);
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
@@ -392,6 +396,40 @@ function setPQUserCookie() {
     var val = fullname.val() + '&' + emailid.val() + '&' + mobile.val();
     SetCookie("_PQUser", val);
 }
+
+$("#otpPopup .edit-mobile-btn").on("click", function () {
+    var prevMobile = $(this).prev("span.lead-mobile").text();
+    $(".lead-otp-box-container").hide();
+    $(".update-mobile-box").show();
+    $("#getUpdatedMobile").val(prevMobile).focus();
+});
+
+$("#generateNewOTP").on("click", function () {
+    if (validateUpdatedMobile()) {
+        var updatedNumber = $(".update-mobile-box").find("#getUpdatedMobile").val();
+        $(".update-mobile-box").hide();
+        $(".lead-otp-box-container").show();
+        $(".lead-mobile-box").find(".lead-mobile").text(updatedNumber);
+    }
+});
+
+var validateUpdatedMobile = function () {
+    var isValid = true,
+		mobileNo = $("#getUpdatedMobile"),
+		mobileVal = mobileNo.val(),
+		reMobile = /^[0-9]{10}$/;
+    if (mobileVal == "") {
+        setError(mobileNo, "Please enter your Mobile Number");
+        isValid = false;
+    }
+    else if (!reMobile.test(mobileVal) && isValid) {
+        setError(mobileNo, "Mobile Number should be 10 digits");
+        isValid = false;
+    }
+    else
+        hideError(mobileNo)
+    return isValid;
+};
 
 $(function () {
     $(".carousel-navigation ul li").slice(0, 4).find("img.lazy").trigger("imgLazyLoad");
@@ -824,6 +862,9 @@ $("#viewBreakupText").on('click', function (e) {
 $(".breakupCloseBtn,.blackOut-window").on('mouseup click', function (e) {
     $("div#breakupPopUpContainer").hide();
     $(".blackOut-window").hide();
+    $("#contactDetailsPopup").show();
+    $("#otpPopup").hide();
+    leadPopupClose();
 });
 
 $(".termsPopUpCloseBtn").on('mouseup click', function (e) {
@@ -837,7 +878,7 @@ $("#getMoreDetailsBtn").on('click', function (e) {
 });
 
 $(".leadCapture-close-btn").on("click", function () {
-    leadCapturePopup.hide();
+    leadPopupClose();
     $('body').removeClass('lock-browser-scroll');
     $(".blackOut-window").hide();
 });
@@ -847,8 +888,15 @@ $(document).on('keydown', function (e) {
         $("div.breakupCloseBtn").click();
         $("div.termsPopUpCloseBtn").click();
         $("div.leadCapture-close-btn").click();
+        leadPopupClose();
     }
 });
+
+var leadPopupClose = function () {
+    leadCapturePopup.hide();
+    $("#contactDetailsPopup").show();
+    $("#otpPopup").hide();
+};
 
 $(".more-features-btn").click(function () {
     $(".more-features").slideToggle();
