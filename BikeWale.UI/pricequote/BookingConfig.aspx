@@ -267,12 +267,12 @@
 
                                     </ul>
                                 </div>
-                                <div class="grid-7 omega offer-details-container"> 
+                                <div class="grid-7 omega offer-details-container">
 
                                     <% if (isOfferAvailable)
                                        { %>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 text-red font-24"></span>Available Offers </h3>                                    
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 text-red font-24"></span>Available Offers </h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
 
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
@@ -284,7 +284,7 @@
                                     <%}
                                        else
                                        {%>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                                     <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
                                     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
@@ -319,7 +319,7 @@
                                     <!-- /ko -->
 
                                 </div>
-                                <input state="customize" id="bookingConfigNextBtn" data-bind="click: $root.changedSteps" type="button" value="Next" class="btn btn-orange">
+                                <input state="customize" id="bookingConfigNextBtn" data-bind="visible : (bookingAmount() > 0),click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.ActualSteps() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange">
                             </div>
                             <!-- View BreakUp Popup Starts here-->
                             <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
@@ -382,7 +382,7 @@
             </div>
         </section>
 
-
+         
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingConfig.Varients)%>' />
 
         <script type="text/javascript">
@@ -398,14 +398,16 @@
                     }
                 });
             });
-
+            var pqId = '<%= pqId%>';
             var versionList = JSON.parse($("#hdnBikeData").val());
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
             var insAmt = '<%= insuranceAmount %>';
+            var cityId = '<%= cityId%>';
+            var areaId = '<%= areaId%>';
             var BikeDealerDetails = function () {
                 var self = this;
                 // self.Dealer = ko.observable(objDealer);
-                // self.DealerId = ko.observable(0);
+                self.DealerId = ko.observable(<%= dealerId%>);
                 // self.DealerDetails = ko.observable(objDealer.objDealer);
                 // self.DealerQuotation = ko.observable(objDealer.objQuotation);
                 self.IsInsuranceFree = ko.observable(insFree);
