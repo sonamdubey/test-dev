@@ -258,9 +258,7 @@
     }
 
     $(document).ready(function () {
-
         $('a.fillPopupData').on('click', function (e) {
-            debugger;
             if (ga_pg_id != null & ga_pg_id == 2) {
                 var attr = $(this).attr('ismodel');
                 if (typeof attr !== typeof undefined && attr !== false) {
