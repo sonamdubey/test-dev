@@ -418,7 +418,8 @@ $.getFilterFromQS = function (name) {
         }
     }
     if (isFound && value.length > 0) {
-        if (value.indexOf('+') > 0)
+        //if (value.indexOf('+') > 0)
+        if ((/\+/).test(value))
             return value.replace(/\+/g, " ");
         else
             return value;
@@ -456,7 +457,8 @@ $.removeFilterFromQS = function (name) {
         var prefix = name + '=';
         var pars = url.split(/[&;]/g);
         for (var i = pars.length; i-- > 0;) {
-            if (pars[i].indexOf(prefix) > -1) {
+            //if (pars[i].indexOf(prefix) > -1) {
+            if((/=/).test(pars[i])){
                 pars.splice(i, 1);
             }
         }
