@@ -12,16 +12,12 @@ namespace Bikewale.BindViewModels.Controls
 {
     public class BindUpcomingBikesControl
     {
-
         public int sortBy { get; set; }
         public int pageSize { get; set; }
         public int? MakeId { get; set; }
         public int? ModelId { get; set; }
         public int? curPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
-
-        readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-        readonly string _requestType = "application/json";
 
         public void BindUpcomingBikes(Repeater rptr)
         {
@@ -33,7 +29,6 @@ namespace Bikewale.BindViewModels.Controls
             {
                 string _apiUrl = String.Format("/api/UpcomingBike/?sortBy={0}&pageSize={1}", sortBy, pageSize);
 
-
                 if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                 {
                     _apiUrl += String.Format("&makeId={0}&curPageNo={1}", MakeId, curPageNo);
@@ -44,7 +39,10 @@ namespace Bikewale.BindViewModels.Controls
                     }
                 }
 
-                objBikeList = BWHttpClient.GetApiResponseSync<UpcomingBikeList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objBikeList = objClient.GetApiResponseSync<UpcomingBikeList>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBikeList);
+                }                
 
                 if (objBikeList != null && objBikeList.UpcomingBike != null)
                 {

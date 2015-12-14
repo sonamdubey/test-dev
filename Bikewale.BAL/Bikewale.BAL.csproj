@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoComplete\AutoSuggest.cs" />
-    <Compile Include="AutoComplete\ElasticSearchManager.cs" />
     <Compile Include="BikeBooking\AbstractBikeBooking.cs" />
     <Compile Include="BikeBooking\BrowserBikeBooking.cs" />
     <Compile Include="BikeBooking\DealerPriceQuote.cs" />

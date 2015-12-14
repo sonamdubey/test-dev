@@ -107,17 +107,16 @@ namespace Bikewale.Content
         private async void GetRoadTestDetails()
         {
             try
-            {
-                //sets the base URI for HTTP requests
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
-                //ArticlePageDetails objFeature = null;
+            {                
                 string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + BasicId;
 
                 // Send HTTP GET requests 
-                objRoadtest = await BWHttpClient.GetApiResponse<ArticlePageDetails>(_cwHostUrl, _requestType, _apiUrl, objRoadtest);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objRoadtest = await objClient.GetApiResponse<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objRoadtest);
+                }                
 
-                if (objRoadtest != null) //Check 200 OK Status
+                if (objRoadtest != null)
                 {
                     GetRoadTestData();
                     BindPages();
@@ -148,14 +147,15 @@ namespace Bikewale.Content
         private async void BindPhotos()
         {
             try
-            {
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + BasicId;
-                string _requestType = "application/json";
+            {                
+                string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + BasicId;             
                 List<ModelImage> objImg = null;
 
-                objImg = await BWHttpClient.GetApiResponse<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, objImg);
-
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objImg = await objClient.GetApiResponse<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
+                }
+                
                 if (objImg != null && objImg.Count > 0)
                 {
                     rptPhotos.DataSource = objImg;

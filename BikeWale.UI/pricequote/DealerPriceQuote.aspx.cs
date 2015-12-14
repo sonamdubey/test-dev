@@ -105,13 +105,13 @@ namespace Bikewale.BikeBooking
             try
             {
                 totalPrice = 0;
-                string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string requestType = "application/json";
                 string api = "/api/DealerPriceQuote/GetDealerPriceQuote/?cityid=" + cityId + "&versionid=" + versionId + "&dealerid=" + dealerId;
 
-
-                objPrice = BWHttpClient.GetApiResponseSync<PQ_QuotationEntity>(abHostUrl, requestType, api, objPrice);
-
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
+                }
+                
                 if (objPrice != null)
                 {
                     BikeName = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName;

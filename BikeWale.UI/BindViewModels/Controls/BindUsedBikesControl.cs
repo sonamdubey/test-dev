@@ -46,16 +46,16 @@ namespace Bikewale.BindViewModels.Controls
         }
 
         private void FetchPopularUsedBike(int topCount, int? cityId)
-        {            
-            string hostURL = String.Empty;
-            string requestType = "application/json";
-            string apiUrl = String.Empty;
+        {
             try
             {
-                hostURL = ConfigurationManager.AppSettings["bwHostUrl"];
-                apiUrl = String.Format("/api/PopularUsedBikes/?topCount={0}&cityId={1}", topCount, cityId.HasValue ? cityId.Value.ToString() : "");
+                string apiUrl = String.Format("/api/PopularUsedBikes/?topCount={0}&cityId={1}", topCount, cityId.HasValue ? cityId.Value.ToString() : "");
 
-                popularUsedBikes = BWHttpClient.GetApiResponseSync<IEnumerable<PopularUsedBikesBase>>(hostURL, requestType, apiUrl, popularUsedBikes);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //popularUsedBikes = objClient.GetApiResponseSync<IEnumerable<PopularUsedBikesBase>>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, popularUsedBikes);
+                    popularUsedBikes = objClient.GetApiResponseSync<IEnumerable<PopularUsedBikesBase>>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, popularUsedBikes);
+                }
                 
                 if (popularUsedBikes != null)
                 {

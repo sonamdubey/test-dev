@@ -846,6 +846,57 @@
             <param name="clientId"></param>
             <returns>List of dealers of paticular make in city</returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.Insurance.InsuranceLeadController">
+            <summary>
+            Created BY : Lucky Rathore
+            Date : 20 November 2015
+            Description : API to handle User Insurance Detail.
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Insurance.InsuranceLeadController.#ctor(Bikewale.Interfaces.Customer.ICustomerAuthentication{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.Customer.ICustomer{Bikewale.Entities.Customer.CustomerEntity,System.UInt32})">
+            <summary>
+            Description : Initialize mentioned Objects
+            </summary>
+            <param name="objAuthCustomer"></param>
+            <param name="objCustomer"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Insurance.InsuranceLeadController.POST(Bikewale.Entities.Insurance.InsuranceLead)">
+            <summary>
+            Created By : Lucky Rathore
+            Date : 20 November 2015
+            Description : To submit detail of user for bike Insurance via post method.
+            </summary>
+            <param name="insuranceLead"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Insurance.InsuranceModelsController">
+            <summary>
+            Created By : Lucky Rathore
+            Date : 23 Nov 2015
+            Description : To call Policyboss Model API.
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Insurance.InsuranceModelsController.Get(System.Int32)">
+            <summary>
+            Description : Send Client Models detail on specified Make ID.
+            </summary>
+            <param name="modelId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Insurance.InsuranceVersionsController">
+            <summary>
+            Created By : Lucky Rathore
+            Date : 23 Nov 2015
+            Description : To call Policyboss Model API.
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Insurance.InsuranceVersionsController.Get(System.Int32)">
+            <summary>
+            Description : Send Client Versions detail on specified model ID.
+            </summary>
+            <param name="modelId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.LeadsGeneration.ManufacturerLeadController">
             <summary>
             Craeted By  : Sushil Kumar
@@ -926,6 +977,11 @@
             </summary>
             <param name="modelId"></param>
             <returns>Model Synopsis</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Model.ModelPageController">
+            <summary>
+            
+            </summary>
         </member>
         <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32})">
             <summary>

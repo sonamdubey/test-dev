@@ -84,10 +84,7 @@ namespace Bikewale.New.PhotoGallery
         private async void GetOtherModelPhotos()
         {
             try
-            {
-                //sets the base URI for HTTP requests
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
+            {                
                 CMSImage _objPhotos = null;
 
                 // get pager instance
@@ -99,8 +96,11 @@ namespace Bikewale.New.PhotoGallery
 
                 string _apiUrl = "webapi/image/othermodelphotolist/?applicationid=2&startindex=" + _startIndex + "&endindex=" + _endIndex + "&modelid=" + _modelId + "&categoryidlist=" + categoryIdList;
                 
-                _objPhotos = await BWHttpClient.GetApiResponse<CMSImage>(_cwHostUrl, _requestType, _apiUrl, _objPhotos);
-
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    _objPhotos = await objClient.GetApiResponse<CMSImage>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPhotos);
+                }
+                
                 if (_objPhotos != null)
                 {
                     BindOtherModelsPhotos(_objPhotos.Images);

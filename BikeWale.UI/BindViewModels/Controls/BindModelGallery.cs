@@ -31,12 +31,6 @@ namespace Bikewale.BindViewModels.Controls
         /// </summary>
         public int FetchedVideoCount { get; set; }
 
-        static string _cwHostUrl;
-        static BindModelGallery()
-        {
-            _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-        }
-
         /// <summary>
         /// Binds the Video main and navigation JCarousel
         /// It fetches data from BW Video APIs
@@ -50,12 +44,13 @@ namespace Bikewale.BindViewModels.Controls
                 FetchedVideoCount = 0;
                 VideosList objVideos = null;
 
-                
-                string _requestType = "application/json";
-
                 string _apiUrl = String.Format("/api/videos/pn/1/ps/1000/model/{0}/", ModelId);
-
-                objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
+                
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objVideos = objClient.GetApiResponseSync<VideosList>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideos);
+                    objVideos = objClient.GetApiResponseSync<VideosList>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideos);
+                }
 
                 if (objVideos != null)
                 {
@@ -92,11 +87,13 @@ namespace Bikewale.BindViewModels.Controls
             FetchedVideoCount = 0;
             VideosList objVideos = null;
 
-            string _requestType = "application/json";
-
             string _apiUrl = String.Format("/api/videos/pn/1/ps/1000/model/{0}/", ModelId);
 
-            objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
+            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            {
+                //objVideos = objClient.GetApiResponseSync<VideosList>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideos);
+                objVideos = objClient.GetApiResponseSync<VideosList>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideos);
+            }
 
             if (objVideos != null)
             {

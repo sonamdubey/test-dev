@@ -19,9 +19,8 @@ namespace Bikewale.Service.Controllers.Insurance
     /// </summary>
     public class InsuranceVersionsController : ApiController
     {
-        string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        string _requestType = "application/json";
+        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
+
         IEnumerable<VersionDetail> versionDetail = null;
         Dictionary<string, string> _headerParameters;
 
@@ -39,7 +38,13 @@ namespace Bikewale.Service.Controllers.Insurance
             try
             {
                 string apiUrl = "/api/insurance/versions/" + modelId;
-                versionDetail = BWHttpClient.GetApiResponseSync<IEnumerable<VersionDetail>>(_cwHostUrl, _requestType, apiUrl, versionDetail, _headerParameters);
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //versionDetail = objClient.GetApiResponseSync<IEnumerable<VersionDetail>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, versionDetail, _headerParameters);
+                    versionDetail = objClient.GetApiResponseSync<IEnumerable<VersionDetail>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, versionDetail, _headerParameters);
+                }
+
                 return Ok(versionDetail);
             }
             catch (Exception ex)

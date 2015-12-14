@@ -18,10 +18,8 @@ namespace Bikewale.Service.Controllers.Insurance
     /// Description : To call Policyboss Model API.
     /// </summary>
     public class InsuranceModelsController : ApiController
-    {
-        string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        string _requestType = "application/json";
+    {        
+        string _applicationid = BWConfiguration.Instance.ApplicationId;        
         IEnumerable<ModelDetail> modelDetail = null;
         Dictionary<string, string> _headerParameters;
 
@@ -38,8 +36,14 @@ namespace Bikewale.Service.Controllers.Insurance
             _headerParameters.Add("platformid", "2");
             try
             {
-                string apiUrl = "/api/insurance/models/" + makeId;
-                modelDetail = BWHttpClient.GetApiResponseSync<IEnumerable<ModelDetail>>(_cwHostUrl, _requestType, apiUrl, modelDetail, _headerParameters);
+                string apiUrl = String.Format("/api/insurance/models/{0}", makeId);
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //modelDetail = objClient.GetApiResponseSync<IEnumerable<ModelDetail>>(BWConfiguration.Instance.CwApiHostUrl, BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, modelDetail, _headerParameters);
+                    modelDetail = objClient.GetApiResponseSync<IEnumerable<ModelDetail>>(APIHost.CW, BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, modelDetail, _headerParameters);
+                }
+                
                 return Ok(modelDetail);
             }
             catch (Exception ex)

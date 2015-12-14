@@ -235,13 +235,14 @@ namespace Bikewale.Mobile.New
         private void FetchModelPageDetails()
         {
             try
-            {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
+            {                
                 string _apiUrl = String.Format("/api/model/details/?modelId={0}", modelId);
 
-                modelPage = BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
-
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    modelPage = objClient.GetApiResponseSync<ModelPage>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, modelPage);
+                }
+                
                 if (modelPage != null)
                 {
                     bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
