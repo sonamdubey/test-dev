@@ -28,8 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <RunCodeAnalysis>false</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>..\..\Deadcode.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -947,6 +946,10 @@
       <DependentUpon>Sitemap.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="new\versions.aspx.cs">
+      <DependentUpon>versions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="new\bikeseries.aspx.cs">
       <DependentUpon>bikeseries.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1030,8 +1033,8 @@
       <DependentUpon>UpcomingBikesList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\versions.aspx.cs">
-      <DependentUpon>versions.aspx</DependentUpon>
+    <Compile Include="new\versions_old_dec14.aspx.cs">
+      <DependentUpon>versions_old_dec14.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\versions_old.aspx.cs">
@@ -2175,6 +2178,7 @@
     <Content Include="m\src\Plugins.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="new\versions.aspx" />
+    <Content Include="new\versions_old_dec14.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
     <Content Include="customerror.aspx" />

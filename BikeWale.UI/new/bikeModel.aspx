@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" Trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="bikeModel.aspx.cs" Inherits="Bikewale.New.bikeModel" Trace="false" %>
 
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
@@ -26,7 +26,6 @@
         isAd970x90Shown = true;
     %>
 
-    <% isAd970x90BTFShown = true; %>
     <!-- #include file="/includes/headscript.aspx" -->
     <% isHeaderFix = false; %>
     <script type="text/javascript">
@@ -595,17 +594,14 @@
                                 <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="value: mobileNo" />
                                 <span class="bwsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
-                                </div>
-                            <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
                             </div>
+                            <input type="button" class="btn btn-orange" value="Send OTP" id="generateNewOTP" data-bind="event: { click: submitLead }" />
                         </div>
                     </div>
+                </div>
                 <!-- otp ends here -->
         </div>
              <!-- lead capture popup End-->
-        </section>
-        <section class="container margin-top15 margin-bottom15 text-center">
-            <!-- #include file="/ads/Ad970x90_BTF.aspx" -->
         </section>
 
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : string.Empty %>">
@@ -1171,7 +1167,7 @@
                             </ul>
                         </div>
                         <div class="or-text">
-                            <div class="more-features-btn"><a href="javascript:void(0)">+</a></div>
+                            <div class="more-features-btn"><span>+</span></div>
                         </div>
                     </div>
                     <!-- variant code starts here -->
@@ -1338,24 +1334,8 @@
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>">"></script>
         <%--<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
         <script type="text/javascript">
-
-            function bindInsuranceText() {
-                icityArea = GetGlobalCityArea();
-                if (!viewModel.isDealerPQAvailable()) {
-                    var d = $("#bw-insurance-text");
-                    d.find("div.insurance-breakup-text").remove();
-                    d.append(" <div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
-                }
-                else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
-                    var e = $("table#model-view-breakup tr td:contains('Insurance')");
-                    e.find("div.insurance-breakup-text").remove();
-                    e.append("<div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
-                }
-            }
-
             var myBikeName = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP%>";
-            var pageUrl = "<%= canonical %>"
             function applyLazyLoad() {
                 $("img.lazy").lazyload({
                     event: "imgLazyLoad",
@@ -1466,7 +1446,6 @@
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-
 
         </script>
     </form>
