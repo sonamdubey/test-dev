@@ -173,14 +173,15 @@
                                 <%  } 
                           else if (isCityAreaSelected || isBikeWalePQ)
                                     { %>
-                                <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">On-road Price in 
+                                <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">On-road Price in <span class="font14 text-grey text-bold">
+                                        <%= areaName %> <%= cityName %></span>
                                     <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
-                                        <span class="font14 text-grey text-bold">
-                                        <%= areaName %> <%= cityName %></span></a></p>
+                                        <span class="fa fa-edit"></span></a></p>
                                  <% }
                                    else
                                     { %>
-                                <p class="font14 fillPopupData">Ex-showroom in <span href="javascript:void(0)" class="text-light-grey clear"><%= Bikewale.Common.Configuration.GetDefaultCityName %></span></p>
+                                <p class="font14 fillPopupData">Ex-showroom in <span href="javascript:void(0)" class="text-light-grey clear"><%= Bikewale.Common.Configuration.GetDefaultCityName %></span><a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
+                                    <span class="fa fa-edit"></span></a></p>
                                 <%  } %>
                         <p class="leftfloat">
 
@@ -196,7 +197,7 @@
                                     <p id="viewBreakupText" class="font14 text-light-grey leftfloat viewBreakupText">View Breakup</p>
                                         <%if (isBikeWalePQ && price != "0")
                                           {%>
-                                        <p class="font12 text-light-grey clear">Ex-showroom + RTO + Insurance(Comprehensive)</p>
+                                        <p class="font12 text-light-grey clear ">Ex-showroom + RTO + Insurance(Comprehensive)</p>
                                         <%}
                                           else
                                           { %>
@@ -205,8 +206,8 @@
                                     <% } %>
                         <% if (isBikeWalePQ)
                            { %>
-                        <a class='padding-top10 text-bold' style="position: relative; font-size: 14px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">Save up to 60% on insurance - PolicyBoss
-                        </a>
+                        <p class="margin-top10 margin-bottom20 clear"><a class='padding-top10 text-bold' style="position: relative; font-size: 14px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">Save up to 60% on insurance - PolicyBoss
+                        </a></p>
                         <% } %>
                         <!-- Terms and condition Popup start -->
                         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
@@ -264,6 +265,7 @@
                                             <ItemTemplate>
                                                 <tr class="carwale">
                                                     <td width="60%" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
+                                                        <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
                                                     </td>
                                                     <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
                                                         <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>
@@ -344,9 +346,9 @@
 
                                     <div class="personal-info-form-container margin-top10">
                                         <div class="form-control-box">
-                                            <input type="text" class="form-control get-first-name" placeholder="First name" id="getFullName" data-bind="value: fullName">
+                                            <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="value: fullName">
                                             <span class="bwmsprite error-icon "></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                                            <div class="bw-blackbg-tooltip errorText">Please enter your name</div>
                                         </div>
                                         <%--<div class="form-control-box margin-top20">
                                             <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: lastName">
@@ -407,12 +409,15 @@
                                         </div>
                                         <div class="otp-box lead-otp-box-container">
                                             <div class="form-control-box margin-bottom10">
-                                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" />
+                                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode"/>
                                                 <span class="bwmsprite error-icon errorIcon"></span>
                                                 <div class="bw-blackbg-tooltip errorText"></div>
                                             </div>
-                                            <p class="resend-otp-btn margin-bottom20">Resend OTP</p>
-                                            <input type="button" class="btn btn-orange" value="Confirm OTP" id="processOTP" />
+                                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
+                                                OTP has been already sent to your mobile
+                                            </p>
+                                            <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
                                         </div>
                                         <div class="update-mobile-box">
                                             <div class="form-control-box text-left">
@@ -449,6 +454,10 @@
                                             <li>
                                                 <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
                                                 <span class="padding-left20 show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                                <% if(pqOnRoad.DPQOutput.objOffers.Count > 2) 
+                                                   { %>
+                                                        <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
+                                                <% } %>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -464,10 +473,7 @@
                                     </asp:Repeater>
                                     </ul>
                                 <% } %>
-                                <% if (isOfferAvailable && pqOnRoad.DPQOutput.objOffers.Count > 2)
-                                    { %>
-                                        <p class="viewMoreOffersBtn">(view more)</p>
-                                <% } %>
+
                             <div class="border-top1 margin-top10 margin-bottom10"></div>
                             <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="fa fa-info-circle text-red"></span> Get following details on the bike</h4>
                                 <ul>
