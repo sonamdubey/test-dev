@@ -260,7 +260,7 @@
                                 <p class="font14">Ex-showroom in <span href="javascript:void(0)" class="font14 text-grey"><%= ConfigurationManager.AppSettings["defaultName"] %></span></p>
                                 <% } %>
                                 <div class="modelPriceContainer">
-                                    <%  if (price == "0")
+                                    <%  if (price == "")
                                         { %>
                                     <span class="font32">Price not available</span>
                                     <%  }
@@ -269,7 +269,7 @@
                                             <span class="font28"><span class="fa fa-rupee"></span></span>
                                             <span id="new-bike-price" class="font32"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
                                     <%  } %>
-                                    <%if (pqOnRoad != null && price != "0")
+                                    <%if (pqOnRoad != null && price != "")
                                       {%>
                                     <span id="viewBreakupText" class="font14 text-light-grey viewBreakupText">View Breakup</span>
                                     <br>
@@ -445,7 +445,9 @@
                             <asp:Repeater ID="rptCategory" runat="server">
                                 <ItemTemplate>
                                     <tr class="carwale">
-                                        <td width="350" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %></td>
+                                        <td width="350" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
+                                            <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
+                                        </td>
                                         <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>
                                     </tr>
                                 </ItemTemplate>
@@ -583,7 +585,11 @@
                                 <span class="bwsprite error-icon errorIcon"></span>
                                 <div class="bw-blackbg-tooltip errorText"></div>
                             </div>
-                            <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                            <a class="resend-otp-btn margin-left10 blue rightfloat resend-otp-btn" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP
+                            </a>
+                            <p class="otp-alert-text margin-left10 otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
+                            OTP has been already sent to your mobile
+                        </p>
                             <div class="clear"></div>
                             <%--<p class="resend-otp-btn margin-bottom20" id="resendCwiCode">Resend OTP</p>--%>
                             <input type="button" class="btn btn-orange margin-top20" value="Confirm OTP" id="otp-submit-btn">
