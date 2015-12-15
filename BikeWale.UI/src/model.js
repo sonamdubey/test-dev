@@ -726,7 +726,7 @@ onroadPriceConfirmBtn.on("click", function () {
 
 $(".viewMoreOffersBtn").on("click", function () {
     $(this).hide();
-    $(this).prev("ul.moreOffersList").slideToggle();
+    $("ul.moreOffersList").slideToggle()
 });
 
 var sortByDiv = $(".sort-div"),

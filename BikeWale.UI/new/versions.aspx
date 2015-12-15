@@ -362,6 +362,7 @@
                                         <ItemTemplate>
                                             <li>
                                                 <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %>
+                                                <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -375,10 +376,10 @@
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
-                                <% if (isOfferAvailable && pqOnRoad.DPQOutput.objOffers.Count > 2)
+                                <%--<% if (isOfferAvailable && pqOnRoad.DPQOutput.objOffers.Count > 2)
                                    { %>
                                 <p class="viewMoreOffersBtn">(view more)</p>
-                                <% } %>
+                                <% } %>--%>
                             </div>
                             <div class="grid-<%= grid2_size %> rightfloat moreDetailsBookBtns <%=cssOffers %> margin-top20">
                                 <input type="button" value="Get more details" class="btn btn-orange margin-right20" id="getMoreDetailsBtn">
