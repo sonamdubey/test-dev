@@ -385,7 +385,7 @@
                                 <input type="button" value="Get more details" class="btn btn-orange margin-right20" id="getMoreDetailsBtn">
                                 <%if (isBookingAvailable)
                                   { %>
-                                <input type="button" value="Book now" class="btn btn-grey" id="bookNowBtn">
+                                <a href="/pricequote/bookingsummary_new.aspx" class="btn btn-grey" id="bookNowBtn"> Book now </a>
                                 <%} %>
                             </div>
                             <div class="clear"></div>

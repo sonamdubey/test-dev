@@ -66,13 +66,13 @@ namespace Bikewale.Pricequote
 
                 if (objBookingConfig != null && objBookingConfig.DealerQuotation != null && objBookingConfig.Varients != null)
                 {
-                    if (objBookingConfig.DealerQuotation.objBookingAmt == null || (objBookingConfig.DealerQuotation.objBookingAmt != null && objBookingConfig.DealerQuotation.objBookingAmt.Amount < 1))
-                    {
-                        HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/detaileddealerquotation.aspx", false);
-                        HttpContext.Current.ApplicationInstance.CompleteRequest();
-                        this.Page.Visible = false;
-                        return;
-                    }                     
+                    //if (objBookingConfig.DealerQuotation.objBookingAmt == null || (objBookingConfig.DealerQuotation.objBookingAmt != null && objBookingConfig.DealerQuotation.objBookingAmt.Amount < 1))
+                    //{
+                    //    HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/detaileddealerquotation.aspx", false);
+                    //    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    //    this.Page.Visible = false;
+                    //    return;
+                    //}                     
 
                     if (objBookingConfig.Varients != null)
                     {

@@ -430,9 +430,11 @@
                 });
             });
 
-            var versionList = JSON.parse($("#hdnBikeData").val());
+            varversionList = JSON.parse($("#hdnBikeData").val());
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
             var insAmt = '<%= insuranceAmount %>';
+            var cityId = '<%= cityId%>';
+            var areaId = '<%= areaId%>';
             var BikeDealerDetails = function () {
                 var self = this;
                 // self.Dealer = ko.observable(objDealer);

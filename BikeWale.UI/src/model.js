@@ -5,7 +5,7 @@ var fullName = $("#getFullName");
 var emailid = $("#getEmailID");
 var mobile = $("#getMobile");
 var otpContainer = $(".mobile-verification-container");
-        }
+
 
 var detailsSubmitBtn = $("#user-details-submit-btn");
 var otpText = $("#getOTP");
@@ -64,6 +64,7 @@ function CustomerModel() {
 
     self.verifyCustomer = function () {
         if (!self.IsVerified()) {
+            debugger;
             var objCust = {
                 "dealerId": dealerId,
                 "pqId": pqId,
@@ -96,6 +97,7 @@ function CustomerModel() {
     };
     self.generateOTP = function () {
         if (!self.IsVerified()) {
+            debugger;
             var objCust = {
                 "pqId": pqId,
                 "customerMobile": self.mobileNo(),
@@ -127,6 +129,7 @@ function CustomerModel() {
     self.regenerateOTP = function () {
         if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
             var url = '/api/ResendVerificationCode/';
+            debugger;
             var objCustomer = {
                 "customerName": self.fullName(),
                 "customerMobile": self.mobileNo(),
@@ -502,9 +505,9 @@ var validateUpdatedMobile = function () {
 //    self.FetchPriceQuote = function () {
 //        fetchPriceQuote(self);
 //    };
-        if (a.text() === "+")
-            a.attr("href", "#features");
-        else a.attr("href", "javascript:void(0)");
+        //if (a.text() === "+")
+        //    a.attr("href", "#features");
+        //else a.attr("href", "javascript:void(0)");
 
 //    self.selectedCity.subscribe(function () {
 //        self.areas("");
@@ -1497,7 +1500,7 @@ $("#submit-btn").on("click", function () {
 });
 
 function setPQUserCookie() {
-    var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
+    var val = fullName.val() + '&' + emailid.val() + '&' + mobile.val();
     SetCookie("_PQUser", val);
 }
 
