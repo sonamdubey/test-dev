@@ -44,12 +44,12 @@ function CustomerModel() {
     var arr = setuserDetails();
     var self = this;
     if (arr != null && arr.length > 0) {
-        self.fullname = ko.observable(arr[0]);
+        self.fullName = ko.observable(arr[0]);
         self.emailId = ko.observable(arr[1]);
         self.mobileNo = ko.observable(arr[2]);
     }
     else {
-        self.fullname = ko.observable();
+        self.fullName = ko.observable();
         self.emailId = ko.observable();
         self.mobileNo = ko.observable();
     }
@@ -57,12 +57,6 @@ function CustomerModel() {
     self.NoOfAttempts = ko.observable(0);
     self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
     self.otpCode = ko.observable();
-    self.fullName = ko.computed(function () {
-        var _fullname = self.fullname() != undefined ? self.fullname() : "";
-
-        return _fullname;
-    }, this);
-
     self.verifyCustomer = function () {
         if (!self.IsVerified()) {
             var objCust = {
@@ -152,11 +146,6 @@ function CustomerModel() {
         }
     };
 
-    self.fullName = ko.computed(function () {
-        var _fullname = self.fullname() != undefined ? self.fullname() : "";
-        return _fullname;
-    }, this);
-
     self.submitLead = function () {
         if (ValidateUserDetail()) {
             self.verifyCustomer();
@@ -202,7 +191,7 @@ function CustomerModel() {
                 // OTP Success
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
                 $("#leadCapturePopup .leadCapture-close-btn").click();
-                window.location.href = "/pricequote/detaileddealerquotation.aspx";
+                window.location.href = "/pricequote/bookingConfig.aspx";
 
             }
             else {
@@ -228,13 +217,13 @@ function ValidateUserDetail() {
 function validateName() {
     var isValid = true;
     var a = fullname.val().length;
-    if (fullname.val().indexOf('&') != -1) {
+    if ((/&/).test(fullname.val())) {
         isValid = false;
         setError(fullname, 'Invalid name');
     }
     else if (a == 0) {
         isValid = false;
-        setError(fullname, 'Please enter your first name');
+        setError(fullname, 'Please enter your name');
     }
     else if (a >= 1) {
         isValid = true;
@@ -814,7 +803,7 @@ $("#btnShowOffers").on("click", function () {
 
 $(".viewMoreOffersBtn").on("click", function () {
     $(this).hide();
-    $(this).prev("ul.moreOffersList").slideToggle();
+    $("ul.moreOffersList").slideToggle();
 });
 
 var bodHt, footerHt, scrollPosition;
@@ -904,4 +893,22 @@ $(".more-features-btn").click(function () {
     var a = $(this).find("span");
     a.text(a.text() === "+" ? "-" : "+");
     $("html, body").animate({ scrollTop: $("#features").offset().top }, 1000);
+});
+
+$("a.read-more-btn").click(function () {
+    if (!$(this).hasClass("open")) {
+        $(".model-about-main").hide();
+        $(".model-about-more-desc").show();
+        var a = $(this).find("span");
+        a.text(a.text() === "full story" ? "less" : "full story");
+        $(this).addClass("open");
+    }
+    else if ($(this).hasClass("open")) {
+        $(".model-about-main").show();
+        $(".model-about-more-desc").hide();
+        var a = $(this).find("span");
+        a.text(a.text() === "full story" ? "less" : "full story");
+        $(this).removeClass("open");
+    }
+
 });
