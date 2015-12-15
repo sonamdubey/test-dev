@@ -16,7 +16,7 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
         <section class="bg-white" id="bookingConfig"  style="display:none" data-bind="visible: true">
-            <h1 class="padding-top15 padding-left20 padding-right20 padding-bottom20">Booking configurator - <span data-bind="text : $root.Bike().bikeName()"></span></h1>
+            <h1 class="padding-top15 padding-left20 padding-right20 padding-bottom20">More details about <span data-bind="text : $root.Bike().bikeName()"></span></h1>
             <div class="container margin-bottom20">
                 <div class="grid-12 box-shadow padding-bottom20">
 

@@ -1,4 +1,5 @@
 // JavaScript Document
+var imgTitle, imgTotalCount;
 var leadBtnBookNow = $("#leadBtnBookNow"), leadCapturePopup = $("#leadCapturePopup");
 var fullname = $("#getFullName");
 var emailid = $("#getEmailID");
@@ -38,7 +39,6 @@ $(function () {
 
 });
 
-ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
 
 function CustomerModel() {
     var arr = setuserDetails();
@@ -420,6 +420,8 @@ var validateUpdatedMobile = function () {
     return isValid;
 };
 
+
+
 //photos corousel function
 var slideToClick = function (swiper) {
     var clickedSlide = swiper.slides[swiper.clickedIndex];
@@ -434,21 +436,12 @@ var galleryThumbs = new Swiper('.carousel-navigation-photos', {
     centeredSlides: true,
     slidesPerView: 'auto',
     slideToClickedSlide: true,
-
-    $(".jcarousel.stage").on('jcarousel:visiblein', 'li', function (event, carousel) {
-        $('.jcarousel-wrapper.model .jcarousel li').removeClass('activeSlide');
-        $(this).addClass('activeSlide');
-    });
-   
-    $(".jcarousel-wrapper.model .jcarousel-control-right").click(function () {
-        getModelImageNextIndex();
-    });
-
-    $(".jcarousel-wrapper.model .jcarousel-control-left").click(function () {
-        getModelImagePrevIndex();
-    });
-
-
+    preloadImages: false,
+    lazyLoading: true,
+    lazyLoadingInPrevNext: true,
+    watchSlidesProgress: true,
+    watchSlidesVisibility: true,
+    onTap: slideToClick
 });
 
 var slidegalleryThumbs = function (swiper) {
@@ -499,30 +492,12 @@ $(".modelgallery-close-btn").click(function () {
 });
 
 
-
-function getModelImageNextIndex() {
-    var imgIndexA = $(".jcarousel-wrapper.model .jcarousel ul li.activeSlide").next();
-    var imgIndex = imgIndexA.index();
-    var imgTitle = imgIndexA.find("img").attr("title");
-    setModelImageDetails(imgTitle, imgIndex);
-}
-
-function getModelImagePrevIndex() {
-    var imgIndexA = $(".jcarousel-wrapper.model .jcarousel ul li.activeSlide").next();
-    var imgIndex = imgIndexA.index();
-    var imgTitle = imgIndexA.find("img").attr("title");
-    setModelImageDetails(imgTitle, imgIndex);
-}
-
+function showImgTitle(swiper) {
+    imgTitle = $(galleryThumbs.slides[swiper.activeIndex]).find('img').attr('title');
+    //console.log(imgTitle);
+    imgTotalCount = galleryThumbs.slides.length;
     $(".leftfloatbike-gallery-details").text(imgTitle);
     $(".bike-gallery-count").text(swiper.activeIndex + 1 + "/" + imgTotalCount.toString());
-}
-
-function setModelImageDetails(imgTitle, imgIndex) {
-   // $(".leftfloatbike-gallery-details").text(imgTitle);
-    if (imgIndex > 0) {
-        $(".bike-model-gallery-count").text(imgIndex.toString() + "/" + imgTotalCount.toString());
-    }
 }
 
 var videoiFrame = document.getElementById("video-iframe");
@@ -550,10 +525,12 @@ navigationVideosLI.click(function () {
     videoiFrame.setAttribute("src", newSrc);
 });
 
-        }
-                bindInsuranceText();
-            a.attr("href", "#features");
-        else a.attr("href", "javascript:void(0)");
+//}
+//        bindInsuranceText();
+//    a.attr("href", "#features");
+//    else a.attr("href", "javascript:void(0)");
+
+
 function LoadTerms(offerId) {
 
     $(".termsPopUpContainer").css('height', '150')
@@ -584,7 +561,7 @@ function LoadTerms(offerId) {
         setTimeout(LoadTerms, 2000); // check again in a second
     }
 }
-    
+
 
 $("#btnShowOffers").on("click", function () {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName });
@@ -691,7 +668,6 @@ $("a.read-more-btn").click(function () {
         var a = $(this).find("span");
         a.text(a.text() === "full story" ? "less" : "full story");
         $(this).addClass("open");
-    if ((/&/).test(lastname.val())) {
     }
     else if ($(this).hasClass("open")) {
         $(".model-about-main").show();
@@ -702,5 +678,5 @@ $("a.read-more-btn").click(function () {
     }
 
 });
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Insurance_Clicked_Model', 'lab': myBikeName + "_" + cityArea });
-});
+
+ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);

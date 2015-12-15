@@ -363,7 +363,10 @@
                                         <ItemTemplate>
                                             <li>
                                                 <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %>
-                                                <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
+                                               <% if(pqOnRoad.DPQOutput.objOffers.Count > 2)
+                                                  { %>
+                                               <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
+                                               <%} %>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>

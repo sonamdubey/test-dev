@@ -22,11 +22,11 @@
                         <ul>
                             <li><a href="/">Home</a></li>
                             <li><span class="fa fa-angle-right margin-right10"></span><a href="/new/">New Bikes</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>Booking Config</li>
+                            <li><span class="fa fa-angle-right margin-right10"></span>Dealer Details</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
-                    <h1 class="font30 text-black margin-top10">Booking configurator - 
+                    <h1 class="font30 text-black margin-top10">More details about   
                 	<span data-bind="text : $root.Bike().bikeName()"></span>
                     </h1>
                 </div>
@@ -69,7 +69,7 @@
                         </div>
                         <div id="customizeBike" data-bind="visible: CurrentStep() == 1, with: Bike" style="display: block">
                             <div class="select-version-container border-light-bottom ">
-                                <h4 class="select-versionh4">Select version</h4>
+                                <h4 class="select-versionh4">Choose version</h4>
                                 <ul class="select-versionUL">
                                     <asp:Repeater ID="rptVarients" runat="server">
                                         <ItemTemplate>
@@ -114,7 +114,7 @@
                                 </ul>
                             </div>
                             <div class="select-color-container border-light-bottom padding-bottom10 margin-bottom15">
-                                <h4 class="select-colorh4 margin-top15">Select color</h4>
+                                <h4 class="select-colorh4 margin-top15">Choose colour</h4>
                                 <ul class="select-colorUL" data-bind="foreach: versionColors">
                                     <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.Id},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
                                         <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode }"></span>
