@@ -305,6 +305,15 @@ font-family:"Roboto-Regular";
 ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .bw-city-popup .close-btn {width:16px; height:16px;}
 
+/* App Banner */
+#appBanner { background:#e2e2e2; padding:5px 5px 0; position:relative; overflow:hidden; }
+.app-banner-img-container { float:left; width:130px; height:95px; position:relative; margin-right:12px; }
+.app-banner-img-container img { position:absolute; bottom:0; }
+.banner-close-btn { width:30px; height:30px; background: url("http://img.aeplcdn.com/bikewaleimg/m/images/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
+.app-banner-text-container { float:left; }
+.app-banner-btn-container { padding:10px 25px 10px 0; }
+.app-banner-btn-container .btn { padding:6px 10px; }
+
 /* bw sprite new classes */
 .left-curve-icon { background-position:-28px -298px; width:21px; height:21px; float:left;}
 .right-curve-icon { background-position:-59px -298px; width:21px; height:21px; float:left;}

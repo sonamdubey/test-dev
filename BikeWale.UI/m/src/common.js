@@ -1069,3 +1069,6 @@ $(function () {
     });
 });
 
+function CloseAndroidLink() {
+    $("#appBanner").slideUp();
+}
