@@ -202,6 +202,10 @@ namespace Bikewale.New
 
                     rptNavigationPhoto.DataSource = photos;
                     rptNavigationPhoto.DataBind();
+
+                    ctrlModelGallery.bikeName = bikeName;
+                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
+                    ctrlModelGallery.Photos = photos;
                 }
 
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)

@@ -1,4 +1,5 @@
 ﻿using Bikewale.BindViewModels.Controls;
+using Bikewale.Entities.CMS.Photos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace Bikewale.m.controls
         public string bikeName = String.Empty;
         public int imageCount = 0, videoCount = 0;
         public int modelId;
-        public List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> Photos;
+        public List<ModelImage> Photos;
 
         protected override void OnInit(EventArgs e)
         {

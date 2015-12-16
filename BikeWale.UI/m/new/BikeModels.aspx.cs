@@ -121,6 +121,10 @@ namespace Bikewale.Mobile.New
                     //}
                     rptModelPhotos.DataSource = modelPage.Photos;
                     rptModelPhotos.DataBind();
+
+                    ctrlModelGallery.bikeName = bikeName;
+                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
+                    ctrlModelGallery.Photos = modelPage.Photos;
                 }
 
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
