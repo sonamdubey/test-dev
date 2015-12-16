@@ -124,7 +124,7 @@
                             </div>
                         </div>
 
-                        <div id="financeDetails" data-bind="visible: CurrentStep() == 2, css: (CurrentStep() > 1) ? 'active-tab text-bold' : ''" class="margin-bottom15" style="display: none">
+                          <div id="financeDetails" data-bind="visible: CurrentStep() == 2, css: (CurrentStep() > 1) ? 'active-tab text-bold' : ''" class="margin-bottom15" style="display: none">
                             <!-- updated line -->
                             <div class="finance-options-container">
                                 <h4 class="select-financeh4">Finance options</h4>
@@ -139,99 +139,111 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="finance-emi-container border-light-bottom padding-bottom15">
+                            
+                            <div class="finance-emi-container border-light-bottom padding-bottom15" data-bind="with: EMI">
+                                <!-- ko if : $root.Bike().versionPrice() > 0 -->
                                 <!-- updated line -->
                                 <div class="finance-emi-left-box alpha border-light-right">
                                     <div class="emi-slider-box">
                                         <div class="emi-slider-box-left-section">
                                             <p>Down payment</p>
-                                            <div id="downPaymentSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 5%;"></div>
+                                            <div id="downPaymentSlider" 
+                                                data-bind="slider: downPayment, sliderOptions: { min: $.LoanAmount($root.Bike().versionPrice(), 10), max: $.LoanAmount($root.Bike().versionPrice(), 90), range: 'min', step: $.LoanAmount($root.Bike().versionPrice(), 10), value: $.LoanAmount($root.Bike().versionPrice(), 30) }" 
+                                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 5%;"></span>
                                             </div>
                                             <div class="slider-range-points">
                                                 <ul class="range-five-pointsUL range-pointsUL">
-                                                    <li class="range-points-bar"><span>0</span></li>
-                                                    <li class="range-points-bar" style="left: 5%"><span>2.5L</span></li>
-                                                    <li class="range-points-bar" style="left: 10%"><span>5L</span></li>
-                                                    <li class="range-points-bar" style="left: 15%"><span>7.5L</span></li>
-                                                    <li class="range-points-bar" style="left: 19.9%"><span>10L</span></li>
+                                                    <li class="range-points-bar"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 10))">0</span></li>
+                                                    <li class="range-points-bar" style="left: 5%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 30))">2.5L</span></li>
+                                                    <li class="range-points-bar" style="left: 10%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 50))">5L</span></li>
+                                                    <li class="range-points-bar" style="left: 15%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 70))">7.5L</span></li>
+                                                    <li class="range-points-bar" style="left: 19.9%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 90))">10L</span></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="emi-slider-box-right-section font16">
                                             <span class="fa fa-rupee"></span>
-                                            <span id="downPaymentAmount" class="text-bold">50000</span>
+                                            <span id="downPaymentAmount" class="text-bold" data-bind="text: formatPrice(downPayment())"></span>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
                                     <div class="emi-slider-box">
                                         <div class="emi-slider-box-left-section">
                                             <p>Loan Amount</p>
-                                            <div id="loanAmountSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 95%;"></div>
+                                            <div id="loanAmountSlider"
+                                                data-bind="slider: loan, sliderOptions: { min: $.LoanAmount($root.Bike().versionPrice(), 10), max: $.LoanAmount($root.Bike().versionPrice(), 90), range: 'min', step: $.LoanAmount($root.Bike().versionPrice(), 10) }" 
+                                                 class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 95%;"></span>
                                             </div>
                                             <div class="slider-range-points">
                                                 <ul class="range-five-pointsUL range-pointsUL">
-                                                    <li class="range-points-bar"><span>0</span></li>
-                                                    <li class="range-points-bar" style="left: 5%"><span>2.5L</span></li>
-                                                    <li class="range-points-bar" style="left: 10%"><span>5L</span></li>
-                                                    <li class="range-points-bar" style="left: 15%"><span>7.5L</span></li>
-                                                    <li class="range-points-bar" style="left: 19.9%"><span>10L</span></li>
+                                                    <li class="range-points-bar"><span  data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 10))" >0</span></li>
+                                                    <li class="range-points-bar" style="left: 5%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 30))"></span></li>
+                                                    <li class="range-points-bar" style="left: 10%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 50))">5L</span></li>
+                                                    <li class="range-points-bar" style="left: 15%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 70))">7.5L</span></li>
+                                                    <li class="range-points-bar" style="left: 19.9%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 90))">10L</span></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="emi-slider-box-right-section font16">
                                             <span class="fa fa-rupee"></span>
-                                            <span id="loanAmount" class="text-bold">950000</span>
+                                            <span id="loanAmount" class="text-bold" data-bind="text: formatPrice(loan())"></span>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
                                     <div class="emi-slider-box">
                                         <div class="emi-slider-box-left-section">
-                                            <p>Tenure</p>
-                                            <div id="tenureSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 33.3333%;"></div>
+                                            <p>Tenure (Months)</p>
+                                            <div id="tenureSlider"
+                                                data-bind="slider: tenure, sliderOptions: { min: 12, max:60, range: 'min', step: 6 }" 
+                                                 class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 33.3333%;"></span>
                                             </div>
                                             <div class="slider-range-points">
                                                 <ul class="range-pointsUL">
-                                                    <li class="range-points-bar"><span>1</span></li>
-                                                    <li class="range-points-bar" style="left: 3%"><span>2</span></li>
-                                                    <li class="range-points-bar" style="left: 6%"><span>3</span></li>
-                                                    <li class="range-points-bar" style="left: 8.2%"><span>4</span></li>
-                                                    <li class="range-points-bar" style="left: 11%"><span>5</span></li>
-                                                    <li class="range-points-bar" style="left: 13.3%"><span>6</span></li>
-                                                    <li class="range-points-bar" style="left: 15.8%"><span>7</span></li>
+                                                    <li class="range-points-bar"><span>12</span></li>
+                                                    <li class="range-points-bar" style="left: 2%"><span>18</span></li>
+                                                    <li class="range-points-bar" style="left: 5%"><span>24</span></li>
+                                                    <li class="range-points-bar" style="left: 7%"><span>30</span></li>
+                                                    <li class="range-points-bar" style="left: 9%"><span>36</span></li>
+                                                    <li class="range-points-bar" style="left: 12%"><span>42</span></li>
+                                                    <li class="range-points-bar" style="left: 14%"><span>48</span></li>
+                                                    <li class="range-points-bar" style="left: 16.8%"><span>54</span></li>
+                                                    <li class="range-points-bar" style="left: 20%"><span>60</span></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="emi-slider-box-right-section">
-                                            <span id="tenurePeriod" class="font16 text-bold">36</span>
+                                            <span id="tenurePeriod" class="font16 text-bold" data-bind="text: tenure">36</span>
                                             <span class="font12">Months</span>
                                         </div>
                                         <div class="clear"></div>
                                     </div>
                                     <div class="emi-slider-box">
                                         <div class="emi-slider-box-left-section">
-                                            <p>Rate of interest</p>
-                                            <div id="rateOfInterestSlider" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min" style="width: 25%;"></div>
+                                            <p>Rate of interest (Percentage)</p>
+                                            <div id="rateOfInterestSlider" 
+                                                data-bind="slider: rateofinterest, sliderOptions: { min: 7, max: 20, range: 'min', step: 0.25 }" 
+                                                class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                                <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                                 <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 25%;"></span>
                                             </div>
                                             <div class="slider-range-points">
                                                 <ul class="range-five-pointsUL range-pointsUL">
-                                                    <li class="range-points-bar"><span>0</span></li>
-                                                    <li class="range-points-bar" style="left: 5%"><span>5</span></li>
-                                                    <li class="range-points-bar" style="left: 10%"><span>10</span></li>
-                                                    <li class="range-points-bar" style="left: 15%"><span>15</span></li>
+                                                    <li class="range-points-bar"><span>7</span></li>
+                                                    <li class="range-points-bar" style="left: 5%"><span>10.25</span></li>
+                                                    <li class="range-points-bar" style="left: 10%"><span>13.5</span></li>
+                                                    <li class="range-points-bar" style="left: 15%"><span>16.5</span></li>
                                                     <li class="range-points-bar" style="left: 19.9%"><span>20</span></li>
                                                 </ul>
                                             </div>
                                         </div>
                                         <div class="emi-slider-box-right-section font16">
-                                            <span id="rateOfInterestPercentage" class="text-bold">5</span>
+                                            <span id="rateOfInterestPercentage" class="text-bold" data-bind="text: rateofinterest">5</span>
                                             <span>%</span>
                                         </div>
                                         <div class="clear"></div>
@@ -241,11 +253,12 @@
                                     <h4 class="margin-top90 text-light-grey margin-bottom20">Indicative EMI</h4>
                                     <div class="indicative-emi-amount margin-bottom5">
                                         <span class="font28"><span class="fa fa-rupee"></span></span>
-                                        <span id="emiAmount" class="font30">12,000</span>
+                                        <span id="emiAmount" class="font30" data-bind="text: monthlyEMI">12,000</span>
                                     </div>
                                     <p class="font16 text-light-grey">per month</p>
                                 </div>
                                 <div class="clear"></div>
+                                <!-- /ko -->
                             </div>
                             <div class="clear"></div>
                         </div>
@@ -319,8 +332,13 @@
                                     <!-- /ko -->
 
                                 </div>
-                                <input state="customize" id="bookingConfigNextBtn" data-bind="visible : (bookingAmount() > 0),click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.ActualSteps() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange">
-                            </div>
+                                <!-- ko if : (bookingAmount() > 0) && (viewModel.ActualSteps() > 2) -->
+                                <input type="submit" id="bookingConfigNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.ActualSteps() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange" />
+                                 <!-- /ko -->
+                                 <!-- ko ifnot : (bookingAmount() > 0) && (viewModel.ActualSteps() > 2) -->
+                                <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){return $root.bookNow(data,event);}" value="Next" class="btn btn-orange" />
+                                 <!-- /ko -->
+                                     </div>
                             <!-- View BreakUp Popup Starts here-->
                             <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
                                 <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -384,7 +402,7 @@
 
          
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingConfig.Varients)%>' />
-
+        <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
             //Need to uncomment the below script
             var thisBikename = '<%= this.bikeName %>';
@@ -420,7 +438,7 @@
 
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerscript.aspx" -->
+        
 
     </form>
 </body>

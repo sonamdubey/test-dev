@@ -2,6 +2,51 @@
 var versionul = $("#customizeBike ul.select-versionUL");
 var colorsul = $("#customizeBike ul.select-colorUL");
 
+
+ko.bindingHandlers.googlemap = {
+    init: function (element, valueAccessor) {
+        var
+          value = valueAccessor(),
+          latLng = new google.maps.LatLng(value.latitude, value.longitude),
+          mapOptions = {
+              zoom: 10,
+              center: latLng,
+              mapTypeId: google.maps.MapTypeId.ROADMAP
+          },
+          map = new google.maps.Map(element, mapOptions),
+          marker = new google.maps.Marker({
+              position: latLng,
+              map: map
+          });
+    }
+};
+
+ko.bindingHandlers.CurrencyText = {
+    update: function (element, valueAccessor) {
+        var amount = valueAccessor();
+        var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
+        $(element).text(formattedAmount);
+    }
+};
+
+ko.bindingHandlers.slider = {
+    init: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+        var options = allBindingsAccessor().sliderOptions || {};
+        $("#" + element.id).slider(options);
+        ko.utils.registerEventHandler("#" + element.id, "slide", function (event, ui) {
+            var observable = valueAccessor();
+            observable(ui.value);
+        });
+    },
+    update: function (element, valueAccessor, allBindingsAccessor, bindingContext) {
+        var options = allBindingsAccessor().sliderOptions || {};
+        $("#" + element.id).slider(options);
+        var value = ko.utils.unwrapObservable(valueAccessor());
+        if (isNaN(value)) value = 0;
+        $("#" + element.id).slider("value", value);
+    }
+};
+
 var BookingConfigViewModel = function () {
     var self = this;
     self.Bike = ko.observable(new BikeDetails);
@@ -74,13 +119,17 @@ var BookingConfigViewModel = function () {
         return isSuccess;
 
     }
+
+    self.VersionChangeNotify = ko.computed(function () {
+        if (self.SelectedVersion() != undefined && self.SelectedVersion() > 0) {
+            self.EMI().exshowroomprice(self.Bike().versionPrice());
+            self.EMI().loan(undefined);
+        }
+    });
+
 }
 
-var BikeEMI = function () {
-    var self = this;
-    self.MinPrice = ko.observable();
-    self.MaxPrice = ko.observable();
-}
+
 
 var BikeDetails = function () {
     var self = this;
@@ -158,31 +207,33 @@ var BikeDetails = function () {
     self.getVersion(self.selectedVersionId());
 }
 
-ko.bindingHandlers.googlemap = {
-    init: function (element, valueAccessor) {
-        var
-          value = valueAccessor(),
-          latLng = new google.maps.LatLng(value.latitude, value.longitude),
-          mapOptions = {
-              zoom: 10,
-              center: latLng,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
-          },
-          map = new google.maps.Map(element, mapOptions),
-          marker = new google.maps.Marker({
-              position: latLng,
-              map: map
-          });
-    }
-};
+var BikeEMI = function () {
+    var self = this;
+    self.exshowroomprice = ko.observable();
+    self.loan = ko.observable();
 
-ko.bindingHandlers.CurrencyText = {
-    update: function (element, valueAccessor) {
-        var amount = valueAccessor();
-        var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
-        $(element).text(formattedAmount);
-    }
-};
+    self.tenure = ko.observable(36);
+    self.rateofinterest = ko.observable(10);
+    self.downPayment = ko.pureComputed({
+        read: function () {
+            console.log("loan : " + self.loan() + " exshowroom : " + self.exshowroomprice());
+            if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
+                self.loan($.LoanAmount(self.exshowroomprice(), 50));
+            return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
+        },
+        write: function (value) {
+            self.loan((($.LoanAmount(self.exshowroomprice(), 100))) - value);
+        },
+        owner: this
+    });
+
+    self.monthlyEMI = ko.pureComputed({
+        read: function () {
+            return $.calculateEMI(self.loan(), self.tenure(), self.rateofinterest());
+        },
+        owner: this
+    });
+}
 
 function formatPrice(price) {
     price = price.toString();
@@ -226,66 +277,6 @@ $("#financeDetails ul.select-financeUL li").click(function () {
     else $(".finance-emi-container").hide();
 });
 
-var sliderComponentA, sliderComponentB;
-
-$(document).ready(function (e) {
-
-    sliderComponentA = $("#downPaymentSlider").slider({
-        range: "min",
-        min: 0,
-        max: 1000000,
-        step: 50000,
-        value: 50000,
-        slide: function (e, ui) {
-            changeComponentBSlider(e, ui);
-        },
-        change: function (e, ui) {
-            changeComponentBSlider(e, ui);
-        }
-    })
-
-    sliderComponentB = $("#loanAmountSlider").slider({
-        range: "min",
-        min: 0,
-        max: 1000000,
-        step: 50000,
-        value: 1000000 - $('#downPaymentSlider').slider("option", "value"),
-        slide: function (e, ui) {
-            changeComponentASlider(e, ui);
-        },
-        change: function (e, ui) {
-            changeComponentASlider(e, ui);
-        }
-    });
-
-    $("#tenureSlider").slider({
-        range: "min",
-        min: 12,
-        max: 84,
-        step: 6,
-        value: 36,
-        slide: function (e, ui) {
-            $("#tenurePeriod").text(ui.value);
-        }
-    });
-
-    $("#rateOfInterestSlider").slider({
-        range: "min",
-        min: 0,
-        max: 20,
-        step: 0.25,
-        value: 5,
-        slide: function (e, ui) {
-            $("#rateOfInterestPercentage").text(ui.value);
-        }
-    });
-
-    $("#downPaymentAmount").text($("#downPaymentSlider").slider("value"));
-    $("#loanAmount").text($("#loanAmountSlider").slider("value"));
-    $("#tenurePeriod").text($("#tenureSlider").slider("value"));
-    $("#rateOfInterestPercentage").text($("#rateOfInterestSlider").slider("value"));
-
-});
 
 function changeComponentBSlider(e, ui) {
     if (!e.originalEvent) return;
@@ -335,6 +326,59 @@ function getContrastYIQ(colorCode) {
     }
 
 }
+
+$.calculateEMI = function (loanAmount, tenure, rateOfInterest) {
+    var interest, totalRepay, finalEmi;
+    try {
+        interest = (loanAmount * tenure * rateOfInterest) / (12 * 100);
+        totalRepay = loanAmount + interest;
+        finalEmi = Math.ceil((totalRepay / tenure));
+    }
+    catch (e) {
+        console.log(e.message);
+    }
+    return formatPrice(finalEmi);
+};
+
+$.LoanAmount = function (onRoadPrice, percentage) {
+    var price;
+    try {
+        price = (onRoadPrice * percentage) / 100;
+        price = Math.ceil(price / 100.0) * 100;
+    }
+    catch (e) {
+        console.log(e.message);
+    }
+    return price;
+};
+
+$.priceRange = function (minRange, maxRange, divideIndex) {
+    var priceRange;
+    try {
+        if (divideIndex == 1)
+            priceRange = maxRange;
+        else if (divideIndex > 0)
+            priceRange = ((maxRange - minRange) * divideIndex);
+        else
+            priceRange = minRange;
+        priceRange = Math.ceil(priceRange / 100.0) * 100;
+    } catch (e) {
+        console.log(e.message);
+    }
+    return formatPrice(priceRange);
+};
+
+$.valueFormatter = function (num) {
+    if (num >= 100000) {
+        return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
+    }
+    if (num >= 1000) {
+        return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    }
+    return num;
+}
+
+
 
 
 var viewModel = new BookingConfigViewModel;
