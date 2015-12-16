@@ -25,21 +25,22 @@ namespace Bikewale.BindViewModels.Controls
         public void BindMostPopularBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
+            List<MostPopularBikesBase> popularBase = null;
             try
             {
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
                     IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                    List<MostPopularBikesBase> popularBase = objVersion.GetMostPopularBikes(totalCount, makeId);
-                    if (popularBase != null)
+                    popularBase = objVersion.GetMostPopularBikes(totalCount, makeId);
+                }
+                if (popularBase != null)
+                {
+                    if (popularBase.Count > 0)
                     {
-                        if(popularBase.Count > 0)
-                        {
-                            FetchedRecordsCount = popularBase.Count;
-                            rptr.DataSource = popularBase;
-                            rptr.DataBind();
-                        }
+                        FetchedRecordsCount = popularBase.Count;
+                        rptr.DataSource = popularBase;
+                        rptr.DataBind();
                     }
                 }
             }
