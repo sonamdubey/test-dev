@@ -16,6 +16,15 @@
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
+    <!-- #include file="/includes/gacode.aspx" --> 
+    <script type="text/javascript">
+        setTimeout(function () {
+            var a = document.createElement("script");
+            var b = document.getElementsByTagName("script")[0];
+            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+        }, 1);
+    </script>
     <script type='text/javascript'>
         var ga_pg_id = '0';
         var googletag = googletag || {};
@@ -43,38 +52,9 @@
             googletag.enableServices();
         });
     </script>
-   <%-- <script type="text/javascript">
-        //facebook like button script
-        ( function ( d, s, id ) {
-            var js, fjs = d.getElementsByTagName( s )[0];
-            if ( d.getElementById( id ) ) return;
-            js = d.createElement( s ); js.id = id;
-            js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-            fjs.parentNode.insertBefore( js, fjs );
-        }( document, 'script', 'facebook-jssdk' ) );
-
-        //Twitter Tweet Button script
-        !function ( d, s, id ) { var js, fjs = d.getElementsByTagName( s )[0]; if ( !d.getElementById( id ) ) { js = d.createElement( s ); js.id = id; js.src = "https://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore( js, fjs ); } }( document, "script", "twitter-wjs" );
-
-        //Google +1 Button script
-        ( function () {
-            var po = document.createElement( 'script' ); po.type = 'text/javascript'; po.async = true;
-            po.src = 'https://apis.google.com/js/plusone.js?v=1.0';
-            var s = document.getElementsByTagName( 'script' )[0]; s.parentNode.insertBefore( po, s );
-        } )();
-    </script>--%>
-    <script type="text/javascript">
-        setTimeout(function () {
-            var a = document.createElement("script");
-            var b = document.getElementsByTagName("script")[0];
-            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-        }, 1);
-    </script>
 </head>
 <body class="header-fixed-inner">
-    <form runat="server">
-    <!-- #include file="/includes/gacode.aspx" --> 
+    <form runat="server">    
 	<div class="main-container">
     	<!-- #include file="/includes/headBW.aspx" -->
         

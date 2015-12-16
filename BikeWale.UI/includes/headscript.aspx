@@ -23,8 +23,20 @@
 <%if(!String.IsNullOrEmpty(alternate)) { %><meta name="alternate" content="<%= alternate %>" /><% } %>
 <%if(!String.IsNullOrEmpty(canonical)) { %><link rel="canonical" href="<%=canonical %>" /> <% } %>
 
-
 <link rel="SHORTCUT ICON" href="http://img2.aeplcdn.com/bikewaleimg/images/favicon.png"  type="image/png"/>
+<script type="text/javascript">
+    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
+    var ga_pg_id = '0';
+</script>
+<!-- #include file="\includes\gacode.aspx" -->
+<script type="text/javascript">
+    setTimeout(function () {
+        var a = document.createElement("script");
+        var b = document.getElementsByTagName("script")[0];
+        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+    }, 1);
+</script>
 <link href="/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 <script type='text/javascript'>
@@ -75,16 +87,3 @@
 <!--[if lt IE 9]>
     <script src="/src/html5.js"></script>
 <![endif]-->
-<script type="text/javascript">
-    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
-    var ga_pg_id = '0';   
-</script>
-<!-- #include file="\includes\gacode.aspx" -->
-<script type="text/javascript">
-    setTimeout(function () {
-        var a = document.createElement("script");
-        var b = document.getElementsByTagName("script")[0];
-        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-    }, 1);
-</script>
