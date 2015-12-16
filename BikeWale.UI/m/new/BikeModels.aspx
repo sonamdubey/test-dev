@@ -46,9 +46,9 @@
                     <div class="jcarousel-wrapper model" id="bikeBannerImageCarousel">
                         <div class="jcarousel stage">
                             <ul id="ulModelPhotos">
-                                <li>
+                                <%--<li>
                                     <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
-                                </li>
+                                </li>--%>
                                 <asp:Repeater ID="rptModelPhotos" runat="server">
                                     <ItemTemplate>
                                         <li>
