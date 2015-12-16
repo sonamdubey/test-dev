@@ -16,8 +16,16 @@
 <link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/frameworks.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
-   var ga_pg_id = '0';
-    //	new\default.aspx  = 3//	new\versions.aspx = 2//	default.aspx = 1//	includes\headscript.aspx = 0
+   var ga_pg_id = '0';    
+</script>
+<!-- #include file="\includes\gacode.aspx" -->
+<script type="text/javascript">
+    setTimeout(function () {
+        var a = document.createElement("script");
+        var b = document.getElementsByTagName("script")[0];
+        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+    }, 1);
 </script>
 <script type='text/javascript'>
     var googletag = googletag || {};
@@ -51,12 +59,3 @@
 <!--[if lt IE 9]>
     <script src="/m/src/html5.js"></script>
 <![endif]-->
-<!-- #include file="\includes\gacode.aspx" -->
-<script type="text/javascript">
-    setTimeout(function () {
-        var a = document.createElement("script");
-        var b = document.getElementsByTagName("script")[0];
-        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-    }, 1);
-</script>

@@ -26,13 +26,17 @@ namespace Bikewale.BAL.BikeData
     public class BikeModels<T,U> : IBikeModels<T,U> where T : BikeModelEntity, new()
     {
         private readonly IBikeModelsRepository<T, U> modelRepository = null;
+        private readonly IPager _objPager = null;
 
         public BikeModels()
         {
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBikeModelsRepository<T, U>, BikeModelsRepository<T, U>>();
+                container.RegisterType<IPager, BAL.Pager.Pager>();
+                
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
+                _objPager = container.Resolve<IPager>();
             }
         }
 
@@ -961,6 +965,27 @@ namespace Bikewale.BAL.BikeData
             }
 
             return objUpcoming;
+        }
+
+        /// <summary>
+        ///  Written By : Ashish G. Kamble on 16 dec 2015
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="recordCount"></param>
+        /// <param name="currentPageNo"></param>
+        /// <returns></returns>
+        public List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null)
+        {
+            List<NewLaunchedBikeEntity> objNewLaunchedBikeList = null;
+            int startIndex = 0, endIndex = 0, curPageNo = 1;
+
+            curPageNo = currentPageNo.HasValue ? currentPageNo.Value : 1;
+
+            _objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
+
+            objNewLaunchedBikeList = GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
+
+            return objNewLaunchedBikeList;
         }
     }   // Class
 }   // namespace
