@@ -121,14 +121,12 @@ namespace Bikewale.New
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
         static readonly string _PageNotFoundPath;
-        static readonly string _bwHostUrl;
         protected static bool isManufacturer = false;
         int _modelId;        
 
         static versions()
         {
             _PageNotFoundPath = Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx";
-            _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
            // isManufacturer = (ConfigurationManager.AppSettings["TVSManufacturerId"] != "0") ? true : false;
         }
 
