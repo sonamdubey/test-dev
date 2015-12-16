@@ -16,6 +16,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using Bikewale.m.controls;
+using Bikewale.BAL.BikeData;
 
 namespace Bikewale.Mobile.New
 {
@@ -32,7 +33,7 @@ namespace Bikewale.Mobile.New
         protected UserReviewList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
         // Register global variables
-        protected ModelPage modelPage;
+        protected BikeModelPageEntity modelPage;
         protected string modelId = string.Empty;
         protected Repeater rptModelPhotos, rptVarients, rptColors;
         protected String bikeName = String.Empty;
@@ -66,7 +67,6 @@ namespace Bikewale.Mobile.New
             {
                 #region Do not change the sequence of these functions
                 BindRepeaters();
-                BindModelGallery();
                 BindAlternativeBikeControl();
                 clientIP = CommonOpn.GetClientIP();
                 #endregion
@@ -88,24 +88,6 @@ namespace Bikewale.Mobile.New
 
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-            }
-        }
-
-        private void BindModelGallery()
-        {
-            List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> photos = null;
-            if (modelPage != null && modelPage.Photos != null && modelPage.Photos.Count > 0)
-            {
-                photos = modelPage.Photos;
-                photos.Insert(0, new DTO.CMS.Photos.CMSModelImageBase()
-                {
-                    HostUrl = modelPage.ModelDetails.HostUrl,
-                    OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
-                    ImageCategory = bikeName,
-                });
-                ctrlModelGallery.bikeName = bikeName;
-                ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                ctrlModelGallery.Photos = photos;
             }
         }
 
@@ -236,15 +218,20 @@ namespace Bikewale.Mobile.New
         {
             try
             {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = String.Format("/api/model/details/?modelId={0}", modelId);
-
-                modelPage = BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
-
-                if (modelPage != null)
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                             .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                             .RegisterType<ICacheManager, MemcacheManager>();
+
+                    var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+
+                    modelPage = objCache.GetModelPageDetails(Convert.ToInt32(modelId));
+                    if (modelPage != null)
+                    {
+                        //modelPage = objResponse;
+                        bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+                    }
                 }
             }
             catch (Exception ex)

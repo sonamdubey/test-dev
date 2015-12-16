@@ -22,7 +22,9 @@ namespace Bikewale.Interfaces.BikeData
 
         UpcomingBikeEntity GetUpcomingBikeDetails(U modelId);
         List<UpcomingBikeEntity> GetUpcomingBikesList(UpcomingBikesListInputEntity inputParams, EnumUpcomingBikesFilter sortBy, out int recordCount);
+        List<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null);
         List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int startIndex, int endIndex, out int recordCount);
-        BikeModelPageEntity GetModelPageDetails(U modelId);
+        BikeModelPageEntity GetModelPageDetails(U modelId);        
+        List<Entities.CMS.Photos.ModelImage> GetBikeModelPhotoGallery(U modelId);
     }
 }

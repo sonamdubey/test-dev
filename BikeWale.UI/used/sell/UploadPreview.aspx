@@ -4,7 +4,7 @@
 <!-- #include file="sell_header.aspx" -->
 <script language="javascript" src="/src/common/bt.js?v1.1"></script>
 <!--[if IE]><script language="javascript" src="/src/common/excanvas.js?v=1.0"></script><![endif]-->
-<script type="text/javascript" src="/src/common/process.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/process.js?v=1.0"></script>
 <script language="javascript">
 	var inquiryId = '<%= inquiryId %>';	
 	var requestCount = 0;

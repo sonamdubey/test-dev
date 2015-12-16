@@ -7,6 +7,9 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using Microsoft.Practices.Unity;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.BAL.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -20,40 +23,62 @@ namespace Bikewale.BindViewModels.Controls
         public int? curPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
 
-        readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-        readonly string _requestType = "application/json";
-
         public void BindUpcomingBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
 
-            UpcomingBikeList objBikeList = null;
+            //UpcomingBikeList objBikeList = null;
+            List<UpcomingBikeEntity> objBikeList = null;
 
             try
             {
-                string _apiUrl = String.Format("/api/UpcomingBike/?sortBy={0}&pageSize={1}", sortBy, pageSize);
 
+                EnumUpcomingBikesFilter filter = EnumUpcomingBikesFilter.Default;
 
-                if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
+                switch (sortBy)
                 {
-                    _apiUrl += String.Format("&makeId={0}&curPageNo={1}", MakeId, curPageNo);
-
-                    if (ModelId.HasValue && ModelId.Value > 0)
-                    {
-                        _apiUrl += String.Format("&modelId={0}", ModelId);
-                    }
+                    case 0: filter = EnumUpcomingBikesFilter.Default;
+                        break;
+                    case 1: filter = EnumUpcomingBikesFilter.PriceLowToHigh;
+                        break;
+                    case 2: filter = EnumUpcomingBikesFilter.PriceHighToLow;
+                        break;
+                    case 3: filter = EnumUpcomingBikesFilter.LaunchDateSooner;
+                        break;
+                    case 4: filter = EnumUpcomingBikesFilter.LaunchDateLater;
+                        break;
                 }
 
-                objBikeList = BWHttpClient.GetApiResponseSync<UpcomingBikeList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
-
-                if (objBikeList != null && objBikeList.UpcomingBike != null)
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    FetchedRecordsCount = objBikeList.UpcomingBike.Count();
+                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+
+                    var objModelRepo = container.Resolve<IBikeModels<BikeModelEntity, int>>();
+
+                    objBikeList = objModelRepo.GetUpcomingBikesList(filter, pageSize, MakeId, ModelId, curPageNo);
+                }
+
+                //string _apiUrl = String.Format("/api/UpcomingBike/?sortBy={0}&pageSize={1}", sortBy, pageSize);
+                
+                //if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
+                //{
+                //    _apiUrl += String.Format("&makeId={0}&curPageNo={1}", MakeId, curPageNo);
+
+                //    if (ModelId.HasValue && ModelId.Value > 0)
+                //    {
+                //        _apiUrl += String.Format("&modelId={0}", ModelId);
+                //    }
+                //}
+
+                //objBikeList = BWHttpClient.GetApiResponseSync<UpcomingBikeList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
+
+                if (objBikeList != null)
+                {
+                    FetchedRecordsCount = objBikeList.Count();
 
                     if (FetchedRecordsCount > 0)
                     {
-
-                        rptr.DataSource = objBikeList.UpcomingBike;
+                        rptr.DataSource = objBikeList;
                         rptr.DataBind();
                     }
                 }

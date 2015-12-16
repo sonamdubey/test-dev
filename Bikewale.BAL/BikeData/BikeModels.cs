@@ -12,6 +12,8 @@ using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Photos;
 using System.Configuration;
 using Bikewale.Notifications;
+using Bikewale.Utility;
+using Bikewale.Interfaces.Pager;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -839,7 +841,34 @@ namespace Bikewale.BAL.BikeData
 
                     objModelPage.objFeatures.FeaturesList = objFeatuesList;
 
-                    #endregion                    
+                    #endregion                                        
+
+                    // Added by : Ashish G. Kamble on 15 Dec 2015
+                    // Get model photo gallery
+                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
+
+                    if (objModelPage.Photos != null)
+                    {
+                        objModelPage.Photos.Insert(0,
+                            new ModelImage()
+                            {
+                                HostUrl = objModelPage.ModelDetails.HostUrl,
+                                OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
+                                Caption = objModelPage.ModelDetails.ModelName,
+                                ImageCategory = "Model Image"
+                            });
+                    }
+                    else
+                    {
+                        objModelPage.Photos = new List<ModelImage>();
+                        objModelPage.Photos.Add(new ModelImage()
+                        {
+                            HostUrl = objModelPage.ModelDetails.HostUrl,
+                            OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
+                            Caption = objModelPage.ModelDetails.ModelName,
+                            ImageCategory = "Model Image"
+                        });
+                    }
                 }
             }
             catch (Exception ex)
@@ -851,5 +880,87 @@ namespace Bikewale.BAL.BikeData
             return objModelPage;
         }
 
+        public List<ModelImage> GetBikeModelPhotoGallery(U modelId)
+        {
+            List<ModelImage> objPhotos = null;
+            string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+            string _applicationid = ConfigurationManager.AppSettings["applicationId"];
+            string _requestType = "application/json";
+
+            try
+            {
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.PhotoGalleries);
+                categorList.Add(EnumCMSContentType.RoadTest);
+                categorList.Add(EnumCMSContentType.ComparisonTests);
+                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+
+                categorList.Clear();
+                categorList = null;
+
+                string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
+
+                objPhotos = BWHttpClient.GetApiResponseSync<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, objPhotos);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetBikeModelPhotoGallery");
+                objErr.SendMail();
+            }
+
+            return objPhotos;
+            
+        }
+
+        /// <summary>
+        /// Written by : Ashish G. Kamble on 15 dec 2015
+        /// Summary : Function to get the upcoming bikes list.
+        /// </summary>
+        /// <param name="sortBy">Sorting order for the upcoming bikes.</param>
+        /// <param name="pageSize">No of records to be shown on the page.</param>
+        /// <param name="makeId">Optional.</param>
+        /// <param name="modelId">Optional.</param>
+        /// <param name="curPageNo">Optional. Current page number.</param>
+        /// <returns></returns>
+        public List<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
+        {
+            List<UpcomingBikeEntity> objUpcoming = null;
+
+            int recordCount = 0;
+            int startIndex = 0, endIndex = 0, currentPageNo = 0;
+           
+            try
+            {
+                currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                             .RegisterType<IPager, Bikewale.BAL.Pager.Pager>();
+
+                    var _objPager = container.Resolve<IPager>();
+                    var _modelRepository = container.Resolve< IBikeModelsRepository<BikeModelEntity, int>>();
+
+                    _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
+
+                    UpcomingBikesListInputEntity inputParams = new UpcomingBikesListInputEntity()
+                    {
+                        StartIndex = startIndex,
+                        EndIndex = endIndex,
+                        MakeId = makeId.HasValue ? makeId.Value : 0,
+                        ModelId = modelId.HasValue ? modelId.Value : 0
+                    };
+
+                    objUpcoming = _modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
+                }                
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
+                objErr.SendMail();
+            }
+
+            return objUpcoming;
+        }
     }   // Class
 }   // namespace

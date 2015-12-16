@@ -76,7 +76,7 @@
     <script src="/src/html5.js"></script>
 <![endif]-->
 <script type="text/javascript">
-    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
+    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
     var ga_pg_id = '0';   
 </script>
 <!-- #include file="\includes\gacode.aspx" -->
