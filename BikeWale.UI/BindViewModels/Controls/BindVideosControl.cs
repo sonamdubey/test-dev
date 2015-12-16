@@ -21,39 +21,43 @@ namespace Bikewale.BindViewModels.Controls
 
         static string _cwHostUrl;
         static string _requestType;
+        static string _applicationid  ;
 
         static BindVideosControl()
         {
-            _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+            _applicationid = ConfigurationManager.AppSettings["applicationId"];
             _requestType = "application/json";
         }
 
         public void BindVideos(Repeater rptr)
         {
+            FetchedRecordsCount = 0;
+            List<BikeVideoEntity> objVideosList = null;
+            uint pageNo = 1;
             try
-            {
-                FetchedRecordsCount = 0;
-                VideosList objVideos = null;
+            {                
 
-                string _apiUrl = String.Format("/api/videos/cat/{0}/pn/1/ps/{1}", EnumVideosCategory.JustLatest, TotalRecords);
-
+                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)EnumVideosCategory.JustLatest,pageNo, TotalRecords);
+                
                 if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                 {
                     if (ModelId.HasValue && ModelId.Value > 0)
-                        _apiUrl = String.Format("/api/videos/pn/1/ps/{0}/model/{1}", TotalRecords, ModelId.Value);
+                        _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", ModelId.Value, pageNo, TotalRecords);
                     else
-                        _apiUrl = String.Format("/api/videos/pn/1/ps/{0}/make/{1}", TotalRecords, MakeId.Value);
+                        _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", MakeId.Value, pageNo, TotalRecords);
                 }
 
-                objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
+                objVideosList = BWHttpClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
 
-                if (objVideos != null && objVideos.Videos != null)
-                {                    
-                    FetchedRecordsCount = objVideos.Videos.Count();
+
+                if (objVideosList != null && objVideosList.Count() > 0)
+                {
+                    FetchedRecordsCount = objVideosList.Count();
 
                     if (FetchedRecordsCount > 0)
-                    {                        
-                        rptr.DataSource = objVideos.Videos;
+                    {
+                        rptr.DataSource = objVideosList;
                         rptr.DataBind();
                     }
                 }
