@@ -23,7 +23,7 @@ namespace Bikewale.BAL.BikeData
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
-    public class BikeModels<T,U> : IBikeModels<T,U> where T : BikeModelEntity, new()
+    public class BikeModels<T, U> : IBikeModels<T, U> where T : BikeModelEntity, new()
     {
         private readonly IBikeModelsRepository<T, U> modelRepository = null;
         private readonly IPager _objPager = null;
@@ -34,7 +34,7 @@ namespace Bikewale.BAL.BikeData
             {
                 container.RegisterType<IBikeModelsRepository<T, U>, BikeModelsRepository<T, U>>();
                 container.RegisterType<IPager, BAL.Pager.Pager>();
-                
+
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
                 _objPager = container.Resolve<IPager>();
             }
@@ -56,7 +56,7 @@ namespace Bikewale.BAL.BikeData
         /// <param name="modelId"></param>
         /// <param name="isNew"></param>
         /// <returns></returns>
-        public List<BikeVersionsListEntity> GetVersionsList(U modelId,bool isNew)
+        public List<BikeVersionsListEntity> GetVersionsList(U modelId, bool isNew)
         {
             List<BikeVersionsListEntity> objVersionList = null;
 
@@ -905,8 +905,11 @@ namespace Bikewale.BAL.BikeData
                 categorList = null;
 
                 string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    objPhotos = objClient.GetApiResponseSync<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, objPhotos);
+                }
 
-                objPhotos = BWHttpClient.GetApiResponseSync<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, objPhotos);
             }
             catch (Exception ex)
             {
@@ -915,7 +918,7 @@ namespace Bikewale.BAL.BikeData
             }
 
             return objPhotos;
-            
+
         }
 
         /// <summary>
@@ -934,7 +937,7 @@ namespace Bikewale.BAL.BikeData
 
             int recordCount = 0;
             int startIndex = 0, endIndex = 0, currentPageNo = 0;
-           
+
             try
             {
                 currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
@@ -945,7 +948,7 @@ namespace Bikewale.BAL.BikeData
                              .RegisterType<IPager, Bikewale.BAL.Pager.Pager>();
 
                     var _objPager = container.Resolve<IPager>();
-                    var _modelRepository = container.Resolve< IBikeModelsRepository<BikeModelEntity, int>>();
+                    var _modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
 
                     _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
 
@@ -958,7 +961,7 @@ namespace Bikewale.BAL.BikeData
                     };
 
                     objUpcoming = _modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
-                }                
+                }
             }
             catch (Exception ex)
             {
