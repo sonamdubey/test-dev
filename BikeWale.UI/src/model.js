@@ -253,7 +253,7 @@ mobile.on("focus", function () {
 
 });
 
-emailid.on("keyup keydown blur", function () {
+emailid.on("blur", function () {
     if (prevEmail != emailid.val().trim()) {
         if (validateEmail()) {
             customerViewModel.IsVerified(false);
@@ -267,7 +267,7 @@ emailid.on("keyup keydown blur", function () {
     }
 });
 
-mobile.on("keyup keydown blur", function () {
+mobile.on("blur", function () {
     if (mobile.val().length < 10) {
         $("#user-details-submit-btn").show();
         $(".mobile-verification-container").removeClass("show").addClass("hide");
@@ -819,4 +819,11 @@ function setPQUserCookie() {
 
 $('#insuranceLink').on('click', function (e) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Insurance_Clicked_Model', 'lab': myBikeName + "_" + icityArea });
+});
+
+function checkItemClicked() {
+
+}
+$('#bookNowBtn').on('click', function (e) {
+    window.location.href = "/pricequote/BookingSummary_New";
 });

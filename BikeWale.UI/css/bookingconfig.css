@@ -6,7 +6,7 @@
 .config-tabs-image span { margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
 
 /* booking sprite */
-.booking-sprite { background: url(../images/booking-sprite.png) no-repeat; display: inline-block; }
+.booking-sprite { background: url(http://img1.aeplcdn.com/bikewaleimg/images/booking-sprite.png) no-repeat; display: inline-block; }
 .customize-icon-selected, .finance-icon-selected, .confirmation-icon-selected { width:42px; height:42px; }
 .customize-icon-selected { background-position: 0 -52px; }
 .finance-icon-selected { background-position: 0 -156px; }
@@ -81,7 +81,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #565a5c; height: 6px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(../images/slider-sprite.png) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
+.ui-slider .ui-slider-handle { background: url(http://img1.aeplcdn.com/bikewaleimg/images/slider-sprite.png) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
 
 .emi-slider-box-right-section { width:138px; height:40px; border:2px solid #e2e2e2; float:right; margin-right:10px; margin-top:10px; padding:8px; text-align:center; }
 
@@ -96,7 +96,7 @@
 /* range points */
 .slider-range-points ul li { float:left; position:relative; }
 .slider-range-points ul.range-pointsUL li { width:14%; }
-.range-points-bar { background: url(../images/slider-sprite.png) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
+.range-points-bar { background: url(http://img1.aeplcdn.com/bikewaleimg/images/slider-sprite.png) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
 .range-points-bar span { position:absolute; top:5px; left:-3px; font-size:11px; }
 .slider-range-points .range-five-pointsUL.range-pointsUL li { width:20%; }
 

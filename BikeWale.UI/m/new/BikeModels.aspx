@@ -186,7 +186,7 @@
                         <%  } %>
                         <p class="leftfloat">
 
-                            <%if (price != "0")
+                            <%if (price != "0" && price != string.Empty)
                               { %>
                             <span class="font24 text-bold"><span class="fa fa-rupee"></span><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
                             <% }
@@ -195,10 +195,10 @@
                             <span class="font20 text-bold">Price unavailable</span>
                             <%  } %>
                         </p>
-                        <%if (pqOnRoad != null && price != "0")
+                        <%if (pqOnRoad != null && price != "0" && price != string.Empty)
                           {%>
                         <p id="viewBreakupText" class="font14 text-light-grey leftfloat viewBreakupText">View Breakup</p>
-                        <%if (isBikeWalePQ && price != "0")
+                        <%if (isBikeWalePQ && price != "0" && price != string.Empty)
                           {%>
                         <p class="font12 text-light-grey clear ">Ex-showroom + RTO + Insurance(Comprehensive)</p>
                         <%}

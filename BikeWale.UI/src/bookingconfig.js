@@ -277,24 +277,6 @@ $("#financeDetails ul.select-financeUL li").click(function () {
 });
 
 
-function changeComponentBSlider(e, ui) {
-    if (!e.originalEvent) return;
-    var totalAmount = 1000000;
-    var amountRemaining = totalAmount - ui.value;
-    $('#loanAmountSlider').slider("option", "value", amountRemaining);
-    $("#loanAmount").text(amountRemaining);
-    $("#downPaymentAmount").text(ui.value);
-};
-
-function changeComponentASlider(e, ui) {
-    if (!e.originalEvent) return;
-    var totalAmount = 1000000;
-    var amountRemaining = totalAmount - ui.value;
-    $('#downPaymentSlider').slider("option", "value", amountRemaining);
-    $("#downPaymentAmount").text(amountRemaining);
-    $("#loanAmount").text(ui.value);
-};
-
 function getContrastYIQ(colorCode) {
 
     if (/rgb/i.test(colorCode)) {
@@ -349,22 +331,6 @@ $.LoanAmount = function (onRoadPrice, percentage) {
         console.log(e.message);
     }
     return price;
-};
-
-$.priceRange = function (minRange, maxRange, divideIndex) {
-    var priceRange;
-    try {
-        if (divideIndex == 1)
-            priceRange = maxRange;
-        else if (divideIndex > 0)
-            priceRange = ((maxRange - minRange) * divideIndex);
-        else
-            priceRange = minRange;
-        priceRange = Math.ceil(priceRange / 100.0) * 100;
-    } catch (e) {
-        console.log(e.message);
-    }
-    return formatPrice(priceRange);
 };
 
 $.valueFormatter = function (num) {

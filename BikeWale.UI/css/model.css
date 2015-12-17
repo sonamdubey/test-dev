@@ -17,7 +17,7 @@
 .modelGetDetails ul { list-style:disc; color:#82888b; margin-left:25px; font-size:14px; }
 .modelGetDetails.offersList ul { width:100%; overflow:hidden; margin-left:4px; }
 .modelGetDetails ul li { padding-top: 12px;padding-right: 12px;width: 310px;float: left; }
-.modelGetDetails.offersList ul li {  background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png") no-repeat 0 3px; margin-top: 12px; padding-left: 22px; }
+.modelGetDetails.offersList ul li {  background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png") no-repeat 0 3px; margin-top: 12px; padding:0 0 0 22px; }
 
 .city-area-select-container { width:100%; }
 .sort-div { width:200px; height:40px; padding:9px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
@@ -227,7 +227,7 @@
 .notify-offers-list li { margin-bottom:10px; }
 
 /* lead capture popup */
-#leadCapturePopup { display:none; width:450px; min-height:470px; background:#fff; margin:0 auto; position:fixed; top:15%; right:5%; left:5%; z-index:10; padding: 30px 40px; }
+#leadCapturePopup { display:none; width:450px; min-height:470px; background:#fff; margin:0 auto; position:fixed; top:10%; right:5%; left:5%; z-index:10; padding: 30px 40px; }
 .personal-info-form-container { margin: 10px auto; width: 300px; min-height: 100px; }
 .personal-info-form-container .personal-info-list { margin:0 auto; width:280px; float:left; margin-bottom:20px; border-radius:0; }
 .personal-info-list .errorIcon, .personal-info-list .errorText { display:none; }

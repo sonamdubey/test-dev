@@ -309,16 +309,10 @@ namespace Bikewale.New
         {
             if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
             {
-                //ddlVariant.Items.Clear();
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
                 {
-                    //foreach (var version in modelPage.ModelVersions)
-                    //{
-                    //    //ddlVariant.Items.Insert(0, new ListItem(version.VersionName, version.VersionId.ToString()));
-                    //}
                     if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
                     {
-                        //ddlVariant.SelectedValue = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
                         defaultVariant.Text = modelPage.ModelVersions.Where(p=>p.VersionId==(int)modelPage.ModelVersionSpecs.BikeVersionId).First().VersionName;
                         hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
                     }
