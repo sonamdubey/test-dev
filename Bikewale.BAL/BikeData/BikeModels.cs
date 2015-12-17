@@ -169,14 +169,14 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public BikeModelPageEntity GetModelPageDetails(U modelId)
         {
-            BikeModelPageEntity objModelPage = null;            
+            BikeModelPageEntity objModelPage = null;
 
             try
             {
                 objModelPage = modelRepository.GetModelPage(modelId);
 
                 if (objModelPage != null && objModelPage.ModelVersionSpecs != null)
-                {                    
+                {
                     #region Set Overview
                     objModelPage.objOverview = new Overview()
                     {
@@ -315,7 +315,7 @@ namespace Bikewale.BAL.BikeData
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.FuelTankCapacity, "litres")
                     });
 
-                    objSummary.Specs = objSummarySpecs;                    
+                    objSummary.Specs = objSummarySpecs;
 
                     // Add specs to the Engine and transmission
                     SpecsCategory objEngTrans = new SpecsCategory()
@@ -423,7 +423,7 @@ namespace Bikewale.BAL.BikeData
                     });
 
                     objEngTrans.Specs = objEngTransSpecs;
-                    
+
                     // Add Brakes, wheels and suspension
                     SpecsCategory objBrakesWheels = new SpecsCategory()
                     {
@@ -521,8 +521,8 @@ namespace Bikewale.BAL.BikeData
 
                     // Add Dimensions and chassis specs
 
-                    SpecsCategory objChassis = new SpecsCategory() 
-                    { 
+                    SpecsCategory objChassis = new SpecsCategory()
+                    {
                         CategoryName = "DimChassis",
                         DisplayName = "Dimensions and Chassis"
                     };
@@ -580,7 +580,7 @@ namespace Bikewale.BAL.BikeData
                     objChassis.Specs = objChassisSpecs;
 
                     // Add fuel efficiency and performance
-                    SpecsCategory objFuel = new SpecsCategory() 
+                    SpecsCategory objFuel = new SpecsCategory()
                     {
                         CategoryName = "FuelEffieciency",
                         DisplayName = "Fuel efficiency and Performance"
@@ -657,15 +657,15 @@ namespace Bikewale.BAL.BikeData
                     objSpecifications.Add(objChassis);
                     objSpecifications.Add(objFuel);
 
-                    objModelPage.objSpecs.SpecsCategory = objSpecifications;                    
+                    objModelPage.objSpecs.SpecsCategory = objSpecifications;
 
                     #endregion
-                    
+
                     #region Set features
                     objModelPage.objFeatures = new Features()
                     {
                         DisplayName = "Features"
-                    };                        
+                    };
 
                     List<Specs> objFeatuesList = new List<Specs>();
 
@@ -845,8 +845,10 @@ namespace Bikewale.BAL.BikeData
 
                     objModelPage.objFeatures.FeaturesList = objFeatuesList;
 
-                    #endregion                                        
-
+                    #endregion
+                }
+                if (objModelPage != null)
+                {
                     // Added by : Ashish G. Kamble on 15 Dec 2015
                     // Get model photo gallery
                     objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
@@ -878,7 +880,7 @@ namespace Bikewale.BAL.BikeData
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPageDetails");
-                objErr.SendMail();                
+                objErr.SendMail();
             }
 
             return objModelPage;

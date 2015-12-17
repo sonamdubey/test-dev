@@ -16,7 +16,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Mobile.Controls;
 using Microsoft.Practices.Unity;
 using Bikewale.m.controls;
-using Bikewale.BAL.BikeData;
+using Bikewale.BAL.BikeData;                                                                        
 
 namespace Bikewale.Mobile.New
 {
