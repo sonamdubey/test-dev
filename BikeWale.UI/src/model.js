@@ -827,3 +827,9 @@ function checkItemClicked() {
 $('#bookNowBtn').on('click', function (e) {
     window.location.href = "/pricequote/BookingSummary_New";
 });
+
+$(document).mouseup(function (e) {
+    if (!$(".variantDropDown, .sort-div, .sort-div #upDownArrow, .sort-by-title").is(e.target)) {
+        $.sortChangeUp($(".sort-div"));
+    }
+});

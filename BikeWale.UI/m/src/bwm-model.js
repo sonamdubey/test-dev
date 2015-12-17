@@ -685,3 +685,9 @@ $('#bookNowBtn').on('click', function (e) {
 });
 
 ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
+
+$(document).mouseup(function (e) {
+    if (!$(".variantDropDown, .sort-div, .sort-div #upDownArrow, .sort-by-title").is(e.target)) {
+        $.sortChangeUp($(".sort-div"));
+    }
+});

@@ -456,7 +456,7 @@
                                    { %>
                                 <%if (isBookingAvailable && bookingAmt > 0)
                                   { %>
-                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="fa fa-gift text-red"></span>Pay
+                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="fa fa-gift text-red"></span>
                                     Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike and get:
                                 </h4>
                                 <%    } %>
