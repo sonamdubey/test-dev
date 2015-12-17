@@ -11,7 +11,7 @@ namespace Bikewale.Mobile.Controls
 {
     public class CompareBikesMin : System.Web.UI.UserControl
     {
-        public int TotalRecords { get; set; }
+        public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
         public TopBikeCompareBase TopRecord { get; set; }
         public string Bike1ReviewLink { get; set; }

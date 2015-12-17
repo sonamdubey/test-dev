@@ -9,9 +9,9 @@
     AdPath = "/1017752/BikeWale_UsedBikes_HomePage_";
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
-<script type="text/javascript" src="/src/common/bt.js?v1.1"></script>
-<link rel="stylesheet" type="text/css" href="/css/used-cd.css" />
-<script type="text/javascript" src="/src/classified/bikedetails.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/bt.js?v1.1"></script>
+<link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/css/used-cd.css" />
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/bikedetails.js?<%= staticFileVersion %>"></script>
 <style type="text/css">
     .feature-list li { float: left; width: 170px; }
     .cd-tbl th { font-weight:bold; }

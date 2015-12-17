@@ -1,22 +1,17 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using System;
+using System.Configuration;
+using System.Linq;
+using System.Web.UI.WebControls;
+using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
-using Bikewale.DTO.Model;
 using Bikewale.Entities.BikeData;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Utility;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Bikewale.Controls;
-using System.Web.Services;
 
 namespace Bikewale.New
 {
@@ -112,7 +107,7 @@ namespace Bikewale.New
         protected VideosControl ctrlVideos;
         protected UserReviewsList ctrlUserReviews;
         protected ModelGallery ctrlModelGallery;
-        protected ModelPage modelPage;
+        protected BikeModelPageEntity modelPage;
         protected string modelId = string.Empty;
         protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor;
         protected String bikeName = String.Empty;
@@ -126,13 +121,12 @@ namespace Bikewale.New
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
         static readonly string _PageNotFoundPath;
-        static readonly string _bwHostUrl;
         protected static bool isManufacturer = false;
+        int _modelId;        
 
         static versions()
         {
             _PageNotFoundPath = Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx";
-            _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
            // isManufacturer = (ConfigurationManager.AppSettings["TVSManufacturerId"] != "0") ? true : false;
         }
 
@@ -157,15 +151,12 @@ namespace Bikewale.New
             {
                 #region Do not change the sequence
                 BindPhotoRepeater();
-                BindModelGallery();
                 BindAlternativeBikeControl();
                 clientIP = CommonOpn.GetClientIP();
                 #endregion
             }
-
-
-            int _modelId;
-            Int32.TryParse(modelId, out _modelId);
+            
+            
 
             ////news,videos,revews, user reviews
             ctrlNews.TotalRecords = 3;
@@ -199,28 +190,6 @@ namespace Bikewale.New
             }
         }
 
-        private void BindModelGallery()
-        {
-
-            if (modelPage != null)
-            {
-                List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> photos = modelPage.Photos;
-
-                if (photos != null && photos.Count > 0)
-                {
-                    photos.Insert(0, new DTO.CMS.Photos.CMSModelImageBase()
-                    {
-                        HostUrl = modelPage.ModelDetails.HostUrl,
-                        OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
-                        ImageCategory = bikeName,
-                    });
-                    ctrlModelGallery.bikeName = bikeName;
-                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                    ctrlModelGallery.Photos = photos;
-                }
-            }
-        }
-
         private void BindPhotoRepeater()
         {
             if (modelPage != null)
@@ -228,30 +197,15 @@ namespace Bikewale.New
                 var photos = modelPage.Photos;
                 if (photos != null && photos.Count > 0)
                 {
-                    //if (modelPage.Photos.Count > 2)
-                    //{
-                    //    rptModelPhotos.DataSource = modelPage.Photos.Take(3);
-                    //}
-                    //else
-                    //{
-                    //    rptModelPhotos.DataSource = modelPage.Photos;
-                    //}
-                    //rptModelPhotos.DataBind();
-
-                    //if (modelPage.Photos.Count > 2)
-                    //{
-                    //    rptNavigationPhoto.DataSource = modelPage.Photos.Take(3);
-                    //}
-                    //else
-                    //{
-                    //    rptNavigationPhoto.DataSource = modelPage.Photos;
-                    //}
-
                     rptModelPhotos.DataSource = photos;
                     rptModelPhotos.DataBind();
 
                     rptNavigationPhoto.DataSource = photos;
                     rptNavigationPhoto.DataBind();
+
+                    ctrlModelGallery.bikeName = bikeName;
+                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
+                    ctrlModelGallery.Photos = photos;
                 }
 
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
@@ -304,6 +258,7 @@ namespace Bikewale.New
                         if (objResponse.StatusCode == 200)
                         {
                             modelId = objResponse.ModelId.ToString();
+                            Int32.TryParse(modelId, out _modelId);
                         }
                         else if (objResponse.StatusCode == 301)
                         {
@@ -343,21 +298,31 @@ namespace Bikewale.New
             }
         }
 
-        static readonly string apiURL = "/api/model/details/?modelId={0}";
-        static readonly string _requestType = "application/json";
-
         private void FetchModelPageDetails()
         {
-            if (!string.IsNullOrEmpty(modelId))
-            {
-                string _apiUrl = String.Format(apiURL, modelId);
-                modelPage = Bikewale.Utility.BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+            using (IUnityContainer container = new UnityContainer())
+            {                
+                container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                         .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                         .RegisterType<ICacheManager, MemcacheManager>();
 
+                var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+
+                modelPage = objCache.GetModelPageDetails(_modelId);
                 if (modelPage != null)
                 {
+                    //modelPage = objResponse;
                     bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
                 }
             }
+
+            //if (!string.IsNullOrEmpty(modelId))
+            //{
+            //    string _apiUrl = String.Format(apiURL, modelId);
+            //    modelPage = Bikewale.Utility.BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+
+            
+            //}
         }
 
         protected string FormatShowReview(string makeName, string modelName)
