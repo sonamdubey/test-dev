@@ -73,8 +73,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
             PQOnRoad onRoadPrice = null;
             try
             {
-                string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string requestType = "application/json";
                 PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
                 objPQEntity.CityId = cityId;
                 objPQEntity.AreaId = areaId.HasValue ? areaId.Value : 0;
@@ -108,7 +106,13 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         if (objPQ.DealerId != 0)
                         {
                             api = String.Format("/api/DealerPriceQuote/GetDealerPriceQuote/?cityid={0}&versionid={1}&dealerid={2}", cityId, objPQ.VersionId, objPQ.DealerId);
-                            objPrice = BWHttpClient.GetApiResponseSync<PQ_QuotationEntity>(abHostUrl, requestType, api, objPrice);
+
+                            using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                            {
+                                //objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
+                                objPrice = objClient.GetApiResponseSync<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
+                            }
+
                             if (objPrice != null)
                             {
                                 dpqOutput = DPQuotationOutputMapper.Convert(objPrice);

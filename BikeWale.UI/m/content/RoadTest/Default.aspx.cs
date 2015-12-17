@@ -94,8 +94,11 @@ namespace Bikewale.Content
 
                 CMSContent _objRoadTestList = null;
 
-                _objRoadTestList = await BWHttpClient.GetApiResponse<CMSContent>(_cwHostUrl, _requestType, _apiUrl, _objRoadTestList);
-
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    _objRoadTestList = await objClient.GetApiResponse<CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadTestList);
+                }
+                
                 if (_objRoadTestList != null)
                 {
                     if (_objRoadTestList.Articles.Count > 0)

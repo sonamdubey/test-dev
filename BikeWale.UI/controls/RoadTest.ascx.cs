@@ -88,9 +88,7 @@ namespace Bikewale.Controls
                 if (_topRecords == "2")
                 {
                     _topRecords = "4";
-                    //sets the base URI for HTTP requests
-                    string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                    string _requestType = "application/json";
+                    
                     int _contentType = (int)EnumCMSContentType.RoadTest;
                     string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords;
 
@@ -103,8 +101,11 @@ namespace Bikewale.Controls
                             _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords + "&makeid=" + MakeId;
                     }
 
-                    _objRoadtestList = await BWHttpClient.GetApiResponse<List<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objRoadtestList);
-
+                    using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    {
+                        _objRoadtestList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadtestList);
+                    }
+                    
                     if (_objRoadtestList != null && _objRoadtestList.Count > 0)
                     {
                         List<ArticleSummary> objRoadTests = new List<ArticleSummary>();
@@ -122,10 +123,7 @@ namespace Bikewale.Controls
                         divControl.Attributes.Add("class", "hide");
                 }
                 else
-                {
-                    //sets the base URI for HTTP requests
-                    string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                    string _requestType = "application/json";
+                {                    
                     int _contentType = (int)EnumCMSContentType.RoadTest;
                     string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords;
 
@@ -138,7 +136,10 @@ namespace Bikewale.Controls
                             _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + _topRecords + "&makeid=" + MakeId;
                     }
 
-                    _objRoadtestList = await BWHttpClient.GetApiResponse<List<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objRoadtestList);
+                    using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    {
+                        _objRoadtestList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objRoadtestList);
+                    }                    
 
                     if (_objRoadtestList != null && _objRoadtestList.Count > 0)
                     {

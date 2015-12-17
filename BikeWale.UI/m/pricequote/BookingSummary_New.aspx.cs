@@ -31,6 +31,7 @@ namespace Bikewale.Mobile.PriceQuote
         protected bool isOfferAvailable = false, isInsuranceFree = false;
         protected string versionWaitingPeriod = String.Empty, dealerAddress = String.Empty, latitude = "0", longitude = "0";
         protected HtmlInputButton generateNewOTP, deliveryDetailsNextBtn, processOTP;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -40,9 +41,10 @@ namespace Bikewale.Mobile.PriceQuote
         }
 
         protected void Page_Load(object sender, EventArgs e)
-        {            
+        {
             ProcessCookie();
             GetVersionNQuotationDetails();
+
         }
 
         void btnMakePayment_click(object Sender, EventArgs e)
@@ -50,20 +52,26 @@ namespace Bikewale.Mobile.PriceQuote
             BeginTransaction("3");
         }
 
+
+        #region Fetch Booking Quotation Details
+        /// <summary>
+        /// Author  : Sushil Kumar 
+        /// Created On : 12th December 2015
+        /// Summary : Get version details and quotation details
+        ///           Also get dealer details from autobiz
+        /// </summary>
         private void GetVersionNQuotationDetails()
         {
             bool _isContentFound = true;
             try
             {
-                //sets the base URI for HTTP requests
-                string _abHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
+                string _apiUrl = String.Format("api/BookingSummary?pqId={0}&versionId={1}&dealerId={2}&cityId={3}", PriceQuoteCookie.PQId, PriceQuoteCookie.VersionId, PriceQuoteCookie.DealerId, PriceQuoteCookie.CityId);                
 
-                string _apiUrl = String.Format("api/BookingSummary?pqId={0}&versionId={1}&dealerId={2}&cityId={3}", pqId, versionId, dealerId, cityId);
-                // Send HTTP GET requests 
-
-                objBooking = BWHttpClient.GetApiResponseSync<BookingSummaryBase>(_abHostUrl, _requestType, _apiUrl, objBooking);
-
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objBooking = objClient.GetApiResponseSync<BookingSummaryBase>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBooking);
+                }
+                
                 if (objBooking != null && objBooking.DealerQuotation != null && objBooking.Varients != null)
                 {
                     if (objBooking.DealerQuotation.objBookingAmt == null || (objBooking.DealerQuotation.objBookingAmt != null && objBooking.DealerQuotation.objBookingAmt.Amount < 1))
@@ -88,7 +96,13 @@ namespace Bikewale.Mobile.PriceQuote
                             this.Page.Visible = false;
                             return;
                         }
-
+                    }
+                    else
+                    {
+                        HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/detaileddealerquotation.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                        return;
                     }
 
                     if (objBooking.DealerQuotation != null)
@@ -117,6 +131,14 @@ namespace Bikewale.Mobile.PriceQuote
                 }
             }
         }
+        #endregion
+
+        #region Bind Dealer Details
+        /// <summary>
+        /// Author  : Sushil Kumar 
+        /// Created On : 12th December 2015
+        /// Summary : Segregate dealer details from recieved API data
+        /// </summary>
         private void GetDealerDetails()
         {
             if (objBooking != null && objBooking.DealerQuotation != null)
@@ -160,8 +182,21 @@ namespace Bikewale.Mobile.PriceQuote
                 }
 
             }
+            else
+            {
+                Response.Redirect("/pricequote/quotation.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
         }
+        #endregion
 
+        #region Bind variants available with dealer
+        /// <summary>
+        /// Author  : Sushil Kumar 
+        /// Created On : 12th December 2015
+        /// Summary : Bind Varients available with dealer
+        /// </summary>
         private void BindVarientDetails()
         {
             if (versionId > 0 && objBooking != null && objBooking.Varients != null && objBooking.Varients.Count > 0)
@@ -170,10 +205,20 @@ namespace Bikewale.Mobile.PriceQuote
                 rptVarients.DataSource = data;
                 rptVarients.DataBind();
             }
+            else
+            {
+                Response.Redirect("/pagenotfound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
         }
+        #endregion
 
+        #region Fetch Customer Details
         /// <summary>
-        /// 
+        /// Author  : Sushil Kumar 
+        /// Created On : 12th December 2015
+        /// Summary : Fetch Customer details fro validating user after make payment
         /// </summary>
         protected void fetchCustomerDetails()
         {
@@ -185,7 +230,9 @@ namespace Bikewale.Mobile.PriceQuote
                 objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteCookie.PQId));
             }
         }
+        #endregion
 
+        #region Make payment (Transaction Status)
         /// <summary>
         /// Modified By :   Sumit Kate on 18 Nov 2015
         /// Description :   Save the State of the Booking Journey as Described in Task# 107795062
@@ -198,7 +245,6 @@ namespace Bikewale.Mobile.PriceQuote
 
             if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.CustomerId > 0)
             {
-                Trace.Warn("Inside begin tarns" + objCustomer.objCustomerBase.CustomerId.ToString());
                 var transaction = new TransactionDetails()
                 {
                     CustomerID = objCustomer.objCustomerBase.CustomerId,
@@ -212,11 +258,12 @@ namespace Bikewale.Mobile.PriceQuote
                     CustEmail = objCustomer.objCustomerBase.CustomerEmail,
                     CustMobile = objCustomer.objCustomerBase.CustomerMobile,
                     CustCity = objBooking.Customer.objCustomerBase.CustomerName,
-                    PlatformId = 2,  //Desktop
+                    PlatformId = 1,  //Desktop
                     ApplicationId = 2, //Carwale
                     RequestToPGUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/RedirectToBillDesk.aspx",
-                    ReturnUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/billdeskresponse.aspx?sourceId=2"
+                    ReturnUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/billdeskresponse.aspx?sourceId=1"
                 };
+                //PGCookie.PGAmount = transaction.Amount.ToString();
                 PGCookie.PGCarId = transaction.PGId.ToString();
 
                 IUnityContainer container = new UnityContainer();
@@ -231,31 +278,30 @@ namespace Bikewale.Mobile.PriceQuote
                     transaction.SourceId = Convert.ToInt16(sourceType);
                 }
 
+                IPriceQuote _objPriceQuote = null;
+                container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                _objPriceQuote = container.Resolve<IPriceQuote>();
+                _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteCookie.PQId), Entities.PriceQuote.PriceQuoteStates.InitiatedPayment);
+
                 ITransaction begintrans = container.Resolve<ITransaction>();
                 transresp = begintrans.BeginTransaction(transaction);
                 Trace.Warn("transresp : " + transresp);
 
-                IPriceQuote _objPriceQuote = null;
-                container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
-                _objPriceQuote = container.Resolve<IPriceQuote>();
-                _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteCookie.PQId),Entities.PriceQuote.PriceQuoteStates.InitiatedPayment);
-
                 if (transresp == "Transaction Failure" || transresp == "Invalid information!")
                 {
-                    HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/bookingsummary_new.aspx",false);
+                    HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary_new.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
             }
             else
             {
-                HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/bookingsummary_new.aspx",false);
+                HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary_new.aspx", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
         }
-
-
+        #endregion
 
         #region Private Method to process cookie
         /// <summary>

@@ -94,13 +94,13 @@ namespace Bikewale.Controls
         private async Task<List<ArticleSummary>> GetMostRecentArticles(string _contentList)
         {
             List<ArticleSummary> _objArticleList = null;
-
-            //sets the base URI for HTTP requests
-            string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-            string _requestType = "application/json";
+            
             string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentList + "&totalrecords=" + TopRecords;
 
-            _objArticleList = await BWHttpClient.GetApiResponse<List<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
+            using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            {
+                _objArticleList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
+            }            
 
             return _objArticleList;
         }//End of GetMostRecentArticles
@@ -115,12 +115,12 @@ namespace Bikewale.Controls
         {
             List<ArticleSummary> _objArticleList = null;
 
-            //sets the base URI for HTTP requests
-            string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-            string _requestType = "application/json";
             string _apiUrl = "webapi/article/featuredlist/?applicationid=2&contenttypes=" + _contentList + "&totalrecords=" + TopRecords;
 
-            _objArticleList = await BWHttpClient.GetApiResponse<List<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
+            using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            {
+                _objArticleList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
+            }            
 
              return _objArticleList;
 

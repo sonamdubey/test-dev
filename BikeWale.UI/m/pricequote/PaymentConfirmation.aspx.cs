@@ -84,15 +84,14 @@ namespace Bikewale.Mobile.PriceQuote
         {
             bool _isContentFound = true;
             try
-            {
-                //sets the base URI for HTTP requests
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
-                string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteCookie.VersionId + "&DealerId=" + PriceQuoteCookie.DealerId + "&CityId=" + PriceQuoteCookie.CityId;
-                // Send HTTP GET requests 
-
-                _objPQ = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, _objPQ);
+            {                
+                string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", PriceQuoteCookie.VersionId, PriceQuoteCookie.DealerId, PriceQuoteCookie.CityId);
+                
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //_objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                }
 
                 if (_objPQ != null)
                 {
@@ -216,11 +215,15 @@ namespace Bikewale.Mobile.PriceQuote
                 request.InquiryId = Convert.ToUInt32(objCustomer.AbInquiryId);
                 request.PaymentAmount = BooingAmt;
                 request.Price = totalPrice;
-                string _apiHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = String.Format("/webapi/booking/");
+                
+                string _apiUrl = "/webapi/booking/";
                 uint bookingId = default(uint);
-                bookingId = Bikewale.Utility.BWHttpClient.PostSync<BookingRequest, uint>(_apiHostUrl, _requestType, _apiUrl, request);
+
+                using(Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //bookingId = objClient.PostSync<BookingRequest, uint>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
+                    bookingId = objClient.PostSync<BookingRequest, uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
+                }
             }
             catch (Exception err)
             {

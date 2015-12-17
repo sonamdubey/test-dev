@@ -22,6 +22,7 @@ using Bikewale.DTO.PriceQuote.Area;
 using Bikewale.DTO.PriceQuote.BikeQuotation;
 using System.Reflection;
 using Bikewale.Mobile.PriceQuote;
+using Bikewale.Utility;
 
 namespace Bikewale.New
 {
@@ -81,6 +82,91 @@ namespace Bikewale.New
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
         #endregion
+
+        public enum Overviews
+        {
+            Capacity,
+            Mileage,
+            MaxPower,
+            Weight
+        }
+        public enum SummarySpec
+        {
+            Displacement,
+            MaxPower,
+            MaximumTorque,
+            NoofGears,
+            FuelEfficiency,
+            BrakeType,
+            FrontDisc,
+            RearDisc,
+            AlloyWheels,
+            KerbWeight,
+            ChassisType,
+            TopSpeed,
+            TubelessTyres,
+            FuelTankCapacity
+        }
+        public enum EnT
+        {
+            Displacement,
+            Cylinders,
+            MaxPower,
+            MaximumTorque,
+            Bore,
+            Stroke,
+            ValvesPerCylinder,
+            FuelDeliverySystem,
+            FuelType,
+            Ignition,
+            SparkPlugs,
+            CoolingSystem,
+            GearboxType,
+            NoOfGears,
+            TransmissionType,
+            Clutch
+        }
+        public enum BWS
+        {
+            BrakeType,
+            FrontDisc,
+            FrontDiscDrumSize,
+            RearDisc,
+            RearDiscDrumSize,
+            CalliperType,
+            WheelSize,
+            FrontTyre,
+            RearTyre,
+            TubelessTyres,
+            RadialTyres,
+            AlloyWheels,
+            FrontSuspension,
+            RearSuspension
+        }
+        public enum FEP
+        {
+            FuelTankCapacity,
+            ReserveFuelCapacity,
+            FuelEfficiencyOverall,
+            FuelEfficiencyRange,
+            Zeroto60kmph,
+            Zeroto80kmph,
+            Zeroto40m,
+            TopSpeed,
+            Sixityto0Kmph,
+            Eightyto0kmph
+        }
+        public enum DC
+        {
+            KerbWeight,
+            OverallLength,
+            OverallWidth,
+            OverallHeight,
+            Wheelbase,
+            GroundClearance,
+            SeatHeight,
+            ChassisType
+        }		
 
         #region Events
 
@@ -242,7 +328,6 @@ namespace Bikewale.New
                     variantText = modelPage.ModelVersions.First().VersionName;
                 }
                 
-                //int curVersion = versionId == 0? Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId): versionId;
             }
         }
 
@@ -277,7 +362,7 @@ namespace Bikewale.New
                     });
                     ctrlModelGallery.bikeName = bikeName;
                     ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                    ctrlModelGallery.Photos = photos;
+                   // ctrlModelGallery.Photos = photos;
                 }
             }
         }
@@ -289,25 +374,6 @@ namespace Bikewale.New
                 var photos = modelPage.Photos;
                 if (photos != null && photos.Count > 0)
                 {
-                    //if (modelPage.Photos.Count > 2)
-                    //{
-                    //    rptModelPhotos.DataSource = modelPage.Photos.Take(3);
-                    //}
-                    //else
-                    //{
-                    //    rptModelPhotos.DataSource = modelPage.Photos;
-                    //}
-                    //rptModelPhotos.DataBind();
-
-                    //if (modelPage.Photos.Count > 2)
-                    //{
-                    //    rptNavigationPhoto.DataSource = modelPage.Photos.Take(3);
-                    //}
-                    //else
-                    //{
-                    //    rptNavigationPhoto.DataSource = modelPage.Photos;
-                    //}
-
                     rptModelPhotos.DataSource = photos;
                     rptModelPhotos.DataBind();
 
@@ -461,7 +527,10 @@ namespace Bikewale.New
                 if (!string.IsNullOrEmpty(modelId))
                 {
                     string _apiUrl = String.Format(apiURL, modelId, variantId);
-                    modelPage = Bikewale.Utility.BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+                    using (BWHttpClient objClient = new BWHttpClient())
+                    {
+                        modelPage = objClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+                    }
                     if (modelPage != null)
                     {
                         if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
@@ -495,7 +564,10 @@ namespace Bikewale.New
                 if (!string.IsNullOrEmpty(cityId) && cityId != "0")
                 {
                     string _apiUrl = String.Format(onRoadApi, cityId, modelId, null, 0, areaId);
-                    pqOnRoad = Bikewale.Utility.BWHttpClient.GetApiResponseSync<PQOnRoad>(_bwHostUrl, _requestType, _apiUrl, pqOnRoad);
+                    using (BWHttpClient objClient = new BWHttpClient())
+                    {
+                        pqOnRoad = objClient.GetApiResponseSync<PQOnRoad>(_bwHostUrl, _requestType, _apiUrl, pqOnRoad);
+                    }
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
@@ -831,7 +903,10 @@ namespace Bikewale.New
             {
                 string apiVarUrl = "/api/version/specs/?versionId={0}";
                 string _apiVarUrl = String.Format(apiVarUrl, versionId);
-                bikeSpecs = Bikewale.Utility.BWHttpClient.GetApiResponseSync<VersionSpecifications>(_bwHostUrl, _requestType, _apiVarUrl, bikeSpecs);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    bikeSpecs = objClient.GetApiResponseSync<VersionSpecifications>(_bwHostUrl, _requestType, _apiVarUrl, bikeSpecs);
+                }
                 if (bikeSpecs != null)
                 {
                     modelPage.ModelVersionSpecs = bikeSpecs;
@@ -853,7 +928,10 @@ namespace Bikewale.New
         {
             string apiVarUrl = "/api/PQCityList/?modelId={0}";
             string _apiVarUrl = String.Format(apiVarUrl, modelId);
-            objCityList = Bikewale.Utility.BWHttpClient.GetApiResponseSync<PQCityList>(_bwHostUrl, _requestType, _apiVarUrl, objCityList);
+            using (BWHttpClient objClient = new BWHttpClient())
+            {
+                objCityList = objClient.GetApiResponseSync<PQCityList>(_bwHostUrl, _requestType, _apiVarUrl, objCityList);
+            }
             return objCityList;
         }
 
@@ -866,7 +944,10 @@ namespace Bikewale.New
         {
             string apiVarUrl = "/api/PQAreaList/?modelId={0}&cityId={1}";
             string _apiVarUrl = String.Format(apiVarUrl, modelId, cityId);
-            objAreaList = Bikewale.Utility.BWHttpClient.GetApiResponseSync<PQAreaList>(_bwHostUrl, _requestType, _apiVarUrl, objAreaList);
+            using (BWHttpClient objClient = new BWHttpClient())
+            {
+                objAreaList = objClient.GetApiResponseSync<PQAreaList>(_bwHostUrl, _requestType, _apiVarUrl, objAreaList);
+            }
             return objAreaList;
         }
 

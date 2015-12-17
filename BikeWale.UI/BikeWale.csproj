@@ -275,7 +275,6 @@
     <Compile Include="common\Ajax\AjaxUserReviews.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWCommon.cs" />
-    <Compile Include="common\BWConfiguration.cs" />
     <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
     <Compile Include="common\BWSecurity\ScreenInput.cs" />
     <Compile Include="common\Cities.cs" />
@@ -315,7 +314,6 @@
     <Compile Include="common\StateCity.cs" />
     <Compile Include="common\UrlRewrite.cs" />
     <Compile Include="common\Validations.cs" />
-    <Compile Include="common\BWHttpClient.cs" />
     <Compile Include="community\pms\CommonMessage.cs" />
     <Compile Include="content\ComparisonTest\DefaultCT.aspx.cs">
       <DependentUpon>DefaultCT.aspx</DependentUpon>
@@ -1031,10 +1029,6 @@
     </Compile>
     <Compile Include="new\upcomingbikes\UpcomingBikesList.aspx.cs">
       <DependentUpon>UpcomingBikesList.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="new\versions_old_dec14.aspx.cs">
-      <DependentUpon>versions_old_dec14.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\versions_old.aspx.cs">
@@ -2178,7 +2172,6 @@
     <Content Include="m\src\Plugins.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="new\versions.aspx" />
-    <Content Include="new\versions_old_dec14.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
     <Content Include="customerror.aspx" />

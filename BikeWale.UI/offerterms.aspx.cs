@@ -47,13 +47,16 @@ namespace Bikewale
         {
             isExpired = default(bool);
             try
-            {
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
+            {                
                 OfferHtmlEntity objTerms = null;
                 string _apiUrl = "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=" + maskingName + "&offerId=0";
+                
                 // Send HTTP GET requests 
-                objTerms = BWHttpClient.GetApiResponseSync<OfferHtmlEntity>(_abHostUrl, _requestType, _apiUrl, objTerms);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objTerms = objClient.GetApiResponseSync<OfferHtmlEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objTerms);
+                }
+                
                 if (objTerms != null)
                 {
                     isExpired = objTerms.IsExpired;

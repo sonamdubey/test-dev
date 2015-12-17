@@ -75,7 +75,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AutoComplete\AutoSuggest.cs" />
-    <Compile Include="AutoComplete\ElasticSearchManager.cs" />
     <Compile Include="BikeBooking\AbstractBikeBooking.cs" />
     <Compile Include="BikeBooking\BrowserBikeBooking.cs" />
     <Compile Include="BikeBooking\DealerPriceQuote.cs" />
@@ -107,6 +106,10 @@
     <ProjectReference Include="..\Bikewale.DAL\Bikewale.DAL.csproj">
       <Project>{e5cb4b6a-65e1-4af5-b989-1b2d4242d3fd}</Project>
       <Name>Bikewale.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Bikewale.DTO\Bikewale.DTO.csproj">
+      <Project>{a6404f19-b267-4e37-b186-d8fc010ad2ce}</Project>
+      <Name>Bikewale.DTO</Name>
     </ProjectReference>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
       <Project>{8223a4b8-db14-4658-9897-257d872ae8d9}</Project>

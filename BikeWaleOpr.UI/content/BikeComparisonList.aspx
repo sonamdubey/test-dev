@@ -16,7 +16,7 @@
     .topMargin { margin-top:20px;}
     .centreAlign { text-align:center;}
 </style>
-<script type="text/javascript" src="/src/AjaxFunctions.js"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/AjaxFunctions.js"></script>
     <div class="left">
 	<h3>Bike Comparison List</h3><br />
 

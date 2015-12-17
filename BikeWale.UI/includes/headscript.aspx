@@ -23,8 +23,20 @@
 <%if(!String.IsNullOrEmpty(alternate)) { %><meta name="alternate" content="<%= alternate %>" /><% } %>
 <%if(!String.IsNullOrEmpty(canonical)) { %><link rel="canonical" href="<%=canonical %>" /> <% } %>
 
-
 <link rel="SHORTCUT ICON" href="http://img2.aeplcdn.com/bikewaleimg/images/favicon.png"  type="image/png"/>
+<script type="text/javascript">
+    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
+    var ga_pg_id = '0';
+</script>
+<!-- #include file="\includes\gacode.aspx" -->
+<script type="text/javascript">
+    setTimeout(function () {
+        var a = document.createElement("script");
+        var b = document.getElementsByTagName("script")[0];
+        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+    }, 1);
+</script>
 <link href="/css/bw-common-style.css?<%=staticFileVersion %>" rel="stylesheet" type="text/css">
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/src/frameworks.js?<%=staticFileVersion %>"></script>
 <script type='text/javascript'>
@@ -44,8 +56,8 @@
 <script type='text/javascript'>
     googletag.cmd.push(function () {
         googletag.defineSlot('<%= AdPath%>728x90', [728, 90], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
-        googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());                    
-        googletag.defineSlot('<%= AdPath%>300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());        
+        googletag.defineSlot('<%= AdPath%>300x250', [[300, 250], [300,600]], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());                    
+        googletag.defineSlot('<%= AdPath%>300x250_BTF', [[300, 250], [300, 600]], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());        
         <% if(isAd970x90Shown){ %>
         googletag.defineSlot('/1017752/Bikewale_NewBike_970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads()); 
         <% } %>
@@ -75,16 +87,3 @@
 <!--[if lt IE 9]>
     <script src="/src/html5.js"></script>
 <![endif]-->
-<script type="text/javascript">
-    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
-    var ga_pg_id = '0';   
-</script>
-<!-- #include file="\includes\gacode.aspx" -->
-<script type="text/javascript">
-    setTimeout(function () {
-        var a = document.createElement("script");
-        var b = document.getElementsByTagName("script")[0];
-        a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-        a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-    }, 1);
-</script>

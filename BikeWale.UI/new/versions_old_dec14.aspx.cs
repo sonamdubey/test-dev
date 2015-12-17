@@ -351,7 +351,10 @@ namespace Bikewale.New
             if (!string.IsNullOrEmpty(modelId))
             {
                 string _apiUrl = String.Format(apiURL, modelId);
-                modelPage = Bikewale.Utility.BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    modelPage = objClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+                }
 
                 if (modelPage != null)
                 {

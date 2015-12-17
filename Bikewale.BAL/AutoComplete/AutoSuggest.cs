@@ -8,6 +8,7 @@ using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bikewale.DAL.CoreDAL;
 
 namespace Bikewale.BAL.AutoComplete
 {
@@ -29,17 +30,20 @@ namespace Bikewale.BAL.AutoComplete
             try
             {
                 indexName = GetIndexName(source);
+                ElasticClient client = ElasticSearchInstance.GetInstance();
 
-                using (ElasticSearchManager objEs = new ElasticSearchManager(indexName))
-                {
-                    ElasticClient client = objEs.Client;
-
-                    ISuggestResponse _result = client.Suggest<SuggestionOutput>(s => s.GlobalText(inputText)
-                        .Completion(completion_field, c => c.OnField(completion_field).Size(noOfRecords)
-                        ));
-
+                ISuggestResponse _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText).Completion(completion_field, c => c.OnField(completion_field).Size(noOfRecords)));
+               
+                if (_result.Suggestions[completion_field][0].Options.Count() > 0)
                     suggestionList = _result.Suggestions[completion_field][0].Options;//.ToList<Nest.SuggestOption>();
+                else
+                {
+                    _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText)
+                    .Completion(completion_field, c => c.OnField(completion_field).Fuzzy(ff => ff.MinLength(3).PrefixLength(0).Fuzziness(1)).Size(noOfRecords)
+                    ));
+                    suggestionList = _result.Suggestions[completion_field][0].Options;
                 }
+
             }
             catch (Exception ex)
             {

@@ -167,5 +167,5 @@
 <script language="javascript">
     var displayVersion = '<%= displayVersion %>';
 </script>
-<script type="text/javascript" src="/src/Research/write_reviews.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/Research/write_reviews.js?<%= staticFileVersion %>"></script>
 <!-- #include file="/includes/footerinner.aspx" -->

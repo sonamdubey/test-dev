@@ -18,9 +18,6 @@ namespace Bikewale.BindViewModels.Controls
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
 
-        static readonly string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        static readonly string _requestType = "application/json";
-
         public void BindNews(Repeater rptr)
         {
             FetchedRecordsCount = 0;
@@ -41,7 +38,11 @@ namespace Bikewale.BindViewModels.Controls
                         _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId;
                 }
 
-                _objArticleList = BWHttpClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //_objArticleList = objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
+                    _objArticleList = objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
+                }
 
                 if (_objArticleList != null && _objArticleList.Count() > 0)
                 {

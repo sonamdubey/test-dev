@@ -7,6 +7,13 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using Microsoft.Practices.Unity;
+using Bikewale.Interfaces.UsedBikes;
+using Bikewale.DAL.UsedBikes;
+using Bikewale.Entities.UsedBikes;
+using Bikewale.Cache.UsedBikes;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Cache.Core;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -15,14 +22,14 @@ namespace Bikewale.BindViewModels.Controls
         /// <summary>
         /// Total records requested
         /// </summary>
-        public int TotalRecords { get; set; }
+        public uint TotalRecords { get; set; }
         /// <summary>
         /// Total Fetched records
         /// </summary>
         public int FetchedRecordsCount { get; set; }               
         public int? CityId { get; set; }
 
-        IEnumerable<PopularUsedBikesBase> popularUsedBikes = null;
+        IEnumerable<PopularUsedBikesEntity> popularUsedBikes = null;
 
         public void BindRepeater(Repeater repeater)
         {
@@ -45,22 +52,26 @@ namespace Bikewale.BindViewModels.Controls
             }
         }
 
-        private void FetchPopularUsedBike(int topCount, int? cityId)
-        {            
-            string hostURL = String.Empty;
-            string requestType = "application/json";
-            string apiUrl = String.Empty;
+        private void FetchPopularUsedBike(uint topCount, int? cityId)
+        {
             try
             {
-                hostURL = ConfigurationManager.AppSettings["bwHostUrl"];
-                apiUrl = String.Format("/api/PopularUsedBikes/?topCount={0}&cityId={1}", topCount, cityId.HasValue ? cityId.Value.ToString() : "");
+                using (IUnityContainer container = new UnityContainer())
+                {                    
+                    container.RegisterType<IPopularUsedBikesCacheRepository, PopularUsedBikesCacheRepository>();
+                    container.RegisterType<ICacheManager, MemcacheManager>();
+                    container.RegisterType<IUsedBikes, UsedBikesRepository>();
 
-                popularUsedBikes = BWHttpClient.GetApiResponseSync<IEnumerable<PopularUsedBikesBase>>(hostURL, requestType, apiUrl, popularUsedBikes);
-                
+                    IPopularUsedBikesCacheRepository _objUsedBikes = container.Resolve<IPopularUsedBikesCacheRepository>();
+
+                    popularUsedBikes = _objUsedBikes.GetPopularUsedBikes(topCount, cityId);
+                }
+
                 if (popularUsedBikes != null)
                 {
                     FetchedRecordsCount = popularUsedBikes.Count();
                 }
+
             }
             catch (Exception ex)
             {
