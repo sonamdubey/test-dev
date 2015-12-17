@@ -71,14 +71,12 @@ namespace Bikewale.BikeBooking
             bool _isContentFound = true;
             try
             {
-                //sets the base URI for HTTP requests
-                string _abHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
-
                 string _apiUrl = String.Format("api/BookingSummary?pqId={0}&versionId={1}&dealerId={2}&cityId={3}", pqId, versionId, dealerId, cityId);
-                // Send HTTP GET requests 
-
-                objBooking = BWHttpClient.GetApiResponseSync<BookingSummaryBase>(_abHostUrl, _requestType, _apiUrl, objBooking);
+                
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objBooking = objClient.GetApiResponseSync<BookingSummaryBase>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBooking);
+                }                
 
                 if (objBooking != null && objBooking.DealerQuotation != null && objBooking.Varients != null)
                 {

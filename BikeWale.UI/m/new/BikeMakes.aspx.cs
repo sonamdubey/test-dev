@@ -28,8 +28,8 @@ namespace Bikewale.Mobile
         protected Literal ltrDefaultCityName;
         protected int fetchedRecordsCount = 0;
         protected string makeId = String.Empty;
-        protected MakeBase _make = null;
-        protected BikeDescription _bikeDesc = null;
+        protected BikeMakeEntityBase _make = null;
+        protected BikeDescriptionEntity _bikeDesc = null;
         protected int uCount = 0;
         protected short reviewTabsCnt = 0;
 
@@ -39,6 +39,8 @@ namespace Bikewale.Mobile
         protected bool isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
         private string makeMaskingName;
+        protected Int64 _minModelPrice;
+        protected Int64 _maxModelPrice;
 
         protected override void OnInit(EventArgs e)
         {
@@ -49,15 +51,12 @@ namespace Bikewale.Mobile
         { 
             //Function to process and validate Query String  
             if (ProcessQueryString())
-            {
-                // ltrDefaultCityName.Text = Bikewale.Common.Configuration.GetDefaultCityName;
-                _make = new MakeBase();
-                _bikeDesc = new BikeDescription();
-
-                //to get complete make page
-                GetMakePage();
+            {              
                 if (!Page.IsPostBack)
                 {
+                    //to get complete make page
+                    GetMakePage();
+
                     //To get Upcoming Bike List Details 
                     ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
                     ctrlUpcomingBikes.pageSize = 6;
@@ -108,12 +107,17 @@ namespace Bikewale.Mobile
 
         private void GetMakePage()
         {
-            BindMakePage.totalCount = 6;
-            BindMakePage.makeId = Convert.ToInt32(makeId);
-            BindMakePage.BindMostPopularBikes(rptMostPopularBikes);
-            fetchedRecordsCount = BindMakePage.FetchedRecordsCount;
-            _make = BindMakePage.Make;
-            _bikeDesc = BindMakePage.BikeDesc;
+            BindMakePage objMake = new BindMakePage();
+            objMake.totalCount = 6;
+            objMake.makeId = Convert.ToInt32(makeId);
+            objMake.BindMostPopularBikes(rptMostPopularBikes);
+            fetchedRecordsCount = objMake.FetchedRecordsCount;
+            _make = objMake.Make;
+            _bikeDesc = objMake.BikeDesc;
+
+            //To find min and max modelPrice
+            _minModelPrice = objMake.MinPrice;
+            _maxModelPrice = objMake.MaxPrice;
 
             if (_bikeDesc != null && _bikeDesc.FullDescription != null && _bikeDesc.SmallDescription != null && _bikeDesc.FullDescription.Trim().Length > 0 && _bikeDesc.SmallDescription.Trim().Length > 0)
             {

@@ -3,6 +3,8 @@
     title = "Site Map - BikeWale";
     description = "BikeWale sitemap., CarWale dare section involves bikewale's involvement in Sector world and its market Success";
     keywords = "BikeWale sitemap, site map, BikeWale sitemap, bikewale directory, Bike Market, Corporate world, bikewale in News";
+    AdId = "1395986297721";
+    AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/headhome.aspx" -->
 <style type="text/css">

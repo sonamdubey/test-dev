@@ -140,7 +140,7 @@
         width: 100%;
     }
 </style>
-<script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">

@@ -17,7 +17,7 @@
     AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/headNew.aspx" -->
-<script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <div class="container_12 margin-bottom20 padding-bottom20">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -86,7 +86,7 @@
 <%--<script type="text/javascript" language="javascript">
     $("a[rel='slide']").colorbox({ width: "700px", height: "500px" });
 </script>--%>
-<script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 

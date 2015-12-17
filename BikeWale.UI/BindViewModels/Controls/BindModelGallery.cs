@@ -1,5 +1,6 @@
 ﻿using Bikewale.DTO.Videos;
 using Bikewale.Entities.Videos;
+using Bikewale.Entities.CMS.Photos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
 using System;
@@ -31,10 +32,12 @@ namespace Bikewale.BindViewModels.Controls
         /// </summary>
         public int FetchedVideoCount { get; set; }
 
-        static string _cwHostUrl;
-        static BindModelGallery()
+        string _cwHostUrl = string.Empty;
+        string _requestType = string.Empty;
+        public BindModelGallery()
         {
-            _cwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+            _requestType = "application/json";
         }
 
         /// <summary>
@@ -48,18 +51,12 @@ namespace Bikewale.BindViewModels.Controls
             try
             {
                 FetchedVideoCount = 0;
-                VideosList objVideos = null;
 
-                
-                string _requestType = "application/json";
+                List<BikeVideoEntity> objVideos = GetVideos();
 
-                string _apiUrl = String.Format("/api/videos/pn/1/ps/1000/model/{0}/", ModelId);
-
-                objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
-
-                if (objVideos != null)
+                if (objVideos != null && objVideos.Count > 0)
                 {
-                  var videoList = objVideos.Videos.ToList();
+                  var videoList = objVideos.ToList();
                   if (videoList.Count > 0)
                   {
                     FetchedVideoCount = videoList.Count;
@@ -90,17 +87,12 @@ namespace Bikewale.BindViewModels.Controls
           try
           {
             FetchedVideoCount = 0;
-            VideosList objVideos = null;
 
-            string _requestType = "application/json";
+            List<BikeVideoEntity> objVideos = GetVideos();
 
-            string _apiUrl = String.Format("/api/videos/pn/1/ps/1000/model/{0}/", ModelId);
-
-            objVideos = BWHttpClient.GetApiResponseSync<VideosList>(_cwHostUrl, _requestType, _apiUrl, objVideos);
-
-            if (objVideos != null)
+            if (objVideos != null && objVideos.Count > 0)
             {
-              var lst = objVideos.Videos.ToList();
+              var lst = objVideos.ToList();
               if (lst.Count > 0)
               {
                 FetchedVideoCount = lst.Count;
@@ -122,7 +114,7 @@ namespace Bikewale.BindViewModels.Controls
         /// <param name="rptrImages">Image repeater</param>
         /// <param name="rptrImageNav">Image navigation repeater</param>
         /// <param name="photos">list of photos</param>
-        public void BindImages(Repeater rptrImages, Repeater rptrImageNav, List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> photos)
+        public void BindImages(Repeater rptrImages, Repeater rptrImageNav, List<ModelImage> photos)
         {
             try
             {
@@ -141,6 +133,32 @@ namespace Bikewale.BindViewModels.Controls
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+        }
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 16 Dec 2015
+        /// Summary : To get videolist usinf carwale video api 
+        /// </summary>
+        /// <returns></returns>
+        private List<BikeVideoEntity> GetVideos()
+        {
+            string _apiUrl = string.Empty;
+            List<BikeVideoEntity> objVideosList = null;
+            try
+            {
+                _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo=1&pageSize=1000", ModelId);
+
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BindModelGallery.GetVideos");
+                objErr.SendMail();
+            }
+            return objVideosList;
         }
     }
 }

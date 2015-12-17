@@ -152,14 +152,13 @@ namespace Bikewale.Mobile.PriceQuote
         {
             bool _isContentFound = true;
             try
-            {
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
+            {                
+                string _apiUrl = "/api/dealers/getdealerbookingamount/?versionId=" + PriceQuoteCookie.VersionId + "&DealerId=" + PriceQuoteCookie.DealerId;                
 
-                string _apiUrl = "/api/dealers/getdealerbookingamount/?versionId=" + PriceQuoteCookie.VersionId + "&DealerId=" + PriceQuoteCookie.DealerId;
-                // Send HTTP GET requests 
-
-                objAmount = BWHttpClient.GetApiResponseSync<BookingAmountEntity>(_abHostUrl, _requestType, _apiUrl, objAmount);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objAmount = objClient.GetApiResponseSync<BookingAmountEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objAmount);
+                }                
 
                 if (objAmount != null)
                     MakeModel = objAmount.objMake.MakeName + " " + objAmount.objModel.ModelName;

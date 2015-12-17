@@ -19,8 +19,8 @@ namespace Bikewale.Controls
         private static readonly string _Bike1VsBike2 = "{0} vs {1}";
         private static readonly string _ComparisonURL = "/comparebikes/{0}-{1}-vs-{2}-{3}";
 
-        private int m_TotalRecords;
-        public int TotalRecords
+        private uint m_TotalRecords;
+        public uint TotalRecords
         {
             get
             {

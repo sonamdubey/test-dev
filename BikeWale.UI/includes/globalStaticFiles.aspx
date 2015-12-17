@@ -22,7 +22,7 @@
     <script src="/src/html5.js"></script>
 <![endif]-->
 <script type="text/javascript">
-    bwHostUrl = "<%= ConfigurationManager.AppSettings["bwHostUrl"] %>";
+    bwHostUrl = "<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>";
 </script>
 <script language="c#" runat="server">	
     private bool isTransparentHeader = false;  

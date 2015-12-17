@@ -13,9 +13,18 @@
     <!-- #include file="globalStaticFiles.aspx"-->    
     <script language="c#" runat="server">	    
 	    private string title = "", description = "", keywords = "", canonical = "", prevPageUrl = "", nextPageUrl = "", AdId = "", AdPath = "";
-        private bool isHeaderFix = true, isAd970x90Shown = false;
+        private bool isHeaderFix = true, isAd970x90Shown = true, isAd970x90BottomShown = true;
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
+    </script>
+    <!-- #include file="/includes/gacode.aspx" --> 
+    <script type="text/javascript">
+        setTimeout(function () {
+            var a = document.createElement("script");
+            var b = document.getElementsByTagName("script")[0];
+            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+        }, 1);
     </script>
     <script type='text/javascript'>
         var ga_pg_id = '0';
@@ -39,6 +48,12 @@
             googletag.defineSlot('<%= AdPath%>300x250BFT', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
             <%-- googletag.defineSlot('<%= AdPath%>300x600_BTF', [[120, 240], [120, 600], [160, 600], [250, 250], [300, 250], [300, 600]], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
            --%>
+            <% if(isAd970x90Shown){ %>
+            googletag.defineSlot('/1017752/Bikewale_NewBike_970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads());
+            <% } %>
+            <% if(isAd970x90BottomShown){ %>
+            googletag.defineSlot('/1017752/Bikewale_NewBike_Bottom_970x90', [[970, 60], [960, 90], [970, 66], [960, 66], [728, 90], [970, 90], [950, 90], [960, 60]], 'div-gpt-ad-<%= AdId%>-5').addService(googletag.pubads());
+            <% } %>
             googletag.defineSlot('<%= AdPath%>728x90', [728, 90], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
             googletag.pubads().collapseEmptyDivs();
             googletag.pubads().enableSingleRequest();
@@ -65,18 +80,9 @@
             var s = document.getElementsByTagName( 'script' )[0]; s.parentNode.insertBefore( po, s );
         } )();
     </script>
-    <script type="text/javascript">
-        setTimeout(function () {
-            var a = document.createElement("script");
-            var b = document.getElementsByTagName("script")[0];
-            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-        }, 1);
-    </script>
 </head>
 <body class="header-fixed-inner">
-    <form runat="server">
-    <!-- #include file="/includes/gacode.aspx" --> 
+    <form runat="server">    
 	<div class="main-container">
     	<!-- #include file="/includes/headBW.aspx" -->        
         

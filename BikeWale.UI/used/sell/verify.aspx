@@ -4,7 +4,7 @@
     description = "One-time Mobile Verification";
 %>
 <!-- #include file="/includes/headSell.aspx" -->
-<script type="text/javascript" src="/src/classified/sellbike.js?1.1"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/sellbike.js?1.1"></script>
 <div class="container_12 margin-top20">    
     <div class="grid_8 min-height"><!--    Left Container starts here -->
         <h1>One-time Mobile Verification</h1>

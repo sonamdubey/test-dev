@@ -79,9 +79,6 @@
 
                     <div class="swiper-container padding-bottom20 model" id="bikeBannerImageCarousel">
                         <div class="swiper-wrapper stage" id="ulModelPhotos">
-                            <div class="swiper-slide">
-                                <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._476x268) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
-                            </div>
                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                 <ItemTemplate>
                                     <div class="swiper-slide">
@@ -90,11 +87,12 @@
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
+                            </ul>
                         </div>
                         <% if (modelPage.Photos != null && modelPage.Photos.Count > 1)
                            { %>
-                        <div class="bwmsprite swiper-button-next"></div>
-                        <div class="bwmsprite swiper-button-prev"></div>
+                        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
+                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
                         <p class="pagination-number margin margin-bottom10 text-center font16 text-light-grey"><span class="bike-model-gallery-count">1/<%= modelPage.Photos.Count %></span></p>
                         <% } %>
                     </div>
@@ -1131,15 +1129,17 @@
                         <div class="colours-wrap margin-bottom20 <%= modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0 ? "" : "hide" %>">
                             <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
                             <div class="swiper-container padding-bottom60">
-                                <div class="swiper-wrapper text-center">
+                                <div class="jcarousel">
+                                    <ul class="text-center">
                                     <asp:Repeater ID="rptColors" runat="server">
                                         <ItemTemplate>
-                                            <div class="swiper-slide available-colors">
+                                                <li class="available-colors">
                                                 <div class="color-box" style="background-color: #<%# DataBinder.Eval(Container.DataItem, "HexCode")%>;"></div>
                                                 <p class="font16 text-medium-grey"><%# DataBinder.Eval(Container.DataItem, "ColorName") %></p>
-                                            </div>
+                                                </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
+                                    </ul>
                                 </div>
                                 <!-- Add Pagination -->
                                 <div class="swiper-pagination"></div>
@@ -1236,15 +1236,13 @@
                     <!-- Most Popular Bikes Starts here-->
                     <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> alternatives</h2>
 
-                    <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
-                        <div class="swiper-wrapper">
+                    <div class="jcarousel-wrapper discover-bike-carousel alternatives-carousel">
+                        <div class="jcarousel">
                             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
                         </div>
-                        <!-- Add Pagination -->
-                        <div class="swiper-pagination"></div>
-                        <!-- Navigation -->
-                        <div class="bwmsprite swiper-button-next hide"></div>
-                        <div class="bwmsprite swiper-button-prev hide"></div>
+                        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
+                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
+                        <p class="text-center jcarousel-pagination"></p>
                     </div>
 
                 </div>

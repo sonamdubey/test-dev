@@ -66,10 +66,6 @@ namespace Bikewale.Content
         {
             try
             {
-                //sets the base URI for HTTP requests
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
-
                 // get pager instance
                 IPager objPager = GetPager();
 
@@ -80,7 +76,10 @@ namespace Bikewale.Content
                 string _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _featuresCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex;
                 // Send HTTP GET requests 
 
-                _objFeaturesList = await BWHttpClient.GetApiResponse<CMSContent>(_cwHostUrl, _requestType, _apiUrl, _objFeaturesList);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    _objFeaturesList = await objClient.GetApiResponse<CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objFeaturesList);
+                }                
 
                 if (_objFeaturesList != null)
                 {

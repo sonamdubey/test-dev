@@ -41,7 +41,7 @@ namespace Bikewale.Mobile.Controls
         {
             BindAlternativeBikesControl objAlt = new BindAlternativeBikesControl();
             objAlt.VersionId = VersionId;
-            objAlt.TopCpunt = TopCount;
+            objAlt.TopCount = TopCount;
             objAlt.Deviation = Deviation;
             objAlt.BindAlternativeBikes(rptAlternateBikes);
 

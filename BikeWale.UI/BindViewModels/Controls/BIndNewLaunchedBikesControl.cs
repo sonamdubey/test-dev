@@ -6,6 +6,12 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using Microsoft.Practices.Unity;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.BAL.BikeData;
+using Bikewale.Interfaces.Pager;
+using Bikewale.BAL.Pager;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -15,30 +21,33 @@ namespace Bikewale.BindViewModels.Controls
         public int? curPageNo { get; set; }
         public int FetchedRecordsCount { get; set; }
 
-        readonly string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-        readonly string _requestType = "application/json";
-
         public void BindNewlyLaunchedBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-            LaunchedBikeList objBikeList = null;
-
+            List<NewLaunchedBikeEntity> objBikeList = null;
+            int recordCount = 0;
             try
             {
-
-                string _apiUrl = String.Format("/api/NewLaunchedBike/?pageSize={0}&curPageNo={1}", pageSize, curPageNo);
-
-                objBikeList = BWHttpClient.GetApiResponseSync<LaunchedBikeList>(_bwHostUrl, _requestType, _apiUrl, objBikeList);
-
-                if (objBikeList != null)
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    FetchedRecordsCount = objBikeList.LaunchedBike.Count();
+                    container.RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>();
+                    IBikeModels<BikeModelEntity, int> _objModel = container.Resolve<IBikeModels<BikeModelEntity, int>>();
 
-                    if (FetchedRecordsCount > 0)
+                    LaunchedBikeList objLaunched = new LaunchedBikeList();
+
+                    objBikeList = _objModel.GetNewLaunchedBikesList(pageSize, out recordCount, curPageNo);
+
+                    if (objBikeList != null && objBikeList.Count() > 0)
                     {
-                        rptr.DataSource = objBikeList.LaunchedBike;
-                        rptr.DataBind();
+                        FetchedRecordsCount = objBikeList.Count();
+
+                        if (FetchedRecordsCount > 0)
+                        {
+                            rptr.DataSource = objBikeList;
+                            rptr.DataBind();
+                        }
                     }
+
                 }
             }
             catch (Exception ex)

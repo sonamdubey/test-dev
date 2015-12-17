@@ -66,7 +66,7 @@
     var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
 </script>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10">

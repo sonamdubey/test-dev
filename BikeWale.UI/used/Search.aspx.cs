@@ -10,6 +10,7 @@ using System.Net;
 using System.IO;
 using Bikewale.Memcache;
 using System.Text.RegularExpressions;
+using System.Configuration;
 
 namespace Bikewale.Used
 {
@@ -219,9 +220,10 @@ namespace Bikewale.Used
         /// <param name="qs"></param>
         private void LoadSearchResults(string qs) 
         {
-            string host = Request.ServerVariables["HTTP_HOST"].ToString();
+            //string host = Request.ServerVariables["HTTP_HOST"].ToString();
+            string host = ConfigurationManager.AppSettings["bwHostUrl"];
 
-            string url = "http://" + host + "/used/searchresult.aspx" + (String.IsNullOrEmpty(qs) ? "" : ("?" + qs));
+            string url = host + "/used/searchresult.aspx" + (String.IsNullOrEmpty(qs) ? "" : ("?" + qs));
 
             try
             {
