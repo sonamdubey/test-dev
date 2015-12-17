@@ -47,11 +47,25 @@ namespace Bikewale.BikeBooking
             //device detection
             DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
             dd.DetectDevice();
+
             ProcessCookie();
             GetVersionNQuotationDetails();
 
         }
 
+        void btnMakePayment_click(object Sender, EventArgs e)
+        {
+            BeginTransaction("3");
+        }
+
+
+        #region Fetch Booking Quotation Details
+        /// <summary>
+        /// Author  : Sushil Kumar 
+        /// Created On : 12th December 2015
+        /// Summary : Get version details and quotation details
+        ///           Also get dealer details from autobiz
+        /// </summary>
         private void GetVersionNQuotationDetails()
         {
             bool _isContentFound = true;
@@ -78,10 +92,10 @@ namespace Bikewale.BikeBooking
 
                     if (objBooking.Varients != null)
                     {
-                        uint data = Convert.ToUInt32((objBooking.Varients).Where(v => v.MinSpec!=null && v.MinSpec.VersionId == versionId).FirstOrDefault().BookingAmount);
+                        uint data = Convert.ToUInt32((objBooking.Varients).Where(v => v.MinSpec != null && v.MinSpec.VersionId == versionId).FirstOrDefault().BookingAmount);
                         if (data > 0)
                         {
-                           BindVarientDetails();
+                            BindVarientDetails();
                         }
                         else
                         {
@@ -90,7 +104,13 @@ namespace Bikewale.BikeBooking
                             this.Page.Visible = false;
                             return;
                         }
-                       
+                    }
+                    else
+                    {
+                        HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/detaileddealerquotation.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
+                        return;
                     }
 
                     if (objBooking.DealerQuotation != null)
@@ -118,7 +138,15 @@ namespace Bikewale.BikeBooking
                     this.Page.Visible = false;
                 }
             }
-        }
+        }         
+        #endregion
+
+        #region Bind Dealer Details
+        /// <summary>
+        /// Author  : Sushil Kumar 
+        /// Created On : 12th December 2015
+        /// Summary : Segregate dealer details from recieved API data
+        /// </summary>
         private void GetDealerDetails()
         {
             if (objBooking != null && objBooking.DealerQuotation != null)
@@ -162,8 +190,21 @@ namespace Bikewale.BikeBooking
                 }
 
             }
+            else
+            {
+                Response.Redirect("/pricequote/quotation.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
         }
+        #endregion
 
+        #region Bind variants available with dealer
+        /// <summary>
+        /// Author  : Sushil Kumar 
+        /// Created On : 12th December 2015
+        /// Summary : Bind Varients available with dealer
+        /// </summary>
         private void BindVarientDetails()
         {
             if (versionId > 0 && objBooking != null && objBooking.Varients != null && objBooking.Varients.Count > 0)
@@ -172,17 +213,20 @@ namespace Bikewale.BikeBooking
                 rptVarients.DataSource = data;
                 rptVarients.DataBind();
             }
+            else
+            {
+                Response.Redirect("/pagenotfound.aspx", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
+            }
         }
+        #endregion
 
-
-        void btnMakePayment_click(object Sender, EventArgs e)
-        {
-            BeginTransaction("3");
-        }
-
-
+        #region Fetch Customer Details
         /// <summary>
-        /// 
+        /// Author  : Sushil Kumar 
+        /// Created On : 12th December 2015
+        /// Summary : Fetch Customer details fro validating user after make payment
         /// </summary>
         protected void fetchCustomerDetails()
         {
@@ -193,7 +237,8 @@ namespace Bikewale.BikeBooking
 
                 objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteCookie.PQId));
             }
-        }
+        } 
+        #endregion
 
         #region Make payment (Transaction Status)
         /// <summary>

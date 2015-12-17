@@ -315,7 +315,7 @@
                             <div class="disclaimer-container text-left">
                                 <h3 class="padding-bottom10 border-light-bottom">Disclaimer:</h3>
                                 <ul class="disclaimerUL">
-                                    <li>The EMI amount is calculated as per the information entered by you. It does not include any other fees like processing fee that are typically charged by some banks / NBFCs</li>
+                                    <li>The EMI and downpayment amount is calculated as per the information entered by you. It does not include any other fees like processing fee, dealer handling charges that are typically charged by some banks / NBFCs / Dealers.</li>
                                     <li>The actual EMI and down payment will vary depending upon your credit profile
                                         Please get in touch with your bank / NBFC to know the exact EMI and downpayment based on your credit profile.</li>
                                 </ul>
@@ -396,8 +396,7 @@
 
         <script language="javascript" type="text/javascript">
             <%-- //var thisBikename = '<%= this.bikeName %>';--%>
-            // window.onload = function () {
-            <%-- //var btnRelease = document.getElementById('<%= clientIP %>');--%>
+            // window.onload = function () {            
             //Find the button set null value to click event and alert will not appear for that specific button
             //    function setGlobal() {
             //        window.onbeforeunload = null;
@@ -430,7 +429,8 @@
                 });
             });
 
-            varversionList = JSON.parse($("#hdnBikeData").val());
+            var pqId = '<%= pqId%>';
+            var versionList = JSON.parse($("#hdnBikeData").val());
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
             var insAmt = '<%= insuranceAmount %>';
             var cityId = '<%= cityId%>';
@@ -438,7 +438,7 @@
             var BikeDealerDetails = function () {
                 var self = this;
                 // self.Dealer = ko.observable(objDealer);
-                // self.DealerId = ko.observable(0);
+                self.DealerId = ko.observable(<%= dealerId%>);
                 // self.DealerDetails = ko.observable(objDealer.objDealer);
                 // self.DealerQuotation = ko.observable(objDealer.objQuotation);
                 self.IsInsuranceFree = ko.observable(insFree);

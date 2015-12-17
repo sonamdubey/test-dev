@@ -1,23 +1,15 @@
-﻿using Bikewale.BAL.BikeData;
-using Bikewale.Common;
+﻿using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
-using Bikewale.Entities.BikeData;
-using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Interfaces.BikeData;
 using Bikewale.Mobile.PriceQuote;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
-using Carwale.Entity.Enum;
 using Carwale.Entity.PaymentGateway;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.BikeBooking

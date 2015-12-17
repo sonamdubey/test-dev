@@ -17,15 +17,6 @@ $(".select-dropdown").on("click", function () {
         selectStateUp($(this));
 });
 
-$(".select-dropdown-list").on("click", "li", function () {
-    //$(this).siblings("li").removeClass("active");
-    //$(this).addClass("active");
-    //var selectedLI = $(this).find("p").text();
-    //var selectDropdown = $(this).parents("div.select-dropdown-list").prev("div.select-dropdown");
-    //selectDropdown.find("span.select-btn").text(selectedLI);
-    // selectStateUp(selectDropdown);
-});
-
 var selectStateDown = function (div) {
     $(".select-dropdown").removeClass("open");
     $(".select-dropdown").next("div.select-dropdown-list").slideUp();
@@ -43,22 +34,6 @@ $(document).mouseup(function (e) {
         selectStateUp($(".select-dropdown"));
     }
 });
-
-
-//$("#deliveryDetailsNextBtn").click(function () {
-//    if (validateUserDetail()) {
-//        $("#otpPopup").show();
-//        $(".blackOut-window").show();
-//        /*
-//		validateTabC = true;
-//		$.bikePaymentState();
-//		$.showCurrentTab('bikePayment');
-//		bikeSummaryTab.removeClass('text-bold');
-//		deliveryDetailsTab.removeClass('disabled-tab text-bold').addClass('active-tab');
-//		bikePaymentTab.removeClass('disabled-tab').addClass('active-tab text-bold');
-//		*/
-//    }
-//});
 
 var validateUserDetail = function () {
     var isValid = true;
@@ -133,15 +108,6 @@ var hideError = function (element) {
 var prevEmail = "",
 	prevMobile = "";
 
-//$("#getLeadName").on("focus", function () {
-//    hideError($(this));
-//});
-
-//$("#getEmailID").on("focus", function () {
-//    hideError($(this));
-//    prevEmail = $(this).val().trim();
-//});
-
 $("#getMobile,#getLeadName,#getEmailID,#getOTP,#getUpdatedMobile").on("focus", function () {
     hideError($(this));
     prevMobile = $(this).val().trim();
@@ -198,7 +164,6 @@ var validateUpdatedMobile = function () {
     return isValid;
 };
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var versionul = $("#customizeBike ul.select-versionUL");
 var colorsul = $("#customizeBike ul.select-colorUL");
@@ -210,6 +175,7 @@ var BookingPageViewModel = function () {
     self.Customer = ko.observable(new BikeCustomer);
     self.CurrentStep = ko.observable(1);
     self.SelectedVersionId = ko.observable();
+    self.CustomerInfo = ko.observable();
     self.SelectedColorId = ko.observable(0);
     self.ActualSteps = ko.observable(1);
     self.changedSteps = function () {
@@ -223,12 +189,10 @@ var BookingPageViewModel = function () {
                 }
             }
             else {
-                //  $("#customizeBike .select-colorh4").addClass("text-red");
                 return false;
             }
         }
         else {
-            //  $("#customizeBike .select-versionh4").addClass("text-red");
             return false;
         }
 
@@ -237,48 +201,59 @@ var BookingPageViewModel = function () {
     self.verifyCustomer = function (data, event) {
         var isSuccess = false;
         if (validateUserDetail() && !self.Customer().IsVerified()) {
-            var objCust = {
-                "dealerId": self.Dealer().DealerId,
-                "pqId": self.Dealer().PQId,
-                "customerName": self.Customer().Name,
-                "customerMobile": self.Customer().MobileNo(),
-                "customerEmail": self.Customer().EmailId(),
-                "clientIP": clientIP,
-                "pageUrl": pageUrl,
-                "versionId": self.SelectedVersionId(),
-                "cityId": self.Dealer().CityId,
-                "colorId": self.SelectedColorId
-            }
-            $.ajax({
-                type: "POST",
-                url: "/api/UpdatePQCustomerDetails/",
-                data: ko.toJSON(objCust),
-                async: false,
-                contentType: "application/json",
-                success: function (response) {
-                    var obj = ko.toJS(response);
-                    self.Customer().IsVerified(obj.isSuccess);
-                    self.Customer().OtpAttempts(obj.noOfAttempts)
-                    if (!self.Customer().IsVerified() && self.Customer().OtpAttempts() != -1) {
-                        //getotp code here
+            var curCustInfo = viewModel.Customer().Name().trim() + viewModel.Customer().EmailId().trim() + viewModel.Customer().MobileNo().trim();
+            if (viewModel.CustomerInfo() != curCustInfo) {
+                viewModel.CustomerInfo(curCustInfo);
+                var objCust = {
+                    "dealerId": self.Dealer().DealerId,
+                    "pqId": self.Dealer().PQId,
+                    "customerName": self.Customer().Name,
+                    "customerMobile": self.Customer().MobileNo(),
+                    "customerEmail": self.Customer().EmailId(),
+                    "clientIP": clientIP,
+                    "pageUrl": pageUrl,
+                    "versionId": self.SelectedVersionId(),
+                    "cityId": self.Dealer().CityId,
+                    "colorId": self.SelectedColorId
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: "/api/UpdatePQCustomerDetails/",
+                    data: ko.toJSON(objCust),
+                    async: false,
+                    contentType: "application/json",
+                    success: function (response) {
+                        var obj = ko.toJS(response);
+                        self.Customer().IsVerified(obj.isSuccess);
+                        self.Customer().OtpAttempts(obj.noOfAttempts)
+                        if (!self.Customer().IsVerified() && self.Customer().OtpAttempts() != -1) {
+                            //getotp code here
+                            $("#otpPopup").show();
+                            $('.update-mobile-box').hide().siblings().show();
+                            $(".blackOut-window").show();
+                            isSuccess = false;
+
+                        }
+                        else {
+                            isSuccess = true;
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        self.Customer().IsVerified(false);
                         $("#otpPopup").show();
                         $('.update-mobile-box').hide().siblings().show();
                         $(".blackOut-window").show();
                         isSuccess = false;
+                    }
+                });
+            }
+            else {
+                isSuccess = false;
+                $("#otpPopup").show();
+                $(".blackOut-window").show();
+            }
 
-                    }
-                    else {
-                        isSuccess = true;
-                    }
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    self.Customer().IsVerified(false);
-                    $("#otpPopup").show();
-                    $('.update-mobile-box').hide().siblings().show();
-                    $(".blackOut-window").show();
-                    isSuccess = false;
-                }
-            });
 
         }
         else {
