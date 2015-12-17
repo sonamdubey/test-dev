@@ -1,12 +1,18 @@
 ﻿using Bikewale.DTO.Widgets;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using Bikewale.Entities;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.BAL.BikeData;
+using Bikewale.DAL.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
@@ -19,26 +25,21 @@ namespace Bikewale.BindViewModels.Controls
         public void BindMostPopularBikes(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-
-            MostPopularBikesList objBikeList = null;
-
+            List<MostPopularBikesBase> popularBase = null;
             try
             {
-                string _apiUrl = String.Format("/api/ModelList/?totalCount={0}&makeId={1}", totalCount, makeId);
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    //objBikeList = objClient.GetApiResponseSync<MostPopularBikesList>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBikeList);
-                    objBikeList = objClient.GetApiResponseSync<MostPopularBikesList>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBikeList);
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+                    IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+                    popularBase = objVersion.GetMostPopularBikes(totalCount, makeId);
                 }
-
-                if (objBikeList != null)
+                if (popularBase != null)
                 {
-                    var bikeList = objBikeList.PopularBikes.ToList();
-                    if (bikeList.Count > 0)
+                    if (popularBase.Count > 0)
                     {
-                        FetchedRecordsCount = bikeList.Count;
-                        rptr.DataSource = bikeList;
+                        FetchedRecordsCount = popularBase.Count;
+                        rptr.DataSource = popularBase;
                         rptr.DataBind();
                     }
                 }

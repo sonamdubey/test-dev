@@ -1,7 +1,10 @@
 ﻿using Bikewale.Common;
+using Bikewale.DAL.UserReviews;
 using Bikewale.Entities.DTO;
 using Bikewale.Entities.UserReviews;
+using Bikewale.Interfaces.UserReviews;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,6 +21,9 @@ namespace Bikewale.BindViewModels.Controls
     /// <summary>
     /// Author:Lucky Rathore On 16 oct 2015
     /// Desc: Add ModelMaskingName and MakeMaskingName
+    /// 
+    /// Author: Sangram Nandkhile on 16 Dec 2015
+    /// Desc: Removed API call
     /// </summary>
     public class BindUserReviewControl
     {
@@ -30,40 +36,27 @@ namespace Bikewale.BindViewModels.Controls
         public int FetchedRecordsCount { get; set; }
         public string MakeMaskingName { get; set; }
         public string ModelMaskingName { get; set; }
-        
-        static readonly string _ApiURL;        
-
-        static BindUserReviewControl()
-        {            
-            _ApiURL = "/api/UserReviewsList?modelId={0}&startIndex={1}&endIndex={2}&versionId={3}&filter={4}&totalRecords={5}";            
-        }
 
         public void BindUserReview(Repeater rptUserReviews)
         {
-            IEnumerable<Review> userReviewList = null;
             FetchedRecordsCount = 0;
-
             try
             {
                 int stratIndex = 1;
                 int endIndex = 4;
                 Paging.GetStartEndIndex(PageSize, PageNo, out stratIndex, out endIndex);
-
-                string _apiUrl = String.Format(_ApiURL, ModelId, stratIndex, endIndex, 0, Filter, RecordCount);
-
-                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    userReviewList = objClient.GetApiResponseSync<IEnumerable<Review>>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, userReviewList);
-                }
-                
-                if (userReviewList != null)
-                {
-                    FetchedRecordsCount = userReviewList.Count();
-                    if (FetchedRecordsCount > 0)
+                    container.RegisterType<IUserReviews, UserReviewsRepository>();
+                    IUserReviews objVersion = container.Resolve<IUserReviews>();
+                    uint recCount = Convert.ToUInt16(RecordCount);
+                    List<ReviewEntity> userReviewLists = objVersion.GetBikeReviewsList((uint)stratIndex, (uint)endIndex, (uint)ModelId, 0, Filter, out recCount);
+                    if (userReviewLists.Count > 0)
                     {
-                        MakeMaskingName = userReviewList.FirstOrDefault().MakeMaskingName;
-                        ModelMaskingName = userReviewList.FirstOrDefault().ModelMaskingName;
-                        rptUserReviews.DataSource = userReviewList;
+                        FetchedRecordsCount = userReviewLists.Count;
+                        MakeMaskingName = userReviewLists.FirstOrDefault().MakeMaskingName;
+                        ModelMaskingName = userReviewLists.FirstOrDefault().ModelMaskingName;
+                        rptUserReviews.DataSource = userReviewLists;
                         rptUserReviews.DataBind();
                     }
                 }

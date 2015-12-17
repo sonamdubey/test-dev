@@ -9,6 +9,8 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
 using Bikewale.Notifications;
+using Bikewale.Entities.CMS;
+using Bikewale.Entities.CMS.Photos;
 
 namespace Bikewale.Cache.BikeData
 {

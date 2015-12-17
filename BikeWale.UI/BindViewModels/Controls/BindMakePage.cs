@@ -7,47 +7,54 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
-using System.Linq;
 using Bikewale.DTO.Widgets;
+using Microsoft.Practices.Unity;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Entities.BikeData;
+using Bikewale.DAL.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
-    public static class BindMakePage
+    public class BindMakePage
     {
-        public static int? totalCount { get; set; }
-        public static int? makeId { get; set; }
-        public static int FetchedRecordsCount { get; set; }
-        public static MakeBase Make { get; set; }
-        public static BikeDescription BikeDesc { get; set; }
-        public static Int64 MinPrice { get; set; }
-        public static Int64 MaxPrice { get; set; }
+        public int totalCount { get; set; }
+        public int makeId { get; set; }
+        public int FetchedRecordsCount { get; set; }
+        public BikeMakeEntityBase Make { get; set; }
+        public BikeDescriptionEntity BikeDesc { get; set; }
+        public Int64 MinPrice { get; set; }
+        public Int64 MaxPrice { get; set; }
 
-        public static void BindMostPopularBikes(Repeater rptr)
-        {
-            MakePage objBikeList = null;
-            Make = new MakeBase();
-            BikeDesc = new BikeDescription();
+        public void BindMostPopularBikes(Repeater rptr)
+        {            
             FetchedRecordsCount = 0;
             
-            try
-            {                
-                string _apiUrl = String.Format("/api/MakePage/?makeId={0}", makeId);
+            BikeDescriptionEntity description = null;
+            IEnumerable<MostPopularBikesBase> objModelList = null;
 
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            try
+            {
+                using(IUnityContainer container = new UnityContainer())
                 {
-                    //objBikeList = objClient.GetApiResponseSync<MakePage>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBikeList);
-                    objBikeList = objClient.GetApiResponseSync<MakePage>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objBikeList);
+                    container.RegisterType<IBikeMakes<BikeMakeEntity, int>, BikeMakesRepository<BikeMakeEntity, int>>()
+                        .RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
+
+                    var makesRepository = container.Resolve<IBikeMakes<BikeMakeEntity, int>>();
+                    var modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+
+                    objModelList = modelRepository.GetMostPopularBikesByMake(makeId);
+                    description = makesRepository.GetMakeDescription(makeId);                    
                 }
 
-                if (objBikeList != null && objBikeList.PopularBikes != null && objBikeList.PopularBikes.Count() > 0)
+                if (objModelList != null && objModelList.Count() > 0)
                 {
-                    FetchedRecordsCount = objBikeList.PopularBikes.Count();
-                    Make = objBikeList.PopularBikes.FirstOrDefault().objMake;
-                    BikeDesc = objBikeList.Description;
-                    MinPrice = objBikeList.PopularBikes.Min(bike => bike.VersionPrice);
-                    MaxPrice = objBikeList.PopularBikes.Max(bike => bike.VersionPrice);
+                    FetchedRecordsCount = objModelList.Count();
+                    Make = objModelList.FirstOrDefault().objMake;
+                    BikeDesc = description;
+                    MinPrice = objModelList.Min(bike => bike.VersionPrice);
+                    MaxPrice = objModelList.Max(bike => bike.VersionPrice);
 
-                    rptr.DataSource = objBikeList.PopularBikes;
+                    rptr.DataSource = objModelList;
                     rptr.DataBind();
                 }
             }

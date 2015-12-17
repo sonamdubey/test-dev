@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
+using log4net;
 
 namespace Bikewale
 {

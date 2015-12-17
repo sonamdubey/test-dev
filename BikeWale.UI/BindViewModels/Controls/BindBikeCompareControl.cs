@@ -1,6 +1,10 @@
-﻿using Bikewale.Entities.Compare;
+﻿using Bikewale.Cache.Compare;
+using Bikewale.DAL.Compare;
+using Bikewale.Entities.Compare;
+using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -20,7 +24,7 @@ namespace Bikewale.BindViewModels.Controls
         /// <summary>
         /// Total records requested
         /// </summary>    
-        public int TotalRecords { get; set; }
+        public uint TotalRecords { get; set; }
 
         /// <summary>
         /// Total Fetched records
@@ -65,19 +69,21 @@ namespace Bikewale.BindViewModels.Controls
         public void FetchBikeCompares()
         {
             IEnumerable<TopBikeCompareBase> topBikeCompares = null;
-            
-            FetchedRecordCount = 0;
 
+            string apiUrl = String.Empty;
+            FetchedRecordCount = 0;
             try
             {
-                string apiUrl = String.Format("/api/BikeCompareList/?topCount={0}", TotalRecords);
-
-                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    //topBikeCompares = objClient.GetApiResponseSync<IEnumerable<TopBikeCompareBase>>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, topBikeCompares);
-                    topBikeCompares = objClient.GetApiResponseSync<IEnumerable<TopBikeCompareBase>>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, topBikeCompares);
+                    //container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
+                    container.RegisterType<IBikeCompare, BikeCompareRepository>();
+                    var _objCompare = container.Resolve<IBikeCompare>();
+                    //var _objCompareCache = container.Resolve<IBikeCompareCacheRepository>();
+
+                    topBikeCompares = _objCompare.CompareList(TotalRecords);
                 }
-                                
+
                 if (topBikeCompares != null && topBikeCompares.Count() > 0)
                 {
                     FetchedRecordCount = topBikeCompares.Count();
@@ -87,6 +93,8 @@ namespace Bikewale.BindViewModels.Controls
                 {
                     FetchedRecordCount = 0;
                 }
+
+
             }
             catch (Exception ex)
             {

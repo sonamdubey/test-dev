@@ -26,6 +26,15 @@
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script> 
+    <!-- #include file="/includes/gacode.aspx" --> 
+    <script type="text/javascript">
+        setTimeout(function () {
+            var a = document.createElement("script");
+            var b = document.getElementsByTagName("script")[0];
+            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+        }, 1);
+    </script>
     <script type='text/javascript'>
         (function () {
             var useSSL = 'https:' == document.location.protocol;
@@ -63,18 +72,9 @@
         })();
     </script>
     <!-- #include file="\includes\globalStaticFiles_mobile.aspx" -->
-    <script type="text/javascript">
-        setTimeout(function () {
-            var a = document.createElement("script");
-            var b = document.getElementsByTagName("script")[0];
-            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-        }, 1);
-</script>
 </head>
 <body>
-    <form runat="server">
-    <!-- #include file="/includes/gacode.aspx" --> 
+    <form runat="server">    
     <div id="divParentPageContainer" data-role="page" style="position:relative;">
         <div role="main">
         	<!-- Header code starts here-->

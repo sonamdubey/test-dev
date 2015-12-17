@@ -3,7 +3,7 @@
 <% title = "Basic File Uploader"; %>
 <% isAd970x90Shown = false; %>
 <!-- #include file="/includes/headSell.aspx" -->
-<script type="text/javascript" src="/src/classified/sellbike.js?14sept2015"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/sellbike.js?14sept2015"></script>
 <script language="javascript">
 	var inquiryId = '<%= inquiryId %>';
 	var requestCount = 0;

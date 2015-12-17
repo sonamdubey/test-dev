@@ -169,7 +169,7 @@
     <br />
     <a id="btnReportReviewAbuse" class="buttons" onclick="javascript:reportAbuse()">Report</a>
 </div>
-<script type="text/javascript" src="/src/graybox.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/graybox.js?v=1.0"></script>
 <script language="javascript">
     function helpfulClick(reviewId, helpful) {
         //alert(reviewId + "," + helpful);

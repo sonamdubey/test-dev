@@ -10,8 +10,8 @@
 <head>
     <%
         title = _make.MakeName + " Price in India, Review, Mileage & Photos - Bikewale";
-        description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(Bikewale.BindViewModels.Controls.BindMakePage.MinPrice.ToString()) +
-           " to  Rs." + Bikewale.Utility.Format.FormatPrice(Bikewale.BindViewModels.Controls.BindMakePage.MaxPrice.ToString()) + ". Check out " + _make.MakeName +
+        description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) +
+           " to  Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName +
            " on road price, reviews, mileage, variants, news & photos at Bikewale.";
         canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";
         AdPath = "/1017752/Bikewale_Mobile_Make";
