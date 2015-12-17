@@ -165,7 +165,11 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", input.VersionId, input.DealerId, input.CityId);
                         // Send HTTP GET requests 
 
-                        dealerDetailEntity = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, dealerDetailEntity);
+                        using (BWHttpClient objClient = new BWHttpClient())
+                        {
+                           dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, dealerDetailEntity);
+                        }
+                       
 
                         if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null)
                         {

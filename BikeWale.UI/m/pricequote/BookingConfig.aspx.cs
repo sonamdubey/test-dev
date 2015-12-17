@@ -3,6 +3,7 @@ using Bikewale.DTO.BookingSummary;
 using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
 using Bikewale.Mobile.PriceQuote;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -67,7 +68,10 @@ namespace Bikewale.Mobile.Pricequote
                 string _apiUrl = String.Format("api/BookingSummary?pqId={0}&versionId={1}&dealerId={2}&cityId={3}", pqId, versionId, dealerId, cityId);
                 // Send HTTP GET requests 
 
-                objBookingConfig = BWHttpClient.GetApiResponseSync<BookingSummaryBase>(_abHostUrl, _requestType, _apiUrl, objBookingConfig);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    objBookingConfig = objClient.GetApiResponseSync<BookingSummaryBase>(_abHostUrl, _requestType, _apiUrl, objBookingConfig);
+                }
 
                 if (objBookingConfig != null)
                 {

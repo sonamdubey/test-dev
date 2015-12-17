@@ -1031,10 +1031,6 @@
       <DependentUpon>UpcomingBikesList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\versions_old_dec14.aspx.cs">
-      <DependentUpon>versions_old_dec14.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\versions_old.aspx.cs">
       <DependentUpon>versions_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2176,7 +2172,6 @@
     <Content Include="m\src\Plugins.js" />
     <Content Include="m\src\zebra_datepicker.js" />
     <Content Include="new\versions.aspx" />
-    <Content Include="new\versions_old_dec14.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
     <Content Include="customerror.aspx" />

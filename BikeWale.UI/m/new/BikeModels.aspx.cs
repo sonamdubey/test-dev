@@ -25,6 +25,7 @@ using Bikewale.DTO.PriceQuote.Area;
 using Bikewale.DTO.PriceQuote.BikeQuotation;
 using System.Reflection;
 using Bikewale.Mobile.PriceQuote;
+using Bikewale.Utility;
 
 namespace Bikewale.Mobile.New
 {
@@ -239,7 +240,7 @@ namespace Bikewale.Mobile.New
                 });
                 ctrlModelGallery.bikeName = bikeName;
                 ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                ctrlModelGallery.Photos = photos;
+                //ctrlModelGallery.Photos = photos;
             }
         }
 
@@ -485,7 +486,10 @@ namespace Bikewale.Mobile.New
                 if (!string.IsNullOrEmpty(modelId))
                 {
                     string _apiUrl = String.Format(apiURL, modelId, variantId);
-                    modelPage = Bikewale.Utility.BWHttpClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+                    using (BWHttpClient objClient = new BWHttpClient())
+                    {
+                        modelPage = objClient.GetApiResponseSync<ModelPage>(_bwHostUrl, _requestType, _apiUrl, modelPage);
+                    }
                     if (modelPage != null)
                     {
                         if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
@@ -520,7 +524,10 @@ namespace Bikewale.Mobile.New
                 if (!string.IsNullOrEmpty(cityId) && cityId != "0")
                 {
                     string _apiUrl = String.Format(onRoadApi, cityId, modelId, null, 0, areaId);
-                    pqOnRoad = Bikewale.Utility.BWHttpClient.GetApiResponseSync<PQOnRoad>(_bwHostUrl, _requestType, _apiUrl, pqOnRoad);
+                    using (BWHttpClient objClient = new BWHttpClient())
+                    {
+                        pqOnRoad = objClient.GetApiResponseSync<PQOnRoad>(_bwHostUrl, _requestType, _apiUrl, pqOnRoad);
+                    }
 
                     if (pqOnRoad != null)
                     {
@@ -667,7 +674,10 @@ namespace Bikewale.Mobile.New
             {
                 string apiVarUrl = "/api/version/specs/?versionId={0}";
                 string _apiVarUrl = String.Format(apiVarUrl, versionId);
-                bikeSpecs = Bikewale.Utility.BWHttpClient.GetApiResponseSync<VersionSpecifications>(_bwHostUrl, _requestType, _apiVarUrl, bikeSpecs);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    bikeSpecs = objClient.GetApiResponseSync<VersionSpecifications>(_bwHostUrl, _requestType, _apiVarUrl, bikeSpecs);
+                }
                 if (bikeSpecs != null)
                 {
                     modelPage.ModelVersionSpecs = bikeSpecs;
@@ -689,7 +699,10 @@ namespace Bikewale.Mobile.New
         {
             string apiVarUrl = "/api/PQCityList/?modelId={0}";
             string _apiVarUrl = String.Format(apiVarUrl, modelId);
-            objCityList = Bikewale.Utility.BWHttpClient.GetApiResponseSync<PQCityList>(_bwHostUrl, _requestType, _apiVarUrl, objCityList);
+            using (BWHttpClient objClient = new BWHttpClient())
+            {
+                objCityList = objClient.GetApiResponseSync<PQCityList>(_bwHostUrl, _requestType, _apiVarUrl, objCityList);
+            }
             return objCityList;
         }
 
@@ -702,7 +715,10 @@ namespace Bikewale.Mobile.New
         {
             string apiVarUrl = "/api/PQAreaList/?modelId={0}&cityId={1}";
             string _apiVarUrl = String.Format(apiVarUrl, modelId, cityId);
-            objAreaList = Bikewale.Utility.BWHttpClient.GetApiResponseSync<PQAreaList>(_bwHostUrl, _requestType, _apiVarUrl, objAreaList);
+            using (BWHttpClient objClient = new BWHttpClient())
+            {
+                objAreaList = objClient.GetApiResponseSync<PQAreaList>(_bwHostUrl, _requestType, _apiVarUrl, objAreaList);
+            }
             return objAreaList;
         }
 
