@@ -62,9 +62,9 @@ function CustomerModel() {
             var objCust = {
                 "dealerId": dealerId,
                 "pqId": pqId,
-                "customerName": self.fullName,
-                "customerMobile": self.mobileNo,
-                "customerEmail": self.emailId,
+                "customerName": self.fullName(),
+                "customerMobile": self.mobileNo(),
+                "customerEmail": self.emailId(),
                 "clientIP": clientIP,
                 "pageUrl": pageUrl,
                 "versionId": versionId,
@@ -93,11 +93,11 @@ function CustomerModel() {
         if (!self.IsVerified()) {
             var objCust = {
                 "pqId": pqId,
-                "customerMobile": self.mobileNo,
-                "customerEmail": self.emailId,
-                "cwiCode": self.otpCode,
+                "customerMobile": self.mobileNo(),
+                "customerEmail": self.emailId(),
+                "cwiCode": self.otpCode(),
                 "branchId": dealerId,
-                "customerName": self.fullName,
+                "customerName": self.fullName(),
                 "versionId": versionId,
                 "cityId": cityId
             }
@@ -152,7 +152,7 @@ function CustomerModel() {
             if (self.IsValid()) {
                 $("#personalInfo").hide();
                 $("#leadCapturePopup .leadCapture-close-btn").click();
-                window.location.href = "/pricequote/bookingConfig.aspx";
+                window.location.href = "/m/pricequote/bookingConfig.aspx";
             }
             else {
                 $("#contactDetailsPopup").hide();
@@ -253,7 +253,7 @@ mobile.on("focus", function () {
 
 });
 
-emailid.on("keyup keydown blur", function () {
+emailid.on("blur", function () {
     if (prevEmail != emailid.val().trim()) {
         if (validateEmail()) {
             customerViewModel.IsVerified(false);
@@ -267,7 +267,7 @@ emailid.on("keyup keydown blur", function () {
     }
 });
 
-mobile.on("keyup keydown blur", function () {
+mobile.on("blur", function () {
     if (mobile.val().length < 10) {
         $("#user-details-submit-btn").show();
         $(".mobile-verification-container").removeClass("show").addClass("hide");
@@ -655,10 +655,11 @@ var leadPopupClose = function () {
 
 $(".more-features-btn").click(function () {
     $(".more-features").slideToggle();
-    $("html, body").animate({ scrollTop: $("#features").offset().top }, 1000);
-    var a = $(this).find("span");
+    var a = $(this).find("a");
     a.text(a.text() === "+" ? "-" : "+");
-    $("html, body").animate({ scrollTop: $("#features").offset().top }, 1000);
+    if (a.text() === "+")
+        a.attr("href", "#features");
+    else a.attr("href", "javascript:void(0)");
 });
 
 $("a.read-more-btn").click(function () {
@@ -677,6 +678,10 @@ $("a.read-more-btn").click(function () {
         $(this).removeClass("open");
     }
 
+});
+
+$('#bookNowBtn').on('click', function (e) {
+    window.location.href = "/m/pricequote/BookingSummary_New.aspx";
 });
 
 ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);

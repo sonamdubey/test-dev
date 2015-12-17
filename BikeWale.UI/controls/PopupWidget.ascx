@@ -263,7 +263,7 @@
                 var attr = $(this).attr('ismodel');
                 if (typeof attr !== typeof undefined && attr !== false) {
                     $('html, body').animate({
-                        scrollTop: $("#modelDetailsContainer").offset().top
+                        scrollTop: $("#breadcrumb").offset().top
                     }, 10);
                     sourceHref = '1';
                 }

@@ -56,7 +56,7 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
-        <section class="bg-light-grey padding-top10">
+        <section class="bg-light-grey padding-top10" id="breadcrumb">
             <div class="container">
                 <div class="grid-12">
                     <div class="breadcrumb margin-bottom15">
@@ -167,7 +167,7 @@
                             <!-- Variants -->
                             <div id="variantDetailsContainer" class="variants-dropDown margin-top15 padding-bottom15 <%= modelPage.ModelDetails.Futuristic ? "hide": string.Empty%>">
                                 <div>
-                                    <p class="variantText text-light-grey margin-right10">Variant: </p>
+                                    <p class="variantText text-light-grey margin-right10">Version: </p>
 
                                     <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
                                        { %>
@@ -186,7 +186,7 @@
                                             <asp:Repeater ID="rptVariants" runat="server">
                                                 <ItemTemplate>
                                                     <li>
-                                                        <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button></li>
+                                                        <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>' OnClientClick='return checkItemClicked();' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button></li>
                                                     <asp:HiddenField ID="hdn" Value='<%#Eval("VersionId") %>' runat="server" />
                                                 </ItemTemplate>
                                             </asp:Repeater>
@@ -254,14 +254,14 @@
                                 <% } %>
                                 <% else if (isCityAreaSelected || isBikeWalePQ)
                                    { %>
-                                <p class="font14">On-road Price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid='<%= modelId %>' href="javascript:void(0)" class="bwsprite edit-blue-icon fillPopupData"></a></p>
+                                <p class="font14">On-road Price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid='<%= modelId %>' href="javascript:void(0)" class="bwsprite edit-blue-icon fillPopupData margin-left10"></a></p>
                                 <% }
                                    else
                                    { %>
                                 <p class="font14">Ex-showroom in <span href="javascript:void(0)" class="font14 text-grey"><%= ConfigurationManager.AppSettings["defaultName"] %></span></p>
                                 <% } %>
                                 <div class="modelPriceContainer">
-                                    <%  if (price == "")
+                                    <%  if (price == "" || price == "0")
                                         { %>
                                     <span class="font32">Price not available</span>
                                     <%  }
@@ -270,11 +270,11 @@
                                             <span class="font28"><span class="fa fa-rupee"></span></span>
                                             <span id="new-bike-price" class="font32"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
                                     <%  } %>
-                                    <%if (pqOnRoad != null && price != "")
+                                    <%if (pqOnRoad != null && (price != "" && price !="0"))
                                       {%>
                                     <span id="viewBreakupText" class="font14 text-light-grey viewBreakupText">View Breakup</span>
                                     <br>
-                                        <%if (isBikeWalePQ && price != "0")
+                                        <%if (isBikeWalePQ && price != "")
                                           {%>
                                         <span class="font12 text-xt-light-grey">(Ex-showroom + Insurance (comprehensive) + RTO)</span>
                                         <%}
@@ -535,7 +535,8 @@
                             <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
                         </div>
                         <div class="form-control-box personal-info-list">
-                            <input type="text" class="form-control get-mobile-no" placeholder="Mobile no. (mandatory)"
+                            <p class="mobile-prefix">+91</p>
+                            <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
                                 id="getMobile" maxlength="10" data-bind="value: mobileNo">
                             <span class="bwsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
@@ -648,7 +649,7 @@
                         <a class="active" href="#overview">Overview</a>
                         <a href="#specifications">Specifications</a>
                         <a href="#features">Features</a>
-                        <a href="#variants" style="<%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? string.Empty: "display:none;" %>">Variants</a>
+                        <a href="#variants" style="<%= (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0) ? string.Empty: "display:none;" %>">Versions</a>
                         <a href="#colours" style="<%= (modelPage.ModelColors != null && modelPage.ModelColors.ToList().Count > 0) ? string.Empty: "display:none;" %>">Colours</a>
                     </div>
                     <!-- Overview code starts here -->
@@ -1186,7 +1187,7 @@
                     </div>
                     <!-- variant code starts here -->
                     <div class="bw-tabs-data margin-bottom20 <%= modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0 ? string.Empty : "hide" %>" id="variants">
-                        <h2 class="font24 margin-bottom20 text-center">Variants</h2>
+                        <h2 class="font24 margin-bottom20 text-center">Versions</h2>
                         <asp:Repeater runat="server" ID="rptVarients" OnItemDataBound="rptVarients_ItemDataBound">
                             <ItemTemplate>
                                 <div class="grid-6">
@@ -1377,7 +1378,7 @@
 
                 $(".carousel-navigation ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
                 $(".carousel-stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
-
+                document.location.href.split('?')[0];
             });
         </script>
         <script type="text/javascript">
