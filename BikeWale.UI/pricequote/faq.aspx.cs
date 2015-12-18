@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.pricequote
+namespace Bikewale.Pricequote
 {
     public partial class faq : System.Web.UI.Page
     {

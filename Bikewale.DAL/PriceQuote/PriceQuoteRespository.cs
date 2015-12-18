@@ -246,6 +246,8 @@ namespace Bikewale.DAL.PriceQuote
         /// Author      :   Sumit Kate
         /// Created On  :   16 Oct 2015
         /// Description :   Updates the price quote data
+        /// Modified By : Sushil Kumar On 11th Nov 2015
+        /// Summary : Update colorId in PQ_NewBikeDealerPriceQuotes
         /// </summary>
         /// <param name="pqParams"></param>
         /// <returns></returns>
@@ -266,6 +268,11 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Connection = conn;
                         cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
                         cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
+
+                        if (pqParams.ColorId > 0)
+                        {
+                            cmd.Parameters.Add("@BikeColorId", SqlDbType.Int).Value = pqParams.ColorId;
+                        }
 
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();

@@ -20,5 +20,7 @@ namespace Bikewale.DTO.PriceQuote.CustomerDetails
         public PQColor objColor { get; set; }
         [JsonProperty("isTransactionCompleted")]
         public bool IsTransactionCompleted { get; set; }
+        [JsonProperty("selectedVersionId")]
+        public uint SelectedVersionId { get; set; }
     }
 }

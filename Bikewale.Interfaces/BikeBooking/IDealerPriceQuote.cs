@@ -16,7 +16,7 @@ namespace Bikewale.Interfaces.BikeBooking
     /// </summary>
     public interface IDealerPriceQuote
     {
-        bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail);
+        bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, uint? colorId);
         bool UpdateIsMobileVerified(uint pqId);
         bool UpdateMobileNumber(uint pqId, string mobileNo);
         bool PushedToAB(uint pqId, uint abInquiryId);

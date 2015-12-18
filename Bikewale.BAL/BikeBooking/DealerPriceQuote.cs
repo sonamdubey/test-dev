@@ -44,11 +44,11 @@ namespace Bikewale.BAL.BikeBooking
         /// <param name="customerMobile"></param>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail)
+        public bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, uint? colorId)
         {
             bool isSuccess = false;
 
-            isSuccess = dealerPQRepository.SaveCustomerDetail(dealerId, pqId, customerName, customerMobile, customerEmail);
+            isSuccess = dealerPQRepository.SaveCustomerDetail(dealerId, pqId, customerName, customerMobile, customerEmail,colorId);
 
             return isSuccess;
         }

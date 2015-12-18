@@ -433,6 +433,13 @@ $(document).ready(function () {
 
 	    var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 	    
+	    var slideCount = function (swiper) {
+	        try{
+	            imgTotalCount = swiper.slides.length;
+	            $(document).find('.bike-model-gallery-count').text(swiper.activeIndex + 1 + "/" + imgTotalCount.toString());
+	        }catch(e){}
+	    };
+
 	    $('.swiper-container:not(".noSwiper")').each(function (index, element) {
 	        $(this).addClass('sw-' + index);
 	        $('.sw-' + index).swiper({
@@ -452,7 +459,8 @@ $(document).ready(function () {
 	            lazyLoadingInPrevNext: true,
 	            watchSlidesProgress: true,
 	            watchSlidesVisibility: true,
-	            onSlideChangeStart: slideChangeStart
+	            onSlideChangeStart: slideChangeStart,
+	            onSlideChangeEnd: slideCount
 	        });
 
 	    });

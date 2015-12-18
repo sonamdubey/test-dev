@@ -58,5 +58,44 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 return InternalServerError();
             }
         }
+
+        /// <summary>
+        /// Created By : Sushil Kumar
+        /// Created On  : 11th Nov 2015
+        /// Updates the Price Quote data for given Price Quote Id  colorId and versionId
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        [ResponseType(typeof(PQUpdateOutput))]
+        public IHttpActionResult Post([FromBody]PQUpdateInput input,uint colorId)
+        {
+            PQUpdateOutput output = null;
+            PriceQuoteParametersEntity pqParam = null;
+            try
+            {
+                if (input != null && ((input.PQId > 0) && (input.VersionId > 0)) && colorId > 0)
+                {
+                    pqParam = new PriceQuoteParametersEntity();
+                    pqParam.VersionId = input.VersionId;
+                    pqParam.ColorId = colorId;
+                    output = new PQUpdateOutput();
+                    if (_objPQ.UpdatePriceQuote(input.PQId, pqParam))
+                    {
+                        output.IsUpdated = true;
+                    }
+                    return Ok(output);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Put");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
     }
 }

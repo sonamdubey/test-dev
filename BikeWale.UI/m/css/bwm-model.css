@@ -8,7 +8,50 @@
 
 .rating-wrap img { width:18px;}
 .line-Ht22{line-height:22px;}
+.pos-top3{top:3px;}
+.pos-top8{top:8px;}
+.pos-left3 {left: 3px;}
+.font6{font-size:6px}
+.btn-grey:hover {
+    background: #82888b;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #82888b;
+}
+.btn-grey {
+    background: #fff;
+    color: #82888b;
+    border: 1px solid #82888b;
+}
 
+.sort-div { height:40px; padding:9px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
+.sort-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:100%; }
+.sort-selection-div { background:#fff; border:1px solid #ccc; position:absolute; z-index:2; left:10px; right:0; }
+.sort-selection-div ul li { margin-bottom:5px; margin-top:5px; font-size:14px; }
+.sort-selection-div ul li.selected { font-weight:bold; }
+.sort-selection-div ul li input{background: #fff;color:rgb(77, 80, 87); padding:2px 0 2px 8px; font-family: 'Open Sans', sans-serif, Arial;}
+.sort-selection-div ul li:hover input{ padding:2px 0 2px 8px; cursor:pointer; background:#82888b; color:#fff; }
+
+#upDownArrow.fa-angle-down { transition: all 0.5s ease-in-out 0s; font-size: 20px; }
+.sort-div .fa-angle-down { transition: transform .3s; -moz-transition: transform .3s; -webkit-transition: transform .3s; -o-transition: transform .3s; -ms-transition: transform .3s; }
+.sort-div.open .fa-angle-down { -moz-transform: rotateZ(180deg); -webkit-transform: rotateZ(180deg); -o-transform: rotateZ(180deg); -ms-transform: rotateZ(180deg); transform: rotateZ(180deg); }
+
+.viewMoreOffersBtn { cursor: pointer; color: #0288d1; margin-left:25px; }
+.viewBreakupText { cursor: pointer; color: #0288d1; margin-left:5px; margin-top: 9px; }
+
+/**/
+#otpPopup { display:none; }
+.icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
+.icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
+.user-contact-details-icon { width:36px; height:44px; background-position: -107px -227px; }
+.otp-icon { width:30px; height:40px; background-position: -107px -177px; }
+.edit-blue-icon { width:16px; height:16px; background-position: -114px -123px; }
+#getMobile { padding:9px 40px; }
+.mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; z-index:2; }
+#otpPopup .errorIcon, #otpPopup .errorText { display:none; }
+#otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
+#otpPopup .update-mobile-box { display:none; }
+#otpPopup .edit-mobile-btn { cursor:pointer; }
 
 .city-list-container { width:100%; }
 .city-list-container ul { overflow: auto; }
@@ -18,14 +61,14 @@
 .city-list-container ul li:hover, .city-list-container ul li.focused { border: 1px solid #4d5057; cursor:pointer; color:#4d5057;  }
 /*.city-list-container ul li.focused { min-width: 100%;}*/
 
-.city-unveil-offer-container { border:1px dashed #f00; width:100%; min-height:115px; }
-.offer-list-container ul { list-style-type:disc; }
-.offer-list-container ul li { margin-left:20px; padding-bottom:5px; font-size: 12px;}
+.city-unveil-offer-container { border:1px dashed #82888b; width:100%; min-height:115px; }
+/*.offer-list-container ul { list-style-type:disc; }*/
+.offer-list-container ul li { /*margin-left:20px;*/ position:relative; margin-top:5px; padding-bottom:5px; font-size: 14px;}
 .unveil-offer-btn-container { width:100%; height:100%; background:rgba(255,255,255,0.8); }
 .unveil-offer-btn-container input[type='button'] { position:relative; margin:0 auto; top:50%; margin-top: -20px; }
 .offer-error-text { color:#f00; }
 
-.city-area-select-container { width:100%;}
+.city-area-select-container { width:100%; /*min-height:100px;*/ }
 
 .city-edit-btn { color:#0288d1; }
 .city-edit-btn:hover { cursor:pointer; text-decoration:underline; }
@@ -165,3 +208,6 @@
 .notify-offers-list { list-style:disc; margin-left:10px; }
 #notifyAvailabilityContainer .notify-close-btn {z-index:2;}
 #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
+
+.float-button { background-color:#f5f5f5; padding: 0px 10px 10px 10px; }
+.float-button.float-fixed{position:fixed; bottom:0; z-index:8; left:0; right:0;}

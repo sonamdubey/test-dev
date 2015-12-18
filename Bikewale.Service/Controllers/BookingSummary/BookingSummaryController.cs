@@ -1,9 +1,12 @@
 ﻿using Bikewale.DTO.BookingSummary;
+using Bikewale.DTO.PriceQuote.BikeBooking;
 using Bikewale.DTO.PriceQuote.CustomerDetails;
 using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Bikebooking;
 using Bikewale.Service.AutoMappers.BookingSummary;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -20,6 +23,8 @@ namespace Bikewale.Service.Controllers.BookingSummary
     /// Booking Summary Controller
     /// Author  :   Sumit Kate
     /// Created On  :   25 Aug 2015
+    /// Modified By : Sushil Kumar on 7th Dec 2015
+    /// Description : Added varients with min specs and price
     /// </summary>
     public class BookingSummaryController : ApiController
     {
@@ -43,18 +48,28 @@ namespace Bikewale.Service.Controllers.BookingSummary
         {
             PQ_DealerDetailEntity dealerDetailEntity = null;
             PQCustomerDetail objCustomer = null;
-
+            BookingPageDetailsEntity objBookingPageDetailsEntity = null;
             DDQDealerDetailBase dtoQuotation = null;
             PQCustomer dtoCustomer = null;
             BookingSummaryBase bookingSummary = null;
+            BookingPageDetailsDTO objBookingPageDetailsDTO = null;
+
             try
             {
+
+                #region Bike Versions available with dealer
+
+                objBookingPageDetailsEntity = _objDealer.FetchBookingPageDetails(cityId, versionId, dealerId);
+                objBookingPageDetailsDTO = BookingPageDetailsEntityMapper.Convert(objBookingPageDetailsEntity);
+
+                #endregion
+
                 #region Customer Details
                 objCustomer = _objDealer.GetCustomerDetails(pqId);
 
                 if (objCustomer != null)
                 {
-                    dtoCustomer = PQCustomerMapper.Convert(objCustomer);                    
+                    dtoCustomer = PQCustomerMapper.Convert(objCustomer);
                 }
                 #endregion
 
@@ -71,6 +86,18 @@ namespace Bikewale.Service.Controllers.BookingSummary
                 {
                     dtoQuotation = DDQDealerDetailBaseMapper.Convert(dealerDetailEntity);
 
+                    uint insuranceAmount = 0;
+                    bool isFreeInsurance = false;
+                    foreach (var price in dtoQuotation.objQuotation.PriceList)
+                    {
+                        isFreeInsurance = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
+                        if (isFreeInsurance)
+                            break;
+                    }
+
+                    dtoQuotation.IsInsuranceFree = isFreeInsurance;
+                    dtoQuotation.InsuranceAmount = insuranceAmount;
+
                     if (dealerDetailEntity.objOffers != null)
                     {
                         dealerDetailEntity.objOffers.Clear();
@@ -85,11 +112,17 @@ namespace Bikewale.Service.Controllers.BookingSummary
                 }
                 #endregion
 
-                if (dtoCustomer != null && dtoQuotation != null)
+                if (objBookingPageDetailsDTO != null && objBookingPageDetailsDTO.Varients != null)
                 {
                     bookingSummary = new BookingSummaryBase();
-                    bookingSummary.Customer = dtoCustomer;
-                    bookingSummary.DealerQuotation = dtoQuotation;
+
+                    if (dtoCustomer != null && dtoQuotation != null)
+                    {                         
+                        bookingSummary.Customer = dtoCustomer;
+                        bookingSummary.DealerQuotation = dtoQuotation;
+                    }
+
+                    bookingSummary.Varients = objBookingPageDetailsDTO.Varients;
                 }
 
                 if (bookingSummary != null)
@@ -107,6 +140,6 @@ namespace Bikewale.Service.Controllers.BookingSummary
                 objErr.SendMail();
                 return InternalServerError();
             }
-        }        
+        }
     }
 }

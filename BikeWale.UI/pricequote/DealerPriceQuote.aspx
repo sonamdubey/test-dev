@@ -48,6 +48,7 @@
     .resend-otp-btn:hover { cursor:pointer; }
     .input-border-bottom { border-bottom:1px solid #ccc; }
 
+    #btnGetDealerDetails { padding:8px 33px; }
 </style>
 <script type="text/javascript">
     var dealerId = '<%= dealerId%>';
@@ -192,7 +193,7 @@
                                     </tr>
 
                                     <% } %>
-                                    <% if (!(objPrice.objOffers != null && objPrice.objOffers.Count > 0))
+                                    <%--<% if (!(objPrice.objOffers != null && objPrice.objOffers.Count > 0))
                                        {
                                            if (bookingAmount > 0)
                                            { %>
@@ -204,7 +205,7 @@
                                                     <td colspan="2" class="border-solid-top" align="right"><a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</a></td>
                                                 </tr>
 
-                                    <% } } %>
+                                    <% } } %>--%>
                                     <tr class="hide">
                                         <td colspan="3">
                                             <ul class="std-ul-list">
@@ -248,7 +249,7 @@
                                         </ul>
                                     </FooterTemplate>
                                 </asp:Repeater>
-                                <% if (bookingAmount > 0)
+                                <%--<% if (!(bookingAmount > 0))
                                    { %>
                                 <div class="margin-top10">
                                     <a class="btn btn-orange" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</a>
@@ -259,12 +260,27 @@
                                 <div class="margin-top10">
                                     <a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</a>
                                 </div>
-                                <%} %>
+                                <%} %>--%>
                             </div>
                         </div>
                         <%}%>
 
                         <!--Exciting offers div ends here-->
+
+                    </div>
+                    <div class="clear"></div>
+                    <div class="grid-3">
+                        
+                    </div>
+                    <div class="grid-5 text-center alpha omega">
+                        <a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a>
+                        <% if(bookingAmount > 0) { %>
+                            <a class="margin-top15 btn btn-grey" id="btnBikeBooking" name="btnBikeBooking" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</a>
+                        <% } %>                       
+                        
+                        
+                    </div>
+                    <div class="grid-4">
 
                     </div>
                     <div class="clear"></div>
@@ -293,7 +309,7 @@
             </div>
         </section>
 
-        <% if(bookingAmount <= 0) { %>
+
         <!-- lead capture popup -->
         <div id="leadCapturePopup" class="text-center rounded-corner2"  >
             <div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -349,7 +365,7 @@
                 <div style="margin-right: 70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
             </div>
         </div>
-        <% } %>
+
         <PW:PopupWidget runat="server" ID="PopupWidget" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
@@ -366,7 +382,6 @@
                 $("table tr td.PQDetailsTableTitle:contains('Insurance')").append(" <br/><div style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objPrice.objMake.MakeName,objPrice.objModel.ModelName,objPrice.objVersion.VersionName)%>"+cityArea+"' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
             }
 
-            <% if(bookingAmount <= 0) { %>
             var isClicked = false;
             var leadBtnBookNow = $("#leadBtnBookNow"), leadCapturePopup = $("#leadCapturePopup");
             var firstname = $("#getFirstName");
@@ -788,7 +803,6 @@
                 SetCookie("_PQUser", val);
             }
 
-            <% } %>  
         </script>
     </form>
 </body>
