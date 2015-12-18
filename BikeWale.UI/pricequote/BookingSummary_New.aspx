@@ -20,14 +20,6 @@
         <section class="bg-light-grey padding-top10">
             <div class="container">
                 <div class="grid-12">
-                    <div class="breadcrumb margin-bottom15">
-                        <!-- breadcrumb code starts here -->
-                        <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>New Bikes</li>
-                        </ul>
-                        <div class="clear"></div>
-                    </div>
                     <%--<h1 class="font30 text-black margin-top10 margin-bottom10">Avail great offers in 3 simple steps</h1>--%>
                     <div class="clear"></div>
                 </div>
@@ -61,7 +53,7 @@
                                 <div id="bikePaymentTab" class="bike-book-step rightfloat" data-bind="click: function () { if ((CurrentStep() > 3) || ActualSteps() > 2) CurrentStep(3); }, css: (CurrentStep() >= 3 || ActualSteps() > 2) ? 'active-tab' : 'disabled-tab'">
                                     <p>Payment</p>
                                     <div class="booking-tabs-image">
-                                        <span class="booking-flow-sprite booking-tab-icon " data-bind="css: (CurrentStep() == 3) ? 'payment-icon-selected' : (CurrentStep() > 3 || ActualSteps() > 2) ? 'booking-tick-blue' : 'payment-icon-grey'"></span>
+                                        <span class="booking-flow-sprite booking-tab-icon " data-bind="css: (CurrentStep() == 5) ? 'payment-icon-selected' : (CurrentStep() > 5 || ActualSteps() > 5) ? 'booking-tick-blue' : 'payment-icon-grey'"></span>
                                     </div>
                                 </div>
                             </li>
@@ -344,7 +336,7 @@
 
                     </div>
 
-                    <div id="bikePayment" data-bind="visible: CurrentStep() > 2" style="display: none">
+                    <div id="bikePayment" data-bind="visible: CurrentStep() > 5" style="display: none">
                     </div>
 
                 </div>
@@ -362,7 +354,7 @@
             var clientIP = '<%= clientIP %>'; 
             var pageUrl = '<%= pageUrl %>';
             //select bike version
-            var bikeVersionId = '<%= (objBooking.Customer!=null && objBooking.Customer.SelectedVersionId > 0)?objBooking.Customer.SelectedVersionId:versionId %>';
+            var bikeVersionId = '<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>';
             $(function () {
                 var versionTab = $('#customizeBike');
                 $('#customizeBike ul.select-versionUL li').each(function () {
@@ -373,7 +365,7 @@
             });
 
             var versionList = JSON.parse($("#hdnBikeData").val());
-            var preSelectedColor = <%= (objBooking.Customer != null && objBooking.Customer.objColor != null) ? objBooking.Customer.objColor.ColorId : 0 %>;
+            var preSelectedColor = <%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>;
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>;          
             var insAmt = '<%= insuranceAmount %>';
             var BikeDealerDetails = function () {
@@ -394,10 +386,11 @@
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/booking.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerscript.aspx" -->
+        
         <script type="text/javascript">
-            viewModel.Customer().Name('<%= (objBooking.Customer!=null && objBooking.Customer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objBooking.Customer.objCustomerBase.CustomerName))?objBooking.Customer.objCustomerBase.CustomerName:String.Empty %>');
-            viewModel.Customer().EmailId('<%= (objBooking.Customer!=null && objBooking.Customer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objBooking.Customer.objCustomerBase.CustomerEmail))?objBooking.Customer.objCustomerBase.CustomerEmail:String.Empty %>');
-            viewModel.Customer().MobileNo('<%= (objBooking.Customer!=null && objBooking.Customer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objBooking.Customer.objCustomerBase.CustomerMobile))?objBooking.Customer.objCustomerBase.CustomerMobile:String.Empty %>');
+            viewModel.Customer().Name('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))?objCustomer.objCustomerBase.CustomerName:String.Empty %>');
+            viewModel.Customer().EmailId('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerEmail))?objCustomer.objCustomerBase.CustomerEmail:String.Empty %>');
+            viewModel.Customer().MobileNo('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerMobile))?objCustomer.objCustomerBase.CustomerMobile:String.Empty %>');
         </script>
 
     </form>

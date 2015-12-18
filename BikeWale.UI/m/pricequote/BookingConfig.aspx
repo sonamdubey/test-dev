@@ -402,30 +402,9 @@
                 <div class="clear"></div>
             </div>
         </section>
-        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingConfig.Varients)%>' />
+        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-
-        <script language="javascript" type="text/javascript">
-            <%-- //var thisBikename = '<%= this.bikeName %>';--%>
-            // window.onload = function () {            
-            //Find the button set null value to click event and alert will not appear for that specific button
-            //    function setGlobal() {
-            //        window.onbeforeunload = null;
-            //    }
-            //    $(btnRelease).click(setGlobal);
-
-            //    // Alert will not appear for all links on the page
-            //    $('a').click(function () {
-            //        window.onbeforeunload = null;
-
-            //    });
-            //    window.onbeforeunload = function () {
-            //        return "";
-            //    };
-            //};
-
-        </script>
 
         <script type="text/javascript">
             //Need to uncomment the below script

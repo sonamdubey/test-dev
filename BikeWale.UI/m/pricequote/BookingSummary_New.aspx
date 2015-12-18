@@ -391,7 +391,7 @@
             var clientIP = '<%= clientIP %>'; 
             var pageUrl = '<%= pageUrl %>';
             //select bike version
-            var bikeVersionId = '<%= (objBooking.Customer!=null && objBooking.Customer.SelectedVersionId > 0)?objBooking.Customer.SelectedVersionId:versionId %>';
+            var bikeVersionId = '<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>';
             $(function () {
                 var versionTab = $('#customizeBike');
                 $('#customizeBike ul.select-versionUL li').each(function () {
@@ -402,7 +402,7 @@
             });
 
             var versionList = JSON.parse($("input#hdnBikeData").val());
-            var preSelectedColor = <%= (objBooking.Customer != null && objBooking.Customer.objColor != null) ? objBooking.Customer.objColor.ColorId : 0 %>;
+            var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>;          
             var insAmt = '<%= insuranceAmount %>';
             var BikeDealerDetails = function () {
@@ -423,9 +423,9 @@
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingflow.js?<%= staticFileVersion %>" type="text/javascript"></script>
                 
         <script type="text/javascript">
-            viewModel.Customer().Name('<%= (objBooking.Customer!=null && objBooking.Customer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objBooking.Customer.objCustomerBase.CustomerName))?objBooking.Customer.objCustomerBase.CustomerName:String.Empty %>');
-            viewModel.Customer().EmailId('<%= (objBooking.Customer!=null && objBooking.Customer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objBooking.Customer.objCustomerBase.CustomerEmail))?objBooking.Customer.objCustomerBase.CustomerEmail:String.Empty %>');
-            viewModel.Customer().MobileNo('<%= (objBooking.Customer!=null && objBooking.Customer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objBooking.Customer.objCustomerBase.CustomerMobile))?objBooking.Customer.objCustomerBase.CustomerMobile:String.Empty %>');
+            viewModel.Customer().Name('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))?objCustomer.objCustomerBase.CustomerName:String.Empty %>');
+            viewModel.Customer().EmailId('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerEmail))?objCustomer.objCustomerBase.CustomerEmail:String.Empty %>');
+            viewModel.Customer().MobileNo('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerMobile))?objCustomer.objCustomerBase.CustomerMobile:String.Empty %>');
         </script>
         <script>
             function viewMore(id){

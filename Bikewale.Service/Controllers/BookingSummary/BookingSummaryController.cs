@@ -111,6 +111,7 @@ namespace Bikewale.Service.Controllers.BookingSummary
                     }
                 }
                 #endregion
+
                 if (objBookingPageDetailsDTO != null && objBookingPageDetailsDTO.Varients != null)
                 {
                     bookingSummary = new BookingSummaryBase();

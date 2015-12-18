@@ -6,22 +6,25 @@
     <%
         title = bikeName + " Bookingbooking-sprite buy-icon customize-icon-grey Summary";
         description = "Authorise dealer price details of a bike " + bikeName;
-        keywords = bikeName + ", price, authorised, dealer,Booking ";    
+        keywords = bikeName + ", price, authorised, dealer,Booking ";
+        isAd970x90Shown = false;  
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
-<body class="header-fixed-inner" id="bookingConfig">
+<body class="header-fixed-inner" id="bookingConfig" style="display:none" data-bind="visible: true">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section>
             <div class="container">
-                <div class="grid-12 margin-bottom5">
+                <div class="grid-12 margin-bottom5 margin-top15">
                     <div class="breadcrumb margin-bottom10">
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><a href="/new/">New Bikes</a></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><%= makeUrl %></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><%= modelUrl %></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><span data-bind="text : $root.Bike().selectedVersion().MinSpec.VersionName"></span></li>
                             <li><span class="fa fa-angle-right margin-right10"></span>Dealer Details</li>
                         </ul>
                         <div class="clear"></div>
@@ -401,7 +404,7 @@
         </section>
 
 
-        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingConfig.Varients)%>' />
+        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
@@ -409,14 +412,6 @@
         <script type="text/javascript">
             var thisBikename = '<%= this.bikeName %>';
             var bikeVersionId = '<%= versionId %>';
-            //$(function () {
-            //    var versionTab = $('#customizeBike');
-            //    $('#customizeBike ul.select-versionUL li').each(function () {
-            //        if (bikeVersionId === $(this).attr('versionId')) {
-            //            $(this).removeClass("text-light-grey border-light-grey").addClass("selected-version text-bold border-dark-grey").find("span.radio-btn").removeClass("radio-sm-unchecked").addClass("radio-sm-checked");
-            //        }
-            //    });
-            //});
             var pqId = '<%= pqId%>';
             var versionList = JSON.parse($("#hdnBikeData").val());
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
