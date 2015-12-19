@@ -224,22 +224,34 @@
                                 <%if (modelPage.ModelVersionSpecs != null)
                                   { %>
                                 <ul class="variantList margin-top15">
+                                    <%if (modelPage.ModelVersionSpecs.Displacement != 0)
+                                    { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %></span>
                                         <span>cc</span>
                                     </li>
+                                    <% } %>
+                                    <%if (modelPage.ModelVersionSpecs.FuelEfficiencyOverall != 0)
+                                    { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall) %></span>
                                         <span>kmpl</span>
                                     </li>
+                                    <% } %>
+                                    <%if (modelPage.ModelVersionSpecs.MaxPower != 0)
+                                    { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %></span>
                                         <span>bhp</span>
                                     </li>
+                                    <%} %>
+                                    <%if (modelPage.ModelVersionSpecs.KerbWeight != 0)
+                                    { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %></span>
                                         <span>kg</span>
                                     </li>
+                                     <%} %>
                                 </ul>
                                 <div class="clear"></div>
                                 <%} %>
@@ -289,9 +301,13 @@
                                 <p class="default-showroom-text font14 text-light-grey margin-top5"><%= bikeName %> is now discontinued in India.</p>
                                 <% } %>
                                 <% if ((cityId == "0" && areaId == "0") || (cityId != "0" && areaId == "0" && isAreaAvailable))
-                                   { %>
-                                <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
-                                <% } %>
+                                   { 
+                                       if(!isDiscontinued)
+                                       {%>
+                                        <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
+                                   <%
+                                   }
+                                }%>
                             </div>
                             <% } %>
                             <% if (isBikeWalePQ)
@@ -678,6 +694,7 @@
                         </div>
                         <div class="grid-3">
                             <div class="font22 text-center padding-top20 padding-bottom20">
+                                
                                 <%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %>
                                 <small class='<%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight).Equals("--") ? "font16 text-medium-grey hide":"font16 text-medium-grey" %>'>kg</small>
                                 <p class="font20 text-black">Weight</p>

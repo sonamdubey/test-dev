@@ -554,7 +554,8 @@ namespace Bikewale.New
                             if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
                             {
                                 price = Convert.ToString(modelPage.ModelDetails.MinPrice);
-                                variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
+                                if(variantId == 0)
+                                    variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                             }
                             if (!modelPage.ModelDetails.New)
                                 isDiscontinued = true;
