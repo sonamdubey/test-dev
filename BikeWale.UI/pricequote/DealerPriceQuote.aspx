@@ -333,7 +333,7 @@
                     <div class="omega <%= (objPrice.objOffers != null && objPrice.objOffers.Count > 0) ? "grid-3 " : "grid-4"%>" >
                         <% if (versionList.Count > 1)
                            { %>
-                        <div class="pqVariants margin-top10 ">
+                        <div class="pqVariants margin-top15 ">
                             <div class="form-control-box">
                                 <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
                             </div>
@@ -341,10 +341,10 @@
                         <% } %>
                     </div>
                     <div class="text-right alpha omega <%= (objPrice.objOffers != null && objPrice.objOffers.Count > 0) ? "grid-5 " : "grid-6"%>">
-                        <a class="margin-top10 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a>
+                        <a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a>
                         <% if (bookingAmount > 0)
                            { %>
-                        <a class="margin-top15 btn btn-grey" id="btnBikeBooking" name="btnBikeBooking" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</a>
+                        <a class="margin-top15 margin-left5 btn btn-grey" id="btnBikeBooking" name="btnBikeBooking" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</a>
                         <% } %>
                     </div>
                     <div class="grid-4">
@@ -496,6 +496,8 @@
             $(function () {
                 leadBtnBookNow.on('click', function () {
                     leadCapturePopup.show();
+                    $("div#contactDetailsPopup").show();
+                    $("#otpPopup").hide();
                     $('body').addClass('lock-browser-scroll');
                     $(".blackOut-window").show();
 
