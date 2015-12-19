@@ -37,9 +37,9 @@
                                     </div>
                                 </li>
                                 <li class="last">
-                                    <div id="payDetailsTab" class="bike-booking-part disabled-tab" data-bind="click: function () { if ((CurrentStep() > 3) || ActualSteps() > 2) CurrentStep(3); }, css: (CurrentStep() >= 3 || ActualSteps() > 2) ? 'active-tab' : 'disabled-tab'">
+                                    <div id="payDetailsTab" class="bike-booking-part disabled-tab" data-bind="click: function () { if ((CurrentStep() < -1) || ActualSteps() < -1) CurrentStep(-1); }, css: (CurrentStep() < -1 || ActualSteps() < -1) ? 'active-tab' : 'disabled-tab'">
                                         <div class="bike-booking-image">
-                                            <span class="booking-sprite confirmation-icon-grey" data-bind="css: (CurrentStep() == 3) ? 'confirmation-icon-selected' : (CurrentStep() > 3 || ActualSteps() > 2) ? 'booking-tick-blue' : 'payment-icon-grey'"></span>
+                                            <span class="booking-sprite confirmation-icon-grey" data-bind="css: (CurrentStep() == -1) ? 'confirmation-icon-selected' : (CurrentStep() < -1 || ActualSteps() < -1) ? 'booking-tick-blue' : 'payment-icon-grey'"></span>
                                         </div>
                                     </div>
                                 </li>

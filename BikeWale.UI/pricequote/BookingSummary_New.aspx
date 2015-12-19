@@ -50,10 +50,10 @@
                                 </div>
                             </li>
                             <li>
-                                <div id="bikePaymentTab" class="bike-book-step rightfloat" data-bind="click: function () { if ((CurrentStep() > 3) || ActualSteps() > 2) CurrentStep(3); }, css: (CurrentStep() >= 3 || ActualSteps() > 2) ? 'active-tab' : 'disabled-tab'">
+                                <div id="bikePaymentTab" class="bike-book-step rightfloat" data-bind="click: function () { if ((CurrentStep() < -1) || ActualSteps() < -1) CurrentStep(-1); }, css: (CurrentStep() < -1 || ActualSteps() < -1) ? 'active-tab' : 'disabled-tab'">
                                     <p>Payment</p>
                                     <div class="booking-tabs-image">
-                                        <span class="booking-flow-sprite booking-tab-icon " data-bind="css: (CurrentStep() == 5) ? 'payment-icon-selected' : (CurrentStep() > 5 || ActualSteps() > 5) ? 'booking-tick-blue' : 'payment-icon-grey'"></span>
+                                        <span class="booking-flow-sprite booking-tab-icon " data-bind="css: (CurrentStep() == -1) ? 'payment-icon-selected' : (CurrentStep() < -1 || ActualSteps() < -1) ? 'booking-tick-blue' : 'payment-icon-grey'"></span>
                                     </div>
                                 </div>
                             </li>
