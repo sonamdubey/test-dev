@@ -365,7 +365,7 @@
             });
 
             var versionList = JSON.parse($("#hdnBikeData").val());
-            var preSelectedColor = <%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>;
+            var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>;          
             var insAmt = '<%= insuranceAmount %>';
             var BikeDealerDetails = function () {

@@ -201,7 +201,7 @@ var BookingPageViewModel = function () {
     self.verifyCustomer = function (data, event) {
         var isSuccess = false;
         if (validateUserDetail() && !self.Customer().IsVerified()) {
-            var curCustInfo = viewModel.Customer().Name().trim() + viewModel.Customer().EmailId().trim() + viewModel.Customer().MobileNo().trim();
+            var curCustInfo = viewModel.Customer().EmailId().trim() + viewModel.Customer().MobileNo().trim();
             if (viewModel.CustomerInfo() != curCustInfo) {
                 viewModel.CustomerInfo(curCustInfo);
                 var objCust = {

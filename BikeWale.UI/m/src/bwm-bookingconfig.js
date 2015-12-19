@@ -1,6 +1,6 @@
-function viewMore(id){
-	$(id).closest('li').nextAll('li').toggleClass('hide');
-	$(id).text($(id).text() == '(view more)' ? '(view less)' : '(view more)');
+function viewMore(id) {
+    $(id).closest('li').nextAll('li').toggleClass('hide');
+    $(id).text($(id).text() == '(view more)' ? '(view less)' : '(view more)');
 };
 
 var versionul = $("#customizeBike ul.select-versionUL");
@@ -13,6 +13,7 @@ var BookingConfigViewModel = function () {
     self.EMI = ko.observable(new BikeEMI);
     self.CurrentStep = ko.observable(1);
     self.SelectedVersion = ko.observable();
+    self.UserOptions = ko.observable();
     self.selectedColorId = ko.observable(0);
     self.ActualSteps = ko.observable(1);
     self.changedSteps = function () {
@@ -24,19 +25,22 @@ var BookingConfigViewModel = function () {
                     self.CurrentStep(self.CurrentStep() + 1);
                     self.ActualSteps(self.ActualSteps() + 1)
                 }
-                else if (self.CurrentStep() == 3) self.ActualSteps(4);
+                else if (self.CurrentStep() == 3) {
+                    self.CurrentStep(4);
+                    self.ActualSteps(4);
+                }
                 return true;
 
             }
             else {
-                $('html, body').animate({ scrollTop: $(".select-colorh4").offset().top }, 300);
-                $("#customizeBike .select-colorh4").addClass("text-red");
+                $('html, body').animate({ scrollTop: $(".select-colorh4").first().offset().top }, 300);
+                $("#customizeBike .select-colorh4").addClass("text-red").shake();
                 return false;
             }
         }
         else {
-            $('html, body').animate({ scrollTop: $(".select-versionh4").offset().top }, 300);
-            $("#customizeBike .select-versionh4").addClass("text-red");
+            $('html, body').animate({ scrollTop: $(".select-versionh4").first().offset().top }, 300);
+            $("#customizeBike .select-versionh4").addClass("text-red").shake();
             return false;
         }
 
@@ -44,33 +48,42 @@ var BookingConfigViewModel = function () {
 
     self.bookNow = function (data, event) {
         var isSuccess = false;
-        if (self.changedSteps() && (self.ActualSteps() > 3) && (self.Bike().bookingAmount() > 0)) {
+        if (self.changedSteps() && (self.CurrentStep() > 3) && (self.Bike().bookingAmount() > 0)) {
 
-            url = "/api/UpdatePQ/";
-            var objData = {
-                "pqId": pqId,
-                "versionId": self.Bike().selectedVersionId(),
-            }
-            $.ajax({
-                type: "POST",
-                url: (self.Bike().selectedColorId() > 0) ? url + "?colorId=" + self.Bike().selectedColorId() : url,
-                async: true,
-                data: ko.toJSON(objData),
-                contentType: "application/json",
-                success: function (response) {
-                    var obj = ko.toJS(response);
-                    if (obj.isUpdated) {
-                        isSuccess = true;
-                        var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
-                        SetCookie("_MPQ", cookieValue);
-                        window.location = '/pricequote/bookingSummary_new.aspx';
-                    }
-                    else isSuccess = false;
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    isSuccess = false;
+            var curUserOptions =  self.Bike().selectedVersionId().toString() + self.Bike().selectedColorId().toString();
+            if (self.UserOptions() != curUserOptions) {
+                self.UserOptions(curUserOptions);
+
+                url = "/api/UpdatePQ/";
+                var objData = {
+                    "pqId": pqId,
+                    "versionId": self.Bike().selectedVersionId(),
                 }
-            });
+                $.ajax({
+                    type: "POST",
+                    url: (self.Bike().selectedColorId() > 0) ? url + "?colorId=" + self.Bike().selectedColorId() : url,
+                    async: true,
+                    data: ko.toJSON(objData),
+                    contentType: "application/json",
+                    success: function (response) {
+                        var obj = ko.toJS(response);
+                        if (obj.isUpdated) {
+                            isSuccess = true;
+                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
+                            SetCookie("_MPQ", cookieValue);
+                            window.location = '/m/pricequote/bookingSummary_new.aspx';
+                        }
+                        else isSuccess = false;
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        isSuccess = false;
+                    }
+                });
+            }
+            else {
+                window.location = '/m/pricequote/bookingSummary_new.aspx';
+                isSuccess = true;
+            }
 
             return isSuccess;
         }
@@ -165,7 +178,6 @@ var BikeEMI = function () {
     var self = this;
     self.exshowroomprice = ko.observable();
     self.loan = ko.observable();
-
     self.tenure = ko.observable(36);
     self.rateofinterest = ko.observable(10);
     self.downPayment = ko.pureComputed({
@@ -273,7 +285,6 @@ function getContrastYIQ(colorCode) {
 
         yiq = ((R * 299) + (G * 587) + (B * 114)) / 1000;
         return (yiq >= 300) ? 'text-black' : 'text-white';
-        //return Brightness(Math.sqrt(R * R * .241 + G * G * .691 + B * B * .068)) < 130 ? '#FFFFFF' : '#000000';
 
     }
     else if (/#/i.test(colorCode)) {
@@ -328,5 +339,22 @@ $.valueFormatter = function (num) {
 }
 
 
+function setColor() {
+    var vc = viewModel.Bike().versionColors();
+    if (preSelectedColor > 0) {
+        if (vc != null && vc.length > 0) {
+            $.each(vc, function (key, value) {
+                if (value.Id == preSelectedColor) {
+                    viewModel.Bike().getColor(value);
+                    viewModel.CurrentStep(3); 
+                    viewModel.ActualSteps(3);
+                }
+            });
+        }
+    }
+}
+
 var viewModel = new BookingConfigViewModel;
 ko.applyBindings(viewModel, $("#bookingConfig")[0]);
+setColor();
+viewModel.UserOptions(viewModel.Bike().selectedVersionId().toString() + viewModel.Bike().selectedColorId().toString());
