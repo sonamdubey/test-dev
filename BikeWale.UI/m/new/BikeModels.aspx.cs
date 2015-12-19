@@ -387,7 +387,7 @@ namespace Bikewale.Mobile.New
                         }
                         if (GetAreaForCityAndModel() != null)
                         {
-                            isAreaAvailable = true;
+                           // isAreaAvailable = true;
                         }
                     }
                     if (locArray.Length > 3 && cityId != "0")

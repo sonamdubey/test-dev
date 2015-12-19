@@ -183,7 +183,7 @@
                             <span class="fa fa-edit"></span></a>
                         </p>
                         <% } %>
-                        <% else if (isCitySelected && !isAreaAvailable)
+                        <% else if (!isAreaAvailable)
                            { %>
                                 <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
                             On-road price in <span class="font14 text-grey text-bold">
@@ -192,7 +192,7 @@
                                 <span class="fa fa-edit"></span></a>
                             </p>
                         <% } %>
-                        <% else if (isCitySelected && isAreaAvailable && !isAreaSelected)
+                        <% else if (isAreaAvailable && !isAreaSelected)
                            { %>
                             <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
                             Ex-showroom price in <span class="font14 text-grey text-bold">
@@ -201,7 +201,15 @@
                                 <span class="fa fa-edit"></span></a>
                             </p>
                         <% } %>
-
+                        <% else 
+                           { %>
+                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
+                            On-road price in <span class="font14 text-grey text-bold">
+                                <%= cityName %></span>
+                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
+                                <span class="fa fa-edit"></span></a>
+                            </p>
+                        <% } %>
                         <p class="leftfloat">
 
                             <%if (price != "0" && price != string.Empty)
@@ -359,8 +367,8 @@
             <!-- floating buttons -->
             <%-- <div class="grid-12 float-button float-fixed clearfix">--%>
             <% if(!isDiscontinued)
-               { 
-                   if ((cityId == "0" && areaId == "0") || (cityId != "0" && areaId == "0" && isAreaAvailable))
+               {
+                   if ((!isCitySelected && !isAreaSelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
                    {   %>
                         <div class="grid-12 float-button float-fixed clearfix">
                        

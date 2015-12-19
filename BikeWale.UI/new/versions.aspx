@@ -262,23 +262,28 @@
                                    { %>
                                         <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                 <% } %>
+
                                 <% else if (pqOnRoad !=null && pqOnRoad.IsDealerPriceAvailable)
                                    { %>
                                 <p class="font14">On-road Price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
                                 <% } %>
+
                                 <% else if (!isCitySelected)
                                    { %>
                                         <p class="font14">Ex-showroom price in <span href="javascript:void(0)" class="font14 text-grey"><%= ConfigurationManager.AppSettings["defaultName"] %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
                                 <% }
-                                   else if (isCitySelected && !isAreaAvailable)
+                                   else if (!isAreaAvailable)
                                    { %>
                                         <p class="font14">On road Price in<span href="javascript:void(0)" class="font14 text-grey"> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
                                 <% }
-                                   else if (isCitySelected && isAreaAvailable && !isAreaSelected)
+                                   else if (isAreaAvailable && !isAreaSelected)
                                    { %>
                                         <p class="font14">Ex-showroom Price in<span href="javascript:void(0)" class="font14 text-grey"> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                <% }
+                                   else
+                                   { %>
+                                        <p class="font14">On road Price in<span href="javascript:void(0)" class="font14 text-grey"> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
                                 <% } %>
-
                                 <div class="modelPriceContainer">
                                     <%  if (price == "" || price == "0")
                                         { %>
