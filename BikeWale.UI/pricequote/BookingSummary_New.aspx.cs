@@ -271,7 +271,8 @@ namespace Bikewale.BikeBooking
         {
             if (versionId > 0 && objBooking != null && objBooking.Varients != null && objBooking.Varients.Count > 0)
             {
-                rptVarients.DataSource = objBooking.Varients;
+                var data = (objBooking.Varients).Where(v => v.BookingAmount > 0);
+                rptVarients.DataSource = data;
                 rptVarients.DataBind();
             }
             else
