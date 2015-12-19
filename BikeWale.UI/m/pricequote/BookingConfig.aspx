@@ -15,12 +15,12 @@
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
 
-        <section class="bg-white" id="bookingConfig"  style="display:none" data-bind="visible: true">
+        <section class="bg-white" id="bookingConfig" style="display: none" data-bind="visible: true">
             <h1 class="padding-top15 padding-left20 padding-right20 padding-bottom20">More details about <span data-bind="text : $root.Bike().bikeName()"></span></h1>
             <div class="container margin-bottom20">
                 <div class="grid-12 box-shadow padding-bottom20">
 
-                    <div class="booking-wrapper" >
+                    <div class="booking-wrapper">
                         <div id="configTabsContainer" class="bike-to-buy-tabs booking-tabs">
                             <ul class="margin-bottom20">
                                 <li class="first">
@@ -48,7 +48,7 @@
                         </div>
                     </div>
 
-                    <div id="customizeBike" data-bind="visible: CurrentStep() == 1, with: Bike" >
+                    <div id="customizeBike" data-bind="visible: CurrentStep() == 1, with: Bike">
                         <p class="font18 text-center">
                             <span class="iconTtl text-bold">Customize your bike</span>
                         </p>
@@ -142,8 +142,8 @@
                                             </div>
                                         </div>
                                         <div id="downPaymentSlider"
-                                            data-bind="slider: downPayment, sliderOptions: { min: $.LoanAmount($root.Bike().versionPrice(), 10), max: $.LoanAmount($root.Bike().versionPrice(), 90), range: 'min', step: $.LoanAmount($root.Bike().versionPrice(), 10), value: $.LoanAmount($root.Bike().versionPrice(), 10) }" 
-                                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                            data-bind="slider: downPayment, sliderOptions: { min: $.LoanAmount($root.Bike().versionPrice(), 10), max: $.LoanAmount($root.Bike().versionPrice(), 90), range: 'min', step: $.LoanAmount($root.Bike().versionPrice(), 10), value: $.LoanAmount($root.Bike().versionPrice(), 10) }"
+                                            class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                                             <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 5%;"></span>
                                         </div>
@@ -168,19 +168,19 @@
                                                 <span id="loanAmount" data-bind="text: formatPrice(loan())" class="text-bold">950000</span>
                                             </div>
                                         </div>
-                                        <div id="loanAmountSlider" 
-                                            data-bind="slider: loan, sliderOptions: { min: $.LoanAmount($root.Bike().versionPrice(), 10), max: $.LoanAmount($root.Bike().versionPrice(), 90), range: 'min', step: $.LoanAmount($root.Bike().versionPrice(), 10) }" 
+                                        <div id="loanAmountSlider"
+                                            data-bind="slider: loan, sliderOptions: { min: $.LoanAmount($root.Bike().versionPrice(), 10), max: $.LoanAmount($root.Bike().versionPrice(), 90), range: 'min', step: $.LoanAmount($root.Bike().versionPrice(), 10) }"
                                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                                             <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 95%;"></span>
                                         </div>
                                         <div class="slider-range-points">
                                             <ul class="range-five-pointsUL range-pointsUL">
-                                                <li class="range-points-bar"><span  data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 10))" >0</span></li>
-                                                <li class="range-points-bar" style="left: 5%"><span  data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 30))" >2.5L</span></li>
-                                                <li class="range-points-bar" style="left: 10%"><span  data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 50))" >5L</span></li>
-                                                <li class="range-points-bar" style="left: 15%"><span  data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 70))" >7.5L</span></li>
-                                                <li class="range-points-bar" style="left: 19.9%"><span  data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 90))" >10L</span></li>
+                                                <li class="range-points-bar"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 10))">0</span></li>
+                                                <li class="range-points-bar" style="left: 5%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 30))">2.5L</span></li>
+                                                <li class="range-points-bar" style="left: 10%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 50))">5L</span></li>
+                                                <li class="range-points-bar" style="left: 15%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 70))">7.5L</span></li>
+                                                <li class="range-points-bar" style="left: 19.9%"><span data-bind="text: formatPrice($.LoanAmount($root.Bike().versionPrice(), 90))">10L</span></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -195,15 +195,15 @@
                                                 <span class="font12">Months</span>
                                             </div>
                                         </div>
-                                        <div id="tenureSlider" 
-                                            data-bind="slider: tenure, sliderOptions: { min: 12, max:60, range: 'min', step: 6 }" 
+                                        <div id="tenureSlider"
+                                            data-bind="slider: tenure, sliderOptions: { min: 12, max:60, range: 'min', step: 6 }"
                                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                                             <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 33.3333%;"></span>
                                         </div>
                                         <div class="slider-range-points">
                                             <ul class="range-pointsUL month-range">
-                                                <li class="range-points-bar" style="left:0"><span>12</span></li>
+                                                <li class="range-points-bar" style="left: 0"><span>12</span></li>
                                                 <li class="range-points-bar" style="left: 2%"><span>18</span></li>
                                                 <li class="range-points-bar" style="left: 5%"><span>24</span></li>
                                                 <li class="range-points-bar" style="left: 7%"><span>30</span></li>
@@ -222,12 +222,12 @@
                                         <div class="clearfix">
                                             <p class="grid-8 alpha">Rate of interest</p>
                                             <div class="emi-slider-box-right-section font16 grid-4 omega">
-                                                <span id="rateOfInterestPercentage"  data-bind="text: rateofinterest" class="text-bold">5</span>
+                                                <span id="rateOfInterestPercentage" data-bind="text: rateofinterest" class="text-bold">5</span>
                                                 <span>%</span>
                                             </div>
                                         </div>
-                                        <div id="rateOfInterestSlider" 
-                                            data-bind="slider: rateofinterest, sliderOptions: { min: 7, max: 20, range: 'min', step: 0.25 }" 
+                                        <div id="rateOfInterestSlider"
+                                            data-bind="slider: rateofinterest, sliderOptions: { min: 7, max: 20, range: 'min', step: 0.25 }"
                                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
                                             <div class="ui-slider-range ui-widget-header ui-corner-all ui-slider-range-min"></div>
                                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 25%;"></span>
@@ -250,14 +250,14 @@
                                     <p class="grid-8 alpha">Indicative EMI<span class="font12 text-light-grey">(per month)</span></p>
                                     <div class="indicative-emi-amount font16 text-right grid-4 omega">
                                         <span class="font14"><span class="fa fa-rupee"></span></span>
-                                        <span class="text-bold"  data-bind="text: monthlyEMI" id="emiAmount">12,000</span>
+                                        <span class="text-bold" data-bind="text: monthlyEMI" id="emiAmount">12,000</span>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="clear"></div>
                             <!-- /ko -->
-                        </div>                       
+                        </div>
                     </div>
 
                     <div id="dealerDetails" data-bind="visible: CurrentStep() > 2, with: Dealer" style="display: none">
@@ -266,7 +266,7 @@
                         </p>
                         <div class="contact-offers-container margin-top20 padding-bottom15">
                             <div class="contact-details-container">
-                                <h3 class="padding-bottom10 border-light-bottom"><span class="fa fa-map-marker text-red"></span> Contact details:</h3>
+                                <h3 class="padding-bottom10 border-light-bottom"><span class="fa fa-map-marker text-red"></span>Contact details:</h3>
                                 <ul>
                                     <li>
                                         <p class="text-bold">Offers from the nearest dealers</p>
@@ -283,7 +283,7 @@
 
                                 <% if (isOfferAvailable)
                                    { %>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
                                 <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 text-red font-24"></span>Available Offers </h3>
 
                                 <ul>
@@ -296,9 +296,9 @@
                                 <%}
                                    else
                                    {%>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
                                 <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1">Dealer's Location</h3>
-                                <div class="bikeModel-dealerMap-container margin-top15" style="width: 100%;min-width:50%; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
+                                <div class="bikeModel-dealerMap-container margin-top15" style="width: 100%; min-width: 50%; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
                                 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
                                 <% } %>
                             </div>
@@ -307,15 +307,14 @@
                     </div>
 
                     <div id="configBtnWrapper" data-bind="with: Bike">
-                        
-                        <div class="customize-onRoadPrice-container border-light-top padding-top15 margin-top20" >
+
+                        <div class="customize-onRoadPrice-container border-light-top padding-top15 margin-top20">
                             <p class="text-light-grey margin-bottom5 font14">On-road price in <span class="font16 text-bold text-grey"><%= location %></span></p>
                             <div class="modelPriceContainer margin-bottom15">
                                 <!-- ko if : (versionPrice() - insuranceAmount()) > 0 -->
                                 <span class="font28"><span class="fa fa-rupee"></span></span>
                                 <span class="font30" data-bind="CurrencyText: (versionPrice() - insuranceAmount())"></span>
                                 <span class="font14 viewBreakupText">View breakup</span>
-                                <div class="font12 text-light-grey " data-bind="text : priceBreakupText"></div>
                                 <!-- /ko -->
                                 <!-- ko ifnot : (versionPrice() - insuranceAmount()) > 0 -->
                                 <span class="font30">Price unavailable</span>
@@ -324,31 +323,32 @@
                             </div>
 
                             <div class="disclaimer-onroadprice-container" data-bind="visible : $root.CurrentStep() == 2">
-                            <div class="disclaimer-container text-left">
-                                <h3 class="padding-bottom10 border-light-bottom">Disclaimer:</h3>
-                                <ul class="disclaimerUL">
-                                    <li>The EMI and downpayment amount is calculated as per the information entered by you. It does not include any other fees like processing fee, dealer handling charges that are typically charged by some banks / NBFCs / Dealers.</li>
-                                    <li>The actual EMI and down payment will vary depending upon your credit profile
+                                <div class="disclaimer-container text-left">
+                                    <h3 class="padding-bottom10 border-light-bottom">Disclaimer:</h3>
+                                    <ul class="disclaimerUL">
+                                        <li>The EMI and downpayment amount is calculated as per the information entered by you. It does not include any other fees like processing fee, dealer handling charges that are typically charged by some banks / NBFCs / Dealers.</li>
+                                        <li>The actual EMI and down payment will vary depending upon your credit profile
                                         Please get in touch with your bank / NBFC to know the exact EMI and downpayment based on your credit profile.</li>
-                                </ul>
+                                    </ul>
+                                </div>
                             </div>
+
+                            <!-- ko if : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
+                            <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange btn-full-width" />
+                            <!-- /ko -->
+                            <!-- ko ifnot : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
+                            <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){return $root.bookNow(data,event);}" value="Next" class="btn btn-orange btn-full-width" />
+                            <!-- /ko -->
+
+
                         </div>
 
-                            <input state="customize" id="bookingConfigNextBtn" data-bind="visible : (bookingAmount() > 0),click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.ActualSteps() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button"type="button" value="Next" class="btn btn-orange btn-full-width">
-
-                            <div class="grid-12 alpha omega query-number-container text-center margin-top10" data-bind="visible: $root.CurrentStep() == 3">
-                            <p class="font14 padding-left5"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
-                        </div>
-
-                        </div>
-
-                        
                         <!-- View BreakUp Popup Starts here-->
                         <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
                             <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
                             <div class="breakup-text-container padding-bottom10">
-                                <h3 class="breakup-header font26 margin-bottom20" ><span data-bind="text : bikeName()"></span> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
-                                <table id="model-view-breakup" class="font16" width="100%" >
+                                <h3 class="breakup-header font26 margin-bottom20"><span data-bind="text : bikeName()"></span><span class="font14 text-light-grey ">(On road price breakup)</span></h3>
+                                <table id="model-view-breakup" class="font16" width="100%">
                                     <tbody>
                                         <!-- ko foreach: versionPriceBreakUp -->
                                         <tr>
@@ -398,12 +398,21 @@
                         <!--View Breakup popup ends here-->
                         <div class="clear"></div>
                     </div>
+
+
+
                 </div>
                 <div class="clear"></div>
+                <div class="content-box-shadow content-inner-block-15 margin-top15 margin-bottom15 text-medium-grey text-center" data-bind="visible : $root.CurrentStep()==3">
+                    <p class="text-medium-grey font14 margin-bottom10">In case of queries call us toll-free on:</p>
+                    <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 457 9781</a>
+                </div>
             </div>
         </section>
+
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
         <!-- all other js plugins -->
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
 
         <script type="text/javascript">
@@ -411,17 +420,9 @@
             var thisBikename = '<%= this.bikeName %>';
             //select bike version
             var bikeVersionId = '<%= versionId %>';
-            $(function () {
-                var versionTab = $('#customizeBike');
-                $('#customizeBike ul.select-versionUL li').each(function () {
-                    if (bikeVersionId === $(this).attr('versionId')) {
-                        $(this).removeClass("text-light-grey border-light-grey").addClass("selected-version text-bold border-dark-grey").find("span.radio-btn").removeClass("radio-sm-unchecked").addClass("radio-sm-checked");
-                    }
-                });
-            });
-
             var pqId = '<%= pqId%>';
             var versionList = JSON.parse($("#hdnBikeData").val());
+            var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
             var insAmt = '<%= insuranceAmount %>';
             var cityId = '<%= cityId%>';

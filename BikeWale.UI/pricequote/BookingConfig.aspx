@@ -328,17 +328,16 @@
                                     <span class="font28"><span class="fa fa-rupee"></span></span>
                                     <span class="font30" data-bind="CurrencyText: (versionPrice() - insuranceAmount())"></span>
                                     <span class="font14 text-light-grey viewBreakupText">View breakup</span>
-                                    <div class="font12 text-light-grey " data-bind="text : priceBreakupText"></div>
                                     <!-- /ko -->
                                     <!-- ko ifnot : (versionPrice() - insuranceAmount()) > 0 -->
                                     <span class="font30">Price unavailable</span>
                                     <!-- /ko -->
 
                                 </div>
-                                <!-- ko if : (bookingAmount() > 0) && (viewModel.ActualSteps() > 2) -->
-                                <input type="submit" id="bookingConfigNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.ActualSteps() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange" />
+                                <!-- ko if : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
+                                <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange" />
                                 <!-- /ko -->
-                                <!-- ko ifnot : (bookingAmount() > 0) && (viewModel.ActualSteps() > 2) -->
+                                <!-- ko ifnot : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
                                 <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){return $root.bookNow(data,event);}" value="Next" class="btn btn-orange" />
                                 <!-- /ko -->
                             </div>
@@ -414,6 +413,7 @@
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
             var versionList = JSON.parse($("#hdnBikeData").val());
+            var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
             var insAmt = '<%= insuranceAmount %>';
             var cityId = '<%= cityId%>';
@@ -433,8 +433,7 @@
         </script>
 
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
-
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>          
 
     </form>
 </body>

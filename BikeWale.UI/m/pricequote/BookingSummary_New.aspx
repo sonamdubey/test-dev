@@ -374,7 +374,8 @@
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
 
         <!-- all other js plugins -->
-        <%--<!-- #include file="/includes/footerscript_Mobile.aspx" -->
+                <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
         <script type="text/javascript">
             var pqId = '<%= pqId %>'
@@ -384,7 +385,7 @@
             var clientIP = '<%= clientIP %>';
             var pageUrl = '<%= pageUrl%>';
             var areaId = '<%= areaId%>';
-        </script>--%>
+        </script>
         <script type="text/javascript">
             //Need to uncomment the below script
             var thisBikename = '<%= this.bikeName %>';

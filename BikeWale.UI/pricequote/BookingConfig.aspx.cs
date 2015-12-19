@@ -44,6 +44,7 @@ namespace Bikewale.Pricequote
             {
                 ProcessCookie();
                 BindBookingDetails();
+
             }
         }
 
@@ -255,8 +256,8 @@ namespace Bikewale.Pricequote
                 rptVarients.DataSource = objBookingPageDetails.Varients;
                 rptVarients.DataBind();
 
-                makeUrl = String.Format("<a href='{0}-bikes/'>{1}</a>", objBookingPageDetails.Varients[0].Make.MaskingName, objBookingPageDetails.Varients[0].Make.MakeName);
-                modelUrl = String.Format("<a href='{0}-bikes/{1}/'>{2}</a>", objBookingPageDetails.Varients[0].Make.MaskingName, objBookingPageDetails.Varients[0].Model.MaskingName, objBookingPageDetails.Varients[0].Model.ModelName);
+                makeUrl = String.Format("<a href='/{0}-bikes/'>{1}</a>", objBookingPageDetails.Varients[0].Make.MaskingName, objBookingPageDetails.Varients[0].Make.MakeName);
+                modelUrl = String.Format("<a href='/{0}-bikes/{1}/'>{2}</a>", objBookingPageDetails.Varients[0].Make.MaskingName, objBookingPageDetails.Varients[0].Model.MaskingName, objBookingPageDetails.Varients[0].Model.ModelName);
             }
             else
             {

@@ -54,6 +54,7 @@ var BookingConfigViewModel = function () {
     self.EMI = ko.observable(new BikeEMI);
     self.CurrentStep = ko.observable(1);
     self.SelectedVersion = ko.observable();
+    self.UserOptions = ko.observable();
     self.selectedColorId = ko.observable(0);
     self.ActualSteps = ko.observable(1);
     self.changedSteps = function () {
@@ -66,59 +67,66 @@ var BookingConfigViewModel = function () {
                     self.CurrentStep(self.CurrentStep() + 1);
                     self.ActualSteps(self.ActualSteps() + 1);
                 }
-                else if (self.CurrentStep() == 3) self.ActualSteps(4);
+                else if (self.CurrentStep() == 3) {
+                    self.CurrentStep(4);
+                }
                 return true;
             }
             else {
-                $("#customizeBike .select-colorh4").addClass("text-red");
+                $("#customizeBike .select-colorh4").addClass("text-red").shake();
                 return false;
             }
         }
         else {
-            $("#customizeBike .select-versionh4").addClass("text-red");
+            $("#customizeBike .select-versionh4").addClass("text-red").shake();
             return false;
         }
 
     };
 
-    self.bookNow = function (data, event)
-    {
+    self.bookNow = function (data, event) {
         var isSuccess = false;
-        if (self.changedSteps() && (self.ActualSteps() > 3) && (self.Bike().bookingAmount() > 0)) {
-            
-            url =  "/api/UpdatePQ/";
-            var objData = {
-                "pqId": pqId,
-                "versionId": self.Bike().selectedVersionId(),
-            }
-            $.ajax({
-                type: "POST",
-                url: (self.Bike().selectedColorId() > 0) ? url + "?colorId=" + self.Bike().selectedColorId() : url,
-                async: true,
-                data: ko.toJSON(objData),
-                contentType: "application/json",
-                success: function (response) {
-                    var obj = ko.toJS(response);
-                    if (obj.isUpdated)
-                    {
-                        isSuccess = true;
-                        var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
-                        SetCookie("_MPQ", cookieValue);
-                        window.location = '/pricequote/bookingSummary_new.aspx';
-                    }                        
-                    else isSuccess = false;
-                },
-                error: function (xhr, ajaxOptions, thrownError) {
-                    isSuccess = false;
-                }
-            });
+        if (self.changedSteps() && (self.CurrentStep() > 3) && (self.Bike().bookingAmount() > 0)) {
 
-            return isSuccess;
+            var curUserOptions = self.Bike().selectedVersionId().toString() + self.Bike().selectedColorId().toString();
+            if (self.UserOptions() != curUserOptions) {
+                self.UserOptions(curUserOptions);
+
+                url = "/api/UpdatePQ/";
+                var objData = {
+                    "pqId": pqId,
+                    "versionId": self.Bike().selectedVersionId(),
+                }
+                $.ajax({
+                    type: "POST",
+                    url: (self.Bike().selectedColorId() > 0) ? url + "?colorId=" + self.Bike().selectedColorId() : url,
+                    async: true,
+                    data: ko.toJSON(objData),
+                    contentType: "application/json",
+                    success: function (response) {
+                        var obj = ko.toJS(response);
+                        if (obj.isUpdated) {
+                            isSuccess = true;
+                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
+                            SetCookie("_MPQ", cookieValue);
+                            window.location = '/pricequote/bookingSummary_new.aspx';
+                        }
+                        else isSuccess = false;
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        isSuccess = false;
+                    }
+                });
+            }
+            else {
+                window.location = '/pricequote/bookingSummary_new.aspx';
+                isSuccess = true;
+            }
         }
-        
+
         return isSuccess;
 
-    }
+    };
 
     self.VersionChangeNotify = ko.computed(function () {
         if (self.SelectedVersion() != undefined && self.SelectedVersion() > 0) {
@@ -174,8 +182,7 @@ var BikeDetails = function () {
     self.versionSpecs = ko.observable();
     self.getVersion = function (data, event) {
         self.selectedVersionId(data);
-        self.selectedColorId(0);
-
+        self.selectedColorId(0); 
         $.each(self.bikeVersions(), function (key, value) {
             if (self.selectedVersionId() != undefined && self.selectedVersionId() > 0 && self.selectedVersionId() == value.MinSpec.VersionId) {
                 self.selectedVersion(value);
@@ -343,11 +350,26 @@ $.valueFormatter = function (num) {
     return num;
 }
 
-
-
+function setColor() {
+    var vc = viewModel.Bike().versionColors();
+    if (preSelectedColor > 0) {
+        if (vc != null && vc.length > 0) {
+            $.each(vc, function (key, value) {
+                if (value.Id == preSelectedColor) {
+                    viewModel.Bike().getColor(value);
+                    viewModel.CurrentStep(3);
+                    viewModel.ActualSteps(3);
+                }
+            });
+        }
+    }
+}
 
 var viewModel = new BookingConfigViewModel;
 ko.applyBindings(viewModel, $("#bookingConfig")[0]);
+setColor();
+viewModel.UserOptions(viewModel.Bike().selectedVersionId().toString() + viewModel.Bike().selectedColorId().toString());
+
 
 
 
