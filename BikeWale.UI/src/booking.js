@@ -563,6 +563,14 @@ $(document).on('keydown', function (e) {
     }
 });
 
+function setuserDetails() {
+    var cookieName = "_PQUser";
+    if (isCookieExists(cookieName)) {
+        var arr = getCookie(cookieName).split("&");
+        return arr;
+    }
+}
+
 var viewModel = new BookingPageViewModel;
 ko.applyBindings(viewModel, $("#bookingFlow")[0]);
 setColor();

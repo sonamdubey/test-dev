@@ -245,28 +245,6 @@
             </div>
             <div class="grid-12 float-button float-fixed clearfix">
                 <div class="show padding-top10">
-
-                    <%--<% if (bookingAmount > 0)
-                   { %>
-                <button type="button" data-role="none" id="getDealerDetails" class="btn btn-full-width btn-orange" style="margin-bottom: 20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'DealerQuotation_Page - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</button>
-                <% }
-                   else
-                   { %>
-                <button type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange" style="margin-bottom: 20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'DealerQuotation_Page - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</button>
-                <% } %>
-                <%}
-               else
-               {
-                   if (bookingAmount > 0)
-                   { %>
-                <button type="button" data-role="none" id="btnBookBike" class="btn btn-full-width btn-orange" style="margin-bottom: 20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</button>
-                <% }
-                   else
-                   {%>
-                <button type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange" style="margin-bottom: 20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</button>
-                <% }
-               }%>--%>
-
                     <% if (bookingAmount > 0)
                        { %>
 
@@ -353,27 +331,6 @@
                         <div class="clear"></div>
                         <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                     </div>
-
-                    <!--
-                                    <div class="mobile-verification-container margin-top20 hide">
-                                        <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
-                                        <div class="form-control-box  padding-left15 padding-right15">
-                                            <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" maxlength="5" id="getOTP" data-bind="value: otpCode">
-                                            <span class="bwmsprite error-icon hide"></span>
-                                            <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
-                                        </div>
-                                        <div class="text-center padding-top10">
-                                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
-                                            <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
-                                                OTP has been already sent to your mobile
-                                            </p>
-                                        </div>
-
-                                        <div class="clear"></div>
-                                        <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
-                                        <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
-                                    </div>
-                                    -->
                     <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
                 </div>
                 <!-- Contact details Popup ends here -->
@@ -459,9 +416,10 @@
 
                 leadBtnBookNow.on('click', function () {
                     leadCapturePopup.show();
+                    $("div#contactDetailsPopup").show();
+                    $("#otpPopup").hide();
                     $('body').addClass('lock-browser-scroll');
                     $(".blackOut-window").show();
-
                     $(".leadCapture-close-btn, .blackOut-window").on("click", function () {
                         leadCapturePopup.hide();
                         $('body').removeClass('lock-browser-scroll');
