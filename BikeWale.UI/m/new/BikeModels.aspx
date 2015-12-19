@@ -22,7 +22,7 @@
         AdId = "1017752";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
-        Ad_300x250 = false;
+        Ad_300x250 = true;
         TargetedModel = modelPage.ModelDetails.ModelName;        
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -379,19 +379,20 @@
                 <div class="grid-12 float-button float-fixed clearfix">
                     <div class="show padding-top10">
                         <% if (modelPage.ModelDetails.New)
-                           {
-                               if (bookingAmt > 0)
-                               { %>
-                        <div class="grid-5 omega">
-                            <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
-                        </div>
-                        <%} %>
+                           {   %>
                         <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
                            { %>
                         <div class="grid-<%=btMoreDtlsSize %>">
                             <input type="button" value="Get more details" class="btn btn-orange btn-full-width btn-sm margin-right10 leftfloat" id="getMoreDetailsBtn" />
                         </div>
                         <%} %>
+                        <% if (bookingAmt > 0)
+                           { %>
+                        <div class="grid-5 omega">
+                            <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
+                        </div>
+                        <%} %>
+
                         <%} %>
                     </div>
                 </div>
@@ -943,14 +944,14 @@
                             <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
                            <div class="swiper-container padding-bottom60">
                                 <div class="swiper-wrapper text-center">
-                                    <asp:Repeater ID="rptColors" runat="server">
-                                        <ItemTemplate>
+                                        <asp:Repeater ID="rptColors" runat="server">
+                                            <ItemTemplate>
                                                 <div class="swiper-slide available-colors">
-                                                <div class="color-box" style="background-color: #<%# DataBinder.Eval(Container.DataItem, "HexCode")%>;"></div>
-                                                <p class="font16 text-medium-grey"><%# DataBinder.Eval(Container.DataItem, "ColorName") %></p>
+                                                    <div class="color-box" style="background-color: #<%# DataBinder.Eval(Container.DataItem, "HexCode")%>;"></div>
+                                                    <p class="font16 text-medium-grey"><%# DataBinder.Eval(Container.DataItem, "ColorName") %></p>
                                                 </div>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
                                 </div>
                                 <!-- Add Pagination -->
                                 <div class="swiper-pagination"></div>
