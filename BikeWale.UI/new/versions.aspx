@@ -186,7 +186,7 @@
                                             <asp:Repeater ID="rptVariants" runat="server">
                                                 <ItemTemplate>
                                                     <li>
-                                                        <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>' OnClientClick='return checkItemClicked();' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button></li>
+                                                        <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>'  OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button></li>
                                                     <asp:HiddenField ID="hdn" Value='<%#Eval("VersionId") %>' runat="server" />
                                                 </ItemTemplate>
                                             </asp:Repeater>
@@ -194,9 +194,6 @@
                                         <asp:HiddenField ID="hdnVariant" Value="0" runat="server" />
                                     </div>
                                         </div>
-                                    <%--<div class="form-control-box variantDropDown">
-                                        <asp:DropDownList class="form-control" style="min-width:150px;" ID="ddlVariant" CssClass="form-control" runat="server" EnableViewState="true" AutoPostBack="true"></asp:DropDownList>
-                                    </div>--%>
                                     <% }
                                        else
                                        { %>
@@ -260,18 +257,28 @@
                             <% if (!modelPage.ModelDetails.Futuristic)
                                { %>
                             <div id="modelPriceContainer" class="padding-top15">
+
                                 <% if (isDiscontinued)
                                    { %>
-                                <p class="font14 text-light-grey">Last known Ex-showroom price</p>
+                                        <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                 <% } %>
-                                <% else if (isCityAreaSelected || isBikeWalePQ)
+                                <% else if (pqOnRoad !=null && pqOnRoad.IsDealerPriceAvailable)
                                    { %>
-                                <p class="font14">On-road Price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid='<%= modelId %>' href="javascript:void(0)" class="bwsprite edit-blue-icon fillPopupData margin-left10"></a></p>
+                                <p class="font14">On-road Price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                <% } %>
+                                <% else if (!isCitySelected)
+                                   { %>
+                                        <p class="font14">Ex-showroom price in <span href="javascript:void(0)" class="font14 text-grey"><%= ConfigurationManager.AppSettings["defaultName"] %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
                                 <% }
-                                   else
+                                   else if (isCitySelected && !isAreaAvailable)
                                    { %>
-                                <p class="font14">Ex-showroom in <span href="javascript:void(0)" class="font14 text-grey"><%= ConfigurationManager.AppSettings["defaultName"] %></span></p>
+                                        <p class="font14">On road Price in<span href="javascript:void(0)" class="font14 text-grey"> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                <% }
+                                   else if (isCitySelected && isAreaAvailable && !isAreaSelected)
+                                   { %>
+                                        <p class="font14">Ex-showroom Price in<span href="javascript:void(0)" class="font14 text-grey"> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
                                 <% } %>
+
                                 <div class="modelPriceContainer">
                                     <%  if (price == "" || price == "0")
                                         { %>
@@ -279,35 +286,37 @@
                                     <%  }
                                         else
                                         { %>
-                                            <span class="font28"><span class="fa fa-rupee"></span></span>
-                                            <span id="new-bike-price" class="font32"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
+                                    <span class="font28"><span class="fa fa-rupee"></span></span>
+                                    <span id="new-bike-price" class="font32"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
                                     <%  } %>
-                                    <%if (pqOnRoad != null && (price != "" && price !="0"))
+                                    <%if (pqOnRoad != null && (price != "" && price !="0") && (pqOnRoad.IsDealerPriceAvailable || isBikeWalePQ ))
                                       {%>
                                     <span id="viewBreakupText" class="font14 text-light-grey viewBreakupText">View Breakup</span>
                                     <br>
-                                        <%if (isBikeWalePQ && price != "")
-                                          {%>
-                                        <span class="font12 text-xt-light-grey">(Ex-showroom + Insurance (comprehensive) + RTO)</span>
-                                        <%}
-                                          else
-                                          { %>
-                                        <span class="font12 text-xt-light-grey"><%=viewbreakUpText %></span>
-                                        <%} %>
+                                    <%if (isBikeWalePQ && price != "")
+                                      {%>
+                                    <span class="font12 text-xt-light-grey">(Ex-showroom + Insurance (comprehensive) + RTO)</span>
+                                    <%}
+                                      else
+                                      { %>
+                                    <span class="font12 text-xt-light-grey"><%=viewbreakUpText %></span>
+                                    <%} %>
                                     <% } %>
                                 </div>
                                 <% if (isDiscontinued)
                                    { %>
                                 <p class="default-showroom-text font14 text-light-grey margin-top5"><%= bikeName %> is now discontinued in India.</p>
                                 <% } %>
-                                <% if ((cityId == "0" && areaId == "0") || (cityId != "0" && areaId == "0" && isAreaAvailable))
+                                <% 
+                                   if (!isDiscontinued)
                                    { 
-                                       if(!isDiscontinued)
-                                       {%>
-                                        <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
-                                   <%
-                                   }
-                                }%>
+                                        if ((!isCitySelected && !isAreaSelected) || (isCitySelected  && isAreaAvailable && !isAreaSelected))
+                                       {
+                                       %>
+                                <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
+                                <%
+                                       }
+                                   }%>
                             </div>
                             <% } %>
                             <% if (isBikeWalePQ)
@@ -396,10 +405,6 @@
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
-                                <%--<% if (isOfferAvailable && pqOnRoad.DPQOutput.objOffers.Count > 2)
-                                   { %>
-                                <p class="viewMoreOffersBtn">(view more)</p>
-                                <% } %>--%>
                             </div>
                             <div class="grid-<%= grid2_size %> rightfloat moreDetailsBookBtns <%=cssOffers %> margin-top20">
                                 <input type="button" value="Get more details" class="btn btn-orange margin-right20" id="getMoreDetailsBtn">
@@ -1217,14 +1222,19 @@
                                             <p class="font18 margin-bottom10">
                                                 <span class="fa fa-rupee margin-right5"></span>
                                                 <span id="<%# "price_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
-                                                    <%--<%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %>--%>
                                                     <asp:Label Text='<%#Eval("Price") %>' ID="txtComment" runat="server"></asp:Label>
                                                 </span>
                                             </p>
                                             <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
                                                <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>, 
-                                                <%= Bikewale.Common.Configuration.GetDefaultCityName %></p>
-
+                                                <% if(cityId!= "0")
+                                                   { %>
+                                                    <%= cityName %>
+                                                <% } else 
+                                                   { %>
+                                                    <%= Bikewale.Common.Configuration.GetDefaultCityName %>
+                                                <% } %>
+                                               </p>
                                             <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />
                                         </div>
                                         <div class="clear"></div>

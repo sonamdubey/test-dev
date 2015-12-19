@@ -60,7 +60,8 @@ namespace Bikewale.New
         protected string areaId = "0";
         protected string cityName = string.Empty;
         protected string areaName = string.Empty;
-        protected bool isCityAreaSelected = false;
+        protected bool isCitySelected = false;
+        protected bool isAreaSelected = false;
         protected bool isBikeWalePQ = false;
         protected AlternativeBikes ctrlAlternativeBikes;
         protected short reviewTabsCnt = 0;
@@ -196,7 +197,7 @@ namespace Bikewale.New
             dd.DetectDevice();
             #region Do Not change the sequence
             ParseQueryString();
-            GetAreaForCityAndModel();
+            //GetAreaForCityAndModel();
             CheckCityCookie();
 
             //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue) && ddlVariant.SelectedValue != "0")
@@ -275,7 +276,8 @@ namespace Bikewale.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        lblExOn.Text = "On-road price";
+                        if((isCitySelected && !isAreaAvailable))
+                            lblExOn.Text = "On-road price";
                         if (pqOnRoad.IsDealerPriceAvailable)
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
@@ -494,11 +496,12 @@ namespace Bikewale.New
                         else
                         {
                             cityName = locArray[1];
-                            isCityAreaSelected = true;
+                            isCitySelected = true;
                         }
+
                         if (GetAreaForCityAndModel() != null)
                         {
-                            isAreaAvailable = true;
+                            //isAreaAvailable = true;
                         }
                     }
                     if (locArray.Length > 3 && cityId != "0")
@@ -514,6 +517,7 @@ namespace Bikewale.New
                             else
                             {
                                 areaName = locArray[3] + ",";
+                                isAreaSelected = true;
                             }
                         }
                         else
@@ -642,28 +646,29 @@ namespace Bikewale.New
                             }
                             #endregion
                         }
-                        else
+                        else 
                         {
-                            #region BikeWale PQ
-                            //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue))
-                            //if (ViewState["variantVal"] != null)
-                            if (hdnVariant.Value != "0")
+                            if (pqOnRoad.BPQOutput != null)
                             {
-                                variantId = Convert.ToInt32(hdnVariant.Value);
-                                //Convert.ToInt32(ViewState["variantVal"].ToString());
-                                if (variantId != 0)
+                                #region BikeWale PQ
+                                if (hdnVariant.Value != "0")
                                 {
-                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                    variantId = Convert.ToInt32(hdnVariant.Value);
+                                    if (variantId != 0)
+                                    {
+                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                        if (objSelectedVariant != null)
+                                            price = Convert.ToString(objSelectedVariant.OnRoadPrice);
+                                    }
+                                }
+                                else
+                                {
+                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
                                     price = Convert.ToString(objSelectedVariant.OnRoadPrice);
                                 }
+                                isBikeWalePQ = true;
+                                #endregion
                             }
-                            else
-                            {
-                                objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
-                                price = Convert.ToString(objSelectedVariant.OnRoadPrice);
-                            }
-                            isBikeWalePQ = true;
-                            #endregion
                         }
                         // If DPQ or BWPQ Found change Version Pricing as well
                         if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
@@ -720,7 +725,7 @@ namespace Bikewale.New
                     objPQEntity.ClientIP = clientIP;
                     objPQEntity.SourceId = 0;
                     objPQEntity.ModelId = Convert.ToUInt32(modelId);
-                    objPQEntity.VersionId = Convert.ToUInt32(variantId); ;
+                    objPQEntity.VersionId = Convert.ToUInt32(variantId);
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (objPQOutput != null)
                     {
@@ -1063,6 +1068,8 @@ namespace Bikewale.New
                     container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
                     IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
                     areaList = objDealer.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
+                    if (areaList != null && areaList.Count > 0)
+                        isAreaAvailable = true;
                     return areaList;
                 }
             }

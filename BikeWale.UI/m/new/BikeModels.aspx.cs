@@ -53,7 +53,8 @@ namespace Bikewale.Mobile.New
         protected bool isUserReviewActive = false, isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
         //Varible to Hide or show controlers
 
-        protected bool isCityAreaSelected = false;
+        protected bool isCitySelected = false;
+        protected bool isAreaSelected = false;
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
         protected static bool isManufacturer = false;
@@ -189,7 +190,8 @@ namespace Bikewale.Mobile.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        lblExOn.Text = "On-road price";
+                        if ((isCitySelected && !isAreaAvailable))
+                            lblExOn.Text = "On-road price";
                         if (pqOnRoad.IsDealerPriceAvailable)
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
@@ -381,7 +383,7 @@ namespace Bikewale.Mobile.New
                         else
                         {
                             cityName = locArray[1];
-                            isCityAreaSelected = true;
+                            isCitySelected = true;
                         }
                         if (GetAreaForCityAndModel() != null)
                         {
@@ -402,6 +404,7 @@ namespace Bikewale.Mobile.New
                             else
                             {
                                 areaName = locArray[3] + ",";
+                                isAreaSelected = true;
                             }
                         }
                         else
@@ -709,6 +712,8 @@ namespace Bikewale.Mobile.New
                     container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
                     IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
                     areaList = objDealer.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
+                    if (areaList != null && areaList.Count > 0)
+                        isAreaAvailable = true;
                     return areaList;
                 }
             }
@@ -746,7 +751,7 @@ namespace Bikewale.Mobile.New
                     objPQEntity.ClientIP = clientIP;
                     objPQEntity.SourceId = 0;
                     objPQEntity.ModelId = Convert.ToUInt32(modelId);
-
+                    objPQEntity.VersionId = Convert.ToUInt32(variantId);
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (objPQOutput != null)
                     {

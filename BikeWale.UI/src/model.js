@@ -59,7 +59,6 @@ function CustomerModel() {
 
     self.verifyCustomer = function () {
         if (!self.IsVerified()) {
-            debugger;
             var objCust = {
                 "dealerId": dealerId,
                 "pqId": pqId,
@@ -92,7 +91,6 @@ function CustomerModel() {
     };
     self.generateOTP = function () {
         if (!self.IsVerified()) {
-            debugger;
             var objCust = {
                 "pqId": pqId,
                 "customerMobile": self.mobileNo(),
@@ -124,7 +122,6 @@ function CustomerModel() {
     self.regenerateOTP = function () {
         if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
             var url = '/api/ResendVerificationCode/';
-            debugger;
             var objCustomer = {
                 "customerName": self.fullName(),
                 "customerMobile": self.mobileNo(),
@@ -419,10 +416,7 @@ var validateUpdatedMobile = function () {
     return isValid;
 };
 
-        //if (a.text() === "+")
-        //    a.attr("href", "#features");
-        //else a.attr("href", "javascript:void(0)");
-//photos corousel function
+
 (function ($) {
 
     var connector = function (itemNavigation, carouselStage) {
@@ -762,6 +756,9 @@ $.sortChangeUp = function (sortByDiv) {
     sortListDiv.slideUp();
 };
 $("input[name*='btnVariant']").on("click", function () {
+    if($(this).attr('versionid') == $('#hdnVariant').val()){
+        return false;
+    }
     $('#hdnVariant').val($(this).attr('title'));
 });
 
@@ -814,9 +811,6 @@ $('#insuranceLink').on('click', function (e) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Insurance_Clicked_Model', 'lab': myBikeName + "_" + icityArea });
 });
 
-function checkItemClicked() {
-
-}
 $('#bookNowBtn').on('click', function (e) {
     window.location.href = "/pricequote/BookingSummary_New";
 });

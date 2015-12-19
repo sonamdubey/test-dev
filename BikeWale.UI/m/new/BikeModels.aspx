@@ -164,26 +164,44 @@
                         </div>--%>
                     </div>
                     <div>
-                        <% if (isDiscontinued)
-                           { %>
-                        <p class="margin-top20 margin-left10 font14 text-light-grey clear fillPopupData">Last known Ex-showroom price</p>
-                        <%  }
-                           else if (isCityAreaSelected || isBikeWalePQ)
-                           { %>
-                        <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
-                            On-road Price in <span class="font14 text-grey text-bold">
+
+
+                        <% if (isDiscontinued){ %>
+                            <p class="margin-top20 margin-left10 font14 text-light-grey clear fillPopupData">Last known Ex-showroom price</p>
+                        <% } %>
+                        <% else if (pqOnRoad !=null && pqOnRoad.IsDealerPriceAvailable){ %>
+                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
+                            On-road price in <span class="font14 text-grey text-bold">
                                 <%= areaName %> <%= cityName %></span>
                             <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
                                 <span class="fa fa-edit"></span></a>
+                            </p>
+                        <% } %>
+                        <% else if (!isCitySelected){ %>
+                            <p class="font14 fillPopupData">
+                            Ex-showroom price in <span href="javascript:void(0)" class="text-light-grey clear"><%= Bikewale.Common.Configuration.GetDefaultCityName %></span><a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
+                            <span class="fa fa-edit"></span></a>
                         </p>
-                        <% }
-                           else
+                        <% } %>
+                        <% else if (isCitySelected && !isAreaAvailable)
                            { %>
-                        <p class="font14 fillPopupData">
-                            Ex-showroom in <span href="javascript:void(0)" class="text-light-grey clear"><%= Bikewale.Common.Configuration.GetDefaultCityName %></span><a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
+                                <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
+                            On-road price in <span class="font14 text-grey text-bold">
+                                <%= cityName %></span>
+                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
                                 <span class="fa fa-edit"></span></a>
-                        </p>
-                        <%  } %>
+                            </p>
+                        <% } %>
+                        <% else if (isCitySelected && isAreaAvailable && !isAreaSelected)
+                           { %>
+                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
+                            Ex-showroom price in <span class="font14 text-grey text-bold">
+                                <%= cityName %></span>
+                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
+                                <span class="fa fa-edit"></span></a>
+                            </p>
+                        <% } %>
+
                         <p class="leftfloat">
 
                             <%if (price != "0" && price != string.Empty)
@@ -195,7 +213,7 @@
                             <span class="font20 text-bold">Price unavailable</span>
                             <%  } %>
                         </p>
-                        <%if (pqOnRoad != null && price != "0" && price != string.Empty)
+                        <%if (pqOnRoad != null && (price != "" && price !="0") && (pqOnRoad.IsDealerPriceAvailable || isBikeWalePQ))
                           {%>
                         <p id="viewBreakupText" class="font14 text-light-grey leftfloat viewBreakupText">View Breakup</p>
                         <%if (isBikeWalePQ && price != "0" && price != string.Empty)
@@ -340,14 +358,16 @@
 
             <!-- floating buttons -->
             <%-- <div class="grid-12 float-button float-fixed clearfix">--%>
-            <% if ((cityId == "0" && areaId == "0") || (cityId != "0" && areaId == "0" && isAreaAvailable))
-               {   %>
-                    <div class="grid-12 float-button float-fixed clearfix">
+            <% if(!isDiscontinued)
+               { 
+                   if ((cityId == "0" && areaId == "0") || (cityId != "0" && areaId == "0" && isAreaAvailable))
+                   {   %>
+                        <div class="grid-12 float-button float-fixed clearfix">
                        
                     <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
                 <% }
                else
-               {   %>
+                    {   %>
                 <div class="grid-12 float-button float-fixed clearfix">
                     <div class="show padding-top10">
                         <% if (modelPage.ModelDetails.New)
@@ -367,7 +387,8 @@
                         <%} %>
                     </div>
                 </div>
-                <%} %>
+                <%  } 
+              }%>
             </div>
 
         </section>

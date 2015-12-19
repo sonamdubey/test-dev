@@ -607,6 +607,9 @@ $.sortChangeUp = function (sortByDiv) {
     sortListDiv.slideUp();
 };
 $("input[name*='btnVariant']").on("click", function () {
+    if ($(this).attr('versionid') == $('#hdnVariant').val()) {
+        return false;
+    }
     $('#hdnVariant').val($(this).attr('title'));
 });
 
