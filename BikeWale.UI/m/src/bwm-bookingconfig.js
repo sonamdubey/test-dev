@@ -368,6 +368,7 @@ function setColor() {
                     viewModel.Bike().getColor(value);
                     viewModel.CurrentStep(3); 
                     viewModel.ActualSteps(3);
+                    viewModel.SelectedVersion(viewModel.Bike().selectedVersionId());
                 }
             });
         }

@@ -812,7 +812,7 @@ $('#insuranceLink').on('click', function (e) {
 });
 
 $('#bookNowBtn').on('click', function (e) {
-    window.location.href = "/pricequote/BookingSummary_New";
+    window.location.href = "/pricequote/BookingSummary_New.aspx";
 });
 
 $(document).mouseup(function (e) {
