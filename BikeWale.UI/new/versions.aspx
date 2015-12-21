@@ -633,7 +633,7 @@
         </div>
              <!-- lead capture popup End-->
         </section>
-        <section class="container margin-top15 margin-bottom15 text-center">
+        <section>
             <!-- #include file="/ads/Ad970x90_BTF.aspx" -->
         </section>
 
