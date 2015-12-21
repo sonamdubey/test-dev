@@ -569,7 +569,6 @@
                 };
                 self.generateOTP = function () {
                     if (!self.IsVerified()) {
-                        debugger;
                         var objCust = {
                             "pqId": pqId,
                             "customerMobile": self.mobileNo(),
@@ -601,7 +600,6 @@
                 self.regenerateOTP = function () {
                     if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
                         var url = '/api/ResendVerificationCode/';
-                        debugger;
                         var objCustomer = {
                             "customerName": self.fullName(),
                             "customerMobile": self.mobileNo(),
@@ -632,7 +630,7 @@
                         if (self.IsValid()) {
                             $("#personalInfo").hide();
                             $("#leadCapturePopup .leadCapture-close-btn").click();
-                            window.location.href = "/pricequote/bookingConfig.aspx";
+                            window.location.href = "/pricequote/BikeDealerDetails.aspx";
                         }
                         else {
                             $("#contactDetailsPopup").hide();
@@ -670,7 +668,7 @@
                             // OTP Success
                             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
                             $("#leadCapturePopup .leadCapture-close-btn").click();
-                            window.location.href = "/pricequote/bookingConfig.aspx";
+                            window.location.href = "/pricequote/BikeDealerDetails.aspx";
                         }
                         else {
                             $('#processing').hide();

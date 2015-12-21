@@ -877,8 +877,8 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="m\pricequote\BookingConfig.aspx.cs">
-      <DependentUpon>BookingConfig.aspx</DependentUpon>
+    <Compile Include="m\pricequote\BikeDealerDetails.aspx.cs">
+      <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\pricequote\BookingSummary.aspx.cs">
@@ -1047,8 +1047,8 @@
       <DependentUpon>PQCertificate.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="pricequote\BookingConfig.aspx.cs">
-      <DependentUpon>BookingConfig.aspx</DependentUpon>
+    <Compile Include="pricequote\BikeDealerDetails.aspx.cs">
+      <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\BookingSummary.aspx.cs">
@@ -2141,7 +2141,7 @@
     <Content Include="m\new\Search.aspx" />
     <Content Include="m\new\upcomingbikes\Default.aspx" />
     <Content Include="m\pagenotfound.aspx" />
-    <Content Include="m\pricequote\BookingConfig.aspx" />
+    <Content Include="m\pricequote\BikeDealerDetails.aspx" />
     <Content Include="m\pricequote\BookingSummary.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
@@ -2177,7 +2177,7 @@
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
     <Content Include="customerror.aspx" />
-    <Content Include="pricequote\BookingConfig.aspx" />
+    <Content Include="pricequote\BikeDealerDetails.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
     <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\autocomplete.js" />

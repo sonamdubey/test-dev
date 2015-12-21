@@ -135,7 +135,7 @@
                                 <p class="grid-8 text-medium-grey font14 alpha">Booking amount:</p>
                                 <p class="grid-4 alpha omega text-right font14">
                                     <span class="fa fa-rupee"></span>
-                                    <strong class="font16" data-bind="text : ($root.Bike().bookingAmount()> 0)?$root.Bike().bookingAmount():'Price unavailable'"></strong>
+                                    <strong class="font16" data-bind="CurrencyText: ($root.Bike().bookingAmount()> 0)?$root.Bike().bookingAmount():'Price unavailable'"></strong>
                                 </p>
                             </div>
 
@@ -143,7 +143,7 @@
                                 <p class="grid-8 text-medium-grey font14 alpha">Balance amount payable:</p>
                                 <p class="grid-4 alpha omega text-right font14">
                                     <span class="fa fa-rupee"></span>
-                                    <strong data-bind="text : remainingAmount()"></strong>
+                                    <strong data-bind="CurrencyText: remainingAmount()"></strong>
                                 </p>
                             </div>
 

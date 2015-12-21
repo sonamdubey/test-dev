@@ -122,7 +122,7 @@ namespace Bikewale.Mobile.Pricequote
                     objCustomer = _objDealerPricequote.GetCustomerDetails(pqId);
 
                     //set location details
-                    if (objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.cityDetails != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.cityDetails.CityName))
+                    if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.cityDetails != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.cityDetails.CityName))
                     {
                         if (objCustomer.objCustomerBase.AreaDetails != null)
                         {
@@ -173,7 +173,7 @@ namespace Bikewale.Mobile.Pricequote
                 //Dealer Address
                 if (dealerDetailEntity.objDealer != null && !String.IsNullOrEmpty(dealerDetailEntity.objDealer.Address))
                 {
-                    dealerAddress = String.Format("{0},{1},{2}-{3},{4}.", dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
+                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.", dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
                 }
 
                 //bind offers provided by dealer
@@ -267,6 +267,11 @@ namespace Bikewale.Mobile.Pricequote
             {
                 rptVarients.DataSource = objBookingPageDetails.Varients;
                 rptVarients.DataBind();
+
+                if (objBookingPageDetails.Varients.FirstOrDefault().Make != null && objBookingPageDetails.Varients.FirstOrDefault().Model != null)
+                {
+                    bikeName = String.Format("{0} {1}", objBookingPageDetails.Varients.FirstOrDefault().Make.MakeName, objBookingPageDetails.Varients.FirstOrDefault().Model.ModelName);
+                }
             }
             else
             {

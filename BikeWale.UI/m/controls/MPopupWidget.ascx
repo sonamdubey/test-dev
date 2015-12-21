@@ -176,7 +176,6 @@ function isValidInfoPopup() {
 }
 
 function getPriceQuotePopup() {
-    debugger;
     var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
     if (isValidInfoPopup()) {
         //set global cookie

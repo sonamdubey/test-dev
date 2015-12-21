@@ -76,7 +76,8 @@ namespace Bikewale.Pricequote
                     if (String.IsNullOrEmpty(location))
                     {
                         CheckCityCookie();
-                    }
+                    } 
+                    
                 }
                 else
                 {
@@ -121,6 +122,20 @@ namespace Bikewale.Pricequote
                     //customer details
                     objCustomer = _objDealerPricequote.GetCustomerDetails(pqId);
 
+                    //set location details
+                    if (objCustomer!=null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.cityDetails != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.cityDetails.CityName))
+                    {
+                        if (objCustomer.objCustomerBase.AreaDetails != null)
+                        {
+                            if (!String.IsNullOrEmpty(objCustomer.objCustomerBase.AreaDetails.AreaName))
+                                location = String.Format("{0}, {1}", objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName);
+                        }
+                        else
+                        {
+                            location = objCustomer.objCustomerBase.cityDetails.CityName;
+                        }
+                    }                  
+
                 }
             }
             catch (Exception err)
@@ -148,27 +163,18 @@ namespace Bikewale.Pricequote
 
             if (dealerDetailEntity != null)
             {
-                //set location details
-                if (dealerDetailEntity.objDealer != null && dealerDetailEntity.objDealer.objCity != null && !String.IsNullOrEmpty(dealerDetailEntity.objDealer.objCity.CityName))
+                //set dealer's location longitude and latitude
+                if (dealerDetailEntity.objDealer != null && dealerDetailEntity.objDealer.objArea != null)
                 {
-                    if (dealerDetailEntity.objDealer.objArea != null)
-                    {
-                        if (!String.IsNullOrEmpty(dealerDetailEntity.objDealer.objArea.AreaName))
-                            location = String.Format("{0}, {1}", dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName);
 
-                        latitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Latitude);
-                        longitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Longitude);
-                    }
-                    else
-                    {
-                        location = dealerDetailEntity.objDealer.objCity.CityName;
-                    }
+                    latitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Latitude);
+                    longitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Longitude);
                 }
 
                 //Dealer Address
                 if (dealerDetailEntity.objDealer != null && !String.IsNullOrEmpty(dealerDetailEntity.objDealer.Address))
                 {
-                    dealerAddress = String.Format("{0},{1},{2}-{3},{4}.", dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
+                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.",dealerDetailEntity.objDealer.Name,dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
                 }
 
                 //bind offers provided by dealer
@@ -263,8 +269,14 @@ namespace Bikewale.Pricequote
                 rptVarients.DataSource = objBookingPageDetails.Varients;
                 rptVarients.DataBind();
 
-                makeUrl = String.Format("<a href='/{0}-bikes/'>{1}</a>", objBookingPageDetails.Varients[0].Make.MaskingName, objBookingPageDetails.Varients[0].Make.MakeName);
-                modelUrl = String.Format("<a href='/{0}-bikes/{1}/'>{2}</a>", objBookingPageDetails.Varients[0].Make.MaskingName, objBookingPageDetails.Varients[0].Model.MaskingName, objBookingPageDetails.Varients[0].Model.ModelName);
+                if (objBookingPageDetails.Varients.FirstOrDefault().Make != null && objBookingPageDetails.Varients.FirstOrDefault().Model != null)
+                {
+                    makeUrl = String.Format("<a href='/{0}-bikes/'>{1}</a>", objBookingPageDetails.Varients.FirstOrDefault().Make.MaskingName, objBookingPageDetails.Varients.FirstOrDefault().Make.MakeName);
+                    modelUrl = String.Format("<a href='/{0}-bikes/{1}/'>{2}</a>", objBookingPageDetails.Varients.FirstOrDefault().Make.MaskingName, objBookingPageDetails.Varients.FirstOrDefault().Model.MaskingName, objBookingPageDetails.Varients.FirstOrDefault().Model.ModelName);
+
+                    bikeName = String.Format("{0} {1}", objBookingPageDetails.Varients.FirstOrDefault().Make.MakeName, objBookingPageDetails.Varients.FirstOrDefault().Model.ModelName);
+                }
+
             }
             else
             {

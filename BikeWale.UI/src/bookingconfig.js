@@ -69,6 +69,7 @@ var BookingConfigViewModel = function () {
                 }
                 else if (self.CurrentStep() == 3) {
                     self.CurrentStep(4);
+                    self.ActualSteps(4);
                 }
                 return true;
             }
@@ -359,6 +360,7 @@ function setColor() {
                     viewModel.Bike().getColor(value);
                     viewModel.CurrentStep(3);
                     viewModel.ActualSteps(3);
+                    viewModel.SelectedVersion(viewModel.Bike().selectedVersionId());
                 }
             });
         }

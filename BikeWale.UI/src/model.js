@@ -152,7 +152,7 @@ function CustomerModel() {
             if (self.IsValid()) {                             
                 $("#personalInfo").hide();
                 $("#leadCapturePopup .leadCapture-close-btn").click();
-                window.location.href = "/pricequote/bookingConfig.aspx";
+                window.location.href = "/pricequote/BikeDealerDetails.aspx";
             }
             else {
                 $("#contactDetailsPopup").hide();
@@ -190,7 +190,7 @@ function CustomerModel() {
                 // OTP Success
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
                 $("#leadCapturePopup .leadCapture-close-btn").click();
-                window.location.href = "/pricequote/bookingConfig.aspx";
+                window.location.href = "/pricequote/BikeDealerDetails.aspx";
             }
             else {
                 $('#processing').hide();
@@ -812,7 +812,7 @@ $('#insuranceLink').on('click', function (e) {
 });
 
 $('#bookNowBtn').on('click', function (e) {
-    window.location.href = "/pricequote/BookingSummary_New";
+    window.location.href = "/pricequote/BookingSummary_New.aspx";
 });
 
 $(document).mouseup(function (e) {

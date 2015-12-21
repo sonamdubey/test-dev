@@ -243,13 +243,20 @@
                             <% if (!modelPage.ModelDetails.Futuristic)
                                { %>
                             <div id="modelPriceContainer" class="padding-top15">
-
                                 <% if (isDiscontinued)
                                    { %>
                                         <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                 <% } %>
-
-                                <% else if (pqOnRoad !=null && pqOnRoad.IsDealerPriceAvailable)
+                                 <% else if( !isCitySelected) {%>
+                                        <p class="font14">Ex-showroom price in <span href="javascript:void(0)" class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                <% } %>
+                                <% else if( !isOnRoadPrice) {%>
+                                        <p class="font14">Ex-showroom price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                <% } %>
+                                <% else {%>
+                                        <p class="font14">On-road price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                <% } %>
+                                <%--<% else if (pqOnRoad !=null && pqOnRoad.IsDealerPriceAvailable)
                                    { %>
                                 <p class="font14">On-road Price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
                                 <% } %>
@@ -269,7 +276,7 @@
                                    else
                                    { %>
                                         <p class="font14">On road Price in<span href="javascript:void(0)" class="font14 text-grey"> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
-                                <% } %>
+                                <% } %>--%>
                                 <div class="modelPriceContainer">
                                     <%  if (price == "" || price == "0")
                                         { %>
@@ -280,37 +287,34 @@
                                     <span class="font28"><span class="fa fa-rupee"></span></span>
                                     <span id="new-bike-price" class="font32"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
                                     <%  } %>
-                                    <%if (pqOnRoad != null && (price != "" && price !="0") && (pqOnRoad.IsDealerPriceAvailable || isBikeWalePQ ))
+                                    <%if (isOnRoadPrice)
                                       {%>
                                     <span id="viewBreakupText" class="font14 text-light-grey viewBreakupText">View Breakup</span>
                                     <br>
                                     <%if (isBikeWalePQ && price != "")
                                       {%>
-                                    <span class="font12 text-xt-light-grey">(Ex-showroom + Insurance (comprehensive) + RTO)</span>
+                                        <span class="font12 text-xt-light-grey">(Ex-showroom + Insurance (comprehensive) + RTO)</span>
                                     <%}
                                       else
                                       { %>
-                                    <span class="font12 text-xt-light-grey"><%=viewbreakUpText %></span>
+                                         <span class="font12 text-xt-light-grey"><%=viewbreakUpText %></span>
                                     <%} %>
-                                    <% } %>
+                                 <% } %>
                                 </div>
                                 <% if (isDiscontinued)
                                    { %>
                                 <p class="default-showroom-text font14 text-light-grey margin-top5"><%= bikeName %> is now discontinued in India.</p>
                                 <% } %>
                                 <% 
-                                   if (!isDiscontinued)
-                                   { 
-                                        if ((!isCitySelected && !isAreaSelected) || (isCitySelected  && isAreaAvailable && !isAreaSelected))
-                                       {
-                                       %>
+                                else 
+                                if(toShowOnRoadPriceButton)
+                                   { %>
                                 <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
-                                <%
-                                       }
-                                   }%>
+                                <% } %>
                             </div>
+
                             <% } %>
-                            <% if (isBikeWalePQ)
+                            <% if (!toShowOnRoadPriceButton && isBikeWalePQ)
                                    { %>
                              <div class="insurance-breakup-text text-bold padding-top10" style="position: relative; color: rgb(153, 153, 153); font-size: 14px; margin-top: 1px; text-decoration:solid">
                                 <a target="_blank" id="insuranceLink" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a>
@@ -431,7 +435,7 @@
                             </tr>
                             <tr>
                                 <td class="padding-bottom10">Insurance (comprehensive)
-                                    <div class="insurance-breakup-text" style="position: relative; color: #999; font-size: 11px; margin-top: 1px;"><a target="_blank" href="/insurance/" >Save up to 60% on insurance - PolicyBoss</a> <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span></div>
+                                        <div class="insurance-breakup-text" style="position: relative; color: #999; font-size: 11px; margin-top: 1px;"><a target="_blank" href="/insurance/" >Save up to 60% on insurance - PolicyBoss</a> <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span></div>
                                 </td>
                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %>  </td>
                             </tr>
@@ -463,7 +467,9 @@
                                 <ItemTemplate>
                                     <tr class="carwale">
                                         <td width="350" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
-                                            <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
+                                           <% if(!pqOnRoad.IsInsuranceFree) { %>
+                                             <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
+                                            <% } %>
                                         </td>
                                         <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>
                                     </tr>
@@ -627,7 +633,7 @@
         </div>
              <!-- lead capture popup End-->
         </section>
-        <section class="container margin-top15 margin-bottom15 text-center">
+        <section>
             <!-- #include file="/ads/Ad970x90_BTF.aspx" -->
         </section>
 
@@ -1218,7 +1224,7 @@
                                             </p>
                                             <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
                                                <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>, 
-                                                <% if(cityId!= "0")
+                                                <% if(cityId!= 0)
                                                    { %>
                                                     <%= cityName %>
                                                 <% } else 
