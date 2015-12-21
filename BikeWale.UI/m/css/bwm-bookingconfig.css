@@ -1,7 +1,7 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 /* booking sprite */
-.booking-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png) no-repeat; display: inline-block; }
+.booking-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?21122015v4) no-repeat; display: inline-block; }
 .booking-sprite, .booking-sprite + span.iconTtl{display:inline-block; vertical-align:middle;}
 .booking-tick-blue, .personalInfo-icon-grey, .customize-icon-grey, .confirmation-icon-grey,.finance-icon-grey { width:42px; height:42px; }
 .booking-tick-blue { background-position: -86px 0;}
