@@ -6,10 +6,8 @@
     <%
         title = bikeName + " Bookingbooking-sprite buy-icon customize-icon-grey Summary";
         description = "Authorise dealer price details of a bike " + bikeName;
-        keywords = bikeName + ", price, authorised, dealer,Booking ";    
-    %>
-    <%
-        isAd970x90Shown = false;
+        keywords = bikeName + ", price, authorised, dealer,Booking ";
+        isAd970x90Shown = false;     
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -133,14 +131,14 @@
                                         <p>Booking amount:</p>
                                         <div>
                                             <span class="fa fa-rupee"></span>
-                                            <span data-bind="text : ($root.Bike().bookingAmount()> 0)?$root.Bike().bookingAmount():'Price unavailable'"></span>
+                                            <span data-bind="CurrencyText: ($root.Bike().bookingAmount()> 0)?$root.Bike().bookingAmount():'Price unavailable'"></span>
                                         </div>
                                     </li>
                                     <li>
                                         <p>Balance amount payable:</p>
                                         <div>
                                             <span class="fa fa-rupee"></span>
-                                            <span data-bind="text : remainingAmount()"></span>
+                                            <span data-bind="CurrencyText: remainingAmount()"></span>
                                         </div>
                                     </li>
                                 </ul>

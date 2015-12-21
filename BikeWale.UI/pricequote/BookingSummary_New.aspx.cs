@@ -179,7 +179,7 @@ namespace Bikewale.BikeBooking
                 //Dealer Address
                 if (dealerDetailEntity.objDealer != null && !String.IsNullOrEmpty(dealerDetailEntity.objDealer.Address))
                 {
-                    dealerAddress = String.Format("{0},{1},{2}-{3},{4}.", dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
+                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.", dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);                    
                 }
 
                 //bind offers provided by dealer
@@ -274,6 +274,12 @@ namespace Bikewale.BikeBooking
                 var data = (objBooking.Varients).Where(v => v.BookingAmount > 0);
                 rptVarients.DataSource = data;
                 rptVarients.DataBind();
+
+                if (objBooking.Varients.FirstOrDefault().Make != null && objBooking.Varients.FirstOrDefault().Model != null)
+                {
+                    bikeName = String.Format("{0} {1}", objBooking.Varients.FirstOrDefault().Make.MakeName, objBooking.Varients.FirstOrDefault().Model.ModelName);
+                }
+
             }
             else
             {
