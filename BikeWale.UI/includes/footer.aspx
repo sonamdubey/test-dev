@@ -1,5 +1,5 @@
 ﻿<% if(isAd970x90Shown){ %>
-<section class="text-center margin-bottom15 margin-top15">
+<section>
         <!-- #include file="/ads/Ad970x90_Bottom.aspx" -->
 </section>
 <% } %>

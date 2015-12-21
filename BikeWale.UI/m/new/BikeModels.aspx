@@ -420,7 +420,7 @@
         </section>
         <% if (Ad_300x250)
            { %>
-        <section class="grid-12 container box-shadow margin-bottom20 margin-top20">
+        <section>
             <!-- #include file="/ads/Ad300x250_mobile.aspx" -->
         </section>
         <% } %>
