@@ -4,9 +4,9 @@
 <html>
 <head>
     <%
-        //title = bikeName + " Booking Summary";
-        //description = "Authorise dealer price details of a bike " + bikeName;
-        //keywords = bikeName + ", price, authorised, dealer,Booking ";    
+        title = bikeName + " Booking Summary";
+        description = "Authorise dealer price details of a bike " + bikeName;
+        keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -283,7 +283,7 @@
 
                                 <% if (isOfferAvailable)
                                    { %>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
                                 <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 text-red font-24"></span>Available Offers </h3>
 
                                 <ul>
@@ -296,7 +296,7 @@
                                 <%}
                                    else
                                    {%>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                                 <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1">Dealer's Location</h3>
                                 <div class="bikeModel-dealerMap-container margin-top15" style="width: 100%; min-width: 50%; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
                                 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
