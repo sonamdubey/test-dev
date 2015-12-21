@@ -13,8 +13,8 @@
         description = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " price quote";
         keywords = "";
         AdId = "1395986297721";
-        AdPath = "/1017752/Bikewale_PriceQuote_";
-    isAd970x90Shown = true;
+    AdPath = "/1017752/Bikewale_PQ_";
+    isAd970x90Shown = false;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">

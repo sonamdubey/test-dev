@@ -14,7 +14,7 @@
     prevPageUrl = prevUrl;
     nextPageUrl = nextUrl;
     AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_New_";
+    AdPath = "/1017752/Bikewale_Reviews_";
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>

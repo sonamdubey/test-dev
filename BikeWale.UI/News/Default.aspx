@@ -14,7 +14,7 @@
     nextPageUrl = nextUrl;
     alternate = "http://www.bikewale.com/m/news/";
     AdId = "1395995626568";
-    AdPath = "/1017752/BikeWale_News_HomePage_";
+    AdPath = "/1017752/BikeWale_News_";
 %>
 <!-- #include file="/includes/headnews.aspx" -->
 <script type="text/javascript">

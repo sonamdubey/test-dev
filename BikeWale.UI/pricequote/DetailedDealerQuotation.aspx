@@ -9,7 +9,7 @@
     description = "Authorise dealer price details of a bike " + BikeName;
     keywords = BikeName + ", price, authorised, dealer ";
     AdId = "1395986297721";
-    AdPath = "/1017752/Bikewale_PriceQuote_";
+    AdPath = "/1017752/Bikewale_PQ_";
     //canonical = "http://www.bikewale.com/pricequote/";
     //alternate = "http://www.bikewale.com/m/pricequote/";
 %>
