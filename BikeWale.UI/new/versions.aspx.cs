@@ -209,7 +209,6 @@ namespace Bikewale.New
             {
                 #region Do not change the sequence
                 BindPhotoRepeater();
-                BindModelGallery();
                 clientIP = CommonOpn.GetClientIP();
                 LoadVariants();
                 #endregion
@@ -362,26 +361,24 @@ namespace Bikewale.New
             }
         }
 
-        private void BindModelGallery()
-        {
-            if (modelPage != null)
-            {
-                List<ModelImage> photos = modelPage.Photos;
+        //private void BindModelGallery()
+        //{
+        //    if (modelPage != null)
+        //    {
+        //        List<ModelImage> photos = modelPage.Photos;
 
-                if (photos != null && photos.Count > 0)
-                {
-                    photos.Insert(0, new ModelImage()
-                    {
-                        HostUrl = modelPage.ModelDetails.HostUrl,
-                        OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
-                        ImageCategory = bikeName,
-                    });
-                    ctrlModelGallery.bikeName = bikeName;
-                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                    // ctrlModelGallery.Photos = photos;
-                }
-            }
-        }
+        //        if (photos != null && photos.Count > 0)
+        //        {
+        //            photos.Insert(0, new ModelImage()
+        //            {
+        //                HostUrl = modelPage.ModelDetails.HostUrl,
+        //                OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
+        //                ImageCategory = bikeName,
+        //            });
+                    
+        //        }
+        //    }
+        //}
 
         private void BindPhotoRepeater()
         {
@@ -395,6 +392,10 @@ namespace Bikewale.New
 
                     rptNavigationPhoto.DataSource = photos;
                     rptNavigationPhoto.DataBind();
+
+                    ctrlModelGallery.bikeName = bikeName;
+                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
+                    ctrlModelGallery.Photos = photos;
                 }
 
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)

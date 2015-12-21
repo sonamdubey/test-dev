@@ -87,13 +87,6 @@
                                 <div class="stage">
                                     <div class="carousel carousel-stage">
                                         <ul>
-                                            <%--<li>
-                                                <div class="carousel-img-container">
-                                                    <span>
-                                                        <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._393x221) %>" title="<%= bikeName %>" alt="<%= bikeName %>" />
-                                                    </span>
-                                                </div>
-                                            </li>--%>
                                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                                 <ItemTemplate>
                                                     <li>
@@ -116,13 +109,6 @@
                                     <a href="#" class="next next-navigation bwsprite"></a>
                                     <div class="carousel carousel-navigation">
                                         <ul>
-                                            <%--<li>
-                                                <div class="carousel-nav-img-container">
-                                                    <span>
-                                                        <img src="<%= Bikewale.Utility.Image.GetPathToShowImages(modelPage.ModelDetails.OriginalImagePath,modelPage.ModelDetails.HostUrl,Bikewale.Utility.ImageSize._110x61) %>" title="<%# bikeName %>" alt="<%= bikeName %>" />
-                                                    </span>
-                                                </div>
-                                            </li>--%>
                                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
                                                 <ItemTemplate>
                                                     <li>

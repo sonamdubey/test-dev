@@ -87,7 +87,6 @@
                                     </div>
                                 </ItemTemplate>
                             </asp:Repeater>
-                            </ul>
                         </div>
                         <% if (modelPage.Photos != null && modelPage.Photos.Count > 1)
                            { %>

@@ -112,7 +112,7 @@ namespace Bikewale.Mobile.New
                 #region Do not change the sequence of these functions
 
                 BindRepeaters();
-                BindModelGallery();
+                //BindModelGallery();
                 BindAlternativeBikeControl();
                 clientIP = CommonOpn.GetClientIP();
                 LoadVariants();
@@ -228,26 +228,23 @@ namespace Bikewale.Mobile.New
         }
 
 
-        private void BindModelGallery()
-        {
-            if (modelPage != null)
-            {
-                List<ModelImage> photos = modelPage.Photos;
+        //private void BindModelGallery()
+        //{
+        //    if (modelPage != null)
+        //    {
+        //        List<ModelImage> photos = modelPage.Photos;
 
-                if (photos != null && photos.Count > 0)
-                {
-                    photos.Insert(0, new ModelImage()
-                    {
-                        HostUrl = modelPage.ModelDetails.HostUrl,
-                        OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
-                        ImageCategory = bikeName,
-                    });
-                    ctrlModelGallery.bikeName = bikeName;
-                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
-                    // ctrlModelGallery.Photos = photos;
-                }
-            }
-        }
+        //        if (photos != null && photos.Count > 0)
+        //        {
+        //            photos.Insert(0, new ModelImage()
+        //            {
+        //                HostUrl = modelPage.ModelDetails.HostUrl,
+        //                OriginalImgPath = modelPage.ModelDetails.OriginalImagePath,
+        //                ImageCategory = bikeName,
+        //            });
+        //        }
+        //    }
+        //}
 
         private void BindAlternativeBikeControl()
         {
@@ -279,6 +276,10 @@ namespace Bikewale.Mobile.New
                     //}
                     rptModelPhotos.DataSource = modelPage.Photos;
                     rptModelPhotos.DataBind();
+
+                    ctrlModelGallery.bikeName = bikeName;
+                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
+                    ctrlModelGallery.Photos = modelPage.Photos;
                 }
 
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
