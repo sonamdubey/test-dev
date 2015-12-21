@@ -302,7 +302,7 @@
                                     </li>
                                     <li>
                                         <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
-                                        <span class="padding-left20 show">Offers from the nearest dealers</span>
+                                        <span class="padding-left20 show">Waiting period on this bike at the dealership</span>
                                     </li>
                                     <li>
                                         <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
@@ -310,7 +310,7 @@
                                     </li>
                                     <li>
                                         <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
-                                        <span class="padding-left20 show">Nearest dealership from your place</span>
+                                        <span class="padding-left20 show">Finance options on this bike</span>
                                     </li>
                                 </ul>
                             </div>

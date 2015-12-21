@@ -361,7 +361,7 @@
                                     <li>Offers from the nearest dealers</li>
                                     <li>Waiting period on this bike at the dealership</li>
                                     <li>Nearest dealership from your place</li>
-                                    <li>Waiting period on this bike at the dealership</li>
+                                    <li>Finance options on this bike</li>
                                 </ul>
                             </div>
 
