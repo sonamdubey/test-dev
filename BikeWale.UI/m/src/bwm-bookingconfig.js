@@ -1,3 +1,21 @@
+$("#financeDetails ul.select-financeUL li div").click(function () {
+    if (!$(this).hasClass("selected-finance")) {
+        $("#financeDetails ul.select-financeUL li div").removeClass("selected-finance text-bold border-dark-grey").addClass("text-light-grey border-light-grey").find("span.radio-btn").removeClass("radio-btn-checked").addClass("radio-btn-unchecked");
+        $(this).removeClass("text-light-grey border-light-grey").addClass("selected-finance text-bold border-dark-grey").find("span.radio-btn").removeClass("radio-btn-unchecked").addClass("radio-btn-checked");
+        $("#financeDetails").find("h4.select-financeh4").removeClass("text-red");
+        validateTabC = 0;
+        $('#dealerDetailsTab').addClass('disabled-tab').removeClass('active-tab text-bold');
+    }
+    if ($(this).hasClass("finance-required")) {
+        $(".finance-emi-container").show();
+        $(".disclaimer-container").show();
+    }
+    else {
+        $(".finance-emi-container").hide();
+        $(".disclaimer-container").hide();
+    }
+});
+
 function viewMore(id) {
     $(id).closest('li').nextAll('li').toggleClass('hide');
     $(id).text($(id).text() == '(view more)' ? '(view less)' : '(view more)');
@@ -23,11 +41,13 @@ var BookingConfigViewModel = function () {
                 self.selectedColorId(self.Bike().selectedColorId());
                 if (self.CurrentStep() != 3) {
                     self.CurrentStep(self.CurrentStep() + 1);
-                    self.ActualSteps(self.ActualSteps() + 1)
+                    self.ActualSteps(self.ActualSteps() + 1);
+                    $('html, body').animate({ scrollTop: 0 }, 300);
                 }
                 else if (self.CurrentStep() == 3) {
                     self.CurrentStep(4);
                     self.ActualSteps(4);
+                    $('html, body').animate({ scrollTop: 0 }, 300);
                 }
                 return true;
 
