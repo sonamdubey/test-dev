@@ -1,16 +1,16 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>  
 
 <!--bw popup code starts here-->
-<div class="bw-city-popup hide bw-popup-sm text-center" id="popupWrapper">
+<div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
 	<div class="popup-inner-container">
         
-    	<div class="bwmsprite close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-        <div class="cityPopup-box rounded-corner50percent margin-bottom20">
+    	<div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+        <div class="cityPopup-box rounded-corner50percent margin-bottom10">
             	<span class="bwmsprite cityPopup-icon margin-top10"></span>
             </div>
     	<p class="font18 margin-bottom10 text-capitalize">Please Tell Us Your Location</p>
         <div class="padding-top5" id="popupContent">
-            <div class="text-light-grey margin-bottom15"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
+            <div class="text-light-grey margin-bottom10"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
          <div>
                 <select id="ddlCitiesPopup" class="form-control chosen-select" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }, chosen: { width: '100%' }" ></select> 
                 <span class="bwsprite error-icon hide"></span>
@@ -103,6 +103,7 @@ function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr) {
             $('#popupWrapper').fadeIn(100);
             $('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
+            appendHash("onroadprice");
             var obj = JSON.parse(response);
             var cities = JSON.parse(obj.value);
             var citySelected = null;

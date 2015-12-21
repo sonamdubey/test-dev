@@ -91,26 +91,33 @@ $(document).ready(function () {
 	CheckGlobalCookie();
 	
 	 $('.globalcity-close-btn').click(function () {
-        CloseCityPopUp();
+	     CloseCityPopUp();
+	     window.history.back();
 	 });
 
-	 $('.bw-popup .close-btn').click(function () {
-	     closePopUp();
+	 //$('.bw-popup .close-btn').click(function () {
+	 //    closePopUp();
+	 //});
+
+	 $(".onroad-price-close-btn").click(function () {
+	     closeOnRoadPricePopUp();
+	     window.history.back();
 	 });
-	
+
 	function CloseCityPopUp() {
-		var globalLocation = $("#globalcity-popup");
-		globalLocation.hide();
-		globalLocation.removeClass("show").addClass("hide");
+		//var globalLocation = $("#globalcity-popup");
+		//globalLocation.hide();
+	    //globalLocation.removeClass("show").addClass("hide");
+	    $("#globalcity-popup").hide();
 		unlockPopup();
 		if (!isCookieExists("location"))
 		    SetCookieInDays("location", "0", 365);
 	}
 
-	function closePopUp() {
-	    var bwPopup = $(document).find('.bw-popup');
-	    bwPopup.removeClass("show").addClass("hide");
-	}
+	//function closePopUp() {
+	//    var bwPopup = $(document).find('.bw-popup');
+	//    bwPopup.removeClass("show").addClass("hide");
+	//}
 
 	$("#globalCity").autocomplete({
 		source: function(request, response) {
@@ -272,6 +279,7 @@ $(document).ready(function () {
 	    $("#globalcity-popup").show();
 	    lockPopup();
 	    CheckGlobalCookie();
+	    appendHash("globalCity");
 	});
 
 	$(".blackOut-window").mouseup(function(e){
@@ -333,37 +341,37 @@ $(document).ready(function () {
 		$(".blackOut-window").hide();
 	}
 	// login code starts 
-	$("#firstLogin").click(function(){
-		lockPopup();
-		$(".loginPopUpWrapper").animate({right:'0'});
-	});
-	$(".blackOut-window").mouseup(function(e){
-		var loginPopUp = $(".loginPopUpWrapper");
-        if(e.target.id !== loginPopUp.attr('id') && !loginPopUp.has(e.target).length)
-        {
-            loginPopUp.animate({'right':'-400px'});
-			unlockPopup();
-        }
-    });
-	$(".loginCloseBtn").click(function(){
-		unlockPopup();
-		$(".loginPopUpWrapper").animate({right:'-400px'});
-		loginSignupSwitch();
-	});	
-	$("#forgotpass").click(function(){
-		$("#forgotpassbox").toggleClass("hide show");
-	});
-	$(".loginBtnSignUp").click(function(){
-		$(".loginStage").hide();
-		$(".signUpStage").show();
-	});
-	$(".signupBtnLogin").click(function(){
-		loginSignupSwitch();
-	});
-	function loginSignupSwitch(){
-		$(".loginStage").show();
-		$(".signUpStage").hide();
-	}
+	//$("#firstLogin").click(function(){
+	//	lockPopup();
+	//	$(".loginPopUpWrapper").animate({right:'0'});
+	//});
+	//$(".blackOut-window").mouseup(function(e){
+	//	var loginPopUp = $(".loginPopUpWrapper");
+    //    if(e.target.id !== loginPopUp.attr('id') && !loginPopUp.has(e.target).length)
+    //    {
+    //        loginPopUp.animate({'right':'-400px'});
+	//		unlockPopup();
+    //    }
+    //});
+	//$(".loginCloseBtn").click(function(){
+	//	unlockPopup();
+	//	$(".loginPopUpWrapper").animate({right:'-400px'});
+	//	loginSignupSwitch();
+	//});	
+	//$("#forgotpass").click(function(){
+	//	$("#forgotpassbox").toggleClass("hide show");
+	//});
+	//$(".loginBtnSignUp").click(function(){
+	//	$(".loginStage").hide();
+	//	$(".signUpStage").show();
+	//});
+	//$(".signupBtnLogin").click(function(){
+	//	loginSignupSwitch();
+	//});
+	//function loginSignupSwitch(){
+	//	$(".loginStage").show();
+	//	$(".signUpStage").hide();
+	//}
 	//function lockPopup() {
 	//	$('body').addClass('lock-browser-scroll');
 	//	$(".blackOut-window").show();		
@@ -372,18 +380,7 @@ $(document).ready(function () {
 	//	$('body').removeClass('lock-browser-scroll');
 	//	$(".blackOut-window").hide();
 	//}	
-	
-	// lang changer code
-    $(".changer-default").click( function(){
-		$(".lang-changer-option").show();
-	});
-	$(".lang-changer-option li a").click( function(){
-		var langTxt = $(this).text();
-		$("#LangName").text(langTxt);
-		$(".lang-changer-option").hide();
-	}); // ends	
-
-	
+		
 	function centerItVariableWidth(target, outer) {
 	    var out = $(outer);
 	    var tar = target;
@@ -948,12 +945,6 @@ function showGlobalCity(cityName) {
     $('#cityName').text(cityName);
 }
 
-function CloseCityPopUp() {
-    var globalLocation = $("#globalcity-popup");
-    globalLocation.removeClass("show").addClass("hide");
-    unlockPopup();
-}
-
 function CheckGlobalCookie() {
     var cookieName = "location";
     if (isCookieExists(cookieName)) {
@@ -1069,3 +1060,51 @@ $(function () {
     });
 });
 
+$(window).on('hashchange', function (e) {
+    hashChange(e);
+});
+
+var hashChange = function (e) {
+    var oldUrl, oldHash;
+    oldUrl = e.originalEvent.oldURL;
+    if (oldUrl.indexOf('#') > 0) {
+        oldHash = oldUrl.split('#')[1];
+        closePopUp(oldHash);
+    };
+};
+
+var appendHash = function (state) {
+    switch (state) {
+        case "globalCity":
+            window.location.hash = state;
+            break;
+        case "onroadprice":
+            window.location.hash = state;
+            break;
+        default:
+            return true;
+    }
+};
+
+var closePopUp = function (state) {
+    switch (state) {
+        case "globalCity":
+            CloseCityPopUp();
+            break;
+        case "onroadprice":
+            closeOnRoadPricePopUp();
+            break;
+        default:
+            return true;
+    }
+};
+
+function CloseCityPopUp() {
+    $("#globalcity-popup").hide();
+    unlockPopup();
+}
+
+function closeOnRoadPricePopUp() {
+    $("#popupWrapper").hide();
+    unlockPopup();
+};
