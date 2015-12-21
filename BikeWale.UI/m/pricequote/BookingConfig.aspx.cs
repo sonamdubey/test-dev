@@ -72,6 +72,11 @@ namespace Bikewale.Mobile.Pricequote
                     }
 
                     GetDealerDetails();
+
+                    if (String.IsNullOrEmpty(location))
+                    {
+                        CheckCityCookie();
+                    }
                 }
                 else
                 {
@@ -116,6 +121,20 @@ namespace Bikewale.Mobile.Pricequote
                     //customer details
                     objCustomer = _objDealerPricequote.GetCustomerDetails(pqId);
 
+                    //set location details
+                    if (objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.cityDetails != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.cityDetails.CityName))
+                    {
+                        if (objCustomer.objCustomerBase.AreaDetails != null)
+                        {
+                            if (!String.IsNullOrEmpty(objCustomer.objCustomerBase.AreaDetails.AreaName))
+                                location = String.Format("{0}, {1}", objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName);
+                        }
+                        else
+                        {
+                            location = objCustomer.objCustomerBase.cityDetails.CityName;
+                        }
+                    }
+
                 }
             }
             catch (Exception err)
@@ -143,21 +162,12 @@ namespace Bikewale.Mobile.Pricequote
 
             if (dealerDetailEntity != null)
             {
-                //set location details
-                if (dealerDetailEntity.objDealer != null && dealerDetailEntity.objDealer.objCity != null && !String.IsNullOrEmpty(dealerDetailEntity.objDealer.objCity.CityName))
+                //set dealer's location longitude and latitude
+                if (dealerDetailEntity.objDealer != null && dealerDetailEntity.objDealer.objArea != null)
                 {
-                    if (dealerDetailEntity.objDealer.objArea != null)
-                    {
-                        if (!String.IsNullOrEmpty(dealerDetailEntity.objDealer.objArea.AreaName))
-                            location = String.Format("{0}, {1}", dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName);
 
-                        latitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Latitude);
-                        longitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Longitude);
-                    }
-                    else
-                    {
-                        location = dealerDetailEntity.objDealer.objCity.CityName;
-                    }
+                    latitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Latitude);
+                    longitude = Convert.ToString(dealerDetailEntity.objDealer.objArea.Longitude);
                 }
 
                 //Dealer Address
@@ -307,5 +317,33 @@ namespace Bikewale.Mobile.Pricequote
             }
         }
         #endregion
+
+        #region Set User Location from cookie
+        /// <summary>
+        /// To set user location from the location cookie,if not obtained from customer object
+        /// </summary>
+        private void CheckCityCookie()
+        {
+            var cookies = this.Context.Request.Cookies;
+            if (cookies.AllKeys.Contains("location"))
+            {
+                string cookieLocation = cookies["location"].Value;
+                if (!String.IsNullOrEmpty(cookieLocation) && cookieLocation.IndexOf('_') != -1)
+                {
+                    string[] locArray = cookieLocation.Split('_');
+
+                    if (locArray.Length > 3 && Convert.ToUInt16(locArray[1]) > 0)
+                    {
+                        location = String.Format("{0}, {1}", locArray[3], locArray[1]);
+                    }
+                    else
+                    {
+                        location = locArray[1];
+                    }
+                }
+            }
+        }
+        #endregion
+
     }
 }

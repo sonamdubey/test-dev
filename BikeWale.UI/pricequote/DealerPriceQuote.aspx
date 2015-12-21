@@ -537,7 +537,6 @@
 
                 self.verifyCustomer = function () {
                     if (!self.IsVerified()) {
-                        debugger;
                         var objCust = {
                             "dealerId": dealerId,
                             "pqId": pqId,
