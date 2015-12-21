@@ -14,7 +14,7 @@
     //fbImage			= fbLogoUrl;
     alternate = "http://www.bikewale.com/m/road-tests/" + articleUrl + "-" + basicId + ".html";
     AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_New_";
+    AdPath = "/1017752/Bikewale_Reviews_";
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <style>

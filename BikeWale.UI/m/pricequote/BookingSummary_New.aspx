@@ -119,7 +119,7 @@
 
                         <div class="customize-onRoadPrice-container margin-top15 clearfix">
                             <div class="grid-12 alpha omega margin-bottom15">
-                                <p class="grid-8 text-medium-grey font14 alpha">On-road price<span class="font12 text-medium-grey viewBreakupText">(View breakup)</span>:</p>
+                                <p class="grid-8 text-medium-grey font14 alpha">On-road price<span class="font12 viewBreakupText text-blue text-link">(View breakup)</span>:</p>
                                 <p class="grid-4 alpha omega text-right font14">
                                     <!-- ko if : versionPrice() > 0 -->
                                     <span class="fa fa-rupee"></span>
@@ -274,7 +274,7 @@
                         <div class="margin-top20" data-bind="with : Customer">
                             <h3 class="padding-bottom10 border-light-bottom"><span class="fa fa-info-circle text-red"></span> Personal details</h3>
                             <div class="form-control-box margin-top20">
-                                <input type="text" class="form-control" id="getLeadName" data-bind="textInput : Name">
+                                <input type="text" class="form-control" placeholder="Name" id="getLeadName" data-bind="textInput : Name">
                                 <span class="bwmsprite error-icon" style="display: none;"></span>
                                 <div class="bw-blackbg-tooltip errorText" style="display: none;">Please enter your first name</div>
                             </div>

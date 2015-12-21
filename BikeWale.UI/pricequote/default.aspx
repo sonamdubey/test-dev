@@ -5,7 +5,7 @@
     description = "Know On-Road Price of any new bike in India. On-road price of a bike includes ex-showroom price of the bike in your city, insurance charges. road-tax, registration charges, handling charges etc. Finance option is also provided so that you can get a fair idea of EMI and down-payment.";
     keywords = "bike price, new bike price, bike prices, bike prices India, new bike price quote, on-road price, on-road prices, on-road prices India, on-road price India";
     AdId = "1395986297721";
-    AdPath = "/1017752/Bikewale_PriceQuote_";
+    AdPath = "/1017752/Bikewale_PQ_";
     canonical = "http://www.bikewale.com/pricequote/";
     alternate = "http://www.bikewale.com/m/pricequote/";
 %>

@@ -150,7 +150,7 @@ namespace Bikewale.BindViewModels.Controls
 
                 using (BWHttpClient objClient = new BWHttpClient())
                 {
-                    objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
+                    objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
                 }
             }
             catch (Exception ex)

@@ -129,32 +129,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     {
                         isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
 
-                        //objBookingPageDetailsEntity = _objDealerPriceQuote.FetchBookingPageDetails(Convert.ToUInt32(input.CityId), Convert.ToUInt32(input.VersionId), input.DealerId);
-                        //objBookingPageDetailsDTO = BookingPageDetailsEntityMapper.Convert(objBookingPageDetailsEntity);
-
-                        //if (objBookingPageDetailsEntity != null)
-                        //{
-                        //    objBookingPageDetailsEntity.BikeModelColors = null;
-
-                        //    if (objBookingPageDetailsEntity.Disclaimers != null)
-                        //    {
-                        //        objBookingPageDetailsEntity.Disclaimers.Clear();
-                        //        objBookingPageDetailsEntity.Disclaimers = null;
-                        //    }
-
-                        //    if (objBookingPageDetailsEntity.Offers != null)
-                        //    {
-                        //        objBookingPageDetailsEntity.Offers.Clear();
-                        //        objBookingPageDetailsEntity.Offers = null;
-                        //    }
-
-                        //    if (objBookingPageDetailsEntity.Varients != null)
-                        //    {
-                        //        objBookingPageDetailsEntity.Varients.Clear();
-                        //        objBookingPageDetailsEntity.Varients = null;
-                        //    }
-                        //}
-
                        // dealer = objBookingPageDetailsDTO.Dealer;
                         objCust = _objCustomer.GetByEmail(input.CustomerEmail);
 
@@ -167,7 +141,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                         using (BWHttpClient objClient = new BWHttpClient())
                         {
-                           dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, dealerDetailEntity);
+                           dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(APIHost.AB, _requestType, _apiUrl, dealerDetailEntity);
                         }
                        
 

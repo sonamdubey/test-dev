@@ -12,7 +12,7 @@
         alternate = "http://www.bikewale.com/m/comparebikes/" + canonicalUrl + "/";
     }
     AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_New_";
+    AdPath = "/1017752/BikeWale_CompareBikes_";
     ShowTargeting = "1";
     TargetedModels = targetedModels;
     

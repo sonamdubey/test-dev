@@ -6,7 +6,9 @@ using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Mobile.PriceQuote;
 using Microsoft.Practices.Unity;
+using System.Collections.Generic;
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 
@@ -70,6 +72,11 @@ namespace Bikewale.Pricequote
                     }
 
                     GetDealerDetails();
+
+                    if (String.IsNullOrEmpty(location))
+                    {
+                        CheckCityCookie();
+                    }
                 }
                 else
                 {
@@ -123,7 +130,7 @@ namespace Bikewale.Pricequote
                 objErr.SendMail();
             }
 
-        } 
+        }
         #endregion
 
         #endregion
@@ -238,10 +245,10 @@ namespace Bikewale.Pricequote
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
-        } 
+        }
         #endregion
 
-        #endregion          
+        #endregion
 
         #region Bind variants available with dealer
         /// <summary>
@@ -305,6 +312,33 @@ namespace Bikewale.Pricequote
                 Response.Redirect("/", false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
+            }
+        }
+        #endregion
+
+        #region Set User Location from cookie
+        /// <summary>
+        /// To set user location from the location cookie,if not obtained from customer object
+        /// </summary>
+        private void CheckCityCookie()
+        {
+            var cookies = this.Context.Request.Cookies;
+            if (cookies.AllKeys.Contains("location"))
+            {
+                string cookieLocation = cookies["location"].Value;
+                if (!String.IsNullOrEmpty(cookieLocation) && cookieLocation.IndexOf('_') != -1)
+                {
+                    string[] locArray = cookieLocation.Split('_');
+
+                    if (locArray.Length > 3 && Convert.ToUInt16(locArray[1]) > 0)
+                    {
+                        location = String.Format("{0}, {1}", locArray[3], locArray[1]);
+                    }
+                    else
+                    {
+                        location = locArray[1];
+                    }
+                }
             }
         }
         #endregion
