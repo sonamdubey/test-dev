@@ -118,7 +118,7 @@
                             <div class="onRoad-price-wrapper padding-top10">
                                 <ul>
                                     <li>
-                                        <p>On road price <span class="viewBreakupText">(View breakup)</span>:</p>
+                                        <p>On road price <span class="viewBreakupText text-blue text-link">(View breakup)</span>:</p>
                                         <div>
                                             <!-- ko if : versionPrice() > 0 -->
                                             <span class="fa fa-rupee"></span>
