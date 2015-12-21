@@ -59,7 +59,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponse<T>");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.GetApiResponse<T>({0},{1})", apiHost, apiUrl));
                 objErr.SendMail();
             }
             return objTask;
@@ -222,7 +222,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostAsync<T>");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostAsync<T>({0},{1})", apiHost, apiUrl));                
                 objErr.SendMail();
             }
             return isSuccess;
@@ -309,7 +309,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostSync<T, U>");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostSync<T, U>({0},{1})", apiHost, apiUrl));
                 objErr.SendMail();
             }
             return objResponse;
@@ -360,7 +360,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostSync<T, U>");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PostSync<T, U>({0},{1})", apiHost, apiUrl));
                 objErr.SendMail();
             }
             finally
@@ -411,7 +411,7 @@ namespace Bikewale.Utility
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PutSync<T, U>");
+                ErrorClass objErr = new ErrorClass(ex, String.Format("Exception : Bikewale.Utility.BWHttpClient.BWHttpClient.PutSync<T, U>({0},{1})", apiHost, apiUrl));
                 objErr.SendMail();
             }
 
