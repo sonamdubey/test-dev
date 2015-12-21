@@ -43,7 +43,6 @@
         googletag.cmd.push(function () {
             googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
             googletag.defineSlot('<%= AdPath%>300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
-            googletag.defineSlot('<%= AdPath%>728x90', [728, 90], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
             googletag.pubads().collapseEmptyDivs();
             googletag.pubads().enableSingleRequest();
             googletag.enableServices();

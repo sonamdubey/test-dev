@@ -5,7 +5,7 @@
 <head>
     <% 
         AdId = "1395986297721";
-        AdPath = "/1017752/Bikewale_PriceQuote_";
+        AdPath = "/1017752/Bikewale_PQ_";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">

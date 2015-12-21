@@ -8,7 +8,7 @@
     prevPageUrl = prevUrl;
     nextPageUrl = nextUrl;
     AdId = "1395992162974";
-    AdPath = "/1017752/BikeWale_UsedBikes_HomePage_";
+    AdPath = "/1017752/BikeWale_UsedBikes_Search_Results_";
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
 <script type="text/javascript">
