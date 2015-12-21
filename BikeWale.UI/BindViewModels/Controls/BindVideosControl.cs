@@ -50,7 +50,7 @@ namespace Bikewale.BindViewModels.Controls
 
                 using (BWHttpClient objclient = new BWHttpClient())
                 {
-                    objVideosList = objclient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
+                    objVideosList = objclient.GetApiResponseSync<List<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
                 }
 
                 if (objVideosList != null && objVideosList.Count() > 0)

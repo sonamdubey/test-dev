@@ -167,7 +167,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                         using (BWHttpClient objClient = new BWHttpClient())
                         {
-                           dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, dealerDetailEntity);
+                           dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(APIHost.AB, _requestType, _apiUrl, dealerDetailEntity);
                         }
                        
 

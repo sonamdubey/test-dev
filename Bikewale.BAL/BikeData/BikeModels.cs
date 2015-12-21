@@ -907,7 +907,7 @@ namespace Bikewale.BAL.BikeData
                 string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
                 using (BWHttpClient objClient = new BWHttpClient())
                 {
-                    objPhotos = objClient.GetApiResponseSync<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, objPhotos);
+                    objPhotos = objClient.GetApiResponseSync<List<ModelImage>>(APIHost.CW, _requestType, _apiUrl, objPhotos);
                 }
 
             }
