@@ -47,14 +47,13 @@ namespace Bikewale.Mobile.New
         protected Repeater rptModelPhotos, rptVarients, rptColors;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
-        protected String cityId = "0";
+        protected int cityId = 0;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE class
         protected bool isUserReviewActive = false, isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
         //Varible to Hide or show controlers
 
-        protected bool isCitySelected = false;
-        protected bool isAreaSelected = false;
+        protected bool isCitySelected, isAreaSelected, isOnRoadPrice, toShowOnRoadPriceButton;
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
         protected static bool isManufacturer = false;
@@ -67,7 +66,7 @@ namespace Bikewale.Mobile.New
         protected int variantId = 0;
         protected int versionId = 0;
         protected PQOnRoadPrice pqOnRoad;
-        protected string areaId = "0";
+        protected int areaId = 0;
         protected string cityName = string.Empty;
         protected string areaName = string.Empty;
         protected DropDownList ddlVariant;
@@ -155,6 +154,7 @@ namespace Bikewale.Mobile.New
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
             FetchOnRoadPrice();
             ToggleOfferDiv();
+            SetFlags();
         }
 
         /// <summary>
@@ -373,13 +373,13 @@ namespace Bikewale.Mobile.New
                     string[] locArray = location.Split('_');
                     if (locArray.Length > 0)
                     {
-                        cityId = locArray[0]; //location.Substring(0, location.IndexOf('_'));
+                        cityId = Convert.ToInt16(locArray[0]); //location.Substring(0, location.IndexOf('_'));
                         objCityList = FetchCityByModelId(modelId);
 
                         // If Model doesn't have current City then don't show it, Show Ex-showroom Mumbai
-                        if (objCityList != null && !objCityList.Any(p => p.CityId.ToString() == cityId))
+                        if (objCityList != null && !objCityList.Any(p => p.CityId == cityId))
                         {
-                            cityId = "0";
+                            cityId = 0;
                         }
                         else
                         {
@@ -391,16 +391,16 @@ namespace Bikewale.Mobile.New
                            // isAreaAvailable = true;
                         }
                     }
-                    if (locArray.Length > 3 && cityId != "0")
+                    if (locArray.Length > 3 && cityId != 0)
                     {
-                        areaId = locArray[2];
+                        areaId = Convert.ToInt16(locArray[2]);
                         objAreaList = GetAreaForCityAndModel();
                         if (objAreaList != null)
                         {
                             isAreaAvailable = true;
-                            if (!objAreaList.Any(p => p.AreaId.ToString() == areaId))
+                            if (!objAreaList.Any(p => p.AreaId == areaId))
                             {
-                                areaId = "0";
+                                areaId = 0;
                             }
                             else
                             {
@@ -410,7 +410,7 @@ namespace Bikewale.Mobile.New
                         }
                         else
                         {
-                            areaId = "0";
+                            areaId = 0;
                         }
                         objAreaList = GetAreaForCityAndModel();
                     }
@@ -508,7 +508,7 @@ namespace Bikewale.Mobile.New
         {
             try
             {
-                if (!string.IsNullOrEmpty(cityId) && cityId != "0")
+                if (cityId != 0)
                 {
                     //string _apiUrl = String.Format(onRoadApi, cityId, modelId, null, 0, areaId);
                     //using (BWHttpClient objClient = new BWHttpClient())
@@ -522,8 +522,8 @@ namespace Bikewale.Mobile.New
                     {
                         dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
                         pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
-                        PriceQuoteCookie.SavePQCookie(cityId, pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
-                        if (pqOnRoad.IsDealerPriceAvailable)
+                        PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
+                        if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients.Count() > 0)
                         {
                             #region when dealer Price is Available
                             // Select Variant for which details need to be shown
@@ -572,24 +572,25 @@ namespace Bikewale.Mobile.New
                         else
                         {
                             #region BikeWale PQ
-                            //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue))
-                            //if (ViewState["variantVal"] != null)
-                            if (hdnVariant.Value != "0")
+                            if (pqOnRoad.BPQOutput != null)
                             {
-                                variantId = Convert.ToInt32(hdnVariant.Value);
-                                //Convert.ToInt32(ViewState["variantVal"].ToString());
-                                if (variantId != 0)
+                                if (hdnVariant.Value != "0")
                                 {
-                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                    variantId = Convert.ToInt32(hdnVariant.Value);
+                                    //Convert.ToInt32(ViewState["variantVal"].ToString());
+                                    if (variantId != 0)
+                                    {
+                                        objSelectedVariant = pqOnRoad.BPQOutput.Varients.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                        price = Convert.ToString(objSelectedVariant.OnRoadPrice);
+                                    }
+                                }
+                                else
+                                {
+                                    objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
                                     price = Convert.ToString(objSelectedVariant.OnRoadPrice);
                                 }
+                                isBikeWalePQ = true;
                             }
-                            else
-                            {
-                                objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
-                                price = Convert.ToString(objSelectedVariant.OnRoadPrice);
-                            }
-                            isBikeWalePQ = true;
                             #endregion
                         }
                         // If DPQ or BWPQ Found change Version Pricing as well
@@ -657,7 +658,6 @@ namespace Bikewale.Mobile.New
         {
             try
             {
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
@@ -808,6 +808,39 @@ namespace Bikewale.Mobile.New
             }
 
             return pqOnRoad;
+        }
+
+        /// <summary>
+        /// Author: Sangram Nandkhile
+        /// Created on: 21-12-2015
+        /// Desc: Set flags for aspx mark up to show and hide buttons, insurance links
+        /// </summary>
+        private void SetFlags()
+        {
+            if (isCitySelected)
+            {
+                if (isAreaAvailable)
+                {
+                    if (isAreaSelected)
+                    {
+                        isOnRoadPrice = true;
+                    }
+                    //else // Is area available and Not selected
+                    //{
+
+                    //}
+                }
+                else
+                {
+                    isOnRoadPrice = true;
+                }
+            }
+
+            // if city and area is not selected OR if city is selected & area is available but not selected
+            if ((!isCitySelected && !isAreaSelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
+            {
+                toShowOnRoadPriceButton = true;
+            }
         }
     }
 }

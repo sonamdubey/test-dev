@@ -569,7 +569,6 @@
                 };
                 self.generateOTP = function () {
                     if (!self.IsVerified()) {
-                        debugger;
                         var objCust = {
                             "pqId": pqId,
                             "customerMobile": self.mobileNo(),
@@ -601,7 +600,6 @@
                 self.regenerateOTP = function () {
                     if (self.NoOfAttempts() <= 2 && !self.IsVerified()) {
                         var url = '/api/ResendVerificationCode/';
-                        debugger;
                         var objCustomer = {
                             "customerName": self.fullName(),
                             "customerMobile": self.mobileNo(),
