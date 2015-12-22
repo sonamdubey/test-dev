@@ -121,9 +121,9 @@
 .kick-start-icon { background-position:-52px 208px; }
 .abs-icon { background-position:-95px -169px; }
 
-.radio-sm-checked, .radio-sm-unchecked { width:12px; height:12px; }
-.radio-sm-checked { background-position:-205px -65px; }
-.radio-sm-unchecked { background-position:-205px -88px; }
+.radio-sm-checked, .radio-sm-unchecked { width:18px; height:18px; }
+.radio-sm-checked { background-position:-177px -57px; }
+.radio-sm-unchecked { background-position:-177px -78px; }
 .disclaimer-icon { width:16px; height:16px; background-position:-115px -209px; }
 
 /* version icons */
