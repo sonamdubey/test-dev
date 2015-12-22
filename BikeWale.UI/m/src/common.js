@@ -1101,3 +1101,6 @@ $.fn.shake = function (options) {
     });
 };
 
+function CloseAndroidLink() {
+    $("#appBanner").slideUp();
+}
