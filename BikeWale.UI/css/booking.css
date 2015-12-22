@@ -7,7 +7,7 @@
 .booking-tabs-image span { margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
 
 /* booking sprite */
-.booking-flow-sprite { background: url('http://img.aeplcdn.com/bikewaleimg/images/booking-flow-sprite.png') no-repeat; display: inline-block; }
+.booking-flow-sprite { background: url('http://img.aeplcdn.com/bikewaleimg/images/booking-flow-sprite.png?v=22122015') no-repeat; display: inline-block; }
 .summary-icon-selected, .delivery-icon-selected, .payment-icon-selected { width:42px; height:42px; }
 .summary-icon-selected { background-position: 0 0; }
 .delivery-icon-selected { background-position: 0 -52px; }
