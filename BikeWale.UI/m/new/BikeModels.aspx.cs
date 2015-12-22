@@ -763,7 +763,7 @@ namespace Bikewale.Mobile.New
                     objPQEntity.CityId = Convert.ToUInt16(cityId);
                     objPQEntity.AreaId = Convert.ToUInt32(areaId);
                     objPQEntity.ClientIP = clientIP;
-                    objPQEntity.SourceId = 0;
+                    objPQEntity.SourceId = 2;
                     objPQEntity.ModelId = Convert.ToUInt32(modelId);
                     objPQEntity.VersionId = Convert.ToUInt32(variantId);
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
