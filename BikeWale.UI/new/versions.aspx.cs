@@ -227,7 +227,10 @@ namespace Bikewale.New
             // Set BikeName
             if (modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
-            FetchOnRoadPrice();
+            if (modelPage.ModelDetails.New)
+            {
+                FetchOnRoadPrice();
+            }
             int _modelId;
             Int32.TryParse(modelId, out _modelId);
             ////news,videos,revews, user reviews
@@ -567,11 +570,13 @@ namespace Bikewale.New
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
-                        dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
-                        pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
+                        if (pqOnRoad.PriceQuote != null)
+                        {
+                            dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
+                            pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
+                        }
                         PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
-
-                        if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients.Count() > 0)
+                        if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null && pqOnRoad.DPQOutput.Varients.Count() > 0)
                         {
                             #region when dealer Price is Available
 
@@ -580,7 +585,7 @@ namespace Bikewale.New
                             {
                                 onRoadPrice = selectedVariant.OnRoadPrice;
                                 price = onRoadPrice.ToString();
-                                if (pqOnRoad.DPQOutput.objOffers.Count > 0)
+                                if (pqOnRoad.DPQOutput.objOffers!= null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                 {
                                     IEnumerable<OfferEntity> moreOffers = null;
                                     rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers.Take<OfferEntity>(2);
@@ -594,8 +599,12 @@ namespace Bikewale.New
                                     }
                                     isOfferAvailable = true;
                                 }
-                                rptCategory.DataSource = selectedVariant.PriceList;
-                                rptCategory.DataBind();
+                                if (selectedVariant.PriceList != null)
+                                {
+                                    rptCategory.DataSource = selectedVariant.PriceList;
+                                    rptCategory.DataBind();
+                                }
+                                // String operation
                                 viewbreakUpText = "(";
                                 foreach (var text in selectedVariant.PriceList)
                                 {
@@ -606,6 +615,7 @@ namespace Bikewale.New
                                     viewbreakUpText = viewbreakUpText.Remove(2, 1);
                                 }
                                 viewbreakUpText += ")";
+                                // String operation ends
                                 bookingAmt = selectedVariant.BookingAmount;
                                 if (bookingAmt > 0)
                                     isBookingAvailable = true;
@@ -667,7 +677,7 @@ namespace Bikewale.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] +"-"+  MethodBase.GetCurrentMethod().Name);
                 objErr.SendMail();
             }
         }
@@ -750,7 +760,6 @@ namespace Bikewale.New
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
                 objErr.SendMail();
             }
-
             return pqOnRoad;
         }
 
