@@ -227,6 +227,7 @@ namespace Bikewale.New
             // Set BikeName
             if (modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+
             if (modelPage.ModelDetails.New)
             {
                 FetchOnRoadPrice();
@@ -568,6 +569,7 @@ namespace Bikewale.New
         /// </summary>
         private void FetchOnRoadPrice()
         {
+            var errorParams = string.Empty;
             try
             {
                 if (cityId !=0)
@@ -668,7 +670,9 @@ namespace Bikewale.New
                     {
                         if (variantId != 0)
                         {
-                            price = Convert.ToString(modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault().Price);
+                            var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+                            if (modelVersions != null)
+                            price = Convert.ToString(modelVersions.Price);
                         }
                         else
                         {
@@ -677,13 +681,18 @@ namespace Bikewale.New
                     }
                 }
                 else
-                {
-                    price = Convert.ToString(modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault().Price);
+                {                    
+                    var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+
+                    if (modelVersions != null)
+                        price = Convert.ToString(modelVersions.Price);
                 }
             }
             catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] +"-"+  MethodBase.GetCurrentMethod().Name);
+            {                
+                if(string.IsNullOrEmpty(errorParams))
+                    errorParams = "=== modelpage ===" + Newtonsoft.Json.JsonConvert.SerializeObject(modelPage);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "-" + MethodBase.GetCurrentMethod().Name + " ===== parameters ========= " + errorParams);
                 objErr.SendMail();
             }
         }

@@ -8,8 +8,8 @@
         description = "Authorise dealer price details of a bike " + bikeName;
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
+        <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -58,7 +58,7 @@
                                 <asp:Repeater ID="rptVarients" runat="server">
                                     <ItemTemplate>
                                         <li class="text-light-grey border-light-grey" versionid="<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>" data-bind="click: function () { getVersion(<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>); $root.ActualSteps(1); }">
-                                            <span class="bwsprite radio-btn radio-sm-unchecked margin-right5 margin-left10"></span>
+                                            <span class="bwmsprite radio-btn radio-sm-unchecked margin-right5 margin-left10"></span>
                                             <span class="version-title-box"><%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionName") %></span>
                                         </li>
                                     </ItemTemplate>

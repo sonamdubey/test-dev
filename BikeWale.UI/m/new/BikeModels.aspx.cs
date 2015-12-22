@@ -611,7 +611,9 @@ namespace Bikewale.Mobile.New
                     {
                         if (variantId != 0)
                         {
-                            price = Convert.ToString(modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault().Price);
+                            var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+                            if (modelVersions != null)
+                                price = Convert.ToString(modelVersions.Price);
                         }
                         else
                         {
@@ -622,7 +624,10 @@ namespace Bikewale.Mobile.New
                 }
                 else
                 {
-                    price = Convert.ToString(modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault().Price);
+                    var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+
+                    if (modelVersions != null)
+                        price = Convert.ToString(modelVersions.Price);
                 }
             }
             catch (Exception ex)

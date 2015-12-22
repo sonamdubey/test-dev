@@ -93,7 +93,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #565a5c; height: 6px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(../images/slider-sprite.png) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
+.ui-slider .ui-slider-handle { background: url(http://img1.aeplcdn.com/bikewaleimg/m/images/slider-sprite.png?v=22122015) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
 
 .emi-slider-box-right-section { text-align:right; }
 
@@ -128,7 +128,7 @@
 
 /* version icons */
 .versionIcon, .versionIcon + span { display:inline-block; vertical-align:middle;}
-.versionIcon { width:34px; height:34px; background:url(../images/booking-sprite.png) no-repeat;}
+.versionIcon { width:34px; height:34px; background:url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?v=22122015) no-repeat;}
 .versionIcon.alloy-wheel { background-position:-131px 0}
 .versionIcon.disc-brake { background-position:-131px -44px}
 .versionIcon.elect-start { background-position:-131px -90px}
