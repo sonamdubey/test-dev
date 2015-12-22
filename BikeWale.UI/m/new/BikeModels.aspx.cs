@@ -195,18 +195,19 @@ namespace Bikewale.Mobile.New
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
                         if ((isCitySelected && !isAreaAvailable))
                             lblExOn.Text = "On-road price";
-                        if (pqOnRoad.IsDealerPriceAvailable)
+                        if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null)
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
                             if (selecteVersionList != null && selecteVersionList.Count() > 0)
                                 currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selecteVersionList.First().OnRoadPrice));
                         }
-                        else
+                        else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                         {
                             var selected = pqOnRoad.BPQOutput.Varients.Where(p => Convert.ToString(p.VersionId) == hdn.Value).First();
                             if (selected != null)
                                 currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.OnRoadPrice));
                         }
+
                     }
                 }
             }
@@ -550,18 +551,19 @@ namespace Bikewale.Mobile.New
                                 {
                                     rptCategory.DataSource = selectedVariant.PriceList;
                                     rptCategory.DataBind();
+
+                                    // String operation
+                                    viewbreakUpText = "(";
+                                    foreach (var text in selectedVariant.PriceList)
+                                    {
+                                        viewbreakUpText += " + " + text.CategoryName;
+                                    }
+                                    if (viewbreakUpText.Length > 2)
+                                    {
+                                        viewbreakUpText = viewbreakUpText.Remove(2, 1);
+                                    }
+                                    viewbreakUpText += ")";
                                 }
-                                // String operation
-                                viewbreakUpText = "(";
-                                foreach (var text in selectedVariant.PriceList)
-                                {
-                                    viewbreakUpText += " + " + text.CategoryName;
-                                }
-                                if (viewbreakUpText.Length > 2)
-                                {
-                                    viewbreakUpText = viewbreakUpText.Remove(2, 1);
-                                }
-                                viewbreakUpText += ")";
 
                                 bookingAmt = selectedVariant.BookingAmount;
                                 if (bookingAmt > 0)
