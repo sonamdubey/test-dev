@@ -9,7 +9,8 @@
         isAd970x90BTFShown = false,
         isAd970x90BottomShown = true,
         isAd976x400FirstShown = false,
-        isAd976x400SecondShown = false;
+        isAd976x400SecondShown = false,
+        isAd976x204 = false;
     private bool isTransparentHeader = false;  
 </script>
 
@@ -71,6 +72,9 @@
         <% } %>
         <% if (isAd976x400SecondShown) { %>
         googletag.defineSlot('<%= AdPath%>SecondSlot_976x400',[[976, 150], [976, 100], [976, 250], [976, 300], [976, 350], [976, 400], [970, 90], [976, 200]],'div-gpt-ad-<%= AdId%>-7').addService(googletag.pubads());
+        <% } %>
+        <% if (isAd976x204) { %>
+        googletag.defineSlot('/1017752/BikeWale_HomePageNews_FirstSlot_976x204', [[976, 200], [976, 250], [976, 204]], 'div-gpt-ad-<%= AdId%>-8').addService(googletag.pubads());
         <% } %>
         
         googletag.pubads().enableSingleRequest();
