@@ -69,7 +69,7 @@ namespace Bikewale.Ajax
                     container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                     IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                    isSuccess = objDealer.SaveCustomerDetail(dealerId, pqId, customerName, customerMobile, customerEmail);
+                    isSuccess = objDealer.SaveCustomerDetail(dealerId, pqId, customerName, customerMobile, customerEmail,null);
 
                     DealerPriceQuoteCookie.CreateDealerPriceQuoteCookie(PriceQuoteCookie.PQId, false, false);
                     CustomerDetailCookie.CreateCustomerDetailCookie(customerName, customerEmail, customerMobile);

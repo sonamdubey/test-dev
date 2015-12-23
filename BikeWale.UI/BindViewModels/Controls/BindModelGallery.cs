@@ -148,9 +148,12 @@ namespace Bikewale.BindViewModels.Controls
             {
                 _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo=1&pageSize=1000", ModelId);
 
-                objVideosList = BWHttpClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "BindModelGallery.GetVideos");
                 objErr.SendMail();

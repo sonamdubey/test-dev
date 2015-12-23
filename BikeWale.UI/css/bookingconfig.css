@@ -1,0 +1,126 @@
+﻿@charset "utf-8";
+/* CSS Document */
+#configTabsContainer ul li { width:309px; height:85px; display:inline-block; vertical-align:top; text-align:center; font-size:18px; }
+#configTabsContainer .bike-config-part { width:250px; display:inline-block; cursor:pointer; }
+#configTabsContainer .config-tabs-image { width:100px; height:45px; margin:10px auto 0; position: relative; }
+.config-tabs-image span { margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
+
+/* booking sprite */
+.booking-sprite { background: url(http://img1.aeplcdn.com/bikewaleimg/images/booking-sprite.png?v=22122015) no-repeat; display: inline-block; }
+.customize-icon-selected, .finance-icon-selected, .confirmation-icon-selected { width:42px; height:42px; }
+.customize-icon-selected { background-position: 0 -52px; }
+.finance-icon-selected { background-position: 0 -156px; }
+.confirmation-icon-selected { background-position: 0 -103px; }
+.booking-tick-blue, .customize-icon-grey, .finance-icon-grey, .confirmation-icon-grey { width:28px; height:28px; }
+.booking-tick-blue { background-position: -52px 0; }
+.customize-icon-grey { background-position: -52px -37px; }
+.finance-icon-grey { background-position: -95px 0; }
+.confirmation-icon-grey { background-position: -52px -73px; }
+
+.alloy-wheel-icon, .spoke-wheel-icon, .disc-brake-icon, .drum-brake-icon, .electric-start-icon, .kick-start-icon, .abs-icon { width:34px; height:34px; }
+.alloy-wheel-icon { background-position:-95px -37px; }
+.spoke-wheel-icon { background-position:0px -208px; }
+.disc-brake-icon { background-position:-95px -81px; }
+.drum-brake-icon { background-position:-52px -164px; }
+.electric-start-icon { background-position:-95px -127px; }
+.kick-start-icon { background-position:-52px -208px; }
+.abs-icon { background-position:-95px -169px; }
+
+.horizontal-line { width:610px; height:1px; background:#ccc; top:59px; }
+.border-light-grey { border:1px solid #e2e2e2; }
+.border-dark-grey { border:1px solid #4d5057; }
+.border-light-top { border-top:1px solid #e2e2e2; }
+.border-light-right { border-right:1px solid #e2e2e2; }
+.border-light-bottom { border-bottom:1px solid #e2e2e2; }
+.border-light-left { border-left:1px solid #e2e2e2; }
+.text-default { color:#4d5057; }
+
+/* customizeBike */
+/* select-version-container */
+#customizeBike h4, #customizeBike .select-version-container p { padding-left:12px; }
+#customizeBike .select-version-container li,
+#customizeBike .select-color-container li { display:inline-block; vertical-align:top; width:210px; height:32px; margin:15px 10px 5px; }
+#customizeBike .select-version-container li { font-size:16px; color:#82888b; }
+#customizeBike .select-version-container li span.ver-feature-img { margin-right:15px; }
+#customizeBike ul.select-versionUL span,
+#financeDetails ul.select-financeUL span { display: inline-block; vertical-align: middle; font-size:14px; line-height:30px; }
+#customizeBike ul.select-versionUL span.version-title-box { width:155px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#customizeBike ul.version-feature span { font-size:16px; color:#82888b; }
+/* select-color-container */
+#customizeBike ul.select-versionUL li,
+#customizeBike ul.select-colorUL li,
+#financeDetails ul.select-financeUL li { cursor: pointer; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+#customizeBike ul.select-colorUL li { height:62px; padding:10px; }
+#customizeBike ul.select-colorUL span { display: inline-block; vertical-align: top; font-size:14px; }
+#customizeBike ul.select-colorUL span.color-title-box { width:130px; height:40px; padding-left:10px; overflow:hidden; }
+#customizeBike ul.select-colorUL span.color-box { width:50px; height:40px; background:#ccc; border:1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+
+#customizeBike ul.select-colorUL li.selected-color span.color-box { width: 100%; transition: width 0.3s; }
+#customizeBike ul.select-colorUL li.selected-color span.color-title-box { width:188px; position:relative; left:0; top:-30px; text-align:center; padding-left:0; transition:display; overflow:hidden; white-space:nowrap; text-overflow: ellipsis; opacity:0.8;}
+
+.viewBreakupText { cursor: pointer; color: #0288d1; margin-left:5px; }
+.disabled-tab { cursor: not-allowed !important;}
+
+/* finance-details */
+#financeDetails ul.select-financeUL li { display:inline-block; vertical-align:top; width:210px; height:32px; margin:15px 12px 8px 0; }
+#financeDetailsv .emi-slider-box .emi-slider-box-left-section p { font-size:14px; margin-bottom:10px; }
+
+/* dealer-details */
+#dealerDetails .contact-details-container ul { list-style:disc; margin:15px 25px; font-size:14px; }
+#dealerDetails .contact-details-container li { line-height:1.7; margin-bottom:10px; }
+#dealerDetails .offer-details-container ul { color:#82888b;font-size:14px; }
+#dealerDetails .offer-details-container li { margin-top:12px;padding-left:15px }
+
+/* booking-config */
+.emi-slider-box { border-top:1px solid #e2e2e2; padding-bottom:20px; padding-top:20px; margin-right:20px; }
+.emi-slider-box:first-child { border-top:none; padding-top:10px; }
+.finance-emi-left-box { width:640px; float:left; }
+.finance-emi-right-box { width:290px; float:right; }
+.emi-slider-box-left-section { width:440px; float:left; }
+.ui-widget-content { background: #e2e2e2; height: 7px; margin: 10px 0 0; width: 100%; border-radius: 0px; }
+.ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
+.ui-widget-header { background: #565a5c; height: 6px; }
+.ui-slider { position: relative; text-align: left; }
+.ui-slider .ui-slider-handle { background: url(http://img1.aeplcdn.com/bikewaleimg/images/slider-sprite.png?v=22122015) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
+
+.emi-slider-box-right-section { width:138px; height:40px; border:2px solid #e2e2e2; float:right; margin-right:10px; margin-top:10px; padding:8px; text-align:center; }
+
+
+/* disclaimer-onroadprice-container */
+.disclaimer-onroadprice-container { width:100%; border-top:1px solid #e2e2e2; padding-top:20px; margin-top:20px }
+.disclaimer-container { width:639px; float:left; }
+.onRoadPrice-container { width:290px; float:right;text-align:right }
+ ul.disclaimerUL { list-style:disc; margin:15px 25px; font-size:14px; }
+ ul.disclaimerUL li { line-height:1.7; margin-bottom:10px; color:#82888b; }
+
+/* range points */
+.slider-range-points ul li { float:left; position:relative; }
+.slider-range-points ul.range-pointsUL li { width:10%; }
+.range-points-bar { background: url(http://img1.aeplcdn.com/bikewaleimg/images/slider-sprite.png?v=22122015) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
+.range-points-bar span { position:absolute; top:5px; left:-3px; font-size:11px; }
+.slider-range-points .range-five-pointsUL.range-pointsUL li { width:20%; }
+
+.radio-sm-checked, .radio-sm-unchecked { width:12px; height:12px; }
+.radio-sm-checked { background-position:-205px -65px; }
+.radio-sm-unchecked { background-position:-205px -88px; }
+
+.contact-icon, .offers-icon, .disclaimer-icon, .call-icon { width:16px; height:16px; }
+.contact-icon { background-position:-115px -120px; }
+.offers-icon { background-position:-115px -146px; }
+.disclaimer-icon { background-position:-115px -175px; }
+.call-icon { background-position:-115px -201px; }
+
+/*breakup container*/
+.breakupPopUpContainer { width: 670px; min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:50px 100px; }
+.breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
+
+/* new */
+.disclaimer-onroadprice-container { width:100%; border-top:1px solid #e2e2e2; padding-top:20px; margin-top:20px }
+#configBtnWrapper .disclaimer-container { width:639px; float:left; }
+#configBtnWrapper .grid-4{ width:290px; float:right; }
+#configBtnWrapperul { list-style:disc; margin:15px 25px; font-size:14px; }
+#configBtnWrapper li { line-height:1.7; margin-bottom:10px; color:#82888b; }
+.text-green { color:#5bc033;}
+
+
+

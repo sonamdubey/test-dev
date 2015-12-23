@@ -74,9 +74,6 @@ namespace Bikewale.Controls
             {
                 List<ArticleSummary> _objArticleList = null;
 
-                //sets the base URI for HTTP requests
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
                 int _contentType = (int)EnumCMSContentType.News;
                 string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + posts;
 
@@ -89,8 +86,11 @@ namespace Bikewale.Controls
                         _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + posts + "&makeid=" + MakeId;
                 }
 
-                _objArticleList = await BWHttpClient.GetApiResponse<List<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
-
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    _objArticleList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
+                }
+                
                 if (_objArticleList != null && _objArticleList.Count > 0)
                 {
                     RecordCount = _objArticleList.Count;

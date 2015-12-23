@@ -1004,6 +1004,11 @@
             <param name="modelId"></param>
             <returns>Model Synopsis</returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.Model.ModelPageController">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32})">
             <summary>
             

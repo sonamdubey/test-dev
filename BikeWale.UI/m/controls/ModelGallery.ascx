@@ -18,38 +18,40 @@
         <div class="bw-tabs-data" id="Photos">
             <div class="connected-carousels-photos">
                 <div class="stage-photos">
-                    <div class="carousel-photos carousel-stage-photos">
-                        <ul>
+                    <div class="swiper-container noSwiper carousel-photos carousel-stage-photos">
+                        <div class="swiper-wrapper">
                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                 <ItemTemplate>
-                                    <li>
-                                        <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" />
-                                    </li>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
                                 </ItemTemplate>
                             </asp:Repeater>
-                        </ul>
+                        </div>
+                        <div class="bwmsprite swiper-button-next"></div>
+                        <div class="bwmsprite swiper-button-prev"></div>
                     </div>
                     <div class="bike-gallery-details">
                         <span class="leftfloatbike-gallery-details"></span>
                         <span class="rightfloat bike-gallery-count"></span>
                     </div>
-                    <a href="#" class="prev photos-prev-stage bwmsprite"></a>
-                    <a href="#" class="next photos-next-stage bwmsprite"></a>
                 </div>
 
                 <div class="navigation-photos">
-                    <a href="#" class="prev photos-prev-navigation bwmsprite hide" style="display: none"></a>
-                    <a href="#" class="next photos-next-navigation bwmsprite hide" style="display: none"></a>
-                    <div class="carousel-photos carousel-navigation-photos">
-                        <ul>
+                    <div class="swiper-container noSwiper carousel-photos carousel-navigation-photos">
+                        <div class="swiper-wrapper">
                             <asp:Repeater ID="rptNavigationPhoto" runat="server">
                                 <ItemTemplate>
-                                    <li>
-                                        <img class="lazy" data-original="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" src="http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif" title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" width="83" height="47" />
-                                    </li>
+                                    <div class="swiper-slide">
+                                        <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._110x61) %>" title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
+                                        <span class="swiper-lazy-preloader"></span>
+                                    </div>
                                 </ItemTemplate>
                             </asp:Repeater>
-                        </ul>
+                        </div>
+                        <div class="bwmsprite swiper-button-next hide"></div>
+                        <div class="bwmsprite swiper-button-prev hide"></div>
                     </div>
                 </div>
             </div>
@@ -58,7 +60,7 @@
             <div class="connected-carousels-videos">
                 <div class="stage-videos">
                     <div class="carousel-videos carousel-stage-videos">
-                        <div class="yt-iframe-container">
+                        <div class="yt-iframe-preview">
                             <iframe id="video-iframe" src="" frameborder="0" allowfullscreen></iframe>
                         </div>
                     </div>

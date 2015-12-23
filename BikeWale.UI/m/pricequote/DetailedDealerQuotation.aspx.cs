@@ -211,14 +211,13 @@ namespace Bikewale.Mobile.BikeBooking
         /// <param name="dealerId"></param>
         /// <param name="versionId"></param>
         private void GetBikeAvailability(string dealerId, string versionId)
-        {
-            string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            string _requestType = "application/json";
+        {            
             string _apiUrl = "/api/Dealers/GetAvailabilityDays/?dealerId=" + dealerId + "&versionId=" + versionId;
-            // Send HTTP GET requests 
-
-            noOfDays = BWHttpClient.GetApiResponseSync<uint>(_abHostUrl, _requestType, _apiUrl, noOfDays);
-
+         
+            using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            {
+                noOfDays = objClient.GetApiResponseSync<uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, noOfDays);
+            }            
         }
 
         /// <summary>
@@ -229,15 +228,14 @@ namespace Bikewale.Mobile.BikeBooking
         {
             try
             {
-                //sets the base URI for HTTP requests
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
                 string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteCookie.VersionId + "&DealerId=" + PriceQuoteCookie.DealerId + "&CityId=" + cityId;
-                // Send HTTP GET requests 
-
+                
                 Trace.Warn("_apiUrl: ", _apiUrl);
 
-                _objPQ = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, _objPQ);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                }                
 
                 if (_objPQ != null && _objPQ.objQuotation != null)
                 {

@@ -11,7 +11,7 @@
     canonical = "http://www.bikewale.com/comparebikes/";
     alternate = "http://www.bikewale.com/m/comparebikes/";
     AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_NewBikesHome_";
+    AdPath = "/1017752/BikeWale_CompareBikes_";
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <div class="container_12">
@@ -123,7 +123,7 @@
     <!--    Left Container ends here -->
     <div class="grid_4">
         <!--    Right Container starts here -->
-        <%--<div class="margin-top15">
+        <%--<div>
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
         </div>--%>
@@ -133,10 +133,10 @@
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
             <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
         </div>
-        <%--<div class="margin-top15">
+        <div>
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>--%>
+        </div>
     </div>
     <!--    Right Container ends here -->
 </div>

@@ -26,14 +26,12 @@ namespace Bikewale.BikeBooking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            string _requestType = "application/json";
-
             string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + Request.QueryString["versionId"]+ "&DealerId=" + Request.QueryString["dealerId"] + "&CityId=" + Request.QueryString["cityId"];
-            // Send HTTP GET requests 
         
-
-            objPQ = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, objPQ);
+            using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            {
+                objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objPQ);
+            }            
 
             if (objPQ != null)
             {

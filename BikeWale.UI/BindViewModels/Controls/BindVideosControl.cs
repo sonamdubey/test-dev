@@ -48,8 +48,10 @@ namespace Bikewale.BindViewModels.Controls
                         _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", MakeId.Value, pageNo, TotalRecords);
                 }
 
-                objVideosList = BWHttpClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
-
+                using (BWHttpClient objclient = new BWHttpClient())
+                {
+                    objVideosList = objclient.GetApiResponseSync<List<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
+                }
 
                 if (objVideosList != null && objVideosList.Count() > 0)
                 {

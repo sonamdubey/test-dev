@@ -28,6 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -36,6 +37,8 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ajax, Version=5.7.22.2, Culture=neutral">
@@ -272,7 +275,6 @@
     <Compile Include="common\Ajax\AjaxUserReviews.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWCommon.cs" />
-    <Compile Include="common\BWConfiguration.cs" />
     <Compile Include="common\BWSecurity\SanitizeHTML.cs" />
     <Compile Include="common\BWSecurity\ScreenInput.cs" />
     <Compile Include="common\Cities.cs" />
@@ -312,7 +314,6 @@
     <Compile Include="common\StateCity.cs" />
     <Compile Include="common\UrlRewrite.cs" />
     <Compile Include="common\Validations.cs" />
-    <Compile Include="common\BWHttpClient.cs" />
     <Compile Include="community\pms\CommonMessage.cs" />
     <Compile Include="content\ComparisonTest\DefaultCT.aspx.cs">
       <DependentUpon>DefaultCT.aspx</DependentUpon>
@@ -876,6 +877,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\pricequote\BikeDealerDetails.aspx.cs">
+      <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\pricequote\BookingSummary.aspx.cs">
       <DependentUpon>BookingSummary.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -937,6 +942,10 @@
     </Compile>
     <Compile Include="News\Sitemap.aspx.cs">
       <DependentUpon>Sitemap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\versions.aspx.cs">
+      <DependentUpon>versions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\bikeseries.aspx.cs">
@@ -1022,10 +1031,6 @@
       <DependentUpon>UpcomingBikesList.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="new\versions.aspx.cs">
-      <DependentUpon>versions.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="new\versions_old.aspx.cs">
       <DependentUpon>versions_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1040,6 +1045,10 @@
     </Compile>
     <Compile Include="PQCertificate.aspx.cs">
       <DependentUpon>PQCertificate.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pricequote\BikeDealerDetails.aspx.cs">
+      <DependentUpon>BikeDealerDetails.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="pricequote\BookingSummary.aspx.cs">
@@ -1210,6 +1219,8 @@
     <Content Include="ads\Ad300x250_mobile.aspx" />
     <Content Include="ads\Ad300x250.aspx" />
     <Content Include="ads\Ad300x250BTF.aspx" />
+    <Content Include="ads\Ad320x150_First.aspx" />
+    <Content Include="ads\Ad320x150_Second.aspx" />
     <Content Include="ads\Ad320x50_Bottom_mobile.aspx" />
     <Content Include="ads\Ad320x50_mobile.aspx" />
     <Content Include="ads\Ad970x90.aspx" />
@@ -1616,6 +1627,7 @@
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
+    <Content Include="css\bookingconfig.css" />
     <Content Include="css\brand.css" />
     <Content Include="css\booking.css" />
     <Content Include="css\bw-common-style.css" />
@@ -2068,6 +2080,8 @@
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
     <Content Include="m\css\bwm-booking.css" />
+    <Content Include="m\css\bwm-bookingconfig.css" />
+    <Content Include="m\css\bwm-bookingflow.css" />
     <Content Include="m\css\bwm-brand.css" />
     <Content Include="m\css\bwm-common-style.css" />
     <Content Include="m\css\bwm-model.css" />
@@ -2127,6 +2141,7 @@
     <Content Include="m\new\Search.aspx" />
     <Content Include="m\new\upcomingbikes\Default.aspx" />
     <Content Include="m\pagenotfound.aspx" />
+    <Content Include="m\pricequote\BikeDealerDetails.aspx" />
     <Content Include="m\pricequote\BookingSummary.aspx" />
     <Content Include="m\pricequote\BookingSummary_New.aspx" />
     <Content Include="m\pricequote\DealerPriceQuote.aspx" />
@@ -2139,6 +2154,8 @@
     <Content Include="m\pricequote\RSAOfferClaim.aspx" />
     <Content Include="m\src\BikeBooking\BikeBooking.js" />
     <Content Include="m\src\bwm-booking.js" />
+    <Content Include="m\src\bwm-bookingconfig.js" />
+    <Content Include="m\src\bwm-bookingflow.js" />
     <Content Include="m\src\bwm-brand.js" />
     <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
@@ -2160,10 +2177,12 @@
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
     <Content Include="customerror.aspx" />
+    <Content Include="pricequote\BikeDealerDetails.aspx" />
     <Content Include="pricequote\BookingSummary_New.aspx" />
     <Content Include="pricequote\PaymentConfirmation.aspx" />
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
+    <Content Include="src\bookingconfig.js" />
     <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />

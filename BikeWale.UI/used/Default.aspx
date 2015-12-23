@@ -179,17 +179,17 @@
         </div>
     </div>
     <div class="grid_4 right-grid">
-        <div class="margin-top15">
-            <%--<!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->--%>
+        <%--<div>
+            <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>
+        </div>--%>
         <div class="light-grey-bg content-block border-radius5 padding-bottom20 margin-top15">
             <BP:InstantBikePrice ID="getPriceQuoteMin" runat="server" />
         </div>
         <div class="margin-top15">
             <TA:TipsAdvicesMin runat="server" ID="TipsAdvicesMin" />
         </div>
-        <div class="margin-top15">
+        <div>
                 <%--<!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->--%>
                 <!-- #include file="/ads/Ad300x250BTF.aspx" -->
         </div>        

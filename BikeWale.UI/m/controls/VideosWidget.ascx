@@ -1,15 +1,14 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Controls.VideosWidget" %>
 <div class="bw-tabs-data" id="ctrlVideos">
-    <div class="jcarousel-wrapper">
-        <div class="jcarousel">
-            <ul>
+    <div class="swiper-container padding-bottom60">
+         <div class="swiper-wrapper">
                 <asp:Repeater ID="rptVideos" runat="server">
                 <ItemTemplate>
-                <li>
+                <div class="swiper-slide">
                     <div class="front">
                         <div class="contentWrapper">
                             <div class="yt-iframe-preview">
-                                <iframe frameborder="0" allowtransparency="true" src="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>"></iframe>
+                                <iframe id="video_<%= counter++ %>" frameborder="0" allowtransparency="true" src="<%# DataBinder.Eval(Container.DataItem,"VideoUrl").ToString() %>&enablejsapi=1"></iframe>
                             </div>
                             <div class="bikeDescWrapper">
                                 <div class="bikeTitle margin-bottom20">
@@ -24,14 +23,15 @@
                             </div>
                         </div>
                     </div>
-                </li>
-                </ItemTemplate>
-                </asp:Repeater>                   
-            </ul>
+                </div>
+                    </ItemTemplate>
+                </asp:Repeater>
         </div>
-        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-        <p class="text-center jcarousel-pagination margin-bottom30"></p>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Navigation -->
+        <div class="bwmsprite swiper-button-next hide"></div>
+        <div class="bwmsprite swiper-button-prev hide"></div>
     </div>
     <%--<div class="text-center margin-bottom40 clear">
         <a class="font16" href="javascript:void(0)">View more videos</a>

@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="offerterms.aspx.cs" Inherits="Bikewale.OfferTerms" %>
-
+<% 
+    AdId = "1395986297721";
+    AdPath = "/1017752/BikeWale_New_"; %>
 <!-- #include file="/includes/headhome.aspx" -->
 
 

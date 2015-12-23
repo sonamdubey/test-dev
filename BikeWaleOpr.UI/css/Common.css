@@ -81,7 +81,8 @@ input.login { width: 150px;	border: none; padding: 4px; }
 .hide { display:none; }
 .show { display:block; }
 .padding5 { padding:5px; }
-.padding10 { padding:10px; }
+.padding10 {padding: 10px;}
+.padding20 { padding:20px; }
 .margin5 { margin:5px; }
 .margin10 { margin:10px; }
 .margin-left5 { margin-left:5px; }
@@ -90,6 +91,7 @@ input.login { width: 150px;	border: none; padding: 4px; }
 .margin-right10 { margin-right:10px; }
 .margin-top10 { margin-top:10px; }
 .margin-bottom10 { margin-bottom:10px; }
+
 
 /* ---------- left side   --------- */
 .left { float: right; width: 82%; margin: 0 0 10px 0; }

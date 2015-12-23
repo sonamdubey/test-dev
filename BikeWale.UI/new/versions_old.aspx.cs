@@ -205,19 +205,20 @@ namespace Bikewale.New
 
                 //sets the base URI for HTTP requests
                 string contentTypeList = CommonOpn.GetContentTypesString(categorList);
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-                string _requestType = "application/json";
+                
+                string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
+
                 string _apiUrl = "webapi/image/modelphotolist/?applicationid=" + _applicationid + "&modelid=" + modelId + "&categoryidlist=" + contentTypeList;
 
                 List<ModelImage> _objImageList = null;
 
-                _objImageList = BWHttpClient.GetApiResponseSync<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, _objImageList);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    _objImageList = objClient.GetApiResponseSync<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objImageList);
+                }                
 
                 if (_objImageList != null && _objImageList.Count > 0)
                     isPhotoAvailable = true;
-                //else
-                //    isPhotoAvailable = false;
             }
             catch (Exception err)
             {

@@ -94,12 +94,14 @@ namespace Bikewale.Mobile.BikeBooking
         protected async void GetDealerPriceQuote(uint cityId, uint versionId, uint dealerId)
         {
             try
-            {
-                string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string requestType = "application/json";
+            {                
                 string api = "/api/DealerPriceQuote/GetDealerPriceQuote/?cityid=" + cityId + "&versionid=" + versionId + "&dealerid=" + dealerId;
 
-                objPrice = await BWHttpClient.GetApiResponse<PQ_QuotationEntity>(abHostUrl, requestType, api, objPrice);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objPrice = await objClient.GetApiResponse<PQ_QuotationEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, objPrice);
+                }
+                
                 if (objPrice != null)
                 {
                     //Added By : Ashwini Todkar on 1 Dec 2014

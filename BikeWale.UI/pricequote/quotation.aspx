@@ -14,8 +14,7 @@
     ShowTargeting = "1";
     TargetedModel = mmv.Model;
     AdId = "1395986297721";
-    AdPath = "/1017752/Bikewale_PriceQuote_";
-    isAd970x90Shown = true;
+    AdPath = "/1017752/Bikewale_PQ_";
 %>
 <!-- #include file="/includes/headscript.aspx" -->
 
@@ -130,7 +129,7 @@
     }
 </style>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey header-fixed-inner">
 <form runat="server">
     <!-- #include file="/includes/headBW.aspx" -->	
     <section class="bg-light-grey padding-top10">

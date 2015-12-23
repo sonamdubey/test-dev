@@ -83,12 +83,15 @@ namespace Bikewale.Controls
                 objReg.Password = txtRegPasswdSignup.Text.Trim();
                 objReg.Mobile = txtMobileSignup.Text.Trim();
                 objReg.ClientIP = CommonOpn.GetClientIP();
-                // Register customer
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = String.Format("/api/Customer/");
+                
+                // Register customer                
+                string _apiUrl = "/api/Customer/";
 
-                objRegCustomer = Bikewale.Utility.BWHttpClient.PostSync<RegisterInputParameters, RegisteredCustomer>(_bwHostUrl, _requestType, _apiUrl, objReg);                
+                using (Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objRegCustomer = objClient.PostSync<RegisterInputParameters, RegisteredCustomer>(Utility.BWConfiguration.Instance.BwHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objReg);
+                    objRegCustomer = objClient.PostSync<RegisterInputParameters, RegisteredCustomer>(Utility.APIHost.BW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objReg);
+                }
 
                 if (objRegCustomer != null && objRegCustomer.IsNewCustomer)
                 {

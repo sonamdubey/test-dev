@@ -100,15 +100,13 @@ namespace Bikewale.Mobile.Content
         private async void GetFeatureDetails()
         {
             try
-            {
-                //sets the base URI for HTTP requests
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
+            {                
                 string _apiUrl = "webapi/article/contentpagedetail/?basicid=" + BasicId;
 
-                // Send HTTP GET requests 
-
-                objFeature = await BWHttpClient.GetApiResponse<ArticlePageDetails>(_cwHostUrl, _requestType, _apiUrl, objFeature);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objFeature = await objClient.GetApiResponse<ArticlePageDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objFeature);
+                }                
 
                 if (objFeature != null)
                 {
@@ -184,13 +182,15 @@ namespace Bikewale.Mobile.Content
         private async void BindPhotos()
         {
             try
-            {
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + BasicId;
-                string _requestType = "application/json";
+            {                
+                string _apiUrl = "webapi/image/GetArticlePhotos/?basicid=" + BasicId;                
                 List<ModelImage> objImg = null;
 
-                objImg = await BWHttpClient.GetApiResponse<List<ModelImage>>(_cwHostUrl, _requestType, _apiUrl, objImg);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objImg = await objClient.GetApiResponse<List<ModelImage>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objImg);
+                }
+                
 
                 if (objImg != null && objImg.Count > 0)
                 {

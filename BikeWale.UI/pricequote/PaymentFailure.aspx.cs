@@ -81,14 +81,14 @@ namespace Bikewale.PriceQuote
             bool _isContentFound = true;
             try
             {
-                //sets the base URI for HTTP requests
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
-                string _apiUrl = "/api/dealers/getdealerbookingamount/?versionId=" + PriceQuoteCookie.VersionId + "&DealerId=" + PriceQuoteCookie.DealerId;
+                string _apiUrl = String.Format("/api/dealers/getdealerbookingamount/?versionId={0}&DealerId={1}", PriceQuoteCookie.VersionId, PriceQuoteCookie.DealerId);
                 // Send HTTP GET requests 
 
-                objAmount = BWHttpClient.GetApiResponseSync<BookingAmountEntity>(_abHostUrl, _requestType, _apiUrl, objAmount);
+                using (Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objAmount = objClient.GetApiResponseSync<BookingAmountEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objAmount);
+                    objAmount = objClient.GetApiResponseSync<BookingAmountEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objAmount);
+                }
 
                 if (objAmount != null)
                     MakeModel = objAmount.objMake.MakeName + " " + objAmount.objModel.ModelName;
@@ -201,14 +201,18 @@ namespace Bikewale.PriceQuote
                 request.InquiryId = Convert.ToUInt32(PriceQuoteCookie.PQId);
 
                 // HTTP PUT Request
-                string _apiHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = String.Format("/webapi/booking/");
-                string response = Bikewale.Utility.BWHttpClient.PutSync<BookingRequest,string>(_apiHostUrl, _requestType, _apiUrl, request);
+                string _apiUrl = "/webapi/booking/";
+
+                using (Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //string response = objClient.PutSync<BookingRequest, string>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
+                    string response = objClient.PutSync<BookingRequest, string>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
+                }
             }
             catch (Exception ex)
             {
-                // throw Ex
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
             }
         }
     }

@@ -25,13 +25,16 @@ namespace Bikewale.Service.Controllers.BikeBooking.City
         [ResponseType(typeof(BBCityList))]
         public IHttpActionResult Get()
         {
-            string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            string _requestType = "application/json";
             string _apiUrl = "/api/DealerPriceQuote/getBikeBookingCities/";
             List<BBCityBase> lstCity = null;
             try
             {
-                lstCity = BWHttpClient.GetApiResponseSync<List<BBCityBase>>(_abHostUrl, _requestType, _apiUrl, lstCity);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //lstCity = objClient.GetApiResponseSync<List<BBCityBase>>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstCity);
+                    lstCity = objClient.GetApiResponseSync<List<BBCityBase>>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstCity);
+                }
+
                 BBCityList objDTOCityList = null;
                 if (lstCity != null && lstCity.Count > 0)
                 {

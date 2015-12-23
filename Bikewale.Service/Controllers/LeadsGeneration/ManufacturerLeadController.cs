@@ -83,7 +83,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                         if (status)
                         {
                             //Push inquiry Id to AutoBiz
-                            if (_objIPQ.SaveCustomerDetail(objLead.DealerId, objLead.PQId, objLead.Name, objLead.Mobile, objLead.Email))
+                            if (_objIPQ.SaveCustomerDetail(objLead.DealerId, objLead.PQId, objLead.Name, objLead.Mobile, objLead.Email,null))
                             {
                                 status = AutoBizAdaptor.PushInquiryInAB(Convert.ToString(objLead.DealerId), objLead.PQId, objLead.Name, objLead.Mobile, objLead.Email, Convert.ToString(objLead.VersionId), Convert.ToString(objLead.CityId));
                             }
