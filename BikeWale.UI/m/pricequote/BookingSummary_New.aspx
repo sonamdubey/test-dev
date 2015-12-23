@@ -14,7 +14,7 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->       
-
+         <script type="text/javascript">$("header").find(".leftfloat .navbarBtn").hide();$("header").find(".rightfloat ").hide();</script>
         <section class="bg-white" id="bookingFlow" style="display: none;" data-bind="visible: true">
             <div class="container margin-bottom20 padding-top20">
                 <div class="grid-12 box-shadow padding-bottom20">
@@ -204,25 +204,6 @@
                         </div>
 
                         <div class="offers-container margin-top15 clearfix">
-                            <%-- <h4 class="padding-top10 padding-bottom10 border-light-bottom"><span class="fa fa-gift text-red"></span>Pay <span class="font16"><span class="fa fa-rupee"></span>3000</span> to book your bike to get:</h4>
-                            <ul class="margin-bottom15">
-                                <li>
-                                    <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
-                                    <span class="padding-left20 show">Free Vega Cruiser Helmet worth Rs.1500 from BikeWale</span>
-                                </li>
-                                <li>
-                                    <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
-                                    <span class="padding-left20 show">Free Zero Dep Insurance worth Rs.1200 from Dealership <a href="javascript:void(0)" onclick="viewMore(this)">(view more)</a></span>
-                                </li>
-                                <li class="hide">
-                                    <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
-                                    <span class="padding-left20 show">Get free helmet from the dealer</span>
-                                </li>
-                                <li class="hide">
-                                    <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
-                                    <span class="padding-left20 show">Free Zero Dep Insurance worth Rs.1200</span>
-                                </li>
-                            </ul>--%>
                             <% if (isOfferAvailable)
                                { %>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Available Offers </h3>
@@ -376,7 +357,6 @@
         <!-- all other js plugins -->
                 <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
         <script type="text/javascript">
             var pqId = '<%= pqId %>'
             var verId = '<%= versionId %>';
