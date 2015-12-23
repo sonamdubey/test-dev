@@ -27,6 +27,12 @@
                             <li><a href="/aboutus.aspx">About Us</a></li>                    	                            
                         </ul>
                     </div>
+                    <div class="grid-3 footer-company-section-three">
+                        <p class="font18 text-white margin-bottom30">Download Mobile App</p>
+                        <div class="margin-bottom15">
+                            <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Desktopsite%2520Footer" target="_blank" class="bwsprite gplay-icon margin-right5"></a>
+                        </div>
+                    </div>
                 </div>
                 <div class="grid_12 center-align margin-top20">
             	    &copy;&nbsp;<%=DateTime.Now.Year%>.&nbsp;BikeWale.com. All Rights Reserved | <span class="grey-text"><a href="#">Privacy Policy</a></span> | <span class="grey-text"><a href="#">Terms & Condition</a></span>

@@ -438,7 +438,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 
 /* sprite classes */
-.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v09152015) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v=22122015) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -459,6 +459,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .cityPopup-icon { background-position: -107px -35px; width: 29px; height: 38px; }
 .back-long-arrow-left { background-position: -155px 0;  width: 21px; height: 16px; }
 .back-long-arrow-left-white { background-position: -155px -101px; width: 21px; height: 21px; }
+.google-play-logo  { background-position: 2px -340px; width: 120px; height: 45px; }
 
 /* nav classes */
 .home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
