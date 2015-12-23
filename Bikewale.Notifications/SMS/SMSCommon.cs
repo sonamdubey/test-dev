@@ -122,12 +122,12 @@ namespace Bikewale.Notifications
 
             string mobile = ParseMobileNumber(number);
 
-            if (mobile != "")
+            if (!String.IsNullOrEmpty(mobile))
             {
                 if (isDND == true)
                     mobile = "91" + mobile;
 
-                string retMsg = "";
+                string retMsg = string.Empty;
                 string ctId = "-1";
                 bool status = false;
                 bool isMSMQ = false;
