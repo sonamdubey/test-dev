@@ -98,6 +98,8 @@ namespace Bikewale.BAL.BikeBooking
 
             return isSuccess;
         }
+
+#if unused
         public bool UpdateAppointmentDate(uint pqId, DateTime date)
         {
             bool isSuccess = false;
@@ -106,6 +108,7 @@ namespace Bikewale.BAL.BikeBooking
 
             return isSuccess;
         }
+#endif
 
         /// <summary>
         /// Created By : Sadhana Upadhyay on 10 Nov 2014
