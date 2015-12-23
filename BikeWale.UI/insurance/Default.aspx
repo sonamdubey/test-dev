@@ -11,11 +11,15 @@
          alternate = "http://www.bikewale.com/m/insurance/";
          canonical = "http://www.bikewale.com/insurance/"; 
          %>
+    <%
+        isAd970x90Shown = false;
+        isAd970x90BottomShown = false;
+         %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
-    
+        
     <%  isTransparentHeader = true;   %>
 </head>
 <body class="bg-light-grey">

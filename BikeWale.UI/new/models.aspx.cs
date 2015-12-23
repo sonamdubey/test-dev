@@ -29,8 +29,8 @@ namespace Bikewale.New
         protected Literal ltrDefaultCityName;
         protected int fetchedRecordsCount=0;
         protected string makeId = String.Empty;
-        protected MakeBase _make = null;
-        protected BikeDescription _bikeDesc = null;
+        protected BikeMakeEntityBase _make = null;
+        protected BikeDescriptionEntity _bikeDesc = null;
         protected Int64 _minModelPrice;
         protected Int64 _maxModelPrice;
         protected short reviewTabsCnt = 0;
@@ -51,11 +51,6 @@ namespace Bikewale.New
             //Function to process and validate Query String  
             if (ProcessQueryString())
             {
-               // ltrDefaultCityName.Text = Bikewale.Common.Configuration.GetDefaultCityName;
-
-                _make = new MakeBase();
-                _bikeDesc = new BikeDescription();
-
                 //to get complete make page
                 GetMakePage(); 
                 if (!Page.IsPostBack)
@@ -75,11 +70,6 @@ namespace Bikewale.New
                     ctrlExpertReviews.MakeId = Convert.ToInt32(makeId);
                     ctrlVideos.TotalRecords = 3;
                     ctrlVideos.MakeId = Convert.ToInt32(makeId);
-
-
-                    //To find min and max modelPrice
-                    _minModelPrice = BindMakePage.MinPrice;
-                    _maxModelPrice = BindMakePage.MaxPrice;
 
                     ctrlExpertReviews.MakeMaskingName = makeMaskingName;
 
@@ -119,12 +109,17 @@ namespace Bikewale.New
 
         private void GetMakePage()
         {
-            BindMakePage.totalCount = 6;
-            BindMakePage.makeId = Convert.ToInt32(makeId);
-            BindMakePage.BindMostPopularBikes(rptMostPopularBikes);
-            fetchedRecordsCount = BindMakePage.FetchedRecordsCount;
-            _make = BindMakePage.Make;
-            _bikeDesc = BindMakePage.BikeDesc;
+            BindMakePage objMake = new BindMakePage();
+            objMake.totalCount = 6;
+            objMake.makeId = Convert.ToInt32(makeId);
+            objMake.BindMostPopularBikes(rptMostPopularBikes);
+            fetchedRecordsCount = objMake.FetchedRecordsCount;
+            _make = objMake.Make;
+            _bikeDesc = objMake.BikeDesc;
+
+            //To find min and max modelPrice
+            _minModelPrice = objMake.MinPrice;
+            _maxModelPrice = objMake.MaxPrice;
 
             if (_bikeDesc != null && _bikeDesc.FullDescription != null && _bikeDesc.SmallDescription != null && _bikeDesc.FullDescription.Trim().Length > 0 && _bikeDesc.SmallDescription.Trim().Length > 0)
             {

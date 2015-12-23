@@ -94,14 +94,13 @@ namespace Bikewale.Mobile.Content
         private async void GetNewsDetails(int _basicId)
         {
             try
-            {
-                //sets the base URI for HTTP requests
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
+            {                
                 string _apiUrl = "webapi/article/contentdetail/?basicid=" + _basicId;
 
-
-                objNews = await BWHttpClient.GetApiResponse<ArticleDetails>(_cwHostUrl, _requestType, _apiUrl, objNews);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    objNews = await objClient.GetApiResponse<ArticleDetails>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objNews);
+                }                
 
                 if (objNews != null)
                     GetNewsData();

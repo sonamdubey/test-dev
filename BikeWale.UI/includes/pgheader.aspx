@@ -17,6 +17,15 @@
         private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
         private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
     </script>
+    <!-- #include file="/includes/gacode.aspx" --> 
+    <script type="text/javascript">
+        setTimeout(function () {
+            var a = document.createElement("script");
+            var b = document.getElementsByTagName("script")[0];
+            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
+            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
+        }, 1);
+    </script>
     <script type='text/javascript'>
         var ga_pg_id = '0';
         var googletag = googletag || {};
@@ -37,7 +46,6 @@
         googletag.cmd.push(function () {
             googletag.defineSlot('<%= AdPath%>300x250', [300, 250], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());
             googletag.defineSlot('<%= AdPath%>300x250_BTF', [300, 250], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());
-            googletag.defineSlot('<%= AdPath%>728x90', [728, 90], 'div-gpt-ad-<%= AdId%>-0').addService(googletag.pubads());
             <% if(!String.IsNullOrEmpty(ShowTargeting)) { %>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");
             googletag.pubads().setTargeting("Series", "<%= TargetedSeries %>");
             googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");
@@ -46,19 +54,10 @@
             googletag.pubads().enableSingleRequest();
             googletag.enableServices();
         });
-    </script>
-    <script type="text/javascript">
-        setTimeout(function () {
-            var a = document.createElement("script");
-            var b = document.getElementsByTagName("script")[0];
-            a.src = document.location.protocol + "//script.crazyegg.com/pages/scripts/0012/9477.js?" + Math.floor(new Date().getTime() / 3600000);
-            a.async = true; a.type = "text/javascript"; b.parentNode.insertBefore(a, b)
-        }, 1);
-    </script>
+    </script>    
 </head>
 <body class="header-fixed-inner">
-    <form runat="server">
-    <!-- #include file="/includes/gacode.aspx" --> 
+    <form runat="server">    
 	<div class="main-container">
         <!--Header code start here -->
         <div id="header" class="header-fixed">

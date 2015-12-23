@@ -1,4 +1,10 @@
-﻿<footer class="bg-footer padding-top40 padding-bottom20"><!-- Footer section code starts here -->
+﻿<% if(isAd970x90Shown){ %>
+<section>
+        <!-- #include file="/ads/Ad970x90_Bottom.aspx" -->
+</section>
+<% } %>
+<footer class="bg-footer padding-top40 padding-bottom20">
+    <!-- Footer section code starts here -->
     <div class="container">
         <div class="grid-4">
             <a href="/" class="bwsprite bw-logo"></a>
@@ -50,8 +56,9 @@
         </div>
         <div class="clear"></div>
     </div>
-</footer><!-- Ends here -->
-<!-- #include file="/feedback/feedback.aspx" -->  
+</footer>
+<!-- Ends here -->
+<!-- #include file="/feedback/feedback.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
 </form>
 </body>

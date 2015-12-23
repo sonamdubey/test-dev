@@ -33,7 +33,7 @@ namespace Bikewale.DAL.BikeBooking
         /// <param name="customerMobile"></param>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail)
+        public bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, uint? colorId)
         {
             bool isSuccess = false;
             Database db = null;
@@ -57,6 +57,11 @@ namespace Bikewale.DAL.BikeBooking
                         cmd.Parameters.Add("@customerName", SqlDbType.VarChar, 50).Value = customerName;
                         cmd.Parameters.Add("@customerEmail", SqlDbType.VarChar, 50).Value = customerEmail;
                         cmd.Parameters.Add("@customerMobile", SqlDbType.VarChar, 50).Value = customerMobile;
+
+                        if(colorId.HasValue)
+                        {
+                            cmd.Parameters.Add("@colorId", SqlDbType.Int).Value = colorId;
+                        }
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
@@ -298,6 +303,7 @@ namespace Bikewale.DAL.BikeBooking
                             };
                             objCustomer.IsTransactionCompleted = Convert.ToBoolean(dr["TransactionCompleted"]);
                             objCustomer.AbInquiryId = Convert.ToString(dr["AbInquiryId"]);
+                            objCustomer.SelectedVersionId = Convert.ToUInt32(dr["SelectedVersionId"]);
                         }
                         
                         if (dr.NextResult())

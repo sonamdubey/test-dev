@@ -5,7 +5,7 @@
 <head>
     <% 
         AdId = "1395986297721";
-        AdPath = "/1017752/Bikewale_PriceQuote_";
+        AdPath = "/1017752/Bikewale_PQ_";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -16,11 +16,11 @@
         }
     </style>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
-        <section class="bg-white header-fixed-inner">
+        <section class="bg-white">
             <div class="container">
                 <div class="grid-12">
                     <div class="padding-bottom15 text-center">

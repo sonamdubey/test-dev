@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.UpcomingBikesList" Trace="false" Debug="true" %>
+
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="~/controls/RepeaterPager.ascx" %>
 <%@ Register TagPrefix="BikeWale" TagName="UpcomingBikeSearch" Src="~/controls/UpcomingBikeSearch.ascx" %>
 <%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
@@ -8,9 +9,9 @@
     title = "Upcoming Bikes in India - Expected Launches in 2012";
     keywords = "Find out upcoming new bikes in 2012 in India. From small to super-luxury, from announced to highly speculated models, from near future to end of year, know about every upcoming bike launch in India this year.";
     description = "upcoming bikes, new upcoming launches, upcoming bike launches, upcoming models, future bikes, future bike launches, 2012 bikes, speculated launches, futuristic models";
-    canonical= "http://www.bikewale.com/upcoming-bikes/" ;
-    prevPageUrl     = prevUrl;
-    nextPageUrl     = nextUrl;
+    canonical = "http://www.bikewale.com/upcoming-bikes/";
+    prevPageUrl = prevUrl;
+    nextPageUrl = nextUrl;
     alternate = "http://www.bikewale.com/m/upcoming-bikes/";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";
@@ -26,15 +27,16 @@
             <li><a href="/new/">New</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>Upcoming Bikes</strong></li>
-        </ul><div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
     </div>
-    <div class="grid_8 margin-top10">        
+    <div class="grid_8 margin-top10">
         <span id="spnError" runat="server"></span>
-        <h1>Upcoming Bikes in India <span>Latest information on expected new bike launches in India.</span></h1>                   
-        <BikeWale:UpcomingBikeSearch ID="UpcomingBikeSearch" runat="server" />           
+        <h1>Upcoming Bikes in India <span>Latest information on expected new bike launches in India.</span></h1>
+        <BikeWale:UpcomingBikeSearch ID="UpcomingBikeSearch" runat="server" />
         <div id="alertObj" runat="server"></div>
-            <BikeWale:RepeaterPager ID="rpgUpcomingBikes" PageSize="10" PagerPageSize="10" runat="server">
-                <asp:repeater id="rptLaunches" runat="server">						           
+        <BikeWale:RepeaterPager ID="rpgUpcomingBikes" PageSize="10" PagerPageSize="10" runat="server">
+            <asp:repeater id="rptLaunches" runat="server">						           
                     <ItemTemplate>
                         <div class="margin-bottom15">
                             <div class="right-float">
@@ -51,16 +53,16 @@
                         </div><div class="clear"></div>
                         <div class="sept-dashed"></div>
                     </ItemTemplate>
-	            </asp:Repeater>
-            </BikeWale:RepeaterPager>
-        </div>
+	            </asp:repeater>
+        </BikeWale:RepeaterPager>
+    </div>
     <div class="grid_4">
         <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
         </div>--%>
         <div class="grey-bg content-block border-radius5 padding-bottom20 margin-top15">
-            <NBL:NewBikeLaunches ID="ctrl_NewBikeLaunches" TopCount="3" runat="server" />                    
+            <NBL:NewBikeLaunches ID="ctrl_NewBikeLaunches" TopCount="3" runat="server" />
             <div class="clear"></div>
         </div>
         <%--<div class="margin-top15">

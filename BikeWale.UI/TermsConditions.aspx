@@ -1,4 +1,12 @@
 ﻿<%@ Page Language="C#" %>
+
+<%
+    title = "Terms & Conditions - BikeWale";
+    description = "Bikewale Terms & Conditions";
+    keywords = "";
+    AdId = "1395986297721";
+    AdPath = "/1017752/BikeWale_New_"; %>
+
 <!-- #include file="/includes/headhome.aspx" -->
 
 <div class="container_12">    

@@ -105,14 +105,13 @@ namespace BikewaleAutoSuggest
                         MakeId = bikeItem.MakeId.ToString(),
                         ModelId = bikeItem.ModelId.ToString(),
                         MakeMaskingName = bikeItem.MakeMaskingName,
-                        ModelMaskingName = bikeItem.ModelMaskingName,
-                        Futuristic=bikeItem.Futuristic.ToString()
+                        ModelMaskingName = bikeItem.ModelMaskingName
                     };
 
                     ObjTemp.mm_suggest.Weight = count;
 
                     ObjTemp.mm_suggest.input = new List<string>();
-                    bikeName = bikeName.Replace('-', ' ');
+                    bikeName = bikeName.Replace('-', ' ').Replace("'","");
                     string[] tokens = bikeName.Split(' ');
 
                     if (tokens.Length == 1)    //If Display Name has length=1
@@ -125,6 +124,7 @@ namespace BikewaleAutoSuggest
                         ObjTemp.mm_suggest.input.Add(tokens[1].Trim());
 
                         ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim());
+						
                     }
                     else if (tokens.Length == 3)    //If Display Name has length=3
                     {
@@ -137,6 +137,18 @@ namespace BikewaleAutoSuggest
                         ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim());
 
                         ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim());
+
+                        ////For Royal Enfield add Bullet in Suggestion
+                        //if(tokens[0].Equals("Royal",StringComparison.CurrentCultureIgnoreCase) && tokens[1].Equals("Enfield",StringComparison.CurrentCultureIgnoreCase))
+                        //    ObjTemp.mm_suggest.input.Add("Bullet");
+
+
+                        //For Royal Enfield Bikes add Bullet in Suggestion
+                        if (bikeName.Contains("Royal Enfield"))
+                        {
+                            ObjTemp.mm_suggest.input.Add("Bullet");
+                            ObjTemp.mm_suggest.input.Add("Bullet Bikes");
+                        }
                     }
                     else if (tokens.Length == 4)    //If Display Name has length=4
                     {
@@ -159,6 +171,14 @@ namespace BikewaleAutoSuggest
                         ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim());
 
                         ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim());
+
+                        ////For Royal Enfield add Bullet in Suggestion
+                        //if(tokens[0].Equals("Royal",StringComparison.CurrentCultureIgnoreCase) && tokens[1].Equals("Enfield",StringComparison.CurrentCultureIgnoreCase))
+                        //    ObjTemp.mm_suggest.input.Add("Bullet");
+
+                        //For Royal Enfield Bikes add Bullet in Suggestion
+                        if (bikeName.Contains("Royal Enfield"))
+                            ObjTemp.mm_suggest.input.Add("Bullet");
 
                     }
                     else if (tokens.Length == 5)    //If Display Name has length=5
@@ -198,6 +218,14 @@ namespace BikewaleAutoSuggest
                         ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
 
                         ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
+
+                        ////For Royal Enfield add Bullet in Suggestion
+                        //if(tokens[0].Equals("Royal",StringComparison.CurrentCultureIgnoreCase) && tokens[1].Equals("Enfield",StringComparison.CurrentCultureIgnoreCase))
+                        //ObjTemp.mm_suggest.input.Add("Bullet");
+
+                        //For Royal Enfield Bikes add Bullet in Suggestion
+                        if (bikeName.Contains("Royal Enfield"))
+                            ObjTemp.mm_suggest.input.Add("Bullet");
                     }
                     else   //If display name has length > 5
                     {
@@ -222,6 +250,14 @@ namespace BikewaleAutoSuggest
                                 ObjTemp.mm_suggest.input.Add(tokens[index].Trim() + " " + tokens[index + 1].Trim() + " " + tokens[jindex].Trim());
                             }
                         }
+
+                        ////For Royal Enfield add Bullet in Suggestion
+                        //if (tokens[0].Equals("Royal", StringComparison.CurrentCultureIgnoreCase) && tokens[1].Equals("Enfield", StringComparison.CurrentCultureIgnoreCase))
+                        //    ObjTemp.mm_suggest.input.Add("Bullet");
+
+                        //For Royal Enfield Bikes add Bullet in Suggestion
+                        if (bikeName.Contains("Royal Enfield"))
+                            ObjTemp.mm_suggest.input.Add("Bullet");
                     }
                                 //for (int index = 0; index < tokens.Length; index++)
                                 //{

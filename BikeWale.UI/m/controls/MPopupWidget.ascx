@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>  
-
+<script type="text/javascript">
+    var sourceHref = '0';
+</script>
 <!--bw popup code starts here-->
 <div class="bw-city-popup hide bw-popup-sm text-center" id="popupWrapper">
 	<div class="popup-inner-container">
@@ -178,43 +180,47 @@ function getPriceQuotePopup() {
     if (isValidInfoPopup()) {
         //set global cookie
         setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));       
+        if (ga_pg_id != null && ga_pg_id == 2) {
+            window.location.reload();
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
+                data: '{"cityId":"' + cityId + '", "areaId":"' + areaId + '", "modelId":"' + selectedModel + '", "isMobileSource":true}',
+                dataType: 'json',
+                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
+                success: function (json) {
+                    var jsonObj = $.parseJSON(json.value);
+                    selectedCityName = $("#ddlCitiesPopup option:selected").text();
 
-        $.ajax({
-            type: 'POST',
-            url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
-            data: '{"cityId":"' + cityId + '", "areaId":"' + areaId + '", "modelId":"' + selectedModel + '", "isMobileSource":true}',
-            dataType: 'json',
-            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
-            success: function (json) {
-                var jsonObj = $.parseJSON(json.value);
-                selectedCityName = $("#ddlCitiesPopup option:selected").text();
+                    if (areaId > 0)
+                        selectedAreaName = $("#ddlAreaPopup option:selected").text();
 
-                if (areaId > 0)
-                    selectedAreaName = $("#ddlAreaPopup option:selected").text();
+                    if (selectedMakeName != "" && selectedModelName != "" && selectedCityName != "") {
+                        gaLabel = selectedMakeName + ',' + selectedModelName + ',' + selectedCityName;
 
-                if (selectedMakeName != "" && selectedModelName != "" && selectedCityName != "") {
-                    gaLabel = selectedMakeName + ',' + selectedModelName + ',' + selectedCityName;
-
-                    if (selectedAreaName != '')
-                        gaLabel += ',' + selectedAreaName;
-                }
-                if (jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-                    gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-                    window.location = "/m/pricequote/dealerpricequote.aspx";
-                }
-                else if (jsonObj.quoteId > 0) {
-                    gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
-                    window.location = "/m/pricequote/quotation.aspx";
-                } else {
+                        if (selectedAreaName != '')
+                            gaLabel += ',' + selectedAreaName;
+                    }
+                    if (jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+                        gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                        window.location = "/m/pricequote/dealerpricequote.aspx";
+                    }
+                    else if (jsonObj.quoteId > 0) {
+                        gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
+                        window.location = "/m/pricequote/quotation.aspx";
+                    } else {
+                        gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+                        $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
+                    }
+                },
+                error: function (e) {
+                    $("#errMsg").text("Oops. Some error occured. Please try again.").show();
                     gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
-                    $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
                 }
-            },
-            error: function (e) {
-                $("#errMsg").text("Oops. Some error occured. Please try again.").show();
-                gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
-            }
-        });
+            });
+        }
     } else {       
         $("#errMsgPopup").text("Please select all the details").show();
         gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
@@ -234,6 +240,15 @@ $(document).ready(function () {
 });
 
 $("a.fillPopupData").on("click", function (e) {
+    //if (ga_pg_id != null & ga_pg_id == 2) {
+    //    var attr = $(this).attr('ismodel');
+    //    if (typeof attr !== typeof undefined && attr !== false) {
+    //        $('html, body').animate({
+    //            scrollTop: $("#modelDetailsContainer").offset().top
+    //        }, 10);
+    //        sourceHref = '1';
+    //    }
+    //}
     e.stopPropagation();    
     $("#errMsgPopUp").empty();
     var str = $(this).attr('modelId');

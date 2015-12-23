@@ -9,7 +9,7 @@
     menu = "8";
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
-<script type="text/javascript" src="/m/src/loadPhotos.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/m/src/loadPhotos.js?v=1.0"></script>
 
 <style>
 	.imgWidth{width:100%;max-width:100%;height:auto;}

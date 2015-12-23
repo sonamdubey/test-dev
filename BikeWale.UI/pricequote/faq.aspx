@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.pricequote.faq" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Pricequote.faq" %>
 <html>
 <head>
 <meta charset="utf-8">

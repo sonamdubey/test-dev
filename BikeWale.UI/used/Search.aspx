@@ -8,7 +8,7 @@
     prevPageUrl = prevUrl;
     nextPageUrl = nextUrl;
     AdId = "1395992162974";
-    AdPath = "/1017752/BikeWale_UsedBikes_HomePage_";
+    AdPath = "/1017752/BikeWale_UsedBikes_Search_Results_";
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
 <script type="text/javascript">
@@ -16,7 +16,7 @@
     var isFirstLoad = true;
     var queryString = '<%= queryString%>';
 </script>
-<script type="text/javascript" src="/src/used/search.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/used/search.js?<%= staticFileVersion %>"></script>
 
 <style type="text/css">
     .sel_parama{border:1px solid #DFDFDF; color:#445566!important; padding:1px 1px 1px 5px; margin:3px; display:inline-block; text-decoration:none!important; border-radius:3px; cursor:pointer;}

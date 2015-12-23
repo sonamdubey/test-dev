@@ -24,10 +24,7 @@ namespace Bikewale.Service.Controllers.CMS
     /// </summary>
     public class CMSListController : ApiController
     {
-        string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        string _requestType = "application/json"; 
-        
+        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;                
  
         private readonly IPager _pager = null;
         public CMSListController(IPager pager)
@@ -60,8 +57,12 @@ namespace Bikewale.Service.Controllers.CMS
                 {
                     apiUrl += "&contenttypes=" + (short)categoryId;
                 }
-                
-                objRecentArticles = BWHttpClient.GetApiResponseSync<List<ArticleSummary>>(_cwHostUrl, _requestType, apiUrl, objRecentArticles);
+
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objRecentArticles = objClient.GetApiResponseSync<List<ArticleSummary>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
+                    objRecentArticles = objClient.GetApiResponseSync<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
+                }
 
                 if (objRecentArticles != null && objRecentArticles.Count > 0)
                 {
@@ -144,7 +145,11 @@ namespace Bikewale.Service.Controllers.CMS
                     apiUrl += "&makeid=" + makeId + "&modelid=" + modelId;
                 }
 
-                objRecentArticles = BWHttpClient.GetApiResponseSync<List<ArticleSummary>>(_cwHostUrl, _requestType, apiUrl, objRecentArticles);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objRecentArticles = objClient.GetApiResponseSync<List<ArticleSummary>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
+                    objRecentArticles = objClient.GetApiResponseSync<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objRecentArticles);
+                }
 
                 if (objRecentArticles != null && objRecentArticles.Count > 0)
                 {
@@ -222,7 +227,11 @@ namespace Bikewale.Service.Controllers.CMS
 
                 apiUrl += "&startindex=" + startIndex + "&endindex=" + endIndex;
 
-                objFeaturedArticles = BWHttpClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(_cwHostUrl, _requestType, apiUrl, objFeaturedArticles);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objFeaturedArticles = objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
+                    objFeaturedArticles = objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
+                }
 
                 if (objFeaturedArticles != null && objFeaturedArticles.Articles.Count > 0)
                 {
@@ -309,7 +318,11 @@ namespace Bikewale.Service.Controllers.CMS
 
                 apiUrl += "&startindex=" + startIndex + "&endindex=" + endIndex;
 
-                objFeaturedArticles = BWHttpClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(_cwHostUrl, _requestType, apiUrl, objFeaturedArticles);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objFeaturedArticles = objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
+                    objFeaturedArticles = objClient.GetApiResponseSync<Bikewale.Entities.CMS.Articles.CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, objFeaturedArticles);
+                }
 
                 if (objFeaturedArticles != null && objFeaturedArticles.Articles.Count > 0)
                 {

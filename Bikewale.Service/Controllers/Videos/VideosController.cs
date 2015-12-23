@@ -22,9 +22,7 @@ namespace Bikewale.Service.Videos.Controllers
     /// </summary>
     public class VideosController : ApiController
     {
-        string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];        
-        string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        string _requestType = "application/json";
+        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;        
 
         #region Videos List 
         /// <summary>
@@ -44,7 +42,12 @@ namespace Bikewale.Service.Videos.Controllers
                 
                 List<BikeVideoEntity> objVideosList = null;
 
-                objVideosList = BWHttpClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
+                    objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
+                }
+
                 if (objVideosList != null && objVideosList.Count > 0)
                 {
                     VideosList videoDTOList = new VideosList();
@@ -92,7 +95,11 @@ namespace Bikewale.Service.Videos.Controllers
 
                     List<BikeVideoEntity> objVideosList = null;
 
-                    objVideosList = BWHttpClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
+                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    {
+                        //objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
+                        objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
+                    }
 
                     if (objVideosList != null && objVideosList.Count > 0)
                     {
@@ -141,7 +148,11 @@ namespace Bikewale.Service.Videos.Controllers
 
                     List<BikeVideoEntity> objVideosList = null;
 
-                    objVideosList = BWHttpClient.GetApiResponseSync<List<BikeVideoEntity>>(_cwHostUrl, _requestType, _apiUrl, objVideosList);
+                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    {
+                        //objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
+                        objVideosList = objClient.GetApiResponseSync<List<BikeVideoEntity>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, objVideosList);
+                    }
 
                     if (objVideosList != null && objVideosList.Count > 0)
                     {

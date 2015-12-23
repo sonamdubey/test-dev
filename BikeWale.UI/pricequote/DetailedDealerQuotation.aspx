@@ -9,7 +9,7 @@
     description = "Authorise dealer price details of a bike " + BikeName;
     keywords = BikeName + ", price, authorised, dealer ";
     AdId = "1395986297721";
-    AdPath = "/1017752/Bikewale_PriceQuote_";
+    AdPath = "/1017752/Bikewale_PQ_";
     //canonical = "http://www.bikewale.com/pricequote/";
     //alternate = "http://www.bikewale.com/m/pricequote/";
 %>
@@ -20,12 +20,12 @@
 <%--<link rel="stylesheet"  href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq.css" />--%>
 <link href="/css/bw-pq.css?<%= staticFileVersion %>" rel="stylesheet" />
 <link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bw-pq-new.css?<%= staticFileVersion %>" />
-<link rel="stylesheet" type="text/css" href="/css/rsa.css?v=3.0" />
+<link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/css/rsa.css?v=3.0" />
 <link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/jquery-ui-1.10.4.custom.min.css" />
 <script type="text/javascript" src="http://st.aeplcdn.com/bikewale/src/common/bt.js?v1.1"></script>
-<script type="text/javascript" src="../src/jquery-ui-1.10.4.custom.min.js"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/jquery-ui-1.10.4.custom.min.js"></script>
 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
-<script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <style>
     .colours {
         list-style: outside none none;

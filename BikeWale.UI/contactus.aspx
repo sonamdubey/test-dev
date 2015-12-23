@@ -1,4 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" %>
+
+<%
+    title = "Contact Us - BikeWale";
+    description = "Complete contact information, phone numbers, fax number of BikeWale.";
+    keywords = "";
+    AdId = "1395986297721";
+    AdPath = "/1017752/BikeWale_New_"; %>
+
 <script runat="server">
     protected void Page_Load(object Sender, EventArgs e)
     {

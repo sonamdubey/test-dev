@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.NewLaunchBikes" trace="false" Async="true"%>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.NewLaunchBikes" Trace="false" Async="true" %>
+
 <%@ Register TagPrefix="uc" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMin.ascx" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="/controls/LinkPagerControl.ascx" %>
 <%@ Register TagPrefix="news" TagName="NewsMin" Src="~/controls/NewsMin.ascx" %>
@@ -8,7 +9,7 @@
     title = "New Bikes Launches in " + year + " - BikeWale";
     keywords = "new bikes 2014, new bike launches in " + year + ", just launched bikes, new bike arrivals, bikes just got launched";
     description = "List of all new bikes launched in India in " + year + " (last eight months)";
-    canonical= "http://www.bikewale.com/new-bikes-launches/" ;
+    canonical = "http://www.bikewale.com/new-bikes-launches/";
     prevPageUrl = prevPage;
     nextPageUrl = nextPage;
     alternate = "http://www.bikewale.com/m/new-bikes-launches/";
@@ -26,13 +27,14 @@
             <li><a href="/new/">New</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>New Bike Launches in <%= year %></strong></li>
-        </ul><div class="clear"></div>
+        </ul>
+        <div class="clear"></div>
     </div>
-    <div class="grid_8 margin-top10">        
+    <div class="grid_8 margin-top10">
         <span id="spnError" runat="server"></span>
-        <h1>New Bikes Launches</h1>                            
+        <h1>New Bikes Launches</h1>
         <div id="alertObj" runat="server"></div>
-                <asp:repeater id="rptLaunched" runat="server">						           
+        <asp:repeater id="rptLaunched" runat="server">						           
                     <ItemTemplate>
                         <div class="margin-bottom15">
                             <div class="grid_5 omega">
@@ -67,16 +69,16 @@
                         </div><div class="clear"></div>
                         <div class="sept-dashed"></div>
                     </ItemTemplate>
-	            </asp:Repeater>
-            <BikeWale:RepeaterPager id="repeaterPager" runat="server"/>
-        </div>
+	            </asp:repeater>
+        <BikeWale:RepeaterPager ID="repeaterPager" runat="server" />
+    </div>
     <div class="grid_4">
         <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
         </div>--%>
         <div class="grid_4 alpha margin-top15">
-            <uc:UpcomingBikes ID="ctrl_UpcomingBikes" runat="server" HeaderText="Upcoming Bikes" TopRecords="2" ControlWidth="grid_2" />                    
+            <uc:UpcomingBikes ID="ctrl_UpcomingBikes" runat="server" HeaderText="Upcoming Bikes" TopRecords="2" ControlWidth="grid_2" />
             <div class="clear"></div>
         </div>
         <div class="clear"></div>

@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultF" Trace="false" Async="true" %>
+
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="Mms" TagName="MakeModelSearch" Src="/Controls/MakeModelSearch.ascx" %>
 <%@ Register TagPrefix="CE" TagName="CalculateEMIMin" Src="/controls/CalculateEMIMin.ascx" %>
@@ -17,18 +18,19 @@
 %>
 
 <!-- #include file="/includes/headNew.aspx" -->
-    <div class="container_12">
-        <div class="grid_12">
-            <ul class="breadcrumb">
-                <li>You are here: </li>
-                <li><a href="/">Home</a></li>
-                <li class="fwd-arrow">&rsaquo;</li>
-                <li class="current"><strong>Features</strong></li>
-            </ul><div class="clear"></div>
-        </div>
-        <div id="content" class="grid_8 margin-top10">
-            <h1>Features &nbsp;&nbsp;&nbsp;</h1>
-				<asp:Repeater ID="rptFeatures" runat="server">
+<div class="container_12">
+    <div class="grid_12">
+        <ul class="breadcrumb">
+            <li>You are here: </li>
+            <li><a href="/">Home</a></li>
+            <li class="fwd-arrow">&rsaquo;</li>
+            <li class="current"><strong>Features</strong></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div id="content" class="grid_8 margin-top10">
+        <h1>Features &nbsp;&nbsp;&nbsp;</h1>
+        <asp:repeater id="rptFeatures" runat="server">
 					<itemtemplate>
                         <div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class="margin-bottom15">
 						    <div class="anchor-title">
@@ -54,41 +56,44 @@
 					    </div>
                         <div class="sept-dashed"></div>
 				    </itemtemplate>
-			    </asp:Repeater>		
-                <BikeWale:RepeaterPager id="linkPager" runat="server"/>       
-        </div>
-        <div class="grid_4"><!--    Right Container starts here -->   
-            
-            <%--<div class="margin-top15">
+			    </asp:repeater>
+        <BikeWale:RepeaterPager ID="linkPager" runat="server" />
+    </div>
+    <div class="grid_4">
+        <!--    Right Container starts here -->
+        <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-            </div>--%>             
-            <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
-                <uc:InstantBikePrice runat="server" ID="ucInstantBikePrice" />
-            </div>
-            <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">            
-                <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />          
-                <div class="clear"></div>
-            </div>
-            <%--<div class="margin-top15">
+            </div>--%>
+        <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
+            <uc:InstantBikePrice runat="server" ID="ucInstantBikePrice" />
+        </div>
+        <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
+            <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
+            <div class="clear"></div>
+        </div>
+        <div>
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-            </div>--%> 
         </div>
     </div>
+</div>
 <%--<script type="text/javascript" language="javascript">
     $("a[rel='slide']").colorbox({ width: "700px", height: "500px" });
 </script>--%>
-<script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <script type="text/javascript">
-$(document).ready(function () {
-    
-    $(".cboxElement").colorbox({
-        rel: 'cboxElement'
+    $(document).ready(function () {
+
+        $(".cboxElement").colorbox({
+            rel: 'cboxElement'
+        });
     });
-});
-</script> 
+</script>
 <style type="text/css">
-     #colorbox   { width:400px !important; height:400px !important; }
+    #colorbox {
+        width: 400px !important;
+        height: 400px !important;
+    }
 </style>
 <!-- #include file="/includes/footerInner.aspx" -->

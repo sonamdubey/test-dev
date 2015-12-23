@@ -357,7 +357,7 @@ namespace Bikewale.DAL.BikeData
                         if (rowCount > 0)
                         {
                             objSpecs = new BikeSpecificationEntity();
-
+                            objSpecs.BikeVersionId = Convert.ToUInt32(versionId);
                             objSpecs.Displacement = Convert.ToSingle(paramColl["@Displacement"].Value);
                             objSpecs.Cylinders = Convert.ToUInt16(paramColl["@Cylinders"].Value);
                             objSpecs.MaxPower = Convert.ToSingle(paramColl["@MaxPower"].Value);

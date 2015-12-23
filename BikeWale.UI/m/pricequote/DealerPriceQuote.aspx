@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.BikeBooking.DealerPriceQuote" trace="false" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.BikeBooking.DealerPriceQuote" Trace="false" Async="true" %>
+
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
@@ -6,46 +7,104 @@
 <!doctype html>
 <html>
 <head>
-<%
-    title = "";
-    keywords = "";
-    description = "";
-    canonical = "";
-    AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
-    AdId = "1398766000399";
-%>
-<script>var quotationPage = true;</script>
-<!-- #include file="/includes/headscript_mobile.aspx" -->
-<link rel="stylesheet"  href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
-<link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" />
+    <%
+        title = "";
+        keywords = "";
+        description = "";
+        canonical = "";
+        AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
+        AdId = "1398766000399";
+    %>
+    <script>var quotationPage = true;</script>
+    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <link rel="stylesheet" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
+    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
 
-<script type="text/javascript">
-    var dealerId = '<%= dealerId%>';
-    var pqId = '<%= pqId%>';
-    var ABHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]%>';
+    <script type="text/javascript">
+        var dealerId = '<%= dealerId%>';
+        var pqId = '<%= pqId%>';
+        var ABHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]%>';
 
-    var versionId = '<%= versionId%>';
-    var cityId = '<%= cityId%>';
-    var Customername = "", email = "", mobileNo = "";
-    var CustomerId = '<%= CurrentUser.Id %>';
-    if (CustomerId != '-1') {
-        Customername = '<%= objCustomer.CustomerName%>', email = '<%= objCustomer.CustomerEmail%>', mobileNo = '<%= objCustomer.CustomerMobile%>';
-    } else {
-        Customername = '<%= CustomerDetailCookie.CustomerName%>', email = '<%= CustomerDetailCookie.CustomerEmail%>', mobileNo = '<%= CustomerDetailCookie.CustomerMobile %>';
-    }
+        var versionId = '<%= versionId%>';
+        var cityId = '<%= cityId%>';
+        var Customername = "", email = "", mobileNo = "";
+        var CustomerId = '<%= CurrentUser.Id %>';
+        if (CustomerId != '-1') {
+            Customername = '<%= objCustomer.CustomerName%>', email = '<%= objCustomer.CustomerEmail%>', mobileNo = '<%= objCustomer.CustomerMobile%>';
+        } else {
+            Customername = '<%= CustomerDetailCookie.CustomerName%>', email = '<%= CustomerDetailCookie.CustomerEmail%>', mobileNo = '<%= CustomerDetailCookie.CustomerMobile %>';
+        }
 
-    var clientIP = "<%= clientIP%>";
-    var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
+        var clientIP = "<%= clientIP%>";
+        var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
 
-</script>
-<style type="text/css">
-    .inner-section{background:#fff; clear:both; overflow:hidden;}
-    .alternatives-carousel .jcarousel li.front { border:none;}
-    .discover-bike-carousel .jcarousel li { height: auto; }
-    .discover-bike-carousel .front { height:auto; }
-    #leadCapturePopup .leadCapture-close-btn {z-index:2;}
-    #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
-</style>
+    </script>
+    <style type="text/css">
+        .inner-section {
+            background: #fff;
+            clear: both;
+            overflow: hidden;
+        }
+
+        .alternatives-carousel .jcarousel li.front {
+            border: none;
+        }
+
+        .discover-bike-carousel .jcarousel li {
+            height: auto;
+        }
+
+        .discover-bike-carousel .front {
+            height: auto;
+        }
+
+        #leadCapturePopup .leadCapture-close-btn {
+            z-index: 2;
+        }
+
+        #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {
+            display: none;
+        }
+
+        .btn-grey {
+    background: #fff;
+    color: #82888b;
+    border: 1px solid #82888b;
+}
+
+        .btn-grey:hover {
+    background: #82888b;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid #82888b;
+}
+
+        /*notify availability*/
+#notifyAvailabilityContainer {min-height: 320px; background: #fff; margin: 0 auto; padding:10px;position: fixed; top: 10%; right: 5%; left: 5%; z-index: 10; }
+#notify-form .grid-12 { padding: 10px 20px; }
+.personal-info-notify-container input { margin:0 auto; } 
+.notify-offers-list { list-style:disc; margin-left:10px; }
+#notifyAvailabilityContainer .notify-close-btn {z-index:2;}
+#leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
+
+.float-button { background-color:#f5f5f5; padding: 0px 10px 10px 10px; }
+.float-button.float-fixed{position:fixed; bottom:0; z-index:8; left:0; right:0;}
+
+/**/
+#otpPopup { display:none; }
+.icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
+.icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
+.user-contact-details-icon { width:36px; height:44px; background-position: -107px -227px; }
+.otp-icon { width:30px; height:40px; background-position: -107px -177px; }
+.edit-blue-icon { width:16px; height:16px; background-position: -114px -123px; }
+#getMobile { padding:9px 40px; }
+.mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; z-index:2; }
+#otpPopup .errorIcon, #otpPopup .errorText { display:none; }
+#otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
+#otpPopup .update-mobile-box { display:none; }
+#otpPopup .edit-mobile-btn { cursor:pointer; }
+
+    </style>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -144,7 +203,7 @@
                         </td>
                     </tr>
                     <%
-                    }
+                        }
                     %>
                     <%-- End 102155010 --%>
                     <tr align="left">
@@ -184,30 +243,31 @@
                     </asp:Repeater>
                 </div>
             </div>
-            <div class="padding-left10 padding-right10">
-                <% if (bookingAmount > 0)
-                   { %>
-                <button type="button" data-role="none" id="getDealerDetails" class="btn btn-full-width btn-orange" style="margin-bottom: 20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'DealerQuotation_Page - <%=MakeModel.Replace("'","") %>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</button>
-                <% }
-                   else
-                   { %>
-                <button type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange" style="margin-bottom: 20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'DealerQuotation_Page - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</button>
-                <% } %>
-                <%}
-               else
-               {
-                   if (bookingAmount > 0)
-                   { %>
-                <button type="button" data-role="none" id="btnBookBike" class="btn btn-full-width btn-orange" style="margin-bottom: 20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</button>
-                <% }
-                   else
-                   {%>
-                <button type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange" style="margin-bottom: 20px;" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</button>
-                <% }
-               }%>
+            <div class="grid-12 float-button float-fixed clearfix">
+                <div class="show padding-top10">
+                    <% if (bookingAmount > 0)
+                       { %>
+
+                    <div class="grid-7">
+                        <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" value="Get more details" class="btn btn-orange btn-full-width btn-sm margin-right10 leftfloat"  onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'DealerQuotation_Page - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });" />
+                    </div>
+                    <div class="grid-5 omega">
+                        <input type="button" data-role="none" id="btnBookBike" class="btn btn-grey btn-full-width btn-sm rightfloat" value="Book Now" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>        ', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });" />  
+                    </div>
+                    <% }
+                       else
+                       { %>
+                    <div class="grid-12">
+                        <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange"  value="Get more details"  onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'DealerQuotation_Page - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });" />
+                    </div>
+                    <% } %>
+                </div>
+                <% }%>
             </div>
             <!--Exciting Offers section ends here-->
         </div>
+
+
 
 
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
@@ -231,62 +291,93 @@
         </section>
 
 
-        <% if (bookingAmount <= 0)
-           { %>
-        <!-- lead capture popup -->
+
+        <!-- Lead Capture pop up start  -->
         <div id="leadCapturePopup" class="bw-popup contact-details hide">
-            <div class="popup-inner-container">
+            <div class="popup-inner-container text-center">
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
-                <h2>Please provide us contact details</h2>
+                <div id="contactDetailsPopup">
+                    <!-- Contact details Popup starts here -->
+                    <div class="icon-outer-container rounded-corner50percent">
+                        <div class="icon-inner-container rounded-corner50percent">
+                            <span class="bwmsprite user-contact-details-icon margin-top25"></span>
+                        </div>
+                    </div>
+                    <h2 class="margin-top10 margin-bottom10">Please provide us contact details</h2>
+                    <p class="text-light-grey margin-bottom10">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
 
-                <div class="personal-info-form-container margin-top10">
-                    <div class="form-control-box">
-                        <input type="text" class="form-control get-first-name" placeholder="First name" id="getFirstName" data-bind="value: firstName">
-                        <span class="bwmsprite error-icon "></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                    <div class="personal-info-form-container margin-top10">
+                        <div class="form-control-box">
+                            <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="value: fullName">
+                            <span class="bwmsprite error-icon "></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter your name</div>
+                        </div>
+                        <%--<div class="form-control-box margin-top20">
+                                            <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: lastName">
+                                            <span class="bwmsprite error-icon"></span>
+                                            <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
+                                        </div>--%>
+                        <div class="form-control-box margin-top20">
+                            <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId">
+                            <span class="bwmsprite error-icon"></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter your email adress</div>
+                        </div>
+                        <div class="form-control-box margin-top20">
+                            <p class="mobile-prefix">+91</p>
+                            <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: mobileNo">
+                            <span class="bwmsprite error-icon"></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                        </div>
+                        <div class="clear"></div>
+                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                     </div>
-                    <div class="form-control-box margin-top20">
-                        <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: lastName">
-                        <span class="bwmsprite error-icon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
-                    </div>
-                    <div class="form-control-box margin-top20">
-                        <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId">
-                        <span class="bwmsprite error-icon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter your email adress</div>
-                    </div>
-                    <div class="form-control-box margin-top20">
-                        <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: mobileNo">
-                        <span class="bwmsprite error-icon"></span>
-                        <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-                    </div>
-                    <div class="clear"></div>
-                    <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
                 </div>
-
-                <div class="mobile-verification-container margin-top20 hide">
-                    <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
-                    <div class="form-control-box  padding-left15 padding-right15">
-                        <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" id="getOTP" data-bind="value: otpCode">
-                        <span class="bwmsprite error-icon hide"></span>
-                        <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
+                <!-- Contact details Popup ends here -->
+                <div id="otpPopup">
+                    <!-- OTP Popup starts here -->
+                    <div class="icon-outer-container rounded-corner50percent">
+                        <div class="icon-inner-container rounded-corner50percent">
+                            <span class="bwmsprite otp-icon margin-top25"></span>
+                        </div>
                     </div>
-                    <div class="text-center padding-top10">
-                        <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
-                        <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
-                            OTP has been already sent to your mobile
-                        </p>
+                    <p class="font18 margin-top10 margin-bottom10">Verify your mobile number</p>
+                    <p class="font14 text-light-grey margin-bottom10">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                    <div>
+                        <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
+                            <span class="fa fa-phone"></span>
+                            <span class="text-light-grey font24">+91</span>
+                            <span class="lead-mobile font24">9876543210</span>
+                            <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
+                        </div>
+                        <div class="otp-box lead-otp-box-container">
+                            <div class="form-control-box margin-bottom10">
+                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode" />
+                                <span class="bwmsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
+                                OTP has been already sent to your mobile
+                            </p>
+                            <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
+                        </div>
+                        <div class="update-mobile-box">
+                            <div class="form-control-box text-left">
+                                <p class="mobile-prefix">+91</p>
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" />
+                                <span class="bwmsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" />
+                        </div>
                     </div>
 
-                    <div class="clear"></div>
-                    <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
-                    <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
                 </div>
-
-                <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
+                <!-- OTP Popup ends here -->
             </div>
         </div>
-        <% } %>
+        <!-- Lead Capture pop up end  -->
 
 
         <BW:MPopupWidget runat="server" ID="MPopupWidget" />
@@ -305,12 +396,8 @@
                 $("table tr td.text-medium-grey:contains('Insurance')").html("Insurance  (<a href='/m/insurance/' style='position: relative; font-size: 12px; margin-top: 1px;' target='_blank' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objPrice.objMake.MakeName,objPrice.objModel.ModelName,objPrice.objVersion.VersionName)%>" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
             }
 
-             <% if (bookingAmount <= 0)
-                { %>
-            var isClicked = false;
             var leadBtnBookNow = $("#leadBtnBookNow"), leadCapturePopup = $("#leadCapturePopup");
-            var firstname = $("#getFirstName");
-            var lastname = $("#getLastName");
+            var fullname = $("#getFullName");
             var emailid = $("#getEmailID");
             var mobile = $("#getMobile");
             var otpContainer = $(".mobile-verification-container");
@@ -328,16 +415,16 @@
             $(function () {
 
                 leadBtnBookNow.on('click', function () {
-                    isClicked = true;
                     leadCapturePopup.show();
+                    $("div#contactDetailsPopup").show();
+                    $("#otpPopup").hide();
                     $('body').addClass('lock-browser-scroll');
                     $(".blackOut-window").show();
-
                     $(".leadCapture-close-btn, .blackOut-window").on("click", function () {
                         leadCapturePopup.hide();
                         $('body').removeClass('lock-browser-scroll');
                         $(".blackOut-window").hide();
-                    }); 
+                    });
 
                     $(document).on('keydown', function (e) {
                         if (e.keyCode === 27) {
@@ -349,20 +436,17 @@
 
             });
 
-            ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
 
             function CustomerModel() {
                 var arr = setuserDetails();
                 var self = this;
                 if (arr != null && arr.length > 0) {
-                    self.firstName = ko.observable(arr[0]);
-                    self.lastName = ko.observable(arr[1]);
-                    self.emailId = ko.observable(arr[2]);
-                    self.mobileNo = ko.observable(arr[3]);
+                    self.fullName = ko.observable(arr[0]);
+                    self.emailId = ko.observable(arr[1]);
+                    self.mobileNo = ko.observable(arr[2]);
                 }
                 else {
-                    self.firstName = ko.observable();
-                    self.lastName = ko.observable();
+                    self.fullName = ko.observable();
                     self.emailId = ko.observable();
                     self.mobileNo = ko.observable();
                 }
@@ -370,20 +454,14 @@
                 self.NoOfAttempts = ko.observable(0);
                 self.IsValid = ko.computed(function () { return self.IsVerified(); }, this);
                 self.otpCode = ko.observable();
-                self.fullName = ko.computed(function () {
-                    var _firstName = self.firstName() != undefined ? self.firstName() : "";
-                    var _lastName = self.lastName() != undefined ? self.lastName() : "";
-                    return _firstName + ' ' + _lastName;
-                }, this);
-
                 self.verifyCustomer = function () {
                     if (!self.IsVerified()) {
                         var objCust = {
                             "dealerId": dealerId,
                             "pqId": pqId,
-                            "customerName": self.fullName,
-                            "customerMobile": self.mobileNo,
-                            "customerEmail": self.emailId,
+                            "customerName": self.fullName(),
+                            "customerMobile": self.mobileNo(),
+                            "customerEmail": self.emailId(),
                             "clientIP": clientIP,
                             "pageUrl": pageUrl,
                             "versionId": versionId,
@@ -412,11 +490,11 @@
                     if (!self.IsVerified()) {
                         var objCust = {
                             "pqId": pqId,
-                            "customerMobile": self.mobileNo,
-                            "customerEmail": self.emailId,
-                            "cwiCode": self.otpCode,
+                            "customerMobile": self.mobileNo(),
+                            "customerEmail": self.emailId(),
+                            "cwiCode": self.otpCode(),
                             "branchId": dealerId,
-                            "customerName": self.fullName,
+                            "customerName": self.fullName(),
                             "versionId": versionId,
                             "cityId": cityId
                         }
@@ -465,23 +543,21 @@
                     }
                 };
 
-                self.fullName = ko.computed(function () {
-                    var _firstName = self.firstName() != undefined ? self.firstName() : "";
-                    var _lastName = self.lastName() != undefined ? self.lastName() : "";
-                    return _firstName + ' ' + _lastName;
-                }, this);
-
                 self.submitLead = function () {
-                    if (isClicked && ValidateUserDetail()) {
+                    if (ValidateUserDetail()) {
                         self.verifyCustomer();
                         if (self.IsValid()) {
                             $("#personalInfo").hide();
                             $("#leadCapturePopup .leadCapture-close-btn").click();
-                            window.location.href = "/pricequote/detaileddealerquotation.aspx";
+                            window.location.href = "/m/pricequote/BikeDealerDetails.aspx";
                         }
                         else {
+                            $("#contactDetailsPopup").hide();
+                            $("#otpPopup").show();
+                            var leadMobileVal = mobile.val();
+                            $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
                             otpContainer.removeClass("hide").addClass("show");
-                            detailsSubmitBtn.hide();
+                            //detailsSubmitBtn.hide();
                             nameValTrue();
                             hideError(mobile);
                             otpText.val('').removeClass("border-red").siblings("span, div").hide();
@@ -512,7 +588,7 @@
                             // OTP Success
                             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
                             $("#leadCapturePopup .leadCapture-close-btn").click();
-                            window.location.href = "/pricequote/detaileddealerquotation.aspx";
+                            window.location.href = "/pricequote/BikeDealerDetails.aspx";
 
                         }
                         else {
@@ -531,34 +607,20 @@
                 isValid = validateEmail();
                 isValid &= validateMobile();
                 isValid &= validateName();
-                isValid &= validateLastName();
                 return isValid;
             };
-
-            function validateLastName() {
-                var isValid = true;
-                if (lastname.val().indexOf('&') != -1) {
-                    isValid = false;
-                    setError(lastname, 'Invalid name');
-                }
-                else {
-                    isValid = true;
-                    lastnameValTrue();
-                }
-                return isValid;
-            }
 
 
             function validateName() {
                 var isValid = true;
-                var a = firstname.val().length;
-                if (firstname.val().indexOf('&') != -1) {
+                var a = fullname.val().length;
+                if ((/&/).test(fullname.val())) {
                     isValid = false;
-                    setError(firstname, 'Invalid name');
+                    setError(fullname, 'Invalid name');
                 }
                 else if (a == 0) {
                     isValid = false;
-                    setError(firstname, 'Please enter your first name');
+                    setError(fullname, 'Please enter your name');
                 }
                 else if (a >= 1) {
                     isValid = true;
@@ -568,17 +630,13 @@
                 return isValid;
             }
 
-            function lastnameValTrue() {
-                hideError(lastname)
-                lastname.siblings("div").text('');
-            };
             function nameValTrue() {
-                hideError(firstname)
-                firstname.siblings("div").text('');
+                hideError(fullname)
+                fullname.siblings("div").text('');
             };
 
-            firstname.on("focus", function () {
-                hideError(firstname);
+            fullname.on("focus", function () {
+                hideError(fullname);
             });
 
             emailid.on("focus", function () {
@@ -592,7 +650,7 @@
 
             });
 
-            emailid.on("keyup keydown blur", function () {
+            emailid.on("blur", function () {
                 if (prevEmail != emailid.val().trim()) {
                     if (validateEmail()) {
                         customerViewModel.IsVerified(false);
@@ -606,7 +664,7 @@
                 }
             });
 
-            mobile.on("keyup keydown blur", function () {
+            mobile.on("blur", function () {
                 if (mobile.val().length < 10) {
                     $("#user-details-submit-btn").show();
                     $(".mobile-verification-container").removeClass("show").addClass("hide");
@@ -710,7 +768,6 @@
                     }
                 }
                 return retVal;
-
             }
 
             function setuserDetails() {
@@ -722,11 +779,51 @@
             }
 
             function setPQUserCookie() {
-                var val = firstname.val() + '&' + lastname.val() + '&' + emailid.val() + '&' + mobile.val();
+                var val = fullname.val() + '&' + emailid.val() + '&' + mobile.val();
                 SetCookie("_PQUser", val);
             }
 
-            <% } %>
+            $("#otpPopup .edit-mobile-btn").on("click", function () {
+                var prevMobile = $(this).prev("span.lead-mobile").text();
+                $(".lead-otp-box-container").hide();
+                $(".update-mobile-box").show();
+                $("#getUpdatedMobile").val(prevMobile).focus();
+            });
+
+            $("#generateNewOTP").on("click", function () {
+                if (validateUpdatedMobile()) {
+                    var updatedNumber = $(".update-mobile-box").find("#getUpdatedMobile").val();
+                    $(".update-mobile-box").hide();
+                    $(".lead-otp-box-container").show();
+                    $(".lead-mobile-box").find(".lead-mobile").text(updatedNumber);
+                }
+            });
+
+            var validateUpdatedMobile = function () {
+                var isValid = true,
+                    mobileNo = $("#getUpdatedMobile"),
+                    mobileVal = mobileNo.val(),
+                    reMobile = /^[0-9]{10}$/;
+                if (mobileVal == "") {
+                    setError(mobileNo, "Please enter your Mobile Number");
+                    isValid = false;
+                }
+                else if (!reMobile.test(mobileVal) && isValid) {
+                    setError(mobileNo, "Mobile Number should be 10 digits");
+                    isValid = false;
+                }
+                else
+                    hideError(mobileNo)
+                return isValid;
+            };
+
+            $('#bookNowBtn').on('click', function (e) {
+                window.location.href = "/m/pricequote/BookingSummary_New.aspx";
+            });
+
+            ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
+
+
 
         </script>
 

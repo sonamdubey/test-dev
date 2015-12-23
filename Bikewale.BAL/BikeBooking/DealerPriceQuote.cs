@@ -44,11 +44,11 @@ namespace Bikewale.BAL.BikeBooking
         /// <param name="customerMobile"></param>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail)
+        public bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, uint? colorId)
         {
             bool isSuccess = false;
 
-            isSuccess = dealerPQRepository.SaveCustomerDetail(dealerId, pqId, customerName, customerMobile, customerEmail);
+            isSuccess = dealerPQRepository.SaveCustomerDetail(dealerId, pqId, customerName, customerMobile, customerEmail,colorId);
 
             return isSuccess;
         }
@@ -321,11 +321,13 @@ namespace Bikewale.BAL.BikeBooking
 
                 if (PQParams.VersionId > 0 && PQParams.AreaId > 0)
                 {
-                    string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                    string requestType = "application/json";
                     string api = "/api/DealerPriceQuote/IsDealerExists/?areaid=" + PQParams.AreaId + "&versionid=" + PQParams.VersionId;
 
-                    dealerId = BWHttpClient.GetApiResponseSync<uint>(abHostUrl, requestType, api, dealerId);
+                    using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                    {
+                        //dealerId = objClient.GetApiResponseSync<uint>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, dealerId);
+                        dealerId = objClient.GetApiResponseSync<uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, api, dealerId);
+                    }
                 }
             }
             catch(Exception ex)

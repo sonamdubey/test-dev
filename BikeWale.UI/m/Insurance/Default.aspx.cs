@@ -16,10 +16,9 @@ namespace Bikewale.Mobile.Insurance
     /// Creted On : 28 Nov. 2015
     /// </summary>
     public class Default : System.Web.UI.Page
-    {
-        string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        string _applicationid = ConfigurationManager.AppSettings["applicationId"];
-        string _requestType = "application/json";
+    {        
+        string _applicationid = Utility.BWConfiguration.Instance.ApplicationId;
+        
         IDictionary<string, string> _headerParameters;
         protected IEnumerable<CityDetail> cityList = null;
         protected IEnumerable<MakeDetail> makeList = null;
@@ -48,12 +47,17 @@ namespace Bikewale.Mobile.Insurance
         /// Creted On : 28 Nov. 2015
         /// Description : Call api to get Cities list from client.
         /// </summary>
-        private void GetCities()//?
+        private void GetCities()
         {
             try
             {
                 string apiUrl = "/api/insurance/cities/";
-                cityList = BWHttpClient.GetApiResponseSync<IEnumerable<CityDetail>>(_cwHostUrl, _requestType, apiUrl, cityList, _headerParameters);
+
+                using (Utility.BWHttpClient objClient = new BWHttpClient())
+                {
+                    //cityList = objClient.GetApiResponseSync<IEnumerable<CityDetail>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, cityList, _headerParameters);
+                    cityList = objClient.GetApiResponseSync<IEnumerable<CityDetail>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, cityList, _headerParameters);
+                }
             }
             catch (Exception ex)
             {
@@ -67,12 +71,18 @@ namespace Bikewale.Mobile.Insurance
         /// Creted On : 28 Nov. 2015
         /// Description : Call api to get make list from client.
         /// </summary>
-        protected void GetMakes()//?
+        protected void GetMakes()
         {
             try
             {
                 string apiUrl = "/api/insurance/makes/";
-                makeList = BWHttpClient.GetApiResponseSync<IEnumerable<MakeDetail>>(_cwHostUrl, _requestType, apiUrl, makeList, _headerParameters);
+
+                using(Utility.BWHttpClient objClient = new BWHttpClient())
+                {
+                    //makeList = objClient.GetApiResponseSync<IEnumerable<MakeDetail>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, makeList, _headerParameters);
+                    makeList = objClient.GetApiResponseSync<IEnumerable<MakeDetail>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, apiUrl, makeList, _headerParameters);
+                }
+                
             }
             catch (Exception ex)
             {
