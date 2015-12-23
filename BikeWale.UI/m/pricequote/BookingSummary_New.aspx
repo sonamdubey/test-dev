@@ -14,7 +14,7 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->       
-
+         <script type="text/javascript">$("header").find(".leftfloat .navbarBtn").hide();$("header").find(".rightfloat ").hide();</script>
         <section class="bg-white" id="bookingFlow" style="display: none;" data-bind="visible: true">
             <div class="container margin-bottom20 padding-top20">
                 <div class="grid-12 box-shadow padding-bottom20">
@@ -357,7 +357,6 @@
         <!-- all other js plugins -->
                 <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
         <script type="text/javascript">
             var pqId = '<%= pqId %>'
             var verId = '<%= versionId %>';
