@@ -326,6 +326,8 @@ namespace Bikewale.Mobile.Pricequote
         #region Set User Location from cookie
         /// <summary>
         /// To set user location from the location cookie,if not obtained from customer object
+        /// Modified By :   Sumit Kate on 23 Dec 2015
+        /// Description :   UInt16 Parsing the city Id instead of city name which is throwing Exception
         /// </summary>
         private void CheckCityCookie()
         {
@@ -337,7 +339,7 @@ namespace Bikewale.Mobile.Pricequote
                 {
                     string[] locArray = cookieLocation.Split('_');
 
-                    if (locArray.Length > 3 && Convert.ToUInt16(locArray[1]) > 0)
+                    if (locArray.Length > 3 && Convert.ToUInt16(locArray[0]) > 0)
                     {
                         location = String.Format("{0}, {1}", locArray[3], locArray[1]);
                     }
