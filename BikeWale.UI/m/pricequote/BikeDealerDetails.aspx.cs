@@ -331,23 +331,31 @@ namespace Bikewale.Mobile.Pricequote
         /// </summary>
         private void CheckCityCookie()
         {
-            var cookies = this.Context.Request.Cookies;
-            if (cookies.AllKeys.Contains("location"))
+            try
             {
-                string cookieLocation = cookies["location"].Value;
-                if (!String.IsNullOrEmpty(cookieLocation) && cookieLocation.IndexOf('_') != -1)
+                var cookies = this.Context.Request.Cookies;
+                if (cookies.AllKeys.Contains("location"))
                 {
-                    string[] locArray = cookieLocation.Split('_');
+                    string cookieLocation = cookies["location"].Value;
+                    if (!String.IsNullOrEmpty(cookieLocation) && cookieLocation.IndexOf('_') != -1)
+                    {
+                        string[] locArray = cookieLocation.Split('_');
 
-                    if (locArray.Length > 3 && Convert.ToUInt16(locArray[0]) > 0)
-                    {
-                        location = String.Format("{0}, {1}", locArray[3], locArray[1]);
-                    }
-                    else
-                    {
-                        location = locArray[1];
+                        if (locArray.Length > 3 && Convert.ToUInt16(locArray[0]) > 0)
+                        {
+                            location = String.Format("{0}, {1}", locArray[3], locArray[1]);
+                        }
+                        else
+                        {
+                            location = locArray[1];
+                        }
                     }
                 }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, String.Format("{0} {1}", Request.ServerVariables["URL"], "CheckCityCookie"));
+                objErr.SendMail();
             }
         }
         #endregion
