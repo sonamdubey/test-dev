@@ -59,7 +59,7 @@
         googletag.defineSlot('<%= AdPath%>300x250', [[300, 250], [300,600]], 'div-gpt-ad-<%= AdId%>-1').addService(googletag.pubads());                    
         googletag.defineSlot('<%= AdPath%>300x250_BTF', [[300, 250], [300, 600]], 'div-gpt-ad-<%= AdId%>-2').addService(googletag.pubads());        
         <% if(isAd970x90Shown){ %>
-        googletag.defineSlot('/1017752/Bikewale_NewBike_970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads()); 
+        googletag.defineSlot('<%= AdPath%>970x90', [[970, 66], [970, 60], [960, 90], [950, 90], [960, 66], [728, 90], [960, 60], [970, 90]], 'div-gpt-ad-<%= AdId%>-3').addService(googletag.pubads()); 
         <% } %>
         <% if(isAd970x90BTFShown){ %>
         googletag.defineSlot('<%= AdPath%>970x90_BTF', [[970, 200],[970, 150],[960, 60], [970, 66], [960, 90], [970, 60], [728, 90], [970, 90], [960, 66]], 'div-gpt-ad-<%= AdId%>-4').addService(googletag.pubads());
@@ -74,7 +74,7 @@
         googletag.defineSlot('<%= AdPath%>SecondSlot_976x400',[[976, 150], [976, 100], [976, 250], [976, 300], [976, 350], [976, 400], [970, 90], [976, 200]],'div-gpt-ad-<%= AdId%>-7').addService(googletag.pubads());
         <% } %>
         <% if (isAd976x204) { %>
-        googletag.defineSlot('/1017752/BikeWale_HomePageNews_FirstSlot_976x204', [[976, 200], [976, 250], [976, 204]], 'div-gpt-ad-<%= AdId%>-8').addService(googletag.pubads());
+        googletag.defineSlot('/1017752/BikeWale_HomePageNews_FirstSlot_976x204', [[976, 200], [976, 250], [976, 204]], 'div-gpt-ad-1395985604192-8').addService(googletag.pubads());
         <% } %>
         
         googletag.pubads().enableSingleRequest();
