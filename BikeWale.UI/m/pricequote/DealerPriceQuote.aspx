@@ -313,10 +313,10 @@
                             <div class="bw-blackbg-tooltip errorText">Please enter your name</div>
                         </div>
                         <%--<div class="form-control-box margin-top20">
-                                            <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: lastName">
-                                            <span class="bwmsprite error-icon"></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
-                                        </div>--%>
+                            <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: lastName">
+                            <span class="bwmsprite error-icon"></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
+                        </div>--%>
                         <div class="form-control-box margin-top20">
                             <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId">
                             <span class="bwmsprite error-icon"></span>
@@ -347,7 +347,7 @@
                         <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
                             <span class="fa fa-phone"></span>
                             <span class="text-light-grey font24">+91</span>
-                            <span class="lead-mobile font24">9876543210</span>
+                            <span class="lead-mobile font24"></span>
                             <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
                         </div>
                         <div class="otp-box lead-otp-box-container">
