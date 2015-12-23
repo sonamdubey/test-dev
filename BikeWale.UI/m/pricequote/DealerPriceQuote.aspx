@@ -414,8 +414,8 @@
                         </div>
                         <div class="clear"></div>
                         <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                    </div>
-                    <input type="button" class="btn btn-full-width btn-orange hide rounded-corner5" value="Submit" onclick="validateDetails();" data-role="none" id="btnSubmit" />
+                    </div>                 
+		<input type="button" class="btn btn-full-width btn-orange hide rounded-corner5" value="Submit" onclick="validateDetails();" data-role="none" id="btnSubmit" />
                 </div>
                 <!-- Contact details Popup ends here -->
                 <div id="otpPopup">
@@ -431,7 +431,7 @@
                         <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
                             <span class="fa fa-phone"></span>
                             <span class="text-light-grey font24">+91</span>
-                            <span class="lead-mobile font24">9876543210</span>
+                            <span class="lead-mobile font24"></span>
                             <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
                         </div>
                         <div class="otp-box lead-otp-box-container">
@@ -480,6 +480,7 @@
                 $("table tr td.text-medium-grey:contains('Insurance')").html("Insurance  (<a href='/m/insurance/' style='position: relative; font-size: 12px; margin-top: 1px;' target='_blank' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objPrice.objMake.MakeName,objPrice.objModel.ModelName,objPrice.objVersion.VersionName)%>" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
             }
 
+           
             var leadBtnBookNow = $("#leadBtnBookNow,#leadLink"), leadCapturePopup = $("#leadCapturePopup");
             var fullname = $("#getFullName");
             var emailid = $("#getEmailID");

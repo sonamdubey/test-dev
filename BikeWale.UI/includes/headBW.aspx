@@ -7,8 +7,10 @@
     <div class="globalcity-popup rounded-corner2 hide" id="globalcity-popup"><!-- global city pop up code starts here -->
     	<div class="globalcity-popup-data text-center">
         	<div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-            <div class="cityPopup-box rounded-corner50 margin-bottom20">
-            	<span class="bwsprite cityPopup-icon margin-top10"></span>
+            <div class="icon-outer-container rounded-corner50 margin-bottom20">
+                <div class="icon-inner-container rounded-corner50">
+                    <span class="bwsprite cityPopup-icon margin-top15"></span>
+                </div>
             </div>
             <p class="font20 margin-bottom15">Please tell us your city</p>
             <p class="text-light-grey margin-bottom15">This allows us to provide relevant content for you.</p>

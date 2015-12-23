@@ -323,7 +323,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .newbikes-banner-div { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/new-bike-banner.jpg) no-repeat left top; background-size: cover; height:130px;}
 
 /* sprite classes */
-.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v=22122015) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v=23122015) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -341,9 +341,12 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .fb-login-icon { background-position: -103px -89px; }
 .gplus-login-icon { background-position: -125px -89px; }
 .error-icon { background-position: -177px -35px; width: 19px; height: 19px; position: absolute; right: 10px; top: 10px; z-index: 9; }
-.cityPopup-icon { background-position: -107px -35px; width: 29px; height: 38px; }
+.cityPopup-icon { background-position: -122px -333px; width: 58px; height: 52px; }
 .back-long-arrow-left { background-position: -155px 0;  width: 21px; height: 16px; }
 .back-long-arrow-left-white { background-position: -155px -101px; width: 21px; height: 21px; }
+.orp-location-icon { background-position: -162px -281px; width: 49px; height: 49px; }
+.icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
+.icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
 
 /* nav classes */
 .home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
@@ -641,8 +644,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 .cur-pointer { cursor: pointer; }
 .cur-default { cursor: default; }
-.bw-blackbg-tooltip { background:#000; color:#fff; font-size:12px; padding:3px 5px; position:absolute; right:0px; top:37px; z-index: 2;}
-.bw-blackbg-tooltip:before { border-bottom: 5px solid #000; border-left: 5px solid transparent; border-right: 5px solid transparent; content:""; position:absolute; right:14px; top:-5px; z-index:999; }
+.bw-blackbg-tooltip { background:#4d5057; color:#fff; font-size:12px; padding:3px 5px; position:absolute; right:0px; top:37px; z-index: 2;}
+.bw-blackbg-tooltip:before { border-bottom: 5px solid #4d5057; border-left: 5px solid transparent; border-right: 5px solid transparent; content:""; position:absolute; right:14px; top:-5px; z-index:999; }
 
 
 /* Carousel Controls */
