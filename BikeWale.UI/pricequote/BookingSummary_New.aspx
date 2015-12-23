@@ -15,6 +15,7 @@
 <body class="header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
+        <script type="text/javascript">$("#header").find(".leftfloat .navbarBtn").hide();$("#header").find(".rightfloat ").hide();</script>
         <section class="bg-light-grey padding-top10">
             <div class="container">
                 <div class="grid-12">
@@ -235,7 +236,7 @@
                                        {%>
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
-                                    <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
+                                    <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: $root.Dealer().latitude(), longitude: $root.Dealer().longitude() }"></div>
                                     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
                                     <% } %>
                                 </div>
@@ -351,6 +352,8 @@
             var thisBikename = '<%= this.bikeName %>';
             var clientIP = '<%= clientIP %>'; 
             var pageUrl = '<%= pageUrl %>';
+
+            
             //select bike version
             var bikeVersionId = '<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>';
             $(function () {
@@ -384,7 +387,7 @@
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/booking.js?<%= staticFileVersion %>"></script>
         <!-- #include file="/includes/footerscript.aspx" -->
-        
+        <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript">
             <% if(objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName)) { %>
             viewModel.Customer().Name('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))?objCustomer.objCustomerBase.CustomerName:String.Empty %>');
