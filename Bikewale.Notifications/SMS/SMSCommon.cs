@@ -104,6 +104,53 @@ namespace Bikewale.Notifications
             }
         }
 
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 22 Dec 2015
+        /// Summary : To push sms in sms priority queue
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="message"></param>
+        /// <param name="esms"></param>
+        /// <param name="pageUrl"></param>
+        /// <param name="isDND"></param>
+        public void ProcessPrioritySMS(string number, string message, EnumSMSServiceType esms, string pageUrl, bool isDND)
+        {
+            //first parse the number and verify that it is a mobile number
+            //if the number is a mobile number then send the message and save 
+            //it to the database along with the status whether it is sent successfully or not
+
+            string mobile = ParseMobileNumber(number);
+
+            if (mobile != "")
+            {
+                if (isDND == true)
+                    mobile = "91" + mobile;
+
+                string retMsg = "";
+                string ctId = "-1";
+                bool status = false;
+                bool isMSMQ = false;
+
+                if (!String.IsNullOrEmpty(BWConfiguration.Instance.IsMSMQ))
+                {
+                    isMSMQ = Convert.ToBoolean(BWConfiguration.Instance.IsMSMQ);
+                }
+
+                ctId = SaveSMSSentData(mobile, message, esms, status, retMsg, pageUrl);
+
+                NameValueCollection nvc = new NameValueCollection();
+                nvc.Add("id", ctId);
+                nvc.Add("message", message);
+                nvc.Add("clientno", mobile);
+                nvc.Add("prefix", "BW");
+                nvc.Add("provider", "");
+
+                RabbitMqPublish publish = new RabbitMqPublish();
+                publish.PublishToQueue(BWConfiguration.Instance.BWSmsQueue, nvc);
+            }
+        }
+
         /// <summary>
         /// Method to update the database with the details of the SMS data sent.
         /// </summary>

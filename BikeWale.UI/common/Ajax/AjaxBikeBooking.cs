@@ -293,6 +293,7 @@ namespace Bikewale.Ajax
             return isSuccess;
         }
 
+#if unused
         /// <summary>
         /// Written By : Ashwini Todkar on 3 Oct 2014
         /// PopulateWhere to set shecdule appointmnet date
@@ -324,7 +325,7 @@ namespace Bikewale.Ajax
 
             return isSuccess;
         }
-
+#endif
         /// <summary>
         /// Created By : Sadhana Upadhyay on 10 Nov 2014
         /// Summary : to check new bike pq exist or not
