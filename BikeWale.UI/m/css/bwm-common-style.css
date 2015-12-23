@@ -344,7 +344,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .cityPopup-icon { background-position: -107px -35px; width: 29px; height: 38px; }
 .back-long-arrow-left { background-position: -155px 0;  width: 21px; height: 16px; }
 .back-long-arrow-left-white { background-position: -155px -101px; width: 21px; height: 21px; }
-
+.google-play-logo  { background-position: 2px -340px; width: 120px; height: 45px; }
 /* nav classes */
 .home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
 .home-icon { background-position: 0 -58px; }
