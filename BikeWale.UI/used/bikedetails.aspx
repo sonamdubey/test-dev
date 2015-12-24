@@ -6,7 +6,8 @@
     keywords = "used " + objInquiry.BikeName + ", used " + objInquiry.BikeName + " for sale, used " + objInquiry.BikeName + " in " + objInquiry.CityName;
     canonical = bikeCanonical;
     AdId = "1395992162974";
-    AdPath = "/1017752/BikeWale_UsedBikes_HomePage_";
+    AdPath = "/1017752/BikeWale_UsedBikes_Details_";
+
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/bt.js?v1.1"></script>
@@ -294,10 +295,6 @@
     </div>
     <!--    Left Container ends here -->
     <div class="grid_4">
-        <div class="margin-top15">
-            <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>               
         <div id="other_models" runat="server" class="margin-top15">
             <h2>More <%= objInquiry.MakeName +" "+ objInquiry.ModelName %></h2>
             <p class="margin-top5">Located in <%= objInquiry.CityName +", "+ objInquiry.StateCode %></p>
@@ -308,6 +305,10 @@
 			    </asp:repeater>
             </ul>
         </div>
+        <div class="margin-top15">
+            <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
+            <!-- #include file="/ads/Ad300x250.aspx" -->
+        </div>  
     </div>
     <!--    Right Container ends here -->
 </div>

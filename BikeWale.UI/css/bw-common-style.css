@@ -299,7 +299,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 
 /* sprite classes */
-.bwsprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/bwsprite.png?v=22122015) no-repeat; display: inline-block; }
+.bwsprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/bwsprite.png?v=23122015) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(http://img.aeplcdn.com/bikewaleimg/images/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -313,7 +313,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .fb-login-icon { background-position: -103px -89px; }
 .gplus-login-icon { background-position: -125px -89px; }
 .error-icon { background-position: -177px -35px; width: 19px; height: 19px; position: absolute; right: 10px; top: 10px; z-index: 2; }
-.cityPopup-icon { background-position: -107px -35px; width: 36px; height: 47px; }
+.cityPopup-icon { background-position: -106px -273px; width: 60px; height: 52px; }
 .final-price-logo, .locate-dealer-logo, .emi-calc-logo { width: 92px; height: 92px; }
 .final-price-logo { background-position: 0 0; }
 .locate-dealer-logo { background-position: -102px 0; }
@@ -321,6 +321,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .filter-icon { width:23px; height:21px; }
 .filter-icon { background-position: -180px -329px;}
 .more-filters-btn:hover .filter-icon { background-position: -180px -358px;}
+.orp-location-icon {background-position:-99px -35px; width: 50px; height: 50px; }
+.icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
+.icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
 
 /* style-container */
 .style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }
@@ -680,8 +683,8 @@ a.action-btn:hover{text-decoration:none;}
 
 .cur-pointer { cursor: pointer; }
 .cur-default { cursor: default; }
-.bw-blackbg-tooltip { background:#000; color:#fff; font-size:12px; padding:3px 5px; position:absolute; right:0px; top:37px; z-index: 2;}
-.bw-blackbg-tooltip:before { border-bottom: 5px solid #000; border-left: 5px solid transparent; border-right: 5px solid transparent; content:""; position:absolute; right:14px; top:-5px; z-index:999; }
+.bw-blackbg-tooltip { background:#4d5057; color:#fff; font-size:12px; padding:3px 5px; position:absolute; right:0px; top:37px; z-index: 2;}
+.bw-blackbg-tooltip:before { border-bottom: 5px solid #4d5057; border-left: 5px solid transparent; border-right: 5px solid transparent; content:""; position:absolute; right:14px; top:-5px; z-index:999; }
 
 
 /* Carousel Controls */

@@ -7,9 +7,11 @@
 	<div class="popup-inner-container">
         
     	<div class="bwmsprite close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-        <div class="cityPopup-box rounded-corner50percent margin-bottom20">
-            	<span class="bwmsprite cityPopup-icon margin-top10"></span>
+        <div class="icon-outer-container rounded-corner50percent margin-bottom15">
+            <div class="icon-inner-container rounded-corner50percent">
+                <span class="bwmsprite orp-location-icon margin-top20"></span>
             </div>
+        </div>
     	<p class="font18 margin-bottom10 text-capitalize">Please Tell Us Your Location</p>
         <div class="padding-top5" id="popupContent">
             <div class="text-light-grey margin-bottom15"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
