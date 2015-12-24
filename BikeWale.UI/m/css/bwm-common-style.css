@@ -353,8 +353,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .cityPopup-icon { background-position: -122px -333px; width: 58px; height: 52px; }
 .back-long-arrow-left { background-position: -155px 0;  width: 21px; height: 16px; }
 .back-long-arrow-left-white { background-position: -155px -101px; width: 21px; height: 21px; }
-.google-play-logo  { background-position: 2px -340px; width: 120px; height: 45px; }
 .orp-location-icon { background-position: -162px -281px; width: 49px; height: 49px; }
+.google-play-logo  { background-position: 2px -340px; width: 120px; height: 45px; }
 .icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
 /* nav classes */
