@@ -15,7 +15,7 @@
         title = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
         description = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India - Rs."
                     + Bikewale.Utility.Format.FormatPrice(modDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modDetails.MaxPrice.ToString())
-                    + ". Check out " + modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+                    + ". Check out " + modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
 
         canonical = "http://www.bikewale.com/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
         AdId = "1017752";
@@ -403,12 +403,23 @@
                             </div>
                             <div class="grid-<%= grid2_size %> rightfloat moreDetailsBookBtns <%=cssOffers %> margin-top20">
                                 <input type="button" value="Get more details" class="btn btn-orange margin-right20" id="getMoreDetailsBtn">
-                                <%if (isBookingAvailable)
+                                <%if (isBookingAvailable && isOfferAvailable)
                                   { %>
                                 <a href="/pricequote/bookingsummary_new.aspx" class="btn btn-grey" id="bookNowBtn"> Book now </a>
                                 <%} %>
                             </div>
                             <div class="clear"></div>
+                            <% if (isBookingAvailable && !isOfferAvailable)
+                               {%>
+                            <div id="noOfferBookBtn" class="grid-12 padding-top10 alpha">
+                                <div class="grid-9 omega">
+                                    <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Pay <span class="fa fa-rupee"></span> <%=bookingAmt %> to book your bike and get:</h3>
+                                </div>
+                                <div class="grid-3 alpha no-offer-book-btn">
+                                    <a href="/pricequote/bookingsummary_new.aspx" class="btn btn-grey" id="bookNowBtn"> Book now </a>
+                                </div>
+                            </div>
+                            <% } %>
                         </div>
                         <div class="clear"></div>
                         <% } %>
