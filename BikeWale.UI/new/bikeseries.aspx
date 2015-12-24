@@ -11,7 +11,7 @@
 <%
     title = make+ " " + series +" Price in India, Review, Mileage,Photos & More - BikeWale";
     keywords = make +" bikes, "+  make + " " + series +" India, "+ make + " " + series + " bike prices, buy "+ make + " " + series + " Bikes, "+ make + " " + series + " reviews, bike reviews, bike news";
-    description = make + " " + series +" price in India" +price+ ". Check out "+ make + " " + series + " on road price, reviews, mileage, variants, news & photos at Bikewale";  
+    description = make + " " + series +" price in India" +price+ ". Check out "+ make + " " + series + " on road price, reviews, mileage, versions, news & photos at Bikewale";  
     canonical   = "http://www.bikewale.com/" + makeMaskingName + "-bikes/" + seriesMaskingName + "-series/";
     AdId = "1395986297721";
     AdPath = "/1017752/BikeWale_New_";

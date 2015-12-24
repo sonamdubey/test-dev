@@ -249,6 +249,7 @@ namespace Bikewale.New
             ctrlUserReviews.PageNo = 1;
             ctrlUserReviews.PageSize = 4;
             ctrlUserReviews.ModelId = _modelId;
+            ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
             ToggleOfferDiv();
             SetFlags();

@@ -220,6 +220,8 @@ namespace Bikewale.DAL.BikeBooking
 
             return isSuccess;
         }
+
+# if unused
         /// <summary>
         /// Written By : Ashwini Todkar on 3 Oct 2014
         /// Method to shedule appointment to dealer
@@ -264,7 +266,7 @@ namespace Bikewale.DAL.BikeBooking
 
             return isSuccess;
         }
-
+#endif
         /// <summary>
         /// Created By : Sadhana Upadhyay on 10 Nov 2014
         /// Summary : To get customer details
@@ -299,11 +301,12 @@ namespace Bikewale.DAL.BikeBooking
                                 CustomerEmail = dr["CustomerEmail"].ToString(),
                                 CustomerMobile = dr["CustomerMobile"].ToString(),
                                 AreaDetails = new Entities.Location.AreaEntityBase() { AreaName = dr["AreaName"].ToString() },
-                                cityDetails = new Entities.Location.CityEntityBase() { CityName = dr["CityName"].ToString() }
+                                cityDetails = new Entities.Location.CityEntityBase() { CityName = dr["CityName"].ToString(), CityId = Convert.ToUInt32(dr["CityId"]) }
                             };
                             objCustomer.IsTransactionCompleted = Convert.ToBoolean(dr["TransactionCompleted"]);
                             objCustomer.AbInquiryId = Convert.ToString(dr["AbInquiryId"]);
                             objCustomer.SelectedVersionId = Convert.ToUInt32(dr["SelectedVersionId"]);
+                            objCustomer.DealerId = Convert.ToUInt32(dr["DealerId"]);
                         }
                         
                         if (dr.NextResult())

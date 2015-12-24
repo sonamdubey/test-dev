@@ -57,7 +57,8 @@ namespace Bikewale.Utility
             _AutoSuggestType = String.Empty,
             _PageSize = String.Empty,
             _StaticFileVersion = String.Empty,
-            _apiRequestTypeJSON = String.Empty;        
+            _apiRequestTypeJSON = String.Empty,
+            _BWSmsQueue = String.Empty;        
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -104,6 +105,7 @@ namespace Bikewale.Utility
             _PageSize = ConfigurationManager.AppSettings["PageSize"];
             _StaticFileVersion = ConfigurationManager.AppSettings["staticFileVersion"];
             _apiRequestTypeJSON = "application/json";
+            _BWSmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
         }
 
         // Static method to provide access to instance
@@ -197,5 +199,6 @@ namespace Bikewale.Utility
         public string PageSize { get { return _PageSize; } }
         public string StaticFileVersion { get { return _StaticFileVersion; } }
         public string APIRequestTypeJSON { get { return _apiRequestTypeJSON; } }
+        public string BWSmsQueue { get { return _BWSmsQueue; } }
     }   // class
 }   // namespace
