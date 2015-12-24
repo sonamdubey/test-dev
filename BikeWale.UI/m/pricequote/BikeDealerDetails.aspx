@@ -439,7 +439,7 @@
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
             }
-
+            ga_pg_id = "8";
         </script>
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingconfig.js?<%= staticFileVersion %>" type="text/javascript"></script>
 

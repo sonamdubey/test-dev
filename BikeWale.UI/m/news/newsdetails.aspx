@@ -70,4 +70,8 @@
 </div>
 
 <div class="back-to-top" id="back-to-top"><a><span></span></a></div>
+
 <!-- #include file="/includes/footermobile.aspx" -->
+<script type="text/javascript">
+    ga_pg_id = "11";
+</script>

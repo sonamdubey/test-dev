@@ -28,8 +28,7 @@ if (!Array.prototype.indexOf)
 }
 
 function GetCatForNav() {
-
-    var ret_category = null;
+    var ret_category = "other";
     if (ga_pg_id != null && ga_pg_id != "0") {
         switch (ga_pg_id) {
             case "1":
@@ -47,9 +46,33 @@ function GetCatForNav() {
             case "5":
                 ret_category = "Search_Page";
                 break;
+            case "6":
+                ret_category = "BikeWale_PQ";
+                break;
+            case "7":
+                ret_category = "Dealer_PQ";
+                break;
+            case "8":
+                ret_category = "Booking_Config_Page";
+                break;
+            case "9":
+                ret_category = "Booking_Page";
+                break;
+            case "10":
+                ret_category = "News_Page";
+                break;
+            case "11":
+                ret_category = "News_Detail";
+                break;
+            case "12":
+                ret_category = "Expert_Reviews_Page";
+                break;
+            case "13":
+                ret_category = "Expert_Reviews_Detail";
+                break;
         }
-        return ret_category;
     }
+    return ret_category;
 }
 
 function navbarShow() {
@@ -1108,18 +1131,18 @@ $(function () {
     if ((appbanner == null || appbanner == "true") && !isSafari) {
         $("#appBanner").slideDown();
         SetCookie("AppBanner", true);
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': window.location.href.substring(window.location.href.indexOf("/m/")), 'act': 'App_Download_Banner_Shown'});
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'App_Download_Banner_Shown' });
     }
 });
 
 $("#btnCrossApp").click(function(){
     $("#appBanner").slideUp();
     SetCookieInDays("AppBanner", false, 30);
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': window.location.href.substring(window.location.href.indexOf("/m/")), 'act': 'Close_Clicked_App_Download_Banner' });
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'Close_Clicked_App_Download_Banner' });
 });
 
 $("#btnInstallApp").click(function(){
     $("#appBanner").slideUp();
     SetCookieInDays("AppBanner", false, 30);
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': window.location.href.substring(window.location.href.indexOf("/m/")), 'act': 'InstallApp_Clicked_App_Download_Banner' });
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': GetCatForNav(), 'act': 'InstallApp_Clicked_App_Download_Banner' });
 });
