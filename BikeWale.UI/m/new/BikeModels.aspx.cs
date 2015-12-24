@@ -131,6 +131,7 @@ namespace Bikewale.Mobile.New
                 ctrlUserReviews.PageNo = 1;
                 ctrlUserReviews.PageSize = 4;
                 ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
+                ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();

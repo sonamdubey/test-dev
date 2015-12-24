@@ -13,8 +13,8 @@
         description = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " price quote";
         keywords = "";
         AdId = "1395986297721";
-    AdPath = "/1017752/Bikewale_PQ_";
-    isAd970x90Shown = false;
+        AdPath = "/1017752/Bikewale_PQ_";
+    isAd970x90Shown = true;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
@@ -95,30 +95,117 @@
             }
 
 
-                    /* lead capture popup */
-        .edit-blue-icon { width:16px; height:16px; }
-        .edit-blue-icon { background-position:-115px -250px; }
-        #leadCapturePopup { display:none; width:450px; min-height:470px; background:#fff; margin:0 auto; position:fixed; top:10%; right:5%; left:5%; z-index:10; padding: 30px 40px; }
-        .personal-info-form-container { margin: 10px auto; width: 300px; min-height: 100px; }
-        .personal-info-form-container .personal-info-list { margin:0 auto; width:280px; float:left; margin-bottom:20px; border-radius:0; }
-        .personal-info-list .errorIcon, .personal-info-list .errorText { display:none; }
-        #otpPopup { display:none; }
-        #otpPopup .otp-box, #otpPopup .update-mobile-box { width:280px; margin:15px auto 0; }
-        #otpPopup .update-mobile-box .form-control-box { margin-top:25px; margin-bottom:50px; }
-        #otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
-        #otpPopup .update-mobile-box { display:none; }
-        #otpPopup .edit-mobile-btn, .resend-otp-btn { cursor:pointer; }
+        /* lead capture popup */
+        .edit-blue-icon {
+            width: 16px;
+            height: 16px;
+        }
 
-        .icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
-        .icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
-        .user-contact-details-icon { width:36px; height:44px; background-position: 0 -391px; }
-        .otp-icon { width:30px; height:40px; background-position: -46px -391px; }
-        .mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; }
-        #otpPopup .errorIcon, #otpPopup .errorText { display:none; }
+        .edit-blue-icon {
+            background-position: -115px -250px;
+        }
 
-        .input-border-bottom { border-bottom:1px solid #ccc; }
+        #leadCapturePopup {
+            display: none;
+            width: 450px;
+            min-height: 470px;
+            background: #fff;
+            margin: 0 auto;
+            position: fixed;
+            top: 10%;
+            right: 5%;
+            left: 5%;
+            z-index: 10;
+            padding: 30px 40px;
+        }
 
-   
+        .personal-info-form-container {
+            margin: 10px auto;
+            width: 300px;
+            min-height: 100px;
+        }
+
+            .personal-info-form-container .personal-info-list {
+                margin: 0 auto;
+                width: 280px;
+                float: left;
+                margin-bottom: 20px;
+                border-radius: 0;
+            }
+
+        .personal-info-list .errorIcon, .personal-info-list .errorText {
+            display: none;
+        }
+
+        #otpPopup {
+            display: none;
+        }
+
+            #otpPopup .otp-box, #otpPopup .update-mobile-box {
+                width: 280px;
+                margin: 15px auto 0;
+            }
+
+                #otpPopup .update-mobile-box .form-control-box {
+                    margin-top: 25px;
+                    margin-bottom: 50px;
+                }
+
+                #otpPopup .otp-box p.resend-otp-btn {
+                    color: #0288d1;
+                    cursor: pointer;
+                    font-size: 14px;
+                }
+
+            #otpPopup .update-mobile-box {
+                display: none;
+            }
+
+            #otpPopup .edit-mobile-btn, .resend-otp-btn {
+                cursor: pointer;
+            }
+
+        .icon-outer-container {
+            width: 102px;
+            height: 102px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #ccc;
+        }
+
+        .icon-inner-container {
+            width: 92px;
+            height: 92px;
+            margin: 4px auto;
+            background: #fff;
+            border: 1px solid #666;
+        }
+
+        .user-contact-details-icon {
+            width: 36px;
+            height: 44px;
+            background-position: 0 -391px;
+        }
+
+        .otp-icon {
+            width: 30px;
+            height: 40px;
+            background-position: -46px -391px;
+        }
+
+        .mobile-prefix {
+            position: absolute;
+            padding: 10px 13px 13px;
+            color: #999;
+        }
+
+        #otpPopup .errorIcon, #otpPopup .errorText {
+            display: none;
+        }
+
+        .input-border-bottom {
+            border-bottom: 1px solid #ccc;
+        }
     </style>
     <script type="text/javascript">
         var dealerId = '<%= dealerId%>';
@@ -128,12 +215,12 @@
         var cityId = '<%= cityId%>';
         var Customername = "", email = "", mobileNo = "";
         var CustomerId = '<%= CurrentUser.Id %>';
-    if (CustomerId != '-1') {
-        Customername = '<%= objCustomer.CustomerName%>', email = '<%= objCustomer.CustomerEmail%>', mobileNo = '<%= objCustomer.CustomerMobile%>';
-    } else {
-        Customername = '<%= CustomerDetailCookie.CustomerName%>', email = '<%= CustomerDetailCookie.CustomerEmail%>', mobileNo = '<%= CustomerDetailCookie.CustomerMobile %>';
-    }
-    var clientIP = "<%= clientIP%>";
+        if (CustomerId != '-1') {
+            Customername = '<%= objCustomer.CustomerName%>', email = '<%= objCustomer.CustomerEmail%>', mobileNo = '<%= objCustomer.CustomerMobile%>';
+        } else {
+            Customername = '<%= CustomerDetailCookie.CustomerName%>', email = '<%= CustomerDetailCookie.CustomerEmail%>', mobileNo = '<%= CustomerDetailCookie.CustomerMobile %>';
+        }
+        var clientIP = "<%= clientIP%>";
         var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
     </script>
 </head>
@@ -163,11 +250,19 @@
         <section class="container">
             <div class="grid-12 margin-bottom20" id="dealerPriceQuoteContainer">
                 <div class="content-box-shadow content-inner-block-20 rounded-corner2">
-                    <div class="alpha <%= (objPrice.objOffers != null && objPrice.objOffers.Count > 0) ? "grid-3" : " grid-4"%>" id="PQImageVariantContainer">
+                    <div class="alpha grid-3" id="PQImageVariantContainer">
                         <% if (objPrice != null)
                            { %>
                         <div class="pqBikeImage margin-bottom20 margin-top5">
                             <img alt="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName %> Photos" src="<%= Bikewale.Utility.Image.GetPathToShowImages(objPrice.OriginalImagePath,objPrice.HostUrl,Bikewale.Utility.ImageSize._210x118) %>" title="<%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName%> Photos" />
+                        </div>
+                        <% } %>
+                        <% if (versionList.Count > 1)
+                           { %>
+                        <div class="pqVariants margin-top15 ">
+                            <div class="form-control-box">
+                                <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
+                            </div>
                         </div>
                         <% } %>
                         <div class="hide">
@@ -186,9 +281,9 @@
                                 <div class="clear"></div>
                             </div>
                             <div class="clear"></div>
-                        </div>                         
+                        </div>
                     </div>
-                    <div class="padding-right20 <%= (objPrice.objOffers != null && objPrice.objOffers.Count > 0) ? "border-solid-right grid-5 " : "grid-6 border-solid-bottom"%>" id="PQDetailsContainer">
+                    <div class="padding-right20 border-solid-right grid-5 " id="PQDetailsContainer">
                         <% if (objPrice != null)
                            { %>
                         <p class="font20 text-bold margin-bottom20"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " +objPrice.objVersion.VersionName%></p>
@@ -250,23 +345,15 @@
                                         <td class="PQDetailsTableTitle font18 text-bold PQOnRoadPrice padding-bottom10">Total on road price</td>
                                         <td align="right" class="PQDetailsTableAmount padding-bottom10 font20 text-bold">
                                             <span class="fa fa-rupee margin-right5"></span><span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
+
                                         </td>
                                     </tr>
 
                                     <% } %>
-                                    <%--<% if (!(objPrice.objOffers != null && objPrice.objOffers.Count > 0))
-                                       {
-                                           if (bookingAmount > 0)
-                                           { %>
-                                                <tr>
-                                                    <td colspan="2" class="border-solid-top" align="right"><a class="margin-top15 btn btn-orange" id="btnBikeBooking" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</a></td>
-                                                </tr>
-                                          <% } else {%>
-                                                <tr>
-                                                    <td colspan="2" class="border-solid-top" align="right"><a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</a></td>
-                                                </tr>
 
-                                    <% } } %>--%>
+                                    <tr>
+                                        <td colspan="2" class="text-right"><a class="font16 text-bold  text-link" id="leadLink" name="leadLink" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get dealer details</a></td>
+                                    </tr>
                                     <tr class="hide">
                                         <td colspan="3">
                                             <ul class="std-ul-list">
@@ -297,7 +384,7 @@
                         <% if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
                            { %>
                         <div id="divOffers">
-                            <p class="font20 text-bold margin-bottom10 border-solid-bottom padding-bottom5"><%= IsInsuranceFree ? "BikeWale Offer" : "Available Offer"%></p>
+                            <p class="font20 text-bold margin-bottom10 border-solid-bottom padding-bottom5"><%= (Convert.ToUInt32(bookingAmount) > 0)?"Book online and avail":"Avail offers" %></p>
                             <div>
                                 <asp:Repeater ID="rptOffers" runat="server">
                                     <HeaderTemplate>
@@ -310,42 +397,34 @@
                                         </ul>
                                     </FooterTemplate>
                                 </asp:Repeater>
-                                <%--<% if (!(bookingAmount > 0))
-                                   { %>
-                                <div class="margin-top10">
-                                    <a class="btn btn-orange" id="btnGetDealerDetails" name="btnSavePriceQuote" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get_Dealer_Details',lab: 'Clicked on Button Get_Dealer_Details' });">Avail offer</a>
-                                </div>
-                                <% }
-                                   else
-                                   { %>
-                                <div class="margin-top10">
-                                    <a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get Dealer Details</a>
-                                </div>
-                                <%} %>--%>
                             </div>
                         </div>
-                        <%}%>
+                        <%}
+                           else
+                           {%>
+                        <div>
+                            <p class="font20 text-bold margin-bottom10 border-solid-bottom padding-bottom5">Get following details on bike</p>  
+                            <ul class="font14 text-light-grey PQOffersUL">
+                                <li>Offers from the nearest dealers</li>
+                                <li>Waiting period on this bike at the dealership</li>
+                                <li>Nearest dealership from your place</li>
+                            </ul>
+                        </div>
+
+                        <%} %>
 
                         <!--Exciting offers div ends here-->
+                        <a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a>
 
                     </div>
                     <div class="clear"></div>
-                    <div class="omega <%= (objPrice.objOffers != null && objPrice.objOffers.Count > 0) ? "grid-3 " : "grid-4"%>" >
-                        <% if (versionList.Count > 1)
-                           { %>
-                        <div class="pqVariants margin-top15 ">
-                            <div class="form-control-box">
-                                <asp:DropDownList ID="ddlVersion" CssClass="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
-                            </div>
-                        </div>
-                        <% } %>
+                    <div class="omega grid-3">
                     </div>
                     <div class="text-right alpha omega <%= (objPrice.objOffers != null && objPrice.objOffers.Count > 0) ? "grid-5 " : "grid-6"%>">
-                        <a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a>
-                        <% if (bookingAmount > 0)
+                        <%--  <% if (bookingAmount > 0)
                            { %>
                         <a class="margin-top15 margin-left5 btn btn-grey" id="btnBikeBooking" name="btnBikeBooking" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Book Now</a>
-                        <% } %>
+                        <% } %>--%>
                     </div>
                     <div class="grid-4">
                     </div>
@@ -476,7 +555,7 @@
 
             // JavaScript Document
 
-            var leadBtnBookNow = $("#leadBtnBookNow"), leadCapturePopup = $("#leadCapturePopup");
+            var leadBtnBookNow = $("#leadBtnBookNow,#leadLink"), leadCapturePopup = $("#leadCapturePopup");
             var fullName = $("#getFullName");
             var emailid = $("#getEmailID");
             var mobile = $("#getMobile");

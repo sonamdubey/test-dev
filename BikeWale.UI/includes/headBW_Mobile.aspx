@@ -90,9 +90,11 @@
     <div class="globalcity-popup rounded-corner2 hide" id="globalcity-popup">
     	<div class="globalcity-popup-data text-center">
         	<div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
-        	<div class="cityPopup-box rounded-corner50percent margin-bottom20">
-            	<span class="bwmsprite cityPopup-icon margin-top10"></span>
-            </div>
+        	<div class="icon-outer-container rounded-corner50percent margin-bottom15">
+                <div class="icon-inner-container rounded-corner50percent">
+                    <span class="bwmsprite cityPopup-icon margin-top15"></span>
+                </div>
+        	</div>
             <p class="font20 margin-bottom15 text-capitalize">Please tell us your city</p>
             <p class="text-light-grey margin-bottom15">This allows us to provide relevant content for you.</p>
             <div class="form-control-box">
@@ -128,6 +130,24 @@
             </ul>
         </div>
     </div> <!-- global-search-popup code ends here -->
+
+    <!---->
+    <div id="appBanner" class="hide">
+        <div class="banner-close-btn" id="btnCrossApp"></div>
+        <div class="app-banner-img-container">
+            <img src="http://img.aeplcdn.com/bikewaleimg/m/images/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
+        </div>
+        <div class="app-banner-text-container margin-top5">
+            <h2 class="text-grey">India’s #1</h2>
+            <p class="font12 text-bold text-grey margin-bottom5">Bike Research Destination</p>
+            <a  id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
+                <span class="btn btn-orange font12 text-bold">Install our app</span>
+            </a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!---->
+
     <header>
     	<div class="header-fixed"> <!-- Fixed Header code starts here -->
         	<a href="/m/" id="bwheader-logo" class="bwmsprite bw-logo bw-lg-fixed-position"></a>

@@ -684,7 +684,7 @@ $("a.read-more-btn").click(function () {
 });
 
 $('#bookNowBtn').on('click', function (e) {
-    window.location.href = "/m/pricequote/BookingSummary_New.aspx";
+    window.location.href = "/m/pricequote/bookingSummary_new.aspx";
 });
 
 ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);

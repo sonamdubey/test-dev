@@ -271,8 +271,15 @@ namespace Bikewale.Common
                 objErr.SendMail();
             }
         }//
-
-
+        
+        /// <summary>
+        /// Modified By : Sadhana Upadhyay on 22 Dec 2015 
+        /// Summary : To push sms in priority queue
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="name"></param>
+        /// <param name="code"></param>
+        /// <param name="pageUrl"></param>
         public void SMSMobileVerification(string number, string name, string code, string pageUrl)
         {
             HttpContext.Current.Trace.Warn("SMSMobileVerification method");
@@ -282,10 +289,10 @@ namespace Bikewale.Common
 
                 string message = "";
 
-                message = "You have expressed interest in registering your mobile no with BikeWale. The verification code is " + code + ". This is a one-time registration process.";
+                message = code + " is the OTP for verifying your mobile number at BikeWale. This is a one time verification process.";
 
                 SMSCommon sc = new SMSCommon();
-                sc.ProcessSMS(number, message, esms, pageUrl, true);
+                sc.ProcessPrioritySMS(number, message, esms, pageUrl, true);
             }
             catch (Exception err)
             {
@@ -294,8 +301,6 @@ namespace Bikewale.Common
                 objErr.SendMail();
             }
         }
-
-
 
         // FUNCTION TO SEND ADDRESS OF THE DEALER TO THE REQUESTED CUSTOMER FROM DEALER SHOWROOM
         private string GetTCNumber(string serviceType)

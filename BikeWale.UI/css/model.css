@@ -12,14 +12,18 @@
 .variantList li:first-child { border-left:none; text-align:left;width:90px }
 #onRoadPricePopup { width: 450px; min-height: 320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left: 5%; z-index: 10; }
 #onRoadPricePopup .form-control-box { width:300px; margin:0 auto; }
-#modelDetailsOffersContainer { border:1px dashed #555; padding:10px; }
+#modelDetailsOffersContainer { border:1px dashed #555; padding:10px 10px 15px; }
 #modelDetailsOffersContainer .grid-7 { width:520px; margin-left:10px; }
 .modelGetDetails ul { list-style:disc; color:#82888b; margin-left:25px; font-size:14px; }
 .modelGetDetails.offersList ul { width:100%; overflow:hidden; margin-left:4px; }
 .modelGetDetails ul li { padding-top: 12px;padding-right: 12px;width: 310px;float: left; }
-.modelGetDetails.offersList ul li {  background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png?v=22122015") no-repeat 0 3px; margin-top: 12px; padding:0 0 0 22px; }
+.modelGetDetails.offersList ul li {  background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png?v=22122015") no-repeat 0 3px; margin-top: 12px; padding:0 0 0 22px; width:485px; }
+.no-offer-book-btn .btn { padding:8px 53px; }
+#noOfferBookBtn .grid-9 h3 { border-top: 1px solid #ecedee; padding-top:15px; }
+#noOfferBookBtn .grid-3 { border-top: 1px solid #ecedee; padding-top:10px; position:relative; left:-10px; padding-left: 9px; }
 
 .city-area-select-container { width:100%; }
+.city-area-name { margin-left:2px; }
 .sort-div { min-width: 200px; width:110%; height:40px; padding:9px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
 .sort-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:90%; }
 .sort-selection-div { min-width: 200px;width:110%; background:#fff; border:1px solid #ccc; position:absolute; z-index:2; }
@@ -93,7 +97,7 @@
 .offers-icon, .disclaimer-icon, .edit-blue-icon { width:16px; height:16px; }
 .offers-icon { background-position:-115px -146px; }
 .disclaimer-icon { background-position:-115px -175px; }
-.edit-blue-icon { background-position:-115px -250px; }
+.edit-blue-icon { background-position:-115px -249px; cursor:pointer; }
 
 /*news-videos tabs*/
 .newBikes-latest-updates-container .home-tabs { background:#ccc;}
@@ -238,8 +242,6 @@
 #otpPopup .update-mobile-box { display:none; }
 #otpPopup .edit-mobile-btn, .resend-otp-btn { cursor:pointer; }
 
-.icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
-.icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
 .user-contact-details-icon { width:36px; height:44px; background-position: 0 -391px; }
 .otp-icon { width:30px; height:40px; background-position: -46px -391px; }
 .mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; }

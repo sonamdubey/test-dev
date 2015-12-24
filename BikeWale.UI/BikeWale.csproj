@@ -1227,6 +1227,7 @@
     <Content Include="ads\Ad728x90.aspx" />
     <Content Include="ads\Ad970x90_BTF.aspx" />
     <Content Include="ads\Ad970x90_Bottom.aspx" />
+    <Content Include="ads\Ad976x204.aspx" />
     <Content Include="adtest\Default.aspx" />
     <Content Include="AdvertiseWithUs.aspx" />
     <Content Include="BikeBooking\BillDeskResponse.aspx" />
@@ -2440,7 +2441,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57738</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
