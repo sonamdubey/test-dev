@@ -1101,6 +1101,25 @@ $.fn.shake = function (options) {
     });
 };
 
-function CloseAndroidLink() {
+//App Banner
+$(function () {
+    var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+    var appbanner = getCookie("AppBanner");
+    if ((appbanner == null || appbanner == "true") && !isSafari) {
+        $("#appBanner").slideDown();
+        SetCookie("AppBanner", true);
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': window.location.href.substring(window.location.href.indexOf("/m/")), 'act': 'App_Download_Banner_Shown'});
+    }
+});
+
+$("#btnCrossApp").click(function(){
     $("#appBanner").slideUp();
-}
+    SetCookieInDays("AppBanner", false, 30);
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': window.location.href.substring(window.location.href.indexOf("/m/")), 'act': 'Close_Clicked_App_Download_Banner' });
+});
+
+$("#btnInstallApp").click(function(){
+    $("#appBanner").slideUp();
+    SetCookieInDays("AppBanner", false, 30);
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': window.location.href.substring(window.location.href.indexOf("/m/")), 'act': 'InstallApp_Clicked_App_Download_Banner' });
+});

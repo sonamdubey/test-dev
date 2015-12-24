@@ -130,15 +130,15 @@
     </div> <!-- global-search-popup code ends here -->
 
     <!---->
-    <div id="appBanner">
-        <div class="banner-close-btn" onclick="CloseAndroidLink()"></div>
+    <div id="appBanner" class="hide">
+        <div class="banner-close-btn" id="btnCrossApp"></div>
         <div class="app-banner-img-container">
             <img src="http://img.aeplcdn.com/bikewaleimg/m/images/bw-app-phone.png" alt="BikeWale Android App" border="0" style="width:100%;" />
         </div>
         <div class="app-banner-text-container margin-top5">
             <h2 class="text-grey">India’s #1</h2>
             <p class="font12 text-bold text-grey margin-bottom5">Bike Research Destination</p>
-            <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
+            <a  id="btnInstallApp" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source=BikeWaleWebsite&utm_medium=HeaderSlug&utm_campaign=MobileHeaderSlug" target="_blank" class="app-banner-btn-container">
                 <span class="btn btn-orange font12 text-bold">Install our app</span>
             </a>
         </div>
