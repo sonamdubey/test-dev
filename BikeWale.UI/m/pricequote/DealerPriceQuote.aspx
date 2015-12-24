@@ -8,9 +8,9 @@
 <html>
 <head>
     <%
-        title = "";
+        title = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " Price Quote ";
+        description = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName + " " + objPrice.objVersion.VersionName + " price quote";
         keywords = "";
-        description = "";
         canonical = "";
         AdPath = "/1017752/Bikewale_Mobile_PriceQuote";
         AdId = "1398766000399";
@@ -67,43 +67,132 @@
         }
 
         .btn-grey {
-    background: #fff;
-    color: #82888b;
-    border: 1px solid #82888b;
-}
+            background: #fff;
+            color: #82888b;
+            border: 1px solid #82888b;
+        }
 
-        .btn-grey:hover {
-    background: #82888b;
-    color: #fff;
-    text-decoration: none;
-    border: 1px solid #82888b;
-}
+            .btn-grey:hover {
+                background: #82888b;
+                color: #fff;
+                text-decoration: none;
+                border: 1px solid #82888b;
+            }
 
         /*notify availability*/
-#notifyAvailabilityContainer {min-height: 320px; background: #fff; margin: 0 auto; padding:10px;position: fixed; top: 10%; right: 5%; left: 5%; z-index: 10; }
-#notify-form .grid-12 { padding: 10px 20px; }
-.personal-info-notify-container input { margin:0 auto; } 
-.notify-offers-list { list-style:disc; margin-left:10px; }
-#notifyAvailabilityContainer .notify-close-btn {z-index:2;}
-#leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
+        #notifyAvailabilityContainer {
+            min-height: 320px;
+            background: #fff;
+            margin: 0 auto;
+            padding: 10px;
+            position: fixed;
+            top: 10%;
+            right: 5%;
+            left: 5%;
+            z-index: 10;
+        }
 
-.float-button { background-color:#f5f5f5; padding: 0px 10px 10px 10px; }
-.float-button.float-fixed{position:fixed; bottom:0; z-index:8; left:0; right:0;}
+        #notify-form .grid-12 {
+            padding: 10px 20px;
+        }
 
-/**/
-#otpPopup { display:none; }
-.icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
-.icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
-.user-contact-details-icon { width:36px; height:44px; background-position: -107px -227px; }
-.otp-icon { width:30px; height:40px; background-position: -107px -177px; }
-.edit-blue-icon { width:16px; height:16px; background-position: -114px -123px; }
-#getMobile { padding:9px 40px; }
-.mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; z-index:2; }
-#otpPopup .errorIcon, #otpPopup .errorText { display:none; }
-#otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
-#otpPopup .update-mobile-box { display:none; }
-#otpPopup .edit-mobile-btn { cursor:pointer; }
+        .personal-info-notify-container input {
+            margin: 0 auto;
+        }
 
+        .notify-offers-list {
+            list-style: disc;
+            margin-left: 10px;
+        }
+
+        #notifyAvailabilityContainer .notify-close-btn {
+            z-index: 2;
+        }
+
+        #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {
+            display: none;
+        }
+
+        .float-button {
+            background-color: #f5f5f5;
+            padding: 10px;
+        }
+
+            .float-button.float-fixed {
+                position: fixed;
+                bottom: 0;
+                z-index: 8;
+                left: 0;
+                right: 0;
+            }
+
+        /**/
+        #otpPopup {
+            display: none;
+        }
+
+        .icon-outer-container {
+            width: 102px;
+            height: 102px;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #ccc;
+        }
+
+        .icon-inner-container {
+            width: 92px;
+            height: 92px;
+            margin: 4px auto;
+            background: #fff;
+            border: 1px solid #666;
+        }
+
+        .user-contact-details-icon {
+            width: 36px;
+            height: 44px;
+            background-position: -107px -227px;
+        }
+
+        .otp-icon {
+            width: 30px;
+            height: 40px;
+            background-position: -107px -177px;
+        }
+
+        .edit-blue-icon {
+            width: 16px;
+            height: 16px;
+            background-position: -114px -123px;
+        }
+
+        #getMobile {
+            padding: 9px 40px;
+        }
+
+        .mobile-prefix {
+            position: absolute;
+            padding: 10px 13px 13px;
+            color: #999;
+            z-index: 2;
+        }
+
+        #otpPopup .errorIcon, #otpPopup .errorText {
+            display: none;
+        }
+
+        #otpPopup .otp-box p.resend-otp-btn {
+            color: #0288d1;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        #otpPopup .update-mobile-box {
+            display: none;
+        }
+
+        #otpPopup .edit-mobile-btn {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body class="bg-light-grey">
@@ -151,13 +240,10 @@
 
                     <asp:Repeater ID="rptPriceList" runat="server">
                         <ItemTemplate>
-                            <%-- Start 102155010 --%>
-
                             <tr>
                                 <td align="left" class="text-medium-grey"><%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
-                                <td align="right" class="text-grey text-bold"><span class="fa fa-rupee"></span><%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
+                                <td align="right" class="text-grey text-bold"><span class="fa fa-rupee"></span> <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
                             </tr>
-                            <%-- End 102155010 --%>
                         </ItemTemplate>
                     </asp:Repeater>
                     <tr align="left">
@@ -175,19 +261,19 @@
                     <tr>
                         <td align="left" class="text-medium-grey">Total On Road Price</td>
                         <td align="right" class="text-grey text-bold">
-                            <div><span class="fa fa-rupee"></span><span style="text-decoration: line-through"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span></div>
+                            <div><span class="fa fa-rupee"></span> <span style="text-decoration: line-through"> <%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span></div>
                         </td>
                     </tr>
                     <tr>
                         <td align="left" class="text-medium-grey">Minus Insurance</td>
                         <td align="right" class="text-grey text-bold">
-                            <div><span class="fa fa-rupee"></span><%= CommonOpn.FormatPrice(insuranceAmount.ToString()) %></div>
+                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice(insuranceAmount.ToString()) %></div>
                         </td>
                     </tr>
                     <tr>
                         <td align="left" class="text-medium-grey">BikeWale On Road (after insurance offer)</td>
                         <td align="right" class="text-grey text-bold">
-                            <div><span class="fa fa-rupee"></span><%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></div>
+                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></div>
 
                         </td>
                     </tr>
@@ -198,7 +284,7 @@
                     <tr>
                         <td align="left" class="text-grey font16">Total On Road Price</td>
                         <td align="right" class="text-grey text-bold font18">
-                            <div><span class="fa fa-rupee"></span><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></div>
+                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice(totalPrice.ToString()) %></div>
 
                         </td>
                     </tr>
@@ -206,9 +292,15 @@
                         }
                     %>
                     <%-- End 102155010 --%>
+                    <tr>
+                        <td colspan="2" align="right">
+                            <a data-role="none" id="leadLink" name="leadLink" class="text-bold font16 text-link" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'DealerQuotation_Page - <%=MakeModel.Replace("'","") %>        ', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });">Get dealer details</a>
+                        </td>
+                    </tr>
                     <tr align="left">
                         <td height="20" colspan="2" style="padding: 0;"></td>
                     </tr>
+
                     <tr align="left">
                         <td height="1" colspan="2" class="break-line-light" style="padding: 0;">&nbsp;</td>
                     </tr>
@@ -226,7 +318,7 @@
             <% if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
                { %>
             <div class="new-line10 padding-left10 padding-right10 margin-bottom15" id="divOffers" style="background: #fff;">
-                <h2 class="font24 text-center text-grey"><%= IsInsuranceFree ? "BikeWale Offer" : "Get Absolutely Free"%></h2>
+                <h2 class="font24 text-center text-grey"><%= (Convert.ToUInt32(bookingAmount) > 0)?"Book online and avail":"Avail offers" %></h2>
                 <div class="new-line10">
                     <asp:Repeater ID="rptOffers" runat="server">
                         <HeaderTemplate>
@@ -243,53 +335,50 @@
                     </asp:Repeater>
                 </div>
             </div>
-            <div class="grid-12 float-button float-fixed clearfix">
-                <div class="show padding-top10">
-                    <% if (bookingAmount > 0)
-                       { %>
 
-                    <div class="grid-7">
-                        <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" value="Get more details" class="btn btn-orange btn-full-width btn-sm margin-right10 leftfloat"  onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'DealerQuotation_Page - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });" />
-                    </div>
-                    <div class="grid-5 omega">
-                        <input type="button" data-role="none" id="btnBookBike" class="btn btn-grey btn-full-width btn-sm rightfloat" value="Book Now" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=MakeModel.Replace("'","") %>        ', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });" />  
-                    </div>
-                    <% }
-                       else
-                       { %>
-                    <div class="grid-12">
-                        <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange"  value="Get more details"  onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'DealerQuotation_Page - <%=MakeModel.Replace("'","") %>', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });" />
-                    </div>
-                    <% } %>
+            <% }
+               else
+               {%>
+
+            <div class="new-line10 padding-left10 padding-right10 margin-bottom15" style="background: #fff;">
+                <h2 class="font24 text-center text-grey">Get following details on the bike</h2>
+                <div class="new-line10">
+                    <ul class="grey-bullet">
+                        <li>Offers from the nearest dealers</li>
+                        <li>Waiting period on this bike at the dealership</li>
+                        <li>Nearest dealership from your place</li>
+                    </ul>
                 </div>
-                <% }%>
             </div>
+            <% } %>
+
+            <div class="grid-12 float-button float-fixed">
+                <input type="button" data-role="none" id="leadBtnBookNow" name="leadBtnBookNow" class="btn btn-full-width btn-orange" value="Get more details" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'DealerQuotation_Page - <%=MakeModel.Replace("'","") %>        ', act: 'Click Button Book Now',lab: 'Clicked on Button Get_Dealer_Details' });" />
+            </div>
+            <div class="clear"></div>
             <!--Exciting Offers section ends here-->
         </div>
-
-
-
 
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
             <div class="container margin-bottom30">
                 <div class="grid-12">
-                    <!-- Most Popular Bikes Starts here-->
                     <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName  %> alternatives</h2>
 
-                    <div class="jcarousel-wrapper discover-bike-carousel alternatives-carousel">
-                        <div class="jcarousel">
+                    <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
+                        <div class="swiper-wrapper">
                             <BW:AlternateBikes ID="ctrlAlternateBikes" runat="server" />
                         </div>
-                        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                        <p class="text-center jcarousel-pagination"></p>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination"></div>
+                        <!-- Navigation -->
+                        <div class="bwmsprite swiper-button-next hide"></div>
+                        <div class="bwmsprite swiper-button-prev hide"></div>
                     </div>
 
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-
 
 
         <!-- Lead Capture pop up start  -->
@@ -312,11 +401,6 @@
                             <span class="bwmsprite error-icon "></span>
                             <div class="bw-blackbg-tooltip errorText">Please enter your name</div>
                         </div>
-                        <%--<div class="form-control-box margin-top20">
-                                            <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: lastName">
-                                            <span class="bwmsprite error-icon"></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
-                                        </div>--%>
                         <div class="form-control-box margin-top20">
                             <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId">
                             <span class="bwmsprite error-icon"></span>
@@ -330,8 +414,8 @@
                         </div>
                         <div class="clear"></div>
                         <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                    </div>
-                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
+                    </div>                 
+		<input type="button" class="btn btn-full-width btn-orange hide rounded-corner5" value="Submit" onclick="validateDetails();" data-role="none" id="btnSubmit" />
                 </div>
                 <!-- Contact details Popup ends here -->
                 <div id="otpPopup">
@@ -347,7 +431,7 @@
                         <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
                             <span class="fa fa-phone"></span>
                             <span class="text-light-grey font24">+91</span>
-                            <span class="lead-mobile font24">9876543210</span>
+                            <span class="lead-mobile font24"></span>
                             <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
                         </div>
                         <div class="otp-box lead-otp-box-container">
@@ -396,7 +480,8 @@
                 $("table tr td.text-medium-grey:contains('Insurance')").html("Insurance  (<a href='/m/insurance/' style='position: relative; font-size: 12px; margin-top: 1px;' target='_blank' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objPrice.objMake.MakeName,objPrice.objModel.ModelName,objPrice.objVersion.VersionName)%>" + cityArea + "' });\">Up to 60% off - PolicyBoss </a>)<span style='margin-left: 5px; vertical-align: super; font-size: 9px;'>Ad</span>");
             }
 
-            var leadBtnBookNow = $("#leadBtnBookNow"), leadCapturePopup = $("#leadCapturePopup");
+           
+            var leadBtnBookNow = $("#leadBtnBookNow,#leadLink"), leadCapturePopup = $("#leadCapturePopup");
             var fullname = $("#getFullName");
             var emailid = $("#getEmailID");
             var mobile = $("#getMobile");

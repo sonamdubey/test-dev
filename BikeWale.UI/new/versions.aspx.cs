@@ -227,6 +227,7 @@ namespace Bikewale.New
             // Set BikeName
             if (modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+
             if (modelPage.ModelDetails.New)
             {
                 FetchOnRoadPrice();
@@ -248,6 +249,7 @@ namespace Bikewale.New
             ctrlUserReviews.PageNo = 1;
             ctrlUserReviews.PageSize = 4;
             ctrlUserReviews.ModelId = _modelId;
+            ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
             ToggleOfferDiv();
             SetFlags();
@@ -377,6 +379,10 @@ namespace Bikewale.New
 
                     rptNavigationPhoto.DataSource = photos;
                     rptNavigationPhoto.DataBind();
+
+                    ctrlModelGallery.bikeName = bikeName;
+                    ctrlModelGallery.modelId = Convert.ToInt32(modelId);
+                    ctrlModelGallery.Photos = photos;
                 }
 
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
@@ -564,6 +570,7 @@ namespace Bikewale.New
         /// </summary>
         private void FetchOnRoadPrice()
         {
+            var errorParams = string.Empty;
             try
             {
                 if (cityId !=0)
@@ -664,7 +671,9 @@ namespace Bikewale.New
                     {
                         if (variantId != 0)
                         {
-                            price = Convert.ToString(modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault().Price);
+                            var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+                            if (modelVersions != null)
+                            price = Convert.ToString(modelVersions.Price);
                         }
                         else
                         {
@@ -673,13 +682,18 @@ namespace Bikewale.New
                     }
                 }
                 else
-                {
-                    price = Convert.ToString(modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault().Price);
+                {                    
+                    var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+
+                    if (modelVersions != null)
+                        price = Convert.ToString(modelVersions.Price);
                 }
             }
             catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] +"-"+  MethodBase.GetCurrentMethod().Name);
+            {                
+                if(string.IsNullOrEmpty(errorParams))
+                    errorParams = "=== modelpage ===" + Newtonsoft.Json.JsonConvert.SerializeObject(modelPage);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "-" + MethodBase.GetCurrentMethod().Name + " ===== parameters ========= " + errorParams);
                 objErr.SendMail();
             }
         }
@@ -705,7 +719,7 @@ namespace Bikewale.New
                     objPQEntity.CityId = Convert.ToUInt16(cityId);
                     objPQEntity.AreaId = Convert.ToUInt32(areaId);
                     objPQEntity.ClientIP = clientIP;
-                    objPQEntity.SourceId = 0;
+                    objPQEntity.SourceId = 1;
                     objPQEntity.ModelId = Convert.ToUInt32(modelId);
                     objPQEntity.VersionId = Convert.ToUInt32(variantId);
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);

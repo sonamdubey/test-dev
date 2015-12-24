@@ -8,8 +8,8 @@
         description = "Authorise dealer price details of a bike " + bikeName;
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
+        <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <!-- #include file="/includes/headscript_mobile.aspx" -->
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -58,7 +58,7 @@
                                 <asp:Repeater ID="rptVarients" runat="server">
                                     <ItemTemplate>
                                         <li class="text-light-grey border-light-grey" versionid="<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>" data-bind="click: function () { getVersion(<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>); $root.ActualSteps(1); }">
-                                            <span class="bwsprite radio-btn radio-sm-unchecked margin-right5 margin-left10"></span>
+                                            <span class="bwmsprite radio-btn radio-sm-unchecked margin-right5 margin-left10"></span>
                                             <span class="version-title-box"><%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionName") %></span>
                                         </li>
                                     </ItemTemplate>
@@ -202,7 +202,7 @@
                                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 33.3333%;"></span>
                                         </div>
                                         <div class="slider-range-points">
-                                            <ul class="range-pointsUL month-range">
+                                            <ul class="range-pointsUL month-range tenure-rate-interest">
                                                 <li class="range-points-bar" style="left: 0"><span>12</span></li>
                                                 <li class="range-points-bar" style="left: 2%"><span>18</span></li>
                                                 <li class="range-points-bar" style="left: 5%"><span>24</span></li>
@@ -233,7 +233,7 @@
                                             <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 25%;"></span>
                                         </div>
                                         <div class="slider-range-points">
-                                            <ul class="range-five-pointsUL range-pointsUL">
+                                            <ul class="range-five-pointsUL range-pointsUL tenure-rate-interest">
                                                 <li class="range-points-bar"><span>7</span></li>
                                                 <li class="range-points-bar" style="left: 5%"><span>10.25</span></li>
                                                 <li class="range-points-bar" style="left: 10%"><span>13.5</span></li>
@@ -266,7 +266,7 @@
                         </p>
                         <div class="contact-offers-container margin-top20 padding-bottom15">
                             <div class="contact-details-container">
-                                <h3 class="padding-bottom10 border-light-bottom"><span class="fa fa-map-marker text-red"></span>Contact details:</h3>
+                                <h3 class="padding-bottom10 border-light-bottom"><span class="bwmsprite contact-icon margin-right5"></span>Contact details:</h3>
                                 <ul>
                                     <li>
                                         <p class="text-bold">Offers from the nearest dealers</p>
@@ -283,20 +283,20 @@
 
                                 <% if (isOfferAvailable)
                                    { %>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
-                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 text-red font-24"></span>Available Offers </h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwmsprite offers-icon margin-right5"></span>Available Offers </h3>
 
                                 <ul>
                                     <asp:Repeater ID="rptDealerOffers" runat="server">
                                         <ItemTemplate>
-                                            <li><span class="fa fa-star text-red font12 margin-right5"></span><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                            <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
                                 <%}
                                    else
                                    {%>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                                 <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1">Dealer's Location</h3>
                                 <div class="bikeModel-dealerMap-container margin-top15" style="width: 100%; min-width: 50%; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
                                 <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
@@ -324,7 +324,7 @@
 
                             <div class="disclaimer-onroadprice-container" data-bind="visible : $root.CurrentStep() == 2">
                                 <div class="disclaimer-container text-left">
-                                    <h3 class="padding-bottom10 border-light-bottom">Disclaimer:</h3>
+                                    <h3 class="padding-bottom10 border-light-bottom"><span class="bwmsprite disclaimer-icon margin-left5 margin-right5"></span>Disclaimer:</h3>
                                     <ul class="disclaimerUL">
                                         <li>The EMI and downpayment amount is calculated as per the information entered by you. It does not include any other fees like processing fee, dealer handling charges that are typically charged by some banks / NBFCs / Dealers.</li>
                                         <li>The actual EMI and down payment will vary depending upon your credit profile

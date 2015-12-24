@@ -21,7 +21,7 @@
         description = "New bikes in India. Search for the right new bikes for you, know accurate on-road price and discounts. Compare new bikes and find dealers.";
         alternate = "http://www.bikewale.com/m/new/";
         AdId = "1395986297721";
-        AdPath = "BikeWale_NewBikesHome_";
+        AdPath = "/1017752/BikeWale_NewBikesHome_";
         canonical = "http://www.bikewale.com/new/";
     %>
     <%

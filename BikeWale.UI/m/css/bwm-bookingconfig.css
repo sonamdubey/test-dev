@@ -78,7 +78,7 @@
 #financeDetailsv .emi-slider-box .emi-slider-box-left-section p { font-size:14px; margin-bottom:10px; }
 
 /* dealer-details */
-#dealerDetails .contact-details-container ul { list-style:disc; margin:15px 0 15px 25px; font-size:14px; }
+#dealerDetails .contact-details-container ul { list-style:disc; margin:12px 0 15px 20px; font-size:14px; }
 #dealerDetails .contact-details-container li { line-height:1.7; margin-bottom:10px; }
 #dealerDetails .offer-details-container ul { color:#82888b; font-size:14px; }
 #dealerDetails .offer-details-container li { margin-top:15px; position:relative; }
@@ -93,7 +93,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #565a5c; height: 6px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(../images/slider-sprite.png) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
+.ui-slider .ui-slider-handle { background: url(http://img1.aeplcdn.com/bikewaleimg/m/images/slider-sprite.png?v=22122015) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
 
 .emi-slider-box-right-section { text-align:right; }
 
@@ -109,7 +109,9 @@
 .slider-range-points ul.range-pointsUL li { width:14%; }
 .slider-range-points ul.range-pointsUL.month-range li { width:10%;}
 .range-points-bar { background: url(http://img1.aeplcdn.com/bikewaleimg/m/images/slider-sprite.png?v=22122015) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
-.range-points-bar span { position:absolute; top:5px; left:0; font-size:11px; }
+.range-points-bar span { position:absolute; top:5px; left:-20px; font-size:11px; }
+.range-points-bar:first-child span { left:0; }
+.tenure-rate-interest .range-points-bar span { left:0px; }
 .slider-range-points .range-five-pointsUL.range-pointsUL li { width:20%; }
 
 .alloy-wheel-icon, .spoke-wheel-icon, .disc-brake-icon, .drum-brake-icon, .electric-start-icon, .kick-start-icon, .abs-icon { width:34px; height:34px; }
@@ -121,14 +123,14 @@
 .kick-start-icon { background-position:-52px 208px; }
 .abs-icon { background-position:-95px -169px; }
 
-.radio-sm-checked, .radio-sm-unchecked { width:12px; height:12px; }
-.radio-sm-checked { background-position:-205px -65px; }
-.radio-sm-unchecked { background-position:-205px -88px; }
+.radio-sm-checked, .radio-sm-unchecked { width:18px; height:18px; }
+.radio-sm-checked { background-position:-177px -57px; }
+.radio-sm-unchecked { background-position:-177px -78px; }
 .disclaimer-icon { width:16px; height:16px; background-position:-115px -209px; }
 
 /* version icons */
 .versionIcon, .versionIcon + span { display:inline-block; vertical-align:middle;}
-.versionIcon { width:34px; height:34px; background:url(../images/booking-sprite.png) no-repeat;}
+.versionIcon { width:34px; height:34px; background:url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?v=22122015) no-repeat;}
 .versionIcon.alloy-wheel { background-position:-131px 0}
 .versionIcon.disc-brake { background-position:-131px -44px}
 .versionIcon.elect-start { background-position:-131px -90px}
@@ -140,3 +142,11 @@
 .breakupPopUpContainer { min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:20px; }
 .breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 .call-text-green {border: 1px solid #00b16a;padding: 5px 10px;width: 100%;display: block;}
+
+.contact-icon, .offers-icon, .disclaimer-icon, .call-icon { width:16px; height:16px; }
+.disclaimer-icon { background-position: -135px -308px; }
+.offers-icon { background-position: -135px -280px; }
+.contact-icon { background-position: -107px -280px; }
+.call-icon { background-position: -107px -135px; }
+
+.offer-details-container ul li { background:url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png") no-repeat 0 3px; padding: 0 0 0 22px;} 

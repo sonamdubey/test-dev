@@ -131,6 +131,7 @@ namespace Bikewale.Mobile.New
                 ctrlUserReviews.PageNo = 1;
                 ctrlUserReviews.PageSize = 4;
                 ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
+                ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
@@ -611,7 +612,9 @@ namespace Bikewale.Mobile.New
                     {
                         if (variantId != 0)
                         {
-                            price = Convert.ToString(modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault().Price);
+                            var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+                            if (modelVersions != null)
+                                price = Convert.ToString(modelVersions.Price);
                         }
                         else
                         {
@@ -622,7 +625,10 @@ namespace Bikewale.Mobile.New
                 }
                 else
                 {
-                    price = Convert.ToString(modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault().Price);
+                    var modelVersions = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+
+                    if (modelVersions != null)
+                        price = Convert.ToString(modelVersions.Price);
                 }
             }
             catch (Exception ex)
@@ -758,7 +764,7 @@ namespace Bikewale.Mobile.New
                     objPQEntity.CityId = Convert.ToUInt16(cityId);
                     objPQEntity.AreaId = Convert.ToUInt32(areaId);
                     objPQEntity.ClientIP = clientIP;
-                    objPQEntity.SourceId = 0;
+                    objPQEntity.SourceId = 2;
                     objPQEntity.ModelId = Convert.ToUInt32(modelId);
                     objPQEntity.VersionId = Convert.ToUInt32(variantId);
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);

@@ -248,13 +248,13 @@
                                         <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                 <% } %>
                                  <% else if( !isCitySelected) {%>
-                                        <p class="font14">Ex-showroom price in <span href="javascript:void(0)" class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                        <p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span>></a></p>
                                 <% } %>
                                 <% else if( !isOnRoadPrice) {%>
-                                        <p class="font14">Ex-showroom price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                        <p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span>></a></p>
                                 <% } %>
                                 <% else {%>
-                                        <p class="font14">On-road price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                        <p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
                                 <%--<% else if (pqOnRoad !=null && pqOnRoad.IsDealerPriceAvailable)
                                    { %>
