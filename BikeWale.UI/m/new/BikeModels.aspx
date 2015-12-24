@@ -15,7 +15,7 @@
         title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
         description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs."
                     + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
-                    + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+                    + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
 
         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
         AdPath = "/1017752/Bikewale_Mobile_Model";
@@ -173,19 +173,19 @@
                         <p class="font14 fillPopupData">
                             Ex-showroom price in <span href="javascript:void(0)" class="text-light-grey clear">
                                 <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span>
-                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
-                                <span class="fa fa-edit"></span>
+                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5">
+                                <span class="bwmsprite edit-blue-icon"></span>
                             </a>
                         <% } %>
                         <% else
                            if( !isOnRoadPrice) {%>
-                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">Ex-showroom price in <span class="font14 text-grey text-bold"><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData"><span class="fa fa-edit"></span></a>
+                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">Ex-showroom price in <span class="font14 text-grey"><%= areaName %> <%= cityName %></span>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5"><span class="bwmsprite edit-blue-icon"></span></a>
                             </p>
                         <% } %>
                         <% else {%>
-                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">On-road price in <span class="font14 text-grey text-bold"><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData"><span class="fa fa-edit"></span></a>
+                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">On-road price in <span class="font14 text-grey"><%= areaName %> <%= cityName %></span>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5"><span class="bwmsprite edit-blue-icon"></span></a>
                             </p>
                         <% } %>
 
@@ -276,20 +276,19 @@
 
                         <div class="available-offers-container content-inner-block-10">
                             <div class="offer-list-container" id="dvAvailableOffer">
-                                <% if (isOfferAvailable)
-                                   { %>
                                 <%if (isBookingAvailable && bookingAmt > 0)
                                   { %>
-                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="fa fa-gift text-red"></span>
+                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite offers-icon"></span>
                                     Pay <span class="fa fa-rupee"></span> <%=bookingAmt %> to book your bike and get:
                                 </h4>
                                 <%    } %>
+                                <% if (isOfferAvailable)
+                                   { %>
                                 <ul>
                                     <asp:Repeater ID="rptOffers" runat="server">
                                         <ItemTemplate>
                                             <li>
-                                                <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
-                                                <span class="padding-left20 show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                                <span class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
                                                 <% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
                                                    { %>
                                                 <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
@@ -302,8 +301,7 @@
                                     <asp:Repeater ID="rptMoreOffers" runat="server">
                                         <ItemTemplate>
                                             <li>
-                                                <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
-                                                <span class="padding-left20 show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                                <span class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -312,23 +310,23 @@
 
                                 <%= (isOfferAvailable)?"<div class=\"border-top1 margin-top10 margin-bottom10\"></div>":string.Empty %>
                                 <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="fa fa-info-circle text-red"></span> Get following details on the bike</h4>
-                                <ul>
+                                <ul class="bike-details-list-ul">
 
                                     <li>
-                                        <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
-                                        <span class="padding-left20 show">Offers from the nearest dealers</span>
+                                        
+                                        <span class="show">Offers from the nearest dealers</span>
                                     </li>
                                     <li>
-                                        <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
-                                        <span class="padding-left20 show">Waiting period on this bike at the dealership</span>
+                                        
+                                        <span class="show">Waiting period on this bike at the dealership</span>
                                     </li>
                                     <li>
-                                        <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
-                                        <span class="padding-left20 show">Nearest dealership from your place</span>
+                                       
+                                        <span class="show">Nearest dealership from your place</span>
                                     </li>
                                     <li>
-                                        <span class="fa fa-circle text-light-grey position-abt pos-left3 pos-top8 font6"></span>
-                                        <span class="padding-left20 show">Finance options on this bike</span>
+                                       
+                                        <span class="show">Finance options on this bike</span>
                                     </li>
                                 </ul>
                             </div>

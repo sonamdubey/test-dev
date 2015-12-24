@@ -207,9 +207,9 @@
                             <% if (isOfferAvailable)
                                { %>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Available Offers </h3>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
 
-                            <ul>
+                            <ul class="pay-and-get-ul">
                                 <asp:Repeater ID="rptDealerOffers" runat="server">
                                     <ItemTemplate>
                                         <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
@@ -219,7 +219,7 @@
                             <%}
                                else
                                {%>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                             <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px; margin:10px 0;" data-bind="googlemap: { latitude: $root.Dealer().latitude(), longitude: $root.Dealer().longitude() }"></div>
                             <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
@@ -227,7 +227,7 @@
 
                             <div class="border-light-bottom"></div>
 
-                            <h4 class="border-solid-bottom padding-bottom5 margin-top10 margin-bottom10"><span class="fa fa-info-circle text-red margin-right5"></span>Get following details on the bike</h4>
+                            <h4 class="border-solid-bottom padding-bottom5 margin-top10 margin-bottom10"><span class="bwmsprite disclaimer-icon margin-right5"></span>Get following details on the bike</h4>
                             <ul class="bike-details-ul">
                                 <li>
                                     <span>Offers from the nearest dealers</span>

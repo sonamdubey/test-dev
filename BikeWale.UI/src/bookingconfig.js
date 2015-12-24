@@ -74,7 +74,8 @@ var BookingConfigViewModel = function () {
                 return true;
             }
             else {
-                $("#customizeBike .select-colorh4").addClass("text-red").shake();
+                //$("#customizeBike .select-colorh4").addClass("text-red").shake();
+                $("#configBtnWrapper .select-color-warning-tooltip").addClass("color-warning").show();
                 return false;
             }
         }
@@ -209,7 +210,7 @@ var BikeDetails = function () {
         $("#customizeBike").find("h4.select-colorh4").removeClass("text-red");
         bgcolor = ele.find('span.color-box').css('background-color');
         ele.find('span.color-title-box').addClass(getContrastYIQ(bgcolor));
-
+        colorsul.addClass("color-selection-done");
         // }
     };
     self.getVersion(self.selectedVersionId());
@@ -372,6 +373,16 @@ ko.applyBindings(viewModel, $("#bookingConfig")[0]);
 setColor();
 viewModel.UserOptions(viewModel.Bike().selectedVersionId().toString() + viewModel.Bike().selectedColorId().toString());
 
+var colorWarningTooltip = $("#configBtnWrapper .select-color-warning-tooltip");
 
+$("#configBtnWrapper input[type='button']").on("mouseover", function () {
+    if (!colorsul.hasClass("color-selection-done") && colorWarningTooltip.hasClass("color-warning"))
+        colorWarningTooltip.show();
+});
+
+$("#configBtnWrapper input[type='button']").on("mouseout", function () {
+    if (!colorsul.hasClass("color-selection-done") && colorWarningTooltip.hasClass("color-warning"))
+        colorWarningTooltip.hide();
+});
 
 

@@ -14,7 +14,7 @@
         keywords = "";
         AdId = "1395986297721";
         AdPath = "/1017752/Bikewale_PQ_";
-        isAd970x90Shown = false;
+    isAd970x90Shown = true;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
