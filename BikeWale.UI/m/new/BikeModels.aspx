@@ -15,7 +15,7 @@
         title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
         description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs."
                     + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
-                    + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+                    + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
 
         canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
         AdPath = "/1017752/Bikewale_Mobile_Model";
@@ -276,15 +276,15 @@
 
                         <div class="available-offers-container content-inner-block-10">
                             <div class="offer-list-container" id="dvAvailableOffer">
-                                <% if (isOfferAvailable)
-                                   { %>
                                 <%if (isBookingAvailable && bookingAmt > 0)
                                   { %>
                                 <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite offers-icon"></span>
                                     Pay <span class="fa fa-rupee"></span> <%=bookingAmt %> to book your bike and get:
                                 </h4>
                                 <%    } %>
-                                <ul class="offersList">
+                                <% if (isOfferAvailable)
+                                   { %>
+                                <ul>
                                     <asp:Repeater ID="rptOffers" runat="server">
                                         <ItemTemplate>
                                             <li>
