@@ -909,7 +909,7 @@
             ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
 
 
-
+            ga_pg_id = "7";
         </script>
 
     </form>
