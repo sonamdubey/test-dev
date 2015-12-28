@@ -25,7 +25,7 @@ namespace Bikewale.News
         private void GenerateNewsSiteMap()
         {
             string mydomain = "http://www.bikewale.com/news/";
-            string newsSiteMapFile = Server.MapPath("~/news/google-news-sitemap/google-news-sitemap.xml");
+            
 
             XmlTextWriter writer = null;
             DataTable dataTable = null;
@@ -34,9 +34,8 @@ namespace Bikewale.News
             SqlDataAdapter da = null;
             DataRow dtr = null;
             try
-            {
-                File.Delete(newsSiteMapFile);
-                writer = new XmlTextWriter(File.Create(newsSiteMapFile), Encoding.UTF8);
+            {                
+                writer = new XmlTextWriter(Response.OutputStream, Encoding.UTF8);
                 db = new Database();
                 using (con = new SqlConnection(BWConfiguration.Instance.CWConnectionString))
                 {
@@ -93,6 +92,12 @@ namespace Bikewale.News
                     }
                 }
                 writer.WriteEndDocument();
+                writer.Flush();
+                writer.Close();
+
+                Response.ContentEncoding = System.Text.Encoding.UTF8;
+                Response.ContentType = "text/xml";
+                Response.Cache.SetCacheability(HttpCacheability.Public);
             }
 
             catch (Exception ex)
@@ -101,11 +106,7 @@ namespace Bikewale.News
                 objErr.SendMail();
             }
             finally
-            {
-                if (writer != null)
-                {
-                    writer.Close();
-                }
+            {                
                 if (con != null)
                 {
                     con.Close();
