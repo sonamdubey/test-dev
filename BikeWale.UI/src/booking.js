@@ -177,6 +177,7 @@ var BookingPageViewModel = function () {
     self.CurrentStep = ko.observable(1);
     self.SelectedVersionId = ko.observable();
     self.SelectedColorId = ko.observable(0);
+    self.UserOptions = ko.observable();
     self.ActualSteps = ko.observable(1);
     self.CustomerInfo = ko.observable();
     self.changedSteps = function () {
@@ -201,10 +202,9 @@ var BookingPageViewModel = function () {
 
     self.verifyCustomer = function (data, event) {
         var isSuccess = false;
-        if (validateUserDetail() && !self.Customer().IsVerified()) {
-            var curCustInfo = viewModel.Customer().Name().trim() + viewModel.Customer().EmailId().trim() + viewModel.Customer().MobileNo().trim();
-            if (viewModel.CustomerInfo() != curCustInfo) {
-                viewModel.CustomerInfo(curCustInfo);
+        var curCustInfo = viewModel.Customer().EmailId().trim() + viewModel.Customer().MobileNo().trim();
+        if (self.CustomerInfo() != curCustInfo) {            
+            if (validateUserDetail() && self.Customer().IsVerified(false)) {
                 var objCust = {
                     "dealerId": self.Dealer().DealerId,
                     "pqId": self.Dealer().PQId,
@@ -237,6 +237,9 @@ var BookingPageViewModel = function () {
 
                         }
                         else {
+                            self.Customer().IsVerified();
+                            self.changedSteps();
+                            self.CustomerInfo(curCustInfo);
                             isSuccess = true;
                         }
                     },
@@ -250,15 +253,14 @@ var BookingPageViewModel = function () {
                 });
             }
             else {
-                isSuccess = false;
                 $("#otpPopup").show();
                 $(".blackOut-window").show();
+                isSuccess = false;
             }
-
-
-        }
+        }           
         else {
-            isSuccess = false;
+            isSuccess = true;
+            self.changedSteps();
         }
 
         if (!isSuccess) {
@@ -269,6 +271,48 @@ var BookingPageViewModel = function () {
         else {
             return true;
         }
+    };
+
+    self.bookNow = function (data, event) {
+        var isSuccess = false;
+        if (self.Customer().IsVerified() && (self.CurrentStep() >= 2) && (self.Bike().bookingAmount() > 0)) {
+            var curUserOptions = self.Bike().selectedVersionId().toString() + self.Bike().selectedColorId().toString();
+            if (self.UserOptions() != curUserOptions) {
+                self.UserOptions(curUserOptions);
+
+                url = "/api/UpdatePQ/";
+                var objData = {
+                    "pqId": pqId,
+                    "versionId": self.Bike().selectedVersionId(),
+                }
+                $.ajax({
+                    type: "POST",
+                    url: (self.Bike().selectedColorId() > 0) ? url + "?colorId=" + self.Bike().selectedColorId() : url,
+                    async: true,
+                    data: ko.toJSON(objData),
+                    contentType: "application/json",
+                    success: function (response) {
+                        var obj = ko.toJS(response);
+                        if (obj.isUpdated) {
+                            isSuccess = true;
+                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
+                            SetCookie("_MPQ", cookieValue);
+                            isSuccess = true;
+                        }
+                        else isSuccess = false;
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        isSuccess = false;
+                    }
+                });
+            }
+            else {
+                isSuccess = true;
+            }
+        }
+
+        return isSuccess;
+
     };
 }
 
@@ -288,9 +332,9 @@ var BikeCustomer = function () {
                 "customerName": self.Name(),
                 "customerMobile": self.MobileNo(),
                 "customerEmail": self.EmailId(),
-                "cwiCode": self.OtpCode,
+                "cwiCode": self.OtpCode(),
                 "branchId": viewModel.Dealer().DealerId(),
-                "versionId": viewModel.SelectedVersionId(),
+                "versionId": viewModel.Bike().selectedVersionId(),
                 "cityId": viewModel.Dealer().CityId()
             }
             $.ajax({
@@ -303,7 +347,7 @@ var BikeCustomer = function () {
                     var obj = ko.toJS(response);
                     self.IsVerified(obj.isSuccess);
                     if (obj.isSuccess && obj.dealer)
-                        return;
+                        viewModel.changedSteps();
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     self.IsVerified(false);
@@ -574,3 +618,4 @@ function setuserDetails() {
 var viewModel = new BookingPageViewModel;
 ko.applyBindings(viewModel, $("#bookingFlow")[0]);
 setColor();
+viewModel.UserOptions(bikeVersionId.toString() + preSelectedColor.toString());
