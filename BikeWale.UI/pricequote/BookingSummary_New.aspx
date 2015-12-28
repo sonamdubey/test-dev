@@ -360,9 +360,15 @@
 
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
 
+                 <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/footerBW.aspx" -->
 
         <script type="text/javascript">
+            var pqId = '<%= pqId %>'
+            var verId = '<%= versionId %>';
+            var cityId = '<%= cityId%>';
+            var dealerId = '<%= dealerId%>';
+            var areaId = '<%= areaId%>';
             //Need to uncomment the below script
             var thisBikename = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP %>"; 
@@ -389,8 +395,7 @@
         </script>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/booking.js?<%= staticFileVersion %>"></script>
-        <!-- #include file="/includes/footerscript.aspx" -->
-        <!-- #include file="/includes/footerBW.aspx" -->
+
         <script type="text/javascript">
             <% if (objCustomer != null && objCustomer.objCustomerBase != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))
                { %>
