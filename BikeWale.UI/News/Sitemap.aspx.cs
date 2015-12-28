@@ -11,6 +11,7 @@ using Bikewale.Common;
 using System.Data.Sql;
 using System.Data.SqlTypes;
 using Bikewale.Utility;
+using System.IO;
 
 namespace Bikewale.News
 {
@@ -19,44 +20,52 @@ namespace Bikewale.News
         private string mydomain = "http://www.bikewale.com/news/";
         protected void Page_Load(object sender, EventArgs e)
         {
-            XmlTextWriter writer = new XmlTextWriter(Server.MapPath("google-news-sitemap\\google-news-sitemap.xml"), Encoding.UTF8);
-            DataTable ds = null;
+            GenerateNewsSiteMap();
+        }
+        private void GenerateNewsSiteMap()
+        {
+            string mydomain = "http://www.bikewale.com/news/";
+            string newsSiteMapFile = Server.MapPath("~/news/google-news-sitemap/google-news-sitemap.xml");
+
+            XmlTextWriter writer = null;
+            DataTable dataTable = null;
             Database db = null;
             SqlConnection con = null;
             SqlDataAdapter da = null;
             DataRow dtr = null;
             try
             {
-                string constr = db.GetConString();
-                CommonOpn op = new CommonOpn();
-                using (con = new SqlConnection(BWConfiguration.CWConnectionString))
+                File.Delete(newsSiteMapFile);
+                writer = new XmlTextWriter(File.Create(newsSiteMapFile), Encoding.UTF8);
+                db = new Database();
+                using (con = new SqlConnection(BWConfiguration.Instance.CWConnectionString))
                 {
                     using (SqlCommand cmd = new SqlCommand("cw.GoogleSiteMapDetails", con))
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@ApplicationId", SqlDbType.Int).Value = Convert.ToInt32(BWConfiguration.ApplicationId);
+                        cmd.Parameters.Add("@ApplicationId", SqlDbType.Int).Value = Convert.ToInt32(BWConfiguration.Instance.ApplicationId);
                         con.Open();
-                        cmd.ExecuteNonQuery();
                         da = new SqlDataAdapter(cmd);
                         if (da != null)
                         {
-                            da.Fill(ds);
+                            dataTable = new DataTable();
+                            da.Fill(dataTable);
                         }
                     }
                 }
                 // Creating the SiteMap XML using XMLTextWriter
-                writer.Formatting = Formatting.Indented;
+                writer.Formatting = System.Xml.Formatting.Indented;
                 writer.WriteStartDocument();
                 writer.WriteStartElement("urlset", "http://www.sitemaps.org/schemas/sitemap/0.9");
                 writer.WriteAttributeString("xmlns", "news", null, "http://www.google.com/schemas/sitemap-news/0.9");
                 writer.WriteAttributeString("xmlns", "image", null, "http://www.google.com/schemas/sitemap-image/1.1");
-                if (ds != null && ds.Rows.Count > 0)
+                if (dataTable != null && dataTable.Rows.Count > 0)
                 {
                     int i = 0;
-                    while (i < ds.Rows.Count)
+                    while (i < dataTable.Rows.Count)
                     {
 
-                        dtr = ds.Rows[i];
+                        dtr = dataTable.Rows[i];
                         writer.WriteStartElement("url");
                         writer.WriteElementString("loc", String.Format("{0}{1}-{2}.html", mydomain, dtr["BasicId"].ToString(), dtr["Url"].ToString()));
                         writer.WriteStartElement("news:news");
@@ -77,8 +86,8 @@ namespace Bikewale.News
                             writer.WriteElementString("image:title", dtr["Caption"].ToString());
                             writer.WriteElementString("image:caption", dtr["Caption"].ToString());
                             writer.WriteElementString("image:geo_location", "India");
+                            writer.WriteEndElement();
                         }
-                        writer.WriteEndElement();
                         writer.WriteEndElement();
                         i++;
                     }
@@ -93,7 +102,10 @@ namespace Bikewale.News
             }
             finally
             {
-                writer.Close();
+                if (writer != null)
+                {
+                    writer.Close();
+                }
                 if (con != null)
                 {
                     con.Close();

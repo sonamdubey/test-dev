@@ -61,6 +61,7 @@ RewriteRule	^terms/(.*)	/offerterms.aspx?id=$1 [NC,L]
 # Feed URL redirection
 RewriteRule ^news/page/(.*)/feed/				/news/newsfeed.aspx?pn=$1 [NC,L]
 RewriteRule ^news/feed/							/news/newsfeed.aspx [NC,L]
+RewriteRule ^news/sitemap/							/news/sitemap.aspx [NC,L]
 
 RewriteRule ^news/([\d]+)-(.*).html                        /news/news.aspx?id=$1&t=$2 [NC,L]  
 RewriteRule ^news/([\d]+)-(.*)/page/([\d]+)                /news/news.aspx?id=$1&t=$2&pn=$3 [NC,L]
