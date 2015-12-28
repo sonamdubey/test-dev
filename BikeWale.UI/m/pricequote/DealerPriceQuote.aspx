@@ -909,6 +909,7 @@
             $("#leadLink").on("click", function () {
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Link', 'lab': bikeName + '_' + getCityArea });
             });
+            ga_pg_id = "7";
         </script>
 
     </form>

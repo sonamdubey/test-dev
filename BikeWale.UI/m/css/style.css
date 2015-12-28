@@ -305,6 +305,15 @@ font-family:"Roboto-Regular";
 ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .bw-city-popup .close-btn {width:16px; height:16px;}
 
+/* App Banner */
+#appBanner { background:#e2e2e2; padding:5px 5px 0; position:relative; overflow:hidden; }
+.app-banner-img-container { float:left; width:130px; height:95px; position:relative; margin-right:12px; }
+.app-banner-img-container img { position:absolute; bottom:0; }
+.banner-close-btn { width:30px; height:30px; background: url("http://img.aeplcdn.com/bikewaleimg/m/images/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
+.app-banner-text-container { float:left; }
+.app-banner-btn-container { padding:10px 25px 10px 0; }
+.app-banner-btn-container .btn { padding:6px 10px; }
+
 /* bw sprite new classes */
 .left-curve-icon { background-position:-28px -298px; width:21px; height:21px; float:left;}
 .right-curve-icon { background-position:-59px -298px; width:21px; height:21px; float:left;}
@@ -438,7 +447,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 
 /* sprite classes */
-.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v09152015) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v=22122015) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -459,6 +468,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .cityPopup-icon { background-position: -107px -35px; width: 29px; height: 38px; }
 .back-long-arrow-left { background-position: -155px 0;  width: 21px; height: 16px; }
 .back-long-arrow-left-white { background-position: -155px -101px; width: 21px; height: 21px; }
+.google-play-logo  { background-position: 2px -340px; width: 120px; height: 45px; }
 
 /* nav classes */
 .home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
