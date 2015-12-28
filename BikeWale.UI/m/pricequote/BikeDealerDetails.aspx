@@ -409,7 +409,14 @@
                 </div>
             </div>
         </section>
-
+        <section class="container margin-bottom30">
+            <div class="grid-12">
+                <div class="content-box-shadow content-inner-block-20">
+                    <img src="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.jpg" border="0" style="width:100%;" />
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
 
         <!-- all other js plugins -->
