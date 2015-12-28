@@ -28,7 +28,7 @@ namespace Bikewale.Mobile.BikeBooking
 
         protected PQ_QuotationEntity objPrice = null;
         protected UInt64 totalPrice = 0;
-        protected string pqId = string.Empty, areaId = string.Empty, MakeModel = string.Empty;
+        protected string pqId = string.Empty, areaId = string.Empty, MakeModel = string.Empty, BikeName = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;
         private bool isPriceAvailable = false;
         protected List<VersionColor> objColors = null;
@@ -104,6 +104,7 @@ namespace Bikewale.Mobile.BikeBooking
                 
                 if (objPrice != null)
                 {
+                    BikeName = objPrice.objMake.MakeName + " " + objPrice.objModel.ModelName;
                     //Added By : Ashwini Todkar on 1 Dec 2014
                     if (objPrice.PriceList != null && objPrice.PriceList.Count > 0)
                     {

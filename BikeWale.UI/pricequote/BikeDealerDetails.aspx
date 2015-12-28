@@ -439,7 +439,7 @@
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
             }
-
+            var getCityArea = GetGlobalCityArea();
         </script>
 
 
