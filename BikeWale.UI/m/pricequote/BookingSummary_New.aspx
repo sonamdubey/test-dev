@@ -352,6 +352,15 @@
             <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 457 9781</a>
         </div>
 
+        <section class="container margin-bottom30">
+            <div class="grid-12">
+                <div class="content-box-shadow content-inner-block-20">
+                    <img src="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.jpg" border="0" style="width:100%;" />
+                </div>
+            </div>
+            <div class="clear"></div>
+        </section>
+
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
 
         <!-- all other js plugins -->
