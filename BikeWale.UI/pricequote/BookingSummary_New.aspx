@@ -34,17 +34,17 @@
                         <ul>
                             <li>
                                 <div id="bikeSummaryTab" class="bike-book-step leftfloat" data-bind="click: function () { if (CurrentStep() > 1 ) CurrentStep(1); }, css: (CurrentStep() >= 1) ? 'active-tab' : ''">
-                                    <p>Summary</p>
+                                    <p>Personal Details</p>
                                     <div class="booking-tabs-image">
-                                        <span class="booking-flow-sprite booking-tab-icon" data-bind="css: (CurrentStep() == 1) ? 'summary-icon-selected' : 'booking-tick-blue'"></span>
+                                        <span class="booking-flow-sprite booking-tab-icon" data-bind="css: (CurrentStep() == 1) ? 'delivery-icon-selected' : 'booking-tick-blue'"></span>
                                     </div>
                                 </div>
                             </li>
                             <li>
                                 <div id="deliveryDetailsTab" class="bike-book-step" data-bind="click: function () { if (CurrentStep() > 2 || ActualSteps() > 1) CurrentStep(2); }, css: (CurrentStep() >= 2 || ActualSteps() > 1) ? 'active-tab' : 'disabled-tab'">
-                                    <p>Delivery details</p>
+                                    <p>Summary</p>
                                     <div class="booking-tabs-image">
-                                        <span class="booking-flow-sprite booking-tab-icon " data-bind="css: (CurrentStep() == 2) ? 'delivery-icon-selected' : (CurrentStep() > 2 || ActualSteps() > 1) ? 'booking-tick-blue' : 'delivery-icon-grey'"></span>
+                                        <span class="booking-flow-sprite booking-tab-icon " data-bind="css: (CurrentStep() == 2) ? 'summary-icon-selected' : (CurrentStep() > 2 || ActualSteps() > 1) ? 'booking-tick-blue' : 'summary-icon-grey'"></span>
                                     </div>
                                 </div>
                             </li>
@@ -58,8 +58,105 @@
                             </li>
                         </ul>
                     </div>
+                     
+                    <div id="deliveryDetails" data-bind="visible: CurrentStep() == 1" style="display: block">
+                        <div class="contact-offers-container border-light-bottom padding-bottom20">
+                            <div class="grid-6 alpha" data-bind="with : Customer">
+                                <h3 class="padding-bottom10 margin-right10 border-light-bottom"><span class="bwsprite personal-details-icon margin-right5"></span>Personal details:</h3>
+                                <div class="person-details-form-wrapper">
+                                    <div class="form-control-box margin-top20 margin-bottom20">
+                                        <input type="text" class="form-control" placeholder="Name" id="getLeadName" data-bind="textInput : Name">
+                                        <span class="bwsprite error-icon errorIcon" style="display: none;"></span>
+                                        <div class="bw-blackbg-tooltip errorText" style="display: none;">Please enter your name</div>
+                                    </div>
+                                    <div class="form-control-box email-box margin-right20 leftfloat">
+                                        <input type="text" class="form-control" placeholder="Email id" id="getEmailID" data-bind="textInput : EmailId">
+                                        <span class="bwsprite error-icon errorIcon" style="display: none;"></span>
+                                        <div class="bw-blackbg-tooltip errorText" style="display: none;">Please enter your email</div>
+                                    </div>
+                                    <div class="form-control-box mobile-box leftfloat">
+                                        <span class="mobile-prefix">+91</span>
+                                        <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getMobile" data-bind="textInput : MobileNo" />
+                                        <span class="bwsprite error-icon errorIcon" style="display: none;"></span>
+                                        <div class="bw-blackbg-tooltip errorText" style="display: none;">Please enter your mobile no.</div>
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                            </div>
+                            <div class="grid-6 omega border-light-left contact-details-container">
+                                <% if (isOfferAvailable)
+                                   { %>
+                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Book online and avail </h3>
+                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and avail</h3>
 
-                    <div id="bikeSummary" data-bind="visible: CurrentStep() == 1, with: Bike" style="display: block">
+                                <ul>
+                                    <asp:Repeater ID="rptDealerFinalOffers" runat="server">
+                                        <ItemTemplate>
+                                            <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </ul>
+                                <%}
+                                   else
+                                   {%>
+                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                                <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Get following details on the bike</h3>
+                                <ul>
+                                    <li>Offers from the nearest dealers</li>
+                                    <li>Waiting period on this bike at the dealership</li>
+                                    <li>Nearest dealership from your place</li>
+                                </ul>
+                                <% } %>
+                            </div>
+                            <div class="clear"></div>
+
+                            <div id="otpPopup" class="rounded-corner2 text-center" style="display: none;" data-bind="with : Customer">
+                                <div class="otpPopup-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                <div class="margin-top10 margin-bottom20"><span class="booking-flow-sprite otp-icon"></span></div>
+                                <p class="font18 margin-bottom20">Verify your mobile number</p>
+                                <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                                <div>
+                                    <div class="lead-mobile-box lead-otp-box-container font22" style="display: block;">
+                                        <span class="fa fa-phone"></span>
+                                        <span class="text-light-grey font24">+91</span>
+                                        <span class="lead-mobile font24" data-bind="text : MobileNo"></span>
+                                        <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
+                                    </div>
+                                    <div class="otp-box lead-otp-box-container" style="display: block;">
+                                        <div class="form-control-box margin-bottom10">
+                                            <input type="text" class="form-control" placeholder="Enter your OTP" data-bind="textInput : OtpCode" id="getOTP" />
+                                            <span class="bwsprite error-icon errorIcon"></span>
+                                            <div class="bw-blackbg-tooltip errorText"></div>
+                                        </div>
+                                        <p class="resend-otp-btn margin-bottom5" data-bind="visible: (OtpAttempts() < 2), click:regenerateOTP">Resend OTP</p>
+                                        <p class=" otp-notify-text text-light-grey font12 " data-bind="visible: (OtpAttempts() >= 2)">
+                                            OTP has been already sent to your mobile
+                                        </p>
+                                        <input type="button" class="btn btn-orange margin-top20" value="Submit OTP" data-bind="click : function(data,event){return validateOTP(data,event);}"  id="processOTP">
+                                    </div>
+                                    <div class="update-mobile-box" style="display: none;">
+                                        <div class="form-control-box text-left">
+                                            <span class="mobile-prefix">+91</span>
+                                            <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="textInput : MobileNo" />
+                                            <span class="bwsprite error-icon errorIcon" style="display: none;"></span>
+                                            <div class="bw-blackbg-tooltip errorText" style="display: none;">Please enter your Mobile Number</div>
+                                        </div>
+                                        <input type="button" class="btn btn-orange" value="Send OTP" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" id="generateNewOTP">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="grid-12 alpha margin-top15 query-number-container">
+                            <p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
+                           <%-- <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps">--%>
+                           <input type="button"  value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
+                        </div>
+                        <div class="clear"></div>
+
+                    </div>
+
+                    <div id="bikeSummary" data-bind="with: Bike,visible: CurrentStep() == 2, css: (CurrentStep() > 1) ? 'active-tab' : ''" class="margin-bottom15" style="display: none">
                         <div class="grid-5 text-center bike-image-wrapper">
                             <img data-bind="attr:{src : bikeImageUrl()}">
                         </div>
@@ -244,95 +341,11 @@
                             </div>
                             <div class="grid-12 alpha margin-top15 query-number-container">
                                 <p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
-                                <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps">
+                                <%--<input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps">--%>
+                                <input type="submit" runat="server" value="Make payment" class="btn btn-orange rightfloat" id="deliveryDetailsNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);}">
                             </div>
                             <div class="clear"></div>
                         </div>
-                    </div>
-
-                    <div id="deliveryDetails" data-bind="visible: CurrentStep() == 2, css: (CurrentStep() > 1) ? 'active-tab' : ''" class="margin-bottom15" style="display: none">
-                        <div class="contact-offers-container border-light-bottom padding-bottom20">
-                            <div class="grid-6 alpha" data-bind="with : Customer">
-                                <h3 class="padding-bottom10 margin-right10 border-light-bottom"><span class="bwsprite personal-details-icon margin-right5"></span>Personal details:</h3>
-                                <div class="person-details-form-wrapper">
-                                    <div class="form-control-box margin-top20 margin-bottom20">
-                                        <input type="text" class="form-control" placeholder="Name" id="getLeadName" data-bind="textInput : Name">
-                                        <span class="bwsprite error-icon errorIcon" style="display: none;"></span>
-                                        <div class="bw-blackbg-tooltip errorText" style="display: none;">Please enter your name</div>
-                                    </div>
-                                    <div class="form-control-box email-box margin-right20 leftfloat">
-                                        <input type="text" class="form-control" placeholder="Email id" id="getEmailID" data-bind="textInput : EmailId">
-                                        <span class="bwsprite error-icon errorIcon" style="display: none;"></span>
-                                        <div class="bw-blackbg-tooltip errorText" style="display: none;">Please enter your email</div>
-                                    </div>
-                                    <div class="form-control-box mobile-box leftfloat">
-                                        <span class="mobile-prefix">+91</span>
-                                        <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getMobile" data-bind="textInput : MobileNo" />
-                                        <span class="bwsprite error-icon errorIcon" style="display: none;"></span>
-                                        <div class="bw-blackbg-tooltip errorText" style="display: none;">Please enter your mobile no.</div>
-                                    </div>
-                                    <div class="clear"></div>
-                                </div>
-                            </div>
-                            <div class="grid-6 omega border-light-left contact-details-container">
-                                <h3 class="padding-bottom10 padding-left5 margin-left10 border-light-bottom"><span class="bwsprite contact-icon margin-right5"></span>Dealership details:</h3>
-                                <ul>
-                                    <li>
-                                        <p class="text-bold">Offers from the nearest dealers</p>
-                                        <p class="text-light-grey"><%= dealerAddress %></p>
-                                    </li>
-                                    <li>
-                                        <p class="text-bold">Availability</p>
-                                        <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
-                                        <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</p>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="clear"></div>
-
-                            <div id="otpPopup" class="rounded-corner2 text-center" style="display: none;" data-bind="with : Customer">
-                                <div class="otpPopup-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                                <div class="margin-top10 margin-bottom20"><span class="booking-flow-sprite otp-icon"></span></div>
-                                <p class="font18 margin-bottom20">Verify your mobile number</p>
-                                <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
-                                <div>
-                                    <div class="lead-mobile-box lead-otp-box-container font22" style="display: block;">
-                                        <span class="fa fa-phone"></span>
-                                        <span class="text-light-grey font24">+91</span>
-                                        <span class="lead-mobile font24" data-bind="text : MobileNo"></span>
-                                        <span class="bwsprite edit-blue-icon edit-mobile-btn"></span>
-                                    </div>
-                                    <div class="otp-box lead-otp-box-container" style="display: block;">
-                                        <div class="form-control-box margin-bottom10">
-                                            <input type="text" class="form-control" placeholder="Enter your OTP" data-bind="textInput : OtpCode" id="getOTP" />
-                                            <span class="bwsprite error-icon errorIcon"></span>
-                                            <div class="bw-blackbg-tooltip errorText"></div>
-                                        </div>
-                                        <p class="resend-otp-btn margin-bottom5" data-bind="visible: (OtpAttempts() < 2), click:regenerateOTP">Resend OTP</p>
-                                        <p class=" otp-notify-text text-light-grey font12 " data-bind="visible: (OtpAttempts() >= 2)">
-                                            OTP has been already sent to your mobile
-                                        </p>
-                                        <input type="submit" class="btn btn-orange margin-top20" value="Process Order" data-bind="click : function(data,event){return validateOTP(data,event);}" runat="server" id="processOTP">
-                                    </div>
-                                    <div class="update-mobile-box" style="display: none;">
-                                        <div class="form-control-box text-left">
-                                            <span class="mobile-prefix">+91</span>
-                                            <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" data-bind="textInput : MobileNo" />
-                                            <span class="bwsprite error-icon errorIcon" style="display: none;"></span>
-                                            <div class="bw-blackbg-tooltip errorText" style="display: none;">Please enter your Mobile Number</div>
-                                        </div>
-                                        <input runat="server" type="submit" class="btn btn-orange" value="Send OTP" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" id="generateNewOTP">
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="grid-12 alpha margin-top15 query-number-container">
-                            <p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
-                            <input type="submit" runat="server" value="Make payment" class="btn btn-orange rightfloat" id="deliveryDetailsNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}">
-                        </div>
-                        <div class="clear"></div>
-
                     </div>
 
                     <div id="bikePayment" data-bind="visible: CurrentStep() > 5" style="display: none">
@@ -347,36 +360,26 @@
 
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
 
+        <!-- #include file="/includes/footerBW.aspx" -->
+
         <script type="text/javascript">
             //Need to uncomment the below script
-            var thisBikename = '<%= this.bikeName %>';
-            var clientIP = '<%= clientIP %>'; 
-            var pageUrl = '<%= pageUrl %>';
+            var thisBikename = "<%= this.bikeName %>";
+            var clientIP = "<%= clientIP %>"; 
+            var pageUrl = "<%= pageUrl %>";
 
             
             //select bike version
-            var bikeVersionId = '<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>';
-            $(function () {
-                var versionTab = $('#customizeBike');
-                $('#customizeBike ul.select-versionUL li').each(function () {
-                    if (bikeVersionId === $(this).attr('versionId')) {
-                        $(this).removeClass("text-light-grey border-light-grey").addClass("selected-version text-bold border-dark-grey").find("span.radio-btn").removeClass("radio-sm-unchecked").addClass("radio-sm-checked");
-                    }
-                });
-            });
-
+            var bikeVersionId = "<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>";
             var versionList = JSON.parse($("#hdnBikeData").val());
             var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>;          
             var insAmt = '<%= insuranceAmount %>';
             var BikeDealerDetails = function () {
                 var self = this;
-                // self.Dealer = ko.observable(objDealer);
                 self.DealerId = ko.observable(<%= dealerId %>);
                 self.PQId = ko.observable(<%= pqId %>);
-                self.CityId = ko.observable(<%= cityId %>);
-                // self.DealerDetails = ko.observable(objDealer.objDealer);
-                // self.DealerQuotation = ko.observable(objDealer.objQuotation);
+                self.CityId = ko.observable(<%= cityId %>);  
                 self.IsInsuranceFree = ko.observable(insFree);
                 self.InsuranceAmount = ko.observable(insAmt);
                 self.latitude = ko.observable(<%= latitude %>);
@@ -389,11 +392,14 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/footerBW.aspx" -->
         <script type="text/javascript">
-            <% if(objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName)) { %>
+            <% if (objCustomer != null && objCustomer.objCustomerBase != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))
+               { %>
             viewModel.Customer().Name('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))?objCustomer.objCustomerBase.CustomerName:String.Empty %>');
             viewModel.Customer().EmailId('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerEmail))?objCustomer.objCustomerBase.CustomerEmail:String.Empty %>');
             viewModel.Customer().MobileNo('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerMobile))?objCustomer.objCustomerBase.CustomerMobile:String.Empty %>');
-            <% } else {%>
+            <% }
+               else
+               {%>
             var arr = setuserDetails();
             if (arr != null && arr.length > 0) {
                 viewModel.Customer().Name(arr[0]);
