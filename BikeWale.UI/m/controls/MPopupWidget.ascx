@@ -3,7 +3,7 @@
     var sourceHref = '0';
 </script>
 <!--bw popup code starts here-->
-<div class="bw-city-popup hide bw-popup-sm text-center" id="popupWrapper">
+<div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
 	<div class="popup-inner-container">
         
     	<div class="bwmsprite close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
@@ -107,6 +107,7 @@ function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr) {
             $('#popupWrapper').fadeIn(100);
             $('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
+            appendHash("onroadprice");
             var obj = JSON.parse(response);
             var cities = JSON.parse(obj.value);
             var citySelected = null;
