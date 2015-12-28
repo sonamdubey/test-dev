@@ -5,11 +5,11 @@
 	<div class="popup-inner-container">
         
     	<div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-        <div class="cityPopup-box rounded-corner50percent margin-bottom10">
-            	<span class="bwmsprite cityPopup-icon margin-top10"></span>
-            </div>
-    	<p class="font18 margin-bottom10 text-capitalize">Please Tell Us Your Location</p>
-        <div class="padding-top5" id="popupContent">
+        <%--<div class="cityPopup-box rounded-corner50percent margin-bottom10">
+            <span class="bwmsprite cityPopup-icon margin-top10"></span>
+        </div>--%>
+    	<p class="margin-top10 font20 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
+        <div id="popupContent">
             <div class="text-light-grey margin-bottom10"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
          <div>
                 <select id="ddlCitiesPopup" class="form-control chosen-select" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }, chosen: { width: '100%' }" ></select> 

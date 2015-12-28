@@ -3,9 +3,9 @@
     <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
     	<div class="globalcity-popup-data text-center">
         	<div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
-        	<div class="cityPopup-box rounded-corner50percent margin-bottom10">
+        	<%--<div class="cityPopup-box rounded-corner50percent margin-bottom10">
             	<span class="bwmsprite cityPopup-icon margin-top10"></span>
-            </div>
+            </div>--%>
             <p class="font20 margin-bottom5 text-capitalize">Please tell us your city</p>
             <p class="text-light-grey margin-bottom10">This allows us to provide relevant content for you.</p>
             <div class="form-control-box">
