@@ -157,6 +157,8 @@ namespace Bikewale.Notifications
             {
                 // To check if user has accepted offer with respect to Flipkart vouchers
                 bool isFlipkartOffer = false;
+                bool isAccessories = false;
+
                 if (dealerEntity.objOffers != null && dealerEntity.objOffers.Count > 0)
                 {
                     foreach (var offer in dealerEntity.objOffers)
@@ -166,11 +168,16 @@ namespace Bikewale.Notifications
                             isFlipkartOffer = true;
                             break;
                         }
+                        else if (offer.OfferText.ToLower().Contains("accessories"))
+                        {
+                            isAccessories = true;
+                            break;
+                        }
                     }
                 }
                 EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer;
 
-                string message = NewBikePQCustomerSMSTemplate(BikeName, dealerName, dealerContactNo, dealerAddress, bookingAmount, insuranceAmount, hasBumperDealerOffer, isFlipkartOffer);
+                string message = NewBikePQCustomerSMSTemplate(BikeName, dealerName, dealerContactNo, dealerAddress, bookingAmount, insuranceAmount, hasBumperDealerOffer, isFlipkartOffer, isAccessories);
                 
                 SMSCommon sc = new SMSCommon();
                 sc.ProcessSMS(customerMobile, message, esms, pageUrl);
@@ -332,6 +339,8 @@ namespace Bikewale.Notifications
             {
                 // To check if user has accepted offer with respect to Flipkart vouchers
                 bool isFlipkartOffer = false;
+                bool isAccessories = false;
+                
                 if (dealerEntity.objOffers != null && dealerEntity.objOffers.Count > 0)
                 {
                     foreach (var offer in dealerEntity.objOffers)
@@ -341,11 +350,16 @@ namespace Bikewale.Notifications
                             isFlipkartOffer = true;
                             break;
                         }
+                        else if (offer.OfferText.ToLower().Contains("accessories"))
+                        {
+                            isAccessories = true;
+                            break;
+                       }
                     }
                 }
                 EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer;
 
-                string message = NewBikePQCustomerSMSTemplate(BikeName, dealerName, dealerContactNo, dealerAddress, bookingAmount, insuranceAmount, hasBumperDealerOffer, isFlipkartOffer);
+                string message = NewBikePQCustomerSMSTemplate(BikeName, dealerName, dealerContactNo, dealerAddress, bookingAmount, insuranceAmount, hasBumperDealerOffer, isFlipkartOffer, isAccessories);
 
                 SavePQNotification obj = new SavePQNotification();
                 obj.SaveCustomerPQSMSTemplate(pqId, message, (int)esms, customerMobile, pageUrl);
@@ -371,7 +385,7 @@ namespace Bikewale.Notifications
         /// <param name="hasBumperDealerOffer"></param>
         /// <param name="isFlipkartOffer"></param>
         /// <returns></returns>
-        private static string NewBikePQCustomerSMSTemplate(string BikeName, string dealerName, string dealerContactNo, string dealerAddress, uint bookingAmount, uint insuranceAmount, bool hasBumperDealerOffer, bool isFlipkartOffer)
+        private static string NewBikePQCustomerSMSTemplate(string BikeName, string dealerName, string dealerContactNo, string dealerAddress, uint bookingAmount, uint insuranceAmount, bool hasBumperDealerOffer, bool isFlipkartOffer, bool isAccessories)
         {
             string message = "";
             //message = "Dear " + customerName + ", Thank you for showing interest in " + BikeName + ". Dealer details: " + dealerName + ", " + dealerContactNo + ", " + dealerAddress;
@@ -383,6 +397,10 @@ namespace Bikewale.Notifications
                     {
                         //message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Rs. 1,000 Flipkart vouchers & 1-year RSA from BikeWale.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
                         message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Rs. 1,000 Flipkart vouchers.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
+                    }
+                    else if(isAccessories)
+                    {
+                        message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Accessories at the dealership.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
                     }
                     else
                     {

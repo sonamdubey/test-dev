@@ -809,7 +809,8 @@ namespace Bikewale.Mobile.New
                                 }
                                 catch (Exception ex)
                                 {
-
+                                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                                    objErr.SendMail();
                                 }
                             }
                         }
@@ -818,7 +819,8 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                objErr.SendMail();
             }
 
             return pqOnRoad;
