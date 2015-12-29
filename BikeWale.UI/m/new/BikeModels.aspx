@@ -944,7 +944,13 @@
                                                 </p>
                                                 <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
                                                     <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>,
-                                                 <%= Bikewale.Common.Configuration.GetDefaultCityName %>
+                                                     <% if(cityId!= 0)
+                                                       { %>
+                                                        <%= cityName %>
+                                                    <% } else 
+                                                       { %>
+                                                        <%= Bikewale.Common.Configuration.GetDefaultCityName %>
+                                                    <% } %>
                                                 </p>
                                                 <asp:HiddenField ID="hdnVariant" runat="server" Value='<%#Eval("VersionId") %>' />
                                             </div>
