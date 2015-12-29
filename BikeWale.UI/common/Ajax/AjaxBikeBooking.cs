@@ -26,6 +26,8 @@ namespace Bikewale.Ajax
 {
     public class AjaxBikeBooking
     {
+        // Marked unused By : Sadhana Upadhyay
+#if unused
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Oct 2014
         /// Summary : function to save customer detail
@@ -108,7 +110,7 @@ namespace Bikewale.Ajax
             }
             return isVerified;
         }
-
+#endif
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Oct 2014
         /// Summmary : to update isverified flag in pq_newbikedealerpriceQuote table

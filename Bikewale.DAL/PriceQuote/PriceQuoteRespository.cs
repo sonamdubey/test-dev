@@ -26,8 +26,12 @@ namespace Bikewale.DAL.PriceQuote
         /// Summary : function to save the price quote.
         /// Modified By : Sadhana Upadhyay on 24th Oct 2014
         /// Summary : Added AreaId varible and removed customerid, customer name, customer email, customer mobile variable
+        /// Modified By : Ashis G. Kamble on 22 Nov 2012.
+        /// Added : Check whether version id is null or not. If null do not save pricequote.
         /// Modified By : Sadhana Upadhyay on 20 July 2015
         /// Summary : Added Dealer id as parameter to save in newbikepricequotes table
+        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
+        /// Summary : save utma. utmz, PQ Source id, device id 
         /// </summary>
         /// <param name="pqParams">All necessory parameters to save the price quote</param>
         /// <returns>Returns registered price quote id</returns>
@@ -37,8 +41,7 @@ namespace Bikewale.DAL.PriceQuote
             Database db = null;
             try
             {
-                // Modified By : Ashis G. Kamble on 22 Nov 2012.
-                // Added : Check whether version id is null or not. If null do not save pricequote.
+                
                 if (pqParams.VersionId > 0)
                 {
                     db = new Database();
@@ -47,7 +50,7 @@ namespace Bikewale.DAL.PriceQuote
                         using (SqlCommand cmd = new SqlCommand())
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = "SavePriceQuote_New";
+                            cmd.CommandText = "SavePriceQuote_New_30122015";
                             cmd.Connection = conn;
 
                             cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = pqParams.CityId;
@@ -60,6 +63,23 @@ namespace Bikewale.DAL.PriceQuote
                             cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = String.IsNullOrEmpty(pqParams.ClientIP) ? Convert.DBNull : pqParams.ClientIP;
                             cmd.Parameters.Add("@QuoteId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
                             cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = pqParams.DealerId;
+
+                            if (pqParams.PQLeadId.HasValue)
+                            {
+                                cmd.Parameters.Add("@PQSourceId", SqlDbType.TinyInt).Value = pqParams.PQLeadId.Value;
+                            }
+                            if (!String.IsNullOrEmpty(pqParams.UTMA))
+                            {
+                                cmd.Parameters.Add("@utma", SqlDbType.VarChar, 100).Value = pqParams.UTMA;
+                            }
+                            if (!String.IsNullOrEmpty(pqParams.UTMZ))
+                            {
+                                cmd.Parameters.Add("@utmz", SqlDbType.VarChar, 100).Value = pqParams.UTMZ;
+                            }
+                            if (!String.IsNullOrEmpty(pqParams.DeviceId))
+                            {
+                                cmd.Parameters.Add("@deviceId", SqlDbType.VarChar, 25).Value = pqParams.DeviceId;
+                            }
 
                             conn.Open();
                             cmd.ExecuteNonQuery();
