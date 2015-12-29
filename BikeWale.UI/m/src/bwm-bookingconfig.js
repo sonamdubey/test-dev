@@ -280,12 +280,18 @@ function formatPrice(price) {
 $("#configBtnWrapper").on('click', 'span.viewBreakupText', function () {
     $("div#breakupPopUpContainer").show();
     $(".blackOut-window").show();
+    appendHash("viewBreakup");
 });
 
-$(".breakupCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+$(".breakupCloseBtn, .blackOut-window").on('click', function (e) {
+    viewBreakUpClosePopup();
+    window.history.back();
+});
+
+var viewBreakUpClosePopup = function () {
     $("div#breakupPopUpContainer").hide();
     $(".blackOut-window").hide();
-});
+};
 
 $(document).on('keydown', function (e) {
     if (e.keyCode === 27) {

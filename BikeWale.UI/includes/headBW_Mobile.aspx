@@ -3,13 +3,13 @@
     <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
     	<div class="globalcity-popup-data text-center">
         	<div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
-        	<div class="icon-outer-container rounded-corner50percent margin-bottom15">
+        	<%--<div class="icon-outer-container rounded-corner50percent margin-bottom15">
                 <div class="icon-inner-container rounded-corner50percent">
                     <span class="bwmsprite cityPopup-icon margin-top15"></span>
                 </div>
-        	</div>
-            <p class="font20 margin-bottom15 text-capitalize">Please tell us your city</p>
-            <p class="text-light-grey margin-bottom15">This allows us to provide relevant content for you.</p>
+        	</div>--%>
+            <p class="font20 margin-bottom5 text-capitalize">Please tell us your city</p>
+            <p class="text-light-grey margin-bottom5">This allows us to provide relevant content for you.</p>
             <div class="form-control-box">
                 <div class="margin-bottom20 position-rel">
                 	<span class="position-abt pos-right15 pos-top15 bwmsprite cross-sm-dark-grey cur-pointer"></span>

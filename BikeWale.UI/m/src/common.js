@@ -1155,7 +1155,13 @@ var appendHash = function (state) {
         case "globalCity":
             window.location.hash = state;
             break;
-        case "onroadprice":
+        case "onRoadPrice":
+            window.location.hash = state;
+            break;
+        case "contactDetails":
+            window.location.hash = state;
+            break;
+        case "viewBreakup":
             window.location.hash = state;
             break;
         default:
@@ -1168,8 +1174,14 @@ var closePopUp = function (state) {
         case "globalCity":
             CloseCityPopUp();
             break;
-        case "onroadprice":
+        case "onRoadPrice":
             closeOnRoadPricePopUp();
+            break;
+        case "contactdetails":
+            leadPopupClose();
+            break;
+        case "viewBreakup":
+            viewBreakUpClosePopup();
             break;
         default:
             return true;
@@ -1178,10 +1190,47 @@ var closePopUp = function (state) {
 
 function CloseCityPopUp() {
     $("#globalcity-popup").hide();
-    unlockPopup();
+    $(".blackOut-window").hide();
 }
 
 function closeOnRoadPricePopUp() {
     $("#popupWrapper").hide();
-    unlockPopup();
+    $(".blackOut-window").hide();
 };
+
+var popupHeading = $("#popupHeading")
+    popupContent = $("#popupContent");
+
+$("#citySelection").on("click", function () {
+    popupContent.addClass("open").animate({ 'left': '0px' });
+});
+
+$(".bw-city-area-popup-wrapper .back-arrow-box").on("click", function () {
+    popupContent.removeClass("open").animate({ 'left': '100%' });
+});
+
+$("#popupCityInput").on("keyup", function () {
+    var inputText = $(this).val();
+    var inputTextLength = inputText.length;
+    inputText = inputText.toLowerCase();
+    
+    if (inputText != "") {
+        $("#popupCityList").find("li").each(function () {
+            var cityName = $(this).text().toLowerCase().trim();
+            if (/\s/.test(cityName))
+                var splitCityName = cityName.split(" ")[1];
+            else
+                splitCityName = "";
+
+            if ((inputText == cityName.substring(0, inputTextLength)) || inputText == splitCityName.substring(0, inputTextLength))
+                $(this).show();
+            else
+                $(this).hide();
+        });
+    }
+    else {
+        $("#popupCityList").find("li").each(function () {
+            $(this).show();
+        });
+    }
+});

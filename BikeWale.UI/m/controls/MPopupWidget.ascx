@@ -5,30 +5,47 @@
 <!--bw popup code starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
 	<div class="popup-inner-container">
-        
-    	<div class="bwmsprite close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-        <div class="icon-outer-container rounded-corner50percent margin-bottom15">
+        <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
+        <%--<div class="icon-outer-container rounded-corner50percent margin-bottom15">
             <div class="icon-inner-container rounded-corner50percent">
                 <span class="bwmsprite orp-location-icon margin-top20"></span>
             </div>
-        </div>
-    	<p class="font18 margin-bottom10 text-capitalize">Please Tell Us Your Location</p>
-        <div class="padding-top5" id="popupContent">
-            <div class="text-light-grey margin-bottom15"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
-         <div>
-                <select id="ddlCitiesPopup" class="form-control chosen-select" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }, chosen: { width: '100%' }" ></select> 
-                <span class="bwsprite error-icon hide"></span>
-                <div class="bw-blackbg-tooltip hide">Please Select City</div>   
-         </div>
-            <div  data-bind="visible: bookingAreas().length > 0" class="margin-top15">
-                <select  class="form-control chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', chosen: { width: '100%' }"></select>
-                <span class="bwsprite error-icon hide"></span>
-                <div class="bw-blackbg-tooltip hide">Please Select Area</div>
-            </div> 
+        </div>--%>
+    	<div id="popupHeading" class="content-inner-block-20">
+            <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
+            <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
+            <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
+                <div class="selected-city">Select City</div>
+                <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
+            </div>
+
+            <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10">
+                <div class="selected-area">Select Area</div>
+                <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
+            </div>
+
             <div class="center-align margin-top20 text-center">                
                 <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind="event: { click: getPriceQuotePopup }">Get on road price</a>
                 <div id="errMsgPopup" class="red-text margin-top10 hide"></div>
-            </div>            
+            </div>
+        </div>
+        <div id="popupContent" class="bw-city-area-popup-wrapper">
+            <div class="bw-city-popup-box city-list-container form-control-box text-left">
+                <span class="back-arrow-box">
+                    <span class="bwmsprite back-long-arrow-left"></span>
+                </span>
+                <input class="form-control" type="text" id="popupCityInput" placeholder="City"/>
+                <ul id="popupCityList" data-bind="foreach: bookingCities">
+                    <li data-bind="text: CityName"></li>
+                </ul>
+
+                
+                <div  data-bind="visible: bookingAreas().length > 0" class="margin-top15">
+                    <select  class="form-control chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--', chosen: { width: '100%' }"></select>
+                    <span class="bwsprite error-icon hide"></span>
+                    <div class="bw-blackbg-tooltip hide">Please Select Area</div>
+                </div> 
+            </div>          
         </div>
     </div>
 </div>
@@ -107,7 +124,7 @@ function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr) {
             $('#popupWrapper').fadeIn(100);
             $('body').addClass('lock-browser-scroll');
             $(".blackOut-window").show();
-            appendHash("onroadprice");
+            appendHash("onRoadPrice");
             var obj = JSON.parse(response);
             var cities = JSON.parse(obj.value);
             var citySelected = null;

@@ -344,10 +344,10 @@
                         </div>
 
                         <!-- View BreakUp Popup Starts here-->
-                        <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
-                            <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+                        <div class="breakupPopUpContainer bwm-fullscreen-popup hide" id="breakupPopUpContainer">
+                            <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
                             <div class="breakup-text-container padding-bottom10">
-                                <h3 class="breakup-header font26 margin-bottom20"><span data-bind="text : bikeName()"></span><span class="font14 text-light-grey ">(On road price breakup)</span></h3>
+                                <h3 class="breakup-header margin-bottom5"><span data-bind="text : bikeName()"></span><span class="font14 text-light-grey ">(On road price breakup)</span></h3>
                                 <table id="model-view-breakup" class="font16" width="100%">
                                     <tbody>
                                         <!-- ko foreach: versionPriceBreakUp -->

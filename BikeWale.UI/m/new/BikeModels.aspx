@@ -284,7 +284,7 @@
                                 <%    } %>
                                 <% if (isOfferAvailable)
                                    { %>
-                                <ul>
+                                <ul class="offersList">
                                     <asp:Repeater ID="rptOffers" runat="server">
                                         <ItemTemplate>
                                             <li>
@@ -1081,222 +1081,222 @@
 
         <!-- Terms and condition Popup Ends -->
         <!-- View BreakUp Popup Starts here-->
-        <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
-                            <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
-                            <div class="breakup-text-container padding-bottom10">
-                                <h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
-                                <% if (isBikeWalePQ)
-                                   { %>
-                                <table class="font14" width="100%">
-                                    <tbody>
-                                        <tr>
-                                            <td width="60%" class="padding-bottom10">Ex-showroom (Mumbai)</td>
-                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price)) %></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="padding-bottom10">RTO</td>
-                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.RTO)) %></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="padding-bottom10">Insurance<a style="position: relative; font-size: 11px; margin-top: 1px;" target="_blank" href="/m/insurance/"> Up to 60% off - PolicyBoss </a></td>
-                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <div class="border-solid-top padding-bottom10"></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <!-- ko if :BWPriceList -->
-                                            <td class="padding-bottom10 text-bold">Total on road price</td>
-                                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price + objSelectedVariant.RTO + objSelectedVariant.Insurance)) %></td>
-                                            <!-- /ko -->
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <% }
-                                   else if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
-                                   {    %>
-                                <table id="dp-insurance-text" class="font14" width="100%">
-                                    <tbody>
+        <div class="breakupPopUpContainer bwm-fullscreen-popup hide" id="breakupPopUpContainer">
+            <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+            <div class="breakup-text-container padding-bottom10">
+                <h3 class="breakup-header margin-bottom5"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
+                <% if (isBikeWalePQ)
+                    { %>
+                <table class="font14" width="100%">
+                    <tbody>
+                        <tr>
+                            <td width="60%" class="padding-bottom10">Ex-showroom (Mumbai)</td>
+                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price)) %></td>
+                        </tr>
+                        <tr>
+                            <td class="padding-bottom10">RTO</td>
+                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.RTO)) %></td>
+                        </tr>
+                        <tr>
+                            <td class="padding-bottom10">Insurance<a style="position: relative; font-size: 11px; margin-top: 1px;" target="_blank" href="/m/insurance/"> Up to 60% off - PolicyBoss </a></td>
+                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="border-solid-top padding-bottom10"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!-- ko if :BWPriceList -->
+                            <td class="padding-bottom10 text-bold">Total on road price</td>
+                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Price + objSelectedVariant.RTO + objSelectedVariant.Insurance)) %></td>
+                            <!-- /ko -->
+                        </tr>
+                    </tbody>
+                </table>
+                <% }
+                    else if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
+                    {    %>
+                <table id="dp-insurance-text" class="font14" width="100%">
+                    <tbody>
 
-                                        <asp:Repeater ID="rptCategory" runat="server">
-                                            <ItemTemplate>
-                                                <tr class="carwale">
-                                                    <td width="60%" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
-                                                       <% if(!pqOnRoad.IsInsuranceFree) { %>
-                                                         <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
-                                                        <% } %>
-                                                    </td>
-                                                    <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
-                                                        <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>
-                                                </tr>
-                                            </ItemTemplate>
-                                        </asp:Repeater>
-
-                                        <% if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
-                                           {  %>
-                                        <tr>
-                                            <td colspan="2">
-                                                <div class="border-solid-top padding-bottom10"></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="padding-bottom10">Total on road price</td>
-                                            <td align="right" class="padding-bottom10 text-bold text-right" style="text-decoration: line-through;">
-                                                <span class="fa fa-rupee margin-right5"></span>
-                                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="padding-bottom10">Minus insurance</td>
-                                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
-                                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %>
-                                            </td>
-                                        </tr>
+                        <asp:Repeater ID="rptCategory" runat="server">
+                            <ItemTemplate>
+                                <tr class="carwale">
+                                    <td width="60%" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
+                                        <% if(!pqOnRoad.IsInsuranceFree) { %>
+                                            <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
                                         <% } %>
-                                        <tr>
-                                            <td colspan="2">
-                                                <div class="border-solid-top padding-bottom10"></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <% if (pqOnRoad.DPQOutput.PriceList.Count > 0)
-                                               {%>
-                                            <td class="padding-bottom10 text-bold">Total on road price</td>
-                                            <% if (pqOnRoad.InsuranceAmount > 0)
-                                               {
-                                            %>
-                                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
-                                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - pqOnRoad.InsuranceAmount)) %>
+                                    </td>
+                                    <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                                        <span><%# Bikewale.Utility.Format.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price"))) %></span></td>
+                                </tr>
+                            </ItemTemplate>
+                        </asp:Repeater>
 
-                                            </td>
-                                            <% }
-                                               else
-                                               { %>
-                                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
-                                                <%= Bikewale.Utility.Format.FormatPrice(price) %>
-                                                <%} %>
-                                                <%} %>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2">
-                                                <div class="border-solid-top padding-bottom10"></div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <% } %>
-                            </div>
-                        </div>
+                        <% if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
+                            {  %>
+                        <tr>
+                            <td colspan="2">
+                                <div class="border-solid-top padding-bottom10"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="padding-bottom10">Total on road price</td>
+                            <td align="right" class="padding-bottom10 text-bold text-right" style="text-decoration: line-through;">
+                                <span class="fa fa-rupee margin-right5"></span>
+                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="padding-bottom10">Minus insurance</td>
+                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %>
+                            </td>
+                        </tr>
+                        <% } %>
+                        <tr>
+                            <td colspan="2">
+                                <div class="border-solid-top padding-bottom10"></div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <% if (pqOnRoad.DPQOutput.PriceList.Count > 0)
+                                {%>
+                            <td class="padding-bottom10 text-bold">Total on road price</td>
+                            <% if (pqOnRoad.InsuranceAmount > 0)
+                                {
+                            %>
+                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - pqOnRoad.InsuranceAmount)) %>
+
+                            </td>
+                            <% }
+                                else
+                                { %>
+                            <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
+                                <%= Bikewale.Utility.Format.FormatPrice(price) %>
+                                <%} %>
+                                <%} %>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <div class="border-solid-top padding-bottom10"></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <% } %>
+            </div>
+        </div>
         <!--View Breakup popup ends here-->
 
         <!-- Lead Capture pop up start  -->
-        <div id="leadCapturePopup" class="bw-popup contact-details hide">
-                            <div class="popup-inner-container text-center">
-                                <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
-                                <div id="contactDetailsPopup">
-                                    <!-- Contact details Popup starts here -->
-                                    <div class="icon-outer-container rounded-corner50percent">
-                                        <div class="icon-inner-container rounded-corner50percent">
-                                            <span class="bwmsprite user-contact-details-icon margin-top25"></span>
-                                        </div>
-                                    </div>
-                                    <h2 class="margin-top10 margin-bottom10">Please provide us contact details</h2>
-                                    <p class="text-light-grey margin-bottom10">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
-
-                                    <div class="personal-info-form-container margin-top10">
-                                        <div class="form-control-box">
-                                            <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="value: fullName">
-                                            <span class="bwmsprite error-icon "></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter your name</div>
-                                        </div>
-                                        <%--<div class="form-control-box margin-top20">
-                                            <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: lastName">
-                                            <span class="bwmsprite error-icon"></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
-                                        </div>--%>
-                                        <div class="form-control-box margin-top20">
-                                            <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId">
-                                            <span class="bwmsprite error-icon"></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter your email adress</div>
-                                        </div>
-                                        <div class="form-control-box margin-top20">
-                                            <p class="mobile-prefix">+91</p>
-                                            <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: mobileNo">
-                                            <span class="bwmsprite error-icon"></span>
-                                            <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
-                                        </div>
-                                        <div class="clear"></div>
-                                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                                    </div>
-
-                                    <!--
-                                    <div class="mobile-verification-container margin-top20 hide">
-                                        <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
-                                        <div class="form-control-box  padding-left15 padding-right15">
-                                            <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" maxlength="5" id="getOTP" data-bind="value: otpCode">
-                                            <span class="bwmsprite error-icon hide"></span>
-                                            <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
-                                        </div>
-                                        <div class="text-center padding-top10">
-                                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
-                                            <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
-                                                OTP has been already sent to your mobile
-                                            </p>
-                                        </div>
-
-                                        <div class="clear"></div>
-                                        <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
-                                        <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
-                                    </div>
-                                    -->
-                                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
-                                </div>
-                                <!-- Contact details Popup ends here -->
-                                <div id="otpPopup">
-                                    <!-- OTP Popup starts here -->
-                                    <div class="icon-outer-container rounded-corner50percent">
-                                        <div class="icon-inner-container rounded-corner50percent">
-                                            <span class="bwmsprite otp-icon margin-top25"></span>
-                                        </div>
-                                    </div>
-                                    <p class="font18 margin-top10 margin-bottom10">Verify your mobile number</p>
-                                    <p class="font14 text-light-grey margin-bottom10">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
-                                    <div>
-                                        <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
-                                            <span class="fa fa-phone"></span>
-                                            <span class="text-light-grey font24">+91</span>
-                                            <span class="lead-mobile font24">9876543210</span>
-                                            <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
-                                        </div>
-                                        <div class="otp-box lead-otp-box-container">
-                                            <div class="form-control-box margin-bottom10">
-                                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode" />
-                                                <span class="bwmsprite error-icon errorIcon"></span>
-                                                <div class="bw-blackbg-tooltip errorText"></div>
-                                            </div>
-                                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
-                                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
-                                                OTP has been already sent to your mobile
-                                            </p>
-                                            <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
-                                        </div>
-                                        <div class="update-mobile-box">
-                                            <div class="form-control-box text-left">
-                                                <p class="mobile-prefix">+91</p>
-                                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" />
-                                                <span class="bwmsprite error-icon errorIcon"></span>
-                                                <div class="bw-blackbg-tooltip errorText"></div>
-                                            </div>
-                                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" />
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <!-- OTP Popup ends here -->
-                            </div>
+        <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
+            <div class="popup-inner-container text-center">
+                <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
+                <div id="contactDetailsPopup">
+                    <!-- Contact details Popup starts here -->
+                    <%--<div class="icon-outer-container rounded-corner50percent">
+                        <div class="icon-inner-container rounded-corner50percent">
+                            <span class="bwmsprite user-contact-details-icon margin-top25"></span>
                         </div>
+                    </div>--%>
+                    <h2 class="margin-bottom5">Please provide us contact details</h2>
+                    <p class="text-light-grey margin-bottom5">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
+
+                    <div class="personal-info-form-container margin-top10">
+                        <div class="form-control-box">
+                            <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="value: fullName" />
+                            <span class="bwmsprite error-icon "></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter your name</div>
+                        </div>
+                        <%--<div class="form-control-box margin-top20">
+                            <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: lastName">
+                            <span class="bwmsprite error-icon"></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
+                        </div>--%>
+                        <div class="form-control-box margin-top20">
+                            <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId" />
+                            <span class="bwmsprite error-icon"></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter your email adress</div>
+                        </div>
+                        <div class="form-control-box margin-top20">
+                            <p class="mobile-prefix">+91</p>
+                            <input type="text" class="form-control get-mobile-no" maxlength="10" placeholder="Mobile no." id="getMobile" data-bind="value: mobileNo" />
+                            <span class="bwmsprite error-icon"></span>
+                            <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                        </div>
+                        <div class="clear"></div>
+                        <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
+                    </div>
+
+                    <!--
+                    <div class="mobile-verification-container margin-top20 hide">
+                        <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
+                        <div class="form-control-box  padding-left15 padding-right15">
+                            <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" maxlength="5" id="getOTP" data-bind="value: otpCode">
+                            <span class="bwmsprite error-icon hide"></span>
+                            <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
+                        </div>
+                        <div class="text-center padding-top10">
+                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                            <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
+                                OTP has been already sent to your mobile
+                            </p>
+                        </div>
+
+                        <div class="clear"></div>
+                        <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
+                        <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
+                    </div>
+                    -->
+                    <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
+                </div>
+                <!-- Contact details Popup ends here -->
+                <div id="otpPopup">
+                    <!-- OTP Popup starts here -->
+                    <%--<div class="icon-outer-container rounded-corner50percent">
+                        <div class="icon-inner-container rounded-corner50percent">
+                            <span class="bwmsprite otp-icon margin-top25"></span>
+                        </div>
+                    </div>--%>
+                    <p class="font18 margin-bottom5">Verify your mobile number</p>
+                    <p class="text-light-grey margin-bottom5">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                    <div>
+                        <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
+                            <span class="fa fa-phone"></span>
+                            <span class="text-light-grey font24">+91</span>
+                            <span class="lead-mobile font24">9876543210</span>
+                            <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
+                        </div>
+                        <div class="otp-box lead-otp-box-container">
+                            <div class="form-control-box margin-bottom10">
+                                <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" maxlength="5" data-bind="value: otpCode" />
+                                <span class="bwmsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+                            <p class="margin-left10 margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
+                                OTP has been already sent to your mobile
+                            </p>
+                            <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
+                        </div>
+                        <div class="update-mobile-box">
+                            <div class="form-control-box text-left">
+                                <p class="mobile-prefix">+91</p>
+                                <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10" id="getUpdatedMobile" />
+                                <span class="bwmsprite error-icon errorIcon"></span>
+                                <div class="bw-blackbg-tooltip errorText"></div>
+                            </div>
+                            <input type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP" />
+                        </div>
+                    </div>
+
+                </div>
+                <!-- OTP Popup ends here -->
+            </div>
+        </div>
         <!-- Lead Capture pop up end  -->
 
         <BW:MPopupWidget runat="server" ID="MPopupWidget1" />

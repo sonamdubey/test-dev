@@ -616,14 +616,20 @@ $("input[name*='btnVariant']").on("click", function () {
 $("#viewBreakupText").on('click', function (e) {
     $("div#breakupPopUpContainer").show();
     $(".blackOut-window").show();
+    appendHash("viewBreakup");
 });
-$(".breakupCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+$(".breakupCloseBtn,.blackOut-window").on('click', function (e) {
+    viewBreakUpClosePopup();
+    window.history.back();
+});
+
+var viewBreakUpClosePopup = function () {
     $("div#breakupPopUpContainer").hide();
     $(".blackOut-window").hide();
     $("#contactDetailsPopup").show();
     $("#otpPopup").hide();
     leadPopupClose();
-});
+};
 
 $(".termsPopUpCloseBtn").on('mouseup click', function (e) {
     $("div#termsPopUpContainer").hide();
@@ -633,12 +639,12 @@ $(".termsPopUpCloseBtn").on('mouseup click', function (e) {
 $("#getMoreDetailsBtn").on('click', function (e) {
     $("div#leadCapturePopup").show();
     $(".blackOut-window").show();
+    appendHash("contactDetails");
 });
 
 $(".leadCapture-close-btn").on("click", function () {
     leadPopupClose();
-    $('body').removeClass('lock-browser-scroll');
-    $(".blackOut-window").hide();
+    window.history.back();
 });
 
 $(document).on('keydown', function (e) {
@@ -654,6 +660,8 @@ var leadPopupClose = function () {
     leadCapturePopup.hide();
     $("#contactDetailsPopup").show();
     $("#otpPopup").hide();
+    $('body').removeClass('lock-browser-scroll');
+    $(".blackOut-window").hide();
 };
 
 $(".more-features-btn").click(function () {

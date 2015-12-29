@@ -139,7 +139,7 @@
 .versionIcon.drum-brake { background-position:-91px -147px}
 .versionIcon.kick-start { background-position:-91px -191px}
 .text-green { color:#5bc033;}
-.breakupPopUpContainer { min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:20px; }
+/*.breakupPopUpContainer { min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:20px; }*/
 .breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 .call-text-green {border: 1px solid #00b16a;padding: 5px 10px;width: 100%;display: block;}
 
