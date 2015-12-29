@@ -474,6 +474,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .action-btn a:hover{text-decoration:none;}
 a.action-btn:hover{text-decoration:none;}
 
+.booking-how-it-works { background-color: #cbcbcb; width: 976px; height: 1291px; }
+
 .chosen-container.chosen-container-single a:hover { text-decoration:none; }
 
 /* common properties */

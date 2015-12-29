@@ -404,12 +404,8 @@
             </div>
         </section>
 
-        <section class="container margin-bottom30">
-            <div class="grid-12">
-                <div class="content-box-shadow content-inner-block-20">
-                    <img src="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.jpg" border="0" style="width:100%;" />
-                </div>
-            </div>
+        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.jpg?<%= staticFileVersion %>">
+            <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
 
@@ -419,6 +415,10 @@
         <!-- #include file="/includes/footerscript.aspx" -->
 
         <script type="text/javascript">
+            $(document).ready(function() {
+                applyLazyLoad();
+            });
+
             var thisBikename = '<%= this.bikeName %>';
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
@@ -439,7 +439,7 @@
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
             }
-
+            
         </script>
 
 
