@@ -20,8 +20,7 @@ using System;
 using System.Configuration;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Collections.Generic;
-using System.Linq;
+
 namespace Bikewale.Service.Controllers.PriceQuote
 {
     /// <summary>
@@ -62,8 +61,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Description :   Save the State of the Booking Journey as Described in Task# 107795062 
         /// Modified By :   Sumit Kate on 08 Dec 2015
         /// Description :   Update the Bike Version. Fixed the APP functionality.
-        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
-        /// Summary : To capture device id, utma, utmz, Pq lead id etc.
         /// </summary>
         /// <param name="input">Customer details with price quote details</param>
         /// <returns></returns>
@@ -107,22 +104,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         UInt32 CustomerId = _objCustomer.Add(objCust);
                     }
 
-
-                    DPQ_SaveEntity entity = new DPQ_SaveEntity()
-                    {
-                        DealerId = input.DealerId,
-                        PQId = input.PQId,
-                        CustomerName = input.CustomerName,
-                        CustomerEmail = input.CustomerEmail,
-                        CustomerMobile = input.CustomerMobile,
-                        ColorId = null,
-                        UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
-                        UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
-                        DeviceId = input.DeviceId,
-                        LeadSourceId = input.LeadSourceId
-                    };
-
-                    isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
+                    isSuccess = _objDealerPriceQuote.SaveCustomerDetail(input.DealerId, input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail,null);
 
                     //if (!_mobileVerRespo.IsMobileVerified(input.CustomerMobile, input.CustomerEmail))
                     //{

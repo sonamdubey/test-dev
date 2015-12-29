@@ -15,8 +15,6 @@ using System;
 using System.Configuration;
 using System.Web.Http;
 using System.Web.Http.Description;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Bikewale.Service.Controllers.PriceQuote
 {
@@ -35,8 +33,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         private readonly IDealer _objDealer = null;
         private readonly IPriceQuote _objPriceQuote = null;
         /// <summary>
-        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
-        /// Summary : To capture device id, utma, utmz, Pq lead id etc.
+        /// 
         /// </summary>
         /// <param name="objAuthCustomer"></param>
         /// <param name="objCustomer"></param>
@@ -106,20 +103,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         UInt32 CustomerId = _objCustomer.Add(objCust);
                     }
 
-                    DPQ_SaveEntity entity = new DPQ_SaveEntity()
-                    {
-                        DealerId = input.DealerId,
-                        PQId = input.PQId,
-                        CustomerName = input.CustomerName,
-                        CustomerEmail = input.CustomerEmail,
-                        CustomerMobile = input.CustomerMobile,
-                        ColorId = input.ColorId,
-                        UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
-                        UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
-                        DeviceId = input.DeviceId,
-                        LeadSourceId = input.LeadSourceId
-                    };
-                    isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
+                    isSuccess = _objDealerPriceQuote.SaveCustomerDetail(input.DealerId, input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail,input.ColorId);
 
                     noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
 

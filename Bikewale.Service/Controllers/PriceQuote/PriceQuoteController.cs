@@ -37,8 +37,6 @@ namespace Bikewale.Service.Controllers.PriceQuote
         }
         /// <summary>
         /// Bikewale Price Quote and Dealer Price Quote
-        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
-        /// Summary : To capture device id, utma, utmz, Pq lead id etc.
         /// </summary>
         /// <param name="input">Entity contains the required details to get the price quote details</param>
         /// <returns></returns>
@@ -57,13 +55,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 objPQEntity.SourceId = Convert.ToUInt16(input.SourceType);
                 objPQEntity.ModelId = input.ModelId;
                 objPQEntity.VersionId = input.VersionId;
-                objPQEntity.UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
-                objPQEntity.UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
-                objPQEntity.DeviceId = input.DeviceId;
-                objPQEntity.PQLeadId = input.PQLeadId;
-
                 objPQOutput = _objIPQ.ProcessPQ(objPQEntity);
-
                 if (objPQOutput != null)
                 {
                     objPQ = PQOutputMapper.Convert(objPQOutput);
