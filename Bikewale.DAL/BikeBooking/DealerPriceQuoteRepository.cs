@@ -285,7 +285,7 @@ namespace Bikewale.DAL.BikeBooking
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "GetNewBikePriceQuoteCustomerDetail_21122015";
+                    cmd.CommandText = "GetNewBikePriceQuoteCustomerDetail";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@PqId", SqlDbType.BigInt).Value = pqId;
