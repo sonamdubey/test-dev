@@ -227,7 +227,6 @@ namespace Bikewale.New
             // Set BikeName
             if (modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
-
             if (modelPage.ModelDetails.New)
             {
                 FetchOnRoadPrice();
@@ -1115,17 +1114,12 @@ namespace Bikewale.New
                     {
                         isOnRoadPrice = true;
                     }
-                    //else // Is area available and Not selected
-                    //{
-
-                    //}
                 }
                 else
                 {
                     isOnRoadPrice = true;
                 }
             }
-
             // if city and area is not selected OR if city is selected & area is available but not selected
             if ((!isCitySelected && !isAreaSelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
             {

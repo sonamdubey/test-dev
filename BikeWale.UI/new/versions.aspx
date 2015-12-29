@@ -1515,23 +1515,22 @@
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+            var getCityArea = GetGlobalCityArea();
             if(bikeVersionLocation == ''){
                 bikeVersionLocation = getBikeVersionLocation();
             }
             if (bikeVersion == '') {
                 bikeVersion = getBikeVersion();
             }
-            var getCityArea = GetGlobalCityArea();
             if(isBikeWalePq == 'True' ){
                 if(getCityArea!= null) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'BWPQ_' + getCityArea + myBikeName });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'BWPQ_' + getCityArea + '_'+  myBikeName });
                   }       
             }else{
                 if(getCityArea!= null)  {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + myBikeName });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + '_' + myBikeName });
                 }
             }
-
         </script>
     </form>
 </body>

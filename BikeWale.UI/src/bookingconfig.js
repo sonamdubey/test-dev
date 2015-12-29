@@ -94,7 +94,6 @@ var BookingConfigViewModel = function () {
     };
 
     self.bookNow = function (data, event) {
-        debugger;
         var isSuccess = false;
         if (self.changedSteps() && (self.CurrentStep() > 3) && (self.Bike().bookingAmount() > 0)) {
 
