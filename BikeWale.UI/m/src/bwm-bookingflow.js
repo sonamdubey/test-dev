@@ -241,6 +241,7 @@ var BookingPageViewModel = function () {
                             self.CustomerInfo(curCustInfo);
                             isSuccess = true;
                         }
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Lead_Submitted', 'lab': thisBikename + "_" + getCityArea });
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         self.Customer().IsVerified(false);
@@ -503,9 +504,6 @@ var BikeDetails = function () {
     };
 
     self.getVersion(self.selectedVersionId());
-
-
-
 }
 
 ko.bindingHandlers.googlemap = {
@@ -621,4 +619,12 @@ function setuserDetails() {
 var viewModel = new BookingPageViewModel;
 ko.applyBindings(viewModel, $("#bookingFlow")[0]);
 setColor();
+// GA Tags
 viewModel.UserOptions(bikeVersionId.toString() + preSelectedColor.toString());   
+$('#bikeSummaryNextBtn').on('click', function (e) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_Submit', 'lab': thisBikename + "_" + getCityArea });
+});
+
+$('#deliveryDetailsNextBtn').on('click', function (e) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_2_Make_Payment_Click', 'lab': thisBikename + "_" + getCityArea });
+});

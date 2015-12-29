@@ -414,7 +414,7 @@
                         <%} %>
 
                         <!--Exciting offers div ends here-->
-                        <a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'New Bike Booking - <%=BikeName.Replace("'","")%>', act: 'Click Button Get dealer details',lab: 'Clicked on Button Get_Dealer_Details' });">Get more details</a>
+                        <a class="margin-top15 btn btn-orange" id="leadBtnBookNow" name="leadBtnBookNow" >Get more details</a>
 
                     </div>
                     <div class="clear"></div>
@@ -542,7 +542,8 @@
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript">
-
+            var bikeName = '<%= BikeName %>';
+            var getCityArea = GetGlobalCityArea();
             $('#btnGetDealerDetails, #btnBikeBooking').click(function () {
                 window.location.href = '/pricequote/bookingsummary_new.aspx';
             });
@@ -667,7 +668,6 @@
                             success: function (response) {
                                 var obj = ko.toJS(response);
                                 self.IsVerified(obj.isSuccess);
-
                             },
                             error: function (xhr, ajaxOptions, thrownError) {
                                 self.IsVerified(false);
@@ -717,15 +717,13 @@
                             var leadMobileVal = mobile.val();
                             $("#otpPopup .lead-mobile-box").find("span.lead-mobile").text(leadMobileVal);
                             otpContainer.removeClass("hide").addClass("show");
-                            //detailsSubmitBtn.hide();
                             nameValTrue();
                             hideError(mobile);
                             otpText.val('').removeClass("border-red").siblings("span, div").hide();
                         }
                         setPQUserCookie();
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Step_1_Successful_Submit', 'lab': getCityArea });
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Lead_Submitted', 'lab': bikeName + '_' +getCityArea });
                     }
-
                 };
 
                 otpBtn.click(function () {
@@ -972,8 +970,12 @@
                     hideError(mobileNo)
                 return isValid;
             };
-
-
+            $("#leadBtnBookNow").on("click", function () {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Button', 'lab': bikeName + '_' + getCityArea });
+            });
+            $("#leadLink").on("click", function () {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Link', 'lab': bikeName + '_' + getCityArea });
+            });
         </script>
     </form>
 </body>

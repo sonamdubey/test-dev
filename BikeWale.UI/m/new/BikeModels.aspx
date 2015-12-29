@@ -33,6 +33,9 @@
         var cityId = '<%= cityId%>';
         var clientIP = "<%= clientIP%>";
         var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
+        var bikeVersionLocation = '';
+        var bikeVersion = '';
+        var isBikeWalePq = "<%= isBikeWalePQ%>"; 
     </script>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
@@ -152,7 +155,7 @@
                         <% }
                            else
                            {  %>
-                        <p class="variantText text-medium-grey grid-10 text-bold font14 margin-top10"><%= variantText %></p>
+                        <p id='versText' class="variantText text-medium-grey grid-10 text-bold font14 margin-top10"><%= variantText %></p>
                         <% } %>
                         <%--<div class="leftfloat grid-10 omega">
                         	<select class="form-control">
@@ -387,7 +390,7 @@
                    {   %>
                         <div class="grid-12 float-button float-fixed clearfix">
                        
-                    <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
+                    <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
                 <% }
                else
                     {   %>
@@ -1305,6 +1308,7 @@
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             vmModelId = '<%= modelId%>';
             clientIP = '<%= clientIP%>';
@@ -1316,10 +1320,24 @@
             if ('<%=isUserReviewActive%>' == "False") $("#ctrlUserReviews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
-            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");        
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide"); 
+            if (bikeVersionLocation == '') {
+                bikeVersionLocation = getBikeVersionLocation();
+            }
+            if (bikeVersion == '') {
+                bikeVersion = getBikeVersion();
+            }
+            var getCityArea = GetGlobalCityArea();
+            if (isBikeWalePq == 'True') {
+                if (getCityArea != null) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'BWPQ_' + getCityArea + myBikeName });
+                }
+            } else {
+                if (getCityArea != null) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + myBikeName });
+                }
+            }
         </script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
-
     </form>
 </body>
 </html>

@@ -7,8 +7,7 @@ var validateTabB = false,
 	deliveryDetailsTab = $("#deliveryDetailsTab"),
 	bikePayment = $("#bikePayment"),
 	bikePaymentTab = $("#bikePaymentTab");
-otpText = $("#getOTP");
-
+        otpText = $("#getOTP");
 $(".select-dropdown").on("click", function () {
     if (!$(this).hasClass("open")) {
         selectStateDown($(this));
@@ -242,6 +241,7 @@ var BookingPageViewModel = function () {
                             self.CustomerInfo(curCustInfo);
                             isSuccess = true;
                         }
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Lead_Submitted', 'lab': thisBikename + "_" + getCityArea });
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         self.Customer().IsVerified(false);
@@ -622,3 +622,11 @@ var viewModel = new BookingPageViewModel;
 ko.applyBindings(viewModel, $("#bookingFlow")[0]);
 setColor();
 viewModel.UserOptions(bikeVersionId.toString() + preSelectedColor.toString());
+// GA Tags
+$('#bikeSummaryNextBtn').on('click', function (e) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_1_Submit', 'lab': thisBikename + "_" + getCityArea });
+});
+
+$('#deliveryDetailsNextBtn').on('click', function (e) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_2_Make_Payment_Click', 'lab': thisBikename + "_" + getCityArea });
+});

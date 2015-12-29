@@ -164,7 +164,7 @@
                             <p class="font24 bike-title text-black text-bold margin-bottom10" data-bind="text : bikeName()"></p>
                             <div class="variant-color-wrapper padding-bottom10 border-light-bottom">
                                 <div class="bike-variant-wrapper grid-6 alpha omega">
-                                    <p class="variant-text text-light-grey margin-right10">Variant:</p>
+                                    <p class="variant-text text-light-grey margin-right10">Version:</p>
                                     <div class="variant-dropdown margin-bottom10">
                                         <div class="select-dropdown rounded-corner2">
                                             <div class="variant-selected-box">
@@ -421,10 +421,8 @@
                 viewModel.Customer().MobileNo(arr[2]);
             }
             <% } %>                    
-           
-            
+            var getCityArea = GetGlobalCityArea();
         </script>
-
     </form>
 </body>
 </html>
