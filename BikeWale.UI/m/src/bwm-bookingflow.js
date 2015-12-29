@@ -202,7 +202,7 @@ var BookingPageViewModel = function () {
     self.verifyCustomer = function (data, event) {
         var isSuccess = false, validate = validateUserDetail();
         var curCustInfo = '';
-        if (viewModel.Customer().EmailId() != undefined && viewModel.Customer().MobileNo()) {
+        if (viewModel.Customer().EmailId() != undefined && viewModel.Customer().MobileNo()!= undefined) {
             curCustInfo = viewModel.Customer().EmailId().trim() + viewModel.Customer().MobileNo().trim();
         }
         if (self.CustomerInfo() != curCustInfo) {
