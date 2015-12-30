@@ -6,11 +6,6 @@
 <div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
     <div class="popup-inner-container">
         <div class="bwmsprite onroad-price-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
-        <%--<div class="icon-outer-container rounded-corner50percent margin-bottom15">
-            <div class="icon-inner-container rounded-corner50percent">
-                <span class="bwmsprite orp-location-icon margin-top20"></span>
-            </div>
-        </div>--%>
         <div id="popupHeading" class="content-inner-block-20">
             <p class="font18 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
             <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>

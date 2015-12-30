@@ -1202,8 +1202,8 @@
                             <span class="bwmsprite user-contact-details-icon margin-top25"></span>
                         </div>
                     </div>--%>
-                    <h2 class="margin-bottom5">Please provide us contact details</h2>
-                    <p class="text-light-grey margin-bottom5">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
+                    <h2 class="margin-bottom5">Get more details on this bike</h2>
+                    <p class="text-light-grey margin-bottom5">Please provide contact info to see more details</p>
 
                     <div class="personal-info-form-container margin-top10">
                         <div class="form-control-box">
@@ -1262,7 +1262,7 @@
                         </div>
                     </div>--%>
                     <p class="font18 margin-bottom5">Verify your mobile number</p>
-                    <p class="text-light-grey margin-bottom5">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                    <p class="text-light-grey margin-bottom5">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
                     <div>
                         <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
                             <span class="fa fa-phone"></span>
