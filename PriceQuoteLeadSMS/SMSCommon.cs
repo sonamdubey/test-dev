@@ -33,7 +33,7 @@ namespace PriceQuoteLeadSMS
                 nvcSMS.Add("provider", "");
 
                 publish = new RabbitMqPublish();
-                publish.PublishToQueue(appName, nvcSMS);
+                //publish.PublishToQueue(appName, nvcSMS);
 
                 Logs.WriteInfoLog("SMS Pushed in Queue Successfully.");
             }

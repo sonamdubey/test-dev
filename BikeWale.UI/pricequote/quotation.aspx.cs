@@ -166,7 +166,9 @@ namespace Bikewale.PriceQuote
                         objPQEntity.ClientIP = CommonOpn.GetClientIP();
                         objPQEntity.SourceId = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["sourceId"]);
                         objPQEntity.VersionId = selectedVersionId;
-
+                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_PQ_Quotation);
+                        objPQEntity.UTMA = Request.Cookies["__utma"].Value;
+                        objPQEntity.UTMZ = Request.Cookies["__utmz"].Value;
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
                     }
                 }

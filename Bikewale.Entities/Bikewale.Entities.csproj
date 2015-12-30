@@ -58,6 +58,7 @@
     <Compile Include="BikeBooking\DPQ_SaveEntity.cs" />
     <Compile Include="BikeBooking\EMI.cs" />
     <Compile Include="BikeBooking\FacilityEntity.cs" />
+    <Compile Include="BikeBooking\LeadSourceEnum.cs" />
     <Compile Include="BikeBooking\NewBikeDealers.cs" />
     <Compile Include="BikeBooking\OfferEntity.cs" />
     <Compile Include="BikeBooking\PQCustomerDetail.cs" />
@@ -179,6 +180,7 @@
     <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PQOnRoadPrice.cs" />
+    <Compile Include="PriceQuote\PQSourceEnum.cs" />
     <Compile Include="PriceQuote\PriceQuoteParametersEntity.cs" />
     <Compile Include="PriceQuote\PriceQuoteStates.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
