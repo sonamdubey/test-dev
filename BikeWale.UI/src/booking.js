@@ -208,16 +208,16 @@ var BookingPageViewModel = function () {
         if (self.CustomerInfo() != curCustInfo) {
             if (validate && self.Customer().IsVerified(false)) {
                 var objCust = {
-                    "dealerId": self.Dealer().DealerId,
-                    "pqId": self.Dealer().PQId,
+                    "dealerId": self.Dealer().DealerId(),
+                    "pqId": self.Dealer().PQId(),
                     "customerName": self.Customer().Name,
                     "customerMobile": self.Customer().MobileNo(),
                     "customerEmail": self.Customer().EmailId(),
                     "clientIP": clientIP,
                     "pageUrl": pageUrl,
-                    "versionId": self.SelectedVersionId(),
-                    "cityId": self.Dealer().CityId,
-                    "colorId": self.SelectedColorId
+                    "versionId": self.Bike().selectedVersionId(),
+                    "cityId": self.Dealer().CityId(),
+                    "colorId": self.Bike().selectedColorId()
                 }
 
                 $.ajax({
