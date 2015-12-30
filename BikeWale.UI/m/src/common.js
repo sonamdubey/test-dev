@@ -1000,8 +1000,8 @@ function GetGlobalCityArea() {
         else if (arrays.length) {
             cityArea = arrays[1];
         }
-        return cityArea;
     }
+    return cityArea;
 }
 
 function lockPopup() {

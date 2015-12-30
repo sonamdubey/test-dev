@@ -36,6 +36,9 @@
         var cityId = '<%= cityId%>';
         var clientIP = "<%= clientIP%>";
         var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
+        var bikeVersionLocation = '';
+        var bikeVersion = '';
+        var isBikeWalePq = "<%= isBikeWalePQ%>"; 
 </script>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
@@ -183,7 +186,7 @@
                                     <% }
                                        else
                                        { %>
-                                    <p class="variantText text-light-grey margin-right20 text-bold"><%= variantText %></p>
+                                    <p id='versText' class="variantText text-light-grey margin-right20 text-bold"><%= variantText %></p>
                                     <% } %>
                                     <div class="clear"></div>
                                 </div>
@@ -248,10 +251,10 @@
                                         <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                 <% } %>
                                  <% else if( !isCitySelected) {%>
-                                        <p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span>></a></p>
+                                        <p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else if( !isOnRoadPrice) {%>
-                                        <p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span>></a></p>
+                                        <p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else {%>
                                         <p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span></a></p>
@@ -309,7 +312,7 @@
                                 else 
                                 if(toShowOnRoadPriceButton)
                                    { %>
-                                <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
+                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
                                 <% } %>
                             </div>
 
@@ -1512,8 +1515,22 @@
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-
-
+            var getCityArea = GetGlobalCityArea();
+            if(bikeVersionLocation == ''){
+                bikeVersionLocation = getBikeVersionLocation();
+            }
+            if (bikeVersion == '') {
+                bikeVersion = getBikeVersion();
+            }
+            if(isBikeWalePq == 'True' ){
+                if(getCityArea!= null) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'BWPQ_' + getCityArea + '_'+  myBikeName });
+                  }       
+            }else{
+                if(getCityArea!= null)  {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + '_' + myBikeName });
+                }
+            }
         </script>
     </form>
 </body>

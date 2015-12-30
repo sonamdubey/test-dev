@@ -404,6 +404,10 @@
             </div>
         </section>
 
+        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.jpg?<%= staticFileVersion %>">
+            <div class="grid-12"></div>
+            <div class="clear"></div>
+        </section>
 
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
 
@@ -411,6 +415,10 @@
         <!-- #include file="/includes/footerscript.aspx" -->
 
         <script type="text/javascript">
+            $(document).ready(function() {
+                applyLazyLoad();
+            });
+
             var thisBikename = '<%= this.bikeName %>';
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
@@ -431,7 +439,7 @@
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
             }
-
+            var getCityArea = GetGlobalCityArea();
         </script>
 
 

@@ -409,7 +409,10 @@
                 </div>
             </div>
         </section>
-
+        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.jpg?<%= staticFileVersion %>">
+            <div class="grid-12"></div>
+            <div class="clear"></div>
+        </section>
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
 
         <!-- all other js plugins -->
