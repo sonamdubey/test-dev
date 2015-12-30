@@ -15,7 +15,7 @@
         title = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
         description = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India - Rs."
                     + Bikewale.Utility.Format.FormatPrice(modDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modDetails.MaxPrice.ToString())
-                    + ". Check out " + modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+                    + ". Check out " + modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
 
         canonical = "http://www.bikewale.com/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
         AdId = "1017752";
@@ -36,6 +36,9 @@
         var cityId = '<%= cityId%>';
         var clientIP = "<%= clientIP%>";
         var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
+        var bikeVersionLocation = '';
+        var bikeVersion = '';
+        var isBikeWalePq = "<%= isBikeWalePQ%>"; 
 </script>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
@@ -183,7 +186,7 @@
                                     <% }
                                        else
                                        { %>
-                                    <p class="variantText text-light-grey margin-right20 text-bold"><%= variantText %></p>
+                                    <p id='versText' class="variantText text-light-grey margin-right20 text-bold"><%= variantText %></p>
                                     <% } %>
                                     <div class="clear"></div>
                                 </div>
@@ -248,13 +251,13 @@
                                         <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                 <% } %>
                                  <% else if( !isCitySelected) {%>
-                                        <p class="font14">Ex-showroom price in <span href="javascript:void(0)" class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                        <p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else if( !isOnRoadPrice) {%>
-                                        <p class="font14">Ex-showroom price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                        <p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else {%>
-                                        <p class="font14">On-road price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
+                                        <p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
                                 <%--<% else if (pqOnRoad !=null && pqOnRoad.IsDealerPriceAvailable)
                                    { %>
@@ -309,7 +312,7 @@
                                 else 
                                 if(toShowOnRoadPriceButton)
                                    { %>
-                                <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
+                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
                                 <% } %>
                             </div>
 
@@ -403,12 +406,23 @@
                             </div>
                             <div class="grid-<%= grid2_size %> rightfloat moreDetailsBookBtns <%=cssOffers %> margin-top20">
                                 <input type="button" value="Get more details" class="btn btn-orange margin-right20" id="getMoreDetailsBtn">
-                                <%if (isBookingAvailable)
+                                <%if (isBookingAvailable && isOfferAvailable)
                                   { %>
                                 <a href="/pricequote/bookingsummary_new.aspx" class="btn btn-grey" id="bookNowBtn"> Book now </a>
                                 <%} %>
                             </div>
                             <div class="clear"></div>
+                            <% if (isBookingAvailable && !isOfferAvailable)
+                               {%>
+                            <div id="noOfferBookBtn" class="grid-12 padding-top10 alpha">
+                                <div class="grid-9 omega">
+                                    <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Pay <span class="fa fa-rupee"></span> <%=bookingAmt %> to book your bike and get:</h3>
+                                </div>
+                                <div class="grid-3 alpha no-offer-book-btn">
+                                    <a href="/pricequote/bookingsummary_new.aspx" class="btn btn-grey" id="bookNowBtn"> Book now </a>
+                                </div>
+                            </div>
+                            <% } %>
                         </div>
                         <div class="clear"></div>
                         <% } %>
@@ -537,8 +551,8 @@
                             <span class="bwsprite user-contact-details-icon margin-top25"></span>
                         </div>
                     </div>
-                    <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
-                    <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
+                    <p class="font20 margin-top25 margin-bottom10">Get more details on this bike</p>
+                    <p class="text-light-grey margin-bottom20">Please provide contact info to see more details</p>
                     <div class="personal-info-form-container">
                         <div class="form-control-box personal-info-list">
                             <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
@@ -595,7 +609,7 @@
                         </div>
                     </div>
                     <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
-                    <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                    <p class="font14 text-light-grey margin-bottom20">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
                     <div>
                         <div class="lead-mobile-box lead-otp-box-container font22">
                             <span class="fa fa-phone"></span>
@@ -1501,8 +1515,22 @@
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
-
-
+            var getCityArea = GetGlobalCityArea();
+            if(bikeVersionLocation == ''){
+                bikeVersionLocation = getBikeVersionLocation();
+            }
+            if (bikeVersion == '') {
+                bikeVersion = getBikeVersion();
+            }
+            if(isBikeWalePq == 'True' ){
+                if(getCityArea!= null) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'BWPQ_' + getCityArea + '_'+  myBikeName });
+                  }       
+            }else{
+                if(getCityArea!= null)  {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + '_' + myBikeName });
+                }
+            }
         </script>
     </form>
 </body>

@@ -297,13 +297,31 @@ font-family:"Roboto-Regular";
 .slug-dd-box { width:162px; margin:0 auto;}
 
 /* city popup classes */
-.globalcity-popup, .bw-city-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
-.globalcity-popup-data, .bw-city-popup .popup-inner-container { padding: 20px 20px 30px; }
+/*.globalcity-popup, .bw-city-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }*/
+.bwm-fullscreen-popup { background: #fff; padding:20px; margin: auto; width:100%; position: fixed; height:100%; z-index: 10; }
+/*.globalcity-popup-data, .bw-city-popup .popup-inner-container { padding: 20px 20px 30px; }*/
 .cityPopup-box { background: #333333; width: 65px; height: 65px; line-height: 2; display: inline-block; }
 .globalcity-close-btn.cross-lg-lgt-grey, .bw-city-popup  .close-btn { background-position: -36px -226px; }
 .globalcity-close-btn.cross-lg-lgt-grey:hover, .bw-city-popup  .close-btn:hover { background-position: -36px -252px; }
 ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .bw-city-popup .close-btn {width:16px; height:16px;}
+
+/* city popup classes */
+/*.globalcity-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
+.globalcity-popup-data { padding: 20px 20px 30px; }*/
+/*.cityPopup-box { background: #333333; width: 65px; height: 65px; line-height: 2; display: inline-block; }*/
+/*.globalcity-close-btn.cross-lg-lgt-grey, .bwmsprite.close-btn { background-position: -36px -226px; }
+.globalcity-close-btn.cross-lg-lgt-grey:hover, .bwmsprite.close-btn:hover { background-position: -36px -252px; }
+ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }*/
+
+/* App Banner */
+#appBanner { background:#e2e2e2; padding:5px 5px 0; position:relative; overflow:hidden; }
+.app-banner-img-container { float:left; width:130px; height:95px; position:relative; margin-right:12px; }
+.app-banner-img-container img { position:absolute; bottom:0; }
+.banner-close-btn { width:30px; height:30px; background: url("http://img.aeplcdn.com/bikewaleimg/m/images/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
+.app-banner-text-container { float:left; }
+.app-banner-btn-container { padding:10px 25px 10px 0; }
+.app-banner-btn-container .btn { padding:6px 10px; }
 
 /* bw sprite new classes */
 .left-curve-icon { background-position:-28px -298px; width:21px; height:21px; float:left;}
@@ -535,14 +553,6 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .global-location { float: left; color: #fff; padding: 0 10px; position: relative; top: -4px; cursor: pointer; font-size: 20px; }
 .gl-default-stage { cursor: pointer; padding: 0 10px; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
-
-/* city popup classes */
-.globalcity-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
-.globalcity-popup-data { padding: 20px 20px 30px; }
-.cityPopup-box { background: #333333; width: 65px; height: 65px; line-height: 2; display: inline-block; }
-.globalcity-close-btn.cross-lg-lgt-grey, .bwmsprite.close-btn { background-position: -36px -226px; }
-.globalcity-close-btn.cross-lg-lgt-grey:hover, .bwmsprite.close-btn:hover { background-position: -36px -252px; }
-ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 
 /* global-search-popup classes */
 .global-search-popup { position:fixed; left: 5px; top: 5px; right: 5px; z-index: 10; }

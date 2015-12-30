@@ -131,25 +131,20 @@ namespace Bikewale.Mobile.New
                 ctrlUserReviews.PageNo = 1;
                 ctrlUserReviews.PageSize = 4;
                 ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
+                ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
             }
             else
             {
-                //modelPage = (ModelPage)Session["modelPage"];
-                //if (ViewState["modelPage"] != null)
-                //{
-                //    string json = (string)ViewState["modelPage"];
-                //    modelPage = JsonConvert.DeserializeObject<ModelPage>(json);
-                //}
-
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                 {
                     rptVarients.DataSource = modelPage.ModelVersions;
                     rptVarients.DataBind();
                 }
             }
+            SetFlags();
             if (modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
             if (modelPage.ModelDetails.New)
@@ -157,7 +152,7 @@ namespace Bikewale.Mobile.New
                 FetchOnRoadPrice();
             }
             ToggleOfferDiv();
-            SetFlags();
+
         }
 
         /// <summary>
@@ -193,7 +188,7 @@ namespace Bikewale.Mobile.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        if ((isCitySelected && !isAreaAvailable))
+                        if (isOnRoadPrice)
                             lblExOn.Text = "On-road price";
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null)
                         {
@@ -808,7 +803,8 @@ namespace Bikewale.Mobile.New
                                 }
                                 catch (Exception ex)
                                 {
-
+                                    ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                                    objErr.SendMail();
                                 }
                             }
                         }
@@ -817,7 +813,8 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + MethodBase.GetCurrentMethod().Name);
+                objErr.SendMail();
             }
 
             return pqOnRoad;

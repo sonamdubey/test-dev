@@ -14,7 +14,7 @@
 
 <%
     title = makeName + " " + modelName + " Price in India, Review, Mileage & Photos - Bikewale";
-    description = makeName + " " + modelName + " Price in India - Rs." + formattedPrice + ". Check out " + makeName + " " + modelName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+    description = makeName + " " + modelName + " Price in India - Rs." + formattedPrice + ". Check out " + makeName + " " + modelName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
     ShowTargeting = "1";
     TargetedModel = modelOnly;
     canonical = "http://www.bikewale.com/" + MakeMaskingName + "-bikes/" + ModelMaskingName + "/";

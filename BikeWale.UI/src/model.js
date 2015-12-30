@@ -13,8 +13,6 @@ var otpBtn = $("#otp-submit-btn");
 
 var prevEmail = "";
 var prevMobile = "";
-
-var getCityArea = GetGlobalCityArea();
 var customerViewModel =  new CustomerModel();
 
 $(function () {              
@@ -152,7 +150,7 @@ function CustomerModel() {
             if (self.IsValid()) {                             
                 $("#personalInfo").hide();
                 $("#leadCapturePopup .leadCapture-close-btn").click();
-                window.location.href = "/pricequote/BikeDealerDetails.aspx";
+                window.location.href = "/pricequote/bikedealerdetails.aspx";
             }
             else {
                 $("#contactDetailsPopup").hide();
@@ -166,9 +164,8 @@ function CustomerModel() {
                 otpText.val('').removeClass("border-red").siblings("span, div").hide();
             }
             setPQUserCookie();
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Step_1_Successful_Submit', 'lab': getCityArea });
-        }
-                
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Lead_Submitted', 'lab': bikeVersionLocation });
+        }       
     };                
 
     otpBtn.click(function () {
@@ -182,21 +179,15 @@ function CustomerModel() {
                 $("#personalInfo").hide();
                 $(".booking-dealer-details").removeClass("hide").addClass("show");
                 $('#processing').hide();
-
                 detailsSubmitBtn.show();
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
-
-                // OTP Success
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
                 $("#leadCapturePopup .leadCapture-close-btn").click();
-                window.location.href = "/pricequote/BikeDealerDetails.aspx";
+                window.location.href = "/pricequote/bikedealerdetails.aspx";
             }
             else {
                 $('#processing').hide();
                 otpVal("Please enter a valid OTP.");
-                // push OTP invalid
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_OTP_Submit_Error', 'lab': getCityArea });
             }
         }
     });
@@ -226,7 +217,6 @@ function validateName() {
         isValid = true;
         nameValTrue()
     }
-    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Name', 'lab': getCityArea }); }
     return isValid;
 }
 
@@ -317,7 +307,6 @@ function validateEmail() {
         setError(emailid, 'Invalid Email');
         isValid = false;
     }
-    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Email', 'lab': getCityArea }); }
     return isValid;
 }
 
@@ -336,7 +325,6 @@ function validateMobile() {
     else {
         hideError(mobile)
     }
-    if (!isValid) { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation Page', 'act': 'Step_1_Submit_Error_Mobile', 'lab': getCityArea }); }
     return isValid;
 }
 
@@ -760,12 +748,15 @@ $("input[name*='btnVariant']").on("click", function () {
         return false;
     }
     $('#hdnVariant').val($(this).attr('title'));
+    var bikeVersion = myBikeName + '_' + $(this).val();
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersion });
 });
 
 $("#getMoreDetailsBtn").on("click", function () {
     $("#leadCapturePopup").show();
     $('body').addClass('lock-browser-scroll');
     $(".blackOut-window-model").show();
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeVersionLocation });
 });
 
 $(".leadCapture-close-btn, .blackOut-window-model").on("click", function () {
@@ -812,7 +803,8 @@ $('#insuranceLink').on('click', function (e) {
 });
 
 $('#bookNowBtn').on('click', function (e) {
-    window.location.href = "/pricequote/BookingSummary_New.aspx";
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Book_Now_Clicked', 'lab': bikeVersionLocation });
+    window.location.href = "/pricequote/bookingsummary_new.aspx";
 });
 
 $(document).mouseup(function (e) {
@@ -830,3 +822,28 @@ if (a.text() === "+")
 else 
     a.attr("href", "javascript:void(0)"); 
 });
+
+/* GA Tags */
+$('#btnGetOnRoadPrice').on('click', function (e) {
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Check_On_Road_Price_Click', 'lab': bikeVersionLocation });
+});
+
+function getBikeVersionLocation() {
+    var versionName = getBikeVersion();
+    var loctn = getCityArea;
+    if (loctn != '')
+        loctn = '_'+ loctn;
+    var bikeVersionLocation = myBikeName + '_' + versionName + loctn;
+    return bikeVersionLocation;
+}
+
+function getBikeVersion() {
+    var versionName = '';
+    if ($('#defaultVariant').length > 0) {
+        versionName = $('#defaultVariant').html();
+    }
+    else if ($('#versText').length > 0) {
+        versionName = $('#versText').html()
+    }
+    return versionName;
+}

@@ -270,6 +270,8 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 10 Nov 2014
         /// Summary : To get customer details
+        /// Modified by Sumit Kate on 29 Dec 2015
+        /// Summary     :   Added SP versioning
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns></returns>
