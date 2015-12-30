@@ -14,7 +14,7 @@
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
 
-            <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: BookingAreas().length > 0 && SelectedAreaId() > 0">
+            <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: BookingAreas().length > 0">
                 <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().areaName != '') ? SelectedArea().areaName : 'Select Area'">Select Area</div>
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
@@ -144,7 +144,7 @@
                         if (xhr.status == 404 || xhr.status == 204) {
                             $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                             self.BookingAreas([]);
-                            self.SelectedArea([]);
+                            self.SelectedArea(undefined);
                             self.SelectedAreaId(0);
                             $("#areaSelection div.selected-area").text("No areas Found");
 
@@ -156,17 +156,14 @@
                                 $("#areaSelection div.selected-area").text("No areas available");
                             } 
                             //$("#areaSelection").click();
-
+                            $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                         }
 
                         if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0) {
-                            //MPopupViewModel.SelectedArea(ko.toJS({ 'areaId': onCookieObj.PQAreaSelectedId, 'areaName': onCookieObj.PQAreaSelectedName }));
                             MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
                             $("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
                             
-                        }
-
-                        
+                        }                        
                     }
                 });
             }
@@ -201,7 +198,11 @@
             var cityId = self.SelectedCityId(), areaId = self.SelectedAreaId() ? self.SelectedAreaId() : 0;
             pageId = self.PageCatId;
 
-            cookieValue = self.SelectedCity().cityId + "_" + self.SelectedCity().cityName + ((self.SelectedAreaId() == undefined || self.SelectedAreaId() < 1) ? "" : ("_" + self.SelectedArea().areaId + "_" + self.SelectedArea().areaName));
+            cookieValue = self.SelectedCity().cityId + "_" + self.SelectedCity().cityName;
+            if (self.SelectedArea() != undefined && self.SelectedArea().length > 0)
+            {
+                cookieValue += ("_" + self.SelectedArea().areaId + "_" + self.SelectedArea().areaName);
+            } 
             SetCookieInDays("location", cookieValue, 365);
 
             if (self.verifyDetails()) {
@@ -234,7 +235,7 @@
 
                             gaLabel += selectedCityName;
 
-                            if (self.SelectedArea() != undefined) {
+                            if (self.SelectedArea() != undefined ) {
                                 selectedAreaName = self.SelectedArea().areaName;
                                 gaLabel += ',' + selectedAreaName;
                             }
