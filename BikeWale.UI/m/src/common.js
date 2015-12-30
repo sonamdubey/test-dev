@@ -1202,35 +1202,44 @@ var popupHeading = $("#popupHeading")
     popupContent = $("#popupContent");
 
 $("#citySelection").on("click", function () {
+    $("#popupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
     popupContent.addClass("open").animate({ 'left': '0px' });
 });
 
-$(".bw-city-area-popup-wrapper .back-arrow-box").on("click", function () {
+$("#areaSelection").on("click", function () {
+    $("#popupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
+    popupContent.addClass("open").animate({ 'left': '0px' });
+});
+
+$(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
     popupContent.removeClass("open").animate({ 'left': '100%' });
 });
 
-$("#popupCityInput").on("keyup", function () {
-    var inputText = $(this).val();
-    var inputTextLength = inputText.length;
+var locationFilter = function (filterContent) {
+    var inputText = $(filterContent).val();
     inputText = inputText.toLowerCase();
-    
+    var inputTextLength = inputText.length;
     if (inputText != "") {
-        $("#popupCityList").find("li").each(function () {
-            var cityName = $(this).text().toLowerCase().trim();
-            if (/\s/.test(cityName))
-                var splitCityName = cityName.split(" ")[1];
+        $(filterContent).parent("div.user-input-box").siblings("ul").find("li").each(function () {
+            var locationName = $(this).text().toLowerCase().trim();
+            if (/\s/.test(locationName))
+                var splitlocationName = locationName.split(" ")[1];
             else
-                splitCityName = "";
+                splitlocationName = "";
 
-            if ((inputText == cityName.substring(0, inputTextLength)) || inputText == splitCityName.substring(0, inputTextLength))
+            if ((inputText == locationName.substring(0, inputTextLength)) || inputText == splitlocationName.substring(0, inputTextLength))
                 $(this).show();
             else
                 $(this).hide();
         });
     }
     else {
-        $("#popupCityList").find("li").each(function () {
+        $(this).parent("div.user-input-box").siblings("ul").find("li").each(function () {
             $(this).show();
         });
     }
+};
+
+$("#popupCityInput, #popupAreaInput").on("keyup", function () {
+    locationFilter($(this));
 });
