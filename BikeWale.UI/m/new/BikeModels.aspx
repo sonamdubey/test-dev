@@ -287,7 +287,7 @@
                                 <%    } %>
                                 <% if (isOfferAvailable)
                                    { %>
-                                <ul>
+                                <ul class="offersList">
                                     <asp:Repeater ID="rptOffers" runat="server">
                                         <ItemTemplate>
                                             <li>
@@ -312,7 +312,7 @@
                                 <% } %>
 
                                 <%= (isOfferAvailable)?"<div class=\"border-top1 margin-top10 margin-bottom10\"></div>":string.Empty %>
-                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="fa fa-info-circle text-red"></span> Get following details on the bike</h4>
+                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite disclaimer-icon margin-right5"></span> Get following details on the bike</h4>
                                 <ul class="bike-details-list-ul">
 
                                     <li>

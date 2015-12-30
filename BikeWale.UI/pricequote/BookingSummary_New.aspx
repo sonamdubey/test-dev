@@ -36,7 +36,7 @@
                                 <div id="bikeSummaryTab" class="bike-book-step leftfloat" data-bind="click: function () { if (CurrentStep() > 1 ) CurrentStep(1); }, css: (CurrentStep() >= 1) ? 'active-tab' : ''">
                                     <p>Personal Details</p>
                                     <div class="booking-tabs-image">
-                                        <span class="booking-flow-sprite booking-tab-icon" data-bind="css: (CurrentStep() == 1) ? 'delivery-icon-selected' : 'booking-tick-blue'"></span>
+                                        <span class="booking-flow-sprite booking-tab-icon" data-bind="css: (CurrentStep() == 1) ? 'personal-details-icon-selected' : 'booking-tick-blue'"></span>
                                     </div>
                                 </div>
                             </li>
