@@ -723,8 +723,9 @@ namespace Bikewale.New
                     objPQEntity.ModelId = Convert.ToUInt32(modelId);
                     objPQEntity.VersionId = Convert.ToUInt32(variantId);
                     objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_ModelPage);
-                    objPQEntity.UTMA = Request.Cookies["__utma"].Value;
-                    objPQEntity.UTMZ = Request.Cookies["__utmz"].Value;
+                    objPQEntity.UTMA = Request.Cookies["__utma"]!=null ? Request.Cookies["__utma"].Value : "";
+                    objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                    objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (objPQOutput != null)
                     {
