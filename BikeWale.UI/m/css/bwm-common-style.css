@@ -209,7 +209,7 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .bw-area-popup-box { display:none; }
 /* on road price popup */
 #popupWrapper.bwm-fullscreen-popup { padding:0; background:#f5f5f5; }
-.user-input-box { width:100%; position:fixed; top:0; }
+.user-input-box { width:100%; position:fixed; top:0; left:100%; }
 #popupCityList li, #popupAreaList li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor:pointer; }
 #popupCityList li:hover, #popupAreaList li:hover { background: #ededed; } 
 .border-last-bottom { border-bottom:2px solid #555; }
