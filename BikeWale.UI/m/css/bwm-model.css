@@ -51,13 +51,6 @@
 #otpPopup .update-mobile-box { display:none; }
 #otpPopup .edit-mobile-btn { cursor:pointer; }
 
-/*.city-list-container { width:100%; }
-.city-list-container ul { overflow: auto; }
-.city-list-container ul li { height:34px; border:1px solid #e2e2e2; min-width:80px; padding:0px 25px; text-align:center; line-height:34px; color:#82888b; font-size:12px; float:left; margin-right:6px; margin-bottom:6px; 
-	transition:all 1s ease; -webkit-transition:all 1s ease; -moz-transition:all 1s ease; -ms-transition:all 1s ease; -o-transition:all 1s ease;
-}
-.city-list-container ul li:hover, .city-list-container ul li.focused { border: 1px solid #4d5057; cursor:pointer; color:#4d5057;  }*/
-/*.city-list-container ul li.focused { min-width: 100%;}*/
 
 .city-unveil-offer-container { border:1px dashed #82888b; width:100%; min-height:115px; }
 .offer-list-container ul { list-style-type:disc; }

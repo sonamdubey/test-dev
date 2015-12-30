@@ -20,8 +20,8 @@
             </div>
 
             <div class="center-align margin-top20 text-center">
-                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Get on road price</a>
-                <div id="errMsgPopup" class="red-text margin-top10 hide"></div>
+                <div id="errMsgPopup" class="text-red margin-bottom10 hide"></div>
+                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Get on road price</a>                
             </div>
         </div>
         <div id="popupContent" class="bwm-city-area-popup-wrapper">
@@ -156,11 +156,13 @@
                                 $("#areaSelection div.selected-area").text("No areas available");
                             } 
                             //$("#areaSelection").click();
+                            self.SelectedArea(undefined);
+                            self.SelectedAreaId(0);
                             $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                         }
 
                         if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0) {
-                            MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
+                            //MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
                             $("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
                             
                         }                        
@@ -183,7 +185,7 @@
                 errMsg += "City,";
                 isValid = false;
             }
-            if (self.BookingAreas().length > 0 && self.SelectedAreaId() == undefined) {
+            if (self.BookingAreas().length > 0 && self.SelectedArea()==undefined && (self.SelectedAreaId() == undefined || self.SelectedAreaId() == 0)) {
                 errMsg += "Area,";
                 isValid = false;
             }
@@ -199,7 +201,7 @@
             pageId = self.PageCatId;
 
             cookieValue = self.SelectedCity().cityId + "_" + self.SelectedCity().cityName;
-            if (self.SelectedArea() != undefined && self.SelectedArea().length > 0)
+            if (self.SelectedArea() != undefined)
             {
                 cookieValue += ("_" + self.SelectedArea().areaId + "_" + self.SelectedArea().areaName);
             } 
