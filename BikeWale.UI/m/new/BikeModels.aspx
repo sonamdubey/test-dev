@@ -1206,11 +1206,6 @@
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
                 <div id="contactDetailsPopup">
                     <!-- Contact details Popup starts here -->
-                    <%--<div class="icon-outer-container rounded-corner50percent">
-                        <div class="icon-inner-container rounded-corner50percent">
-                            <span class="bwmsprite user-contact-details-icon margin-top25"></span>
-                        </div>
-                    </div>--%>
                     <h2 class="margin-bottom5">Get more details on this bike</h2>
                     <p class="text-light-grey margin-bottom5">Please provide contact info to see more details</p>
 
@@ -1220,11 +1215,6 @@
                             <span class="bwmsprite error-icon "></span>
                             <div class="bw-blackbg-tooltip errorText">Please enter your name</div>
                         </div>
-                        <%--<div class="form-control-box margin-top20">
-                            <input type="text" class="form-control get-last-name" placeholder="Last name" id="getLastName" data-bind="value: lastName">
-                            <span class="bwmsprite error-icon"></span>
-                            <div class="bw-blackbg-tooltip errorText">Please enter your last name</div>
-                        </div>--%>
                         <div class="form-control-box margin-top20">
                             <input type="text" class="form-control get-email-id" placeholder="Email address" id="getEmailID" data-bind="value: emailId" />
                             <span class="bwmsprite error-icon"></span>
@@ -1239,37 +1229,10 @@
                         <div class="clear"></div>
                         <a class="btn btn-full-width btn-orange margin-top20" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                     </div>
-
-                    <!--
-                    <div class="mobile-verification-container margin-top20 hide">
-                        <p class="font12 text-center margin-bottom10 padding-left15 padding-right15">Please confirm your contact details and enter the OTP for mobile verfication</p>
-                        <div class="form-control-box  padding-left15 padding-right15">
-                            <input type="text" class="form-control get-otp-code text-center" placeholder="Enter OTP" maxlength="5" id="getOTP" data-bind="value: otpCode">
-                            <span class="bwmsprite error-icon hide"></span>
-                            <div class="bw-blackbg-tooltip errorText hide">Please enter a valid OTP</div>
-                        </div>
-                        <div class="text-center padding-top10">
-                            <a class="margin-left10 blue resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
-                            <p class="margin-left10 blue resend-otp-btn margin-top10 otp-notify-text text-light-grey font12" data-bind="visible: (NoOfAttempts() >= 2)">
-                                OTP has been already sent to your mobile
-                            </p>
-                        </div>
-
-                        <div class="clear"></div>
-                        <a class="btn btn-full-width btn-orange margin-top20" id="otp-submit-btn">Confirm</a>
-                        <div id="processing" class="hide" style="text-align: center; font-weight: bold;">Processing Please wait...</div>
-                    </div>
-                    -->
                     <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
                 </div>
                 <!-- Contact details Popup ends here -->
                 <div id="otpPopup">
-                    <!-- OTP Popup starts here -->
-                    <%--<div class="icon-outer-container rounded-corner50percent">
-                        <div class="icon-inner-container rounded-corner50percent">
-                            <span class="bwmsprite otp-icon margin-top25"></span>
-                        </div>
-                    </div>--%>
                     <p class="font18 margin-bottom5">Verify your mobile number</p>
                     <p class="text-light-grey margin-bottom5">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
                     <div>
@@ -1306,11 +1269,12 @@
                 <!-- OTP Popup ends here -->
             </div>
         </div>
-        <!-- Lead Capture pop up end  -->
-
-        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
+        <!-- Lead Capture pop up end  -->         
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+
+        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
+
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>

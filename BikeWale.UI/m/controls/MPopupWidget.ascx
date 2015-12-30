@@ -14,7 +14,7 @@
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
 
-            <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: BookingAreas().length > 0 || SelectedAreaId() > 0">
+            <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: BookingAreas().length > 0 && SelectedAreaId() > 0">
                 <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().areaName != '') ? SelectedArea().areaName : 'Select Area'">Select Area</div>
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
@@ -105,6 +105,13 @@
                         } else {
                             $("#citySelection div.selected-city").text("No cities Found");
                         }
+
+                        checkCookies();
+                        if (onCookieObj != null && onCookieObj.PQCitySelectedId > 0) {
+                            MPopupViewModel.SelectedCity(ko.toJS({ 'cityId': onCookieObj.PQCitySelectedId, 'cityName': onCookieObj.PQCitySelectedName }));
+                            MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
+                            $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
+                        }
                     }
                 });
             }
@@ -128,6 +135,7 @@
                         var areaSelected = null;
                         if (areas) {
                             self.BookingAreas(areas);
+
                         }
                     },
                     complete: function (xhr) {
@@ -146,9 +154,18 @@
                                 $("#areaSelection div.selected-area").text("Select Area");
                             } else {
                                 $("#areaSelection div.selected-area").text("No areas available");
-                            }
-                            $("#areaSelection").click();
+                            } 
+                            $("#areaSelection").click();  
                         }
+
+                        if (onCookieObj != null && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0) {
+                            //MPopupViewModel.SelectedArea(ko.toJS({ 'areaId': onCookieObj.PQAreaSelectedId, 'areaName': onCookieObj.PQAreaSelectedName }));
+                            MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
+                            $("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
+                            
+                        }
+
+                        
                     }
                 });
             }
@@ -158,13 +175,13 @@
             self.SelectedArea(data);
             self.SelectedAreaId(data.areaId);
             $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-        };         
+        };
 
         self.verifyDetails = function (data, event) {
             isValid = true;
             var errMsg = "Missing fields:";
 
-            if (self.SelectedCityId() == undefined ) {
+            if (self.SelectedCityId() == undefined) {
                 errMsg += "City,";
                 isValid = false;
             }
@@ -183,9 +200,10 @@
             var cityId = self.SelectedCityId(), areaId = self.SelectedAreaId() ? self.SelectedAreaId() : 0;
             pageId = self.PageCatId;
 
-            if (self.verifyDetails()) { 
-                cookieValue = self.SelectedCity().cityId + "_" + self.SelectedCity().cityName + ((self.SelectedAreaId() == undefined || self.SelectedAreaId() < 1) ? "" : ("_" + self.SelectedArea().areaId + "_" + self.SelectedArea().areaName));
-                SetCookieInDays("location", cookieValue, 365);
+            cookieValue = self.SelectedCity().cityId + "_" + self.SelectedCity().cityName + ((self.SelectedAreaId() == undefined || self.SelectedAreaId() < 1) ? "" : ("_" + self.SelectedArea().areaId + "_" + self.SelectedArea().areaName));
+            SetCookieInDays("location", cookieValue, 365);
+
+            if (self.verifyDetails()) {
 
                 if (isModelPage && ga_pg_id != null && ga_pg_id == 2) {
                     window.location.reload();
@@ -215,9 +233,8 @@
 
                             gaLabel += selectedCityName;
 
-                            if (self.SelectedArea()!=undefined)
-                            {
-                                selectedAreaName = self.SelectedArea().areaName; 
+                            if (self.SelectedArea() != undefined) {
+                                selectedAreaName = self.SelectedArea().areaName;
                                 gaLabel += ',' + selectedAreaName;
                             }
 
@@ -250,7 +267,7 @@
 
     };
 
- 
+
     $(document).ready(function () {
         $('#popupWrapper .close-btn,.blackOut-window').click(function () {
             $('.bw-city-popup').fadeOut(100);
@@ -264,7 +281,7 @@
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
             var pageIdAttr = $(this).attr('pagecatid');
-            
+
             var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
             var modelIdPopup = parseInt(str, 10);
             gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);
@@ -274,19 +291,20 @@
             selectedModel = modelIdPopup;
             isModelPage = $(this).attr('ismodel');
 
-            checkCookies();
-            if(onCookieObj!=null && onCookieObj.PQCitySelectedId > 0)
-            {
-                MPopupViewModel.SelectedCity(ko.toJS({ 'cityId': onCookieObj.PQCitySelectedId, 'cityName': onCookieObj.PQCitySelectedName }));
-                MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
+            //checkCookies();
+            //if(onCookieObj!=null && onCookieObj.PQCitySelectedId > 0)
+            //{
+            //    MPopupViewModel.SelectedCity(ko.toJS({ 'cityId': onCookieObj.PQCitySelectedId, 'cityName': onCookieObj.PQCitySelectedName }));
+            //    MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
 
-                if(onCookieObj.PQSelectedId > 0)
-                {
-                    MPopupViewModel.SelectedArea(ko.toJS({ 'areaId': onCookieObj.PQAreaSelectedId, 'areaName': onCookieObj.PQAreaSelectedName }));
-                    MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
-                }
-            }      
-            
+            //    if(onCookieObj.PQSelectedId > 0)
+            //    {
+            //        MPopupViewModel.SelectedArea(ko.toJS({ 'areaId': onCookieObj.PQAreaSelectedId, 'areaName': onCookieObj.PQAreaSelectedName }));
+            //        MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
+            //    }
+            //}      
+
+            MPopupViewModel.SelectedModelId(selectedModel);
 
             $('#popupWrapper').fadeIn(10);
             $('body').addClass('lock-browser-scroll');
@@ -294,11 +312,7 @@
             appendHash("onRoadPrice");
         });
 
-        $("#citySelection").on("click", function () {
-            MPopupViewModel.SelectedModelId(selectedModel);
-        });
-
-    });   
+    });
 
     function gtmCodeAppender(pageId, action, label) {
         var categoty = '';
