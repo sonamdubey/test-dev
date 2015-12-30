@@ -1195,7 +1195,7 @@ function CloseCityPopUp() {
 
 function closeOnRoadPricePopUp() {
     $("#popupWrapper").hide();
-    $(".blackOut-window").hide();
+    $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
 };
 
 var popupHeading = $("#popupHeading")
@@ -1203,16 +1203,20 @@ var popupHeading = $("#popupHeading")
 
 $("#citySelection").on("click", function () {
     $("#popupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
-    popupContent.addClass("open").animate({ 'left': '0px' });
+    popupContent.addClass("open").animate({ 'left': '0px' },500);
+    $(".user-input-box").animate({ 'left': '0px' }, 500);
+
 });
 
 $("#areaSelection").on("click", function () {
     $("#popupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
-    popupContent.addClass("open").animate({ 'left': '0px' });
+    popupContent.addClass("open").animate({ 'left': '0px' }, 500);
+    $(".user-input-box").animate({ 'left': '0px' }, 500);
 });
 
 $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
-    popupContent.removeClass("open").animate({ 'left': '100%' });
+    popupContent.removeClass("open").animate({ 'left': '100%' }, 500);
+    $(".user-input-box").animate({ 'left': '100%' }, 500);
 });
 
 var locationFilter = function (filterContent) {
