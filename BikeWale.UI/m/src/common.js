@@ -1164,6 +1164,9 @@ var appendHash = function (state) {
         case "viewBreakup":
             window.location.hash = state;
             break;
+        case "otp":
+            window.location.hash = state;
+            break;
         default:
             return true;
     }
@@ -1182,6 +1185,9 @@ var closePopUp = function (state) {
             break;
         case "viewBreakup":
             viewBreakUpClosePopup();
+            break;
+        case "otp":
+            otpPopupClose();
             break;
         default:
             return true;

@@ -116,8 +116,9 @@ $("#getMobile,#getLeadName,#getEmailID,#getOTP,#getUpdatedMobile").on("focus", f
 
 
 
-$(".otpPopup-close-btn, .blackOut-window").mouseup(function (e) {
+$(".otpPopup-close-btn, .blackOut-window").on("click", function (e) {
     otpPopupClose();
+    window.history.back();
 });
 
 $(document).keydown(function (e) {
@@ -233,10 +234,10 @@ var BookingPageViewModel = function () {
                         if (!self.Customer().IsVerified() && self.Customer().OtpAttempts() != -1) {
                             //getotp code here
                             $("#otpPopup").show();
+                            appendHash("otp");
                             $('.update-mobile-box').hide().siblings().show();
                             $(".blackOut-window").show();
                             isSuccess = false;
-
                         }
                         else {
                             self.Customer().IsVerified();
