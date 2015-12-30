@@ -404,7 +404,7 @@
             </div>
         </section>
 
-        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.jpg?<%= staticFileVersion %>">
+        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>

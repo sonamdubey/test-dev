@@ -409,7 +409,7 @@
                 </div>
             </div>
         </section>
-        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.jpg?<%= staticFileVersion %>">
+        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
