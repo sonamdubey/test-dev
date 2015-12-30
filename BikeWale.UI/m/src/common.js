@@ -1167,6 +1167,9 @@ var appendHash = function (state) {
         case "otp":
             window.location.hash = state;
             break;
+        case "dpqPopup":
+            window.location.hash = state;
+            break;
         default:
             return true;
     }
@@ -1189,6 +1192,9 @@ var closePopUp = function (state) {
         case "otp":
             otpPopupClose();
             break;
+        case "dpqPopup":
+            dpqLeadCaptureClosePopup();
+            break;
         default:
             return true;
     }
@@ -1203,6 +1209,11 @@ function closeOnRoadPricePopUp() {
     $("#popupWrapper").hide();
     $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
 };
+
+function dpqLeadCaptureClosePopup(){
+    var leadCapturePopup = $("#leadCapturePopup");
+    leadCapturePopup.hide();
+}
 
 var popupHeading = $("#popupHeading")
     popupContent = $("#popupContent");
