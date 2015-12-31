@@ -280,7 +280,7 @@
             $('a.fillPopupData').removeClass('ui-btn-active');
         });
 
-        $("a.fillPopupData").on("click", function (e) {
+        $('body').on("click", "a.fillPopupData", function (e) {
             e.stopPropagation();
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
