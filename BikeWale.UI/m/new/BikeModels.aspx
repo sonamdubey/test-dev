@@ -287,7 +287,7 @@
                                 <%    } %>
                                 <% if (isOfferAvailable)
                                    { %>
-                                <ul class="offersList">
+                                <ul class="offersList" style="list-style:none">
                                     <asp:Repeater ID="rptOffers" runat="server">
                                         <ItemTemplate>
                                             <li>
@@ -300,7 +300,7 @@
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
-                                <ul class="moreOffersList hide">
+                                <ul class="moreOffersList hide" style="list-style:none">
                                     <asp:Repeater ID="rptMoreOffers" runat="server">
                                         <ItemTemplate>
                                             <li>

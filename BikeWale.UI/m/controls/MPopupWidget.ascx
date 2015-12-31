@@ -14,14 +14,14 @@
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
 
-            <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: BookingAreas().length > 0 && SelectedAreaId() > 0">
+            <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: BookingAreas().length > 0">
                 <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().areaName != '') ? SelectedArea().areaName : 'Select Area'">Select Area</div>
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
 
             <div class="center-align margin-top20 text-center">
-                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Get on road price</a>
-                <div id="errMsgPopup" class="red-text margin-top10 hide"></div>
+                <div id="errMsgPopup" class="text-red margin-bottom10 hide"></div>
+                <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Get on road price</a>                
             </div>
         </div>
         <div id="popupContent" class="bwm-city-area-popup-wrapper">
@@ -144,7 +144,7 @@
                         if (xhr.status == 404 || xhr.status == 204) {
                             $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                             self.BookingAreas([]);
-                            self.SelectedArea([]);
+                            self.SelectedArea(undefined);
                             self.SelectedAreaId(0);
                             $("#areaSelection div.selected-area").text("No areas Found");
 
@@ -156,17 +156,16 @@
                                 $("#areaSelection div.selected-area").text("No areas available");
                             } 
                             //$("#areaSelection").click();
-
+                            self.SelectedArea(undefined);
+                            self.SelectedAreaId(0);
+                            $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                         }
 
                         if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0) {
-                            //MPopupViewModel.SelectedArea(ko.toJS({ 'areaId': onCookieObj.PQAreaSelectedId, 'areaName': onCookieObj.PQAreaSelectedName }));
-                            MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
+                            //MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
                             $("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
                             
-                        }
-
-                        
+                        }                        
                     }
                 });
             }
@@ -186,7 +185,7 @@
                 errMsg += "City,";
                 isValid = false;
             }
-            if (self.BookingAreas().length > 0 && self.SelectedAreaId() == undefined) {
+            if (self.BookingAreas().length > 0 && self.SelectedArea()==undefined && (self.SelectedAreaId() == undefined || self.SelectedAreaId() == 0)) {
                 errMsg += "Area,";
                 isValid = false;
             }
@@ -201,7 +200,11 @@
             var cityId = self.SelectedCityId(), areaId = self.SelectedAreaId() ? self.SelectedAreaId() : 0;
             pageId = self.PageCatId;
 
-            cookieValue = self.SelectedCity().cityId + "_" + self.SelectedCity().cityName + ((self.SelectedAreaId() == undefined || self.SelectedAreaId() < 1) ? "" : ("_" + self.SelectedArea().areaId + "_" + self.SelectedArea().areaName));
+            cookieValue = self.SelectedCity().cityId + "_" + self.SelectedCity().cityName;
+            if (self.SelectedArea() != undefined)
+            {
+                cookieValue += ("_" + self.SelectedArea().areaId + "_" + self.SelectedArea().areaName);
+            } 
             SetCookieInDays("location", cookieValue, 365);
 
             if (self.verifyDetails()) {
@@ -234,7 +237,7 @@
 
                             gaLabel += selectedCityName;
 
-                            if (self.SelectedArea() != undefined) {
+                            if (self.SelectedArea() != undefined ) {
                                 selectedAreaName = self.SelectedArea().areaName;
                                 gaLabel += ',' + selectedAreaName;
                             }

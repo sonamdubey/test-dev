@@ -7,7 +7,7 @@
 .personal-details-icon-selected { background-position: 0 0; }
 .booking-tick-blue { background-position: -86px 0;}
 .summary-icon-grey {background-position:-43px -201px;}
-.payment-icon-grey { background-position: -43px -250px; }
+.payment-icon-grey { background-position: -43px -300px; }
 .summary-icon-selected { background-position: 0 -201px; }
 .payment-icon-selected { background-position: 0 -250px; }
 .booking-tabs ul{ display:table; margin:0 auto 20px; width: 270px; overflow: hidden; }
@@ -86,7 +86,7 @@ zoom: 1; vertical-align:middle; margin-right:7px; }
 /* #deliveryDetails .finance-emi-container .emi-slider-box { border-bottom:1px solid #e2e2e2; } */
 #deliveryDetailsv .emi-slider-box .emi-slider-box-left-section p { font-size:14px; margin-bottom:10px; }
 
-#otpPopup { display:none; background: #fff; margin: auto; padding:20px; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height: 410px; right: 5%; left: 5%; z-index: 10; }
+/*#otpPopup { display:none; background: #fff; margin: auto; padding:20px; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height: 410px; right: 5%; left: 5%; z-index: 10; }*/
 .icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
 .otp-icon { width:30px; height:40px; background-position: -107px -177px; }

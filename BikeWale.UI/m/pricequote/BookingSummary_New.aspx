@@ -305,15 +305,15 @@
                             <% } %>
                         </div>
 
-                        <div id="otpPopup" class="rounded-corner2 text-center" style="display: none;" data-bind="with : Customer">
-                            <div class="otpPopup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
-                            <div class="icon-outer-container rounded-corner50percent">
+                        <div id="otpPopup" class="rounded-corner2 bwm-fullscreen-popup text-center" style="display: none;" data-bind="with : Customer">
+                            <div class="otpPopup-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+                            <%--<div class="icon-outer-container rounded-corner50percent">
                                 <div class="icon-inner-container rounded-corner50percent">
                                     <span class="bwmsprite otp-icon margin-top25"></span>
                                 </div>
-                            </div>
-                            <p class="font18 margin-top10 margin-bottom10">Verify your mobile number</p>
-                            <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                            </div>--%>
+                            <p class="font18 margin-top10 margin-bottom5">Verify your mobile number</p>
+                            <p class="font14 text-light-grey margin-bottom10">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
                             <div>
                                 <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22" style="display: none;">
                                     <span class="fa fa-phone"></span>
