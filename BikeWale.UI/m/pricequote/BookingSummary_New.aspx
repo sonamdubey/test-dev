@@ -8,13 +8,13 @@
         description = "Authorise dealer price details of a bike " + bikeName;
         keywords = bikeName + ", price, authorised, dealer,Booking ";    
     %>
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-bookingflow.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-bookingflow.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
 <body class="bg-light-grey">
     <form runat="server">
-        <!-- #include file="/includes/headBW_Mobile.aspx" -->       
-
+        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+         <script type="text/javascript">$("header").find(".leftfloat .navbarBtn").hide();$("header").find(".rightfloat ").hide();</script>
         <section class="bg-white" id="bookingFlow" style="display: none;" data-bind="visible: true">
             <div class="container margin-bottom20 padding-top20">
                 <div class="grid-12 box-shadow padding-bottom20">
@@ -25,21 +25,21 @@
                                 <li class="first">
                                     <div id="summaryDeatilsTab" class="bike-booking-part active-tab text-bold" data-bind="click: function () { if (CurrentStep() > 1 ) CurrentStep(1); }, css: (CurrentStep() >= 1) ? 'active-tab' : ''">
                                         <div class="bike-booking-image">
-                                            <span class="booking-sprite " data-bind="css: (CurrentStep() == 1) ? 'summary-icon-selected' : 'booking-tick-blue'"></span>
+                                            <span class="booking-sprite" data-bind="css: (CurrentStep() == 1) ? 'personal-details-icon-selected' : 'booking-tick-blue'"></span>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="middle">
                                     <div id="deliveryDetailsTab" class="bike-booking-part" data-bind="click: function () { if (CurrentStep() > 2 || ActualSteps() > 1) CurrentStep(2); }, css: (CurrentStep() >= 2 || ActualSteps() > 1) ? 'active-tab' : 'disabled-tab'">
                                         <div class="bike-booking-image">
-                                            <span class="booking-sprite delivery-icon-grey" data-bind="css: (CurrentStep() == 2) ? 'delivery-icon-selected' : (CurrentStep() > 2 || ActualSteps() > 1) ? 'booking-tick-blue' : 'delivery-icon-grey'"></span>
+                                            <span class="booking-sprite" data-bind="css: (CurrentStep() == 2) ? 'summary-icon-selected' : (CurrentStep() > 2 || ActualSteps() > 1) ? 'booking-tick-blue' : 'summary-icon-grey'"></span>
                                         </div>
                                     </div>
                                 </li>
                                 <li class="last">
                                     <div id="payDetailsTab" class="bike-booking-part disabled-tab" data-bind="click: function () { if ((CurrentStep() < -1) || ActualSteps() < -1) CurrentStep(-1); }, css: (CurrentStep() < -1 || ActualSteps() < -1) ? 'active-tab' : 'disabled-tab'">
                                         <div class="bike-booking-image">
-                                            <span class="booking-sprite confirmation-icon-grey" data-bind="css: (CurrentStep() == -1) ? 'confirmation-icon-selected' : (CurrentStep() < -1 || ActualSteps() < -1) ? 'booking-tick-blue' : 'payment-icon-grey'"></span>
+                                            <span class="booking-sprite" data-bind="css: (CurrentStep() == -1) ? 'payment-icon-selected' : (CurrentStep() < -1 || ActualSteps() < -1) ? 'booking-tick-blue' : 'payment-icon-grey'"></span>
                                         </div>
                                     </div>
                                 </li>
@@ -47,7 +47,7 @@
                         </div>
                     </div>
 
-                    <div id="bikeSummary" data-bind="visible: CurrentStep() == 1, with: Bike" style="display: block">
+                    <div id="bikeSummary" data-bind="visible: CurrentStep() == 2, with: Bike" style="display: block">
                         <p class="font18 text-center">
                             <span class="iconTtl text-bold">Summary</span>
                         </p>
@@ -203,32 +203,25 @@
 
                         </div>
 
-                        <div class="offers-container margin-top15 clearfix">
-                            <%-- <h4 class="padding-top10 padding-bottom10 border-light-bottom"><span class="fa fa-gift text-red"></span>Pay <span class="font16"><span class="fa fa-rupee"></span>3000</span> to book your bike to get:</h4>
-                            <ul class="margin-bottom15">
-                                <li>
-                                    <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
-                                    <span class="padding-left20 show">Free Vega Cruiser Helmet worth Rs.1500 from BikeWale</span>
+                           <div class="contact-details-container margin-top30">
+                            <h3 class="padding-bottom10 border-light-bottom"><span class="fa fa-map-marker text-red"></span> Contact details:</h3>
+                            <ul>
+                                <li class="text-black">Offers from the nearest dealers<br />
+                                    <span class="text-light-grey"><%= dealerAddress %></span>
                                 </li>
-                                <li>
-                                    <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
-                                    <span class="padding-left20 show">Free Zero Dep Insurance worth Rs.1200 from Dealership <a href="javascript:void(0)" onclick="viewMore(this)">(view more)</a></span>
+                                <li class="text-black">Availability<br />
+                                    <span class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></span>
+                                    <span class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</span>
                                 </li>
-                                <li class="hide">
-                                    <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
-                                    <span class="padding-left20 show">Get free helmet from the dealer</span>
-                                </li>
-                                <li class="hide">
-                                    <span class="fa fa-star text-red position-abt pos-left0 pos-top3"></span>
-                                    <span class="padding-left20 show">Free Zero Dep Insurance worth Rs.1200</span>
-                                </li>
-                            </ul>--%>
+                            </ul>
+                               </div>
+                           <div class="offers-container margin-top15 clearfix">
                             <% if (isOfferAvailable)
                                { %>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Available Offers </h3>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwmsprite offers-icon"></span>Available Offers </h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
 
-                            <ul>
+                            <ul class="pay-and-get-ul">
                                 <asp:Repeater ID="rptDealerOffers" runat="server">
                                     <ItemTemplate>
                                         <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
@@ -238,41 +231,28 @@
                             <%}
                                else
                                {%>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
-                            <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px; margin:10px 0;" data-bind="googlemap: { latitude: $root.Dealer().latitude(), longitude: $root.Dealer().longitude() }"></div>
+                            <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 100%; height: 150px; margin:10px 0;" data-bind="googlemap: { latitude: $root.Dealer().latitude(), longitude: $root.Dealer().longitude() }"></div>
                             <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
                             <% } %>
 
-                            <div class="border-light-bottom"></div>
-
-                            <h4 class="border-solid-bottom padding-bottom5 margin-top10 margin-bottom10"><span class="fa fa-info-circle text-red margin-right5"></span>Get following details on the bike</h4>
-                            <ul class="bike-details-ul">
-                                <li>
-                                    <span>Offers from the nearest dealers</span>
-                                </li>
-                                <li>
-                                    <span>Waiting period on this bike</span>
-                                </li>
-                                <li>
-                                    <span>Nearest dealership from your place</span>
-                                </li>
-                            </ul>
                         </div>
 
                         <div class="clear margin-top20">
-                            <input id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps" type="submit" value="Next" class="btn btn-orange btn-full-width">
+                           <%-- <input id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps" type="submit" value="Next" class="btn btn-orange btn-full-width">--%>
+                        <input type="submit" runat="server" value="Make payment" class="btn btn-orange btn-full-width" id="deliveryDetailsNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);}">
                         </div>
 
-                    </div>
+            </div>
 
-                    <div id="deliveryDetails" data-bind="visible: CurrentStep() == 2, css: (CurrentStep() > 1) ? 'active-tab' : ''" class="margin-bottom15" style="display: none">
+            <div id="deliveryDetails" data-bind="visible: CurrentStep() == 1, css: (CurrentStep() > 1) ? 'active-tab' : ''" class="margin-bottom15" style="display: none">
                         <p class="font18 text-center">
-                            <span class="iconTtl text-bold">Delivery details</span>
+                            <span class="iconTtl text-bold">Personal Details</span>
                         </p>
 
                         <div class="margin-top20" data-bind="with : Customer">
-                            <h3 class="padding-bottom10 border-light-bottom"><span class="fa fa-info-circle text-red"></span> Personal details</h3>
+                            <h3 class="padding-bottom10 border-light-bottom"><span class="bwmsprite personal-info-form-icon"></span> Personal details</h3>
                             <div class="form-control-box margin-top20">
                                 <input type="text" class="form-control" placeholder="Name" id="getLeadName" data-bind="textInput : Name">
                                 <span class="bwmsprite error-icon" style="display: none;"></span>
@@ -293,30 +273,47 @@
                             </div>
                         </div>
 
-                        <div class="contact-details-container margin-top30">
-                            <h3 class="padding-bottom10 border-light-bottom"><span class="fa fa-map-marker text-red"></span> Contact details:</h3>
+                        <div class="offers-container margin-top30 margin-bottom30">
+                          <% if (isOfferAvailable)
+                             { %>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Available Offers </h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and avail </h3>
+
                             <ul>
+                                <asp:Repeater ID="rptDealerFinalOffers" runat="server">
+                                    <ItemTemplate>
+                                        <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                    </ItemTemplate>
+                                </asp:Repeater>
+                            </ul>
+                            <%}
+                             else
+                             {%>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 font-24"></span> Pay <span class="fa fa-rupee" style="font-size: 15px"></span> <span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and avail</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span> Get following details on the bike</h3>
+                            <ul class="bike-details-ul">
                                 <li>
-                                    <p class="text-black">Offers from the nearest dealers</p>
-                                    <p class="text-light-grey"><%= dealerAddress %></p>
+                                    <span>Offers from the nearest dealers</span>
                                 </li>
                                 <li>
-                                    <p class="text-black">Availability</p>
-                                    <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
-                                    <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</p>
+                                    <span>Waiting period on this bike</span>
+                                </li>
+                                <li>
+                                    <span>Nearest dealership from your place</span>
                                 </li>
                             </ul>
+                            <% } %>
                         </div>
 
-                        <div id="otpPopup" class="rounded-corner2 text-center" style="display: none;" data-bind="with : Customer">
-                            <div class="otpPopup-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
-                            <div class="icon-outer-container rounded-corner50percent">
+                        <div id="otpPopup" class="rounded-corner2 bwm-fullscreen-popup text-center" style="display: none;" data-bind="with : Customer">
+                            <div class="otpPopup-close-btn position-abt pos-top15 pos-right15 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+                            <%--<div class="icon-outer-container rounded-corner50percent">
                                 <div class="icon-inner-container rounded-corner50percent">
                                     <span class="bwmsprite otp-icon margin-top25"></span>
                                 </div>
-                            </div>
-                            <p class="font18 margin-top10 margin-bottom10">Verify your mobile number</p>
-                            <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                            </div>--%>
+                            <p class="font18 margin-top10 margin-bottom5">Verify your mobile number</p>
+                            <p class="font14 text-light-grey margin-bottom10">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
                             <div>
                                 <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22" style="display: none;">
                                     <span class="fa fa-phone"></span>
@@ -334,7 +331,7 @@
                                     <p class=" otp-notify-text text-light-grey font12 " data-bind="visible: (OtpAttempts() >= 2)">
                                         OTP has been already sent to your mobile
                                     </p>
-                                    <input runat="server" type="submit" class="btn btn-orange margin-top10" value="Process Order" data-bind="click : function(data,event){return validateOTP(data,event);}" runat="server" id="processOTP">
+                                    <input type="button" class="btn btn-orange margin-top10" value="Submit OTP" data-bind="click : function(data,event){return validateOTP(data,event);}" runat="server" id="processOTP">
                                 </div>
                                 <div class="update-mobile-box" style="display: none;">
                                     <div class="form-control-box text-left">
@@ -343,14 +340,14 @@
                                         <span class="bwmsprite error-icon errorIcon" style="display: none;"></span>
                                         <div class="bw-blackbg-tooltip errorText" style="display: none;"></div>
                                     </div>
-                                    <input runat="server" type="submit" class="btn btn-orange margin-top20" value="Send OTP" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" id="generateNewOTP">
+                                    <input  type="button" class="btn btn-orange margin-top20" value="Send OTP" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" id="generateNewOTP">
                                 </div>
                             </div>
                         </div>
 
                         <div class="clear"></div>
-
-                        <input runat="server" type="submit" value="Make Payment" id="deliveryDetailsNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" class="btn btn-orange btn-full-width">
+                         <input type="button"  value="Next" class="btn btn-orange btn-full-width" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
+                        <%--<input runat="server" type="submit" value="Make Payment" id="deliveryDetailsNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" class="btn btn-orange btn-full-width">--%>
                     </div>
 
                     <div id="payDetails" data-bind="visible: CurrentStep() > 2" style="display:none">
@@ -371,12 +368,16 @@
             <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 457 9781</a>
         </div>
 
+        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>">
+            <div class="grid-12"></div>
+            <div class="clear"></div>
+        </section>
+
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
 
         <!-- all other js plugins -->
-                <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
         <script type="text/javascript">
             var pqId = '<%= pqId %>'
             var verId = '<%= versionId %>';
@@ -392,7 +393,7 @@
             var clientIP = '<%= clientIP %>'; 
             var pageUrl = '<%= pageUrl %>';
             //select bike version
-            var bikeVersionId = '<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>';
+            var bikeVersionId = <%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>;
             $(function () {
                 var versionTab = $('#customizeBike');
                 $('#customizeBike ul.select-versionUL li').each(function () {
@@ -403,9 +404,9 @@
             });
 
             var versionList = JSON.parse($("input#hdnBikeData").val());
-            var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
+            var preSelectedColor = <%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>;
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>;          
-            var insAmt = '<%= insuranceAmount %>';
+            var insAmt = <%= insuranceAmount %>;
             var BikeDealerDetails = function () {
                 var self = this;
                 // self.Dealer = ko.observable(objDealer);
@@ -419,16 +420,19 @@
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
             }
-
+            var getCityArea = GetGlobalCityArea();
         </script>
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingflow.js?<%= staticFileVersion %>" type="text/javascript"></script>
-                
+
         <script type="text/javascript">
-            <% if(objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName)) { %>
+            <% if (objCustomer != null && objCustomer.objCustomerBase != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))
+               { %>
             viewModel.Customer().Name('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerName))?objCustomer.objCustomerBase.CustomerName:String.Empty %>');
             viewModel.Customer().EmailId('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerEmail))?objCustomer.objCustomerBase.CustomerEmail:String.Empty %>');
             viewModel.Customer().MobileNo('<%= (objCustomer!=null && objCustomer.objCustomerBase!=null &&  !String.IsNullOrEmpty(objCustomer.objCustomerBase.CustomerMobile))?objCustomer.objCustomerBase.CustomerMobile:String.Empty %>');
-            <% } else {%>
+            <% }
+               else
+               {%>
             var arr = setuserDetails();
             if (arr != null && arr.length > 0) {
                 viewModel.Customer().Name(arr[0]);
@@ -436,14 +440,14 @@
                 viewModel.Customer().MobileNo(arr[2]);
             }
             <% } %>
-        </script>
-        <script>
+
             function viewMore(id){
                 $(id).closest('li').nextAll('li').toggleClass('hide');
                 $(id).text($(id).text() == '(view more)' ? '(view less)' : '(view more)');
-            }; 
-            </script>
-           
+            };
+
+        </script>
+
     </form>
 </body>
 </html>

@@ -96,10 +96,10 @@
                             </li>
                             <li>
                                 <div class="bikeDetailsBox form-control-box">
-                                    <input type="text" class="form-control " id="versionName" placeholder="Select variant" tabindex="5" data-bind="textInput: versionName"/>
+                                    <input type="text" class="form-control " id="versionName" placeholder="Select version" tabindex="5" data-bind="textInput: versionName"/>
                                     <span id="versionLoader" style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
                                     <span class="bwsprite error-icon"></span>
-                                    <div class="bw-blackbg-tooltip">Please select variant</div>
+                                    <div class="bw-blackbg-tooltip">Please select version</div>
                                 </div>
                             </li>
                             <li>

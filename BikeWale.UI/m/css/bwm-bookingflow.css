@@ -1,17 +1,15 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 /* booking sprite */
-.booking-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?v=22122015) no-repeat; display: inline-block; }
+.booking-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?v1=30122015) no-repeat; display: inline-block; }
 .booking-sprite, .booking-sprite + span.iconTtl{display:inline-block; vertical-align:middle;}
-.booking-tick-blue, .summary-icon-grey, .delivery-icon-grey, .confirmation-icon-grey { width:42px; height:42px; }
+.booking-tick-blue, .summary-icon-grey, .payment-icon-grey, .summary-icon-selected, .personal-details-icon-selected, .payment-icon-selected { width:42px; height:42px; }
+.personal-details-icon-selected { background-position: 0 0; }
 .booking-tick-blue { background-position: -86px 0;}
-.summary-icon-grey{background-position:-43px -201px;}
-.delivery-icon-grey { background-position:-43px -250px; }
-.confirmation-icon-grey { background-position: -43px -299px; }
-.summary-icon-selected, .delivery-icon-selected, .confirmation-icon-selected { width:42px; height:42px; }
+.summary-icon-grey {background-position:-43px -201px;}
+.payment-icon-grey { background-position: -43px -300px; }
 .summary-icon-selected { background-position: 0 -201px; }
-.delivery-icon-selected { background-position: 0 -250px; }
-.confirmation-icon-selected { background-position: 0 -299px; }
+.payment-icon-selected { background-position: 0 -250px; }
 .booking-tabs ul{ display:table; margin:0 auto 20px; width: 270px; overflow: hidden; }
 .booking-tabs ul li { float:left; width:90px; height:42px; background:#fff; text-align:center; position:relative; }
 .booking-tabs ul li:before, .booking-tabs ul li:after{content:''; height:1px; position:absolute; z-index:0; background:#e2e2e2; width:50%;  top:0; bottom:0; margin:auto;}
@@ -27,6 +25,7 @@
 .bike-booking-image { width:100%;  height:42px; position:relative; }
 .bike-booking-image span {  margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; z-index:1;  }
 .personal-info-form-container .personal-info-list { margin-bottom:15px; }
+.personal-info-form-icon { width:18px; height:26px; background-position:-111px -139px; }
 
 .horizontal-line { width:610px; height:1px; background:#ccc; top:59px; }
 .border-light-grey { border:1px solid #e2e2e2; }
@@ -76,7 +75,8 @@ zoom: 1; vertical-align:middle; margin-right:7px; }
 .font6 { font-size:6px; }
 
 .offers-container{ border: 1px dashed #82888b; padding:10px;}
-.offers-container li { position:relative;font-size: 14px; margin: 10px 0;}
+.offers-container li, .offers-container ul.pay-and-get-ul li { background:url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png") no-repeat 0 3px; padding-left:20px; }
+.offers-container li { margin: 10px 0; }
 
 .call-text-green {border: 1px solid #00b16a;padding: 5px 10px; width:100%; display:block}
 .text-green { color: #00b16a; }
@@ -86,7 +86,7 @@ zoom: 1; vertical-align:middle; margin-right:7px; }
 /* #deliveryDetails .finance-emi-container .emi-slider-box { border-bottom:1px solid #e2e2e2; } */
 #deliveryDetailsv .emi-slider-box .emi-slider-box-left-section p { font-size:14px; margin-bottom:10px; }
 
-#otpPopup { display:none; background: #fff; margin: auto; padding:20px; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height: 410px; right: 5%; left: 5%; z-index: 10; }
+/*#otpPopup { display:none; background: #fff; margin: auto; padding:20px; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height: 410px; right: 5%; left: 5%; z-index: 10; }*/
 .icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
 .otp-icon { width:30px; height:40px; background-position: -107px -177px; }
@@ -159,3 +159,15 @@ zoom: 1; vertical-align:middle; margin-right:7px; }
 .versionIcon.spoke-wheel { background-position:-132px -170px}
 .versionIcon.drum-brake { background-position:-91px -147px}
 .versionIcon.kick-start { background-position:-91px -191px}
+
+.contact-icon, .offers-icon, .disclaimer-icon, .call-icon { width:16px; height:16px; }
+.disclaimer-icon { background-position: -135px -308px; }
+.offers-icon { background-position: -135px -280px; }
+.contact-icon { background-position: -107px -280px; }
+.text-green { color:#5bc033;}
+.breakupPopUpContainer { min-height: 300px; background: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; padding:20px; }
+.breakupCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
+.call-text-green {border: 1px solid #00b16a;padding: 5px 10px;width: 100%;display: block;}
+.call-icon { background-position: -107px -135px; }
+
+.offer-details-container ul li { background:url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png") no-repeat 0 3px; padding: 0 0 0 22px;} 

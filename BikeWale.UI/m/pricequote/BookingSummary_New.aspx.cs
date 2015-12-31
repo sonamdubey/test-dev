@@ -25,7 +25,7 @@ namespace Bikewale.Mobile.PriceQuote
     {
         protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
         protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty;
-        protected Repeater rptVarients = null, rptVersionColors = null, rptDealerOffers = null, rptPriceBreakup = null;
+        protected Repeater rptVarients = null, rptVersionColors = null, rptDealerOffers = null, rptPriceBreakup = null, rptDealerFinalOffers = null;
         protected BikeDealerPriceDetailDTO selectedVarient = null;
         protected DDQDealerDetailBase DealerDetails = null;
         protected bool isOfferAvailable = false, isInsuranceFree = false;
@@ -39,8 +39,8 @@ namespace Bikewale.Mobile.PriceQuote
         {
             this.Load += new EventHandler(Page_Load);
             deliveryDetailsNextBtn.ServerClick += new EventHandler(btnMakePayment_click);
-            generateNewOTP.ServerClick += new EventHandler(btnMakePayment_click);
-            processOTP.ServerClick += new EventHandler(btnMakePayment_click);
+            //generateNewOTP.ServerClick += new EventHandler(btnMakePayment_click);
+            //processOTP.ServerClick += new EventHandler(btnMakePayment_click);
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -211,6 +211,9 @@ namespace Bikewale.Mobile.PriceQuote
                 isOfferAvailable = true;
                 rptDealerOffers.DataSource = dealerDetailEntity.objOffers;
                 rptDealerOffers.DataBind();
+
+                rptDealerFinalOffers.DataSource = dealerDetailEntity.objOffers;
+                rptDealerFinalOffers.DataBind();
 
             }
         }

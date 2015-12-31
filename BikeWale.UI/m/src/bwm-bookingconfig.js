@@ -49,12 +49,19 @@ var BookingConfigViewModel = function () {
                     self.ActualSteps(4);
                     $('html, body').animate({ scrollTop: 0 }, 300);
                 }
+                if (self.CurrentStep() == 2) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_1_Successful_Submit', 'lab': thisBikename + '_' + getCityArea });
+                }
+                else if (self.CurrentStep() == 3) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_2_Successful_Submit', 'lab': thisBikename + '_' + getCityArea });
+                }
                 return true;
 
             }
             else {
                 $('html, body').animate({ scrollTop: $(".select-colorh4").first().offset().top }, 300);
                 $("#customizeBike .select-colorh4").addClass("text-red").shake();
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_1_Submit_Error_versionColorMissing', 'lab': thisBikename + '_' + getCityArea });
                 return false;
             }
         }
@@ -63,7 +70,6 @@ var BookingConfigViewModel = function () {
             $("#customizeBike .select-versionh4").addClass("text-red").shake();
             return false;
         }
-
     };
 
     self.bookNow = function (data, event) {
@@ -104,7 +110,7 @@ var BookingConfigViewModel = function () {
                 window.location = '/m/pricequote/bookingSummary_new.aspx';
                 isSuccess = true;
             }
-
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_3_Book_Now_Click', 'lab': thisBikename + '_' + getCityArea });
             return isSuccess;
         }
 
@@ -280,12 +286,18 @@ function formatPrice(price) {
 $("#configBtnWrapper").on('click', 'span.viewBreakupText', function () {
     $("div#breakupPopUpContainer").show();
     $(".blackOut-window").show();
+    appendHash("viewBreakup");
 });
 
-$(".breakupCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+$(".breakupCloseBtn, .blackOut-window").on('click', function (e) {
+    viewBreakUpClosePopup();
+    window.history.back();
+});
+
+var viewBreakUpClosePopup = function () {
     $("div#breakupPopUpContainer").hide();
     $(".blackOut-window").hide();
-});
+};
 
 $(document).on('keydown', function (e) {
     if (e.keyCode === 27) {

@@ -128,6 +128,18 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .loginCloseBtn.cross-md-dark-grey { background-position: -62px -223px; }
 .loginCloseBtn.cross-md-dark-grey:hover { background-position: -62px -246px; }
 
+/* App Banner */
+#appBanner { background:#e2e2e2; padding:5px 5px 0; position:relative; overflow:hidden; }
+.app-banner-img-container { float:left; width:130px; height:95px; position:relative; margin-right:12px; }
+.app-banner-img-container img { position:absolute; bottom:0; }
+.banner-close-btn { width:30px; height:30px; background: url("http://img.aeplcdn.com/bikewaleimg/m/images/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
+.app-banner-text-container { float:left; }
+.app-banner-btn-container { padding:10px 25px 10px 0; }
+.app-banner-btn-container .btn { padding:6px 10px; }
+
+.booking-how-it-works { background-color: #cbcbcb; width: 320px; height: 900px; }
+
+
 /* welcome box home page classes */
 .welcome-box { text-align: center; color: #fff; }
 .bw-tabs { display: block; }
@@ -174,8 +186,9 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .compare-list-home li { border-bottom: 1px solid #ccc; padding-bottom: 15px; text-align: center; }
 
 /* city popup classes */
-.bw-popup,.globalcity-popup, .bw-city-popup { background: #fff; margin: auto; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height:480px; right: 5%; left: 5%; z-index: 10; }
-.globalcity-popup-data, .popup-inner-container { padding: 20px 20px 30px; }
+/*.bw-popup,.globalcity-popup, .bw-city-popup { background: #fff; margin: auto; overflow-y: auto; position: fixed; top: 25px; bottom: 25px; max-height:480px; right: 5%; left: 5%; z-index: 10; }*/
+.bwm-fullscreen-popup { background: #fff; padding:10px 20px; margin: auto; width:100%; position: fixed; left:0; top:0; height:100%; z-index: 10; overflow-y:scroll; }
+/*.globalcity-popup-data, .popup-inner-container { padding: 20px 20px 30px; }*/
 .cityPopup-box { background: #333333; width: 60px; height: 60px; line-height: 2; display: inline-block; }
 .bw-popup .close-btn, .globalcity-close-btn.cross-lg-lgt-grey, .bw-city-popup .close-btn { background-position: -36px -226px; }
 .bw-popup .close-btn:hover, .globalcity-close-btn.cross-lg-lgt-grey:hover, .bw-city-popup .close-btn:hover { background-position: -36px -252px; }
@@ -184,14 +197,22 @@ ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 #popupWrapper .chosen-drop ul.chosen-results { max-height:120px }
 /* global-search-popup classes */
 .global-search-popup { position:fixed; left: 5px; top: 5px; right: 5px; z-index: 10; }
-.global-search-popup .form-control { border: none; padding: 10px 50px; }
-.global-search-popup .back-arrow-box, .global-search-popup .cross-box { height: 30px; width: 40px; position: absolute; top: 5px; z-index: 11; cursor: pointer; }
-.global-search-popup .back-arrow-box { position: absolute; left: 5px; }
-.global-search-popup .back-arrow-box span.back-long-arrow-left { position: absolute; top: 7px; left: 10px; }
-.global-search-popup .cross-box { right: 5px; }
-.global-search-popup .cross-box span.cross-md-dark-grey { position: absolute; right: 13px; top: 8px; z-index: 11; }
-.global-search-popup .cross-box:hover span.cross-md-dark-grey { background-position: -62px -223px; }
-
+.global-search-popup .form-control, .bwm-city-area-box .form-control { padding: 10px 50px; }
+.global-search-popup .back-arrow-box, .global-search-popup .cross-box, .bwm-city-area-box .back-arrow-box, .bwm-city-area-box .cross-box { height: 30px; width: 40px; position: absolute; top: 5px; z-index: 11; cursor: pointer; }
+.global-search-popup .back-arrow-box, .bwm-city-area-box .back-arrow-box { position: absolute; left: 5px; }
+.global-search-popup .back-arrow-box span.back-long-arrow-left, .bwm-city-area-box .back-arrow-box span.back-long-arrow-left { position: absolute; top: 7px; left: 10px; }
+.global-search-popup .cross-box, .bwm-city-area-box .cross-box { right: 5px; }
+.global-search-popup .cross-box span.cross-md-dark-grey, .bwm-city-area-box .cross-box span.cross-md-dark-grey { position: absolute; right: 13px; top: 8px; z-index: 11; }
+.global-search-popup .cross-box:hover span.cross-md-dark-grey, .bwm-city-area-box .cross-box:hover span.cross-md-dark-grey { background-position: -62px -223px; }
+.bw-city-popup.bwm-fullscreen-popup { overflow-x:hidden; }
+.bw-city-popup.bwm-fullscreen-popup #popupContent { background:#f5f5f5; z-index:11; position:fixed; left:100%; top:0; overflow-y:scroll; width:100%; height:100% }
+.bw-area-popup-box { display:none; }
+/* on road price popup */
+#popupWrapper.bwm-fullscreen-popup { padding:0; background:#f5f5f5; }
+.user-input-box { width:100%; position:fixed; top:0; left:100%; }
+#popupCityList li, #popupAreaList li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor:pointer; }
+#popupCityList li:hover, #popupAreaList li:hover { background: #ededed; } 
+.border-last-bottom { border-bottom:2px solid #555; }
 /* news, review and videos section on home page classes */
 .img-preview img { width: 100% }
 .yt-iframe-preview iframe { width: 100%; height: 174px; }
@@ -323,7 +344,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .newbikes-banner-div { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/new-bike-banner.jpg) no-repeat left top; background-size: cover; height:130px;}
 
 /* sprite classes */
-.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v=22122015) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v1=30122015) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -341,10 +362,13 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .fb-login-icon { background-position: -103px -89px; }
 .gplus-login-icon { background-position: -125px -89px; }
 .error-icon { background-position: -177px -35px; width: 19px; height: 19px; position: absolute; right: 10px; top: 10px; z-index: 9; }
-.cityPopup-icon { background-position: -107px -35px; width: 29px; height: 38px; }
+.cityPopup-icon { background-position: -122px -333px; width: 58px; height: 52px; }
 .back-long-arrow-left { background-position: -155px 0;  width: 21px; height: 16px; }
 .back-long-arrow-left-white { background-position: -155px -101px; width: 21px; height: 21px; }
-
+.orp-location-icon { background-position: -162px -281px; width: 49px; height: 49px; }
+.google-play-logo  { background-position: 2px -340px; width: 120px; height: 45px; }
+.icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
+.icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
 /* nav classes */
 .home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
 .home-icon { background-position: 0 -58px; }
@@ -641,8 +665,8 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 .cur-pointer { cursor: pointer; }
 .cur-default { cursor: default; }
-.bw-blackbg-tooltip { background:#000; color:#fff; font-size:12px; padding:3px 5px; position:absolute; right:0px; top:37px; z-index: 2;}
-.bw-blackbg-tooltip:before { border-bottom: 5px solid #000; border-left: 5px solid transparent; border-right: 5px solid transparent; content:""; position:absolute; right:14px; top:-5px; z-index:999; }
+.bw-blackbg-tooltip { background:#4d5057; color:#fff; font-size:12px; padding:3px 5px; position:absolute; right:0px; top:37px; z-index: 2;}
+.bw-blackbg-tooltip:before { border-bottom: 5px solid #4d5057; border-left: 5px solid transparent; border-right: 5px solid transparent; content:""; position:absolute; right:14px; top:-5px; z-index:999; }
 
 
 /* Carousel Controls */

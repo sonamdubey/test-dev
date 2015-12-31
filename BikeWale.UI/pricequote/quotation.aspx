@@ -159,7 +159,7 @@
                         <img alt=" <%= mmv.BikeName %> Photos" src="<%=imgPath%>" title="<%= mmv.BikeName %> Photos">
                     </div>
                     <div class="pqVariants <%=(versionList.Count > 1)?"":"hide" %>">
-                        <p class="font14 margin-bottom5">Variants</p>
+                        <p class="font14 margin-bottom5">Versions</p>
                         <div class="form-control-box">
                             <asp:DropDownList id="ddlVersion" class="form-control" runat="server" AutoPostBack="true"></asp:DropDownList>
                         </div>

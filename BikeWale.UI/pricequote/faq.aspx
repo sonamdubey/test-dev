@@ -37,7 +37,7 @@
                             <div class="faq-list">
                                 <ul>
                                     <li>a. Details of your payment</li>
-                                    <li>b. Details of your selected bike (model, variant, color) and the vehicle pricing</li>
+                                    <li>b. Details of your selected bike (model, version, color) and the vehicle pricing</li>
                                     <li>c. Contact details of assigned dealership who will be responsible to complete further formalities and deliver the vehicle</li>
                                     <li>d. List of offers that you just secured by pre-booking</li>
                                 </ul>
@@ -99,7 +99,7 @@
                     </li>
                     <li>
                     	<h3>15. Can I change the color preference post visiting the dealership?</h3>
-                        <p>Yes you can. However, please note that different color variants might have different pricing / availability / waiting periods and some color variants might even not be available from the manufacturers end. Dealership will provide the exact details on your visit to dealership.</p>
+                        <p>Yes you can. However, please note that different color versions might have different pricing / availability / waiting periods and some color variants might even not be available from the manufacturers end. Dealership will provide the exact details on your visit to dealership.</p>
                     </li>
                     <li>
                     	<h3>16. How will I get the benefits of the offers?</h3>
