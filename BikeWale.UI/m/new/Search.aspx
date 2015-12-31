@@ -135,7 +135,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="clear"></div>
-                                                <a data-bind="attr: { modelId: bikemodel.modelId }, click: function () { FillCitiesPopup(bikemodel.modelId(), bikemodel.makeBase.makeName(), bikemodel.modelName(), '6'); $.PricePopUpClickGA(bikemodel.modelName()) }" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
+                                                <a data-bind="attr: { modelId: bikemodel.modelId }" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
                                             </div>
                                         </div>
                                     </div>
@@ -330,11 +330,11 @@
             </div>
             <!--Main container ends here-->
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <BW:MPopupWidget runat="server" ID="MPopupWidget1" /> 
         <!-- all other js plugins -->    
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/search.js?<%= staticFileVersion %>" type="text/javascript"></script>
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
-        <BW:MPopupWidget runat="server" ID="MPopupWidget1" /> 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>         
         <div class="back-to-top" id="back-to-top"><a><span></span></a></div>       
     </body>
 </html>
