@@ -55,7 +55,6 @@
     <Compile Include="BikeBooking\BookingResults.cs" />
     <Compile Include="BikeBooking\CalculatedEMI.cs" />
     <Compile Include="BikeBooking\Consumers.cs" />
-    <Compile Include="BikeBooking\DPQ_SaveEntity.cs" />
     <Compile Include="BikeBooking\EMI.cs" />
     <Compile Include="BikeBooking\FacilityEntity.cs" />
     <Compile Include="BikeBooking\LeadSourceEnum.cs" />

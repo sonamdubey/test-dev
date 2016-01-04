@@ -36,7 +36,7 @@
                                 <div id="bikeSummaryTab" class="bike-book-step leftfloat" data-bind="click: function () { if (CurrentStep() > 1 ) CurrentStep(1); }, css: (CurrentStep() >= 1) ? 'active-tab' : ''">
                                     <p>Personal Details</p>
                                     <div class="booking-tabs-image">
-                                        <span class="booking-flow-sprite booking-tab-icon" data-bind="css: (CurrentStep() == 1) ? 'delivery-icon-selected' : 'booking-tick-blue'"></span>
+                                        <span class="booking-flow-sprite booking-tab-icon" data-bind="css: (CurrentStep() == 1) ? 'personal-details-icon-selected' : 'booking-tick-blue'"></span>
                                     </div>
                                 </div>
                             </li>
@@ -358,21 +358,21 @@
 
         </section>
 
-        <section class="container margin-bottom30">
-            <div class="grid-12">
-                <div class="content-box-shadow content-inner-block-20">
-                    <img src="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.jpg" border="0" style="width:100%;" />
-                </div>
-            </div>
+        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
+            <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
 
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
 
-                 <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/footerBW.aspx" -->
 
         <script type="text/javascript">
+            $(document).ready(function() {
+                applyLazyLoad();
+            });
+
             var pqId = '<%= pqId %>'
             var verId = '<%= versionId %>';
             var cityId = '<%= cityId%>';

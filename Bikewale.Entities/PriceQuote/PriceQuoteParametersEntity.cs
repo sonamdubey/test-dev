@@ -25,9 +25,5 @@ namespace Bikewale.Entities.PriceQuote
         public uint DealerId { get; set; }  
         public uint ModelId { get; set; }
         public uint ColorId { get; set; }
-        public string DeviceId { get; set; }
-        public string UTMA { get; set; }
-        public string UTMZ { get; set; }
-        public ushort? PQLeadId { get; set; }
     }
 }

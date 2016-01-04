@@ -7,14 +7,14 @@
 .booking-tabs-image span { margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
 
 /* booking sprite */
-.booking-flow-sprite { background: url('http://img.aeplcdn.com/bikewaleimg/images/booking-flow-sprite.png?v=22122015') no-repeat; display: inline-block; }
-.summary-icon-selected, .delivery-icon-selected, .payment-icon-selected { width:42px; height:42px; }
-.summary-icon-selected { background-position: 0 0; }
-.delivery-icon-selected { background-position: 0 -52px; }
+.booking-flow-sprite { background: url('http://img.aeplcdn.com/bikewaleimg/images/booking-flow-sprite.png?v1=30122015') no-repeat; display: inline-block; }
+.summary-icon-selected, .personal-details-icon-selected, .payment-icon-selected { width:42px; height:42px; }
+.personal-details-icon-selected { background-position: 0 0; }
+.summary-icon-selected { background-position: 0 -52px; }
 .payment-icon-selected { background-position: 0 -103px; }
-.booking-tick-blue, .summary-icon-grey, .delivery-icon-grey, .payment-icon-grey { width:28px; height:28px; }
+.booking-tick-blue, .summary-icon-grey, .payment-icon-grey { width:28px; height:28px; }
+.summary-icon-grey { background-position: -52px -37px; }
 .booking-tick-blue { background-position: -52px 0; }
-.delivery-icon-grey { background-position: -52px -37px; }
 .payment-icon-grey { background-position: -52px -73px; }
 .otp-icon { width:102px; height:102px; background-position: 0 -111px; }
 

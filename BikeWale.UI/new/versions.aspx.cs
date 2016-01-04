@@ -211,23 +211,17 @@ namespace Bikewale.New
             }
             else
             {
-                //if (ViewState["modelPage"] != null)
-                //{
-                //    string json = (string)ViewState["modelPage"];
-                //    modelPage = JsonConvert.DeserializeObject<BikeModelPageEntity>(json);
-                //}
-
                 if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
                 {
                     rptVarients.DataSource = modelPage.ModelVersions;
                     rptVarients.DataBind();
                 }
             }
+            SetFlags();
             BindAlternativeBikeControl();
             // Set BikeName
             if (modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
-
             if (modelPage.ModelDetails.New)
             {
                 FetchOnRoadPrice();
@@ -252,7 +246,6 @@ namespace Bikewale.New
             ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
             ToggleOfferDiv();
-            SetFlags();
         }
 
         /// <summary>
@@ -277,7 +270,8 @@ namespace Bikewale.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        if ((isCitySelected && !isAreaAvailable))
+                        //if ((isCitySelected && !isAreaAvailable))
+                        if (isOnRoadPrice)
                             lblExOn.Text = "On-road price";
 
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null)
@@ -1119,17 +1113,12 @@ namespace Bikewale.New
                     {
                         isOnRoadPrice = true;
                     }
-                    //else // Is area available and Not selected
-                    //{
-
-                    //}
                 }
                 else
                 {
                     isOnRoadPrice = true;
                 }
             }
-
             // if city and area is not selected OR if city is selected & area is available but not selected
             if ((!isCitySelected && !isAreaSelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
             {

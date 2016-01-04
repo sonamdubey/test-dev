@@ -551,8 +551,8 @@
                             <span class="bwsprite user-contact-details-icon margin-top25"></span>
                         </div>
                     </div>
-                    <p class="font20 margin-top25 margin-bottom10">Provide contact details</p>
-                    <p class="text-light-grey margin-bottom20">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
+                    <p class="font20 margin-top25 margin-bottom10">Get more details on this bike</p>
+                    <p class="text-light-grey margin-bottom20">Please provide contact info to see more details</p>
                     <div class="personal-info-form-container">
                         <div class="form-control-box personal-info-list">
                             <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
@@ -609,7 +609,7 @@
                         </div>
                     </div>
                     <p class="font18 margin-top25 margin-bottom20">Verify your mobile number</p>
-                    <p class="font14 text-light-grey margin-bottom20">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                    <p class="font14 text-light-grey margin-bottom20">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
                     <div>
                         <div class="lead-mobile-box lead-otp-box-container font22">
                             <span class="fa fa-phone"></span>
@@ -1515,23 +1515,22 @@
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
             if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+            var getCityArea = GetGlobalCityArea();
             if(bikeVersionLocation == ''){
                 bikeVersionLocation = getBikeVersionLocation();
             }
             if (bikeVersion == '') {
                 bikeVersion = getBikeVersion();
             }
-            var getCityArea = GetGlobalCityArea();
             if(isBikeWalePq == 'True' ){
                 if(getCityArea!= null) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'BWPQ_' + getCityArea + myBikeName });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'BWPQ_' + getCityArea + '_'+  myBikeName });
                   }       
             }else{
                 if(getCityArea!= null)  {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + myBikeName });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + '_' + myBikeName });
                 }
             }
-
         </script>
     </form>
 </body>

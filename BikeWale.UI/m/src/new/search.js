@@ -458,7 +458,8 @@ $.removeFilterFromQS = function (name) {
         var pars = url.split(/[&;]/g);
         for (var i = pars.length; i-- > 0;) {
             //if (pars[i].indexOf(prefix) > -1) {
-            if((/=/).test(pars[i])){
+            //if ((/=/).test(pars[i])) {
+            if((new RegExp(prefix, 'gi')).test(pars[i])){
                 pars.splice(i, 1);
             }
         }

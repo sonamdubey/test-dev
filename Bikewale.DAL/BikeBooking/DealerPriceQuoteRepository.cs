@@ -26,8 +26,6 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 29 Oct 2014
         /// Summary :  to save customer detail in newbikedealerpricequote table
-        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
-        /// Summary : To save utmz, utma, LeadSourceId, deviceId
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -35,7 +33,7 @@ namespace Bikewale.DAL.BikeBooking
         /// <param name="customerMobile"></param>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public bool SaveCustomerDetail(DPQ_SaveEntity entity)
+        public bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, uint? colorId)
         {
             bool isSuccess = false;
             Database db = null;
@@ -46,37 +44,23 @@ namespace Bikewale.DAL.BikeBooking
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "SaveBikeDealerQuotations_30122015";
+                        cmd.CommandText = "SaveBikeDealerQuotations";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 
-                        cmd.Parameters.Add("@dealerId", SqlDbType.Int).Value = entity.DealerId;
+                        cmd.Parameters.Add("@dealerId", SqlDbType.Decimal);
+                        cmd.Parameters["@dealerId"].Precision = 18;
+                        cmd.Parameters["@dealerId"].Scale = 8;
+                        cmd.Parameters["@dealerId"].Value = dealerId;
 
-                        cmd.Parameters.Add("@pqId", SqlDbType.Int).Value = entity.PQId;
-                        cmd.Parameters.Add("@customerName", SqlDbType.VarChar, 50).Value = entity.CustomerName;
-                        cmd.Parameters.Add("@customerEmail", SqlDbType.VarChar, 50).Value = entity.CustomerEmail;
-                        cmd.Parameters.Add("@customerMobile", SqlDbType.VarChar, 50).Value = entity.CustomerMobile;
+                        cmd.Parameters.Add("@pqId", SqlDbType.BigInt).Value = pqId;
+                        cmd.Parameters.Add("@customerName", SqlDbType.VarChar, 50).Value = customerName;
+                        cmd.Parameters.Add("@customerEmail", SqlDbType.VarChar, 50).Value = customerEmail;
+                        cmd.Parameters.Add("@customerMobile", SqlDbType.VarChar, 50).Value = customerMobile;
 
-                        if (entity.ColorId.HasValue)
+                        if(colorId.HasValue)
                         {
-                            cmd.Parameters.Add("@colorId", SqlDbType.Int).Value = entity.ColorId.Value;
-                        }
-
-                        if (entity.LeadSourceId.HasValue)
-                        {
-                            cmd.Parameters.Add("@LeadSourceId", SqlDbType.TinyInt).Value = entity.LeadSourceId.Value;
-                        }
-                        if (!String.IsNullOrEmpty(entity.UTMA))
-                        {
-                            cmd.Parameters.Add("@utma", SqlDbType.VarChar, 100).Value = entity.UTMA;
-                        }
-                        if (!String.IsNullOrEmpty(entity.UTMZ))
-                        {
-                            cmd.Parameters.Add("@utmz", SqlDbType.VarChar, 100).Value = entity.UTMZ;
-                        }
-                        if (!String.IsNullOrEmpty(entity.DeviceId))
-                        {
-                            cmd.Parameters.Add("@deviceId", SqlDbType.VarChar, 25).Value = entity.DeviceId;
+                            cmd.Parameters.Add("@colorId", SqlDbType.Int).Value = colorId;
                         }
 
                         conn.Open();
@@ -286,6 +270,8 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 10 Nov 2014
         /// Summary : To get customer details
+        /// Modified by Sumit Kate on 29 Dec 2015
+        /// Summary     :   Added SP versioning
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns></returns>

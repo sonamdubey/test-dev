@@ -26,10 +26,5 @@ namespace Bikewale.DTO.PriceQuote
         public PQSources SourceType { get; set; }
         [JsonProperty("versionId")]
         public uint VersionId { get; set; }
-        //Added By  : Sadhana Upadhyay on 29 Dec 2015
-        [JsonProperty("pQLeadId")]
-        public ushort? PQLeadId { get; set; }
-        [JsonProperty("deviceId")]
-        public string DeviceId { get; set; }
     }
 }

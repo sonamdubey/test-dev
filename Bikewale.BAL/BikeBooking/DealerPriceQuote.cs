@@ -37,8 +37,6 @@ namespace Bikewale.BAL.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 29 Oct 2014
         /// Summary :  to save customer detail in newbikedealerpricequote table
-        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
-        /// Summary : replace parameters with entity
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -46,11 +44,11 @@ namespace Bikewale.BAL.BikeBooking
         /// <param name="customerMobile"></param>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public bool SaveCustomerDetail(DPQ_SaveEntity entity)
+        public bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, uint? colorId)
         {
             bool isSuccess = false;
 
-            isSuccess = dealerPQRepository.SaveCustomerDetail(entity);
+            isSuccess = dealerPQRepository.SaveCustomerDetail(dealerId, pqId, customerName, customerMobile, customerEmail,colorId);
 
             return isSuccess;
         }

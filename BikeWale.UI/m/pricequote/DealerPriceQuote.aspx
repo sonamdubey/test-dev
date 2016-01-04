@@ -380,20 +380,20 @@
 
 
         <!-- Lead Capture pop up start  -->
-        <div id="leadCapturePopup" class="bw-popup contact-details hide">
+        <div id="leadCapturePopup" class="bw-popup bwm-fullscreen-popup contact-details hide">
             <div class="popup-inner-container text-center">
                 <div class="bwmsprite close-btn leadCapture-close-btn rightfloat"></div>
                 <div id="contactDetailsPopup">
                     <!-- Contact details Popup starts here -->
-                    <div class="icon-outer-container rounded-corner50percent">
+                    <%--<div class="icon-outer-container rounded-corner50percent">
                         <div class="icon-inner-container rounded-corner50percent">
                             <span class="bwmsprite user-contact-details-icon margin-top25"></span>
                         </div>
-                    </div>
-                    <h2 class="margin-top10 margin-bottom10">Please provide us contact details</h2>
-                    <p class="text-light-grey margin-bottom10">For you to see more details about this bike, please submit your valid contact details. It will be safe with us.</p>
+                    </div>--%>
+                    <h2 class="margin-top10 margin-bottom10">Get more details on this bike</h2>
+                    <p class="text-light-grey margin-bottom10">Please provide contact info to see more details</p>
 
-                    <div class="personal-info-form-container margin-top10">
+                    <div class="personal-info-form-container">
                         <div class="form-control-box">
                             <input type="text" class="form-control get-first-name" placeholder="Your name" id="getFullName" data-bind="value: fullName">
                             <span class="bwmsprite error-icon "></span>
@@ -418,13 +418,13 @@
                 <!-- Contact details Popup ends here -->
                 <div id="otpPopup">
                     <!-- OTP Popup starts here -->
-                    <div class="icon-outer-container rounded-corner50percent">
+                    <%--<div class="icon-outer-container rounded-corner50percent">
                         <div class="icon-inner-container rounded-corner50percent">
                             <span class="bwmsprite otp-icon margin-top25"></span>
                         </div>
-                    </div>
+                    </div>--%>
                     <p class="font18 margin-top10 margin-bottom10">Verify your mobile number</p>
-                    <p class="font14 text-light-grey margin-bottom10">We have sent an OTP on the following mobile number. Please enter that OTP in the box provided below:</p>
+                    <p class="font14 text-light-grey margin-bottom10">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
                     <div>
                         <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
                             <span class="fa fa-phone"></span>
@@ -501,22 +501,26 @@
 
                 leadBtnBookNow.on('click', function () {
                     leadCapturePopup.show();
+                    appendHash("dpqPopup");
                     $("div#contactDetailsPopup").show();
                     $("#otpPopup").hide();
-                    $('body').addClass('lock-browser-scroll');
-                    $(".blackOut-window").show();
-                    $(".leadCapture-close-btn, .blackOut-window").on("click", function () {
-                        leadCapturePopup.hide();
-                        $('body').removeClass('lock-browser-scroll');
-                        $(".blackOut-window").hide();
-                    });
+                    //$('body').addClass('lock-browser-scroll');
+                    //$(".blackOut-window").show();
+                    
 
-                    $(document).on('keydown', function (e) {
-                        if (e.keyCode === 27) {
-                            $("#leadCapturePopup .leadCapture-close-btn").click();
-                        }
-                    });
+                    //$(document).on('keydown', function (e) {
+                    //    if (e.keyCode === 27) {
+                    //        $("#leadCapturePopup .leadCapture-close-btn").click();
+                    //    }
+                    //});
 
+                });
+
+                $(".leadCapture-close-btn").on("click", function () {
+                    leadCapturePopup.hide();
+                    //$('body').removeClass('lock-browser-scroll');
+                    //$(".blackOut-window").hide();
+                    window.history.back();
                 });
 
             });
