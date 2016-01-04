@@ -123,19 +123,16 @@
 
     <section class="<%= (Convert.ToInt32(ctrlUpcomingBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>" ><!--  Upcoming, New Launches and Top Selling code starts here -->        
     	<div class="container" >
-                <div class="grid-12 ">
+                <div class="grid-12 margin-bottom30">
                     <h2 class="text-center margin-top30 margin-bottom20">Upcoming <%= _make.MakeName %> bikes</h2>
-                    <div class="jcarousel-wrapper upComingBikes">
-                        <div class="jcarousel">
-                            <ul>
-                                <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
-                            </ul>
+                    <div class="swiper-container upComingBikes padding-bottom60">
+                        <div class="swiper-wrapper">
+                            <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
                         </div>
-                        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                        <p class="text-center jcarousel-pagination"></p>
+                        <div class="text-center swiper-pagination"></div>
+                        <div class="bwmsprite swiper-button-next hide"></div>
+                        <div class="bwmsprite swiper-button-prev hide"></div>
                     </div>
-
                 </div>
                 <div class="clear"></div>
             </div>
