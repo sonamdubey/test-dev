@@ -104,8 +104,13 @@ namespace PriceQuoteLeadSMS
 
                         if (!String.IsNullOrEmpty(item.SMSToDealerMessage))
                         {
-                            uint smsId = objSmsDal.InsertSMS(item.SMSToDealerNumbers, item.SMSToDealerMessage, item.SMSToDealerServiceType, string.Empty, true);
-                            objLead.PushSMSInQueue(smsId, item.SMSToDealerMessage, item.SMSToDealerNumbers);
+                            string[] dealerMobiles = item.SMSToDealerNumbers.Split(',');
+
+                            foreach (string mobileNo in dealerMobiles)
+                            {
+                                uint smsId = objSmsDal.InsertSMS(mobileNo.Trim(), item.SMSToDealerMessage, item.SMSToDealerServiceType, string.Empty, true);
+                                objLead.PushSMSInQueue(smsId, item.SMSToDealerMessage, mobileNo.Trim());   
+                            }
 
                             string[] dealerEmails = item.EmailToCustomerReplyTo.Split(',');
 

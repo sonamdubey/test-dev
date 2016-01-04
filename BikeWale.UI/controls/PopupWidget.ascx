@@ -13,7 +13,7 @@
     <div class="popup-inner-container" stopBinding: true>
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
         <div class="cityPop-icon-container">
-            <div class="icon-outer-container rounded-corner50 margin-bottom20">
+            <div class="icon-outer-container rounded-corner50 margin-bottom20">FillCitiesPopup
                 <div class="icon-inner-container rounded-corner50">
                     <span class="bwsprite orp-location-icon margin-top20"></span>
                 </div>
