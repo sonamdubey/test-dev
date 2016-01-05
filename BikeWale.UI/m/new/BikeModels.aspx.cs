@@ -356,6 +356,10 @@ namespace Bikewale.Mobile.New
             }
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 04 Jan 2016
+        /// Description :   Replaced the Convert.ToXXX with XXX.TryParse method
+        /// </summary>
         private void CheckCityCookie()
         {
             // Read current cookie values
@@ -372,7 +376,8 @@ namespace Bikewale.Mobile.New
                     string[] locArray = location.Split('_');
                     if (locArray.Length > 0)
                     {
-                        cityId = Convert.ToInt16(locArray[0]); //location.Substring(0, location.IndexOf('_'));
+                        //cityId = Convert.ToInt16(locArray[0]); //location.Substring(0, location.IndexOf('_'));
+                        Int32.TryParse(locArray[0], out cityId);
                         objCityList = FetchCityByModelId(modelId);
 
                         // If Model doesn't have current City then don't show it, Show Ex-showroom Mumbai
@@ -392,7 +397,8 @@ namespace Bikewale.Mobile.New
                     }
                     if (locArray.Length > 3 && cityId != 0)
                     {
-                        areaId = Convert.ToInt16(locArray[2]);
+                        //areaId = Convert.ToInt16(locArray[2]);
+                        Int32.TryParse(locArray[2],out areaId);
                         objAreaList = GetAreaForCityAndModel();
                         if (objAreaList != null)
                         {
