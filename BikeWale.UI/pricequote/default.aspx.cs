@@ -148,6 +148,10 @@ namespace Bikewale.PriceQuote
                         objPQEntity.VersionId = Convert.ToUInt32(versionId);
                         objPQEntity.ModelId = Convert.ToUInt32(modelId);
                         // If pqId exists then, set pqId
+                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_PQ_Landing);
+                        objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
 
                     }

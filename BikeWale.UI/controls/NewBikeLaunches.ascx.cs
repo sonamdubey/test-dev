@@ -27,6 +27,7 @@ namespace Bikewale.Controls
             get { return _verticalDisplay; }
             set { _verticalDisplay = value; }
         }
+        public int PQSourceId { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

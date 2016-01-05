@@ -348,6 +348,7 @@ namespace Bikewale.New
         private void BindAlternativeBikeControl()
         {
             ctrlAlternativeBikes.TopCount = 6;
+            ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_ModelPage_Alternative;
 
             if (modelPage != null)
             {
@@ -511,9 +512,9 @@ namespace Bikewale.New
             }
         }
 
-        static readonly string apiURL = "/api/model/details/?modelId={0}&variantId={1}";
-        static readonly string onRoadApi = "/api/OnRoadPrice/?cityId={0}&modelId={1}&clientIP={2}&sourceType={3}&areaId={4}";
-        static readonly string _requestType = "application/json";
+        //static readonly string apiURL = "/api/model/details/?modelId={0}&variantId={1}";
+        //static readonly string onRoadApi = "/api/OnRoadPrice/?cityId={0}&modelId={1}&clientIP={2}&sourceType={3}&areaId={4}";
+        //static readonly string _requestType = "application/json";
         /// <summary>
         /// Author          :   Sangram Nandkhile
         /// Created Date    :   18 Nov 2015
@@ -716,6 +717,10 @@ namespace Bikewale.New
                     objPQEntity.SourceId = 1;
                     objPQEntity.ModelId = Convert.ToUInt32(modelId);
                     objPQEntity.VersionId = Convert.ToUInt32(variantId);
+                    objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_ModelPage);
+                    objPQEntity.UTMA = Request.Cookies["__utma"]!=null ? Request.Cookies["__utma"].Value : "";
+                    objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                    objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (objPQOutput != null)
                     {

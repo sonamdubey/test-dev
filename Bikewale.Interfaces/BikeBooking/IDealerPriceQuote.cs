@@ -16,7 +16,7 @@ namespace Bikewale.Interfaces.BikeBooking
     /// </summary>
     public interface IDealerPriceQuote
     {
-        bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, uint? colorId);
+        bool SaveCustomerDetail(DPQ_SaveEntity entity); // Modified By : Sumit Kate on 29 Dec 2015
         bool UpdateIsMobileVerified(uint pqId);
         bool UpdateMobileNumber(uint pqId, string mobileNo);
         bool PushedToAB(uint pqId, uint abInquiryId);
@@ -26,10 +26,10 @@ namespace Bikewale.Interfaces.BikeBooking
         PQCustomerDetail GetCustomerDetails(uint pqId);
         bool IsNewBikePQExists(uint pqId);
         List<BikeVersionEntityBase> GetVersionList(uint versionId, uint dealerId, uint cityId);
-        bool SaveRSAOfferClaim(RSAOfferClaimEntity objOffer,string bikeName);
-        bool UpdatePQBikeColor(uint colorId,uint pqId);
+        bool SaveRSAOfferClaim(RSAOfferClaimEntity objOffer, string bikeName);
+        bool UpdatePQBikeColor(uint colorId, uint pqId);
         //VersionColor GetPQBikeColor(uint pqId);
-        bool UpdatePQTransactionalDetail(uint pqId, uint transId,bool isTransComplete,string bookingReferenceNo);
+        bool UpdatePQTransactionalDetail(uint pqId, uint transId, bool isTransComplete, string bookingReferenceNo);
         bool IsDealerNotified(uint dealerId, string customerMobile, ulong customerId);
         bool IsDealerPriceAvailable(uint versionId, uint cityId);
         uint GetDefaultPriceQuoteVersion(uint modelId, uint cityId);

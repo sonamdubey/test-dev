@@ -180,7 +180,10 @@ namespace Bikewale.Mobile.PriceQuote
                         objPQEntity.ClientIP = CommonOpn.GetClientIP();
                         objPQEntity.SourceId = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["mobileSourceId"]);
                         objPQEntity.VersionId = selectedVersionId;
-
+                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_PQ_Quotation);
+                        objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
                     }
                 }
@@ -226,6 +229,7 @@ namespace Bikewale.Mobile.PriceQuote
             if (!String.IsNullOrEmpty(versionIdd) && versionIdd != "0")
             {
                 ctrlAlternateBikes.VersionId = Convert.ToInt32(versionIdd);
+                ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_PQ_Alternative;
             }
         }
 

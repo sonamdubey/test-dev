@@ -105,7 +105,8 @@ namespace BikewaleAutoSuggest
                         MakeId = bikeItem.MakeId.ToString(),
                         ModelId = bikeItem.ModelId.ToString(),
                         MakeMaskingName = bikeItem.MakeMaskingName,
-                        ModelMaskingName = bikeItem.ModelMaskingName
+                        ModelMaskingName = bikeItem.ModelMaskingName,
+                        Futuristic=bikeItem.Futuristic.ToString()
                     };
 
                     ObjTemp.mm_suggest.Weight = count;
@@ -189,33 +190,33 @@ namespace BikewaleAutoSuggest
                         ObjTemp.mm_suggest.input.Add(tokens[3].Trim());
                         ObjTemp.mm_suggest.input.Add(tokens[4].Trim());
 
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[2].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[2].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[2].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[3].Trim() + " " + tokens[4].Trim());
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[0].Trim(), tokens[1].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[0].Trim(), tokens[2].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[0].Trim(), tokens[3].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[0].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[1].Trim(), tokens[2].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[1].Trim(), tokens[3].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[1].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[2].Trim(), tokens[3].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[2].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1}", tokens[3].Trim(), tokens[4].Trim()));
 
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[2].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[2].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[1].Trim(), tokens[2].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[1].Trim(), tokens[3].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[1].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[2].Trim(), tokens[3].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[2].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[0].Trim(), tokens[3].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[1].Trim(), tokens[2].Trim(), tokens[3].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[1].Trim(), tokens[2].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[1].Trim(), tokens[3].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2}", tokens[2].Trim(), tokens[3].Trim(), tokens[4].Trim()));
 
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
-                        ObjTemp.mm_suggest.input.Add(tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2} {3}", tokens[0].Trim(), tokens[1].Trim(), tokens[2].Trim(), tokens[3].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2} {3}", tokens[0].Trim(), tokens[1].Trim(), tokens[2].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2} {3}", tokens[0].Trim(), tokens[1].Trim(), tokens[3].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2} {3}", tokens[0].Trim(), tokens[2].Trim(), tokens[3].Trim(), tokens[4].Trim()));
+                        ObjTemp.mm_suggest.input.Add(string.Format("{0} {1} {2} {3}", tokens[1].Trim(), tokens[2].Trim(), tokens[3].Trim(), tokens[4].Trim()));
 
                         ObjTemp.mm_suggest.input.Add(tokens[0].Trim() + " " + tokens[1].Trim() + " " + tokens[2].Trim() + " " + tokens[3].Trim() + " " + tokens[4].Trim());
 

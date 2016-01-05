@@ -554,12 +554,18 @@
                             "clientIP": clientIP,
                             "pageUrl": pageUrl,
                             "versionId": versionId,
-                            "cityId": cityId
+                            "cityId": cityId,
+                            "leadSourceId": eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
+                            "deviceId": getCookie('BWC')
                         }
                         $.ajax({
                             type: "POST",
                             url: "/api/PQCustomerDetail/",
                             data: ko.toJSON(objCust),
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('utma', getCookie('__utma'));
+                                xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                            },
                             async: false,
                             contentType: "application/json",
                             success: function (response) {

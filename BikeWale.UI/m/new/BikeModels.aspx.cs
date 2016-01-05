@@ -252,6 +252,7 @@ namespace Bikewale.Mobile.New
             if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
             {
                 ctrlAlternateBikes.VersionId = modelPage.ModelVersions[0].VersionId;
+                ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage_Alternative;
             }
         }
 
@@ -761,6 +762,10 @@ namespace Bikewale.Mobile.New
                     objPQEntity.SourceId = 2;
                     objPQEntity.ModelId = Convert.ToUInt32(modelId);
                     objPQEntity.VersionId = Convert.ToUInt32(variantId);
+                    objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_ModelPage);
+                    objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
+                    objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                    objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (objPQOutput != null)
                     {

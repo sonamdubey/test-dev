@@ -20,7 +20,7 @@
         <div class="final-price-city-area-container">
             <div class="final-price-citySelect" >
                 <div class="form-control-box">
-                    <select data-placeholder="Select City" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: 'Select City', event: { change: cityChangedOnRoad }, chosen: { width: '100%' }"></select> 
+                    <select data-placeholder="Select City" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: 'Select City', event: { change: cityChangedOnRoad }, chosen: { width: '100%' }"></select> 
                     <span class="fa fa-spinner fa-spin position-abt pos-right12 pos-top15 text-black bg-white" style="display:none"></span>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select a city</div>
@@ -28,7 +28,7 @@
             </div>
             <div class="final-price-areaSelect" data-bind="visible: bookingAreas().length > 0">
                 <div class="form-control-box">
-                    <select data-placeholder="Select Area" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: 'Select Area', chosen: { width: '100%' }"></select>
+                    <select data-placeholder="Select Area" class="form-control rounded-corner0" id="ddlAreaOnRoad" tabindex="3" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: 'Select Area', chosen: { width: '100%' }"></select>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select an area</div>
                 </div>
@@ -65,13 +65,10 @@
     function FillCitiesOnRoad(modelId) {
         showHideMatchError(onRoadcity, false);
         $.ajax({
-            type: "POST",
-            url: "/ajaxpro/Bikewale.Ajax.AjaxPriceQuote,Bikewale.ashx",
-            data: '{"modelId":"' + modelId + '"}',
-            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
+            type: "GET",
+            url: "/api/PQCityList/?modelId=" + modelId,
             success: function (response) {
-                var obj = JSON.parse(response);
-                var cities = JSON.parse(obj.value);
+                var cities = response.cities;
                 var citySelected = null; 
                 if (cities) {
                     insertCitySeparator(cities);
@@ -98,13 +95,12 @@
         showHideMatchError(onRoadArea, false);
         if (viewModelOnRoad.selectedCity() != undefined) {
             $.ajax({
-                type: "POST",
-                url: "/ajaxpro/Bikewale.Ajax.AjaxPriceQuote,Bikewale.ashx",
-                data: '{"cityId":"' + viewModelOnRoad.selectedCity() + '","modelId":"' + selectedModel + '"}',
+                type: "GET",
+                url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelOnRoad.selectedCity(),
                 dataType: 'json',
                 beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteArea"); },
                 success: function (response) {
-                    areas = $.parseJSON(response.value);
+                    areas = response.areas;
                     if (areas.length) {
                         viewModelOnRoad.bookingAreas(areas);
                         if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(viewModelOnRoad.bookingAreas(), onCookieObj.PQAreaSelectedId)) {
@@ -167,15 +163,28 @@
 
             //set global cookie
             setLocationCookie($('#ddlCitiesOnRoad option:selected'), $('#ddlAreaOnRoad option:selected'));
+            var obj = {
+                'CityId': viewModelOnRoad.selectedCity(),
+                'AreaId': viewModelOnRoad.selectedArea(),
+                'ModelId': selectedModel,
+                'ClientIP': '',
+                'SourceType': '1',
+                'VersionId': 0,
+                'pQLeadId': '<%= PQSourceId%>',
+                'deviceId': getCookie('BWC')
+            };
 
             $.ajax({
                 type: 'POST',
-                url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
-                data: '{"cityId":"' + cityId + '", "areaId":"' + areaId + '", "modelId":"' + selectedModel + '", "isMobileSource":false}',
+                url: "/api/PriceQuote/",
+                data: obj,
                 dataType: 'json',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('utma', getCookie('__utma'));
+                    xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                },
                 success: function (json) {
-                    var jsonObj = $.parseJSON(json.value);
+                    var jsonObj = json;
 
                     selectedCityName = $("#ddlCitiesOnRoad option:selected").text();
 

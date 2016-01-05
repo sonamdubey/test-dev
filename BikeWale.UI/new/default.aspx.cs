@@ -8,6 +8,7 @@ using Bikewale.controls;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Common;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.New
 {
@@ -39,9 +40,11 @@ namespace Bikewale.New
 
             //to get Most Popular Bikes
             ctrlMostPopularBikes.totalCount = 6;
+            ctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Desktop_New_MostPopular;
 
             //To get Upcoming Bike List Details 
             ctrlNewLaunchedBikes.pageSize = 6;
+            ctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Desktop_New_NewLaunches;
 
             //To get Upcoming Bike List Details 
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
@@ -50,7 +53,9 @@ namespace Bikewale.New
             ctrlNews.TotalRecords = 3;
             ctrlExpertReviews.TotalRecords = 3;
             ctrlVideos.TotalRecords = 3;
-            ctrlCompareBikes.TotalRecords = 4;            
+            ctrlCompareBikes.TotalRecords = 4;
+            
+
         }
     }
 }

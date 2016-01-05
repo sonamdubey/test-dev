@@ -130,7 +130,8 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append("<div style=\"padding:10px 0;\"><p style=\" margin:7px 0;\">Please let us know when customer makes further payment / takes delivery, and we will transfer the pre-booking amount to your bank account.</p>");
                 sb.Append("<p style=\" margin:7px 0;\">Please feel free to call 8828305054 for any queries or help required in the process.</p></div>");
                 sb.Append("<div style=\"padding:10px 0 0;\"><p style=\" margin:5px 0;\">Best Regards,</p><p style=\" margin:5px 0;font-weight:bold; margin:0;\">Team BikeWale</p></div>");
-                sb.Append("</div></div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bottom-shadow.png) center center #eeeeee no-repeat; height:9px; width:100%\"></div></div>");
+                sb.Append("</div><div style=\"margin-top:20px; margin-bottom:10px; max-width:670px;\"><a href=\"https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=&utm_medium=email&utm_campaign=\" target=\"_blank\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bw-footer-banner.jpg\" style=\"border:0; width:100%\"></a>");
+                sb.Append("</div></div></div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bottom-shadow.png) center center #eeeeee no-repeat; height:9px; width:100%\"></div></div>");
             }
             catch (Exception ex)
             {

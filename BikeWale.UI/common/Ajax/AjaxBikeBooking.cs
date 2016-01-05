@@ -26,6 +26,8 @@ namespace Bikewale.Ajax
 {
     public class AjaxBikeBooking
     {
+        // Marked unused By : Sadhana Upadhyay
+#if unused
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Oct 2014
         /// Summary : function to save customer detail
@@ -108,7 +110,7 @@ namespace Bikewale.Ajax
             }
             return isVerified;
         }
-
+#endif
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Oct 2014
         /// Summmary : to update isverified flag in pq_newbikedealerpriceQuote table
@@ -186,7 +188,7 @@ namespace Bikewale.Ajax
                         SMSTypes st = new SMSTypes();
                         st.SMSMobileVerification(mobileVer.CustomerMobile, customerName, mobileVer.CWICode, HttpContext.Current.Request.ServerVariables["URL"].ToString());
                     }
-                    else 
+                    else
                     {
                         isSuccess = objDealer.UpdateIsMobileVerified(pqId);
                         isVerified = true;
@@ -263,7 +265,7 @@ namespace Bikewale.Ajax
         /// <param name="pqId"></param>
         /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public bool PushInquiryInAB(string branchId, string jsonInquiryDetails,uint pqId)
+        public bool PushInquiryInAB(string branchId, string jsonInquiryDetails, uint pqId)
         {
             bool isSuccess = false;
             string abInquiryId = string.Empty;
@@ -471,7 +473,7 @@ namespace Bikewale.Ajax
                     PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
                 }
             }
-            
+
             response = "{\"quoteId\":\"" + objPQOutput.PQId + "\",\"dealerId\":\"" + objPQOutput.DealerId + "\"}";
 
             return response;
