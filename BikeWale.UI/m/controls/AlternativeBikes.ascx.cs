@@ -27,6 +27,7 @@ namespace Bikewale.Mobile.Controls
         public int? Deviation { get; set; }
         public int FetchedRecordsCount { get; set; }
 
+        public int PQSourceId { get; set; }
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);

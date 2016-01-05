@@ -15,6 +15,8 @@ using System;
 using System.Configuration;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Bikewale.Service.Controllers.PriceQuote
 {
@@ -33,7 +35,8 @@ namespace Bikewale.Service.Controllers.PriceQuote
         private readonly IDealer _objDealer = null;
         private readonly IPriceQuote _objPriceQuote = null;
         /// <summary>
-        /// 
+        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
+        /// Summary : To capture device id, utma, utmz, Pq lead id etc.
         /// </summary>
         /// <param name="objAuthCustomer"></param>
         /// <param name="objCustomer"></param>
@@ -103,7 +106,20 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         UInt32 CustomerId = _objCustomer.Add(objCust);
                     }
 
-                    isSuccess = _objDealerPriceQuote.SaveCustomerDetail(input.DealerId, input.PQId, input.CustomerName, input.CustomerMobile, input.CustomerEmail,input.ColorId);
+                    DPQ_SaveEntity entity = new DPQ_SaveEntity()
+                    {
+                        DealerId = input.DealerId,
+                        PQId = input.PQId,
+                        CustomerName = input.CustomerName,
+                        CustomerEmail = input.CustomerEmail,
+                        CustomerMobile = input.CustomerMobile,
+                        ColorId = input.ColorId,
+                        UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
+                        UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
+                        DeviceId = input.DeviceId,
+                        LeadSourceId = input.LeadSourceId
+                    };
+                    isSuccess = _objDealerPriceQuote.SaveCustomerDetail(entity);
 
                     noOfAttempts = _mobileVerRespo.OTPAttemptsMade(input.CustomerMobile, input.CustomerEmail);
 
@@ -129,7 +145,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     {
                         isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
 
-                       // dealer = objBookingPageDetailsDTO.Dealer;
+                        // dealer = objBookingPageDetailsDTO.Dealer;
                         objCust = _objCustomer.GetByEmail(input.CustomerEmail);
 
                         PQ_DealerDetailEntity dealerDetailEntity = null;
@@ -141,9 +157,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                         using (BWHttpClient objClient = new BWHttpClient())
                         {
-                           dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(APIHost.AB, _requestType, _apiUrl, dealerDetailEntity);
+                            dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(APIHost.AB, _requestType, _apiUrl, dealerDetailEntity);
                         }
-                       
+
 
                         if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null)
                         {

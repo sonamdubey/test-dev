@@ -252,6 +252,7 @@ namespace Bikewale.Mobile.New
             if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
             {
                 ctrlAlternateBikes.VersionId = modelPage.ModelVersions[0].VersionId;
+                ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_ModelPage_Alternative;
             }
         }
 

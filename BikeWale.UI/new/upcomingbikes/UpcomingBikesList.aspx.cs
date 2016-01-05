@@ -8,6 +8,7 @@ using Bikewale.Controls;
 using System.Data;
 using System.Data.SqlClient;
 using Bikewale.Memcache;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.New
 {    
@@ -19,6 +20,7 @@ namespace Bikewale.New
         protected string PageNumber = string.Empty, SelectClause = string.Empty, FromClause = string.Empty, WhereClause = string.Empty,
             OrderByClause = string.Empty, BaseUrl = string.Empty, RecordCntQry = string.Empty, prevUrl = string.Empty,nextUrl = string.Empty;
         protected UpcomingBikeSearch UpcomingBikeSearch;
+        protected Bikewale.Controls.NewBikeLaunches ctrl_NewBikeLaunches;
         protected DropDownList drpSort;
         protected HtmlGenericControl alertObj;
 
@@ -41,6 +43,8 @@ namespace Bikewale.New
             //code for device detection added by Ashwini Todkar
             DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
             dd.DetectDevice();
+
+            ctrl_NewBikeLaunches.PQSourceId = (int)PQSourceEnum.Desktop_Upcoming_NewLaunches;
 
             if (!IsPostBack)
             {              

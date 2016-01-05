@@ -555,7 +555,7 @@
                             "pageUrl": pageUrl,
                             "versionId": versionId,
                             "cityId": cityId,
-                            "leadSourceId": eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile); %>"),
+                            "leadSourceId": eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
                             "deviceId": getCookie('BWC')
                         }
                         $.ajax({
