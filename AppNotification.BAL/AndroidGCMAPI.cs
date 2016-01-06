@@ -21,7 +21,6 @@ namespace AppNotification.BAL
        
         public TResponse Request(T t)
         {
-
             string regIds = String.Join(",", t.GCMList.ToArray());
             string postData = GetGCMData(t);
             string postDataContentType = "application/json";
@@ -30,7 +29,6 @@ namespace AppNotification.BAL
             {
                 ResponseText = retVal,
             };
-
             return responseEntity;
         }
 
@@ -67,7 +65,6 @@ namespace AppNotification.BAL
             gcmBaseDataObj.largePicUrl = t.largePicUrl;
             gcmBaseDataObj.isFeatured = t.isFeatured;
             gcmBaseDataObj.publishDate = t.publishDate;
-
             return gcmBaseDataObj;
         }
 
@@ -75,7 +72,6 @@ namespace AppNotification.BAL
         {
             //If SSL certification is self signed then too the following line of code will Validate the server certificate
             ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateServerCertificate);
-
             //  MESSAGE CONTENT
             byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
