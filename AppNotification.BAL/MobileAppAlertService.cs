@@ -22,7 +22,6 @@ namespace AppNotification.BAL
             _mobileAppAlertRepo = mobileAppAlertRepo;
         }
 
-
         public void ProcessRequest(T t)
         {
             try
@@ -66,7 +65,6 @@ namespace AppNotification.BAL
                                     t.ApnsList.Add(arr[0]);
                                 }
                             }
-
                             //if (SendToApple.ToLower() == "true")
                             //{
                             //    _clientApnsService.Request(t);
@@ -77,17 +75,14 @@ namespace AppNotification.BAL
                             }
                             regKeyList.Clear();
                             t.GCMList.Clear();
-
                             t.ApnsList.Clear();
                         }
-
-                        string a = "";
                     }
                 }
             }
             catch (Exception ex)
             {
-                var objErr = new ExceptionHandler(ex, "Carwale.Service.Apple/AndroidPushNotifications");
+                var objErr = new ExceptionHandler(ex, "Bikewale.AppNotification.BAL.ProcessRequest");
                 objErr.LogException();
             }
         }
