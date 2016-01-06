@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" %>
+
 <%@ Import Namespace="WURFL" %>
 <%@ Import Namespace="WURFL.Config" %>
 <%@ Import Namespace="System.Web.Caching" %>
@@ -6,6 +7,12 @@
     //Response.StatusCode = 500;
 %>
 <script runat="server">
+/// <summary>
+/// Modified By :   Sumit Kate on 05 Jan 2016
+/// Description :   Replaced Server.Transfer with Server.TransferRequest
+/// </summary>
+/// <param name="Sender"></param>
+/// <param name="e"></param>
     protected void Page_Load(object Sender, EventArgs e)
     {
         Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
@@ -46,29 +53,27 @@
         {
             //Redirect to mobile website
             //Response.Write("<br/>Redirect to mobile website");
-           // HttpContext.Current.Response.Redirect("/m/pagenotfound.aspx");
-            Server.Transfer("/m/customerror.aspx");
+            //HttpContext.Current.Response.Redirect("/m/pagenotfound.aspx", false);                        
+            Server.TransferRequest("/m/customerror.aspx");            
         }
     }
 </script>
 <!-- #include file="/includes/headhomenoad.aspx" -->
 <style>
-	h1 
-	{ 
-		color:#003366; 
-		font-size:28px;
-		font-weight:bold;
-		font-family:Verdana, Arial, Helvetica, sans-serif;
-		border-bottom:2px solid orange; 
-		margin:10px 10px 10px 0;
-	}
-	
-</style>  
-<div class="container_12">    
-    <div class="content-block" style="min-height:350px;">
-		<h1>Server Error</h1>
-		<%--<h3>Requested page couldn't be found on <a href="/" title="Visit BikeWale home page">BikeWale</a></h3>--%>
-		<%--<div class="text-highlight padding-top10">Possible causes for this inconvenience are:
+    h1 {
+        color: #003366;
+        font-size: 28px;
+        font-weight: bold;
+        font-family: Verdana, Arial, Helvetica, sans-serif;
+        border-bottom: 2px solid orange;
+        margin: 10px 10px 10px 0;
+    }
+</style>
+<div class="container_12">
+    <div class="content-block" style="min-height: 350px;">
+        <h1>Server Error</h1>
+        <%--<h3>Requested page couldn't be found on <a href="/" title="Visit BikeWale home page">BikeWale</a></h3>--%>
+        <%--<div class="text-highlight padding-top10">Possible causes for this inconvenience are:
 			<ul class="std-ul-list content-block">
 				<li>The requested page might have been removed from the server.</li>	
 				<li>The URL might be mis-typed by you.</li>
@@ -81,4 +86,4 @@
     </div>
     <div class="clear"></div>
 </div>
- <!-- #include file="/includes/footerinner.aspx" --> 
+<!-- #include file="/includes/footerinner.aspx" -->

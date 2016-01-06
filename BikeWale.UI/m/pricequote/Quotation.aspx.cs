@@ -22,6 +22,10 @@ using Bikewale.Mobile.Controls;
 
 namespace Bikewale.Mobile.PriceQuote
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 05 Jan 2016
+    /// Description :   Added hasAlternateBikes, hasUpcomingBikes class variables.
+    /// </summary>    
     public class Quotation : System.Web.UI.Page
     {
         IPriceQuote objPriceQuote = null;
@@ -37,7 +41,7 @@ namespace Bikewale.Mobile.PriceQuote
         //protected Repeater rptAllVersions;
 
         protected List<BikeVersionsListEntity> versionList = null;
-
+        protected bool hasAlternateBikes = false, hasUpcomingBikes = false;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -50,6 +54,10 @@ namespace Bikewale.Mobile.PriceQuote
 
         }
 
+        /// <summary>
+        /// Modified by :   Sumit Kate on 05 Jan 2016
+        /// Description :   Set hasAlternateBikes, hasUpcomingBikes class variables.
+        /// </summary>
         protected void ProcessPriceQuoteData()
         {
             using (IUnityContainer container = new UnityContainer())
@@ -83,6 +91,8 @@ namespace Bikewale.Mobile.PriceQuote
                     ctrlUpcomingBikes.pageSize = 6;
                     ctrlUpcomingBikes.MakeId = Convert.ToInt32(objVersionDetails.MakeBase.MakeId);
 
+                    hasAlternateBikes = ctrlAlternateBikes.FetchedRecordsCount > 0;
+                    hasUpcomingBikes = ctrlUpcomingBikes.FetchedRecordsCount > 0;
                     }
                 }
                 else
