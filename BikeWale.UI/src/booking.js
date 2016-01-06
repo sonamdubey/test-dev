@@ -217,7 +217,9 @@ var BookingPageViewModel = function () {
                     "pageUrl": pageUrl,
                     "versionId": self.Bike().selectedVersionId(),
                     "cityId": self.Dealer().CityId(),
-                    "colorId": self.Bike().selectedColorId()
+                    "colorId": self.Bike().selectedColorId(),
+                    "leadSourceId": 2,
+                    "deviceId": getCookie('BWC')
                 }
 
                 $.ajax({
@@ -226,6 +228,10 @@ var BookingPageViewModel = function () {
                     data: ko.toJSON(objCust),
                     async: false,
                     contentType: "application/json",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('utma', getCookie('__utma'));
+                        xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                    },
                     success: function (response) {
                         var obj = ko.toJS(response);
                         self.Customer().IsVerified(obj.isSuccess);
