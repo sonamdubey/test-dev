@@ -248,7 +248,7 @@
                                 gaLabel += ',' + selectedAreaName;
                             }
 
-                            cookieValue = "CityId=" + self.SelectedCityId() + "&AreaId=" + self.SelectedAreaId() + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
+                            cookieValue = "CityId=" + self.SelectedCityId() + "&AreaId=" + (!isNaN(self.SelectedAreaId()) ? self.SelectedAreaId() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
                             SetCookie("_MPQ", cookieValue);
 
                             if (jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {

@@ -194,6 +194,10 @@
                             if (selectedAreaName != '')
                                 gaLabel += ',' + selectedAreaName;
                         }
+
+                        cookieValue = "CityId=" + viewModelPopup.selectedCity() + "&AreaId=" + (!isNaN(viewModelPopup.selectedArea()) ? viewModelPopup.selectedArea() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
+                        SetCookie("_MPQ", cookieValue);
+
                         if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                             gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                             window.location = "/pricequote/dealerpricequote.aspx";
