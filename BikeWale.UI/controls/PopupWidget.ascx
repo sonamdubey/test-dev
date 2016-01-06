@@ -121,6 +121,11 @@
                         viewModelPopup.bookingAreas([]);
                         $('#ddlAreaPopup').trigger("chosen:updated");
                     }
+                },
+                error: function (e) {
+                    viewModelPopup.selectedArea(0);
+                    viewModelPopup.bookingAreas([]);
+                    $('#ddlAreaPopup').trigger("chosen:updated");
                 }
             });
         } else {
