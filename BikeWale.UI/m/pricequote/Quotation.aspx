@@ -98,7 +98,7 @@
             </div>
         </div>
 
-        <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
+        <section class="<%= hasAlternateBikes ? "" : "hide" %>">
             <div class="container margin-bottom30">
                 <div class="grid-12">
                     <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= objVersionDetails.MakeBase.MakeName + " " + objVersionDetails.ModelBase.ModelName  %> alternatives</h2>
@@ -116,7 +116,7 @@
             </div>
         </section>
 
-        <section class="<%= (Convert.ToInt32(ctrlUpcomingBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>">
+         <section class="<%= hasUpcomingBikes ? "" : "hide" %>" ><!--  Upcoming, New Launches and Top Selling code starts here -->        
             <div class="container">
                 <div class="grid-12 margin-bottom30">
                     <h2 class="text-center margin-top30 margin-bottom20">Upcoming <%= objVersionDetails.MakeBase.MakeName %> bikes</h2>

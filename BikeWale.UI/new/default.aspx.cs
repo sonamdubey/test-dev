@@ -21,6 +21,7 @@ namespace Bikewale.New
         protected ExpertReviews ctrlExpertReviews;
         protected VideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
+        protected NewBikesOnRoadPrice NBOnRoadPrice;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -54,8 +55,8 @@ namespace Bikewale.New
             ctrlExpertReviews.TotalRecords = 3;
             ctrlVideos.TotalRecords = 3;
             ctrlCompareBikes.TotalRecords = 4;
-            
 
+            NBOnRoadPrice.PQSourceId = (int)PQSourceEnum.Desktop_New_PQ_Widget;
         }
     }
 }
