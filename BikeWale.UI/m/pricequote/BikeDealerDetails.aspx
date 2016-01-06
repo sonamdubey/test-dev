@@ -421,7 +421,7 @@
 
         <script type="text/javascript">
             //Need to uncomment the below script
-            var thisBikename = '<%= this.bikeName %>';
+            var thisBikename = "<%= this.bikeName %>";
             //select bike version
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
