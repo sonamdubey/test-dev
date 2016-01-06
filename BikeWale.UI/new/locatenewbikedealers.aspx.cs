@@ -11,6 +11,8 @@ using Bikewale.BAL.Dealer;
 using System.Collections.Generic;
 using Bikewale.Entities.Dealer;
 using System.Linq;
+using Bikewale.Controls;
+using Bikewale.Entities.PriceQuote;
 
 
 namespace Bikewale.New
@@ -23,6 +25,7 @@ namespace Bikewale.New
     {
         protected DataList dlShowMakes;
         protected DropDownList cmbCity, cmbMake;
+        protected NewBikeLaunches ctrl_NewBikeLaunches;
 
         protected override void OnInit(EventArgs e)
         {
@@ -45,6 +48,7 @@ namespace Bikewale.New
                 FillMakes();
                 BindControl();
             }
+            ctrl_NewBikeLaunches.PQSourceId = (int)PQSourceEnum.Desktop_LocateDealer_NewLaunches;
         }
 
         private void FillMakes()

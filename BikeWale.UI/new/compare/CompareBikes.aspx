@@ -115,7 +115,7 @@
                                                    <tr>
                                                        <td><strong>Price Rs. <%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></strong><br />
                                                         <span class="<%#String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Price").ToString())?"hide":"" %>">Ex-Showroom, <%= ConfigurationManager.AppSettings["defaultName"].ToString() %></span>
-                                                        <%# DataBinder.Eval(Container.DataItem,"Price").ToString() == "" ? "" : "<div class='la' style='margin-top:5px;'><a pqSourceId='"+ (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_CompareBike +"' class='fillPopupData blue' modelId='"+ DataBinder.Eval(Container.DataItem,"ModelId") +"' href=\"/pricequote/default.aspx?version=" + DataBinder.Eval(Container.DataItem,"BikeVersionId") + "\">Check On-Road Price</a></div>"%>
+                                                        <%# DataBinder.Eval(Container.DataItem,"Price").ToString() == "" ? "" : "<div class='la' style='margin-top:5px;'><a pqSourceId='"+ (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_CompareBike +"' class='fillPopupData blue' modelId='"+ DataBinder.Eval(Container.DataItem,"ModelId") +"' href=\"/pricequote/default.aspx?version=" + DataBinder.Eval(Container.DataItem,"BikeVersionId") + "\">Check On-Road Price</a></div>"%>
                                                        </td>
                                                    </tr>
                                                </table>
