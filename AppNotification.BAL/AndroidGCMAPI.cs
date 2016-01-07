@@ -81,7 +81,7 @@ namespace AppNotification.BAL
             Request.KeepAlive = false;
             Request.ContentType = postDataContentType;
             Request.Headers.Add(String.Format("Authorization: key={0}", apiKey));
-            Request.Headers.Add(string.Format("Sender: id={0}", "491935823116"));
+            Request.Headers.Add(string.Format("Sender: id={0}", ConfigurationManager.AppSettings["SenderId"]));
             Request.ContentLength = byteArray.Length;
             Stream dataStream = Request.GetRequestStream();
             dataStream.Write(byteArray, 0, byteArray.Length);
