@@ -35,12 +35,12 @@ namespace Bikewale.DAL.AppAlert
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "SubscriptionActivity";
+                        cmd.CommandText = "Mobile.SubscriptionActivity";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = con;
 
                         cmd.Parameters.Add("@imei", SqlDbType.VarChar, 50).Value = imei;
-                        cmd.Parameters.Add("@MobileNo", SqlDbType.VarChar, 200).Value = gcmId;
+                        cmd.Parameters.Add("@Gcmid", SqlDbType.VarChar, 200).Value = gcmId;
                         cmd.Parameters.Add("@osType", SqlDbType.TinyInt).Value = osType;
                         cmd.Parameters.Add("@subsMasterId", SqlDbType.Int).Value = subsMasterId;
 
