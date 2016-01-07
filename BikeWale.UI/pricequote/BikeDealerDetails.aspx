@@ -419,7 +419,7 @@
                 applyLazyLoad();
             });
 
-            var thisBikename = '<%= this.bikeName %>';
+            var thisBikename = "<%= this.bikeName %>";
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
             var versionList = JSON.parse($("#hdnBikeData").val());

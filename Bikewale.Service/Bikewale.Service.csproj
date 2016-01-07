@@ -199,6 +199,7 @@
     <Compile Include="AutoMappers\PriceQuote\Version\PQVersionListMapper.cs" />
     <Compile Include="AutoMappers\UsedBikes\PopularUsedBikesMapper.cs" />
     <Compile Include="AutoMappers\Videos\VideosMapper.cs" />
+    <Compile Include="Controllers\AppNotifications\AppAlertController.cs" />
     <Compile Include="Controllers\App\AppVersionCheckController.cs" />
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
@@ -375,8 +376,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
+          <UseIIS>false</UseIIS>
+          <AutoAssignPort>false</AutoAssignPort>
           <DevelopmentServerPort>58667</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9012</IISUrl>
