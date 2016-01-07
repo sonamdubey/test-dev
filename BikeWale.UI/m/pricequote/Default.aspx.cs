@@ -259,17 +259,17 @@ namespace Bikewale.Mobile.PriceQuote
                     if (objPQOutput.DealerId > 0 && objPQOutput.PQId > 0)
                     {
                         // Save pq cookie
-                        PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
-
-                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx", false);
+                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
+                        PriceQuoteQueryString.SaveQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
+                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
                     else if (objPQOutput.PQId > 0)
                     {
-                        PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
-
-                        Response.Redirect("~/m/pricequote/quotation.aspx", false);
+                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
+                        PriceQuoteQueryString.SaveQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
+                        Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }

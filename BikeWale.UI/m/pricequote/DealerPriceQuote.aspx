@@ -643,8 +643,9 @@
                         self.verifyCustomer();
                         if (self.IsValid()) {
                             $("#personalInfo").hide();
-                            $("#leadCapturePopup .leadCapture-close-btn").click();
-                            window.location.href = "/m/pricequote/BikeDealerDetails.aspx";
+                            $("#leadCapturePopup .leadCapture-close-btn").click();                            
+                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
+                            window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ" + Base64.encode(cookieValue);
                         }
                         else {
                             $("#contactDetailsPopup").hide();
@@ -682,9 +683,9 @@
 
                             // OTP Success
                             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
-                            $("#leadCapturePopup .leadCapture-close-btn").click();
-                            window.location.href = "/pricequote/BikeDealerDetails.aspx";
-
+                            $("#leadCapturePopup .leadCapture-close-btn").click();                            
+                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
+                            window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ" + Base64.encode(cookieValue);
                         }
                         else {
                             $('#processing').hide();

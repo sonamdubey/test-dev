@@ -216,15 +216,15 @@
                     }
 
                     cookieValue = "CityId=" + viewModelOnRoad.selectedCity() + "&AreaId=" + (!isNaN(viewModelOnRoad.selectedArea()) ? viewModelOnRoad.selectedArea() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
-                    SetCookie("_MPQ", cookieValue);
+                    //SetCookie("_MPQ", cookieValue);
 
                     if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                         gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
-                        window.location = "/m/pricequote/dealerpricequote.aspx";
+                        window.location = "/m/pricequote/dealerpricequote.aspx?MPQ=" + Base64.encode(cookieValue);
                     }
                     else if (jsonObj != undefined && jsonObj.quoteId > 0) {
                         gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
-                        window.location = "/m/pricequote/quotation.aspx";
+                        window.location = "/m/pricequote/quotation.aspx?MPQ=" + Base64.encode(cookieValue);
                     } else {
                         gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                         $("#errMsgOnRoad").text("Oops. We do not seem to have pricing for given details.").show();

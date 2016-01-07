@@ -34,17 +34,17 @@ namespace Bikewale.Mobile.PriceQuote
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            PqId = Convert.ToUInt32(PriceQuoteCookie.PQId);
-            dealerId = PriceQuoteCookie.DealerId;
-            versionId = PriceQuoteCookie.VersionId;
+            PqId = Convert.ToUInt32(PriceQuoteQueryString.PQId);
+            dealerId = PriceQuoteQueryString.DealerId;
+            versionId = PriceQuoteQueryString.VersionId;
 
-            if (!String.IsNullOrEmpty(dealerId) && Convert.ToUInt32(PriceQuoteCookie.PQId) > 0 && PGCookie.PGTransId != "-1")
+            if (!String.IsNullOrEmpty(dealerId) && Convert.ToUInt32(PriceQuoteQueryString.PQId) > 0 && PGCookie.PGTransId != "-1")
             {
                 GetDetailedQuote();
                 getCustomerDetails();
                 if (objCustomer.IsTransactionCompleted)
                 {
-                    Response.Redirect("/m/pricequote/paymentconfirmation.aspx", false);
+                    Response.Redirect("/m/pricequote/paymentconfirmation.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -86,7 +86,7 @@ namespace Bikewale.Mobile.PriceQuote
                     Amount = objAmount.objBookingAmountEntityBase.Amount,
                     ClientIP = CommonOpn.GetClientIP(),
                     UserAgent = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"],
-                    PGId = Convert.ToUInt64(PriceQuoteCookie.VersionId),
+                    PGId = Convert.ToUInt64(PriceQuoteQueryString.VersionId),
                     CustomerName = objCustomer.objCustomerBase.CustomerName,
                     CustEmail = objCustomer.objCustomerBase.CustomerEmail,
                     CustMobile = objCustomer.objCustomerBase.CustomerMobile,
@@ -123,12 +123,12 @@ namespace Bikewale.Mobile.PriceQuote
 
                 if (transresp == "Transaction Failure" || transresp == "Invalid information!")
                 {
-                    HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/bookingsummary.aspx");
+                    HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/bookingsummary.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString));
                 }
             }
             else
             {
-                HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/bookingsummary.aspx");
+                HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/m/pricequote/bookingsummary.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString));
             }
 
         }
@@ -140,7 +140,7 @@ namespace Bikewale.Mobile.PriceQuote
                 container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                 IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteCookie.PQId));
+                objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteQueryString.PQId));
             }
         }
 
@@ -152,8 +152,8 @@ namespace Bikewale.Mobile.PriceQuote
         {
             bool _isContentFound = true;
             try
-            {                
-                string _apiUrl = "/api/dealers/getdealerbookingamount/?versionId=" + PriceQuoteCookie.VersionId + "&DealerId=" + PriceQuoteCookie.DealerId;                
+            {
+                string _apiUrl = "/api/dealers/getdealerbookingamount/?versionId=" + PriceQuoteQueryString.VersionId + "&DealerId=" + PriceQuoteQueryString.DealerId;                
 
                 using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
                 {

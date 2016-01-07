@@ -69,10 +69,10 @@ namespace Bikewale.Mobile.PriceQuote
                 objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
             }
 
-            if (PriceQuoteCookie.IsPQCoockieExist())
+            if (PriceQuoteQueryString.IsPQQueryStringExists())
             {
-                pqId = Convert.ToUInt64(PriceQuoteCookie.PQId);
-                objVersionDetails = objVersion.GetById(Convert.ToInt32(PriceQuoteCookie.VersionId));
+                pqId = Convert.ToUInt64(PriceQuoteQueryString.PQId);
+                objVersionDetails = objVersion.GetById(Convert.ToInt32(PriceQuoteQueryString.VersionId));
 
                 Trace.Warn("pq id : " + pqId.ToString());
 
@@ -122,8 +122,8 @@ namespace Bikewale.Mobile.PriceQuote
         {
             PriceQuoteParametersEntity objParams = new PriceQuoteParametersEntity();
 
-            objParams.CityId = Convert.ToUInt16(PriceQuoteCookie.CityId);
-            objParams.AreaId = Convert.ToUInt32(PriceQuoteCookie.AreaId);
+            objParams.CityId = Convert.ToUInt16(PriceQuoteQueryString.CityId);
+            objParams.AreaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
             objParams.ClientIP = CommonOpn.GetClientIP();
             objParams.SourceId = Convert.ToUInt16(Bikewale.Common.Configuration.MobileSourceId);
             objParams.VersionId = versionId;
@@ -144,7 +144,7 @@ namespace Bikewale.Mobile.PriceQuote
                     container.RegisterType<IBikeVersions<BikeVersionEntity, uint>, BikeVersions<BikeVersionEntity, uint>>();
                     IBikeVersions<BikeVersionEntity, uint> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, uint>>();
 
-                    versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, Convert.ToInt32(modelId), Convert.ToInt32(PriceQuoteCookie.CityId));
+                    versionList = objVersion.GetVersionsByType(EnumBikeType.PriceQuote, Convert.ToInt32(modelId), Convert.ToInt32(PriceQuoteQueryString.CityId));
 
                     if (versionList.Count > 0)
                     {
@@ -153,7 +153,7 @@ namespace Bikewale.Mobile.PriceQuote
                         ddlVersion.DataTextField = "VersionName";
                         ddlVersion.DataBind();
 
-                        ddlVersion.SelectedValue = PriceQuoteCookie.VersionId;
+                        ddlVersion.SelectedValue = PriceQuoteQueryString.VersionId;
                     }
                 }
             }
@@ -172,7 +172,7 @@ namespace Bikewale.Mobile.PriceQuote
         {
             PQOutputEntity objPQOutput = null;
 
-            uint cityId = Convert.ToUInt32(PriceQuoteCookie.CityId), areaId = Convert.ToUInt32(PriceQuoteCookie.AreaId);
+            uint cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId), areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
             uint selectedVersionId = Convert.ToUInt32(ddlVersion.SelectedValue);
             try
             {
@@ -208,16 +208,17 @@ namespace Bikewale.Mobile.PriceQuote
                 if (objPQOutput.PQId > 0 && objPQOutput.DealerId > 0)
                 {
                     // Save pq cookie
-                    PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());
-
-                    Response.Redirect("/m/pricequote/dealerpricequote.aspx", false);
+                    //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());
+                    PriceQuoteQueryString.SaveQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());
+                    Response.Redirect("/m/pricequote/dealerpricequote.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
                 else if (objPQOutput.PQId > 0)
                 {
-                    PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), string.Empty);
-                    Response.Redirect("/m/pricequote/quotation.aspx", false);
+                    //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), string.Empty);
+                    PriceQuoteQueryString.SaveQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), string.Empty);
+                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }

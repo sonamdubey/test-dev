@@ -14,7 +14,7 @@
     <RootNamespace>Bikewale</RootNamespace>
     <AssemblyName>Bikewale</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -305,6 +305,7 @@
     <Compile Include="common\ManageSeries.cs" />
     <Compile Include="common\ManageVideos.cs" />
     <Compile Include="common\ModelVersionDescription.cs" />
+    <Compile Include="common\PriceQuoteQuerySting.cs" />
     <Compile Include="common\RegisterCustomer.cs" />
     <Compile Include="common\Security.cs" />
     <Compile Include="common\SellInquiry.cs" />
@@ -2441,8 +2442,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>true</UseIIS>
-          <AutoAssignPort>false</AutoAssignPort>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57738</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9011</IISUrl>

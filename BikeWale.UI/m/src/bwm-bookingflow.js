@@ -308,7 +308,8 @@ var BookingPageViewModel = function () {
                         if (obj.isUpdated) {
                             isSuccess = true;
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + self.Dealer().PQId() + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
-                            SetCookie("_MPQ", cookieValue);
+                            //SetCookie("_MPQ", cookieValue);                            
+                            history.replaceState(null, null, "?MPQ=" + Base64.encode(cookieValue));
                             isSuccess = true;
                         }
                         else isSuccess = false;
