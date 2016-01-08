@@ -116,47 +116,25 @@ namespace Bikewale.Utility
             string displayText = string.Empty;
             try
             {
-                string[] array =  BWConfiguration.Instance.BumperOfferCategories.Split(',');
-                if (array.Length > 0)
+                NameValueCollection keyValCollection = ConfigurationManager.GetSection("offerCategory") as NameValueCollection;
+                if (keyValCollection != null)
                 {
-                    List<string> checkList = new List<string>(array);
-                    for (int i = 0; i < checkList.Count; i++)
+                    foreach (var keyp in keyValCollection.AllKeys)
                     {
-                        if (offerText.Contains(checkList[i]))
+                        if (offerText.Contains(keyp))
                         {
-                            displayText = GetDiscountedUItext(i);
+                            displayText = keyValCollection.GetValues(keyp).First();
                             break;
                         }
                     }
                 }
-                return displayText;
             }
             catch
             {
                 return string.Empty;
             }
-        }
-
-        private static string GetDiscountedUItext(int index)
-        {
-            string displayText = string.Empty;
-            switch(index)
-            {
-                case 0:
-                    displayText = "Insurance";
-                    break;
-                case 1:
-                    displayText = "Accessories";
-                    break;
-                case 2:
-                    displayText = "RTO";
-                    break;
-                case 3:
-                    displayText = "Cash Discount";
-                    break;
-            }
-
-            return "Minus " + displayText;
+            displayText = displayText != string.Empty ? "Minus " + displayText : displayText;
+            return displayText;
         }
     }
 }
