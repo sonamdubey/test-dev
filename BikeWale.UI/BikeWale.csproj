@@ -2265,6 +2265,7 @@
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
     <Content Include="src\new\search.js" />
+    <Content Include="src\pace.min.js" />
     <Content Include="src\picker.date.js" />
     <Content Include="src\picker.js" />
     <Content Include="src\pikaday.js" />
@@ -2447,7 +2448,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>57738</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:9011</IISUrl>
+          <IISUrl>http://localhost:9011/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

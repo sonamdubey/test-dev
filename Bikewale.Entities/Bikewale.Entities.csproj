@@ -156,6 +156,8 @@
     <Compile Include="Location\AreaEntityBase.cs" />
     <Compile Include="Location\CityEntityBase.cs" />
     <Compile Include="Location\StateEntityBase.cs" />
+    <Compile Include="MobileAppAlert\MobileAppNotificationBase.cs" />
+    <Compile Include="MobileAppAlert\MobileAppNotifications.cs" />
     <Compile Include="MobileVerification\MobileVerificationEntity.cs" />
     <Compile Include="NewBikeSearch\FilterEnum.cs" />
     <Compile Include="NewBikeSearch\FilterInput.cs" />
