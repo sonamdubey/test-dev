@@ -1,4 +1,5 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Notifications.NotificationDAL;
 using System;
 using System.Collections.Generic;
@@ -438,5 +439,21 @@ namespace Bikewale.Notifications
             message = "BikeWale purchase enquiry: Please call " + customerName + ", " + areaName + ", " + cityName + " at " + customerMobile + " for " + BikeName + " and schedule customer visit.";
             return message;
         }
+
+        public void SaveNewBikePriceQuoteSMSToCustomer(uint pqId, string message, string customerMobile, string requestUrl)
+        {
+            try                
+            {
+                EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer;
+                SavePQNotification obj = new SavePQNotification();
+                obj.SaveCustomerPQSMSTemplate(pqId, message, (int)esms, customerMobile, requestUrl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notifications.SMSTypes.SaveNewBikePriceQuoteSMSToCustomer");
+                objErr.SendMail();
+            }
+        }
+
     }   //End of class
 }   //End of namespace
