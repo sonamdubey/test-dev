@@ -106,6 +106,15 @@
                                         </td>
                                     </tr>
                                     <tr>
+                                        <td colspan="2" class="floatLeft">Is Price Impact</td>
+                                        <td colspan="2" class="floatLeft margin-left10"><asp:CheckBox ID="chkIsPriceImpact" runat="server" /></td>
+                                       <td colspan="2" class="floatLeft margin-left10">
+                                           
+                                        </td>
+                                    </tr>
+                                    </tr>
+ 
+                                    <tr>
                                         <td colspan="6" class="margin10">
                                             <asp:Button ID="btnAdd" Text="Add Offer" OnClientClick="return btnAdd_Click();" runat="server" />
                                         </td>
@@ -142,6 +151,8 @@
                     Offer Valid Till  <span class="errMessage">*</span><dt:DateControl ID="updDtDate" FutureTolerance="2" runat="server" />
                     <div><span id="spnTxtUpdOfferValidity" class="errorMessage"></span></div>
                 </div>
+                <div class="margin-top10">Is Price Impact Value : <input type="checkbox" runat="server" id="chkPopup" /></div>
+
                 <div class="margin-top10">
                     <asp:Button ID="btnUpdate" Text="Update" runat="server" />
                 </div>
@@ -180,6 +191,7 @@
                                 <th>Offer Text</th>
                                 <th>Offer Value</th>
                                 <th>Offer Valid Till [mm/dd/yyyy]</th>
+                                <th>Is Price Impact</th>
                                 <th>Edit</th>
                                 <th>Delete Offer</th>
                             </tr>
@@ -196,6 +208,7 @@
                             <td><%# DataBinder.Eval(Container.DataItem, "OfferText") %></td>
                             <td><%# DataBinder.Eval(Container.DataItem, "OfferValue") %></td>
                             <td><%# DataBinder.Eval(Container.DataItem, "OfferValidTill") %></td>
+                            <td><%# DataBinder.Eval(Container.DataItem, "isPriceImpact") %></td>
                             <td class="update"><a id="update_<%#Eval("OfferId")%>" onclick="javascript:LinkUpdateClick(<%#Eval("OfferId")%>)">Edit</a></td>
                             <td class="delete" style="text-align: center"><a id="delete_<%#Eval("OfferId")%>" onclick="javascript:btnDelete_Click(<%#Eval("OfferId")%>)">Delete</a></td>
                         </tr>
@@ -317,7 +330,6 @@
         }
 
         function btnDelete_Click(offerId) {
-            //$("#row_" + offerId).addClass("yellow");
             var host = '<%=cwHostUrl%>';
             var acknowledge = confirm("Are you sure you want to delete this record");
             if (acknowledge) {
@@ -422,6 +434,8 @@
             $("#updDtDate_cmbDay").val(selectedDay);
             $("#updDtDate_cmbMonth").val(selectedMonth);
             $("#updDtDate_txtYear").val(selectedYear);
+            if ($("#row_" + offerId).find('td').eq(9).html() == 'True')
+                $("#chkPopup").prop('checked', true);
 
             $("#btnUpdate").click(function () {
                 $("#spnTxtUpdOfferType").text("");
@@ -459,11 +473,15 @@
                     $("#spnTxtUpdOfferText").text("Offer Text can't be empty");
                     isError = true;
                 }
-
+                var isPrcImpct = false;
+                if ($("#chkPopup").prop("checked"))
+                {
+                    isPrcImpct = true;
+                }
                 if (!isError) {
                     $.ajax({
                         type: "POST",
-                        url: host + "/api/Dealers/UpdateDealerBikeOffers/?offerId=" + offerId + "&userId=" + <%=userId%> + "&offerCategoryId=" + $("#ddlUpdOffers option:selected").val() + "&offertext=" + encodeURIComponent($("#txtUpdOffer").val()) + "&offerValue=" + $("#txtUpdOfferValue").val() + "&offerValidTill=" + enteredYear + "-" + enteredmonth + "-" + enteredDay,
+                        url: host + "/api/Dealers/UpdateDealerBikeOffers/?offerId=" + offerId + "&userId=" + <%=userId%> + "&offerCategoryId=" + $("#ddlUpdOffers option:selected").val() + "&offertext=" + encodeURIComponent($("#txtUpdOffer").val()) + "&offerValue=" + $("#txtUpdOfferValue").val() + "&offerValidTill=" + enteredYear + "-" + enteredmonth + "-" + enteredDay + "&isPriceImpact=" + isPrcImpct,
                         success: function () {
                             $("#gb-content").html("Offers updated Successfully, Please Close this Box");
                         }
