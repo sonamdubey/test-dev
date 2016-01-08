@@ -186,14 +186,14 @@ namespace Bikewale.Mobile.BikeBooking
         {
             try
             {
-                if (CurrentUser.Id != "-1")
+                if (Bikewale.Common.CurrentUser.Id != "-1")
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
                         ICustomer<CustomerEntity, UInt32> objCust = container.Resolve<ICustomer<CustomerEntity, UInt32>>();
 
-                        objCustomer = objCust.GetById(Convert.ToUInt32(CurrentUser.Id));
+                        objCustomer = objCust.GetById(Convert.ToUInt32(Bikewale.Common.CurrentUser.Id));
                     }
                 }
             }
