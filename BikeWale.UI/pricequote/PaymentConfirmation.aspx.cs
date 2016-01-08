@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Web;
 using System.Web.UI.WebControls;
 using Bikewale.BikeBooking.Common;
+using Bikewale.Utility;
 
 namespace Bikewale.PriceQuote
 {
@@ -50,7 +51,7 @@ namespace Bikewale.PriceQuote
                     }
                     else
                     {
-                        Response.Redirect("/pricequote/bookingsummary.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                        Response.Redirect("/pricequote/bookingsummary.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
@@ -63,7 +64,7 @@ namespace Bikewale.PriceQuote
             }
             else
             {
-                Response.Redirect("/pricequote/quotation.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
