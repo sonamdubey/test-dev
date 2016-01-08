@@ -18,6 +18,7 @@ using Microsoft.Practices.Unity;
 using Bikewale.BAL.Pager;
 using Bikewale.Entities.Pager;
 using System.Threading.Tasks;
+using Bikewale.Utility;
 
 namespace Bikewale.Content
 {
@@ -69,7 +70,12 @@ namespace Bikewale.Content
                 // get pager instance
                 IPager objPager = GetPager();
 
-                int _startIndex = 0, _endIndex = 0, _featuresCategoryId = (int)EnumCMSContentType.Features;
+                int _startIndex = 0, _endIndex = 0;// _featuresCategoryId = (int)EnumCMSContentType.Features;
+
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.Features);
+                categorList.Add(EnumCMSContentType.SpecialFeature);
+                string _featuresCategoryId = CommonApiOpn.GetContentTypesString(categorList);
 
                 objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
                 CMSContent _objFeaturesList = null;
