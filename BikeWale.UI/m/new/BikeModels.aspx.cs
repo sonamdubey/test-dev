@@ -26,6 +26,7 @@ using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Utility;
 
 namespace Bikewale.Mobile.New
 {
@@ -527,7 +528,7 @@ namespace Bikewale.Mobile.New
                         }
                         //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
                         PriceQuoteQueryString.SaveQueryString(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
-                        mpqQueryString = CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString);
+                        mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString);
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients!=null && pqOnRoad.DPQOutput.Varients.Count() > 0)
                         {
                             #region when dealer Price is Available

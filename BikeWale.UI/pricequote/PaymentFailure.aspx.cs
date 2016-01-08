@@ -2,6 +2,7 @@
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Mobile.PriceQuote;
+using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
 using Carwale.Entity.Enum;
@@ -43,7 +44,7 @@ namespace Bikewale.PriceQuote
                 getCustomerDetails();
                 if (objCustomer.IsTransactionCompleted)
                 {
-                    Response.Redirect("/pricequote/paymentconfirmation.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                    Response.Redirect("/pricequote/paymentconfirmation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -177,13 +178,13 @@ namespace Bikewale.PriceQuote
 
                 if (transresp == "Transaction Failure" || transresp == "Invalid information!")
                 {
-                    HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString));
+                    HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString));
                     Trace.Warn("fail");
                 }
             }
             else
             {
-                HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString));
+                HttpContext.Current.Response.Redirect("http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/pricequote/bookingsummary.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString));
                 Trace.Warn("fail");
             }
         }

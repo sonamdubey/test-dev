@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -105,7 +106,7 @@ namespace Bikewale.Common
             {
                 if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
                 {
-                    _queryString = CommonOpn.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"]);
+                    _queryString = EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"]);
                 }
                 return true;
             }

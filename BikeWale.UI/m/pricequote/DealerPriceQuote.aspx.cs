@@ -18,6 +18,7 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.BAL.BikeData;
 using Bikewale.Mobile.Controls;
+using Bikewale.Utility;
 
 namespace Bikewale.Mobile.BikeBooking
 {
@@ -55,7 +56,7 @@ namespace Bikewale.Mobile.BikeBooking
                     dealerId = Convert.ToUInt32(PriceQuoteQueryString.DealerId);
                 else
                 {
-                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -170,7 +171,7 @@ namespace Bikewale.Mobile.BikeBooking
             {
                 if (!isPriceAvailable)
                 {
-                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -282,7 +283,7 @@ namespace Bikewale.Mobile.BikeBooking
                 {
                     //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());
                     PriceQuoteQueryString.SaveQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());
-                    Response.Redirect("/m/pricequote/dealerpricequote.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                    Response.Redirect("/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
@@ -291,7 +292,7 @@ namespace Bikewale.Mobile.BikeBooking
                     // Save pq cookie
                     //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "");
                     PriceQuoteQueryString.SaveQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), "");
-                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                    Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }

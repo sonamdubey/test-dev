@@ -104,7 +104,7 @@ namespace Bikewale.BikeBooking
                             if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
                             {
                                 _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteQueryString.PQId), Entities.PriceQuote.PriceQuoteStates.SuccessfulPayment);
-                                HttpContext.Current.Response.Redirect("/pricequote/paymentconfirmation.aspx?MPQ="+CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                                HttpContext.Current.Response.Redirect("/pricequote/paymentconfirmation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                             }
                             else
                             {
@@ -116,7 +116,7 @@ namespace Bikewale.BikeBooking
                                 {
                                     _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteQueryString.PQId), Entities.PriceQuote.PriceQuoteStates.FailurePayment); 
                                 }
-                                HttpContext.Current.Response.Redirect("/pricequote/paymentfailure.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                                HttpContext.Current.Response.Redirect("/pricequote/paymentfailure.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                             }
                         }
                         if (Request.QueryString["sourceid"].ToString() == "2")
@@ -124,7 +124,7 @@ namespace Bikewale.BikeBooking
                             if (Convert.ToInt16(PGCookie.PGRespCode) == Convert.ToInt16(BillDeskTransactionStatusCode.Successfull))
                             {
                                 _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteQueryString.PQId), Entities.PriceQuote.PriceQuoteStates.SuccessfulPayment);
-                                HttpContext.Current.Response.Redirect("/m/pricequote/paymentconfirmation.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                                HttpContext.Current.Response.Redirect("/m/pricequote/paymentconfirmation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                             }
                             else
                             {
@@ -136,7 +136,7 @@ namespace Bikewale.BikeBooking
                                 {
                                     _objPriceQuote.SaveBookingState(Convert.ToUInt32(PriceQuoteQueryString.PQId), Entities.PriceQuote.PriceQuoteStates.FailurePayment);
                                 }
-                                HttpContext.Current.Response.Redirect("/m/pricequote/paymentfailure.aspx?MPQ=" + CommonOpn.EncodeTo64(PriceQuoteQueryString.QueryString), false);
+                                HttpContext.Current.Response.Redirect("/m/pricequote/paymentfailure.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                             }
                         }
                     }
