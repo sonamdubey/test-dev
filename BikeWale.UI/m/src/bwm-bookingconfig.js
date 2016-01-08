@@ -96,8 +96,8 @@ var BookingConfigViewModel = function () {
                         if (obj.isUpdated) {
                             isSuccess = true;
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
-                            SetCookie("_MPQ", cookieValue);
-                            window.location = '/m/pricequote/bookingSummary_new.aspx';
+                            //SetCookie("_MPQ", cookieValue);
+                            window.location.href = '/m/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
                         }
                         else isSuccess = false;
                     },
@@ -107,7 +107,8 @@ var BookingConfigViewModel = function () {
                 });
             }
             else {
-                window.location = '/m/pricequote/bookingSummary_new.aspx';
+                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
+                window.location.href = '/m/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
                 isSuccess = true;
             }
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_3_Book_Now_Click', 'lab': thisBikename + '_' + getCityArea });
