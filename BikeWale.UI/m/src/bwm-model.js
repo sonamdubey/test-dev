@@ -156,10 +156,10 @@ function CustomerModel() {
         if (ValidateUserDetail()) {
             self.verifyCustomer();
             if (self.IsValid()) {
-                $("#personalInfo").hide();
-                $("#leadCapturePopup .leadCapture-close-btn").click();
                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
                 window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                //$("#personalInfo").hide();
+                //$("#leadCapturePopup .leadCapture-close-btn").click();                
             }
             else {
                 $("#contactDetailsPopup").hide();
@@ -194,11 +194,10 @@ function CustomerModel() {
                 detailsSubmitBtn.show();
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
-
-                // OTP Success
-                $("#leadCapturePopup .leadCapture-close-btn").click();
                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
                 window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                // OTP Success
+                $("#leadCapturePopup .leadCapture-close-btn").click();                
             }
             else {
                 $('#processing').hide();
