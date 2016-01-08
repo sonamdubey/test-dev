@@ -179,6 +179,8 @@
     <Compile Include="PriceQuote\DealerOfferEntity.cs" />
     <Compile Include="PriceQuote\DealerPriceCategoryItemEntity.cs" />
     <Compile Include="PriceQuote\DealerVersionPriceItemEntity.cs" />
+    <Compile Include="PriceQuote\DPQSmsEntity.cs" />
+    <Compile Include="PriceQuote\DPQTypes.cs" />
     <Compile Include="PriceQuote\OfferHtmlEntity.cs" />
     <Compile Include="PriceQuote\OtherVersionInfoEntity.cs" />
     <Compile Include="PriceQuote\PQOnRoadPrice.cs" />

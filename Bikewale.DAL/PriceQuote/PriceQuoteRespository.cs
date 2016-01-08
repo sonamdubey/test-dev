@@ -361,5 +361,57 @@ namespace Bikewale.DAL.PriceQuote
             }
             return isUpdated;
         }
+
+        /// <summary>
+        /// Author          :   Sumit Kate
+        /// Created date    :   08 Jan 2016
+        /// Description     :   Gets the Areaid, cityid, dealerid, bikeversionid by pqid
+        /// This is required to form the PQ Query string
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <returns></returns>
+        public PriceQuoteParametersEntity FetchPriceQuoteDetailsById(ulong pqId)
+        {
+            PriceQuoteParametersEntity objQuotation = null;
+            Database db = null;
+            try
+            {
+                db = new Database();
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "GetPriceQuoteData";
+                        cmd.CommandType = CommandType.StoredProcedure;                        
+
+                        cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            objQuotation = new PriceQuoteParametersEntity();
+                            while (dr.Read())
+                            {
+                                objQuotation.AreaId = Convert.ToUInt32(dr["AreaId"]);
+                                objQuotation.CityId = Convert.ToUInt32(dr["cityid"]);
+                                objQuotation.VersionId = Convert.ToUInt32(dr["BikeVersionId"]);
+                                objQuotation.DealerId = Convert.ToUInt32(dr["DealerId"]);                                
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {                
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objQuotation;
+        }
     }   // Class
 }   // namespace
