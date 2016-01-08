@@ -148,6 +148,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
         private void SaveCustomerSMS(PQUpdateInput input, PQCustomerDetail objCustomer, PQ_DealerDetailEntity dealerDetailEntity)
         {
+            UrlShortner objUrlShortner = new UrlShortner();
             DPQSmsEntity objDPQSmsEntity = new DPQSmsEntity();
             objDPQSmsEntity.CustomerMobile = objCustomer.objCustomerBase.CustomerMobile;
             objDPQSmsEntity.CustomerName = objCustomer.objCustomerBase.CustomerName;
@@ -157,7 +158,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
             PriceQuoteParametersEntity pqEntity = _objPQ.FetchPriceQuoteDetailsById(input.PQId);
             String mpqQueryString = String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", pqEntity.CityId, pqEntity.AreaId, input.PQId, pqEntity.VersionId, pqEntity.DealerId);
-            objDPQSmsEntity.LandingPageShortUrl = String.Format("{0}/pricequote/BikeDealerDetails.aspx?MPQ={1}", BWConfiguration.Instance.BwHostUrl, EncodingDecodingHelper.EncodeTo64(""));
+            objDPQSmsEntity.LandingPageShortUrl = objUrlShortner.GetShortUrl(String.Format("{0}/pricequote/BikeDealerDetails.aspx?MPQ={1}", BWConfiguration.Instance.BwHostUrl, EncodingDecodingHelper.EncodeTo64(mpqQueryString))).Id;
             var platformId = "";
             if (Request.Headers.Contains("platformId"))
             {
