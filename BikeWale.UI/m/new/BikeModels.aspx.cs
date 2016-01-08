@@ -26,6 +26,7 @@ using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Utility;
 
 namespace Bikewale.Mobile.New
 {
@@ -88,7 +89,7 @@ namespace Bikewale.Mobile.New
         protected HiddenField hdnVariant;
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
-
+        protected string mpqQueryString = String.Empty;
         #region Events
         protected override void OnInit(EventArgs e)
         {
@@ -525,7 +526,9 @@ namespace Bikewale.Mobile.New
                             dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
                         }
-                        PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
+                        //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
+                        PriceQuoteQueryString.SaveQueryString(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
+                        mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString);
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients!=null && pqOnRoad.DPQOutput.Varients.Count() > 0)
                         {
                             #region when dealer Price is Available

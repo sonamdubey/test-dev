@@ -103,7 +103,8 @@ function BookingPageVMModel() {
         var isSameVersion = reVersionId.test(getCookie("_MPQ"));
         if (!isSameVersion) {
             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
-            SetCookie("_MPQ", cookieValue);
+            //SetCookie("_MPQ", cookieValue);
+            
             $.ajax({
                 type: "POST",
                 url: "/api/UpdatePQ/",
@@ -118,6 +119,7 @@ function BookingPageVMModel() {
                     return false;
                 }
             });
+            window.location.href = "/m/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(cookieValue);
         }
         if (self.SelectedModelColor() && self.SelectedModelColor() != undefined) {
             self.updateColor(pqId, self.SelectedModelColor().id);

@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using Bikewale.Utility;
 
 namespace Bikewale.Pricequote
 {
@@ -186,7 +187,7 @@ namespace Bikewale.Pricequote
             }
             else
             {
-                Response.Redirect("/pricequote/quotation.aspx", false);
+                Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
@@ -293,12 +294,12 @@ namespace Bikewale.Pricequote
         /// </summary>
         private void ProcessCookie()
         {
-            if (PriceQuoteCookie.IsPQCoockieExist())
+            if (PriceQuoteQueryString.IsPQQueryStringExists())
             {
-                if (UInt32.TryParse(PriceQuoteCookie.PQId, out pqId) && UInt32.TryParse(PriceQuoteCookie.DealerId, out dealerId) && UInt32.TryParse(PriceQuoteCookie.VersionId, out versionId))
+                if (UInt32.TryParse(PriceQuoteQueryString.PQId, out pqId) && UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId))
                 {
-                    cityId = Convert.ToUInt32(PriceQuoteCookie.CityId);
-                    areaId = Convert.ToUInt32(PriceQuoteCookie.AreaId);
+                    cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
+                    areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
 
                     if (dealerId > 0)
                     {

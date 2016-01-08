@@ -34,6 +34,7 @@ using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.BikeBooking;
+using System.Web;
 
 namespace Bikewale.New
 {
@@ -91,6 +92,7 @@ namespace Bikewale.New
 
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
+        protected string mpqQueryString = String.Empty;
         #endregion
 
         public enum Overviews
@@ -419,7 +421,9 @@ namespace Bikewale.New
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + System.Reflection.MethodBase.GetCurrentMethod().Name);
                 objErr.SendMail();
 
-                Response.Redirect("/new/", true);
+                Response.Redirect("/new/", false);
+                HttpContext.Current.ApplicationInstance.CompleteRequest();
+                this.Page.Visible = false;
             }
             finally
             {
@@ -438,17 +442,23 @@ namespace Bikewale.New
                         }
                         else
                         {
-                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                            Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
                         }
                     }
                     else
                     {
-                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                        Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                        HttpContext.Current.ApplicationInstance.CompleteRequest();
+                        this.Page.Visible = false;
                     }
                 }
                 else
                 {
-                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", true);
+                    Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
+                    HttpContext.Current.ApplicationInstance.CompleteRequest();
+                    this.Page.Visible = false;
                 }
             }
         }
@@ -585,7 +595,9 @@ namespace Bikewale.New
                             dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
                         }
-                        PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
+                        //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);                        
+                        PriceQuoteQueryString.SaveQueryString(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
+                        mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString);
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null && pqOnRoad.DPQOutput.Varients.Count() > 0)
                         {
                             #region when dealer Price is Available
