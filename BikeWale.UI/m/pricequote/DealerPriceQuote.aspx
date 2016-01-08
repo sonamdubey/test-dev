@@ -470,8 +470,10 @@
         <script type="text/javascript">
             var bikeName = '<%= BikeName %>';
             var getCityArea = GetGlobalCityArea();
+            var areaId = '<%= areaId %>';
             $('#getDealerDetails,#btnBookBike').click(function () {
-                window.location.href = '/m/pricequote/bookingsummary_new.aspx';
+                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;                
+                window.location.href = '/m/pricequote/bookingsummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
             });
 
             var freeInsurance = $("img.insurance-free-icon");
@@ -645,7 +647,7 @@
                             $("#personalInfo").hide();
                             $("#leadCapturePopup .leadCapture-close-btn").click();                            
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                            window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ" + Base64.encode(cookieValue);
+                            window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
                         }
                         else {
                             $("#contactDetailsPopup").hide();
@@ -685,7 +687,7 @@
                             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
                             $("#leadCapturePopup .leadCapture-close-btn").click();                            
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                            window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ" + Base64.encode(cookieValue);
+                            window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
                         }
                         else {
                             $('#processing').hide();
