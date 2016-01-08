@@ -92,7 +92,9 @@
                                 <ul>
                                     <asp:Repeater ID="rptDealerFinalOffers" runat="server">
                                         <ItemTemplate>
-                                            <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                            <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a>View T&amp;C</a></span>" : "" %>
+                                            </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
@@ -243,6 +245,7 @@
                                 <div class="clear"></div>
                             </div>
 
+
                             <!-- View BreakUp Popup Starts here-->
                             <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
                                 <div class="breakupCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -296,6 +299,19 @@
                             </div>
                             <!--View Breakup popup ends here-->
 
+                            <!-- Terms and condition Popup start -->
+                            <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                                <h3>Terms and Conditions</h3>
+                                <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                    <img src="/images/search-loading.gif" />
+                                </div>
+                                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                                </div>
+                            </div>
+                            <!-- Terms and condition Popup Ends -->
+
                         </div>
                         <div class="clear"></div>
 
@@ -324,7 +340,9 @@
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
                                             <ItemTemplate>
-                                                <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                                <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                    <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a>View T&amp;C</a></span>" : "" %>
+                                                </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
@@ -382,7 +400,7 @@
             var thisBikename = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP %>"; 
             var pageUrl = "<%= pageUrl %>";
-
+            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
             
             //select bike version
             var bikeVersionId = "<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>";
