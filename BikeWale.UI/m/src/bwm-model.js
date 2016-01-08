@@ -195,9 +195,7 @@ function CustomerModel() {
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
                 var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
-                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
-                // OTP Success
-                $("#leadCapturePopup .leadCapture-close-btn").click();                
+                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);                
             }
             else {
                 $('#processing').hide();
