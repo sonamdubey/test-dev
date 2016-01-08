@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeBooking;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -80,6 +81,82 @@ namespace Bikewale.Utility
 
             }
             return retVal;
+        }
+        /// <summary>
+        /// Created By      :    Sangram Nandkhile
+        /// Summary         :    To return list of Items which needs to be deducted from the total Price
+        /// </summary>
+        /// <param name="offers"></param>
+        public static List<PQ_Price> ReturnDiscountPriceList(List<OfferEntity> offers)
+        {
+            List<PQ_Price> discountedPriceList = new List<PQ_Price>();
+            foreach (var offer in offers)
+            {
+                if (offer.IsPriceImpact)
+                {
+                    string displayText =  ContainsAny(offer.OfferText.ToLower());
+                    if (displayText != string.Empty)
+                    {
+                        var priceItem = new PQ_Price();
+                        priceItem.CategoryName = displayText;
+                        priceItem.Price = offer.OfferValue;
+                        discountedPriceList.Add(priceItem);
+                    }
+                }
+            }
+            return discountedPriceList;
+        }
+        /// <summary>
+        /// Check if string has bumper offer categories
+        /// </summary>
+        /// <param name="offerText">Individual offer to be checked</param>
+        /// <returns></returns>
+        public static string ContainsAny(string offerText)
+        {
+            string displayText = string.Empty;
+            try
+            {
+                string[] array =  BWConfiguration.Instance.BumperOfferCategories.Split(',');
+                if (array.Length > 0)
+                {
+                    List<string> checkList = new List<string>(array);
+                    for (int i = 0; i < checkList.Count; i++)
+                    {
+                        if (offerText.Contains(checkList[i]))
+                        {
+                            displayText = GetDiscountedUItext(i);
+                            break;
+                        }
+                    }
+                }
+                return displayText;
+            }
+            catch
+            {
+                return string.Empty;
+            }
+        }
+
+        private static string GetDiscountedUItext(int index)
+        {
+            string displayText = string.Empty;
+            switch(index)
+            {
+                case 0:
+                    displayText = "Insurance";
+                    break;
+                case 1:
+                    displayText = "Accessories";
+                    break;
+                case 2:
+                    displayText = "RTO";
+                    break;
+                case 3:
+                    displayText = "Cash Discount";
+                    break;
+            }
+
+            return "Minus " + displayText;
         }
     }
 }

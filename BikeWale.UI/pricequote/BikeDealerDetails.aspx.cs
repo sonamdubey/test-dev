@@ -11,6 +11,7 @@ using System;
 using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
+using Bikewale.Utility;
 
 namespace Bikewale.Pricequote
 {
@@ -229,10 +230,8 @@ namespace Bikewale.Pricequote
                 {
                     dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
                 }
-
                 if (dealerDetailEntity != null)
                 {
-
                     if (dealerDetailEntity.objQuotation != null)
                     {
                         foreach (var price in dealerDetailEntity.objQuotation.PriceList)
@@ -241,8 +240,10 @@ namespace Bikewale.Pricequote
                             if (isInsuranceFree)
                                 break;
                         }
-                    }
 
+                        if (dealerDetailEntity.objOffers != null && dealerDetailEntity.objOffers.Count > 0)
+                            dealerDetailEntity.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(dealerDetailEntity.objOffers);
+                    }
                 }
             }
             catch (Exception err)

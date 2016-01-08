@@ -18,6 +18,7 @@ using System.Web.UI.WebControls;
 using System.Linq;
 using System.Web.UI.HtmlControls;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Utility;
 
 namespace Bikewale.BikeBooking
 {
@@ -250,6 +251,9 @@ namespace Bikewale.BikeBooking
                             if (isInsuranceFree)
                                 break;
                         }
+
+                        if (dealerDetailEntity.objOffers != null && dealerDetailEntity.objOffers.Count > 0)
+                            dealerDetailEntity.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(dealerDetailEntity.objOffers);
                     }
 
                 }

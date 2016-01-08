@@ -19,6 +19,7 @@ namespace BikeWaleOpr.BikeBooking
     {
         protected DropDownList DropDownMake, DropDownModels, drpCity, drpOffers, ddlUpdOffers, ddlHours, ddlMins,ddlState;
         protected TextBox offerText, txtUpdOffer, offerValue, txtUpdOfferValue;
+        protected CheckBox chkIsPriceImpact;
         protected Button btnAdd, btnUpdate,btnCopyOffers;
         protected string cwHostUrl = string.Empty;
         protected Repeater offer_table;
@@ -306,8 +307,8 @@ namespace BikeWaleOpr.BikeBooking
                     min = ddlMins.SelectedValue; //hdn_ddlMins.Value;
 
                 string fullDate = dtDate.Value.ToString("yyyy-MM-dd") + "T" + hour + ":" + min + ":00";
-
-                string _apiUrl = "/api/Dealers/SaveDealerOffer/?dealerId=" + Request.QueryString["dealerId"] + "&cityId=" + drpCity.SelectedValue + "&userId=" + CurrentUser.Id + "&modelId=" + hdn_modelId.Value + "&offercategoryId=" + drpOffers.SelectedValue + "&offerText=" + Server.UrlEncode(offerText.Text) + "&offerValue=" + offerValue.Text + "&offervalidTill=" + fullDate;
+                bool isPriceImpact = chkIsPriceImpact.Checked;
+                string _apiUrl = "/api/Dealers/SaveDealerOffer/?dealerId=" + Request.QueryString["dealerId"] + "&cityId=" + drpCity.SelectedValue + "&userId=" + CurrentUser.Id + "&modelId=" + hdn_modelId.Value + "&offercategoryId=" + drpOffers.SelectedValue + "&offerText=" + Server.UrlEncode(offerText.Text) + "&offerValue=" + offerValue.Text + "&offervalidTill=" + fullDate +"&isPriceImpact=" + chkIsPriceImpact.Checked;
          
                 Trace.Warn("url : " + cwHostUrl + _apiUrl);
                 // Send HTTP GET requests

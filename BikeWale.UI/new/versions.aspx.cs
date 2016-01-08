@@ -751,6 +751,8 @@ namespace Bikewale.New
                                             }
                                             pqOnRoad.IsInsuranceFree = true;
                                             pqOnRoad.DPQOutput = oblDealerPQ;
+                                            if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count> 0)
+                                               pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers);
                                             pqOnRoad.InsuranceAmount = insuranceAmount;
                                         }
                                     }
