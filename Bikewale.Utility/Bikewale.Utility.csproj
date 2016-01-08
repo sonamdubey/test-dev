@@ -83,6 +83,7 @@
     <Compile Include="SqlReaderConvertor.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="UrlFormatter.cs" />
+    <Compile Include="UrlShortner.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">
