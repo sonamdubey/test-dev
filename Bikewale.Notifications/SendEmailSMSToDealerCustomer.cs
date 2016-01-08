@@ -219,16 +219,16 @@ namespace Bikewale.Notifications
                 switch (DPQType)
                 {
                     case DPQTypes.NoOfferNoBooking:
-                        message = "NoOfferNoBooking";
+                        message = "NoOfferNoBooking " + objDPQSmsEntity.LandingPageShortUrl;
                         break;
                     case DPQTypes.NoOfferOnlineBooking:
-                        message = "NoOfferOnlineBooking";
+                        message = "NoOfferOnlineBooking " + objDPQSmsEntity.LandingPageShortUrl;
                         break;
                     case DPQTypes.OfferNoBooking:
-                        message = "OfferNoBooking";
+                        message = "OfferNoBooking " + objDPQSmsEntity.LandingPageShortUrl;
                         break;
                     case DPQTypes.OfferAndBooking:
-                        message = "OfferAndBooking";
+                        message = "OfferAndBooking " + objDPQSmsEntity.LandingPageShortUrl;
                         break;
                     case DPQTypes.AndroidAppNoOfferNoBooking:
                     case DPQTypes.AndroidAppOfferNoBooking:
