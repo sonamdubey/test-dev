@@ -87,7 +87,7 @@ namespace Bikewale.Utility
         /// Summary         :    To return list of Items which needs to be deducted from the total Price
         /// </summary>
         /// <param name="offers"></param>
-        public static List<PQ_Price> ReturnDiscountPriceList(List<OfferEntity> offers)
+        public static List<PQ_Price> ReturnDiscountPriceList(List<OfferEntity> offers, List<PQ_Price> priceList )
         {
             List<PQ_Price> discountedPriceList = new List<PQ_Price>();
             foreach (var offer in offers)
@@ -99,7 +99,20 @@ namespace Bikewale.Utility
                     {
                         var priceItem = new PQ_Price();
                         priceItem.CategoryName = displayText;
-                        priceItem.Price = offer.OfferValue;
+                        uint calcOfferVal = 0;
+                        if (offer.OfferValue == 0)
+                        {
+                            try
+                            {
+                                calcOfferVal = priceList.Where(p => p.CategoryName.ToLower().Contains(displayText.ToLower())).First().Price;
+                                priceItem.Price = calcOfferVal;
+                            }
+                            catch { }
+                        }
+                        else
+                        {
+                            priceItem.Price = offer.OfferValue;
+                        }
                         discountedPriceList.Add(priceItem);
                     }
                 }
@@ -133,7 +146,7 @@ namespace Bikewale.Utility
             {
                 return string.Empty;
             }
-            displayText = displayText != string.Empty ? "Minus " + displayText : displayText;
+            displayText = displayText != string.Empty ? displayText : displayText;
             return displayText;
         }
     }
