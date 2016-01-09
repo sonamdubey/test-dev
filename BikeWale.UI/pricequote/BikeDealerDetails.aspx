@@ -356,7 +356,15 @@
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
-                                            <!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
+
+                                            <!-- ko foreach: discountList -->
+                                            <tr>
+                                                <td width="350" class="padding-bottom10" data-bind="text: CategoryName"></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                            </tr>
+                                            <!-- /ko -->
+
+                                            <%--<!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>
@@ -371,7 +379,7 @@
                                                 <td class="padding-bottom10">Minus insurance</td>
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
                                             </tr>
-                                            <!-- /ko -->
+                                            <!-- /ko -->--%>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>
@@ -410,6 +418,7 @@
         </section>
 
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
+        <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
@@ -423,6 +432,7 @@
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
             var versionList = JSON.parse($("#hdnBikeData").val());
+            var discountDetail = JSON.parse($("#hdnDiscountList").val());
             var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
             var insAmt = '<%= insuranceAmount %>';

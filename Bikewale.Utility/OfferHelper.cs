@@ -106,6 +106,27 @@ namespace Bikewale.Utility
             }
             return discountedPriceList;
         }
+
+
+        public static List<PQ_Price> ReturnDiscountPriceList(List<OfferEntity> offers, )
+        {
+            List<PQ_Price> discountedPriceList = new List<PQ_Price>();
+            foreach (var offer in offers)
+            {
+                if (offer.IsPriceImpact)
+                {
+                    string displayText = ContainsAny(offer.OfferText.ToLower());
+                    if (displayText != string.Empty)
+                    {
+                        var priceItem = new PQ_Price();
+                        priceItem.CategoryName = displayText;
+                        priceItem.Price = offer.OfferValue;
+                        discountedPriceList.Add(priceItem);
+                    }
+                }
+            }
+            return discountedPriceList;
+        }
         /// <summary>
         /// Check if string has bumper offer categories
         /// </summary>

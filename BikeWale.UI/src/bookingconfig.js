@@ -155,12 +155,25 @@ var BikeDetails = function () {
     self.selectedVersionId = ko.observable(bikeVersionId);
     self.selectedVersion = ko.observable();
     self.versionPriceBreakUp = ko.observableArray([]);
+    self.discountList = ko.observableArray(discountDetail);
     self.bookingAmount = ko.observable();
     self.waitingPeriod = ko.observable();
     self.selectedColorId = ko.observable();
     self.isInsuranceFree = ko.observable(insFree);
     self.insuranceAmount = ko.observable(insAmt); 
     self.priceBreakupText = ko.observable();
+
+    //self.totalDiscount = ko.computed(function () {
+    //    var discountPrice = 0;
+    //    if(discountList() != null)
+    //    {
+    //        for (var discountListItrator in discountList())
+    //        {
+    //            discountPrice discountListItrator.Price;
+    //        }
+    //    }
+        
+    //}, this);
 
     self.versionPrice = ko.computed(function () {
         var priceTxt = '';

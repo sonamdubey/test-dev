@@ -489,7 +489,16 @@
                                     </tr>
                                 </ItemTemplate>
                             </asp:Repeater>
-                            <% if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
+                            <asp:Repeater ID="rptDiscount" runat="server">
+                                <ItemTemplate>
+                                    <tr class="carwale">
+                                        <td width="350" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %></td>
+                                        <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>
+                                            <span><%# GetDiscountPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price")), Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "CategoryId")))  %></span></td>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <%--<% if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
                                {%>
                             <tr>
                                 <td colspan="2">
@@ -505,28 +514,26 @@
                                 <td class="padding-bottom10">Minus insurance</td>
                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %></td>
                             </tr>
-                            <% } %>
+                            <% } %>--%>
                             <tr>
                                 <td colspan="2">
                                     <div class="border-solid-top padding-bottom10"></div>
                                 </td>
                             </tr>
                             <tr>
-                                <!-- ko if :DealerPriceList() -->
                                 <% if (pqOnRoad.DPQOutput.PriceList.Count > 0)
                                    {%>
                                 <td class="padding-bottom10 text-bold">Total on road price</td>
-                                <% if (pqOnRoad.InsuranceAmount > 0)
+                                <%--<% if (pqOnRoad.InsuranceAmount > 0)
                                    {
-                                %>
-                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - pqOnRoad.InsuranceAmount)) %></td>
-                                <% }
+                                %>--%>
+                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - TotalDiscountedPrice())) %></td>
+                                <%--<% }
                                    else
                                    { %>
                                 <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(price) %></td>
+                                <%} %>--%>
                                 <%} %>
-                                <%} %>
-                                <!-- /ko -->
                             </tr>
                             <tr>
                                 <td colspan="2">
