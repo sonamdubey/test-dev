@@ -211,3 +211,6 @@
 
 .offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
+
+li.offertxt .tnc { display:none }  
+li.offertxt:hover .tnc {display:inline}

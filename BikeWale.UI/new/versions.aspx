@@ -399,7 +399,7 @@
                                 <ul class="moreOffersList hide">
                                     <asp:Repeater ID="rptMoreOffers" runat="server">
                                         <ItemTemplate>
-                                            <li>
+                                            <li class="offertxt">
                                                 <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %>
                                                 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View T&amp;C</a></span>" : "" %>
                                             </li>
