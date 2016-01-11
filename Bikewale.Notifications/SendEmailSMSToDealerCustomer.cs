@@ -219,16 +219,16 @@ namespace Bikewale.Notifications
                 switch (DPQType)
                 {
                     case DPQTypes.NoOfferNoBooking:
-                        message = "NoOfferNoBooking " + objDPQSmsEntity.LandingPageShortUrl;
+                        message = String.Format("{0},{1} ({2}) will call you regarding your bike inquiry on BikeWale. For more details, visit {3}", objDPQSmsEntity.DealerName, objDPQSmsEntity.Locality, objDPQSmsEntity.DealerMobile, objDPQSmsEntity.LandingPageShortUrl);
                         break;
                     case DPQTypes.NoOfferOnlineBooking:
-                        message = "NoOfferOnlineBooking " + objDPQSmsEntity.LandingPageShortUrl;
+                        message = String.Format("You can now book {0} by just paying Rs. {1} at your convenience. This amount will be adjusted against the total payment. For more details, visit {2}", objDPQSmsEntity.BikeName, objDPQSmsEntity.BookingAmount, objDPQSmsEntity.LandingPageShortUrl);
                         break;
                     case DPQTypes.OfferNoBooking:
-                        message = "OfferNoBooking " + objDPQSmsEntity.LandingPageShortUrl;
+                        message = String.Format("We are running exciting offers on purchase of {0} from {1},{2}. Hurry! Offer valid till stock lasts. For more details, visit {3}", objDPQSmsEntity.BikeName, objDPQSmsEntity.DealerName, objDPQSmsEntity.Locality, objDPQSmsEntity.LandingPageShortUrl);
                         break;
                     case DPQTypes.OfferAndBooking:
-                        message = "OfferAndBooking " + objDPQSmsEntity.LandingPageShortUrl;
+                        message = String.Format("We are running exciting offers on online booking of {0} at BikeWale. Hurry! Offer valid till stock lasts. For more details, visit {1}", objDPQSmsEntity.BikeName, objDPQSmsEntity.LandingPageShortUrl);
                         break;
                     case DPQTypes.AndroidAppNoOfferNoBooking:
                     case DPQTypes.AndroidAppOfferNoBooking:

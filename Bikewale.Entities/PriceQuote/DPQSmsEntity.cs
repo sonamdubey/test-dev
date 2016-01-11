@@ -17,6 +17,8 @@ namespace Bikewale.Entities.PriceQuote
         public string CustomerMobile { get; set; }
         public string DealerName { get; set; }
         public string Locality { get; set; }
-        public string DealerMobile { get; set; }        
+        public string DealerMobile { get; set; }
+        public string BikeName { get; set; }
+        public UInt32 BookingAmount { get; set; }
     }
 }

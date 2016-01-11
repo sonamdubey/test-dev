@@ -263,7 +263,9 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                 objDPQSmsEntity.DealerMobile = dealerDetailEntity.objDealer.MobileNo;
                 objDPQSmsEntity.DealerName = dealerDetailEntity.objDealer.Name;
                 objDPQSmsEntity.Locality = dealerDetailEntity.objDealer.Address;
-
+                objDPQSmsEntity.BookingAmount = bookingAmount;
+                objDPQSmsEntity.BikeName = String.Format("{0} {1} {2}",dealerDetailEntity.objQuotation.objMake.MakeName, dealerDetailEntity.objQuotation.objModel.ModelName, dealerDetailEntity.objQuotation.objVersion.VersionName);
+                
                 PriceQuoteParametersEntity pqEntity = _objPriceQuote.FetchPriceQuoteDetailsById(input.PQId);
                 String mpqQueryString = String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", pqEntity.CityId, pqEntity.AreaId, input.PQId, pqEntity.VersionId, pqEntity.DealerId);
                 objDPQSmsEntity.LandingPageShortUrl = objUrlShortner.GetShortUrl(String.Format("{0}/pricequote/BikeDealerDetails.aspx?MPQ={1}", BWConfiguration.Instance.BwHostUrl, EncodingDecodingHelper.EncodeTo64(mpqQueryString))).Id;
