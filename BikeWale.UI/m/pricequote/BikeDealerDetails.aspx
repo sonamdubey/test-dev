@@ -336,10 +336,10 @@
                             </div>
 
                             <!-- ko if : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                            <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange btn-full-width" />
+                            <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){ $root.UpdateVersion(data,event); return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange btn-full-width" />
                             <!-- /ko -->
                             <!-- ko ifnot : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                            <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){return $root.bookNow(data,event);}" value="Next" class="btn btn-orange btn-full-width" />
+                            <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){ $root.UpdateVersion(data,event); return $root.bookNow(data,event);}" value="Next" class="btn btn-orange btn-full-width" />
                             <!-- /ko -->
 
 
