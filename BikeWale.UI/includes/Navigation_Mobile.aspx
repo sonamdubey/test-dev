@@ -7,7 +7,7 @@
                 </a>
             </li>
             <li>
-                <a href="http://www.carwale.com/m/autoexpo2016/">
+                <a href="http://www.carwale.com/m/autoexpo2016/" target="_blank">
                     <span class="ae-sprite ae-car-icon"></span>
                     <span class="navbarTitle">Auto Expo 2016</span>
                     <span class="ae-sprite ae-new-label-icon"></span>

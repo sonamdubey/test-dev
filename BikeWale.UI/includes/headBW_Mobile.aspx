@@ -65,7 +65,7 @@
     	<div class="header-fixed"> <!-- Fixed Header code starts here -->
         	<a href="/m/" id="bwheader-logo" class="bwmsprite bw-logo bw-lg-fixed-position"></a>
             <span class="ae-logo-border"></span>
-            <a href="http://www.carwale.com/m/autoexpo2016/" class="ae-sprite ae-logo"></a>
+            <a href="http://www.carwale.com/m/autoexpo2016/" target="_blank" class="ae-sprite ae-logo"></a>
             <div class="leftfloat">
                 <span class="navbarBtn bwmsprite nav-icon margin-right10"></span>                
                 <span id="book-back" class="white-back-arrow margin-right10 leftfloat hide"></span>
