@@ -224,7 +224,7 @@
                             <ul class="pay-and-get-ul">
                                 <asp:Repeater ID="rptDealerOffers" runat="server">
                                     <ItemTemplate>
-                                        <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                        <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
                                             <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View T&amp;C</a></span>" : "" %>
                                         </li>
                                     </ItemTemplate>
@@ -284,7 +284,7 @@
                             <ul>
                                 <asp:Repeater ID="rptDealerFinalOffers" runat="server">
                                     <ItemTemplate>
-                                        <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                        <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
                                             <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View T&amp;C</a></span>" : "" %>
                                         </li>
                                     </ItemTemplate>

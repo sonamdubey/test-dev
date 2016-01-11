@@ -100,3 +100,6 @@ zoom: 1; vertical-align:middle; }
 .termsPopUpCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
 .viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
 .viewterms:hover{text-decoration:underline;}
+
+li.offertxt span { display:none }  
+li.offertxt:hover span {display:inline}
