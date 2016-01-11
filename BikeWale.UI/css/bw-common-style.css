@@ -777,3 +777,12 @@ a.action-btn:hover{text-decoration:none;}
     #ctrlNews .img-preview a img, #ctrlExpertReviews .img-preview a img { width:100%; height:140px; }
     .yt-iframe-preview iframe { height:140px; }
 }
+
+/* AutoExpo classes */
+.ae-sprite {background: url("http://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}
+.ae-logo { background-position:-90px 0px;  width:58px; height:32px; position: relative; top: 2px;}
+.ae-logo-border { border:1px solid #eee; display: inline-block; height: 26px; margin: 0 20px; }
+.ae-car-icon, .ae-new-label-icon { height: 25px; position: relative;top: 5px; } 
+.ae-car-icon {background-position: 0 4px; width: 36px;}
+.ae-new-label-icon{background-position: -156px 1px; height: 24px; top: -10px; left: 5px; width: 39px; }
+/* AutoExpo classes end */
