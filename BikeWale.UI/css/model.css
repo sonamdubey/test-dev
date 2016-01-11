@@ -278,3 +278,6 @@
     .equal-width-list li div { width:165px; }
 
 }
+/* TnC hide*/
+li.offertxt span { display:none }  
+li.offertxt:hover span {display:inline}
