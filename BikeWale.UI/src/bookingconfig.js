@@ -67,7 +67,10 @@ var BookingConfigViewModel = function () {
                     self.CurrentStep(self.CurrentStep() + 1);
                     self.ActualSteps(self.ActualSteps() + 1);
                 }
-               
+                else if (self.CurrentStep() == 3) {
+                    self.CurrentStep(4);
+                    self.ActualSteps(4);
+                }
                 if (self.CurrentStep() == 2) {
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_1_Successful_Submit', 'lab': thisBikename + '_' + getCityArea });
                 }
@@ -90,9 +93,37 @@ var BookingConfigViewModel = function () {
 
     };
 
+    self.UpdateVersion = function (data, event) {
+        url = "/api/UpdatePQ/";
+        var objData = {
+            "pqId": pqId,
+            "versionId": self.Bike().selectedVersionId(),
+        }
+        $.ajax({
+            type: "POST",
+            url: (self.Bike().selectedColorId() > 0) ? url + "?colorId=" + self.Bike().selectedColorId() : url,
+            async: true,
+            data: ko.toJSON(objData),
+            contentType: "application/json",
+            success: function (response) {
+                var obj = ko.toJS(response);
+                if (obj.isUpdated) {
+                    isSuccess = true;
+                    var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
+                    //SetCookie("_MPQ", cookieValue);                    
+                    history.replaceState(null, null, "?MPQ=" + Base64.encode(cookieValue));
+                }
+                else isSuccess = false;
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                isSuccess = false;
+            }
+        });
+}
+
     self.bookNow = function (data, event) {
         var isSuccess = false;
-        if (self.changedSteps() && (self.CurrentStep() == 2 ) ) {
+        if (self.changedSteps() && (self.CurrentStep() > 3) && (self.Bike().bookingAmount() > 0)) {
 
             var curUserOptions = self.Bike().selectedVersionId().toString() + self.Bike().selectedColorId().toString();
             if (self.UserOptions() != curUserOptions) {
@@ -115,9 +146,7 @@ var BookingConfigViewModel = function () {
                             isSuccess = true;
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
                             //SetCookie("_MPQ", cookieValue);
-                            if (self.Bike().bookingAmount() > 0) {
-                                window.location.href = '/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
-                            }                            
+                            window.location.href = '/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
                         }
                         else isSuccess = false;
                     },
@@ -127,8 +156,10 @@ var BookingConfigViewModel = function () {
                 });
             }
             else {
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
-                window.location.href = '/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
+                if ((self.Bike().bookingAmount() > 0)) {
+                    var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
+                    window.location.href = '/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
+                }                
                 isSuccess = true;
             }
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step 3_Book_Now_Click', 'lab': thisBikename + '_' + getCityArea });
@@ -394,42 +425,3 @@ $("#configBtnWrapper input[type='button']").on("mouseout", function () {
 });
 
 
-
-$('.tnc').on('click', function (e) {
-    LoadTerms($(this).attr("id"));
-});
-
-function LoadTerms(offerId) {
-
-    $(".termsPopUpContainer").css('height', '150')
-    $('#termspinner').show();
-    $('#terms').empty();
-    $("#termsPopUpContainer").show();
-    $(".blackOut-window").show();
-
-    var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
-    if (offerId != '' && offerId != null) {
-        $.ajax({
-            type: "GET",
-            url: abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId,
-            dataType: 'json',
-            success: function (response) {
-                $(".termsPopUpContainer").css('height', '500')
-                $('#termspinner').hide();
-                if (response.html != null)
-                    $('#terms').html(response.html);
-            },
-            error: function (request, status, error) {
-                $("div#termsPopUpContainer").hide();
-                $(".blackOut-window").hide();
-            }
-        });
-    }
-    else {
-        setTimeout(LoadTerms, 2000); // check again in a second
-    }
-}
-$(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
-    $("div#termsPopUpContainer").hide();
-    $(".blackOut-window").hide();
-});

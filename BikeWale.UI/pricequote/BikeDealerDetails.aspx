@@ -337,10 +337,10 @@
 
                                 </div>
                                 <!-- ko if : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                                <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange" />
+                                <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){ $root.UpdateVersion(data,event); return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange" />
                                 <!-- /ko -->
                                 <!-- ko ifnot : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                                <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){return $root.bookNow(data,event);}" value="Next" class="btn btn-orange" />
+                                <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){$root.UpdateVersion(data,event); return $root.bookNow(data,event);}" value="Next" class="btn btn-orange" />
                                 <!-- /ko -->
                                 <span class="select-color-warning-tooltip leftfloat">Please select a colour</span>
                                 <span class="clear"></span>
@@ -409,7 +409,6 @@
            <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
                                 <h3>Terms and Conditions</h3>
                                 <div style="vertical-align: middle; text-align: center;" id="termspinner">
-                                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
                                     <img src="/images/search-loading.gif" />
                                 </div>
                                 <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -431,7 +430,6 @@
             $(document).ready(function() {
                 applyLazyLoad();
             });
-
             var thisBikename = "<%= this.bikeName %>";
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
@@ -455,10 +453,7 @@
             var getCityArea = GetGlobalCityArea();
             var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
         </script>
-
-
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>          
-
     </form>
 </body>
 </html>

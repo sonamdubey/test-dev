@@ -289,7 +289,7 @@
                                 <ul>
                                     <asp:Repeater ID="rptDealerOffers" runat="server">
                                         <ItemTemplate>
-                                            <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                            <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
                                                 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View T&amp;C</a></span>" : "" %>
                                             </li>
                                         </ItemTemplate>
@@ -309,7 +309,6 @@
                     </div>
 
                     <div id="configBtnWrapper" data-bind="with: Bike">
-
                         <div class="customize-onRoadPrice-container border-light-top padding-top15 margin-top20">
                             <p class="text-light-grey margin-bottom5 font14">On-road price in <span class="font16 text-bold text-grey"><%= location %></span></p>
                             <div class="modelPriceContainer margin-bottom15">
@@ -321,9 +320,7 @@
                                 <!-- ko ifnot : (versionPrice() - insuranceAmount()) > 0 -->
                                 <span class="font30">Price unavailable</span>
                                 <!-- /ko -->
-
                             </div>
-
                             <div class="disclaimer-onroadprice-container" data-bind="visible : $root.CurrentStep() == 2">
                                 <div class="disclaimer-container text-left">
                                     <h3 class="padding-bottom10 border-light-bottom"><span class="bwmsprite disclaimer-icon margin-left5 margin-right5"></span>Disclaimer:</h3>
@@ -334,17 +331,13 @@
                                     </ul>
                                 </div>
                             </div>
-
                             <!-- ko if : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                            <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange btn-full-width" />
+                            <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){ $root.UpdateVersion(data,event); return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange btn-full-width" />
                             <!-- /ko -->
                             <!-- ko ifnot : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                            <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){return $root.bookNow(data,event);}" value="Next" class="btn btn-orange btn-full-width" />
+                            <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){ $root.UpdateVersion(data,event); return $root.bookNow(data,event);}" value="Next" class="btn btn-orange btn-full-width" />
                             <!-- /ko -->
-
-
                         </div>
-
                         <!-- View BreakUp Popup Starts here-->
                         <div class="breakupPopUpContainer bwm-fullscreen-popup hide" id="breakupPopUpContainer">
                             <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -394,15 +387,11 @@
                                     </tbody>
                                 </table>
                                 <!-- /ko -->
-
                             </div>
                         </div>
                         <!--View Breakup popup ends here-->
                         <div class="clear"></div>
                     </div>
-
-
-
                 </div>
                 <div class="clear"></div>
                 <div class="content-box-shadow content-inner-block-15 margin-top15 margin-bottom15 text-medium-grey text-center" data-bind="visible : $root.CurrentStep()==3">
