@@ -289,7 +289,9 @@
                                 <ul>
                                     <asp:Repeater ID="rptDealerOffers" runat="server">
                                         <ItemTemplate>
-                                            <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                            <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View T&amp;C</a></span>" : "" %>
+                                            </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
@@ -413,6 +415,18 @@
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
+        <!-- Terms and condition Popup start -->
+        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+            <h3>Terms and Conditions</h3>
+            <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                <img src="/images/search-loading.gif" />
+            </div>
+            <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+            </div>
+        </div>
+        <!-- Terms and condition Popup Ends -->
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
 
         <!-- all other js plugins -->
@@ -431,6 +445,7 @@
             var insAmt = '<%= insuranceAmount %>';
             var cityId = '<%= cityId%>';
             var areaId = '<%= areaId%>';
+            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
             var BikeDealerDetails = function () {
                 var self = this;
                 // self.Dealer = ko.observable(objDealer);

@@ -293,7 +293,9 @@
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
                                             <ItemTemplate>
-                                                <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                                <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View T&amp;C</a></span>" : "" %>
+                                                    </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
@@ -403,7 +405,18 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+                <!-- Terms and condition Popup start -->
+           <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                                <h3>Terms and Conditions</h3>
+                                <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                    <img src="/images/search-loading.gif" />
+                                </div>
+                                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                                </div>
+                            </div>
+         <!-- Terms and condition Popup Ends -->
         <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
@@ -440,6 +453,7 @@
                 self.longitude = ko.observable(<%= longitude %>);
             }
             var getCityArea = GetGlobalCityArea();
+            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
         </script>
 
 

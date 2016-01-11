@@ -618,6 +618,7 @@ $(".breakupCloseBtn,.blackOut-window").on('mouseup click', function (e) {
 $(document).on('keydown', function (e) {
     if (e.keyCode === 27) {
         $("div.breakupCloseBtn").click();
+        $("div.termsPopUpCloseBtn").click();
     }
 });
 
@@ -640,4 +641,43 @@ $('#bikeSummaryNextBtn').on('click', function (e) {
 
 $('#deliveryDetailsNextBtn').on('click', function (e) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Page', 'act': 'Step_2_Make_Payment_Click', 'lab': thisBikename + "_" + getCityArea });
+});
+
+$('.tnc').on('click', function (e) {
+    LoadTerms($(this).attr("id"));
+});
+
+function LoadTerms(offerId) {
+
+    $(".termsPopUpContainer").css('height', '150')
+    $('#termspinner').show();
+    $('#terms').empty();
+    $("#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+
+    var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+    if (offerId != '' && offerId != null) {
+        $.ajax({
+            type: "GET",
+            url: abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                $(".termsPopUpContainer").css('height', '500')
+                $('#termspinner').hide();
+                if (response.html != null)
+                    $('#terms').html(response.html);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        setTimeout(LoadTerms, 2000); // check again in a second
+    }
+}
+$(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+    $("div#termsPopUpContainer").hide();
+    $(".blackOut-window").hide();
 });

@@ -385,8 +385,9 @@
                                 <ul>
                                     <asp:Repeater ID="rptOffers" runat="server">
                                         <ItemTemplate>
-                                            <li>
-                                                <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %>
+                                            <li class="offertxt">
+                                                <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText"))%>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View T&amp;C</a></span>" : "" %>
                                                <% if(pqOnRoad.DPQOutput.objOffers.Count > 2)
                                                   { %>
                                                <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
@@ -400,6 +401,7 @@
                                         <ItemTemplate>
                                             <li>
                                                 <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View T&amp;C</a></span>" : "" %>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -647,6 +649,19 @@
                 <!-- otp ends here -->
         </div>
              <!-- lead capture popup End-->
+
+             <!-- Terms and condition Popup start -->
+                                <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                                    <h3>Terms and Conditions</h3>
+                                    <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                        <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                        <img src="/images/search-loading.gif" />
+                                    </div>
+                                    <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                    <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                                    </div>
+                                </div>
+                                <!-- Terms and condition Popup Ends -->
         </section>
         <section>
             <!-- #include file="/ads/Ad970x90_BTF.aspx" -->
