@@ -395,3 +395,42 @@ $("#configBtnWrapper input[type='button']").on("mouseout", function () {
 });
 
 
+
+$('.tnc').on('click', function (e) {
+    LoadTerms($(this).attr("id"));
+});
+
+function LoadTerms(offerId) {
+
+    $(".termsPopUpContainer").css('height', '150')
+    $('#termspinner').show();
+    $('#terms').empty();
+    $("#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+
+    var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+    if (offerId != '' && offerId != null) {
+        $.ajax({
+            type: "GET",
+            url: abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                $(".termsPopUpContainer").css('height', '500')
+                $('#termspinner').hide();
+                if (response.html != null)
+                    $('#terms').html(response.html);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        setTimeout(LoadTerms, 2000); // check again in a second
+    }
+}
+$(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+    $("div#termsPopUpContainer").hide();
+    $(".blackOut-window").hide();
+});

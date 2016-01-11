@@ -92,7 +92,9 @@
                                 <ul>
                                     <asp:Repeater ID="rptDealerFinalOffers" runat="server">
                                         <ItemTemplate>
-                                            <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                            <li> <%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                               <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View T&amp;C</a></span>" : "" %>
+                                            </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
@@ -179,7 +181,7 @@
                                                     <ItemTemplate>
                                                         <li versionid="<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>" data-bind="click: function () { getVersion(<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>); $root.ActualSteps(1); }">
                                                             <p><%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionName") %> </p>
-                                                        </li>
+                                                        </li>xxx
                                                     </ItemTemplate>
                                                 </asp:Repeater>
                                             </ul>
@@ -242,6 +244,7 @@
                                 </ul>
                                 <div class="clear"></div>
                             </div>
+
 
                             <!-- View BreakUp Popup Starts here-->
                             <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
@@ -324,7 +327,9 @@
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
                                             <ItemTemplate>
-                                                <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                                <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                    offers<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a>View T&amp;C</a></span>" : "" %>
+                                                </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
@@ -357,7 +362,18 @@
 
 
         </section>
-
+        <!-- Terms and condition Popup start -->
+           <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                                <h3>Terms and Conditions</h3>
+                                <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                    <img src="/images/search-loading.gif" />
+                                </div>
+                                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                                </div>
+                            </div>
+         <!-- Terms and condition Popup Ends -->
         <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
@@ -382,7 +398,7 @@
             var thisBikename = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP %>"; 
             var pageUrl = "<%= pageUrl %>";
-
+            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
             
             //select bike version
             var bikeVersionId = "<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>";
