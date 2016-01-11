@@ -618,6 +618,7 @@ $(".breakupCloseBtn,.blackOut-window").on('mouseup click', function (e) {
 $(document).on('keydown', function (e) {
     if (e.keyCode === 27) {
         $("div.breakupCloseBtn").click();
+        $("div.termsPopUpCloseBtn").click();
     }
 });
 
@@ -651,7 +652,7 @@ function LoadTerms(offerId) {
     $(".termsPopUpContainer").css('height', '150')
     $('#termspinner').show();
     $('#terms').empty();
-    $("div#termsPopUpContainer").show();
+    $("#termsPopUpContainer").show();
     $(".blackOut-window").show();
 
     var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
@@ -676,3 +677,7 @@ function LoadTerms(offerId) {
         setTimeout(LoadTerms, 2000); // check again in a second
     }
 }
+$(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+    $("div#termsPopUpContainer").hide();
+    $(".blackOut-window").hide();
+});
