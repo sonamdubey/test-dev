@@ -67,10 +67,7 @@ var BookingConfigViewModel = function () {
                     self.CurrentStep(self.CurrentStep() + 1);
                     self.ActualSteps(self.ActualSteps() + 1);
                 }
-                else if (self.CurrentStep() == 3) {
-                    self.CurrentStep(4);
-                    self.ActualSteps(4);
-                }
+               
                 if (self.CurrentStep() == 2) {
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_1_Successful_Submit', 'lab': thisBikename + '_' + getCityArea });
                 }
@@ -95,7 +92,7 @@ var BookingConfigViewModel = function () {
 
     self.bookNow = function (data, event) {
         var isSuccess = false;
-        if (self.changedSteps() && (self.CurrentStep() > 3) && (self.Bike().bookingAmount() > 0)) {
+        if (self.changedSteps() && (self.CurrentStep() == 2 ) ) {
 
             var curUserOptions = self.Bike().selectedVersionId().toString() + self.Bike().selectedColorId().toString();
             if (self.UserOptions() != curUserOptions) {
@@ -118,7 +115,9 @@ var BookingConfigViewModel = function () {
                             isSuccess = true;
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
                             //SetCookie("_MPQ", cookieValue);
-                            window.location.href = '/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
+                            if (self.Bike().bookingAmount() > 0) {
+                                window.location.href = '/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
+                            }                            
                         }
                         else isSuccess = false;
                     },
