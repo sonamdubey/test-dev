@@ -17,6 +17,7 @@ using System.Net.Http;
 using System.Configuration;
 using System.Net.Http.Headers;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Utility;
 
 namespace Bikewale.Mobile.News
 {
@@ -140,9 +141,12 @@ namespace Bikewale.Mobile.News
 
                     int _startIndex = 0, _endIndex = 0;
                     objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
-
+                    List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                    categorList.Add(EnumCMSContentType.News);
+                    categorList.Add(EnumCMSContentType.AutoExpo2016);
+                    string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
                     // Send HTTP GET requests 
-                    HttpResponseMessage response = await client.GetAsync("webapi/article/listbycategory/?applicationid=" + ConfigurationManager.AppSettings["applicationId"] + "&categoryidlist=1&startindex=" + _startIndex + "&endindex=" + _endIndex);
+                    HttpResponseMessage response = await client.GetAsync("webapi/article/listbycategory/?applicationid=" + ConfigurationManager.AppSettings["applicationId"] + "&categoryidlist=" + contentTypeList + "&startindex=" + _startIndex + "&endindex=" + _endIndex);
 
                     response.EnsureSuccessStatusCode();    // Throw if not a success code.
 

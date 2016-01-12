@@ -11,6 +11,8 @@ namespace Bikewale.Entities.Location
     /// <summary>
     /// Modified By : Ashwini Todkar on 24th Oct 2014
     /// Summary : added serializable attribute and json properties
+    /// Modified By :   Sumit Kate on 12 Jan 2016
+    /// Summary     :   Added new property HasAreas
     /// </summary>
     public class CityEntityBase
     {
@@ -26,5 +28,7 @@ namespace Bikewale.Entities.Location
         [JsonProperty("isPopular")]
         public bool IsPopular { get; set; }
 
+        [JsonProperty("hasAreas")]
+        public bool HasAreas { get; set; }
     }
 }

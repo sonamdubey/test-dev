@@ -288,7 +288,7 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append("<div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></div></div><div style=\"padding:10px;\">");
                 sb.Append("<div style=\"color:#666666; padding-bottom:20px;\">Please feel free to call us at 8828305054 for any queries.</div>");
                 sb.Append("<div style=\"color:#666666; padding-bottom:5px;\">Best Regards,</div><div style=\"color:#666666;\">Team BikeWale</div>");
-                sb.Append("</div><div style=\"margin-top:20px; margin-bottom:10px; max-width:670px;\"><a href=\"https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=&utm_medium=email&utm_campaign=\" target=\"_blank\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bw-footer-banner.jpg\" style=\"border:0; width:100%\"></a>");
+                sb.Append("</div><div style=\"margin-top:20px; margin-bottom:10px; max-width:670px;\"><a href=\"https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=PQMailer&utm_medium=email&utm_campaign=DealerPQMail\" target=\"_blank\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bw-footer-banner.jpg\" style=\"border:0; width:100%\"></a>");
                 sb.Append("</div></div></div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bottom-shadow.png) center center no-repeat; height:6px;\"></div>");
             }
             catch (Exception ex)

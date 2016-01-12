@@ -259,19 +259,8 @@
                             <p class="margin-top10 margin-bottom20 clear">
                                 <a class='padding-top10 text-bold' style="position: relative; font-size: 14px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">Save up to 60% on insurance - PolicyBoss
                                 </a>
-                        </p>
+                            </p>
                         <% } %>
-                        <!-- Terms and condition Popup start -->
-                        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
-                            <h3>Terms and Conditions</h3>
-                            <div style="vertical-align: middle; text-align: center;" id="termspinner">
-                                <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
-                                <img src="/images/search-loading.gif" />
-                            </div>
-                            <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
-                            <div id="terms" class="breakup-text-container padding-bottom10 font14">
-                            </div>
-                        </div>
                     </div>
 
                     <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
@@ -291,8 +280,9 @@
                                 <ul class="offersList" style="list-style:none">
                                     <asp:Repeater ID="rptOffers" runat="server">
                                         <ItemTemplate>
-                                            <li>
-                                                <span class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                            <li class="offertxt float-left">
+                                                <span style='display:inline;' class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span  class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
                                                 <% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
                                                    { %>
                                                 <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
@@ -304,8 +294,9 @@
                                 <ul class="moreOffersList hide" style="list-style:none">
                                     <asp:Repeater ID="rptMoreOffers" runat="server">
                                         <ItemTemplate>
-                                            <li>
-                                                <span class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                             <li class="offertxt float-left">
+                                                <span style="display:inline;" class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span  class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -1292,7 +1283,20 @@
                 <!-- OTP Popup ends here -->
             </div>
         </div>
-        <!-- Lead Capture pop up end  -->         
+        <!-- Lead Capture pop up end  -->   
+                                <!-- Terms and condition Popup start -->
+                        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                            <h3>Terms and Conditions</h3>
+                            <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                <img src="/images/search-loading.gif" />
+                            </div>
+                            <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+                            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                            </div>
+                        </div>
+                        <!-- Terms and condition Popup end -->
+                      
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 

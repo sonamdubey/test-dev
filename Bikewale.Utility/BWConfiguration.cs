@@ -16,7 +16,7 @@ namespace Bikewale.Utility
         private static readonly object padlock = new object();
 
         private int nonReadOnlyStatic = 0;
-        
+
         private readonly string _defaultCity = String.Empty,
             _bwconnectionString = String.Empty,
             _cwconnectionString = String.Empty,
@@ -58,7 +58,9 @@ namespace Bikewale.Utility
             _PageSize = String.Empty,
             _StaticFileVersion = String.Empty,
             _apiRequestTypeJSON = String.Empty,
-            _BWSmsQueue = String.Empty;        
+            _BWSmsQueue = String.Empty,
+            _GoogleApiKey = string.Empty;
+       
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -106,6 +108,7 @@ namespace Bikewale.Utility
             _StaticFileVersion = ConfigurationManager.AppSettings["staticFileVersion"];
             _apiRequestTypeJSON = "application/json";
             _BWSmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
+            _GoogleApiKey = ConfigurationManager.AppSettings["APIKey"];
         }
 
         // Static method to provide access to instance
@@ -200,5 +203,6 @@ namespace Bikewale.Utility
         public string StaticFileVersion { get { return _StaticFileVersion; } }
         public string APIRequestTypeJSON { get { return _apiRequestTypeJSON; } }
         public string BWSmsQueue { get { return _BWSmsQueue; } }
+        public string GoogleApiKey { get { return _GoogleApiKey; } }
     }   // class
 }   // namespace

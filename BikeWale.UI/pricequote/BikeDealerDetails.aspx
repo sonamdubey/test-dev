@@ -293,7 +293,9 @@
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
                                             <ItemTemplate>
-                                                <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                                <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                                                    </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
@@ -335,10 +337,10 @@
 
                                 </div>
                                 <!-- ko if : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                                <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange" />
+                                <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){ $root.UpdateVersion(data,event); return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange" />
                                 <!-- /ko -->
                                 <!-- ko ifnot : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                                <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){return $root.bookNow(data,event);}" value="Next" class="btn btn-orange" />
+                                <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){$root.UpdateVersion(data,event); return $root.bookNow(data,event);}" value="Next" class="btn btn-orange" />
                                 <!-- /ko -->
                                 <span class="select-color-warning-tooltip leftfloat">Please select a colour</span>
                                 <span class="clear"></span>
@@ -403,7 +405,17 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+                <!-- Terms and condition Popup start -->
+           <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                                <h3>Terms and Conditions</h3>
+                                <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                    <img src="/images/search-loading.gif" />
+                                </div>
+                                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                                </div>
+                            </div>
+         <!-- Terms and condition Popup Ends -->
         <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
@@ -439,7 +451,6 @@
             $(document).ready(function() {
                 applyLazyLoad();
             });
-
             var thisBikename = "<%= this.bikeName %>";
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
@@ -461,11 +472,9 @@
                 self.longitude = ko.observable(<%= longitude %>);
             }
             var getCityArea = GetGlobalCityArea();
+            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
         </script>
-
-
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>          
-
     </form>
 </body>
 </html>

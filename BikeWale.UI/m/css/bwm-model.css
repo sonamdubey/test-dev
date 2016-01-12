@@ -211,9 +211,11 @@
 
 .offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
-
 #faqSlug .icon-outer-container { width:82px; height:82px; }
 #faqSlug .icon-inner-container { width:72px; height:72px; }
+
+li.offertxt .tnc { display:none }  
+li.offertxt:hover .tnc {display:inline}
 .question-mark-icon { width:22px; height:33px; background-position:-189px -348px; }
 .faq-slug-container { width:100%; }
 .question-icon-container { width:82px; }

@@ -97,8 +97,17 @@
             <td>
                 <span>Rs. </span><span data-bind="text: bookingAmount"></span>
             </td>
-            <td>
+            <%--<td>
                 <div data-bind="text: GetAvailabilty(availability())"></div>
+            </td>--%>
+            <td>
+                <div  data-bind="template: { foreach: availabilityByColor }">
+                    <div style="border-bottom:1px #808080 dashed;margin:10px;" data-bind="attr: {colorId : ColorId}">
+                        <div><span>Color : </span><span data-bind="text:ColorName"></span></div>
+                        <div><span>Availability : </span><span data-bind="text: GetAvailabilty(NoOfDays())"></span></div>
+                        <div style="display:inline-flex;margin-bottom:10px;" data-bind="html: GetColors(HexCode()) "></div>
+                    </div>
+                </div>
             </td>
         </tr>
     </script>
@@ -136,50 +145,29 @@
     });
 
     btnGetPriceQuote.click(function () {
-        var versionId = ddlVersion.val(), areaId = ddlArea.val(),cityId=ddlCity.val();
+        var versionId = ddlVersion.val(), areaId = ddlArea.val(), cityId = ddlCity.val();
         var element = document.getElementById('DealerDetailsList');
 
-        if(versionId>0 && areaId>0)
-        {
+        if (versionId > 0 && areaId > 0) {
             $.ajax({
                 type: "GET",
-                url: abApiHostUrl + "/api/dealerpricequote/GetAllAvailableDealer/?versionid=" + versionId + "&areaid=" + areaId,
+                url: abApiHostUrl + "/api/dealerpricequote/GetAllDealerPriceQuotes/?versionId=" + versionId + "&cityid=" + cityId + "&areaid=" + areaId,
                 datatype: "json",
                 success: function (response) {
-                    if(response!=null)
-                    {
-                        dealerList = JSON.stringify(response).replace(/ /g, '').replace('[', '').replace(']', '');
-                        
-                        if(dealerList.length>0)
-                        {
-                            $.ajax({
-                                type: "GET",
-                                url: abApiHostUrl + "/api/dealerpricequote/GetAllDealerPriceQuotes/?versionId=" + versionId + "&cityid=" + cityId + "&dealerIds=" + dealerList,
-                                datatype: "json",
-                                success: function (response) {
 
-                                    ko.cleanNode(element);
-                                    if (response != null) {
-                                        ko.applyBindings(new DealerViewModel(response), element);
-                                        $('#DealerDetailsList').show();
-                                    }
-                                    else {
-                                        $('#DealerDetailsList').hide();
-                                        alert("No Dealer Present For perticular Area");
-                                    }
-                                }
-                            });
-                        }
+                    ko.cleanNode(element);
+                    if (response != null) {
+                        ko.applyBindings(new DealerViewModel(response), element);
+                        $('#DealerDetailsList').show();
                     }
                     else {
-                        ko.cleanNode(element);
                         $('#DealerDetailsList').hide();
                         alert("No Dealer Present For perticular Area");
                     }
                 }
             });
-        }else
-        {
+        }
+        else {
             alert("Please select all fields.");
         }
     });
@@ -317,6 +305,15 @@
         var thRest = thMatch.exec(price);
         if (!thRest) return price;
         return (thRest[1].replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + thRest[2]);
+    }
+    function GetColors(objColors)
+    {
+        alert('there')
+        var htmlTemp = '';
+        for (var index = 0; index < objColors.length; index++) {
+            htmlTemp += "<div style='margin-right: 10px;border: 1px solid #AAAAAA;width:20px;height:20px;background-color:#" + objColors[index] + "'></div>";
+        }
+        return htmlTemp;
     }
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

@@ -16,6 +16,7 @@ using System.Net.Http;
 using System.Configuration;
 using System.Net.Http.Headers;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Utility;
 
 namespace Bikewale.Mobile.Content
 {
@@ -69,9 +70,14 @@ namespace Bikewale.Mobile.Content
                     // get pager instance
                     IPager objPager = GetPager();
 
-                    int _startIndex = 0, _endIndex = 0, _featuresCategoryId = (int)EnumCMSContentType.Features;
+                    int _startIndex = 0, _endIndex = 0;// _featuresCategoryId = (int)EnumCMSContentType.Features;
 
                     objPager.GetStartEndIndex(_pageSize, curPageNo, out _startIndex, out _endIndex);
+
+                    List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                    categorList.Add(EnumCMSContentType.Features);
+                    categorList.Add(EnumCMSContentType.SpecialFeature);
+                    string _featuresCategoryId = CommonApiOpn.GetContentTypesString(categorList);
 
                     // Send HTTP GET requests 
                     HttpResponseMessage response = await client.GetAsync("webapi/article/listbycategory/?applicationid=" + ConfigurationManager.AppSettings["applicationId"] + "&categoryidlist=" + _featuresCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex);

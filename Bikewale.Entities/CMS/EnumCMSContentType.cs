@@ -20,7 +20,9 @@ namespace Bikewale.Entities.CMS
         PhotoGalleries = 10,
         Videos = 11,
         AutoExpo2014 = 12,
-        AutoExpoMedia = 13
+        AutoExpoMedia = 13,
+        SpecialFeature = 18,
+        AutoExpo2016 = 19
     }
 
 }   // namespace

@@ -337,7 +337,7 @@ namespace Bikewale.Service.Controllers.CMS
                             objCMSFArticles.Content = "";
                         }
                     }
-                    if (objCMSFArticles.CategoryId == (int)EnumCMSContentType.News)
+                    if (objCMSFArticles.CategoryId == (int)EnumCMSContentType.News || objCMSFArticles.CategoryId == (int)EnumCMSContentType.AutoExpo2016)
                     {
                         objCMSFArticles.ShareUrl = String.Format("/news/{0}-{1}.html", basicId, objNews.ArticleUrl);
                     }
