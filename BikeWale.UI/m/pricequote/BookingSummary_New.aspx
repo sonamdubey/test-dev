@@ -433,6 +433,7 @@
 
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
         <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
+        
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
