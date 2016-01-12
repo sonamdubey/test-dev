@@ -62,6 +62,7 @@
     var preSelectedCityName = "";
     var onCookieObj = {};
     var selectedMakeName = '', selectedModelName = '', selectedCityName = '', selectedAreaName = '', gaLabel = '', isModelPage = false;
+    var PQSourceId;
 
     var mPopup = function () {
         var self = this;
@@ -220,14 +221,19 @@
                         'ModelId': (self.SelectedModelId() != undefined) ? self.SelectedModelId() : selectedModel,
                         'ClientIP': '',
                         'SourceType': '2',
-                        'VersionId': 0
+                        'VersionId': 0,
+                        'pQLeadId': PQSourceId,
+                        'deviceId': getCookie('BWC')
                     };
                     $.ajax({
                         type: 'POST',
                         url: "/api/PriceQuote/",
                         data: obj,
                         dataType: 'json',
-                        //beforeSend: function (xhr) { return; },
+                        beforeSend: function (xhr) {
+                            xhr.setRequestHeader('utma', getCookie('__utma'));
+                            xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                        },
                         success: function (json) {
                             var jsonObj = ko.toJS(json);
                             selectedCityName = self.SelectedCity().cityName;
@@ -242,7 +248,7 @@
                                 gaLabel += ',' + selectedAreaName;
                             }
 
-                            cookieValue = "CityId=" + self.SelectedCityId() + "&AreaId=" + self.SelectedAreaId() + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
+                            cookieValue = "CityId=" + self.SelectedCityId() + "&AreaId=" + (!isNaN(self.SelectedAreaId()) ? self.SelectedAreaId() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
                             SetCookie("_MPQ", cookieValue);
 
                             if (jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
@@ -285,7 +291,7 @@
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
             var pageIdAttr = $(this).attr('pagecatid');
-
+            PQSourceId = $(this).attr('pqSourceId');
             var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
             var modelIdPopup = parseInt(str, 10);
             gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);

@@ -89,6 +89,7 @@ namespace Bikewale.Utility
         /// <param name="offers"></param>
         public static List<PQ_Price> ReturnDiscountPriceList(List<OfferEntity> offers, List<PQ_Price> priceList )
         {
+            if (offers == null || priceList == null) return null;
             List<PQ_Price> discountedPriceList = new List<PQ_Price>();
             foreach (var offer in offers)
             {
@@ -104,8 +105,12 @@ namespace Bikewale.Utility
                         {
                             try
                             {
-                                calcOfferVal = priceList.Where(p => p.CategoryName.ToLower().Contains(displayText.ToLower())).First().Price;
-                                priceItem.Price = calcOfferVal;
+                                var selected = priceList.Where(p => p.CategoryName.ToLower().Contains(displayText.ToLower()));
+                                if (selected != null && selected.Count()> 0)
+                                {
+                                    calcOfferVal = selected.First().Price;
+                                    priceItem.Price = calcOfferVal;
+                                }
                             }
                             catch { }
                         }
@@ -119,6 +124,7 @@ namespace Bikewale.Utility
             }
             return discountedPriceList;
         }
+        
         /// <summary>
         /// Check if string has bumper offer categories
         /// </summary>

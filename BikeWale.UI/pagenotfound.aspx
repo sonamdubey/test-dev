@@ -6,6 +6,12 @@
     Response.StatusCode = 404;
 %>
 <script runat="server">
+    /// <summary>
+    /// Modified By :   Sumit Kate on 05 Jan 2016
+    /// Description :   Replaced Server.Transfer with Server.TransferRequest
+    /// </summary>
+    /// <param name="Sender"></param>
+    /// <param name="e"></param>
     protected void Page_Load(object Sender, EventArgs e)
     {
         //Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
@@ -46,8 +52,8 @@
         {
             //Redirect to mobile website
             //Response.Write("<br/>Redirect to mobile website");
-           // HttpContext.Current.Response.Redirect("/m/pagenotfound.aspx");
-            Server.Transfer("/m/pagenotfound.aspx");
+            //HttpContext.Current.Response.Redirect("/m/pagenotfound.aspx",false);            
+            Server.TransferRequest("/m/pagenotfound.aspx");            
         }
     }
 </script>

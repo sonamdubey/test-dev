@@ -3,8 +3,10 @@ using Bikewale.BikeBooking.Common;
 using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -23,6 +25,10 @@ namespace Bikewale.Mobile.PriceQuote
         protected uint totalPrice = 0;
         protected UInt32 insuranceAmount = 0, dealerId = 0;
         protected bool IsInsuranceFree = false;
+        protected IList<PQ_Price> discountsList { get; set; }
+        protected Repeater rptDiscount;
+        protected UInt32 totalDiscount = 0;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -153,7 +159,13 @@ namespace Bikewale.Mobile.PriceQuote
                         {
                             IsInsuranceFree = true;
                         }
-
+                        _objPQ.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(_objPQ.objOffers, _objPQ.objQuotation.PriceList);
+                        if (_objPQ.objQuotation.discountedPriceList != null && _objPQ.objQuotation.discountedPriceList != null)
+                        {
+                            rptDiscount.DataSource = _objPQ.objQuotation.discountedPriceList;
+                            rptDiscount.DataBind();
+                            totalDiscount = TotalDiscountedPrice();
+                        }
                         if (isBasicAvail && isShowroomPriceAvail)
                             totalPrice = totalPrice - exShowroomCost;
 
@@ -232,5 +244,20 @@ namespace Bikewale.Mobile.PriceQuote
                 objErr.SendMail();
             }
         }
+
+        /// <summary>
+        /// Creted By : Lucky Rathore
+        /// Created on : 08 January 2016
+        /// </summary>
+        /// <returns>Total dicount on specific Version.</returns>
+        protected UInt32 TotalDiscountedPrice()
+        {
+            UInt32 totalPrice = 0;
+            foreach (var priceListObj in _objPQ.objQuotation.discountedPriceList)
+            {
+                totalPrice += priceListObj.Price;
+            }
+            return totalPrice;
+        } 
     }
 }

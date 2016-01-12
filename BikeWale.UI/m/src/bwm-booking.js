@@ -182,13 +182,19 @@ function CustomerModel() {
                 "clientIP": clientIP,
                 "pageUrl": pageUrl,
                 "versionId": verId,
-                "cityId": cityId
+                "cityId": cityId,
+                "leadSourceId": 5,
+                "deviceId": getCookie('BWC')
             }
             $.ajax({
                 type: "POST",
                 url: "/api/PQCustomerDetail/",
                 async: false,
                 data: ko.toJSON(objCust),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('utma', getCookie('__utma'));
+                    xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                },
                 contentType: "application/json",
                 success: function (response) {
                     var obj = ko.toJS(response);

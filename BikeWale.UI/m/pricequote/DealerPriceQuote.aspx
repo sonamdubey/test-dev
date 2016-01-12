@@ -253,7 +253,7 @@
                     <%-- Start 102155010 --%>
 
                     <%
-                        if (IsInsuranceFree)
+                        if (IsDiscount)
                         {
                     %>
                     <tr>
@@ -262,16 +262,21 @@
                             <div><span class="fa fa-rupee"></span> <span style="text-decoration: line-through"> <%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td align="left" class="text-medium-grey">Minus Insurance</td>
-                        <td align="right" class="text-grey text-bold">
-                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice(insuranceAmount.ToString()) %></div>
-                        </td>
+                    <asp:Repeater ID="rptDiscount" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td align="left" class="text-medium-grey">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
+                                <td align="right" class="text-grey text-bold"><span class="fa fa-rupee"></span> <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                     <tr align="left">
+                        <td height="1" colspan="2" class="break-line" style="padding: 0 0 10px;"></td>
                     </tr>
                     <tr>
-                        <td align="left" class="text-medium-grey">BikeWale On Road (after insurance offer)</td>
+                        <td align="left" class="text-medium-grey">BikeWale On Road</td>
                         <td align="right" class="text-grey text-bold">
-                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></div>
+                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice((totalPrice - totalDiscount).ToString()) %></div>
 
                         </td>
                     </tr>
@@ -554,12 +559,18 @@
                             "clientIP": clientIP,
                             "pageUrl": pageUrl,
                             "versionId": versionId,
-                            "cityId": cityId
+                            "cityId": cityId,
+                            "leadSourceId": eval("<%= Convert.ToInt16(Bikewale.Entities.BikeBooking.LeadSourceEnum.DealerPQ_Mobile) %>"),
+                            "deviceId": getCookie('BWC')
                         }
                         $.ajax({
                             type: "POST",
                             url: "/api/PQCustomerDetail/",
                             data: ko.toJSON(objCust),
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('utma', getCookie('__utma'));
+                                xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                            },
                             async: false,
                             contentType: "application/json",
                             success: function (response) {

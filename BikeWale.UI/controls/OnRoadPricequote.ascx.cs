@@ -7,9 +7,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
-    public partial class OnRoadPricequote : System.Web.UI.UserControl
+    public class OnRoadPricequote : System.Web.UI.UserControl
     {
         public string PageId { get; set; }
+        public int PQSourceId { get; set; }
 
         protected override void OnInit(EventArgs e)
         {

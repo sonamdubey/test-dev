@@ -37,6 +37,8 @@ namespace Bikewale.BAL.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 29 Oct 2014
         /// Summary :  to save customer detail in newbikedealerpricequote table
+        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
+        /// Summary : replace parameters with entity
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -44,11 +46,11 @@ namespace Bikewale.BAL.BikeBooking
         /// <param name="customerMobile"></param>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail, uint? colorId)
+        public bool SaveCustomerDetail(DPQ_SaveEntity entity)
         {
             bool isSuccess = false;
 
-            isSuccess = dealerPQRepository.SaveCustomerDetail(dealerId, pqId, customerName, customerMobile, customerEmail,colorId);
+            isSuccess = dealerPQRepository.SaveCustomerDetail(entity);
 
             return isSuccess;
         }
@@ -317,9 +319,9 @@ namespace Bikewale.BAL.BikeBooking
 
             try
             {
-                if(PQParams.VersionId <= 0)
+                if (PQParams.VersionId <= 0)
                 {
-                    PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);                    
+                    PQParams.VersionId = dealerPQRepository.GetDefaultPriceQuoteVersion(PQParams.ModelId, PQParams.CityId);
                 }
 
                 if (PQParams.VersionId > 0 && PQParams.AreaId > 0)
@@ -333,7 +335,7 @@ namespace Bikewale.BAL.BikeBooking
                     }
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 dealerId = 0;
                 ErrorClass objErr = new ErrorClass(ex, "ProcessPQ ex : " + ex.Message);

@@ -11,6 +11,7 @@ using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Customer;
 using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.PriceQuote;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Bikewale.BikeBooking
 {
     public class DealerPriceQuote : System.Web.UI.Page
     {
-        protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers;
+        protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers, rptDiscount;
         protected DropDownList ddlVersion;
         protected HtmlGenericControl div_GetPQ, div_ShowErrorMsg;
 
@@ -41,7 +42,9 @@ namespace Bikewale.BikeBooking
         protected string pqId = string.Empty, areaId = string.Empty, BikeName = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;
         protected UInt32 insuranceAmount = 0;
+        protected UInt32 totalDiscount = 0;
         protected bool IsInsuranceFree = false;
+        protected bool IsDiscount = false;
         protected CustomerEntity objCustomer = new CustomerEntity();
         protected string cityArea = string.Empty;
         protected uint bookingAmount = 0;
@@ -152,6 +155,14 @@ namespace Bikewale.BikeBooking
                         rptOffers.DataBind();
                     }
 
+                    if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
+                    {
+                        objPrice.discountedPriceList = OfferHelper.ReturnDiscountPriceList(objPrice.objOffers, objPrice.PriceList);
+                        rptDiscount.DataSource = objPrice.discountedPriceList;
+                        rptDiscount.DataBind();
+                        IsDiscount = true;
+                        totalDiscount = TotalDiscountedPrice();
+                    }
                     if (objPrice.Varients != null && objPrice.Varients.Count() > 0)
                     {
                         foreach (var i in objPrice.Varients)
@@ -192,14 +203,14 @@ namespace Bikewale.BikeBooking
         {
             try
             {
-                if (CurrentUser.Id != "-1")
+                if (Bikewale.Common.CurrentUser.Id != "-1")
                 {
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<ICustomer<CustomerEntity, UInt32>, Customer<CustomerEntity, UInt32>>();
                         ICustomer<CustomerEntity, UInt32> objCust = container.Resolve<ICustomer<CustomerEntity, UInt32>>();
 
-                        objCustomer = objCust.GetById(Convert.ToUInt32(CurrentUser.Id));
+                        objCustomer = objCust.GetById(Convert.ToUInt32(Bikewale.Common.CurrentUser.Id));
                     }
                 }
             }
@@ -267,7 +278,10 @@ namespace Bikewale.BikeBooking
                         objPQEntity.ClientIP = CommonOpn.GetClientIP();
                         objPQEntity.SourceId = Convert.ToUInt16(System.Configuration.ConfigurationManager.AppSettings["sourceId"]);
                         objPQEntity.VersionId = selectedVersionId;
-
+                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Desktop_DPQ_Quotation);
+                        objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
                     }
                 }
@@ -335,6 +349,7 @@ namespace Bikewale.BikeBooking
             if (!String.IsNullOrEmpty(versionId) && versionId!="0")
             {
                 ctrlAlternativeBikes.VersionId = Convert.ToInt32(versionId);
+                ctrlAlternativeBikes.PQSourceId = (int)PQSourceEnum.Desktop_DPQ_Alternative;
             }
         }
 
@@ -357,6 +372,16 @@ namespace Bikewale.BikeBooking
             }
             return string.Empty;
         }
+
+        private UInt32 TotalDiscountedPrice()
+        {
+            UInt32 totalPrice = 0;
+            foreach (var priceListObj in objPrice.discountedPriceList)
+            {
+                totalPrice += priceListObj.Price;
+            }
+            return totalPrice;
+        } 
 
 
     }   //End of Class

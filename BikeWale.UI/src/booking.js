@@ -198,6 +198,7 @@ var BookingPageViewModel = function () {
         }
 
     };
+    
 
     self.verifyCustomer = function (data, event) {
         var isSuccess = false, validate = validateUserDetail();
@@ -217,7 +218,9 @@ var BookingPageViewModel = function () {
                     "pageUrl": pageUrl,
                     "versionId": self.Bike().selectedVersionId(),
                     "cityId": self.Dealer().CityId(),
-                    "colorId": self.Bike().selectedColorId()
+                    "colorId": self.Bike().selectedColorId(),
+                    "leadSourceId": 2,
+                    "deviceId": getCookie('BWC')
                 }
 
                 $.ajax({
@@ -226,6 +229,10 @@ var BookingPageViewModel = function () {
                     data: ko.toJSON(objCust),
                     async: false,
                     contentType: "application/json",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('utma', getCookie('__utma'));
+                        xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                    },
                     success: function (response) {
                         var obj = ko.toJS(response);
                         self.Customer().IsVerified(obj.isSuccess);
@@ -427,6 +434,20 @@ var BikeDetails = function () {
     self.selectedColorId = ko.observable(0);
     self.isInsuranceFree = ko.observable(insFree);
     self.insuranceAmount = ko.observable(insAmt);
+    self.discountList = ko.observableArray(discountDetail);
+
+    self.totalDiscount = ko.computed(function () {
+        var discount = 0;
+        if (self.discountList() != undefined && self.discountList().length > 0) {
+            var vlen = self.discountList().length;
+            for (i = 0; i < vlen ; i++) {
+                discount += self.discountList()[i].Price;
+            }
+        }
+        console.log(discount);
+        return discount;
+    }, this);
+
     self.bikeImageUrl = ko.computed(function () {
         if (self.selectedVersion() != undefined) {
             return (self.selectedVersion().HostUrl + "/310x174/" + self.selectedVersion().ImagePath);
@@ -458,9 +479,8 @@ var BikeDetails = function () {
     self.remainingAmount = ko.computed(function () {
         if (self.selectedVersion() != undefined && self.selectedVersion().OnRoadPrice > 0) {
 
-            var _remainingAmount = self.selectedVersion().OnRoadPrice - self.selectedVersion().BookingAmount;
-            if (self.isInsuranceFree())
-                _remainingAmount = _remainingAmount - self.insuranceAmount();
+            var _remainingAmount = 0;
+            _remainingAmount = self.selectedVersion().OnRoadPrice - self.selectedVersion().BookingAmount - self.totalDiscount();
             return _remainingAmount;
         }
         return "Not available";

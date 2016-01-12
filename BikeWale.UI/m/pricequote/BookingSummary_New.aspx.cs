@@ -7,6 +7,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
 using Carwale.Entity.PaymentGateway;
@@ -186,6 +187,9 @@ namespace Bikewale.Mobile.PriceQuote
                 {
                     BindDealerOffers();
                 }
+                if (dealerDetailEntity.objOffers != null && dealerDetailEntity.objOffers.Count > 0)
+                    dealerDetailEntity.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(dealerDetailEntity.objOffers, dealerDetailEntity.objQuotation.PriceList);
+                    
 
             }
             else
