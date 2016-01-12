@@ -680,3 +680,15 @@ $(".termsPopUpCloseBtn").on('mouseup click', function (e) {
     $("div#termsPopUpContainer").hide();
     $(".blackOut-window").hide();
 });
+
+//For Cancellation popup
+$("#cancellationLink").click(function () {
+    $(".cancellation-popup").show();
+    $(".blackOut-window").show();
+});
+
+$(".cancellation-close-btn, .blackOut-window").on('mouseup click', function (e) {
+    $(".cancellation-popup").hide();
+    $(".blackOut-window").hide();
+});
+

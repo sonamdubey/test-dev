@@ -178,7 +178,7 @@
                                         <div class="select-dropdown-list hide">
                                             <ul>
                                                 <asp:Repeater ID="rptVarients" runat="server">
-                                                    <ItemTemplate>
+                                                    <ItemTemplate>  .
                                                         <li versionid="<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>" data-bind="click: function () { getVersion(<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>); $root.ActualSteps(1); }">
                                                             <p><%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionName") %> </p>
                                                         </li>
@@ -233,6 +233,7 @@
                                             <span class="fa fa-rupee"></span>
                                             <span data-bind="CurrencyText: ($root.Bike().bookingAmount()> 0)?$root.Bike().bookingAmount():'Price unavailable'"></span>
                                         </div>
+                                        <a class='viewBreakupText blue' id="cancellation-box" href="#">Hassle-free Cancellation</a>
                                     </li>
                                     <li>
                                         <p>Balance amount payable:</p>
@@ -374,6 +375,28 @@
                                 </div>
                             </div>
          <!-- Terms and condition Popup Ends -->
+        <!--cancellation popup starts here-->
+            <div class="bw-popup bw-popup-lg cancellation-popup hide">
+    	        <div class="popup-inner-container">
+                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+        	        <h2>Cancellation & Refund Policy</h2>
+                    <div class="popup-inner-content cancellation-list">
+            	        <ul>
+                             <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of pre-booking the vehicle.</strong> </li>               	
+                             <li><strong>b.</strong> Please email your <strong>Pre-Booking Cancellation Request'</strong> to <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating <strong>the booking reference number, your mobile number and email address (that you used while pre-booking).</strong></li>
+
+                            <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
+                                of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
+                                submitting any documents, procurement of the vehicle by the dealership etc.
+                            </li>
+                            <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s pre-booking, cancellation will not be possible.</li>
+                	
+                	        <li><strong>e.</strong> For all valid requests, we will process the refund of full pre-booking amount to customer's account within 7 working days.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--cancellation popup ends here-->
         <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
