@@ -13,6 +13,7 @@ using Carwale.DAL.PaymentGateway;
 using Carwale.Entity.PaymentGateway;
 using Carwale.Interfaces.PaymentGateway;
 using Microsoft.Practices.Unity;
+using Newtonsoft.Json;
 using System;
 using System.Configuration;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace Bikewale.Mobile.PriceQuote
     public class BookingSummary_New : System.Web.UI.Page
     {
         protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
-        protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty;
+        protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty, jsonBikeVarients = String.Empty, jsonBikeColorAvailability = String.Empty;
         protected Repeater rptVarients = null, rptVersionColors = null, rptDealerOffers = null, rptPriceBreakup = null, rptDealerFinalOffers = null;
         protected BikeDealerPriceDetailDTO selectedVarient = null;
         protected DDQDealerDetailBase DealerDetails = null;
@@ -251,6 +252,11 @@ namespace Bikewale.Mobile.PriceQuote
                         }
                     }
 
+                    if (dealerDetailEntity.objAvailableBikeColor != null && dealerDetailEntity.objAvailableBikeColor.Count() > 0)
+                    {
+                        jsonBikeColorAvailability = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(dealerDetailEntity.objAvailableBikeColor));
+                    }
+
                 }
             }
             catch (Exception err)
@@ -277,6 +283,7 @@ namespace Bikewale.Mobile.PriceQuote
                 var data = (objBooking.Varients).Where(v => v.BookingAmount > 0);
                 rptVarients.DataSource = data;
                 rptVarients.DataBind();
+                jsonBikeVarients = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(objBooking.Varients));
 
                 if (objBooking.Varients.FirstOrDefault().Make != null && objBooking.Varients.FirstOrDefault().Model != null)
                 {

@@ -17,5 +17,6 @@ namespace Bikewale.Entities.BikeBooking
         public List<FacilityEntity> objFacilities { get; set; }
         public EMI objEmi { get; set; }
         public BookingAmountEntityBase objBookingAmt { get; set; }
+        public IEnumerable<BikeAvailabilityByColor> objAvailableBikeColor { get; set; }
     }
 }

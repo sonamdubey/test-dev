@@ -179,6 +179,7 @@ var BookingPageViewModel = function () {
     self.UserOptions = ko.observable();
     self.ActualSteps = ko.observable(1);
     self.CustomerInfo = ko.observable();
+    self.BikeColors = ko.observableArray(availByColorList);
     self.changedSteps = function () {
         if (self.Bike().selectedVersionId() > 0) {
             self.SelectedVersionId(self.Bike().selectedVersionId());
@@ -328,6 +329,20 @@ var BookingPageViewModel = function () {
         return isSuccess;
 
     };
+
+    self.BikeAvailability = ko.computed(function () {
+        debugger;
+        if (self.Bike().selectedColorId() > 0 && self.BikeColors() != undefined && self.BikeColors().length > 0) {
+            avail = false;
+            $.each(self.BikeColors(), function (key, value) {
+                if (value.ColorId == self.Bike().selectedColorId())
+                    return value.NoOfDays;
+            });
+            return self.Bike().waitingPeriod();
+        } else {
+            return self.Bike().waitingPeriod();
+        }
+    });
 }
 
 var BikeCustomer = function () {
@@ -458,7 +473,7 @@ var BikeDetails = function () {
     self.bikeName = ko.computed(function () {
         var _bikeName = '';
         if (self.selectedVersion() != undefined && self.selectedVersionId != undefined) {
-            _bikeName = self.selectedVersion().Make.MakeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
+            _bikeName = self.selectedVersion().Make.makeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
         }
         return _bikeName;
     }, this);

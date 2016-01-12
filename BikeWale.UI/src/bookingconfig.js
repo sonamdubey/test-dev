@@ -57,12 +57,13 @@ var BookingConfigViewModel = function () {
     self.UserOptions = ko.observable();
     self.selectedColorId = ko.observable(0);
     self.ActualSteps = ko.observable(1);
+    self.BikeColors = ko.observableArray(availByColorList);
     self.changedSteps = function () {
         if (self.Bike().selectedVersionId() > 0) {
             if (self.Bike().selectedColorId() > 0) {
                 self.SelectedVersion(self.Bike().selectedVersionId());
                 self.selectedColorId(self.Bike().selectedColorId());
-                
+
                 if (self.CurrentStep() != 3) {
                     self.CurrentStep(self.CurrentStep() + 1);
                     self.ActualSteps(self.ActualSteps() + 1);
@@ -77,7 +78,7 @@ var BookingConfigViewModel = function () {
                 else if (self.CurrentStep() == 3) {
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_2_Successful_Submit', 'lab': thisBikename + '_' + getCityArea });
                 }
-                window.scrollTo(0,0);
+                window.scrollTo(0, 0);
                 return true;
             }
             else {
@@ -146,6 +147,20 @@ var BookingConfigViewModel = function () {
         }
     });
 
+    self.BikeAvailability = ko.computed(function () {
+        debugger;
+        if (self.Bike().selectedColorId() > 0 && self.BikeColors() != undefined && self.BikeColors().length > 0) {
+            avail = false;
+            $.each(self.BikeColors(), function (key, value) {
+                if (value.ColorId == self.Bike().selectedColorId())
+                    return value.NoOfDays;
+            }); 
+            return self.Bike().waitingPeriod(); 
+        } else {
+            return self.Bike().waitingPeriod();
+        }
+    });
+
 }
 
 
@@ -160,29 +175,27 @@ var BikeDetails = function () {
     self.waitingPeriod = ko.observable();
     self.selectedColorId = ko.observable();
     self.isInsuranceFree = ko.observable(insFree);
-    self.insuranceAmount = ko.observable(insAmt); 
+    self.insuranceAmount = ko.observable(insAmt);
     self.priceBreakupText = ko.observable();
 
     self.versionPrice = ko.computed(function () {
         var priceTxt = '';
-        if(self.versionPriceBreakUp()!=undefined && self.versionPriceBreakUp().length > 0)
-        {
+        if (self.versionPriceBreakUp() != undefined && self.versionPriceBreakUp().length > 0) {
             var total = 0, vlen = self.versionPriceBreakUp().length;
-            
+
             for (i = 0; i < vlen ; i++) {
                 total += self.versionPriceBreakUp()[i].Price;
                 priceTxt += (self.versionPriceBreakUp()[i].ItemName).trim() + ' + ';
             }
         }
-        self.priceBreakupText('(' + priceTxt.substr(0,priceTxt.length-2) + ')');
+        self.priceBreakupText('(' + priceTxt.substr(0, priceTxt.length - 2) + ')');
         return total;
     }, this);
 
     self.bikeName = ko.computed(function () {
         var _bikeName = '';
-        if (self.selectedVersion() != undefined && self.selectedVersionId != undefined)
-        {
-            _bikeName = self.selectedVersion().Make.MakeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
+        if (self.selectedVersion() != undefined && self.selectedVersionId != undefined) {
+            _bikeName = self.selectedVersion().Make.makeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
 
         }
         return _bikeName;
@@ -193,7 +206,7 @@ var BikeDetails = function () {
     self.versionSpecs = ko.observable();
     self.getVersion = function (data, event) {
         self.selectedVersionId(data);
-        self.selectedColorId(0); 
+        self.selectedColorId(0);
         $.each(self.bikeVersions(), function (key, value) {
             if (self.selectedVersionId() != undefined && self.selectedVersionId() > 0 && self.selectedVersionId() == value.MinSpec.VersionId) {
                 self.selectedVersion(value);
@@ -201,7 +214,7 @@ var BikeDetails = function () {
                 self.versionSpecs(value.MinSpec);
                 self.versionPriceBreakUp(value.PriceList);
                 self.waitingPeriod(value.NoOfWaitingDays);
-                self.bookingAmount(value.BookingAmount); 
+                self.bookingAmount(value.BookingAmount);
                 versionul.find("li").removeClass("selected-version text-bold border-dark-grey").addClass("text-light-grey border-light-grey").find("span.radio-btn").removeClass("radio-sm-checked").addClass("radio-sm-unchecked");
                 versionul.find("li[versionId=" + self.selectedVersionId() + "]").removeClass("text-light-grey border-light-grey").addClass("selected-version text-bold border-dark-grey").find("span.radio-btn").removeClass("radio-sm-unchecked").addClass("radio-sm-checked");
                 $("#customizeBike").find("h4.select-versionh4").removeClass("text-red");
@@ -220,8 +233,8 @@ var BikeDetails = function () {
         bgcolor = ele.find('span.color-box').css('background-color');
         ele.find('span.color-title-box').addClass(getContrastYIQ(bgcolor));
         colorsul.addClass("color-selection-done");
-        // }
     };
+
     self.getVersion(self.selectedVersionId());
 }
 
@@ -393,5 +406,9 @@ $("#configBtnWrapper input[type='button']").on("mouseout", function () {
     if (!colorsul.hasClass("color-selection-done") && colorWarningTooltip.hasClass("color-warning"))
         colorWarningTooltip.hide();
 });
+
+//center = map.getCenter();
+//google.maps.event.trigger(map, "resize");
+//map.setCenter(center);
 
 

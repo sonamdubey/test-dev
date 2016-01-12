@@ -11,6 +11,7 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
 </head>
 <body class="header-fixed-inner">
     <form runat="server">
@@ -58,7 +59,7 @@
                             </li>
                         </ul>
                     </div>
-                     
+
                     <div id="deliveryDetails" data-bind="visible: CurrentStep() == 1" style="display: block">
                         <div class="contact-offers-container border-light-bottom padding-bottom20">
                             <div class="grid-6 alpha" data-bind="with : Customer">
@@ -132,7 +133,7 @@
                                         <p class=" otp-notify-text text-light-grey font12 " data-bind="visible: (OtpAttempts() >= 2)">
                                             OTP has been already sent to your mobile
                                         </p>
-                                        <input type="button" class="btn btn-orange margin-top20" value="Submit OTP" data-bind="click : function(data,event){return validateOTP(data,event);}"  id="processOTP">
+                                        <input type="button" class="btn btn-orange margin-top20" value="Submit OTP" data-bind="click : function(data,event){return validateOTP(data,event);}" id="processOTP">
                                     </div>
                                     <div class="update-mobile-box" style="display: none;">
                                         <div class="form-control-box text-left">
@@ -149,8 +150,8 @@
                         </div>
                         <div class="grid-12 alpha margin-top15 query-number-container">
                             <p class="font14 padding-left5 leftfloat"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
-                           <%-- <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps">--%>
-                           <input type="button"  value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
+                            <%-- <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click: $root.changedSteps">--%>
+                            <input type="button" value="Next" class="btn btn-orange rightfloat" id="bikeSummaryNextBtn" data-bind="click : function(data,event){return $root.verifyCustomer(data,event);}" />
                         </div>
                         <div class="clear"></div>
 
@@ -310,8 +311,8 @@
                                         </li>
                                         <li>
                                             <p class="text-bold">Availability</p>
-                                            <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
-                                            <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</p>
+                                           <p class="text-light-grey" data-bind="visible : $root.BikeAvailability() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.BikeAvailability() == 1)?$root.BikeAvailability() + ' day' : $root.BikeAvailability() + ' days'"></span></p>
+                                            <p class="text-green text-bold" data-bind="visible : $root.BikeAvailability() < 1">Now available</p>
                                         </li>
                                     </ul>
                                 </div>
@@ -334,7 +335,7 @@
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                                     <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: $root.Dealer().latitude(), longitude: $root.Dealer().longitude() }"></div>
-                                    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+                                    
                                     <% } %>
                                 </div>
                                 <div class="clear"></div>
@@ -363,7 +364,8 @@
             <div class="clear"></div>
         </section>
 
-        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
+        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+        <input id="hdnBikeColorAvailability" type="hidden" value='<%= jsonBikeColorAvailability  %>' />
 
         <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/footerBW.aspx" -->
@@ -386,7 +388,8 @@
             
             //select bike version
             var bikeVersionId = "<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>";
-            var versionList = JSON.parse($("#hdnBikeData").val());
+            var versionList = JSON.parse(Base64.decode($("#hdnBikeData").val()));
+            var availByColorList = JSON.parse(Base64.decode($("#hdnBikeColorAvailability").val())); 
             var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>;          
             var insAmt = '<%= insuranceAmount %>';

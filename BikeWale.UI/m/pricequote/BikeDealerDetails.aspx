@@ -274,8 +274,8 @@
                                     </li>
                                     <li>
                                         <p class="text-bold">Availability</p>
-                                        <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
-                                        <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</p>
+                                        <p class="text-light-grey" data-bind="visible : $root.BikeAvailability() > 0">Waiting period of <span class="text-default" data-bind="text : ($root.BikeAvailability() == 1)?$root.BikeAvailability() + ' day' : $root.BikeAvailability() + ' days'"></span></p>
+                                        <p class="text-green text-bold" data-bind="visible : $root.BikeAvailability() < 1">Now available</p>
                                     </li>
                                 </ul>
                             </div>
@@ -283,7 +283,7 @@
 
                                 <% if (isOfferAvailable)
                                    { %>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span> <span class="font16" data-bind="text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
                                 <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwmsprite offers-icon margin-right5"></span>Available Offers </h3>
 
                                 <ul>
@@ -296,10 +296,10 @@
                                 <%}
                                    else
                                    {%>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span> <span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                                 <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1">Dealer's Location</h3>
                                 <div class="bikeModel-dealerMap-container margin-top15" style="width: 100%; min-width: 50%; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
-                                <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+                                
                                 <% } %>
                             </div>
                             <div class="clear"></div>
@@ -413,19 +413,22 @@
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
-        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
+
+        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+        <input id="hdnBikeColorAvailability" type="hidden" value='<%= jsonBikeColorAvailability  %>' />
 
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
         <script type="text/javascript">
             //Need to uncomment the below script
             var thisBikename = "<%= this.bikeName %>";
             //select bike version
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
-            var versionList = JSON.parse($("#hdnBikeData").val());
+            var versionList = JSON.parse(Base64.decode($("#hdnBikeData").val()));
+            var availByColorList = JSON.parse(Base64.decode($("#hdnBikeColorAvailability").val())); 
             var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
             var insAmt = '<%= insuranceAmount %>';

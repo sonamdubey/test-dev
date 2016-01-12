@@ -3,7 +3,7 @@ var objBikes = new Object();
 var objCity = new Object();
 var globalCityId = 0;
 var ga_pg_id = '0';
-var _makeName = ''; locationFilter($(this));
+var _makeName = '';
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
         var len = this.length >>> 0;

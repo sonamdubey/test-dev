@@ -12,6 +12,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using Bikewale.Utility;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Bikewale.Pricequote
 {
@@ -23,7 +25,7 @@ namespace Bikewale.Pricequote
     public class BookingConfig : System.Web.UI.Page
     {
         protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
-        protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty, makeUrl = String.Empty, modelUrl = String.Empty;
+        protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty, makeUrl = String.Empty, modelUrl = String.Empty,jsonBikeVarients = String.Empty, jsonBikeColorAvailability = String.Empty;
         protected Repeater rptVarients = null, rptVersionColors = null, rptDealerOffers = null, rptPriceBreakup = null;
         protected bool isOfferAvailable = false, isInsuranceFree = false;
         protected string versionWaitingPeriod = String.Empty, dealerAddress = String.Empty, latitude = "0", longitude = "0";
@@ -77,8 +79,8 @@ namespace Bikewale.Pricequote
                     if (String.IsNullOrEmpty(location))
                     {
                         CheckCityCookie();
-                    } 
-                    
+                    }
+
                 }
                 else
                 {
@@ -124,7 +126,7 @@ namespace Bikewale.Pricequote
                     objCustomer = _objDealerPricequote.GetCustomerDetails(pqId);
 
                     //set location details
-                    if (objCustomer!=null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.cityDetails != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.cityDetails.CityName))
+                    if (objCustomer != null && objCustomer.objCustomerBase != null && objCustomer.objCustomerBase.cityDetails != null && !String.IsNullOrEmpty(objCustomer.objCustomerBase.cityDetails.CityName))
                     {
                         if (objCustomer.objCustomerBase.AreaDetails != null)
                         {
@@ -135,7 +137,7 @@ namespace Bikewale.Pricequote
                         {
                             location = objCustomer.objCustomerBase.cityDetails.CityName;
                         }
-                    }                  
+                    }
 
                 }
             }
@@ -175,7 +177,7 @@ namespace Bikewale.Pricequote
                 //Dealer Address
                 if (dealerDetailEntity.objDealer != null && !String.IsNullOrEmpty(dealerDetailEntity.objDealer.Address))
                 {
-                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.",dealerDetailEntity.objDealer.Name,dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
+                    dealerAddress = String.Format("{0}<br/>{1},{2},{3}-{4},{5}.", dealerDetailEntity.objDealer.Name, dealerDetailEntity.objDealer.Address, dealerDetailEntity.objDealer.objArea.AreaName, dealerDetailEntity.objDealer.objCity.CityName, dealerDetailEntity.objDealer.objArea.PinCode, dealerDetailEntity.objDealer.objState.StateName);
                 }
 
                 //bind offers provided by dealer
@@ -244,6 +246,11 @@ namespace Bikewale.Pricequote
                         }
                     }
 
+                    if (dealerDetailEntity.objAvailableBikeColor != null && dealerDetailEntity.objAvailableBikeColor.Count() > 0)
+                    {
+                        jsonBikeColorAvailability = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(dealerDetailEntity.objAvailableBikeColor));  
+                    }
+
                 }
             }
             catch (Exception err)
@@ -269,6 +276,7 @@ namespace Bikewale.Pricequote
             {
                 rptVarients.DataSource = objBookingPageDetails.Varients;
                 rptVarients.DataBind();
+                jsonBikeVarients = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(objBookingPageDetails.Varients));
 
                 if (objBookingPageDetails.Varients.FirstOrDefault().Make != null && objBookingPageDetails.Varients.FirstOrDefault().Model != null)
                 {

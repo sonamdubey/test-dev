@@ -210,8 +210,8 @@
                                     <span class="text-light-grey"><%= dealerAddress %></span>
                                 </li>
                                 <li class="text-black">Availability<br />
-                                    <span class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></span>
-                                    <span class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</span>
+                                    <span class="text-light-grey" data-bind="visible : $root.BikeAvailability() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.BikeAvailability() == 1)?$root.BikeAvailability() + ' day' : $root.BikeAvailability() + ' days'"></span></span>
+                                        <span class="text-green text-bold" data-bind="visible : $root.BikeAvailability() < 1">Now available</span>
                                 </li>
                             </ul>
                                </div>
@@ -291,7 +291,7 @@
                              {%>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 font-24"></span> Pay <span class="fa fa-rupee" style="font-size: 15px"></span> <span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and avail</h3>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span> Get following details on the bike</h3>
-                            <ul class="bike-details-ul">
+                            <ul class="bike-details-ul" style="margin-left:0;list-style:none">
                                 <li>
                                     <span>Offers from the nearest dealers</span>
                                 </li>
@@ -373,7 +373,8 @@
             <div class="clear"></div>
         </section>
 
-        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
+         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+        <input id="hdnBikeColorAvailability" type="hidden" value='<%= jsonBikeColorAvailability  %>' />
 
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
@@ -403,7 +404,8 @@
                 });
             });
 
-            var versionList = JSON.parse($("input#hdnBikeData").val());
+            var versionList = JSON.parse(Base64.decode($("#hdnBikeData").val()));
+            var availByColorList = JSON.parse(Base64.decode($("#hdnBikeColorAvailability").val())); 
             var preSelectedColor = <%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>;
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>;          
             var insAmt = <%= insuranceAmount %>;

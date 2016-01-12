@@ -48,6 +48,7 @@
     <Compile Include="AutoComplete\AutoSuggestEnum.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
+    <Compile Include="BikeBooking\BikeAvailabilityByColor.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
     <Compile Include="BikeBooking\BikeBooking.cs" />
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
