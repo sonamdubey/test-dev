@@ -606,7 +606,7 @@ function setColor() {
     if (preSelectedColor > 0) {
         if (vc != null && vc.length > 0) {
             $.each(vc, function (key, value) {
-                if (value.Id == preSelectedColor) {
+                if (value.ColorId == preSelectedColor) {
                     viewModel.Bike().selectedColor(value);
                     viewModel.Bike().selectedColorId(value.ColorId);
                 }

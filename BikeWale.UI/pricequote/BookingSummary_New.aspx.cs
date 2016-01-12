@@ -256,12 +256,6 @@ namespace Bikewale.BikeBooking
                         if (dealerDetailEntity.objOffers != null && dealerDetailEntity.objOffers.Count > 0)
                             dealerDetailEntity.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(dealerDetailEntity.objOffers, dealerDetailEntity.objQuotation.PriceList);
                     }
-
-                    if (dealerDetailEntity.objAvailableBikeColor != null && dealerDetailEntity.objAvailableBikeColor.Count() > 0)
-                    {
-                        jsonBikeColorAvailability = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(dealerDetailEntity.objAvailableBikeColor));
-                    }
-
                 }
             }
             catch (Exception err)

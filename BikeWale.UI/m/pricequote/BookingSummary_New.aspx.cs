@@ -254,12 +254,6 @@ namespace Bikewale.Mobile.PriceQuote
                                 break;
                         }
                     }
-
-                    if (dealerDetailEntity.objAvailableBikeColor != null && dealerDetailEntity.objAvailableBikeColor.Count() > 0)
-                    {
-                        jsonBikeColorAvailability = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(dealerDetailEntity.objAvailableBikeColor));
-                    }
-
                 }
             }
             catch (Exception err)
