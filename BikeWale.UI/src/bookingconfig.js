@@ -1,7 +1,7 @@
 
 var versionul = $("#customizeBike ul.select-versionUL");
 var colorsul = $("#customizeBike ul.select-colorUL");
-
+var colorWarningTooltip = $("#configBtnWrapper .select-color-warning-tooltip");
 
 ko.bindingHandlers.googlemap = {
     init: function (element, valueAccessor) {
@@ -81,7 +81,7 @@ var BookingConfigViewModel = function () {
                 return true;
             }
             else {
-                $("#configBtnWrapper .select-color-warning-tooltip").addClass("color-warning").show();
+                colorWarningTooltip.addClass("color-warning").show();
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_1_Submit_Error_versionColorMissing', 'lab': thisBikename + '_' + getCityArea });
                 return false;
             }
@@ -236,6 +236,8 @@ var BikeDetails = function () {
                 versionul.find("li[versionId=" + self.selectedVersionId() + "]").removeClass("text-light-grey border-light-grey").addClass("selected-version text-bold border-dark-grey").find("span.radio-btn").removeClass("radio-sm-unchecked").addClass("radio-sm-checked");
                 $("#customizeBike").find("h4.select-versionh4").removeClass("text-red");
                 $("#selectedVersionId").val(self.selectedVersionId());
+                colorsul.removeClass("color-selection-done");
+                colorWarningTooltip.removeClass("color-warning");
             }
         });
     };
@@ -411,8 +413,6 @@ var viewModel = new BookingConfigViewModel;
 ko.applyBindings(viewModel, $("#bookingConfig")[0]);
 setColor();
 viewModel.UserOptions(viewModel.Bike().selectedVersionId().toString() + viewModel.Bike().selectedColorId().toString());
-
-var colorWarningTooltip = $("#configBtnWrapper .select-color-warning-tooltip");
 
 $("#configBtnWrapper input[type='button']").on("mouseover", function () {
     if (!colorsul.hasClass("color-selection-done") && colorWarningTooltip.hasClass("color-warning"))
