@@ -107,6 +107,9 @@
         self.oBrowser = ko.observable(opBrowser);
         self.hasAreas = ko.observable();
         self.getCities = ko.computed(function (data, event) {
+            $("#citySelection div.selected-city").text("Loading Cities..");
+            $("#popupLoader").text("Loading cities..").show().prev().show();
+            self.BookingCities([]);
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0) {
                 $.ajax({
                     type: "GET",
@@ -152,7 +155,7 @@
             }
         });
 
-        self.selectCity = function (data, event) {
+        self.selectCity = function (data, event) {           
             if (!self.oBrowser()) {
                 self.SelectedCity(data);
                 self.SelectedCityId(data.cityId);
@@ -160,10 +163,13 @@
             else {
                 self.SelectedCity(findCityById(self.SelectedCityId()));
             }
-            $("div.bw-city-area-popup-wrapper .back-arrow-box").click();
+            
+            $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0 && self.SelectedCity() != undefined) {
                 self.hasAreas(findCityById(self.SelectedCity().cityId).hasAreas);
                 if (self.hasAreas()) {
+                    $("#areaSelection div.selected-area").text("Loading areas..");
+                    $("#popupLoader").text("Loading areas..").show().prev().show();
                     $.ajax({
                         type: "GET",
                         url: "/api/PQAreaList/?modelId=" + self.SelectedModelId() + "&cityId=" + self.SelectedCity().cityId,
@@ -176,7 +182,6 @@
                             var areaSelected = null;
                             if (areas) {
                                 self.BookingAreas(areas);
-
                             }
 
                         },
