@@ -21,7 +21,8 @@ namespace Bikewale.Entities.CMS
         Videos = 11,
         AutoExpo2014 = 12,
         AutoExpoMedia = 13,
-        SpecialFeature = 18
+        SpecialFeature = 18,
+        AutoExpo2016 = 19
     }
 
 }   // namespace

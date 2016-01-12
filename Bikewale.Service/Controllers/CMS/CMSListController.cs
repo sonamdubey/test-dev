@@ -79,6 +79,7 @@ namespace Bikewale.Service.Controllers.CMS
                         switch (contentType)
                         {
                             case EnumCMSContentType.News:
+                            case EnumCMSContentType.AutoExpo2016:
                                 article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
                                 break;
                             case EnumCMSContentType.Features:
@@ -165,6 +166,7 @@ namespace Bikewale.Service.Controllers.CMS
                         switch (contentType)
                         {
                             case EnumCMSContentType.News:
+                            case EnumCMSContentType.AutoExpo2016:
                                 article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
                                 break;
                             case EnumCMSContentType.Features:
@@ -247,6 +249,7 @@ namespace Bikewale.Service.Controllers.CMS
                         switch (contentType)
                         {
                             case EnumCMSContentType.News:
+                            case EnumCMSContentType.AutoExpo2016:
                                 article.ShareUrl =  _bwHostUrl +"/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
                                 break;
                             case EnumCMSContentType.Features:
@@ -341,6 +344,7 @@ namespace Bikewale.Service.Controllers.CMS
                         switch (contentType)
                         {
                             case EnumCMSContentType.News:
+                            case EnumCMSContentType.AutoExpo2016:
                                 article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
                                 break;
                             case EnumCMSContentType.Features:
