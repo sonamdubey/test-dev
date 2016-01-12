@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" Trace="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" Trace="false" %>
 
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
@@ -489,10 +489,20 @@
                                     </tr>
                                 </ItemTemplate>
                             </asp:Repeater>
+                            <%if(pqOnRoad.IsDiscount) { %>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="border-solid-top padding-bottom10"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="padding-bottom10">Total on road price</td>
+                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
+                            </tr>
                             <asp:Repeater ID="rptDiscount" runat="server">
                                 <ItemTemplate>
                                     <tr class="carwale">
-                                        <td width="350" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %></td>
+                                        <td width="350" class="padding-bottom10">Minus <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %></td>
                                         <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>
                                             <span><%# GetDiscountPrice(Convert.ToString(DataBinder.Eval(Container.DataItem, "Price")), Convert.ToUInt32(DataBinder.Eval(Container.DataItem, "CategoryId")))  %></span></td>
                                     </tr>
@@ -515,6 +525,7 @@
                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %></td>
                             </tr>
                             <% } %>--%>
+                            <%} %>
                             <tr>
                                 <td colspan="2">
                                     <div class="border-solid-top padding-bottom10"></div>
@@ -527,7 +538,7 @@
                                 <%--<% if (pqOnRoad.InsuranceAmount > 0)
                                    {
                                 %>--%>
-                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - TotalDiscountedPrice())) %></td>
+                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - TotalDiscountedPrice())) %></td>
                                 <%--<% }
                                    else
                                    { %>

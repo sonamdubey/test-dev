@@ -89,7 +89,6 @@ namespace Bikewale.New
         protected HiddenField hdnVariant;
         protected IList<PQ_Price> priceList { get; set; }
 
-
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
         #endregion
@@ -271,6 +270,7 @@ namespace Bikewale.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
+                        var totalDiscount = TotalDiscountedPrice();
                         //if ((isCitySelected && !isAreaAvailable))
                         if (isOnRoadPrice)
                             lblExOn.Text = "On-road price";
@@ -279,7 +279,7 @@ namespace Bikewale.New
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
                             if (selecteVersionList != null && selecteVersionList.Count() > 0)
-                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selecteVersionList.First().OnRoadPrice));
+                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selecteVersionList.First().OnRoadPrice - totalDiscount));
                         }
                         else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                         {
@@ -636,9 +636,9 @@ namespace Bikewale.New
                                 if (bookingAmt > 0)
                                     isBookingAvailable = true;
 
-                                if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
+                                if (pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
-                                    price = Convert.ToString(onRoadPrice - pqOnRoad.InsuranceAmount);
+                                    price = Convert.ToString(onRoadPrice - TotalDiscountedPrice());
                                 }
                             }
                             #endregion
@@ -771,7 +771,7 @@ namespace Bikewale.New
                                             if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count> 0)
                                                 pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers, pqOnRoad.DPQOutput.PriceList);
                                             pqOnRoad.InsuranceAmount = insuranceAmount;
-                                            if (oblDealerPQ.discountedPriceList.Count > 0)
+                                            if (oblDealerPQ.discountedPriceList!= null && oblDealerPQ.discountedPriceList.Count > 0)
                                             {
                                                 pqOnRoad.IsDiscount = true;
                                                 pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;
@@ -1179,22 +1179,12 @@ namespace Bikewale.New
             {
                 foreach(var priceListObj in pqOnRoad.discountedPriceList)
                 {
-                    if (priceListObj.Price > 0)
-                    {
                         totalPrice += priceListObj.Price;
-                    }
-                    else
-                    {
-                        totalPrice += (priceList.FirstOrDefault(x => x.CategoryId == priceListObj.CategoryId)).Price;
-
-                    }
                 }
             }
 
             return totalPrice;
         } 
-
-
         #endregion
     }
 }

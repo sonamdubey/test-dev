@@ -315,10 +315,10 @@
                                             <td>
                                     </tr>
                                     <%
-                                       if (IsInsuranceFree)
+                                       if (IsDiscount)//if (IsInsuranceFree)
                                        {
                                     %>
-                                    <tr>
+                                    <%--<tr>
                                         <td class="PQDetailsTableTitle padding-bottom10">Total on road price</td>
                                         <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
                                             <span class="fa fa-rupee"></span><span style="text-decoration: line-through;"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
@@ -334,6 +334,36 @@
                                         <td valign="middle" class="PQDetailsTableTitle font18 text-bold PQOnRoadPrice">Total on road price</td>
                                         <td align="right" class="PQDetailsTableAmount font20 text-bold">
                                             <span class="fa fa-rupee"></span><span><%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></span>
+                                        </td>
+                                    </tr>--%>
+                                    <tr>
+                                        <td class="PQDetailsTableTitle padding-bottom10">Total on road price</td>
+                                        <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
+                                            <span class="fa fa-rupee"></span><span style="text-decoration: line-through;"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
+                                        </td>
+                                    </tr>
+                                    <asp:Repeater ID="rptDiscount" runat="server">
+                                        <ItemTemplate>
+                                            <tr>
+                                                <td width="245" class="PQDetailsTableTitle padding-bottom10">
+                                                   Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> 
+                                                </td>
+                                                <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
+                                                    <span class="fa fa-rupee margin-right5"></span><span id="exShowroomPrice">
+                                                        <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
+                                                </td>
+                                            </tr>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="border-solid-top padding-bottom10"></div>
+                                            <td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="middle" class="PQDetailsTableTitle font18 text-bold PQOnRoadPrice">Total on road price</td>
+                                        <td align="right" class="PQDetailsTableAmount font20 text-bold">
+                                            <span class="fa fa-rupee"></span><span><%= CommonOpn.FormatPrice((totalPrice - totalDiscount).ToString()) %></span>
                                         </td>
                                     </tr>
                                     <%

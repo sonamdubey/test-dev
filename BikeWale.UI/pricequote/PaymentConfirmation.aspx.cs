@@ -9,12 +9,13 @@ using System.Configuration;
 using System.Web;
 using System.Web.UI.WebControls;
 using Bikewale.BikeBooking.Common;
+using Bikewale.Utility;
 
 namespace Bikewale.PriceQuote
 {
     public class PaymentConfirmation : System.Web.UI.Page
     {
-        protected Repeater rptOffers;
+        protected Repeater rptOffers, rptDiscount;
 
         protected PQ_DealerDetailEntity _objPQ = null;
         protected PQCustomerDetail objCustomer = null;
@@ -24,6 +25,7 @@ namespace Bikewale.PriceQuote
         protected string contactNo = string.Empty, organization = string.Empty, address = string.Empty, bikeName = string.Empty, MakeModel = string.Empty, bookingRefNum = string.Empty, WorkingTime = string.Empty;
         protected UInt32 insuranceAmount = 0;
         protected bool IsInsuranceFree = false;
+        protected UInt32 totalDiscount = 0;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -159,7 +161,13 @@ namespace Bikewale.PriceQuote
                         {
                             IsInsuranceFree = true;
                         }
-
+                        _objPQ.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(_objPQ.objOffers, _objPQ.objQuotation.PriceList);
+                        if (_objPQ.objQuotation.discountedPriceList != null && _objPQ.objQuotation.discountedPriceList != null)
+                        {
+                            rptDiscount.DataSource = _objPQ.objQuotation.discountedPriceList;
+                            rptDiscount.DataBind();
+                            totalDiscount = TotalDiscountedPrice();
+                        }
                         if (isBasicAvail && isShowroomPriceAvail)
                             totalPrice = totalPrice - exShowroomCost;
 
@@ -204,7 +212,21 @@ namespace Bikewale.PriceQuote
                     this.Page.Visible = false;
                 }
             }
-        }  
+        }
+        /// <summary>
+        /// Creted By : Lucky Rathore
+        /// Created on : 08 January 2016
+        /// </summary>
+        /// <returns>Total dicount on specific Version.</returns>
+        protected UInt32 TotalDiscountedPrice()
+        {
+            UInt32 totalPrice = 0;
+            foreach (var priceListObj in _objPQ.objQuotation.discountedPriceList)
+            {
+                totalPrice += priceListObj.Price;
+            }
+            return totalPrice;
+        } 
 
     }
 }
