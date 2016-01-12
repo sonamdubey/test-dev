@@ -26,7 +26,7 @@ namespace Bikewale.Mobile.PriceQuote
     public class BookingSummary_New : System.Web.UI.Page
     {
         protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
-        protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty, jsonBikeVarients = String.Empty, jsonBikeColorAvailability = String.Empty;
+        protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty, jsonBikeVarients = String.Empty;
         protected Repeater rptVarients = null, rptVersionColors = null, rptDealerOffers = null, rptPriceBreakup = null, rptDealerFinalOffers = null;
         protected BikeDealerPriceDetailDTO selectedVarient = null;
         protected DDQDealerDetailBase DealerDetails = null;
@@ -41,8 +41,6 @@ namespace Bikewale.Mobile.PriceQuote
         {
             this.Load += new EventHandler(Page_Load);
             deliveryDetailsNextBtn.ServerClick += new EventHandler(btnMakePayment_click);
-            //generateNewOTP.ServerClick += new EventHandler(btnMakePayment_click);
-            //processOTP.ServerClick += new EventHandler(btnMakePayment_click);
         }
 
         protected void Page_Load(object sender, EventArgs e)

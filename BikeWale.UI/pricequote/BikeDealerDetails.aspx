@@ -486,9 +486,9 @@
             var getCityArea = GetGlobalCityArea();
             var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
         </script> 
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>          
                    
 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>          
     </form>
 </body>
 </html>
