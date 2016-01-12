@@ -105,6 +105,7 @@
         self.BookingCities = ko.observableArray([]);
         self.BookingAreas = ko.observableArray([]);
         self.oBrowser = ko.observable(opBrowser);
+        self.hasAreas = ko.observable();
         self.getCities = ko.computed(function (data, event) {
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0) {
                 $.ajax({
@@ -138,6 +139,7 @@
                         if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0) {
                             MPopupViewModel.SelectedCity(ko.toJS({ 'cityId': onCookieObj.PQCitySelectedId, 'cityName': onCookieObj.PQCitySelectedName }));
                             MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
+                            MPopupViewModel.hasAreas(findCityById(onCookieObj.PQCitySelectedId).hasAreas);
                             if (!self.oBrowser()) {
                                 $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
                             }
@@ -160,57 +162,66 @@
             }
             $("div.bw-city-area-popup-wrapper .back-arrow-box").click();
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0 && self.SelectedCity() != undefined) {
-                $.ajax({
-                    type: "GET",
-                    url: "/api/PQAreaList/?modelId=" + self.SelectedModelId() + "&cityId=" + self.SelectedCity().cityId,
-                    beforeSend: function () {
-                        $("#areaSelection div.selected-area").text("Loading areas..");
-                        $("#popupLoader").text("Loading areas..").show().prev().show();
-                    },
-                    success: function (response) {
-                        var areas = ko.toJS(response.areas);
-                        var areaSelected = null;
-                        if (areas) {
-                            self.BookingAreas(areas);
+                self.hasAreas(findCityById(self.SelectedCity().cityId).hasAreas);
+                if (self.hasAreas()) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/PQAreaList/?modelId=" + self.SelectedModelId() + "&cityId=" + self.SelectedCity().cityId,
+                        beforeSend: function () {
+                            $("#areaSelection div.selected-area").text("Loading areas..");
+                            $("#popupLoader").text("Loading areas..").show().prev().show();
+                        },
+                        success: function (response) {
+                            var areas = ko.toJS(response.areas);
+                            var areaSelected = null;
+                            if (areas) {
+                                self.BookingAreas(areas);
 
-                        }
-
-                    },
-                    complete: function (xhr) {
-
-                        $("#popupLoader").text("Loading areas..").hide().prev().hide();
-                        if (xhr.status == 404 || xhr.status == 204) {
-                            $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-                            self.BookingAreas([]);
-                            self.SelectedArea(undefined);
-                            self.SelectedAreaId(0);
-                            $("#areaSelection div.selected-area").text("No areas Found");
-
-                        }
-                        else {
-                            if (self.BookingAreas().length > 0) {
-                                $("#areaSelection div.selected-area").text("Select Area");
-                            } else {
-                                $("#areaSelection div.selected-area").text("No areas available");
                             }
-                            //$("#areaSelection").click();
-                            self.SelectedArea(undefined);
-                            self.SelectedAreaId(0);
-                            $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
-                        }
 
-                        if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0) {
-                            //MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
-                            if (!self.oBrowser()) {
-                                $("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
+                        },
+                        complete: function (xhr) {
+
+                            $("#popupLoader").text("Loading areas..").hide().prev().hide();
+                            if (xhr.status == 404 || xhr.status == 204) {
+                                $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
+                                self.BookingAreas([]);
+                                self.SelectedArea(undefined);
+                                self.SelectedAreaId(0);
+                                $("#areaSelection div.selected-area").text("No areas Found");
+
                             }
                             else {
-                                self.selectArea(self, null);
+                                if (self.BookingAreas().length > 0) {
+                                    $("#areaSelection div.selected-area").text("Select Area");
+                                } else {
+                                    $("#areaSelection div.selected-area").text("No areas available");
+                                }
+                                //$("#areaSelection").click();
+                                self.SelectedArea(undefined);
+                                self.SelectedAreaId(0);
+                                $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                             }
 
+                            if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0) {
+                                //MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
+                                if (!self.oBrowser()) {
+                                    $("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
+                                }
+                                else {
+                                    self.selectArea(self, null);
+                                }
+
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                else {
+                    $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
+                    self.BookingAreas([]);
+                    self.SelectedArea(undefined);
+                    self.SelectedAreaId(0);
+                }
             }
         }
 

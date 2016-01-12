@@ -1,9 +1,15 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="False" Inherits="Bikewale.controls.NewBikesOnRoadPrice" %>
 <style>
-    
-/*PopupWidget Styling*/
-#OnRoadContent .chosen-container { border:0;border-radius:0;padding:12px }
-.minifyWidth{width:50%;}
+    /*PopupWidget Styling*/
+    #OnRoadContent .chosen-container {
+        border: 0;
+        border-radius: 0;
+        padding: 12px;
+    }
+
+    .minifyWidth {
+        width: 50%;
+    }
 </style>
 
 
@@ -18,10 +24,10 @@
             </div>
         </div>
         <div class="final-price-city-area-container">
-            <div class="final-price-citySelect" >
+            <div class="final-price-citySelect">
                 <div class="form-control-box">
-                    <select data-placeholder="Select City" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: 'Select City', event: { change: cityChangedOnRoad }, chosen: { width: '100%' }"></select> 
-                    <span class="fa fa-spinner fa-spin position-abt pos-right12 pos-top15 text-black bg-white" style="display:none"></span>
+                    <select data-placeholder="Select City" class="form-control rounded-corner0" id="ddlCitiesOnRoad" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: 'Select City', event: { change: cityChangedOnRoad }, chosen: { width: '100%' }"></select>
+                    <span class="fa fa-spinner fa-spin position-abt pos-right12 pos-top15 text-black bg-white" style="display: none"></span>
                     <span class="bwsprite error-icon hide"></span>
                     <div class="bw-blackbg-tooltip hide">Please select a city</div>
                 </div>
@@ -58,9 +64,15 @@
         selectedCity: ko.observable(),
         bookingCities: ko.observableArray([]),
         selectedArea: ko.observable(),
-        bookingAreas: ko.observableArray([])
+        bookingAreas: ko.observableArray([]),
+        hasAreas: ko.observable()
     };
 
+    function findCityById(vm, id) {
+        return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
+            return child.cityId === id;
+        });
+    }
 
     function FillCitiesOnRoad(modelId) {
         showHideMatchError(onRoadcity, false);
@@ -69,13 +81,14 @@
             url: "/api/PQCityList/?modelId=" + modelId,
             success: function (response) {
                 var cities = response.cities;
-                var citySelected = null; 
+                var citySelected = null;
                 if (cities) {
                     insertCitySeparator(cities);
                     nbCheckCookies();
                     viewModelOnRoad.bookingCities(cities);
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelOnRoad.bookingCities() && selectElementFromArray(viewModelOnRoad.bookingCities(), onCookieObj.PQCitySelectedId)) {
                         viewModelOnRoad.selectedCity(onCookieObj.PQCitySelectedId);
+                        viewModelOnRoad.hasAreas(findCityById(viewModelOnRoad, onCookieObj.PQCitySelectedId).hasAreas);
                     }
                     onRoadcity.find("option[value='0']").prop('disabled', true);
                     onRoadcity.trigger('chosen:updated');
@@ -94,32 +107,39 @@
         //gtmCodeAppenderWidget(pageId, "City Selected", null);
         showHideMatchError(onRoadArea, false);
         if (viewModelOnRoad.selectedCity() != undefined) {
-            $.ajax({
-                type: "GET",
-                url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelOnRoad.selectedCity(),
-                dataType: 'json',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteArea"); },
-                success: function (response) {
-                    areas = response.areas;
-                    if (areas.length) {
-                        viewModelOnRoad.bookingAreas(areas);
-                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(viewModelOnRoad.bookingAreas(), onCookieObj.PQAreaSelectedId)) {
-                            viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
+            viewModelOnRoad.hasAreas(findCityById(viewModelOnRoad, viewModelOnRoad.selectedCity()).hasAreas);
+            if (viewModelOnRoad.hasAreas() != undefined && viewModelOnRoad.hasAreas()) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelOnRoad.selectedCity(),
+                    dataType: 'json',
+                    beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteArea"); },
+                    success: function (response) {
+                        areas = response.areas;
+                        if (areas.length) {
+                            viewModelOnRoad.bookingAreas(areas);
+                            if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(viewModelOnRoad.bookingAreas(), onCookieObj.PQAreaSelectedId)) {
+                                viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
+                            }
+                            calcWidth();
                         }
-                        calcWidth();
-                    }
-                    else {
+                        else {
+                            viewModelOnRoad.selectedArea(0);
+                            viewModelOnRoad.bookingAreas([]);
+                            calcWidth();
+                        }
+                    },
+                    error: function (e) {
                         viewModelOnRoad.selectedArea(0);
                         viewModelOnRoad.bookingAreas([]);
                         calcWidth();
                     }
-                },
-                error: function (e) {
-                    viewModelOnRoad.selectedArea(0);
-                    viewModelOnRoad.bookingAreas([]);
-                    calcWidth();
-                }
-            });
+                });
+            }
+            else {
+                viewModelOnRoad.bookingAreas([]);
+                calcWidth();
+            }
         } else {
             viewModelOnRoad.bookingAreas([]);
             calcWidth();
@@ -139,7 +159,7 @@
             showHideMatchError(onRoadMakeModel, true);
             errMsg += "Make/Model,";
             isValid = false;
-        }    
+        }
 
         if (viewModelOnRoad.selectedCity() == undefined) {
             showHideMatchError(onRoadcity, true);
@@ -272,14 +292,13 @@
         }
     }
 
-   function calcWidth()
-    {
-        if (viewModelOnRoad.bookingAreas().length > 0 )
+    function calcWidth() {
+        if (viewModelOnRoad.bookingAreas().length > 0)
             $(ele).width(161);
         else $(ele).width(322);
     }
 
-   $(function () {
+    $(function () {
 
         $("#finalPriceBikeSelect").bw_autocomplete({
             width: 250,
@@ -300,7 +319,7 @@
                     $("#errMsgOnRoad").empty();
                     selectedModel = model.id;
                     FillCitiesOnRoad(selectedModel);
-                    
+
                 }
             },
             open: function (result) {
@@ -318,9 +337,9 @@
             }
         });
 
-        ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
+       ko.applyBindings(viewModelOnRoad, $("#OnRoadContent")[0]);
 
-        ele = $('#OnRoadContent .final-price-citySelect')[0];   
+       ele = $('#OnRoadContent .final-price-citySelect')[0];
 
-    });
+   });
 </script>
