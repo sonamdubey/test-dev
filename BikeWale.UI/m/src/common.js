@@ -92,7 +92,7 @@ function navbarShow() {
 $(document).ready(function () {
     try {
         if (quotationPage && quotationPage != undefined) {
-            $('header .bw-logo, header .navbarBtn, header .global-location').hide();
+            $('header .bw-logo, header .navbarBtn, header .global-location, .ae-logo-border, .ae-sprite.ae-logo').hide();
             $('.headerTitle,.white-back-arrow').show();
 
             $('#book-back').on('click', function () {
