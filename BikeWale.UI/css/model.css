@@ -249,6 +249,7 @@
 
 .input-border-bottom { border-bottom:1px solid #ccc; }
 
+
 @media all and (min-width: 800px) and (max-width: 996px){
 	body { overflow-x:hidden; }
 	.container { width:800px; margin:0; }

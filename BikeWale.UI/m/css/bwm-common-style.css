@@ -344,7 +344,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .newbikes-banner-div { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/new-bike-banner.jpg) no-repeat left top; background-size: cover; height:130px;}
 
 /* sprite classes */
-.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v1=30122015) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v1=12012016) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -695,7 +695,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .pq-no-name { background-position: -510px 0; }
 .pq-no-mobile { background-position: -611px 0; }
 .pq-no-email { background-position: -712px 0; }
-
+.inline-block { display:inline-block; vertical-align: middle; }
 
 /* ***************************************************************************
  *  Font Awesome 4.2.0 by @davegandy - http://fontawesome.io - @fontawesome *  

@@ -400,13 +400,34 @@
 		            <li><strong>b. </strong>Please email your <strong>‘Pre-Booking Cancellation Request’</strong> to <a href="mailto:contact@bikewale.com" class="blue-text">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating the <strong>pre-booking reference number, your mobile number and email address (that you used while pre-booking).</strong></li> 	
                     <li><strong>c. Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
                     <li><strong>d. </strong>If the dealer has initiated the procurement of the bike upon customer’s pre-booking, cancellation will not be possible.</li>
-                   
                     <li><strong>e. </strong>For all valid requests, we will process the refund of full pre-booking amount to customer’s account within 7 working days.</li>
                 </ol>
             </div>
         </div>
     </div>
     <!--Cancellation & refund policy popup ends here-->
+        <section>
+            <div class="container margin-top10 margin-bottom30">
+                <div id="faqSlug" class="grid-12">
+                    <div class="faq-slug-container content-box-shadow content-inner-block-20">
+                        <div class="question-icon-container text-center leftfloat">
+                            <div class="icon-outer-container rounded-corner50percent">
+                                <div class="icon-inner-container rounded-corner50percent">
+                                    <span class="bwmsprite question-mark-icon margin-top20"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question-text-container leftfloat padding-left15">
+                            <p class="question-title font16 text-bold text-black">Questions?</p>
+                            <p class="question-subtitle text-light-grey font14">We’re here to help.<br />Read our <a href="">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a></p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
 
         <!-- all other js plugins -->
