@@ -18,6 +18,8 @@ using Bikewale.Entities.Pager;
 using Microsoft.Practices.Unity;
 using Bikewale.Interfaces.Pager;
 using Bikewale.BAL.Pager;
+using Bikewale.Entities.CMS;
+using Bikewale.Utility;
 
 namespace Bikewale.News
 {
@@ -93,9 +95,12 @@ namespace Bikewale.News
 
                     int _startIndex = 0, _endIndex = 0;
                     objPager.GetStartEndIndex(_pageSize, _pageNumber, out _startIndex, out _endIndex);
-
+                    List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                    categorList.Add(EnumCMSContentType.News);
+                    categorList.Add(EnumCMSContentType.AutoExpo2016);
+                    string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
                     // Send HTTP GET requests 
-                    HttpResponseMessage response = await client.GetAsync("webapi/article/listbycategory/?applicationid=2&categoryidlist=1&startindex=" + _startIndex + "&endindex=" + _endIndex);
+                    HttpResponseMessage response = await client.GetAsync("webapi/article/listbycategory/?applicationid=2&categoryidlist=" + contentTypeList + "&startindex=" + _startIndex + "&endindex=" + _endIndex);
 
                     response.EnsureSuccessStatusCode();    // Throw if not a success code.
 
