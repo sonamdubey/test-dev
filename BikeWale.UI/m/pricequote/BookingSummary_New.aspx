@@ -137,6 +137,7 @@
                                     <span class="fa fa-rupee"></span>
                                     <strong class="font16" data-bind="CurrencyText: ($root.Bike().bookingAmount()> 0)?$root.Bike().bookingAmount():'Price unavailable'"></strong>
                                 </p>
+                                <a id="cancellationLink" class="blue-text font12">Hassle-free Cancellation</a>
                             </div>
 
                             <div class="grid-12 alpha omega margin-bottom15">
@@ -388,6 +389,24 @@
             </div>
         </div>
         <!-- Terms and condition Popup Ends -->
+        <!--Cancellation & refund policy popup starts here-->
+    <div class="bw-popup cancellation-popup hide">
+    	<div class="popup-inner-container">
+            <div class="cancellation-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+            <h1>Cancellation & Refund Policy</h1>
+            <div class="lower-alpha-list">
+                <ol>
+                    <li><strong>a. </strong>Cancellation must be requested <strong>within 15 calendar days of pre-booking the vehicle.</strong></li>
+		            <li><strong>b. </strong>Please email your <strong>‘Pre-Booking Cancellation Request’</strong> to <a href="mailto:contact@bikewale.com" class="blue-text">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating the <strong>pre-booking reference number, your mobile number and email address (that you used while pre-booking).</strong></li> 	
+                    <li><strong>c. Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
+                    <li><strong>d. </strong>If the dealer has initiated the procurement of the bike upon customer’s pre-booking, cancellation will not be possible.</li>
+                   
+                    <li><strong>e. </strong>For all valid requests, we will process the refund of full pre-booking amount to customer’s account within 7 working days.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!--Cancellation & refund policy popup ends here-->
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
 
         <!-- all other js plugins -->

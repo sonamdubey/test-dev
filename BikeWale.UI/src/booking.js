@@ -680,4 +680,18 @@ function LoadTerms(offerId) {
 $(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
     $("div#termsPopUpContainer").hide();
     $(".blackOut-window").hide();
+    $('.cancellation-popup').hide();
+});
+
+$('#cancellation-box').click(function () {
+    $(".blackOut-window").show();
+    $('.cancellation-popup').show();
+});
+$('.close-btn').click(function () {
+    $(".blackOut-window").hide();
+    $('.cancellation-popup').hide();
+});
+$('.white-close-btn').click(function () {
+    $("#blackOut-window").hide();
+    $('.rsa-popup').hide();
 });
