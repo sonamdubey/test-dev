@@ -299,7 +299,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 
 /* sprite classes */
-.bwsprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/bwsprite.png?v1=30122015) no-repeat; display: inline-block; }
+.bwsprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/bwsprite.png?v1=120122016) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(http://img.aeplcdn.com/bikewaleimg/images/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -324,6 +324,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .orp-location-icon {background-position:-99px -35px; width: 50px; height: 50px; }
 .icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
+.question-mark-icon { width:27px; height:40px; background-position:-83px -391px; }
 
 /* style-container */
 .style-type { width:226px; height:90px; display:block; margin:0 auto; padding-top:30px; }

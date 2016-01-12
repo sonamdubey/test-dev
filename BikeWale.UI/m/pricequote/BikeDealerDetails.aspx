@@ -413,6 +413,29 @@
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
+
+        <section>
+            <div class="container margin-top10 margin-bottom30">
+                <div id="faqSlug" class="grid-12">
+                    <div class="faq-slug-container content-box-shadow content-inner-block-20">
+                        <div class="question-icon-container text-center leftfloat">
+                            <div class="icon-outer-container rounded-corner50percent">
+                                <div class="icon-inner-container rounded-corner50percent">
+                                    <span class="bwmsprite question-mark-icon margin-top20"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question-text-container leftfloat padding-left15">
+                            <p class="question-title font16 text-bold text-black">Questions?</p>
+                            <p class="question-subtitle text-light-grey font14">We’re here to help.<br />Read our <a href="">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a></p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
 
         <!-- all other js plugins -->

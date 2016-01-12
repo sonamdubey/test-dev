@@ -150,3 +150,11 @@
 .call-icon { background-position: -107px -135px; }
 
 .offer-details-container ul li { background:url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png") no-repeat 0 3px; padding: 0 0 0 22px;} 
+
+#faqSlug .icon-outer-container { width:82px; height:82px; }
+#faqSlug .icon-inner-container { width:72px; height:72px; }
+.question-mark-icon { width:22px; height:33px; background-position:-189px -348px; }
+.faq-slug-container { width:100%; }
+.question-icon-container { width:82px; }
+.question-text-container { width:68%; }
+.question-title { position:relative; top:-7px; margin-bottom:5px; }

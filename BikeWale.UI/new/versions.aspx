@@ -1315,7 +1315,7 @@
             <div class="newBikes-latest-updates-container">
                 <div class="grid-12">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30">Latest updates on <%= bikeName %></h2>
-                    <div class="bw-tabs-panel content-box-shadow margin-bottom30">
+                    <div class="bw-tabs-panel content-box-shadow">
                         <div class="text-center <%= reviewTabsCnt > 2 ? string.Empty : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
@@ -1347,7 +1347,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        
         <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div class="container">
                 <div class="grid-12 alternative-section" id="alternative-bikes-section">
@@ -1367,6 +1367,29 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+        <section>
+            <div class="container margin-bottom30">
+                <div class="grid-12">
+                    <div class="content-box-shadow content-inner-block-20">
+                        <div class="inline-block text-center margin-right30">
+                            <div class="icon-outer-container rounded-corner50">
+                                <div class="icon-inner-container rounded-corner50">
+                                    <span class="bwsprite question-mark-icon margin-top25"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block">
+                            <h3 class="margin-bottom10">Questions?</h3>
+                            <p class="text-light-grey font14">We’re here to help. Read our <a href="">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-dark-grey">1800 120 8300</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+
         <!-- get on road price popup -->
         <div id="onRoadPricePopup" class="rounded-corner2 content-inner-block-20 text-center hide">
             <div class="onroadPriceCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
