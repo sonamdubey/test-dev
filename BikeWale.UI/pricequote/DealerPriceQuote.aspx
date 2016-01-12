@@ -393,7 +393,7 @@
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <li class="offertxt"><%# DataBinder.Eval(Container.DataItem,"OfferText")%>
-                                            <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View T&amp;C</a></span>" : "" %>
+                                            <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
                                         </li>
                                     </ItemTemplate>
                                     <FooterTemplate>
