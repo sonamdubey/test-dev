@@ -36,5 +36,9 @@ namespace Bikewale.Entities.BikeBooking
 
         [JsonProperty("isOfferTerms")]
         public bool IsOfferTerms { get; set; }
+
+        [JsonProperty("isPriceImpact")]
+        public bool IsPriceImpact { get; set; }
+
     }
 }

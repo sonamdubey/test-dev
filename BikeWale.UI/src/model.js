@@ -344,6 +344,7 @@ var otpVal = function (msg) {
 };
 
 function validateOTP() {
+    
     var retVal = true;
     var isNumber = /^[0-9]{5}$/;
     var cwiCode = otpText.val();

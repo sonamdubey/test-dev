@@ -54,7 +54,7 @@ namespace Bikewale.New
         protected string modelId = string.Empty;
         protected int variantId = 0;
         protected int versionId = 0;
-        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptMoreOffers, rptCategory, rptVariants;
+        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptMoreOffers, rptCategory, rptVariants, rptDiscount;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
         protected int cityId = 0;
@@ -88,7 +88,7 @@ namespace Bikewale.New
         protected ListView ListBox1;
         protected Label defaultVariant;
         protected HiddenField hdnVariant;
-
+        protected IList<PQ_Price> priceList { get; set; }
 
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
@@ -273,6 +273,7 @@ namespace Bikewale.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
+                        var totalDiscount = TotalDiscountedPrice();
                         //if ((isCitySelected && !isAreaAvailable))
                         if (isOnRoadPrice)
                             lblExOn.Text = "On-road price";
@@ -281,7 +282,7 @@ namespace Bikewale.New
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
                             if (selecteVersionList != null && selecteVersionList.Count() > 0)
-                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selecteVersionList.First().OnRoadPrice));
+                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selecteVersionList.First().OnRoadPrice - totalDiscount));
                         }
                         else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                         {
@@ -626,9 +627,14 @@ namespace Bikewale.New
                                 }
                                 if (selectedVariant.PriceList != null)
                                 {
+                                    priceList = selectedVariant.PriceList;
                                     rptCategory.DataSource = selectedVariant.PriceList;
                                     rptCategory.DataBind();
-
+                                    if (pqOnRoad.IsDiscount)
+                                    {
+                                        rptDiscount.DataSource = pqOnRoad.discountedPriceList;
+                                        rptDiscount.DataBind();
+                                    } 
                                     // String operation
                                     viewbreakUpText = "(";
                                     foreach (var text in selectedVariant.PriceList)
@@ -646,9 +652,9 @@ namespace Bikewale.New
                                 if (bookingAmt > 0)
                                     isBookingAvailable = true;
 
-                                if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
+                                if (pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
-                                    price = Convert.ToString(onRoadPrice - pqOnRoad.InsuranceAmount);
+                                    price = Convert.ToString(onRoadPrice - TotalDiscountedPrice());
                                 }
                             }
                             #endregion
@@ -780,7 +786,14 @@ namespace Bikewale.New
                                             }
                                             pqOnRoad.IsInsuranceFree = true;
                                             pqOnRoad.DPQOutput = oblDealerPQ;
+                                            if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count> 0)
+                                                pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers, pqOnRoad.DPQOutput.PriceList);
                                             pqOnRoad.InsuranceAmount = insuranceAmount;
+                                            if (oblDealerPQ.discountedPriceList!= null && oblDealerPQ.discountedPriceList.Count > 0)
+                                            {
+                                                pqOnRoad.IsDiscount = true;
+                                                pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;
+                                            }
                                         }
                                     }
                                 }
@@ -1150,6 +1163,46 @@ namespace Bikewale.New
                 toShowOnRoadPriceButton = true;
             }
         }
+
+        /// <summary>
+        /// Creted By : Lucky Rathore
+        /// Created on : 08 January 2016
+        /// </summary>
+        /// <param name="price">dicount price</param>
+        /// <param name="CategoryId">category of specified discount</param>
+        /// <returns>Price in string formate.</returns>
+        protected string GetDiscountPrice(string price, UInt32 CategoryId)
+        {
+            if (price.CompareTo("0") == 0 )
+            {
+                foreach(var priceListIterator in priceList)
+                {
+                    if (priceListIterator.CategoryId == CategoryId) return Bikewale.Utility.Format.FormatPrice(Convert.ToString(priceListIterator.Price));
+                }
+            }
+            return Bikewale.Utility.Format.FormatPrice(Convert.ToString(price));
+        }
+
+
+        /// <summary>
+        /// Creted By : Lucky Rathore
+        /// Created on : 08 January 2016
+        /// </summary>
+        /// <returns>Total dicount on specific Version.</returns>
+        protected UInt32 TotalDiscountedPrice() 
+        {
+            UInt32 totalPrice = 0;
+
+            if (pqOnRoad != null && pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
+            {
+                foreach(var priceListObj in pqOnRoad.discountedPriceList)
+                {
+                        totalPrice += priceListObj.Price;
+                }
+            }
+
+            return totalPrice;
+        } 
         #endregion
     }
 }

@@ -35,12 +35,16 @@
                                 	<td>Advance booking:</td>
                                     <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span> <%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></td>
                                 </tr>
-                                 <% if (IsInsuranceFree)
+                                 <% if (_objPQ.objQuotation.discountedPriceList != null && _objPQ.objQuotation.discountedPriceList.Count > 0)
                                            {%>
-                                <tr>
-                                    <td>Free Insurance Amount:</td>
-                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span> <%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(insuranceAmount)) %></td>
-                                </tr>
+                                <asp:Repeater ID="rptDiscount" runat="server">
+                                    <ItemTemplate>
+                                        <tr>
+                                            <td>Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName")%></td>
+                                            <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span> <%# Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"Price")))%> </td>
+                                        </tr>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                                         <%}%>
                                 <tr>
                                 	<td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
@@ -50,7 +54,7 @@
                                 </tr>
                                 <tr>
                                 	<td>Balance amount:</td>
-                                    <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalPrice - _objPQ.objBookingAmt.Amount - insuranceAmount)) %></td>
+                                    <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalPrice - _objPQ.objBookingAmt.Amount - totalDiscount)) %></td>
                                 </tr>
                                 <tr>
                                 	<td class="font12 text-medium-grey">*Balance amount payable at the dealership</td>

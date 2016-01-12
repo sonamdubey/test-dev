@@ -230,10 +230,8 @@ namespace Bikewale.Pricequote
                 {
                     dealerDetailEntity = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, dealerDetailEntity);
                 }
-
                 if (dealerDetailEntity != null)
                 {
-
                     if (dealerDetailEntity.objQuotation != null)
                     {
                         foreach (var price in dealerDetailEntity.objQuotation.PriceList)
@@ -242,8 +240,10 @@ namespace Bikewale.Pricequote
                             if (isInsuranceFree)
                                 break;
                         }
-                    }
 
+                        if (dealerDetailEntity.objOffers != null && dealerDetailEntity.objOffers.Count > 0)
+                            dealerDetailEntity.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(dealerDetailEntity.objOffers, dealerDetailEntity.objQuotation.PriceList);
+                    }
                 }
             }
             catch (Exception err)

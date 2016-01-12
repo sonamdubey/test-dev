@@ -170,6 +170,19 @@ var BikeDetails = function () {
     self.isInsuranceFree = ko.observable(insFree);
     self.insuranceAmount = ko.observable(insAmt);
     self.priceBreakupText = ko.observable();
+    self.discountList = ko.observableArray(discountDetail);
+
+    self.totalDiscount = ko.computed(function () {
+        var discount = 0;
+        var vlen = self.discountList().length;
+        if (self.discountList() != undefined && vlen > 0) {
+            for (i = 0; i < vlen ; i++) {
+                discount += self.discountList()[i].Price;
+            }
+        }
+        console.log(discount);
+        return discount;
+    }, this);
 
     self.versionPrice = ko.computed(function () {
         var priceTxt = '';

@@ -28,7 +28,7 @@ namespace Bikewale.BikeBooking
 {
     public class DealerPriceQuote : System.Web.UI.Page
     {
-        protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers;
+        protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers, rptDiscount;
         protected DropDownList ddlVersion;
         protected HtmlGenericControl div_GetPQ, div_ShowErrorMsg;
 
@@ -42,7 +42,9 @@ namespace Bikewale.BikeBooking
         protected string pqId = string.Empty, areaId = string.Empty, BikeName = string.Empty;
         protected UInt32 dealerId = 0, cityId = 0, versionId = 0;
         protected UInt32 insuranceAmount = 0;
+        protected UInt32 totalDiscount = 0;
         protected bool IsInsuranceFree = false;
+        protected bool IsDiscount = false;
         protected CustomerEntity objCustomer = new CustomerEntity();
         protected string cityArea = string.Empty;
         protected uint bookingAmount = 0;
@@ -194,6 +196,14 @@ namespace Bikewale.BikeBooking
                         rptOffers.DataBind();
                     }
 
+                    if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
+                    {
+                        objPrice.discountedPriceList = OfferHelper.ReturnDiscountPriceList(objPrice.objOffers, objPrice.PriceList);
+                        rptDiscount.DataSource = objPrice.discountedPriceList;
+                        rptDiscount.DataBind();
+                        IsDiscount = true;
+                        totalDiscount = TotalDiscountedPrice();
+                    }
                     if (objPrice.Varients != null && objPrice.Varients.Count() > 0)
                     {
                         foreach (var i in objPrice.Varients)
@@ -406,6 +416,16 @@ namespace Bikewale.BikeBooking
             }
             return string.Empty;
         }
+
+        private UInt32 TotalDiscountedPrice()
+        {
+            UInt32 totalPrice = 0;
+            foreach (var priceListObj in objPrice.discountedPriceList)
+            {
+                totalPrice += priceListObj.Price;
+            }
+            return totalPrice;
+        } 
 
 
     }   //End of Class

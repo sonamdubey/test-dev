@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bikewale.Entities.BikeBooking;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Configuration;
@@ -80,6 +81,79 @@ namespace Bikewale.Utility
 
             }
             return retVal;
+        }
+        /// <summary>
+        /// Created By      :    Sangram Nandkhile
+        /// Summary         :    To return list of Items which needs to be deducted from the total Price
+        /// </summary>
+        /// <param name="offers"></param>
+        public static List<PQ_Price> ReturnDiscountPriceList(List<OfferEntity> offers, List<PQ_Price> priceList )
+        {
+            if (offers == null || priceList == null) return null;
+            List<PQ_Price> discountedPriceList = new List<PQ_Price>();
+            foreach (var offer in offers)
+            {
+                if (offer.IsPriceImpact)
+                {
+                    string displayText =  ContainsAny(offer.OfferText.ToLower());
+                    if (displayText != string.Empty)
+                    {
+                        var priceItem = new PQ_Price();
+                        priceItem.CategoryName = displayText;
+                        uint calcOfferVal = 0;
+                        if (offer.OfferValue == 0)
+                        {
+                            try
+                            {
+                                var selected = priceList.Where(p => p.CategoryName.ToLower().Contains(displayText.ToLower()));
+                                if (selected != null && selected.Count()> 0)
+                                {
+                                    calcOfferVal = selected.First().Price;
+                                    priceItem.Price = calcOfferVal;
+                                }
+                            }
+                            catch { }
+                        }
+                        else
+                        {
+                            priceItem.Price = offer.OfferValue;
+                        }
+                        discountedPriceList.Add(priceItem);
+                    }
+                }
+            }
+            return discountedPriceList;
+        }
+        
+        /// <summary>
+        /// Check if string has bumper offer categories
+        /// </summary>
+        /// <param name="offerText">Individual offer to be checked</param>
+        /// <returns></returns>
+        public static string ContainsAny(string offerText)
+        {
+            string displayText = string.Empty;
+            try
+            {
+                NameValueCollection keyValCollection = ConfigurationManager.GetSection("offerCategory") as NameValueCollection;
+                if (keyValCollection != null)
+                {
+                    foreach (var keyp in keyValCollection.AllKeys)
+                    {
+                        if (offerText.Contains(keyp))
+                        {
+                            displayText = keyValCollection.GetValues(keyp).First();
+                            break;
+                        }
+                    }
+                }
+            }
+            catch
+            {
+                return string.Empty;
+            }
+            displayText = displayText != string.Empty ? displayText : displayText;
+            return displayText;
         }
     }
 }

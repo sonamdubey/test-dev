@@ -61,7 +61,7 @@ namespace Bikewale.Mobile.New
 
         // New Model Revamp
         protected bool isBookingAvailable, isOfferAvailable, isBikeWalePQ, isDiscontinued, isAreaAvailable;
-        protected Repeater rptOffers, rptMoreOffers, rptCategory, rptVariants;
+        protected Repeater rptOffers, rptMoreOffers, rptCategory, rptVariants, rptDiscount;
         static readonly string _bwHostUrl, _PageNotFoundPath;
         protected VersionSpecifications bikeSpecs;
         protected int variantId = 0;
@@ -195,7 +195,7 @@ namespace Bikewale.Mobile.New
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
                             if (selecteVersionList != null && selecteVersionList.Count() > 0)
-                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selecteVersionList.First().OnRoadPrice));
+                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selecteVersionList.First().OnRoadPrice - TotalDiscountedPrice()));
                         }
                         else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                         {
@@ -559,7 +559,11 @@ namespace Bikewale.Mobile.New
                                 {
                                     rptCategory.DataSource = selectedVariant.PriceList;
                                     rptCategory.DataBind();
-
+                                    if (pqOnRoad.IsDiscount)
+                                    {
+                                        rptDiscount.DataSource = pqOnRoad.discountedPriceList;
+                                        rptDiscount.DataBind();
+                                    } 
                                     // String operation
                                     viewbreakUpText = "(";
                                     foreach (var text in selectedVariant.PriceList)
@@ -577,9 +581,9 @@ namespace Bikewale.Mobile.New
                                 if (bookingAmt > 0)
                                     isBookingAvailable = true;
 
-                                if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
+                                if (pqOnRoad.discountedPriceList!=null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
-                                    price = Convert.ToString(onRoadPrice - pqOnRoad.InsuranceAmount);
+                                    price = Convert.ToString(onRoadPrice - TotalDiscountedPrice());
                                 }
                             }
                             #endregion
@@ -817,6 +821,13 @@ namespace Bikewale.Mobile.New
                                             pqOnRoad.IsInsuranceFree = true;
                                             pqOnRoad.DPQOutput = oblDealerPQ;
                                             pqOnRoad.InsuranceAmount = insuranceAmount;
+                                            if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
+                                                pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers, pqOnRoad.DPQOutput.PriceList);
+                                            if (oblDealerPQ.discountedPriceList.Count > 0)
+                                            {
+                                                pqOnRoad.IsDiscount = true;
+                                                pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;
+                                            }
                                         }
                                     }
                                 }
@@ -871,5 +882,20 @@ namespace Bikewale.Mobile.New
                 toShowOnRoadPriceButton = true;
             }
         }
+
+        protected UInt32 TotalDiscountedPrice()
+        {
+            UInt32 totalPrice = 0;
+
+            if (pqOnRoad != null && pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
+            {
+                foreach (var priceListObj in pqOnRoad.discountedPriceList)
+                {
+                    totalPrice += priceListObj.Price;
+                }
+            }
+
+            return totalPrice;
+        } 
     }
 }

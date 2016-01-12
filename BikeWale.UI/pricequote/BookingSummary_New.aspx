@@ -220,7 +220,7 @@
                                         <div>
                                             <!-- ko if : versionPrice() > 0 -->
                                             <span class="fa fa-rupee"></span>
-                                            <span data-bind="CurrencyText: (isInsuranceFree())?(versionPrice() - insuranceAmount()):versionPrice()"></span>
+                                            <span data-bind="CurrencyText: versionPrice() - totalDiscount()"></span>
                                             <!-- /ko -->
                                             <!-- ko ifnot : (versionPrice() > 0) -->
                                             <span>Price unavailable</span>
@@ -260,7 +260,7 @@
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
-                                            <!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
+                                            <%if (dealerDetailEntity.objQuotation.discountedPriceList != null && dealerDetailEntity.objQuotation.discountedPriceList.Count>0){ %>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>
@@ -270,12 +270,21 @@
                                                 <td class="padding-bottom10">Total on road price</td>
                                                 <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
                                             </tr>
+                                             <!-- ko foreach: discountList -->
+                                            <tr>
+                                                <td width="350" class="padding-bottom10" data-bind="text: 'Minus ' + CategoryName"></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                            </tr>
+                                            <!-- /ko -->
+                                            <% } %>
+                                            <%--<!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
+                                            
 
                                             <tr>
                                                 <td class="padding-bottom10">Minus insurance</td>
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
                                             </tr>
-                                            <!-- /ko -->
+                                            <!-- /ko -->--%>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>
@@ -284,7 +293,7 @@
                                             <tr>
 
                                                 <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - insuranceAmount())"></span></td>
+                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
 
                                             </tr>
                                             <tr>
@@ -424,8 +433,8 @@
         </section>
 
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
-
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
+         <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/footerBW.aspx" -->
 
         <script type="text/javascript">
@@ -447,6 +456,7 @@
             //select bike version
             var bikeVersionId = "<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>";
             var versionList = JSON.parse($("#hdnBikeData").val());
+            var discountDetail = JSON.parse($("#hdnDiscountList").val());
             var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>;          
             var insAmt = '<%= insuranceAmount %>';

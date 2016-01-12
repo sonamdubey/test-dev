@@ -24,7 +24,7 @@ namespace Bikewale.Mobile.BikeBooking
 {
     public class DealerPriceQuote : System.Web.UI.Page
     {
-        protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers;
+        protected Repeater rptPriceList, rptColors, rptDisclaimer, rptOffers, rptDiscount;
         protected DropDownList ddlVersion;
 
         protected PQ_QuotationEntity objPrice = null;
@@ -42,6 +42,8 @@ namespace Bikewale.Mobile.BikeBooking
         protected string cityArea = string.Empty;
         protected uint bookingAmount = 0;
         protected String clientIP = string.Empty;
+        protected bool IsDiscount = false;
+        protected UInt32 totalDiscount = 0;
 
         protected override void OnInit(EventArgs e)
         {
@@ -143,6 +145,14 @@ namespace Bikewale.Mobile.BikeBooking
                         rptOffers.DataSource = objPrice.objOffers;
                         rptOffers.DataBind();
 
+                    }
+                    if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
+                    {
+                        objPrice.discountedPriceList = OfferHelper.ReturnDiscountPriceList(objPrice.objOffers, objPrice.PriceList);
+                        rptDiscount.DataSource = objPrice.discountedPriceList;
+                        rptDiscount.DataBind();
+                        IsDiscount = true;
+                        totalDiscount = TotalDiscountedPrice();
                     }
 
                     if (objPrice.Varients != null && objPrice.Varients.Count() > 0)
@@ -356,6 +366,15 @@ namespace Bikewale.Mobile.BikeBooking
                 ctrlAlternateBikes.VersionId = Convert.ToInt32(versionId);
                 ctrlAlternateBikes.PQSourceId = (int)PQSourceEnum.Mobile_DPQ_Alternative;
             }
+        }
+        private UInt32 TotalDiscountedPrice()
+        {
+            UInt32 totalPrice = 0;
+            foreach (var priceListObj in objPrice.discountedPriceList)
+            {
+                totalPrice += priceListObj.Price;
+            }
+            return totalPrice;
         }
 
     }   //End of class
