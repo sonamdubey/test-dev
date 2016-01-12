@@ -51,6 +51,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AppNotification.DAL\AppNotification.DAL.csproj">
+      <Project>{3ec7dae3-11b5-497b-bfe7-075bc7a8882e}</Project>
+      <Name>AppNotification.DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AppNotification.Entity\AppNotification.Entity.csproj">
       <Project>{85327c62-a202-4a32-82bd-c225817254cc}</Project>
       <Name>AppNotification.Entity</Name>
@@ -58,6 +62,10 @@
     <ProjectReference Include="..\AppNotification.Interfaces\AppNotification.Interfaces.csproj">
       <Project>{1cca6350-73e0-4fbe-a532-cd5de9ffacb0}</Project>
       <Name>AppNotification.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AppNotification.NotificationCore\AppNotification.NotificationCore.csproj">
+      <Project>{db83548b-d684-4dd2-bf44-12f5bbd24bfa}</Project>
+      <Name>AppNotification.NotificationCore</Name>
     </ProjectReference>
     <ProjectReference Include="..\AppNotification.Notifications\AppNotification.Notifications.csproj">
       <Project>{3604c3fe-eb59-4103-900d-5411f62fd561}</Project>

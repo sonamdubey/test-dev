@@ -253,7 +253,7 @@
                     <%-- Start 102155010 --%>
 
                     <%
-                        if (IsInsuranceFree)
+                        if (IsDiscount)
                         {
                     %>
                     <tr>
@@ -262,16 +262,21 @@
                             <div><span class="fa fa-rupee"></span> <span style="text-decoration: line-through"> <%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td align="left" class="text-medium-grey">Minus Insurance</td>
-                        <td align="right" class="text-grey text-bold">
-                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice(insuranceAmount.ToString()) %></div>
-                        </td>
+                    <asp:Repeater ID="rptDiscount" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td align="left" class="text-medium-grey">Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> <%# Bikewale.common.DealerOfferHelper.HasFreeInsurance(dealerId.ToString(),"",DataBinder.Eval(Container.DataItem,"CategoryName").ToString(),Convert.ToUInt32(DataBinder.Eval(Container.DataItem,"Price").ToString()),ref insuranceAmount) ? "<img class='insurance-free-icon' alt='Free_icon' src='http://imgd1.aeplcdn.com/0x0/bw/static/free_red.png' title='Free_icon'/>" : "" %></td>
+                                <td align="right" class="text-grey text-bold"><span class="fa fa-rupee"></span> <%# CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                     <tr align="left">
+                        <td height="1" colspan="2" class="break-line" style="padding: 0 0 10px;"></td>
                     </tr>
                     <tr>
-                        <td align="left" class="text-medium-grey">BikeWale On Road (after insurance offer)</td>
+                        <td align="left" class="text-medium-grey">BikeWale On Road</td>
                         <td align="right" class="text-grey text-bold">
-                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></div>
+                            <div><span class="fa fa-rupee"></span> <%= CommonOpn.FormatPrice((totalPrice - totalDiscount).ToString()) %></div>
 
                         </td>
                     </tr>
@@ -323,9 +328,9 @@
                             <ul class="grey-bullet">
                         </HeaderTemplate>
                         <ItemTemplate>
-
-                            <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
-
+                            <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%>
+                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                            </li>
                         </ItemTemplate>
                         <FooterTemplate>
                             </ul>                        
@@ -461,6 +466,18 @@
         </div>
         <!-- Lead Capture pop up end  -->
 
+        <!-- Terms and condition Popup start -->
+        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+            <h3>Terms and Conditions</h3>
+            <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                <img src="/images/search-loading.gif" />
+            </div>
+            <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+            </div>
+        </div>
+        <!-- Terms and condition Popup Ends -->
 
         <BW:MPopupWidget runat="server" ID="MPopupWidget" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
@@ -510,11 +527,7 @@
                     //$(".blackOut-window").show();
                     
 
-                    //$(document).on('keydown', function (e) {
-                    //    if (e.keyCode === 27) {
-                    //        $("#leadCapturePopup .leadCapture-close-btn").click();
-                    //    }
-                    //});
+                    
 
                 });
 
@@ -523,6 +536,13 @@
                     //$('body').removeClass('lock-browser-scroll');
                     //$(".blackOut-window").hide();
                     window.history.back();
+                });
+
+                $(document).on('keydown', function (e) {
+                    if (e.keyCode === 27) {
+                        $("#leadCapturePopup .leadCapture-close-btn").click();
+                        $("div.termsPopUpCloseBtn").click();
+                    }
                 });
 
             });
@@ -923,6 +943,46 @@
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Link', 'lab': bikeName + '_' + getCityArea });
             });
             ga_pg_id = "7";
+
+            $('.tnc').on('click', function (e) {
+                LoadTerms($(this).attr("id"));
+            });
+
+            function LoadTerms(offerId) {
+                $(".termsPopUpContainer").css('height', '150')
+                $('#termspinner').show();
+                $('#terms').empty();
+                $("div#termsPopUpContainer").show();
+                $(".blackOut-window").show();
+
+                var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+                if (offerId != '' && offerId != null) {
+                    $.ajax({
+                        type: "GET",
+                        url: abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId,
+                        dataType: 'json',
+                        success: function (response) {
+                            $(".termsPopUpContainer").css('height', '500')
+                            $('#termspinner').hide();
+                            if (response.html != null)
+                                $('#terms').html(response.html);
+                        },
+                        error: function (request, status, error) {
+                            $("div#termsPopUpContainer").hide();
+                            $(".blackOut-window").hide();
+                        }
+                    });
+                }
+                else {
+                    setTimeout(LoadTerms, 2000); // check again in a second
+                }
+            }
+
+            $(".termsPopUpCloseBtn").on('mouseup click', function (e) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            });
+
         </script>
 
     </form>

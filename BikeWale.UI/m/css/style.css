@@ -808,3 +808,12 @@ footer .border-solid-top {
 .back-to-top a {color: #d1d1d1;display: block;text-align: center;text-decoration: none;transition: color 1s ease 0s;width: 30px;}
 .back-to-top a:hover span {background-color: rgb(0, 0, 0);}
 .back-to-top span {background: #cb2100 url("http://img1.aeplcdn.com/tyreguide/up-arrow.png") no-repeat scroll center center;border-radius: 30px;cursor: pointer;display: block;height: 30px;margin-bottom: 7px;transition: all 1s ease 0s;width: 30px;}
+
+/* AutoExpo classes */
+.ae-sprite {background: url("http://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}
+.ae-logo { background-color: #fff; background-position: -34px 2px; height: 27px; margin-top: -7px; position: relative; top: 4px; width: 45px; }
+.ae-logo-border { border:1px solid #eee; display: inline-block; height: 19px; margin: 0 15px 0 100px; }
+.ae-car-icon, .ae-new-label-icon { height: 25px; position: relative;top: 5px; } 
+.ae-car-icon {background-position: 0 4px; width: 36px;}
+.ae-new-label-icon{background-position: -156px 1px; height: 24px; top: -10px; left: 5px; width: 39px; }
+/* AutoExpo classes end */

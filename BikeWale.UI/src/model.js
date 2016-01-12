@@ -344,6 +344,7 @@ var otpVal = function (msg) {
 };
 
 function validateOTP() {
+    
     var retVal = true;
     var isNumber = /^[0-9]{5}$/;
     var cwiCode = otpText.val();
@@ -855,4 +856,39 @@ function getBikeVersion() {
         versionName = $('#versText').html()
     }
     return versionName;
+}
+
+$('.tnc').on('click', function (e) {
+    LoadTerms($(this).attr("id"));
+});
+
+function LoadTerms(offerId) {
+
+    $(".termsPopUpContainer").css('height', '150')
+    $('#termspinner').show();
+    $('#terms').empty();
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+
+    var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+    if (offerId != '' && offerId != null) {
+        $.ajax({
+            type: "GET",
+            url: abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                $(".termsPopUpContainer").css('height', '500')
+                $('#termspinner').hide();
+                if (response.html != null)
+                    $('#terms').html(response.html);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        setTimeout(LoadTerms, 2000); // check again in a second
+    }
 }

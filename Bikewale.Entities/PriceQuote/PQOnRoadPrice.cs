@@ -16,6 +16,8 @@ namespace Bikewale.Entities.PriceQuote
         public BikeModelEntity BikeDetails { get; set; }
         public bool IsDealerPriceAvailable { get { if (this.DPQOutput != null) { return true; } else { return false; } } }
         public bool IsInsuranceFree { get; set; }
-        public uint InsuranceAmount { get; set; } 
+        public uint InsuranceAmount { get; set; }
+        public List<PQ_Price> discountedPriceList { get; set; }
+        public bool IsDiscount { get; set; }
     }
 }

@@ -46,5 +46,8 @@ namespace BikeWaleOpr.Entities
         [JsonProperty("isOfferTerms")]
         public bool IsOfferTerms { get; set; }
 
+        [JsonProperty("isPriceImpact")]
+        public bool IsPriceImpact { get; set; }
+
     }
 }

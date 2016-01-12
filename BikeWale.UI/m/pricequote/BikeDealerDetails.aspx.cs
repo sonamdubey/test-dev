@@ -182,6 +182,12 @@ namespace Bikewale.Mobile.Pricequote
                 {
                     BindDealerOffers();
                 }
+                if (dealerDetailEntity.objOffers != null && dealerDetailEntity.objOffers.Count > 0)
+                {
+                    dealerDetailEntity.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(
+                        dealerDetailEntity.objOffers, dealerDetailEntity.objQuotation.PriceList);
+                }
+                    
 
             }
             else

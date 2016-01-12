@@ -126,3 +126,10 @@
 /* tooltip */
 .select-color-warning-tooltip { display:none; width:150px; height:30px; text-align:center; line-height:28px; margin-top:5px; position:relative; background:#4d5057; color:#fff; }
 .select-color-warning-tooltip:before { border-left:7px solid #4d5057; border-top:7px solid transparent; border-bottom:7px solid transparent; content:""; position:absolute; top:8px; right:-7px; z-index:1; }
+/* offers popup */
+.termsPopUpContainer { width: 700px; height: 150px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; }
+.termsPopUpCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
+.viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
+.viewterms:hover{text-decoration:underline;}
+li.offertxt span { display:none }  
+li.offertxt:hover span {display:inline}

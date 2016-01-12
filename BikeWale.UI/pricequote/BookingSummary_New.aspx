@@ -93,7 +93,9 @@
                                 <ul>
                                     <asp:Repeater ID="rptDealerFinalOffers" runat="server">
                                         <ItemTemplate>
-                                            <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                            <li class="offertxt"> <%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                               <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                                            </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
@@ -177,7 +179,7 @@
                                         <div class="select-dropdown-list hide">
                                             <ul>
                                                 <asp:Repeater ID="rptVarients" runat="server">
-                                                    <ItemTemplate>
+                                                    <ItemTemplate>  .
                                                         <li versionid="<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>" data-bind="click: function () { getVersion(<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>); $root.ActualSteps(1); }">
                                                             <p><%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionName") %> </p>
                                                         </li>
@@ -215,11 +217,11 @@
                             <div class="onRoad-price-wrapper padding-top10">
                                 <ul>
                                     <li>
-                                        <p>On road price <span class="viewBreakupText text-blue text-link">(View breakup)</span>:</p>
+                                        <p>On road price <span class="viewBreakupText text-blue text-link">(View breakup)</span></p>
                                         <div>
                                             <!-- ko if : versionPrice() > 0 -->
                                             <span class="fa fa-rupee"></span>
-                                            <span data-bind="CurrencyText: (isInsuranceFree())?(versionPrice() - insuranceAmount()):versionPrice()"></span>
+                                            <span data-bind="CurrencyText: versionPrice() - totalDiscount()"></span>
                                             <!-- /ko -->
                                             <!-- ko ifnot : (versionPrice() > 0) -->
                                             <span>Price unavailable</span>
@@ -232,6 +234,7 @@
                                             <span class="fa fa-rupee"></span>
                                             <span data-bind="CurrencyText: ($root.Bike().bookingAmount()> 0)?$root.Bike().bookingAmount():'Price unavailable'"></span>
                                         </div>
+                                        <a class='viewBreakupText blue' id="cancellation-box" href="#">Hassle-free cancellation</a>
                                     </li>
                                     <li>
                                         <p>Balance amount payable:</p>
@@ -243,6 +246,7 @@
                                 </ul>
                                 <div class="clear"></div>
                             </div>
+
 
                             <!-- View BreakUp Popup Starts here-->
                             <div class="breakupPopUpContainer content-inner-block-20 hide" id="breakupPopUpContainer">
@@ -257,7 +261,7 @@
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
-                                            <!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
+                                            <%if (dealerDetailEntity.objQuotation.discountedPriceList != null && dealerDetailEntity.objQuotation.discountedPriceList.Count>0){ %>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>
@@ -267,12 +271,21 @@
                                                 <td class="padding-bottom10">Total on road price</td>
                                                 <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
                                             </tr>
+                                             <!-- ko foreach: discountList -->
+                                            <tr>
+                                                <td width="350" class="padding-bottom10" data-bind="text: 'Minus ' + CategoryName"></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                            </tr>
+                                            <!-- /ko -->
+                                            <% } %>
+                                            <%--<!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
+                                            
 
                                             <tr>
                                                 <td class="padding-bottom10">Minus insurance</td>
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
                                             </tr>
-                                            <!-- /ko -->
+                                            <!-- /ko -->--%>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>
@@ -281,7 +294,7 @@
                                             <tr>
 
                                                 <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - insuranceAmount())"></span></td>
+                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
 
                                             </tr>
                                             <tr>
@@ -325,7 +338,9 @@
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
                                             <ItemTemplate>
-                                                <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                                <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                    offers<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                                                </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
@@ -359,15 +374,70 @@
 
 
         </section>
+        <!-- Terms and condition Popup start -->
+           <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                                <h3>Terms and Conditions</h3>
+                                <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                    <img src="/images/search-loading.gif" />
+                                </div>
+                                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                                </div>
+                            </div>
+         <!-- Terms and condition Popup Ends -->
+        <!--cancellation popup starts here-->
+            <div class="bw-popup bw-popup-lg cancellation-popup hide">
+    	        <div class="popup-inner-container">
+                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+        	        <h2>Cancellation & Refund Policy</h2>
+                    <div class="popup-inner-content cancellation-list">
+            	        <ul>
+                             <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong> </li>               	
+                             <li><strong>b.</strong> Please email your <strong>Booking Cancellation Request'</strong> to <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating <strong>the booking reference number, your mobile number and email address (that you used while booking).</strong></li>
 
+                            <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
+                                of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
+                                submitting any documents, procurement of the vehicle by the dealership etc.
+                            </li>
+                            <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
+                	
+                	        <li><strong>e.</strong> For all valid requests, we will process the refund of full booking amount to customer's account within 7 working days.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--cancellation popup ends here-->
         <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
 
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+        <section>
+            <div class="container margin-bottom30">
+                <div class="grid-12">
+                    <div class="content-box-shadow content-inner-block-20">
+                        <div class="inline-block text-center margin-right30">
+                            <div class="icon-outer-container rounded-corner50">
+                                <div class="icon-inner-container rounded-corner50">
+                                    <span class="bwsprite question-mark-icon margin-top25"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block">
+                            <h3 class="margin-bottom10">Questions?</h3>
+                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-dark-grey">1800 120 8300</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
 
-        <!-- #include file="/includes/footerscript.aspx" -->
+        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
+        <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
+         <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/footerBW.aspx" -->
 
         <script type="text/javascript">
@@ -384,11 +454,12 @@
             var thisBikename = "<%= this.bikeName %>";
             var clientIP = "<%= clientIP %>"; 
             var pageUrl = "<%= pageUrl %>";
-
+            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
             
             //select bike version
             var bikeVersionId = "<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>";
             var versionList = JSON.parse(Base64.decode($("#hdnBikeData").val()));
+            var discountDetail = JSON.parse($("#hdnDiscountList").val());
             var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>;          
             var insAmt = '<%= insuranceAmount %>';

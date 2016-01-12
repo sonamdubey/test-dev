@@ -10,7 +10,7 @@
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
-    <div class="popup-inner-container" stopBinding: true>
+    <div class="popup-inner-container" stopbinding: true>
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
         <div class="cityPop-icon-container">
             <div class="icon-outer-container rounded-corner50 margin-bottom20">
@@ -23,26 +23,26 @@
         <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Get on-road prices by just sharing your location!</p>
         <div class="padding-top10" id="popupContent">
             <div>
-                <select data-placeholder="--Select City--" class="chosen-select"  id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }" ></select> 
-                 <span class="bwsprite error-icon hide"></span>
+                <select data-placeholder="--Select City--" class="chosen-select" id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }"></select>
+                <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
-            <div data-bind="visible: bookingAreas().length > 0" style="margin-top:10px">
+            <div data-bind="visible: bookingAreas().length > 0" style="margin-top: 10px">
                 <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--'"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
-                <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top15" style="display:block;margin-right:auto;margin-left:auto;" type="button" value="Get on road price" data-bind="event: { click: getPriceQuotePopup }">
-                <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
-            </div>
-        </div> 
+            <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top15" style="display: block; margin-right: auto; margin-left: auto;" type="button" value="Get on road price" data-bind="event: { click: getPriceQuotePopup }">
+            <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
+        </div>
     </div>
+</div>
 </div>
 <!--bw popup code ends here-->
 
 <script type="text/javascript">
 
-    var preSelectedCityId =0;
+    var preSelectedCityId = 0;
     var preSelectedCityName = "";
     popupcity = $('#ddlCitiesPopup');
     popupArea = $('#ddlAreaPopup');
@@ -58,11 +58,17 @@
         selectedCity: ko.observable(),
         bookingCities: ko.observableArray([]),
         selectedArea: ko.observable(),
-        bookingAreas: ko.observableArray([])
+        bookingAreas: ko.observableArray([]),
+        hasAreas: ko.observable()
     };
 
+    function findCityById(vm, id) {
+        return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
+            return child.cityId === id;
+        });
+    }
 
-    function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr,pqSourceId) {
+    function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr, pqSourceId) {
         PQSourceId = pqSourceId;
         $.ajax({
             type: "GET",
@@ -78,13 +84,14 @@
 
                 $('.blackOut-window,#popupWrapper').fadeIn(100);
                 var cities = response.cities;
-                var citySelected = null; 
+                var citySelected = null;
                 if (cities) {
                     insertCitySeparator(cities);
                     checkCookies();
                     viewModelPopup.bookingCities(cities);
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
                         viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
+                        viewModelPopup.hasAreas(findCityById(viewModelPopup, onCookieObj.PQCitySelectedId).hasAreas);
                     }
                     popupcity.find("option[value='0']").prop('disabled', true);
                     popupcity.trigger('chosen:updated');
@@ -102,32 +109,39 @@
     function cityChangedPopup() {
         //gtmCodeAppender(pageId, "City Selected", null);
         if (viewModelPopup.selectedCity() != undefined) {
-            $.ajax({
-                type: "GET",
-                url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelPopup.selectedCity(),
-                dataType: 'json',
-                success: function (response) {
-                    areas = response.areas;
-                    if (areas.length) {
-                        viewModelPopup.bookingAreas(areas);
-                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
-                            viewModelPopup.selectedArea(onCookieObj.PQAreaSelectedId);
-                            onCookieObj.PQAreaSelectedId = 0;
+
+            viewModelPopup.hasAreas(findCityById(viewModelPopup, viewModelPopup.selectedCity()).hasAreas);
+            if (viewModelPopup.hasAreas() != undefined && viewModelPopup.hasAreas()) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelPopup.selectedCity(),
+                    dataType: 'json',
+                    success: function (response) {
+                        areas = response.areas;
+                        if (areas.length) {
+                            viewModelPopup.bookingAreas(areas);
+                            if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                                viewModelPopup.selectedArea(onCookieObj.PQAreaSelectedId);
+                                onCookieObj.PQAreaSelectedId = 0;
+                            }
+                            $('#ddlAreaPopup').trigger("chosen:updated");
                         }
-                        $('#ddlAreaPopup').trigger("chosen:updated");
-                    }
-                    else {
+                        else {
+                            viewModelPopup.selectedArea(0);
+                            viewModelPopup.bookingAreas([]);
+                            $('#ddlAreaPopup').trigger("chosen:updated");
+                        }
+                    },
+                    error: function (e) {
                         viewModelPopup.selectedArea(0);
                         viewModelPopup.bookingAreas([]);
                         $('#ddlAreaPopup').trigger("chosen:updated");
                     }
-                },
-                error: function (e) {
-                    viewModelPopup.selectedArea(0);
-                    viewModelPopup.bookingAreas([]);
-                    $('#ddlAreaPopup').trigger("chosen:updated");
-                }
-            });
+                });
+            }
+            else {
+                viewModelPopup.bookingAreas([]);
+            }
         } else {
             viewModelPopup.bookingAreas([]);
         }
@@ -161,7 +175,7 @@
         var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
         if (isValidInfoPopup()) {
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
-            if (ga_pg_id != null && ga_pg_id == 2 && sourceHref=='1') {
+            if (ga_pg_id != null && ga_pg_id == 2 && sourceHref == '1') {
                 window.location.reload();// = "/new/bikeModel.aspx?model=cbshine#modelDetailsContainer";
             }
             else {
@@ -279,7 +293,7 @@
     }
 
     $(document).ready(function () {
-        $('body').on('click','a.fillPopupData', function (e) {
+        $('body').on('click', 'a.fillPopupData', function (e) {
             if (ga_pg_id != null & ga_pg_id == 2) {
                 var attr = $(this).attr('ismodel');
                 if (typeof attr !== typeof undefined && attr !== false) {
@@ -310,7 +324,7 @@
 
         ko.applyBindings(viewModelPopup, $("#popupContent")[0]);
     });
-        
+
 
 </script>
 <script type="text/javascript" src="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/src/common/chosen.jquery.min.js?<%= staticFileVersion1 %>"></script>
