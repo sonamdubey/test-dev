@@ -57,7 +57,6 @@ var BookingConfigViewModel = function () {
     self.UserOptions = ko.observable();
     self.selectedColorId = ko.observable(0);
     self.ActualSteps = ko.observable(1);
-    self.BikeColors = ko.observableArray(availByColorList);
     self.changedSteps = function () {
         if (self.Bike().selectedVersionId() > 0) {
             if (self.Bike().selectedColorId() > 0) {
@@ -147,20 +146,6 @@ var BookingConfigViewModel = function () {
         }
     });
 
-    self.BikeAvailability = ko.computed(function () {
-        debugger;
-        if (self.Bike().selectedColorId() > 0 && self.BikeColors() != undefined && self.BikeColors().length > 0) {
-            avail = false;
-            $.each(self.BikeColors(), function (key, value) {
-                if (value.ColorId == self.Bike().selectedColorId())
-                    return value.NoOfDays;
-            }); 
-            return self.Bike().waitingPeriod(); 
-        } else {
-            return self.Bike().waitingPeriod();
-        }
-    });
-
 }
 
 
@@ -224,7 +209,8 @@ var BikeDetails = function () {
     };
 
     self.getColor = function (data, event) {
-        self.selectedColorId(data.Id);
+        self.selectedColorId(data.ColorId);
+        self.waitingPeriod(data.NoOfDays);
         var ele = colorsul.find("li[colorId=" + self.selectedColorId() + "]");
         colorsul.find("li").removeClass("selected-color text-bold text-white border-dark-grey").addClass("text-light-grey border-light-grey");
         colorsul.find("li").find('span.color-title-box').removeClass().addClass('color-title-box');
@@ -376,14 +362,15 @@ $.valueFormatter = function (num) {
 
 function setColor() {
     var vc = viewModel.Bike().versionColors();
-    if (preSelectedColor > 0) {
+    if (preSelectedColor != "0") {
         if (vc != null && vc.length > 0) {
             $.each(vc, function (key, value) {
-                if (value.Id == preSelectedColor) {
+                if (value.ColorId == preSelectedColor) {
                     viewModel.Bike().getColor(value);
                     viewModel.CurrentStep(3);
                     viewModel.ActualSteps(3);
                     viewModel.SelectedVersion(viewModel.Bike().selectedVersionId());
+                    viewModel.Bike().selectedColorId(value.ColorId);
                 }
             });
         }

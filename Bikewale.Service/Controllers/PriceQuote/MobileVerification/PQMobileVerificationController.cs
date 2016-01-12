@@ -89,7 +89,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
 
                                 if (objBookingPageDetailsEntity != null)
                                 {
-                                    objBookingPageDetailsEntity.BikeModelColors = null;
+                                    objBookingPageDetailsEntity.VersionColors = null;
 
                                     if (objBookingPageDetailsEntity.Disclaimers != null)
                                     {

@@ -100,8 +100,8 @@
                         <div class="select-color-container padding-bottom10 margin-bottom15">
                             <h3 class="select-colorh4 margin-top15 margin-bottom15">Choose color</h3>
                             <ul class="select-colorUL" data-bind="foreach: versionColors">
-                                <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.Id},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
-                                    <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode }"></span>
+                                <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.ColorId},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
+                                    <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode[0] }"></span>
                                     <span class="color-title-box" data-bind="text: ColorName"></span>
                                 </li>
                             </ul>
@@ -274,8 +274,8 @@
                                     </li>
                                     <li>
                                         <p class="text-bold">Availability</p>
-                                        <p class="text-light-grey" data-bind="visible : $root.BikeAvailability() > 0">Waiting period of <span class="text-default" data-bind="text : ($root.BikeAvailability() == 1)?$root.BikeAvailability() + ' day' : $root.BikeAvailability() + ' days'"></span></p>
-                                        <p class="text-green text-bold" data-bind="visible : $root.BikeAvailability() < 1">Now available</p>
+                                         <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
+                                         <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</p>
                                     </li>
                                 </ul>
                             </div>
@@ -296,6 +296,7 @@
                                 <%}
                                    else
                                    {%>
+                                <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
                                 <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span> <span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                                 <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1">Dealer's Location</h3>
                                 <div class="bikeModel-dealerMap-container margin-top15" style="width: 100%; min-width: 50%; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
@@ -415,12 +416,11 @@
         </section>
 
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
-        <input id="hdnBikeColorAvailability" type="hidden" value='<%= jsonBikeColorAvailability  %>' />
 
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+        
         <script type="text/javascript">
             //Need to uncomment the below script
             var thisBikename = "<%= this.bikeName %>";
@@ -428,18 +428,14 @@
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
             var versionList = JSON.parse(Base64.decode($("#hdnBikeData").val()));
-            var availByColorList = JSON.parse(Base64.decode($("#hdnBikeColorAvailability").val())); 
-            var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
+            var preSelectedColor = <%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>;
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
             var insAmt = '<%= insuranceAmount %>';
             var cityId = '<%= cityId%>';
             var areaId = '<%= areaId%>';
             var BikeDealerDetails = function () {
                 var self = this;
-                // self.Dealer = ko.observable(objDealer);
                 self.DealerId = ko.observable(<%= dealerId%>);
-                // self.DealerDetails = ko.observable(objDealer.objDealer);
-                // self.DealerQuotation = ko.observable(objDealer.objQuotation);
                 self.IsInsuranceFree = ko.observable(insFree);
                 self.InsuranceAmount = ko.observable(insAmt);
                 self.latitude = ko.observable(<%= latitude %>);

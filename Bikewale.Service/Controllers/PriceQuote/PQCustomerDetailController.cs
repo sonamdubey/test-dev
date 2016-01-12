@@ -164,7 +164,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                         if (objBookingPageDetailsEntity != null)
                         {
-                            objBookingPageDetailsEntity.BikeModelColors = null;
+                            objBookingPageDetailsEntity.VersionColors = null;
 
                             if (objBookingPageDetailsEntity.Disclaimers != null)
                             {

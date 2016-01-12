@@ -179,7 +179,6 @@ var BookingPageViewModel = function () {
     self.UserOptions = ko.observable();
     self.ActualSteps = ko.observable(1);
     self.CustomerInfo = ko.observable();
-    self.BikeColors = ko.observableArray(availByColorList);
     self.changedSteps = function () {
         if (self.Bike().selectedVersionId() > 0) {
             self.SelectedVersionId(self.Bike().selectedVersionId());
@@ -330,19 +329,6 @@ var BookingPageViewModel = function () {
 
     };
 
-    self.BikeAvailability = ko.computed(function () {
-        debugger;
-        if (self.Bike().selectedColorId() > 0 && self.BikeColors() != undefined && self.BikeColors().length > 0) {
-            avail = false;
-            $.each(self.BikeColors(), function (key, value) {
-                if (value.ColorId == self.Bike().selectedColorId())
-                    return value.NoOfDays;
-            });
-            return self.Bike().waitingPeriod();
-        } else {
-            return self.Bike().waitingPeriod();
-        }
-    });
 }
 
 var BikeCustomer = function () {
@@ -526,8 +512,9 @@ var BikeDetails = function () {
     };
 
     self.getColor = function (data, event) {
-        self.selectedColorId(data.Id);
+        self.selectedColorId(data.ColorId);
         self.selectedColor(data);
+        self.waitingPeriod(data.NoOfDays);
     };
 
     self.getVersion(self.selectedVersionId());
@@ -607,7 +594,7 @@ function setColor() {
             $.each(vc, function (key, value) {
                 if (value.Id == preSelectedColor) {
                     viewModel.Bike().selectedColor(value);
-                    viewModel.Bike().selectedColorId(value.Id);
+                    viewModel.Bike().selectedColorId(value.ColorId);
                 }
             });
         }
@@ -615,7 +602,7 @@ function setColor() {
     else {
         if (vc != null && vc.length > 0) {
             viewModel.Bike().selectedColor(vc[0]);
-            viewModel.Bike().selectedColorId(vc[0].Id);
+            viewModel.Bike().selectedColorId(vc[0].ColorId);
         }
     }
 }

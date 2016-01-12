@@ -31,7 +31,7 @@ namespace Bikewale.BikeBooking
         protected BikeDealerPriceDetailDTO selectedVarient = null;
         protected DDQDealerDetailBase DealerDetails = null;
         protected bool isOfferAvailable = false, isInsuranceFree = false;
-        protected string versionWaitingPeriod = String.Empty, dealerAddress = String.Empty, latitude = "0", longitude = "0", jsonBikeVarients = String.Empty, jsonBikeColorAvailability = String.Empty;
+        protected string versionWaitingPeriod = String.Empty, dealerAddress = String.Empty, latitude = "0", longitude = "0", jsonBikeVarients = String.Empty;
         protected HtmlInputButton generateNewOTP, deliveryDetailsNextBtn, processOTP;
         protected BookingPageDetailsEntity objBooking = null;
         protected PQCustomerDetail objCustomer = null;

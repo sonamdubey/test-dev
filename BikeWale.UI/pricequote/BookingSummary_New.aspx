@@ -11,7 +11,7 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+   
 </head>
 <body class="header-fixed-inner">
     <form runat="server">
@@ -194,7 +194,7 @@
                                     <div class="colour-dropdown">
                                         <div class="select-dropdown rounded-corner2">
                                             <div class="colour-selected-box">
-                                                <span class="leftfloat select-color-box rounded-corner2" data-bind="style:{'background-color':('#'+selectedColor().HexCode)}"></span>
+                                                <span class="leftfloat select-color-box rounded-corner2" data-bind="style:{'background-color':('#'+selectedColor().HexCode[0])}"></span>
                                                 <span class="leftfloat select-btn font14" data-bind="text:selectedColor().ColorName"></span>
                                                 <span class="clear"></span>
                                             </div>
@@ -202,8 +202,8 @@
                                         </div>
                                         <div class="select-dropdown-list hide">
                                             <ul data-bind="foreach: versionColors">
-                                                <li class="text-light-grey" colorid="" data-bind="attr: { colorId: $data.Id},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
-                                                    <span class="select-color-box rounded-corner2" data-bind="style: { 'background-color': '#' + HexCode}"></span>
+                                                <li class="text-light-grey" colorid="" data-bind="attr: { colorId: $data.ColorId},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
+                                                    <span class="select-color-box rounded-corner2" data-bind="style: { 'background-color': '#' + HexCode[0]}"></span>
                                                     <p data-bind="text: ColorName"></p>
                                                 </li>
                                             </ul>
@@ -311,8 +311,8 @@
                                         </li>
                                         <li>
                                             <p class="text-bold">Availability</p>
-                                           <p class="text-light-grey" data-bind="visible : $root.BikeAvailability() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.BikeAvailability() == 1)?$root.BikeAvailability() + ' day' : $root.BikeAvailability() + ' days'"></span></p>
-                                            <p class="text-green text-bold" data-bind="visible : $root.BikeAvailability() < 1">Now available</p>
+                                            <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
+                                            <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</p>
                                         </li>
                                     </ul>
                                 </div>
@@ -332,6 +332,7 @@
                                     <%}
                                        else
                                        {%>
+                                     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                                     <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: $root.Dealer().latitude(), longitude: $root.Dealer().longitude() }"></div>
@@ -365,7 +366,6 @@
         </section>
 
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
-        <input id="hdnBikeColorAvailability" type="hidden" value='<%= jsonBikeColorAvailability  %>' />
 
         <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/footerBW.aspx" -->
@@ -389,7 +389,6 @@
             //select bike version
             var bikeVersionId = "<%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>";
             var versionList = JSON.parse(Base64.decode($("#hdnBikeData").val()));
-            var availByColorList = JSON.parse(Base64.decode($("#hdnBikeColorAvailability").val())); 
             var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>;          
             var insAmt = '<%= insuranceAmount %>';

@@ -1,4 +1,5 @@
-﻿using Bikewale.DTO.Make;
+﻿using Bikewale.DTO.BikeData;
+using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.Version;
 using Newtonsoft.Json;
@@ -41,7 +42,7 @@ namespace Bikewale.DTO.PriceQuote.BikeBooking
         /// Waiting Days
         /// </summary>
         [JsonProperty("noOfWaitingDays")]
-        public uint NoOfWaitingDays { get; set; }
+        public short NoOfWaitingDays { get; set; }
 
         /// <summary>
         /// Price breakup list
@@ -69,6 +70,6 @@ namespace Bikewale.DTO.PriceQuote.BikeBooking
         /// Bike Model Colors
         /// </summary>
         [JsonProperty("bikeModelColors")]
-        public IEnumerable<ModelColor> BikeModelColors { get; set; }
+        public IEnumerable<BikeVersionColorsWithAvailabilityDTO> BikeModelColors { get; set; }
     }
 }

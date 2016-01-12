@@ -33,7 +33,7 @@ namespace Bikewale.Entities.PriceQuote
         /// <summary>
         /// Waiting Days
         /// </summary>
-        public uint NoOfWaitingDays { get; set; }
+        public short NoOfWaitingDays { get; set; }
         /// <summary>
         /// Price breakup list
         /// </summary>
@@ -53,6 +53,6 @@ namespace Bikewale.Entities.PriceQuote
         /// <summary>
         /// Bike Model Colors
         /// </summary>
-        public IEnumerable<BikeModelColor> BikeModelColors { get; set; }
+        public IEnumerable<BikeVersionColorsWithAvailability> BikeModelColors { get; set; }
     }
 }

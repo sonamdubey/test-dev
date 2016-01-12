@@ -13,5 +13,6 @@ namespace Bikewale.Entities.BikeData
         public uint ModelId { get; set; }
         public string ColorName { get; set; }
         public string HexCode { get; set; }
+        public UInt16 NoOfDays { get; set; }
     }
 }

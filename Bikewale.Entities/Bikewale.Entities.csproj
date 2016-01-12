@@ -83,6 +83,7 @@
     <Compile Include="BikeData\BikeSeriesEntity.cs" />
     <Compile Include="BikeData\BikeSeriesEntityBase.cs" />
     <Compile Include="BikeData\BikeSpecificationEntity.cs" />
+    <Compile Include="BikeData\BikeVersionColorsWithAvailability.cs" />
     <Compile Include="BikeData\BikeVersionEntity.cs" />
     <Compile Include="BikeData\BikeVersionEntityBase.cs" />
     <Compile Include="BikeData\BikeVersionMinSpecs.cs" />
