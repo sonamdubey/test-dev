@@ -216,7 +216,7 @@
                             <div class="onRoad-price-wrapper padding-top10">
                                 <ul>
                                     <li>
-                                        <p>On road price <span class="viewBreakupText text-blue text-link">(View breakup)</span>:</p>
+                                        <p>On road price <span class="viewBreakupText text-blue text-link">(View breakup)</span></p>
                                         <div>
                                             <!-- ko if : versionPrice() > 0 -->
                                             <span class="fa fa-rupee"></span>
@@ -233,7 +233,7 @@
                                             <span class="fa fa-rupee"></span>
                                             <span data-bind="CurrencyText: ($root.Bike().bookingAmount()> 0)?$root.Bike().bookingAmount():'Price unavailable'"></span>
                                         </div>
-                                        <a class='viewBreakupText blue' id="cancellation-box" href="#">Hassle-free Cancellation</a>
+                                        <a class='viewBreakupText blue' id="cancellation-box" href="#">Hassle-free cancellation</a>
                                     </li>
                                     <li>
                                         <p>Balance amount payable:</p>
@@ -391,16 +391,16 @@
         	        <h2>Cancellation & Refund Policy</h2>
                     <div class="popup-inner-content cancellation-list">
             	        <ul>
-                             <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of pre-booking the vehicle.</strong> </li>               	
-                             <li><strong>b.</strong> Please email your <strong>Pre-Booking Cancellation Request'</strong> to <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating <strong>the booking reference number, your mobile number and email address (that you used while pre-booking).</strong></li>
+                             <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong> </li>               	
+                             <li><strong>b.</strong> Please email your <strong>Booking Cancellation Request'</strong> to <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating <strong>the booking reference number, your mobile number and email address (that you used while booking).</strong></li>
 
                             <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
                                 of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
                                 submitting any documents, procurement of the vehicle by the dealership etc.
                             </li>
-                            <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s pre-booking, cancellation will not be possible.</li>
+                            <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
                 	
-                	        <li><strong>e.</strong> For all valid requests, we will process the refund of full pre-booking amount to customer's account within 7 working days.</li>
+                	        <li><strong>e.</strong> For all valid requests, we will process the refund of full booking amount to customer's account within 7 working days.</li>
                         </ul>
                     </div>
                 </div>

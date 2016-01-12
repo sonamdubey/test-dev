@@ -462,7 +462,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .bw-contact-popup { max-width:454px;}
 .bw-popup-sm { width:450px; min-height:350px; position:fixed; top:40%; left:52%;}
 .popup-inner-container { padding:20px 50px 30px;}
-.popup-inner-container h2{ padding-bottom:10px; border-bottom:2px solid #c62000;}
+.popup-inner-container h2{ padding-bottom:10px;}
 .bw-popup-sm select{top: 0;width: 100%;z-index: 2;margin: 5px;} 
 .cityPop-icon-container { width:100%; text-align:center; }
 /*All action btn css */

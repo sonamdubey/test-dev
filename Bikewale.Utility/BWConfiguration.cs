@@ -107,7 +107,6 @@ namespace Bikewale.Utility
             _PageSize = ConfigurationManager.AppSettings["PageSize"];
             _StaticFileVersion = ConfigurationManager.AppSettings["staticFileVersion"];
             _apiRequestTypeJSON = "application/json";
-            _BumperOfferCategories = ConfigurationManager.AppSettings["BumperOfferCategories"];
             _BWSmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
             _GoogleApiKey = ConfigurationManager.AppSettings["APIKey"];
         }
