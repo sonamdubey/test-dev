@@ -470,7 +470,7 @@ var BikeDetails = function () {
     self.bikeName = ko.computed(function () {
         var _bikeName = '';
         if (self.selectedVersion() != undefined && self.selectedVersionId != undefined) {
-            _bikeName = self.selectedVersion().Make.MakeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
+            _bikeName = self.selectedVersion().Make.makeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
         }
         return _bikeName;
     }, this);
@@ -522,7 +522,7 @@ var BikeDetails = function () {
     };
 
     self.getColor = function (data, event) {
-        self.selectedColorId(data.Id);
+        self.selectedColorId(data.ColorId);
         self.selectedColor(data);
     };
 
@@ -602,7 +602,7 @@ function setColor() {
             $.each(vc, function (key, value) {
                 if (value.Id == preSelectedColor) {
                     viewModel.Bike().selectedColor(value);
-                    viewModel.Bike().selectedColorId(value.Id);
+                    viewModel.Bike().selectedColorId(value.ColorId);
                 }
             });
         }
@@ -610,7 +610,7 @@ function setColor() {
     else {
         if (vc != null && vc.length > 0) {
             viewModel.Bike().selectedColor(vc[0]);
-            viewModel.Bike().selectedColorId(vc[0].Id);
+            viewModel.Bike().selectedColorId(vc[0].ColorId);
         }
     }
 } 

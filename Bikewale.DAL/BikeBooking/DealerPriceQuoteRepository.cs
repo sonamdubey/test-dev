@@ -884,13 +884,13 @@ namespace Bikewale.DAL.BikeBooking
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity entity = null;
-            IEnumerable<BikeModelColor> bikeModelColors = null;
             Database db = null;
             List<DealerPriceCategoryItemEntity> DealerPriceCategoryItemEntities = null;
             List<BikeDealerPriceDetail> BikeDealerPriceDetails = null;
             List<string> disclaimers = null;
             List<DealerOfferEntity> offers = null;
             DealerDetails objDealerDetails = null;
+            List<BikeVersionColorsAvailability> modelColorList = null;
             try
             {
                 db = new Database(ConfigurationManager.AppSettings["connectionstring"]);
@@ -922,6 +922,7 @@ namespace Bikewale.DAL.BikeBooking
                                 );
                             }
                             #endregion
+
                             #region Version Price Details
                             if (reader.NextResult())
                             {
@@ -957,13 +958,15 @@ namespace Bikewale.DAL.BikeBooking
                                                 ModelId = Convert.ToInt32(reader["ModelId"]),
                                                 ModelName = Convert.ToString(reader["ModelName"])
                                             },
-                                            NoOfWaitingDays = Convert.ToUInt32(reader["NumOfDays"]),
+                                            NoOfWaitingDays = Convert.ToInt16(reader["NumOfDays"]),
                                             OnRoadPrice = Convert.ToUInt32(reader["OnRoadPrice"]),
                                         }
                                         );
                                 }
                             }
                             #endregion
+
+                            #region Get Disclaimers
                             if (reader.NextResult())
                             {
                                 disclaimers = new List<string>();
@@ -971,7 +974,9 @@ namespace Bikewale.DAL.BikeBooking
                                 {
                                     disclaimers.Add(Convert.ToString(reader["Disclaimer"]));
                                 }
-                            }
+                            } 
+                            #endregion
+
                             #region Dealer Offer Entity
                             if (reader.NextResult())
                             {
@@ -990,6 +995,7 @@ namespace Bikewale.DAL.BikeBooking
                                 }
                             }
                             #endregion
+
                             #region Dealer Details
                             if (reader.NextResult())
                             {
@@ -1018,7 +1024,29 @@ namespace Bikewale.DAL.BikeBooking
                                     };
                                 }
                             }
+                            #endregion 
+
+                            #region Model Colors Versionwise
+                            if (reader.NextResult())
+                            {
+                                while (reader.Read())
+                                {
+                                    modelColorList = new List<BikeVersionColorsAvailability>();
+                                    while (reader.Read())
+                                    {
+                                        modelColorList.Add(new BikeVersionColorsAvailability()
+                                        {
+                                            ColorId = Convert.ToUInt32(reader["ColorId"]),
+                                            NoOfDays = Convert.ToInt16(reader["NumOfDays"]),
+                                            ColorName = Convert.ToString(reader["ColorName"]),
+                                            HexCode = Convert.ToString(reader["HexCode"]),
+                                            VersionId = Convert.ToUInt32(reader["BikeVersionId"])
+                                        });
+                                    }
+                                }
+                            } 
                             #endregion
+
                             entity = new BookingPageDetailsEntity();
                             entity.Dealer = objDealerDetails;
                             entity.Disclaimers = disclaimers;
@@ -1036,15 +1064,40 @@ namespace Bikewale.DAL.BikeBooking
                                      }).ToList());
 
                             entity.Varients = BikeDealerPriceDetails;
+
                             if (entity.Varients != null && entity.Varients.Count > 0)
                             {
-                                int modelId = entity.Varients[0].Model.ModelId;
-                                IEnumerable<BikeModelColor> colorList = GetVariantColorByModel(entity.Varients[0].Model.ModelId);
                                 foreach (var variant in entity.Varients)
                                 {
-                                    variant.BikeModelColors = from color in colorList
-                                                              where color.ModelId == variant.MinSpec.VersionId
-                                                              select color;
+                                    
+                                    var ColorListForDealer = from color in modelColorList
+                                                             where color.VersionId == variant.MinSpec.VersionId
+                                                             group color by color.ColorId into newgroup
+                                                             orderby newgroup.Key
+                                                             select newgroup;
+
+
+                                    var objColorAvail = new List<BikeVersionColorsWithAvailability>();
+                                    foreach (var color in ColorListForDealer)
+                                    {
+                                        BikeVersionColorsWithAvailability objAvail = new BikeVersionColorsWithAvailability();
+
+                                        objAvail.ColorId = color.Key;
+
+                                        IList<string> HexCodeList = new List<string>();
+                                        foreach (var colorList in color)
+                                        {
+                                            objAvail.ColorName = colorList.ColorName;
+                                            objAvail.NoOfDays = (colorList.NoOfDays == -1) ? variant.NoOfWaitingDays : colorList.NoOfDays;
+                                            objAvail.VersionId = colorList.VersionId;
+                                            HexCodeList.Add(colorList.HexCode);
+
+                                        }
+                                        objAvail.HexCode = HexCodeList;
+                                        objColorAvail.Add(objAvail);
+                                    }
+
+                                    variant.BikeModelColors = objColorAvail;
                                 }
                             }
                         }

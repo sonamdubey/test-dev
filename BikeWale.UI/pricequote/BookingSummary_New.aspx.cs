@@ -19,6 +19,7 @@ using System.Linq;
 using System.Web.UI.HtmlControls;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Utility;
+using Newtonsoft.Json;
 
 namespace Bikewale.BikeBooking
 {
@@ -30,7 +31,7 @@ namespace Bikewale.BikeBooking
         protected BikeDealerPriceDetailDTO selectedVarient = null;
         protected DDQDealerDetailBase DealerDetails = null;
         protected bool isOfferAvailable = false, isInsuranceFree = false;
-        protected string versionWaitingPeriod = String.Empty, dealerAddress = String.Empty, latitude = "0", longitude = "0";
+        protected string versionWaitingPeriod = String.Empty, dealerAddress = String.Empty, latitude = "0", longitude = "0", jsonBikeVarients = String.Empty;
         protected HtmlInputButton generateNewOTP, deliveryDetailsNextBtn, processOTP;
         protected BookingPageDetailsEntity objBooking = null;
         protected PQCustomerDetail objCustomer = null;
@@ -256,6 +257,11 @@ namespace Bikewale.BikeBooking
                             dealerDetailEntity.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(dealerDetailEntity.objOffers, dealerDetailEntity.objQuotation.PriceList);
                     }
 
+                    if (dealerDetailEntity.objAvailableBikeColor != null && dealerDetailEntity.objAvailableBikeColor.Count() > 0)
+                    {
+                        jsonBikeColorAvailability = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(dealerDetailEntity.objAvailableBikeColor));
+                    }
+
                 }
             }
             catch (Exception err)
@@ -282,6 +288,8 @@ namespace Bikewale.BikeBooking
                 var data = (objBooking.Varients).Where(v => v.BookingAmount > 0);
                 rptVarients.DataSource = data;
                 rptVarients.DataBind();
+
+                jsonBikeVarients = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(objBooking.Varients));
 
                 if (objBooking.Varients.FirstOrDefault().Make != null && objBooking.Varients.FirstOrDefault().Model != null)
                 {

@@ -10,7 +10,8 @@
         isAd970x90Shown = false;  
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    
 </head>
 <body class="header-fixed-inner" id="bookingConfig" style="display:none" data-bind="visible: true">
     <form runat="server">
@@ -119,8 +120,8 @@
                             <div class="select-color-container border-light-bottom padding-bottom10 margin-bottom15">
                                 <h4 class="select-colorh4 margin-top15">Choose colour</h4>
                                 <ul class="select-colorUL" data-bind="foreach: versionColors">
-                                    <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.Id},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
-                                        <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode }"></span>
+                                    <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.ColorId},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
+                                        <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode[0] }"></span>
                                         <span class="color-title-box" data-bind="text: ColorName"></span>
                                     </li>
                                 </ul>
@@ -302,10 +303,11 @@
                                     <%}
                                        else
                                        {%>
+                                    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                                     <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
-                                    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+                                    
                                     <% } %>
                                 </div>
                                 <div class="clear"></div>
@@ -431,6 +433,8 @@
             <div class="clear"></div>
         </section>
 
+        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+      
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12">
@@ -452,7 +456,6 @@
             </div>
         </section>
 
-        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
         <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
 
         <!-- #include file="/includes/footerBW.aspx" -->
@@ -463,9 +466,9 @@
                 applyLazyLoad();
             });
             var thisBikename = "<%= this.bikeName %>";
-            var bikeVersionId = '<%= versionId %>';
+            var bikeVersionId = "<%= versionId %>";
             var pqId = '<%= pqId%>';
-            var versionList = JSON.parse($("#hdnBikeData").val());
+            var versionList = JSON.parse(Base64.decode($("#hdnBikeData").val()));
             var discountDetail = JSON.parse($("#hdnDiscountList").val());
             var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
@@ -474,10 +477,7 @@
             var areaId = '<%= areaId%>';
             var BikeDealerDetails = function () {
                 var self = this;
-                // self.Dealer = ko.observable(objDealer);
                 self.DealerId = ko.observable(<%= dealerId%>);
-                // self.DealerDetails = ko.observable(objDealer.objDealer);
-                // self.DealerQuotation = ko.observable(objDealer.objQuotation);
                 self.IsInsuranceFree = ko.observable(insFree);
                 self.InsuranceAmount = ko.observable(insAmt);
                 self.latitude = ko.observable(<%= latitude %>);
@@ -485,7 +485,9 @@
             }
             var getCityArea = GetGlobalCityArea();
             var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
-        </script>
+        </script> 
+                   
+
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>          
     </form>
 </body>

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Bikewale.DTO.BikeData;
 using Bikewale.DTO.Make;
 using Bikewale.DTO.Model;
 using Bikewale.DTO.PriceQuote.BikeBooking;
@@ -24,7 +25,7 @@ namespace Bikewale.Service.AutoMappers.Bikebooking
             Mapper.CreateMap<BookingPageDetailsEntity, BookingPageDetailsDTO>();
             Mapper.CreateMap<DealerDetails,DealerDetailsDTO>();
             Mapper.CreateMap<DealerOfferEntity,DealerOfferDTO>();
-            Mapper.CreateMap<BikeModelColor, ModelColor>();
+            Mapper.CreateMap<BikeVersionColorsWithAvailability, BikeVersionColorsWithAvailabilityDTO>();
             return Mapper.Map<BookingPageDetailsEntity, BookingPageDetailsDTO>(objBookingPageDetailsEntity);
         }
     }

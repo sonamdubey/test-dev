@@ -156,6 +156,7 @@ var BookingConfigViewModel = function () {
             self.EMI().loan(undefined);
         }
     });
+
 }
 
 var BikeDetails = function () {
@@ -201,7 +202,7 @@ var BikeDetails = function () {
     self.bikeName = ko.computed(function () {
         var _bikeName = '';
         if (self.selectedVersion() != undefined && self.selectedVersionId != undefined) {
-            _bikeName = self.selectedVersion().Make.MakeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
+            _bikeName = self.selectedVersion().Make.makeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
 
         }
         return _bikeName;
@@ -231,7 +232,8 @@ var BikeDetails = function () {
     };
 
     self.getColor = function (data, event) {
-        self.selectedColorId(data.Id);
+        self.selectedColorId(data.ColorId);
+        self.waitingPeriod(data.NoOfDays);
         var ele = colorsul.find("li[colorId=" + self.selectedColorId() + "]");
         colorsul.find("li").removeClass("selected-color text-bold text-white border-dark-grey").addClass("text-light-grey border-light-grey");
         colorsul.find("li").find('span.color-title-box').removeClass().addClass('color-title-box');
@@ -423,11 +425,12 @@ function setColor() {
     if (preSelectedColor > 0) {
         if (vc != null && vc.length > 0) {
             $.each(vc, function (key, value) {
-                if (value.Id == preSelectedColor) {
+                if (value.ColorId == preSelectedColor) {
                     viewModel.Bike().getColor(value);
-                    viewModel.CurrentStep(3); 
+                    viewModel.CurrentStep(3);
                     viewModel.ActualSteps(3);
                     viewModel.SelectedVersion(viewModel.Bike().selectedVersionId());
+                    viewModel.Bike().selectedColorId(value.ColorId);
                 }
             });
         }
