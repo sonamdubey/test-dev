@@ -107,6 +107,10 @@ namespace Bikewale.Mobile.New
 
             #endregion
             FetchModelPageDetails();
+            if (modelPage.ModelDetails.New)
+            {
+                FetchOnRoadPrice();
+            }
             if (!IsPostBack)
             {
                 #region Do not change the sequence of these functions
@@ -148,10 +152,6 @@ namespace Bikewale.Mobile.New
             SetFlags();
             if (modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
-            if (modelPage.ModelDetails.New)
-            {
-                FetchOnRoadPrice();
-            }
             ToggleOfferDiv();
 
         }
@@ -444,7 +444,7 @@ namespace Bikewale.Mobile.New
                     if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
                     {
                         //ddlVariant.SelectedValue = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
-                        defaultVariant.Text = modelPage.ModelVersions.Where(p => p.VersionId == (int)modelPage.ModelVersionSpecs.BikeVersionId).First().VersionName;
+                        defaultVariant.Text = modelPage.ModelVersions.Where(p => p.VersionId == variantId).First().VersionName;
                         hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
                     }
                     else if (modelPage.ModelVersions.Count > 1)
@@ -491,8 +491,10 @@ namespace Bikewale.Mobile.New
                             if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
                             {
                                 price = Convert.ToString(modelPage.ModelDetails.MinPrice);
-                                if (variantId == 0)
+                                if (variantId == 0 && cityId == 0)
+                                {
                                     variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
+                                }
                             }
                             if (!modelPage.ModelDetails.New)
                                 isDiscontinued = true;
@@ -521,6 +523,7 @@ namespace Bikewale.Mobile.New
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
                     {
+                        variantId = Convert.ToInt32(pqOnRoad.PriceQuote.VersionId);
                         if (pqOnRoad.PriceQuote != null)
                         {
                             dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
@@ -776,6 +779,8 @@ namespace Bikewale.Mobile.New
                     objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
+                    if (variantId == 0)
+                        variantId = Convert.ToInt32(objPQOutput.VersionId);
                     if (objPQOutput != null)
                     {
                         pqOnRoad = new PQOnRoadPrice();

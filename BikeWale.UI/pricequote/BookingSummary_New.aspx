@@ -181,7 +181,7 @@
                                                     <ItemTemplate>
                                                         <li versionid="<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>" data-bind="click: function () { getVersion(<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>); $root.ActualSteps(1); }">
                                                             <p><%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionName") %> </p>
-                                                        </li>xxx
+                                                        </li>
                                                     </ItemTemplate>
                                                 </asp:Repeater>
                                             </ul>
