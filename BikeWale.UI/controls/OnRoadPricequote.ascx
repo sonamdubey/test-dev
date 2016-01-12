@@ -48,9 +48,15 @@
         selectedCity: ko.observable(),
         bookingCities: ko.observableArray([]),
         selectedArea: ko.observable(),
-        bookingAreas: ko.observableArray([])
+        bookingAreas: ko.observableArray([]),
+        hasAreas: ko.observable()
     };    
 
+    function findCityById(vm, id) {
+        return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
+            return child.cityId === id;
+        });
+    }
 
     function FillCitiesOnRoad(modelId) {
         $.ajax({
@@ -68,6 +74,7 @@
                     viewModelOnRoad.bookingCities(cities);
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelOnRoad.bookingCities() && selectElementFromArray(viewModelOnRoad.bookingCities(), onCookieObj.PQCitySelectedId)) {
                         viewModelOnRoad.selectedCity(onCookieObj.PQCitySelectedId);
+                        viewModelOnRoad.hasAreas(findCityById(viewModelOnRoad, onCookieObj.PQCitySelectedId).hasAreas);
                     }
                     onRoadcity.find("option[value='0']").prop('disabled', true);
                     onRoadcity.trigger('chosen:updated');
@@ -85,28 +92,35 @@
     function cityChangedOnRoad() {
         //gtmCodeAppender(pageId, "City Selected", null);
         if (viewModelOnRoad.selectedCity() != undefined) {
-            $.ajax({
-                type: "GET",
-                url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelOnRoad.selectedCity(),
-                dataType: 'json',
-                success: function (response) {
-                    areas = response.areas;
-                    if (areas.length) {
-                        viewModelOnRoad.bookingAreas(areas);
-                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
-                            viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
+            viewModelOnRoad.hasAreas(findCityById(viewModelOnRoad, viewModelOnRoad.selectedCity()).hasAreas);
+            if (viewModelOnRoad.hasAreas() != undefined && viewModelOnRoad.hasAreas()) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelOnRoad.selectedCity(),
+                    dataType: 'json',
+                    success: function (response) {
+                        areas = response.areas;
+                        if (areas.length) {
+                            viewModelOnRoad.bookingAreas(areas);
+                            if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                                viewModelOnRoad.selectedArea(onCookieObj.PQAreaSelectedId);
+                            }
                         }
-                    }
-                    else {
+                        else {
+                            viewModelOnRoad.selectedArea(0);
+                            viewModelOnRoad.bookingAreas([]);
+                        }
+                    },
+                    error: function (e) {
                         viewModelOnRoad.selectedArea(0);
                         viewModelOnRoad.bookingAreas([]);
                     }
-                },
-                error: function (e) {
-                    viewModelOnRoad.selectedArea(0);
-                    viewModelOnRoad.bookingAreas([]);
-                }
-            });
+                });
+            }
+            else {
+                viewModelOnRoad.selectedArea(0);
+                viewModelOnRoad.bookingAreas([]);
+            }
         } else {
             viewModelOnRoad.bookingAreas([]);
         }
