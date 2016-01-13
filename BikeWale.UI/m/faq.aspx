@@ -12,7 +12,7 @@
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
-    .faq-top-banner { background: #57605e  no-repeat center center; background-size: cover; height: 130px; }
+    .faq-top-banner { background: #57605e url(http://img.aeplcdn.com/bikewaleimg/images/insurance-banner.jpg) no-repeat center center; background-size: cover; height: 130px; }
     .faq-content h3 { margin-bottom:15px; padding:5px 10px 15px; border-bottom:1px solid #ccc; }
     .faq-content p, .faq-content ol { font-size:14px; line-height:1.5; }
     .faq-content p { padding:0 10px 5px; }
@@ -24,7 +24,7 @@
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
             <div class="container">
-                <div class="faq-top-banner lazy"  data-original="http://img.aeplcdn.com/bikewaleimg/m/images/m_faqs_banner.jpg" >
+                <div class="faq-top-banner">
                   <!-- Top banner code starts here -->
 			        <h1 class="text-uppercase text-white text-center padding-top30 font25">FAQ<span class="font16">s</span></h1>
                     <p class=" font16 text-white text-center">What can we help you with?</p>
@@ -141,11 +141,6 @@
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript">
-            $(document).ready(function () {
-                applyLazyLoad();
-            });
-    </script>
     </form>
 </body>
 </html>
