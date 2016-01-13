@@ -34,7 +34,7 @@
                     <td>
                         Offer List
                     </td>
-                    <td>
+                    <td style="width:400px;">
                         Dealer Details
                     </td>
                     <td>
@@ -42,6 +42,9 @@
                     </td>
                     <td>
                         Availability
+                    </td>
+                    <td>
+                        Availability By Color
                     </td>
                 </tr>
             </thead>
@@ -76,35 +79,35 @@
             </td>
             <td>
                 <div>
-                    <span>Dealer Name</span><span> : </span><span data-bind="text: dealerDetails.dealerName"></span>
+                    <span><b>Organization</b></span><span> : </span><span data-bind="text: dealerDetails.organization"></span>
                 </div>
                 <div>
-                    <span>Email-Id</span><span> : </span><span data-bind="text: dealerDetails.emailId"></span>
+                    <span><b>Working Time</b></span><span> : </span><span data-bind="text: dealerDetails.workingTime"></span>
                 </div>
                 <div>
-                    <span>Mobile No.</span><span> : </span><span data-bind="text: dealerDetails.mobileNo"></span>
+                    <span><b>Address</b></span><span> : </span><span data-bind="text: dealerDetails.address"></span>
                 </div>
                 <div>
-                    <span>Organization</span><span> : </span><span data-bind="text: dealerDetails.organization"></span>
+                    <span><b>Dealer Name</b></span><span> : </span><span data-bind="text: dealerDetails.dealerName"></span>
                 </div>
                 <div>
-                    <span>Working Time</span><span> : </span><span data-bind="text: dealerDetails.workingTime"></span>
+                    <span><b>Email-Id</b></span><span> : </span><span data-bind="text: dealerDetails.emailId"></span>
                 </div>
                 <div>
-                    <span>Address</span><span> : </span><span data-bind="text: dealerDetails.address"></span>
+                    <span><b>Mobile No.</b></span><span> : </span><span data-bind="text: dealerDetails.mobileNo"></span>
                 </div>
             </td>
             <td>
                 <span>Rs. </span><span data-bind="text: bookingAmount"></span>
             </td>
-            <%--<td>
+            <td>
                 <div data-bind="text: GetAvailabilty(availability())"></div>
-            </td>--%>
+            </td>
             <td>
                 <div  data-bind="template: { foreach: availabilityByColor }">
                     <div style="border-bottom:1px #808080 dashed;margin:10px;" data-bind="attr: {colorId : ColorId}">
-                        <div><span>Color : </span><span data-bind="text:ColorName"></span></div>
-                        <div><span>Availability : </span><span data-bind="text: GetAvailabilty(NoOfDays())"></span></div>
+                        <div><span><b>Color : </b></span><span data-bind="text:ColorName"></span></div>
+                        <div><span><b>Availability : </b></span><span data-bind="text: GetAvailabilty(NoOfDays())"></span></div>
                         <div style="display:inline-flex;margin-bottom:10px;" data-bind="html: GetColors(HexCode()) "></div>
                     </div>
                 </div>
@@ -294,6 +297,8 @@
         var availability = '';
         if (noOfDays > 0)
             availability = noOfDays + ' days.';
+        else if(noOfDays < 0)
+            availability ='Not Available';
         else
             availability = 'In Stock.';
 
