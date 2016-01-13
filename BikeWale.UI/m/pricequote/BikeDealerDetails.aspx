@@ -408,8 +408,8 @@
                 </div>
             </div>
         </section>
-        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>">
-            <div class="grid-12"></div>
+        <section class="container margin-bottom30 content-box-shadow">
+            <div class="lazy booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
 
