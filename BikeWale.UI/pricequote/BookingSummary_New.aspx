@@ -261,7 +261,9 @@
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
-                                            <%if (dealerDetailEntity.objQuotation.discountedPriceList != null && dealerDetailEntity.objQuotation.discountedPriceList.Count>0){ %>
+                                            <%if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null
+                                                   && dealerDetailEntity.objQuotation.discountedPriceList != null && dealerDetailEntity.objQuotation.discountedPriceList.Count > 0)
+                                              { %>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>

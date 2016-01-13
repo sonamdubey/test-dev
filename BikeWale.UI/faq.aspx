@@ -28,7 +28,7 @@
         <!-- #include file="/includes/headBW.aspx" -->
         <div class="clear"></div>
 
-        <header class="faq-top-banner">    	
+        <header class="faq-top-banner " >    	
             <div class="container">
         	    <div class="welcome-box">
                     <h1 class="text-uppercase margin-bottom10">FAQ<span class="font20">s</span></h1>
@@ -154,5 +154,7 @@
             });
         </script>
     </form>
+    
+
 </body>
 </html>

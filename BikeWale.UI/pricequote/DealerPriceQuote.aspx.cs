@@ -201,7 +201,10 @@ namespace Bikewale.BikeBooking
                         objPrice.discountedPriceList = OfferHelper.ReturnDiscountPriceList(objPrice.objOffers, objPrice.PriceList);
                         rptDiscount.DataSource = objPrice.discountedPriceList;
                         rptDiscount.DataBind();
-                        IsDiscount = true;
+                        if (objPrice.discountedPriceList != null && objPrice.discountedPriceList.Count > 0) 
+                        {
+                            IsDiscount = true;
+                        } 
                         totalDiscount = TotalDiscountedPrice();
                     }
                     if (objPrice.Varients != null && objPrice.Varients.Count() > 0)

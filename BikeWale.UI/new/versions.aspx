@@ -492,7 +492,8 @@
                                     </tr>
                                 </ItemTemplate>
                             </asp:Repeater>
-                            <%if(pqOnRoad.IsDiscount) { %>
+                            <%if (pqOnRoad !=null && pqOnRoad.IsDiscount)
+                              { %>
                             <tr>
                                 <td colspan="2">
                                     <div class="border-solid-top padding-bottom10"></div>
