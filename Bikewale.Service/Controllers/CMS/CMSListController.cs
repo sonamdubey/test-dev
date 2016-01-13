@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using Bikewale.Entities.CMS.Articles;
+using Bikewale.Service.Utilities;
 
 namespace Bikewale.Service.Controllers.CMS
 {
@@ -73,26 +74,27 @@ namespace Bikewale.Service.Controllers.CMS
                     objRecentArticles.Clear();
                     objRecentArticles = null;
 
-                    foreach (var article in objCMSRArticles)
-                    {
-                        EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
-                        switch (contentType)
-                        {
-                            case EnumCMSContentType.News:
-                            case EnumCMSContentType.AutoExpo2016:
-                                article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
-                                break;
-                            case EnumCMSContentType.Features:
-                                article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
-                                break;
-                            case EnumCMSContentType.RoadTest:
-                                article.ShareUrl = _bwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
-                                break;
-                            default:
-                                break;
-                        }
-                        article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
-                    }
+                    objCMSRArticles = new CMSShareUrl().GetShareUrl(objCMSRArticles);
+                    //foreach (var article in objCMSRArticles)
+                    //{
+                    //    EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
+                    //    switch (contentType)
+                    //    {
+                    //        case EnumCMSContentType.News:
+                    //        case EnumCMSContentType.AutoExpo2016:
+                    //            article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                    //            break;
+                    //        case EnumCMSContentType.Features:
+                    //            article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
+                    //            break;
+                    //        case EnumCMSContentType.RoadTest:
+                    //            article.ShareUrl = _bwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                    //            break;
+                    //        default:
+                    //            break;
+                    //    }
+                    //    article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+                    //}
 
                    // objCMSRArticles.ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
 
@@ -159,27 +161,27 @@ namespace Bikewale.Service.Controllers.CMS
 
                     objRecentArticles.Clear();
                     objRecentArticles = null;
-
-                    foreach (var article in objCMSRArticles)
-                    {
-                        EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
-                        switch (contentType)
-                        {
-                            case EnumCMSContentType.News:
-                            case EnumCMSContentType.AutoExpo2016:
-                                article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
-                                break;
-                            case EnumCMSContentType.Features:
-                                article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
-                                break;
-                            case EnumCMSContentType.RoadTest:
-                                article.ShareUrl = _bwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
-                                break;
-                            default:
-                                break;
-                        }
-                        article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
-                    }
+                    objCMSRArticles = new CMSShareUrl().GetShareUrl(objCMSRArticles);
+                    //foreach (var article in objCMSRArticles)
+                    //{
+                    //    EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
+                    //    switch (contentType)
+                    //    {
+                    //        case EnumCMSContentType.News:
+                    //        case EnumCMSContentType.AutoExpo2016:
+                    //            article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                    //            break;
+                    //        case EnumCMSContentType.Features:
+                    //            article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
+                    //            break;
+                    //        case EnumCMSContentType.RoadTest:
+                    //            article.ShareUrl = _bwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                    //            break;
+                    //        default:
+                    //            break;
+                    //    }
+                    //    article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+                    //}
 
                     //objCMSRArticles.ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
 
@@ -242,27 +244,27 @@ namespace Bikewale.Service.Controllers.CMS
 
                     objFeaturedArticles.Articles.Clear();
                     objFeaturedArticles.Articles = null;
-                    
-                    foreach (var article in objCMSFArticles.Articles)
-                    {
-                        EnumCMSContentType contentType =  (EnumCMSContentType)article.CategoryId;
-                        switch (contentType)
-                        {
-                            case EnumCMSContentType.News:
-                            case EnumCMSContentType.AutoExpo2016:
-                                article.ShareUrl =  _bwHostUrl +"/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
-                                break;
-                            case EnumCMSContentType.Features:
-                                article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId;;
-                                break;
-                            case EnumCMSContentType.RoadTest:
-                                article.ShareUrl = _bwHostUrl+ "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
-                                break;
-                            default:
-                                break;
-                        }
-                        article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
-                    }
+                    objCMSFArticles = new CMSShareUrl().GetShareUrl(objCMSFArticles);
+                    //foreach (var article in objCMSFArticles.Articles)
+                    //{
+                    //    EnumCMSContentType contentType =  (EnumCMSContentType)article.CategoryId;
+                    //    switch (contentType)
+                    //    {
+                    //        case EnumCMSContentType.News:
+                    //        case EnumCMSContentType.AutoExpo2016:
+                    //            article.ShareUrl =  _bwHostUrl +"/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                    //            break;
+                    //        case EnumCMSContentType.Features:
+                    //            article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId;;
+                    //            break;
+                    //        case EnumCMSContentType.RoadTest:
+                    //            article.ShareUrl = _bwHostUrl+ "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                    //            break;
+                    //        default:
+                    //            break;
+                    //    }
+                    //    article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+                    //}
                     return Ok(objCMSFArticles);
                 }
             }
@@ -338,26 +340,28 @@ namespace Bikewale.Service.Controllers.CMS
                         objFeaturedArticles.Articles = null; 
                     }
 
-                    foreach (var article in objCMSFArticles.Articles)
-                    {
-                        EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
-                        switch (contentType)
-                        {
-                            case EnumCMSContentType.News:
-                            case EnumCMSContentType.AutoExpo2016:
-                                article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
-                                break;
-                            case EnumCMSContentType.Features:
-                                article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
-                                break;
-                            case EnumCMSContentType.RoadTest:
-                                article.ShareUrl = _bwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
-                                break;
-                            default:
-                                break;
-                        }
-                        article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
-                    }
+                    objCMSFArticles = new CMSShareUrl().GetShareUrl(objCMSFArticles);
+
+                    //foreach (var article in objCMSFArticles.Articles)
+                    //{
+                    //    EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
+                    //    switch (contentType)
+                    //    {
+                    //        case EnumCMSContentType.News:
+                    //        case EnumCMSContentType.AutoExpo2016:
+                    //            article.ShareUrl = _bwHostUrl + "/news/" + article.BasicId + "-" + article.ArticleUrl + ".html";
+                    //            break;
+                    //        case EnumCMSContentType.Features:
+                    //            article.ShareUrl = _bwHostUrl + "/features/" + article.ArticleUrl + "-" + article.BasicId; ;
+                    //            break;
+                    //        case EnumCMSContentType.RoadTest:
+                    //            article.ShareUrl = _bwHostUrl + "/road-tests/" + article.ArticleUrl + "-" + article.BasicId + ".html";
+                    //            break;
+                    //        default:
+                    //            break;
+                    //    }
+                    //    article.FormattedDisplayDate = article.DisplayDate.ToString("MMM dd, yyyy");
+                    //}
 
                    // objCMSFArticles.Articles.ToList().ForEach(s => s.FormattedDisplayDate = s.DisplayDate.ToString("MMM dd, yyyy"));
 
