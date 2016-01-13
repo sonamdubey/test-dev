@@ -422,7 +422,7 @@
                         </div>
                         <div class="question-text-container leftfloat padding-left15">
                             <p class="question-title font16 text-bold text-black">Questions?</p>
-                            <p class="question-subtitle text-light-grey font14">We’re here to help.<br />Read our <a href="/m/faq.aspx">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a></p>
+                            <p class="question-subtitle text-light-grey font14">We’re here to help.<br />Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a></p>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -454,6 +454,8 @@
             //select bike version
             var bikeVersionId = <%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>;
             $(function () {
+                $(".ae-logo-border").hide();
+                $(".ae-sprite").hide();
                 var versionTab = $('#customizeBike');
                 $('#customizeBike ul.select-versionUL li').each(function () {
                     if (bikeVersionId === $(this).attr('versionId')) {

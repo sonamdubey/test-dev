@@ -1401,6 +1401,8 @@
             </div>
         </section>
 
+        <%if ( (isBookingAvailable && isOfferAvailable) || (isBookingAvailable && !isOfferAvailable) )
+          { %>
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12">
@@ -1414,13 +1416,14 @@
                         </div>
                         <div class="inline-block">
                             <h3 class="margin-bottom10">Questions?</h3>
-                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-dark-grey">1800 120 8300</span></p>
+                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-dark-grey">1800 120 8300</span></p>
                         </div>
                     </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
+        <%} %>
 
 
         <!-- get on road price popup -->
@@ -1453,7 +1456,7 @@
                     d.append(" <div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
                 }
                 else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
-                    var e = $("table#model-view-breakup tr td:contains('Insurance')");
+                    var e = $("table#model-view-breakup tr td:contains('Insurance')").first();
                     e.find("div.insurance-breakup-text").remove();
                     e.append("<div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
                 }
