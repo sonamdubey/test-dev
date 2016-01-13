@@ -1401,6 +1401,8 @@
             </div>
         </section>
 
+        <%if ( (isBookingAvailable && isOfferAvailable) || (isBookingAvailable && !isOfferAvailable) )
+          { %>
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12">
@@ -1421,6 +1423,7 @@
                 <div class="clear"></div>
             </div>
         </section>
+        <%} %>
 
 
         <!-- get on road price popup -->
@@ -1453,7 +1456,7 @@
                     d.append(" <div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
                 }
                 else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
-                    var e = $("table#model-view-breakup tr td:contains('Insurance')");
+                    var e = $("table#model-view-breakup tr td:contains('Insurance')").first();
                     e.find("div.insurance-breakup-text").remove();
                     e.append("<div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
                 }
