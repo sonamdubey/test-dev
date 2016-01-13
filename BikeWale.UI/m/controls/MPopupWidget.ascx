@@ -58,7 +58,7 @@
                 <ul id="popupAreaList" class="margin-top40" data-bind="foreach: BookingAreas, visible: BookingAreas().length > 0 ">
                     <li data-bind="text: areaName, attr: { 'areaId': areaId }, click: function (data, event) { $parent.selectArea(data, event); }"></li>
                 </ul>
-
+                <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="areaPopupLoader" style="display: none;">Loading Area..</span></div>
             </div>
         </div>
         <!-- /ko -->
@@ -110,13 +110,14 @@
             $("#citySelection div.selected-city").text("Loading Cities..");
             $("#popupLoader").text("Loading cities..").show().prev().show();
             self.BookingCities([]);
+            $("#areaSelection").hide();
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0) {
                 $.ajax({
                     type: "GET",
                     url: "/api/PQCityList/?modelId=" + self.SelectedModelId(),
                     beforeSend: function () {
                         $("#popupContent").show();
-                        $("#citySelection div.selected-city").text("Loading Cities..");
+                        $("#citySelection div.selected-city").text("Loading Cities..");                        
                         $("#popupLoader").text("Loading cities..").show().prev().show();
                     },
                     success: function (response) {
@@ -156,26 +157,31 @@
         });
 
         self.selectCity = function (data, event) {           
+            $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
             if (!self.oBrowser()) {
                 self.SelectedCity(data);
                 self.SelectedCityId(data.cityId);
             }
             else {
                 self.SelectedCity(findCityById(self.SelectedCityId()));
-            }
+            }            
             
-            $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0 && self.SelectedCity() != undefined) {
                 self.hasAreas(findCityById(self.SelectedCity().cityId).hasAreas);
                 if (self.hasAreas()) {
-                    $("#areaSelection div.selected-area").text("Loading areas..");
-                    $("#popupLoader").text("Loading areas..").show().prev().show();
+                    self.BookingAreas([]);
+                    self.SelectedArea(undefined);
+                    self.SelectedAreaId(0);
+                    $("#areaSelection").show();
+                    $("#areaSelection div.selected-area").text("Loading areas..");                    
+                    $("#areaPopupLoader").text("Loading areas..").show().prev().show();
+
                     $.ajax({
                         type: "GET",
                         url: "/api/PQAreaList/?modelId=" + self.SelectedModelId() + "&cityId=" + self.SelectedCity().cityId,
                         beforeSend: function () {
                             $("#areaSelection div.selected-area").text("Loading areas..");
-                            $("#popupLoader").text("Loading areas..").show().prev().show();
+                            $("#areaPopupLoader").text("Loading areas..").show().prev().show();
                         },
                         success: function (response) {
                             var areas = ko.toJS(response.areas);
@@ -187,7 +193,7 @@
                         },
                         complete: function (xhr) {
 
-                            $("#popupLoader").text("Loading areas..").hide().prev().hide();
+                            $("#areaPopupLoader").text("Loading areas..").hide().prev().hide();
                             if (xhr.status == 404 || xhr.status == 204) {
                                 $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                                 self.BookingAreas([]);
@@ -205,7 +211,7 @@
                                 //$("#areaSelection").click();
                                 self.SelectedArea(undefined);
                                 self.SelectedAreaId(0);
-                                $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
+                                //$(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                             }
 
                             if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0) {
