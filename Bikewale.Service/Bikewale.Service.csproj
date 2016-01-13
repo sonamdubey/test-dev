@@ -291,6 +291,7 @@
     <Compile Include="TCAPI\TCApi_Inquiry.cs" />
     <Compile Include="UnityBootstrapper\UnityBootstrapper.cs" />
     <Compile Include="UnityBootstrapper\UnityResolver.cs" />
+    <Compile Include="Utilities\CMSShareUrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -385,8 +386,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>false</UseIIS>
-          <AutoAssignPort>false</AutoAssignPort>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>58667</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9012</IISUrl>

@@ -30,15 +30,18 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
         /// <returns></returns>
         [ResponseType(typeof(Boolean))]
         public IHttpActionResult POST()
-        {              
+        {
             try
             {
 
                 NameValueCollection nvc = HttpUtility.ParseQueryString(Request.RequestUri.Query);
                 nvc.Add("publishDate", DateTime.Now.ToString("yyyyMMdd"));
 
-                RabbitMqPublish publish = new RabbitMqPublish();
-                publish.PublishToQueue(ConfigurationManager.AppSettings["MobileAlertQueuename"].ToString(), nvc);
+                if (nvc["alertTypeId"] == "2")
+                {
+                    RabbitMqPublish publish = new RabbitMqPublish();
+                    publish.PublishToQueue(ConfigurationManager.AppSettings["MobileAlertQueuename"].ToString(), nvc);
+                }  
 
                 return Ok(true);
             }
@@ -47,7 +50,7 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.MobileAppAlerts.PushMobileAppAlertController");
                 objErr.SendMail();
                 return InternalServerError();
-            }            
+            }
 
         }
     }

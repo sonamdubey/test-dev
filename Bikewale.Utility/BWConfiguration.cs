@@ -46,6 +46,7 @@ namespace Bikewale.Utility
             _CwApiHostUrl = String.Empty,
             _ABApiHostUrl = String.Empty,
             _BwHostUrl = String.Empty,
+            _BwHostUrlForJs = String.Empty,
             _ApplicationId = String.Empty,
             _FeedbackEmailTo = String.Empty,
             _OfferClaimAlertEmail = String.Empty,
@@ -95,6 +96,7 @@ namespace Bikewale.Utility
             _CwApiHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
             _ABApiHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
             _BwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            _BwHostUrlForJs = ConfigurationManager.AppSettings["bwHostUrlForJs"]; 
             _ApplicationId = ConfigurationManager.AppSettings["applicationId"];
             _FeedbackEmailTo = ConfigurationManager.AppSettings["feedbackEmailTo"];
             _OfferClaimAlertEmail = ConfigurationManager.AppSettings["OfferClaimAlertEmail"];
@@ -190,6 +192,7 @@ namespace Bikewale.Utility
         public string CwApiHostUrl { get { return _CwApiHostUrl; } }
         public string ABApiHostUrl { get { return _ABApiHostUrl; } }
         public string BwHostUrl { get { return _BwHostUrl; } }
+        public string BwHostUrlForJs { get { return _BwHostUrlForJs; } }
         public string ApplicationId { get { return _ApplicationId; } }
         public string FeedbackEmailTo { get { return _FeedbackEmailTo; } }
         public string OfferClaimAlertEmail { get { return _OfferClaimAlertEmail; } }

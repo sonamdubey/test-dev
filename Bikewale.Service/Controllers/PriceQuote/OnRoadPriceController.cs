@@ -62,7 +62,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="pqLeadId"></param>
         /// <returns></returns>
         [ResponseType(typeof(PQOnRoad))]
-        public IHttpActionResult Get(uint cityId, uint modelId, string clientIP, PQSources sourceType, string deviceId, uint? areaId = null, ushort? pqLeadId = null)
+        public IHttpActionResult Get(uint cityId, uint modelId, string clientIP, PQSources sourceType, string deviceId = null, uint? areaId = null, ushort? pqLeadId = null)
         {
             string response = string.Empty;
             string api = String.Empty;

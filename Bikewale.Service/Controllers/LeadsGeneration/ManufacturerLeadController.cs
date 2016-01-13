@@ -55,7 +55,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         /// <param name="versionId"></param>
         /// <returns></returns>
         [ResponseType(typeof(bool))]
-        public IHttpActionResult Get(uint cityId, uint versionId, string name, string email, string mobile, string pqId, UInt16? platformId, UInt16? leadSourceId, string deviceId)
+        public IHttpActionResult Get(uint cityId, uint versionId, string name, string email, string mobile, string pqId, UInt16? platformId, UInt16? leadSourceId, string deviceId = null)
         {
             string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
             ManufacturerLeadEntity objLead = null;

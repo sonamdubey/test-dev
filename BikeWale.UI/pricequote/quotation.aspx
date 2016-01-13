@@ -231,7 +231,7 @@
         <div class="clear"></div>
     </section>
 
-    <section class="margin-bottom20 <%= hasAlternateBikes ? "" : "hide" %>">
+    <section class="margin-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
         <div class="container">
         <div class="grid-12 alternative-section" id="alternative-bikes-section">
             <h2 class="text-bold text-center margin-top20 margin-bottom30"><%= mmv.Make + " " + mmv.Model %> alternatives</h2>
@@ -251,7 +251,7 @@
         </div>
     </section>
 
-    <section class="margin-bottom20 <%= hasUpcomingBikes ? "" : "hide" %>">
+    <section class="margin-bottom20 <%= (ctrlUpcomingBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
         <!-- Upcoming bikes from brands -->
         <div class="container">
             <div class="grid-12">
