@@ -1077,7 +1077,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <% if (bookingAmt > 0){ %>
         <section>
             <div class="container margin-bottom30">
                 <div id="faqSlug" class="grid-12">
@@ -1099,7 +1099,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <%} %>
         <!-- Terms and condition Popup Ends -->
         <!-- View BreakUp Popup Starts here-->
         <div class="breakupPopUpContainer bwm-fullscreen-popup hide" id="breakupPopUpContainer">
