@@ -162,7 +162,7 @@
                                             </tr>
 
                                             <!-- /ko -->
-                                            <%if (dealerDetailEntity.objQuotation.discountedPriceList != null && dealerDetailEntity.objQuotation.discountedPriceList.Count > 0)
+                                            <%if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null && dealerDetailEntity.objQuotation.discountedPriceList != null && dealerDetailEntity.objQuotation.discountedPriceList.Count > 0)
                                               { %>
                                             <tr>
                                                 <td colspan="2">
