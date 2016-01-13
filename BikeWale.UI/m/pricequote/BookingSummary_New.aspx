@@ -372,6 +372,61 @@
             <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 457 9781</a>
         </div>
 
+        <section>
+            <div id="testimonialWrapper" class="container margin-bottom30">
+                <h2 class="text-bold text-center margin-top10 margin-bottom15 font24">Testimonials</h2>
+                <div class="swiper-container text-center">
+                    <div class="swiper-wrapper margin-bottom10 margin-left10">
+                        <div class="swiper-slide rounded-corner2 content-box-shadow">
+                            <div class="testimonial-image-container rounded-corner50percent">
+                                <div class="testimonial-user-image rounded-corner50percent">
+                                    <img src="" border="0"/>
+                                </div>
+                            </div>
+                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">1. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                            <p class="font14 text-light-grey">John Doe</p>
+                        </div>
+                        <div class="swiper-slide rounded-corner2 content-box-shadow">
+                            <div class="testimonial-image-container rounded-corner50percent">
+                                <div class="testimonial-user-image rounded-corner50percent">
+                                    <img src="" border="0"/>
+                                </div>
+                            </div>
+                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">2. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                            <p class="font14 text-light-grey">John Doe</p>
+                        </div>
+                        <div class="swiper-slide rounded-corner2 content-box-shadow">
+                            <div class="testimonial-image-container rounded-corner50percent">
+                                <div class="testimonial-user-image rounded-corner50percent">
+                                    <img src="" border="0"/>
+                                </div>
+                            </div>
+                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">3. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                            <p class="font14 text-light-grey">John Doe</p>
+                        </div>
+                        <div class="swiper-slide rounded-corner2 content-box-shadow">
+                            <div class="testimonial-image-container rounded-corner50percent">
+                                <div class="testimonial-user-image rounded-corner50percent">
+                                    <img src="" border="0"/>
+                                </div>
+                            </div>
+                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">4. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                            <p class="font14 text-light-grey">John Doe</p>
+                        </div>
+                        <div class="swiper-slide rounded-corner2 content-box-shadow">
+                            <div class="testimonial-image-container rounded-corner50percent">
+                                <div class="testimonial-user-image rounded-corner50percent">
+                                    <img src="" border="0"/>
+                                </div>
+                            </div>
+                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">5. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                            <p class="font14 text-light-grey">John Doe</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>

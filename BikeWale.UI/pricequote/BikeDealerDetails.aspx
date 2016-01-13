@@ -38,7 +38,7 @@
         </section>
 
         <section>
-            <div class="container margin-bottom20 " style="min-height: 500px; display: none;" data-bind="visible: true">
+            <div class="container" style="min-height: 500px; display: none;" data-bind="visible: true">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20 rounded-corner2">
                         <div id="configTabsContainer" class="margin-bottom10">
@@ -416,6 +416,102 @@
                                 </div>
                             </div>
          <!-- Terms and condition Popup Ends -->
+        
+        <section>
+            <div id="testimonialWrapper" class="container margin-bottom30">
+                <div class="grid-12">
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Testimonials</h2>
+                    <div class="content-box-shadow text-center">
+                        <div class="jcarousel-wrapper">
+                            <div class="jcarousel">
+                                <ul>
+                                    <li>
+                                        <div class="testimonial-card">
+                                            <div class="testimonial-image-container rounded-corner50">
+                                                <div class="testimonial-user-image rounded-corner50">
+                                                    <img src="" border="0"/>
+                                                </div>
+                                            </div>
+                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">1. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                                            <p class="font14 text-light-grey">John Doe</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="testimonial-card">
+                                            <div class="testimonial-image-container rounded-corner50">
+                                                <div class="testimonial-user-image rounded-corner50">
+                                                    <img src="" border="0"/>
+                                                </div>
+                                            </div>
+                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">2. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                                            <p class="font14 text-light-grey">John Doe</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="testimonial-card">
+                                            <div class="testimonial-image-container rounded-corner50">
+                                                <div class="testimonial-user-image rounded-corner50">
+                                                    <img src="" border="0"/>
+                                                </div>
+                                            </div>
+                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">3. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                                            <p class="font14 text-light-grey">John Doe</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="testimonial-card">
+                                            <div class="testimonial-image-container rounded-corner50">
+                                                <div class="testimonial-user-image rounded-corner50">
+                                                    <img src="" border="0"/>
+                                                </div>
+                                            </div>
+                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">4. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                                            <p class="font14 text-light-grey">John Doe</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="testimonial-card">
+                                            <div class="testimonial-image-container rounded-corner50">
+                                                <div class="testimonial-user-image rounded-corner50">
+                                                    <img src="" border="0"/>
+                                                </div>
+                                            </div>
+                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">5. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                                            <p class="font14 text-light-grey">John Doe</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="testimonial-card">
+                                            <div class="testimonial-image-container rounded-corner50">
+                                                <div class="testimonial-user-image rounded-corner50">
+                                                    <img src="" border="0"/>
+                                                </div>
+                                            </div>
+                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">6. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                                            <p class="font14 text-light-grey">John Doe</p>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="testimonial-card">
+                                            <div class="testimonial-image-container rounded-corner50">
+                                                <div class="testimonial-user-image rounded-corner50">
+                                                    <img src="" border="0"/>
+                                                </div>
+                                            </div>
+                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">7. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
+                                            <p class="font14 text-light-grey">John Doe</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <p class="jcarousel-pagination padding-bottom20"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        
         <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>

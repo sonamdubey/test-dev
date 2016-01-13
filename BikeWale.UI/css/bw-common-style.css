@@ -220,10 +220,10 @@ footer ul li a:hover { text-decoration: underline; }
 .used-bike-carousel li {height:320px}
 .compareCarsHomePage li { width: 976px; }
 .jcarousel-pagination a { 
-	text-decoration: none; display: inline-block; height: 13px; width: 13px; line-height: 10px; background: #f8f6f6; border: 1px solid #ebebea;
-	border-radius: 15px; text-indent: -9999px; margin: 5px; cursor: pointer; }
-.jcarousel-pagination a:hover { background: #d9d9d9;  }
-.jcarousel-pagination a.active { background: #d9d9d9; cursor: default; border: 1px solid #cccccc; }
+	text-decoration: none; display: inline-block; height: 13px; width: 13px; line-height: 10px; background: #eeeff0; border: 1px solid #ebebea;
+	border-radius: 15px; text-indent: -9999px; margin: 5px 10px; cursor: pointer; }
+.jcarousel-pagination a:hover { background: #82888b;  }
+.jcarousel-pagination a.active { background: #82888b; cursor: default; border: 1px solid #cccccc; }
 
 .cardWrapper { width:100%; height:100%; overflow:hidden; display:inline-block; }
 
