@@ -746,17 +746,17 @@ function LoadTerms(offerId) {
     $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
 
-    var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+    //var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
     if (offerId != '' && offerId != null) {
         $.ajax({
             type: "GET",
-            url: abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId,
+            url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
             dataType: 'json',
             success: function (response) {
                 $(".termsPopUpContainer").css('height', '500')
                 $('#termspinner').hide();
-                if (response.html != null)
-                    $('#terms').html(response.html);
+                if (response != null)
+                    $('#terms').html(response);
             },
             error: function (request, status, error) {
                 $("div#termsPopUpContainer").hide();
