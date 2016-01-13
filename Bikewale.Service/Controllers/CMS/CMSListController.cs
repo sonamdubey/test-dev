@@ -48,7 +48,6 @@ namespace Bikewale.Service.Controllers.CMS
             try
             {
                 string apiUrl = "/webapi/article/mostrecentlist/?applicationid=2&totalrecords=" + posts;
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
 
                 if (categoryId == EnumCMSContentType.RoadTest)
                 {
@@ -211,7 +210,6 @@ namespace Bikewale.Service.Controllers.CMS
         [ResponseType(typeof(IEnumerable<Bikewale.DTO.CMS.Articles.CMSContent>)), Route("api/cms/cat/{categoryId}/posts/{posts}/pn/{pageNumber}/")]
         public IHttpActionResult Get(EnumCMSContentType categoryId, int posts, int pageNumber)
         {
-            string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
             Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles = null;
             try
             {
@@ -296,7 +294,6 @@ namespace Bikewale.Service.Controllers.CMS
             Bikewale.Entities.CMS.Articles.CMSContent objFeaturedArticles = null;
             try
             {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
                 int startIndex = 0, endIndex = 0;
                 _pager.GetStartEndIndex(Convert.ToInt32(posts), Convert.ToInt32(pageNumber), out startIndex, out endIndex);
 

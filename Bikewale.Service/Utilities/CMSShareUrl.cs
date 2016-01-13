@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using Bikewale.Utility;
 
 namespace Bikewale.Service.Utilities
 {
@@ -20,7 +21,7 @@ namespace Bikewale.Service.Utilities
         /// <returns></returns>
         public CMSContent GetShareUrl(CMSContent objCMSFArticles)
         {
-            string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
             foreach (var article in objCMSFArticles.Articles)
             {
                 EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
@@ -54,7 +55,7 @@ namespace Bikewale.Service.Utilities
         /// <returns></returns>
         public List<CMSArticleSummary> GetShareUrl(List<CMSArticleSummary> objCMSFArticles)
         {
-            string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
             foreach (var article in objCMSFArticles)
             {
                 EnumCMSContentType contentType = (EnumCMSContentType)article.CategoryId;
