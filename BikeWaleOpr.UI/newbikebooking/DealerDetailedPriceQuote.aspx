@@ -308,7 +308,6 @@
     }
     function GetColors(objColors)
     {
-        alert('there')
         var htmlTemp = '';
         for (var index = 0; index < objColors.length; index++) {
             htmlTemp += "<div style='margin-right: 10px;border: 1px solid #AAAAAA;width:20px;height:20px;background-color:#" + objColors[index] + "'></div>";
