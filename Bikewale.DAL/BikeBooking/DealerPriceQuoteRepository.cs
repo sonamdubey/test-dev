@@ -897,7 +897,7 @@ namespace Bikewale.DAL.BikeBooking
 
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "BW_GetVarientsPriceDetail";
+                    cmd.CommandText = "BW_GetVarientsPriceDetail_13012016";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                     cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
@@ -1029,7 +1029,7 @@ namespace Bikewale.DAL.BikeBooking
                             #region Model Colors Versionwise
                             if (reader.NextResult())
                             {
-                                while (reader.Read())
+                                if (reader.HasRows)
                                 {
                                     modelColorList = new List<BikeVersionColorsAvailability>();
                                     while (reader.Read())
@@ -1065,13 +1065,13 @@ namespace Bikewale.DAL.BikeBooking
 
                             entity.Varients = BikeDealerPriceDetails;
 
-                            if (entity.Varients != null && entity.Varients.Count > 0)
+                            if (entity.Varients != null && entity.Varients.Count > 0 && modelColorList!=null )
                             {
                                 foreach (var variant in entity.Varients)
                                 {
                                     
                                     var ColorListForDealer = from color in modelColorList
-                                                             where color.VersionId == variant.MinSpec.VersionId
+                                                             where color.VersionId == variant.MinSpec.VersionId 
                                                              group color by color.ColorId into newgroup
                                                              orderby newgroup.Key
                                                              select newgroup;
@@ -1088,7 +1088,7 @@ namespace Bikewale.DAL.BikeBooking
                                         foreach (var colorList in color)
                                         {
                                             objAvail.ColorName = colorList.ColorName;
-                                            objAvail.NoOfDays = (colorList.NoOfDays == -1) ? variant.NoOfWaitingDays : colorList.NoOfDays;
+                                            objAvail.NoOfDays = colorList.NoOfDays;
                                             objAvail.VersionId = colorList.VersionId;
                                             HexCodeList.Add(colorList.HexCode);
 

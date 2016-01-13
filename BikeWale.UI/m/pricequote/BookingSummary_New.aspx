@@ -215,14 +215,15 @@
                         </div>
 
                         <div class="contact-details-container margin-top30">
-                            <h3 class="padding-bottom10 border-light-bottom"><span class="fa fa-map-marker text-red"></span> Contact details:</h3>
+                            <h3 class="padding-bottom10 border-light-bottom"><span class="fa fa-map-marker text-red"></span>Contact details:</h3>
                             <ul>
                                 <li class="text-black">Offers from the nearest dealers<br />
                                     <span class="text-light-grey"><%= dealerAddress %></span>
                                 </li>
                                 <li class="text-black">Availability<br />
                                     <span class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></span>
-                                    <span class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</span>
+                                    <span class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() == 0">Now available</span>
+                                    <span class="text-red text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 0">Not available</span>
                                 </li>
                             </ul>
                         </div>
@@ -230,7 +231,7 @@
                             <% if (isOfferAvailable)
                                { %>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwmsprite offers-icon"></span>Available Offers </h3>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
 
                             <ul class="pay-and-get-ul">
                                 <asp:Repeater ID="rptDealerOffers" runat="server">
@@ -244,7 +245,7 @@
                             <%}
                                else
                                {%>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                             <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 100%; height: 150px; margin: 10px 0;" data-bind="googlemap: { latitude: $root.Dealer().latitude(), longitude: $root.Dealer().longitude() }"></div>
                             <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
@@ -288,7 +289,7 @@
                             <% if (isOfferAvailable)
                                { %>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Available Offers </h3>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and avail </h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and avail </h3>
 
                             <ul>
                                 <asp:Repeater ID="rptDealerFinalOffers" runat="server">
@@ -302,7 +303,7 @@
                             <%}
                                else
                                {%>
-                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and avail</h3>
+                            <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and avail</h3>
                             <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Get following details on the bike</h3>
                             <ul class="bike-details-ul" style="margin-left: 0; list-style: none">
                                 <li>
@@ -393,22 +394,22 @@
         </div>
         <!-- Terms and condition Popup Ends -->
         <!--Cancellation & refund policy popup starts here-->
-    <div class="bw-popup cancellation-popup hide">
-    	<div class="popup-inner-container">
-            <div class="cancellation-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
-            <h1>Cancellation & Refund Policy</h1>
-            <div class="lower-alpha-list">
-                <ol>
-                    <li><strong>a. </strong>Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong></li>
-		            <li><strong>b. </strong>Please email your <strong>‘Booking Cancellation Request’</strong> to <a href="mailto:contact@bikewale.com" class="blue-text">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating the <strong>booking reference number, your mobile number and email address (that you used while booking).</strong></li> 	
-                    <li><strong>c. Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
-                    <li><strong>d. </strong>If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
-                    <li><strong>e. </strong>For all valid requests, we will process the refund of full booking amount to customer’s account within 7 working days.</li>
-                </ol>
+        <div class="bw-popup cancellation-popup hide">
+            <div class="popup-inner-container">
+                <div class="cancellation-close-btn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
+                <h1>Cancellation & Refund Policy</h1>
+                <div class="lower-alpha-list">
+                    <ol>
+                        <li><strong>a. </strong>Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong></li>
+                        <li><strong>b. </strong>Please email your <strong>‘Booking Cancellation Request’</strong> to <a href="mailto:contact@bikewale.com" class="blue-text">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating the <strong>booking reference number, your mobile number and email address (that you used while booking).</strong></li>
+                        <li><strong>c. Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
+                        <li><strong>d. </strong>If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
+                        <li><strong>e. </strong>For all valid requests, we will process the refund of full booking amount to customer’s account within 7 working days.</li>
+                    </ol>
+                </div>
             </div>
         </div>
-    </div>
-    <!--Cancellation & refund policy popup ends here-->
+        <!--Cancellation & refund policy popup ends here-->
         <section>
             <div class="container margin-top10 margin-bottom30">
                 <div id="faqSlug" class="grid-12">
@@ -422,7 +423,8 @@
                         </div>
                         <div class="question-text-container leftfloat padding-left15">
                             <p class="question-title font16 text-bold text-black">Questions?</p>
-                            <p class="question-subtitle text-light-grey font14">We’re here to help.<br />Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a></p>
+                            <p class="question-subtitle text-light-grey font14">We’re here to help.<br />
+                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a></p>
                         </div>
                         <div class="clear"></div>
                     </div>
