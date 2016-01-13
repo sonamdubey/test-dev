@@ -214,8 +214,8 @@
 #faqSlug .icon-outer-container { width:82px; height:82px; }
 #faqSlug .icon-inner-container { width:72px; height:72px; }
 
-li.offertxt .tnc { display:none }  
-li.offertxt:hover .tnc {display:inline}
+/*li.offertxt .tnc { display:none }  
+li.offertxt:hover .tnc {display:inline}*/
 .question-mark-icon { width:22px; height:33px; background-position:-189px -348px; }
 .faq-slug-container { width:100%; }
 .question-icon-container { width:82px; }
