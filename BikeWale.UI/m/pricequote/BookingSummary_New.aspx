@@ -395,6 +395,8 @@
             //select bike version
             var bikeVersionId = <%= (objCustomer!=null && objCustomer.SelectedVersionId > 0)?objCustomer.SelectedVersionId:versionId %>;
             $(function () {
+                $(".ae-logo-border").hide();
+                $(".ae-sprite").hide();
                 var versionTab = $('#customizeBike');
                 $('#customizeBike ul.select-versionUL li').each(function () {
                     if (bikeVersionId === $(this).attr('versionId')) {
