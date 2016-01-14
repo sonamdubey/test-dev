@@ -416,19 +416,7 @@
         </section>
 
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
-        <!-- Terms and condition Popup start -->
-        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
-            <h3>Terms and Conditions</h3>
-            <div style="vertical-align: middle; text-align: center;" id="termspinner">
-                <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
-                <img src="/images/search-loading.gif" />
-            </div>
-            <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
-            <div id="terms" class="breakup-text-container padding-bottom10 font14">
-            </div>
-        </div>
-        <!-- Terms and condition Popup Ends -->
-
+       
         <section>
             <div class="container margin-top10 margin-bottom30">
                 <div id="faqSlug" class="grid-12">
