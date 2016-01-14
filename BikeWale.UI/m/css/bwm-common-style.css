@@ -764,8 +764,9 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .clearfix:after { clear: both; }
 
 /* offers popup */
-.termsPopUpContainer { width: 700px; height: 150px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; }
+.termsPopUpContainer { width: 90%; height: 400px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 7%; left: 5%; right: 5%; }
 .termsPopUpCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
+#terms h1 { font-size:18px; padding-top:10px; }
 
 .viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
 .viewterms:hover{text-decoration:underline;}

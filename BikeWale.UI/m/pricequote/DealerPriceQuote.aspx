@@ -949,7 +949,7 @@
             });
 
             function LoadTerms(offerId) {
-                $(".termsPopUpContainer").css('height', '150')
+                //$(".termsPopUpContainer").css('height', '150')
                 $('#termspinner').show();
                 $('#terms').empty();
                 $("div#termsPopUpContainer").show();
@@ -962,7 +962,7 @@
                         url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
                         dataType: 'json',
                         success: function (response) {
-                            $(".termsPopUpContainer").css('height', '500')
+                           // $(".termsPopUpContainer").css('height', '500')
                             $('#termspinner').hide();
                             if (response != null)
                                 $('#terms').html(response);
