@@ -4,6 +4,8 @@ namespace PriceQuoteLeadSMS
     /// <summary>
     /// Created By : Sadhana Upadhyay on 30 Nov 2015
     /// Summary : To store price quote lead notification details
+    /// Modified by :   Sumit Kate on 14 Jan 2016
+    /// Summary     :   Added Customer Id
     /// </summary>
     public class LeadNotificationEntity
     {
@@ -28,5 +30,6 @@ namespace PriceQuoteLeadSMS
         public string EmailToDealerMessageBody { get; set; }
         public string EmailToDealerSubject { get; set; }
         public string EmailToDealerReplyTo { get; set; }
+        public ulong CustomerId { get; set; }
     }
 }

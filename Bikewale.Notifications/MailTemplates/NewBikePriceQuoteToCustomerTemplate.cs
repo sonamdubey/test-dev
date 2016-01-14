@@ -114,14 +114,14 @@ namespace Bikewale.Notifications.MailTemplates
                         }
                     }
                     sb.Append("<tr><td colspan=\"2\"><div style=\"border-top:1px solid #eaeaea; margin-top:5px;\"></div></td></tr>");
-                    sb.Append("</div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></div></div>");
+                    sb.Append("<tr><td colspan=\"2\"><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></td></tr>");
                     sb.Append("<tr><td align=\"left\" width=\"340px\" style=\"color:#333; padding-top:5px;\">Total On Road Price</td><td align=\"right\" style=\"color:#333; font-weight:bold;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" border=\"0\" style=\"margin-right:5px;\">" + Format.FormatPrice((TotalPrice-TotalDiscountedPrice()).ToString()) + "</td></tr>");
                     sb.Append("</tbody></table></div></div>");
                     
                 }
                 if (OfferList != null && OfferList.Count > 0)
                 {
-                    sb.Append("</div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></div></div>");
+                    sb.Append("</div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div>");
                     sb.Append("<div style=\"padding:10px 0 0;\"><div style=\"font-size:14px; font-weight:bold; color:#333333;\">Exciting Offers for BikeWale Customers</div>");
                     if (InsuranceAmount == 0)
                     {
