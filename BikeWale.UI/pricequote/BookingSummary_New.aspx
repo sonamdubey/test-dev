@@ -179,7 +179,7 @@
                                         <div class="select-dropdown-list hide">
                                             <ul>
                                                 <asp:Repeater ID="rptVarients" runat="server">
-                                                    <ItemTemplate>  .
+                                                    <ItemTemplate>
                                                         <li versionid="<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>" data-bind="click: function () { getVersion(<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>); $root.ActualSteps(1); }">
                                                             <p><%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionName") %> </p>
                                                         </li>

@@ -377,8 +377,8 @@
             <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 457 9781</a>
         </div>
 
-        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>">
-            <div class="grid-12"></div>
+        <section class="container margin-bottom30 content-box-shadow">
+            <div class="lazy booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
         <!-- Terms and condition Popup start -->
@@ -412,7 +412,7 @@
         <!--Cancellation & refund policy popup ends here-->
         <section>
             <div class="container margin-top10 margin-bottom30">
-                <div id="faqSlug" class="grid-12">
+                <div id="faqSlug">
                     <div class="faq-slug-container content-box-shadow content-inner-block-20">
                         <div class="question-icon-container text-center leftfloat">
                             <div class="icon-outer-container rounded-corner50percent">

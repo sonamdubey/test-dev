@@ -18,7 +18,15 @@ ko.bindingHandlers.googlemap = {
               position: latLng,
               map: map
           });
-    }
+        // google.maps.event.trigger(map, 'resize');
+    } ,
+
+    
+    //update: function(element, valueAccessor) {
+    //var value = ko.utils.unwrapObservable(valueAccessor());
+    //    google.maps.event.trigger(map, 'resize');
+    //}
+
 };
 
 ko.bindingHandlers.CurrencyText = {
@@ -202,7 +210,6 @@ var BikeDetails = function () {
                 discount += self.discountList()[i].Price;
             }
         }
-        console.log(discount);
         return discount;
     }, this);
 
@@ -378,7 +385,7 @@ $.calculateEMI = function (loanAmount, tenure, rateOfInterest) {
         finalEmi = Math.ceil((totalRepay / tenure));
     }
     catch (e) {
-        console.log(e.message);
+       // console.log(e.message);
     }
     return formatPrice(finalEmi);
 };
@@ -390,7 +397,7 @@ $.LoanAmount = function (onRoadPrice, percentage) {
         price = Math.ceil(price / 100.0) * 100;
     }
     catch (e) {
-        console.log(e.message);
+        //console.log(e.message);
     }
     return price;
 };
@@ -480,3 +487,4 @@ $(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
     $("div#termsPopUpContainer").hide();
     $(".blackOut-window").hide();
 });
+
