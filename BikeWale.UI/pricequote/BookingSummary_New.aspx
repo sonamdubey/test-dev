@@ -179,7 +179,7 @@
                                         <div class="select-dropdown-list hide">
                                             <ul>
                                                 <asp:Repeater ID="rptVarients" runat="server">
-                                                    <ItemTemplate>  .
+                                                    <ItemTemplate>
                                                         <li versionid="<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>" data-bind="click: function () { getVersion(<%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionId") %>); $root.ActualSteps(1); }">
                                                             <p><%#DataBinder.Eval(Container.DataItem,"MinSpec.VersionName") %> </p>
                                                         </li>
@@ -342,7 +342,7 @@
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
                                             <ItemTemplate>
                                                 <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
-                                                    offers<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                                                    offers<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'> View terms</a></span>" : "" %>
                                                 </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
