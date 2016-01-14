@@ -43,14 +43,17 @@ var BookingConfigViewModel = function () {
                     self.CurrentStep(self.CurrentStep() + 1);
                     self.ActualSteps(self.ActualSteps() + 1);
                     $('html, body').animate({ scrollTop: 0 }, 300);
-                }                
-                if (self.CurrentStep() == 2) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_1_Successful_Submit', 'lab': thisBikename + '_' + getCityArea });
                 }
                 else if (self.CurrentStep() == 3) {
                     self.CurrentStep(4);
                     self.ActualSteps(4);
                     $('html, body').animate({ scrollTop: 0 }, 300);
+                }
+
+                if (self.CurrentStep() == 2) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_1_Successful_Submit', 'lab': thisBikename + '_' + getCityArea });
+                }
+                else if (self.CurrentStep() == 3) {
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_2_Successful_Submit', 'lab': thisBikename + '_' + getCityArea });
                 }
                 return true;
@@ -102,7 +105,7 @@ var BookingConfigViewModel = function () {
         var isSuccess = false;
         if (self.changedSteps() && (self.CurrentStep() > 3) && (self.Bike().bookingAmount() > 0)) {
 
-            var curUserOptions =  self.Bike().selectedVersionId().toString() + self.Bike().selectedColorId().toString();
+            var curUserOptions = self.Bike().selectedVersionId().toString() + self.Bike().selectedColorId().toString();
             if (self.UserOptions() != curUserOptions) {
                 self.UserOptions(curUserOptions);
 
@@ -123,10 +126,7 @@ var BookingConfigViewModel = function () {
                             isSuccess = true;
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
                             //SetCookie("_MPQ", cookieValue);
-                            history.replaceState(null, null, "?MPQ=" + Base64.encode(cookieValue));
-                            if ((self.Bike().bookingAmount() > 0) && (self.CurrentStep() > 3)) {
-                                window.location.href = '/m/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
-                            }                            
+                            window.location.href = '/m/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
                         }
                         else isSuccess = false;
                     },
@@ -136,14 +136,13 @@ var BookingConfigViewModel = function () {
                 });
             }
             else {
-                if ((self.Bike().bookingAmount() > 0) && (self.CurrentStep() > 3)) {
+                if ((self.Bike().bookingAmount() > 0)) {
                     var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
                     window.location.href = '/m/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
                 }
                 isSuccess = true;
             }
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_3_Book_Now_Click', 'lab': thisBikename + '_' + getCityArea });
-            return isSuccess;
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step 3_Book_Now_Click', 'lab': thisBikename + '_' + getCityArea });
         }
 
         return isSuccess;
@@ -181,7 +180,7 @@ var BikeDetails = function () {
                 discount += self.discountList()[i].Price;
             }
         }
-        console.log(discount);
+        //console.log(discount);
         return discount;
     }, this);
 
@@ -392,7 +391,7 @@ $.calculateEMI = function (loanAmount, tenure, rateOfInterest) {
         finalEmi = Math.ceil((totalRepay / tenure));
     }
     catch (e) {
-        console.log(e.message);
+        //console.log(e.message);
     }
     return formatPrice(finalEmi);
 };
@@ -404,7 +403,7 @@ $.LoanAmount = function (onRoadPrice, percentage) {
         price = Math.ceil(price / 100.0) * 100;
     }
     catch (e) {
-        console.log(e.message);
+        //console.log(e.message);
     }
     return price;
 };

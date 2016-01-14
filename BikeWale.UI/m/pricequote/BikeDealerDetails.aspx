@@ -419,7 +419,7 @@
        
         <section>
             <div class="container margin-top10 margin-bottom30">
-                <div id="faqSlug" class="grid-12">
+                <div id="faqSlug">
                     <div class="faq-slug-container content-box-shadow content-inner-block-20">
                         <div class="question-icon-container text-center leftfloat">
                             <div class="icon-outer-container rounded-corner50percent">
