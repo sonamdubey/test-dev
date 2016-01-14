@@ -15,6 +15,8 @@ namespace PriceQuoteLeadSMS
         /// <summary>
         /// Created By : Sadhana Upadhyay on 30 Nov 2015
         /// Summary : To get Lead information
+        /// Modified By :   Sumit Kate on 14 Jan 206
+        /// Description :   Fetch Customer Id
         /// </summary>
         /// <returns></returns>
         private IEnumerable<LeadNotificationEntity> GetLeadInformation()
@@ -22,9 +24,9 @@ namespace PriceQuoteLeadSMS
             IList<LeadNotificationEntity> objLeadEntity = null;
             try
             {
-                using (SqlConnection conn=new SqlConnection(_connectionString))
+                using (SqlConnection conn = new SqlConnection(_connectionString))
                 {
-                    using (SqlCommand cmd=new SqlCommand())
+                    using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "GetPQLeadNotificationsInfo";
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -32,12 +34,12 @@ namespace PriceQuoteLeadSMS
 
                         conn.Open();
 
-                        using(SqlDataReader dr=cmd.ExecuteReader())
+                        using (SqlDataReader dr = cmd.ExecuteReader())
                         {
-                            if(dr!=null && dr.HasRows)
+                            if (dr != null && dr.HasRows)
                             {
                                 objLeadEntity = new List<LeadNotificationEntity>();
-                                while(dr.Read())
+                                while (dr.Read())
                                 {
                                     objLeadEntity.Add(new LeadNotificationEntity()
                                     {
@@ -61,7 +63,8 @@ namespace PriceQuoteLeadSMS
                                         SMSToDealerServiceType = Convert.ToUInt16(dr["SMSToDealerServiceType"]),
                                         EmailToDealerMessageBody = dr["EmailToDealerMessageBody"].ToString(),
                                         EmailToDealerReplyTo = dr["EmailToDealerReplyTo"].ToString(),
-                                        EmailToDealerSubject = dr["EmailToDealerSubject"].ToString()
+                                        EmailToDealerSubject = dr["EmailToDealerSubject"].ToString(),
+                                        CustomerId = Convert.ToUInt64(dr["CustomerId"])
                                     });
                                 }
                             }
@@ -79,6 +82,10 @@ namespace PriceQuoteLeadSMS
         #endregion
 
         #region SendLeadsToCustDealer Method
+        /// <summary>
+        /// Modified by :   Sumit Kate on 14 Jan 2016
+        /// Description :   No notification is sent to Dealer if already notified
+        /// </summary>
         internal void SendLeadsToCustDealer()
         {
             try
@@ -86,10 +93,10 @@ namespace PriceQuoteLeadSMS
                 // Get lead info
                 IEnumerable<LeadNotificationEntity> objLeads = GetLeadInformation();
                 SMSCommon objLead = new SMSCommon();
-                LeadSMSDAL objSmsDal=new LeadSMSDAL();
+                LeadSMSDAL objSmsDal = new LeadSMSDAL();
                 Bikewale.Notifications.SendMails sendEmail = new SendMails();
 
-                if (objLeads!=null)
+                if (objLeads != null)
                 {
                     foreach (LeadNotificationEntity item in objLeads)
                     {
@@ -105,25 +112,28 @@ namespace PriceQuoteLeadSMS
                         if (!String.IsNullOrEmpty(item.SMSToDealerMessage))
                         {
                             string[] dealerMobiles = item.SMSToDealerNumbers.Split(',');
-
-                            foreach (string mobileNo in dealerMobiles)
+                            bool isDealerNotified = objSmsDal.IsDealerNotified(item.DealerId, item.CustomerMobile, item.CustomerId);
+                            if (!isDealerNotified)
                             {
-                                uint smsId = objSmsDal.InsertSMS(mobileNo.Trim(), item.SMSToDealerMessage, item.SMSToDealerServiceType, string.Empty, true);
-                                objLead.PushSMSInQueue(smsId, item.SMSToDealerMessage, mobileNo.Trim());   
-                            }
+                                foreach (string mobileNo in dealerMobiles)
+                                {
+                                    uint smsId = objSmsDal.InsertSMS(mobileNo.Trim(), item.SMSToDealerMessage, item.SMSToDealerServiceType, string.Empty, true);
+                                    objLead.PushSMSInQueue(smsId, item.SMSToDealerMessage, mobileNo.Trim());
+                                }
 
-                            string[] dealerEmails = item.EmailToCustomerReplyTo.Split(',');
+                                string[] dealerEmails = item.EmailToCustomerReplyTo.Split(',');
 
-                            foreach (string email in dealerEmails)
-                            {
-                                sendEmail.SendMail(email, item.EmailToDealerSubject, item.EmailToDealerMessageBody, item.EmailToDealerReplyTo);
+                                foreach (string email in dealerEmails)
+                                {
+                                    sendEmail.SendMail(email, item.EmailToDealerSubject, item.EmailToDealerMessageBody, item.EmailToDealerReplyTo);
+                                }
                             }
                         }
 
                         //SendMail(string email, string subject, string body, string replyTo)
                         AutoBizAdaptor.PushInquiryInAB(item.DealerId.ToString(), item.PQId, item.CustomerName, item.CustomerMobile, item.CustomerEmail, item.BikeVersionId.ToString(), item.CityId.ToString());
                         objSmsDal.UpdatePQLeadNotifiedFlag(item.PQId);
-                    } 
+                    }
                 }
             }
             catch (Exception ex)
