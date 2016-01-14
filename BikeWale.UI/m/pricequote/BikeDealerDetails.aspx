@@ -405,7 +405,7 @@
             <div id="testimonialWrapper" class="container margin-bottom30">
                 <h2 class="text-bold text-center margin-top10 margin-bottom15 font24">Testimonials</h2>
                 <div class="swiper-container text-center">
-                    <div class="swiper-wrapper margin-bottom10 margin-left10">
+                    <div class="swiper-wrapper margin-bottom10">
                         <div class="swiper-slide rounded-corner2 content-box-shadow">
                             <div class="testimonial-image-container rounded-corner50percent">
                                 <div class="testimonial-user-image rounded-corner50percent">
