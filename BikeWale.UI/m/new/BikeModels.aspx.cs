@@ -107,7 +107,7 @@ namespace Bikewale.Mobile.New
 
             #endregion
             FetchModelPageDetails();
-            if (modelPage.ModelDetails.New)
+            if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
             {
                 FetchOnRoadPrice();
             }
@@ -150,7 +150,7 @@ namespace Bikewale.Mobile.New
                 }
             }
             SetFlags();
-            if (modelPage.ModelDetails != null)
+            if (modelPage!=null && modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
             ToggleOfferDiv();
 
@@ -380,7 +380,10 @@ namespace Bikewale.Mobile.New
                     {
                         //cityId = Convert.ToInt16(locArray[0]); //location.Substring(0, location.IndexOf('_'));
                         Int32.TryParse(locArray[0], out cityId);
-                        objCityList = FetchCityByModelId(modelId);
+                        if (!string.IsNullOrEmpty(modelId))
+                        {
+                            objCityList = FetchCityByModelId(modelId);
+                        }
 
                         // If Model doesn't have current City then don't show it, Show Ex-showroom Mumbai
                         if (objCityList != null && !objCityList.Any(p => p.CityId == cityId))
@@ -829,7 +832,7 @@ namespace Bikewale.Mobile.New
 
                                             if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                                 pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers, pqOnRoad.DPQOutput.PriceList);
-                                            if (oblDealerPQ.discountedPriceList.Count > 0)
+                                            if (oblDealerPQ.discountedPriceList != null && oblDealerPQ.discountedPriceList.Count > 0)
                                             {
                                                 pqOnRoad.IsDiscount = true;
                                                 pqOnRoad.discountedPriceList = oblDealerPQ.discountedPriceList;

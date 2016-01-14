@@ -203,7 +203,7 @@ namespace Bikewale.New
             #endregion
 
             FetchModelPageDetails();
-            if (modelPage.ModelDetails.New)
+            if (modelPage !=null && modelPage.ModelDetails!=null && modelPage.ModelDetails.New)
             {
                 FetchOnRoadPrice();
             }
@@ -226,7 +226,7 @@ namespace Bikewale.New
             SetFlags();
             BindAlternativeBikeControl();
             // Set BikeName
-            if (modelPage.ModelDetails != null)
+            if (modelPage!=null && modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
 
             int _modelId;
@@ -402,6 +402,10 @@ namespace Bikewale.New
         {
             ModelMaskingResponse objResponse = null;
             string modelQuerystring = Request.QueryString["model"];
+            if (modelQuerystring.Contains("/"))
+            {
+                modelQuerystring = modelQuerystring.Split('/')[0];
+            }
             try
             {
                 if (!string.IsNullOrEmpty(modelQuerystring))
@@ -486,8 +490,10 @@ namespace Bikewale.New
                     {
                         //cityId = Convert.ToInt16(locArray[0]);
                         Int32.TryParse(locArray[0], out cityId);
-                        objCityList = FetchCityByModelId(modelId);
-
+                        if (!string.IsNullOrEmpty(modelId))
+                        {
+                            objCityList = FetchCityByModelId(modelId);
+                        }
                         // If Model doesn't have current City then don't show it, Show Ex-showroom Mumbai
                         if (objCityList != null && !objCityList.Any(p => p.CityId == cityId))
                         {
@@ -542,32 +548,35 @@ namespace Bikewale.New
         {
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (!string.IsNullOrEmpty(modelId))
                 {
-                    container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
-                             .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
-                             .RegisterType<ICacheManager, MemcacheManager>();
-
-                    var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
-                    modelPage = objCache.GetModelPageDetails(Convert.ToInt16(modelId));
-                    if (modelPage != null)
+                    using (IUnityContainer container = new UnityContainer())
                     {
+                        container.RegisterType<IBikeModelsCacheRepository<int>, BikeModelsCacheRepository<BikeModelEntity, int>>()
+                                 .RegisterType<IBikeModels<BikeModelEntity, int>, BikeModels<BikeModelEntity, int>>()
+                                 .RegisterType<ICacheManager, MemcacheManager>();
 
+                        var objCache = container.Resolve<IBikeModelsCacheRepository<int>>();
+                        modelPage = objCache.GetModelPageDetails(Convert.ToInt16(modelId));
                         if (modelPage != null)
                         {
-                            if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
-                            {
-                                price = Convert.ToString(modelPage.ModelDetails.MinPrice);
-                                if (variantId == 0 && cityId == 0)
-                                {
-                                    variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
-                                }
-                            }
-                            if (!modelPage.ModelDetails.New)
-                                isDiscontinued = true;
 
-                            //string jsonModel = JsonConvert.SerializeObject(modelPage);
-                            //ViewState["modelPage"] = jsonModel;
+                            if (modelPage != null)
+                            {
+                                if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
+                                {
+                                    price = Convert.ToString(modelPage.ModelDetails.MinPrice);
+                                    if (variantId == 0 && cityId == 0)
+                                    {
+                                        variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
+                                    }
+                                }
+                                if (!modelPage.ModelDetails.New)
+                                    isDiscontinued = true;
+
+                                //string jsonModel = JsonConvert.SerializeObject(modelPage);
+                                //ViewState["modelPage"] = jsonModel;
+                            }
                         }
                     }
                 }
@@ -791,7 +800,7 @@ namespace Bikewale.New
                                             }
                                             pqOnRoad.IsInsuranceFree = true;
                                             pqOnRoad.DPQOutput = oblDealerPQ;
-                                            if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count> 0)
+                                            if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                                 pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers, pqOnRoad.DPQOutput.PriceList);
                                             pqOnRoad.InsuranceAmount = insuranceAmount;
                                             if (oblDealerPQ.discountedPriceList!= null && oblDealerPQ.discountedPriceList.Count > 0)
