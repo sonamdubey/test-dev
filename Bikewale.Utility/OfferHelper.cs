@@ -89,40 +89,47 @@ namespace Bikewale.Utility
         /// <param name="offers"></param>
         public static List<PQ_Price> ReturnDiscountPriceList(List<OfferEntity> offers, List<PQ_Price> priceList )
         {
-            if (offers == null || priceList == null) return null;
-            List<PQ_Price> discountedPriceList = new List<PQ_Price>();
-            foreach (var offer in offers)
+            try
             {
-                if (offer.IsPriceImpact)
+                if (offers == null || priceList == null) return null;
+                List<PQ_Price> discountedPriceList = new List<PQ_Price>();
+                foreach (var offer in offers)
                 {
-                    string displayText =  ContainsAny(offer.OfferText.ToLower());
-                    if (displayText != string.Empty)
+                    if (offer.IsPriceImpact)
                     {
-                        var priceItem = new PQ_Price();
-                        priceItem.CategoryName = displayText;
-                        uint calcOfferVal = 0;
-                        if (offer.OfferValue == 0)
+                        string displayText = ContainsAny(offer.OfferText.ToLower());
+                        if (displayText != string.Empty)
                         {
-                            try
+                            var priceItem = new PQ_Price();
+                            priceItem.CategoryName = displayText;
+                            uint calcOfferVal = 0;
+                            if (offer.OfferValue == 0)
                             {
-                                var selected = priceList.Where(p => p.CategoryName.ToLower().Contains(displayText.ToLower()));
-                                if (selected != null && selected.Count()> 0)
+                                try
                                 {
-                                    calcOfferVal = selected.First().Price;
-                                    priceItem.Price = calcOfferVal;
+                                    var selected = priceList.Where(p => p.CategoryName.ToLower().Contains(displayText.ToLower()));
+                                    if (selected != null && selected.Count() > 0)
+                                    {
+                                        calcOfferVal = selected.First().Price;
+                                        priceItem.Price = calcOfferVal;
+                                    }
                                 }
+                                catch { }
                             }
-                            catch { }
+                            else
+                            {
+                                priceItem.Price = offer.OfferValue;
+                            }
+                            discountedPriceList.Add(priceItem);
                         }
-                        else
-                        {
-                            priceItem.Price = offer.OfferValue;
-                        }
-                        discountedPriceList.Add(priceItem);
                     }
                 }
+                return discountedPriceList;
             }
-            return discountedPriceList;
+            catch(Exception ex)
+            {
+                return null;
+            }
         }
         
         /// <summary>

@@ -374,7 +374,7 @@
 
         <div class="content-box-shadow content-inner-block-15 margin-top15 margin-bottom15 text-medium-grey text-center">
             <p class="text-medium-grey font14 margin-bottom10">In case of queries call us toll-free on:</p>
-            <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 457 9781</a>
+            <a href="tel:1800 120 8300" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 120 8300</a>
         </div>
 
         <section class="container margin-bottom30 content-box-shadow">

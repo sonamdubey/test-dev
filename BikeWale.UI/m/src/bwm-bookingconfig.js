@@ -454,7 +454,6 @@ function LoadTerms(offerId) {
     $(".blackOut-window").show();
 
     //var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
-    debugger;
     if (offerId != '' && offerId != null) {
         $.ajax({
             type: "GET",

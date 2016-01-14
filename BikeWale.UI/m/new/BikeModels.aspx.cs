@@ -784,7 +784,12 @@ namespace Bikewale.Mobile.New
                     objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                     PQOutputEntity objPQOutput = objDealer.ProcessPQ(objPQEntity);
                     if (variantId == 0)
-                        variantId = Convert.ToInt32(objPQOutput.VersionId);
+                    {
+                        if (objPQOutput != null && objPQOutput.VersionId != null)
+                        {
+                            variantId = Convert.ToInt32(objPQOutput.VersionId);
+                        }
+                    }
                     if (objPQOutput != null)
                     {
                         pqOnRoad = new PQOnRoadPrice();
@@ -821,6 +826,7 @@ namespace Bikewale.Mobile.New
                                             pqOnRoad.IsInsuranceFree = true;
                                             pqOnRoad.DPQOutput = oblDealerPQ;
                                             pqOnRoad.InsuranceAmount = insuranceAmount;
+
                                             if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                                 pqOnRoad.DPQOutput.discountedPriceList = OfferHelper.ReturnDiscountPriceList(pqOnRoad.DPQOutput.objOffers, pqOnRoad.DPQOutput.PriceList);
                                             if (oblDealerPQ.discountedPriceList.Count > 0)

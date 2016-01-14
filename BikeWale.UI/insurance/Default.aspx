@@ -215,7 +215,7 @@
                                     	Damage to / by person driving without a valid driving license
                                     </li>
                                     <li>
-                                    	Loss or damage caused while riding under the influence of alcohol or any other intoxicating substance
+                                    	Loss or damage caused while NOT riding under the influence of alcohol or any other intoxicating substance
                                     </li>
                                     <li>
                                     	Loss or damage due to depreciation of the vehicle's value
