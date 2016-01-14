@@ -257,8 +257,6 @@ namespace Bikewale.Notifications.MailTemplates
 
                         sb.Append("<tr><td colspan=\"2\"><div style=\"border-top:1px solid #eeeeee; margin-top:10px;\"></div></td></tr>");
                         sb.Append("<tr><td style=\"padding-top:5px;\" width=\"450px;\">Total On Road price</p></td><td align=\"right\" style=\"padding-top:5px; font-weight:bold;\" width=\"150px;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" border=\"0\" style=\"margin-right:10px;\">" + Format.FormatPrice(TotalPrice.ToString()) + "</td></tr>");
-                        sb.Append("<tr><td style=\"padding-top:5px;\" width=\"450px;\">Minus Insurance</p></td><td align=\"right\" style=\"padding-top:5px; font-weight:bold;\" width=\"150px;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" border=\"0\" style=\"margin-right:10px;\">" + Format.FormatPrice(InsuranceAmount.ToString()) + "</td></tr>");
-                        sb.Append("<tr><td style=\"padding-top:5px;\" width=\"450px;\">BikeWale On Road (after insurance offer) Quoted to Customer</p></td><td align=\"right\" style=\"padding-top:5px; font-weight:bold;\" width=\"150px;\"><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" border=\"0\" style=\"margin-right:10px;\">" + Format.FormatPrice((TotalPrice - InsuranceAmount).ToString()) + "</td></tr>");
                         sb.Append("</tbody></table>");
                     }
                 }
