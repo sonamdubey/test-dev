@@ -293,9 +293,12 @@ namespace Bikewale.BikeBooking
         /// </summary>
         private void PushBikeBookingSuccess()
         {
+            uint bookingId = default(uint);
+            BookingRequest request = null;
+
             try
             {
-                BookingRequest request = new BookingRequest();
+                request = new BookingRequest();
                 request.BookingDate = DateTime.Now;
                 request.BranchId = _objPQ.objDealer.DealerId;
                 request.InquiryId = Convert.ToUInt32(objCustomer.AbInquiryId);
@@ -303,7 +306,6 @@ namespace Bikewale.BikeBooking
                 request.Price = totalPrice;
                 
                 string _apiUrl = "/webapi/booking/";
-                uint bookingId = default(uint);
 
                 using (Bikewale.Utility.BWHttpClient objClient = new BWHttpClient())
                 {
@@ -313,6 +315,18 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception err)
             {
+                string data = string.Empty;
+
+                if (objCustomer != null)
+                {
+                    data = "PQCustomerDetail object : " + Newtonsoft.Json.JsonConvert.SerializeObject(objCustomer);
+                }
+                else
+                {
+                    data = "PQCustomerDetail object : null ";
+                }
+                data += " : request data : " + Newtonsoft.Json.JsonConvert.SerializeObject(request) + " : bookingId : " + bookingId;
+
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BikeBooking.BillDeskResponse.PushBikeBookingSuccess");
                 objErr.SendMail();
             }
@@ -329,7 +343,19 @@ namespace Bikewale.BikeBooking
             }
             catch (Exception err)
             {
-                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BikeBooking.BillDeskResponse.PushBikeBookingSuccess");
+                string data = string.Empty;
+
+                if (customerDetails != null)
+                {
+                    data = "Customer details object : " + Newtonsoft.Json.JsonConvert.SerializeObject(customerDetails);                    
+                }
+                else
+                {
+                    data = "Customer details object : null ";
+                }
+                data += " : abinquiry Id : " + abInquiryId;
+
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BikeBooking.BillDeskResponse.PushBikeLeadInAutoBiz + data : " + data);
                 objErr.SendMail();
             }
         } 
