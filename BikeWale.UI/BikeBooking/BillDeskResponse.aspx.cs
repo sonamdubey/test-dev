@@ -326,6 +326,22 @@ namespace Bikewale.BikeBooking
                     data = "PQCustomerDetail object : null ";
                 }
                 data += " : request data : " + Newtonsoft.Json.JsonConvert.SerializeObject(request) + " : bookingId : " + bookingId;
+                if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys() && (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"])))
+                {
+                    if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
+                    {
+                        data += " MPQ : Decode :" + EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"]) + " Encode : " + HttpContext.Current.Request.QueryString["MPQ"];
+                    }
+                    else
+                    {
+                        data += " MPQ : is present as qs param but is null or empty";
+                    }
+                }
+                else
+                {
+                    data += " MPQ : is not present as qs param";
+                }
+
 
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BikeBooking.BillDeskResponse.PushBikeBookingSuccess");
                 objErr.SendMail();
@@ -353,6 +369,23 @@ namespace Bikewale.BikeBooking
                 {
                     data = "Customer details object : null ";
                 }
+
+                if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys() && (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"])))
+                {
+                    if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
+                    {
+                        data += " MPQ : Decode :" + EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"]) + " Encode : " + HttpContext.Current.Request.QueryString["MPQ"];
+                    }
+                    else
+                    {
+                        data += " MPQ : is present as qs param but is null or empty";
+                    }
+                }
+                else
+                {
+                    data += " MPQ : is not present as qs param";
+                }
+
                 data += " : abinquiry Id : " + abInquiryId;
 
                 Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(err, "Bikewale.BikeBooking.BillDeskResponse.PushBikeLeadInAutoBiz + data : " + data);
