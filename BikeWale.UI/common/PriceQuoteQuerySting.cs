@@ -8,95 +8,80 @@ namespace Bikewale.Common
 {
     public class PriceQuoteQueryString
     {
-        private static string _queryString = String.Empty;
-                
         #region Properties
-        private static string _pqId = "0";
+
         public static string PQId
         {
-            //CityId=1&AreaId=59&PQId=3884&VersionId=165&DealerId=4
             get
             {
-                if (!String.IsNullOrEmpty(_queryString))
+                if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys() && (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"])))
                 {
-                    _pqId = HttpUtility.ParseQueryString(_queryString).Get("PQId");
+                    if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
+                    {
+                        return HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"])).Get("PQId");
+                    }
                 }
-                return _pqId;
-            }
-            set
-            {
-                _pqId = value;
+                return String.Empty;
             }
         }
 
-        private static string _city = "0";
         public static string CityId
         {
             get
             {
-                if (!String.IsNullOrEmpty(_queryString))
+                if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys() && (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"])))
                 {
-                    _city = HttpUtility.ParseQueryString(_queryString).Get("CityId");
+                    if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
+                    {
+                        return HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"])).Get("CityId");
+                    }
                 }
-                return _city;
+                return String.Empty;
             }
-            set
-            {
-                _city = value;
-            }
-
         }
 
-        private static string _area = "0";
         public static string AreaId
         {
             get
             {
-                if (!String.IsNullOrEmpty(_queryString))
+                if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys() && (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"])))
                 {
-                    _area = HttpUtility.ParseQueryString(_queryString).Get("AreaId");
+                    if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
+                    {
+                        return HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"])).Get("AreaId");
+                    }
                 }
-                return _area;
+                return String.Empty;
             }
-            set
-            {
-                _area = value;
-            }
-
         }
 
-        private static string _versionId = "0";
         public static string VersionId
         {
             get
             {
-                if (!String.IsNullOrEmpty(_queryString))
+                if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys() && (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"])))
                 {
-                    _versionId = HttpUtility.ParseQueryString(_queryString).Get("VersionId");
+                    if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
+                    {
+                        return HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"])).Get("VersionId");
+                    }
                 }
-                return _versionId;
+                return String.Empty;
             }
-            set
-            {
-                _versionId = value;
-            }
-
         }
 
-        private static string _dealerId = "0";
         public static string DealerId
         {
             get
             {
-                if (!String.IsNullOrEmpty(_queryString))
+                if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys() && (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"])))
                 {
-                    _dealerId = HttpUtility.ParseQueryString(_queryString).Get("DealerId");
+                    if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
+                    {
+                        return HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"])).Get("DealerId");
+                    }
                 }
-                return _dealerId;
-            }
-            set
-            {
-                _dealerId = value;
+                return String.Empty;
             }
         }
         #endregion
@@ -106,26 +91,34 @@ namespace Bikewale.Common
             {
                 if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
                 {
-                    _queryString = EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"]);
+                    return true;
                 }
-                return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
-        public static void SaveQueryString(string cityId, string pqId, string areaId, string versionId, string dealerId)
+        public static string FormQueryString(string cityId, string pqId, string areaId, string versionId, string dealerId)
         {
-            _queryString = String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", cityId, areaId, pqId, versionId, dealerId);
+            return String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", cityId, areaId, pqId, versionId, dealerId);
+        }
+
+        public static string FormBase64QueryString(string cityId, string pqId, string areaId, string versionId, string dealerId)
+        {
+            return EncodingDecodingHelper.EncodeTo64(String.Format("CityId={0}&AreaId={1}&PQId={2}&VersionId={3}&DealerId={4}", cityId, areaId, pqId, versionId, dealerId));
         }
 
         public static string QueryString
         {
             get
             {
-                return _queryString;
+                if (HttpContext.Current.Request.QueryString != null && HttpContext.Current.Request.QueryString.HasKeys() && (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"])))
+                {
+                    if (!String.IsNullOrEmpty(HttpContext.Current.Request.QueryString["MPQ"]))
+                    {
+                        return EncodingDecodingHelper.DecodeFrom64(HttpContext.Current.Request.QueryString["MPQ"]);
+                    }
+                }
+                return String.Empty;
             }
         }
     }

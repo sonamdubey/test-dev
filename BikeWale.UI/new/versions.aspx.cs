@@ -609,9 +609,8 @@ namespace Bikewale.New
                             dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
                         }
-                        //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);                        
-                        PriceQuoteQueryString.SaveQueryString(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
-                        mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString);
+                        //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);                                                
+                        mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId));
                         if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null && pqOnRoad.DPQOutput.Varients.Count() > 0)
                         {
                             #region when dealer Price is Available
