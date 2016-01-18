@@ -80,6 +80,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             string bikeName = String.Empty;
             string imagePath = String.Empty;
             CustomerEntity objCust = null;
+            PQCustomerDetail pqCustomer = null;
             MobileVerificationEntity mobileVer = null;
             PriceQuoteParametersEntity pqParam = null;
             uint exShowroomCost = 0;
@@ -146,7 +147,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         isVerified = _objDealerPriceQuote.UpdateIsMobileVerified(input.PQId);
 
                         // dealer = objBookingPageDetailsDTO.Dealer;
-                        objCust = _objCustomer.GetByEmail(input.CustomerEmail);
+                        //objCust = _objCustomer.GetByEmail(input.CustomerEmail);
+
+                        pqCustomer = _objDealerPriceQuote.GetCustomerDetails(input.PQId);
+                        objCust = pqCustomer.objCustomerBase;
 
                         PQ_DealerDetailEntity dealerDetailEntity = null;
                         string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
