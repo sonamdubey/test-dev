@@ -12,5 +12,6 @@ namespace AppNotification.Interfaces
         int GetTotalNumberOfSubs(int alertTypeId);
         List<string> GetRegistrationIds(int alertTypeId, int startNum, int endNum);
         bool SubscriberActivity(MobileAppNotificationRegistration t);
+        bool CompleteNotificationProcess(int alertTypeId);
     }
 }

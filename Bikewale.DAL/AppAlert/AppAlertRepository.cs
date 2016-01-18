@@ -46,7 +46,6 @@ namespace Bikewale.DAL.AppAlert
 
                         con.Open();
                         cmd.ExecuteNonQuery();
-
                     }
                 }
             }
