@@ -115,7 +115,7 @@ namespace Bikewale.Notifications.MailTemplates
                 sb.Append("<div style=\"display:inline-block; vertical-align:top; margin:0 10px; color:#333;\"><div style=\"text-align:center; width:170px; margin:0 0 15px; padding:10px 0; border:1px solid #e2e2e2; background:#c0ffa7;\">");
                 sb.Append("<div style=\" font-size:14px; text-align:center;\">Paid Amount</div><div style=\" font-size:14px; font-weight:bold;\">Rs. " + Format.FormatPrice(BookingAmount.ToString()) + "</div></div>");
                 sb.Append("<div style=\"text-align:center; width:170px; margin:0 0 10px; padding:10px 0; border:1px solid #e2e2e2; background:#ff9c69;\">");
-                sb.Append("<div style=\" font-size:14px; text-align:center;\">Balance Amount</div><div style=\" font-size:14px; font-weight:bold;\">Rs. " + Format.FormatPrice((BalanceAmount - InsuranceAmount).ToString()) + "</div></div>");
+                sb.Append("<div style=\" font-size:14px; text-align:center;\">Balance Amount</div><div style=\" font-size:14px; font-weight:bold;\">Rs. " + Format.FormatPrice((BalanceAmount - TotalDiscountedPrice()).ToString()) + "</div></div>");
                 sb.Append("</div></div><div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat center center; height:2px; width:100%\"></div>");
 
                 if (OfferList != null && OfferList.Count > 0)
