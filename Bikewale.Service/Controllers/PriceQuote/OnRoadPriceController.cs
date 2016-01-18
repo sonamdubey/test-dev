@@ -38,7 +38,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// <param name="objIPQ"></param>
         /// <param name="objPriceQuote"></param>
         /// <param name="modelsRepository"></param>
-        public OnRoadPriceController(IDealerPriceQuote objIPQ, IPriceQuote objPriceQuote,IBikeModels<BikeModelEntity, int> modelsRepository)
+        public OnRoadPriceController(IDealerPriceQuote objIPQ, IPriceQuote objPriceQuote, IBikeModels<BikeModelEntity, int> modelsRepository)
         {
             _objIPQ = objIPQ;
             _objPriceQuote = objPriceQuote;
@@ -50,15 +50,19 @@ namespace Bikewale.Service.Controllers.PriceQuote
         /// Includes the Bike Wale price quote and Dealer price quote
         /// Modified By : Sushil kumar  on  2nd Dec 2015
         /// Description : Added bike details to response (for android)
+        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
+        /// Summary : To capture device id, utma, utmz, Pq lead id etc.
         /// </summary>
-        /// <param name="cityId">city id</param>
-        /// <param name="modelId">model id</param>
-        /// <param name="clientIP">client ip</param>
-        /// <param name="sourceType">source type</param>
-        /// <param name="areaId">area id(optional)</param>
+        /// <param name="cityId"></param>
+        /// <param name="modelId"></param>
+        /// <param name="clientIP"></param>
+        /// <param name="sourceType"></param>
+        /// <param name="deviceId"></param>
+        /// <param name="areaId"></param>
+        /// <param name="pqLeadId"></param>
         /// <returns></returns>
         [ResponseType(typeof(PQOnRoad))]
-        public IHttpActionResult Get(uint cityId, uint modelId, string clientIP, PQSources sourceType, uint? areaId = null)
+        public IHttpActionResult Get(uint cityId, uint modelId, string clientIP, PQSources sourceType, string deviceId = null, uint? areaId = null, ushort? pqLeadId = null)
         {
             string response = string.Empty;
             string api = String.Empty;
@@ -79,6 +83,11 @@ namespace Bikewale.Service.Controllers.PriceQuote
                 objPQEntity.ClientIP = clientIP;
                 objPQEntity.SourceId = Convert.ToUInt16(sourceType);
                 objPQEntity.ModelId = modelId;
+                objPQEntity.UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty;
+                objPQEntity.UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty;
+                objPQEntity.DeviceId = deviceId;
+                objPQEntity.PQLeadId = pqLeadId;
+
                 objPQOutput = _objIPQ.ProcessPQ(objPQEntity);
                 if (objPQOutput != null)
                 {
@@ -98,9 +107,9 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         if (bpqOutput != null)
                         {
                             bwPriceQuote = PQBikePriceQuoteOutputMapper.Convert(bpqOutput);
-                            
+
                             bpqOutput.Varients = null;
-                            
+
                             onRoadPrice.BPQOutput = bwPriceQuote;
                         }
                         if (objPQ.DealerId != 0)
@@ -119,31 +128,31 @@ namespace Bikewale.Service.Controllers.PriceQuote
 
                                 uint insuranceAmount = 0;
 
-                                foreach(var price in objPrice.PriceList)
+                                foreach (var price in objPrice.PriceList)
                                 {
-                                    onRoadPrice.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQ.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);    
+                                    onRoadPrice.IsInsuranceFree = Bikewale.Utility.DealerOfferHelper.HasFreeInsurance(objPQ.DealerId.ToString(), "", price.CategoryName, price.Price, ref insuranceAmount);
                                 }
-                                
-                                onRoadPrice.IsInsuranceFree = true;                                
+
+                                onRoadPrice.IsInsuranceFree = true;
                                 onRoadPrice.DPQOutput = dpqOutput;
                                 onRoadPrice.InsuranceAmount = insuranceAmount;
 
                                 if (objPrice.Disclaimer != null)
                                 {
                                     objPrice.Disclaimer.Clear();
-                                    objPrice.Disclaimer = null; 
+                                    objPrice.Disclaimer = null;
                                 }
 
                                 if (objPrice.objOffers != null)
                                 {
                                     objPrice.objOffers.Clear();
-                                    objPrice.objOffers = null; 
+                                    objPrice.objOffers = null;
                                 }
 
                                 if (objPrice.PriceList != null)
                                 {
                                     objPrice.PriceList.Clear();
-                                    objPrice.PriceList = null; 
+                                    objPrice.PriceList = null;
                                 }
 
                                 objPrice.Varients = null;
@@ -153,7 +162,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
                     }
                     else
                     {
-                       return Ok(onRoadPrice);
+                        return Ok(onRoadPrice);
                     }
                 }
                 else

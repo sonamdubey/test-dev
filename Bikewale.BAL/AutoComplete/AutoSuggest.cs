@@ -18,6 +18,9 @@ namespace Bikewale.BAL.AutoComplete
         /// <summary>
         /// Created By : Sadhana Upadhyay on 26 Aug 2015
         /// Summary : To get Auto suggested result from elastic index
+        /// Modified by :   Sumit Kate on 05 Jan 2016
+        /// Description :   Added below condition
+        /// if (_result!=null && _result.Suggestions!=null && _result.Suggestions.ContainsKey(completion_field))
         /// </summary>
         /// <param name="inputText"></param>
         /// <param name="noOfRecords"></param>
@@ -33,15 +36,18 @@ namespace Bikewale.BAL.AutoComplete
                 ElasticClient client = ElasticSearchInstance.GetInstance();
 
                 ISuggestResponse _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText).Completion(completion_field, c => c.OnField(completion_field).Size(noOfRecords)));
-               
-                if (_result.Suggestions[completion_field][0].Options.Count() > 0)
-                    suggestionList = _result.Suggestions[completion_field][0].Options;//.ToList<Nest.SuggestOption>();
-                else
+
+                if (_result!=null && _result.Suggestions!=null && _result.Suggestions.ContainsKey(completion_field))
                 {
-                    _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText)
-                    .Completion(completion_field, c => c.OnField(completion_field).Fuzzy(ff => ff.MinLength(3).PrefixLength(0).Fuzziness(1)).Size(noOfRecords)
-                    ));
-                    suggestionList = _result.Suggestions[completion_field][0].Options;
+                    if (_result.Suggestions[completion_field][0].Options.Count() > 0)
+                        suggestionList = _result.Suggestions[completion_field][0].Options;//.ToList<Nest.SuggestOption>();
+                    else
+                    {
+                        _result = client.Suggest<SuggestionOutput>(s => s.Index(indexName).GlobalText(inputText)
+                        .Completion(completion_field, c => c.OnField(completion_field).Fuzzy(ff => ff.MinLength(3).PrefixLength(0).Fuzziness(1)).Size(noOfRecords)
+                        ));
+                        suggestionList = _result.Suggestions[completion_field][0].Options;
+                    } 
                 }
 
             }

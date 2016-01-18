@@ -12,7 +12,6 @@ namespace Bikewale.common
         public static bool HasFreeInsurance(string dealerId, string modelId, string categoryName, UInt32 categoryValue, ref UInt32 insuranceValue)
         {
             bool retVal = false;
-            string[] modelIds = null;
             string[] dealers = null;
             NameValueCollection nvc = null;
             try

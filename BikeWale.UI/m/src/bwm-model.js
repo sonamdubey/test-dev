@@ -68,12 +68,18 @@ function CustomerModel() {
                 "clientIP": clientIP,
                 "pageUrl": pageUrl,
                 "versionId": versionId,
-                "cityId": cityId
+                "cityId": cityId,
+                "leadSourceId": 6,
+                "deviceId": getCookie('BWC')
             }
             $.ajax({
                 type: "POST",
                 url: "/api/PQCustomerDetail/",
                 data: ko.toJSON(objCust),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('utma', getCookie('__utma'));
+                    xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                },
                 async: false,
                 contentType: "application/json",
                 success: function (response) {
@@ -150,9 +156,10 @@ function CustomerModel() {
         if (ValidateUserDetail()) {
             self.verifyCustomer();
             if (self.IsValid()) {
-                $("#personalInfo").hide();
-                $("#leadCapturePopup .leadCapture-close-btn").click();
-                window.location.href = "/m/pricequote/BikeDealerDetails.aspx";
+                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
+                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+                //$("#personalInfo").hide();
+                //$("#leadCapturePopup .leadCapture-close-btn").click();                
             }
             else {
                 $("#contactDetailsPopup").hide();
@@ -187,11 +194,8 @@ function CustomerModel() {
                 detailsSubmitBtn.show();
                 otpText.val('');
                 otpContainer.removeClass("show").addClass("hide");
-
-                // OTP Success
-                $("#leadCapturePopup .leadCapture-close-btn").click();
-                window.location.href = "/pricequote/BikeDealerDetails.aspx";
-
+                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
+                window.location.href = "/m/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);                
             }
             else {
                 $('#processing').hide();
@@ -652,6 +656,8 @@ $(document).on('keydown', function (e) {
         $("div.termsPopUpCloseBtn").click();
         $("div.leadCapture-close-btn").click();
         leadPopupClose();
+        $("div#termsPopUpContainer").hide();
+        $(".blackOut-window").hide();
     }
 });
 
@@ -692,7 +698,8 @@ $("a.read-more-btn").click(function () {
 
 $('#bookNowBtn').on('click', function (e) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Book_Now_Clicked', 'lab': bikeVersionLocation });
-    window.location.href = "/m/pricequote/bookingSummary_new.aspx";
+    var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;    
+    window.location.href = "/m/pricequote/bookingSummary_new.aspx?MPQ=" + Base64.encode(cookieValue);;
 });
 
 ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
@@ -726,4 +733,38 @@ function getBikeVersion() {
         versionName = $('#versText').html()
     }
     return versionName;
+}
+
+$('.tnc').on('click', function (e) {
+    LoadTerms($(this).attr("id"));
+});
+
+function LoadTerms(offerId) {
+    //$(".termsPopUpContainer").css('height', '150')
+    $('#termspinner').show();
+    $('#terms').empty();
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+
+    //var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+    if (offerId != '' && offerId != null) {
+        $.ajax({
+            type: "GET",
+            url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                //$(".termsPopUpContainer").css('height', '500')
+                $('#termspinner').hide();
+                if (response != null)
+                    $('#terms').html(response);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        setTimeout(LoadTerms, 2000); // check again in a second
+    }
 }

@@ -9,3 +9,6 @@ $("a.view-more-btn").click(function(e){
 $("ul.brand-budget-mileage-style-UL li").click(function(){
 	$("ul.brand-style-moreBtn").slideUp();
 });
+$("#newBikeList").on("click", function () {
+    $("html, body").animate({ scrollTop: $(".new-bikes-search").offset().top - 10}, 1000);
+});

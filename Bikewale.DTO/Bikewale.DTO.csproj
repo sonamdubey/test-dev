@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\AppAlert\AppImeiDetailsInput.cs" />
     <Compile Include="App\AppVersion.cs" />
     <Compile Include="App\AppVersionMessageCode.cs" />
     <Compile Include="AutoComplete\BikeList.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="Area\AreaBase.cs" />
     <Compile Include="Area\AreaList.cs" />
     <Compile Include="BikeData\BikeMakeModel.cs" />
+    <Compile Include="BikeData\BikeVersionColorsWithAvailabilityDTO.cs" />
     <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\BikeMakeDropdownDTO.cs" />
     <Compile Include="City\CityBase.cs" />

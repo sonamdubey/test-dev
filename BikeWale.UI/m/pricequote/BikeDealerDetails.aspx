@@ -100,8 +100,8 @@
                         <div class="select-color-container padding-bottom10 margin-bottom15">
                             <h3 class="select-colorh4 margin-top15 margin-bottom15">Choose color</h3>
                             <ul class="select-colorUL" data-bind="foreach: versionColors">
-                                <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.Id},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
-                                    <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode }"></span>
+                                <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.ColorId},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
+                                    <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode[0] }"></span>
                                     <span class="color-title-box" data-bind="text: ColorName"></span>
                                 </li>
                             </ul>
@@ -274,8 +274,9 @@
                                     </li>
                                     <li>
                                         <p class="text-bold">Availability</p>
-                                        <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
-                                        <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</p>
+                                         <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
+                                         <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() == 0">Now available</p>
+                                            <p class="text-red text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 0">Not available</p>
                                     </li>
                                 </ul>
                             </div>
@@ -283,23 +284,26 @@
 
                                 <% if (isOfferAvailable)
                                    { %>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span> <span class="font16" data-bind="text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
                                 <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwmsprite offers-icon margin-right5"></span>Available Offers </h3>
 
                                 <ul>
                                     <asp:Repeater ID="rptDealerOffers" runat="server">
                                         <ItemTemplate>
-                                            <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                            <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                                            </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
                                 <%}
                                    else
                                    {%>
-                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                                <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+                                <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwmsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee"></span> <span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                                 <h3 class="padding-top10 padding-bottom10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1">Dealer's Location</h3>
                                 <div class="bikeModel-dealerMap-container margin-top15" style="width: 100%; min-width: 50%; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
-                                <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+                                
                                 <% } %>
                             </div>
                             <div class="clear"></div>
@@ -307,21 +311,18 @@
                     </div>
 
                     <div id="configBtnWrapper" data-bind="with: Bike">
-
                         <div class="customize-onRoadPrice-container border-light-top padding-top15 margin-top20">
                             <p class="text-light-grey margin-bottom5 font14">On-road price in <span class="font16 text-bold text-grey"><%= location %></span></p>
                             <div class="modelPriceContainer margin-bottom15">
                                 <!-- ko if : (versionPrice() - insuranceAmount()) > 0 -->
                                 <span class="font28"><span class="fa fa-rupee"></span></span>
-                                <span class="font30" data-bind="CurrencyText: (versionPrice() - insuranceAmount())"></span>
+                                <span class="font30" data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span>
                                 <span class="font14 viewBreakupText">View breakup</span>
                                 <!-- /ko -->
                                 <!-- ko ifnot : (versionPrice() - insuranceAmount()) > 0 -->
                                 <span class="font30">Price unavailable</span>
                                 <!-- /ko -->
-
                             </div>
-
                             <div class="disclaimer-onroadprice-container" data-bind="visible : $root.CurrentStep() == 2">
                                 <div class="disclaimer-container text-left">
                                     <h3 class="padding-bottom10 border-light-bottom"><span class="bwmsprite disclaimer-icon margin-left5 margin-right5"></span>Disclaimer:</h3>
@@ -332,17 +333,13 @@
                                     </ul>
                                 </div>
                             </div>
-
                             <!-- ko if : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                            <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange btn-full-width" />
+                            <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){ $root.UpdateVersion(data,event); return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange btn-full-width" />
                             <!-- /ko -->
                             <!-- ko ifnot : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                            <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){return $root.bookNow(data,event);}" value="Next" class="btn btn-orange btn-full-width" />
+                            <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){ $root.UpdateVersion(data,event); return $root.bookNow(data,event);}" value="Next" class="btn btn-orange btn-full-width" />
                             <!-- /ko -->
-
-
                         </div>
-
                         <!-- View BreakUp Popup Starts here-->
                         <div class="breakupPopUpContainer bwm-fullscreen-popup hide" id="breakupPopUpContainer">
                             <div class="breakupCloseBtn position-abt pos-top10 pos-right10 bwmsprite cross-lg-lgt-grey cur-pointer"></div>
@@ -357,33 +354,41 @@
                                         </tr>
 
                                         <!-- /ko -->
-                                        <!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
-                                        <tr>
-                                            <td colspan="2">
-                                                <div class="border-solid-top padding-bottom10"></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="60%" class="padding-bottom10">Total on road price</td>
-                                            <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
-                                        </tr>
+                                        <% if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null && dealerDetailEntity.objQuotation.discountedPriceList != null && dealerDetailEntity.objQuotation.discountedPriceList.Count > 0)
+                                           {%>
+                                         <tr>
+                                                <td colspan="2">
+                                                    <div class="border-solid-top padding-bottom10"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="padding-bottom10">Total on road price</td>
+                                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
+                                            </tr>
+                                            <!-- ko foreach: discountList -->
+                                            <tr>
+                                                <td width="350" class="padding-bottom10" data-bind="text: 'Minus '+CategoryName"></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                            </tr>
+                                            <!-- /ko -->
+                                        <%} %>
+                                            <%--<!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
+                                            <tr>
+                                                <td class="padding-bottom10">Minus insurance</td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
+                                            </tr>
+                                            <!-- /ko -->--%>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <div class="border-solid-top padding-bottom10"></div>
+                                                </td>
+                                            </tr>
+                                            <tr>
 
-                                        <tr>
-                                            <td width="60%" class="padding-bottom10">Minus insurance</td>
-                                            <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
-                                        </tr>
-                                        <!-- /ko -->
-                                        <tr>
-                                            <td width="60%" colspan="2">
-                                                <div class="border-solid-top padding-bottom10"></div>
-                                            </td>
-                                        </tr>
-                                        <tr>
+                                                <td class="padding-bottom10 text-bold">Total on road price</td>
+                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
 
-                                            <td width="60%" class="padding-bottom10 text-bold">Total on road price</td>
-                                            <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - insuranceAmount())"></span></td>
-
-                                        </tr>
+                                            </tr>
                                         <tr>
                                             <td width="60%" colspan="2">
                                                 <div class="border-solid-top padding-bottom10"></div>
@@ -392,57 +397,90 @@
                                     </tbody>
                                 </table>
                                 <!-- /ko -->
-
                             </div>
                         </div>
                         <!--View Breakup popup ends here-->
                         <div class="clear"></div>
                     </div>
-
-
-
                 </div>
                 <div class="clear"></div>
                 <div class="content-box-shadow content-inner-block-15 margin-top15 margin-bottom15 text-medium-grey text-center" data-bind="visible : $root.CurrentStep()==3">
                     <p class="text-medium-grey font14 margin-bottom10">In case of queries call us toll-free on:</p>
-                    <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 457 9781</a>
+                    <a href="tel:1800 120 8300" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone text-green margin-right5"></span>1800 120 8300</a>
                 </div>
             </div>
         </section>
-        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>">
-            <div class="grid-12"></div>
+        <section class="container margin-bottom30 content-box-shadow">
+            <div class="lazy booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
-        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
+
+        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+       
+        <section>
+            <div class="container margin-top10 margin-bottom30">
+                <div id="faqSlug">
+                    <div class="faq-slug-container content-box-shadow content-inner-block-20">
+                        <div class="question-icon-container text-center leftfloat">
+                            <div class="icon-outer-container rounded-corner50percent">
+                                <div class="icon-inner-container rounded-corner50percent">
+                                    <span class="bwmsprite question-mark-icon margin-top20"></span>
+                                </div>
+                            </div>
+                        </div>
+        <!-- Terms and condition Popup start -->
+        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+            <h3>Terms and Conditions</h3>
+            <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                <img src="/images/search-loading.gif" />
+            </div>
+            <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+            </div>
+        </div>
+        <!-- Terms and condition Popup Ends -->
+                        <div class="question-text-container leftfloat padding-left15">
+                            <p class="question-title font16 text-bold text-black">Questions?</p>
+                            <p class="question-subtitle text-light-grey font14">We’re here to help.<br />Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a></p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
 
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-
+        
         <script type="text/javascript">
             //Need to uncomment the below script
-            var thisBikename = '<%= this.bikeName %>';
+            var thisBikename = "<%= this.bikeName %>";
             //select bike version
             var bikeVersionId = '<%= versionId %>';
             var pqId = '<%= pqId%>';
-            var versionList = JSON.parse($("#hdnBikeData").val());
-            var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
+            var versionList = JSON.parse(Base64.decode($("#hdnBikeData").val()));
+            var preSelectedColor = <%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>;
+            var discountDetail = JSON.parse($("#hdnDiscountList").val());
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
             var insAmt = '<%= insuranceAmount %>';
             var cityId = '<%= cityId%>';
             var areaId = '<%= areaId%>';
+            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
             var BikeDealerDetails = function () {
                 var self = this;
-                // self.Dealer = ko.observable(objDealer);
                 self.DealerId = ko.observable(<%= dealerId%>);
-                // self.DealerDetails = ko.observable(objDealer.objDealer);
-                // self.DealerQuotation = ko.observable(objDealer.objQuotation);
                 self.IsInsuranceFree = ko.observable(insFree);
                 self.InsuranceAmount = ko.observable(insAmt);
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
             }
             ga_pg_id = "8";
+            var getCityArea = GetGlobalCityArea();
         </script>
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-bookingconfig.js?<%= staticFileVersion %>" type="text/javascript"></script>
 

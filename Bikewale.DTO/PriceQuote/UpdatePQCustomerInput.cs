@@ -35,7 +35,11 @@ namespace Bikewale.DTO.PriceQuote
         public string CityId { get; set; }
         [JsonProperty("colorId")]
         public uint ColorId { get; set; }
-
+        //Added By  : Sadhana Upadhyay on 29 Dec 2015
+        [JsonProperty("leadSourceId")]
+        public ushort? LeadSourceId { get; set; }
+        [JsonProperty("deviceId")]
+        public string DeviceId { get; set; }
     }
 }
 

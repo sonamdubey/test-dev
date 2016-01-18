@@ -111,5 +111,11 @@ namespace Bikewale.BAL.PriceQuote
         {
             return objPQ.SaveBookingState(pqId,state);
         }
+
+
+        public PriceQuoteParametersEntity FetchPriceQuoteDetailsById(ulong pqId)
+        {
+            return objPQ.FetchPriceQuoteDetailsById(pqId);
+        }
     }   // class
 }   // namespace

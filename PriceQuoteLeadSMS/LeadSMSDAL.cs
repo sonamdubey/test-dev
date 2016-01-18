@@ -153,5 +153,50 @@ namespace PriceQuoteLeadSMS
             }
             return isUpdated;
         }
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 31 Dec 2014
+        /// Summary : to get status of dealer notification
+        /// </summary>
+        /// <param name="dealerId"></param>
+        /// <param name="date"></param>
+        /// <param name="customerMobile"></param>
+        /// <param name="customerEmail"></param>
+        /// <returns></returns>
+        public bool IsDealerNotified(uint dealerId, string customerMobile, ulong customerId)
+        {
+            bool isNotified = false;
+            try
+            {
+                using (SqlConnection con = new SqlConnection(_connectionString))
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "IsDealerNotified";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = con;
+
+                        cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = dealerId;
+                        cmd.Parameters.Add("@CustomerId", SqlDbType.VarChar, 50).Value = customerId;
+                        cmd.Parameters.Add("@CustomerMobile", SqlDbType.VarChar, 50).Value = customerMobile;
+                        cmd.Parameters.Add("@IsDealerNotified", SqlDbType.Bit).Direction = ParameterDirection.Output;
+
+                        con.Open();
+
+                        cmd.ExecuteNonQuery();
+
+                        isNotified = Convert.ToBoolean(cmd.Parameters["@IsDealerNotified"].Value);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logs.WriteErrorLog("IsDealerNotified ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, "PriceQuoteLeadSMS.LeadSMSDAL.IsDealerNotified ex");
+                objErr.SendMail();
+                isNotified = false;
+            }
+            return isNotified;
+        }
     }   // class
 }   // namespace

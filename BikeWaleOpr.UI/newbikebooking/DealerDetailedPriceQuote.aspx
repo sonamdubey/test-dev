@@ -34,7 +34,7 @@
                     <td>
                         Offer List
                     </td>
-                    <td>
+                    <td style="width:400px;">
                         Dealer Details
                     </td>
                     <td>
@@ -42,6 +42,9 @@
                     </td>
                     <td>
                         Availability
+                    </td>
+                    <td>
+                        Availability By Color
                     </td>
                 </tr>
             </thead>
@@ -76,22 +79,22 @@
             </td>
             <td>
                 <div>
-                    <span>Dealer Name</span><span> : </span><span data-bind="text: dealerDetails.dealerName"></span>
+                    <span><b>Organization</b></span><span> : </span><span data-bind="text: dealerDetails.organization"></span>
                 </div>
                 <div>
-                    <span>Email-Id</span><span> : </span><span data-bind="text: dealerDetails.emailId"></span>
+                    <span><b>Working Time</b></span><span> : </span><span data-bind="text: dealerDetails.workingTime"></span>
                 </div>
                 <div>
-                    <span>Mobile No.</span><span> : </span><span data-bind="text: dealerDetails.mobileNo"></span>
+                    <span><b>Address</b></span><span> : </span><span data-bind="text: dealerDetails.address"></span>
                 </div>
                 <div>
-                    <span>Organization</span><span> : </span><span data-bind="text: dealerDetails.organization"></span>
+                    <span><b>Dealer Name</b></span><span> : </span><span data-bind="text: dealerDetails.dealerName"></span>
                 </div>
                 <div>
-                    <span>Working Time</span><span> : </span><span data-bind="text: dealerDetails.workingTime"></span>
+                    <span><b>Email-Id</b></span><span> : </span><span data-bind="text: dealerDetails.emailId"></span>
                 </div>
                 <div>
-                    <span>Address</span><span> : </span><span data-bind="text: dealerDetails.address"></span>
+                    <span><b>Mobile No.</b></span><span> : </span><span data-bind="text: dealerDetails.mobileNo"></span>
                 </div>
             </td>
             <td>
@@ -99,6 +102,15 @@
             </td>
             <td>
                 <div data-bind="text: GetAvailabilty(availability())"></div>
+            </td>
+            <td>
+                <div  data-bind="template: { foreach: availabilityByColor }">
+                    <div style="border-bottom:1px #808080 dashed;margin:10px;" data-bind="attr: {colorId : ColorId}">
+                        <div><span><b>Color : </b></span><span data-bind="text:ColorName"></span></div>
+                        <div><span><b>Availability : </b></span><span data-bind="text: GetAvailabilty(NoOfDays())"></span></div>
+                        <div style="display:inline-flex;margin-bottom:10px;" data-bind="html: GetColors(HexCode()) "></div>
+                    </div>
+                </div>
             </td>
         </tr>
     </script>
@@ -136,50 +148,29 @@
     });
 
     btnGetPriceQuote.click(function () {
-        var versionId = ddlVersion.val(), areaId = ddlArea.val(),cityId=ddlCity.val();
+        var versionId = ddlVersion.val(), areaId = ddlArea.val(), cityId = ddlCity.val();
         var element = document.getElementById('DealerDetailsList');
 
-        if(versionId>0 && areaId>0)
-        {
+        if (versionId > 0 && areaId > 0) {
             $.ajax({
                 type: "GET",
-                url: abApiHostUrl + "/api/dealerpricequote/GetAllAvailableDealer/?versionid=" + versionId + "&areaid=" + areaId,
+                url: abApiHostUrl + "/api/dealerpricequote/GetAllDealerPriceQuotes/?versionId=" + versionId + "&cityid=" + cityId + "&areaid=" + areaId,
                 datatype: "json",
                 success: function (response) {
-                    if(response!=null)
-                    {
-                        dealerList = JSON.stringify(response).replace(/ /g, '').replace('[', '').replace(']', '');
-                        
-                        if(dealerList.length>0)
-                        {
-                            $.ajax({
-                                type: "GET",
-                                url: abApiHostUrl + "/api/dealerpricequote/GetAllDealerPriceQuotes/?versionId=" + versionId + "&cityid=" + cityId + "&dealerIds=" + dealerList,
-                                datatype: "json",
-                                success: function (response) {
 
-                                    ko.cleanNode(element);
-                                    if (response != null) {
-                                        ko.applyBindings(new DealerViewModel(response), element);
-                                        $('#DealerDetailsList').show();
-                                    }
-                                    else {
-                                        $('#DealerDetailsList').hide();
-                                        alert("No Dealer Present For perticular Area");
-                                    }
-                                }
-                            });
-                        }
+                    ko.cleanNode(element);
+                    if (response != null) {
+                        ko.applyBindings(new DealerViewModel(response), element);
+                        $('#DealerDetailsList').show();
                     }
                     else {
-                        ko.cleanNode(element);
                         $('#DealerDetailsList').hide();
                         alert("No Dealer Present For perticular Area");
                     }
                 }
             });
-        }else
-        {
+        }
+        else {
             alert("Please select all fields.");
         }
     });
@@ -306,6 +297,8 @@
         var availability = '';
         if (noOfDays > 0)
             availability = noOfDays + ' days.';
+        else if(noOfDays < 0)
+            availability ='Not Available';
         else
             availability = 'In Stock.';
 
@@ -317,6 +310,14 @@
         var thRest = thMatch.exec(price);
         if (!thRest) return price;
         return (thRest[1].replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + thRest[2]);
+    }
+    function GetColors(objColors)
+    {
+        var htmlTemp = '';
+        for (var index = 0; index < objColors.length; index++) {
+            htmlTemp += "<div style='margin-right: 10px;border: 1px solid #AAAAAA;width:20px;height:20px;background-color:#" + objColors[index] + "'></div>";
+        }
+        return htmlTemp;
     }
 </script>
 <!-- #Include file="/includes/footerNew.aspx" -->

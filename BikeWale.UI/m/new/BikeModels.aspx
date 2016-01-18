@@ -33,6 +33,7 @@
         var cityId = '<%= cityId%>';
         var clientIP = "<%= clientIP%>";
         var pageUrl = "www.bikewale.com/quotation/dealerpricequote.aspx?versionId=" + versionId + "&cityId=" + cityId;
+        var areaId = '<%= areaId%>';
         var bikeVersionLocation = '';
         var bikeVersion = '';
         var isBikeWalePq = "<%= isBikeWalePQ%>"; 
@@ -241,11 +242,9 @@
                             <span class="font20 text-bold">Price unavailable</span>
                             <%  } %>
                         </p>
-                        <%if (isOnRoadPrice)
-                          {%>
+                        <%if (isOnRoadPrice)  {%>
                                 <p id="viewBreakupText" class="font14 text-light-grey leftfloat viewBreakupText">View Breakup</p>
-                        <%if (isBikeWalePQ && price != "0" && price != string.Empty)
-                          {%>
+                        <%if (isBikeWalePQ && price != "0" && price != string.Empty) {%>
                                 <p class="font12 text-light-grey clear ">Ex-showroom + RTO + Insurance(Comprehensive)</p>
                         <%}
                           else
@@ -258,19 +257,8 @@
                             <p class="margin-top10 margin-bottom20 clear">
                                 <a class='padding-top10 text-bold' style="position: relative; font-size: 14px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">Save up to 60% on insurance - PolicyBoss
                                 </a>
-                        </p>
+                            </p>
                         <% } %>
-                        <!-- Terms and condition Popup start -->
-                        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
-                            <h3>Terms and Conditions</h3>
-                            <div style="vertical-align: middle; text-align: center;" id="termspinner">
-                                <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
-                                <img src="/images/search-loading.gif" />
-                            </div>
-                            <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
-                            <div id="terms" class="breakup-text-container padding-bottom10 font14">
-                            </div>
-                        </div>
                     </div>
 
                     <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
@@ -290,8 +278,9 @@
                                 <ul class="offersList" style="list-style:none">
                                     <asp:Repeater ID="rptOffers" runat="server">
                                         <ItemTemplate>
-                                            <li>
-                                                <span class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                            <li class="offertxt float-left">
+                                                <span style='display:inline;' class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span  class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
                                                 <% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
                                                    { %>
                                                 <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
@@ -303,8 +292,9 @@
                                 <ul class="moreOffersList hide" style="list-style:none">
                                     <asp:Repeater ID="rptMoreOffers" runat="server">
                                         <ItemTemplate>
-                                            <li>
-                                                <span class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                             <li class="offertxt float-left">
+                                                <span style="display:inline;" class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span  class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -1067,7 +1057,7 @@
         </section>
 
         <section class="<%= (ctrlAlternateBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
-            <div class="container margin-bottom30">
+            <div class="container margin-bottom10">
                 <div class="grid-12">
                     <!-- Most Popular Bikes Starts here-->
                     <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> alternatives</h2>
@@ -1087,7 +1077,29 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <% if (bookingAmt > 0){ %>
+        <section>
+            <div class="container margin-bottom30">
+                <div id="faqSlug" class="grid-12">
+                    <div class="faq-slug-container content-box-shadow content-inner-block-20">
+                        <div class="question-icon-container text-center leftfloat">
+                            <div class="icon-outer-container rounded-corner50percent">
+                                <div class="icon-inner-container rounded-corner50percent">
+                                    <span class="bwmsprite question-mark-icon margin-top20"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="question-text-container leftfloat padding-left15">
+                            <p class="question-title font16 text-bold text-black">Questions?</p>
+                            <p class="question-subtitle text-light-grey font14">We’re here to help.<br />Read our <a href="/m/faq.aspx" target="_blank" >FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a></p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%} %>
         <!-- Terms and condition Popup Ends -->
         <!-- View BreakUp Popup Starts here-->
         <div class="breakupPopUpContainer bwm-fullscreen-popup hide" id="breakupPopUpContainer">
@@ -1143,27 +1155,45 @@
                             </ItemTemplate>
                         </asp:Repeater>
 
-                        <% if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
-                            {  %>
-                        <tr>
-                            <td colspan="2">
-                                <div class="border-solid-top padding-bottom10"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="padding-bottom10">Total on road price</td>
-                            <td align="right" class="padding-bottom10 text-bold text-right" style="text-decoration: line-through;">
-                                <span class="fa fa-rupee margin-right5"></span>
-                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="padding-bottom10">Minus insurance</td>
-                            <td align="right" class="padding-bottom10 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
-                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %>
-                            </td>
-                        </tr>
-                        <% } %>
+                        <%if (pqOnRoad != null && pqOnRoad.IsDiscount)
+                          { %>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="border-solid-top padding-bottom10"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="padding-bottom10">Total on road price</td>
+                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
+                            </tr>
+                            <asp:Repeater ID="rptDiscount" runat="server">
+                                <ItemTemplate>
+                                    <tr class="carwale">
+                                        <td width="350" class="padding-bottom10">Minus <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %></td>
+                                        <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span>
+                                            <span><%# Bikewale.Utility.Format.FormatPrice(
+                                                  Convert.ToString(DataBinder.Eval(Container.DataItem, "Price")))  %></span></td>
+                                    </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                            <%--<% if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
+                               {%>
+                            <tr>
+                                <td colspan="2">
+                                    <div class="border-solid-top padding-bottom10"></div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="padding-bottom10">Total on road price</td>
+                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
+                            </tr>
+
+                            <tr>
+                                <td class="padding-bottom10">Minus insurance</td>
+                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %></td>
+                            </tr>
+                            <% } %>--%>
+                            <%} %>
                         <tr>
                             <td colspan="2">
                                 <div class="border-solid-top padding-bottom10"></div>
@@ -1177,7 +1207,7 @@
                                 {
                             %>
                             <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
-                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - pqOnRoad.InsuranceAmount)) %>
+                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - TotalDiscountedPrice())) %>
 
                             </td>
                             <% }
@@ -1269,7 +1299,20 @@
                 <!-- OTP Popup ends here -->
             </div>
         </div>
-        <!-- Lead Capture pop up end  -->         
+        <!-- Lead Capture pop up end  -->   
+                                <!-- Terms and condition Popup start -->
+                        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                            <h3>Terms and Conditions</h3>
+                            <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                                <img src="/images/search-loading.gif" />
+                            </div>
+                            <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
+                            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                            </div>
+                        </div>
+                        <!-- Terms and condition Popup end -->
+                      
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 

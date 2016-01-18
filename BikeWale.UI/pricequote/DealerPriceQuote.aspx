@@ -213,6 +213,7 @@
         var ABHostUrl = '<%= System.Configuration.ConfigurationManager.AppSettings["ApiHostUrl"]%>';
         var versionId = '<%= versionId%>';
         var cityId = '<%= cityId%>';
+        var areaId = '<%= areaId%>';
         var Customername = "", email = "", mobileNo = "";
         var CustomerId = '<%= CurrentUser.Id %>';
         if (CustomerId != '-1') {
@@ -315,10 +316,10 @@
                                             <td>
                                     </tr>
                                     <%
-                                       if (IsInsuranceFree)
+                                       if (IsDiscount)//if (IsInsuranceFree)
                                        {
                                     %>
-                                    <tr>
+                                    <%--<tr>
                                         <td class="PQDetailsTableTitle padding-bottom10">Total on road price</td>
                                         <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
                                             <span class="fa fa-rupee"></span><span style="text-decoration: line-through;"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
@@ -334,6 +335,36 @@
                                         <td valign="middle" class="PQDetailsTableTitle font18 text-bold PQOnRoadPrice">Total on road price</td>
                                         <td align="right" class="PQDetailsTableAmount font20 text-bold">
                                             <span class="fa fa-rupee"></span><span><%= CommonOpn.FormatPrice((totalPrice - insuranceAmount).ToString()) %></span>
+                                        </td>
+                                    </tr>--%>
+                                    <tr>
+                                        <td class="PQDetailsTableTitle padding-bottom10">Total on road price</td>
+                                        <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
+                                            <span class="fa fa-rupee"></span><span style="text-decoration: line-through;"><%= CommonOpn.FormatPrice(totalPrice.ToString()) %></span>
+                                        </td>
+                                    </tr>
+                                    <asp:Repeater ID="rptDiscount" runat="server">
+                                        <ItemTemplate>
+                                            <tr>
+                                                <td width="245" class="PQDetailsTableTitle padding-bottom10">
+                                                   Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName") %> 
+                                                </td>
+                                                <td align="right" class="PQDetailsTableAmount text-bold padding-bottom10">
+                                                    <span class="fa fa-rupee margin-right5"></span><span id="exShowroomPrice">
+                                                        <%#CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></span>
+                                                </td>
+                                            </tr>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    <tr>
+                                        <td colspan="2">
+                                            <div class="border-solid-top padding-bottom10"></div>
+                                            <td>
+                                    </tr>
+                                    <tr>
+                                        <td valign="middle" class="PQDetailsTableTitle font18 text-bold PQOnRoadPrice">Total on road price</td>
+                                        <td align="right" class="PQDetailsTableAmount font20 text-bold">
+                                            <span class="fa fa-rupee"></span><span><%= CommonOpn.FormatPrice((totalPrice - totalDiscount).ToString()) %></span>
                                         </td>
                                     </tr>
                                     <%
@@ -391,7 +422,9 @@
                                         <ul class="font14 text-light-grey PQOffersUL">
                                     </HeaderTemplate>
                                     <ItemTemplate>
-                                        <li><%# DataBinder.Eval(Container.DataItem,"OfferText")%></li>
+                                        <li class="offertxt"><%# DataBinder.Eval(Container.DataItem,"OfferText")%>
+                                            <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                                        </li>
                                     </ItemTemplate>
                                     <FooterTemplate>
                                         </ul>
@@ -537,6 +570,18 @@
         </div>
         <!-- lead capture popup End-->
 
+         <!-- Terms and condition Popup start -->
+            <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                <h3>Terms and Conditions</h3>
+                <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                    <img src="/images/search-loading.gif" />
+                </div>
+                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                </div>
+            </div>
+            <!-- Terms and condition Popup Ends -->
 
         <PW:PopupWidget runat="server" ID="PopupWidget" />
         <!-- #include file="/includes/footerBW.aspx" -->
@@ -545,13 +590,14 @@
             var bikeName = '<%= BikeName %>';
             var getCityArea = GetGlobalCityArea();
             $('#btnGetDealerDetails, #btnBikeBooking').click(function () {
-                window.location.href = '/pricequote/bookingsummary_new.aspx';
+                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;                
+                window.location.href = '/pricequote/bookingsummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
             });
 
             var freeInsurance = $("img.insurance-free-icon");
             if (!freeInsurance.length) {
                 cityArea = GetGlobalCityArea();
-                $("table tr td.PQDetailsTableTitle:contains('Insurance')").append(" <br/><div style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objPrice.objMake.MakeName,objPrice.objModel.ModelName,objPrice.objVersion.VersionName)%>" + cityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
+                $("table tr td.PQDetailsTableTitle:contains('Insurance')").first().append(" <br/><div style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Dealer_PQ', act: 'Insurance_Clicked',lab: '<%= String.Format("{0}_{1}_{2}_",objPrice.objMake.MakeName,objPrice.objModel.ModelName,objPrice.objVersion.VersionName)%>" + cityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
             }
 
             // JavaScript Document
@@ -591,6 +637,7 @@
                 $(document).on('keydown', function (e) {
                     if (e.keyCode === 27) {
                         $("#leadCapturePopup .leadCapture-close-btn").click();
+                        $("div.termsPopUpCloseBtn").click();
                     }
                 });
             });
@@ -626,12 +673,18 @@
                             "clientIP": clientIP,
                             "pageUrl": pageUrl,
                             "versionId": versionId,
-                            "cityId": cityId
+                            "cityId": cityId,
+                            "leadSourceId": 1,
+                            "deviceId": getCookie('BWC')
                         }
                         $.ajax({
                             type: "POST",
                             url: "/api/PQCustomerDetail/",
                             data: ko.toJSON(objCust),
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('utma', getCookie('__utma'));
+                                xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                            },
                             async: false,
                             contentType: "application/json",
                             success: function (response) {
@@ -708,8 +761,9 @@
                         self.verifyCustomer();
                         if (self.IsValid()) {
                             $("#personalInfo").hide();
-                            $("#leadCapturePopup .leadCapture-close-btn").click();
-                            window.location.href = "/pricequote/BikeDealerDetails.aspx";
+                            $("#leadCapturePopup .leadCapture-close-btn").click();                            
+                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
+                            window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
                         }
                         else {
                             $("#contactDetailsPopup").hide();
@@ -745,7 +799,9 @@
                             // OTP Success
                             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'DealerQuotation_Page', 'act': 'Step_1_OTP_Successful_Submit', 'lab': getCityArea });
                             $("#leadCapturePopup .leadCapture-close-btn").click();
-                            window.location.href = "/pricequote/BikeDealerDetails.aspx";
+                            
+                            var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;
+                            window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
                         }
                         else {
                             $('#processing').hide();
@@ -975,6 +1031,46 @@
             });
             $("#leadLink").on("click", function () {
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Dealer_PQ', 'act': 'Get_More_Details_Clicked_Link', 'lab': bikeName + '_' + getCityArea });
+            });
+
+            $('.tnc').on('click', function (e) {
+                LoadTerms($(this).attr("id"));
+            });
+
+            function LoadTerms(offerId) {
+
+                $(".termsPopUpContainer").css('height', '150')
+                $('#termspinner').show();
+                $('#terms').empty();
+                $("div#termsPopUpContainer").show();
+                $(".blackOut-window").show();
+
+                //var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+                if (offerId != '' && offerId != null) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+                        dataType: 'json',
+                        success: function (response) {
+                            $(".termsPopUpContainer").css('height', '500')
+                            $('#termspinner').hide();
+                            if (response != null)
+                                $('#terms').html(response);
+                        },
+                        error: function (request, status, error) {
+                            $("div#termsPopUpContainer").hide();
+                            $(".blackOut-window").hide();
+                        }
+                    });
+                }
+                else {
+                    setTimeout(LoadTerms, 2000); // check again in a second
+                }
+            }
+
+            $(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
             });
         </script>
     </form>

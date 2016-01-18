@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Common;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.Mobile.New
 {
@@ -36,10 +37,12 @@ namespace Bikewale.Mobile.New
 
             //to get Most Popular Bikes
            mctrlMostPopularBikes.totalCount = 6;
+           mctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_MostPopular;
 
             //To get Upcoming Bike List Details 
            mctrlNewLaunchedBikes.pageSize = 6;
            mctrlNewLaunchedBikes.curPageNo = null;
+           mctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Mobile_New_NewLaunches;
 
             //To get Upcoming Bike List Details 
             mctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;

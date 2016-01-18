@@ -16,7 +16,7 @@ namespace Bikewale.Utility
         private static readonly object padlock = new object();
 
         private int nonReadOnlyStatic = 0;
-        
+
         private readonly string _defaultCity = String.Empty,
             _bwconnectionString = String.Empty,
             _cwconnectionString = String.Empty,
@@ -46,6 +46,7 @@ namespace Bikewale.Utility
             _CwApiHostUrl = String.Empty,
             _ABApiHostUrl = String.Empty,
             _BwHostUrl = String.Empty,
+            _BwHostUrlForJs = String.Empty,
             _ApplicationId = String.Empty,
             _FeedbackEmailTo = String.Empty,
             _OfferClaimAlertEmail = String.Empty,
@@ -58,7 +59,9 @@ namespace Bikewale.Utility
             _PageSize = String.Empty,
             _StaticFileVersion = String.Empty,
             _apiRequestTypeJSON = String.Empty,
-            _BWSmsQueue = String.Empty;        
+            _BWSmsQueue = String.Empty,
+            _GoogleApiKey = string.Empty;
+       
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -93,6 +96,7 @@ namespace Bikewale.Utility
             _CwApiHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
             _ABApiHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
             _BwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            _BwHostUrlForJs = ConfigurationManager.AppSettings["bwHostUrlForJs"]; 
             _ApplicationId = ConfigurationManager.AppSettings["applicationId"];
             _FeedbackEmailTo = ConfigurationManager.AppSettings["feedbackEmailTo"];
             _OfferClaimAlertEmail = ConfigurationManager.AppSettings["OfferClaimAlertEmail"];
@@ -106,6 +110,7 @@ namespace Bikewale.Utility
             _StaticFileVersion = ConfigurationManager.AppSettings["staticFileVersion"];
             _apiRequestTypeJSON = "application/json";
             _BWSmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
+            _GoogleApiKey = ConfigurationManager.AppSettings["APIKey"];
         }
 
         // Static method to provide access to instance
@@ -187,6 +192,7 @@ namespace Bikewale.Utility
         public string CwApiHostUrl { get { return _CwApiHostUrl; } }
         public string ABApiHostUrl { get { return _ABApiHostUrl; } }
         public string BwHostUrl { get { return _BwHostUrl; } }
+        public string BwHostUrlForJs { get { return _BwHostUrlForJs; } }
         public string ApplicationId { get { return _ApplicationId; } }
         public string FeedbackEmailTo { get { return _FeedbackEmailTo; } }
         public string OfferClaimAlertEmail { get { return _OfferClaimAlertEmail; } }
@@ -200,5 +206,6 @@ namespace Bikewale.Utility
         public string StaticFileVersion { get { return _StaticFileVersion; } }
         public string APIRequestTypeJSON { get { return _apiRequestTypeJSON; } }
         public string BWSmsQueue { get { return _BWSmsQueue; } }
+        public string GoogleApiKey { get { return _GoogleApiKey; } }
     }   // class
 }   // namespace
