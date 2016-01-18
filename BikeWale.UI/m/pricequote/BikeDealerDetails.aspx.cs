@@ -9,6 +9,7 @@ using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Mobile.PriceQuote;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -27,7 +28,7 @@ namespace Bikewale.Mobile.Pricequote
     public class BookingConfig : System.Web.UI.Page
     {
         protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
-        protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty;
+        protected string clientIP = String.Empty, pageUrl = String.Empty, bikeName = String.Empty, location = String.Empty, jsonBikeVarients = String.Empty;
         protected Repeater rptVarients = null, rptVersionColors = null, rptDealerOffers = null, rptPriceBreakup = null;
         protected bool isOfferAvailable = false, isInsuranceFree = false;
         protected string versionWaitingPeriod = String.Empty, dealerAddress = String.Empty, latitude = "0", longitude = "0";
@@ -181,11 +182,17 @@ namespace Bikewale.Mobile.Pricequote
                 {
                     BindDealerOffers();
                 }
+                if (dealerDetailEntity.objOffers != null && dealerDetailEntity.objOffers.Count > 0)
+                {
+                    dealerDetailEntity.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(
+                        dealerDetailEntity.objOffers, dealerDetailEntity.objQuotation.PriceList);
+                }
+                    
 
             }
             else
             {
-                Response.Redirect("/pricequote/quotation.aspx", false);
+                Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
@@ -267,6 +274,7 @@ namespace Bikewale.Mobile.Pricequote
             {
                 rptVarients.DataSource = objBookingPageDetails.Varients;
                 rptVarients.DataBind();
+                jsonBikeVarients = EncodingDecodingHelper.EncodeTo64(JsonConvert.SerializeObject(objBookingPageDetails.Varients));
 
                 if (objBookingPageDetails.Varients.FirstOrDefault().Make != null && objBookingPageDetails.Varients.FirstOrDefault().Model != null)
                 {
@@ -288,12 +296,12 @@ namespace Bikewale.Mobile.Pricequote
         /// </summary>
         private void ProcessCookie()
         {
-            if (PriceQuoteCookie.IsPQCoockieExist())
+            if (PriceQuoteQueryString.IsPQQueryStringExists())
             {
-                if (UInt32.TryParse(PriceQuoteCookie.PQId, out pqId) && UInt32.TryParse(PriceQuoteCookie.DealerId, out dealerId) && UInt32.TryParse(PriceQuoteCookie.VersionId, out versionId))
+                if (UInt32.TryParse(PriceQuoteQueryString.PQId, out pqId) && UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId))
                 {
-                    cityId = Convert.ToUInt32(PriceQuoteCookie.CityId);
-                    areaId = Convert.ToUInt32(PriceQuoteCookie.AreaId);
+                    cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
+                    areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
 
                     if (dealerId > 0)
                     {

@@ -37,7 +37,7 @@
 			<div class="bar" style="width:100%;">
 				<ul>
 					<li><a href="/content/default.aspx" accesskey="p">Contents</a></li>
-					<li><a href="/editcms/default.aspx" accesskey="e">EditCMS</a></li>
+<%--					<li><a href="/editcms/default.aspx" accesskey="e">EditCMS</a></li>--%>
                     <li><a href="/classified/default.aspx" accesskey="e">Classified</a></li>
                     <li><a href="/newbikebooking/default.aspx" accesskey="e">Manage Dealers</a></li>
                     <li><a href="/newbikebooking/DealerDetailedPriceQuote.aspx" accesskey="e">Dealer Detail</a></li>

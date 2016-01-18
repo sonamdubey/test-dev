@@ -231,7 +231,7 @@
         <div class="clear"></div>
     </section>
 
-    <section class="margin-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
+    <section class="margin-bottom20 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? "" : "hide" %>">
         <div class="container">
         <div class="grid-12 alternative-section" id="alternative-bikes-section">
             <h2 class="text-bold text-center margin-top20 margin-bottom30"><%= mmv.Make + " " + mmv.Model %> alternatives</h2>
@@ -279,8 +279,8 @@
 
         makeMapName = '<%= mmv.MakeMappingName%>';
         modelMapName = '<%= mmv.ModelMappingName%>';
-        $("#version_" + '<%= versionId%>').html("<b>this bike</b>");
-        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': selectedModel });
+        <%--$("#version_" + '<%= versionId%>').html("<b>this bike</b>");
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': selectedModel });--%>
     });
 
 </script>

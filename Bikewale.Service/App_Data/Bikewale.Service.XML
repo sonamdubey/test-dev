@@ -702,6 +702,8 @@
             Booking Summary Controller
             Author  :   Sumit Kate
             Created On  :   25 Aug 2015
+            Modified By : Sushil Kumar on 7th Dec 2015
+            Description : Added varients with min specs and price
             </summary>
         </member>
         <member name="M:Bikewale.Service.Controllers.BookingSummary.BookingSummaryController.Get(System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
@@ -1003,11 +1005,6 @@
             </summary>
             <param name="modelId"></param>
             <returns>Model Synopsis</returns>
-        </member>
-        <member name="T:Bikewale.Service.Controllers.Model.ModelPageController">
-            <summary>
-            
-            </summary>
         </member>
         <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32},Bikewale.Interfaces.BikeData.IBikeModelsCacheRepository{System.Int32})">
             <summary>
@@ -1311,8 +1308,47 @@
         <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Post(Bikewale.DTO.PriceQuote.PQUpdateInput)">
             <summary>
             Updates the Price Quote data for given Price Quote Id
+            Modified By : Sadhana Upadhyay on 22 Dec 2015
+            Summary : To update Notification template in PQ_LeadNotification Table
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Post(Bikewale.DTO.PriceQuote.PQUpdateInput,System.UInt32)">
+            <summary>
+            Created By : Sushil Kumar
+            Created On  : 11th Nov 2015
+            Updates the Price Quote data for given Price Quote Id  colorId and versionId
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.UpdatePQCustomerDetailsController">
+            <summary>
+            Price Quote Customer Detail Controller with VersionId and ColorId Updation
+            Author      :   Sushil Kumar
+            Created On  :   12th December 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQCustomerDetailsController.#ctor(Bikewale.Interfaces.Customer.ICustomerAuthentication{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.Customer.ICustomer{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.MobileVerification.IMobileVerificationRepository,Bikewale.Interfaces.MobileVerification.IMobileVerification,Bikewale.Interfaces.Dealer.IDealer,Bikewale.Interfaces.PriceQuote.IPriceQuote)">
+            <summary>
+            
+            </summary>
+            <param name="objAuthCustomer"></param>
+            <param name="objCustomer"></param>
+            <param name="objDealerPriceQuote"></param>
+            <param name="mobileVerRespo"></param>
+            <param name="mobileVerificetion"></param>
+            <param name="objDealer"></param>
+            <param name="objPriceQuote"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQCustomerDetailsController.Post(Bikewale.DTO.PriceQuote.UpdatePQCustomerInput)">
+            <summary>
+            Similar to PQCustomer Controller but updates color and version
+            Saves the Customer details if it is a new customer else updates version/color  for the same.
+            Generates  the OTP for the non verified customer
+            </summary>
+            <param name="input">Customer details with price quote details</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController">

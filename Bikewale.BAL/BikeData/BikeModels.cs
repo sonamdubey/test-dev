@@ -200,7 +200,7 @@ namespace Bikewale.BAL.BikeData
                     objOverviewSpecs.Add(new Specs()
                     {
                         DisplayText = "Max power",
-                        DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.MaxPower, "PS")
+                        DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.MaxPower, "bhp")
                     });
 
                     objOverviewSpecs.Add(new Specs()

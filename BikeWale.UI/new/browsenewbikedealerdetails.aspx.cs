@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Bikewale.Common;
 using Bikewale.Memcache;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.New
 {
@@ -21,6 +22,7 @@ namespace Bikewale.New
         protected HtmlTable tblAdvanced;
         protected Panel pnlAd, pnlResult;
         protected DataList dlDealers;
+        protected Bikewale.Controls.NewBikeLaunches ctrl_NewBikeLaunches;
 
         protected string strCity = "", makeName = "", makeId = "", cityId = "", MakeMaskingName = string.Empty;
         public int dealerCount = 0, city = 0;
@@ -78,6 +80,8 @@ namespace Bikewale.New
             Trace.Warn(makeId);
             if(!string.IsNullOrEmpty(makeId))
                 BindDataGrid();
+
+            ctrl_NewBikeLaunches.PQSourceId = (int)PQSourceEnum.Desktop_LocateDealer_NewLaunches;
         }
 
         private void BindDataGrid()

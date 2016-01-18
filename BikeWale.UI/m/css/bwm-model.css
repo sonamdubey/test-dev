@@ -137,9 +137,9 @@
 .blackOut-window-model { background:#222; position:fixed; top:0px; left:0px; right:0px; bottom:0px; z-index:9; opacity:.95; display: none; -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=95); -moz-opacity:0.95; -khtml-opacity: 0.95; }
 .modelgallery-close-btn { z-index:11; }
 /* offers popup */
-.termsPopUpContainer { width: 700px; height: 150px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 10%; left: 5%; right: 5%; }
+.termsPopUpContainer { width: 90%; height: 400px; overflow-y:auto; background-color: #fff; z-index: 10; margin: 0 auto; position: fixed; top: 7%; left: 5%; right: 5%; }
 .termsPopUpCloseBtn.cross-lg-lgt-grey { background-position: -36px -226px; }
-
+#terms h1 { font-size:18px; padding-top:10px; }
 
 .viewterms{color: #ababab;text-decoration: none;font-size: 10px;cursor: pointer;}
 .viewterms:hover{text-decoration:underline;}
@@ -211,3 +211,13 @@
 
 .offer-list-container ul.offersList li, .offer-list-container ul.moreOffersList li { background:url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png") no-repeat 0 3px; padding: 0 0 0 18px;} 
 .bike-details-list-ul { list-style:disc; margin-left:18px; }
+#faqSlug .icon-outer-container { width:82px; height:82px; }
+#faqSlug .icon-inner-container { width:72px; height:72px; }
+
+/*li.offertxt .tnc { display:none }  
+li.offertxt:hover .tnc {display:inline}*/
+.question-mark-icon { width:22px; height:33px; background-position:-189px -348px; }
+.faq-slug-container { width:100%; }
+.question-icon-container { width:82px; }
+.question-text-container { width:68%; }
+.question-title { position:relative; top:-7px; margin-bottom:5px; }

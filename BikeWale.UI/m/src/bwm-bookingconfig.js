@@ -49,6 +49,7 @@ var BookingConfigViewModel = function () {
                     self.ActualSteps(4);
                     $('html, body').animate({ scrollTop: 0 }, 300);
                 }
+
                 if (self.CurrentStep() == 2) {
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_1_Successful_Submit', 'lab': thisBikename + '_' + getCityArea });
                 }
@@ -72,11 +73,39 @@ var BookingConfigViewModel = function () {
         }
     };
 
+    self.UpdateVersion = function (data, event) {
+        url = "/api/UpdatePQ/";
+        var objData = {
+            "pqId": pqId,
+            "versionId": self.Bike().selectedVersionId(),
+        }
+        $.ajax({
+            type: "POST",
+            url: (self.Bike().selectedColorId() > 0) ? url + "?colorId=" + self.Bike().selectedColorId() : url,
+            async: true,
+            data: ko.toJSON(objData),
+            contentType: "application/json",
+            success: function (response) {
+                var obj = ko.toJS(response);
+                if (obj.isUpdated) {
+                    isSuccess = true;
+                    var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
+                    //SetCookie("_MPQ", cookieValue);                    
+                    history.replaceState(null, null, "?MPQ=" + Base64.encode(cookieValue));
+                }
+                else isSuccess = false;
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                isSuccess = false;
+            }
+        });
+    }
+
     self.bookNow = function (data, event) {
         var isSuccess = false;
         if (self.changedSteps() && (self.CurrentStep() > 3) && (self.Bike().bookingAmount() > 0)) {
 
-            var curUserOptions =  self.Bike().selectedVersionId().toString() + self.Bike().selectedColorId().toString();
+            var curUserOptions = self.Bike().selectedVersionId().toString() + self.Bike().selectedColorId().toString();
             if (self.UserOptions() != curUserOptions) {
                 self.UserOptions(curUserOptions);
 
@@ -96,8 +125,8 @@ var BookingConfigViewModel = function () {
                         if (obj.isUpdated) {
                             isSuccess = true;
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
-                            SetCookie("_MPQ", cookieValue);
-                            window.location = '/m/pricequote/bookingSummary_new.aspx';
+                            //SetCookie("_MPQ", cookieValue);
+                            window.location.href = '/m/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
                         }
                         else isSuccess = false;
                     },
@@ -107,11 +136,13 @@ var BookingConfigViewModel = function () {
                 });
             }
             else {
-                window.location = '/m/pricequote/bookingSummary_new.aspx';
+                if ((self.Bike().bookingAmount() > 0)) {
+                    var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
+                    window.location.href = '/m/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
+                }
                 isSuccess = true;
             }
-            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step_3_Book_Now_Click', 'lab': thisBikename + '_' + getCityArea });
-            return isSuccess;
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Booking_Config_Page', 'act': 'Step 3_Book_Now_Click', 'lab': thisBikename + '_' + getCityArea });
         }
 
         return isSuccess;
@@ -124,6 +155,7 @@ var BookingConfigViewModel = function () {
             self.EMI().loan(undefined);
         }
     });
+
 }
 
 var BikeDetails = function () {
@@ -138,6 +170,19 @@ var BikeDetails = function () {
     self.isInsuranceFree = ko.observable(insFree);
     self.insuranceAmount = ko.observable(insAmt);
     self.priceBreakupText = ko.observable();
+    self.discountList = ko.observableArray(discountDetail);
+
+    self.totalDiscount = ko.computed(function () {
+        var discount = 0;
+        var vlen = self.discountList().length;
+        if (self.discountList() != undefined && vlen > 0) {
+            for (i = 0; i < vlen ; i++) {
+                discount += self.discountList()[i].Price;
+            }
+        }
+        //console.log(discount);
+        return discount;
+    }, this);
 
     self.versionPrice = ko.computed(function () {
         var priceTxt = '';
@@ -156,7 +201,7 @@ var BikeDetails = function () {
     self.bikeName = ko.computed(function () {
         var _bikeName = '';
         if (self.selectedVersion() != undefined && self.selectedVersionId != undefined) {
-            _bikeName = self.selectedVersion().Make.MakeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
+            _bikeName = self.selectedVersion().Make.makeName + ' ' + self.selectedVersion().Model.ModelName + ' ' + self.selectedVersion().MinSpec.VersionName;
 
         }
         return _bikeName;
@@ -186,7 +231,8 @@ var BikeDetails = function () {
     };
 
     self.getColor = function (data, event) {
-        self.selectedColorId(data.Id);
+        self.selectedColorId(data.ColorId);
+        self.waitingPeriod(data.NoOfDays);
         var ele = colorsul.find("li[colorId=" + self.selectedColorId() + "]");
         colorsul.find("li").removeClass("selected-color text-bold text-white border-dark-grey").addClass("text-light-grey border-light-grey");
         colorsul.find("li").find('span.color-title-box').removeClass().addClass('color-title-box');
@@ -302,6 +348,8 @@ var viewBreakUpClosePopup = function () {
 $(document).on('keydown', function (e) {
     if (e.keyCode === 27) {
         $("div.breakupCloseBtn").click();
+        $("div#termsPopUpContainer").hide();
+        $(".blackOut-window").hide();
     }
 });
 
@@ -343,7 +391,7 @@ $.calculateEMI = function (loanAmount, tenure, rateOfInterest) {
         finalEmi = Math.ceil((totalRepay / tenure));
     }
     catch (e) {
-        console.log(e.message);
+        //console.log(e.message);
     }
     return formatPrice(finalEmi);
 };
@@ -355,7 +403,7 @@ $.LoanAmount = function (onRoadPrice, percentage) {
         price = Math.ceil(price / 100.0) * 100;
     }
     catch (e) {
-        console.log(e.message);
+        //console.log(e.message);
     }
     return price;
 };
@@ -376,11 +424,12 @@ function setColor() {
     if (preSelectedColor > 0) {
         if (vc != null && vc.length > 0) {
             $.each(vc, function (key, value) {
-                if (value.Id == preSelectedColor) {
+                if (value.ColorId == preSelectedColor) {
                     viewModel.Bike().getColor(value);
-                    viewModel.CurrentStep(3); 
+                    viewModel.CurrentStep(3);
                     viewModel.ActualSteps(3);
                     viewModel.SelectedVersion(viewModel.Bike().selectedVersionId());
+                    viewModel.Bike().selectedColorId(value.ColorId);
                 }
             });
         }
@@ -391,3 +440,42 @@ var viewModel = new BookingConfigViewModel;
 ko.applyBindings(viewModel, $("#bookingConfig")[0]);
 setColor();
 viewModel.UserOptions(viewModel.Bike().selectedVersionId().toString() + viewModel.Bike().selectedColorId().toString());
+
+$('.tnc').on('click', function (e) {
+    LoadTerms($(this).attr("id"));
+});
+
+function LoadTerms(offerId) {
+    //$(".termsPopUpContainer").css('height', '150')
+    $('#termspinner').show();
+    $('#terms').empty();
+    $("div#termsPopUpContainer").show();
+    $(".blackOut-window").show();
+
+    //var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
+    if (offerId != '' && offerId != null) {
+        $.ajax({
+            type: "GET",
+            url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
+            dataType: 'json',
+            success: function (response) {
+                //$(".termsPopUpContainer").css('height', '500')
+                $('#termspinner').hide();
+                if (response != null)
+                    $('#terms').html(response);
+            },
+            error: function (request, status, error) {
+                $("div#termsPopUpContainer").hide();
+                $(".blackOut-window").hide();
+            }
+        });
+    }
+    else {
+        setTimeout(LoadTerms, 2000); // check again in a second
+    }
+}
+
+$(".termsPopUpCloseBtn").on('mouseup click', function (e) {
+    $("div#termsPopUpContainer").hide();
+    $(".blackOut-window").hide();
+});

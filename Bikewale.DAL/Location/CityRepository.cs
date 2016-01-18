@@ -138,7 +138,7 @@ namespace Bikewale.DAL.Location
             Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetPriceQuoteCities"))
+                using (SqlCommand cmd = new SqlCommand("GetPriceQuoteCities_12012016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
@@ -154,7 +154,8 @@ namespace Bikewale.DAL.Location
                                 {
                                     CityId = Convert.ToUInt32(dr["Value"]),
                                     CityName = Convert.ToString(dr["Text"]),
-                                    IsPopular = Convert.ToBoolean(dr["IsPopular"])
+                                    IsPopular = Convert.ToBoolean(dr["IsPopular"]),
+                                    HasAreas = Convert.ToBoolean(dr["HasAreas"])
                                 });
                         }
                     }

@@ -65,7 +65,6 @@ namespace Bikewale.Content
             try
             {
                 string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
 
                 // get pager instance
                 IPager objPager = GetPager();

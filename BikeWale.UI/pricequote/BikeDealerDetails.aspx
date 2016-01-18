@@ -10,7 +10,8 @@
         isAd970x90Shown = false;  
     %>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
+    
 </head>
 <body class="header-fixed-inner" id="bookingConfig" style="display:none" data-bind="visible: true">
     <form runat="server">
@@ -119,8 +120,8 @@
                             <div class="select-color-container border-light-bottom padding-bottom10 margin-bottom15">
                                 <h4 class="select-colorh4 margin-top15">Choose colour</h4>
                                 <ul class="select-colorUL" data-bind="foreach: versionColors">
-                                    <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.Id},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
-                                        <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode }"></span>
+                                    <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.ColorId},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
+                                        <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode[0] }"></span>
                                         <span class="color-title-box" data-bind="text: ColorName"></span>
                                     </li>
                                 </ul>
@@ -278,7 +279,8 @@
                                         <li>
                                             <p class="text-bold">Availability</p>
                                             <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
-                                            <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 1">Now available</p>
+                                            <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() == 0">Now available</p>
+                                            <p class="text-red text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 0">Not available</p>
                                         </li>
 
                                     </ul>
@@ -293,17 +295,20 @@
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
                                             <ItemTemplate>
-                                                <li><%#DataBinder.Eval(Container.DataItem,"OfferText") %></li>
+                                                <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                                                    </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
                                     <%}
                                        else
                                        {%>
+                                    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                                     <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
-                                    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
+                                    
                                     <% } %>
                                 </div>
                                 <div class="clear"></div>
@@ -326,7 +331,7 @@
                                 <div class="modelPriceContainer margin-bottom15">
                                     <!-- ko if : (versionPrice() - insuranceAmount()) > 0 -->
                                     <span class="font28"><span class="fa fa-rupee"></span></span>
-                                    <span class="font30" data-bind="CurrencyText: (versionPrice() - insuranceAmount())"></span>
+                                    <span class="font30" data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span>
                                     <span class="font14 text-light-grey viewBreakupText">View breakup</span>
                                     <!-- /ko -->
                                     <!-- ko ifnot : (versionPrice() - insuranceAmount()) > 0 -->
@@ -335,10 +340,10 @@
 
                                 </div>
                                 <!-- ko if : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                                <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange" />
+                                <input type="button" id="bookingConfigNextBtn" data-bind="click : function(data,event){ $root.UpdateVersion(data,event); return $root.bookNow(data,event);},attr:{value : ((viewModel.CurrentStep() > 2) && (bookingAmount() > 0))?'Book Now':'Next'}" type="button" value="Next" class="btn btn-orange" />
                                 <!-- /ko -->
                                 <!-- ko ifnot : (bookingAmount() > 0) && (viewModel.CurrentStep() > 2) -->
-                                <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){return $root.bookNow(data,event);}" value="Next" class="btn btn-orange" />
+                                <input type="button" data-bind="visible : $root.CurrentStep() < 3 , click : function(data,event){$root.UpdateVersion(data,event); return $root.bookNow(data,event);}" value="Next" class="btn btn-orange" />
                                 <!-- /ko -->
                                 <span class="select-color-warning-tooltip leftfloat">Please select a colour</span>
                                 <span class="clear"></span>
@@ -356,7 +361,9 @@
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
-                                            <!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
+                                            <% if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null 
+                                                   && dealerDetailEntity.objQuotation.discountedPriceList != null && dealerDetailEntity.objQuotation.discountedPriceList.Count > 0)
+                                               {%>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>
@@ -366,12 +373,22 @@
                                                 <td class="padding-bottom10">Total on road price</td>
                                                 <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
                                             </tr>
+                                            <!-- ko foreach: discountList -->
+                                            <tr>
+                                                <td width="350" class="padding-bottom10" data-bind="text: 'Minus '+CategoryName"></td>
+                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
+                                            </tr>
+                                            <!-- /ko -->
+                                            <%} %>
+                                            <%--<!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
+                                            
+                                            
 
                                             <tr>
                                                 <td class="padding-bottom10">Minus insurance</td>
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
                                             </tr>
-                                            <!-- /ko -->
+                                            <!-- /ko -->--%>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>
@@ -380,7 +397,7 @@
                                             <tr>
 
                                                 <td class="padding-bottom10 text-bold">Total on road price</td>
-                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - insuranceAmount())"></span></td>
+                                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: (versionPrice() - totalDiscount())"></span></td>
 
                                             </tr>
                                             <tr>
@@ -403,13 +420,46 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+                <!-- Terms and condition Popup start -->
+           <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                                <h3>Terms and Conditions</h3>
+                                <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                                    <img src="/images/search-loading.gif" />
+                                </div>
+                                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                                </div>
+                            </div>
+         <!-- Terms and condition Popup Ends -->
         <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
 
-        <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(objBookingPageDetails.Varients)%>' />
+        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+      
+        <section>
+            <div class="container margin-bottom30">
+                <div class="grid-12">
+                    <div class="content-box-shadow content-inner-block-20">
+                        <div class="inline-block text-center margin-right30">
+                            <div class="icon-outer-container rounded-corner50">
+                                <div class="icon-inner-container rounded-corner50">
+                                    <span class="bwsprite question-mark-icon margin-top25"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="inline-block">
+                            <h3 class="margin-bottom10">Questions?</h3>
+                            <p class="text-light-grey font14">We’re here to help. Read our <a href="/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-dark-grey">1800 120 8300</span></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
@@ -418,11 +468,11 @@
             $(document).ready(function() {
                 applyLazyLoad();
             });
-
-            var thisBikename = '<%= this.bikeName %>';
-            var bikeVersionId = '<%= versionId %>';
+            var thisBikename = "<%= this.bikeName %>";
+            var bikeVersionId = "<%= versionId %>";
             var pqId = '<%= pqId%>';
-            var versionList = JSON.parse($("#hdnBikeData").val());
+            var versionList = JSON.parse(Base64.decode($("#hdnBikeData").val()));
+            var discountDetail = JSON.parse($("#hdnDiscountList").val());
             var preSelectedColor = '<%= (objCustomer != null && objCustomer.objColor != null) ? objCustomer.objColor.ColorId : 0 %>';
             var insFree = <%= Convert.ToString(isInsuranceFree).ToLower() %>; 
             var insAmt = '<%= insuranceAmount %>';
@@ -430,20 +480,17 @@
             var areaId = '<%= areaId%>';
             var BikeDealerDetails = function () {
                 var self = this;
-                // self.Dealer = ko.observable(objDealer);
                 self.DealerId = ko.observable(<%= dealerId%>);
-                // self.DealerDetails = ko.observable(objDealer.objDealer);
-                // self.DealerQuotation = ko.observable(objDealer.objQuotation);
                 self.IsInsuranceFree = ko.observable(insFree);
                 self.InsuranceAmount = ko.observable(insAmt);
                 self.latitude = ko.observable(<%= latitude %>);
                 self.longitude = ko.observable(<%= longitude %>);
             }
             var getCityArea = GetGlobalCityArea();
-        </script>
-
-
+            var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
+        </script> 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>          
+                   
 
     </form>
 </body>

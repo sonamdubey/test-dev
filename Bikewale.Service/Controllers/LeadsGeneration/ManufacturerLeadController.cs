@@ -44,6 +44,8 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
 
         /// <summary>
         /// To genearate manufacturer Lead
+        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
+        /// Summary : added utmz, utma, device Id etc
         /// </summary>
         /// <param name="name"></param>
         /// <param name="email"></param>
@@ -53,7 +55,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         /// <param name="versionId"></param>
         /// <returns></returns>
         [ResponseType(typeof(bool))]
-        public IHttpActionResult Get(uint cityId, uint versionId, string name, string email, string mobile, string pqId)
+        public IHttpActionResult Get(uint cityId, uint versionId, string name, string email, string mobile, string pqId, UInt16? platformId, UInt16? leadSourceId, string deviceId = null)
         {
             string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
             ManufacturerLeadEntity objLead = null;
@@ -62,7 +64,7 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
             try
             {
 
-                if (cityId > 0 && versionId > 0 && !String.IsNullOrEmpty(pqId) && !String.IsNullOrEmpty(name) && !String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(mobile) )
+                if (cityId > 0 && versionId > 0 && !String.IsNullOrEmpty(pqId) && !String.IsNullOrEmpty(name) && !String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(mobile))
                 {
                     objLead = new ManufacturerLeadEntity();
                     objLead.Name = name;
@@ -83,14 +85,28 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                         if (status)
                         {
                             //Push inquiry Id to AutoBiz
-                            if (_objIPQ.SaveCustomerDetail(objLead.DealerId, objLead.PQId, objLead.Name, objLead.Mobile, objLead.Email,null))
+                            //objLead.DealerId, objLead.PQId, objLead.Name, objLead.Mobile, objLead.Email,null
+                            DPQ_SaveEntity entity = new DPQ_SaveEntity()
+                            {
+                                DealerId = objLead.DealerId,
+                                PQId = objLead.PQId,
+                                CustomerName = objLead.Name,
+                                CustomerEmail = objLead.Email,
+                                CustomerMobile = objLead.Mobile,
+                                ColorId = null,
+                                UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
+                                UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
+                                DeviceId = deviceId,
+                                LeadSourceId = leadSourceId
+                            };
+                            if (_objIPQ.SaveCustomerDetail(entity))
                             {
                                 status = AutoBizAdaptor.PushInquiryInAB(Convert.ToString(objLead.DealerId), objLead.PQId, objLead.Name, objLead.Mobile, objLead.Email, Convert.ToString(objLead.VersionId), Convert.ToString(objLead.CityId));
                             }
                         }
-                    }                    
+                    }
                 }
-                return Ok(status); 
+                return Ok(status);
             }
             catch (Exception ex)
             {

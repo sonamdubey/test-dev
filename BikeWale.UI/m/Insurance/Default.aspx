@@ -165,7 +165,7 @@
                                     </li>
                                     <li>Damage to / by person driving without a valid driving license
                                     </li>
-                                    <li>Loss or damage caused while riding under the influence of alcohol or any other intoxicating substance
+                                    <li>Loss or damage caused while NOT riding under the influence of alcohol or any other intoxicating substance
                                     </li>
                                     <li>Loss or damage due to depreciation of the vehicle's value
                                     </li>
@@ -216,7 +216,7 @@
         <section class="container contact-fixed">
             <div class="grid-12 text-white text-center">
                 <p class="margin-bottom25 font14 text-medium-grey text-center">In case of queries call us toll-free on:</p>
-                <p class="phone-box"><a href="tel:1800 457 9781" class="rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone"></span>1800 120 8300</a></p>
+                <p class="phone-box"><a href="tel:1800 120 8300" class="rounded-corner2" style="text-decoration: none;"><span class="fa fa-phone"></span>1800 120 8300</a></p>
             </div>
             <div class="clear"></div>
         </section>

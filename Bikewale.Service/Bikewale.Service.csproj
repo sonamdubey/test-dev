@@ -68,6 +68,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BikeWalePro\Libs\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMqPublishing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\BikeWalePro\Libs\RabbitMqPublishing.dll</HintPath>
+    </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -199,6 +207,7 @@
     <Compile Include="AutoMappers\PriceQuote\Version\PQVersionListMapper.cs" />
     <Compile Include="AutoMappers\UsedBikes\PopularUsedBikesMapper.cs" />
     <Compile Include="AutoMappers\Videos\VideosMapper.cs" />
+    <Compile Include="Controllers\AppNotifications\AppAlertController.cs" />
     <Compile Include="Controllers\App\AppVersionCheckController.cs" />
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
@@ -219,12 +228,14 @@
     <Compile Include="Controllers\Customer\LoginInputParameters.cs" />
     <Compile Include="Controllers\Customer\RegisterInputParameters.cs" />
     <Compile Include="Controllers\Dealer\DealersListController.cs" />
+    <Compile Include="Controllers\Dealer\TermsController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceLeadController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceModelsController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceVersionsController.cs" />
     <Compile Include="Controllers\LeadsGeneration\ManufacturerLeadController.cs" />
     <Compile Include="Controllers\Make\DealerMakesController.cs" />
     <Compile Include="Controllers\Make\MakePageController.cs" />
+    <Compile Include="Controllers\MobileAppAlerts\PushMobileAppAlertController.cs" />
     <Compile Include="Controllers\Model\ModelDescriptionController.cs" />
     <Compile Include="Controllers\Model\ModelPageController.cs" />
     <Compile Include="Controllers\Model\ModelSpecsController.cs" />
@@ -281,6 +292,7 @@
     <Compile Include="TCAPI\TCApi_Inquiry.cs" />
     <Compile Include="UnityBootstrapper\UnityBootstrapper.cs" />
     <Compile Include="UnityBootstrapper\UnityResolver.cs" />
+    <Compile Include="Utilities\CMSShareUrl.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -375,8 +387,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>58667</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9012</IISUrl>
