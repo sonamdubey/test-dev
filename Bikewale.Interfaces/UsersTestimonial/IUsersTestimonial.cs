@@ -12,6 +12,6 @@ namespace Bikewale.Interfaces.UsersTestimonial
     /// </summary>
     public interface IUsersTestimonial
     {
-        public IEnumerable<Entities.UsersTestimonial.UsersTestimonial> FetchUsersTestimonial(uint topCount = 6);
+        IEnumerable<Entities.UsersTestimonial.UsersTestimonial> FetchUsersTestimonial(uint topCount = 6);
     }
 }
