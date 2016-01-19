@@ -41,7 +41,9 @@
 /* customizeBike */
 /* select-version-container */
 #customizeBike .select-version-container li,
-#customizeBike .select-color-container li { display:block; vertical-align:top; width:100%; height:32px; margin:0 0 10px; }
+#customizeBike .select-color-container li { display:block; vertical-align:top; width:100%; margin:0 0 10px; }
+#customizeBike .select-version-container li { height:32px; }
+#customizeBike .select-color-container li { height:56px; }
 #customizeBike .version-featureUL li { float:left; position:relative; width:50%; margin:10px 0; height:auto; max-width: 160px; vertical-align:middle;}
 #customizeBike ul.select-versionUL span,
 #financeDetails ul.select-financeUL span { display: inline-block; vertical-align: middle; font-size:14px; line-height:30px; }
@@ -51,13 +53,14 @@
 #customizeBike ul.select-versionUL li,
 #customizeBike ul.select-colorUL li,
 #financeDetails ul.select-financeUL li { cursor: pointer; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
-#customizeBike ul.select-colorUL li { padding:5px; }
+#customizeBike ul.select-colorUL li { padding:10px; }
 #customizeBike ul.select-colorUL span { display: inline-block; vertical-align: top; font-size:14px; }
-#customizeBike ul.select-colorUL span.color-title-box { height:22px; padding-left:10px; overflow:hidden; }
-#customizeBike ul.select-colorUL span.color-box { width:22px; height:22px; background:#ccc; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
-
+#customizeBike ul.select-colorUL span.color-title-box { height:20px; padding-left:10px; overflow:hidden; position: relative; top: -3px; }
+#customizeBike ul.select-colorUL span.color-box { width:34px; height:34px; background:#ccc; border: 1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+#customizeBike ul.select-colorUL span.color-availability-box { position:relative; left:48px; top:-16px; }
+#customizeBike ul.select-colorUL span.color-availability-box span { font-size:12px;  }
 #customizeBike ul.select-colorUL li.selected-color span.color-box { width: 100%; transition: width 0.3s; }
-#customizeBike ul.select-colorUL li.selected-color span.color-title-box { width:100%; position:relative; left:0; top:-22px; text-align:center; padding-left:0; transition:display; overflow:hidden; white-space:nowrap; text-overflow: ellipsis; opacity:0.8;}
+#customizeBike ul.select-colorUL li.selected-color span.color-title-box { width:100%; position:relative; left:0; top:-27px; text-align:center; padding-left:0; transition:display; overflow:hidden; white-space:nowrap; text-overflow: ellipsis; opacity:0.8;}
 
 .viewBreakupText { cursor: pointer; color: #0288d1; margin-left:5px; }
 .radio-btn-checked, .radio-btn-unchecked { width: 18px; height: 18px; }
@@ -174,3 +177,11 @@ li.offertxt:hover span {display:inline}*/
 #testimonialWrapper .testimonial-user-image { width:54px; height:54px; overflow:hidden; margin:2px auto; border:1px solid #666; }
 #testimonialWrapper li .testimonial-user-image img { width:100%; }
 #testimonialWrapper li .testimonial-user-stmt { height:66px; overflow:hidden; }
+.color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; }
+
+.color-box.color-count-two span { width:100%; height:40%; display:block !important; background:#e34f4f; }
+.color-box.color-count-two span:first-child { width:100%; height:60%; background:#545454; }
+
+.color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
+
+#customizeBike ul.select-colorUL li.selected-color span.color-box.color-count-two + span.color-title-box { top:-32px; }

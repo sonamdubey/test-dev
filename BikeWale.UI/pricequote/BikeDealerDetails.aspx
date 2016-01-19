@@ -121,11 +121,21 @@
                                 <h4 class="select-colorh4 margin-top15">Choose colour</h4>
                                 <ul class="select-colorUL" data-bind="foreach: versionColors">
                                     <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.ColorId},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
-                                        <span class="color-box" data-bind="style: { 'background-color': '#' + HexCode[0] }"></span>
+                                        <span class="color-box " data-bind="foreach : HexCode , css : (HexCode.length >= 3)? 'color-count-three': (HexCode.length ==2)?'color-count-two':'color-count-one' ">
+                                            <span data-bind="style: { 'background-color': '#' + $data }"></span>
+                                        </span>
                                         <span class="color-title-box" data-bind="text: ColorName"></span>
+                                        <span class="color-availability-box" data-bind="BikeAvailability : {Days : NoOfDays,CustomText : 'Waiting of '}"></span>
                                     </li>
                                 </ul>
+
+                                <div class="margin-left10 margin-top15 margin-bottom15">
+                                    <span class="text-bold font16 ">Availability: </span>
+                                    <span class="font14" data-bind="BikeAvailability : {Days : $root.Bike().waitingPeriod(),CustomText : 'Waiting period of '}"></span>
+                                </div>
                             </div>
+
+
                         </div>
 
                         <div id="financeDetails" data-bind="visible: CurrentStep() == 2, css: (CurrentStep() > 1) ? 'active-tab text-bold' : ''" class="margin-bottom15" style="display: none">
@@ -278,9 +288,7 @@
                                         </li>
                                         <li>
                                             <p class="text-bold">Availability</p>
-                                            <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
-                                            <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() == 0">Now available</p>
-                                            <p class="text-red text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 0">Not available</p>
+                                             <span class="font14" data-bind="BikeAvailability : {Days : $root.Bike().waitingPeriod(),CustomText : 'Waiting period of '}"></span>
                                         </li>
 
                                     </ul>
