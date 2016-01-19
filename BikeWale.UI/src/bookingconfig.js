@@ -19,7 +19,7 @@ ko.bindingHandlers.googlemap = {
               map: map
           });
         // google.maps.event.trigger(map, 'resize');
-    } ,
+    } //,
 
     
     //update: function(element, valueAccessor) {
@@ -34,6 +34,29 @@ ko.bindingHandlers.CurrencyText = {
         var amount = valueAccessor();
         var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
         $(element).text(formattedAmount);
+    }
+};
+
+ko.bindingHandlers.BikeAvailability = {
+    update: function (element, valueAccessor) {
+        availText = "";
+        period = ko.unwrap(valueAccessor()) !== null ? valueAccessor().Days : -1;
+        if (period >= 0) {
+            if (period == 1) {
+                availText = "<span class='text-light-grey'>" + valueAccessor().CustomText + period + "  day </span>";
+            }
+            else if (period > 1) {
+                availText = "<span class='text-light-grey'>" + valueAccessor().CustomText + period + " days </span>";
+            }
+            else {
+                availText = "<span class='text-green text-bold'>Now available</span>";
+            }
+        }
+        else {
+            availText = "<span class='text-red text-bold'>Not available</span>";
+        }
+
+        $(element).html(availText);
     }
 };
 
@@ -184,6 +207,10 @@ var BookingConfigViewModel = function () {
         }
     });
 
+    //self.BikeAvailability = ko.pureComputed(function (data,event) {
+       
+    //});
+
 }
 
 
@@ -266,14 +293,43 @@ var BikeDetails = function () {
         var ele = colorsul.find("li[colorId=" + self.selectedColorId() + "]");
         colorsul.find("li").removeClass("selected-color text-bold text-white border-dark-grey").addClass("text-light-grey border-light-grey");
         colorsul.find("li").find('span.color-title-box').removeClass().addClass('color-title-box');
+        colorsul.find("li").find('span.color-availability-box').show();
         ele.removeClass("text-light-grey border-light-grey").addClass("selected-color text-bold  border-dark-grey");
-        $("#customizeBike").find("h4.select-colorh4").removeClass("text-red");
-        bgcolor = ele.find('span.color-box').css('background-color');
+        $("#customizeBike").find("h4.select-colorh4").removeClass("text-red");  
+        if (data.HexCode.length > 2)
+        {
+            bgcolor = ele.find('span.color-box span').first().next().css('background-color');
+        }
+        else {
+            bgcolor = ele.find('span.color-box span').first().css('background-color');
+        }        
         ele.find('span.color-title-box').addClass(getContrastYIQ(bgcolor));
+        ele.find('span.color-availability-box').hide();
         colorsul.addClass("color-selection-done");
     };
 
     self.getVersion(self.selectedVersionId());
+
+    //self.bikeColorAvailability = ko.computed(function (data,event) {
+    //    availText = "";
+    //    period = self.Bike().waitingPeriod();
+    //    if (period >= 0) {
+    //        if (period == 1) {
+    //            availText = "<span class='text-light-grey font14'>Waiting period of " + period + " day </span>";
+    //        }
+    //        else if (period > 1) {
+    //            availText = "<span class='text-light-grey font14'>Waiting period of " + period + " days </span>";
+    //        }
+    //        else {
+    //            availText = "<span class='text-green text-bold font14'>Now available</span>";
+    //        }
+    //    }
+    //    else {
+    //        availText = "<span class='text-red text-bold font14'>Not available</span>";
+    //    }
+    //    return availText;
+    //});
+
 }
 
 var BikeEMI = function () {
@@ -444,10 +500,6 @@ $("#configBtnWrapper input[type='button']").on("mouseout", function () {
         colorWarningTooltip.hide();
 });
 
-//center = map.getCenter();
-//google.maps.event.trigger(map, "resize");
-//map.setCenter(center);
-
 
 $('.tnc').on('click', function (e) {
     LoadTerms($(this).attr("id"));
@@ -461,7 +513,6 @@ function LoadTerms(offerId) {
     $("#termsPopUpContainer").show();
     $(".blackOut-window").show();
 
-   // var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
     if (offerId != '' && offerId != null) {
         $.ajax({
             type: "GET",
@@ -487,4 +538,6 @@ $(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
     $("div#termsPopUpContainer").hide();
     $(".blackOut-window").hide();
 });
+
+
 

@@ -236,11 +236,17 @@ var BikeDetails = function () {
         var ele = colorsul.find("li[colorId=" + self.selectedColorId() + "]");
         colorsul.find("li").removeClass("selected-color text-bold text-white border-dark-grey").addClass("text-light-grey border-light-grey");
         colorsul.find("li").find('span.color-title-box').removeClass().addClass('color-title-box');
+        colorsul.find("li").find('span.color-availability-box').show();
         ele.removeClass("text-light-grey border-light-grey").addClass("selected-color text-bold  border-dark-grey");
         $("#customizeBike").find("h4.select-colorh4").removeClass("text-red");
-        bgcolor = ele.find('span.color-box').css('background-color');
+        if (data.HexCode.length > 2) {
+            bgcolor = ele.find('span.color-box span').first().next().css('background-color');
+        }
+        else {
+            bgcolor = ele.find('span.color-box span').first().css('background-color');
+        }
         ele.find('span.color-title-box').addClass(getContrastYIQ(bgcolor));
-
+        ele.find('span.color-availability-box').hide();
         // }
     };
     self.getVersion(self.selectedVersionId());
@@ -314,6 +320,29 @@ ko.bindingHandlers.slider = {
         var value = ko.utils.unwrapObservable(valueAccessor());
         if (isNaN(value)) value = 0;
         $("#" + element.id).slider("value", value);
+    }
+};
+
+ko.bindingHandlers.BikeAvailability = {
+    update: function (element, valueAccessor) {
+        availText = "";
+        period = ko.unwrap(valueAccessor()) !== null ? valueAccessor().Days : -1;
+        if (period >= 0) {
+            if (period == 1) {
+                availText = "<span class='text-light-grey'>" + valueAccessor().CustomText + period + "  day </span>";
+            }
+            else if (period > 1) {
+                availText = "<span class='text-light-grey'>" + valueAccessor().CustomText + period + " days </span>";
+            }
+            else {
+                availText = "<span class='text-green text-bold'>Now available</span>";
+            }
+        }
+        else {
+            availText = "<span class='text-red text-bold'>Not available</span>";
+        }
+
+        $(element).html(availText);
     }
 };
 
