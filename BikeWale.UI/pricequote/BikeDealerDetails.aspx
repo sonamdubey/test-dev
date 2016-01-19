@@ -439,6 +439,14 @@
             </div>
         </div>
         <!-- Terms and condition Popup Ends -->
+        
+        <section class="container margin-top30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
+            <div class="grid-12"></div>
+            <div class="clear"></div>
+        </section>
+        
+        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+
         <% if (ctrlUsersTestimonials.FetchedCount > 0){ %>
         <section>
             <div id="testimonialWrapper" class="container margin-bottom30">
@@ -463,12 +471,6 @@
         <%           
         }
         %>
-        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
-            <div class="grid-12"></div>
-            <div class="clear"></div>
-        </section>
-        
-        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
 
         <section>
             <div class="container margin-bottom30">

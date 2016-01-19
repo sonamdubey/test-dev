@@ -412,12 +412,19 @@
         </div>
         <!--cancellation popup ends here-->
 
+        <section class="container margin-top10 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
+            <div class="grid-12"></div>
+            <div class="clear"></div>
+        </section>
+
+        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+        
         <% if (ctrlUsersTestimonials.FetchedCount > 0)
            { %>
         <section>
             <div id="testimonialWrapper" class="container margin-bottom30">
                 <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
-                    <h2 class="text-bold text-center margin-top20 margin-bottom30 font28">Testimonials</h2>
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Testimonials</h2>
                     <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
                 </div>
                 <div class="clear"></div>
@@ -439,12 +446,6 @@
            }
         %>
 
-        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
-            <div class="grid-12"></div>
-            <div class="clear"></div>
-        </section>
-
-        <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12">

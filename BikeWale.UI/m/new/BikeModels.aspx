@@ -7,6 +7,7 @@
 <%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -1077,9 +1078,27 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+        <% if (ctrlUsersTestimonials.FetchedCount > 0 && bookingAmt > 0)
+           { %>
+        <section>
+            <div id="testimonialWrapper" class="container margin-bottom10">
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font24">Testimonials</h2>
+                <div class="swiper-container text-center">
+                    <div class="swiper-wrapper margin-bottom10">
+                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>                        
+                    </div>
+                </div>
+            </div>
+        </section>
+            <%
+           }        
+        %>
+        
+
         <% if (bookingAmt > 0){ %>
         <section>
-            <div class="container margin-bottom30">
+            <div class="container margin-top20 margin-bottom30">
                 <div id="faqSlug" class="grid-12">
                     <div class="faq-slug-container content-box-shadow content-inner-block-20">
                         <div class="question-icon-container text-center leftfloat">
