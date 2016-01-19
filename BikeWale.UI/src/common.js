@@ -448,6 +448,7 @@ $(function () {
     }).on('click', function (e) {
         e.preventDefault();
     }).jcarouselPagination({
+        perPage: 3,
         item: function (page) {
             return '<a href="#' + page + '">' + page + '</a>';
         }

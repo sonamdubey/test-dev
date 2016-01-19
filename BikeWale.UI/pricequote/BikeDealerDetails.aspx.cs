@@ -14,6 +14,7 @@ using System.Web.UI.WebControls;
 using Bikewale.Utility;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Bikewale.Controls;
 
 namespace Bikewale.Pricequote
 {
@@ -21,6 +22,8 @@ namespace Bikewale.Pricequote
     /// Author  : Sushil Kumar
     /// Created On : 3rd December 2015
     /// Description : Booking configurator codebehind
+    /// Modified by :   Sumit Kate on 19 Jan 2016
+    /// Description :   Added Users Testimonial Control
     /// </summary>
     public class BookingConfig : System.Web.UI.Page
     {
@@ -32,7 +35,7 @@ namespace Bikewale.Pricequote
         protected BookingPageDetailsEntity objBookingPageDetails = null;
         protected PQCustomerDetail objCustomer = null;
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
-
+        protected UsersTestimonials ctrlUsersTestimonials;
 
         protected override void OnInit(EventArgs e)
         {
@@ -49,7 +52,7 @@ namespace Bikewale.Pricequote
             {
                 ProcessCookie();
                 BindBookingDetails();
-
+                ctrlUsersTestimonials.TopCount = 6;
             }
         }
 
