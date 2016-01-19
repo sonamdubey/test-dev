@@ -7,6 +7,7 @@
 <%@ Register Src="~/controls/UserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PriceQuotePopup" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<%@ Register Src="~/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!doctype html>
 <html>
 <head>
@@ -1402,6 +1403,21 @@
             </div>
         </section>
 
+        <% if (ctrlUsersTestimonials.FetchedCount > 0 && isBookingAvailable)
+           { %>
+        <section>
+            <div id="testimonialWrapper" class="container margin-bottom30">
+                <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
+                    <h2 class="text-bold text-center margin-top20 margin-bottom30 font28">Testimonials</h2>
+                    <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%
+           }           
+        %>
+        
         <%if ( (isBookingAvailable && isOfferAvailable) || (isBookingAvailable && !isOfferAvailable) )
           { %>
         <section>
