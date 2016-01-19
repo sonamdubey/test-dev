@@ -4,7 +4,6 @@
 <%@ Register TagPrefix="BikeWale" TagName="DiscussIt" Src="/Controls/DiscussIt.ascx" %>
 <%@ Register TagPrefix="BP" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%@ Register TagPrefix="LD" TagName="LocateDealer" Src="/controls/locatedealer.ascx" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%
     title = _title + " - A Review on " + BikeMake + " " + BikeModel + " by " + reviewerName;
     description = BikeMake + " User Review - " + "A review/feedback on " + BikeName + " by " + reviewerName + ". Find out what " + reviewerName + " has to say about " + BikeName + ".";
@@ -249,5 +248,4 @@
         }
     }
 </script>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerinner.aspx" -->

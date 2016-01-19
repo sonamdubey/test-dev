@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.New.comparebikes" AutoEventWireUp="false" Trace="false" %>
 <%@ Register TagPrefix="AddBike" TagName="AddBike" Src="~/controls/AddBikeToCompare.ascx" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%@ Import namespace="Bikewale.Utility.StringExtention" %>
 <%
     title = "Compare " + pageTitle + "- BikeWale";
@@ -512,9 +511,7 @@
         </div><!--    Left Container ends here -->
               </div>
     <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
-    <!-- Popup Widget goes here -->
-    <PW:PopupWidget runat="server" ID="PopupWidget" />
-    <!-- Popup Widget ends here -->
+    
 <script type="text/javascript">
     $(document).ready(function () {
         var speed = 300;

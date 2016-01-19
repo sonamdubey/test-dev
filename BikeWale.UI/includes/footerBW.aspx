@@ -58,3 +58,4 @@
     if ($(window).width() < 996 && $(window).width() > 790)
         $("#bg-footer .grid-6").addClass("padding-left30 padding-right30");
 </script>
+<BW:PopupWidget runat="server" id="PopupWidget" />

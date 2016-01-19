@@ -1,5 +1,6 @@
 ﻿<%@ Register Src="~/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>
 <%@ Register Src="~/controls/LoginStatusNew.ascx" TagPrefix="BW" TagName="LoginStatus" %>
+<%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PopupWidget" %>
 
 	<div class="blackOut-window"></div>
     <!-- #include file="/includes/Navigation.aspx" -->
