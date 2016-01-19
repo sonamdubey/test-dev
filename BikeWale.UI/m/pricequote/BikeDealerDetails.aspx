@@ -442,7 +442,7 @@
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
 
         <section>
-            <div class="container margin-bottom30">
+            <div class="container margin-bottom30 margin-top20">
                 <div id="faqSlug">
                     <div class="faq-slug-container content-box-shadow content-inner-block-20">
                         <div class="question-icon-container text-center leftfloat">
