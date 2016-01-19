@@ -118,7 +118,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .home-getFinalPrice-banner { background-color:#cbcbcb; background-size: cover; height: 490px; }
 
 /* global-search classes */
-.global-search { width: 240px; position: relative; float: left; margin-right: 30px; }
+.global-search { width: 420px; position: relative; float: left; margin-right: 30px; }
 .global-search span.search-icon-grey { position: absolute; right: 10px; top: 5px; cursor: pointer; }
 .global-search input[type="text"], #globalCity-input input[type="text"] { width: 100%; padding: 7px 5px; border: none; outline: none; }
 .global-location { position: relative; float: left; color: #fff; margin-right: 20px; }
@@ -210,6 +210,10 @@ footer ul li a:hover { text-decoration: underline; }
 .ui-menu .ui-menu-item { padding: 10px; background:#fff; font-size:14px; cursor:pointer; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus { background:#eee; }
 .ui-menu .ui-menu-item a { color: #333; }
+.ui-menu .ui-menu-item a.target-popup-link { display:none; float:right; color:#0288d1; }
+.ui-menu .ui-menu-item:hover a.target-popup-link,.ui-menu .ui-menu-item.ui-state-focus a.target-popup-link { display:block; }
+.ui-menu .ui-menu-item span.upcoming-link { float:right; color:#4d5057; }
+
 
 /* Carousel */
 .jcarousel-wrapper { position: relative; width: 976px; }

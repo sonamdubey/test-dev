@@ -263,11 +263,11 @@ var BikeEMI = function () {
     self.exshowroomprice = ko.observable();
     self.loan = ko.observable();
     self.tenure = ko.observable(36);
-    self.rateofinterest = ko.observable(10);
+    self.rateofinterest = ko.observable(14);
     self.downPayment = ko.pureComputed({
         read: function () {
             if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
-                self.loan($.LoanAmount(self.exshowroomprice(), 50));
+                self.loan($.LoanAmount(self.exshowroomprice(), 70));
             return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
         },
         write: function (value) {
