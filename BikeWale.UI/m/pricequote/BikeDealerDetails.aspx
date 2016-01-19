@@ -418,7 +418,7 @@
         </section>
         <% if (ctrlUsersTestimonials.FetchedCount > 0){ %>
         <section>
-            <div id="testimonialWrapper" class="container margin-bottom30">
+            <div id="testimonialWrapper" class="container margin-bottom10">
                 <h2 class="text-bold text-center margin-bottom20 font24">Testimonials</h2>
                 <div class="swiper-container text-center">
                     <div class="swiper-wrapper margin-bottom10">
@@ -433,7 +433,7 @@
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
        
         <section>
-            <div class="container margin-top10 margin-bottom30">
+            <div class="container margin-bottom30">
                 <div id="faqSlug">
                     <div class="faq-slug-container content-box-shadow content-inner-block-20">
                         <div class="question-icon-container text-center leftfloat">
