@@ -18,9 +18,6 @@ namespace Bikewale.BindViewModels.Controls
         public int? ModelId { get; set; }
         public int FetchedRecordsCount { get; set; }
 
-        static readonly string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-        static readonly string _requestType = "application/json";
-
         public void BindNews(Repeater rptr)
         {
             FetchedRecordsCount = 0;
@@ -29,19 +26,28 @@ namespace Bikewale.BindViewModels.Controls
             {
                 IEnumerable<ArticleSummary> _objArticleList = null;
                                 
-                int _contentType = (int)EnumCMSContentType.News;
-                string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + TotalRecords;
+                //int _contentType = (int)EnumCMSContentType.News;
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.News);
+                categorList.Add(EnumCMSContentType.AutoExpo2016);                
+                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+
+                string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + contentTypeList + "&totalrecords=" + TotalRecords;
 
 
                 if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
                 {
                     if (ModelId.HasValue && ModelId.Value > 0)
-                        _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId + "&modelid=" + ModelId;
+                        _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + contentTypeList + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId + "&modelid=" + ModelId;
                     else
-                        _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId;
+                        _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + contentTypeList + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId;
                 }
 
-                _objArticleList = BWHttpClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //_objArticleList = objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
+                    _objArticleList = objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
+                }
 
                 if (_objArticleList != null && _objArticleList.Count() > 0)
                 {

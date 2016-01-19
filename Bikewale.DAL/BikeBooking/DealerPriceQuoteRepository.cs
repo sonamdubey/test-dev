@@ -26,6 +26,8 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 29 Oct 2014
         /// Summary :  to save customer detail in newbikedealerpricequote table
+        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
+        /// Summary : To save utmz, utma, LeadSourceId, deviceId
         /// </summary>
         /// <param name="dealerId"></param>
         /// <param name="pqId"></param>
@@ -33,7 +35,7 @@ namespace Bikewale.DAL.BikeBooking
         /// <param name="customerMobile"></param>
         /// <param name="customerEmail"></param>
         /// <returns></returns>
-        public bool SaveCustomerDetail(uint dealerId, uint pqId, string customerName, string customerMobile, string customerEmail)
+        public bool SaveCustomerDetail(DPQ_SaveEntity entity)
         {
             bool isSuccess = false;
             Database db = null;
@@ -44,19 +46,38 @@ namespace Bikewale.DAL.BikeBooking
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "SaveBikeDealerQuotations";
+                        cmd.CommandText = "SaveBikeDealerQuotations_30122015";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 
-                        cmd.Parameters.Add("@dealerId", SqlDbType.Decimal);
-                        cmd.Parameters["@dealerId"].Precision = 18;
-                        cmd.Parameters["@dealerId"].Scale = 8;
-                        cmd.Parameters["@dealerId"].Value = dealerId;
+                        cmd.Parameters.Add("@dealerId", SqlDbType.Int).Value = entity.DealerId;
 
-                        cmd.Parameters.Add("@pqId", SqlDbType.BigInt).Value = pqId;
-                        cmd.Parameters.Add("@customerName", SqlDbType.VarChar, 50).Value = customerName;
-                        cmd.Parameters.Add("@customerEmail", SqlDbType.VarChar, 50).Value = customerEmail;
-                        cmd.Parameters.Add("@customerMobile", SqlDbType.VarChar, 50).Value = customerMobile;
+                        cmd.Parameters.Add("@pqId", SqlDbType.Int).Value = entity.PQId;
+                        cmd.Parameters.Add("@customerName", SqlDbType.VarChar, 50).Value = entity.CustomerName;
+                        cmd.Parameters.Add("@customerEmail", SqlDbType.VarChar, 50).Value = entity.CustomerEmail;
+                        cmd.Parameters.Add("@customerMobile", SqlDbType.VarChar, 50).Value = entity.CustomerMobile;
+
+                        if (entity.ColorId.HasValue)
+                        {
+                            cmd.Parameters.Add("@colorId", SqlDbType.Int).Value = entity.ColorId.Value;
+                        }
+
+                        if (entity.LeadSourceId.HasValue)
+                        {
+                            cmd.Parameters.Add("@LeadSourceId", SqlDbType.TinyInt).Value = entity.LeadSourceId.Value;
+                        }
+                        if (!String.IsNullOrEmpty(entity.UTMA))
+                        {
+                            cmd.Parameters.Add("@utma", SqlDbType.VarChar, 100).Value = entity.UTMA;
+                        }
+                        if (!String.IsNullOrEmpty(entity.UTMZ))
+                        {
+                            cmd.Parameters.Add("@utmz", SqlDbType.VarChar, 100).Value = entity.UTMZ;
+                        }
+                        if (!String.IsNullOrEmpty(entity.DeviceId))
+                        {
+                            cmd.Parameters.Add("@deviceId", SqlDbType.VarChar, 25).Value = entity.DeviceId;
+                        }
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
@@ -88,6 +109,8 @@ namespace Bikewale.DAL.BikeBooking
         /// <summary>
         /// Created By : Sadhana Upadhyay on 29 Oct 2014
         /// Summary : To update isverified flag in newbikedealerpricequote table
+        /// Modified By : Sadhana Upadhyay on 30 Nov 2015
+        /// Summary : to add record in PQ_LeadNotifications table
         /// </summary>
         /// <param name="pqId"></param>
         /// <returns></returns>
@@ -171,7 +194,6 @@ namespace Bikewale.DAL.BikeBooking
             return isSuccess;
         }
 
-
         /// <summary>
         /// Created By : Sadhana Upadhyay on 3 Nov 2014
         /// Summary : To update ispushedtoab flag in pq_newbikedealerpricequote
@@ -214,6 +236,8 @@ namespace Bikewale.DAL.BikeBooking
 
             return isSuccess;
         }
+
+# if unused
         /// <summary>
         /// Written By : Ashwini Todkar on 3 Oct 2014
         /// Method to shedule appointment to dealer
@@ -258,7 +282,7 @@ namespace Bikewale.DAL.BikeBooking
 
             return isSuccess;
         }
-
+#endif
         /// <summary>
         /// Created By : Sadhana Upadhyay on 10 Nov 2014
         /// Summary : To get customer details
@@ -293,12 +317,14 @@ namespace Bikewale.DAL.BikeBooking
                                 CustomerEmail = dr["CustomerEmail"].ToString(),
                                 CustomerMobile = dr["CustomerMobile"].ToString(),
                                 AreaDetails = new Entities.Location.AreaEntityBase() { AreaName = dr["AreaName"].ToString() },
-                                cityDetails = new Entities.Location.CityEntityBase() { CityName = dr["CityName"].ToString() }
+                                cityDetails = new Entities.Location.CityEntityBase() { CityName = dr["CityName"].ToString(), CityId = Convert.ToUInt32(dr["CityId"]) }
                             };
                             objCustomer.IsTransactionCompleted = Convert.ToBoolean(dr["TransactionCompleted"]);
                             objCustomer.AbInquiryId = Convert.ToString(dr["AbInquiryId"]);
+                            objCustomer.SelectedVersionId = Convert.ToUInt32(dr["SelectedVersionId"]);
+                            objCustomer.DealerId = Convert.ToUInt32(dr["DealerId"]);
                         }
-                        
+
                         if (dr.NextResult())
                         {
                             if (dr.Read())
@@ -850,7 +876,6 @@ namespace Bikewale.DAL.BikeBooking
         }   //End of GetAreaList
         #endregion
 
-
         public PQOutputEntity ProcessPQ(Entities.PriceQuote.PriceQuoteParametersEntity PQParams)
         {
             throw new NotImplementedException();
@@ -859,20 +884,20 @@ namespace Bikewale.DAL.BikeBooking
         public BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId)
         {
             BookingPageDetailsEntity entity = null;
-            IEnumerable<BikeModelColor> bikeModelColors = null;
             Database db = null;
             List<DealerPriceCategoryItemEntity> DealerPriceCategoryItemEntities = null;
             List<BikeDealerPriceDetail> BikeDealerPriceDetails = null;
             List<string> disclaimers = null;
             List<DealerOfferEntity> offers = null;
             DealerDetails objDealerDetails = null;
+            List<BikeVersionColorsAvailability> modelColorList = null;
             try
             {
                 db = new Database(ConfigurationManager.AppSettings["connectionstring"]);
 
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "BW_GetVarientsPriceDetail";
+                    cmd.CommandText = "BW_GetVarientsPriceDetail_13012016";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = cityId;
                     cmd.Parameters.Add("@VersionId", SqlDbType.Int).Value = versionId;
@@ -897,6 +922,7 @@ namespace Bikewale.DAL.BikeBooking
                                 );
                             }
                             #endregion
+
                             #region Version Price Details
                             if (reader.NextResult())
                             {
@@ -932,13 +958,15 @@ namespace Bikewale.DAL.BikeBooking
                                                 ModelId = Convert.ToInt32(reader["ModelId"]),
                                                 ModelName = Convert.ToString(reader["ModelName"])
                                             },
-                                            NoOfWaitingDays = Convert.ToUInt32(reader["NumOfDays"]),
+                                            NoOfWaitingDays = Convert.ToInt16(reader["NumOfDays"]),
                                             OnRoadPrice = Convert.ToUInt32(reader["OnRoadPrice"]),
                                         }
                                         );
                                 }
                             }
                             #endregion
+
+                            #region Get Disclaimers
                             if (reader.NextResult())
                             {
                                 disclaimers = new List<string>();
@@ -946,7 +974,9 @@ namespace Bikewale.DAL.BikeBooking
                                 {
                                     disclaimers.Add(Convert.ToString(reader["Disclaimer"]));
                                 }
-                            }
+                            } 
+                            #endregion
+
                             #region Dealer Offer Entity
                             if (reader.NextResult())
                             {
@@ -965,6 +995,7 @@ namespace Bikewale.DAL.BikeBooking
                                 }
                             }
                             #endregion
+
                             #region Dealer Details
                             if (reader.NextResult())
                             {
@@ -993,7 +1024,29 @@ namespace Bikewale.DAL.BikeBooking
                                     };
                                 }
                             }
+                            #endregion 
+
+                            #region Model Colors Versionwise
+                            if (reader.NextResult())
+                            {
+                                if (reader.HasRows)
+                                {
+                                    modelColorList = new List<BikeVersionColorsAvailability>();
+                                    while (reader.Read())
+                                    {
+                                        modelColorList.Add(new BikeVersionColorsAvailability()
+                                        {
+                                            ColorId = Convert.ToUInt32(reader["ColorId"]),
+                                            NoOfDays = Convert.ToInt16(reader["NumOfDays"]),
+                                            ColorName = Convert.ToString(reader["ColorName"]),
+                                            HexCode = Convert.ToString(reader["HexCode"]),
+                                            VersionId = Convert.ToUInt32(reader["BikeVersionId"])
+                                        });
+                                    }
+                                }
+                            } 
                             #endregion
+
                             entity = new BookingPageDetailsEntity();
                             entity.Dealer = objDealerDetails;
                             entity.Disclaimers = disclaimers;
@@ -1011,15 +1064,40 @@ namespace Bikewale.DAL.BikeBooking
                                      }).ToList());
 
                             entity.Varients = BikeDealerPriceDetails;
-                            if (entity.Varients != null && entity.Varients.Count > 0)
+
+                            if (entity.Varients != null && entity.Varients.Count > 0 && modelColorList!=null )
                             {
-                                int modelId = entity.Varients[0].Model.ModelId;
-                                IEnumerable<BikeModelColor> colorList = GetVariantColorByModel(entity.Varients[0].Model.ModelId);
                                 foreach (var variant in entity.Varients)
                                 {
-                                    variant.BikeModelColors = from color in colorList
-                                                              where color.ModelId == variant.MinSpec.VersionId
-                                                              select color;
+                                    
+                                    var ColorListForDealer = from color in modelColorList
+                                                             where color.VersionId == variant.MinSpec.VersionId 
+                                                             group color by color.ColorId into newgroup
+                                                             orderby newgroup.Key
+                                                             select newgroup;
+
+
+                                    var objColorAvail = new List<BikeVersionColorsWithAvailability>();
+                                    foreach (var color in ColorListForDealer)
+                                    {
+                                        BikeVersionColorsWithAvailability objAvail = new BikeVersionColorsWithAvailability();
+
+                                        objAvail.ColorId = color.Key;
+
+                                        IList<string> HexCodeList = new List<string>();
+                                        foreach (var colorList in color)
+                                        {
+                                            objAvail.ColorName = colorList.ColorName;
+                                            objAvail.NoOfDays = colorList.NoOfDays;
+                                            objAvail.VersionId = colorList.VersionId;
+                                            HexCodeList.Add(colorList.HexCode);
+
+                                        }
+                                        objAvail.HexCode = HexCodeList;
+                                        objColorAvail.Add(objAvail);
+                                    }
+
+                                    variant.BikeModelColors = objColorAvail;
                                 }
                             }
                         }
@@ -1158,6 +1236,5 @@ namespace Bikewale.DAL.BikeBooking
 
             return colors;
         }
-
     }   //End of class
 }   //End of namespace

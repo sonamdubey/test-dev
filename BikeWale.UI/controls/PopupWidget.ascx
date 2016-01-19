@@ -1,5 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" Inherits="Bikewale.controls.PopupWidget" %>
 <!--bw popup code starts here-->
+<script type="text/javascript">
+    var sourceHref = '0';
+</script>
 <script runat="server">
     private string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     private string staticFileVersion1 = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
@@ -7,37 +10,39 @@
 <link href="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/css/chosen.min.css?<%=staticFileVersion1 %>" rel="stylesheet" />
 
 <div class="bw-popup hide bw-popup-sm" id="popupWrapper">
-    <div class="popup-inner-container" stopBinding: true>
+    <div class="popup-inner-container" stopbinding: true>
         <div class="bwsprite popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
         <div class="cityPop-icon-container">
-            <div class="cityPopup-box rounded-corner50 margin-bottom20">
-                <span class="bwsprite cityPopup-icon margin-top10"></span>
+            <div class="icon-outer-container rounded-corner50 margin-bottom20">
+                <div class="icon-inner-container rounded-corner50">
+                    <span class="bwsprite orp-location-icon margin-top20"></span>
+                </div>
             </div>
         </div>
         <p class="font20 margin-top15 text-capitalize text-center">Please Tell Us Your Location</p>
         <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Get on-road prices by just sharing your location!</p>
         <div class="padding-top10" id="popupContent">
             <div>
-                <select data-placeholder="--Select City--" class="chosen-select"  id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'CityName', optionsValue: 'CityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }" ></select> 
-                 <span class="bwsprite error-icon hide"></span>
+                <select data-placeholder="--Select City--" class="chosen-select" id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }"></select>
+                <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
-            <div data-bind="visible: bookingAreas().length > 0" style="margin-top:10px">
-                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'AreaName', optionsValue: 'AreaId', optionsCaption: '--Select Area--'"></select>
+            <div data-bind="visible: bookingAreas().length > 0" style="margin-top: 10px">
+                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--'"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
-                <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top15" style="display:block;margin-right:auto;margin-left:auto;" type="button" value="Get on road price" data-bind="event: { click: getPriceQuotePopup }">
-                <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
-            </div>
-        </div> 
+            <input id="btnDealerPricePopup" class="action-btn text-uppercase margin-top15" style="display: block; margin-right: auto; margin-left: auto;" type="button" value="Get on road price" data-bind="event: { click: getPriceQuotePopup }">
+            <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
+        </div>
     </div>
+</div>
 </div>
 <!--bw popup code ends here-->
 
 <script type="text/javascript">
 
-    var preSelectedCityId =0;
+    var preSelectedCityId = 0;
     var preSelectedCityName = "";
     popupcity = $('#ddlCitiesPopup');
     popupArea = $('#ddlAreaPopup');
@@ -45,7 +50,7 @@
     var selectedMakeName = '', selectedModelName = '', selectedCityName = '', selectedAreaName = '', gaLabel = '';
     var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
     var metroCitiesIds = [40, 12, 13, 10, 224, 1, 198, 105, 246, 176, 2, 128];
-    var pageId;
+    var pageId, PQSourceId;
     var onCookieObj = {};
 
     // knockout popupData binding
@@ -53,16 +58,21 @@
         selectedCity: ko.observable(),
         bookingCities: ko.observableArray([]),
         selectedArea: ko.observable(),
-        bookingAreas: ko.observableArray([])
+        bookingAreas: ko.observableArray([]),
+        hasAreas: ko.observable()
     };
 
+    function findCityById(vm, id) {
+        return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
+            return child.cityId === id;
+        });
+    }
 
-    function FillCitiesPopup(modelId, makeName, modelName,pageIdAttr) {
+    function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr, pqSourceId) {
+        PQSourceId = pqSourceId;
         $.ajax({
-            type: "POST",
-            url: "/ajaxpro/Bikewale.Ajax.AjaxPriceQuote,Bikewale.ashx",
-            data: '{"modelId":"' + modelId + '"}',
-            beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteCitiesNew"); },
+            type: "GET",
+            url: "/api/PQCityList/?modelId=" + modelId,
             success: function (response) {
                 selectedModel = modelId;
                 pageId = pageIdAttr;
@@ -73,15 +83,15 @@
                     selectedModelName = modelName;
 
                 $('.blackOut-window,#popupWrapper').fadeIn(100);
-                var obj = JSON.parse(response);
-                var cities = JSON.parse(obj.value);
-                var citySelected = null; 
+                var cities = response.cities;
+                var citySelected = null;
                 if (cities) {
                     insertCitySeparator(cities);
                     checkCookies();
                     viewModelPopup.bookingCities(cities);
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
                         viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
+                        viewModelPopup.hasAreas(findCityById(viewModelPopup, onCookieObj.PQCitySelectedId).hasAreas);
                     }
                     popupcity.find("option[value='0']").prop('disabled', true);
                     popupcity.trigger('chosen:updated');
@@ -99,29 +109,39 @@
     function cityChangedPopup() {
         //gtmCodeAppender(pageId, "City Selected", null);
         if (viewModelPopup.selectedCity() != undefined) {
-            $.ajax({
-                type: "POST",
-                url: "/ajaxpro/Bikewale.Ajax.AjaxPriceQuote,Bikewale.ashx",
-                data: '{"cityId":"' + viewModelPopup.selectedCity() + '","modelId":"' + selectedModel + '"}',
-                dataType: 'json',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetPriceQuoteArea"); },
-                success: function (response) {
-                    areas = $.parseJSON(response.value);
-                    if (areas.length) {
-                        viewModelPopup.bookingAreas(areas);
-                        if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
-                            viewModelPopup.selectedArea(onCookieObj.PQAreaSelectedId);
-                            onCookieObj.PQAreaSelectedId = 0;
+
+            viewModelPopup.hasAreas(findCityById(viewModelPopup, viewModelPopup.selectedCity()).hasAreas);
+            if (viewModelPopup.hasAreas() != undefined && viewModelPopup.hasAreas()) {
+                $.ajax({
+                    type: "GET",
+                    url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelPopup.selectedCity(),
+                    dataType: 'json',
+                    success: function (response) {
+                        areas = response.areas;
+                        if (areas.length) {
+                            viewModelPopup.bookingAreas(areas);
+                            if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
+                                viewModelPopup.selectedArea(onCookieObj.PQAreaSelectedId);
+                                onCookieObj.PQAreaSelectedId = 0;
+                            }
+                            $('#ddlAreaPopup').trigger("chosen:updated");
                         }
-                        $('#ddlAreaPopup').trigger("chosen:updated");
-                    }
-                    else {
+                        else {
+                            viewModelPopup.selectedArea(0);
+                            viewModelPopup.bookingAreas([]);
+                            $('#ddlAreaPopup').trigger("chosen:updated");
+                        }
+                    },
+                    error: function (e) {
                         viewModelPopup.selectedArea(0);
                         viewModelPopup.bookingAreas([]);
                         $('#ddlAreaPopup').trigger("chosen:updated");
                     }
-                }
-            });
+                });
+            }
+            else {
+                viewModelPopup.bookingAreas([]);
+            }
         } else {
             viewModelPopup.bookingAreas([]);
         }
@@ -154,46 +174,67 @@
     function getPriceQuotePopup() {
         var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
         if (isValidInfoPopup()) {
-
-            //set global cookie
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
-            $.ajax({
-                type: 'POST',
-                url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
-                data: '{"cityId":"' + cityId + '", "areaId":"' + areaId + '", "modelId":"' + selectedModel + '", "isMobileSource":false}',
-                dataType: 'json',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
-                success: function (json) {
-                    var jsonObj = $.parseJSON(json.value);
-                    
-                    selectedCityName = $("#ddlCitiesPopup option:selected").text();
+            if (ga_pg_id != null && ga_pg_id == 2 && sourceHref == '1') {
+                window.location.reload();// = "/new/bikeModel.aspx?model=cbshine#modelDetailsContainer";
+            }
+            else {
+                var obj = {
+                    'CityId': viewModelPopup.selectedCity(),
+                    'AreaId': viewModelPopup.selectedArea(),
+                    'ModelId': selectedModel,
+                    'ClientIP': '',
+                    'SourceType': '1',
+                    'VersionId': 0,
+                    'pQLeadId': PQSourceId,
+                    'deviceId': getCookie('BWC')
+                };
 
-                    if (areaId > 0)
-                        selectedAreaName = $("#ddlAreaPopup option:selected").text();
+                $.ajax({
+                    type: 'POST',
+                    url: "/api/PriceQuote/",
+                    data: obj,
+                    dataType: 'json',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('utma', getCookie('__utma'));
+                        xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                    },
+                    success: function (json) {
+                        var jsonObj = json;
 
-                    if (selectedMakeName != "" && selectedModelName != "" && selectedCityName != "") {
-                        gaLabel = selectedMakeName + ',' + selectedModelName + ',' + selectedCityName;
+                        selectedCityName = $("#ddlCitiesPopup option:selected").text();
 
-                        if (selectedAreaName != '')
-                            gaLabel += ',' + selectedAreaName;
-                    }
-                    if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-                        gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit' , gaLabel);
-                        window.location = "/pricequote/dealerpricequote.aspx";
-                    }
-                    else if (jsonObj != undefined && jsonObj.quoteId > 0) {
-                        gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
-                        window.location = "/pricequote/quotation.aspx";
-                    } else {
+                        if (areaId > 0)
+                            selectedAreaName = $("#ddlAreaPopup option:selected").text();
+
+                        if (selectedMakeName != "" && selectedModelName != "" && selectedCityName != "") {
+                            gaLabel = selectedMakeName + ',' + selectedModelName + ',' + selectedCityName;
+
+                            if (selectedAreaName != '')
+                                gaLabel += ',' + selectedAreaName;
+                        }
+
+                        cookieValue = "CityId=" + viewModelPopup.selectedCity() + "&AreaId=" + (!isNaN(viewModelPopup.selectedArea()) ? viewModelPopup.selectedArea() : 0) + "&PQId=" + jsonObj.quoteId + "&VersionId=" + jsonObj.versionId + "&DealerId=" + jsonObj.dealerId;
+                        //SetCookie("_MPQ", cookieValue);
+
+                        if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+                            gtmCodeAppender(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                            window.location = "/pricequote/dealerpricequote.aspx" + "?MPQ=" + Base64.encode(cookieValue);
+                        }
+                        else if (jsonObj != undefined && jsonObj.quoteId > 0) {
+                            gtmCodeAppender(pageId, 'BW_PriceQuote_Success_Submit', gaLabel);
+                            window.location = "/pricequote/quotation.aspx" + "?MPQ=" + Base64.encode(cookieValue);
+                        } else {
+                            gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+                            $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
+                        }
+                    },
+                    error: function (e) {
                         gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
-                        $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
+                        $("#errMsg").text("Oops. Some error occured. Please try again.").show();
                     }
-                },
-                error: function (e) {
-                    gtmCodeAppender(pageId,'BW_PriceQuote_Error_Submit', gaLabel);
-                    $("#errMsg").text("Oops. Some error occured. Please try again.").show();
-                }
-            });
+                });
+            }
         } else {
             gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
             $("#errMsgPopup").text("Please select all the details").show();
@@ -247,21 +288,29 @@
                 onCookieObj.PQCitySelectedName = cData[1];
                 onCookieObj.PQAreaSelectedId = parseInt(cData[2]);
                 onCookieObj.PQAreaSelectedName = cData[3];
-
             }
         }
     }
 
     $(document).ready(function () {
-
-        $('a.fillPopupData').on('click', function (e) {
+        $('body').on('click', 'a.fillPopupData', function (e) {
+            if (ga_pg_id != null & ga_pg_id == 2) {
+                var attr = $(this).attr('ismodel');
+                if (typeof attr !== typeof undefined && attr !== false) {
+                    $('html, body').animate({
+                        scrollTop: $("#breadcrumb").offset().top
+                    }, 10);
+                    sourceHref = '1';
+                }
+            }
             pageIdAttr = $(this).attr('pageCatId');
             e.preventDefault();
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
             var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
             var modelIdPopup = parseInt(str, 10);
-            FillCitiesPopup(modelIdPopup, makeName, modelName, pageIdAttr);
+            PQSourceId = $(this).attr("pqSourceId");
+            FillCitiesPopup(modelIdPopup, makeName, modelName, pageIdAttr, PQSourceId);
             gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);
         });
 
@@ -275,7 +324,7 @@
 
         ko.applyBindings(viewModelPopup, $("#popupContent")[0]);
     });
-        
+
 
 </script>
 <script type="text/javascript" src="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/src/common/chosen.jquery.min.js?<%= staticFileVersion1 %>"></script>

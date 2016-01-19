@@ -1,4 +1,6 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Notifications.NotificationDAL;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -80,7 +82,14 @@ namespace Bikewale.Notifications
             }
         }//
 
-
+        /// <summary>
+        /// Modified By : Sadhana Upadhyay on 22 Dec 2015 
+        /// Summary : To push sms in priority queue
+        /// </summary>
+        /// <param name="number"></param>
+        /// <param name="name"></param>
+        /// <param name="code"></param>
+        /// <param name="pageUrl"></param>
         public void SMSMobileVerification(string number, string name, string code, string pageUrl)
         {
             try
@@ -89,10 +98,10 @@ namespace Bikewale.Notifications
 
                 string message = "";
 
-                message = "You have expressed interest in registering your mobile no with BikeWale. The verification code is " + code + ". This is a one-time registration process.";
+                message = code + " is the OTP for verifying your mobile number at BikeWale. This is a one time verification process.";
 
                 SMSCommon sc = new SMSCommon();
-                sc.ProcessSMS(number, message, esms, pageUrl, true);
+                sc.ProcessPrioritySMS(number, message, esms, pageUrl, true);
             }
             catch (Exception err)
             {
@@ -119,9 +128,7 @@ namespace Bikewale.Notifications
             {
                 EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToDealer;
 
-                string message = "";
-
-                message = "BikeWale purchase enquiry: Please call " + customerName + ", " + areaName + ", " + cityName + " at " + customerMobile + " for " + BikeName + " and schedule customer visit.";
+                string message = NewBikePQDealerSMSTemplate(customerName, customerMobile, BikeName, areaName, cityName);
 
                 SMSCommon sc = new SMSCommon();
                 sc.ProcessSMS(dealerMobileNo, message, esms, pageUrl);
@@ -151,6 +158,8 @@ namespace Bikewale.Notifications
             {
                 // To check if user has accepted offer with respect to Flipkart vouchers
                 bool isFlipkartOffer = false;
+                bool isAccessories = false;
+
                 if (dealerEntity.objOffers != null && dealerEntity.objOffers.Count > 0)
                 {
                     foreach (var offer in dealerEntity.objOffers)
@@ -160,36 +169,16 @@ namespace Bikewale.Notifications
                             isFlipkartOffer = true;
                             break;
                         }
+                        else if (offer.OfferText.ToLower().Contains("accessories"))
+                        {
+                            isAccessories = true;
+                            break;
+                        }
                     }
                 }
                 EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer;
-                
-                string message = "";
-                //message = "Dear " + customerName + ", Thank you for showing interest in " + BikeName + ". Dealer details: " + dealerName + ", " + dealerContactNo + ", " + dealerAddress;
-                if (!hasBumperDealerOffer)
-                {
-                    if (insuranceAmount == 0)
-                    {
-                        if (isFlipkartOffer)
-                        {
-                            message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Rs. 1,000 Flipkart vouchers %26 1-year RSA from BikeWale.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
-                        }
-                        else
-                        {
-                            //message = String.Format("Avail your FREE Vega Helmet %26 1-year RSA from BikeWale on purchase of {0} from {1}({2}) Dealer Address: {3}.", BikeName, dealerName, dealerContactNo, dealerAddress);
-                            //message = String.Format("Pay Rs. {1} to book your {0} at BikeWale to get a helmet worth Rs. 1000 and one year RSA absolutely FREE!", BikeName, bookingAmount);
-                            message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Helmet %26 1-year RSA from BikeWale.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
-                        }
-                    }
-                    else
-                    {
-                        message = String.Format("Pay Rs. {3} to book your {0} online at BikeWale %26 get 100%25 discount on Insurance at {1}({2})", BikeName, dealerName, dealerContactNo, bookingAmount);
-                    }
-                }
-                else
-                {
-                    message = String.Format("Pay Rs. {0} to book your {1} at BikeWale to get free insurance, free accessories worth Rs. 3,000 and discount on bike worth Rs. 1,000 at the dealership!", bookingAmount, BikeName);
-                }
+
+                string message = NewBikePQCustomerSMSTemplate(BikeName, dealerName, dealerContactNo, dealerAddress, bookingAmount, insuranceAmount, hasBumperDealerOffer, isFlipkartOffer, isAccessories);
                 
                 SMSCommon sc = new SMSCommon();
                 sc.ProcessSMS(customerMobile, message, esms, pageUrl);
@@ -303,5 +292,168 @@ namespace Bikewale.Notifications
                 objErr.SendMail();
             }
         }
-    }
-}
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 1 Dec 2015
+        /// Summary : To send sms to dealer for new bike price quote
+        /// </summary>
+        /// <param name="dealerMobileNo"></param>
+        /// <param name="customerName"></param>
+        /// <param name="customerMobile"></param>
+        /// <param name="BikeName"></param>
+        /// <param name="areaName"></param>
+        /// <param name="cityName"></param>
+        /// <param name="pageUrl"></param>
+        public void SaveNewBikePriceQuoteSMSToDealer(uint pqId, string dealerMobileNo, string customerName, string customerMobile, string BikeName, string areaName, string cityName, string pageUrl)
+        {
+            try
+            {
+                EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToDealer;
+
+                string message = NewBikePQDealerSMSTemplate(customerName, customerMobile, BikeName, areaName, cityName);
+
+                SavePQNotification obj = new SavePQNotification();
+                obj.SaveDealerPQSMSTemplate(pqId,message, (int)esms, dealerMobileNo, pageUrl);
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("Notifications.NewBikePriceQuoteSMSToDealer : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "Notifications.NewBikePriceQuoteSMSToDealer");
+                objErr.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 1 Dec 2015
+        /// Summary : To Save sms to customer for new bike price quote
+        /// </summary>
+        /// <param name="dealerMobileNo"></param>
+        /// <param name="customerName"></param>
+        /// <param name="BikeName"></param>
+        /// <param name="dealerName"></param>
+        /// <param name="dealerContactNo"></param>
+        /// <param name="dealerAddress"></param>
+        /// <param name="pageUrl"></param>
+        public void SaveNewBikePriceQuoteSMSToCustomer(uint pqId, PQ_DealerDetailEntity dealerEntity, string customerMobile, string customerName, string BikeName, string dealerName, string dealerContactNo, string dealerAddress, string pageUrl, uint bookingAmount, uint insuranceAmount = 0, bool hasBumperDealerOffer = false)
+        {
+            try
+            {
+                // To check if user has accepted offer with respect to Flipkart vouchers
+                bool isFlipkartOffer = false;
+                bool isAccessories = false;
+                
+                if (dealerEntity.objOffers != null && dealerEntity.objOffers.Count > 0)
+                {
+                    foreach (var offer in dealerEntity.objOffers)
+                    {
+                        if (offer.OfferText.ToLower().Contains("flipkart"))
+                        {
+                            isFlipkartOffer = true;
+                            break;
+                        }
+                        else if (offer.OfferText.ToLower().Contains("accessories"))
+                        {
+                            isAccessories = true;
+                            break;
+                       }
+                    }
+                }
+                EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer;
+
+                string message = NewBikePQCustomerSMSTemplate(BikeName, dealerName, dealerContactNo, dealerAddress, bookingAmount, insuranceAmount, hasBumperDealerOffer, isFlipkartOffer, isAccessories);
+
+                SavePQNotification obj = new SavePQNotification();
+                obj.SaveCustomerPQSMSTemplate(pqId, message, (int)esms, customerMobile, pageUrl);
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("Notifications.SaveNewBikePriceQuoteSMSToCustomer : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "Notifications.NewBikePriceQuoteSMSToCustomer");
+                objErr.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 1 Dec 2015
+        /// Summary : to get new bike price quote customer sms template
+        /// </summary>
+        /// <param name="BikeName"></param>
+        /// <param name="dealerName"></param>
+        /// <param name="dealerContactNo"></param>
+        /// <param name="dealerAddress"></param>
+        /// <param name="bookingAmount"></param>
+        /// <param name="insuranceAmount"></param>
+        /// <param name="hasBumperDealerOffer"></param>
+        /// <param name="isFlipkartOffer"></param>
+        /// <returns></returns>
+        private static string NewBikePQCustomerSMSTemplate(string BikeName, string dealerName, string dealerContactNo, string dealerAddress, uint bookingAmount, uint insuranceAmount, bool hasBumperDealerOffer, bool isFlipkartOffer, bool isAccessories)
+        {
+            string message = "";
+            //message = "Dear " + customerName + ", Thank you for showing interest in " + BikeName + ". Dealer details: " + dealerName + ", " + dealerContactNo + ", " + dealerAddress;
+            if (!hasBumperDealerOffer)
+            {
+                if (insuranceAmount == 0)
+                {
+                    if (isFlipkartOffer)
+                    {
+                        //message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Rs. 1,000 Flipkart vouchers & 1-year RSA from BikeWale.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
+                        message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Rs. 1,000 Flipkart vouchers.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
+                    }
+                    else if(isAccessories)
+                    {
+                        message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Accessories at the dealership.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
+                    }
+                    else
+                    {
+                        //message = String.Format("Avail your FREE Vega Helmet %26 1-year RSA from BikeWale on purchase of {0} from {1}({2}) Dealer Address: {3}.", BikeName, dealerName, dealerContactNo, dealerAddress);
+                        //message = String.Format("Pay Rs. {1} to book your {0} at BikeWale to get a helmet worth Rs. 1000 and one year RSA absolutely FREE!", BikeName, bookingAmount);
+                        message = String.Format("Pay Rs. {0} on BikeWale to book your bike, pay balance amount at {1} {2} ({3}), and claim Free Helmet %26 1-year RSA from BikeWale.", bookingAmount, dealerName, dealerAddress, dealerContactNo);
+                    }
+                }
+                else
+                {
+                    message = String.Format("Pay Rs. {3} to book your {0} online at BikeWale %26 get 100%25 discount on Insurance at {1}({2})", BikeName, dealerName, dealerContactNo, bookingAmount);
+                }
+            }
+            else
+            {
+                message = String.Format("Pay Rs. {0} to book your {1} at BikeWale to get free insurance, free accessories worth Rs. 3,000 and discount on bike worth Rs. 1,000 at the dealership!", bookingAmount, BikeName);
+            }
+            return message;
+        }
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 1 Dec 2015
+        /// Summary : To get new bike price quote dealer template
+        /// </summary>
+        /// <param name="customerName"></param>
+        /// <param name="customerMobile"></param>
+        /// <param name="BikeName"></param>
+        /// <param name="areaName"></param>
+        /// <param name="cityName"></param>
+        /// <returns></returns>
+        private static string NewBikePQDealerSMSTemplate(string customerName, string customerMobile, string BikeName, string areaName, string cityName)
+        {
+            string message = "";
+
+            message = "BikeWale purchase enquiry: Please call " + customerName + ", " + areaName + ", " + cityName + " at " + customerMobile + " for " + BikeName + " and schedule customer visit.";
+            return message;
+        }
+
+        public void SaveNewBikePriceQuoteSMSToCustomer(uint pqId, string message, string customerMobile, string requestUrl)
+        {
+            try                
+            {
+                EnumSMSServiceType esms = EnumSMSServiceType.NewBikePriceQuoteSMSToCustomer;
+                SavePQNotification obj = new SavePQNotification();
+                obj.SaveCustomerPQSMSTemplate(pqId, message, (int)esms, customerMobile, requestUrl);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notifications.SMSTypes.SaveNewBikePriceQuoteSMSToCustomer");
+                objErr.SendMail();
+            }
+        }
+
+    }   //End of class
+}   //End of namespace

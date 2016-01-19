@@ -1,5 +1,7 @@
 ﻿using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Notifications.MailTemplates;
+using Bikewale.Notifications.NotificationDAL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,7 +76,7 @@ namespace Bikewale.Notifications
         /// <param name="dealerMobile"></param>
         public static void BookingEmailToCustomer(string customerEmail, string customerName, List<OfferEntity> offerList, string bookingReferenceNo, uint preBookingAmount, string bikeName, string makeName, string modelName, string dealerName, string dealerAddress, string dealerMobile, uint insuranceAmount = 0)
         {
-            ComposeEmailBase objEmail = new PreBookingConfirmationToCustomer(customerName, offerList, bookingReferenceNo, preBookingAmount, bikeName,makeName, modelName, dealerName, dealerAddress, dealerMobile, DateTime.Now, insuranceAmount);
+            ComposeEmailBase objEmail = new PreBookingConfirmationToCustomer(customerName, offerList, bookingReferenceNo, preBookingAmount, bikeName, makeName, modelName, dealerName, dealerAddress, dealerMobile, DateTime.Now, insuranceAmount);
             objEmail.Send(customerEmail, "Congratulations on pre-booking the " + bikeName, "");
         }
 
@@ -144,5 +146,107 @@ namespace Bikewale.Notifications
                 }
             }
         }
+
+
+        #region Save sms and email information of the customer and dealer after generating the leads
+
+        public static void SaveEmailToDealer(uint pqId, string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, uint insuranceAmount = 0)
+        {
+            if (!String.IsNullOrEmpty(dealerEmail))
+            {
+                string[] arrDealerEmail = dealerEmail.Split(',');
+
+                foreach (string email in arrDealerEmail)
+                {
+                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeName, modelName, dealerName, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, DateTime.Now, insuranceAmount);
+
+                    string emailBody = objEmail.ComposeBody();
+
+                    // Save the template into database and other parameters
+
+                    //objEmail.Send(email, "BikeWale Purchase Inquiry - " + makeName + " " + modelName + " " + versionName, customerEmail);
+                    SavePQNotification obj = new SavePQNotification();
+                    obj.SaveDealerPQEmailTemplate(pqId, emailBody, "BikeWale Purchase Inquiry - " + makeName + " " + modelName + " " + versionName, customerEmail);
+                }
+            }
+        }
+
+        public static void SaveEmailToCustomer(uint pqId, string bikeName, string bikeImage, string dealerName, string dealerEmail, string dealerMobileNo, string organization, string address, string customerName, string customerEmail, List<PQ_Price> priceList, List<OfferEntity> offerList, string pinCode, string stateName, string cityName, uint totalPrice, uint isInsuranceFree = 0)
+        {
+            ComposeEmailBase objEmail = new NewBikePriceQuoteToCustomerTemplate(bikeName, bikeImage, dealerName, dealerEmail, dealerMobileNo, organization, "", address, customerName, DateTime.Now, priceList, offerList, pinCode, stateName, cityName, totalPrice, isInsuranceFree);
+
+            // Save the template into database and other parameters
+
+            string emailBody = objEmail.ComposeBody();
+
+            SavePQNotification obj = new SavePQNotification();
+            obj.SaveCustomerPQEmailTemplate(pqId, emailBody, "Your Dealer Price Certificate - " + bikeName, dealerEmail.Split(',')[0]);
+
+            //objEmail.Send(customerEmail, "Your Dealer Price Certificate - " + bikeName, dealerEmail);
+        }
+
+        public static void SaveSMSToDealer(uint pqId, string dealerMobile, string customerName, string customerMobile, string bikeName, string areaName, string cityName)
+        {
+            Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
+            obj.SaveNewBikePriceQuoteSMSToDealer(pqId, dealerMobile, customerName, customerMobile, bikeName, areaName, cityName, HttpContext.Current.Request.ServerVariables["URL"].ToString());
+
+            // Save the template into database and other parameters
+
+        }
+
+        public static void SaveSMSToCustomer(uint pqId, PQ_DealerDetailEntity dealerEntity, string customerMobile, string customerName, string BikeName, string dealerName, string dealerContactNo, string dealerAddress, uint bookingAmount, uint insuranceAmount = 0, bool hasBumperDealerOffer = false)
+        {
+            Bikewale.Notifications.SMSTypes obj = new Bikewale.Notifications.SMSTypes();
+            // Save the template into database and other parameters
+            obj.SaveNewBikePriceQuoteSMSToCustomer(pqId, dealerEntity, customerMobile, customerName, BikeName, dealerName, dealerContactNo, dealerAddress, HttpContext.Current.Request.ServerVariables["URL"].ToString(), bookingAmount, insuranceAmount, hasBumperDealerOffer);
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 08 Jan 2016
+        /// Description :   Saves the Customer Lead SMS
+        /// </summary>
+        /// <param name="pqId">Price Quote Id</param>
+        /// <param name="objDPQSmsEntity">DPQ SMS Entity</param>
+        /// <param name="DPQType"></param>
+        /// <param name="requestUrl"></param>
+        public static void SaveSMSToCustomer(uint pqId, string requestUrl, DPQSmsEntity objDPQSmsEntity, DPQTypes DPQType)
+        {
+            string message = String.Empty;
+
+            try
+            {
+                SMSTypes obj = new SMSTypes();
+                switch (DPQType)
+                {
+                    case DPQTypes.NoOfferNoBooking:
+                        message = String.Format("{0},{1} ({2}) will call you regarding your bike inquiry on BikeWale. For more details, visit {3}", objDPQSmsEntity.DealerName, objDPQSmsEntity.Locality, objDPQSmsEntity.DealerMobile, objDPQSmsEntity.LandingPageShortUrl);
+                        break;
+                    case DPQTypes.NoOfferOnlineBooking:
+                        message = String.Format("You can now book {0} by just paying Rs. {1} at your convenience. This amount will be adjusted against the total payment. For more details, visit {2}", objDPQSmsEntity.BikeName, objDPQSmsEntity.BookingAmount, objDPQSmsEntity.LandingPageShortUrl);
+                        break;
+                    case DPQTypes.OfferNoBooking:
+                        message = String.Format("We are running exciting offers on purchase of {0} from {1},{2}. Hurry! Offer valid till stock lasts. For more details, visit {3}", objDPQSmsEntity.BikeName, objDPQSmsEntity.DealerName, objDPQSmsEntity.Locality, objDPQSmsEntity.LandingPageShortUrl);
+                        break;
+                    case DPQTypes.OfferAndBooking:
+                        message = String.Format("We are running exciting offers on online booking of {0} at BikeWale. Hurry! Offer valid till stock lasts. For more details, visit {1}", objDPQSmsEntity.BikeName, objDPQSmsEntity.LandingPageShortUrl);
+                        break;
+                    case DPQTypes.AndroidAppNoOfferNoBooking:
+                    case DPQTypes.AndroidAppOfferNoBooking:
+                        message = String.Format("Hi {0}, thanks for your interest on BikeWale. {1},{2} ({3}) will call you regarding your bike inquiry.", objDPQSmsEntity.CustomerName, objDPQSmsEntity.DealerName, objDPQSmsEntity.Locality, objDPQSmsEntity.DealerMobile);
+                        break;
+                }
+                if (objDPQSmsEntity != null && !String.IsNullOrEmpty(objDPQSmsEntity.CustomerMobile) && !String.IsNullOrEmpty(message) && pqId > 0)
+                {
+                    obj.SaveNewBikePriceQuoteSMSToCustomer(pqId, message, objDPQSmsEntity.CustomerMobile, requestUrl);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notifications.SendEmailSMSToDealerCustomer.SaveSMSToCustomer");
+                objErr.SendMail();
+            }
+        }
+
+        #endregion
     }
 }

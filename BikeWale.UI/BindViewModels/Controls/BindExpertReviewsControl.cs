@@ -29,12 +29,11 @@ namespace Bikewale.BindViewModels.Controls
         public void BindExpertReviews(Repeater rptr)
         {
             FetchedRecordsCount = 0;
+
             try
             {
                 IEnumerable<ArticleSummary> _objArticleList = null;
-
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
+                
                 string _contentType = (int)EnumCMSContentType.RoadTest + "," + (int)EnumCMSContentType.ComparisonTests;
                 string _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + TotalRecords;
 
@@ -47,7 +46,11 @@ namespace Bikewale.BindViewModels.Controls
                         _apiUrl = "webapi/article/mostrecentlist/?applicationid=2&contenttypes=" + _contentType + "&totalrecords=" + TotalRecords + "&makeid=" + MakeId;
                 }
 
-                _objArticleList = BWHttpClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objArticleList);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //_objArticleList = objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.BWConfiguration.Instance.CwApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
+                    _objArticleList = objClient.GetApiResponseSync<IEnumerable<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objArticleList);
+                }
 
                 if (_objArticleList != null && _objArticleList.Count() > 0)
                 {

@@ -34,6 +34,6 @@ namespace Bikewale.Entities.PriceQuote
         /// <summary>
         /// Bike Model Colors
         /// </summary>
-        public IEnumerable<BikeModelColor> BikeModelColors { get; set; }
+        public IEnumerable<BikeVersionColorsWithAvailability> VersionColors { get; set; }
     }
 }

@@ -17,8 +17,10 @@
         keywords = "new bikes, new bikes prices, new bikes comparisons, bikes dealers, on-road price, bikes research, bikes india, Indian bikes, bike reviews, bike photos, specs, features, tips & advices";
         description = "New bikes in India. Search for the right new bikes for you, know accurate on-road price and discounts. Compare new bikes and find dealers.";
         canonical = "http://www.bikewale.com/new/";
-        AdPath = "/1017752/Bikewale_Mobile_NewBikes_";
-        AdId = "1398766302464";
+        AdPath = "/1017752/Bikewale_Mobile_NewHome";
+        AdId = "1450262524302";
+        Ad320x150_I = true;
+        Ad320x150_II = true;
      %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -37,7 +39,6 @@
             <!-- Top banner code ends here -->
         </div>
     </section> 
-
     <section class="container">
         <!-- Brand section code starts here -->
         <div class="grid-12">
@@ -249,7 +250,12 @@
         </div>
         <div class="clear"></div>
     </section>
-
+    
+    <% if (Ad320x150_I) { %>
+        <section>
+            <!-- #include file="/ads/Ad320x150_First.aspx" -->
+        </section>
+        <% } %>
     <section> <!--  Upcoming, New Launches and Top Selling code starts here -->
         <div class="container <%= ((mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount + mctrlMostPopularBikes.FetchedRecordsCount) > 0 )?"":"hide" %> ">
             <div class="grid-12 alpha omega">
@@ -264,40 +270,40 @@
                     </div>
                     <div class="grid-12">
                     <div class="bw-tabs-data " id="mctrlMostPopularBikes">
-                        <div class="jcarousel-wrapper discover-bike-carousel">
-                            <div class="jcarousel">
-                                <ul>
-                                    <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
-                                </ul>
+                        <div class="swiper-container padding-bottom60">
+                            <div class="swiper-wrapper discover-bike-carousel">
+                                 <BW:MMostPopularBikes PageId="4" runat="server" ID="mctrlMostPopularBikes" />
                             </div>
-                            <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                            <p class="jcarousel-pagination text-center"></p>
+                           <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Navigation -->
+                            <div class="bwmsprite swiper-button-next hide"></div>
+                            <div class="bwmsprite swiper-button-prev hide"></div>
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="mctrlNewLaunchedBikes">
-                        <div class="jcarousel-wrapper discover-bike-carousel">
-                            <div class="jcarousel">
-                                <ul>
+                        <div class="swiper-container padding-bottom60">
+                            <div class="swiper-wrapper discover-bike-carousel">
                                     <BW:MNewLaunchedBikes PageId="4" runat="server" ID="mctrlNewLaunchedBikes" />
-                                </ul>
                             </div>
-                            <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                            <p class="text-center jcarousel-pagination"></p>
+                            <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Navigation -->
+                            <div class="bwmsprite swiper-button-next hide"></div>
+                            <div class="bwmsprite swiper-button-prev hide"></div>
                         </div>
                     </div>
                     <div class="bw-tabs-data hide" id="mctrlUpcomingBikes">
-                        <div class="jcarousel-wrapper upComingBikes">
-                            <div class="jcarousel">
-                                <ul>
+                        <div class="swiper-container padding-bottom60">
+                            <div class="swiper-wrapper discover-bike-carousel">
                                     <BW:MUpcomingBikes runat="server" ID="mctrlUpcomingBikes" />
                                     <!-- Upcoming Bikes Control-->
-                                </ul>
                             </div>
-                            <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                            <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                            <p class="text-center jcarousel-pagination"></p>
+                           <!-- Add Pagination -->
+                            <div class="swiper-pagination"></div>
+                            <!-- Navigation -->
+                            <div class="bwmsprite swiper-button-next hide"></div>
+                            <div class="bwmsprite swiper-button-prev hide"></div>
                         </div>
                     </div>
                     </div>
@@ -313,6 +319,12 @@
         <BW:CompareBike ID="ctrlCompareBikes" runat="server" />
         
     </section>
+
+    <% if (Ad320x150_II) { %>
+        <section>
+            <!-- #include file="/ads/Ad320x150_Second.aspx" -->
+        </section>
+    <% } %>
 
     <section class="container">
         <!-- Tools you may need code starts here -->

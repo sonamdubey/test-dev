@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
+using log4net;
+using Bikewale.Utility;
 
 namespace Bikewale
 {
@@ -13,8 +15,12 @@ namespace Bikewale
         protected void Application_Start(object sender, EventArgs e)
         {
             Bikewale.Service.WebApiConfig.Register(GlobalConfiguration.Configuration);
-            GlobalConfiguration.Configuration.EnsureInitialized();
-            Bikewale.Common.BWConfiguration.CreateInstance();
+            GlobalConfiguration.Configuration.EnsureInitialized();            
+        }
+
+        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        {            
+            CurrentUser.GenerateUniqueCookie();
         }
     }
 }

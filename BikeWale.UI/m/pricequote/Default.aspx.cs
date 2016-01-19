@@ -28,6 +28,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Mobile.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.BAL.BikeBooking;
+using Bikewale.Utility;
 
 namespace Bikewale.Mobile.PriceQuote
 {
@@ -239,6 +240,10 @@ namespace Bikewale.Mobile.PriceQuote
                         objPQEntity.VersionId = Convert.ToUInt32(versionId);
                         objPQEntity.ModelId = Convert.ToUInt32(modelId);
                         // If pqId exists then, set pqId
+                        objPQEntity.PQLeadId = Convert.ToUInt16(PQSourceEnum.Mobile_PQ_Landing);
+                        objPQEntity.UTMA = Request.Cookies["__utma"] != null ? Request.Cookies["__utma"].Value : "";
+                        objPQEntity.UTMZ = Request.Cookies["__utmz"] != null ? Request.Cookies["__utmz"].Value : "";
+                        objPQEntity.DeviceId = Request.Cookies["BWC"] != null ? Request.Cookies["BWC"].Value : "";
                         objPQOutput = objIPQ.ProcessPQ(objPQEntity);
 
                     }
@@ -255,17 +260,15 @@ namespace Bikewale.Mobile.PriceQuote
                     if (objPQOutput.DealerId > 0 && objPQOutput.PQId > 0)
                     {
                         // Save pq cookie
-                        PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
-
-                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx", false);
+                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                        
+                        Response.Redirect("~/m/pricequote/dealerpricequote.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString())), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
                     else if (objPQOutput.PQId > 0)
                     {
-                        PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());
-
-                        Response.Redirect("~/m/pricequote/quotation.aspx", false);
+                        //PriceQuoteCookie.SavePQCookie(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString());                        
+                        Response.Redirect("~/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(objPQEntity.CityId.ToString(), objPQOutput.PQId.ToString(), objPQEntity.AreaId.ToString(), objPQOutput.VersionId.ToString(), objPQOutput.DealerId.ToString())), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }

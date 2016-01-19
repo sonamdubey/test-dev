@@ -492,6 +492,13 @@
             </summary>
             <param name="documentPath">The physical path to XML document.</param>
         </member>
+        <member name="T:Bikewale.Service.AutoMappers.App.AppVersionMapper">
+            <summary>
+            Author      :   Sumit Kate
+            Created on  :   07 Dec 2015
+            Description :   Automapper config for AppVersion Entity to DTO
+            </summary>
+        </member>
         <member name="T:Bikewale.Service.AutoMappers.Dealer.DealerListMapper">
             <summary>
             Created By : Sushil Kumar
@@ -505,6 +512,25 @@
             Created On : 7th October 2015
             Get list of all dealers with details for a given make and city
             </summary>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.App.AppVersionCheckController">
+            <summary>
+            Author      :   Sumit Kate
+            Description :   To check whether APP Versions is supported and Latest
+            Created On  :   07 Dec 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.App.AppVersionCheckController.#ctor(Bikewale.Interfaces.App.IAppVersion)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="AppVersion"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.App.AppVersionCheckController.Get">
+            <summary>
+            Checks the App Version is supported and latest
+            </summary>
+            <returns>AppVersion DTO</returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.AutoComplete.AutoSuggestController">
             <summary>
@@ -676,6 +702,8 @@
             Booking Summary Controller
             Author  :   Sumit Kate
             Created On  :   25 Aug 2015
+            Modified By : Sushil Kumar on 7th Dec 2015
+            Description : Added varients with min specs and price
             </summary>
         </member>
         <member name="M:Bikewale.Service.Controllers.BookingSummary.BookingSummaryController.Get(System.UInt32,System.UInt32,System.UInt32,System.UInt32)">
@@ -845,6 +873,57 @@
             <param name="cityId"></param>
             <param name="clientId"></param>
             <returns>List of dealers of paticular make in city</returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Insurance.InsuranceLeadController">
+            <summary>
+            Created BY : Lucky Rathore
+            Date : 20 November 2015
+            Description : API to handle User Insurance Detail.
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Insurance.InsuranceLeadController.#ctor(Bikewale.Interfaces.Customer.ICustomerAuthentication{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.Customer.ICustomer{Bikewale.Entities.Customer.CustomerEntity,System.UInt32})">
+            <summary>
+            Description : Initialize mentioned Objects
+            </summary>
+            <param name="objAuthCustomer"></param>
+            <param name="objCustomer"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Insurance.InsuranceLeadController.POST(Bikewale.Entities.Insurance.InsuranceLead)">
+            <summary>
+            Created By : Lucky Rathore
+            Date : 20 November 2015
+            Description : To submit detail of user for bike Insurance via post method.
+            </summary>
+            <param name="insuranceLead"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Insurance.InsuranceModelsController">
+            <summary>
+            Created By : Lucky Rathore
+            Date : 23 Nov 2015
+            Description : To call Policyboss Model API.
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Insurance.InsuranceModelsController.Get(System.Int32)">
+            <summary>
+            Description : Send Client Models detail on specified Make ID.
+            </summary>
+            <param name="modelId"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.Insurance.InsuranceVersionsController">
+            <summary>
+            Created By : Lucky Rathore
+            Date : 23 Nov 2015
+            Description : To call Policyboss Model API.
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Insurance.InsuranceVersionsController.Get(System.Int32)">
+            <summary>
+            Description : Send Client Versions detail on specified model ID.
+            </summary>
+            <param name="modelId"></param>
+            <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.LeadsGeneration.ManufacturerLeadController">
             <summary>
@@ -1139,17 +1218,20 @@
             Created :   08 Sept 2015
             </summary>
         </member>
-        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.PriceQuote.IPriceQuote)">
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.PriceQuote.IPriceQuote,Bikewale.Interfaces.BikeData.IBikeModels{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
             <summary>
             Constructor
             </summary>
             <param name="objIPQ"></param>
             <param name="objPriceQuote"></param>
+            <param name="modelsRepository"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.Get(System.UInt32,System.UInt32,System.String,Bikewale.DTO.PriceQuote.PQSources,System.Nullable{System.UInt32})">
             <summary>
             Gets the On Road Price Quote
             Includes the Bike Wale price quote and Dealer price quote
+            Modified By : Sushil kumar  on  2nd Dec 2015
+            Description : Added bike details to response (for android)
             </summary>
             <param name="cityId">city id</param>
             <param name="modelId">model id</param>
@@ -1185,6 +1267,8 @@
             generated the OTP for the non verified customer
             Modified By :   Sumit Kate on 18 Nov 2015
             Description :   Save the State of the Booking Journey as Described in Task# 107795062 
+            Modified By :   Sumit Kate on 08 Dec 2015
+            Description :   Update the Bike Version. Fixed the APP functionality.
             </summary>
             <param name="input">Customer details with price quote details</param>
             <returns></returns>
@@ -1224,8 +1308,47 @@
         <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Post(Bikewale.DTO.PriceQuote.PQUpdateInput)">
             <summary>
             Updates the Price Quote data for given Price Quote Id
+            Modified By : Sadhana Upadhyay on 22 Dec 2015
+            Summary : To update Notification template in PQ_LeadNotification Table
             </summary>
             <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQController.Post(Bikewale.DTO.PriceQuote.PQUpdateInput,System.UInt32)">
+            <summary>
+            Created By : Sushil Kumar
+            Created On  : 11th Nov 2015
+            Updates the Price Quote data for given Price Quote Id  colorId and versionId
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.UpdatePQCustomerDetailsController">
+            <summary>
+            Price Quote Customer Detail Controller with VersionId and ColorId Updation
+            Author      :   Sushil Kumar
+            Created On  :   12th December 2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQCustomerDetailsController.#ctor(Bikewale.Interfaces.Customer.ICustomerAuthentication{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.Customer.ICustomer{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.MobileVerification.IMobileVerificationRepository,Bikewale.Interfaces.MobileVerification.IMobileVerification,Bikewale.Interfaces.Dealer.IDealer,Bikewale.Interfaces.PriceQuote.IPriceQuote)">
+            <summary>
+            
+            </summary>
+            <param name="objAuthCustomer"></param>
+            <param name="objCustomer"></param>
+            <param name="objDealerPriceQuote"></param>
+            <param name="mobileVerRespo"></param>
+            <param name="mobileVerificetion"></param>
+            <param name="objDealer"></param>
+            <param name="objPriceQuote"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQCustomerDetailsController.Post(Bikewale.DTO.PriceQuote.UpdatePQCustomerInput)">
+            <summary>
+            Similar to PQCustomer Controller but updates color and version
+            Saves the Customer details if it is a new customer else updates version/color  for the same.
+            Generates  the OTP for the non verified customer
+            </summary>
+            <param name="input">Customer details with price quote details</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.Version.PQVersionListController">
@@ -1864,8 +1987,10 @@
         </member>
         <member name="M:Bikewale.Service.UnityConfiguration.UnityBootstrapper.Initialize">
             <summary>
-            Modified By : Lucky Rathore on on 06 Nov. 2015.
-            Description : Register BikeCompareCacheRepository.
+            Modified By :   Lucky Rathore on on 06 Nov. 2015.
+            Description :   Register BikeCompareCacheRepository.
+            Modified By :   Sumit Kate on 08 Dec 2015
+            Description :   Register AppVersionRepository.
             </summary>
             <returns></returns>
         </member>

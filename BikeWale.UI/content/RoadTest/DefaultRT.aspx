@@ -1,4 +1,5 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultRT" Trace="false"  Async="true"%>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Content.DefaultRT" Trace="false" Async="true" %>
+
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="/controls/LinkPagerControl.ascx" %>
 <%@ Register TagPrefix="Mms" TagName="MakeModelSearch" Src="/Controls/MakeModelSearch.ascx" %>
@@ -6,21 +7,17 @@
 <%@ Register TagPrefix="uc" TagName="InstantBikePrice" Src="/controls/instantbikeprice.ascx" %>
 <%
     title = "Road tests, First drives of New Bikes in India";
-	description = "Road testing a bike is the only way to know true capabilities of a bike. Read our road tests to know how bikes perform on various aspects.";
-   	keywords = "road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives";
+    description = "Road testing a bike is the only way to know true capabilities of a bike. Read our road tests to know how bikes perform on various aspects.";
+    keywords = "road test, road tests, roadtests, roadtest, bike reviews, expert bike reviews, detailed bike reviews, test-drives, comprehensive bike tests, bike preview, first drives";
     canonical = "http://www.bikewale.com" + "/road-tests/";
     alternate = "http://www.bikewale.com" + "/m/road-tests/";
     prevPageUrl = prevUrl;
     nextPageUrl = nextUrl;
     AdId = "1395986297721";
-    AdPath = "/1017752/BikeWale_New_";
+    AdPath = "/1017752/Bikewale_Reviews_";
 %>
-
-
-
-
 <!-- #include file="/includes/headNew.aspx" -->
-<script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <div class="container_12 margin-bottom20 padding-bottom20">
     <div class="grid_12">
         <ul class="breadcrumb">
@@ -28,13 +25,15 @@
             <li><a href="/">Home</a></li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>Road Tests</strong></li>
-        </ul><div class="clear"></div>
-    </div>    
+        </ul>
+        <div class="clear"></div>
+    </div>
     <div id="content" class="grid_8 margin-top10">
-    	<h1>Road Tests &nbsp;&nbsp;&nbsp;</h1>
-        <Mms:MakeModelSearch id="MakeModelSearch" RequestType="RoadTest" runat="server" Visible="false"></Mms:MakeModelSearch><div class="clear"></div>
+        <h1>Road Tests &nbsp;&nbsp;&nbsp;</h1>
+        <Mms:MakeModelSearch ID="MakeModelSearch" RequestType="RoadTest" runat="server" Visible="false"></Mms:MakeModelSearch>
+        <div class="clear"></div>
         <div class="alert moz-round" id="alertObj" runat="server" visible="false"></div>
-			<asp:Repeater ID="rptRoadTest" runat="server" EnableViewState="false">
+        <asp:repeater id="rptRoadTest" runat="server" enableviewstate="false">
 				<Itemtemplate>					
 					<div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class="margin-bottom15">
 						<div class="anchor-title">
@@ -62,42 +61,44 @@
 					</div>
                     <div class="sept-dashed"></div>
 			</Itemtemplate>
-		</asp:Repeater>		
-        <BikeWale:RepeaterPager id="linkPager" runat="server"/>     
-	</div>
-    <div class="grid_4"><!--    Right Container starts here -->  
+		</asp:repeater>
+        <BikeWale:RepeaterPager ID="linkPager" runat="server" />
+    </div>
+    <div class="grid_4">
+        <!--    Right Container starts here -->
         <%--<div class="margin-top15">
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>--%>              
+        </div>--%>
         <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
             <uc:InstantBikePrice runat="server" ID="ucInstantBikePrice" />
         </div>
-        <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">            
-            <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />          
+        <div class="light-grey-bg content-block border-radius5 margin-top10 padding-bottom20 margin-top15">
+            <CE:CalculateEMIMin runat="server" ID="CalculateEMIMin" />
             <div class="clear"></div>
         </div>
-        <%--<div class="margin-top15">
+        <div>
             <!-- BikeWale_NewBike/BikeWale_NewBike_HP_300x250 -->
             <!-- #include file="/ads/Ad300x250BTF.aspx" -->
-        </div>--%>
+        </div>        
     </div>
-</div>
-      
 </div>
 <%--<script type="text/javascript" language="javascript">
     $("a[rel='slide']").colorbox({ width: "700px", height: "500px" });
 </script>--%>
-<script type="text/javascript" src="/src/common/jquery.colorbox-min.js?v=1.0"></script>
+<script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <script type="text/javascript">
-$(document).ready(function () {
-    
-    $(".cboxElement").colorbox({
-        rel: 'cboxElement'
+    $(document).ready(function () {
+
+        $(".cboxElement").colorbox({
+            rel: 'cboxElement'
+        });
     });
-});
-</script> 
+</script>
 <style type="text/css">
-     #colorbox   { width:400px !important; height:400px !important; }
+    #colorbox {
+        width: 400px !important;
+        height: 400px !important;
+    }
 </style>
 <!-- #include file="/includes/footerInner.aspx" -->

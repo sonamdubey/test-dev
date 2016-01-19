@@ -26,8 +26,12 @@ namespace Bikewale.DAL.PriceQuote
         /// Summary : function to save the price quote.
         /// Modified By : Sadhana Upadhyay on 24th Oct 2014
         /// Summary : Added AreaId varible and removed customerid, customer name, customer email, customer mobile variable
+        /// Modified By : Ashis G. Kamble on 22 Nov 2012.
+        /// Added : Check whether version id is null or not. If null do not save pricequote.
         /// Modified By : Sadhana Upadhyay on 20 July 2015
         /// Summary : Added Dealer id as parameter to save in newbikepricequotes table
+        /// Modified By : Sadhana Upadhyay on 29 Dec 2015
+        /// Summary : save utma. utmz, PQ Source id, device id 
         /// </summary>
         /// <param name="pqParams">All necessory parameters to save the price quote</param>
         /// <returns>Returns registered price quote id</returns>
@@ -37,8 +41,7 @@ namespace Bikewale.DAL.PriceQuote
             Database db = null;
             try
             {
-                // Modified By : Ashis G. Kamble on 22 Nov 2012.
-                // Added : Check whether version id is null or not. If null do not save pricequote.
+
                 if (pqParams.VersionId > 0)
                 {
                     db = new Database();
@@ -47,7 +50,7 @@ namespace Bikewale.DAL.PriceQuote
                         using (SqlCommand cmd = new SqlCommand())
                         {
                             cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.CommandText = "SavePriceQuote_New";
+                            cmd.CommandText = "SavePriceQuote_New_30122015";
                             cmd.Connection = conn;
 
                             cmd.Parameters.Add("@CityId", SqlDbType.Int).Value = pqParams.CityId;
@@ -60,6 +63,23 @@ namespace Bikewale.DAL.PriceQuote
                             cmd.Parameters.Add("@ClientIP", SqlDbType.VarChar, 40).Value = String.IsNullOrEmpty(pqParams.ClientIP) ? Convert.DBNull : pqParams.ClientIP;
                             cmd.Parameters.Add("@QuoteId", SqlDbType.BigInt).Direction = ParameterDirection.Output;
                             cmd.Parameters.Add("@DealerId", SqlDbType.Int).Value = pqParams.DealerId;
+
+                            if (pqParams.PQLeadId.HasValue)
+                            {
+                                cmd.Parameters.Add("@PQSourceId", SqlDbType.TinyInt).Value = pqParams.PQLeadId.Value;
+                            }
+                            if (!String.IsNullOrEmpty(pqParams.UTMA))
+                            {
+                                cmd.Parameters.Add("@utma", SqlDbType.VarChar, 100).Value = pqParams.UTMA;
+                            }
+                            if (!String.IsNullOrEmpty(pqParams.UTMZ))
+                            {
+                                cmd.Parameters.Add("@utmz", SqlDbType.VarChar, 100).Value = pqParams.UTMZ;
+                            }
+                            if (!String.IsNullOrEmpty(pqParams.DeviceId))
+                            {
+                                cmd.Parameters.Add("@deviceId", SqlDbType.VarChar, 25).Value = pqParams.DeviceId;
+                            }
 
                             conn.Open();
                             cmd.ExecuteNonQuery();
@@ -246,6 +266,8 @@ namespace Bikewale.DAL.PriceQuote
         /// Author      :   Sumit Kate
         /// Created On  :   16 Oct 2015
         /// Description :   Updates the price quote data
+        /// Modified By : Sushil Kumar On 11th Nov 2015
+        /// Summary : Update colorId in PQ_NewBikeDealerPriceQuotes
         /// </summary>
         /// <param name="pqParams"></param>
         /// <returns></returns>
@@ -266,6 +288,11 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Connection = conn;
                         cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
                         cmd.Parameters.Add("@BikeVersionId", SqlDbType.Int).Value = pqParams.VersionId;
+
+                        if (pqParams.ColorId > 0)
+                        {
+                            cmd.Parameters.Add("@BikeColorId", SqlDbType.Int).Value = pqParams.ColorId;
+                        }
 
                         conn.Open();
                         int rowsAffected = cmd.ExecuteNonQuery();
@@ -303,7 +330,7 @@ namespace Bikewale.DAL.PriceQuote
             try
             {
                 db = new Database();
-                
+
                 using (SqlConnection conn = new SqlConnection(db.GetConString()))
                 {
                     using (SqlCommand cmd = new SqlCommand())
@@ -333,6 +360,58 @@ namespace Bikewale.DAL.PriceQuote
                 db.CloseConnection();
             }
             return isUpdated;
+        }
+
+        /// <summary>
+        /// Author          :   Sumit Kate
+        /// Created date    :   08 Jan 2016
+        /// Description     :   Gets the Areaid, cityid, dealerid, bikeversionid by pqid
+        /// This is required to form the PQ Query string
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <returns></returns>
+        public PriceQuoteParametersEntity FetchPriceQuoteDetailsById(ulong pqId)
+        {
+            PriceQuoteParametersEntity objQuotation = null;
+            Database db = null;
+            try
+            {
+                db = new Database();
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "GetPriceQuoteData";
+                        cmd.CommandType = CommandType.StoredProcedure;                        
+
+                        cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
+                        using (SqlDataReader dr = db.SelectQry(cmd))
+                        {
+                            objQuotation = new PriceQuoteParametersEntity();
+                            while (dr.Read())
+                            {
+                                objQuotation.AreaId = Convert.ToUInt32(dr["AreaId"]);
+                                objQuotation.CityId = Convert.ToUInt32(dr["cityid"]);
+                                objQuotation.VersionId = Convert.ToUInt32(dr["BikeVersionId"]);
+                                objQuotation.DealerId = Convert.ToUInt32(dr["DealerId"]);                                
+                            }
+                        }
+                        
+                    }
+                }
+            }
+            catch (Exception ex)
+            {                
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
+            }
+
+            return objQuotation;
         }
     }   // Class
 }   // namespace

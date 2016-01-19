@@ -11,11 +11,15 @@
          alternate = "http://www.bikewale.com/m/insurance/";
          canonical = "http://www.bikewale.com/insurance/"; 
          %>
+    <%
+        isAd970x90Shown = false;
+        isAd970x90BottomShown = false;
+         %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/home.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/insurance.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/pikaday.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>    
-    
+        
     <%  isTransparentHeader = true;   %>
 </head>
 <body class="bg-light-grey">
@@ -92,10 +96,10 @@
                             </li>
                             <li>
                                 <div class="bikeDetailsBox form-control-box">
-                                    <input type="text" class="form-control " id="versionName" placeholder="Select variant" tabindex="5" data-bind="textInput: versionName"/>
+                                    <input type="text" class="form-control " id="versionName" placeholder="Select version" tabindex="5" data-bind="textInput: versionName"/>
                                     <span id="versionLoader" style="display: none;" class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black hide"></span> 
                                     <span class="bwsprite error-icon"></span>
-                                    <div class="bw-blackbg-tooltip">Please select variant</div>
+                                    <div class="bw-blackbg-tooltip">Please select version</div>
                                 </div>
                             </li>
                             <li>
@@ -153,7 +157,7 @@
                 <div id="responseContainer"><!-- responseContainer -->
                 	<p class="font18 margin-top10 text-bold">Thank You!</p>
                     <p class="font16">Hi <span id="responseUserName"></span>! <br>
-                    Thank you for your interest in our Insurance policy. You can expect a call back soon from our Excutives regarding the same. We assure you, your details will not shared with anyone.
+                    Thank you for expressing interest. You will get a call from our partner, PolicyBoss (Landmark Insurance Brokers), with exciting insurance offers.
                     </p>
                 </div>
                 
@@ -211,7 +215,7 @@
                                     	Damage to / by person driving without a valid driving license
                                     </li>
                                     <li>
-                                    	Loss or damage caused while riding under the influence of alcohol or any other intoxicating substance
+                                    	Loss or damage caused while NOT riding under the influence of alcohol or any other intoxicating substance
                                     </li>
                                     <li>
                                     	Loss or damage due to depreciation of the vehicle's value

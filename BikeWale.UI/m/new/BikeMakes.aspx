@@ -10,9 +10,9 @@
 <head>
     <%
         title = _make.MakeName + " Price in India, Review, Mileage & Photos - Bikewale";
-        description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(Bikewale.BindViewModels.Controls.BindMakePage.MinPrice.ToString()) +
-           " to  Rs." + Bikewale.Utility.Format.FormatPrice(Bikewale.BindViewModels.Controls.BindMakePage.MaxPrice.ToString()) + ". Check out " + _make.MakeName +
-           " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+        description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) +
+           " to  Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName +
+           " on road price, reviews, mileage, versions, news & photos at Bikewale.";
         canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";
         AdPath = "/1017752/Bikewale_Mobile_Make";
         AdId = "1017752";
@@ -101,7 +101,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="clear"></div>
-                                                        <a href="javascript:void(0)" makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName")) %>" modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" pagecatid="1" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
+                                                        <a href="javascript:void(0)" makename="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objMake.MakeName")) %>" modelname="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelName")) %>" pagecatid="1" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_MakePage %>" modelid="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "objModel.ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData">Get on road price</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -123,19 +123,16 @@
 
     <section class="<%= (Convert.ToInt32(ctrlUpcomingBikes.FetchedRecordsCount) > 0) ? "" : "hide" %>" ><!--  Upcoming, New Launches and Top Selling code starts here -->        
     	<div class="container" >
-                <div class="grid-12 ">
+                <div class="grid-12 margin-bottom30">
                     <h2 class="text-center margin-top30 margin-bottom20">Upcoming <%= _make.MakeName %> bikes</h2>
-                    <div class="jcarousel-wrapper upComingBikes">
-                        <div class="jcarousel">
-                            <ul>
-                                <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
-                            </ul>
+                    <div class="swiper-container upComingBikes padding-bottom60">
+                        <div class="swiper-wrapper">
+                            <BW:MUpcomingBikes runat="server" ID="ctrlUpcomingBikes" />
                         </div>
-                        <span class="jcarousel-control-left"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-prev"></a></span>
-                        <span class="jcarousel-control-right"><a href="javascript:void(0)" class="bwmsprite jcarousel-control-next"></a></span>
-                        <p class="text-center jcarousel-pagination"></p>
+                        <div class="text-center swiper-pagination"></div>
+                        <div class="bwmsprite swiper-button-next hide"></div>
+                        <div class="bwmsprite swiper-button-prev hide"></div>
                     </div>
-
                 </div>
                 <div class="clear"></div>
             </div>

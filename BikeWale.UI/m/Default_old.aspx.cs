@@ -47,12 +47,13 @@ namespace Bikewale.Mobile
                 Trace.Warn("content ty " + _contentTypeList);
                 List<ArticleSummary> _objFeaturedList = null;
 
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
                 string _apiUrl = "webapi/article/featuredlist/?applicationid=2&contenttypes=" + _contentTypeList + "&totalrecords=" + 4;
 
-                _objFeaturedList = await BWHttpClient.GetApiResponse<List<ArticleSummary>>(_cwHostUrl, _requestType, _apiUrl, _objFeaturedList);
-
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    _objFeaturedList = await objClient.GetApiResponse<List<ArticleSummary>>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objFeaturedList);
+                }
+                
                 if (_objFeaturedList != null && _objFeaturedList.Count > 0)
                 {
                     rptFeaturedArticles.DataSource = _objFeaturedList;

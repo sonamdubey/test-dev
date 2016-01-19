@@ -64,20 +64,20 @@ namespace Bikewale.Mobile.BikeBooking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (PriceQuoteCookie.IsPQCoockieExist())
+            if (PriceQuoteQueryString.IsPQQueryStringExists())
             {
-                pqId = Convert.ToUInt32(PriceQuoteCookie.PQId);
-                cityId = PriceQuoteCookie.CityId;
-                if (!String.IsNullOrEmpty(PriceQuoteCookie.DealerId))
-                    dealerId = PriceQuoteCookie.DealerId;
-                versionId = PriceQuoteCookie.VersionId;
+                pqId = Convert.ToUInt32(PriceQuoteQueryString.PQId);
+                cityId = PriceQuoteQueryString.CityId;
+                if (!String.IsNullOrEmpty(PriceQuoteQueryString.DealerId))
+                    dealerId = PriceQuoteQueryString.DealerId;
+                versionId = PriceQuoteQueryString.VersionId;
 
                 if (!String.IsNullOrEmpty(dealerId) && pqId > 0)
                 {
                     getCustomerDetails();
                     GetDetailedQuote();
-                    GetBikeAvailability(dealerId, PriceQuoteCookie.VersionId);
-                    GetVersionColors(Convert.ToUInt32(PriceQuoteCookie.VersionId));
+                    GetBikeAvailability(dealerId, PriceQuoteQueryString.VersionId);
+                    GetVersionColors(Convert.ToUInt32(PriceQuoteQueryString.VersionId));
                 }
                 else
                 {
@@ -211,14 +211,13 @@ namespace Bikewale.Mobile.BikeBooking
         /// <param name="dealerId"></param>
         /// <param name="versionId"></param>
         private void GetBikeAvailability(string dealerId, string versionId)
-        {
-            string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            string _requestType = "application/json";
+        {            
             string _apiUrl = "/api/Dealers/GetAvailabilityDays/?dealerId=" + dealerId + "&versionId=" + versionId;
-            // Send HTTP GET requests 
-
-            noOfDays = BWHttpClient.GetApiResponseSync<uint>(_abHostUrl, _requestType, _apiUrl, noOfDays);
-
+         
+            using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+            {
+                noOfDays = objClient.GetApiResponseSync<uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, noOfDays);
+            }            
         }
 
         /// <summary>
@@ -229,15 +228,14 @@ namespace Bikewale.Mobile.BikeBooking
         {
             try
             {
-                //sets the base URI for HTTP requests
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteCookie.VersionId + "&DealerId=" + PriceQuoteCookie.DealerId + "&CityId=" + cityId;
-                // Send HTTP GET requests 
-
+                string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteQueryString.VersionId + "&DealerId=" + PriceQuoteQueryString.DealerId + "&CityId=" + cityId;
+                
                 Trace.Warn("_apiUrl: ", _apiUrl);
 
-                _objPQ = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, _objPQ);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                }                
 
                 if (_objPQ != null && _objPQ.objQuotation != null)
                 {
@@ -356,7 +354,7 @@ namespace Bikewale.Mobile.BikeBooking
                                 SendEmailSMSToDealerCustomer.SendEmailToDealer(_objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, _objPQ.objQuotation.objVersion.VersionName, _objPQ.objDealer.Name, _objPQ.objDealer.EmailId, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName, _objPQ.objQuotation.PriceList, Convert.ToInt32(TotalPrice), _objPQ.objOffers, insuranceAmount);
                                 SendEmailSMSToDealerCustomer.SMSToDealer(_objPQ.objDealer.MobileNo, objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, BikeName, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.cityDetails.CityName);
                             }
-                            DealerPriceQuoteCookie.CreateDealerPriceQuoteCookie(PriceQuoteCookie.PQId, true, true);
+                            DealerPriceQuoteCookie.CreateDealerPriceQuoteCookie(PriceQuoteQueryString.PQId, true, true);
                         }
                     }
 
@@ -382,7 +380,7 @@ namespace Bikewale.Mobile.BikeBooking
                 container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                 IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteCookie.PQId));
+                objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteQueryString.PQId));
             }
 
         }

@@ -6,12 +6,13 @@
     keywords = "used " + objInquiry.BikeName + ", used " + objInquiry.BikeName + " for sale, used " + objInquiry.BikeName + " in " + objInquiry.CityName;
     canonical = bikeCanonical;
     AdId = "1395992162974";
-    AdPath = "/1017752/BikeWale_UsedBikes_HomePage_";
+    AdPath = "/1017752/BikeWale_UsedBikes_Details_";
+
 %>
 <!-- #include file="/includes/headUsed.aspx" -->
-<script type="text/javascript" src="/src/common/bt.js?v1.1"></script>
-<link rel="stylesheet" type="text/css" href="/css/used-cd.css" />
-<script type="text/javascript" src="/src/classified/bikedetails.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/common/bt.js?v1.1"></script>
+<link rel="stylesheet" type="text/css" href="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/css/used-cd.css" />
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/classified/bikedetails.js?<%= staticFileVersion %>"></script>
 <style type="text/css">
     .feature-list li { float: left; width: 170px; }
     .cd-tbl th { font-weight:bold; }
@@ -93,14 +94,15 @@
                         <th>Insurance</th>
                         <td><%= objInquiry.Insurance %>
                             <br />
-                            <span class="text-grey"><%= objInquiry.InsuranceExpiry %></span></td>
+                            <span class="text-grey"><%= objInquiry.InsuranceExpiry %></span>
 
                             <% if(!String.IsNullOrEmpty(objInquiry.Insurance) && !(objInquiry.Insurance).ToLower().Contains("insurance")) {%>
                             <div style="position: relative; color: #999; font-size: 11px; margin-top: 1px;">
                                 Up to 60% off - <a onclick="dataLayer.push({ event: 'Bikewale_all', cat: 'Used_Bike_Detail_Page', act: 'Insurance_Clicked',lab: '<%= objInquiry.BikeName + "_" + objInquiry.CityName %>' });" target="_blank" href="/insurance/">PolicyBoss</a>
                                 <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span>
                             </div> 
-                        <% } %>                           
+                        <% } %>  
+                        </td>                        
                         <th>Lifetime-Tax</th>
                         <td><%= objInquiry.LifetimeTax %></td>
                     </tr>
@@ -293,10 +295,6 @@
     </div>
     <!--    Left Container ends here -->
     <div class="grid_4">
-        <div class="margin-top15">
-            <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
-            <!-- #include file="/ads/Ad300x250.aspx" -->
-        </div>               
         <div id="other_models" runat="server" class="margin-top15">
             <h2>More <%= objInquiry.MakeName +" "+ objInquiry.ModelName %></h2>
             <p class="margin-top5">Located in <%= objInquiry.CityName +", "+ objInquiry.StateCode %></p>
@@ -307,6 +305,10 @@
 			    </asp:repeater>
             </ul>
         </div>
+        <div class="margin-top15">
+            <!-- BikeWale_UsedBike/BikeWale_UsedBike_300x250 -->
+            <!-- #include file="/ads/Ad300x250.aspx" -->
+        </div>  
     </div>
     <!--    Right Container ends here -->
 </div>

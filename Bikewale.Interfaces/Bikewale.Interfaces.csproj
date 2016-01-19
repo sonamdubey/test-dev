@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppAlert\IAppAlert.cs" />
+    <Compile Include="App\IAppVersion.cs" />
     <Compile Include="AutoComplete\IAutoSuggest.cs" />
     <Compile Include="BikeBooking\IBikeBooking.cs" />
     <Compile Include="BikeBooking\IDealerPriceQuote.cs" />

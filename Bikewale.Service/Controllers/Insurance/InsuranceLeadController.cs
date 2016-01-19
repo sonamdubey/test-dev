@@ -49,13 +49,11 @@ namespace Bikewale.Service.Controllers.Insurance
         public IHttpActionResult POST([FromBody] InsuranceLead insuranceLead)
         {
             CustomerEntity objCust = null;
-            //Submission at Client Side
-            string _abHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-            string _requestType = "application/json";
+            //Submission at Client Side            
             string _apiUrl = "/api/insurance/quote/";
 
             //http Header Parameter
-            Dictionary<string, string> _headerParameters = new Dictionary<string, string>();
+            IDictionary<string, string> _headerParameters = new Dictionary<string, string>();
              _headerParameters.Add("clientid", "5");
             _headerParameters.Add("platformid", "2");
 
@@ -92,7 +90,11 @@ namespace Bikewale.Service.Controllers.Insurance
                 //    insuranceLead.CustomerId = _objCustomer.GetByEmail(insuranceLead.Email).CustomerId; 
                 //}
                 //Send at client Plicy boss side
-                response = BWHttpClient.PostSync<PostInsuranceDetail, ClientResponse>(_abHostUrl, _requestType, _apiUrl, detail, _headerParameters);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    //response = objClient.PostSync<PostInsuranceDetail, ClientResponse>(BWConfiguration.Instance.CwApiHostUrl, BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, detail, _headerParameters);
+                    response = objClient.PostSync<PostInsuranceDetail, ClientResponse>(APIHost.CW, BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, detail, _headerParameters);
+                }
                 //setting client reponse
                 if (response != null)
                 {

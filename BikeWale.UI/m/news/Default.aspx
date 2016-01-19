@@ -45,3 +45,6 @@
         <Pager:Pager id="listPager" runat="server"></Pager:Pager>
 </div>
 <!-- #include file="/includes/footermobile.aspx" -->
+<script type="text/javascript">
+    ga_pg_id = "10";
+</script>

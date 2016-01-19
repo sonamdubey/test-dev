@@ -7,8 +7,10 @@
     <div class="globalcity-popup rounded-corner2 hide" id="globalcity-popup"><!-- global city pop up code starts here -->
     	<div class="globalcity-popup-data text-center">
         	<div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-            <div class="cityPopup-box rounded-corner50 margin-bottom20">
-            	<span class="bwsprite cityPopup-icon margin-top10"></span>
+            <div class="icon-outer-container rounded-corner50 margin-bottom20">
+                <div class="icon-inner-container rounded-corner50">
+                    <span class="bwsprite cityPopup-icon margin-top15"></span>
+                </div>
             </div>
             <p class="font20 margin-bottom15">Please tell us your city</p>
             <p class="text-light-grey margin-bottom15">This allows us to provide relevant content for you.</p>
@@ -31,6 +33,7 @@
         <div class="leftfloat">
             <span class="navbarBtn bwsprite nav-icon margin-right25"></span>
             <a href="/" id="bwheader-logo" class="bwsprite bw-logo"></a>
+            <span class="ae-logo-border"></span><a href="http://www.carwale.com/autoexpo2016/" class="ae-sprite ae-logo" target="_blank"></a>
         </div>
         <div class="rightfloat">
             <div class="global-search position-rel " style="display:none">
@@ -58,10 +61,10 @@
     </div> <!-- ends here -->
     <div class="clear"></div>    
 <% if(isAd970x90Shown){ %>
-    <div class="bg-white <%= isHeaderFix ? "header-fixed-inner": "" %>">
+    <div class="bg-white ">
         <div class="container">
             <div class="grid-12">
-                <div class="margin-bottom15 margin-top15 text-center">
+                <div>
                     <!-- #include file="/ads/Ad970x90.aspx" -->
                 </div>
             </div>

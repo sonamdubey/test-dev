@@ -10,7 +10,7 @@
     fbImage = GetMainImagePath();//fbLogoUrl; 
     alternate = "http://www.bikewale.com/m/news/" + basicId + "-" + articleUrl + ".html";
     AdId="1395995626568";
-    AdPath="/1017752/BikeWale_News_HomePage_";
+    AdPath="/1017752/BikeWale_News_";
 %>
 <!-- #include file="/includes/headNews.aspx" -->
 <style type="text/css" >
@@ -86,7 +86,10 @@
         </div>--%>
     </div>    
 </div>
-</form>
+
+
+
+
 <script type="text/javascript" type="text/javascript">
     $(document).ready(function () {
         $("#btnSubmit").click(function () {

@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using Bikewale.Controls;
 using Bikewale.controls;
 using Bikewale.Common;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale
 {
@@ -17,6 +18,7 @@ namespace Bikewale
         protected VideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
         protected PopularUsedBikes ctrlPopularUsedBikes;
+        protected OnRoadPricequote ctrlOnRoadPriceQuote;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -39,7 +41,7 @@ namespace Bikewale
             ctrlVideos.TotalRecords = 3;
             ctrlCompareBikes.TotalRecords = 4;
             ctrlPopularUsedBikes.TotalRecords = 6;
-            
+            ctrlOnRoadPriceQuote.PQSourceId = (int)PQSourceEnum.Desktop_HP_PQ_Widget;
         }
     }
 }

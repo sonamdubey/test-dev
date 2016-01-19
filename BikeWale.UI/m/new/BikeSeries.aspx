@@ -3,7 +3,7 @@
 <%
     title = makeName + " " + seriesName + " Price in India, Review, Mileage,Photos & More - BikeWale";
     keywords = makeName + " bikes, " + makeName + " " + seriesName + " India, " + makeName + " " + seriesName + " bike prices, buy " + makeName + " " + seriesName + " Bikes, " + makeName + " " + seriesName + " reviews, bike reviews, bike news";
-    description = makeName + " " + seriesName + " price in India" + price + ". Check out " + makeName + " " + seriesName + " on road price, reviews, mileage, variants, news & photos at Bikewale";
+    description = makeName + " " + seriesName + " price in India" + price + ". Check out " + makeName + " " + seriesName + " on road price, reviews, mileage, versions, news & photos at Bikewale";
     canonical = "http://www.bikewale.com/" + makeMaskingName + "-bikes/" + seriesMaskingName + "-series/";
     AdPath = "/1017752/Bikewale_Mobile_Series";
     AdId = "1398766939004";

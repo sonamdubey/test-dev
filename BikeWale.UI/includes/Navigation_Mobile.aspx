@@ -7,6 +7,13 @@
                 </a>
             </li>
             <li>
+                <a href="http://www.carwale.com/m/autoexpo2016/" target="_blank">
+                    <span class="ae-sprite ae-car-icon"></span>
+                    <span class="navbarTitle">Auto Expo 2016</span>
+                    <span class="ae-sprite ae-new-label-icon"></span>
+                </a>
+            </li>
+            <li>
                 <a href="javascript:void(0)">
                     <span class="bwmsprite newBikes-icon"></span>
                     <span class="navbarTitle">New Bikes</span>
@@ -77,4 +84,6 @@
                 </a>
             </li>--%>
         </ul>
+        <a class="bwmsprite google-play-logo" href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DMobilesite%26utm_medium%3DDrawer%26utm_campaign=BikeWale%2520MobilesiteDrawer" target="_blank">
+        </a>
 	</nav> <!-- nav code ends here -->

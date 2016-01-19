@@ -57,13 +57,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIHost.cs" />
+    <Compile Include="BWConfiguration.cs" />
     <Compile Include="BWHttpClient.cs" />
     <Compile Include="CollectionHelper.cs" />
     <Compile Include="CommonValidators.cs" />
     <Compile Include="CommonApiOpn.cs" />
+    <Compile Include="CurrentUser.cs" />
     <Compile Include="DealerOfferHelper.cs" />
     <Compile Include="Description.cs" />
     <Compile Include="Distance.cs" />
+    <Compile Include="EncodingDecodingHelper.cs" />
     <Compile Include="Format.cs" />
     <Compile Include="FormatDate.cs" />
     <Compile Include="FormatMinSpecs.cs" />
@@ -71,11 +75,16 @@
     <Compile Include="OfferHelper.cs" />
     <Compile Include="Paging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RandomNoGenerator.cs" />
     <Compile Include="ReviewsRating.cs" />
     <Compile Include="SanitizeHtmlContent.cs" />
+    <Compile Include="SingletonABHttpClient.cs" />
+    <Compile Include="SingletonBWHttpClient.cs" />
+    <Compile Include="SingletonCWHttpClient.cs" />
     <Compile Include="SqlReaderConvertor.cs" />
     <Compile Include="StringHelper.cs" />
     <Compile Include="UrlFormatter.cs" />
+    <Compile Include="UrlShortner.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.Entities\Bikewale.Entities.csproj">

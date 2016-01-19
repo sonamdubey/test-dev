@@ -3,6 +3,8 @@
     title = "Privacy Policy - BikeWale";
     description = "BikeWale Privacy Policy, BikeWale dare section involves bikewale's involvement in Sector world and its market Success";
     keywords = "Visitor Agreement, Relationship and Notice, Fees and Services, Use of the Site, Privacy";
+    AdId = "1395986297721";
+    AdPath = "/1017752/BikeWale_New_";
 %>
 <!-- #include file="/includes/headhome.aspx" -->
    

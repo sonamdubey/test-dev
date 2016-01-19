@@ -8,6 +8,7 @@ using Bikewale.controls;
 using Bikewale.Controls;
 using Bikewale.Entities.BikeData;
 using Bikewale.Common;
+using Bikewale.Entities.PriceQuote;
 
 namespace Bikewale.New
 {
@@ -20,6 +21,7 @@ namespace Bikewale.New
         protected ExpertReviews ctrlExpertReviews;
         protected VideosControl ctrlVideos;
         protected ComparisonMin ctrlCompareBikes;
+        protected NewBikesOnRoadPrice NBOnRoadPrice;
         protected short reviewTabsCnt = 0;
         //Variable to Assing ACTIVE .css class
         protected bool isExpertReviewActive = false, isNewsActive = false, isVideoActive = false;
@@ -39,9 +41,11 @@ namespace Bikewale.New
 
             //to get Most Popular Bikes
             ctrlMostPopularBikes.totalCount = 6;
+            ctrlMostPopularBikes.PQSourceId = (int)PQSourceEnum.Desktop_New_MostPopular;
 
             //To get Upcoming Bike List Details 
             ctrlNewLaunchedBikes.pageSize = 6;
+            ctrlNewLaunchedBikes.PQSourceId = (int)PQSourceEnum.Desktop_New_NewLaunches;
 
             //To get Upcoming Bike List Details 
             ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
@@ -50,7 +54,9 @@ namespace Bikewale.New
             ctrlNews.TotalRecords = 3;
             ctrlExpertReviews.TotalRecords = 3;
             ctrlVideos.TotalRecords = 3;
-            ctrlCompareBikes.TotalRecords = 4;            
+            ctrlCompareBikes.TotalRecords = 4;
+
+            NBOnRoadPrice.PQSourceId = (int)PQSourceEnum.Desktop_New_PQ_Widget;
         }
     }
 }

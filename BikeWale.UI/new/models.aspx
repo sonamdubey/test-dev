@@ -12,15 +12,16 @@
 <head>
     <%
         title = _make.MakeName + " Price in India, Review, Mileage & Photos - Bikewale";
-        description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) + " - Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName + " on road price, reviews, mileage, variants, news & photos at Bikewale.";
+        description = _make.MakeName + " Price in India - Rs." + Bikewale.Utility.Format.FormatPrice(_minModelPrice.ToString()) + " - Rs." + Bikewale.Utility.Format.FormatPrice(_maxModelPrice.ToString()) + ". Check out " + _make.MakeName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
         alternate = "http://www.bikewale.com/m/" + _make.MaskingName + "-bikes/";
-        canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";       
+        canonical = "http://www.bikewale.com/" + _make.MaskingName + "-bikes/";
         TargetedMake = _make.MakeName;
         AdPath = "/1017752/Bikewale_NewBike_";
         AdId = "1442913773076";
         isAd970x90Shown = true;
     %>
     <!-- #include file="/includes/headscript.aspx" -->
+    <% isHeaderFix = false; %>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 </head>
 <body class="bg-light-grey">
@@ -112,7 +113,7 @@
                                                 </div>
 
                                                 <div class="clear"></div>
-                                                <a href="Javascript:void(0)" pagecatid="1" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
+                                                <a href="Javascript:void(0)" pagecatid="1" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
                                             </div>
                                         </div>
                                     </li>
@@ -187,13 +188,16 @@
                                 </ul>
                             </div>
                         </div>
-                        <%if (!isNewsZero) { %>
+                        <%if (!isNewsZero)
+                          { %>
                         <BW:News runat="server" ID="ctrlNews" />
                         <% } %>
-                        <%if (!isExpertReviewZero) { %>
+                        <%if (!isExpertReviewZero)
+                          { %>
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                         <% } %>
-                        <%if (!isVideoZero) { %>
+                        <%if (!isVideoZero)
+                          { %>
                         <BW:Videos runat="server" ID="ctrlVideos" />
                         <% } %>
                     </div>
@@ -225,27 +229,26 @@
             <PW:PopupWidget runat="server" ID="PopupWidget" />
             <!-- Popup Section Ends here-->
         </section>
-
         <script>
-        $("a.read-more-btn").click(function () {
-            $("span.brand-about-main").toggleClass('hide');
-            $("span.brand-about-more-desc").toggleClass('hide');
-            var a = $(this).find("span");
-            a.text(a.text() === "more" ? "less" : "more");
-        });
-        
+            $("a.read-more-btn").click(function () {
+                $("span.brand-about-main").toggleClass('hide');
+                $("span.brand-about-more-desc").toggleClass('hide');
+                var a = $(this).find("span");
+                a.text(a.text() === "more" ? "less" : "more");
+            });
+
             $(document).ready(function () { $("img.lazy").lazyload(); });
             $(".upcoming-brand-bikes-container").on('jcarousel:visiblein', 'li', function (event, carousel) {
                 $(this).find("img.lazy").trigger("imgLazyLoad");
             });
-        if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
-        if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
-        if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
+            if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
+            if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
+            if ('<%=isVideoActive%>' == "False") $("#ctrlVideos").addClass("hide");
 
-    </script>
+        </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
-        <script type="text/javascript" src="../src/new/bikemake.js?<%= staticFileVersion %>"></script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/new/bikemake.js?<%= staticFileVersion %>"></script>
     </form>
     <script type="text/javascript">
         ga_pg_id = '3';

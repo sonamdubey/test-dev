@@ -11,8 +11,9 @@ namespace Bikewale.controls
     public class PopularUsedBikes : System.Web.UI.UserControl
     {
         protected Repeater rptPopularUsedBikes;
-        public int TotalRecords { get; set; }
+        public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public int PQSourceId { get; set; }
         
 
         protected string cityName = String.Empty;

@@ -6,37 +6,38 @@ using System.Web.UI.WebControls;
 using Bikewale.DTO.BikeData;
 using System.Configuration;
 using Bikewale.Common;
+using Microsoft.Practices.Unity;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.BAL.BikeData;
+using Bikewale.Entities.BikeData;
 
 namespace Bikewale.BindViewModels.Controls
 {
     public class BindAlternativeBikesControl
     {
         public int VersionId { get; set; }
-        public int TopCpunt { get; set; }
+        public int TopCount { get; set; }
         public int? Deviation { get; set; }
         public int FetchedRecordsCount { get; set; }
 
         public void BindAlternativeBikes(Repeater rptAlternativeBikes)
-        {
-            SimilarBikeList similarBikeList = null;
+        {            
             FetchedRecordsCount = 0;
 
             try
             {
-                string _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = String.Format("/api/SimilarBike/?versionId={0}&topCount={1}&deviation={2}", VersionId, TopCpunt,Deviation);
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();
+                    IBikeVersions<BikeVersionEntity, int> objVersion = container.Resolve<IBikeVersions<BikeVersionEntity, int>>();
 
-                similarBikeList = BWHttpClient.GetApiResponseSync<SimilarBikeList>(_bwHostUrl, _requestType, _apiUrl, similarBikeList);
+                    List<SimilarBikeEntity>  objSimilarBikes = objVersion.GetSimilarBikesList(Convert.ToInt32(VersionId), Convert.ToUInt32(TopCount), Convert.ToUInt32(Deviation));
 
-                if (similarBikeList != null && similarBikeList.SimilarBike != null)
-                {                       
-                    FetchedRecordsCount = similarBikeList.SimilarBike.Count();
+                    FetchedRecordsCount = objSimilarBikes.Count;
 
-                    if (FetchedRecordsCount > 0)
+                    if (objSimilarBikes.Count > 0)
                     {
-                    
-                        rptAlternativeBikes.DataSource = similarBikeList.SimilarBike;
+                        rptAlternativeBikes.DataSource = objSimilarBikes;
                         rptAlternativeBikes.DataBind();
                     }
                 }

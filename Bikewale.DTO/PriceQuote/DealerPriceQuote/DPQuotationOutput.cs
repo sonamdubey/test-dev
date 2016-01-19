@@ -20,6 +20,8 @@ namespace Bikewale.DTO.PriceQuote.DealerPriceQuote
     {
         [JsonProperty("priceList")]
         public List<DPQ_Price> PriceList { get; set; }
+        [JsonProperty("discountedPriceList")]
+        public List<DPQ_Price> DiscountedPriceList { get; set; }
         [JsonProperty("disclaimers")]
         public List<string> Disclaimer { get; set; }
         [JsonProperty("offers")]

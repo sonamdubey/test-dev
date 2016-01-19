@@ -9,12 +9,13 @@ using System.Configuration;
 using System.Web;
 using System.Web.UI.WebControls;
 using Bikewale.BikeBooking.Common;
+using Bikewale.Utility;
 
 namespace Bikewale.PriceQuote
 {
     public class PaymentConfirmation : System.Web.UI.Page
     {
-        protected Repeater rptOffers;
+        protected Repeater rptOffers, rptDiscount;
 
         protected PQ_DealerDetailEntity _objPQ = null;
         protected PQCustomerDetail objCustomer = null;
@@ -24,6 +25,7 @@ namespace Bikewale.PriceQuote
         protected string contactNo = string.Empty, organization = string.Empty, address = string.Empty, bikeName = string.Empty, MakeModel = string.Empty, bookingRefNum = string.Empty, WorkingTime = string.Empty;
         protected UInt32 insuranceAmount = 0;
         protected bool IsInsuranceFree = false;
+        protected UInt32 totalDiscount = 0;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -33,7 +35,7 @@ namespace Bikewale.PriceQuote
             DeviceDetection dd = new DeviceDetection();
             dd.DetectDevice();
             string bikeColor = String.Empty;
-            if (PriceQuoteCookie.IsPQCoockieExist())
+            if (PriceQuoteQueryString.IsPQQueryStringExists())
             {
                 try
                 {
@@ -46,26 +48,11 @@ namespace Bikewale.PriceQuote
                         if (objCustomer.objColor != null)
                         {
                             bikeColor = objCustomer.objColor.ColorName;
-                        }
-                        //if (!CustomerPaymentCookie.IsExists && !CustomerPaymentCookie.IsMailSend && !CustomerPaymentCookie.IsSMSSend)
-                        //{
-                        //    //send sms to customer
-                        //    SendEmailSMSToDealerCustomer.BookingSMSToCustomer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, address, bookingRefNum, insuranceAmount);
-                        //    //send sms to dealer
-                        //    SendEmailSMSToDealerCustomer.BookingSMSToDealer(objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.CustomerName, bikeName, _objPQ.objDealer.Name, _objPQ.objDealer.MobileNo, _objPQ.objDealer.Address, bookingRefNum, BooingAmt, insuranceAmount);
-                        //    //send email to customer
-                        //    SendEmailSMSToDealerCustomer.BookingEmailToCustomer(objCustomer.objCustomerBase.CustomerEmail, objCustomer.objCustomerBase.CustomerName, _objPQ.objOffers, bookingRefNum, _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.objMake.MakeName, _objPQ.objQuotation.objModel.ModelName, _objPQ.objDealer.Organization, address, _objPQ.objDealer.MobileNo, insuranceAmount);
-                        //    //send email to dealer
-                        //    SendEmailSMSToDealerCustomer.BookingEmailToDealer(_objPQ.objDealer.EmailId, ConfigurationManager.AppSettings["OfferClaimAlertEmail"], objCustomer.objCustomerBase.CustomerName, objCustomer.objCustomerBase.CustomerMobile, objCustomer.objCustomerBase.AreaDetails.AreaName, objCustomer.objCustomerBase.CustomerEmail, totalPrice, _objPQ.objBookingAmt.Amount, totalPrice - _objPQ.objBookingAmt.Amount, _objPQ.objQuotation.PriceList, bookingRefNum, bikeName, bikeColor, _objPQ.objDealer.Name, _objPQ.objOffers, insuranceAmount);
-                        
-                        //    PushBikeBookingSuccess();
-                        //    //Save cookie
-                        //    CustomerPaymentCookie.CreateCustomerPaymentCookie(bookingRefNum, true, true);
-                        //}
+                        }                        
                     }
                     else
                     {
-                        Response.Redirect("/pricequote/bookingsummary.aspx", false);
+                        Response.Redirect("/pricequote/bookingsummary_new.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
@@ -78,7 +65,7 @@ namespace Bikewale.PriceQuote
             }
             else
             {
-                Response.Redirect("/pricequote/quotation.aspx", false);
+                Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
@@ -93,14 +80,12 @@ namespace Bikewale.PriceQuote
             bool _isContentFound = true;
             try
             {
-                //sets the base URI for HTTP requests
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
-                string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteCookie.VersionId + "&DealerId=" + PriceQuoteCookie.DealerId + "&CityId=" + PriceQuoteCookie.CityId;
-                // Send HTTP GET requests 
-
-                _objPQ = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, _objPQ);
+                string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteQueryString.VersionId + "&DealerId=" + PriceQuoteQueryString.DealerId + "&CityId=" + PriceQuoteQueryString.CityId;
+                
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                }                
 
                 if (_objPQ != null)
                 {
@@ -161,7 +146,13 @@ namespace Bikewale.PriceQuote
                         {
                             IsInsuranceFree = true;
                         }
-
+                        _objPQ.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(_objPQ.objOffers, _objPQ.objQuotation.PriceList);
+                        if (_objPQ.objQuotation.discountedPriceList != null && _objPQ.objQuotation.discountedPriceList != null)
+                        {
+                            rptDiscount.DataSource = _objPQ.objQuotation.discountedPriceList;
+                            rptDiscount.DataBind();
+                            totalDiscount = TotalDiscountedPrice();
+                        }
                         if (isBasicAvail && isShowroomPriceAvail)
                             totalPrice = totalPrice - exShowroomCost;
 
@@ -197,7 +188,7 @@ namespace Bikewale.PriceQuote
                 container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                 IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteCookie.PQId));
+                objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteQueryString.PQId));
 
                 if (objCustomer == null)
                 {
@@ -206,7 +197,21 @@ namespace Bikewale.PriceQuote
                     this.Page.Visible = false;
                 }
             }
-        }  
+        }
+        /// <summary>
+        /// Creted By : Lucky Rathore
+        /// Created on : 08 January 2016
+        /// </summary>
+        /// <returns>Total dicount on specific Version.</returns>
+        protected UInt32 TotalDiscountedPrice()
+        {
+            UInt32 totalPrice = 0;
+            foreach (var priceListObj in _objPQ.objQuotation.discountedPriceList)
+            {
+                totalPrice += priceListObj.Price;
+            }
+            return totalPrice;
+        } 
 
     }
 }

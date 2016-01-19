@@ -12,6 +12,8 @@ using Bikewale.Entities.CMS;
 using Bikewale.Entities.CMS.Photos;
 using System.Configuration;
 using Bikewale.Notifications;
+using Bikewale.Utility;
+using Bikewale.Interfaces.Pager;
 
 namespace Bikewale.BAL.BikeData
 {
@@ -21,16 +23,20 @@ namespace Bikewale.BAL.BikeData
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <typeparam name="U"></typeparam>
-    public class BikeModels<T,U> : IBikeModels<T,U> where T : BikeModelEntity, new()
+    public class BikeModels<T, U> : IBikeModels<T, U> where T : BikeModelEntity, new()
     {
         private readonly IBikeModelsRepository<T, U> modelRepository = null;
+        private readonly IPager _objPager = null;
 
         public BikeModels()
         {
             using (IUnityContainer container = new UnityContainer())
             {
                 container.RegisterType<IBikeModelsRepository<T, U>, BikeModelsRepository<T, U>>();
+                container.RegisterType<IPager, BAL.Pager.Pager>();
+
                 modelRepository = container.Resolve<IBikeModelsRepository<T, U>>();
+                _objPager = container.Resolve<IPager>();
             }
         }
 
@@ -50,7 +56,7 @@ namespace Bikewale.BAL.BikeData
         /// <param name="modelId"></param>
         /// <param name="isNew"></param>
         /// <returns></returns>
-        public List<BikeVersionsListEntity> GetVersionsList(U modelId,bool isNew)
+        public List<BikeVersionsListEntity> GetVersionsList(U modelId, bool isNew)
         {
             List<BikeVersionsListEntity> objVersionList = null;
 
@@ -163,14 +169,14 @@ namespace Bikewale.BAL.BikeData
         /// <returns></returns>
         public BikeModelPageEntity GetModelPageDetails(U modelId)
         {
-            BikeModelPageEntity objModelPage = null;            
+            BikeModelPageEntity objModelPage = null;
 
             try
             {
                 objModelPage = modelRepository.GetModelPage(modelId);
 
                 if (objModelPage != null && objModelPage.ModelVersionSpecs != null)
-                {                    
+                {
                     #region Set Overview
                     objModelPage.objOverview = new Overview()
                     {
@@ -194,7 +200,7 @@ namespace Bikewale.BAL.BikeData
                     objOverviewSpecs.Add(new Specs()
                     {
                         DisplayText = "Max power",
-                        DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.MaxPower, "PS")
+                        DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.MaxPower, "bhp")
                     });
 
                     objOverviewSpecs.Add(new Specs()
@@ -309,7 +315,7 @@ namespace Bikewale.BAL.BikeData
                         DisplayValue = Bikewale.Utility.FormatMinSpecs.ShowAvailable(objModelPage.ModelVersionSpecs.FuelTankCapacity, "litres")
                     });
 
-                    objSummary.Specs = objSummarySpecs;                    
+                    objSummary.Specs = objSummarySpecs;
 
                     // Add specs to the Engine and transmission
                     SpecsCategory objEngTrans = new SpecsCategory()
@@ -417,7 +423,7 @@ namespace Bikewale.BAL.BikeData
                     });
 
                     objEngTrans.Specs = objEngTransSpecs;
-                    
+
                     // Add Brakes, wheels and suspension
                     SpecsCategory objBrakesWheels = new SpecsCategory()
                     {
@@ -515,8 +521,8 @@ namespace Bikewale.BAL.BikeData
 
                     // Add Dimensions and chassis specs
 
-                    SpecsCategory objChassis = new SpecsCategory() 
-                    { 
+                    SpecsCategory objChassis = new SpecsCategory()
+                    {
                         CategoryName = "DimChassis",
                         DisplayName = "Dimensions and Chassis"
                     };
@@ -574,10 +580,10 @@ namespace Bikewale.BAL.BikeData
                     objChassis.Specs = objChassisSpecs;
 
                     // Add fuel efficiency and performance
-                    SpecsCategory objFuel = new SpecsCategory() 
+                    SpecsCategory objFuel = new SpecsCategory()
                     {
                         CategoryName = "FuelEffieciency",
-                        DisplayName = "Fuel effieciency and Performance"
+                        DisplayName = "Fuel efficiency and Performance"
                     };
 
                     List<Specs> objFuelSpecs = new List<Specs>();
@@ -651,15 +657,15 @@ namespace Bikewale.BAL.BikeData
                     objSpecifications.Add(objChassis);
                     objSpecifications.Add(objFuel);
 
-                    objModelPage.objSpecs.SpecsCategory = objSpecifications;                    
+                    objModelPage.objSpecs.SpecsCategory = objSpecifications;
 
                     #endregion
-                    
+
                     #region Set features
                     objModelPage.objFeatures = new Features()
                     {
                         DisplayName = "Features"
-                    };                        
+                    };
 
                     List<Specs> objFeatuesList = new List<Specs>();
 
@@ -839,17 +845,152 @@ namespace Bikewale.BAL.BikeData
 
                     objModelPage.objFeatures.FeaturesList = objFeatuesList;
 
-                    #endregion                    
+                    #endregion
+                }
+                if (objModelPage != null)
+                {
+                    // Added by : Ashish G. Kamble on 15 Dec 2015
+                    // Get model photo gallery
+                    objModelPage.Photos = GetBikeModelPhotoGallery(modelId);
+
+                    if (objModelPage.Photos != null)
+                    {
+                        objModelPage.Photos.Insert(0,
+                            new ModelImage()
+                            {
+                                HostUrl = objModelPage.ModelDetails.HostUrl,
+                                OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
+                                Caption = objModelPage.ModelDetails.ModelName,
+                                ImageCategory = "Model Image"
+                            });
+                    }
+                    else
+                    {
+                        objModelPage.Photos = new List<ModelImage>();
+                        objModelPage.Photos.Add(new ModelImage()
+                        {
+                            HostUrl = objModelPage.ModelDetails.HostUrl,
+                            OriginalImgPath = objModelPage.ModelDetails.OriginalImagePath,
+                            Caption = objModelPage.ModelDetails.ModelName,
+                            ImageCategory = "Model Image"
+                        });
+                    }
                 }
             }
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetModelPageDetails");
-                objErr.SendMail();                
+                objErr.SendMail();
             }
 
             return objModelPage;
         }
 
+        public List<ModelImage> GetBikeModelPhotoGallery(U modelId)
+        {
+            List<ModelImage> objPhotos = null;
+            string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
+            string _applicationid = ConfigurationManager.AppSettings["applicationId"];
+            string _requestType = "application/json";
+
+            try
+            {
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.PhotoGalleries);
+                categorList.Add(EnumCMSContentType.RoadTest);
+                categorList.Add(EnumCMSContentType.ComparisonTests);
+                string contentTypeList = CommonApiOpn.GetContentTypesString(categorList);
+
+                categorList.Clear();
+                categorList = null;
+
+                string _apiUrl = String.Format("/webapi/image/modelphotolist/?applicationid={0}&modelid={1}&categoryidlist={2}", _applicationid, modelId, contentTypeList);
+                using (BWHttpClient objClient = new BWHttpClient())
+                {
+                    objPhotos = objClient.GetApiResponseSync<List<ModelImage>>(APIHost.CW, _requestType, _apiUrl, objPhotos);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetBikeModelPhotoGallery");
+                objErr.SendMail();
+            }
+
+            return objPhotos;
+
+        }
+
+        /// <summary>
+        /// Written by : Ashish G. Kamble on 15 dec 2015
+        /// Summary : Function to get the upcoming bikes list.
+        /// </summary>
+        /// <param name="sortBy">Sorting order for the upcoming bikes.</param>
+        /// <param name="pageSize">No of records to be shown on the page.</param>
+        /// <param name="makeId">Optional.</param>
+        /// <param name="modelId">Optional.</param>
+        /// <param name="curPageNo">Optional. Current page number.</param>
+        /// <returns></returns>
+        public List<UpcomingBikeEntity> GetUpcomingBikesList(EnumUpcomingBikesFilter sortBy, int pageSize, int? makeId = null, int? modelId = null, int? curPageNo = null)
+        {
+            List<UpcomingBikeEntity> objUpcoming = null;
+
+            int recordCount = 0;
+            int startIndex = 0, endIndex = 0, currentPageNo = 0;
+
+            try
+            {
+                currentPageNo = curPageNo.HasValue ? curPageNo.Value : 1;
+
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>()
+                             .RegisterType<IPager, Bikewale.BAL.Pager.Pager>();
+
+                    var _objPager = container.Resolve<IPager>();
+                    var _modelRepository = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
+
+                    _objPager.GetStartEndIndex(pageSize, currentPageNo, out startIndex, out endIndex);
+
+                    UpcomingBikesListInputEntity inputParams = new UpcomingBikesListInputEntity()
+                    {
+                        StartIndex = startIndex,
+                        EndIndex = endIndex,
+                        MakeId = makeId.HasValue ? makeId.Value : 0,
+                        ModelId = modelId.HasValue ? modelId.Value : 0
+                    };
+
+                    objUpcoming = _modelRepository.GetUpcomingBikesList(inputParams, sortBy, out recordCount);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.BAL.BikeData.GetUpcomingBikesList");
+                objErr.SendMail();
+            }
+
+            return objUpcoming;
+        }
+
+        /// <summary>
+        ///  Written By : Ashish G. Kamble on 16 dec 2015
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="recordCount"></param>
+        /// <param name="currentPageNo"></param>
+        /// <returns></returns>
+        public List<NewLaunchedBikeEntity> GetNewLaunchedBikesList(int pageSize, out int recordCount, int? currentPageNo = null)
+        {
+            List<NewLaunchedBikeEntity> objNewLaunchedBikeList = null;
+            int startIndex = 0, endIndex = 0, curPageNo = 1;
+
+            curPageNo = currentPageNo.HasValue ? currentPageNo.Value : 1;
+
+            _objPager.GetStartEndIndex(pageSize, curPageNo, out startIndex, out endIndex);
+
+            objNewLaunchedBikeList = GetNewLaunchedBikesList(startIndex, endIndex, out recordCount);
+
+            return objNewLaunchedBikeList;
+        }
     }   // Class
 }   // namespace

@@ -98,10 +98,13 @@ function BookingPageVMModel() {
             "pqId": pqId,
             "versionId": self.SelectedVarient().minSpec().versionId()
         }
-        var isSameVersion = getCookie("_MPQ").indexOf("&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&") > 0 ? true : false;
+        //var isSameVersion = getCookie("_MPQ").indexOf("&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&") > 0 ? true : false;
+        var reVersionId = new RegExp("&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&", "g");
+        var isSameVersion = reVersionId.test(getCookie("_MPQ"));
         if (!isSameVersion) {
             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + self.SelectedVarient().minSpec().versionId() + "&DealerId=" + dealerId;
-            SetCookie("_MPQ", cookieValue);
+            //SetCookie("_MPQ", cookieValue);
+            
             $.ajax({
                 type: "POST",
                 url: "/api/UpdatePQ/",
@@ -116,6 +119,7 @@ function BookingPageVMModel() {
                     return false;
                 }
             });
+            window.location.href = "/m/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(cookieValue);
         }
         if (self.SelectedModelColor() && self.SelectedModelColor() != undefined) {
             self.updateColor(pqId, self.SelectedModelColor().id);
@@ -180,13 +184,19 @@ function CustomerModel() {
                 "clientIP": clientIP,
                 "pageUrl": pageUrl,
                 "versionId": verId,
-                "cityId": cityId
+                "cityId": cityId,
+                "leadSourceId": 5,
+                "deviceId": getCookie('BWC')
             }
             $.ajax({
                 type: "POST",
                 url: "/api/PQCustomerDetail/",
                 async: false,
                 data: ko.toJSON(objCust),
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('utma', getCookie('__utma'));
+                    xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                },
                 contentType: "application/json",
                 success: function (response) {
                     var obj = ko.toJS(response);
@@ -541,7 +551,8 @@ detailsSubmitBtn.click(function () {
 var validateName = function () {
     var isValid;
     var a = firstname.val().length;
-    if (firstname.val().indexOf('&') != -1) {
+    //if (firstname.val().indexOf('&') != -1) {
+    if ((/&/).test(firstname.val())) {
         isValid = false;
         setError(firstname, 'Invalid name');
     }
@@ -557,7 +568,8 @@ var validateName = function () {
 }
 var validateLastName = function () {
     var isError = true;
-    if (lastname.val().indexOf('&') != -1) {
+    //if (lastname.val().indexOf('&') != -1) {
+    if ((/&/).test(lastname.val())) {
         setError(lastname, 'Invalid name');
         isError = false;
     }
@@ -586,8 +598,6 @@ emailid.on("focus", function () {
 mobile.on("focus", function () {
     hideError(mobile);
     prevMobile = mobile.val().trim();
-    
-
 });
 
 emailid.on("blur", function () {

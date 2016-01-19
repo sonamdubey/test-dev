@@ -15,5 +15,5 @@
     $(document).ready(function () {
         $.mobile.ajaxEnabled = false;
     });
-    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrl"] %>';
+    bwHostUrl = '<%= ConfigurationManager.AppSettings["bwHostUrlForJs"] %>';
 </script>

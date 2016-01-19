@@ -57,5 +57,40 @@ namespace Bikewale.Service.TCAPI
             }
             return isSuccess;
         }
+
+
+        public static string PushInquiryInAB(string branchId, uint pqId, string customerName, string customerMobile, string customerEmail, uint versionId, string cityId)
+        {
+            string abInquiryId = string.Empty;
+
+            try
+            {
+                string jsonInquiryDetails = "{\"CustomerName\":\"" + customerName + "\", \"CustomerMobile\":\"" + customerMobile + "\", \"CustomerEmail\":\"" + customerEmail + "\", \"VersionId\":\"" + versionId + "\", \"CityId\":\"" + cityId + "\", \"InquirySourceId\":\"39\", \"Eagerness\":\"1\",\"ApplicationId\":\"2\"}";
+
+                TCApi_Inquiry objInquiry = new TCApi_Inquiry();
+                abInquiryId = objInquiry.AddNewCarInquiry(branchId, jsonInquiryDetails);
+
+                if (!String.IsNullOrEmpty(abInquiryId))
+                {
+                    if (abInquiryId != "0" && abInquiryId != "-1")
+                    {
+                        using (IUnityContainer container = new UnityContainer())
+                        {
+                            container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
+                            IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
+
+                            objDealer.PushedToAB(pqId, Convert.ToUInt32(abInquiryId));
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn(ex.Message);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return abInquiryId;
+        }
     }
 }

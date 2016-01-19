@@ -297,13 +297,31 @@ font-family:"Roboto-Regular";
 .slug-dd-box { width:162px; margin:0 auto;}
 
 /* city popup classes */
-.globalcity-popup, .bw-city-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
-.globalcity-popup-data, .bw-city-popup .popup-inner-container { padding: 20px 20px 30px; }
+/*.globalcity-popup, .bw-city-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }*/
+.bwm-fullscreen-popup { background: #fff; padding:20px; margin: auto; width:100%; position: fixed; height:100%; z-index: 10; }
+/*.globalcity-popup-data, .bw-city-popup .popup-inner-container { padding: 20px 20px 30px; }*/
 .cityPopup-box { background: #333333; width: 65px; height: 65px; line-height: 2; display: inline-block; }
 .globalcity-close-btn.cross-lg-lgt-grey, .bw-city-popup  .close-btn { background-position: -36px -226px; }
 .globalcity-close-btn.cross-lg-lgt-grey:hover, .bw-city-popup  .close-btn:hover { background-position: -36px -252px; }
 ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 .bw-city-popup .close-btn {width:16px; height:16px;}
+
+/* city popup classes */
+/*.globalcity-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
+.globalcity-popup-data { padding: 20px 20px 30px; }*/
+/*.cityPopup-box { background: #333333; width: 65px; height: 65px; line-height: 2; display: inline-block; }*/
+/*.globalcity-close-btn.cross-lg-lgt-grey, .bwmsprite.close-btn { background-position: -36px -226px; }
+.globalcity-close-btn.cross-lg-lgt-grey:hover, .bwmsprite.close-btn:hover { background-position: -36px -252px; }
+ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }*/
+
+/* App Banner */
+#appBanner { background:#e2e2e2; padding:5px 5px 0; position:relative; overflow:hidden; }
+.app-banner-img-container { float:left; width:130px; height:95px; position:relative; margin-right:12px; }
+.app-banner-img-container img { position:absolute; bottom:0; }
+.banner-close-btn { width:30px; height:30px; background: url("http://img.aeplcdn.com/bikewaleimg/m/images/banner-close-btn.png") no-repeat; position:absolute; top:0; right:0; cursor:pointer; }
+.app-banner-text-container { float:left; }
+.app-banner-btn-container { padding:10px 25px 10px 0; }
+.app-banner-btn-container .btn { padding:6px 10px; }
 
 /* bw sprite new classes */
 .left-curve-icon { background-position:-28px -298px; width:21px; height:21px; float:left;}
@@ -438,7 +456,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .lock-browser-scroll { position: fixed; overflow-y: scroll; width: 100%; }
 
 /* sprite classes */
-.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v09152015) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v=22122015) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -459,6 +477,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .cityPopup-icon { background-position: -107px -35px; width: 29px; height: 38px; }
 .back-long-arrow-left { background-position: -155px 0;  width: 21px; height: 16px; }
 .back-long-arrow-left-white { background-position: -155px -101px; width: 21px; height: 21px; }
+.google-play-logo  { background-position: 2px -340px; width: 120px; height: 45px; }
 
 /* nav classes */
 .home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
@@ -534,14 +553,6 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .global-location { float: left; color: #fff; padding: 0 10px; position: relative; top: -4px; cursor: pointer; font-size: 20px; }
 .gl-default-stage { cursor: pointer; padding: 0 10px; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
-
-/* city popup classes */
-.globalcity-popup { background: #fff; margin: -50px 0; overflow-y: auto; position: fixed; top: 25%; bottom: 25%; right: 5%; left: 5%; z-index: 10; }
-.globalcity-popup-data { padding: 20px 20px 30px; }
-.cityPopup-box { background: #333333; width: 65px; height: 65px; line-height: 2; display: inline-block; }
-.globalcity-close-btn.cross-lg-lgt-grey, .bwmsprite.close-btn { background-position: -36px -226px; }
-.globalcity-close-btn.cross-lg-lgt-grey:hover, .bwmsprite.close-btn:hover { background-position: -36px -252px; }
-ul.globalCity-autocomplete { overflow-y: auto; max-height: 160px; }
 
 /* global-search-popup classes */
 .global-search-popup { position:fixed; left: 5px; top: 5px; right: 5px; z-index: 10; }
@@ -797,3 +808,12 @@ footer .border-solid-top {
 .back-to-top a {color: #d1d1d1;display: block;text-align: center;text-decoration: none;transition: color 1s ease 0s;width: 30px;}
 .back-to-top a:hover span {background-color: rgb(0, 0, 0);}
 .back-to-top span {background: #cb2100 url("http://img1.aeplcdn.com/tyreguide/up-arrow.png") no-repeat scroll center center;border-radius: 30px;cursor: pointer;display: block;height: 30px;margin-bottom: 7px;transition: all 1s ease 0s;width: 30px;}
+
+/* AutoExpo classes */
+.ae-sprite {background: url("http://imgd3.aeplcdn.com/0x0/cw/static/sprites/ae-sprite.png") no-repeat;display:inline-block;}
+.ae-logo { background-color: #fff; background-position: -34px 2px; height: 27px; margin-top: -7px; position: relative; top: 4px; width: 45px; }
+.ae-logo-border { border:1px solid #eee; display: inline-block; height: 19px; margin: 0 15px 0 100px; }
+.ae-car-icon, .ae-new-label-icon { height: 25px; position: relative;top: 5px; } 
+.ae-car-icon {background-position: 0 4px; width: 36px;}
+.ae-new-label-icon{background-position: -156px 1px; height: 24px; top: -10px; left: 5px; width: 39px; }
+/* AutoExpo classes end */

@@ -18,6 +18,7 @@ using Microsoft.Practices.Unity;
 using Bikewale.BAL.Pager;
 using Bikewale.Entities.Pager;
 using System.Threading.Tasks;
+using Bikewale.Utility;
 
 namespace Bikewale.Content
 {
@@ -66,21 +67,25 @@ namespace Bikewale.Content
         {
             try
             {
-                //sets the base URI for HTTP requests
-                string _cwHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
-                string _requestType = "application/json";
-
                 // get pager instance
                 IPager objPager = GetPager();
 
-                int _startIndex = 0, _endIndex = 0, _featuresCategoryId = (int)EnumCMSContentType.Features;
+                int _startIndex = 0, _endIndex = 0;// _featuresCategoryId = (int)EnumCMSContentType.Features;
+
+                List<EnumCMSContentType> categorList = new List<EnumCMSContentType>();
+                categorList.Add(EnumCMSContentType.Features);
+                categorList.Add(EnumCMSContentType.SpecialFeature);
+                string _featuresCategoryId = CommonApiOpn.GetContentTypesString(categorList);
 
                 objPager.GetStartEndIndex(_pageSize, _pageNo, out _startIndex, out _endIndex);
                 CMSContent _objFeaturesList = null;
                 string _apiUrl = "webapi/article/listbycategory/?applicationid=2&categoryidlist=" + _featuresCategoryId + "&startindex=" + _startIndex + "&endindex=" + _endIndex;
                 // Send HTTP GET requests 
 
-                _objFeaturesList = await BWHttpClient.GetApiResponse<CMSContent>(_cwHostUrl, _requestType, _apiUrl, _objFeaturesList);
+                using(Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    _objFeaturesList = await objClient.GetApiResponse<CMSContent>(Utility.APIHost.CW, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objFeaturesList);
+                }                
 
                 if (_objFeaturesList != null)
                 {

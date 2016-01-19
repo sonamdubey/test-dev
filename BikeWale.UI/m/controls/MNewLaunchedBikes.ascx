@@ -3,12 +3,13 @@
 <!-- New Launched Bikes Starts here-->  
     <asp:Repeater ID="rptNewLaunchedBikes" runat="server">
         <ItemTemplate>
-            <li class="card">
+            <div class="swiper-slide">
             <div class="front">
                 <div class="contentWrapper">
                     <div class="imageWrapper">
                         <a href='/m<%# Bikewale.Utility.UrlFormatter.BikePageUrl(Convert.ToString(DataBinder.Eval(Container.DataItem,"MakeBase.MaskingName")),Convert.ToString(DataBinder.Eval(Container.DataItem,"MaskingName"))) %>'>
-                            <img class="lazy" src="<%# Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(DataBinder.Eval(Container.DataItem, "OriginalImagePath")),Convert.ToString(DataBinder.Eval(Container.DataItem, "HostUrl")),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MakeName")) + " " + Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelName")) %>"  alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MakeName")) + " " +Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelName")) %>">
+                            <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(Convert.ToString(DataBinder.Eval(Container.DataItem, "OriginalImagePath")),Convert.ToString(DataBinder.Eval(Container.DataItem, "HostUrl")),Bikewale.Utility.ImageSize._310x174) %>" title="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MakeName")) + " " + Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelName")) %>"  alt="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "MakeBase.MakeName")) + " " +Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelName")) %>">
+                            <span class="swiper-lazy-preloader"></span>
                         </a>
                     </div>
                     <div class="bikeDescWrapper">
@@ -47,12 +48,12 @@
                                 </div>
                             </div>
                             <div class="clear"></div>
-                            <a href="javascript:void(0)" modelName="<%# DataBinder.Eval(Container.DataItem,"ModelName").ToString() %>" makeName="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName").ToString() %>" pagecatid="<%=PageId %>" modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?"":"hide" %> ">Get on road price</a>
+                            <a href="javascript:void(0)" modelName="<%# DataBinder.Eval(Container.DataItem,"ModelName").ToString() %>" makeName="<%# DataBinder.Eval(Container.DataItem,"MakeBase.MakeName").ToString() %>" pqSourceId="<%= PQSourceId%>" pagecatid="<%=PageId %>" modelId="<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ModelId")) %>" class="btn btn-sm btn-white margin-top10 fillPopupData <%# (Convert.ToString(DataBinder.Eval(Container.DataItem, "MinPrice"))!="0")?"":"hide" %> ">Get on road price</a>
                         </div>
                     </div>
                 </div>
             </div>
-          </li>
+          </div>
         </ItemTemplate>          
     </asp:Repeater>
  <!--- New Launched Bikes Ends Here-->

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Bikewale.Entities.PriceQuote;
+using Bikewale.Entities.BikeData;
 
 namespace Bikewale.Interfaces.PriceQuote
 {
@@ -22,5 +23,6 @@ namespace Bikewale.Interfaces.PriceQuote
         List<OtherVersionInfoEntity> GetOtherVersionsPrices(ulong pqId);
         bool UpdatePriceQuote(UInt32 pqId, PriceQuoteParametersEntity pqParams);
         bool SaveBookingState(UInt32 pqId,PriceQuoteStates state);
+        PriceQuoteParametersEntity FetchPriceQuoteDetailsById(UInt64 pqId);
     }
 }

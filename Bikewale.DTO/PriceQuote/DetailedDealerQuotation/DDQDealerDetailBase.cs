@@ -26,5 +26,10 @@ namespace Bikewale.DTO.PriceQuote.DetailedDealerQuotation
         public DDQEMI objEmi { get; set; }
         [JsonProperty("bookingAmount")]
         public DDQBookingAmountBase objBookingAmt { get; set; }
+        [JsonProperty("isInsuranceFree")]
+        public bool IsInsuranceFree { get; set; }
+        [JsonProperty("insuranceAmount")]
+        public uint InsuranceAmount { get; set; }
+
     }
 }

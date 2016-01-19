@@ -11,6 +11,8 @@ namespace Bikewale.DTO.PriceQuote.City
     /// Price Quote City base
     /// Author  :   Sumit Kate
     /// Date    :   20 Aug 2015
+    /// Modified By :   Sumit Kate on 12 Jan 2016
+    /// Summary     :   Added new property HasAreas
     /// </summary>
     public class PQCityBase
     {
@@ -25,5 +27,8 @@ namespace Bikewale.DTO.PriceQuote.City
 
         [JsonProperty("isPopular")]
         public bool IsPopular { get; set; }
+
+        [JsonProperty("hasAreas")]
+        public bool HasAreas { get; set; }
     }
 }

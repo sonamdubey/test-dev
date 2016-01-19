@@ -27,13 +27,16 @@ namespace Bikewale.Service.Controllers.BikeBooking.Make
         [ResponseType(typeof(BBMakeList))]
         public IHttpActionResult Get(uint cityId)
         {
-            string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            string _requestType = "application/json";
             string _apiUrl = String.Format("/api/DealerPriceQuote/GetBikeMakesInCity/?cityId={0}", cityId);
             List<BBMakeBase> lstMake = null;
             try
             {
-                lstMake = BWHttpClient.GetApiResponseSync<List<BBMakeBase>>(_abHostUrl, _requestType, _apiUrl, lstMake);
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //lstMake = objClient.GetApiResponseSync<List<BBMakeBase>>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstMake);
+                    lstMake = objClient.GetApiResponseSync<List<BBMakeBase>>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstMake);
+                }
+
                 BBMakeList objDTOMakeList = null;
                 if (lstMake != null && lstMake.Count > 0)
                 {

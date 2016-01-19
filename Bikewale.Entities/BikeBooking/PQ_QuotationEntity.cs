@@ -16,6 +16,7 @@ namespace Bikewale.Entities.BikeBooking
     public class PQ_QuotationEntity
     {
         public List<PQ_Price> PriceList { get; set; }
+        public List<PQ_Price> discountedPriceList { get; set; }
 
         public List<string> Disclaimer { get; set; }
         public List<OfferEntity> objOffers { get; set; }

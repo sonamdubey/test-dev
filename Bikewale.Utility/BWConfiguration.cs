@@ -4,7 +4,7 @@ using System.Configuration;
 using System.Linq;
 using System.Web;
 
-namespace Bikewale.Common
+namespace Bikewale.Utility
 {
     /// <summary>
     /// Created By : Ashish G. Kamble on 2 Nov 2015
@@ -15,7 +15,9 @@ namespace Bikewale.Common
         private static BWConfiguration _instance = null;
         private static readonly object padlock = new object();
 
-        private static string _defaultCity = String.Empty,
+        private int nonReadOnlyStatic = 0;
+
+        private readonly string _defaultCity = String.Empty,
             _bwconnectionString = String.Empty,
             _cwconnectionString = String.Empty,
             _offerUniqueTransaction = String.Empty,
@@ -44,6 +46,7 @@ namespace Bikewale.Common
             _CwApiHostUrl = String.Empty,
             _ABApiHostUrl = String.Empty,
             _BwHostUrl = String.Empty,
+            _BwHostUrlForJs = String.Empty,
             _ApplicationId = String.Empty,
             _FeedbackEmailTo = String.Empty,
             _OfferClaimAlertEmail = String.Empty,
@@ -54,7 +57,11 @@ namespace Bikewale.Common
             _CityIndexName = String.Empty,
             _AutoSuggestType = String.Empty,
             _PageSize = String.Empty,
-            _StaticFileVersion = String.Empty;
+            _StaticFileVersion = String.Empty,
+            _apiRequestTypeJSON = String.Empty,
+            _BWSmsQueue = String.Empty,
+            _GoogleApiKey = string.Empty;
+       
 
         // Private constructor, so no outsiders have access.
         private BWConfiguration()
@@ -62,7 +69,7 @@ namespace Bikewale.Common
             // Initialize _data member here
             _defaultCity = ConfigurationManager.AppSettings["defaultName"];
             _bwconnectionString = ConfigurationManager.AppSettings["bwconnectionString"];
-            _cwconnectionString = ConfigurationManager.AppSettings["cwconnectionString"];
+            _cwconnectionString = ConfigurationManager.AppSettings["connectionString"];
             _offerUniqueTransaction = ConfigurationManager.AppSettings["OfferUniqueTransaction"];
             _billDeskWorkingKey = ConfigurationManager.AppSettings["BillDeskWorkingKey"];
             _imgHostURL = ConfigurationManager.AppSettings["imgHostURL"];
@@ -89,6 +96,7 @@ namespace Bikewale.Common
             _CwApiHostUrl = ConfigurationManager.AppSettings["cwApiHostUrl"];
             _ABApiHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
             _BwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
+            _BwHostUrlForJs = ConfigurationManager.AppSettings["bwHostUrlForJs"]; 
             _ApplicationId = ConfigurationManager.AppSettings["applicationId"];
             _FeedbackEmailTo = ConfigurationManager.AppSettings["feedbackEmailTo"];
             _OfferClaimAlertEmail = ConfigurationManager.AppSettings["OfferClaimAlertEmail"];
@@ -100,31 +108,36 @@ namespace Bikewale.Common
             _AutoSuggestType = ConfigurationManager.AppSettings["AutoSuggestType"];
             _PageSize = ConfigurationManager.AppSettings["PageSize"];
             _StaticFileVersion = ConfigurationManager.AppSettings["staticFileVersion"];
-
+            _apiRequestTypeJSON = "application/json";
+            _BWSmsQueue = ConfigurationManager.AppSettings["PrioritySmsQueue"];
+            _GoogleApiKey = ConfigurationManager.AppSettings["APIKey"];
         }
 
         // Static method to provide access to instance
-        public static BWConfiguration CreateInstance()
+        public static BWConfiguration Instance
         {
-            if (_instance == null)
-            {
-                // Take lock while creating the object
-                lock (padlock)
+            get{
+                if (_instance == null)
                 {
-                    if (_instance == null)
+                    // Take lock while creating the object
+                    lock (padlock)
                     {
-                        _instance = new BWConfiguration();
+                        if (_instance == null)
+                        {
+                            _instance = new BWConfiguration();
+                        }
                     }
-                }
-            }
-
-            return _instance;
+                }                  
+                return _instance;  
+            }		
         }
+
+        public int NonReadOnlyStatic { get { return nonReadOnlyStatic++; } }
 
         /// <summary>
         /// Get the default city name.
         /// </summary>
-        public static string GetDefaultCityName
+        public string GetDefaultCityName
         {
             get { return _defaultCity; }
         }
@@ -132,7 +145,7 @@ namespace Bikewale.Common
         /// <summary>
         /// Get the bikewale database connection string
         /// </summary>
-        public static string BWConnectionString
+        public string BWConnectionString
         {
             get { return _bwconnectionString; }
         }
@@ -140,55 +153,59 @@ namespace Bikewale.Common
         /// <summary>
         /// Get the carwale database connection string
         /// </summary>
-        public static string CWConnectionString
+        public string CWConnectionString
         {
             get { return _cwconnectionString; }
         }
 
-        public static string OfferUniqueTransaction
+        public string OfferUniqueTransaction
         {
             get { return _offerUniqueTransaction; }
         }
 
-        public static string BillDeskWorkingKey
+        public string BillDeskWorkingKey
         {
             get { return _billDeskWorkingKey; }
         }
-        public static string ImgHostURL { get { return _imgHostURL; } }
+        public string ImgHostURL { get { return _imgHostURL; } }
 
-        public static string RabbitImgHostURL { get { return _RabbitImgHostURL; } }
-        public static string ImgPathFolder { get { return _ImgPathFolder; } }
-        public static string SourceId { get { return _SourceId; } }
-        public static string MobileSourceId { get { return _MobileSourceId; } }
-        public static string DefaultCity { get { return _DefaultCity; } }
-        public static string DefaultName { get { return _DefaultName; } }
-        public static string IsMSMQ { get { return _IsMSMQ; } }
-        public static string SendSMS { get { return _SendSMS; } }
-        public static string AppPath { get { return _AppPath; } }
-        public static string IsMemcachedUsed { get { return _IsMemcachedUsed; } }
-        public static string MemcacheTimespan { get { return _MemcacheTimespan; } }
-        public static string StaticUrl { get { return _StaticUrl; } }
-        public static string AutoExpo { get { return _AutoExpo; } }
-        public static string SMTPSERVER { get { return _SMTPSERVER; } }
-        public static string ErrorMailTo { get { return _ErrorMailTo; } }
-        public static string LocalMail { get { return _LocalMail; } }
-        public static string ReplyTo { get { return _ReplyTo; } }
-        public static string MailFrom { get { return _MailFrom; } }
-        public static string ApplicationName { get { return _ApplicationName; } }
-        public static string SendError { get { return _SendError; } }
-        public static string CwApiHostUrl { get { return _CwApiHostUrl; } }
-        public static string ABApiHostUrl { get { return _ABApiHostUrl; } }
-        public static string BwHostUrl { get { return _BwHostUrl; } }
-        public static string ApplicationId { get { return _ApplicationId; } }
-        public static string FeedbackEmailTo { get { return _FeedbackEmailTo; } }
-        public static string OfferClaimAlertEmail { get { return _OfferClaimAlertEmail; } }
-        public static string ImageQueueName { get { return _ImageQueueName; } }
-        public static string ElasticHostUrl { get { return _ElasticHostUrl; } }
-        public static string MMindexName { get { return _MMindexName; } }
-        public static string PQindexName { get { return _PQindexName; } }
-        public static string CityIndexName { get { return _CityIndexName; } }
-        public static string AutoSuggestType { get { return _AutoSuggestType; } }
-        public static string PageSize { get { return _PageSize; } }
-        public static string StaticFileVersion { get { return _StaticFileVersion; } }
+        public string RabbitImgHostURL { get { return _RabbitImgHostURL; } }
+        public string ImgPathFolder { get { return _ImgPathFolder; } }
+        public string SourceId { get { return _SourceId; } }
+        public string MobileSourceId { get { return _MobileSourceId; } }
+        public string DefaultCity { get { return _DefaultCity; } }
+        public string DefaultName { get { return _DefaultName; } }
+        public string IsMSMQ { get { return _IsMSMQ; } }
+        public string SendSMS { get { return _SendSMS; } }
+        public string AppPath { get { return _AppPath; } }
+        public string IsMemcachedUsed { get { return _IsMemcachedUsed; } }
+        public string MemcacheTimespan { get { return _MemcacheTimespan; } }
+        public string StaticUrl { get { return _StaticUrl; } }
+        public string AutoExpo { get { return _AutoExpo; } }
+        public string SMTPSERVER { get { return _SMTPSERVER; } }
+        public string ErrorMailTo { get { return _ErrorMailTo; } }
+        public string LocalMail { get { return _LocalMail; } }
+        public string ReplyTo { get { return _ReplyTo; } }
+        public string MailFrom { get { return _MailFrom; } }
+        public string ApplicationName { get { return _ApplicationName; } }
+        public string SendError { get { return _SendError; } }
+        public string CwApiHostUrl { get { return _CwApiHostUrl; } }
+        public string ABApiHostUrl { get { return _ABApiHostUrl; } }
+        public string BwHostUrl { get { return _BwHostUrl; } }
+        public string BwHostUrlForJs { get { return _BwHostUrlForJs; } }
+        public string ApplicationId { get { return _ApplicationId; } }
+        public string FeedbackEmailTo { get { return _FeedbackEmailTo; } }
+        public string OfferClaimAlertEmail { get { return _OfferClaimAlertEmail; } }
+        public string ImageQueueName { get { return _ImageQueueName; } }
+        public string ElasticHostUrl { get { return _ElasticHostUrl; } }
+        public string MMindexName { get { return _MMindexName; } }
+        public string PQindexName { get { return _PQindexName; } }
+        public string CityIndexName { get { return _CityIndexName; } }
+        public string AutoSuggestType { get { return _AutoSuggestType; } }
+        public string PageSize { get { return _PageSize; } }
+        public string StaticFileVersion { get { return _StaticFileVersion; } }
+        public string APIRequestTypeJSON { get { return _apiRequestTypeJSON; } }
+        public string BWSmsQueue { get { return _BWSmsQueue; } }
+        public string GoogleApiKey { get { return _GoogleApiKey; } }
     }   // class
 }   // namespace

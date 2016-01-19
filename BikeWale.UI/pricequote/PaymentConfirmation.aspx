@@ -5,7 +5,7 @@
 <head>
     <% 
         AdId = "1395986297721";
-        AdPath = "/1017752/Bikewale_PriceQuote_";
+        AdPath = "/1017752/Bikewale_PQ_";
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -16,11 +16,11 @@
         }
     </style>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
 
-        <section class="bg-white header-fixed-inner">
+        <section class="bg-white">
             <div class="container">
                 <div class="grid-12">
                     <div class="padding-bottom15 text-center">
@@ -81,13 +81,17 @@
                                         <td>Advance booking:</td>
                                         <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(_objPQ.objBookingAmt.Amount)) %></td>
                                     </tr>
-                                    <% if (IsInsuranceFree)
-                                       {%>
-                                    <tr>
-                                        <td>Free Insurance Amount:</td>
-                                        <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span><%=Bikewale.Common.CommonOpn.FormatPrice(insuranceAmount.ToString()) %></td>
-                                    </tr>
-                                    <%}%>
+                                    <% if (_objPQ.objQuotation.discountedPriceList != null && _objPQ.objQuotation.discountedPriceList.Count > 0)
+                                           {%>
+                                        <asp:Repeater ID="rptDiscount" runat="server">
+                                            <ItemTemplate>
+                                                <tr>
+                                                    <td>Minus <%# DataBinder.Eval(Container.DataItem,"CategoryName")%></td>
+                                                    <td align="right" class="text-bold"><span class="fa fa-rupee margin-right5"></span> <%# Bikewale.Common.CommonOpn.FormatPrice(Convert.ToString(DataBinder.Eval(Container.DataItem,"Price")))%> </td>
+                                                </tr>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
+                                        <%}%>
                                     <tr>
                                         <td colspan="2" class="padding-bottom10"><a id="cancellation-box" href="#">Hassle free cancellation policy</a></td>
                                     </tr>
@@ -98,7 +102,7 @@
                                     </tr>
                                     <tr>
                                         <td>Balance amount:</td>
-                                        <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalPrice - _objPQ.objBookingAmt.Amount - insuranceAmount)) %></td>
+                                        <td align="right" class="font18 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalPrice - _objPQ.objBookingAmt.Amount - totalDiscount)) %></td>
                                     </tr>
                                     <tr>
                                         <td class="font12" colspan="2">*Balance amount payable at the dealership</td>
@@ -273,8 +277,7 @@
         <!--required documents popup ends here-->
 
 
-        <!-- #include file="/includes/footerBW.aspx" -->
-                                    <h2><%= IsInsuranceFree ? "BikeWale Offer" : "Exclusive Offers for BikeWale Customers"%></h2>
+        <!-- #include file="/includes/footerBW.aspx" -->                                    
         <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script>
         <script type="text/javascript">
             $(document).ready(function () {

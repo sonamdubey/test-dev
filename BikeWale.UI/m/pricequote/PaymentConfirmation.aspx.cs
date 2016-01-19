@@ -3,8 +3,10 @@ using Bikewale.BikeBooking.Common;
 using Bikewale.Common;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web;
 using System.Web.UI.WebControls;
@@ -23,6 +25,10 @@ namespace Bikewale.Mobile.PriceQuote
         protected uint totalPrice = 0;
         protected UInt32 insuranceAmount = 0, dealerId = 0;
         protected bool IsInsuranceFree = false;
+        protected IList<PQ_Price> discountsList { get; set; }
+        protected Repeater rptDiscount;
+        protected UInt32 totalDiscount = 0;
+
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -30,7 +36,7 @@ namespace Bikewale.Mobile.PriceQuote
         protected void Page_Load(object sender, EventArgs e)
         {
             string bikeColor = String.Empty;
-            if (PriceQuoteCookie.IsPQCoockieExist())
+            if (PriceQuoteQueryString.IsPQQueryStringExists())
             {
                 try
                 {
@@ -61,7 +67,7 @@ namespace Bikewale.Mobile.PriceQuote
                     }
                     else
                     {
-                        Response.Redirect("/m/pricequote/bookingsummary.aspx", false);
+                        Response.Redirect("/m/pricequote/bookingsummary.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
@@ -74,7 +80,7 @@ namespace Bikewale.Mobile.PriceQuote
             }
             else
             {
-                Response.Redirect("/m/pricequote/quotation.aspx", false);
+                Response.Redirect("/m/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString), false);
                 HttpContext.Current.ApplicationInstance.CompleteRequest();
                 this.Page.Visible = false;
             }
@@ -85,14 +91,13 @@ namespace Bikewale.Mobile.PriceQuote
             bool _isContentFound = true;
             try
             {
-                //sets the base URI for HTTP requests
-                string _abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-
-                string _apiUrl = "/api/Dealers/GetDealerDetailsPQ/?versionId=" + PriceQuoteCookie.VersionId + "&DealerId=" + PriceQuoteCookie.DealerId + "&CityId=" + PriceQuoteCookie.CityId;
-                // Send HTTP GET requests 
-
-                _objPQ = BWHttpClient.GetApiResponseSync<PQ_DealerDetailEntity>(_abHostUrl, _requestType, _apiUrl, _objPQ);
+                string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", PriceQuoteQueryString.VersionId, PriceQuoteQueryString.DealerId, PriceQuoteQueryString.CityId);
+                
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //_objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                    _objPQ = objClient.GetApiResponseSync<PQ_DealerDetailEntity>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, _objPQ);
+                }
 
                 if (_objPQ != null)
                 {
@@ -154,7 +159,13 @@ namespace Bikewale.Mobile.PriceQuote
                         {
                             IsInsuranceFree = true;
                         }
-
+                        _objPQ.objQuotation.discountedPriceList = OfferHelper.ReturnDiscountPriceList(_objPQ.objOffers, _objPQ.objQuotation.PriceList);
+                        if (_objPQ.objQuotation.discountedPriceList != null && _objPQ.objQuotation.discountedPriceList != null)
+                        {
+                            rptDiscount.DataSource = _objPQ.objQuotation.discountedPriceList;
+                            rptDiscount.DataBind();
+                            totalDiscount = TotalDiscountedPrice();
+                        }
                         if (isBasicAvail && isShowroomPriceAvail)
                             totalPrice = totalPrice - exShowroomCost;
 
@@ -190,7 +201,7 @@ namespace Bikewale.Mobile.PriceQuote
                 container.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
                 IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
 
-                objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteCookie.PQId));
+                objCustomer = objDealer.GetCustomerDetails(Convert.ToUInt32(PriceQuoteQueryString.PQId));
 
                 if (objCustomer == null)
                 {
@@ -216,11 +227,15 @@ namespace Bikewale.Mobile.PriceQuote
                 request.InquiryId = Convert.ToUInt32(objCustomer.AbInquiryId);
                 request.PaymentAmount = BooingAmt;
                 request.Price = totalPrice;
-                string _apiHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-                string _requestType = "application/json";
-                string _apiUrl = String.Format("/webapi/booking/");
+                
+                string _apiUrl = "/webapi/booking/";
                 uint bookingId = default(uint);
-                bookingId = Bikewale.Utility.BWHttpClient.PostSync<BookingRequest, uint>(_apiHostUrl, _requestType, _apiUrl, request);
+
+                using(Bikewale.Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    //bookingId = objClient.PostSync<BookingRequest, uint>(Utility.BWConfiguration.Instance.ABApiHostUrl, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
+                    bookingId = objClient.PostSync<BookingRequest, uint>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, request);
+                }
             }
             catch (Exception err)
             {
@@ -229,5 +244,20 @@ namespace Bikewale.Mobile.PriceQuote
                 objErr.SendMail();
             }
         }
+
+        /// <summary>
+        /// Creted By : Lucky Rathore
+        /// Created on : 08 January 2016
+        /// </summary>
+        /// <returns>Total dicount on specific Version.</returns>
+        protected UInt32 TotalDiscountedPrice()
+        {
+            UInt32 totalPrice = 0;
+            foreach (var priceListObj in _objPQ.objQuotation.discountedPriceList)
+            {
+                totalPrice += priceListObj.Price;
+            }
+            return totalPrice;
+        } 
     }
 }

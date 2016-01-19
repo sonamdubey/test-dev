@@ -14,5 +14,7 @@ namespace Bikewale.Entities.BikeBooking
         public VersionColor objColor { get; set; }
         public bool IsTransactionCompleted {get;set;}
         public string AbInquiryId { get; set; }
+        public uint SelectedVersionId { get; set; }
+        public uint DealerId { get; set; }
     }
 }

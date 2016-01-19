@@ -13,7 +13,9 @@
         description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
         canonical = "http://www.bikewale.com";
         AdPath = "/1017752/Bikewale_Mobile_Homepage";
-        AdId = "1398766000399";
+        AdId = "1450262275060";
+        Ad320x150_I = true;
+        Ad320x150_II = true;
      %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/home.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -36,7 +38,11 @@
             </div>
         </div>
     </section>
-    
+    <% if (Ad320x150_I) { %>
+        <section>
+            <!-- #include file="/ads/Ad320x150_First.aspx" -->
+        </section>
+        <% } %>
     <section><!--  Upcoming, New Launches and Top Selling code starts here -->
         <div class="container bg-white">
         	<div class="grid-12 alpha omega">
@@ -415,6 +421,11 @@
     <section class="lazy home-getFinalPrice-banner" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/onroad-price-banner.jpg" ><!--  Get Final Price code starts here -->
         <BW:MOnRoadPricequote PageId="5" ID="MOnRoadPricequote" runat="server"/> 
     </section><!-- Get Final Price code Ends here -->
+    <% if (Ad320x150_II) { %>
+        <section>
+            <!-- #include file="/ads/Ad320x150_Second.aspx" -->
+        </section>
+    <% } %>
     <section class="home-compare"><!--  Compare section code starts here -->
         <BW:CompareBike ID="ctrlCompareBikes" runat="server"/>
     </section><!-- Compare code Ends here -->    

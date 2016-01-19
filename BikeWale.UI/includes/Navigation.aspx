@@ -7,6 +7,13 @@
                 </a>
             </li>
             <li>
+                <a href="http://www.carwale.com/autoexpo2016/" target="_blank">
+                    <span class="ae-sprite ae-car-icon"></span>
+                    <span class="navbarTitle">Auto Expo 2016</span>
+                    <span class="ae-sprite ae-new-label-icon"></span>
+                </a>
+            </li>
+            <li>
                 <a href="javascript:void(0)">
                     <span class="bwsprite newBikes-icon"></span>
                     <span class="navbarTitle">New Bikes</span>
@@ -76,8 +83,8 @@
                 </a>
             </li>
         </ul>
-        <%--<div class="margin-top40 margin-bottom40 margin-left20">
-            <a href="https://play.google.com/store/apps/details?id=com.bikewale&referrer=utm_source%3DBikeWaleWebsite%26utm_medium%3DFooter%26utm_campaign%3DBikeWale%2520Website%2520Footer" target="_blank" class="bwsprite gplay-icon margin-right5"></a>
-            <a href="https://itunes.apple.com/in/app/bikewale/id910137745?mt=8" target="_blank" class="bwsprite app-store-icon"></a>
-        </div>--%>
+        <div class="margin-top40 margin-bottom40 margin-left20">
+            <a href="https://play.google.com/store/apps/details?id=com.bikewale.app&referrer=utm_source%3DDesktopsite%26utm_medium%3DDrawer%26utm_campaign%3DBikeWale%2520Desktopsite%2520Drawer" target="_blank" class="bwsprite gplay-icon margin-right5"></a>
+            <%--<a href="https://itunes.apple.com/in/app/bikewale/id910137745?mt=8" target="_blank" class="bwsprite app-store-icon"></a>--%>
+        </div>
 	</nav> <!-- ends here -->

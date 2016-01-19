@@ -18,5 +18,6 @@ namespace Bikewale.DTO.PriceQuote
         public UInt32 PQId { get; set; }
         [JsonProperty("versionId")]
         public UInt32 VersionId { get; set; }
+
     }
 }
