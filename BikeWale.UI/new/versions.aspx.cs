@@ -189,30 +189,49 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Trace.Warn("Trace 1 : DeviceDetection Start");
             //device detection
             DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"]);
             dd.DetectDevice();
+            Trace.Warn("Trace 2 : DeviceDetection End");
 
             #region Do Not change the sequence
+            Trace.Warn("Trace 3 : ParseQueryString Start");
             ParseQueryString();
+            Trace.Warn("Trace 4 : ParseQueryString End");
+
+            Trace.Warn("Trace 5 : CheckCityCookie Start");
             CheckCityCookie();
+            Trace.Warn("Trace 6 : CheckCityCookie End");
 
             //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue) && ddlVariant.SelectedValue != "0")
             if (hdnVariant.Value != "0")
                 variantId = Convert.ToInt32(hdnVariant.Value);
             #endregion
 
+            Trace.Warn("Trace 7 : FetchModelPageDetails Start");
             FetchModelPageDetails();
+            Trace.Warn("Trace 8 : FetchModelPageDetails End");
+
             if (modelPage !=null && modelPage.ModelDetails!=null && modelPage.ModelDetails.New)
             {
+                Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
                 FetchOnRoadPrice();
+                Trace.Warn("Trace 10 : FetchOnRoadPrice End");
             }
             if (!IsPostBack)
             {
+                Trace.Warn("Trace 11 : !IsPostBack");
                 #region Do not change the sequence
+                Trace.Warn("Trace 12 : BindPhotoRepeater Start");
                 BindPhotoRepeater();
+                Trace.Warn("Trace 13 : BindPhotoRepeater End");
+                Trace.Warn("Trace 14 : GetClientIP Start");
                 clientIP = CommonOpn.GetClientIP();
+                Trace.Warn("Trace 15 : GetClientIP End");
+                Trace.Warn("Trace 16 : LoadVariants Start");
                 LoadVariants();
+                Trace.Warn("Trace 17 : LoadVariants End");
                 #endregion
             }
             else
@@ -224,7 +243,9 @@ namespace Bikewale.New
                 }
             }
             SetFlags();
+            Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
             BindAlternativeBikeControl();
+            Trace.Warn("Trace 19 : BindAlternativeBikeControl End");
             // Set BikeName
             if (modelPage!=null && modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
@@ -249,6 +270,7 @@ namespace Bikewale.New
             ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
             ToggleOfferDiv();
+            Trace.Warn("Trace 20 : Page Load ends");
         }
 
         /// <summary>
