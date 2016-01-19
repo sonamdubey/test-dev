@@ -258,6 +258,12 @@ var BikeDetails = function () {
                 colorWarningTooltip.removeClass("color-warning");
             }
         });
+        if((self.bookingAmount() != undefined) && (self.bookingAmount() > 0)){
+            $('#testimonialWrapper').show();
+        }            
+        else {
+            $('#testimonialWrapper').hide();
+        }
     };
 
     self.getColor = function (data, event) {
