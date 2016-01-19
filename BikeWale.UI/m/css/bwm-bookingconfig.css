@@ -168,3 +168,9 @@
 
 /*li.offertxt span { display:none }  
 li.offertxt:hover span {display:inline}*/
+
+#testimonialWrapper .swiper-slide { height:215px; padding:20px 15px; margin-right:0 !important; }
+#testimonialWrapper .testimonial-image-container { width:60px; height:60px; background:#fff; margin:0 auto; border:1px solid #ccc; }
+#testimonialWrapper .testimonial-user-image { width:54px; height:54px; overflow:hidden; margin:2px auto; border:1px solid #666; }
+#testimonialWrapper li .testimonial-user-image img { width:100%; }
+#testimonialWrapper li .testimonial-user-stmt { height:66px; overflow:hidden; }
