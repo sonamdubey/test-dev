@@ -20,9 +20,14 @@ using System.Web.UI.HtmlControls;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Utility;
 using Newtonsoft.Json;
+using Bikewale.Controls;
 
 namespace Bikewale.BikeBooking
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 19 Jan 2016
+    /// Description :   Added Users Testimonial Control
+    /// </summary>
     public class BookingSummary_New : System.Web.UI.Page
     {
         protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
@@ -36,7 +41,7 @@ namespace Bikewale.BikeBooking
         protected BookingPageDetailsEntity objBooking = null;
         protected PQCustomerDetail objCustomer = null;
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
-
+        protected UsersTestimonials ctrlUsersTestimonials;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -49,7 +54,7 @@ namespace Bikewale.BikeBooking
         {
             ProcessCookie();
             BindBookingDetails();
-
+            ctrlUsersTestimonials.TopCount = 6;
         }
 
         void btnMakePayment_click(object Sender, EventArgs e)

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Pricequote.BookingConfig" %>
-
+<%@ Register Src="~/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,9 +11,9 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    
+
 </head>
-<body class="header-fixed-inner" id="bookingConfig" style="display:none" data-bind="visible: true">
+<body class="header-fixed-inner" id="bookingConfig" style="display: none" data-bind="visible: true">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section>
@@ -290,14 +290,14 @@
                                     <% if (isOfferAvailable)
                                        { %>
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwsprite offers-icon margin-right5"></span>Available Offers </h3>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
 
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
                                             <ItemTemplate>
                                                 <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
-                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
-                                                    </li>
+                                                    <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                                                </li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
@@ -305,10 +305,10 @@
                                        else
                                        {%>
                                     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="fa fa-gift margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                                     <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: latitude(), longitude: longitude() }"></div>
-                                    
+
                                     <% } %>
                                 </div>
                                 <div class="clear"></div>
@@ -361,7 +361,7 @@
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
                                             </tr>
                                             <!-- /ko -->
-                                            <% if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null 
+                                            <% if (dealerDetailEntity != null && dealerDetailEntity.objQuotation != null
                                                    && dealerDetailEntity.objQuotation.discountedPriceList != null && dealerDetailEntity.objQuotation.discountedPriceList.Count > 0)
                                                {%>
                                             <tr>
@@ -420,120 +420,48 @@
                 <div class="clear"></div>
             </div>
         </section>
-                <!-- Terms and condition Popup start -->
-           <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
-                                <h3>Terms and Conditions</h3>
-                                <div style="vertical-align: middle; text-align: center;" id="termspinner">
-                                    <img src="/images/search-loading.gif" />
-                                </div>
-                                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                                <div id="terms" class="breakup-text-container padding-bottom10 font14">
-                                </div>
-                            </div>
-         <!-- Terms and condition Popup Ends -->
-        
+        <!-- Terms and condition Popup start -->
+        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+            <h3>Terms and Conditions</h3>
+            <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                <img src="/images/search-loading.gif" />
+            </div>
+            <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+            </div>
+        </div>
+        <!-- Terms and condition Popup Ends -->
+        <% if (ctrlUsersTestimonials.FetchedCount > 0){ %>
         <section>
             <div id="testimonialWrapper" class="container margin-bottom30">
-                <div class="grid-12">
+                <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
                     <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Testimonials</h2>
-                    <div class="content-box-shadow text-center">
-                        <div class="jcarousel-wrapper">
-                            <div class="jcarousel">
-                                <ul>
-                                    <li>
-                                        <div class="testimonial-card">
-                                            <div class="testimonial-image-container rounded-corner50">
-                                                <div class="testimonial-user-image rounded-corner50">
-                                                    <img src="" border="0"/>
-                                                </div>
-                                            </div>
-                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">1. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
-                                            <p class="font14 text-light-grey">John Doe</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="testimonial-card">
-                                            <div class="testimonial-image-container rounded-corner50">
-                                                <div class="testimonial-user-image rounded-corner50">
-                                                    <img src="" border="0"/>
-                                                </div>
-                                            </div>
-                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">2. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
-                                            <p class="font14 text-light-grey">John Doe</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="testimonial-card">
-                                            <div class="testimonial-image-container rounded-corner50">
-                                                <div class="testimonial-user-image rounded-corner50">
-                                                    <img src="" border="0"/>
-                                                </div>
-                                            </div>
-                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">3. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
-                                            <p class="font14 text-light-grey">John Doe</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="testimonial-card">
-                                            <div class="testimonial-image-container rounded-corner50">
-                                                <div class="testimonial-user-image rounded-corner50">
-                                                    <img src="" border="0"/>
-                                                </div>
-                                            </div>
-                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">4. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
-                                            <p class="font14 text-light-grey">John Doe</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="testimonial-card">
-                                            <div class="testimonial-image-container rounded-corner50">
-                                                <div class="testimonial-user-image rounded-corner50">
-                                                    <img src="" border="0"/>
-                                                </div>
-                                            </div>
-                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">5. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
-                                            <p class="font14 text-light-grey">John Doe</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="testimonial-card">
-                                            <div class="testimonial-image-container rounded-corner50">
-                                                <div class="testimonial-user-image rounded-corner50">
-                                                    <img src="" border="0"/>
-                                                </div>
-                                            </div>
-                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">6. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
-                                            <p class="font14 text-light-grey">John Doe</p>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="testimonial-card">
-                                            <div class="testimonial-image-container rounded-corner50">
-                                                <div class="testimonial-user-image rounded-corner50">
-                                                    <img src="" border="0"/>
-                                                </div>
-                                            </div>
-                                            <p class="testimonial-user-stmt font16 margin-top15 margin-bottom15">7. Honda has made its for a into the lucrative sports touring segment with the CBR650F. </p>
-                                            <p class="font14 text-light-grey">John Doe</p>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                            <p class="jcarousel-pagination padding-bottom20"></p>
-                        </div>
-                    </div>
+                    <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
-        
+        <%
+        }
+           else{
+                %>
+        <section>
+            <div class="container margin-bottom30">
+                <div class="grid-12">
+                    </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%           
+        }
+        %>
         <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
-
+        
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
-      
+
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12">
@@ -584,9 +512,9 @@
             }
             var getCityArea = GetGlobalCityArea();
             var abHostUrl = '<%= ConfigurationManager.AppSettings["ABApiHostUrl"]%>';
-        </script> 
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>          
-                   
+        </script>
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/bookingconfig.js?<%= staticFileVersion %>"></script>
+
 
     </form>
 </body>

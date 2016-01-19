@@ -18,5 +18,6 @@ namespace Bikewale.Entities.UsersTestimonial
         public string HostUrl { get; set; }
         public string UserImgUrl { get; set; }
         public DateTime EntryDate { get; set; }
+        public string UserName { get; set; }
     }
 }

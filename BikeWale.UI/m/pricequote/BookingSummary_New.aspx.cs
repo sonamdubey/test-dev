@@ -7,6 +7,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
 using Carwale.BL.PaymentGateway;
 using Carwale.DAL.PaymentGateway;
@@ -23,6 +24,10 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.PriceQuote
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 19 Jan 2016
+    /// Description :   Added Users Testimonial Control
+    /// </summary>
     public class BookingSummary_New : System.Web.UI.Page
     {
         protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
@@ -36,6 +41,7 @@ namespace Bikewale.Mobile.PriceQuote
         protected BookingPageDetailsEntity objBooking = null;
         protected PQCustomerDetail objCustomer = null;
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
+        protected UsersTestimonials ctrlUsersTestimonials;
 
         protected override void OnInit(EventArgs e)
         {
@@ -47,6 +53,7 @@ namespace Bikewale.Mobile.PriceQuote
         {
             ProcessCookie();
             BindBookingDetails();
+            ctrlUsersTestimonials.TopCount = 6;
 
         }
 
