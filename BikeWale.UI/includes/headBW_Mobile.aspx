@@ -1,4 +1,5 @@
-﻿	<div class="blackOut-window"></div>
+﻿<div class="blackOut-window"></div>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!-- #include file="/includes/Navigation_Mobile.aspx" -->
     <div class="globalcity-popup bwm-fullscreen-popup hide" id="globalcity-popup">
     	<div class="globalcity-popup-data text-center">

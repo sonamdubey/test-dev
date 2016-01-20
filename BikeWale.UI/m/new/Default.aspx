@@ -7,7 +7,6 @@
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
-<%@ Register Src="/m/controls/MPopupWidget.ascx" TagPrefix="BW" TagName="MPopupWidget"  %>
 
 <!doctype html>
 <html>
@@ -24,7 +23,6 @@
      %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-newbikes.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -428,13 +426,10 @@
             </div>
         </section>
     <!--  News, reviews and videos code ends here -->
-    
-    <BW:MPopupWidget runat="server" ID="MPopupWidget" />
     <!-- #include file="/includes/footerBW_Mobile.aspx" -->
     <!-- all other js plugins -->
     <!-- #include file="/includes/footerscript_Mobile.aspx" -->
     <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-newbikes.js?<%= staticFileVersion %>"></script>
-    <script type="text/javascript" src="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/src/chosen-jquery-min-mobile.js?<%= staticFileVersion %>"></script>
     <script type="text/javascript" >
             ga_pg_id = '4';
             if ('<%=isNewsActive%>' == "False") $("#ctrlNews").addClass("hide");
