@@ -16,29 +16,6 @@ var prevMobile = "";
 var getCityArea = GetGlobalCityArea();
 var customerViewModel = new CustomerModel();
 
-$(function () {
-
-    leadBtnBookNow.on('click', function () {
-        leadCapturePopup.show();
-        $('body').addClass('lock-browser-scroll');
-        $(".blackOut-window").show();
-
-        $(".leadCapture-close-btn, .blackOut-window").on("click", function () {
-            leadCapturePopup.hide();
-            $('body').removeClass('lock-browser-scroll');
-            $(".blackOut-window").hide();
-        });
-
-        $(document).on('keydown', function (e) {
-            if (e.keyCode === 27) {
-                $("#leadCapturePopup .leadCapture-close-btn").click();
-            }
-        });
-
-    });
-
-});
-
 
 function CustomerModel() {
     var arr = setuserDetails();
@@ -525,11 +502,6 @@ navigationVideosLI.click(function () {
     videoiFrame.setAttribute("src", newSrc);
 });
 
-//}
-//        bindInsuranceText();
-//    a.attr("href", "#features");
-//    else a.attr("href", "javascript:void(0)");
-
 
 function LoadTerms(offerId) {
 
@@ -613,93 +585,6 @@ $("input[name*='btnVariant']").on("click", function () {
     $('#hdnVariant').val($(this).attr('title'));
     var bikeVersion = myBikeName + '_' + $(this).val();
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersion });
-});
-
-$("#viewBreakupText").on('click', function (e) {
-    $("div#breakupPopUpContainer").show();
-    $(".blackOut-window").show();
-    appendHash("viewBreakup");
-});
-$(".breakupCloseBtn,.blackOut-window").on('click', function (e) {
-    viewBreakUpClosePopup();
-    window.history.back();
-});
-
-var viewBreakUpClosePopup = function () {
-    $("div#breakupPopUpContainer").hide();
-    $(".blackOut-window").hide();
-    $("#contactDetailsPopup").show();
-    $("#otpPopup").hide();
-    leadPopupClose();
-};
-
-$(".termsPopUpCloseBtn").on('mouseup click', function (e) {
-    $("div#termsPopUpContainer").hide();
-    $(".blackOut-window").hide();
-});
-
-$("#getMoreDetailsBtn").on('click', function (e) {
-    $("div#leadCapturePopup").show();
-    $(".blackOut-window").show();
-    appendHash("contactDetails");
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeVersionLocation });
-});
-
-$(".leadCapture-close-btn").on("click", function () {
-    leadPopupClose();
-    window.history.back();
-});
-
-$(document).on('keydown', function (e) {
-    if (e.keyCode === 27) {
-        $("div.breakupCloseBtn").click();
-        $("div.termsPopUpCloseBtn").click();
-        $("div.leadCapture-close-btn").click();
-        leadPopupClose();
-        $("div#termsPopUpContainer").hide();
-        $(".blackOut-window").hide();
-    }
-});
-
-var leadPopupClose = function () {
-    leadCapturePopup.hide();
-    $("#contactDetailsPopup").show();
-    $("#otpPopup").hide();
-    $('body').removeClass('lock-browser-scroll');
-    $(".blackOut-window").hide();
-};
-
-$(".more-features-btn").click(function () {
-    $(".more-features").slideToggle();
-    var a = $(this).find("a");
-    a.text(a.text() === "+" ? "-" : "+");
-    if (a.text() === "+")
-        a.attr("href", "#features");
-    else a.attr("href", "javascript:void(0)");
-});
-
-$("a.read-more-btn").click(function () {
-    if (!$(this).hasClass("open")) {
-        $(".model-about-main").hide();
-        $(".model-about-more-desc").show();
-        var a = $(this).find("span");
-        a.text(a.text() === "full story" ? "less" : "full story");
-        $(this).addClass("open");
-    }
-    else if ($(this).hasClass("open")) {
-        $(".model-about-main").show();
-        $(".model-about-more-desc").hide();
-        var a = $(this).find("span");
-        a.text(a.text() === "full story" ? "less" : "full story");
-        $(this).removeClass("open");
-    }
-
-});
-
-$('#bookNowBtn').on('click', function (e) {
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Book_Now_Clicked', 'lab': bikeVersionLocation });
-    var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + dealerId;    
-    window.location.href = "/m/pricequote/bookingSummary_new.aspx?MPQ=" + Base64.encode(cookieValue);;
 });
 
 ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);

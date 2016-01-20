@@ -291,7 +291,8 @@
             if (self.verifyDetails()) {
 
                 if (isModelPage && ga_pg_id != null && ga_pg_id == 2) {
-                    window.location.reload();
+                    //window.location.reload();
+                    window.history.back();
                 }
 
                 else {
@@ -342,6 +343,7 @@
                                 gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                                 $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
                             }
+                            window.history.back();
                         },
                         error: function (e) {
                             $("#errMsg").text("Oops. Some error occured. Please try again.").show();
@@ -366,7 +368,7 @@
             $('a.fillPopupData').removeClass('ui-btn-active');
         });
 
-        $('body').on("click", "a.fillPopupData", function (e) {
+        $('a.fillPopupData').on("click", function (e) {
             e.stopPropagation();
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
