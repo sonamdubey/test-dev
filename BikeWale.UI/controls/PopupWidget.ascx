@@ -128,7 +128,6 @@
     }
 
     function cityChangedPopup() {
-        debugger;
         if (viewModelPopup.selectedCity() != undefined) {
             viewModelPopup.hasAreas(findCityById(viewModelPopup, viewModelPopup.selectedCity()).hasAreas);
             if (viewModelPopup.hasAreas() != undefined && viewModelPopup.hasAreas()) {
@@ -138,7 +137,6 @@
                     dataType: 'json',
                     success: function (response) {
                         areas = response.areas;
-                        debugger;
                         if (areas.length) {
                             viewModelPopup.bookingAreas(areas);
                             if (!isNaN(onCookieObj.PQAreaSelectedId) && onCookieObj.PQAreaSelectedId > 0 && selectElementFromArray(areas, onCookieObj.PQAreaSelectedId)) {
@@ -203,7 +201,6 @@
     }
 
     function getPriceQuotePopup() {
-        debugger;
         var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
         if (isValidInfoPopup()) {
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));

@@ -247,7 +247,6 @@
                         else {
                             actText = 'City_Selected_Doesnt_Have_Area';
                         }
-                        alert(actText);
                         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().cityName });
                         cityClicked = true;
                     }
