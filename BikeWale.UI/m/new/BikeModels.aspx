@@ -23,7 +23,8 @@
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
         Ad_300x250 = true;
-        TargetedModel = modelPage.ModelDetails.ModelName;        
+        TargetedModel = modelPage.ModelDetails.ModelName;
+        TargetedCity = cityName;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <script type="text/javascript">

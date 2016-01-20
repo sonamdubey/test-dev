@@ -1,7 +1,7 @@
 ﻿<script language="c#" runat="server">	
     private string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     private string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
-    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "";
+    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", ShowTargeting = "", TargetedModel = "", TargetedSeries = "", TargetedMake = "", TargetedModels = "", canonical = "", TargetedCity = "";
     private string fbTitle = "", fbImage;
     private ushort feedbackTypeId = 0;
     private bool isHeaderFix = true,
@@ -81,6 +81,7 @@
         <% if(!String.IsNullOrEmpty(TargetedModel)){%>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");<%}%>             
         <% if(!String.IsNullOrEmpty(TargetedMake)){%>googletag.pubads().setTargeting("Make", "<%= TargetedMake %>");<%}%>
         <% if(!String.IsNullOrEmpty(TargetedModels)){%>googletag.pubads().setTargeting("CompareBike-D", "<%= TargetedModels %>");<%}%>
+        <% if (!String.IsNullOrEmpty(TargetedCity)){%>googletag.pubads().setTargeting("City", "<%= TargetedCity %>");<%}%>
         
         googletag.pubads().collapseEmptyDivs();
         googletag.pubads().enableSingleRequest();
