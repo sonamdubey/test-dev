@@ -24,7 +24,7 @@ namespace Bikewale.Notifications
 
                 foreach (string email in arrDealerEmail)
                 {
-                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeName, modelName, dealerName, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, DateTime.Now, insuranceAmount);
+                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate_old(makeName, modelName, dealerName, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, DateTime.Now, insuranceAmount);
                     objEmail.Send(email, "BikeWale Purchase Inquiry - " + makeName + " " + modelName + " " + versionName, customerEmail);
                 }
             }
@@ -158,7 +158,7 @@ namespace Bikewale.Notifications
 
                 foreach (string email in arrDealerEmail)
                 {
-                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeName, modelName, dealerName, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, DateTime.Now, insuranceAmount);
+                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate_old(makeName, modelName, dealerName, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, DateTime.Now, insuranceAmount);
 
                     string emailBody = objEmail.ComposeBody();
 

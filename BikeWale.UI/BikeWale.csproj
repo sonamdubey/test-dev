@@ -263,7 +263,6 @@
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
-    <Compile Include="BindViewModels\Controls\BindUsersTestimonialControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
@@ -634,10 +633,6 @@
       <DependentUpon>UserReviewsMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="controls\UsersTestimonials.ascx.cs">
-      <DependentUpon>UsersTestimonials.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="controls\VideoCarousel.ascx.cs">
       <DependentUpon>VideoCarousel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -810,10 +805,6 @@
     </Compile>
     <Compile Include="m\controls\UserReviewList.ascx.cs">
       <DependentUpon>UserReviewList.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="m\controls\UsersTestimonials.ascx.cs">
-      <DependentUpon>UsersTestimonials.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\VideosWidget.ascx.cs">
@@ -1636,7 +1627,6 @@
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UserReviewsMin.ascx" />
-    <Content Include="controls\UsersTestimonials.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
@@ -1940,6 +1930,7 @@
     <Content Include="editor\tiny_mce\utils\form_utils.js" />
     <Content Include="editor\tiny_mce\utils\mctabs.js" />
     <Content Include="editor\tiny_mce\utils\validate.js" />
+    <Content Include="faq.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Feedback\Feedback.aspx" />
     <Content Include="Finance\EMICalculator.aspx" />
@@ -2090,7 +2081,6 @@
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
-    <Content Include="m\controls\UsersTestimonials.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
     <Content Include="m\css\bwm-booking.css" />
@@ -2113,6 +2103,7 @@
     <Content Include="m\customerror.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
+    <Content Include="m\faq.aspx" />
     <Content Include="m\fonts\fontawesome-webfont.svg" />
     <Content Include="m\fonts\WebRupee.V2.0.svg" />
     <Content Include="m\images\bg-footer.jpg" />

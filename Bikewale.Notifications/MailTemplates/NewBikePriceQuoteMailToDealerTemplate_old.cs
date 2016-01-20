@@ -13,179 +13,179 @@ namespace Bikewale.Notifications.MailTemplates
     /// Created By : Sadhana Upadhyay on 8 Nov 2014
     /// Summary : Template for new bike price quote dealer
     /// </summary>
-    public class NewBikePriceQuoteMailToDealerTemplate : ComposeEmailBase
+    public class NewBikePriceQuoteMailToDealerTemplate_old : ComposeEmailBase
     {
-        private string m_MakeName;
-        public string MakeName
+      private string m_MakeName;
+      public string MakeName
+      {
+        get 
         {
-            get
-            {
-                return m_MakeName;
-            }
-            set
-            {
-                m_MakeName = value;
-            }
+          return m_MakeName; 
         }
-
-        private string m_ModelName;
-        public string ModelName
+        set
         {
-            get
-            {
-                return m_ModelName;
-            }
-            set
-            {
-                m_ModelName = value;
-            }
+          m_MakeName = value;
         }
+      }
 
-        private string m_DealerName;
+      private string m_ModelName;
+      public string ModelName
+      {
+        get
+        {
+          return m_ModelName;
+        }
+        set
+        {
+          m_ModelName = value;
+        }
+      }
+
+      private string m_DealerName;
         public string DealerName
+      {
+        get
         {
-            get
-            {
-                return m_DealerName;
-            }
-            set
-            {
-                m_DealerName = value;
-            }
+          return m_DealerName;
         }
+        set
+        {
+          m_DealerName = value;
+        }
+      }
 
         private string m_CustomerName;
         public string CustomerName
         {
-            get
-            {
-                return m_CustomerName;
-            }
-            set
-            {
-                m_CustomerName = value;
-            }
+          get
+          {
+            return m_CustomerName;
+          }
+          set
+          {
+            m_CustomerName = value;
+          }
         }
 
         private string m_CustomerMobile;
         public string CustomerMobile
         {
-            get
-            {
-                return m_CustomerMobile;
-            }
-            set
-            {
-                m_CustomerMobile = value;
-            }
+          get
+          {
+            return m_CustomerMobile;
+          }
+          set
+          {
+            m_CustomerMobile = value;
+          }
         }
 
         private string m_CustomerEmail;
         public string CustomerEmail
         {
-            get
-            {
-                return m_CustomerEmail;
-            }
-            set
-            {
-                m_CustomerEmail = value;
-            }
+          get
+          {
+            return m_CustomerEmail;
+          }
+          set
+          {
+            m_CustomerEmail = value;
+          }
         }
 
         private string m_AreaName;
         public string AreaName
         {
-            get
-            {
-                return m_AreaName;
-            }
-            set
-            {
-                m_AreaName = value;
-            }
+          get
+          {
+            return m_AreaName;
+          }
+          set
+          {
+            m_AreaName= value;
+          }
         }
 
         private string m_CityName;
         public string CityName
         {
-            get
-            {
-                return m_CityName;
-            }
-            set
-            {
-                m_CityName = value;
-            }
+          get
+          {
+            return m_CityName;
+          }
+          set
+          {
+            m_CityName=value;
+          }
         }
 
         private List<PQ_Price> m_PriceList;
         public List<PQ_Price> PriceList
         {
-            get
-            {
-                return m_PriceList;
-            }
-            set
-            {
-                m_PriceList = value;
-            }
+          get
+          {
+            return m_PriceList;
+          }
+          set
+          {
+            m_PriceList=value;
+          }
         }
         private List<PQ_Price> discountList;
 
         private int m_TotalPrice;
         public int TotalPrice
         {
-            get
-            {
-                return m_TotalPrice;
-            }
-            set
-            {
-                m_TotalPrice = value;
-            }
+          get
+          {
+            return m_TotalPrice;
+          }
+          set
+          {
+            m_TotalPrice = value;
+          }
         }
 
         private List<OfferEntity> m_OfferList;
         public List<OfferEntity> OfferList
         {
-            get
-            {
-                return m_OfferList;
-            }
-            set
-            {
-                m_OfferList = value;
-            }
+          get
+          {
+            return m_OfferList;
+          }
+          set
+          {
+            m_OfferList = value;
+          }
         }
 
         private DateTime m_Date;
         public DateTime Date
         {
-            get
-            {
-                return m_Date;
-            }
-            set
-            {
-                m_Date = value;
-            }
+          get
+          {
+            return m_Date;
+          }
+          set
+          {
+            m_Date = value;
+          }
         }
 
         private uint m_InsuranceAmount;
         public uint InsuranceAmount
         {
-            get
-            {
-                return m_InsuranceAmount;
-            }
-            set
-            {
-                m_InsuranceAmount = value;
-            }
+          get
+          {
+            return m_InsuranceAmount;
+          }
+          set
+          {
+            m_InsuranceAmount=value;
+          }
         }
 
-        public NewBikePriceQuoteMailToDealerTemplate(string makeName, string modelName, string dealerName, string customerName, string customerEmail, string customerMobile,
+        public NewBikePriceQuoteMailToDealerTemplate_old(string makeName, string modelName, string dealerName, string customerName, string customerEmail, string customerMobile,
             string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, DateTime date, uint insuranceAmount = 0)
         {
             m_MakeName = makeName;
@@ -208,12 +208,10 @@ namespace Bikewale.Notifications.MailTemplates
         public override string ComposeBody()
         {
             StringBuilder sb = null;
-            
+
             try
             {
                 sb = new StringBuilder();
-
-                sb = StringBuilder.AppendFormat("fdsafasd");
 
                 sb.Append("<div style=\"max-width:670px; margin:0 auto; border:1px solid #d8d8d8; font-family: Arial, Helvetica, sans-serif; font-size:12px; color:#333333; background:#eeeeee;padding:10px; word-wrap:break-word\">");
                 //sb.Append("<div style=\" font-size:11px; float:left;\"><a target=\"_blank\" href=\"#\" style=\"text-decoration:none; color:#034fb6;\">Click here</a> to view in your browser</div>");
@@ -262,7 +260,7 @@ namespace Bikewale.Notifications.MailTemplates
                         sb.Append("</tbody></table>");
                     }
                 }
-                if (OfferList != null && OfferList.Count > 0)
+                if (OfferList != null && OfferList.Count > 0 )
                 {
                     sb.Append("<div style=\"background:url(http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/red-border.png) no-repeat; height:2px; margin:15px 0 0;\"></div></div><div style=\"padding:10px 10px 0;\">");
 
