@@ -196,7 +196,9 @@
                                     <div class="colour-dropdown">
                                         <div class="select-dropdown rounded-corner2">
                                             <div class="colour-selected-box">
-                                                <span class="leftfloat select-color-box rounded-corner2" data-bind="style:{'background-color':('#'+selectedColor().HexCode[0])}"></span>
+                                                <span class="leftfloat select-color-box rounded-corner2 " data-bind="foreach : selectedColor().HexCode , css : (selectedColor().HexCode.length >= 3)? 'color-count-three': (selectedColor().HexCode.length ==2)?'color-count-two':'color-count-one' ">
+                                                    <span data-bind="style: { 'background-color': '#' + $data }"></span>
+                                                </span>
                                                 <span class="leftfloat select-btn font14" data-bind="text:selectedColor().ColorName"></span>
                                                 <span class="clear"></span>
                                             </div>
@@ -204,9 +206,11 @@
                                         </div>
                                         <div class="select-dropdown-list hide">
                                             <ul data-bind="foreach: versionColors">
-                                                <li class="text-light-grey" colorid="" data-bind="attr: { colorId: $data.ColorId},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
-                                                    <span class="select-color-box rounded-corner2" data-bind="style: { 'background-color': '#' + HexCode[0]}"></span>
-                                                    <p data-bind="text: ColorName"></p>
+                                                <li class="text-light-grey border-light-grey" colorid="" data-bind="attr: { colorId: $data.ColorId},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
+                                                    <span class="select-color-box rounded-corner2 " data-bind="foreach : HexCode , css : (HexCode.length >= 3)? 'color-count-three': (HexCode.length ==2)?'color-count-two':'color-count-one' ">
+                                                        <span data-bind="style: { 'background-color': '#' + $data }"></span>
+                                                    </span>
+                                                    <p class="color-title-box" data-bind="text: ColorName"></p>
                                                 </li>
                                             </ul>
                                         </div>
@@ -418,7 +422,7 @@
         </section>
 
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
-        
+
         <% if (ctrlUsersTestimonials.FetchedCount > 0)
            { %>
         <section>
