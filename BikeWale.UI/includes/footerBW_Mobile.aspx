@@ -1,4 +1,6 @@
-﻿<% if(Ad_Bot_320x50){ %>
+﻿<BW:MPopupWidget runat="server" id="PopupWidget" />
+
+<% if(Ad_Bot_320x50){ %>
 <section>            
     <div class="container">
         <div>
