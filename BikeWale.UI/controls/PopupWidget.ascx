@@ -71,6 +71,7 @@
     }
 
     function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr, pqSourceId) {
+        $('#ddlCitiesPopup').text('Loading Cities...');
         PQSourceId = pqSourceId;
         $.ajax({
             type: "GET",
@@ -84,7 +85,6 @@
                 if (modelName != undefined && modelName != '')
                     selectedModelName = modelName;
 
-                $('.blackOut-window,#popupWrapper').fadeIn(100);
                 var cities = response.cities;
                 var citySelected = null;
                 if (cities) {
@@ -338,6 +338,8 @@
 
     $(document).ready(function () {
         $('body').on('click', 'a.fillPopupData', function (e) {
+            $('.blackOut-window,#popupWrapper').fadeIn(100);
+
             if (ga_pg_id != null & ga_pg_id == 2) {
                 var attr = $(this).attr('ismodel');
                 if (typeof attr !== typeof undefined && attr !== false) {

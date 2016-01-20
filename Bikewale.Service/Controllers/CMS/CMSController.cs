@@ -25,6 +25,7 @@ using Bikewale.DTO.CMS.Articles;
 using Bikewale.DTO.Version;
 using Bikewale.Service.AutoMappers.CMS;
 using Bikewale.Notifications;
+using Bikewale.Service.Utilities;
 
 namespace Bikewale.Service.Controllers.CMS
 {
@@ -245,13 +246,14 @@ namespace Bikewale.Service.Controllers.CMS
                             }
                         }
                     }
+                    string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
                     if (objFeaturedArticles.CategoryId == (int)EnumCMSContentType.Features)
                     {
-                        objCMSFArticles.ShareUrl = String.Format("/features/{0}-{1}", objCMSFArticles.ArticleUrl, basicId);
+                        objCMSFArticles.ShareUrl = _bwHostUrl + String.Format("/features/{0}-{1}", objCMSFArticles.ArticleUrl, basicId);
                     }
                     else if (objFeaturedArticles.CategoryId == (int)EnumCMSContentType.RoadTest)
                     {
-                        objCMSFArticles.ShareUrl = String.Format("/road-tests/{0}-{1}.html", objCMSFArticles.ArticleUrl, basicId);
+                        objCMSFArticles.ShareUrl = _bwHostUrl + String.Format("/road-tests/{0}-{1}.html", objCMSFArticles.ArticleUrl, basicId);
                     }
                     return Ok(objCMSFArticles);
                 }                
@@ -337,9 +339,10 @@ namespace Bikewale.Service.Controllers.CMS
                             objCMSFArticles.Content = "";
                         }
                     }
+                    string _bwHostUrl = BWConfiguration.Instance.BwHostUrlForJs;
                     if (objCMSFArticles.CategoryId == (int)EnumCMSContentType.News || objCMSFArticles.CategoryId == (int)EnumCMSContentType.AutoExpo2016)
                     {
-                        objCMSFArticles.ShareUrl = String.Format("/news/{0}-{1}.html", basicId, objNews.ArticleUrl);
+                        objCMSFArticles.ShareUrl = _bwHostUrl + String.Format("/news/{0}-{1}.html", basicId, objNews.ArticleUrl);
                     }
                     return Ok(objCMSFArticles);
                 }

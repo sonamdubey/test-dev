@@ -5,8 +5,8 @@
 <%@ Register Src="~/controls/ExpertReviews.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UserReviewsList.ascx" TagPrefix="BW" TagName="UserReviews" %>
-<%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PriceQuotePopup" %>
 <%@ Register Src="~/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
+<%@ Register Src="~/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!doctype html>
 <html>
 <head>
@@ -1381,6 +1381,21 @@
             </div>
         </section>
 
+        <% if (ctrlUsersTestimonials.FetchedCount > 0 && isBookingAvailable)
+           { %>
+        <section>
+            <div id="testimonialWrapper" class="container margin-bottom30">
+                <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
+                    <h2 class="text-bold text-center margin-top20 margin-bottom30 font28">Testimonials</h2>
+                    <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%
+           }           
+        %>
+        
         <%if ( (isBookingAvailable && isOfferAvailable) || (isBookingAvailable && !isOfferAvailable) )
           { %>
         <section>
@@ -1420,7 +1435,6 @@
             <input type="button" value="Confirm" class="btn btn-orange margin-top40" id="onroadPriceConfirmBtn">
         </div>
 
-        <BW:PriceQuotePopup ID="ctrlPriceQuotePopup" runat="server" />
         <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->

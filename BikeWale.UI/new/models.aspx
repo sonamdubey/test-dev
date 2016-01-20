@@ -5,7 +5,6 @@
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 
 <!Doctype html>
 <html>
@@ -224,11 +223,6 @@
             </div>
         </section>
 
-        <section>
-            <!-- Popup Section goes here-->
-            <PW:PopupWidget runat="server" ID="PopupWidget" />
-            <!-- Popup Section Ends here-->
-        </section>
         <script>
             $("a.read-more-btn").click(function () {
                 $("span.brand-about-main").toggleClass('hide');

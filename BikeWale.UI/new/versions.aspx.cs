@@ -93,6 +93,7 @@ namespace Bikewale.New
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
         protected string mpqQueryString = String.Empty;
+        protected UsersTestimonials ctrlUsersTestimonials;
         #endregion
 
         public enum Overviews
@@ -189,30 +190,49 @@ namespace Bikewale.New
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Trace.Warn("Trace 1 : DeviceDetection Start");
             //device detection
             DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"]);
             dd.DetectDevice();
+            Trace.Warn("Trace 2 : DeviceDetection End");
 
             #region Do Not change the sequence
+            Trace.Warn("Trace 3 : ParseQueryString Start");
             ParseQueryString();
+            Trace.Warn("Trace 4 : ParseQueryString End");
+
+            Trace.Warn("Trace 5 : CheckCityCookie Start");
             CheckCityCookie();
+            Trace.Warn("Trace 6 : CheckCityCookie End");
 
             //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue) && ddlVariant.SelectedValue != "0")
             if (hdnVariant.Value != "0")
                 variantId = Convert.ToInt32(hdnVariant.Value);
             #endregion
 
+            Trace.Warn("Trace 7 : FetchModelPageDetails Start");
             FetchModelPageDetails();
+            Trace.Warn("Trace 8 : FetchModelPageDetails End");
+
             if (modelPage !=null && modelPage.ModelDetails!=null && modelPage.ModelDetails.New)
             {
+                Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
                 FetchOnRoadPrice();
+                Trace.Warn("Trace 10 : FetchOnRoadPrice End");
             }
             if (!IsPostBack)
             {
+                Trace.Warn("Trace 11 : !IsPostBack");
                 #region Do not change the sequence
+                Trace.Warn("Trace 12 : BindPhotoRepeater Start");
                 BindPhotoRepeater();
+                Trace.Warn("Trace 13 : BindPhotoRepeater End");
+                Trace.Warn("Trace 14 : GetClientIP Start");
                 clientIP = CommonOpn.GetClientIP();
+                Trace.Warn("Trace 15 : GetClientIP End");
+                Trace.Warn("Trace 16 : LoadVariants Start");
                 LoadVariants();
+                Trace.Warn("Trace 17 : LoadVariants End");
                 #endregion
             }
             else
@@ -223,8 +243,11 @@ namespace Bikewale.New
                     rptVarients.DataBind();
                 }
             }
+            ctrlUsersTestimonials.TopCount = 6;
             SetFlags();
+            Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
             BindAlternativeBikeControl();
+            Trace.Warn("Trace 19 : BindAlternativeBikeControl End");
             // Set BikeName
             if (modelPage!=null && modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
@@ -249,6 +272,7 @@ namespace Bikewale.New
             ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
             ToggleOfferDiv();
+            Trace.Warn("Trace 20 : Page Load ends");
         }
 
         /// <summary>
@@ -322,30 +346,50 @@ namespace Bikewale.New
         /// </summary>
         private void LoadVariants()
         {
-            if (modelPage != null)
+            try
             {
-                if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
+                if (modelPage != null)
                 {
-                    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
+                    if (modelPage.ModelVersionSpecs != null && variantId <= 0)
                     {
-                        if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
-                        {
-                            defaultVariant.Text = modelPage.ModelVersions.Where(p => p.VersionId == variantId).First().VersionName;
-                            hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
-                        }
-                        else if (modelPage.ModelVersions.Count > 1)
-                        {
-                            defaultVariant.Text = modelPage.ModelVersions.First().VersionName;
-                        }
-                        rptVariants.DataSource = modelPage.ModelVersions;
-                        rptVariants.DataBind();
-                    }
-                    else if (modelPage.ModelVersions.Count == 1)
-                    {
-                        variantText = modelPage.ModelVersions.First().VersionName;
+                        variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                     }
 
+                    if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
+                    {
+                        if (modelPage.ModelVersions.Count > 1)
+                        {
+                            if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
+                            {
+                                var firstVer = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                if (firstVer != null)
+                                    defaultVariant.Text = firstVer.VersionName;
+
+                                hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
+                            }
+                            else if (modelPage.ModelVersions.Count > 1)
+                            {
+                                var firstVer = modelPage.ModelVersions.FirstOrDefault();
+                                if (firstVer != null)
+                                    defaultVariant.Text = firstVer.VersionName;
+                            }
+                            rptVariants.DataSource = modelPage.ModelVersions;
+                            rptVariants.DataBind();
+                        }
+                        else if (modelPage.ModelVersions.Count == 1)
+                        {
+                            var firstVer = modelPage.ModelVersions.FirstOrDefault();
+                            if (firstVer != null)
+                                variantText = firstVer.VersionName;
+                        }
+
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : LoadVariants");
+                objErr.SendMail();
             }
         }
 
@@ -399,13 +443,16 @@ namespace Bikewale.New
         }
 
         private void ParseQueryString()
-        {
+        {            
             ModelMaskingResponse objResponse = null;
             string modelQuerystring = Request.QueryString["model"];
+            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);
             if (modelQuerystring.Contains("/"))
             {
                 modelQuerystring = modelQuerystring.Split('/')[0];
             }
+
+            Trace.Warn("modelQuerystring 2 : ", modelQuerystring);
             try
             {
                 if (!string.IsNullOrEmpty(modelQuerystring))
@@ -418,12 +465,13 @@ namespace Bikewale.New
                                 ;
                         var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
 
-                        objResponse = objCache.GetModelMaskingResponse(modelQuerystring);
+                        objResponse = objCache.GetModelMaskingResponse(modelQuerystring);                        
                     }
                 }
             }
             catch (Exception ex)
             {
+                Trace.Warn("exception 1 : ");
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + System.Reflection.MethodBase.GetCurrentMethod().Name);
                 objErr.SendMail();
 
@@ -433,10 +481,14 @@ namespace Bikewale.New
             }
             finally
             {
+                Trace.Warn("finally");
                 if (!string.IsNullOrEmpty(modelQuerystring))
                 {
                     if (objResponse != null)
                     {
+                        Trace.Warn(" objResponse.StatusCode : ", objResponse.StatusCode.ToString());
+                        Trace.Warn(" objResponse.ModelId : ", objResponse.ModelId.ToString());
+                        Trace.Warn(" objResponse.MaskingName : ", objResponse.MaskingName.ToString());
                         if (objResponse.StatusCode == 200)
                         {
                             modelId = objResponse.ModelId.ToString();
@@ -448,6 +500,7 @@ namespace Bikewale.New
                         }
                         else
                         {
+                            Trace.Warn("pageNotFound.aspx 1");
                             Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
@@ -455,6 +508,7 @@ namespace Bikewale.New
                     }
                     else
                     {
+                        Trace.Warn("pageNotFound.aspx 2");
                         Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
@@ -462,6 +516,7 @@ namespace Bikewale.New
                 }
                 else
                 {
+                    Trace.Warn("pageNotFound.aspx 3");
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
@@ -480,6 +535,7 @@ namespace Bikewale.New
             // If No then drop area cookie
             string location = String.Empty;
             var cookies = this.Context.Request.Cookies;
+            
             if (cookies.AllKeys.Contains("location"))
             {
                 location = cookies["location"].Value;

@@ -10,7 +10,6 @@
 <%@ Register Src="~/controls/EMICalculatorMin.ascx" TagName="EmiCalc" TagPrefix="BW" %>
 <%@ Register Src="~/controls/LocateDealer_New.ascx" TagName="LocateDealer" TagPrefix="BW" %>
 <%@ Register Src="~/controls/NewBikesOnRoadPrice.ascx" TagName="NBOnRoadPrice" TagPrefix="BW" %>
-<%@ Register Src="~/controls/PopupWidget.ascx" TagName="PopupWidget" TagPrefix="BW" %>
 
 <!doctype html>
 <html>
@@ -607,8 +606,6 @@
                 <div class="clear"></div>
             </div>
         </section>
-
-        <BW:PopupWidget Id="NBPopupWidget" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <%--<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js"></script>--%>

@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.DetailedDealerQuotation" Trace="false" %>
 
 <%@ Register TagPrefix="SB" TagName="SimilarBike" Src="~/controls/SimilarBikes.ascx" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 <%
@@ -806,7 +805,6 @@
 <noscript>
     <img src="//bat.bing.com/action/0?ti=4051835&Ver=2" height="0" width="0" style="display: none; visibility: hidden;" /></noscript>
 <!-- Bing Code Ends here -->
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerInner.aspx" -->
 
 

@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Specs" Debug="false" Trace="false" %>
 <%@ Register TagPrefix="BikeWale" TagName="BikeRatings" Src="~/controls/BikeRatings.ascx" %>
 <%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%
     title = "Technical Specifications: " + mmv.Make + " " + mmv.Model + " " + mmv.Version;
@@ -562,5 +561,4 @@
        </div>
     </div>    
 </div>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerInner.aspx" -->

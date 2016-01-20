@@ -90,6 +90,7 @@ namespace Bikewale.Mobile.New
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
         protected string mpqQueryString = String.Empty;
+        protected UsersTestimonials ctrlUsersTestimonials;
         #region Events
         protected override void OnInit(EventArgs e)
         {
@@ -100,26 +101,42 @@ namespace Bikewale.Mobile.New
         protected void Page_Load(object sender, EventArgs e)
         {
             #region Do not change the sequence
+            Trace.Warn("Trace 3 : ParseQueryString Start");
             ParseQueryString();
+            Trace.Warn("Trace 4 : ParseQueryString End");
+            Trace.Warn("Trace 5 : CheckCityCookie Start");
             CheckCityCookie();
+            Trace.Warn("Trace 6 : CheckCityCookie End");
             if (hdnVariant.Value != "0")
                 variantId = Convert.ToInt32(hdnVariant.Value);
 
             #endregion
+            Trace.Warn("Trace 7 : FetchModelPageDetails Start");
             FetchModelPageDetails();
+            Trace.Warn("Trace 8 : FetchModelPageDetails End");
             if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
             {
+                Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
                 FetchOnRoadPrice();
+                Trace.Warn("Trace 10 : FetchOnRoadPrice End");
             }
             if (!IsPostBack)
             {
+                Trace.Warn("Trace 11 : !IsPostBack");
                 #region Do not change the sequence of these functions
-
+                Trace.Warn("Trace 12 : BindRepeaters Start");
                 BindRepeaters();
+                Trace.Warn("Trace 13 : BindRepeaters End");
                 //BindModelGallery();
+                Trace.Warn("Trace 14 : BindAlternativeBikeControl Start");
                 BindAlternativeBikeControl();
+                Trace.Warn("Trace 15 : BindAlternativeBikeControl End");
+                Trace.Warn("Trace 16 : GetClientIP Start");
                 clientIP = CommonOpn.GetClientIP();
+                Trace.Warn("Trace 17 : GetClientIP End");
+                Trace.Warn("Trace 18 : LoadVariants Start");
                 LoadVariants();
+                Trace.Warn("Trace 19 : LoadVariants End");
                 #endregion
 
                 ////news,videos,revews, user reviews
@@ -140,6 +157,7 @@ namespace Bikewale.Mobile.New
 
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+                Trace.Warn("Trace 20 : Page Load ends");
             }
             else
             {
@@ -149,6 +167,7 @@ namespace Bikewale.Mobile.New
                     rptVarients.DataBind();
                 }
             }
+            ctrlUsersTestimonials.TopCount = 6;
             SetFlags();
             if (modelPage!=null && modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
@@ -435,34 +454,50 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void LoadVariants()
         {
-            if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
-            {
-                //ddlVariant.Items.Clear();
-                if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
+            try
+            {                
+                if (modelPage != null)
                 {
-                    foreach (var version in modelPage.ModelVersions)
+                    if (modelPage.ModelVersionSpecs != null && variantId <= 0)
                     {
-                        // ddlVariant.Items.Insert(0, new ListItem(version.VersionName, version.VersionId.ToString()));
+                        variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                     }
-                    if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
-                    {
-                        //ddlVariant.SelectedValue = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
-                        defaultVariant.Text = modelPage.ModelVersions.Where(p => p.VersionId == variantId).First().VersionName;
-                        hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
-                    }
-                    else if (modelPage.ModelVersions.Count > 1)
-                    {
-                        defaultVariant.Text = modelPage.ModelVersions.First().VersionName;
-                    }
-                    rptVariants.DataSource = modelPage.ModelVersions;
-                    rptVariants.DataBind();
-                }
-                else if (modelPage.ModelVersions.Count == 1)
-                {
-                    variantText = modelPage.ModelVersions.First().VersionName;
-                }
 
-                //int curVersion = versionId == 0? Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId): versionId;
+                    if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
+                    {
+                        if (modelPage.ModelVersions.Count > 1)
+                        {
+                            if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
+                            {
+                                var firstVer = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                if (firstVer != null)
+                                    defaultVariant.Text = firstVer.VersionName;
+
+                                hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
+                            }
+                            else if (modelPage.ModelVersions.Count > 1)
+                            {
+                                var firstVer = modelPage.ModelVersions.FirstOrDefault();
+                                if (firstVer != null)
+                                    defaultVariant.Text = firstVer.VersionName;
+                            }
+                            rptVariants.DataSource = modelPage.ModelVersions;
+                            rptVariants.DataBind();
+                        }
+                        else if (modelPage.ModelVersions.Count == 1)
+                        {
+                            var firstVer = modelPage.ModelVersions.FirstOrDefault();
+                            if (firstVer != null)
+                                variantText = firstVer.VersionName;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : LoadVariants");
+                objErr.SendMail();
             }
         }
 
