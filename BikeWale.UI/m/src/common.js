@@ -1178,7 +1178,7 @@ var closePopUp = function (state) {
         case "onRoadPrice":
             closeOnRoadPricePopUp();
             break;
-        case "contactdetails":
+        case "contactDetails":
             leadPopupClose();
             break;
         case "viewBreakup":

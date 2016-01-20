@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.Search" %>
+<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!doctype html>
 <html>
     <head>
@@ -19,6 +20,7 @@
         <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" />
         <div class="blackOut-window"></div>
             <!-- global-search-popup code starts here -->
+
     <div id="global-search-popup" class="global-search-popup" style="display:none"> 
     	<div class="form-control-box">
         	<span class="back-arrow-box" id="gs-close">
