@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>
 <script type="text/javascript">
     var sourceHref = '0';
+    var cityClicked = false;
+    var areaClicked = false;
 </script>
 <!--bw popup code starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
@@ -157,7 +159,7 @@
             }
         });
 
-        self.selectCity = function (data, event) {           
+        self.selectCity = function (data, event) {
             $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
             if (!self.oBrowser()) {
                 self.SelectedCity(data);
@@ -209,23 +211,21 @@
                                 } else {
                                     $("#areaSelection div.selected-area").text("No areas available");
                                 }
-                                //$("#areaSelection").click();
                                 self.SelectedArea(undefined);
                                 self.SelectedAreaId(0);
-                                //$(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                             }
 
                             if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0) {
-                                //MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
                                 if (!self.oBrowser()) {
                                     $("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
                                 }
                                 else {
                                     self.selectArea(self, null);
                                 }
-
                             }
+                           
                         }
+
                     });
                 }
                 else {
@@ -235,6 +235,24 @@
                     self.SelectedAreaId(0);
                 }
             }
+
+            ev = $._data($('ul#popupCityList')[0], 'events');
+            if (!(ev && ev.click)) {
+                $('ul#popupCityList').on('click','li', function (e) {
+                    if (ga_pg_id != null && ga_pg_id == 2 && cityClicked == false) {
+                        var actText = '';
+                        if (self.SelectedCity().hasAreas) {
+                            actText = 'City_Selected_Has_Area';
+                        }
+                        else {
+                            actText = 'City_Selected_Doesnt_Have_Area';
+                        }
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().cityName });
+                        cityClicked = true;
+                    }
+                });
+            }
+        
         }
 
         self.selectArea = function (data, event) {
@@ -245,6 +263,10 @@
             }
             else {
                 self.SelectedArea(findAreaById(self.SelectedAreaId()));
+            }
+            if (ga_pg_id != null && ga_pg_id == 2 && areaClicked == false) {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().cityName + '_' + self.SelectedArea().areaName });
+                areaClicked = true;
             }
         };
 
@@ -290,11 +312,20 @@
             SetCookieInDays("location", cookieValue, 365);
 
             if (self.verifyDetails()) {
-
                 if (isModelPage && ga_pg_id != null && ga_pg_id == 2) {
+                    try {
+                        var selArea = '';
+                        if (self.SelectedArea() != undefined) {
+                            selArea = '_' + self.SelectedArea().areaName;
+                        }
+                        bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().cityName + selArea;
+                        if (bikeVersionLocation != null) {
+                            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_On_Road_Price_Selected', 'lab': bikeVersionLocation });
+                        }
+                    }
+                    catch (err) { }
                     window.location.reload();
                 }
-
                 else {
                     var obj = {
                         'CityId': self.SelectedCityId(),
@@ -441,8 +472,9 @@
         }
     }
 
+   
+
     MPopupViewModel = new mPopup;
     ko.applyBindings(MPopupViewModel, $("#popupWrapper")[0]);
-
 
 </script>
