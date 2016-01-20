@@ -107,9 +107,10 @@
         self.oBrowser = ko.observable(opBrowser);
         self.hasAreas = ko.observable();
         self.getCities = ko.computed(function (data, event) {
-            $("#citySelection div.selected-city").text("Loading Cities..");
+            $("#citySelection div.selected-city").text("Loading Cities..");             
             $("#popupLoader").text("Loading cities..").show().prev().show();
             self.BookingCities([]);
+            self.BookingAreas([]);
             $("#areaSelection").hide();
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0) {
                 $.ajax({
@@ -189,7 +190,7 @@
                             if (areas) {
                                 self.BookingAreas(areas);
                             }
-
+                            $("#areaSelection").show();
                         },
                         complete: function (xhr) {
 
@@ -362,13 +363,15 @@
 
     $(document).ready(function () {
         $('#popupWrapper .close-btn,.blackOut-window').click(function () {
-            $('.bw-city-popup').fadeOut(100);
+            $('.bw-city-popup').hide();
+            $('#popupWrapper').hide();
             $('body').removeClass('lock-browser-scroll');
             $(".blackOut-window").hide();
             $('a.fillPopupData').removeClass('ui-btn-active');
         });
 
         $('a.fillPopupData').on("click", function (e) {
+            $('#popupWrapper').show();
             e.stopPropagation();
             $("#errMsgPopUp").empty();
             var str = $(this).attr('modelId');
@@ -383,22 +386,8 @@
             selectedModel = modelIdPopup;
             isModelPage = $(this).attr('ismodel');
 
-            //checkCookies();
-            //if(onCookieObj!=null && onCookieObj.PQCitySelectedId > 0)
-            //{
-            //    MPopupViewModel.SelectedCity(ko.toJS({ 'cityId': onCookieObj.PQCitySelectedId, 'cityName': onCookieObj.PQCitySelectedName }));
-            //    MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
-
-            //    if(onCookieObj.PQSelectedId > 0)
-            //    {
-            //        MPopupViewModel.SelectedArea(ko.toJS({ 'areaId': onCookieObj.PQAreaSelectedId, 'areaName': onCookieObj.PQAreaSelectedName }));
-            //        MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
-            //    }
-            //}      
-
-            MPopupViewModel.SelectedModelId(selectedModel);
-
-            $('#popupWrapper').fadeIn(10);
+            MPopupViewModel.SelectedModelId(selectedModel); 
+            
             appendHash("onRoadPrice");
         });
 

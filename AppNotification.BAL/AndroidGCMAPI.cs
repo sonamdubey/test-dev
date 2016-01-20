@@ -11,6 +11,7 @@ using System.Net.Security;
 using System.Security.Cryptography.X509Certificates;
 using System.Configuration;
 using Newtonsoft.Json;
+using Consumer;
 
 namespace AppNotification.BAL
 {
@@ -72,6 +73,8 @@ namespace AppNotification.BAL
         {
             //If SSL certification is self signed then too the following line of code will Validate the server certificate
             ServicePointManager.ServerCertificateValidationCallback += new RemoteCertificateValidationCallback(ValidateServerCertificate);
+
+            Logs.WriteInfoLog(String.Format("postData  : {0}", postData));
             //  MESSAGE CONTENT
             byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
@@ -96,6 +99,8 @@ namespace AppNotification.BAL
                 responseLine = Reader.ReadToEnd();
                 Reader.Close();
 
+
+                Logs.WriteInfoLog(String.Format("api Response : {0}",responseLine));
                 return responseLine;
             }
             catch (Exception e)
