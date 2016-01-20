@@ -92,6 +92,35 @@
         };
     }(this));
 
+    $('#popupWrapper .close-btn,.blackOut-window').click(function () {
+        $('.bw-city-popup').fadeOut(100);
+        $('body').removeClass('lock-browser-scroll');
+        $(".blackOut-window").hide();
+        $('a.fillPopupData').removeClass('ui-btn-active');
+    });
+
+    $('body').on("click", "a.fillPopupData", function (e) {
+        e.stopPropagation();
+        $("#errMsgPopUp").empty();
+        var str = $(this).attr('modelId');
+        var pageIdAttr = $(this).attr('pagecatid');
+        PQSourceId = $(this).attr('pqSourceId');
+        var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
+        var modelIdPopup = parseInt(str, 10);
+        gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);
+        MPopupViewModel.MakeName = makeName;
+        MPopupViewModel.ModelName = modelName;
+        MPopupViewModel.PageCatId = pageIdAttr;
+        selectedModel = modelIdPopup;
+        isModelPage = $(this).attr('ismodel');
+
+        MPopupViewModel.SelectedModelId(selectedModel);
+
+        $('#popupWrapper').fadeIn(10);
+        appendHash("onRoadPrice");
+    });
+
+
     var mPopup = function () {
         var self = this;
         self.MakeName = "";
@@ -107,10 +136,9 @@
         self.oBrowser = ko.observable(opBrowser);
         self.hasAreas = ko.observable();
         self.getCities = ko.computed(function (data, event) {
-            $("#citySelection div.selected-city").text("Loading Cities..");             
+            $("#citySelection div.selected-city").text("Loading Cities..");
             $("#popupLoader").text("Loading cities..").show().prev().show();
             self.BookingCities([]);
-            self.BookingAreas([]);
             $("#areaSelection").hide();
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0) {
                 $.ajax({
@@ -190,7 +218,7 @@
                             if (areas) {
                                 self.BookingAreas(areas);
                             }
-                            $("#areaSelection").show();
+
                         },
                         complete: function (xhr) {
 
@@ -292,8 +320,8 @@
             if (self.verifyDetails()) {
 
                 if (isModelPage && ga_pg_id != null && ga_pg_id == 2) {
-                    //window.location.reload();
-                    window.history.back();
+                    window.location.reload();
+
                 }
 
                 else {
@@ -344,7 +372,7 @@
                                 gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                                 $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
                             }
-                            window.history.back();
+                            //window.history.back();
                         },
                         error: function (e) {
                             $("#errMsg").text("Oops. Some error occured. Please try again.").show();
@@ -360,38 +388,7 @@
 
     };
 
-
-    $(document).ready(function () {
-        $('#popupWrapper .close-btn,.blackOut-window').click(function () {
-            $('.bw-city-popup').hide();
-            $('#popupWrapper').hide();
-            $('body').removeClass('lock-browser-scroll');
-            $(".blackOut-window").hide();
-            $('a.fillPopupData').removeClass('ui-btn-active');
-        });
-
-        $('a.fillPopupData').on("click", function (e) {
-            $('#popupWrapper').show();
-            e.stopPropagation();
-            $("#errMsgPopUp").empty();
-            var str = $(this).attr('modelId');
-            var pageIdAttr = $(this).attr('pagecatid');
-            PQSourceId = $(this).attr('pqSourceId');
-            var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
-            var modelIdPopup = parseInt(str, 10);
-            gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);
-            MPopupViewModel.MakeName = makeName;
-            MPopupViewModel.ModelName = modelName;
-            MPopupViewModel.PageCatId = pageIdAttr;
-            selectedModel = modelIdPopup;
-            isModelPage = $(this).attr('ismodel');
-
-            MPopupViewModel.SelectedModelId(selectedModel); 
-            
-            appendHash("onRoadPrice");
-        });
-
-    });
+    
 
     function gtmCodeAppender(pageId, action, label) {
         var categoty = '';

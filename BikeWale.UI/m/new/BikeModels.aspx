@@ -1336,8 +1336,7 @@
         </div>
         <!-- Terms and condition Popup end -->
 
-        <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <BW:ModelGallery ID="ctrlModelGallery" runat="server" />       
 
         <!-- all other js plugins -->
         <script>
@@ -1368,11 +1367,19 @@
                 */
             });
 
+            var leadPopupClose = function () {
+                leadCapturePopup.hide();
+                $("#contactDetailsPopup").show();
+                $("#otpPopup").hide();
+                $('body').removeClass('lock-browser-scroll');
+                $(".blackOut-window").hide();
+            };
+
             $(".leadCapture-close-btn, .blackOut-window").on("click", function () {
                 $("#leadCapturePopup").hide();
                 $('body').removeClass('lock-browser-scroll');
                 $(".blackOut-window").hide();
-                window.history.back;
+                window.history.back();
             });
 
 
@@ -1407,11 +1414,6 @@
                 $(".blackOut-window").hide();
             });
 
-            $(".leadCapture-close-btn").on("click", function () {
-                leadPopupClose();
-                window.history.back();
-            });
-
             $(document).on('keydown', function (e) {
                 if (e.keyCode === 27) {
                     $("div.breakupCloseBtn").click();
@@ -1423,13 +1425,7 @@
                 }
             });
 
-            var leadPopupClose = function () {
-                leadCapturePopup.hide();
-                $("#contactDetailsPopup").show();
-                $("#otpPopup").hide();
-                $('body').removeClass('lock-browser-scroll');
-                $(".blackOut-window").hide();
-            };
+           
 
             $(".more-features-btn").click(function () {
                 $(".more-features").slideToggle();
@@ -1466,8 +1462,9 @@
             });
 
         </script>
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->        
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
+         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>         
         <script type="text/javascript">
             vmModelId = '<%= modelId%>';
             clientIP = '<%= clientIP%>';
