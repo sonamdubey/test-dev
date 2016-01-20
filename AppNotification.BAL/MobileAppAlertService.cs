@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppNotification.Notifications;
 using System.Configuration;
+using Consumer;
 
 namespace AppNotification.BAL
 {
@@ -38,7 +39,7 @@ namespace AppNotification.BAL
                     // Infolog.Info("processe object arrived 2");
                     int alertBatchSize = Int32.Parse(ConfigurationManager.AppSettings["MobileAlertBatchSize"]);
                     int totalNumCount = _mobileAppAlertRepo.GetTotalNumberOfSubs(t.alertTypeId);
-
+                    Logs.WriteInfoLog(String.Format("user COunt",totalNumCount));
                     // Infolog.Info("processe object arrived 3 alertbatchsize" + alertBatchSize +":totalnumcount:"+ totalNumCount);
 
                     int loopCount = totalNumCount / alertBatchSize;

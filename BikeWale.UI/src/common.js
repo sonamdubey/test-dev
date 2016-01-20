@@ -5,7 +5,7 @@ var objCity = new Object();
 var globalCityId = 0;
 var _makeName = '';
 var ga_pg_id = '0';
-var pqSourceId = "";
+var pqSourceId = "37";
 var IsPriceQuoteLinkClicked = false;
 
 
