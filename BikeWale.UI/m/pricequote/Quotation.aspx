@@ -1,8 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.PriceQuote.Quotation" Trace="false" %>
-
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
 <%@ Register Src="~/m/controls/MUpcomingBikes.ascx" TagName="MUpcomingBikes" TagPrefix="BW" %>
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <!doctype html>
 <html>
@@ -17,7 +15,7 @@
     <script>var quotationPage = true;</script>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link rel="stylesheet" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
-    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
+   
     <style type="text/css">
         .inner-section {
             background: #fff;
@@ -134,7 +132,6 @@
             </div>
         </section>
 
-        <BW:MPopupWidget runat="server" ID="MPopupWidget" />
 
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->

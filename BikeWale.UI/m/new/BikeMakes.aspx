@@ -3,7 +3,6 @@
 <%@ Register Src="/m/controls/NewsWidget.ascx" TagName="News" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/ExpertReviewsWidget.ascx" TagName="ExpertReviews" TagPrefix="BW" %>
 <%@ Register Src="/m/controls/VideosWidget.ascx" TagName="Videos" TagPrefix="BW" %>
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 
 <!doctype html>
 <html>
@@ -21,7 +20,6 @@
         TargetedMakes = _make.MakeName;
     %>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css"rel="stylesheet" /> 
     <!-- #include file="/includes/headscript_mobile.aspx" -->
 </head>
 <body class="bg-light-grey">
@@ -220,8 +218,6 @@
                 <!--Bottom Ad banner code ends here -->
             </div>
         </section>
-
-        <BW:MPopupWidget runat="server" ID="MPopupWidget1" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-brand.js?<%= staticFileVersion %>"></script>

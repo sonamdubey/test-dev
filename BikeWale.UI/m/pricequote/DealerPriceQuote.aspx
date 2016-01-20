@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.BikeBooking.DealerPriceQuote" Trace="false" Async="true" %>
 
 <%@ Register Src="~/m/controls/AlternativeBikes.ascx" TagPrefix="BW" TagName="AlternateBikes" %>
-<%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Import Namespace="Bikewale.BikeBooking" %>
 <!doctype html>
@@ -18,7 +17,6 @@
     <script>var quotationPage = true;</script>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link rel="stylesheet" href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/m/css/bw-new-style.css?<%= staticFileVersion %>" />
-    <link href="<%= staticUrl != "" ? "http://st1.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" type="text/css" rel="stylesheet" />
 
     <script type="text/javascript">
         var dealerId = '<%= dealerId%>';
@@ -321,7 +319,7 @@
             <% if (objPrice.objOffers != null && objPrice.objOffers.Count > 0)
                { %>
             <div class="new-line10 padding-left10 padding-right10 margin-bottom15" id="divOffers" style="background: #fff;">
-                <h2 class="font24 text-center text-grey"><%= (Convert.ToUInt32(bookingAmount) > 0)?"Book online and avail":"Avail offers" %></h2>
+                <h2 class="font18 text-grey"><%= (Convert.ToUInt32(bookingAmount) > 0)?"Book online and avail":"Avail offers" %></h2>
                 <div class="new-line10">
                     <asp:Repeater ID="rptOffers" runat="server">
                         <HeaderTemplate>
@@ -479,7 +477,7 @@
         </div>
         <!-- Terms and condition Popup Ends -->
 
-        <BW:MPopupWidget runat="server" ID="MPopupWidget" />
+        
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
