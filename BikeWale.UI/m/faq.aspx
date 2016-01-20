@@ -12,7 +12,7 @@
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <style type="text/css">
-    .faq-top-banner { background: #57605e url(http://img.aeplcdn.com/bikewaleimg/images/insurance-banner.jpg) no-repeat center center; background-size: cover; height: 130px; }
+    .faq-top-banner { background: #57605e url(http://img.aeplcdn.com/bikewaleimg/m/images/m_faqs_banner.jpg) no-repeat center center; background-size: cover; height: 130px; }
     .faq-content h3 { margin-bottom:15px; padding:5px 10px 15px; border-bottom:1px solid #ccc; }
     .faq-content p, .faq-content ol { font-size:14px; line-height:1.5; }
     .faq-content p { padding:0 10px 5px; }
