@@ -136,7 +136,7 @@ namespace Bikewale.Mobile.New
                 Trace.Warn("Trace 17 : GetClientIP End");
                 Trace.Warn("Trace 18 : LoadVariants Start");
                 LoadVariants();
-                Trace.Warn("Trace 19 : LoadVariants Start");
+                Trace.Warn("Trace 19 : LoadVariants End");
                 #endregion
 
                 ////news,videos,revews, user reviews
@@ -454,34 +454,50 @@ namespace Bikewale.Mobile.New
         /// </summary>
         private void LoadVariants()
         {
-            if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
-            {
-                //ddlVariant.Items.Clear();
-                if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
+            try
+            {                
+                if (modelPage != null)
                 {
-                    foreach (var version in modelPage.ModelVersions)
+                    if (modelPage.ModelVersionSpecs != null && variantId <= 0)
                     {
-                        // ddlVariant.Items.Insert(0, new ListItem(version.VersionName, version.VersionId.ToString()));
+                        variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                     }
-                    if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
-                    {
-                        //ddlVariant.SelectedValue = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
-                        defaultVariant.Text = modelPage.ModelVersions.Where(p => p.VersionId == variantId).First().VersionName;
-                        hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
-                    }
-                    else if (modelPage.ModelVersions.Count > 1)
-                    {
-                        defaultVariant.Text = modelPage.ModelVersions.First().VersionName;
-                    }
-                    rptVariants.DataSource = modelPage.ModelVersions;
-                    rptVariants.DataBind();
-                }
-                else if (modelPage.ModelVersions.Count == 1)
-                {
-                    variantText = modelPage.ModelVersions.First().VersionName;
-                }
 
-                //int curVersion = versionId == 0? Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId): versionId;
+                    if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
+                    {
+                        if (modelPage.ModelVersions.Count > 1)
+                        {
+                            if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
+                            {
+                                var firstVer = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                if (firstVer != null)
+                                    defaultVariant.Text = firstVer.VersionName;
+
+                                hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
+                            }
+                            else if (modelPage.ModelVersions.Count > 1)
+                            {
+                                var firstVer = modelPage.ModelVersions.FirstOrDefault();
+                                if (firstVer != null)
+                                    defaultVariant.Text = firstVer.VersionName;
+                            }
+                            rptVariants.DataSource = modelPage.ModelVersions;
+                            rptVariants.DataBind();
+                        }
+                        else if (modelPage.ModelVersions.Count == 1)
+                        {
+                            var firstVer = modelPage.ModelVersions.FirstOrDefault();
+                            if (firstVer != null)
+                                variantText = firstVer.VersionName;
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : LoadVariants");
+                objErr.SendMail();
             }
         }
 
