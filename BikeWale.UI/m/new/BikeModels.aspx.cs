@@ -101,26 +101,42 @@ namespace Bikewale.Mobile.New
         protected void Page_Load(object sender, EventArgs e)
         {
             #region Do not change the sequence
+            Trace.Warn("Trace 3 : ParseQueryString Start");
             ParseQueryString();
+            Trace.Warn("Trace 4 : ParseQueryString End");
+            Trace.Warn("Trace 5 : CheckCityCookie Start");
             CheckCityCookie();
+            Trace.Warn("Trace 6 : CheckCityCookie End");
             if (hdnVariant.Value != "0")
                 variantId = Convert.ToInt32(hdnVariant.Value);
 
             #endregion
+            Trace.Warn("Trace 7 : FetchModelPageDetails Start");
             FetchModelPageDetails();
+            Trace.Warn("Trace 8 : FetchModelPageDetails End");
             if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
             {
+                Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
                 FetchOnRoadPrice();
+                Trace.Warn("Trace 10 : FetchOnRoadPrice End");
             }
             if (!IsPostBack)
             {
+                Trace.Warn("Trace 11 : !IsPostBack");
                 #region Do not change the sequence of these functions
-
+                Trace.Warn("Trace 12 : BindRepeaters Start");
                 BindRepeaters();
+                Trace.Warn("Trace 13 : BindRepeaters End");
                 //BindModelGallery();
+                Trace.Warn("Trace 14 : BindAlternativeBikeControl Start");
                 BindAlternativeBikeControl();
+                Trace.Warn("Trace 15 : BindAlternativeBikeControl End");
+                Trace.Warn("Trace 16 : GetClientIP Start");
                 clientIP = CommonOpn.GetClientIP();
+                Trace.Warn("Trace 17 : GetClientIP End");
+                Trace.Warn("Trace 18 : LoadVariants Start");
                 LoadVariants();
+                Trace.Warn("Trace 19 : LoadVariants Start");
                 #endregion
 
                 ////news,videos,revews, user reviews
@@ -141,7 +157,7 @@ namespace Bikewale.Mobile.New
 
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-                
+                Trace.Warn("Trace 20 : Page Load ends");
             }
             else
             {

@@ -11,13 +11,13 @@ namespace Bikewale.Utility
         public static string GetMinSpecs(string displacement, string fuelEffecient, string maxpower)
         {
             string str=String.Empty;
-            if (displacement != "0")
+            if (!string.IsNullOrEmpty(displacement) && displacement != "0")
                 str += "<span><span>"+ displacement +"</span><span class='text-light-grey'> CC</span>, </span>";
 
-            if (fuelEffecient != "0")
+            if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
                 str += "<span><span>" + fuelEffecient + "</span><span class='text-light-grey'> Kmpl</span>, </span>";
 
-            if (maxpower != "0")
+            if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
                 str += "<span><span>" + maxpower + "</span><span class='text-light-grey'> bhp</span></span>";
 
             if (str != "")
