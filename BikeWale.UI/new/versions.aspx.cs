@@ -344,30 +344,50 @@ namespace Bikewale.New
         /// </summary>
         private void LoadVariants()
         {
-            if (modelPage != null)
+            try
             {
-                if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
+                if (modelPage != null)
                 {
-                    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
+                    if (modelPage.ModelVersionSpecs != null && variantId <= 0)
                     {
-                        if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
-                        {
-                            defaultVariant.Text = modelPage.ModelVersions.Where(p => p.VersionId == variantId).First().VersionName;
-                            hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
-                        }
-                        else if (modelPage.ModelVersions.Count > 1)
-                        {
-                            defaultVariant.Text = modelPage.ModelVersions.First().VersionName;
-                        }
-                        rptVariants.DataSource = modelPage.ModelVersions;
-                        rptVariants.DataBind();
-                    }
-                    else if (modelPage.ModelVersions.Count == 1)
-                    {
-                        variantText = modelPage.ModelVersions.First().VersionName;
+                        variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                     }
 
+                    if (modelPage.ModelVersions != null && !modelPage.ModelDetails.Futuristic)
+                    {
+                        if (modelPage.ModelVersions.Count > 1)
+                        {
+                            if (modelPage.ModelVersionSpecs != null && modelPage.ModelVersionSpecs.BikeVersionId != 0)
+                            {
+                                var firstVer = modelPage.ModelVersions.Where(p => p.VersionId == variantId).FirstOrDefault();
+                                if (firstVer != null)
+                                    defaultVariant.Text = firstVer.VersionName;
+
+                                hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
+                            }
+                            else if (modelPage.ModelVersions.Count > 1)
+                            {
+                                var firstVer = modelPage.ModelVersions.FirstOrDefault();
+                                if (firstVer != null)
+                                    defaultVariant.Text = firstVer.VersionName;
+                            }
+                            rptVariants.DataSource = modelPage.ModelVersions;
+                            rptVariants.DataBind();
+                        }
+                        else if (modelPage.ModelVersions.Count == 1)
+                        {
+                            var firstVer = modelPage.ModelVersions.FirstOrDefault();
+                            if (firstVer != null)
+                                variantText = firstVer.VersionName;
+                        }
+
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + " : LoadVariants");
+                objErr.SendMail();
             }
         }
 
@@ -421,13 +441,16 @@ namespace Bikewale.New
         }
 
         private void ParseQueryString()
-        {
+        {            
             ModelMaskingResponse objResponse = null;
             string modelQuerystring = Request.QueryString["model"];
+            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);
             if (modelQuerystring.Contains("/"))
             {
                 modelQuerystring = modelQuerystring.Split('/')[0];
             }
+
+            Trace.Warn("modelQuerystring 2 : ", modelQuerystring);
             try
             {
                 if (!string.IsNullOrEmpty(modelQuerystring))
@@ -440,12 +463,13 @@ namespace Bikewale.New
                                 ;
                         var objCache = container.Resolve<IBikeMaskingCacheRepository<BikeModelEntity, int>>();
 
-                        objResponse = objCache.GetModelMaskingResponse(modelQuerystring);
+                        objResponse = objCache.GetModelMaskingResponse(modelQuerystring);                        
                     }
                 }
             }
             catch (Exception ex)
             {
+                Trace.Warn("exception 1 : ");
                 ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + System.Reflection.MethodBase.GetCurrentMethod().Name);
                 objErr.SendMail();
 
@@ -455,10 +479,14 @@ namespace Bikewale.New
             }
             finally
             {
+                Trace.Warn("finally");
                 if (!string.IsNullOrEmpty(modelQuerystring))
                 {
                     if (objResponse != null)
                     {
+                        Trace.Warn(" objResponse.StatusCode : ", objResponse.StatusCode.ToString());
+                        Trace.Warn(" objResponse.ModelId : ", objResponse.ModelId.ToString());
+                        Trace.Warn(" objResponse.MaskingName : ", objResponse.MaskingName.ToString());
                         if (objResponse.StatusCode == 200)
                         {
                             modelId = objResponse.ModelId.ToString();
@@ -470,6 +498,7 @@ namespace Bikewale.New
                         }
                         else
                         {
+                            Trace.Warn("pageNotFound.aspx 1");
                             Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                             HttpContext.Current.ApplicationInstance.CompleteRequest();
                             this.Page.Visible = false;
@@ -477,6 +506,7 @@ namespace Bikewale.New
                     }
                     else
                     {
+                        Trace.Warn("pageNotFound.aspx 2");
                         Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
@@ -484,6 +514,7 @@ namespace Bikewale.New
                 }
                 else
                 {
+                    Trace.Warn("pageNotFound.aspx 3");
                     Response.Redirect(CommonOpn.AppPath + "pageNotFound.aspx", false);
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
@@ -502,6 +533,7 @@ namespace Bikewale.New
             // If No then drop area cookie
             string location = String.Empty;
             var cookies = this.Context.Request.Cookies;
+            
             if (cookies.AllKeys.Contains("location"))
             {
                 location = cookies["location"].Value;
