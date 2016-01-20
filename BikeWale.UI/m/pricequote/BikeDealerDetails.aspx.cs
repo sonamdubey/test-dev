@@ -6,6 +6,7 @@ using Bikewale.DTO.PriceQuote.DetailedDealerQuotation;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Mobile.Controls;
 using Bikewale.Mobile.PriceQuote;
 using Bikewale.Utility;
 using Microsoft.Practices.Unity;
@@ -24,6 +25,8 @@ namespace Bikewale.Mobile.Pricequote
     /// Author  : Sushil Kumar
     /// Created On : 3rd December 2015
     /// Description : Booking configurator 
+    /// Modified by :   Sumit Kate on 19 Jan 2016
+    /// Description :   Added Users Testimonial Control
     /// </summary>
     public class BookingConfig : System.Web.UI.Page
     {
@@ -35,7 +38,7 @@ namespace Bikewale.Mobile.Pricequote
         protected BookingPageDetailsEntity objBookingPageDetails = null;
         protected PQCustomerDetail objCustomer = null;
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
-
+        protected UsersTestimonials ctrlUsersTestimonials;
 
         protected override void OnInit(EventArgs e)
         {
@@ -48,6 +51,7 @@ namespace Bikewale.Mobile.Pricequote
             {
                 ProcessCookie();
                 BindBookingDetails();
+                ctrlUsersTestimonials.TopCount = 6;
             }
         }
 

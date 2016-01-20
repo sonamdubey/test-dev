@@ -5,6 +5,8 @@ var objCity = new Object();
 var globalCityId = 0;
 var _makeName = '';
 var ga_pg_id = '0';
+var pqSourceId = "";
+var IsPriceQuoteLinkClicked = false;
 
 
 //fallback for indexOf for IE7
@@ -88,28 +90,22 @@ $(document).ready(function () {
 	        objBikes = new Object();
 	    },
 	    click: function (event, ui, orgTxt) {
-	        var make = new Object();
-	        make.maskingName = ui.item.payload.makeMaskingName;
-	        make.id = ui.item.payload.makeId;
-	        var model = null;
-	        if (ui.item.payload.modelId > 0) {
-	            model = new Object();
-	            model.maskingName = ui.item.payload.modelMaskingName;
-	            model.id = ui.item.payload.modelId;
-	        }
-	        MakeModelRedirection(make, model);
+	        MakeModelRedirection(ui.item);
 	        // GA code
 	        var keywrd = ui.item.label +'_'+$('#newBikeList').val();
 	        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
 	    },
 	    open: function (result) {
 	        objBikes.result = result;
+            console.log(result.length)
 	    },
 	    focusout: function () {
 	        if ($('li.ui-state-focus a:visible').text() != "") {
 	            focusedMakeModel = new Object();
 	            focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
 	            //$('#btnSearch').click();
+	        } else {
+	            $('#errGlobalSearch').addClass('hide');
 	        }
 	    },
 	    afterfetch: function (result, searchtext) {
@@ -448,6 +444,7 @@ $(function () {
     }).on('click', function (e) {
         e.preventDefault();
     }).jcarouselPagination({
+        perPage: 3,
         item: function (page) {
             return '<a href="#' + page + '">' + page + '</a>';
         }
@@ -486,14 +483,32 @@ function dataListDisplay(availableTags, request, response) {
     response(results.slice(0, 5));
 }
 
-function MakeModelRedirection(make, model) {
-    if (model != null && model != undefined) {
-        window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/";
-        return true;
-    }
-    else if (make != null && make != undefined) {
-        window.location.href = "/" + make.maskingName + "-bikes/";
-        return true;
+function setPriceQuoteFlag()
+{
+    IsPriceQuoteLinkClicked = true;
+}
+
+
+function MakeModelRedirection(items) {
+    if (!IsPriceQuoteLinkClicked) {
+        var make = new Object();
+        make.maskingName = items.payload.makeMaskingName;
+        make.id = items.payload.makeId;
+        var model = null;
+        if (items.payload.modelId > 0) {
+            model = new Object();
+            model.maskingName = items.payload.modelMaskingName;
+            model.id = items.payload.modelId;
+            model.futuristic = items.payload.futuristic;
+        }
+
+        if (model != null && model != undefined) {
+            window.location.href = "/" + make.maskingName + "-bikes/" + model.maskingName + "/";
+            return true;
+        } else if (make != null && make != undefined) {
+            window.location.href = "/" + make.maskingName + "-bikes/";
+            return true;
+        }
     }
 }
 
@@ -628,10 +643,7 @@ function pushNavMenuAnalytics(menuItem) {
                         options.open(result);
                 }
             }).data("ui-autocomplete")._renderItem = function (ul, item) {
-                return $("<li>")
-                  .data("ui-autocomplete-item", item)
-                  .append('<a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>')
-                  .appendTo(ul);
+                return createAutoSuggestLinkText(ul, item, reqTerm);
             };
             function __highlight(s, t) {
                 var matcher = new RegExp("(" + $.ui.autocomplete.escapeRegex(t) + ")", "ig");
@@ -642,6 +654,25 @@ function pushNavMenuAnalytics(menuItem) {
                     return key + ':' + value + ';';
                 else
                     return '';
+            }
+            function createAutoSuggestLinkText(ul, item, reqTerm) {          
+                var ulItem = $("<li>")
+                              .data("ui-autocomplete-item", item)
+                              .append('<a OptionName=' + item.label.replace(/\s/g, '').toLowerCase() + '>' + __highlight(item.label, reqTerm) + '</a>');
+
+                if (options.source == '1') {
+                    if (item.payload.modelId > 0) {
+                        if (item.payload.futuristic == 'False') {
+                            ulItem.append('<a href="#" pqSourceId="' + pqSourceId + '" modelId="' + item.payload.modelId + '" class="fillPopupData target-popup-link" onclick="setPriceQuoteFlag()">Get on road price</a>');
+                        } else {
+                            ulItem.append('<span class="upcoming-link">coming soon</span>')
+                        }
+
+                        ulItem.append('<div class="clear"></div>');
+                    }
+                }
+                ulItem.appendTo(ul);
+                return ulItem;
             }
             $(this).keyup(function (e) {
                 if ($(this).val().replace(/\s/g, '').length == 0 && options.onClear != undefined) {
@@ -796,16 +827,7 @@ function btnFindBikeNewNav() {
         window.location.href += 'new/';
         return true;
     }
-    var make = new Object();
-    make.maskingName = focusedMakeModel.payload.makeMaskingName;
-    make.id = focusedMakeModel.payload.makeId;
-    var model = null;
-    if (focusedMakeModel.payload.modelId > 0) {
-        model = new Object();
-        model.maskingName = focusedMakeModel.payload.modelMaskingName;
-        model.id = focusedMakeModel.payload.modelId;
-    }
-    return MakeModelRedirection(make, model);
+    return MakeModelRedirection(focusedMakeModel);
 }
 
 function navbarHide() {
@@ -840,28 +862,18 @@ $('#btnGlobalSearch').on('click', function () {
 
 
 $("#globalSearch").bw_autocomplete({
-    width: 240,
+    width: 420,
     source: 1,
     recordCount: 10,
     onClear: function () {
         objBikes = new Object();
     },
     click: function (event, ui, orgTxt) {
-        var make = new Object();
-        make.maskingName = ui.item.payload.makeMaskingName;
-        make.id = ui.item.payload.makeId;
-        var model = null;
-        if (ui.item.payload.modelId > 0) {
-            model = new Object();
-            model.maskingName = ui.item.payload.modelMaskingName;
-            model.id = ui.item.payload.modelId;
-        }
-
         var keywrd = ui.item.label + '_' + $('#globalSearch').val();
         var category = GetCatForNav();
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Present_in_Autosuggest', 'lab': keywrd });
 
-        MakeModelRedirection(make, model);
+        MakeModelRedirection(ui.item);
     },
     loaderStatus : function(status)
     {
@@ -883,6 +895,7 @@ $("#globalSearch").bw_autocomplete({
         if ($('li.ui-state-focus a:visible').text() != "") {
             focusedMakeModel = new Object();
             focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
+            //$('li.ui-state-focus.fillPopupData').focus();
         }
         else {
             $('#errGlobalSearch').addClass('hide');
@@ -1099,5 +1112,5 @@ var Base64 = {
 
         return string;
     }
-
 }
+

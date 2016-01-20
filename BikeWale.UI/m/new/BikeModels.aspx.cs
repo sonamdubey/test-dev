@@ -90,6 +90,7 @@ namespace Bikewale.Mobile.New
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
         protected string mpqQueryString = String.Empty;
+        protected UsersTestimonials ctrlUsersTestimonials;
         #region Events
         protected override void OnInit(EventArgs e)
         {
@@ -166,6 +167,7 @@ namespace Bikewale.Mobile.New
                     rptVarients.DataBind();
                 }
             }
+            ctrlUsersTestimonials.TopCount = 6;
             SetFlags();
             if (modelPage!=null && modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;

@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.PriceQuote.BookingSummary_New" %>
-
+<%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!doctype html>
 <html>
 <head>
@@ -379,8 +379,24 @@
 
         <section class="container margin-bottom30 content-box-shadow">
             <div class="lazy booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>"></div>
-            <div class="clear"></div>
+        <div class="clear"></div>
+        </section>    
+        <% if (ctrlUsersTestimonials.FetchedCount > 0){ %>
+        <section>
+            <div id="testimonialWrapper" class="container margin-bottom10">
+                <h2 class="text-bold text-center margin-bottom20 font24">Testimonials</h2>
+                <div class="swiper-container text-center">
+                    <div class="swiper-wrapper margin-bottom10">
+                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>                        
+                    </div>
+                </div>
+            </div>
         </section>
+            <%
+        }          
+        %>
+
+            
         <!-- Terms and condition Popup start -->
         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
             <h3>Terms and Conditions</h3>
@@ -411,7 +427,7 @@
         </div>
         <!--Cancellation & refund policy popup ends here-->
         <section>
-            <div class="container margin-top10 margin-bottom30">
+            <div class="container margin-bottom30">
                 <div id="faqSlug">
                     <div class="faq-slug-container content-box-shadow content-inner-block-20">
                         <div class="question-icon-container text-center leftfloat">

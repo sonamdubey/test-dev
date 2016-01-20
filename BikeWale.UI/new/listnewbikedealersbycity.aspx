@@ -3,7 +3,6 @@
 <%@ Register TagPrefix="NBL" TagName="NewBikeLaunches" Src="/controls/NewBikeLaunches.ascx" %>
 <%@ Register TagPrefix="TIP" TagName="TipsAdvicesMin" Src="/controls/TipsAdvicesMin.ascx" %>
 <%@ Register TagPrefix="FM" TagName="ForumsMin" Src="/controls/forumsmin.ascx" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <% 
     description = objMMV.Make + " bike dealers/showrooms in India. Find new bike dealer information for more than 200 cities. Dealer information includes full address, phone numbers, email, pin code etc.";
@@ -183,5 +182,4 @@
         }
     }
 </script>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerInner.aspx" -->

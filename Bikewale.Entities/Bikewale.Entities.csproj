@@ -199,6 +199,7 @@
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
+    <Compile Include="UsersTestimonial\UsersTestimonial.cs" />
     <Compile Include="Videos\BikeVideoEntity.cs" />
     <Compile Include="Videos\EnumVideosCategory.cs" />
   </ItemGroup>
