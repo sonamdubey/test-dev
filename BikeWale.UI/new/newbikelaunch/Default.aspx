@@ -3,7 +3,6 @@
 <%@ Register TagPrefix="uc" TagName="UpcomingBikes" Src="~/controls/UpcomingBikesMin.ascx" %>
 <%@ Register TagPrefix="BikeWale" TagName="RepeaterPager" Src="/controls/LinkPagerControl.ascx" %>
 <%@ Register TagPrefix="news" TagName="NewsMin" Src="~/controls/NewsMin.ascx" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%@ Import Namespace="Bikewale.Common" %>
 <%
     title = "New Bikes Launches in " + year + " - BikeWale";
@@ -92,5 +91,4 @@
         </div>--%>
     </div>
 </div>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 <!-- #include file="/includes/footerInner.aspx" -->

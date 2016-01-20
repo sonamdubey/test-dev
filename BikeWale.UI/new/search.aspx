@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.Search" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <html>
 <head>
     <%
@@ -370,7 +369,6 @@
 <script type="text/javascript">
     var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch%>';
 </script>
-<PW:PopupWidget runat="server" ID="PopupWidget" />
 </form>
 </body>
 </html>

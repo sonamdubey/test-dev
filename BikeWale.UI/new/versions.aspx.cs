@@ -93,6 +93,7 @@ namespace Bikewale.New
         protected string dealerId = string.Empty;
         protected string pqId = string.Empty;
         protected string mpqQueryString = String.Empty;
+        protected UsersTestimonials ctrlUsersTestimonials;
         #endregion
 
         public enum Overviews
@@ -242,6 +243,7 @@ namespace Bikewale.New
                     rptVarients.DataBind();
                 }
             }
+            ctrlUsersTestimonials.TopCount = 6;
             SetFlags();
             Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
             BindAlternativeBikeControl();

@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.BookingSummary_New" %>
 
+<%@ Register Src="~/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +12,6 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/booking.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
-   
 </head>
 <body class="header-fixed-inner">
     <form runat="server">
@@ -88,13 +88,13 @@
                                 <% if (isOfferAvailable)
                                    { %>
                                 <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Book online and avail </h3>
-                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and avail</h3>
+                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and avail</h3>
 
                                 <ul>
                                     <asp:Repeater ID="rptDealerFinalOffers" runat="server">
                                         <ItemTemplate>
-                                            <li class="offertxt"> <%#DataBinder.Eval(Container.DataItem,"OfferText") %>
-                                               <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                                            <li class="offertxt"><%#DataBinder.Eval(Container.DataItem,"OfferText") %>
+                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
@@ -102,7 +102,7 @@
                                 <%}
                                    else
                                    {%>
-                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                                <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
                                 <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Get following details on the bike</h3>
                                 <ul>
                                     <li>Offers from the nearest dealers</li>
@@ -273,7 +273,7 @@
                                                 <td class="padding-bottom10">Total on road price</td>
                                                 <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: versionPrice()"></span></td>
                                             </tr>
-                                             <!-- ko foreach: discountList -->
+                                            <!-- ko foreach: discountList -->
                                             <tr>
                                                 <td width="350" class="padding-bottom10" data-bind="text: 'Minus ' + CategoryName"></td>
                                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: Price"></span></td>
@@ -326,7 +326,7 @@
                                         </li>
                                         <li>
                                             <p class="text-bold">Availability</p>
-                                            <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
+                                            <p class="text-light-grey" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span class="text-default" data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></p>
                                             <p class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() == 0">Now available</p>
                                             <p class="text-red text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 0">Not available</p>
                                         </li>
@@ -336,7 +336,7 @@
                                     <% if (isOfferAvailable)
                                        { %>
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-gift margin-right5 font-24"></span>Available Offers </h3>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 text-red font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
 
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
@@ -350,11 +350,11 @@
                                     <%}
                                        else
                                        {%>
-                                     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike</h3>
+                                    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM"></script>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5 font-24"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike</h3>
                                     <h3 class="padding-bottom10 padding-left5 margin-right20 border-light-bottom margin-bottom20" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="fa fa-map-marker text-red margin-right5"></span>Dealer's Location</h3>
                                     <div class="bikeModel-dealerMap-container margin-left5 margin-top15" style="width: 400px; height: 150px" data-bind="googlemap: { latitude: $root.Dealer().latitude(), longitude: $root.Dealer().longitude() }"></div>
-                                    
+
                                     <% } %>
                                 </div>
                                 <div class="clear"></div>
@@ -378,45 +378,74 @@
 
         </section>
         <!-- Terms and condition Popup start -->
-           <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
-                                <h3>Terms and Conditions</h3>
-                                <div style="vertical-align: middle; text-align: center;" id="termspinner">
-                                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
-                                    <img src="/images/search-loading.gif" />
-                                </div>
-                                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                                <div id="terms" class="breakup-text-container padding-bottom10 font14">
-                                </div>
-                            </div>
-         <!-- Terms and condition Popup Ends -->
+        <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+            <h3>Terms and Conditions</h3>
+            <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
+                <img src="/images/search-loading.gif" />
+            </div>
+            <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+            <div id="terms" class="breakup-text-container padding-bottom10 font14">
+            </div>
+        </div>
+        <!-- Terms and condition Popup Ends -->
         <!--cancellation popup starts here-->
-            <div class="bw-popup bw-popup-lg cancellation-popup hide">
-    	        <div class="popup-inner-container">
+        <div class="bw-popup bw-popup-lg cancellation-popup hide">
+            <div class="popup-inner-container">
                 <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-        	        <h2>Cancellation & Refund Policy</h2>
-                    <div class="popup-inner-content cancellation-list">
-            	        <ul>
-                             <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong> </li>               	
-                             <li><strong>b.</strong> Please email your <strong>Booking Cancellation Request'</strong> to <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating <strong>the booking reference number, your mobile number and email address (that you used while booking).</strong></li>
+                <h2>Cancellation & Refund Policy</h2>
+                <div class="popup-inner-content cancellation-list">
+                    <ul>
+                        <li><strong>a.</strong> Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong> </li>
+                        <li><strong>b.</strong> Please email your <strong>Booking Cancellation Request'</strong> to <a class="blue" href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating <strong>the booking reference number, your mobile number and email address (that you used while booking).</strong></li>
 
-                            <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
+                        <li><strong>c.</strong> <strong>Cancellation will not be possible if you and dealership have proceeded further with purchase 
                                 of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, 
                                 submitting any documents, procurement of the vehicle by the dealership etc.
-                            </li>
-                            <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
-                	
-                	        <li><strong>e.</strong> For all valid requests, we will process the refund of full booking amount to customer's account within 7 working days.</li>
-                        </ul>
-                    </div>
+                        </li>
+                        <li><strong>d.</strong> If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
+
+                        <li><strong>e.</strong> For all valid requests, we will process the refund of full booking amount to customer's account within 7 working days.</li>
+                    </ul>
                 </div>
             </div>
-            <!--cancellation popup ends here-->
-        <section class="container margin-bottom30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
+        </div>
+        <!--cancellation popup ends here-->
+
+        <section class="container margin-top10 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
 
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
+        
+        <% if (ctrlUsersTestimonials.FetchedCount > 0)
+           { %>
+        <section>
+            <div id="testimonialWrapper" class="container margin-bottom30">
+                <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Testimonials</h2>
+                    <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%
+           }
+           else
+           {
+        %>
+        <section>
+            <div class="container margin-bottom30">
+                <div class="grid-12">
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%           
+           }
+        %>
+
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12">
@@ -440,7 +469,7 @@
 
         <input id="hdnBikeData" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((objBooking.Varients))%>' />
         <input id="hdnDiscountList" type="hidden" value='<%= new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(dealerDetailEntity.objQuotation.discountedPriceList)%>' />
-         <!-- #include file="/includes/footerscript.aspx" -->
+        <!-- #include file="/includes/footerscript.aspx" -->
         <!-- #include file="/includes/footerBW.aspx" -->
 
         <script type="text/javascript">
