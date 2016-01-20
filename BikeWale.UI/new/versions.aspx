@@ -24,6 +24,7 @@
         fbTitle = title;
         alternate = "http://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
         isAd970x90Shown = true;
+        TargetedCity = cityName;
     %>
 
     <% isAd970x90BTFShown = true; %>
