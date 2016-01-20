@@ -2,6 +2,8 @@
 <!--bw popup code starts here-->
 <script type="text/javascript">
     var sourceHref = '0';
+    var cityClicked = false;
+    var areaClicked = false;
 </script>
 <script runat="server">
     private string staticUrl1 = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
@@ -28,7 +30,7 @@
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
             <div data-bind="visible: bookingAreas().length > 0" style="margin-top: 10px">
-                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--'"></select>
+                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--' "></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
@@ -101,15 +103,32 @@
                     viewModelPopup.bookingCities([]);
                     $('#ddlCitiesPopup').trigger("chosen:updated");
                 }
+            },
+            complete: function () {
+                ev = $._data($('ul.chosen-results')[0], 'events');
+                if (!(ev && ev.click)) {
+
+                    $($('ul.chosen-results')[0]).on('click', 'li', function (e) {
+                        if (cityClicked == false) {
+                            if (ga_pg_id != null && ga_pg_id == 2) {
+                                var bkVersionLocn = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html();
+                                if (viewModelPopup.hasAreas()) {
+                                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected_Has_Area', 'lab': getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() });
+                                }
+                                else {
+                                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected_Doesnt_Have_Area', 'lab': bkVersionLocn });
+                                }
+                                cityClicked = true;
+                            }
+                        }
+                    });
+                }
             }
         });
     }
 
-
     function cityChangedPopup() {
-        //gtmCodeAppender(pageId, "City Selected", null);
         if (viewModelPopup.selectedCity() != undefined) {
-
             viewModelPopup.hasAreas(findCityById(viewModelPopup, viewModelPopup.selectedCity()).hasAreas);
             if (viewModelPopup.hasAreas() != undefined && viewModelPopup.hasAreas()) {
                 $.ajax({
@@ -125,6 +144,7 @@
                                 onCookieObj.PQAreaSelectedId = 0;
                             }
                             $('#ddlAreaPopup').trigger("chosen:updated");
+                            
                         }
                         else {
                             viewModelPopup.selectedArea(0);
@@ -136,6 +156,20 @@
                         viewModelPopup.selectedArea(0);
                         viewModelPopup.bookingAreas([]);
                         $('#ddlAreaPopup').trigger("chosen:updated");
+                    },
+                    complete: function () {
+                        ev = $._data($('ul.chosen-results')[1], 'events');
+                        if (!(ev && ev.click)) {
+                            $($('ul.chosen-results')[1]).on('click', 'li', function (e) {
+                                if (areaClicked == false) {
+                                    if (ga_pg_id != null && ga_pg_id == 2) {
+                                        var bkVersionLocn = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() + '_' + $('#ddlAreaPopup option:selected').html();
+                                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': bkVersionLocn });
+                                        areaClicked = true;
+                                    }
+                                }
+                            });
+                        }
                     }
                 });
             }
@@ -146,11 +180,6 @@
             viewModelPopup.bookingAreas([]);
         }
     }
-
-    //function areaChangedPopup() {
-    //    gtmCodeAppender(pageId, "Area Selected", null);
-    //}
-
 
     function isValidInfoPopup() {
         isValid = true;
@@ -176,7 +205,18 @@
         if (isValidInfoPopup()) {
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
             if (ga_pg_id != null && ga_pg_id == 2 && sourceHref == '1') {
-                window.location.reload();// = "/new/bikeModel.aspx?model=cbshine#modelDetailsContainer";
+                try {
+                    var selArea = '';
+                    if ($('#ddlAreaPopup option:selected').index() > 0) {
+                        selArea = '_' + $('#ddlAreaPopup option:selected').html();
+                    }
+                    bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() + selArea;
+                    if (bikeVersionLocation != null) {
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_On_Road_Price_Selected', 'lab': bikeVersionLocation });
+                    }
+                }
+                catch (err) { }
+                window.location.reload();
             }
             else {
                 var obj = {
@@ -233,6 +273,7 @@
                         gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                         $("#errMsg").text("Oops. Some error occured. Please try again.").show();
                     }
+                   
                 });
             }
         } else {
@@ -326,7 +367,6 @@
 
         ko.applyBindings(viewModelPopup, $("#popupContent")[0]);
     });
-
 
 </script>
 <script type="text/javascript" src="<%= !string.IsNullOrEmpty(staticUrl1) ? "http://st2.aeplcdn.com" + staticUrl1 : string.Empty %>/src/common/chosen.jquery.min.js?<%= staticFileVersion1 %>"></script>
