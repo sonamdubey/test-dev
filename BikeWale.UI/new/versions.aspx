@@ -252,35 +252,14 @@
                                         <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                 <% } %>
                                  <% else if( !isCitySelected) {%>
-                                        <p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span></a></p>
+                                        <p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else if( !isOnRoadPrice) {%>
-                                        <p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span></a></p>
+                                        <p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity" ><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else {%>
-                                        <p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData"><span class="bwsprite edit-blue-icon"></span></a></p>
+                                        <p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
-                                <%--<% else if (pqOnRoad !=null && pqOnRoad.IsDealerPriceAvailable)
-                                   { %>
-                                <p class="font14">On-road Price in <span class="viewBreakupText"><span class="font16 text-grey text-bold"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
-                                <% } %>
-
-                                <% else if (!isCitySelected)
-                                   { %>
-                                        <p class="font14">Ex-showroom price in <span href="javascript:void(0)" class="font14 text-grey"><%= ConfigurationManager.AppSettings["defaultName"] %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
-                                <% }
-                                   else if (!isAreaAvailable)
-                                   { %>
-                                        <p class="font14">On road Price in<span href="javascript:void(0)" class="font14 text-grey"> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
-                                <% }
-                                   else if (isAreaAvailable && !isAreaSelected)
-                                   { %>
-                                        <p class="font14">Ex-showroom Price in<span href="javascript:void(0)" class="font14 text-grey"> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
-                                <% }
-                                   else
-                                   { %>
-                                        <p class="font14">On road Price in<span href="javascript:void(0)" class="font14 text-grey"> <%= cityName %></span><a ismodel="true" modelid="<%=modelId %>" class="fa fa-edit viewBreakupText fillPopupData"></a></p>
-                                <% } %>--%>
                                 <div class="modelPriceContainer">
                                     <%  if (price == "" || price == "0")
                                         { %>
@@ -313,7 +292,7 @@
                                 else 
                                 if(toShowOnRoadPriceButton)
                                    { %>
-                                <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
+                                        <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
                                 <% } %>
                             </div>
 
@@ -1478,6 +1457,13 @@
                 $(".carousel-navigation ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
                 $(".carousel-stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
                 document.location.href.split('?')[0];
+                if( $('#getMoreDetailsBtn').length > 0)
+                {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_More_Details_Shown', 'lab': bikeVersionLocation });
+                }
+                if ($('#btnGetOnRoadPrice').length > 0) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
+                }
             });
         </script>
         <script type="text/javascript">
@@ -1592,6 +1578,7 @@
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + '_' + myBikeName });
                 }
             }
+            
         </script>
     </form>
 </body>

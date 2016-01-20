@@ -177,60 +177,21 @@
                         <p class="font14 fillPopupData">
                             Ex-showroom price in <span href="javascript:void(0)" class="text-light-grey clear">
                                 <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span>
-                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5">
+                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity">
                                 <span class="bwmsprite edit-blue-icon"></span>
                             </a>
                         <% } %>
                         <% else
                            if( !isOnRoadPrice) {%>
                             <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">Ex-showroom price in <span class="font14 text-grey"><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5"><span class="bwmsprite edit-blue-icon"></span></a>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
                             </p>
                         <% } %>
                         <% else {%>
-                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">On-road price in <span class="font14 text-grey"><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5"><span class="bwmsprite edit-blue-icon"></span></a>
+                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">On-road price in <span class="font14 text-grey "><%= areaName %> <%= cityName %></span>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
                             </p>
                         <% } %>
-
-                        <%--<% else if (pqOnRoad !=null && pqOnRoad.IsDealerPriceAvailable){ %>
-                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">On-road price in <span class="font14 text-grey text-bold"><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData"><span class="fa fa-edit"></span></a>
-                            </p>
-                        <% } %>
-                        <% else if (!isCitySelected){ %>
-                            <p class="font14 fillPopupData">
-                            Ex-showroom price in <span href="javascript:void(0)" class="text-light-grey clear"><%= Bikewale.Common.Configuration.GetDefaultCityName %></span><a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
-                            <span class="fa fa-edit"></span></a>
-                        </p>
-                        <% } %>
-                        <% else if (!isAreaAvailable)
-                           { %>
-                                <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
-                            On-road price in <span class="font14 text-grey text-bold">
-                                <%= cityName %></span>
-                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
-                                <span class="fa fa-edit"></span></a>
-                            </p>
-                        <% } %>
-                        <% else if (isAreaAvailable && !isAreaSelected)
-                           { %>
-                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
-                            Ex-showroom price in <span class="font14 text-grey text-bold">
-                                <%= cityName %></span>
-                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
-                                <span class="fa fa-edit"></span></a>
-                            </p>
-                        <% } %>
-                        <% else 
-                           { %>
-                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
-                            On-road price in <span class="font14 text-grey text-bold">
-                                <%= cityName %></span>
-                            <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="viewBreakupText fillPopupData">
-                                <span class="fa fa-edit"></span></a>
-                            </p>
-                        <% } %>--%>
                         <p class="leftfloat">
 
                             <%if (price != "0" && price != string.Empty)
@@ -1349,7 +1310,16 @@
                 if (getCityArea != null) {
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + myBikeName });
                 }
-            }
+            }            
+            $(document).ready(function (e) {
+                if ($('#getMoreDetailsBtn').length > 0) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
+                }
+                if ($('#btnGetOnRoadPrice').length > 0) {
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
+                }
+            });
+
         </script>
     </form>
 </body>
