@@ -104,6 +104,7 @@
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
+    <Compile Include="Cancellation\FeedBackEntity.cs" />
     <Compile Include="CMS\Articles\ArticleBase.cs" />
     <Compile Include="CMS\Articles\ArticleDetails.cs" />
     <Compile Include="CMS\Articles\ArticlePageDetails.cs" />

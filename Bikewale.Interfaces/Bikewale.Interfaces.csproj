@@ -60,6 +60,7 @@
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
     <Compile Include="BikeData\IBikeSeries.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
+    <Compile Include="Cancellation\IFeedBacks.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />
     <Compile Include="Compare\IBikeCompare.cs" />
     <Compile Include="Compare\IBikeCompareCacheRepository.cs" />
