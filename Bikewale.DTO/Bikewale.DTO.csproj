@@ -207,7 +207,6 @@
     <Compile Include="State\StateBase.cs" />
     <Compile Include="State\StateList.cs" />
     <Compile Include="Version\VersionBase.cs" />
-    <Compile Include="Version\VersionColorsAvailability.cs" />
     <Compile Include="Version\VersionDetails.cs" />
     <Compile Include="Version\VersionList.cs" />
     <Compile Include="Version\VersionMinSpecs.cs" />
