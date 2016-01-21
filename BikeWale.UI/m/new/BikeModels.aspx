@@ -45,7 +45,7 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
-            <div class="container bg-white clearfix">
+            <div  itemscope="" itemtype="http://auto.schema.org/Motorcycle" class="container bg-white clearfix">
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)
                        { %><h1 class="padding-top15 padding-left20 padding-right20"><%= bikeName %></h1>
@@ -74,17 +74,15 @@
                         <p class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "hide" : ""  %> leftfloat margin-right10 rating-wrap">
                             Not rated yet
                         </p>
-                        <span itemscope="" itemtype="http://schema.org/Product">
-                            <meta itemprop="name" content="<%=title%>">
-                            <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
-                                <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
-                                <meta itemprop="worstRating" content="1">
-                                <meta itemprop="bestRating" content="5">
-                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
-                                    <span itemprop="reviewCount"><%= modelPage.ModelDetails.ReviewCount %>
-                                    </span>Reviews
-                                </a>
-                            </span>
+
+                        <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+                            <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
+                            <meta itemprop="worstRating" content="1">
+                            <meta itemprop="bestRating" content="5">
+                            <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
+                                <span itemprop="reviewCount"><%= modelPage.ModelDetails.ReviewCount %>
+                                </span>Reviews
+                            </a>
                         </span>
                         <div class="clear"></div>
                     </div>
@@ -193,42 +191,40 @@
                             </a>
                             <% } %>
                             <% else
-                              if (!isOnRoadPrice)
-                              {%>
+                                   if (!isOnRoadPrice)
+                                   {%>
                             <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
                                 Ex-showroom price in <span class="font14 text-grey"><%= areaName %> <%= cityName %></span>
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
                             </p>
                             <% } %>
                             <% else
-                           {%>
+                              {%>
                             <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
                                 On-road price in <span class="font14 text-grey "><%= areaName %> <%= cityName %></span>
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
                             </p>
                             <% } %>
-                            <div itemscope="" itemtype="http://schema.org/Product" class="modelPriceContainer">
-                                <span itemprop="name" class="hide"><%= bikeName %></span>
-                                <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                    <p class="leftfloat">
+                            <span itemprop="name" class="hide"><%= bikeName %></span>
+                            <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <p class="leftfloat">
 
-                                        <%if (price != "0" && price != string.Empty)
-                                  { %>
+                                    <%if (price != "0" && price != string.Empty)
+                                      { %>
 
-                                        <span class="font24 text-bold">
-                                            <span itemprop="priceCurrency" content="INR"><span class="fa fa-rupee"></span></span>
-                                            <span itemprop="price" content="<%=price %>">
-                                                <%= Bikewale.Utility.Format.FormatPrice(price) %>
-                                            </span>
+                                    <span class="font24 text-bold">
+                                        <span itemprop="priceCurrency" content="INR"><span class="fa fa-rupee"></span></span>
+                                        <span itemprop="price" content="<%=price %>">
+                                            <%= Bikewale.Utility.Format.FormatPrice(price) %>
                                         </span>
+                                    </span>
 
-                                        <% }
-                                          else
-                                          { %>
-                                        <span class="font20 text-bold">Price unavailable</span>
-                                        <%  } %>
-                                    </p>
-                                </div>
+                                    <% }
+                                      else
+                                      { %>
+                                    <span class="font20 text-bold">Price unavailable</span>
+                                    <%  } %>
+                                </p>
                             </div>
                             <%if (isOnRoadPrice)
                               {%>
