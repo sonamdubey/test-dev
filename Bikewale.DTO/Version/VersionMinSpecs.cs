@@ -21,8 +21,6 @@ namespace Bikewale.DTO.Version
         [JsonProperty("antilockBrakingSystem")]
         public bool AntilockBrakingSystem { get; set; }
 
-        public IEnumerable<VersionColorsAvailability> Colors { get; set; }
-
         //public float Displacement { get; set; }
         //public string TransmissionType { get; set; }
     }
