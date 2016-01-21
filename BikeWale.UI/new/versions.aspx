@@ -87,7 +87,7 @@
             </div>
         </section>
         <section>
-            <div class="container" id="modelDetailsContainer">
+            <div itemscope="" itemtype="http://auto.schema.org/Motorcycle" class="container" id="modelDetailsContainer">
                 <div class="grid-12 margin-bottom20">
                     <div class="content-inner-block-20 content-box-shadow">
                         <div class="grid-5 alpha">
@@ -151,8 +151,7 @@
                                     <p class="bikeModel-user-ratings leftfloat margin-right10">
                                         <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                     </p>
-                                    <span itemscope="" itemtype="http://schema.org/Product">
-                                        <meta itemprop="name" content="<%=title%>">
+
                                         <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
                                             <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
                                             <meta itemprop="worstRating" content="1">
@@ -163,7 +162,7 @@
                                                 </span>Reviews
                                             </a>
                                         </span>
-                                    </span>
+
                                     <% }
                                        else
                                        { %>
@@ -284,7 +283,6 @@
                                    {%>
                                 <p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
-                                <div itemscope="" itemtype="http://schema.org/Product" class="modelPriceContainer">
                                     <span itemprop="name" class="hide"> <%= bikeName %></span>
                                     <%  if (price == "" || price == "0")
                                         { %>
@@ -312,7 +310,6 @@
                                     <span class="font12 text-xt-light-grey"><%=viewbreakUpText %></span>
                                     <%} %>
                                     <% } %>
-                                </div>
                                 <% if (isDiscontinued)
                                    { %>
                                 <p class="default-showroom-text font14 text-light-grey margin-top5"><%= bikeName %> is now discontinued in India.</p>
