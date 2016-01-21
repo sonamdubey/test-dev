@@ -149,8 +149,5 @@ li.offertxt:hover span {display:inline}
 .color-box.color-count-two span:first-child { width:100%; height:60%; background:#545454; }
 
 .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
-.color-box.color-count-three span:nth-child(1) { background:#eee; }
-.color-box.color-count-three span:nth-child(2) { background:#eee; }
-.color-box.color-count-three span:nth-child(3) { background:#eee; }
 
 #customizeBike ul.select-colorUL li.selected-color span.color-box.color-count-two + span.color-title-box { top:-37px; }

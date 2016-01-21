@@ -133,6 +133,12 @@ namespace Bikewale.DAL.BikeData
 
         }
 
+        /// <summary>
+        /// Modified By : Sushil Kumar on 21st jan 2016
+        /// Description : Moved Model color logic to BAL to process multitone colors with linq
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns></returns>
         public BikeModelPageEntity GetModelPage(U modelId)
         {
             BikeModelPageEntity modelPage = new BikeModelPageEntity();
@@ -159,8 +165,11 @@ namespace Bikewale.DAL.BikeData
                         modelPage.ModelVersionSpecs = MVSpecsFeatures(Convert.ToInt32(modelPage.ModelVersions[0].VersionId));
                     }
 
-                    // Get model colors
-                    modelPage.ModelColors = GetModelColor(modelId);
+                    //get model colors
+                    if(modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+                    {
+                        modelPage.ModelColors = GetModelColor(modelId);
+                    }
                 }
             }
             catch (SqlException ex)
@@ -180,9 +189,10 @@ namespace Bikewale.DAL.BikeData
 
         }
 
-        private IEnumerable<BikeModelColor> GetModelColor(U modelId)
+        private IEnumerable<NewBikeModelColor> GetModelColor(U modelId)
         {
             List<BikeModelColor> colors = null;
+            List<NewBikeModelColor> objMultiToneColor = null;
             Database db = null;
             try
             {
@@ -196,6 +206,7 @@ namespace Bikewale.DAL.BikeData
                     db = new Database();
 
                     using (SqlDataReader dr = db.SelectQry(cmd))
+                    
                     {
                         if (dr != null)
                         {
@@ -206,6 +217,7 @@ namespace Bikewale.DAL.BikeData
                                 colors.Add(
                                     new BikeModelColor
                                     {
+                                        Id = Convert.ToUInt32(dr["ID"]),
                                         ColorName = Convert.ToString(dr["Color"]),
                                         HexCode = Convert.ToString(dr["HexCode"]),
                                         ModelId = Convert.ToUInt32(dr["BikeModelID"]),
@@ -214,6 +226,29 @@ namespace Bikewale.DAL.BikeData
                             }
                             dr.Close();
                         }
+                    }
+
+                    objMultiToneColor = new List<NewBikeModelColor>();
+                    var objColors = from color in colors
+                                    group color by color.Id into newgroup
+                                    orderby newgroup.Key
+                                    select newgroup;
+
+                    foreach (var color in objColors)
+                    {
+                        NewBikeModelColor tempColor = new NewBikeModelColor();
+                        tempColor.Id = color.Key;
+
+                        IList<string> HexCodeList = new List<string>();
+                        foreach (var colorList in color)
+                        {
+                            tempColor.ColorName = colorList.ColorName;
+                            tempColor.ModelId = colorList.ModelId;
+                            HexCodeList.Add(colorList.HexCode);
+                        }
+
+                        tempColor.HexCodes = HexCodeList;
+                        objMultiToneColor.Add(tempColor);
                     }
                 }
             }
@@ -234,7 +269,7 @@ namespace Bikewale.DAL.BikeData
                 db.CloseConnection();
             }
 
-            return colors;
+            return objMultiToneColor;
         }
 
         /// <summary>

@@ -41,7 +41,7 @@
     </script>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 </head>
-<body >
+<body>
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
@@ -178,11 +178,13 @@
                     <div>
 
 
-                        <% if (isDiscontinued){ %>
+                        <% if (isDiscontinued)
+                           { %>
                         <p class="margin-top20 margin-left10 font14 text-light-grey clear fillPopupData">Last known Ex-showroom price</p>
                         <% } %>
-                        <% else 
-                          if( !isCitySelected) {%>
+                        <% else
+                               if (!isCitySelected)
+                               {%>
                         <p class="font14 fillPopupData">
                             Ex-showroom price in <span href="javascript:void(0)" class="text-light-grey clear">
                                 <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span>
@@ -191,24 +193,27 @@
                             </a>
                             <% } %>
                             <% else
-                           if( !isOnRoadPrice) {%>
+                              if (!isOnRoadPrice)
+                              {%>
                             <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
                                 Ex-showroom price in <span class="font14 text-grey"><%= areaName %> <%= cityName %></span>
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
                             </p>
                             <% } %>
-                            <% else {%>
-                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">On-road price in <span class="font14 text-grey "><%= areaName %> <%= cityName %></span>
+                            <% else
+                           {%>
+                            <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
+                                On-road price in <span class="font14 text-grey "><%= areaName %> <%= cityName %></span>
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
                             </p>
-                        <% } %>
+                            <% } %>
                             <div itemscope="" itemtype="http://schema.org/Product" class="modelPriceContainer">
                                 <span itemprop="name" class="hide"><%= bikeName %></span>
                                 <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                     <p class="leftfloat">
 
                                         <%if (price != "0" && price != string.Empty)
-                                          { %>
+                                  { %>
 
                                         <span class="font24 text-bold">
                                             <span itemprop="priceCurrency" content="INR"><span class="fa fa-rupee"></span></span>
@@ -225,18 +230,20 @@
                                     </p>
                                 </div>
                             </div>
-                            <%if (isOnRoadPrice)  {%>
+                            <%if (isOnRoadPrice)
+                              {%>
                             <p id="viewBreakupText" class="font14 text-light-grey leftfloat viewBreakupText">View Breakup</p>
-                            <%if (isBikeWalePQ && price != "0" && price != string.Empty) {%>
+                            <%if (isBikeWalePQ && price != "0" && price != string.Empty)
+                              {%>
                             <p class="font12 text-light-grey clear ">Ex-showroom + RTO + Insurance(Comprehensive)</p>
                             <%}
-                          else
-                          { %>
+                              else
+                              { %>
                             <p class="font12 text-xt-light-grey clear"><%=viewbreakUpText %></p>
                             <%} %>
                             <% } %>
                             <% if (!toShowOnRoadPriceButton && isBikeWalePQ)
-                           { %>
+                               { %>
                             <p class="margin-top10 margin-bottom20 clear">
                                 <a class='padding-top10 text-bold' style="position: relative; font-size: 14px; margin-top: 1px;" target="_blank" href="/m/insurance/" id="insuranceLink">Save up to 60% on insurance - PolicyBoss
                                 </a>
@@ -365,8 +372,8 @@
 
                 <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" style="width: 100%" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
                 <% }
-               else
-                    {   %>
+                   else
+                   {   %>
                 <div class="grid-12 float-button float-fixed clearfix">
                     <div class="show padding-top10">
                         <% if (modelPage.ModelDetails.New)
@@ -387,8 +394,8 @@
                         <%} %>
                     </div>
                 </div>
-                <%  } 
-              }%>
+                <%  }
+               }%>
             </div>
 
         </section>
@@ -942,14 +949,30 @@
                             <h2 class="margin-top30 margin-bottom20 text-center">Colours</h2>
                             <div class="swiper-container padding-bottom60">
                                 <div class="swiper-wrapper text-center">
-                                    <asp:Repeater ID="rptColors" runat="server">
+                                    <%-- <asp:Repeater ID="rptColors" runat="server">
                                         <ItemTemplate>
                                             <div class="swiper-slide available-colors">
                                                 <div class="color-box" style="background-color: #<%# DataBinder.Eval(Container.DataItem, "HexCode")%>;"></div>
                                                 <p class="font16 text-medium-grey"><%# DataBinder.Eval(Container.DataItem, "ColorName") %></p>
                                             </div>
                                         </ItemTemplate>
+                                    </asp:Repeater>--%>
+
+                                    <asp:Repeater ID="rptColors" runat="server">
+                                        <ItemTemplate>
+                                            <div class="swiper-slide available-colors">
+                                                <div class="color-box <%# (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count == 1 )?"color-count-one": (((IList)(DataBinder.Eval(Container.DataItem, "HexCodes"))).Count >= 3 )?"color-count-three":"color-count-two" %>">
+                                                    <asp:Repeater runat="server" DataSource='<%# DataBinder.Eval(Container.DataItem, "HexCodes") %>'>
+                                                        <ItemTemplate>
+                                                            <span <%# String.Format("style='background-color: #{0}'",Convert.ToString(Container.DataItem)) %>></span>
+                                                        </ItemTemplate>
+                                                    </asp:Repeater>
+                                                </div>
+                                                <p class="font16"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "ColorName")) %></p>
+                                            </div>
+                                        </ItemTemplate>
                                     </asp:Repeater>
+
                                 </div>
                                 <!-- Add Pagination -->
                                 <div class="swiper-pagination"></div>
@@ -1079,7 +1102,8 @@
         %>
 
 
-        <% if (bookingAmt > 0){ %>
+        <% if (bookingAmt > 0)
+           { %>
         <section>
             <div class="container margin-top20 margin-bottom30">
                 <div id="faqSlug" class="grid-12">
@@ -1093,8 +1117,10 @@
                         </div>
                         <div class="question-text-container leftfloat padding-left15">
                             <p class="question-title font16 text-bold text-black">Questions?</p>
-                            <p class="question-subtitle text-light-grey font14">We’re here to help.<br />
-                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a></p>
+                            <p class="question-subtitle text-light-grey font14">
+                                We’re here to help.<br />
+                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a>
+                            </p>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -1110,7 +1136,7 @@
             <div class="breakup-text-container padding-bottom10">
                 <h3 class="breakup-header margin-bottom5"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
                 <% if (isBikeWalePQ)
-                    { %>
+                   { %>
                 <table class="font14" width="100%">
                     <tbody>
                         <tr>
@@ -1140,7 +1166,7 @@
                 </table>
                 <% }
                    else if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
-                    {    %>
+                   {    %>
                 <table id="dp-insurance-text" class="font14" width="100%">
                     <tbody>
 
@@ -1317,7 +1343,7 @@
         </div>
         <!-- Terms and condition Popup end -->
 
-        <BW:ModelGallery ID="ctrlModelGallery" runat="server" />       
+        <BW:ModelGallery ID="ctrlModelGallery" runat="server" />
 
         <!-- all other js plugins -->
         <script>
@@ -1338,7 +1364,7 @@
             $("#leadBtnBookNow").on('click', function () {
                 leadCapturePopup.show();
                 $('body').addClass('lock-browser-scroll');
-                $(".blackOut-window").show();            
+                $(".blackOut-window").show();
                 /*
                 $(document).on('keydown', function (e) {
                     if (e.keyCode === 27) {
@@ -1406,7 +1432,7 @@
                 }
             });
 
-           
+
 
             $(".more-features-btn").click(function () {
                 $(".more-features").slideToggle();
@@ -1433,7 +1459,7 @@
                     $(this).removeClass("open");
                 }
 
-            });            
+            });
 
 
             $('#bookNowBtn').on('click', function (e) {
@@ -1443,9 +1469,9 @@
             });
 
         </script>
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->        
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>         
+        <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
             vmModelId = '<%= modelId%>';
             clientIP = '<%= clientIP%>';
@@ -1473,7 +1499,7 @@
                 if (getCityArea != null) {
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + myBikeName });
                 }
-            }            
+            }
             $(document).ready(function (e) {
                 if ($('#getMoreDetailsBtn').length > 0) {
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
