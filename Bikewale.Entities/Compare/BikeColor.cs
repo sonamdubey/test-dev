@@ -16,6 +16,13 @@ namespace Bikewale.Entities.Compare
         public int ColorId { get; set; }
         public uint VersionId { get; set; }
         public string Color { get; set; }
+        public IEnumerable<string> HexCodes { get; set; }
+    }
+
+    public class BikeModelColor
+    {
+        public int ModelColorId { get; set; }
         public string HexCode { get; set; }
     }
+    
 }

@@ -9,6 +9,6 @@ namespace Bikewale.Interfaces.Compare
     /// </summary>
     public interface IBikeCompareCacheRepository
     {
-        IEnumerable<TopBikeCompareBase> CompareList(uint topCount);
+        IEnumerable<TopBikeCompareBase> CompareList(uint topCount);        
     }
 }

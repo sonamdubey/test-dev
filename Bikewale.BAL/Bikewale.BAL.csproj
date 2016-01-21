@@ -83,6 +83,7 @@
     <Compile Include="BikeData\BikeSeries.cs" />
     <Compile Include="BikeData\BikeVersions.cs" />
     <Compile Include="CMS\CMSData.cs" />
+    <Compile Include="Compare\BikeComparison.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerAuthentication.cs" />
     <Compile Include="Customer\RegisterCustomer.cs" />

@@ -12,6 +12,8 @@ namespace Bikewale.Entities.Compare
         public IEnumerable<BikeEntityBase> BasicInfo { get; set; }
         public IEnumerable<BikeSpecification> Specifications { get; set; }
         public IEnumerable<BikeFeature> Features { get; set; }        
-        public IEnumerable<BikeColor> Color { get; set; }
+        public List<BikeColor> Color { get; set; }
+        public CompareMainCategory ComapareSpecifications { get; set; }
+        public CompareMainCategory CompareFeatures { get; set; }
     }
 }
