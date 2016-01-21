@@ -1236,5 +1236,47 @@ namespace Bikewale.DAL.BikeBooking
 
             return colors;
         }
+
+        /// <summary>
+        /// Created By : Sangram Nandkhile on 21st Jan 2016
+        /// Summary :    To check if booking cancellation request is valid or not
+        /// </summary>
+        /// <returns></returns>
+        public bool IsValidCancellation(string bwId, string mobile)
+        {
+            bool isSuccess = false;
+
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "VerifyCancelRequest";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@bwid", SqlDbType.VarChar).Value = bwId;
+                    cmd.Parameters.Add("@mobile", SqlDbType.VarChar,10).Value = mobile;
+
+                    db = new Database();
+                    isSuccess = db.UpdateQry(cmd);
+                }
+            }
+            catch (SqlException sqEx)
+            {
+                HttpContext.Current.Trace.Warn("VerifyCancelRequest sqlex : " + sqEx.Message + sqEx.Source);
+                ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                isSuccess = false;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("VerifyCancelRequest ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+                isSuccess = false;
+            }
+            return isSuccess;
+        }
+
     }   //End of class
 }   //End of namespace

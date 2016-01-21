@@ -376,5 +376,16 @@ namespace Bikewale.BAL.BikeBooking
             }
             return pageDetail;
         }
+        /// <summary>
+        /// Created By : Sangram Nandkhile on 21st Jan 2016
+        /// Summary :    To check if booking cancellation request is valid or not
+        /// </summary>
+        /// <returns>request is valid or not</returns>
+        public bool IsValidCancellation(string bwId, string mobile)
+        {
+            bool isSuccess = false;
+            isSuccess = dealerPQRepository.IsValidCancellation(bwId, mobile);
+            return isSuccess;
+        }
     }   //End of Class
 }   //End of namespace

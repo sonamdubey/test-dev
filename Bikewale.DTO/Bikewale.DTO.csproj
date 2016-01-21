@@ -50,6 +50,7 @@
     <Compile Include="AutoComplete\BikeList.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionList.cs" />
+    <Compile Include="BikeBooking\BikeCancellationCustomer.cs" />
     <Compile Include="BikeData\BikeDiscription.cs" />
     <Compile Include="Area\AreaBase.cs" />
     <Compile Include="Area\AreaList.cs" />
