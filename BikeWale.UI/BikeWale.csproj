@@ -263,6 +263,7 @@
     <Compile Include="BindViewModels\Controls\BindUpcomingBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsedBikesControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
+    <Compile Include="BindViewModels\Controls\BindUsersTestimonialControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
@@ -633,6 +634,10 @@
       <DependentUpon>UserReviewsMin.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\UsersTestimonials.ascx.cs">
+      <DependentUpon>UsersTestimonials.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\VideoCarousel.ascx.cs">
       <DependentUpon>VideoCarousel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -805,6 +810,10 @@
     </Compile>
     <Compile Include="m\controls\UserReviewList.ascx.cs">
       <DependentUpon>UserReviewList.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\controls\UsersTestimonials.ascx.cs">
+      <DependentUpon>UsersTestimonials.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\controls\VideosWidget.ascx.cs">
@@ -1627,6 +1636,7 @@
     <Content Include="controls\UserFeedBack.ascx" />
     <Content Include="controls\UserReviewsList.ascx" />
     <Content Include="controls\UserReviewsMin.ascx" />
+    <Content Include="controls\UsersTestimonials.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
@@ -2081,6 +2091,7 @@
     <Content Include="m\controls\PopularUsedBikes.ascx" />
     <Content Include="m\controls\TopUserReviews.ascx" />
     <Content Include="m\controls\UserReviewList.ascx" />
+    <Content Include="m\controls\UsersTestimonials.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
     <Content Include="m\css\bwm-booking.css" />

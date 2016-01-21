@@ -14,7 +14,7 @@ namespace Bikewale.BikeBooking
     /// </summary>
     public class SendEmailSMSToDealerCustomer
     {
-        public static void SendEmailToDealer(string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList, uint insuranceAmount = 0)
+        public static void SendEmailToDealer(string makeName, string modelName, string versionName, string dealerName, string dealerEmail, string customerName, string customerEmail, string customerMobile, string areaName, string cityName, List<PQ_Price> priceList, int totalPrice, List<OfferEntity> offerList,string imagePath, uint insuranceAmount = 0)
         {
             if (!String.IsNullOrEmpty(dealerEmail))
             {
@@ -22,7 +22,7 @@ namespace Bikewale.BikeBooking
 
                 foreach (string email in arrDealerEmail)
                 {
-                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate_old(makeName, modelName, dealerName, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, DateTime.Now, insuranceAmount);
+                    ComposeEmailBase objEmail = new NewBikePriceQuoteMailToDealerTemplate(makeName, modelName, dealerName, customerName, customerEmail, customerMobile, areaName, cityName, priceList, totalPrice, offerList, DateTime.Now, imagePath, insuranceAmount);
                     objEmail.Send(email, "BikeWale Purchase Inquiry - " + makeName + " " + modelName + " " + versionName, customerEmail);
                 }
             }
