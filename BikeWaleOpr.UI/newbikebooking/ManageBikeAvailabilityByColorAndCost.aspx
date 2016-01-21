@@ -6,7 +6,7 @@
     <script src="/src/jquery-1.6.min.js" type="text/javascript"></script>
     <script src="/src/AjaxFunctions.js" type="text/javascript"></script>
     <script src="/src/graybox.js"></script>
-    <script language="javascript" src="/src/calender.js"></script>
+    <script lang="text/javascript" src="/src/calender.js"></script>
     <link rel="stylesheet" href="/css/common.css?V1.2" type="text/css" />
     <title> Manage availability By Color </title>
     <style type="text/css">
@@ -143,7 +143,7 @@
                     <ul class="inline-block ">
                         <asp:Repeater ID="rptColor" runat="server" EnableViewState="false">
                             <ItemTemplate>
-                                <li class="colorTab <%# (Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsActive")))?string.Empty:"hide" %>" >
+                                <li class="colorTab" >
                                     <table border="0" id="minVColor" cellspacing="0">
                                         <asp:Repeater ID="rptVColor" runat="server" EnableViewState="false">
                                             <ItemTemplate>
@@ -179,14 +179,8 @@
                 var colorDays = [];
                 var i = 0;
                 $("li.colorTab").each(function () {
-                    if ($(this).find("table tr").length <=0)
-                        $(this).hide();
-
-                    colorDays[$(this).find("input[type='hidden']").val()] = $(this).find("input[type='text']").val();
-                                      
-                });
-
-                
+                    colorDays[$(this).find("input[type='hidden']").val()] = $(this).find("input[type='text']").val();                                       
+                });                  
 
                 $("#btnUpdateVersionColorAvailability").live("click", function () {
                     str = "";
