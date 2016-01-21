@@ -1940,6 +1940,7 @@
     <Content Include="editor\tiny_mce\utils\form_utils.js" />
     <Content Include="editor\tiny_mce\utils\mctabs.js" />
     <Content Include="editor\tiny_mce\utils\validate.js" />
+    <Content Include="faq.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Feedback\Feedback.aspx" />
     <Content Include="Finance\EMICalculator.aspx" />
@@ -2113,6 +2114,7 @@
     <Content Include="m\customerror.aspx" />
     <Content Include="m\Default.aspx" />
     <Content Include="m\Default_old.aspx" />
+    <Content Include="m\faq.aspx" />
     <Content Include="m\fonts\fontawesome-webfont.svg" />
     <Content Include="m\fonts\WebRupee.V2.0.svg" />
     <Content Include="m\images\bg-footer.jpg" />
