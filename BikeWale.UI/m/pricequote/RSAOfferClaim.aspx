@@ -13,7 +13,7 @@
 <link rel="stylesheet"  href="/m/css/bw-new-style.css?<%= staticFileVersion %>" />
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
     <!-- offer claim starts here -->
-    
+<link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" />
 <div class="margin-bottom10 grid-12">
     <h1>Bike Purchase Offer Claim</h1>
     <div class="<%= isOfferClaimed ? "hide" : "" %>" id="div_GetPQ">
