@@ -447,7 +447,6 @@ var BikeDetails = function () {
                 discount += self.discountList()[i].Price;
             }
         }
-        console.log(discount);
         return discount;
     }, this);
 

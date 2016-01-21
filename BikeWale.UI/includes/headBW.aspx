@@ -41,7 +41,7 @@
                 <span class="bwsprite search-icon-grey" id="btnGlobalSearch" style="z-index:2"></span>
                 <input type="text" name="globalSearch" placeholder="Search" id="globalSearch" class="blur ui-autocomplete-input" autocomplete="off">
                 <span class="fa fa-spinner fa-spin position-abt  text-black" style="display:none;right:14px;top:7px;background:#fff"></span>
-                <ul id="errGlobalSearch" style="width:240px;position:absolute;top:30px;left:3px" class="ui-autocomplete ui-front ui-menu hide">
+                <ul id="errGlobalSearch" style="width:420px;position:absolute;top:30px;left:3px" class="ui-autocomplete ui-front ui-menu hide">
                     <li class="ui-menu-item" tabindex="-1">
                        <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
                     </li>

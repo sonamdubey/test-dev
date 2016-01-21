@@ -1,4 +1,5 @@
-﻿<% if(isAd970x90Shown){ %>
+﻿<BW:PopupWidget runat="server" id="PopupWidget" />
+<% if(isAd970x90Shown){ %>
 <section>
         <!-- #include file="/ads/Ad970x90_Bottom.aspx" -->
 </section>
