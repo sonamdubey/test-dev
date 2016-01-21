@@ -92,7 +92,7 @@
                                     <div class="colour-dropdown">
                                         <div class="select-dropdown rounded-corner2">
                                             <div class="colour-selected-box">
-                                                <span class="leftfloat select-color-box rounded-corner2" data-bind="style:{'background-color':('#'+selectedColor().HexCode)}"></span>
+                                                <span class="leftfloat select-color-box rounded-corner2" data-bind="style:{'background-color':('#'+selectedColor().HexCode[0])}"></span>
                                                 <span class="leftfloat select-btn font14" data-bind="text:selectedColor().ColorName"></span>
                                                 <span class="clear"></span>
                                             </div>
@@ -101,7 +101,7 @@
                                         <div class="select-dropdown-list hide">
                                             <ul data-bind="foreach: versionColors">
                                                 <li class="text-light-grey" colorid="" data-bind="attr: { colorId: $data.Id},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
-                                                    <span class="select-color-box rounded-corner2" data-bind="style: { 'background-color': '#' + HexCode}"></span>
+                                                    <span class="select-color-box rounded-corner2" data-bind="style: { 'background-color': '#' + HexCode[0]}"></span>
                                                     <p data-bind="text: ColorName"></p>
                                                 </li>
                                             </ul>
