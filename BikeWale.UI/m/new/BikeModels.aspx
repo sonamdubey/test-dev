@@ -75,9 +75,18 @@
                         <p class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "hide" : ""  %> leftfloat margin-right10 rating-wrap">
                             Not rated yet
                         </p>
-                        <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
-                            <%= modelPage.ModelDetails.ReviewCount %> Reviews
-                        </a>
+                        <span itemscope="" itemtype="http://schema.org/Product">
+                            <meta itemprop="name" content="<%=title%>">
+                            <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+                                <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
+                                <meta itemprop="worstRating" content="1">
+                                <meta itemprop="bestRating" content="5">
+                                <a href="/m/<%=modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>/user-reviews/" class="<%= modelPage.ModelDetails.ReviewCount > 0 ? "" : "hide"  %> border-solid-left leftfloat margin-right10 padding-left10 line-Ht22">
+                                    <span itemprop="reviewCount"><%= modelPage.ModelDetails.ReviewCount %>
+                                    </span>Reviews
+                                </a>
+                            </span>
+                        </span>
                         <div class="clear"></div>
                     </div>
                     <% } %>
@@ -194,17 +203,29 @@
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
                             </p>
                         <% } %>
-                            <p class="leftfloat">
+                            <div itemscope="" itemtype="http://schema.org/Product" class="modelPriceContainer">
+                                <span itemprop="name" class="hide"><%= bikeName %></span>
+                                <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                    <p class="leftfloat">
 
-                                <%if (price != "0" && price != string.Empty)
-                              { %>
-                                <span class="font24 text-bold"><span class="fa fa-rupee"></span><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
-                                <% }
-                              else
-                              { %>
-                                <span class="font20 text-bold">Price unavailable</span>
-                                <%  } %>
-                            </p>
+                                        <%if (price != "0" && price != string.Empty)
+                                          { %>
+
+                                        <span class="font24 text-bold">
+                                            <span itemprop="priceCurrency" content="INR"><span class="fa fa-rupee"></span></span>
+                                            <span itemprop="price" content="<%=price %>">
+                                                <%= Bikewale.Utility.Format.FormatPrice(price) %>
+                                            </span>
+                                        </span>
+
+                                        <% }
+                                          else
+                                          { %>
+                                        <span class="font20 text-bold">Price unavailable</span>
+                                        <%  } %>
+                                    </p>
+                                </div>
+                            </div>
                             <%if (isOnRoadPrice)  {%>
                             <p id="viewBreakupText" class="font14 text-light-grey leftfloat viewBreakupText">View Breakup</p>
                             <%if (isBikeWalePQ && price != "0" && price != string.Empty) {%>

@@ -67,9 +67,19 @@
                     <div class="breadcrumb margin-bottom15">
                         <!-- breadcrumb code starts here -->
                         <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><a href="/<%= modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/"><%= modelPage.ModelDetails.MakeBase.MakeName %></a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><%= modelPage.ModelDetails.ModelName %></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/" itemprop="url">
+                                <span itemprop="title">Home</span></a>
+                            </li>
+                            <li  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="fa fa-angle-right margin-right10"></span>
+                                <a href="/<%= modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/" itemprop="url">
+                                    <span itemprop="title"><%= modelPage.ModelDetails.MakeBase.MakeName %></span>
+                                </a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" ><span class="fa fa-angle-right margin-right10"></span>
+                                <a href="/<%= modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>" itemprop="url">
+                                    <span itemprop="title"><%= modelPage.ModelDetails.ModelName %></span>
+                                </a>
+                            </li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -142,8 +152,19 @@
                                     <p class="bikeModel-user-ratings leftfloat margin-right10">
                                         <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                     </p>
-                                    <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box font14 border-solid-left leftfloat margin-right20 padding-left10 "><%= modelPage.ModelDetails.ReviewCount %> Reviews
-                                    </a>
+                                    <span itemscope="" itemtype="http://schema.org/Product">
+                                        <meta itemprop="name" content="<%=title%>">
+                                        <span itemprop="aggregateRating" itemscope="" itemtype="http://schema.org/AggregateRating">
+                                            <meta itemprop="ratingValue" content="<%=modelPage.ModelDetails.ReviewRate %>">
+                                            <meta itemprop="worstRating" content="1">
+                                            <meta itemprop="bestRating" content="5">
+                                            <a href="<%= FormatShowReview(modelPage.ModelDetails.MakeBase.MaskingName,modelPage.ModelDetails.MaskingName) %>" class="review-count-box font14 border-solid-left leftfloat margin-right20 padding-left10 ">
+                                                <span itemprop="reviewCount">
+                                                    <%= modelPage.ModelDetails.ReviewCount %>
+                                                </span>Reviews
+                                            </a>
+                                        </span>
+                                    </span>
                                     <% }
                                        else
                                        { %>
@@ -261,15 +282,20 @@
                                 <% else {%>
                                         <p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
                                 <% } %>
-                                <div class="modelPriceContainer">
+                                <div itemscope="" itemtype="http://schema.org/Product" class="modelPriceContainer">
+                                    <span itemprop="name" class="hide"> <%= bikeName %></span>
                                     <%  if (price == "" || price == "0")
                                         { %>
                                     <span class="font32">Price not available</span>
                                     <%  }
                                         else
                                         { %>
-                                    <span class="font28"><span class="fa fa-rupee"></span></span>
-                                    <span id="new-bike-price" class="font32"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
+                                    <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                        <span itemprop="priceCurrency" content="INR">
+                                            <span class="font28"><span class="fa fa-rupee"></span></span>
+                                        </span>
+                                        <span id="new-bike-price" class="font32" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
+                                    </div>
                                     <%  } %>
                                     <%if (isOnRoadPrice)
                                       {%>
