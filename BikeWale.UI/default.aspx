@@ -42,15 +42,20 @@
                     <p class="font20">Get Exclusive Offers, Discounts and Freebies on your Bike Purchase</p>
                     <div class="margin-top60">
                         <div>
-                            <div class="bike-search-container">
+                            <div class="bike-search-container position-rel">
                                 <div class="bike-search new-bike-search position-rel">
                                     <input type="text" placeholder="Search your bike here, e.g. Honda Activa " id="newBikeList" autocomplete="off" tabindex="1">
                                     <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                                 </div>
                                 <div class="findBtn">
-                                    <button id="btnSearch" class="btn btn-orange btn-md font18" tabindex="2">Search</button>
+                                    <input type="button" id="btnSearch" class="btn btn-orange btn-md font18" tabindex="2" value="Search" />
                                 </div>
                                 <div class="clear"></div>
+                                <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">
+                                    <li class="ui-menu-item" tabindex="-1">
+                                        <span class="text-bold">Oops! No suggestions found</span><br /> <span class="text-light-grey font12">Search by bike name e.g: Honda Activa</span>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </div>

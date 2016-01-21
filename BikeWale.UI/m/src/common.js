@@ -185,11 +185,29 @@ $(document).ready(function () {
                 focusedMakeModel = new Object();
                 focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
             }
+            else {
+                $('#errNewBikeSearch').hide();
+            }
         },
         afterfetch: function (result, searchtext) {
-            return false;
+            if (result != undefined && result.length > 0) {
+                $('#errNewBikeSearch').hide();
+                NewBikeSearchResult = true;
+            }
+            else {
+                focusedMakeModel = null; NewBikeSearchResult = false;
+                $('#errNewBikeSearch').show();
+            }
         }
-    }).css({ 'width': '100%' });
+    }).css({ 'width': '100%' }).keyup(function (e) {
+        if ($('#newBikeList').val() == '' || e.keyCode == 27 || e.keyCode == 13) {
+            if (focusedMakeModel == null || focusedMakeModel == undefined)
+                $('#errNewBikeSearch').show();
+            else
+                $('#errNewBikeSearch').hide();
+        }
+
+    });
 
 
     $('#newBikeList').on('keypress', function (e) {
@@ -198,10 +216,12 @@ $(document).ready(function () {
         var placeHolder = id.attr('placeholder');
         if (e.keyCode == 13)
             if (btnFindBikeNewNav() || searchVal == placeHolder || searchVal == "") {
+                $('#errNewBikeSearch').hide();
                 return false;
             }
             else {
-                window.location.href = '/new/';
+                $('#errNewBikeSearch').show();
+                return false;
             }
     });
 
@@ -212,15 +232,16 @@ $(document).ready(function () {
         var placeHolder = id.attr('placeholder');
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
         if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
-            window.location.href += '/new/';
+            $('#errNewBikeSearch').show();
             return false;
         }
     });
 
     function btnFindBikeNewNav() {
-        if (focusedMakeModel == undefined || focusedMakeModel == null)
+        if (focusedMakeModel == undefined || focusedMakeModel == null) {
+            $('#errNewBikeSearch').show(); 
             return false;
-        var splitVal = focusedMakeModel.id.split('|');
+        }
         return MakeModelRedirection(focusedMakeModel);
     }
 
