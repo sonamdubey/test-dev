@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 namespace Bikewale.Entities.Compare
 {
     /// <summary>
-    /// Created by  :   Sumit Kate on 21 Jan 2016
-    /// Description :   Compare Spec Category Entity
+    /// Created By  :   Sumit Kate on 22 Jan 2016
+    /// Description :   Compare Bike Color Category. It contains version-wise color lists.
     /// </summary>
     [Serializable]
-    public class CompareSubMainCategory
+    public class CompareBikeColorCategory
     {
+        public List<CompareBikeColor> bikes { get; set; }
         public string Text { get; set; }
         public string Value { get; set; }
-        public List<CompareSubCategory> SpecCategory { get; set; }
     }
 }

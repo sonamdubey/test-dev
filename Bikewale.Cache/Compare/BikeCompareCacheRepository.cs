@@ -10,6 +10,8 @@ namespace Bikewale.Cache.Compare
     /// <summary>
     /// Created By : Lucky Rathore on 06 Nov. 2015.
     /// Description : Use for caching Popular compare bike Widget.
+    /// Modified By :   Sumit Kate on 22 Jan 2016
+    /// Description :   Implemented the newly added method of IBikeCompareCacheRepository
     /// </summary>
     public class BikeCompareCacheRepository : IBikeCompareCacheRepository
     {
@@ -43,6 +45,24 @@ namespace Bikewale.Cache.Compare
                 objErr.SendMail();    
             }
             return topBikeComapareBase;
+        }
+
+
+        public BikeCompareEntity DoCompare(string versions)
+        {
+            BikeCompareEntity compareEntity = null;
+            string key = string.Empty;
+            try
+            {
+                key = "BW_Compare_Bikes_" + versions.Replace(',','_');
+                compareEntity = _cache.GetFromCache<BikeCompareEntity>(key, new TimeSpan(0, 30, 0), () => _compareRepository.DoCompare(versions));
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "BikeCompareCacheRepository.DoCompare");
+                objErr.SendMail();
+            }
+            return compareEntity;
         }
     }
 }

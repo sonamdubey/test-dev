@@ -10,6 +10,7 @@ namespace Bikewale.Entities.Compare
     /// Created By  :   Sumit Kate 21 Jan 2016
     /// Description :   Compare Specification Entity
     /// </summary>
+    [Serializable]
     public class CompareMainCategory
     {
         public string Text { get; set; }

@@ -11,6 +11,7 @@ namespace Bikewale.Entities.Compare
     /// Author  :   Sumit Kate
     /// Date    :   25 Aug 2015
     /// </summary>
+    [Serializable]
     public class BikeColor
     {
         public int ColorId { get; set; }
@@ -18,7 +19,7 @@ namespace Bikewale.Entities.Compare
         public string Color { get; set; }
         public IEnumerable<string> HexCodes { get; set; }
     }
-
+    [Serializable]
     public class BikeModelColor
     {
         public int ModelColorId { get; set; }

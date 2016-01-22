@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 namespace Bikewale.Entities.Compare
 {
     /// <summary>
-    /// Created by  :   Sumit Kate on 21 Jan 2016
-    /// Description :   Compare entity
+    /// Created By  :   Sumit Kate on 22 Jan 2016
+    /// Description :   Compare Bike Color Entity
     /// </summary>
     [Serializable]
-    public class CompareBikeData
+    public class CompareBikeColor
     {
-        public string Text { get; set; }
-        public string Value { get; set; }
+        public List<BikeColor> bikeColors { get; set; }
     }
 }

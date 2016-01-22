@@ -33,12 +33,13 @@ namespace Bikewale.BAL.Compare
                 compareEntity.ComapareSpecifications.Text = "Specs";
                 compareEntity.ComapareSpecifications.Value = "Specs";
                 compareEntity.ComapareSpecifications.Spec = new List<CompareSubMainCategory>();
+                #region Specifications
 
                 CompareSubMainCategory engine = new CompareSubMainCategory();
                 engine.Text = "Engine";
                 engine.Value = "Engine";
                 #region Engine
-                engine.SpecCategory = new List<CompareSubCategory>();                
+                engine.SpecCategory = new List<CompareSubCategory>();
 
                 CompareSubCategory displacement = new CompareSubCategory();
                 displacement.Text = "Displacement (cc)";
@@ -50,7 +51,7 @@ namespace Bikewale.BAL.Compare
                 }
                 engine.SpecCategory.Add(displacement);
 
-                
+
                 CompareSubCategory cylinders = new CompareSubCategory();
                 cylinders.Text = "Cylinders";
                 cylinders.Value = "Cylinders";
@@ -168,7 +169,7 @@ namespace Bikewale.BAL.Compare
                 transmission.Value = "Transmission";
                 #region Transmission
                 transmission.SpecCategory = new List<CompareSubCategory>();
-                
+
                 CompareSubCategory gearBox = new CompareSubCategory();
                 gearBox.Text = "Gearbox Type";
                 gearBox.Value = "Gearbox Type";
@@ -179,7 +180,7 @@ namespace Bikewale.BAL.Compare
                 }
                 transmission.SpecCategory.Add(gearBox);
 
-                
+
                 CompareSubCategory NoOfGears = new CompareSubCategory();
                 NoOfGears.Text = "No Of Gears";
                 NoOfGears.Value = "No Of Gears";
@@ -229,7 +230,7 @@ namespace Bikewale.BAL.Compare
                     Clutch.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Clutch) });
                 }
                 transmission.SpecCategory.Add(Clutch);
-                #endregion                
+                #endregion
                 compareEntity.ComapareSpecifications.Spec.Add(transmission);
 
 
@@ -309,7 +310,7 @@ namespace Bikewale.BAL.Compare
                 #region Dimensions & Weight
                 dimensionsWeight.SpecCategory = new List<CompareSubCategory>();
 
-                CompareSubCategory KerbWeight= new CompareSubCategory();
+                CompareSubCategory KerbWeight = new CompareSubCategory();
                 KerbWeight.Text = "Kerb Weight (Kg)";
                 KerbWeight.Value = "Kerb Weight (Kg)";
                 KerbWeight.CompareSpec = new List<CompareBikeData>();
@@ -436,7 +437,7 @@ namespace Bikewale.BAL.Compare
                 chassisType.Value = "Chassis & Suspension";
                 #region Chassis & Suspension
                 chassisType.SpecCategory = new List<CompareSubCategory>();
-                
+
                 CompareSubCategory ChassisType = new CompareSubCategory();
                 ChassisType.Text = "Chassis Type";
                 ChassisType.Value = "Chassis Type";
@@ -684,12 +685,13 @@ namespace Bikewale.BAL.Compare
                 electricals.SpecCategory.Add(PassLight);
                 #endregion
                 compareEntity.ComapareSpecifications.Spec.Add(electricals);
-
+                
+                #endregion
                 compareEntity.CompareFeatures = new CompareMainCategory();
                 compareEntity.CompareFeatures.Text = "Features";
                 compareEntity.CompareFeatures.Value = "Features";
                 compareEntity.CompareFeatures.Spec = new List<CompareSubMainCategory>();
-
+                #region Features
                 CompareSubMainCategory feature = new CompareSubMainCategory();
                 feature.Value = "Features";
                 feature.Text = "Features";
@@ -697,42 +699,261 @@ namespace Bikewale.BAL.Compare
                 CompareSubCategory subFeature = new CompareSubCategory();
 
                 feature.SpecCategory = new List<CompareSubCategory>();
+                
                 //Speedometer
-                //Tachometer
-                //Tachometer Type
-                //Shift Light
-                //Electric Start
-                //Tripmeter
-                //No Of Tripmeters
-                //Tripmeter Type
-                //Low Fuel Indicator
-                //Low Oil Indicator
-                //Low Battery Indicator
-                //Fuel Gauge
-                //Digital Fuel Gauges
-                //Pillion Seat
-                //Pillion Footrest
-                //Pillion Backrest
-                //Pillion Grabrail
-                //Stand Alarm
-                //Stepped Seat
-                //Antilock Braking System
-                //Killswitch
-                //Clock
-                //Colors
-
-
-                CompareSubCategory displacement = new CompareSubCategory();
-                displacement.Text = "Displacement (cc)";
-                displacement.Value = "Displacement";
-                displacement.CompareSpec = new List<CompareBikeData>();
+                CompareSubCategory Speedometer = new CompareSubCategory();
+                Speedometer.Text = "Speedometer";
+                Speedometer.Value = "Speedometer";
+                Speedometer.CompareSpec = new List<CompareBikeData>();
                 foreach (var version in arrVersion)
                 {
-                    displacement.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Displacement.Value.ToString(), "cc") });
+                    Speedometer.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Speedometer) });
                 }
-                feature.SpecCategory.Add(displacement);
-                
-                            
+                feature.SpecCategory.Add(Speedometer);
+
+                //Tachometer
+                CompareSubCategory Tachometer = new CompareSubCategory();
+                Tachometer.Text = "Tachometer";
+                Tachometer.Value = "Tachometer";
+                Tachometer.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    Tachometer.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Tachometer.Value) });
+                }
+                feature.SpecCategory.Add(Tachometer);
+
+                //Tachometer Type
+                CompareSubCategory TachometerType = new CompareSubCategory();
+                TachometerType.Text = "Tachometer Type";
+                TachometerType.Value = "Tachometer Type";
+                TachometerType.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    TachometerType.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).TachometerType) });
+                }
+                feature.SpecCategory.Add(TachometerType);
+
+                //Shift Light
+                CompareSubCategory ShiftLight = new CompareSubCategory();
+                ShiftLight.Text = "Shift Light";
+                ShiftLight.Value = "Shift Light";
+                ShiftLight.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    ShiftLight.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).ShiftLight.Value) });
+                }
+                feature.SpecCategory.Add(ShiftLight);
+
+                //Electric Start
+                CompareSubCategory ElectricStart = new CompareSubCategory();
+                ElectricStart.Text = "Electric Start";
+                ElectricStart.Value = "Electric Start";
+                ElectricStart.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    ElectricStart.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).ElectricStart.Value) });
+                }
+                feature.SpecCategory.Add(ElectricStart);
+
+                //Tripmeter
+                CompareSubCategory Tripmeter = new CompareSubCategory();
+                Tripmeter.Text = "Tripmeter";
+                Tripmeter.Value = "Tripmeter";
+                Tripmeter.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    Tripmeter.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Tripmeter.Value) });
+                }
+                feature.SpecCategory.Add(Tripmeter);
+
+                //No Of Tripmeters
+                CompareSubCategory NoOfTripmeters = new CompareSubCategory();
+                NoOfTripmeters.Text = "No Of Tripmeters";
+                NoOfTripmeters.Value = "No Of Tripmeters";
+                NoOfTripmeters.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    NoOfTripmeters.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).NoOfTripmeters) });
+                }
+                feature.SpecCategory.Add(NoOfTripmeters);
+
+                //Tripmeter Type
+                CompareSubCategory TripmeterType = new CompareSubCategory();
+                TripmeterType.Text = "Tripmeter Type";
+                TripmeterType.Value = "Tripmeter Type";
+                TripmeterType.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    TripmeterType.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).TripmeterType) });
+                }
+                feature.SpecCategory.Add(TripmeterType);
+
+                //Low Fuel Indicator
+                CompareSubCategory LowFuelIndicator = new CompareSubCategory();
+                LowFuelIndicator.Text = "Low Fuel Indicator";
+                LowFuelIndicator.Value = "Low Fuel Indicator";
+                LowFuelIndicator.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    LowFuelIndicator.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).LowFuelIndicator.Value) });
+                }
+                feature.SpecCategory.Add(LowFuelIndicator);
+
+                //Low Oil Indicator
+                CompareSubCategory LowOilIndicator = new CompareSubCategory();
+                LowOilIndicator.Text = "Low Oil Indicator";
+                LowOilIndicator.Value = "Low Oil Indicator";
+                LowOilIndicator.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    LowOilIndicator.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).LowOilIndicator.Value) });
+                }
+                feature.SpecCategory.Add(LowOilIndicator);
+
+                //Low Battery Indicator
+                CompareSubCategory LowBatteryIndicator = new CompareSubCategory();
+                LowBatteryIndicator.Text = "Low Battery Indicator";
+                LowBatteryIndicator.Value = "Low Battery Indicator";
+                LowBatteryIndicator.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    LowBatteryIndicator.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).LowBatteryIndicator.Value) });
+                }
+                feature.SpecCategory.Add(LowBatteryIndicator);
+
+                //Fuel Gauge
+                CompareSubCategory FuelGauge = new CompareSubCategory();
+                FuelGauge.Text = "Fuel Gauge";
+                FuelGauge.Value = "Fuel Gauge";
+                FuelGauge.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    FuelGauge.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).FuelGauge.Value) });
+                }
+                feature.SpecCategory.Add(FuelGauge);
+
+                //Digital Fuel Gauges
+                CompareSubCategory DigitalFuelGauges = new CompareSubCategory();
+                DigitalFuelGauges.Text = "Digital Fuel Gauges";
+                DigitalFuelGauges.Value = "Digital Fuel Gauges";
+                DigitalFuelGauges.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    DigitalFuelGauges.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).DigitalFuelGauge.Value) });
+                }
+                feature.SpecCategory.Add(DigitalFuelGauges);
+
+                //Pillion Seat
+                CompareSubCategory PillionSeat = new CompareSubCategory();
+                PillionSeat.Text = "Pillion Seat";
+                PillionSeat.Value = "Pillion Seat";
+                PillionSeat.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    PillionSeat.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionSeat.Value) });
+                }
+                feature.SpecCategory.Add(PillionSeat);
+
+                //Pillion Footrest
+                CompareSubCategory PillionFootrest = new CompareSubCategory();
+                PillionFootrest.Text = "Pillion Footrest";
+                PillionFootrest.Value = "Pillion Footrest";
+                PillionFootrest.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    PillionFootrest.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionFootrest.Value) });
+                }
+                feature.SpecCategory.Add(PillionFootrest);
+
+                //Pillion Backrest
+                CompareSubCategory PillionBackrest = new CompareSubCategory();
+                PillionBackrest.Text = "Pillion Backrest";
+                PillionBackrest.Value = "Pillion Backrest";
+                PillionBackrest.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    PillionBackrest.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionBackrest.Value) });
+                }
+                feature.SpecCategory.Add(PillionBackrest);
+
+                //Pillion Grabrail
+                CompareSubCategory PillionGrabrail = new CompareSubCategory();
+                PillionGrabrail.Text = "Pillion Grabrail";
+                PillionGrabrail.Value = "Pillion Grabrail";
+                PillionGrabrail.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    PillionGrabrail.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).PillionGrabrail.Value) });
+                }
+                feature.SpecCategory.Add(PillionGrabrail);
+
+                //Stand Alarm
+                CompareSubCategory StandAlarm = new CompareSubCategory();
+                StandAlarm.Text = "Stand Alarm";
+                StandAlarm.Value = "Stand Alarm";
+                StandAlarm.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    StandAlarm.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).StandAlarm.Value) });
+                }
+                feature.SpecCategory.Add(StandAlarm);
+
+                //Stepped Seat
+                CompareSubCategory SteppedSeat = new CompareSubCategory();
+                SteppedSeat.Text = "Stepped Seat";
+                SteppedSeat.Value = "Stepped Seat";
+                SteppedSeat.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    SteppedSeat.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).SteppedSeat.Value) });
+                }
+                feature.SpecCategory.Add(SteppedSeat);
+
+                //Antilock Braking System
+                CompareSubCategory AntilockBrakingSystem = new CompareSubCategory();
+                AntilockBrakingSystem.Text = "Antilock Braking System";
+                AntilockBrakingSystem.Value = "Antilock Braking System";
+                AntilockBrakingSystem.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    AntilockBrakingSystem.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).AntilockBrakingSystem.Value) });
+                }
+                feature.SpecCategory.Add(AntilockBrakingSystem);
+
+                //Killswitch
+                CompareSubCategory Killswitch = new CompareSubCategory();
+                Killswitch.Text = "Killswitch";
+                Killswitch.Value = "Killswitch";
+                Killswitch.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    Killswitch.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Killswitch.Value) });
+                }
+                feature.SpecCategory.Add(Killswitch);
+
+                //Clock
+                CompareSubCategory Clock = new CompareSubCategory();
+                Clock.Text = "Clock";
+                Clock.Value = "Clock";
+                Clock.CompareSpec = new List<CompareBikeData>();
+                foreach (var version in arrVersion)
+                {
+                    Clock.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Features.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).Clock.Value) });
+                }
+                feature.SpecCategory.Add(Clock);
+                compareEntity.CompareFeatures.Spec.Add(feature);
+                #endregion                           
+                compareEntity.CompareColors = new CompareBikeColorCategory();
+                compareEntity.CompareColors.Text = "Colours";
+                compareEntity.CompareColors.Value = "Colours";
+                compareEntity.CompareColors.bikes = new List<CompareBikeColor>();
+                foreach (var version in arrVersion)
+                {
+                    var bikeColor = from color in compareEntity.Color
+                                    where color.VersionId == Convert.ToUInt32(version)
+                                    select color;
+                    compareEntity.CompareColors.bikes.Add(new CompareBikeColor() { bikeColors = bikeColor.ToList() });
+                }
             }
             catch (Exception ex)
             {
