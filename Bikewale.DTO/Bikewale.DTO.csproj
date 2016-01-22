@@ -81,6 +81,7 @@
     <Compile Include="Compare\CompareMainCategoryDTO.cs" />
     <Compile Include="Compare\CompareSubCategoryDTO.cs" />
     <Compile Include="Compare\CompareSubMainCategoryDTO.cs" />
+    <Compile Include="Compare\TopBikeCompareDTO.cs" />
     <Compile Include="Customer\AuthenticatedCustomer.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerBase.cs" />
