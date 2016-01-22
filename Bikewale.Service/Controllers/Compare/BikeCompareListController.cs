@@ -1,7 +1,9 @@
 ﻿using Bikewale.DAL.Compare;
+using Bikewale.DTO.Compare;
 using Bikewale.Entities.Compare;
 using Bikewale.Interfaces.Compare;
 using Bikewale.Notifications;
+using Bikewale.Service.AutoMappers.Compare;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
@@ -48,11 +50,13 @@ namespace Bikewale.Service.Controllers.Compare
         public IHttpActionResult Get(UInt16 topCount)
         {
             IEnumerable<TopBikeCompareBase> topBikeComapreList = null;
+            IEnumerable<TopBikeCompareDTO> dto = null;
             try
             {
                 topBikeComapreList = _bikeCompare.CompareList(topCount);
                 if (topBikeComapreList != null)
                 {
+                    dto = TopBikeCompareBaseMapper.Convert(topBikeComapreList);
                     return Ok(topBikeComapreList);
                 }
                 else
