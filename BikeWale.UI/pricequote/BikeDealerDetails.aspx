@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Pricequote.BookingConfig" %>
+
 <%@ Register Src="~/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 <html>
@@ -13,7 +14,7 @@
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookingconfig.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
 
 </head>
-<body class="header-fixed-inner" id="bookingConfig" style="display: none" data-bind="visible: true">
+<body class="header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section>
@@ -25,21 +26,21 @@
                             <li><a href="/">Home</a></li>
                             <li><span class="fa fa-angle-right margin-right10"></span><%= makeUrl %></li>
                             <li><span class="fa fa-angle-right margin-right10"></span><%= modelUrl %></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><span data-bind="text : $root.Bike().selectedVersion().MinSpec.VersionName"></span></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><span data-bind="text : viewModel.Bike().selectedVersion().MinSpec.VersionName"></span></li>
                             <li><span class="fa fa-angle-right margin-right10"></span>Dealer Details</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
                     <h1 class="font30 text-black margin-top10">More details about   
-                	<span data-bind="text : $root.Bike().bikeName()"></span>
+                	<span data-bind="text : viewModel.Bike().bikeName()"></span>
                     </h1>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
 
-        <section>
-            <div class="container" style="min-height: 500px; display: none;" data-bind="visible: true">
+        <section id="bookingConfig" style="display: none" data-bind="visible: true">
+            <div class="container" style="min-height: 500px;">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20 rounded-corner2">
                         <div id="configTabsContainer" class="margin-bottom10">
@@ -129,9 +130,11 @@
                                     </li>
                                 </ul>
 
-                                <div class="margin-left10 margin-top15 margin-bottom15">
+                                <div class="margin-left10 margin-top15 margin-bottom15" data-bind="visible : $root.Bike().selectedColorId() > 0">
                                     <span class="text-bold font16 ">Availability: </span>
-                                    <span class="font14" data-bind="BikeAvailability : {Days : $root.Bike().waitingPeriod(),CustomText : 'Waiting period of '}"></span>
+                                    <span class="color-availability-box text-light-grey font14" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span data-bind="text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></span>
+                                    <span class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() == 0"><span class='text-green text-bold'>Now available</span></span>
+                                    <span class="text-red text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 0"><span class='text-red text-bold'>Not available</span></span>
                                 </div>
                             </div>
 
@@ -288,7 +291,9 @@
                                         </li>
                                         <li>
                                             <p class="text-bold">Availability</p>
-                                             <span class="font14" data-bind="BikeAvailability : {Days : $root.Bike().waitingPeriod(),CustomText : 'Waiting period of '}"></span>
+                                            <span class="color-availability-box text-light-grey font14" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span data-bind="text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></span>
+                                            <span class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() == 0"><span class='text-green text-bold'>Now available</span></span>
+                                            <span class="text-red text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 0"><span class='text-red text-bold'>Not available</span></span>
                                         </li>
 
                                     </ul>
@@ -439,15 +444,16 @@
             </div>
         </div>
         <!-- Terms and condition Popup Ends -->
-        
+
         <section class="container margin-top30 lazy content-box-shadow booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/images/howItWorks.png?<%= staticFileVersion %>">
             <div class="grid-12"></div>
             <div class="clear"></div>
         </section>
-        
+
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
 
-        <% if (ctrlUsersTestimonials.FetchedCount > 0){ %>
+        <% if (ctrlUsersTestimonials.FetchedCount > 0)
+           { %>
         <section>
             <div id="testimonialWrapper" class="container margin-bottom30">
                 <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
@@ -458,18 +464,19 @@
             </div>
         </section>
         <%
-        }
-           else{
-                %>
+           }
+           else
+           {
+        %>
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12">
-                    </div>
+                </div>
                 <div class="clear"></div>
             </div>
         </section>
         <%           
-        }
+           }
         %>
 
         <section>

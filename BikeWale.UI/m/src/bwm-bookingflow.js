@@ -514,9 +514,11 @@ var BikeDetails = function () {
                 self.selectedColor(value.BikeModelColors[0]);
                 self.versionSpecs(value.MinSpec);
                 self.versionPriceBreakUp(value.PriceList);
-                self.waitingPeriod(value.NoOfWaitingDays);
                 self.bookingAmount(value.BookingAmount);
-                $("#selectedVersionId").val(self.selectedVersionId());
+                $("#selectedVersionId").val(self.selectedVersionId()); 
+                if (self.selectedColor().NoOfDays != -1)
+                    self.waitingPeriod(self.selectedColor().NoOfDays);
+                else self.waitingPeriod(self.selectedVersion().NoOfWaitingDays);
             }
         });
     };
@@ -524,6 +526,9 @@ var BikeDetails = function () {
     self.getColor = function (data, event) {
         self.selectedColorId(data.ColorId);
         self.selectedColor(data);
+        if (data.NoOfDays!=-1)
+            self.waitingPeriod(data.NoOfDays);
+        else self.waitingPeriod(self.selectedVersion().NoOfWaitingDays);
     };
 
     self.getVersion(self.selectedVersionId());
