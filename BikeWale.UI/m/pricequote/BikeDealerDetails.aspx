@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.Pricequote.BookingConfig" %>
+
 <%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!doctype html>
 <html>
@@ -112,7 +113,9 @@
 
                             <div class="margin-left10 margin-top15 margin-bottom15">
                                 <span class="text-bold font16 ">Availability: </span>
-                                <span class="font14" data-bind="BikeAvailability : {Days : $root.Bike().waitingPeriod(),CustomText : 'Waiting period of '}"></span>
+                                <span class="color-availability-box text-light-grey font14" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></span>
+                                <span class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() == 0"><span class='text-green text-bold'>Now available</span></span>
+                                <span class="text-red text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 0"><span class='text-red text-bold'>Not available</span></span>
                             </div>
 
                         </div>
@@ -285,7 +288,9 @@
                                     </li>
                                     <li>
                                         <p class="text-bold">Availability</p>
-                                        <span class="font14" data-bind="BikeAvailability : {Days : $root.Bike().waitingPeriod(),CustomText : 'Waiting period of '}"></span>
+                                        <span class="color-availability-box text-light-grey font14" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></span>
+                                        <span class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() == 0"><span class='text-green text-bold'>Now available</span></span>
+                                        <span class="text-red text-bold" data-bind="visible : $root.Bike().waitingPeriod() < 0"><span class='text-red text-bold'>Not available</span></span>
                                     </li>
                                 </ul>
                             </div>
@@ -420,24 +425,25 @@
             </div>
         </section>
 
-        
+
         <section class="container margin-bottom30 content-box-shadow">
             <div class="lazy booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
-        <% if (ctrlUsersTestimonials.FetchedCount > 0){ %>
+        <% if (ctrlUsersTestimonials.FetchedCount > 0)
+           { %>
         <section>
             <div id="testimonialWrapper" class="container margin-bottom10">
                 <h2 class="text-bold text-center margin-bottom20 font24">Testimonials</h2>
                 <div class="swiper-container text-center">
                     <div class="swiper-wrapper margin-bottom10">
-                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>                        
+                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
                     </div>
                 </div>
             </div>
         </section>
-            <%                 
-        }
+        <%                 
+           }
         %>
         <input id="hdnBikeData" type="hidden" value='<%= jsonBikeVarients  %>' />
 

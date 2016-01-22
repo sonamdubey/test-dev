@@ -3,6 +3,16 @@ var versionul = $("#customizeBike ul.select-versionUL");
 var colorsul = $("#customizeBike ul.select-colorUL");
 var colorWarningTooltip = $("#configBtnWrapper .select-color-warning-tooltip");
 
+$("#configBtnWrapper input[type='button']").on("mouseover", function () {
+    if (!colorsul.hasClass("color-selection-done") && colorWarningTooltip.hasClass("color-warning"))
+        colorWarningTooltip.show();
+});
+
+$("#configBtnWrapper input[type='button']").on("mouseout", function () {
+    if (!colorsul.hasClass("color-selection-done") && colorWarningTooltip.hasClass("color-warning"))
+        colorWarningTooltip.hide();
+});
+
 ko.bindingHandlers.googlemap = {
     init: function (element, valueAccessor) {
         var
@@ -38,9 +48,12 @@ ko.bindingHandlers.CurrencyText = {
 };
 
 ko.bindingHandlers.BikeAvailability = {
-    update: function (element, valueAccessor) {
+    init: function (element, valueAccessor) {
         availText = "";
         period = ko.unwrap(valueAccessor()) !== null ? valueAccessor().Days : -1;
+        if (period < 0)
+            period = viewModel.Bike().waitingPeriod();
+
         if (period >= 0) {
             if (period == 1) {
                 availText = "<span class='text-light-grey'>" + valueAccessor().CustomText + period + "  day </span>";
@@ -495,17 +508,6 @@ var viewModel = new BookingConfigViewModel;
 ko.applyBindings(viewModel, $("#bookingConfig")[0]);
 setColor();
 viewModel.UserOptions(viewModel.Bike().selectedVersionId().toString() + viewModel.Bike().selectedColorId().toString());
-
-$("#configBtnWrapper input[type='button']").on("mouseover", function () {
-    if (!colorsul.hasClass("color-selection-done") && colorWarningTooltip.hasClass("color-warning"))
-        colorWarningTooltip.show();
-});
-
-$("#configBtnWrapper input[type='button']").on("mouseout", function () {
-    if (!colorsul.hasClass("color-selection-done") && colorWarningTooltip.hasClass("color-warning"))
-        colorWarningTooltip.hide();
-});
-
 
 $('.tnc').on('click', function (e) {
     LoadTerms($(this).attr("id"));
