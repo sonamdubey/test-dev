@@ -359,7 +359,6 @@ $('#newBikeList').on('keypress', function (e) {
             return false;
         }
         else {
-            $('#errNewBikeSearch').show();
             return false;
         }
 });
@@ -372,7 +371,6 @@ $('#btnSearch').on('click', function (e) {
     if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
         return false;
     } else {
-        $('#errNewBikeSearch').show();
         return false;
     }
 
@@ -837,6 +835,7 @@ $("#newBikeList").bw_autocomplete({
     },
     focusout: function () {
         if ($('li.ui-state-focus a:visible').text() != "") {
+            $('#errNewBikeSearch').hide()
             focusedMakeModel = new Object();
             focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
             //$('#btnSearch').click();
@@ -848,13 +847,13 @@ $("#newBikeList").bw_autocomplete({
     afterfetch: function (result, searchtext) {
         if (result != undefined && result.length > 0 && searchtext.trim() != "")
         {
-            console.log("vdnhfnbj");
             $('#errNewBikeSearch').hide()
             NewBikeSearchResult = true;
         }
         else {
             focusedMakeModel = null; NewBikeSearchResult = false;
-            $('#errNewBikeSearch').show()
+            if (searchtext.trim() != "")
+                $('#errNewBikeSearch').show()
         }
     },
     keyup: function () {
@@ -865,14 +864,13 @@ $("#newBikeList").bw_autocomplete({
         } else {
             if ($('#newBikeList').val().trim() == '') {
                 $('#errNewBikeSearch').hide();
-            } else {
-                $('#errNewBikeSearch').show();
-            }
+            } 
         }
 
         if ($('#newBikeList').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
             if (focusedMakeModel == null || focusedMakeModel == undefined)
-                $('#errNewBikeSearch').show();
+                if ($('#newBikeList').val().trim() != '')
+                    $('#errNewBikeSearch').show();
             else
                 $('#errNewBikeSearch').hide();
         }
@@ -899,7 +897,7 @@ $("#globalSearch").bw_autocomplete({
         {
             $("#btnGlobalSearch").removeClass('bwsprite');
             $("#globalSearch").siblings('.fa-spinner').show();
-            if (focusedMakeModel == null) $('#errGlobalSearch').addClass('hide');
+            if (focusedMakeModel == null) $('#errGlobalSearch').hide();
         }
         else {
             $("#btnGlobalSearch").addClass('bwsprite');
@@ -916,37 +914,50 @@ $("#globalSearch").bw_autocomplete({
             //$('li.ui-state-focus.fillPopupData').focus();
         }
         else {
-            $('#errGlobalSearch').addClass('hide');
+            $('#errGlobalSearch').hide();
         }
     },
     afterfetch: function (result, searchtext) {
 
-        if (result != undefined && result.length > 0) {
-            $('#errGlobalSearch').addClass('hide');
+        if (result != undefined && result.length > 0 && searchtext.trim() != '') {
+            $('#errGlobalSearch').hide();
             globalSearchResult = true;
         }
         else {
             focusedMakeModel = null; globalSearchResult = false;
-            $('#errGlobalSearch').removeClass('hide');
+            if (searchtext.trim() != '')
+                $('#errGlobalSearch').show();
             var keywrd = $('#globalSearch').val();
             var category = GetCatForNav();
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Not_Present_in_Autosuggest', 'lab': keywrd });
         }
+    },
+    keyup: function () {
+    if ($('li.ui-state-focus a:visible').text() != "") {
+        focusedMakeModel = new Object();
+        focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
+        $('#errGlobalSearch').hide();
+    } else {
+        if ($('#globalSearch').val().trim() == '') {
+            $('#errGlobalSearch').hide();
+        } 
     }
+
+    if ($('#globalSearch').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+        if (focusedMakeModel == null || focusedMakeModel == undefined) {
+            if ($('#globalSearch').val().trim() != '')
+                $('#errGlobalSearch').show();
+        }
+        else
+            $('#errGlobalSearch').hide();
+    }
+}
 }).keydown(function (e) {
     if (e.keyCode == 13)
     {
         $('#btnGlobalSearch').click();
     }
         
-}).keyup(function (e) {
-    if ($('#globalSearch').val() == '' || e.keyCode == 27 || e.keyCode == 13) {
-        if (focusedMakeModel == null || focusedMakeModel == undefined)
-            $('#errGlobalSearch').removeClass('hide');
-        else
-            $('#errGlobalSearch').addClass('hide');
-    }
-  
 });
 
 function CloseCityPopUp() {

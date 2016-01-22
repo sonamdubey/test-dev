@@ -1,4 +1,6 @@
-﻿using Bikewale.Utility;
+﻿using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -6,6 +8,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Bikewale.Common;
+using Carwale.BL.PaymentGateway;
 
 
 namespace Bikewale.BikeBooking
@@ -32,7 +36,36 @@ namespace Bikewale.BikeBooking
                 msg =Carwale.Utility.CarwaleSecurity.Decrypt(Request.QueryString["msg"].ToString());
                 submit = 1;
             }
-            Trace.Warn("msg" + msg);
+            Trace.Warn("msg : " + msg);
+            UpdatePGTranscationId(msg);
+        }
+
+        private static void UpdatePGTranscationId(string msg)
+        {
+            string[] bwTranParameters = null;
+            string pqId = string.Empty, pgRecordId = string.Empty;
+            bool isUpdated = false;
+
+            try
+            {
+                bwTranParameters = msg.Split('|');
+                string MPQ = HttpUtility.ParseQueryString(bwTranParameters[21].Split('?')[1]).Get("MPQ");
+                pqId = HttpUtility.ParseQueryString(EncodingDecodingHelper.DecodeFrom64(MPQ)).Get("PQId");
+                pgRecordId = bwTranParameters[1].Replace(BWConfiguration.Instance.OfferUniqueTransaction, "");
+
+                using (IUnityContainer containerTran = new UnityContainer())
+                {
+                    containerTran.RegisterType<IDealerPriceQuote, Bikewale.BAL.BikeBooking.DealerPriceQuote>();
+                    IDealerPriceQuote objDealer = containerTran.Resolve<IDealerPriceQuote>();
+                    isUpdated = objDealer.UpdatePQTransactionalDetail(Convert.ToUInt32(pqId), Convert.ToUInt32(pgRecordId),
+                                    false, ConfigurationManager.AppSettings["OfferUniqueTransaction"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, "Bikewale.BikeBooking.RedirectToBillDesk.UpdatePGTranscationId");
+                objErr.SendMail();
+            }
         }
     }
 }
