@@ -376,65 +376,6 @@ namespace Bikewale.BAL.BikeBooking
             }
             return pageDetail;
         }
-        /// <summary>
-        /// Created By : Sangram Nandkhile on 21st Jan 2016
-        /// Summary :    To check if booking cancellation request is valid or not
-        /// </summary>
-        /// <returns>request is valid or not</returns>
-        public ValidBikeCancellationResponseEntity IsValidCancellation(string bwId, string mobile)
-        {
-            int responseFlag = 0;
-            ValidBikeCancellationResponseEntity response = default(ValidBikeCancellationResponseEntity);
-            response = dealerPQRepository.IsValidCancellation(bwId, mobile);
-            switch (responseFlag)
-            {
-                case 0:
-                    response.IsVerified = false;
-                    response.Message = "BWId and Mobile combination is incorrect";
-                    break;
-
-                case 1:
-                    response.IsVerified = true;
-                    response.Message = "BWId and Mobile combination is correct";
-                    break;
-
-                case 2:
-                    response.IsVerified = false;
-                    response.Message = "This booking has been cancelled already";
-                    break;
-            }
-
-            // Business Logic
-            if(response.IsVerified)
-            {
-                // create OTP and call SP to to save OTP in db
-                string otpCode = GetRandomCode(new Random(), 5);
-                SaveCancellationOTP(bwId, mobile, otpCode);
-            }
-            return response;
-        }
-
-        /// <summary>
-        /// Created By : Sangram Nandkhile on 22nd Jan 2016
-        /// Summary :    Push OTP for bike cancellation
-        /// </summary>
-        /// <returns>request is valid or not</returns>
-        public bool SaveCancellationOTP(string bwId, string mobile, string otp)
-        {
-            bool isSuccess = dealerPQRepository.SaveCancellationOTP(bwId, mobile,otp);
-            return isSuccess;
-        }
-
-        //this function generates a random 5 digit code where all the characters are numeric
-        string GetRandomCode(Random rnd, int length)
-        {
-            string charPool = "1234567890098765432112345678900987654321";
-            StringBuilder rs = new StringBuilder();
-
-            while (length-- > 0)
-                rs.Append(charPool[(int)(rnd.NextDouble() * charPool.Length)]);
-
-            return rs.ToString();
-        }
+        
     }   //End of Class
 }   //End of namespace

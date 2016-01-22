@@ -10,6 +10,7 @@ namespace Bikewale.Entities.BikeBooking
     {
         public string BwId { get; set; }
         public string Mobile { get; set; }
+        public string OTP { get; set; }
     }
 
     public class ValidBikeCancellationResponseEntity
