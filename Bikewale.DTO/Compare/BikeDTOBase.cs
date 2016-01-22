@@ -1,29 +1,41 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.Entities.Compare
+namespace Bikewale.DTO.Compare
 {
     /// <summary>
-    /// Created by  :   Sumit Kate on 22 Jan 2016
-    /// Description :   
+    /// Created By  :   Sumit Kate on 22 Jan 2016
+    /// Description :   Bike basic DTO
     /// </summary>
-    [Serializable]
-    public class BikeEntityBase
+    public class BikeDTOBase
     {
+        [JsonProperty("versionId")]
         public uint VersionId { get; set; }
+        [JsonProperty("make")]
         public string Make { get; set; }
+        [JsonProperty("model")]
         public string Model { get; set; }
+        [JsonProperty("version")]
         public string Version { get; set; }
+        [JsonProperty("name")]
         public string Name { get; set; }
+        [JsonProperty("makeMaskingName")]
         public string MakeMaskingName { get; set; }
+        [JsonProperty("modelMaskingName")]
         public string ModelMaskingName { get; set; }
+        [JsonProperty("hostUrl")]
         public string HostUrl { get; set; }
+        [JsonProperty("price")]
         public int Price { get; set; }
+        [JsonProperty("imagePath")]
         public string ImagePath { get; set; }
+        [JsonProperty("versionRating")]
         public UInt16 VersionRating { get; set; }
+        [JsonProperty("modelRating")]
         public UInt16 ModelRating { get; set; }
     }
 }
