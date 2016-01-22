@@ -50,6 +50,7 @@
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
     <Compile Include="BikeBooking\BikeBooking.cs" />
+    <Compile Include="BikeBooking\BikeCancellationEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntityBase.cs" />
     <Compile Include="BikeBooking\BookingResults.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Compare\BikeFeature.cs" />
     <Compile Include="Compare\BikeSpecification.cs" />
     <Compile Include="Compare\TopBikeCompareBase.cs" />
+    <Compile Include="Customer\CancelledBikeCustomer.cs" />
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Customer\CustomerEntityBase.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />

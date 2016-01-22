@@ -36,5 +36,6 @@ namespace Bikewale.Interfaces.BikeBooking
         List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId);
         PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams);
         BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId);
+        bool IsValidCancellation(string bwid, string mobile);
     }
 }

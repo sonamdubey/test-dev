@@ -212,6 +212,7 @@
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
     <Compile Include="Controllers\BikeBooking\BikeBookingPageController.cs" />
+    <Compile Include="Controllers\BikeBooking\BookingCancellationController.cs" />
     <Compile Include="Controllers\BikeBooking\City\BBCityListController.cs" />
     <Compile Include="Controllers\BikeBooking\Make\BBMakeListController.cs" />
     <Compile Include="Controllers\BikeBooking\Model\BBModelListController.cs" />
