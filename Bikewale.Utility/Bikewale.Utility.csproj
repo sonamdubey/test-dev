@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="APIHost.cs" />
+    <Compile Include="BikeBookingCookie.cs" />
     <Compile Include="BWConfiguration.cs" />
     <Compile Include="BWHttpClient.cs" />
     <Compile Include="CollectionHelper.cs" />

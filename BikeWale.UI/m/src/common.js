@@ -190,24 +190,35 @@ $(document).ready(function () {
             }
         },
         afterfetch: function (result, searchtext) {
-            if (result != undefined && result.length > 0) {
+            if (result != undefined && result.length > 0 && searchtext.trim()) {
                 $('#errNewBikeSearch').hide();
                 NewBikeSearchResult = true;
             }
             else {
                 focusedMakeModel = null; NewBikeSearchResult = false;
-                $('#errNewBikeSearch').show();
+                if (searchtext.trim() != '')
+                    $('#errNewBikeSearch').show();
+            }
+        },
+        keyup: function () {
+            if ($('li.ui-state-focus a:visible').text() != "") {
+                $('#errNewBikeSearch').hide();
+            } else {
+                if ($('#newBikeList').val().trim() == '') {
+                    $('#errNewBikeSearch').hide();
+                }
+            }
+
+            if ($('#newBikeList').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                    if ($('#newBikeList').val().trim() != '')
+                        $('#errNewBikeSearch').show();
+                }
+                else
+                    $('#errNewBikeSearch').hide();
             }
         }
-    }).css({ 'width': '100%' }).keyup(function (e) {
-        if ($('#newBikeList').val() == '' || e.keyCode == 27 || e.keyCode == 13) {
-            if (focusedMakeModel == null || focusedMakeModel == undefined)
-                $('#errNewBikeSearch').show();
-            else
-                $('#errNewBikeSearch').hide();
-        }
-
-    });
+    }).css({ 'width': '100%' });
 
 
     $('#newBikeList').on('keypress', function (e) {
@@ -220,7 +231,6 @@ $(document).ready(function () {
                 return false;
             }
             else {
-                $('#errNewBikeSearch').show();
                 return false;
             }
     });
@@ -228,18 +238,19 @@ $(document).ready(function () {
 
     $('#btnSearch').on('click', function (e) {
         var id = $('#newBikeList');
-        var searchVal = id.val();
+        var searchVal = id.val().trim();
         var placeHolder = id.attr('placeholder');
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'HP', 'act': 'Search_Not_Keyword_Present_in_Autosuggest', 'lab': searchVal });
         if (btnFindBikeNewNav() || searchVal == placeHolder || (searchVal).trim() == "") {
-            $('#errNewBikeSearch').show();
+            $('#errNewBikeSearch').hide();
             return false;
+        } else {
+            $('#errNewBikeSearch').show();
         }
     });
 
     function btnFindBikeNewNav() {
         if (focusedMakeModel == undefined || focusedMakeModel == null) {
-            $('#errNewBikeSearch').show(); 
             return false;
         }
         return MakeModelRedirection(focusedMakeModel);
@@ -649,35 +660,48 @@ $(document).ready(function () {
                 focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
             }
             else {
-                $('#errGlobalSearch').addClass('hide');
+                $('#errGlobalSearch').hide();
             }
         },
         afterfetch: function (result, searchtext) {
-            if (result != undefined && result.length > 0) {
-                $('#errGlobalSearch').addClass('hide');
+            if (result != undefined && result.length > 0 && searchtext.trim() != "") {
+                $('#errGlobalSearch').hide();
             }
             else {
                 focusedMakeModel = null;
-                $('#errGlobalSearch').removeClass('hide');
+                if (searchtext.trim() != "")
+                    $('#errGlobalSearch').show();
                 var keywrd = $('#globalSearch').val();
                 var category = GetCatForNav();
                 dataLayer.push({ 'event': 'Bikewale_all', 'cat': category, 'act': 'Search_Keyword_Not_Present_in_Autosuggest', 'lab': keywrd });
+            }
+        },
+        keyup: function () {
+            if ($('li.ui-state-focus a:visible').text() != "") {
+                $('#errGlobalSearch').hide();
+            } else {
+                if ($('#globalSearch').val().trim() == '') {
+                    $('#errGlobalSearch').hide();
+                }
+            }
+
+            if ($('#globalSearch').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+                if (focusedMakeModel == null || focusedMakeModel == undefined) {
+                    if ($('#globalSearch').val().trim() != '')
+                        $('#errGlobalSearch').show();
+                    else
+                        $('#errGlobalSearch').hide();
+                }
+                else
+                    $('#errGlobalSearch').hide();
+
+                $("#gs-text-clear").hide();
             }
         }
     }).keydown(function (e) {
         if (e.keyCode == 13) {
             if (focusedMakeModel != null && btnGlobalSearch != undefined)
                 btnFindBikeNewNav();
-        }
-
-    }).keyup(function (e) {
-        if ($('#globalSearch').val() != '' || e.keyCode == 27 || e.keyCode == 13) {
-            $('#errGlobalSearch').addClass('hide');
-
-        }
-        if ($('#globalSearch').val() == "") {
-            $('#errGlobalSearch').addClass('hide');
-            $("#gs-text-clear").hide();
         }
 
     });
@@ -845,7 +869,7 @@ function slideChangeStart() {
                 autoFocus: true,
                 source: function (request, response) {
                     orgTerm = request.term;
-                    reqTerm = request.term.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/-/g, ' ').replace(/[^A-Za-z0-9 ]/g, '').toLowerCase();
+                    reqTerm = request.term.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/-/g, ' ').replace(/[^A-Za-z0-9 ]/g, '').toLowerCase().trim();
 
                     var year = options.year;
                     if (year != null && year != undefined && year != '')
@@ -930,10 +954,9 @@ function slideChangeStart() {
                         } else {
                             ulItem.append('<span class="upcoming-link">coming soon</span>')
                         }
-
-                        ulItem.append('<div class="clear"></div>');
                     }
                 }
+                ulItem.append('<div class="clear"></div>');
                 ulItem.appendTo(ul);
                 return ulItem;
             }

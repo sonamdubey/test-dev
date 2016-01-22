@@ -354,6 +354,11 @@ namespace Bikewale.Mobile.PriceQuote
                 //PGCookie.PGAmount = transaction.Amount.ToString();
                 PGCookie.PGCarId = transaction.PGId.ToString();
 
+                //Modified By : Sadhana Upadhyay on 22 Jan 2016 
+                //Added Logic to save Bike Booking Cookie 
+                BikeBookingCookie.SaveBBCookie(PriceQuoteQueryString.CityId, PriceQuoteQueryString.PQId, PriceQuoteQueryString.AreaId,
+                    PriceQuoteQueryString.VersionId, PriceQuoteQueryString.DealerId);
+
                 IUnityContainer container = new UnityContainer();
                 container.RegisterType<ITransaction, Transaction>()
                 .RegisterType<ITransactionRepository, TransactionRepository>()
