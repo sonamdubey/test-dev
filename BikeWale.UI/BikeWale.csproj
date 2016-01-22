@@ -2215,10 +2215,6 @@
     <Content Include="new\bikeseries.aspx" />
     <Content Include="new\browsenewbikedealerdetails.aspx" />
     <Content Include="new\compare\CompareBikes.aspx" />
-    <Content Include="new\compare\compareColors.aspx" />
-    <Content Include="new\compare\compareCommon.aspx" />
-    <Content Include="new\compare\compareFeatures.aspx" />
-    <Content Include="new\compare\compareSpecs.aspx" />
     <Content Include="new\compare\default.aspx" />
     <Content Include="new\default.aspx" />
     <Content Include="new\EMILoan.aspx" />

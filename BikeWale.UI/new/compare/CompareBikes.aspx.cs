@@ -18,6 +18,8 @@ using Bikewale.DAL.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Cache.BikeData;
 using Bikewale.Utility;
+using System.Linq;
+using System.Text;
 
 namespace Bikewale.New
 {
@@ -354,25 +356,26 @@ namespace Bikewale.New
 
         protected string GetModelColors(string versionId, int index)
         {
-            string colorString = String.Empty;
+            StringBuilder cs = new StringBuilder();
 
-            DataView dv = ds.DefaultViewManager.CreateDataView(ds.Tables[3]);
-            dv.Sort = "BikeVersionId";
-            DataRowView[] drv = dv.FindRows(versionId);
+            var colorData = from r in (ds.Tables[3]).AsEnumerable()
+                       where r.Field<int>("BikeVersionId") == Convert.ToInt32(versionId)
+                       group r by r.Field<int>("ColorId") into g
+                       select g;
 
-            if (drv.Length > 0)
+            cs.Append("<div style='width:100; text-align:center;padding:5px;'>");
+            foreach (var color in colorData)
             {
-                Trace.Warn("drv data .............", drv.Length.ToString());
-
-                for (int jTmp = 0; jTmp < drv.Length; jTmp++)
+                cs.AppendFormat("<div class='color-box {0}'>", ((color.Count() >= 3) ? "color-count-three" : (color.Count() == 2) ? "color-count-two" : "color-count-one"));
+                IList<string> HexCodeList = new List<string>();
+                foreach (var colorList in color)
                 {
-                    colorString += "<div style='width:100; text-align:center;padding:5px;'> "
-                                + " <div style='border:1px solid #dddddd;width:50px;margin:auto;background-color:#" + drv[jTmp].Row["HexCode"].ToString() + "'>"
-                                + " <img src='http://img.aeplcdn.com/images/spacer.gif' width='50' height='45' /></div> "
-                                + " <div style='padding-top:3px;'>" + drv[jTmp].Row["Color"].ToString() + "</div></div> ";
+                    cs.AppendFormat("<span style='background-color:#{0}'></span>",colorList.ItemArray[5]);
                 }
+                cs.AppendFormat("</div><div style='padding-top:3px;'>{0}</div></div>", color.FirstOrDefault().ItemArray[3]);
             }
-            return colorString;
+
+            return cs.ToString();
 
         }
 
