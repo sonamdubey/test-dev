@@ -52,6 +52,7 @@
     <Compile Include="App\IAppVersion.cs" />
     <Compile Include="AutoComplete\IAutoSuggest.cs" />
     <Compile Include="BikeBooking\IBikeBooking.cs" />
+    <Compile Include="BikeBooking\IBookingCancellation.cs" />
     <Compile Include="BikeBooking\IDealerPriceQuote.cs" />
     <Compile Include="BikeData\IBikeMakes.cs" />
     <Compile Include="BikeData\IBikeModelMaskingCacheRepository.cs" />
@@ -60,7 +61,7 @@
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
     <Compile Include="BikeData\IBikeSeries.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
-    <Compile Include="Cancellation\IFeedBacks.cs" />
+    <Compile Include="BikeBooking\IFeedBacks.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />
     <Compile Include="Compare\IBikeCompare.cs" />
     <Compile Include="Compare\IBikeCompareCacheRepository.cs" />
