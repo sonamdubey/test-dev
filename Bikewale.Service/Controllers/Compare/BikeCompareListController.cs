@@ -57,7 +57,7 @@ namespace Bikewale.Service.Controllers.Compare
                 if (topBikeComapreList != null)
                 {
                     dto = TopBikeCompareBaseMapper.Convert(topBikeComapreList);
-                    return Ok(topBikeComapreList);
+                    return Ok(dto);
                 }
                 else
                 {
