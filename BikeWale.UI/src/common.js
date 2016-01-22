@@ -351,7 +351,7 @@ function GetGlobalCityArea() {
 
 $('#newBikeList').on('keypress', function (e) {
     var id = $('#newBikeList');
-    var searchVal = id.val();
+    var searchVal = id.val().trim();
     var placeHolder = id.attr('placeholder');
     if (e.keyCode == 13)
         if (btnFindBikeNewNav() || searchVal == placeHolder || searchVal == "") {
@@ -545,7 +545,7 @@ function pushNavMenuAnalytics(menuItem) {
                 autoFocus: true,
                 source: function (request, response) {
                     orgTerm = request.term;
-                    reqTerm = request.term.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/-/g, ' ').replace(/[^A-Za-z0-9 ]/g, '').toLowerCase();
+                    reqTerm = request.term.replace(/^\s\s*/, '').replace(/\s\s*$/, '').replace(/-/g, ' ').replace(/[^A-Za-z0-9 ]/g, '').toLowerCase().trim();
 
                     var year = options.year;
                     if (year != null && year != undefined && year != '')
@@ -784,7 +784,6 @@ function insertCitySeparator(response) {
 
 function btnFindBikeNewNav() {
     if (focusedMakeModel == undefined || focusedMakeModel == null) {
-        $('#errNewBikeSearch').show()
         return false;
     }
     return MakeModelRedirection(focusedMakeModel);
@@ -847,8 +846,9 @@ $("#newBikeList").bw_autocomplete({
         }
     },
     afterfetch: function (result, searchtext) {
-        if (result != undefined && result.length > 0)
+        if (result != undefined && result.length > 0 && searchtext.trim() != "")
         {
+            console.log("vdnhfnbj");
             $('#errNewBikeSearch').hide()
             NewBikeSearchResult = true;
         }
@@ -861,16 +861,22 @@ $("#newBikeList").bw_autocomplete({
         if ($('li.ui-state-focus a:visible').text() != "") {
             focusedMakeModel = new Object();
             focusedMakeModel = objBikes.result[$('li.ui-state-focus').index()];
+            $('#errNewBikeSearch').hide();
+        } else {
+            if ($('#newBikeList').val().trim() == '') {
+                $('#errNewBikeSearch').hide();
+            } else {
+                $('#errNewBikeSearch').show();
+            }
+        }
+
+        if ($('#newBikeList').val().trim() == '' || e.keyCode == 27 || e.keyCode == 13) {
+            if (focusedMakeModel == null || focusedMakeModel == undefined)
+                $('#errNewBikeSearch').show();
+            else
+                $('#errNewBikeSearch').hide();
         }
     }
-}).keyup(function (e) {
-    if ($('#newBikeList').val() == '' || e.keyCode == 27 || e.keyCode == 13) {
-        if (focusedMakeModel == null || focusedMakeModel == undefined)
-            $('#errNewBikeSearch').show();
-        else
-            $('#errNewBikeSearch').hide();
-    }
-
 });
 
 

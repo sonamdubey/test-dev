@@ -930,10 +930,9 @@ function slideChangeStart() {
                         } else {
                             ulItem.append('<span class="upcoming-link">coming soon</span>')
                         }
-
-                        ulItem.append('<div class="clear"></div>');
                     }
                 }
+                ulItem.append('<div class="clear"></div>');
                 ulItem.appendTo(ul);
                 return ulItem;
             }
