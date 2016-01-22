@@ -18,6 +18,10 @@
 <!-- #include file="/includes/headermobile.aspx" -->
 <style>
     table td { text-align:center; height:25px;}
+    div.color-box { margin:auto;width:40px; height:40px;margin-top:10px; background:#ccc; border: 1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+    .color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; } 
+    .color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#e34f4f; }
+    .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }  
 </style>
     <div class="padding5">
         <div id="br-cr">

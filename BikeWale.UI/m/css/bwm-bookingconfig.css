@@ -70,10 +70,10 @@
 .pos-top3 { top:3px;}
 
 /*sample code*/
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(1) span.color-box { background-color:#e34f4f; }
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(2) span.color-box { background-color:#4f9fe3; }
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(3) span.color-box { background-color:#080808; }
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(4) span.color-box { background-color:#6e6e6e; }
+#customizeBike .select-color-container ul.select-colorUL li:nth-child(1) span.color-box { background-color:#eee; }
+#customizeBike .select-color-container ul.select-colorUL li:nth-child(2) span.color-box { background-color:#eee; }
+#customizeBike .select-color-container ul.select-colorUL li:nth-child(3) span.color-box { background-color:#eee; }
+#customizeBike .select-color-container ul.select-colorUL li:nth-child(4) span.color-box { background-color:#eee; }
 
 /* finance-details */
 #financeDetails ul.select-financeUL li { height:32px; margin:15px 0 8px 0; }
@@ -177,11 +177,8 @@ li.offertxt:hover span {display:inline}*/
 #testimonialWrapper .testimonial-user-image { width:54px; height:54px; overflow:hidden; margin:2px auto; border:1px solid #666; }
 #testimonialWrapper li .testimonial-user-image img { width:100%; }
 #testimonialWrapper li .testimonial-user-stmt { height:66px; overflow:hidden; }
-.color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; }
-
+.color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; } 
 .color-box.color-count-two span { width:100%; height:40%; display:block !important; background:#e34f4f; }
-.color-box.color-count-two span:first-child { width:100%; height:60%; background:#545454; }
-
-.color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
-
+.color-box.color-count-two span:first-child { width:100%; height:60%; background:#545454; } 
+.color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }  
 #customizeBike ul.select-colorUL li.selected-color span.color-box.color-count-two + span.color-title-box { top:-32px; }

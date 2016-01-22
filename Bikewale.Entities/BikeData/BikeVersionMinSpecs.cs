@@ -19,6 +19,5 @@ namespace Bikewale.Entities.BikeData
         public bool AlloyWheels { get; set; }
         public bool ElectricStart { get; set; }
         public bool AntilockBrakingSystem { get; set; } 
-        public IEnumerable<BikeVersionColorsAvailability> Colors { get; set; }
     }
 }
