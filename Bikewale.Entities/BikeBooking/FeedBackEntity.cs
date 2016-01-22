@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.BikeBooking
 {
-    public class BikeCancellationEntity
+    /// <summary>
+    /// Bike Color
+    /// Author  :   Lucky Rathore
+    /// Date    :   21 Jan 2016
+    /// </summary>
+    public class FeedBackEntity
     {
         public string BwId { get; set; }
-        public string Mobile { get; set; }
-        public string OTP { get; set; }
+        public string FeedBack { get; set; }
     }
 }

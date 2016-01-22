@@ -1,5 +1,7 @@
-﻿using Bikewale.DTO.BikeBooking;
+﻿using Bikewale.DAL.BikeBooking;
+using Bikewale.DTO.BikeBooking;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
 using System;
@@ -19,13 +21,13 @@ namespace Bikewale.Service.Controllers.BikeBooking
     /// </summary>
     public class BookingCancellationController : ApiController
     {
-        private readonly IDealerPriceQuote _objdpq = null;
+        private readonly IBookingCancellation _objCancellation = null;
         /// <summary>
         /// Constructor 
         /// </summary>
-        public BookingCancellationController(IDealerPriceQuote objDpq)
+        public BookingCancellationController(IBookingCancellation objCancellation)
         {
-            _objdpq = objDpq;
+            _objCancellation = objCancellation;
         }
 
         /// <summary>
@@ -33,42 +35,13 @@ namespace Bikewale.Service.Controllers.BikeBooking
         /// </summary>
         /// <param name="input">entity</param>
         /// <returns></returns>
-        [ResponseType(typeof(bool)), Route("api/bookingcancellation/isvalidcancellation/")]
-        public IHttpActionResult Post([FromBody]BikeCancellationEntity request)
-        {
-            bool isSuccess = false;
-            try
-            {
-                isSuccess = _objdpq.IsValidCancellation(request.BwId, request.Mobile);
-                if (isSuccess)
-                {
-                    return Ok(true);
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BookingCancellationController.Post");
-                objErr.SendMail();
-                return InternalServerError();
-            }
-        }
-
-        /// <summary>
-        /// verify if Booking Cancellation OTP is correct ror not 
-        /// </summary>
-        /// <param name="input">entity</param>
-        /// <returns></returns>
-        //[ResponseType(typeof(bool)), Route("api/bookingcancellation/isvalidcancellationotp/")]
+        //[ResponseType(typeof(bool)), Route("api/bookingcancellation/isvalidcancellation/")]
         //public IHttpActionResult Post([FromBody]BikeCancellationEntity request)
         //{
-        //    return NotFound();
+        //    bool isSuccess = false;
         //    try
         //    {
-        //        isSuccess = _objdpq.get(request.BwId, request.Mobile);
+        //        isSuccess = _objdpq.IsValidCancellation(request.BwId, request.Mobile);
         //        if (isSuccess)
         //        {
         //            return Ok(true);
@@ -85,5 +58,37 @@ namespace Bikewale.Service.Controllers.BikeBooking
         //        return InternalServerError();
         //    }
         //}
+
+        /// <summary>
+        /// Created By : Lucky Rathore
+        /// Created On : 22 Jan 2016
+        /// Description : verify if Booking Cancellation OTP is correct ror not.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns>Deatil of the customer who wants to cancel booking.</returns>
+ 
+        [ResponseType(typeof(bool)), Route("api/bookingcancellation/isvalidcancellationotp/")]
+        public IHttpActionResult Post([FromBody]BikeCancellationEntity request)
+        {
+            CancelledBikeCustomer cancelBikeDetail = null;
+            try
+            {
+                cancelBikeDetail = _objCancellation.VerifyCancellationOTP(request.BwId, request.Mobile, request.OTP);
+                if (cancelBikeDetail != null)
+                {
+                    return Ok(cancelBikeDetail);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BookingCancellationController.Post");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
     }
 }

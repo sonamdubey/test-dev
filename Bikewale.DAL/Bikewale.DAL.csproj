@@ -49,12 +49,14 @@
   <ItemGroup>
     <Compile Include="AppAlert\AppAlertRepository.cs" />
     <Compile Include="App\AppVersionRepository.cs" />
+    <Compile Include="BikeBooking\BookingCancellationRepository.cs" />
     <Compile Include="BikeBooking\DealerPriceQuoteRepository.cs" />
     <Compile Include="BikeBooking\ModelRepository.cs" />
     <Compile Include="BikeData\BikeMakesRespository.cs" />
     <Compile Include="BikeData\BikeModelsRespository.cs" />
     <Compile Include="BikeData\BikeSeriesRespository.cs" />
     <Compile Include="BikeData\BikeVersionsRespository.cs" />
+    <Compile Include="BikeBooking\FeedBacksRespositry.cs" />
     <Compile Include="CMS\CMSMainRepository.cs" />
     <Compile Include="CMS\FeaturesRepository.cs" />
     <Compile Include="CMS\NewsRepository.cs" />
