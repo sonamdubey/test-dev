@@ -504,9 +504,12 @@
         <section class="container">
             <!--  Compare section code starts here -->
             <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Compare now</h2>
-            <div class="content-box-shadow">
-                <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
+            <div class="grid-12">
+                <div class="content-box-shadow">
+                    <BW:CompareBikes ID="ctrlCompareBikes" runat="server" />
+                </div>
             </div>
+            <div class="clear"></div>
         </section>
 
         <% if (isAd976x400SecondShown)
@@ -522,8 +525,8 @@
                 <div class="bw-tabs-panel tools-may-need-wrapper content-box-shadow">
                     <div class="bw-tabs bw-tabs-flex">
                         <ul class="tools-may-need-UL">
-                            <li data-tabs="getFinal-price" class="active">On-Road Price</li>
-                            <li data-tabs="locate-dealer" class="">Locate A Dealer</li>
+                            <li data-tabs="getFinal-price" class="active">On-road price</li>
+                            <li data-tabs="locate-dealer" class="">Locate a dealer</li>
                             <li data-tabs="calculate-emi" class="">Calculate EMI's</li>
                         </ul>
                     </div>
