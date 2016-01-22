@@ -43,6 +43,7 @@ using Bikewale.Interfaces.App;
 using Bikewale.DAL.App;
 using Bikewale.Interfaces.AppAlert;
 using Bikewale.DAL.AppAlert;
+using Bikewale.BAL.Compare;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -68,7 +69,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
             container.RegisterType<IPager, Pager>();
             container.RegisterType<IBikeVersions<BikeVersionEntity, int>, BikeVersions<BikeVersionEntity, int>>();            
-            container.RegisterType<IBikeCompare, BikeCompareRepository>();
+            container.RegisterType<IBikeCompare, BikeComparison>();
             container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
             container.RegisterType<ICity, CityRepository>();
             container.RegisterType<IMobileVerificationRepository, Bikewale.BAL.MobileVerification.MobileVerification>();

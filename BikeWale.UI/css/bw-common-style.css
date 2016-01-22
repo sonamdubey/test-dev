@@ -212,7 +212,7 @@ footer ul li a:hover { text-decoration: underline; }
 .ui-menu .ui-menu-item { padding: 10px; background:#fff; font-size:14px; cursor:pointer; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus { background:#eee; }
 .ui-menu .ui-menu-item a { color: #333; }
-.ui-menu .ui-menu-item a.target-popup-link { display:none; float:right; color:#0288d1; }
+.ui-menu .ui-menu-item a.target-popup-link { display:none; float:right; color:#0288d1; font-size:13px; }
 .ui-menu .ui-menu-item:hover a.target-popup-link,.ui-menu .ui-menu-item.ui-state-focus a.target-popup-link { display:block; }
 .ui-menu .ui-menu-item span.upcoming-link { float:right; color:#4d5057; }
 
