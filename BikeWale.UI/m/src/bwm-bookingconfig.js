@@ -238,7 +238,9 @@ var BikeDetails = function () {
 
     self.getColor = function (data, event) {
         self.selectedColorId(data.ColorId);
-        self.waitingPeriod(data.NoOfDays);
+        if (data.NoOfDays != -1)
+            self.waitingPeriod(data.NoOfDays);
+        else self.waitingPeriod(self.selectedVersion().NoOfWaitingDays);
         var ele = colorsul.find("li[colorId=" + self.selectedColorId() + "]");
         colorsul.find("li").removeClass("selected-color text-bold text-white border-dark-grey").addClass("text-light-grey border-light-grey");
         colorsul.find("li").find('span.color-title-box').removeClass().addClass('color-title-box');
@@ -330,9 +332,13 @@ ko.bindingHandlers.slider = {
 };
 
 ko.bindingHandlers.BikeAvailability = {
-    update: function (element, valueAccessor) {
+    init: function (element, valueAccessor) {
         availText = "";
         period = ko.unwrap(valueAccessor()) !== null ? valueAccessor().Days : -1;
+
+        if (period < 0)
+            period = viewModel.Bike().waitingPeriod();
+
         if (period >= 0) {
             if (period == 1) {
                 availText = "<span class='text-light-grey'>" + valueAccessor().CustomText + period + "  day </span>";

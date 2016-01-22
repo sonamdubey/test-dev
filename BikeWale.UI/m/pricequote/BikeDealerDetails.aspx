@@ -111,7 +111,7 @@
                                 </li>
                             </ul>
 
-                            <div class="margin-left10 margin-top15 margin-bottom15">
+                            <div class="margin-left10 margin-top15 margin-bottom15" data-bind="visible : $root.Bike().selectedColorId() > 0">
                                 <span class="text-bold font16 ">Availability: </span>
                                 <span class="color-availability-box text-light-grey font14" data-bind="visible : $root.Bike().waitingPeriod() > 0">Waiting period of <span data-bind="    text : ($root.Bike().waitingPeriod() == 1)?$root.Bike().waitingPeriod() + ' day' : $root.Bike().waitingPeriod() + ' days'"></span></span>
                                 <span class="text-green text-bold" data-bind="visible : $root.Bike().waitingPeriod() == 0"><span class='text-green text-bold'>Now available</span></span>
