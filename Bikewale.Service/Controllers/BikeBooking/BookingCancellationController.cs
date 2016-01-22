@@ -33,16 +33,25 @@ namespace Bikewale.Service.Controllers.BikeBooking
         /// </summary>
         /// <param name="input">entity</param>
         /// <returns></returns>
-        [ResponseType(typeof(bool)), Route("api/bookingcancellation/isvalidcancellation/")]
+        [ResponseType(typeof(ValidBikeCancellationResponse)), Route("api/bookingcancellation/isvalidcancellation/")]
         public IHttpActionResult Post([FromBody]BikeCancellationEntity request)
         {
+            ValidBikeCancellationResponse response = null;
+            ValidBikeCancellationResponseEntity responseEntity = null;
             bool isSuccess = false;
             try
             {
-                isSuccess = _objdpq.IsValidCancellation(request.BwId, request.Mobile);
+                responseEntity = _objdpq.IsValidCancellation(request.BwId, request.Mobile);
+
+                #region mapping entity into DTO
+                response.ResponseFlag = responseEntity.ResponseFlag;
+                response.IsVerified = responseEntity.IsVerified;
+                response.Message = responseEntity.Message;
+                #endregion
+
                 if (isSuccess)
                 {
-                    return Ok(true);
+                    return Ok(response);
                 }
                 else
                 {

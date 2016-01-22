@@ -16,4 +16,16 @@ namespace Bikewale.DTO.BikeBooking
         [JsonProperty("bikeName")]
         public string BikeName { get; set; }
     }
+
+    public class ValidBikeCancellationResponse
+    {
+        [JsonProperty("isVerified")]
+        public bool IsVerified { get; set; }
+
+        [JsonProperty("message")]
+        public string Message { get; set; }
+
+        [JsonProperty("responseFlag")]
+        public int ResponseFlag { get; set; }
+    }
 }

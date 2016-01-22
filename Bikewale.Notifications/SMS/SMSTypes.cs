@@ -96,7 +96,7 @@ namespace Bikewale.Notifications
             {
                 EnumSMSServiceType esms = EnumSMSServiceType.MobileVerification;
 
-                string message = "";
+                string message = string.Empty;
 
                 message = code + " is the OTP for verifying your mobile number at BikeWale. This is a one time verification process.";
 
@@ -451,6 +451,29 @@ namespace Bikewale.Notifications
             catch (Exception ex)
             {
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.Notifications.SMSTypes.SaveNewBikePriceQuoteSMSToCustomer");
+                objErr.SendMail();
+            }
+        }
+
+        /// <summary>
+        /// Modified By : Sangram Nandkhile on 22 Jan 2016 
+        /// Summary : To push OTP to booking cancellation SMS in priority queue
+        /// </summary>
+        public void SMSMobileVerification(string number, string otp, string pageUrl)
+        {
+            try
+            {
+                EnumSMSServiceType smsEnum = EnumSMSServiceType.BookingCancellationOTP;
+                string message = string.Empty;
+                message = string.Format("{0} is the OTP for initiating your cancellation request on BikeWale. Please enter the OTP on BikeWale site for initiating cancellation.", otp);
+
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessPrioritySMS(number, message, smsEnum, pageUrl, true);
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("Notifications.SMSBikeBookingCancellation : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "Notifications.SMSBikeBookingCancellation");
                 objErr.SendMail();
             }
         }

@@ -20,9 +20,9 @@ namespace Bikewale.Interfaces.BikeBooking
         bool UpdateIsMobileVerified(uint pqId);
         bool UpdateMobileNumber(uint pqId, string mobileNo);
         bool PushedToAB(uint pqId, uint abInquiryId);
-#if unused
+        #if unused
         bool UpdateAppointmentDate(uint pqId, DateTime date);
-#endif
+        #endif
         PQCustomerDetail GetCustomerDetails(uint pqId);
         bool IsNewBikePQExists(uint pqId);
         List<BikeVersionEntityBase> GetVersionList(uint versionId, uint dealerId, uint cityId);
@@ -36,6 +36,7 @@ namespace Bikewale.Interfaces.BikeBooking
         List<Bikewale.Entities.Location.AreaEntityBase> GetAreaList(uint modelId, uint cityId);
         PQOutputEntity ProcessPQ(PriceQuoteParametersEntity PQParams);
         BookingPageDetailsEntity FetchBookingPageDetails(uint cityId, uint versionId, uint dealerId);
-        bool IsValidCancellation(string bwid, string mobile);
+        ValidBikeCancellationResponseEntity IsValidCancellation(string bwid, string mobile);
+        bool SaveCancellationOTP(string bwId, string mobile, string otp);
     }
 }
