@@ -393,15 +393,7 @@
                                             </tr>
                                             <!-- /ko -->
                                             <%} %>
-                                            <%--<!-- ko if : isInsuranceFree()  && insuranceAmount() > 0 -->
-                                            
-                                            
 
-                                            <tr>
-                                                <td class="padding-bottom10">Minus insurance</td>
-                                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><span data-bind="CurrencyText: insuranceAmount()"></span></td>
-                                            </tr>
-                                            <!-- /ko -->--%>
                                             <tr>
                                                 <td colspan="2">
                                                     <div class="border-solid-top padding-bottom10"></div>

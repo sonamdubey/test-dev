@@ -45,7 +45,7 @@
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW_Mobile.aspx" -->
         <section>
-            <div  itemscope="" itemtype="http://auto.schema.org/Motorcycle" class="container bg-white clearfix">
+            <div itemscope="" itemtype="http://auto.schema.org/Motorcycle" class="container bg-white clearfix">
                 <div class="<%= !modelPage.ModelDetails.New ? "padding-top20 position-rel" : ""%>">
                     <% if (modelPage.ModelDetails.New)
                        { %><h1 class="padding-top15 padding-left20 padding-right20"><%= bikeName %></h1>
@@ -199,7 +199,7 @@
                             </p>
                             <% } %>
                             <% else
-                              {%>
+                                   {%>
                             <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
                                 On-road price in <span class="font14 text-grey "><%= areaName %> <%= cityName %></span>
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
@@ -374,16 +374,17 @@
                     <div class="show padding-top10">
                         <% if (modelPage.ModelDetails.New)
                            {   %>
-                        <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
-                           { %>
-                        <div class="grid-<%=btMoreDtlsSize %>">
-                            <input type="button" value="Get more details" class="btn btn-orange btn-full-width btn-sm margin-right10 leftfloat" id="getMoreDetailsBtn" />
-                        </div>
-                        <%} %>
                         <% if (bookingAmt > 0)
                            { %>
                         <div class="grid-5 omega">
                             <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
+                        </div>
+                        <%} %>
+
+                        <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
+                           { %>
+                        <div class="grid-<%=btMoreDtlsSize %>">
+                            <input type="button" value="Get more details" class="btn btn-orange btn-full-width btn-sm margin-right10 leftfloat" id="getMoreDetailsBtn" />
                         </div>
                         <%} %>
 

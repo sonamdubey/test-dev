@@ -342,7 +342,7 @@
                {%>
 
             <div class="new-line10 padding-left10 padding-right10 margin-bottom15" style="background: #fff;">
-                <h2 class="font24 text-center text-grey">Get following details on the bike</h2>
+                <h2 class="font24 margin-left10 text-grey">Get following details on the bike</h2>
                 <div class="new-line10">
                     <ul class="grey-bullet">
                         <li>Offers from the nearest dealers</li>

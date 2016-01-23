@@ -14,29 +14,29 @@ $("#configBtnWrapper input[type='button']").on("mouseout", function () {
 });
 
 ko.bindingHandlers.googlemap = {
-    init: function (element, valueAccessor) {
-        var
-          value = valueAccessor(),
+    update: function (element, valueAccessor) {
+        if (!viewModel.IsMapLoaded && viewModel.CurrentStep() > 2) {
+            value = valueAccessor(),
           latLng = new google.maps.LatLng(value.latitude, value.longitude),
           mapOptions = {
-              zoom: 10,
+              zoom: 13,
               center: latLng,
               mapTypeId: google.maps.MapTypeId.ROADMAP
           },
           map = new google.maps.Map(element, mapOptions),
           marker = new google.maps.Marker({
+              title: "Dealer's Location",
               position: latLng,
-              map: map
+              map: map,
+              animation: google.maps.Animation.DROP
           });
-        // google.maps.event.trigger(map, 'resize');
-    } //,
 
-    
-    //update: function(element, valueAccessor) {
-    //var value = ko.utils.unwrapObservable(valueAccessor());
-    //    google.maps.event.trigger(map, 'resize');
-    //}
+            google.maps.event.addListenerOnce(map, 'idle', function () {
+                viewModel.IsMapLoaded = true;
+            });
 
+        }
+    }
 };
 
 ko.bindingHandlers.CurrencyText = {
@@ -93,6 +93,7 @@ ko.bindingHandlers.slider = {
 
 var BookingConfigViewModel = function () {
     var self = this;
+    self.IsMapLoaded = false;
     self.Bike = ko.observable(new BikeDetails);
     self.Dealer = ko.observable(new BikeDealerDetails);
     self.EMI = ko.observable(new BikeEMI);
@@ -112,6 +113,8 @@ var BookingConfigViewModel = function () {
                     self.ActualSteps(self.ActualSteps() + 1);
                 }
                 else if (self.CurrentStep() == 3) {
+//self.Dealer().latitude(123.12);// = ko.observable(<%= latitude %>);
+                    //self.Dealer().longitude(56.56);// = ko.observable(<%= longitude %>);
                     self.CurrentStep(4);
                     self.ActualSteps(4);
                 }
