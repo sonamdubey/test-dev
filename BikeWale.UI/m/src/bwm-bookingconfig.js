@@ -30,6 +30,7 @@ var BookingConfigViewModel = function () {
     self.Dealer = ko.observable(new BikeDealerDetails);
     self.EMI = ko.observable(new BikeEMI);
     self.CurrentStep = ko.observable(1);
+    self.IsMapLoaded = false;
     self.SelectedVersion = ko.observable();
     self.UserOptions = ko.observable();
     self.selectedColorId = ko.observable(0);
@@ -287,20 +288,27 @@ var BikeEMI = function () {
 }
 
 ko.bindingHandlers.googlemap = {
-    init: function (element, valueAccessor) {
-        var
-          value = valueAccessor(),
+    update: function (element, valueAccessor) {
+        if (!viewModel.IsMapLoaded && viewModel.CurrentStep() > 2) {
+            value = valueAccessor(),
           latLng = new google.maps.LatLng(value.latitude, value.longitude),
           mapOptions = {
-              zoom: 10,
+              zoom: 13,
               center: latLng,
               mapTypeId: google.maps.MapTypeId.ROADMAP
           },
           map = new google.maps.Map(element, mapOptions),
           marker = new google.maps.Marker({
+              title: "Dealer's Location",
               position: latLng,
-              map: map
+              map: map,
+              animation: google.maps.Animation.DROP
           });
+
+            google.maps.event.addListenerOnce(map, 'idle', function () {                viewModel.IsMapLoaded = true;
+            });
+
+        }
     }
 };
 

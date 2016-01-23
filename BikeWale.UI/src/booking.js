@@ -170,6 +170,7 @@ var colorsul = $("#customizeBike ul.select-colorUL");
 
 var BookingPageViewModel = function () {
     var self = this;
+    self.IsMapLoaded = false;
     self.Bike = ko.observable(new BikeDetails);
     self.Dealer = ko.observable(new BikeDealerDetails);
     self.Customer = ko.observable(new BikeCustomer);
@@ -537,22 +538,29 @@ var BikeDetails = function () {
 }
 
 ko.bindingHandlers.googlemap = {
-    init: function (element, valueAccessor) {
-        var
-          value = valueAccessor(),
+    update: function (element, valueAccessor) {
+        if (!viewModel.IsMapLoaded && viewModel.CurrentStep() > 1) {
+            value = valueAccessor(),
           latLng = new google.maps.LatLng(value.latitude, value.longitude),
           mapOptions = {
-              zoom: 10,
+              zoom: 13,
               center: latLng,
               mapTypeId: google.maps.MapTypeId.ROADMAP
           },
           map = new google.maps.Map(element, mapOptions),
           marker = new google.maps.Marker({
+              title: "Dealer's Location",
               position: latLng,
-              map: map
+              map: map,
+              animation: google.maps.Animation.DROP
           });
+
+            google.maps.event.addListenerOnce(map, 'idle', function () {                viewModel.IsMapLoaded = true;
+            });
+
+        }
     }
-};
+};};
 
 ko.bindingHandlers.CurrencyText = {
     update: function (element, valueAccessor) {
