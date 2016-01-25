@@ -124,8 +124,8 @@ function otpPopupClose() {
 
 var UserDetails = function () {
     var self = this;
-    self.BookingId = ko.observable("BWL3821");
-    self.Mobile = ko.observable("8879295725");
+    self.BookingId = ko.observable();
+    self.Mobile = ko.observable();
     self.IsValidBooking = ko.observable(false);
     self.OTPCode = ko.observable();
     self.ErrMessage = ko.observable("");
@@ -273,6 +273,7 @@ var UserDetails = function () {
         isSuccess = false;
         if (confirm("Do you really want to cancel your bike booking ?")) {
             if (validateUserBikeDetails() && self.PQId() > 0) {
+                $('#hdnBwid').val(self.BookingId());
                 var url = "/api/bookingcancellation/confirm/?pqId=" + self.PQId();
                 $.ajax({
                     type: "POST",
@@ -316,3 +317,5 @@ var BookingCancellationViewModel = function () {
 
 var viewModel = new BookingCancellationViewModel();
 ko.applyBindings(viewModel, $('#cancellationPage')[0]);
+
+

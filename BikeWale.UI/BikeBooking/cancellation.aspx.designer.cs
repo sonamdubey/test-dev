@@ -38,5 +38,14 @@ namespace Bikewale.BikeBooking {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button feedbackBtn;
+        
+        /// <summary>
+        /// hdnBwid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hdnBwid;
     }
 }

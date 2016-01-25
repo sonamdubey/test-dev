@@ -252,6 +252,7 @@ var UserDetails = function () {
         isSuccess = false;
         if (confirm("Do you really want to cancel your bike booking ?")) {
             if (validateUserBikeDetails() && self.PQId() > 0) {
+                $('#hdnBwid').val(self.BookingId());
                 var url = "/api/bookingcancellation/confirm/?pqId=" + self.PQId();
                 $.ajax({
                     type: "POST",

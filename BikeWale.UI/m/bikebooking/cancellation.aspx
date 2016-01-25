@@ -173,7 +173,7 @@
                 <a href="tel:1800 457 9781" class="font20 text-grey call-text-green rounded-corner2" style="text-decoration:none;"><span class="fa fa-phone text-green margin-right5"></span> 1800 457 9781</a>
             </div>
         </section>
-
+        <asp:HiddenField ID="hdnBwid" Value="0" runat="server" />
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-cancellation.js?<%= staticFileVersion %>"></script>
