@@ -10,10 +10,10 @@ namespace Bikewale.Service.AutoMappers.PriceQuote.City
 {
     public class PQCityListMapper
     {
-        internal static IEnumerable<DTO.PriceQuote.City.PQCityBase> Convert(List<Entities.Location.CityEntityBase> objCityList)
+        internal static IEnumerable<DTO.PriceQuote.City.PQCityBase> Convert(IEnumerable<Entities.Location.CityEntityBase> objCityList)
         {
             Mapper.CreateMap<CityEntityBase, PQCityBase>();
-            return Mapper.Map<List<CityEntityBase>, List<PQCityBase>>(objCityList);
+            return Mapper.Map<IEnumerable<CityEntityBase>, IEnumerable<PQCityBase>>(objCityList);
         }
     }
 }

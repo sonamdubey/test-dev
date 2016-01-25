@@ -14,21 +14,22 @@ namespace Bikewale.Entities.Location
     /// Modified By :   Sumit Kate on 12 Jan 2016
     /// Summary     :   Added new property HasAreas
     /// </summary>
+    [Serializable,DataContract]
     public class CityEntityBase
     {
-        [JsonProperty("cityId")]
+        [JsonProperty("cityId"),DataMember]
         public uint CityId { get; set; }
 
-        [JsonProperty("cityName")]
+        [JsonProperty("cityName"), DataMember]
         public string CityName { get; set; }
 
-        [JsonProperty("cityMaskingName")]
+        [JsonProperty("cityMaskingName"), DataMember]
         public string CityMaskingName { get; set; }
 
-        [JsonProperty("isPopular")]
+        [JsonProperty("isPopular"), DataMember]
         public bool IsPopular { get; set; }
 
-        [JsonProperty("hasAreas")]
+        [JsonProperty("hasAreas"), DataMember]
         public bool HasAreas { get; set; }
     }
 }
