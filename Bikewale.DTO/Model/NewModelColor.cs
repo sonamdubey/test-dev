@@ -17,8 +17,10 @@ namespace Bikewale.DTO.Model
         public uint Id { get; set; }
         [JsonProperty("modelId")]
         public uint ModelId { get; set; }
-        [JsonProperty("colorName")]
+        [JsonProperty("colorName")]        
         public string ColorName { get; set; }
+        [JsonProperty("hexCode")]
+        public string HexCode { get; set; }
         [JsonProperty("hexCodes")]
         public IEnumerable<string> HexCodes { get; set; }
     }
