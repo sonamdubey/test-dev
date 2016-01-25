@@ -44,6 +44,7 @@ using Bikewale.DAL.App;
 using Bikewale.Interfaces.AppAlert;
 using Bikewale.DAL.AppAlert;
 using Bikewale.BAL.Compare;
+using Bikewale.Cache.Location;
 
 namespace Bikewale.Service.UnityConfiguration
 {
@@ -94,6 +95,8 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IBikeCompareCacheRepository, BikeCompareCacheRepository>();
             container.RegisterType<IAppVersion, AppVersionRepository>();
             container.RegisterType<IAppAlert, AppAlertRepository>();
+            container.RegisterType<ICityCacheRepository, CityCacheRepository>();
+            container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
             return container;
         }
     }

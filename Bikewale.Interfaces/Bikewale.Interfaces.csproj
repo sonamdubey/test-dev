@@ -72,7 +72,9 @@
     <Compile Include="Insurance\IInsuranceRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Location\IArea.cs" />
+    <Compile Include="Location\IAreaCacheRepository.cs" />
     <Compile Include="Location\ICity.cs" />
+    <Compile Include="Location\ICityCacheRepository.cs" />
     <Compile Include="Location\IState.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
