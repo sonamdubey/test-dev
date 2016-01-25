@@ -51,7 +51,7 @@ namespace Bikewale.Service.Controllers.Version
                     objDTOVersionList = new VersionDetails();  
                     objDTOVersionList = VersionListMapper.Convert(objVersion);
 
-                    return Ok(objVersion);
+                    return Ok(objDTOVersionList);
                 }
 
             }
