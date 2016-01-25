@@ -34,7 +34,7 @@ namespace Bikewale.BAL.BikeBooking
             int responseFlag = 0;
             ValidBikeCancellationResponseEntity response = default(ValidBikeCancellationResponseEntity);
             response = bookingCancelRepository.IsValidCancellation(bwId, mobile);
-            switch (responseFlag)
+            switch (response.ResponseFlag)
             {
                 case 0:
                     response.IsVerified = false;

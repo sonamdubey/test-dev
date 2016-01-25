@@ -1,4 +1,4 @@
-﻿using Bikewale.DAL.BikeBooking;
+﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.DTO.BikeBooking;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Customer;
@@ -22,6 +22,7 @@ namespace Bikewale.Service.Controllers.BikeBooking
     public class BookingCancellationController : ApiController
     {
         private readonly IBookingCancellation _objCancellation = null;
+       // private BookingCancellation BALBookingCancel = null;
         /// <summary>
         /// Constructor 
         /// </summary>
@@ -33,7 +34,7 @@ namespace Bikewale.Service.Controllers.BikeBooking
         /// <summary>
         /// Verify Booking Cancellation request 
         /// </summary>
-        /// <param name="request">Bike Cancellatio nEntity</param>
+        /// <param name="request">Bike Cancellation Entity</param>
         /// <returns></returns>
         [ResponseType(typeof(ValidBikeCancellationResponse)), Route("api/bookingcancellation/isvalidrequest/")]
         public IHttpActionResult Post([FromBody]BikeCancellationEntity request)
@@ -46,9 +47,12 @@ namespace Bikewale.Service.Controllers.BikeBooking
                 responseEntity = _objCancellation.IsValidCancellation(request.BwId, request.Mobile);
 
                 #region mapping entity into DTO
+                response = new ValidBikeCancellationResponse();
                 response.ResponseFlag = responseEntity.ResponseFlag;
                 response.IsVerified = responseEntity.IsVerified;
                 response.Message = responseEntity.Message;
+
+                isSuccess = responseEntity.ResponseFlag == 1 ? true : false;
                 #endregion
 
                 if (isSuccess)

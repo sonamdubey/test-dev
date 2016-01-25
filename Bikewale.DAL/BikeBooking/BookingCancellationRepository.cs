@@ -90,6 +90,7 @@ namespace Bikewale.DAL.BikeBooking
             try
             {
                 db = new Database();
+                response = new ValidBikeCancellationResponseEntity();
                 using (SqlConnection conn = new SqlConnection(db.GetConString()))
                 {
                     using (SqlCommand cmd = new SqlCommand())
@@ -127,6 +128,7 @@ namespace Bikewale.DAL.BikeBooking
             return response;
         }
 
+
         /// <summary>
         /// Created By :    Sangram Nandkhile on 21st Jan 2016
         /// Summary :       To Push BWid, mobile and OTP with entry Date
@@ -137,21 +139,19 @@ namespace Bikewale.DAL.BikeBooking
         /// <returns></returns>
         public bool SaveCancellationOTP(string bwId, string mobile, string otp)
         {
-            bool isSuccess = false;
+            bool isSuccess = true;
             Database db = null;
             try
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "VerifyCancelRequest";
+                    cmd.CommandText = "SaveBookingCancelOTP";
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@bwid", SqlDbType.VarChar).Value = bwId;
                     cmd.Parameters.Add("@mobile", SqlDbType.VarChar, 10).Value = mobile;
                     cmd.Parameters.Add("@otp", SqlDbType.VarChar, 5).Value = otp;
-                    cmd.Parameters.Add("@isSaved", SqlDbType.Bit).Direction = ParameterDirection.Output;
                     db = new Database();
                     cmd.ExecuteNonQuery();
-                    isSuccess = Convert.ToBoolean(cmd.Parameters["@isSaved"].Value);
                 }
             }
             catch (SqlException sqEx)
@@ -159,15 +159,16 @@ namespace Bikewale.DAL.BikeBooking
                 HttpContext.Current.Trace.Warn("SaveCancellationOTP sqlex : " + sqEx.Message + sqEx.Source);
                 ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
+                isSuccess = false;
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("SaveCancellationOTP ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
+                isSuccess = false;
             }
             return isSuccess;
         }
-
     }
 }

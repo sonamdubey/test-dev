@@ -13,6 +13,7 @@ namespace Bikewale.Entities.PriceQuote
         InitiatedPayment = 3,
         SuccessfulPayment = 4,
         FailurePayment = 5,
-        PaymentAborted = 6
+        PaymentAborted = 6,
+        Cancelled = 7
     }
 }

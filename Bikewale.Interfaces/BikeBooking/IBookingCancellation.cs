@@ -12,6 +12,6 @@ namespace Bikewale.Interfaces.BikeBooking
     {
         ValidBikeCancellationResponseEntity IsValidCancellation(string bwid, string mobile);
         bool SaveCancellationOTP(string bwId, string mobile, string otp);
-        CancelledBikeCustomer VerifyCancellationOTP(string BwId, String Mobile, String OTP);
+        CancelledBikeCustomer VerifyCancellationOTP(string BwId, string Mobile, string OTP);
     }
 }
