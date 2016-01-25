@@ -560,7 +560,7 @@ ko.bindingHandlers.googlemap = {
 
         }
     }
-};};
+};
 
 ko.bindingHandlers.CurrencyText = {
     update: function (element, valueAccessor) {
