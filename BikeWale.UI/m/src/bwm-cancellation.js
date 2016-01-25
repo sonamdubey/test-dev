@@ -103,8 +103,8 @@ var otpVal = function (msg) {
 
 var UserDetails = function () {
     var self = this;
-    self.BookingId = ko.observable("BWL3821");
-    self.Mobile = ko.observable("8879295725");
+    self.BookingId = ko.observable();
+    self.Mobile = ko.observable();
     self.IsValidBooking = ko.observable(false);
     self.OTPCode = ko.observable();
     self.ErrMessage = ko.observable("");

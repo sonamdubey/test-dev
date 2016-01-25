@@ -132,7 +132,7 @@
                             <p class="margin-bottom15 text-default text-bold"  data-bind="text: MobileNo()"></p>
                         </div>
                     
-                        <input id="cancelBookingBtn" type="button" data-bind="click: function (data, event) { return cancelBooking(data, event); }" value="Cancel my booking">
+                        <input id="cancelBookingBtn" class="btn btn-orange btn-full-width margin-bottom10" type="button" data-bind="click: function (data, event) { return cancelBooking(data, event); }" value="Cancel my booking">
                     </div>
             
                     <div id="cancelConfirmation" data-bind="visible: CurrentStep() == 3">
