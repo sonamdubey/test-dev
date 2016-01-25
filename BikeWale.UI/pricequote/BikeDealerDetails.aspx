@@ -17,6 +17,7 @@
 <body class="header-fixed-inner">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
+        <div id="bookingConfig" style="display: none" data-bind="visible: true">
         <section>
             <div class="container">
                 <div class="grid-12 margin-bottom5 margin-top15">
@@ -26,20 +27,20 @@
                             <li><a href="/">Home</a></li>
                             <li><span class="fa fa-angle-right margin-right10"></span><%= makeUrl %></li>
                             <li><span class="fa fa-angle-right margin-right10"></span><%= modelUrl %></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><span data-bind="text : viewModel.Bike().selectedVersion().MinSpec.VersionName"></span></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span><span data-bind="text : $root.Bike().selectedVersion().MinSpec.VersionName"></span></li>
                             <li><span class="fa fa-angle-right margin-right10"></span>Dealer Details</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
                     <h1 class="font30 text-black margin-top10">More details about   
-                	<span data-bind="text : viewModel.Bike().bikeName()"></span>
+                	<span data-bind="text : $root.Bike().bikeName()"></span>
                     </h1>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
 
-        <section id="bookingConfig" style="display: none" data-bind="visible: true">
+        <section >
             <div class="container" style="min-height: 500px;">
                 <div class="grid-12">
                     <div class="content-box-shadow content-inner-block-20 rounded-corner2">
@@ -424,7 +425,8 @@
                 </div>
                 <div class="clear"></div>
             </div>
-        </section>
+        </section>  
+        </div>
         <!-- Terms and condition Popup start -->
         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
             <h3>Terms and Conditions</h3>
