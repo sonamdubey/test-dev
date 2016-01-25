@@ -18,18 +18,7 @@ namespace Bikewale.BikeBooking
         public string BWid = string.Empty;
         protected void Page_Load(object sender, EventArgs e)
         {
-            FeedBackEntity feedBkEntity = new FeedBackEntity()
-            {
-                BwId = BWid,
-                FeedBack = FeedBackText.InnerText
-            };
-            FeedBacksRespositry feedback = new FeedBacksRespositry();
-            feedback.SaveFeedBack(feedBkEntity);
-
-            // send emails
-            SendMails mail = new SendMails();
-            //mail.SendMail("", , ComposeBody());
-            mail.SendMail("contact@bikewale.com", "Feedback from a customer who has cancelled booking - " + BWid, ComposeBody(), "noreply@bikewale.com", null, new string[] { "piyush@bikewale.com", "saurabh@bikewale.com" });
+           
      
         }
         /// <summary>
@@ -51,6 +40,7 @@ namespace Bikewale.BikeBooking
             SendMails mail = new SendMails();
             //mail.SendMail("", , ComposeBody());
             mail.SendMail("contact@bikewale.com", "Feedback from a customer who has cancelled booking - " + BWid, ComposeBody(), "noreply@bikewale.com", null, new string[] {"piyush@bikewale.com","saurabh@bikewale.com"});
+            Response.Redirect("/new/", false);
         }
 
         // Compose email

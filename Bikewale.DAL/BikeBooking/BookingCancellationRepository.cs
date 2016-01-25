@@ -58,6 +58,7 @@ namespace Bikewale.DAL.BikeBooking
                                         CustomerEmail = dr["CustomerEmail"].ToString(),
                                         CustomerMobile = dr["CustomerMobile"].ToString(),
                                         CustomerName = dr["CustomerName"].ToString(),
+                                        PQId = Convert.ToUInt32(dr["pqid"]),
                                         BikeName = dr["BikeName"].ToString(),
                                         BookingDate = FormatDate.GetDDMMYYYY(Convert.ToString(dr["BookingDate"]))
                                     };
