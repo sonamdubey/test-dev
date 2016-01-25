@@ -116,7 +116,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none;  backgroun
 .gl-default-stage { cursor: pointer; padding: 0 10px; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
 
-#errNewBikeSearch.ui-autocomplete { width:100%;position:relative;top:0;left:3px; color:#4d5057; }
+#errNewBikeSearch.ui-autocomplete { width:95.5%;position:relative;top:0;left:3px; color:#4d5057; }
 
 /* lang-changer classes */
 .lang-changer { float:left; position: relative; }
