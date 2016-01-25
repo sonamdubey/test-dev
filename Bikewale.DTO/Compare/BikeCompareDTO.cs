@@ -22,7 +22,7 @@ namespace Bikewale.DTO.Compare
         [JsonProperty("colors")]
         public List<BikeColorDTO> Color { get; set; }
         [JsonProperty("comapareSpecifications")]
-        public CompareMainCategoryDTO ComapareSpecifications { get; set; }
+        public CompareMainCategoryDTO CompareSpecifications { get; set; }
         [JsonProperty("compareFeatures")]
         public CompareMainCategoryDTO CompareFeatures { get; set; }
         [JsonProperty("compareColors")]
