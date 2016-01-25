@@ -66,7 +66,7 @@ namespace Bikewale.Service.Controllers.Compare
                     }
                     else
                     {
-                        compareEntity.ComapareSpecifications = null;
+                        compareEntity.CompareSpecifications = null;
                         compareEntity.CompareColors = null;
                         compareEntity.CompareFeatures = null;
                     }
