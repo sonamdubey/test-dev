@@ -201,6 +201,7 @@ namespace Bikewale.DAL.BikeBooking
                                 objCancellation.CustomerName = Convert.ToString(reader["CustomerName"]);
                                 objCancellation.DealerName = Convert.ToString(reader["Organization"]);
                                 objCancellation.TransactionId = Convert.ToUInt32(reader["TransactionId"]);
+                                objCancellation.CityName = Convert.ToString(reader["CityName"]);
                             }
                         }
                     }

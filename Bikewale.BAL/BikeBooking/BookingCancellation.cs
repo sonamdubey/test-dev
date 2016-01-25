@@ -121,7 +121,8 @@ namespace Bikewale.BAL.BikeBooking
                         objSMS.BookingCancallationSMSToUser(objCancellation.CustomerMobile, objCancellation.CustomerName, "BikeBookingCancellation");
 
                         ComposeEmailBase objEmail = new BookingCancellationTemplate(objCancellation.BWId, objCancellation.TransactionId, objCancellation.CustomerName,
-                            objCancellation.CustomerEmail, objCancellation.CustomerMobile, objCancellation.BookingDate, objCancellation.DealerName, objCancellation.BikeName);
+                            objCancellation.CustomerEmail, objCancellation.CustomerMobile, objCancellation.BookingDate, objCancellation.DealerName, 
+                            objCancellation.BikeName, objCancellation.CityName);
 
                         objEmail.Send(Bikewale.Utility.BWConfiguration.Instance.LocalMail, "Booking Cancellation Request - " + objCancellation.BWId);
                     }

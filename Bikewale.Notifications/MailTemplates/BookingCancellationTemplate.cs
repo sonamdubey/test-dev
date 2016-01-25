@@ -16,9 +16,10 @@ namespace Bikewale.Notifications.MailTemplates
         public DateTime BookingDate { get; set; }
         public string DealerName { get; set; }
         public string BikeName { get; set; }
+        public string CityName { get; set; }
 
         public BookingCancellationTemplate(string bwId, uint transactionId, string customerName, string customerEmail, string customerMobile, DateTime bookingDate,
-            string dealerName, string bikeName)
+            string dealerName, string bikeName,string cityName)
         {
             BWId = bwId;
             TransactionId = transactionId;
@@ -28,6 +29,7 @@ namespace Bikewale.Notifications.MailTemplates
             BookingDate = bookingDate;
             DealerName = dealerName;
             BikeName = bikeName;
+            CityName = cityName;
         }
 
         public override string ComposeBody()
@@ -70,9 +72,13 @@ namespace Bikewale.Notifications.MailTemplates
                                 + "<td><b>Dealer Name</b></td>"
                                 + "<td>{7}</td>"
                             + "</tr>"
+                             + "<tr>"
+                                + "<td><b>Dealer City</b></td>"
+                                + "<td>{8}</td>"
+                            + "</tr>"
                         + "</tbody>"
                     + "</table>"
-                + "</div>", BWId, TransactionId.ToString(), BookingDate, CustomerName, CustomerEmail, CustomerMobile, BikeName, DealerName);
+                + "</div>", BWId, TransactionId.ToString(), BookingDate, CustomerName, CustomerEmail, CustomerMobile, BikeName, DealerName,CityName);
             }
             catch (Exception ex)
             {
