@@ -54,12 +54,12 @@ namespace Bikewale.Notifications.MailTemplates
                     "<div style=\"margin:0 10px 20px; background:#fff;\">"
                     + "<div style=\"color:#2a2a2a; font-weight:bold; padding:18px 0; margin:0 10px 20px; border-bottom:1px solid #e2e2e2;\">{0} [{2}]</div>"
                     + "<div style=\"margin:25px 0 0; text-align:center;\"> <!-- bike details starts here -->"
-                        + "<div style=\"display:inline-block; vertical-align:top; margin:0 20px 10px 10px;\">"
+                        + "<div style=\"display:inline-block; vertical-align:top; margin:0px 30px 10px 10px;\">"
                             + "<div style=\"width:192px; height:107px; margin-bottom:20px;\">"
                                 + "<img src=\"{1}\" alt=\"{0}\" title=\"{0}\" width=\"100%\" border=\"0\"/>"
                             + "</div>"
                         + "</div>"
-                        + "<div style=\"display:inline-block; vertical-align:top; max-width:428px; text-align:left; padding:0 10px;\">"
+                        + "<div style=\"display:inline-block; vertical-align:top; max-width:428px; text-align:left; padding:0 20px 0 10px;\">"
                         , bikeName, imagePath, bikeColor
                     );
 
