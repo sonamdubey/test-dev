@@ -131,5 +131,23 @@ namespace Bikewale.Service.Controllers.BikeBooking
                 return InternalServerError();
             }
         }
+
+        [HttpPost]
+        [Route("api/bookingcancellation/SaveCancelOTP/")]
+        public IHttpActionResult SaveCancelOTP(BikeCancellationEntity cancellation) 
+        {
+            uint attemps = 0;   
+            try
+            {
+                attemps = _objCancellation.SaveCancellationOTP(cancellation.BwId, cancellation.Mobile, cancellation.OTP);
+                return Ok(attemps);
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BookingCancellationController.CancelBooking");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        } 
     }
 }
