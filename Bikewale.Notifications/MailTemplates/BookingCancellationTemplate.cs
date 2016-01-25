@@ -13,12 +13,12 @@ namespace Bikewale.Notifications.MailTemplates
         public string CustomerName { get; set; }
         public string CustomerEmail { get; set; }
         public string CustomerMobile { get; set; }
-        public DateTime BookingDate { get; set; }
+        public string BookingDate { get; set; }
         public string DealerName { get; set; }
         public string BikeName { get; set; }
         public string CityName { get; set; }
 
-        public BookingCancellationTemplate(string bwId, uint transactionId, string customerName, string customerEmail, string customerMobile, DateTime bookingDate,
+        public BookingCancellationTemplate(string bwId, uint transactionId, string customerName, string customerEmail, string customerMobile, string bookingDate,
             string dealerName, string bikeName,string cityName)
         {
             BWId = bwId;

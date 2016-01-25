@@ -227,7 +227,7 @@ namespace Bikewale.DAL.BikeBooking
                             if (reader.Read())
                             {
                                 objCancellation.BikeName = Convert.ToString(reader["Bike"]);
-                                objCancellation.BookingDate = Convert.ToDateTime(reader["BookingDate"]);
+                                objCancellation.BookingDate = FormatDate.GetDDMMYYYY(Convert.ToString(reader["BookingDate"]));
                                 objCancellation.BWId = Convert.ToString(reader["BookingReferenceNo"]);
                                 objCancellation.CustomerEmail = Convert.ToString(reader["CustomerEmail"]);
                                 objCancellation.CustomerMobile = Convert.ToString(reader["CustomerMobile"]);
