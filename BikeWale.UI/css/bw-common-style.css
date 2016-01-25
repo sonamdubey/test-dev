@@ -305,7 +305,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 
 /* sprite classes */
-.bwsprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/bwsprite.png?v1=12012016) no-repeat; display: inline-block; }
+.bwsprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/bwsprite.png?v1=17012016) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(http://img.aeplcdn.com/bikewaleimg/images/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -359,11 +359,13 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .myBikeWale-icon { background-position: 0 -277px; top: 6px; }
 .insurance-icon { background-position: 0 -214px; }
 .claim-offer-icon { width:26px; height:26px; position:relative; margin-right:10px; top:8px; }
+.cancellation-icon { width:26px; height:26px; position:relative; margin-right:10px; top:8px; }
 .inquiry-icon {  width:24px; height:23px; position:relative; top:3px; }
 .newsletter-icon { width:24px; height:22px; position:relative; top:3px;}
 .claim-offer-icon { background-position: -183px -160px; }
 .inquiry-icon { background-position: -183px -191px;}
 .newsletter-icon { background-position: -183px -225px; }
+.cancellation-icon { background-position: -187px -118px; }
 
 .cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey, .popup-close-btn { width: 16px; height: 16px; }
 .cross-lg-white { background-position: -36px -200px; }
