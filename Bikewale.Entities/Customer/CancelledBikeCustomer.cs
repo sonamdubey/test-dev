@@ -10,5 +10,8 @@ namespace Bikewale.Entities.Customer
     {
         public string BikeName { get; set; }
         public DateTime BookingDate { get; set; }
+        public string DealerName { get; set; }
+        public string BWId { get; set; }
+        public uint TransactionId { get; set; }
     }
 }

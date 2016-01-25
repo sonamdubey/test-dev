@@ -1,12 +1,15 @@
 ﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Notifications;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Notifications.MailTemplates;
 
 namespace Bikewale.BAL.BikeBooking
 {
@@ -88,6 +91,48 @@ namespace Bikewale.BAL.BikeBooking
                 rs.Append(charPool[(int)(rnd.NextDouble() * charPool.Length)]);
 
             return rs.ToString();
+        }
+
+
+        public CancelledBikeCustomer UpdateCancellationFlag(uint pqId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ConfirmCancellation(uint pqId)
+        {
+            bool isCancelled = false;
+            CancelledBikeCustomer objCancellation = null;
+            try
+            {
+                using (IUnityContainer container = new UnityContainer())
+                {
+                    IPriceQuote _objPriceQuote = null;
+                    container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
+                    _objPriceQuote = container.Resolve<IPriceQuote>();
+
+                    isCancelled = _objPriceQuote.SaveBookingState(pqId, Entities.PriceQuote.PriceQuoteStates.Cancelled);
+
+                    objCancellation = bookingCancelRepository.UpdateCancellationFlag(pqId);
+
+                    if(objCancellation!=null)
+                    {
+                        SMSTypes objSMS = new SMSTypes();
+                        objSMS.BookingCancallationSMSToUser(objCancellation.CustomerMobile, objCancellation.CustomerName, "BikeBookingCancellation");
+
+                        ComposeEmailBase objEmail = new BookingCancellationTemplate(objCancellation.BWId, objCancellation.TransactionId, objCancellation.CustomerName,
+                            objCancellation.CustomerEmail, objCancellation.CustomerMobile, objCancellation.BookingDate, objCancellation.DealerName, objCancellation.BikeName);
+
+                        objEmail.Send(Bikewale.Utility.BWConfiguration.Instance.LocalMail, "Booking Cancellation Request - " + objCancellation.BWId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.BAL.BikeBooking.BookingCancellation.CancelBooking");
+                objErr.SendMail();
+            }
+            return isCancelled;
         }
     }
 }
