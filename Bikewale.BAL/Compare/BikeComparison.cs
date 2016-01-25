@@ -36,7 +36,7 @@ namespace Bikewale.BAL.Compare
                 #region Specifications
                 CompareSubMainCategory engineTransmission = new CompareSubMainCategory();
                 engineTransmission.Text = "Engine & Transmission";
-                engineTransmission.Value = "Engine & Transmission";
+                engineTransmission.Value = "2";
                 engineTransmission.SpecCategory = new List<CompareSubCategory>();
                 #region Engine & Transmission
                 CompareSubCategory etDisplacement = new CompareSubCategory();
@@ -203,7 +203,7 @@ namespace Bikewale.BAL.Compare
 
                 CompareSubMainCategory brakesWheelsSuspension = new CompareSubMainCategory();
                 brakesWheelsSuspension.Text = "Brakes, Wheels and Suspension";
-                brakesWheelsSuspension.Value = "Brakes, Wheels and Suspension";
+                brakesWheelsSuspension.Value = "3";
                 brakesWheelsSuspension.SpecCategory = new List<CompareSubCategory>();
                 #region Brakes, Wheels and Suspension
                 CompareSubCategory bwsBreakType = new CompareSubCategory();
@@ -351,7 +351,7 @@ namespace Bikewale.BAL.Compare
 
                 CompareSubMainCategory dimensionsChassis = new CompareSubMainCategory();
                 dimensionsChassis.Text = "Dimensions and Chassis";
-                dimensionsChassis.Value = "Dimensions and Chassis";
+                dimensionsChassis.Value = "4";
                 dimensionsChassis.SpecCategory = new List<CompareSubCategory>();
                 #region Dimensions and Chassis
                 CompareSubCategory KerbWeight = new CompareSubCategory();
@@ -429,7 +429,7 @@ namespace Bikewale.BAL.Compare
 
                 CompareSubMainCategory fuelEfficiencyPerformance = new CompareSubMainCategory();
                 fuelEfficiencyPerformance.Text = "Fuel efficiency and Performance";
-                fuelEfficiencyPerformance.Value = "Fuel efficiency and Performance";
+                fuelEfficiencyPerformance.Value = "5";
                 fuelEfficiencyPerformance.SpecCategory = new List<CompareSubCategory>();
                 #region Fuel efficiency and Performance
                 CompareSubCategory FuelTankCapacity = new CompareSubCategory();
