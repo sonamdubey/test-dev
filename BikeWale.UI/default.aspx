@@ -48,7 +48,7 @@
                                     <span class="fa fa-spinner fa-spin position-abt pos-right10 pos-top15 text-black" style="display: none"></span>
                                 </div>
                                 <div class="findBtn">
-                                    <input type="button" id="btnSearch" class="btn btn-orange btn-md font18" tabindex="2" value="Search" />
+                                    <input type="button" id="btnSearch" class="btn btn-orange btn-md font16" tabindex="2" value="Search" />
                                 </div>
                                 <div class="clear"></div>
                                 <ul id="errNewBikeSearch" class="ui-autocomplete ui-front ui-menu hide">

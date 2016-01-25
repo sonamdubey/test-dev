@@ -170,11 +170,11 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .bw-tabs-inner-margin40 ul { margin-bottom: 40px; }
 
 .bike-search-container { margin: 0 auto; width: 585px; }
-.bike-search { width: 470px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; border-radius: 2px 0 0 2px; height: 46px; }
-.new-bike-search input[type="text"] { width: 100%; padding: 13px 10px; }
+.bike-search { width: 470px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; border-radius: 2px 0 0 2px; height: 40px; }
+.new-bike-search input[type="text"] { width: 100%; padding: 11px 10px; }
 .used-budget-box { width: 206px; float:left; color: #a8afb3; position: relative; }
 .findBtn { float:left; }
-.findBtn .btn-md { padding: 11px 20px 8px 20px; border-radius: 0 2px 2px 0; }
+.findBtn .btn-md { padding: 8px 20px; border-radius: 0 2px 2px 0; }
 .compare-list-home li {padding-bottom: 25px; text-align: center; }
 
 /* news, review and videos section on home page classes */
@@ -185,7 +185,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 
 @-moz-document url-prefix() {
     .findBtn .btn-md {
-        padding: 8px 20px 8px;
+        padding: 7px 20px 7px;
     }
 
     .viewBtn .btn-xs {
@@ -193,13 +193,16 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
     }
 
     .btn-lg {
-        padding: 7px 20px 8px;
+        padding: 7px 20px 7px;
     }
 
     .new-bike-search input[type="text"] {
-        padding:12px 10px 13px;
+        padding:10px 10px 11px;
     }
 }
+
+noindex:-o-prefocus, .findBtn .btn-md { padding: 10px 20px; }
+
 /* footer classes */
 footer ul li { display: block; }
 footer ul li a { display: block; color: #cfcfcf; padding: 10px 0; font-size: 16px; }
