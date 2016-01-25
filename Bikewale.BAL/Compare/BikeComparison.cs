@@ -30,8 +30,8 @@ namespace Bikewale.BAL.Compare
             {
                 compareEntity = _objCompare.DoCompare(versions);
                 compareEntity.CompareSpecifications = new CompareMainCategory();
-                compareEntity.CompareSpecifications.Text = "Specs";
-                compareEntity.CompareSpecifications.Value = "Specs";
+                compareEntity.CompareSpecifications.Text = "Specifications";
+                compareEntity.CompareSpecifications.Value = "Specifications";
                 compareEntity.CompareSpecifications.Spec = new List<CompareSubMainCategory>();
                 #region Specifications
                 CompareSubMainCategory engineTransmission = new CompareSubMainCategory();
