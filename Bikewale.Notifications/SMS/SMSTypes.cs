@@ -478,5 +478,24 @@ namespace Bikewale.Notifications
             }
         }
 
+
+        public void BookingCancallationSMSToUser(string number, string customerName, string pageUrl)
+        {
+            try
+            {
+                EnumSMSServiceType smsEnum = EnumSMSServiceType.BookingCancellationToCustomer;
+                string message = string.Empty;
+                message = string.Format("Hi {0}, we have received your request for cancellation. We will initiate the refund process after confirming your details with the dealership.", customerName);
+
+                SMSCommon sc = new SMSCommon();
+                sc.ProcessSMS(number, message, smsEnum, pageUrl, true);
+            }
+            catch (Exception err)
+            {
+                HttpContext.Current.Trace.Warn("Notifications.SMSBikeBookingCancellation : " + err.Message);
+                ErrorClass objErr = new ErrorClass(err, "Notifications.SMSBikeBookingCancellation");
+                objErr.SendMail();
+            }
+        }
     }   //End of class
 }   //End of namespace

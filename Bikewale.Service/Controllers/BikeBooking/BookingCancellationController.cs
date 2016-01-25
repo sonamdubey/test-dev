@@ -103,5 +103,33 @@ namespace Bikewale.Service.Controllers.BikeBooking
                 return InternalServerError();
             }
         }
+
+        /// <summary>
+        /// Created By : Sadhana Upadhyay on 25 Jan 2016
+        /// Summary : To cancel Bike booking 
+        /// </summary>
+        /// <param name="pqId">Price Quote Id</param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("api/bookingcancellation/confirm/")]
+        public IHttpActionResult CancelBooking(uint pqId)
+        {
+            bool isCancelled = false;
+            try
+            {
+                isCancelled = _objCancellation.ConfirmCancellation(pqId);
+
+                if (isCancelled)
+                    return Ok(isCancelled);
+                else
+                    return NotFound();
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.BookingCancellationController.CancelBooking");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
     }
 }

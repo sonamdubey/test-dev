@@ -53,6 +53,7 @@
     <Compile Include="Configuration\ErrorMailConfiguration.cs" />
     <Compile Include="Configuration\MailConfiguration.cs" />
     <Compile Include="ErrorClass.cs" />
+    <Compile Include="MailTemplates\BookingCancellationTemplate.cs" />
     <Compile Include="MailTemplates\ErrorMailTemplate.cs" />
     <Compile Include="MailTemplates\FeedbackMailer.cs" />
     <Compile Include="MailTemplates\NewBikePriceQuoteMailToDealerTemplate.cs" />

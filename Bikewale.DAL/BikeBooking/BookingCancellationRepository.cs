@@ -203,5 +203,60 @@ namespace Bikewale.DAL.BikeBooking
             }
             return isSuccess;
         }
-    }
-}
+
+        public CancelledBikeCustomer UpdateCancellationFlag(uint pqId)
+        {
+            CancelledBikeCustomer objCancellation = null;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.CommandText = "UpdateBookingCancellationFlag";
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.Add("@PQId", SqlDbType.Int).Value = pqId;
+
+                    db = new Database();
+
+                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    {
+                        if (reader != null)
+                        {
+                            objCancellation = new CancelledBikeCustomer();
+                            if (reader.Read())
+                            {
+                                objCancellation.BikeName = Convert.ToString(reader["Bike"]);
+                                objCancellation.BookingDate = Convert.ToDateTime(reader["BookingDate"]);
+                                objCancellation.BWId = Convert.ToString(reader["BookingReferenceNo"]);
+                                objCancellation.CustomerEmail = Convert.ToString(reader["CustomerEmail"]);
+                                objCancellation.CustomerMobile = Convert.ToString(reader["CustomerMobile"]);
+                                objCancellation.CustomerName = Convert.ToString(reader["CustomerName"]);
+                                objCancellation.DealerName = Convert.ToString(reader["Organization"]);
+                                objCancellation.TransactionId = Convert.ToUInt32(reader["TransactionId"]);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (SqlException sqEx)
+            {
+                HttpContext.Current.Trace.Warn("CancelBooking sqlex : " + sqEx.Message + sqEx.Source);
+                ErrorClass objErr = new ErrorClass(sqEx, "Bikewale.DAL.BikeBooking.BookingCancellationRepository SQLEx");
+                objErr.SendMail();
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Trace.Warn("CancelBooking ex : " + ex.Message + ex.Source);
+                ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeBooking.BookingCancellationRepository");
+                objErr.SendMail();
+            }
+            return objCancellation;
+        }
+
+        public bool ConfirmCancellation(uint pqId)
+        {
+            throw new NotImplementedException();
+        }
+    }   //End of Class
+}   //End of Namespace
