@@ -117,11 +117,6 @@ namespace Bikewale.Notifications.MailTemplates
                             + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{0}</div>"
                             + "<div style=\"clear:both;\"></div>"
                         + "</div>"
-                        + "<div style=\"display:none;\"><!-- dummy data for acquiring width; start -->"
-                            + "<div style=\"width:70%; float:left; color:#82888b;\">Ex-showroom price Ex-showroom price Ex-showroom</div>"
-                            + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\">xxxxxxx</div>"
-                            + "<div style=\"clear:both;\"></div>"
-                        + "</div><!-- dummy data for acquiring width; end -->"
                         , Format.FormatPrice(Convert.ToString(totalPrice - TotalDiscountedPrice(discountList)))
                         );
                 }
