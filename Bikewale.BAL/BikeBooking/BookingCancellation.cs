@@ -75,9 +75,10 @@ namespace Bikewale.BAL.BikeBooking
             return bookingCancelRepository.SaveCancellationOTP(bwId, mobile, otp);
         }
 
-        public CancelledBikeCustomer VerifyCancellationOTP(string BwId, String Mobile, String OTP)
+        public CancelledBikeCustomer VerifyCancellationOTP(string BwId, string Mobile, string OTP)
         {
             CancelledBikeCustomer customer = default(CancelledBikeCustomer);
+            customer = bookingCancelRepository.VerifyCancellationOTP(BwId, Mobile, OTP);
             return customer;
         }
         //this function generates a random 5 digit code where all the characters are numeric
@@ -120,7 +121,8 @@ namespace Bikewale.BAL.BikeBooking
                         objSMS.BookingCancallationSMSToUser(objCancellation.CustomerMobile, objCancellation.CustomerName, "BikeBookingCancellation");
 
                         ComposeEmailBase objEmail = new BookingCancellationTemplate(objCancellation.BWId, objCancellation.TransactionId, objCancellation.CustomerName,
-                            objCancellation.CustomerEmail, objCancellation.CustomerMobile, objCancellation.BookingDate, objCancellation.DealerName, objCancellation.BikeName);
+                            objCancellation.CustomerEmail, objCancellation.CustomerMobile, objCancellation.BookingDate, objCancellation.DealerName, 
+                            objCancellation.BikeName, objCancellation.CityName);
 
                         objEmail.Send(Bikewale.Utility.BWConfiguration.Instance.LocalMail, "Booking Cancellation Request - " + objCancellation.BWId);
                     }
