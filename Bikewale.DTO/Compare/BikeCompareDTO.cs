@@ -21,7 +21,7 @@ namespace Bikewale.DTO.Compare
         public IEnumerable<BikeFeatureDTO> Features { get; set; }
         [JsonProperty("colors")]
         public List<BikeColorDTO> Color { get; set; }
-        [JsonProperty("comapareSpecifications")]
+        [JsonProperty("compareSpecifications")]
         public CompareMainCategoryDTO CompareSpecifications { get; set; }
         [JsonProperty("compareFeatures")]
         public CompareMainCategoryDTO CompareFeatures { get; set; }
