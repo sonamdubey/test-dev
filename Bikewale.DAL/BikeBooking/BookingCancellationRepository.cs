@@ -137,38 +137,63 @@ namespace Bikewale.DAL.BikeBooking
         /// <param name="mobile"></param>
         /// <param name="otp"></param>
         /// <returns></returns>
-        public bool SaveCancellationOTP(string bwId, string mobile, string otp)
+        public uint SaveCancellationOTP(string bwId, string mobile, string otp)
         {
-            bool isSuccess = true;
+            uint attempts = 0;
             Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand())
+                db = new Database();
+
+                using (SqlConnection conn = new SqlConnection(db.GetConString()))
                 {
-                    cmd.CommandText = "SaveBookingCancelOTP";
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@bwid", SqlDbType.VarChar).Value = bwId;
-                    cmd.Parameters.Add("@mobile", SqlDbType.VarChar, 10).Value = mobile;
-                    cmd.Parameters.Add("@otp", SqlDbType.VarChar, 5).Value = otp;
-                    db = new Database();
-                    cmd.ExecuteNonQuery();
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.CommandText = "SaveBookingCancelOTP";
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = conn;
+                        cmd.Parameters.Add("@bwid", SqlDbType.VarChar, 15).Value = bwId;
+                        cmd.Parameters.Add("@mobile", SqlDbType.VarChar, 10).Value = mobile;
+                        cmd.Parameters.Add("@otp", SqlDbType.VarChar, 5).Value = otp;
+                        cmd.Parameters.Add("@AttemptsMade", SqlDbType.SmallInt).Direction = ParameterDirection.Output;
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+
+                        attempts = Convert.ToUInt16(cmd.Parameters["@AttemptsMade"].Value);
+                    }
                 }
             }
+            //try
+            //{
+            //    db = new Database();
+            //    using (SqlConnection con = new SqlConnection(db.GetConString()))
+            //    {
+            //        using (SqlCommand cmd = new SqlCommand())
+            //        {
+            //            cmd.CommandType = CommandType.StoredProcedure;
+            //            cmd.CommandText = "SaveInsuranceLead";
+            //            cmd.Connection = con;
+
+                        
+            //            con.Open();
+            //            affectedRow = cmd.ExecuteNonQuery();
+            //            isSuccess = true;
+            //        }
+            //    }
+            //}
             catch (SqlException sqEx)
             {
                 HttpContext.Current.Trace.Warn("SaveCancellationOTP sqlex : " + sqEx.Message + sqEx.Source);
                 ErrorClass objErr = new ErrorClass(sqEx, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-                isSuccess = false;
             }
             catch (Exception ex)
             {
                 HttpContext.Current.Trace.Warn("SaveCancellationOTP ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-                isSuccess = false;
             }
-            return isSuccess;
+            return attempts;
         }
 
         public CancelledBikeCustomer UpdateCancellationFlag(uint pqId)
