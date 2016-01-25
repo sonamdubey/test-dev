@@ -3,6 +3,7 @@ using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Customer;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Notifications;
+using Bikewale.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -38,22 +39,53 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@BwId", SqlDbType.VarChar, 15).Value = BwId;
-                    cmd.Parameters.Add("@MobileNumber", SqlDbType.VarChar, 10).Value = Mobile;
+                    cmd.Parameters.Add("@Mobile", SqlDbType.VarChar, 10).Value = Mobile;
                     cmd.Parameters.Add("@OTP", SqlDbType.VarChar, 5).Value = OTP;
+                    cmd.Parameters.Add("@isCancellable", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
 
                     db = new Database();
                     using (SqlDataReader dr = db.SelectQry(cmd))
                     {
-                        cancelBikeDetail = new CancelledBikeCustomer
+                        if (dr != null && dr.HasRows )
                         {
-                            CustomerId = 0,//?Convert.ToUInt64(dr["CustomerId"])
-                            CustomerEmail = dr["CustomerEmail"].ToString(),
-                            CustomerMobile = dr["CustomerMobile"].ToString(),
-                            CustomerName = dr["CustomerName"].ToString(),
-                            BikeName = dr["BikeName"].ToString(),
-                            BookingDate = Convert.ToDateTime(dr["BookingDate"])
-                        };
+                            if (dr.FieldCount > 1)
+                            {
+                                if (dr.Read())
+                                {
+                                    cancelBikeDetail = new CancelledBikeCustomer
+                                    {
+                                        //CustomerId = 0,//?Convert.ToUInt64(dr["CustomerId"])
+                                        CustomerEmail = dr["CustomerEmail"].ToString(),
+                                        CustomerMobile = dr["CustomerMobile"].ToString(),
+                                        CustomerName = dr["CustomerName"].ToString(),
+                                        BikeName = dr["BikeName"].ToString(),
+                                        BookingDate = FormatDate.GetDDMMYYYY(Convert.ToString(dr["BookingDate"]))
+                                    };
+                                }
+                                if (dr.HasRows && dr.NextResult() && cancelBikeDetail != null)
+                                {
+                                    if (dr.Read())
+                                    {
+                                        if (dr["isCancellable"] != null)
+                                        {
+                                            cancelBikeDetail.isCancellable = Convert.ToUInt16(dr["isCancellable"]);
+                                        }
+                                    }
+                                }
+                            }
+                            else if(dr.FieldCount == 1)
+                            {
+                                cancelBikeDetail = new CancelledBikeCustomer();
+                                if (dr.Read())
+                                {
+                                    if (dr["isCancellable"] != null)
+                                    {
+                                        cancelBikeDetail.isCancellable = Convert.ToUInt16(dr["isCancellable"]);
+                                    }
+                                }
 
+                            }
+                        }
                     }
                 }
             }
@@ -150,8 +182,9 @@ namespace Bikewale.DAL.BikeBooking
                     cmd.Parameters.Add("@bwid", SqlDbType.VarChar).Value = bwId;
                     cmd.Parameters.Add("@mobile", SqlDbType.VarChar, 10).Value = mobile;
                     cmd.Parameters.Add("@otp", SqlDbType.VarChar, 5).Value = otp;
+
                     db = new Database();
-                    cmd.ExecuteNonQuery();
+                    isSuccess = db.InsertQry(cmd);
                 }
             }
             catch (SqlException sqEx)
