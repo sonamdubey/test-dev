@@ -11,7 +11,7 @@ namespace Bikewale.Interfaces.BikeBooking
     public interface IBookingCancellation
     {
         ValidBikeCancellationResponseEntity IsValidCancellation(string bwid, string mobile);
-        bool SaveCancellationOTP(string bwId, string mobile, string otp);
+        uint SaveCancellationOTP(string bwId, string mobile, string otp);
         CancelledBikeCustomer VerifyCancellationOTP(string BwId, string Mobile, string OTP);
         CancelledBikeCustomer UpdateCancellationFlag(uint pqId);
         bool ConfirmCancellation(uint pqId);

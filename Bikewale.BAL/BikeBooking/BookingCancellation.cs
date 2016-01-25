@@ -70,10 +70,9 @@ namespace Bikewale.BAL.BikeBooking
         /// Summary :    Push OTP for bike cancellation
         /// </summary>
         /// <returns>request is valid or not</returns>
-        public bool SaveCancellationOTP(string bwId, string mobile, string otp)
+        public uint SaveCancellationOTP(string bwId, string mobile, string otp)
         {
-            bool isSuccess = bookingCancelRepository.SaveCancellationOTP(bwId, mobile, otp);
-            return isSuccess;
+            return bookingCancelRepository.SaveCancellationOTP(bwId, mobile, otp);
         }
 
         public CancelledBikeCustomer VerifyCancellationOTP(string BwId, string Mobile, string OTP)
