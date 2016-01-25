@@ -1487,15 +1487,6 @@
                 bikeVersion = getBikeVersion();
             }
             var getCityArea = GetGlobalCityArea();
-            if (isBikeWalePq == 'True') {
-                if (getCityArea != null) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'BWPQ_' + getCityArea + myBikeName });
-                }
-            } else {
-                if (getCityArea != null) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + myBikeName });
-                }
-            }
             $(document).ready(function (e) {
                 if ($('#getMoreDetailsBtn').length > 0) {
                     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });

@@ -100,6 +100,7 @@ namespace Bikewale.DAL.BikeBooking
 
                         cmd.Parameters.Add("@bwid", SqlDbType.VarChar).Value = bwId;
                         cmd.Parameters.Add("@mobilenumber", SqlDbType.VarChar, 10).Value = mobile;
+                        cmd.Parameters.Add("@clientip", SqlDbType.VarChar, 40).Value = mobile;
                         cmd.Parameters.Add("@ResponseFlag", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
 
                         conn.Open();
