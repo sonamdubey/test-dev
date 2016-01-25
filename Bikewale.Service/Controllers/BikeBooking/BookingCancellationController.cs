@@ -51,7 +51,6 @@ namespace Bikewale.Service.Controllers.BikeBooking
                 response.ResponseFlag = responseEntity.ResponseFlag;
                 response.IsVerified = responseEntity.IsVerified;
                 response.Message = responseEntity.Message;
-
                 isSuccess = responseEntity.ResponseFlag == 1 ? true : false;
                 #endregion
 

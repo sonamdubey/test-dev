@@ -73,9 +73,10 @@ namespace Bikewale.BAL.BikeBooking
             return isSuccess;
         }
 
-        public CancelledBikeCustomer VerifyCancellationOTP(string BwId, String Mobile, String OTP)
+        public CancelledBikeCustomer VerifyCancellationOTP(string BwId, string Mobile, string OTP)
         {
             CancelledBikeCustomer customer = default(CancelledBikeCustomer);
+            customer = bookingCancelRepository.VerifyCancellationOTP(BwId, Mobile, OTP);
             return customer;
         }
         //this function generates a random 5 digit code where all the characters are numeric

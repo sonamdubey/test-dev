@@ -9,6 +9,7 @@ namespace Bikewale.Entities.Customer
     public class CancelledBikeCustomer : CustomerEntityBase
     {
         public string BikeName { get; set; }
-        public DateTime BookingDate { get; set; }
+        public string BookingDate { get; set; }
+        public UInt16 isCancellable { get; set; }
     }
 }
