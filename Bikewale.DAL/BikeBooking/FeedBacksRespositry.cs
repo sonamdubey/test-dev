@@ -30,9 +30,8 @@ namespace Bikewale.DAL.BikeBooking
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.CommandText = "SaveCustomerFeedBack";
+                        cmd.CommandText = "BookingCancelFeedBack";
                         cmd.Connection = con;
-
                         cmd.Parameters.Add("@BwId", SqlDbType.VarChar, 15).Value = feedback.BwId;
                         cmd.Parameters.Add("@FeedBack", SqlDbType.VarChar, 500).Value = feedback.FeedBack;
                         con.Open();

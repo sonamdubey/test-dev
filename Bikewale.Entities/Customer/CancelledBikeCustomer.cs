@@ -15,5 +15,6 @@ namespace Bikewale.Entities.Customer
         public string BWId { get; set; }
         public uint TransactionId { get; set; }
         public string CityName { get; set; }
+        public uint PQId { get; set; }
     }
 }
