@@ -43,14 +43,14 @@
                     <div class="cancellation-tabs">
                         <ul class="margin-bottom20">
                             <li class="first">
-                                <div id="userBikeDetailsTab" class="bike-cancel-part" data-bind="click: function () { if (CurrentStep() > 1 ) CurrentStep(1); }, css: (CurrentStep() >= 1) ? 'active-tab' : ''">
+                                <div id="userBikeDetailsTab" class="bike-cancel-part" data-bind="css: (CurrentStep() >= 1) ? 'active-tab' : ''">
                                     <div class="bike-cancel-image">
                                         <span class="cancellation-sprite" data-bind="css: (CurrentStep() == 1) ? 'user-details-icon-selected' : 'cancellation-tick-blue'"></span>
                                     </div>
                                 </div>
                             </li>
                             <li class="middle">
-                                <div id="cancelBookingDetailsTab" class="bike-cancel-part" data-bind="click: function () { if (CurrentStep() > 2 || ActualSteps() > 1) CurrentStep(2); }, css: (CurrentStep() >= 2 || ActualSteps() > 1) ? 'active-tab' : 'disabled-tab'">
+                                <div id="cancelBookingDetailsTab" class="bike-cancel-part" data-bind="css: (CurrentStep() >= 2 || ActualSteps() > 1) ? 'active-tab' : 'disabled-tab'">
                                     <div class="bike-cancel-image">
                                         <span class="cancellation-sprite" data-bind="css: (CurrentStep() == 2) ? 'cancellation-icon-selected' : (CurrentStep() > 2 || ActualSteps() > 1) ? 'cancellation-tick-blue' : 'cancellation-icon-grey'">
                                         </span>
@@ -58,7 +58,7 @@
                                 </div>
                             </li>
                             <li class="last">
-                                <div id="cancelConfirmationTab" class="bike-cancel-part" data-bind="click: function () { if ((CurrentStep() > 3) || ActualSteps() > 2) CurrentStep(3); }, css: (CurrentStep() >= 3 || ActualSteps() > 2) ? 'active-tab' : 'disabled-tab'">
+                                <div id="cancelConfirmationTab" class="bike-cancel-part" data-bind="css: (CurrentStep() >= 3 || ActualSteps() > 2) ? 'active-tab' : 'disabled-tab'">
                                     <div class="bike-cancel-image">
                                         <span class="cancellation-sprite" data-bind="css: (CurrentStep() == 3) ? 'confirmation-icon-selected' : (CurrentStep() > 3 || ActualSteps() > 2) ? 'cancellation-tick-blue' : 'confirmation-icon-grey'"></span>
                                     </div>
@@ -67,16 +67,16 @@
                         </ul>
                     </div>
 
-                    <div id="userBikeDetails" data-bind="visible: CurrentStep() == 1">
+                    <div id="userBikeDetails" data-bind=" with: User, visible: CurrentStep() == 1">
                         <p class="font18 text-center margin-bottom20">Enter your details</p>
                         <div class="form-control-box margin-bottom20">
-                            <input type="text" class="form-control" placeholder="Enter your booking ID" id="getBikeBookingId">
+                            <input type="text" class="form-control" placeholder="Enter your booking ID" id="getBikeBookingId" data-bind="textInput: BookingId">
                             <span class="bwmsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText">Please enter your booking ID</div>
                         </div>
                         <div class="form-control-box margin-bottom20">
                             <span class="mobile-prefix">+91</span>
-                            <input type="text" class="form-control padding-left40" placeholder="Enter your registered mobile no." id="getUserRegisteredNum" maxlength="10">
+                            <input type="text" class="form-control padding-left40" placeholder="Enter your registered mobile no." id="getUserRegisteredNum" maxlength="10" data-bind="textInput: Mobile">
                             <span class="bwmsprite error-icon errorIcon"></span>
                             <div class="bw-blackbg-tooltip errorText">Please enter your registered mobile no.</div>
                         </div>
@@ -89,12 +89,11 @@
                                 <div class="lead-mobile-box lead-otp-box-container margin-bottom10 font22">
                                     <span class="fa fa-phone"></span>
                                     <span class="text-light-grey">+91</span>
-                                    <span class="lead-mobile font24"></span>
-                                    <span class="bwmsprite edit-blue-icon edit-mobile-btn"></span>
+                                    <span class="lead-mobile font24" data-bind="text: Mobile()"></span>
                                 </div>
                                 <div class="otp-box lead-otp-box-container">
                                     <div class="form-control-box margin-bottom10">
-                                        <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP">
+                                        <input type="text" class="form-control" placeholder="Enter your OTP" id="getOTP" data-bind="textInput: OTPCode">
                                         <span class="bwmsprite error-icon errorIcon"></span>
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
@@ -102,47 +101,38 @@
                                     <p class="otp-notify-text text-light-grey font12">
                                         OTP has been already sent to your mobile
                                     </p>
-                                    <input type="button" class="btn btn-orange margin-top10" value="Submit OTP" id="processOTP" data-bind="click: function(data, event) { return $root.processOTP(data,event); }">
-                                </div>
-                                <div class="update-mobile-box" style="display: none;">
-                                    <div class="form-control-box text-left">
-                                        <span class="mobile-prefix">+91</span>
-                                        <input type="text" class="form-control padding-left40" placeholder="Mobile no." maxlength="10"  id="getUpdatedMobile">
-                                        <span class="bwmsprite error-icon errorIcon"></span>
-                                        <div class="bw-blackbg-tooltip errorText"></div>
-                                    </div>
-                                    <input  type="button" class="btn btn-orange margin-top20" value="Send OTP" id="generateNewOTP">
+                                    <input type="button" class="btn btn-orange margin-top10" value="Submit OTP" data-bind="click: function (data, event) { return verifyOTP(data, event); }" id="processOTP">
                                 </div>
                             </div>
                         </div>
                     
-                        <input id="userBikeDetailsBtn" type="button" class="btn btn-orange btn-full-width margin-bottom10" data-bind="click : function(data,event){return $root.userBikeDetails(data,event);}" value="Submit">
-                    
+                        <input id="userBikeDetailsBtn" type="button" class="btn btn-orange btn-full-width margin-bottom10" data-bind="click: function (data, event) { return $root.User().verifyBooking(data, event); }" value="Submit">
+                        <div class="text-red font14 margin-top5 text-bold" data-bind="visible: !IsValidBooking(), text: ErrMessage"></div>
                     
                     </div>
             
-                    <div id="cancelBookingDetails" data-bind="visible: CurrentStep() == 2">
+                    <div id="cancelBookingDetails" data-bind=" with: User, visible: CurrentStep() == 2">
                         <p class="font18 margin-bottom20 text-center">Cancellation</p>
                         <div class="border-light-bottom margin-bottom15">
                             <p class="font16 text-bold margin-bottom15">Booking information</p>
-                            <p class="font14 margin-bottom10 text-light-grey">Booking ID:<span class="margin-left5 text-default font18 text-bold">BWAB123456</span>
+                            <p class="font14 margin-bottom10 text-light-grey">Booking ID:<span class="margin-left5 text-default font18 text-bold" data-bind="text: BookingId()"></span>
                             <p class="font14 text-light-grey">Selected bike:</p>
-                            <p class="margin-bottom10 text-default text-bold">TVS Apache RTR 180 ABS</p>
+                            <p class="margin-bottom10 text-default text-bold" data-bind="text: BikeName()"></p>
                             <p class="font14 text-light-grey">Booking date:</p>
-                            <p class="margin-bottom15 text-default text-bold">2 Jul, 2016</p>
+                            <p class="margin-bottom15 text-default text-bold" data-bind="text: BookingDate()"></p>
                         </div>
                     
                         <div class="margin-bottom15">
                             <p class="font16 text-bold margin-bottom15">Personal information</p>
                             <p class="font14 text-light-grey">Name:</p>
-                            <p class="margin-bottom15 text-default text-bold">John Doe</p>
+                            <p class="margin-bottom15 text-default text-bold"  data-bind="text: Name()"></p>
                             <p class="font14 text-light-grey">Email ID:</p>
-                            <p class="margin-bottom15 text-default text-bold">johndoe@gmail.com</p>
+                            <p class="margin-bottom15 text-default text-bold" data-bind="text: Email()"></p>
                             <p class="font14 text-light-grey">Mobile no:</p>
-                            <p class="margin-bottom15 text-default text-bold">9876543210</p>
+                            <p class="margin-bottom15 text-default text-bold"  data-bind="text: MobileNo()"></p>
                         </div>
                     
-                        <input id="cancelBookingBtn" type="button" class="btn btn-orange btn-full-width margin-bottom10" data-bind="click : function(data,event){return $root.cancelBooking(data,event);}" value="Cancel my booking">
+                        <input id="cancelBookingBtn" type="button" data-bind="click: function (data, event) { return cancelBooking(data, event); }" value="Cancel my booking">
                     </div>
             
                     <div id="cancelConfirmation" data-bind="visible: CurrentStep() == 3">
