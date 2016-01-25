@@ -178,7 +178,7 @@
                 <div class="clear"></div>
             </div>
         </section>
-
+        <asp:HiddenField ID="hdnBwid" Value="0" runat="server" />
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st.aeplcdn.com" + staticUrl : "" %>/src/cancellation.js?<%= staticFileVersion %>"></script>
