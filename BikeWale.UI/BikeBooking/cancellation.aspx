@@ -7,6 +7,9 @@
     <title></title>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/cancellation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
+    <%
+        isAd970x90Shown = false;
+         %>
 </head>
 <body class="bg-light-grey">
     <form id="form1" runat="server">

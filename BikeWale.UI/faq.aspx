@@ -93,7 +93,9 @@
                 
                     <div class="faq-content content-box-shadow content-inner-block-20 margin-bottom20">
                 	    <h3>I want to cancel the booking. How can I do that? What happens to the refund?</h3>
-                        <p>BikeWale strongly recommends you to carefully select your bike before booking. However, you still have the option to cancel a booking in case you change your mind. For all valid cancellation requests, full booking amount will be refunded back to you. If you choose to cancel a booking, you can email us the <strong>‘Booking Cancellation Request’</strong> on <a href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating the booking reference number, your mobile number, email address (that you used while booking). Please note the following conditions to request cancellation and avail refund.<br><br>
+                        <p>BikeWale strongly recommends you to carefully select your bike before booking. However, you still have the option to cancel a booking in case you change your mind. For all valid cancellation requests, full booking amount will be refunded back to you. 
+                            You can conveniently place your cancellation request at BikeWale cancellation section in 2 simple steps. You can also reach the <a href="/BikeBooking/cancellation.aspx">cancellation section</a> from the navigation menu on the top left corner.
+                            Please note the following conditions to request cancellation and avail refund.<br><br>
                         <strong>The important conditions for cancellation</strong> are following:</p>
                         <ol>
                     	    <li>Cancellation must be requested within <strong>7 calendar days of booking the vehicle.</strong></li>
