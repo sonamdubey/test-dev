@@ -1,4 +1,6 @@
-﻿
+﻿var prevData = "";
+var otpText = $("#getOTP");
+
 var validateUserBikeDetails = function () {
     var getUserRegisteredNum = $("#getUserRegisteredNum");
     var isValid = true;

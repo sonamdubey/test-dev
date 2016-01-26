@@ -97,10 +97,10 @@
                                         <span class="bwmsprite error-icon errorIcon"></span>
                                         <div class="bw-blackbg-tooltip errorText"></div>
                                     </div>
-                                    <p class="resend-otp-btn margin-bottom5 text-right">Resend OTP</p>
+                                   <%-- <p class="resend-otp-btn margin-bottom5 text-right">Resend OTP</p>
                                     <p class="otp-notify-text text-light-grey font12">
                                         OTP has been already sent to your mobile
-                                    </p>
+                                    </p>--%>
                                     <input type="button" class="btn btn-orange margin-top10" value="Submit OTP" data-bind="click: function (data, event) { return verifyOTP(data, event); }" id="processOTP">
                                 </div>
                             </div>
