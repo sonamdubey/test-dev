@@ -242,6 +242,12 @@
       <DependentUpon>BillDeskResponse.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="BikeBooking\cancellation.aspx.cs">
+      <DependentUpon>cancellation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BikeBooking\cancellation.aspx.designer.cs">
+      <DependentUpon>cancellation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BikeBooking\Common\BikeBookingOperations.cs" />
     <Compile Include="BikeBooking\Common\CustomerDetailCookie.cs" />
     <Compile Include="BikeBooking\Common\CustomerPaymentCookie.cs" />
@@ -707,6 +713,12 @@
     <Compile Include="mybikewale\RemoveFromListing.aspx.cs">
       <DependentUpon>RemoveFromListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="m\bikebooking\cancellation.aspx.cs">
+      <DependentUpon>cancellation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="m\bikebooking\cancellation.aspx.designer.cs">
+      <DependentUpon>cancellation.aspx</DependentUpon>
     </Compile>
     <Compile Include="m\bikebooking\Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -1242,6 +1254,7 @@
     <Content Include="adtest\Default.aspx" />
     <Content Include="AdvertiseWithUs.aspx" />
     <Content Include="BikeBooking\BillDeskResponse.aspx" />
+    <Content Include="BikeBooking\cancellation.aspx" />
     <Content Include="BikeBooking\RedirectToBillDesk.aspx" />
     <Content Include="bikewaleimg\used\S146\146_20120918020514962_300x225.jpg" />
     <Content Include="bikewaleimg\used\S146\146_20120918020514962_640x428.jpg" />
@@ -1646,6 +1659,7 @@
     <Content Include="css\bw-common-style.css" />
     <Content Include="css\bw-pq-new.css" />
     <Content Include="css\bw-pq.css" />
+    <Content Include="css\cancellation.css" />
     <Content Include="css\chosen.min.css" />
     <Content Include="css\css-new-photos.css" />
     <Content Include="css\css-research-photos.css" />
@@ -2064,6 +2078,7 @@
     <Content Include="mybikewale\MyListing.aspx" />
     <Content Include="mybikewale\RemoveFromListing.aspx" />
     <Content Include="m\advertisewithus.aspx" />
+    <Content Include="m\bikebooking\cancellation.aspx" />
     <Content Include="m\bikebooking\Default.aspx" />
     <Content Include="m\ContactUs.aspx" />
     <Content Include="m\content\Features\Default.aspx" />
@@ -2098,6 +2113,7 @@
     <Content Include="m\css\bwm-bookingconfig.css" />
     <Content Include="m\css\bwm-bookingflow.css" />
     <Content Include="m\css\bwm-brand.css" />
+    <Content Include="m\css\bwm-cancellation.css" />
     <Content Include="m\css\bwm-common-style.css" />
     <Content Include="m\css\bwm-model.css" />
     <Content Include="m\css\bwm-newbikes.css" />
@@ -2173,6 +2189,7 @@
     <Content Include="m\src\bwm-bookingconfig.js" />
     <Content Include="m\src\bwm-bookingflow.js" />
     <Content Include="m\src\bwm-brand.js" />
+    <Content Include="m\src\bwm-cancellation.js" />
     <Content Include="m\src\bwm-model.js" />
     <Content Include="m\src\bwm-newbikes.js" />
     <Content Include="m\src\chosen-mobile.js" />
@@ -2199,6 +2216,7 @@
     <Content Include="src\autocomplete.js" />
     <Content Include="src\booking.js" />
     <Content Include="src\bookingconfig.js" />
+    <Content Include="src\cancellation.js" />
     <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common.js" />
     <Content Include="src\frameworks.js" />

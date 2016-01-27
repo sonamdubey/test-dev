@@ -76,6 +76,7 @@
   <ItemGroup>
     <Compile Include="AutoComplete\AutoSuggest.cs" />
     <Compile Include="BikeBooking\AbstractBikeBooking.cs" />
+    <Compile Include="BikeBooking\BookingCancellation.cs" />
     <Compile Include="BikeBooking\BrowserBikeBooking.cs" />
     <Compile Include="BikeBooking\DealerPriceQuote.cs" />
     <Compile Include="BikeData\BikeMakes.cs" />

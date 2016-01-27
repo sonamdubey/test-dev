@@ -50,6 +50,7 @@
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
     <Compile Include="BikeBooking\BikeBooking.cs" />
+    <Compile Include="BikeBooking\BikeCancellationEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntityBase.cs" />
     <Compile Include="BikeBooking\BookingResults.cs" />
@@ -104,6 +105,7 @@
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
+    <Compile Include="BikeBooking\FeedBackEntity.cs" />
     <Compile Include="CMS\Articles\ArticleBase.cs" />
     <Compile Include="CMS\Articles\ArticleDetails.cs" />
     <Compile Include="CMS\Articles\ArticlePageDetails.cs" />
@@ -137,6 +139,7 @@
     <Compile Include="Compare\CompareSubCategory.cs" />
     <Compile Include="Compare\CompareSpecificationEntity.cs" />
     <Compile Include="Compare\TopBikeCompareBase.cs" />
+    <Compile Include="Customer\CancelledBikeCustomer.cs" />
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Customer\CustomerEntityBase.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />

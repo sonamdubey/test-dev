@@ -1236,5 +1236,6 @@ namespace Bikewale.DAL.BikeBooking
 
             return colors;
         }
+
     }   //End of class
 }   //End of namespace

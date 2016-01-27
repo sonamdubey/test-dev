@@ -1617,16 +1617,6 @@
             if (bikeVersion == '') {
                 bikeVersion = getBikeVersion();
             }
-            if (isBikeWalePq == 'True') {
-                if (getCityArea != null) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'BWPQ_' + getCityArea + '_' + myBikeName });
-                }
-            } else {
-                if (getCityArea != null) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Page_Load', 'lab': 'DealerPQ_' + getCityArea + '_' + myBikeName });
-                }
-            }
-
         </script>
     </form>
 </body>

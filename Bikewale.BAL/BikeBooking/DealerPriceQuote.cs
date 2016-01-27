@@ -376,5 +376,6 @@ namespace Bikewale.BAL.BikeBooking
             }
             return pageDetail;
         }
+        
     }   //End of Class
 }   //End of namespace

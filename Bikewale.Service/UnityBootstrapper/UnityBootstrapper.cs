@@ -96,7 +96,8 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<IAppVersion, AppVersionRepository>();
             container.RegisterType<IAppAlert, AppAlertRepository>();
             container.RegisterType<ICityCacheRepository, CityCacheRepository>();
-            container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();
+            container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();           
+            container.RegisterType<IBookingCancellation, Bikewale.BAL.BikeBooking.BookingCancellation>();
             return container;
         }
     }
