@@ -349,7 +349,7 @@
                                         <span data-bind="text: ShowReviewCount(bikemodel.reviewCount())"> </span>
                                     </div>
                                     <div class="clear"></div>
-                                    <a data-bind="attr: { modelId: bikemodel.modelId, pqSourceId: PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); FillCitiesPopup(bikemodel.modelId(), bikemodel.makeBase.makeName(), bikemodel.modelName(), '4', PQSourceId); }" class="btn btn-grey margin-top10 fillPopupData">Get on-road price</a>
+                                    <a data-bind="attr: { modelId: bikemodel.modelId, pqSourceId: PQSourceId }, click: function () { $.PricePopUpClickGA(bikemodel.modelName()); }" class="btn btn-grey margin-top10 fillPopupData">Get on-road price</a>
                                 </div>
                             </div>
                         </li>
@@ -363,8 +363,6 @@
     
 <!-- #include file="/includes/footerBW.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/framework/knockout.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/search.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
     var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch%>';
