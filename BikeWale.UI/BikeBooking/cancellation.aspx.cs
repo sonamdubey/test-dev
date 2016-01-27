@@ -45,9 +45,13 @@ namespace Bikewale.BikeBooking
                 feedback.SaveFeedBack(feedBkEntity);
 
                 // send emails
-                SendMails mail = new SendMails();
-                mail.SendMail("contact@bikewale.com", "Feedback from a customer who has cancelled booking - " + BWid, ComposeBody(), "noreply@bikewale.com", null, new string[] { "piyush@bikewale.com", "saurabh@bikewale.com" });
+                if (!String.IsNullOrEmpty(FeedBackText.InnerText))
+                {
+                    SendMails mail = new SendMails();
+                    mail.SendMail("contact@bikewale.com", "Feedback from a customer who has cancelled booking - " + BWid, ComposeBody(), "noreply@bikewale.com", null, new string[] { "piyush@bikewale.com", "saurabh@bikewale.com" });
+                }
                 Response.Redirect("http://www.bikewale.com", false);
+
             }
             catch (Exception ex)
             {
