@@ -70,8 +70,7 @@
         });
     }
 
-    function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr, pqSourceId) {
-        $('#ddlCitiesPopup').text('Loading Cities...');
+    function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr, pqSourceId) {        
         PQSourceId = pqSourceId;
         $.ajax({
             type: "GET",
