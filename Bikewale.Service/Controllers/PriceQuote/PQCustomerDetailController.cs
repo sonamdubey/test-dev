@@ -78,6 +78,7 @@ namespace Bikewale.Service.Controllers.PriceQuote
             string bikeName = String.Empty;
             string imagePath = String.Empty;
             CustomerEntity objCust = null;
+            PQCustomerDetail pqCustomer = null;
             MobileVerificationEntity mobileVer = null;
             BookingPageDetailsEntity objBookingPageDetailsEntity = null;
             PriceQuoteParametersEntity pqParam = null;
@@ -186,7 +187,10 @@ namespace Bikewale.Service.Controllers.PriceQuote
                         }
 
                         dealer = objBookingPageDetailsDTO.Dealer;
-                        objCust = _objCustomer.GetByEmail(input.CustomerEmail);
+                        //objCust = _objCustomer.GetByEmail(input.CustomerEmail);
+
+                        pqCustomer = _objDealerPriceQuote.GetCustomerDetails(input.PQId);
+                        objCust = pqCustomer.objCustomerBase;
 
                         PQ_DealerDetailEntity dealerDetailEntity = null;
 

@@ -98,7 +98,8 @@ namespace Bikewale.Mobile.PriceQuote
                     RequestToPGUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/RedirectToBillDesk.aspx",
 
                     //sourceid = 2 to redirect response on mobile site 
-                    ReturnUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/billdeskresponse.aspx?sourceId=2"
+                    ReturnUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/billdeskresponse.aspx?sourceId=2&"
+                    + "MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString)
                 };
                 //PGCookie.PGAmount = transaction.Amount.ToString();
                 PGCookie.PGCarId = transaction.PGId.ToString();

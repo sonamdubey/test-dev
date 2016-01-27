@@ -59,6 +59,7 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
             BookingPageDetailsDTO objBookingPageDetailsDTO = null;
             PQMobileVerificationOutput output = null;
             CustomerEntity objCust = null;
+            PQCustomerDetail pqCustomer = null;
             DealerDetailsDTO dealer = null;
             PQ_DealerDetailEntity dealerDetailEntity = null;
             string bikeName = string.Empty;
@@ -111,7 +112,10 @@ namespace Bikewale.Service.Controllers.PriceQuote.MobileVerification
                                 }
 
                                 dealer = objBookingPageDetailsDTO.Dealer;
-                                objCust = _objCustomer.GetByEmail(input.CustomerEmail);
+                                //objCust = _objCustomer.GetByEmail(input.CustomerEmail);
+
+                                pqCustomer = _objDealerPriceQuote.GetCustomerDetails(input.PQId);                                
+                                objCust = pqCustomer.objCustomerBase;
 
                                 string _apiUrl = String.Format("/api/Dealers/GetDealerDetailsPQ/?versionId={0}&DealerId={1}&CityId={2}", input.VersionId, input.BranchId, input.CityId);
                                 // Send HTTP GET requests 
