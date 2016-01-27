@@ -90,11 +90,11 @@
                     <div class="faq-content content-box-shadow content-inner-block-10 margin-bottom10">
                         <h3>I want to cancel the booking. How can I do that? What happens to the refund?</h3>
                         <p>BikeWale strongly recommends you to carefully select your bike before booking. However, you still have the option to cancel a booking in case you change your mind. For all valid cancellation requests, full booking amount will be refunded back to you. 
-                            You can conveniently place your cancellation request at BikeWale cancellation section in 2 simple steps. You can also reach the <a href="/m/BikeBooking/cancellation.aspx">cancellation section</a> from the navigation menu on the top left corner.
+                            You can conveniently place your cancellation request at BikeWale cancellation section in 2 simple steps. You can also reach the <a href="/m/bikebooking/cancellation.aspx">cancellation section</a> from the navigation menu on the top left corner.
                             Please note the following conditions to request cancellation and avail refund.<br><br>
                         <strong>The important conditions for cancellation</strong> are following:</p>
                         <ol>
-                            <li>Cancellation must be requested within <strong>7 calendar days of booking the vehicle.</strong></li>
+                            <li>Cancellation must be requested within <strong>15 calendar days of booking the vehicle.</strong></li>
                             <li><strong>Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
                             <li>If the dealer has initiated the procurement of the bike upon your booking, cancellation will not be possible.</li>
                         </ol>
@@ -102,12 +102,12 @@
             
                     <div class="faq-content content-box-shadow content-inner-block-10 margin-bottom10">
                         <h3>When will I get my money refunded, once I request cancellation?</h3>
-                        <p>Upon requesting a cancellation, our team will verify with the dealership. Post successful verification, we will confirm your cancellation request and initiate the refund. The booking amount should be credited back to your account within 7 working days.</p>
+                        <p>Upon requesting a cancellation, our team will verify with the dealership. Post successful verification, we will confirm your cancellation request and initiate the refund. The booking amount should be credited back to your account within 15 working days.</p>
                     </div>
             
                     <div class="faq-content content-box-shadow content-inner-block-10 margin-bottom10">
                         <h3>Will I be charged any fee for cancellation?</h3>
-                        <p>No, there is no fee for cancellation. Full booking amount will be refunded to your account within 7 working days.</p>
+                        <p>No, there is no fee for cancellation. Full booking amount will be refunded to your account within 15 working days.</p>
                     </div>
             
                     <div class="faq-content content-box-shadow content-inner-block-10 margin-bottom10">
