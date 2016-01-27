@@ -120,13 +120,15 @@ namespace Bikewale.DAL.BikeBooking
             int responseFlag = 0;
             ValidBikeCancellationResponseEntity response = default(ValidBikeCancellationResponseEntity);
             Database db = null;
+            SqlConnection conn = null;
+            SqlCommand cmd = null;
             try
             {
                 db = new Database();
                 response = new ValidBikeCancellationResponseEntity();
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (conn = new SqlConnection(db.GetConString()))
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (cmd = new SqlCommand())
                     {
                         cmd.CommandText = "VerifyCancelRequest";
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -134,7 +136,7 @@ namespace Bikewale.DAL.BikeBooking
 
                         cmd.Parameters.Add("@bwid", SqlDbType.VarChar).Value = bwId;
                         cmd.Parameters.Add("@mobilenumber", SqlDbType.VarChar, 10).Value = mobile;
-                        cmd.Parameters.Add("@clientip", SqlDbType.VarChar, 40).Value = mobile;
+                        cmd.Parameters.Add("@clientip", SqlDbType.VarChar, 40).Value = CommonOpn.GetClientIP();
                         cmd.Parameters.Add("@ResponseFlag", SqlDbType.TinyInt).Direction = ParameterDirection.Output;
 
                         conn.Open();
@@ -158,6 +160,10 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+            finally
+            {
+                db.CloseConnection();
+            }
             return response;
         }
 
@@ -174,13 +180,15 @@ namespace Bikewale.DAL.BikeBooking
         {
             uint attempts = 0;
             Database db = null;
+            SqlConnection conn = null;
+            SqlCommand cmd = null;
             try
             {
                 db = new Database();
 
-                using (SqlConnection conn = new SqlConnection(db.GetConString()))
+                using (conn = new SqlConnection(db.GetConString()))
                 {
-                    using (SqlCommand cmd = new SqlCommand())
+                    using (cmd = new SqlCommand())
                     {
                         cmd.CommandText = "SaveBookingCancelOTP";
                         cmd.CommandType = CommandType.StoredProcedure;
@@ -226,10 +234,20 @@ namespace Bikewale.DAL.BikeBooking
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
+            finally
+            {
+                db.CloseConnection();
+            }
             return attempts;
         }
 
-        public CancelledBikeCustomer UpdateCancellationFlag(uint pqId)
+        /// <summary>
+        /// Added By : Sadhana Upadhyay on 27 Jan 2016
+        /// Summary : To get cancellation details
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <returns></returns>
+        public CancelledBikeCustomer GetCancellationDetails(uint pqId)
         {
             CancelledBikeCustomer objCancellation = null;
             Database db = null;
@@ -237,7 +255,7 @@ namespace Bikewale.DAL.BikeBooking
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "UpdateBookingCancellationFlag";
+                    cmd.CommandText = "GetBookingCancellationDetails";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@PQId", SqlDbType.Int).Value = pqId;
@@ -276,6 +294,10 @@ namespace Bikewale.DAL.BikeBooking
                 HttpContext.Current.Trace.Warn("CancelBooking ex : " + ex.Message + ex.Source);
                 ErrorClass objErr = new ErrorClass(ex, "Bikewale.DAL.BikeBooking.BookingCancellationRepository");
                 objErr.SendMail();
+            }
+            finally
+            {
+                db.CloseConnection();
             }
             return objCancellation;
         }

@@ -94,11 +94,17 @@ namespace Bikewale.BAL.BikeBooking
         }
 
 
-        public CancelledBikeCustomer UpdateCancellationFlag(uint pqId)
+        public CancelledBikeCustomer GetCancellationDetails(uint pqId)
         {
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Added By : Sadhana Upadhyay on 27 Jan 2016
+        /// Summary : To confirm cancellation ob booking
+        /// </summary>
+        /// <param name="pqId"></param>
+        /// <returns></returns>
         public bool ConfirmCancellation(uint pqId)
         {
             bool isCancelled = false;
@@ -113,7 +119,7 @@ namespace Bikewale.BAL.BikeBooking
 
                     isCancelled = _objPriceQuote.SaveBookingState(pqId, Entities.PriceQuote.PriceQuoteStates.Cancelled);
 
-                    objCancellation = bookingCancelRepository.UpdateCancellationFlag(pqId);
+                    objCancellation = bookingCancelRepository.GetCancellationDetails(pqId);
 
                     if(objCancellation!=null)
                     {
