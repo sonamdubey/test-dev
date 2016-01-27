@@ -374,7 +374,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .icon-outer-container { width:102px; height:102px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .icon-inner-container { width:92px; height:92px; margin:4px auto; background:#fff; border:1px solid #666; }
 /* nav classes */
-.home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
+.home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .cancellation-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
 .home-icon { background-position: 0 -58px; }
 .newBikes-icon { background-position: 0 -93px; top: 9px; }
 .usedBikes-icon { background-position: 0 -127px; top: 7px; }
@@ -383,6 +383,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .insurance-icon { background-position: 0 -212px; }
 .forum-icon { background-position: 0 -243px; }
 .myBikeWale-icon { background-position: 0 -277px; top: 6px; }
+.cancellation-icon { background-position: -52px -395px; top:10px; }
 
 .cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey { width: 16px; height: 16px; }
 .cross-lg-white { background-position: -36px -200px; }

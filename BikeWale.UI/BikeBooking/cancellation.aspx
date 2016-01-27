@@ -36,7 +36,7 @@
                         </div>
                         <div class="inline-block">
                             <h3 class="margin-bottom10">We are sorry. We cannot process your cancellation.</h3>
-                            <p class="font14">Kindly refer to our <a href="#" class="text-blue">cancanellation policy</a> for more details regarding your bike booking.</p>
+                            <p class="font14">Kindly refer to our <a href="#" class="text-blue">cancellation policy</a> for more details regarding your bike booking.</p>
                         </div>
                     </div>
                     <div id="cancellationStepsWrapper" class="content-box-shadow content-inner-block-20" <%--data-bind="visible: !$root.User().IsCancelled"--%>>
@@ -138,7 +138,7 @@
                         </div>
                     
                         <div id="cancelConfirmation" class="text-center" data-bind="visible: CurrentStep() == 3">
-                            <p class="margin-top10 margin-bottom20 font14 text-light-grey">We have intiatied your cancellation process. You will be informed shortly on the status of your refund</p>
+                            <p class="margin-top10 margin-bottom20 font14 text-light-grey">We have initiated your cancellation process. You will be informed shortly on the status of your refund</p>
                             <textarea runat="server" id="FeedBackText" placeholder="Tell us about your experience and help us imporve."></textarea>
                             <div class="text-center margin-top20">
                                <asp:button runat="server" ID="feedbackBtn" class="btn btn-orange margin-bottom10" OnClick="feedbackBtn_Click" Text="Done" />

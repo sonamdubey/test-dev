@@ -53,8 +53,8 @@
                 </a>
             </li>
             <li>
-                <a href="/m/BikeBooking/cancellation.aspx">
-                    <span class="bwmsprite sellBikes-icon"></span>
+                <a href="/m/bikebooking/cancellation.aspx">
+                    <span class="bwmsprite cancellation-icon opacity60"></span>
                     <span class="navbarTitle">Cancel Your Booking</span>
                 </a>
             </li>
