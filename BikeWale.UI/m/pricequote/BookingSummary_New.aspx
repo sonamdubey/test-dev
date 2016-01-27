@@ -423,7 +423,7 @@
                 <div class="lower-alpha-list">
                     <ol>
                         <li><strong>a. </strong>Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong></li>
-                        <li><strong>b. </strong>Cancellation & Refund PolicyYou can conveniently place your cancellation request at BikeWale <a href="/m/bikebooking/cancellation.aspx">Cancellation Section</a> in 2 simple steps. You can also reach the cancellation section from the navigation menu on the top left corner.</li>
+                        <li><strong>b. </strong>Cancellation & Refund PolicyYou can conveniently place your cancellation request at BikeWale <a href="/m/bikebooking/cancellation.aspx" target="_blank" >Cancellation Section</a> in 2 simple steps. You can also reach the cancellation section from the navigation menu on the top left corner.</li>
                         <li><strong>c. Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
                         <li><strong>d. </strong>If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
                         <li><strong>e. </strong>For all valid requests, we will process the refund of full booking amount to customer’s account within 7 working days.</li>
