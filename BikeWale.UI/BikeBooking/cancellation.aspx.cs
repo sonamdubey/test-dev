@@ -1,4 +1,5 @@
-﻿using Bikewale.DAL.BikeBooking;
+﻿using Bikewale.Common;
+using Bikewale.DAL.BikeBooking;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Notifications;
 using Carwale.Notifications;
@@ -20,6 +21,11 @@ namespace Bikewale.BikeBooking
         {
             if (!string.IsNullOrEmpty(hdnBwid.Value))
                 BWid = hdnBwid.Value;
+            if (!IsPostBack)
+            {
+                DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+                dd.DetectDevice();
+            } 
         }
         /// <summary>
         /// Save feedback on submit
