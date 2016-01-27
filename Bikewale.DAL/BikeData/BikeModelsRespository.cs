@@ -199,7 +199,7 @@ namespace Bikewale.DAL.BikeData
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "GetModelColor";
+                    cmd.CommandText = "GetModelColor_27012016";
 
                     cmd.Parameters.Add("@ModelId", SqlDbType.Int).Value = modelId;
 
