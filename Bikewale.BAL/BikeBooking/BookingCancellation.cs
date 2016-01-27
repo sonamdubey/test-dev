@@ -60,6 +60,8 @@ namespace Bikewale.BAL.BikeBooking
             {
                 // create OTP and call SP to to save OTP in db
                 string otpCode = GetRandomCode(new Random(), 5);
+                SMSTypes objsms = new SMSTypes();
+                objsms.SMSMobileVerification(mobile, otpCode, "BookingCancellation");
                 SaveCancellationOTP(bwId, mobile, otpCode);
             }
             return response;
