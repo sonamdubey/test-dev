@@ -263,7 +263,7 @@ namespace Bikewale.New
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     Database db = null;
-                    cmd.CommandText = "GetComparisonDetails";
+                    cmd.CommandText = "GetComparisonDetails_27012016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 50).Value = versionList;
