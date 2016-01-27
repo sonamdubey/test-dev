@@ -60,8 +60,9 @@ $("#getBikeBookingId, #getUserRegisteredNum").on("focus", function () {
     hideError($(this));
 });
 
-$(".otpPopup-close-btn").mouseup(function (e) {
+$(".otpPopup-close-btn").on("click", function (e) {
     otpPopupClose();
+    window.history.back();
 });
 
 function otpPopupOpen() {
@@ -136,6 +137,7 @@ var UserDetails = function () {
                         self.IsValidBooking(obj.isVerified);
                         otpPopupOpen();
                         isSuccess = true;
+                        appendHash("otp");
                     }
                     else isSuccess = false;
                 },
