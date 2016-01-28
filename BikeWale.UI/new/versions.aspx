@@ -1508,10 +1508,10 @@
                 $(".carousel-stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
                 document.location.href.split('?')[0];
                 if ($('#getMoreDetailsBtn').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_More_Details_Shown', 'lab': bikeVersionLocation });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': bikeVersionLocation });
                 }
                 if ($('#btnGetOnRoadPrice').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
                 }
             });
         </script>

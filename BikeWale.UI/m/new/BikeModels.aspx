@@ -1491,10 +1491,10 @@
             var getCityArea = GetGlobalCityArea();
             $(document).ready(function (e) {
                 if ($('#getMoreDetailsBtn').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
                 }
                 if ($('#btnGetOnRoadPrice').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
                 }
             });
 
