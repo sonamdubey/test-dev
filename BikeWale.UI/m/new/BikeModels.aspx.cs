@@ -27,6 +27,7 @@ using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Entities.BikeBooking;
 using Bikewale.Utility;
+using Bikewale.BindViewModels.Webforms;
 
 namespace Bikewale.Mobile.New
 {
@@ -80,7 +81,7 @@ namespace Bikewale.Mobile.New
         protected string offerDivHide = "hide";
         protected string price = string.Empty;
         protected string viewbreakUpText = string.Empty;
-        protected UInt32 onRoadPrice = 0;
+        protected UInt32 onRoadPrice = 0, totalDiscountedPrice = 0 ;
         protected List<CityEntityBase> objCityList = null;
         protected List<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
@@ -582,16 +583,16 @@ namespace Bikewale.Mobile.New
                                 price = onRoadPrice.ToString();
                                 if (pqOnRoad.DPQOutput.objOffers!=null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                 {
-                                    IEnumerable<OfferEntity> moreOffers = null;
-                                    rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers.Take<OfferEntity>(2);
+                                    //IEnumerable<OfferEntity> moreOffers = null;
+                                    rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers;
                                     //ONROAD.DPQOutput.objOffers.Take<DPQOfferBase>(2);
                                     rptOffers.DataBind();
-                                    if (pqOnRoad.DPQOutput.objOffers.Count > 2)
-                                    {
-                                        moreOffers = pqOnRoad.DPQOutput.objOffers.Skip(2).Take<OfferEntity>(pqOnRoad.DPQOutput.objOffers.Count - 2);
-                                        rptMoreOffers.DataSource = moreOffers;
-                                        rptMoreOffers.DataBind();
-                                    }
+                                    //if (pqOnRoad.DPQOutput.objOffers.Count > 2)
+                                    //{
+                                    //    moreOffers = pqOnRoad.DPQOutput.objOffers.Skip(2).Take<OfferEntity>(pqOnRoad.DPQOutput.objOffers.Count - 2);
+                                    //    rptMoreOffers.DataSource = moreOffers;
+                                    //    rptMoreOffers.DataBind();
+                                    //}
                                     isOfferAvailable = true;
                                 }
                                 if (selectedVariant.PriceList != null)
@@ -602,7 +603,10 @@ namespace Bikewale.Mobile.New
                                     {
                                         rptDiscount.DataSource = pqOnRoad.discountedPriceList;
                                         rptDiscount.DataBind();
-                                    } 
+                                    }
+                                    if (pqOnRoad.discountedPriceList != null)
+                                        totalDiscountedPrice = new CommonModel().GetTotalDiscount(pqOnRoad.discountedPriceList);
+
                                     // String operation
                                     viewbreakUpText = "(";
                                     foreach (var text in selectedVariant.PriceList)

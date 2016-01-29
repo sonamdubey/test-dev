@@ -426,7 +426,7 @@
                                {%>
                             <div id="noOfferBookBtn" class="grid-12 padding-top10 alpha">
                                 <div class="grid-9 omega">
-                                    <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike and get:</h3>
+                                    <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike</h3>
                                 </div>
                                 <div class="grid-3 alpha no-offer-book-btn">
                                     <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey" id="bookNowBtn">Book now </a>
