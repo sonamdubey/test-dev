@@ -309,8 +309,10 @@
 									else
 									{ %>
 								<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                    <%if (totalDiscountedPrice != 0){ %>
 									<span id="new-bike-price1" class="font20" itemprop="onRoadPrice" content="<%=onRoadPrice %>"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></span>
-                                    <span id="new-bike-price2" class="font20" itemprop="discount" content="<%=TotalDiscountedPrice() %>"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(TotalDiscountedPrice())) %></span>
+                                    <span id="new-bike-price2" class="font20" itemprop="totalDiscountedPrice" content="<%=totalDiscountedPrice %>"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalDiscountedPrice)) %></span>
+                                    <%} %>
                                     <span itemprop="priceCurrency" content="INR">
 										<span class="font28"><span class="fa fa-rupee"></span></span>
 									</span>									

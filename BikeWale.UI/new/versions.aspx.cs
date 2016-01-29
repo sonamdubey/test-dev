@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.BikeBooking;
 using Bikewale.BAL.BikeData;
+using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
@@ -72,6 +73,7 @@ namespace Bikewale.New
         protected string price = string.Empty;
         protected string viewbreakUpText = string.Empty;
         protected UInt32 onRoadPrice = 0;
+        protected UInt32 totalDiscountedPrice = 0;
         protected List<CityEntityBase> objCityList = null;
         protected List<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
@@ -691,6 +693,8 @@ namespace Bikewale.New
                                         rptDiscount.DataSource = pqOnRoad.discountedPriceList;
                                         rptDiscount.DataBind();
                                     }
+
+                                    totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
                                     // String operation
                                     viewbreakUpText = "(";
                                     foreach (var text in selectedVariant.PriceList)

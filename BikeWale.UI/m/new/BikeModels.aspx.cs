@@ -1,33 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web.UI.WebControls;
+﻿using Bikewale.BAL.BikeBooking;
+using Bikewale.BAL.BikeData;
+using Bikewale.BindViewModels.Webforms;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Location;
+using Bikewale.DTO.Version;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
-using Bikewale.Mobile.Controls;
-using Microsoft.Practices.Unity;
-using Bikewale.m.controls;
-using Bikewale.DTO.Version;
-using System.Reflection;
-using Bikewale.Mobile.PriceQuote;
-using Bikewale.BAL.BikeBooking;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Entities.Location;
 using Bikewale.Interfaces.Location;
-using Bikewale.DAL.Location;
-using Bikewale.BAL.BikeData;
-using Bikewale.Entities.CMS.Photos;
 using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.BikeBooking;
+using Bikewale.m.controls;
+using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
-using Bikewale.BindViewModels.Webforms;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.Reflection;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Mobile.New
 {
@@ -81,7 +79,7 @@ namespace Bikewale.Mobile.New
         protected string offerDivHide = "hide";
         protected string price = string.Empty;
         protected string viewbreakUpText = string.Empty;
-        protected UInt32 onRoadPrice = 0, totalDiscountedPrice = 0 ;
+        protected UInt32 onRoadPrice = 0, totalDiscountedPrice = 0;
         protected List<CityEntityBase> objCityList = null;
         protected List<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
@@ -160,7 +158,7 @@ namespace Bikewale.Mobile.New
                 ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
                 ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
                 Trace.Warn("Trace 20 : Page Load ends");
-                
+
             }
             else
             {
@@ -171,7 +169,7 @@ namespace Bikewale.Mobile.New
                 }
             }
             ctrlUsersTestimonials.TopCount = 6;
-            if (modelPage!=null && modelPage.ModelDetails != null)
+            if (modelPage != null && modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
             ToggleOfferDiv();
 
@@ -418,13 +416,13 @@ namespace Bikewale.Mobile.New
                         }
                         if (GetAreaForCityAndModel() != null)
                         {
-                           // isAreaAvailable = true;
+                            // isAreaAvailable = true;
                         }
                     }
                     if (locArray.Length > 3 && cityId != 0)
                     {
                         //areaId = Convert.ToInt16(locArray[2]);
-                        Int32.TryParse(locArray[2],out areaId);
+                        Int32.TryParse(locArray[2], out areaId);
                         objAreaList = GetAreaForCityAndModel();
                         if (objAreaList != null)
                         {
@@ -457,7 +455,7 @@ namespace Bikewale.Mobile.New
         private void LoadVariants()
         {
             try
-            {                
+            {
                 if (modelPage != null)
                 {
                     if (modelPage.ModelVersionSpecs != null && variantId <= 0)
@@ -572,7 +570,7 @@ namespace Bikewale.Mobile.New
                         //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);
 
                         mpqQueryString = EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId));
-                        if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients!=null && pqOnRoad.DPQOutput.Varients.Count() > 0)
+                        if (pqOnRoad.IsDealerPriceAvailable && pqOnRoad.DPQOutput != null && pqOnRoad.DPQOutput.Varients != null && pqOnRoad.DPQOutput.Varients.Count() > 0)
                         {
                             #region when dealer Price is Available
                             // Select Variant for which details need to be shown
@@ -581,7 +579,7 @@ namespace Bikewale.Mobile.New
                             {
                                 onRoadPrice = selectedVariant.OnRoadPrice;
                                 price = onRoadPrice.ToString();
-                                if (pqOnRoad.DPQOutput.objOffers!=null && pqOnRoad.DPQOutput.objOffers.Count > 0)
+                                if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                 {
                                     //IEnumerable<OfferEntity> moreOffers = null;
                                     rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers;
@@ -605,7 +603,7 @@ namespace Bikewale.Mobile.New
                                         rptDiscount.DataBind();
                                     }
                                     if (pqOnRoad.discountedPriceList != null)
-                                        totalDiscountedPrice = new CommonModel().GetTotalDiscount(pqOnRoad.discountedPriceList);
+                                        totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
 
                                     // String operation
                                     viewbreakUpText = "(";
@@ -624,7 +622,7 @@ namespace Bikewale.Mobile.New
                                 if (bookingAmt > 0)
                                     isBookingAvailable = true;
 
-                                if (pqOnRoad.discountedPriceList!=null && pqOnRoad.discountedPriceList.Count > 0)
+                                if (pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
                                     price = Convert.ToString(onRoadPrice - totalDiscountedPrice);
                                 }
@@ -634,7 +632,7 @@ namespace Bikewale.Mobile.New
                         else
                         {
                             #region BikeWale PQ
-                            if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients!= null)
+                            if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                             {
                                 if (hdnVariant.Value != "0")
                                 {
@@ -672,8 +670,8 @@ namespace Bikewale.Mobile.New
                         }
                         else
                         {
-                            if (modelPage.ModelDetails!=null)
-                              price = Convert.ToString(modelPage.ModelDetails.MinPrice);
+                            if (modelPage.ModelDetails != null)
+                                price = Convert.ToString(modelPage.ModelDetails.MinPrice);
                         }
                     }
                 }
@@ -687,7 +685,7 @@ namespace Bikewale.Mobile.New
             }
             catch (Exception ex)
             {
-                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "-"+ MethodBase.GetCurrentMethod().Name);
+                ErrorClass objErr = new ErrorClass(ex, Request.ServerVariables["URL"] + "-" + MethodBase.GetCurrentMethod().Name);
                 objErr.SendMail();
             }
         }
