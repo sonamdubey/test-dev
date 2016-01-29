@@ -216,7 +216,7 @@ namespace Bikewale.Mobile.New
                         {
                             var selecteVersionList = pqOnRoad.DPQOutput.Varients.Where(p => Convert.ToString(p.objVersion.VersionId) == hdn.Value);
                             if (selecteVersionList != null && selecteVersionList.Count() > 0)
-                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selecteVersionList.First().OnRoadPrice - TotalDiscountedPrice()));
+                                currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selecteVersionList.First().OnRoadPrice - totalDiscountedPrice));
                         }
                         else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                         {
@@ -626,7 +626,7 @@ namespace Bikewale.Mobile.New
 
                                 if (pqOnRoad.discountedPriceList!=null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
-                                    price = Convert.ToString(onRoadPrice - TotalDiscountedPrice());
+                                    price = Convert.ToString(onRoadPrice - totalDiscountedPrice);
                                 }
                             }
                             #endregion
@@ -927,19 +927,19 @@ namespace Bikewale.Mobile.New
             }
         }
 
-        protected UInt32 TotalDiscountedPrice()
-        {
-            UInt32 totalPrice = 0;
+        //protected UInt32 TotalDiscountedPrice()
+        //{
+        //    UInt32 totalPrice = 0;
 
-            if (pqOnRoad != null && pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
-            {
-                foreach (var priceListObj in pqOnRoad.discountedPriceList)
-                {
-                    totalPrice += priceListObj.Price;
-                }
-            }
+        //    if (pqOnRoad != null && pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
+        //    {
+        //        foreach (var priceListObj in pqOnRoad.discountedPriceList)
+        //        {
+        //            totalPrice += priceListObj.Price;
+        //        }
+        //    }
 
-            return totalPrice;
-        } 
+        //    return totalPrice;
+        //} 
     }
 }
