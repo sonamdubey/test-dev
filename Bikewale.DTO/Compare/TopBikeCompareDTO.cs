@@ -10,6 +10,8 @@ namespace Bikewale.DTO.Compare
     /// <summary>
     /// Created by  :   Sumit Kate on 22 Jan 2016
     /// Description :   Top Bike Compare DTO
+    /// Modified by : Sumit Kate on 29 Jan 2016
+    /// Description :   Added HostUrl1, HostUrl2, VersionImgUrl1, VersionImgUrl2 as string to Bikewale.Entities.Compare.TopBikeCompareBase entity.
     /// </summary>
     public class TopBikeCompareDTO
     {
@@ -50,6 +52,14 @@ namespace Bikewale.DTO.Compare
         [JsonProperty("hostURL")]
         public string HostURL { get; set; }
         [JsonProperty("originalImagePath")]
-        public string OriginalImagePath { get; set; }     
+        public string OriginalImagePath { get; set; }
+        [JsonProperty("hostUrl1")]
+        public string HostUrl1 { get; set; }
+        [JsonProperty("hostUrl2")]
+        public string HostUrl2 { get; set; }
+        [JsonProperty("versionImgUrl1")]
+        public string VersionImgUrl1 { get; set; }
+        [JsonProperty("versionImgUrl2")]
+        public string VersionImgUrl2 { get; set; }
     }
 }
