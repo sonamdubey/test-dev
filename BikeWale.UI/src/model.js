@@ -874,14 +874,12 @@ $('.changeCity').on('click', function (e) {
 });
 
 function LoadTerms(offerId) {
-
-    $(".termsPopUpContainer").css('height', '150')
-    $('#termspinner').show();
-    $('#terms').empty();
     $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
-
     if (offerId != '' && offerId != null) {
+        $(".termsPopUpContainer").css('height', '150')
+        $('#termspinner').show();
+        $('#terms').empty();
         $.ajax({
             type: "GET",
             url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
