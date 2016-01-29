@@ -324,6 +324,12 @@
                         </div>
                     </div>
                     <% } %>
+                    <% if (bookingAmt > 0 && isDealerAssitance)
+                           { %>
+                            <div class="grid-12 alpha omega margin-bottom20">
+                                <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
+                            </div>
+                        <%} %>
                 </div>
                 <% } %>
                 <% if (!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
@@ -386,17 +392,24 @@
                     <div class="show padding-top10">
                         <% if (modelPage.ModelDetails.New)
                            {   %>
-                        <% if (bookingAmt > 0)
+                        <% if (bookingAmt > 0 && !isDealerAssitance)
                            { %>
-                        <div class="grid-5 omega">
-                            <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
-                        </div>
+                            <div class="grid-5 omega">
+                                <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
+                            </div>
                         <%} %>
 
                         <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
                            { %>
-                        <div class="grid-<%=btMoreDtlsSize %>">
-                            <input type="button" value="Get more details" class="btn btn-orange btn-full-width btn-sm margin-right10 leftfloat" id="getMoreDetailsBtn" />
+                        <div class="grid-<%=btMoreDtlsSize %> ">
+                            <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat <%= (isDealerAssitance && bookingAmt > 0) ? "btn-grey" : "btn-orange"   %>" id="getMoreDetailsBtn" />
+                        </div>
+                        <%} %>
+
+                        <% if (bookingAmt > 0 && isDealerAssitance)
+                           { %>
+                        <div class="grid-5 alpha omega">
+                            <a class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="fa fa-phone margin-right5"></span>Call dealer</a>
                         </div>
                         <%} %>
 
