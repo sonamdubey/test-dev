@@ -46,16 +46,16 @@
                 </a>
             </li>
             <li>
-                <a href="/pricequote/rsaofferclaim.aspx">
-                    <span class="bwsprite claim-offer-icon opacity60"></span>
-                    <span class="navbarTitle">Claim Your Offer</span>
+                <a href="javascript:void(0)">
+                    <span class="bwsprite newBikes-icon"></span>
+                    <span class="navbarTitle">Bike Booking</span>
+                    <span class="nav-drop fa fa-angle-down"></span>
                 </a>
-            </li>
-            <li>
-                <a href="/bikebooking/cancellation.aspx">
-                    <span class="bwsprite cancellation-icon opacity60"></span>
-                    <span class="navbarTitle">Cancel Your Booking</span>
-                </a>
+                <ul class="nestedUL">
+                    <li><a  href="/bikebooking/default.aspx">Book Your Bike</a></li>
+                    <li><a  href="/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
+                    <li><a href="/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
+                </ul>
             </li>
             <li>
                 <a href="javascript:void(0)">
