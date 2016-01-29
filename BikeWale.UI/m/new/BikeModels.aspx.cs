@@ -107,6 +107,7 @@ namespace Bikewale.Mobile.New
             Trace.Warn("Trace 4 : ParseQueryString End");
             Trace.Warn("Trace 5 : CheckCityCookie Start");
             CheckCityCookie();
+            SetFlags();
             Trace.Warn("Trace 6 : CheckCityCookie End");
             if (hdnVariant.Value != "0")
                 variantId = Convert.ToInt32(hdnVariant.Value);
@@ -170,7 +171,6 @@ namespace Bikewale.Mobile.New
                 }
             }
             ctrlUsersTestimonials.TopCount = 6;
-            SetFlags();
             if (modelPage!=null && modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
             ToggleOfferDiv();
@@ -914,17 +914,12 @@ namespace Bikewale.Mobile.New
                     {
                         isOnRoadPrice = true;
                     }
-                    //else // Is area available and Not selected
-                    //{
-
-                    //}
                 }
                 else
                 {
                     isOnRoadPrice = true;
                 }
             }
-
             // if city and area is not selected OR if city is selected & area is available but not selected
             if ((!isCitySelected && !isAreaSelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
             {
