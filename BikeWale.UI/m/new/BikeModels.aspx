@@ -268,7 +268,7 @@
                                 <%if (isBookingAvailable && bookingAmt > 0)
                                   { %>
                                 <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite offers-icon"></span>
-                                    Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike and get:
+                                    Pay <span class="fa fa-rupee"></span> <%=bookingAmt %> to book your bike and get:
                                 </h4>
                                 <%    } %>
                                 <% if (isOfferAvailable)
