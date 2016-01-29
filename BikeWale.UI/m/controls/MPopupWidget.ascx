@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="Bikewale.Mobile.controls.MPopupWidget" %>
 <script type="text/javascript">
     var sourceHref = '0';
+    var cityClicked = false;
+    var areaClicked = false;
 </script>
 <!--bw popup code starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
@@ -92,6 +94,35 @@
         };
     }(this));
 
+    $('#popupWrapper .close-btn,.blackOut-window').click(function () {
+        $('.bw-city-popup').fadeOut(100);
+        $('body').removeClass('lock-browser-scroll');
+        $(".blackOut-window").hide();
+        $('a.fillPopupData').removeClass('ui-btn-active');
+    });
+
+    $('body').on("click", "a.fillPopupData", function (e) {
+        e.stopPropagation();
+        $("#errMsgPopUp").empty();
+        var str = $(this).attr('modelId');
+        var pageIdAttr = $(this).attr('pagecatid');
+        PQSourceId = $(this).attr('pqSourceId');
+        var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
+        var modelIdPopup = parseInt(str, 10);
+        gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);
+        MPopupViewModel.MakeName = makeName;
+        MPopupViewModel.ModelName = modelName;
+        MPopupViewModel.PageCatId = pageIdAttr;
+        selectedModel = modelIdPopup;
+        isModelPage = $(this).attr('ismodel');
+
+        MPopupViewModel.SelectedModelId(selectedModel);
+
+        $('#popupWrapper').fadeIn(10);
+        appendHash("onRoadPrice");
+    });
+
+
     var mPopup = function () {
         var self = this;
         self.MakeName = "";
@@ -156,7 +187,7 @@
             }
         });
 
-        self.selectCity = function (data, event) {           
+        self.selectCity = function (data, event) {
             $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
             if (!self.oBrowser()) {
                 self.SelectedCity(data);
@@ -208,23 +239,21 @@
                                 } else {
                                     $("#areaSelection div.selected-area").text("No areas available");
                                 }
-                                //$("#areaSelection").click();
                                 self.SelectedArea(undefined);
                                 self.SelectedAreaId(0);
-                                //$(".bwm-city-area-popup-wrapper .back-arrow-box").click();
                             }
 
                             if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0 && onCookieObj.PQAreaSelectedId > 0) {
-                                //MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
                                 if (!self.oBrowser()) {
                                     $("ul#popupAreaList li[areaId='" + onCookieObj.PQAreaSelectedId + "']").click();
                                 }
                                 else {
                                     self.selectArea(self, null);
                                 }
-
                             }
+                           
                         }
+
                     });
                 }
                 else {
@@ -234,6 +263,24 @@
                     self.SelectedAreaId(0);
                 }
             }
+
+            ev = $._data($('ul#popupCityList')[0], 'events');
+            if (!(ev && ev.click)) {
+                $('ul#popupCityList').on('click','li', function (e) {
+                    if (ga_pg_id != null && ga_pg_id == 2 && cityClicked == false) {
+                        var actText = '';
+                        if (self.SelectedCity().hasAreas) {
+                            actText = 'City_Selected_Has_Area';
+                        }
+                        else {
+                            actText = 'City_Selected_Doesnt_Have_Area';
+                        }
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().cityName });
+                        cityClicked = true;
+                    }
+                });
+            }
+        
         }
 
         self.selectArea = function (data, event) {
@@ -244,6 +291,10 @@
             }
             else {
                 self.SelectedArea(findAreaById(self.SelectedAreaId()));
+            }
+            if (ga_pg_id != null && ga_pg_id == 2 && areaClicked == false) {
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().cityName + '_' + self.SelectedArea().areaName });
+                areaClicked = true;
             }
         };
 
@@ -289,11 +340,21 @@
             SetCookieInDays("location", cookieValue, 365);
 
             if (self.verifyDetails()) {
-
                 if (isModelPage && ga_pg_id != null && ga_pg_id == 2) {
+                    try {
+                        var selArea = '';
+                        if (self.SelectedArea() != undefined) {
+                            selArea = '_' + self.SelectedArea().areaName;
+                        }
+                        bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().cityName + selArea;
+                        if (bikeVersionLocation != null) {
+                            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_On_Road_Price_Selected', 'lab': bikeVersionLocation });
+                        }
+                    }
+                    catch (err) { }
                     window.location.reload();
-                }
 
+                }
                 else {
                     var obj = {
                         'CityId': self.SelectedCityId(),
@@ -342,6 +403,7 @@
                                 gtmCodeAppender(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                                 $("#errMsgPopup").text("Oops. We do not seem to have pricing for given details.").show();
                             }
+                            //window.history.back();
                         },
                         error: function (e) {
                             $("#errMsg").text("Oops. Some error occured. Please try again.").show();
@@ -357,50 +419,7 @@
 
     };
 
-
-    $(document).ready(function () {
-        $('#popupWrapper .close-btn,.blackOut-window').click(function () {
-            $('.bw-city-popup').fadeOut(100);
-            $('body').removeClass('lock-browser-scroll');
-            $(".blackOut-window").hide();
-            $('a.fillPopupData').removeClass('ui-btn-active');
-        });
-
-        $('body').on("click", "a.fillPopupData", function (e) {
-            e.stopPropagation();
-            $("#errMsgPopUp").empty();
-            var str = $(this).attr('modelId');
-            var pageIdAttr = $(this).attr('pagecatid');
-            PQSourceId = $(this).attr('pqSourceId');
-            var makeName = $(this).attr('makeName'), modelName = $(this).attr('modelName');
-            var modelIdPopup = parseInt(str, 10);
-            gtmCodeAppender(pageIdAttr, "Get_On_Road_Price_Click", modelName);
-            MPopupViewModel.MakeName = makeName;
-            MPopupViewModel.ModelName = modelName;
-            MPopupViewModel.PageCatId = pageIdAttr;
-            selectedModel = modelIdPopup;
-            isModelPage = $(this).attr('ismodel');
-
-            //checkCookies();
-            //if(onCookieObj!=null && onCookieObj.PQCitySelectedId > 0)
-            //{
-            //    MPopupViewModel.SelectedCity(ko.toJS({ 'cityId': onCookieObj.PQCitySelectedId, 'cityName': onCookieObj.PQCitySelectedName }));
-            //    MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
-
-            //    if(onCookieObj.PQSelectedId > 0)
-            //    {
-            //        MPopupViewModel.SelectedArea(ko.toJS({ 'areaId': onCookieObj.PQAreaSelectedId, 'areaName': onCookieObj.PQAreaSelectedName }));
-            //        MPopupViewModel.SelectedAreaId(onCookieObj.PQAreaSelectedId);
-            //    }
-            //}      
-
-            MPopupViewModel.SelectedModelId(selectedModel);
-
-            $('#popupWrapper').fadeIn(10);
-            appendHash("onRoadPrice");
-        });
-
-    });
+    
 
     function gtmCodeAppender(pageId, action, label) {
         var categoty = '';
@@ -452,8 +471,9 @@
         }
     }
 
+   
+
     MPopupViewModel = new mPopup;
     ko.applyBindings(MPopupViewModel, $("#popupWrapper")[0]);
-
 
 </script>

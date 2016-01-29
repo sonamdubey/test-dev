@@ -23,7 +23,7 @@
             <div class="clear"></div>
         </div>
         <div class="locate-dealer-btn">
-            <button id="btnLocateDealer" class="font18 btn btn-orange btn-lg rounded-corner-no-left" data-bind="event: { click: btnLocateDealer_click }">Locate dealer</button>
+            <button id="btnLocateDealer" class="font16 btn btn-orange btn-lg rounded-corner-no-left" data-bind="event: { click: btnLocateDealer_click }">Locate dealer</button>
         </div>
 
         <div class="clear"></div>

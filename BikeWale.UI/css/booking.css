@@ -7,7 +7,7 @@
 .booking-tabs-image span { margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
 
 /* booking sprite */
-.booking-flow-sprite { background: url('http://img.aeplcdn.com/bikewaleimg/images/booking-flow-sprite.png?v1=30122015') no-repeat; display: inline-block; }
+.booking-flow-sprite { background: url('http://img.aeplcdn.com/bikewaleimg/images/booking-flow-sprite.png?v1=27012016v1') no-repeat; display: inline-block; }
 .summary-icon-selected, .personal-details-icon-selected, .payment-icon-selected { width:42px; height:42px; }
 .personal-details-icon-selected { background-position: 0 0; }
 .summary-icon-selected { background-position: 0 -52px; }
@@ -40,7 +40,7 @@
 
 .colour-dropdown .select-dropdown { padding:4px 10px 4px 5px; }
 .colour-dropdown .select-btn { width:137px; }
-.colour-dropdown .select-color-box { width:22px; height:22px; background:#f00;border-radius:4px;border:1px#ccc solid #ccc; display:inline-block; *display: inline;
+.colour-dropdown .select-color-box { width:22px; height:22px; background:#eee;border-radius:4px;border:1px solid #ccc; display:inline-block; *display: inline;
 zoom: 1; vertical-align:middle; margin-right:7px; }
 .colour-dropdown .select-dropdown-list li { overflow:hidden; padding:4px 5px;border-bottom:1px solid #e2e2e2 }
 .colour-dropdown .select-dropdown-list li p { width:80%; padding:0; display:inline-block; *display: inline;
@@ -103,3 +103,22 @@ zoom: 1; vertical-align:middle; }
 
 li.offertxt span { display:none }  
 li.offertxt:hover span {display:inline}
+
+#testimonialWrapper .jcarousel { width:934px; overflow:hidden; left:20px; padding:20px 0; }
+#testimonialWrapper .jcarousel li { width:298px; height:180px; margin-right: 20px; padding:0 10px; text-align:center; }
+#testimonialWrapper li .testimonial-image-container { width:60px; height:60px; background:#fff; margin:0 auto; border:1px solid #ccc; }
+#testimonialWrapper li .testimonial-user-image { width:54px; height:54px; overflow:hidden; margin:2px auto; border:1px solid #666; }
+#testimonialWrapper li .testimonial-user-image img { width:100%; }
+#testimonialWrapper li .testimonial-user-stmt { height:66px; overflow:hidden; }
+
+.select-color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; }
+
+.select-color-box.color-count-two span { width:100%; height:40%; display:block !important; background:#eee; }
+.select-color-box.color-count-two span:first-child { width:100%; height:60%; background:#545454; }
+
+.select-color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
+.select-color-box.color-count-three span:nth-child(1) { background:#eee; }
+.select-color-box.color-count-three span:nth-child(2) { background:#eee; }
+.select-color-box.color-count-three span:nth-child(3) { background:#eee; }
+
+#customizeBike ul.select-colorUL li.selected-color span.select-color-box.color-count-two + span.color-title-box { top:-37px; }

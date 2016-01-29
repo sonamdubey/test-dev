@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="<%= !String.IsNullOrEmpty(staticUrlPath) ? "http://st2.aeplcdn.com" + staticUrlPath : "" %>/m/css/jquery.mobile-1.4.2.min.css?v=2.0" />
 <link rel="stylesheet" href="/m/css/style.css?<%= staticFilesVersion%>" />
 <link rel="stylesheet"  href="/m/css/design.css?<%= staticFilesVersion%>" />
+<link href="/m/css/bwm-common-style.css?<%= staticFileVersion %>" rel="stylesheet" />
 <script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrlPath) ? "http://st2.aeplcdn.com" + staticUrlPath : "" %>/m/src/jquery-1.10.2.min.js?v=1.0"></script>
 <script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrlPath) ? "http://st2.aeplcdn.com" + staticUrlPath : "" %>/m/src/index.js?v=1.0"></script>
 <script type="text/javascript" src="<%= !String.IsNullOrEmpty(staticUrlPath) ? "http://st2.aeplcdn.com" + staticUrlPath : "" %>/m/src/jquery.mobile-1.4.2.min.js?v=1.0"></script>

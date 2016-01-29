@@ -52,6 +52,12 @@
                 </a>
             </li>
             <li>
+                <a href="/bikebooking/cancellation.aspx">
+                    <span class="bwsprite cancellation-icon opacity60"></span>
+                    <span class="navbarTitle">Cancel Your Booking</span>
+                </a>
+            </li>
+            <li>
                 <a href="javascript:void(0)">
                     <span class="bwsprite reviews-icon"></span>
                     <span class="navbarTitle">Reviews and News</span>

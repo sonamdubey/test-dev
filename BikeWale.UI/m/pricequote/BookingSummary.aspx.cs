@@ -80,13 +80,17 @@ namespace Bikewale.Mobile.BikeBooking
                     RequestToPGUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/RedirectToBillDesk.aspx",
 
                     //sourceid = 2 to redirect response on mobile site 
-                    ReturnUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/billdeskresponse.aspx?sourceId=2"
+                    ReturnUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/billdeskresponse.aspx?sourceId=2&"
+                        + "MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString)
                 };
                 //PGCookie.PGAmount = transaction.Amount.ToString();
                 PGCookie.PGCarId = transaction.PGId.ToString();
-                //PGCookie.PGPkgId = transaction.PackageId.ToString();
-                //PGCookie.PGRespCode = "";
-                //PGCookie.PGMessage = "";
+                
+                //Modified By : Sadhana Upadhyay on 22 Jan 2016 
+                //Added Logic to save Bike Booking Cookie 
+                BikeBookingCookie.SaveBBCookie(PriceQuoteQueryString.CityId, PriceQuoteQueryString.PQId, PriceQuoteQueryString.AreaId,
+                    PriceQuoteQueryString.VersionId, PriceQuoteQueryString.DealerId);
+                
 
                 IUnityContainer container = new UnityContainer();
                 container.RegisterType<ITransaction, Transaction>()

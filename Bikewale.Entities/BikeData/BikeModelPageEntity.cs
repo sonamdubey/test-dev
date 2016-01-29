@@ -24,7 +24,7 @@ namespace Bikewale.Entities.BikeData
         public BikeSpecificationEntity ModelVersionSpecs { get; set; }
 
 
-        public IEnumerable<BikeModelColor> ModelColors { get; set; }
+        public IEnumerable<NewBikeModelColor> ModelColors { get; set; }
 
 
         public UpcomingBikeEntity UpcomingBike { get; set; }
@@ -39,6 +39,6 @@ namespace Bikewale.Entities.BikeData
         public Features objFeatures { get; set; }
 
 
-        public Specifications objSpecs { get; set; }
+        public Specifications objSpecs { get; set; } 
     }
 }

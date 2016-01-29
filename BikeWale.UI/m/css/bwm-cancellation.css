@@ -1,0 +1,67 @@
+﻿@charset "utf-8";
+/* CSS Document */
+.booking-cancel-banner { background: #161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/insurance-banner.jpg) no-repeat scroll left bottom / cover ; height: 130px; }
+
+/* booking cancellation sprite */
+.cancellation-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/cancel-booking-sprite.png) no-repeat; display: inline-block; }
+.cancellation-tick-blue, .user-details-icon-selected, .cancellation-icon-selected, .confirmation-icon-selected, .cancellation-icon-grey, .confirmation-icon-grey { width:41px; height:41px; }
+.cancellation-tick-blue { background-position: -49px 0;}
+.user-details-icon-selected { background-position: 0 0;}
+.cancellation-icon-selected { background-position: 0 -49px;}
+.confirmation-icon-selected { background-position: 0 -100px;}
+.cancellation-icon-grey { background-position: -49px -49px;}
+.confirmation-icon-grey { background-position: -49px -100px;}
+
+.cancellation-tabs ul{ display:table; margin:0 auto 20px; width: 300px; overflow: hidden; }
+.cancellation-tabs ul li { float:left; width:100px; height:42px; background:#fff; text-align:center; position:relative; }
+.cancellation-tabs ul li:before, .cancellation-tabs ul li:after{content:''; height:1px; position:absolute; z-index:0; background:#e2e2e2; width:50%;  top:0; bottom:0; margin:auto;}
+.cancellation-tabs ul li:before {left:0;}
+.cancellation-tabs ul li:after {right:0;}
+
+.cancellation-tabs ul li.first:before{display:none;}
+.cancellation-tabs ul li.last:after{display:none;}
+
+.bike-cancel-part { width:100%; height:42px; display:inline-block; cursor: pointer;}
+.bike-cancel-title {  width:200px; height:20px; display:inline-block; margin-bottom:10px;}
+.bike-cancel-image { width:100%;  height:42px; position:relative; }
+.bike-cancel-image span {  margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; z-index:1;  }
+
+.border-light-bottom { border-bottom:1px solid #e2e2e2; }
+.disabled-tab { cursor: not-allowed !important;}
+.text-default { color:#4d5057; }
+textarea { width:100%; height:135px; resize: none; border-color:#e2e2e2; padding:20px; font-size:14px; color:#82888b; font-family:inherit; border:1px solid #e2e2e2; }
+
+#processResponse .grid-12 { padding:10px 0 15px; display:table; width:100%; }
+#processResponse .process-icon-container { width:130px; }
+#processResponse .process-text-container { padding-right:25px; }
+#processResponse .process-icon-container, #processResponse .process-text-container { display:table-cell; vertical-align:middle; }
+
+#userBikeDetails .errorIcon, #userBikeDetails .errorText { display:none; }
+.mobile-prefix { position: absolute; top:0; left:0; padding: 11px 13px 13px; color: #999; z-index:2; }
+
+#processResponse { display:none; }
+#cancellationStepsWrapper .grid-12 { padding:30px 20px 10px; }
+#cancellationPolicyContent .grid-12 { padding:20px; }
+
+.otp-icon { width:30px; height:40px; background-position: -107px -177px; }
+.edit-blue-icon { width:16px; height:16px; background-position: -114px -123px; }
+
+.bwm-fullscreen-popup {	display:none; }
+.inline-block { display:inline-block; vertical-align:middle; }
+
+#otpPopup .errorIcon, #otpPopup .errorText { display:none; }
+#otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; }
+#otpPopup .update-mobile-box, #otpPopup .otp-notify-text { display:none; }
+#otpPopup .edit-mobile-btn { cursor:pointer; }
+
+.icon-outer-container { width:80px; height:80px; margin:0 auto; background:#fff; border:1px solid #ccc; }
+.icon-inner-container { width:72px; height:72px; margin:3px auto; background:#fff; border:1px solid #666; }
+
+.cancel-policy-sm-icon { width:12px; height:16px; background-position:-34px -396px; }
+.cancel-policy-lg-icon { width:24px; height:32px; background-position:0px -396px; }
+
+#cancellationPolicyContent ul { margin-left: 20px; list-style:disc; color:#82888b; }
+#cancellationPolicyContent ul li { padding-top:15px; font-size:14px; }
+
+.call-text-green {border: 1px solid #00b16a;padding: 5px 10px; width:100%; display:block}
+.text-green { color: #00b16a; }

@@ -68,7 +68,7 @@ input:-ms-input-placeholder, .ui-autocomplete-input { color: #a8afb3; font-size:
 }
 .form-control:focus { border-color: #66afe9; outline: 0; -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
 	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6); }
-select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(http://img.aeplcdn.com/bikewaleimg/images/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
+select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background:#fff url(http://img.aeplcdn.com/bikewaleimg/images/dropArrowBg.png?v1=27012016v1) no-repeat 96% 50%; padding-right: 30px; background: #fff\0; padding-right: 5px\0; }
 
 .input-xs { padding: 5px 10px; }
 .input-sm { padding: 8px 10px; }
@@ -118,12 +118,14 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .home-getFinalPrice-banner { background-color:#cbcbcb; background-size: cover; height: 490px; }
 
 /* global-search classes */
-.global-search { width: 240px; position: relative; float: left; margin-right: 30px; }
+.global-search { width: 420px; position: relative; float: left; margin-right: 30px; }
 .global-search span.search-icon-grey { position: absolute; right: 10px; top: 5px; cursor: pointer; }
 .global-search input[type="text"], #globalCity-input input[type="text"] { width: 100%; padding: 7px 5px; border: none; outline: none; }
 .global-location { position: relative; float: left; color: #fff; margin-right: 20px; }
 .gl-default-stage { border: 1px solid #acaba7; padding: 4px 10px; cursor: pointer; }
 .gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
+
+#errNewBikeSearch.ui-autocomplete { width:470px;position:absolute;top:40px;left:3px; color:#4d5057;text-align: left; }
 
 /* city popup classes */
 .globalcity-popup { width:450px; min-height:320px; background: #fff; margin: 0 auto; overflow-y: auto; position: fixed; top: 15%; right: 5%; left:5%; z-index: 10; }
@@ -168,11 +170,11 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .bw-tabs-inner-margin40 ul { margin-bottom: 40px; }
 
 .bike-search-container { margin: 0 auto; width: 585px; }
-.bike-search { width: 470px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; border-radius: 2px 0 0 2px; height: 46px; }
-.new-bike-search input[type="text"] { width: 100%; padding: 13px 10px; }
+.bike-search { width: 470px; float: left; background: #fff; border: 1px solid #cccccc; border-right: 0; border-radius: 2px 0 0 2px; height: 40px; }
+.new-bike-search input[type="text"] { width: 100%; padding: 11px 10px; }
 .used-budget-box { width: 206px; float:left; color: #a8afb3; position: relative; }
 .findBtn { float:left; }
-.findBtn .btn-md { padding: 11px 20px 8px 20px; border-radius: 0 2px 2px 0; }
+.findBtn .btn-md { padding: 8px 20px; border-radius: 0 2px 2px 0; }
 .compare-list-home li {padding-bottom: 25px; text-align: center; }
 
 /* news, review and videos section on home page classes */
@@ -183,7 +185,7 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 
 @-moz-document url-prefix() {
     .findBtn .btn-md {
-        padding: 8px 20px 8px;
+        padding: 7px 20px 7px;
     }
 
     .viewBtn .btn-xs {
@@ -191,13 +193,16 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
     }
 
     .btn-lg {
-        padding: 7px 20px 8px;
+        padding: 7px 20px 7px;
     }
 
     .new-bike-search input[type="text"] {
-        padding:12px 10px 13px;
+        padding:10px 10px 11px;
     }
 }
+
+noindex:-o-prefocus, .findBtn .btn-md { padding: 10px 20px; }
+
 /* footer classes */
 footer ul li { display: block; }
 footer ul li a { display: block; color: #cfcfcf; padding: 10px 0; font-size: 16px; }
@@ -210,6 +215,10 @@ footer ul li a:hover { text-decoration: underline; }
 .ui-menu .ui-menu-item { padding: 10px; background:#fff; font-size:14px; cursor:pointer; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus { background:#eee; }
 .ui-menu .ui-menu-item a { color: #333; }
+.ui-menu .ui-menu-item a.target-popup-link { display:none; float:right; color:#0288d1; font-size:13px; }
+.ui-menu .ui-menu-item:hover a.target-popup-link,.ui-menu .ui-menu-item.ui-state-focus a.target-popup-link { display:block; }
+.ui-menu .ui-menu-item span.upcoming-link { float:right; color:#4d5057; font-size:13px; }
+
 
 /* Carousel */
 .jcarousel-wrapper { position: relative; width: 976px; }
@@ -220,10 +229,10 @@ footer ul li a:hover { text-decoration: underline; }
 .used-bike-carousel li {height:320px}
 .compareCarsHomePage li { width: 976px; }
 .jcarousel-pagination a { 
-	text-decoration: none; display: inline-block; height: 13px; width: 13px; line-height: 10px; background: #f8f6f6; border: 1px solid #ebebea;
-	border-radius: 15px; text-indent: -9999px; margin: 5px; cursor: pointer; }
-.jcarousel-pagination a:hover { background: #d9d9d9;  }
-.jcarousel-pagination a.active { background: #d9d9d9; cursor: default; border: 1px solid #cccccc; }
+	text-decoration: none; display: inline-block; height: 10px; width: 10px; line-height: 10px; background: #eeeff0; border: 1px solid #ebebea;
+	border-radius: 15px; text-indent: -9999px; margin: 5px 10px; cursor: pointer; }
+.jcarousel-pagination a:hover { background: #82888b;  }
+.jcarousel-pagination a.active { background: #82888b; cursor: default; border: 1px solid #cccccc; }
 
 .cardWrapper { width:100%; height:100%; overflow:hidden; display:inline-block; }
 
@@ -299,7 +308,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 
 /* sprite classes */
-.bwsprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/bwsprite.png?v1=12012016) no-repeat; display: inline-block; }
+.bwsprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/bwsprite.png?v1=27012016v1) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(http://img.aeplcdn.com/bikewaleimg/images/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -353,11 +362,13 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .myBikeWale-icon { background-position: 0 -277px; top: 6px; }
 .insurance-icon { background-position: 0 -214px; }
 .claim-offer-icon { width:26px; height:26px; position:relative; margin-right:10px; top:8px; }
+.cancellation-icon { width:26px; height:26px; position:relative; margin-right:10px; top:8px; }
 .inquiry-icon {  width:24px; height:23px; position:relative; top:3px; }
 .newsletter-icon { width:24px; height:22px; position:relative; top:3px;}
 .claim-offer-icon { background-position: -183px -160px; }
 .inquiry-icon { background-position: -183px -191px;}
 .newsletter-icon { background-position: -183px -225px; }
+.cancellation-icon { background-position: -187px -118px; }
 
 .cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey, .popup-close-btn { width: 16px; height: 16px; }
 .cross-lg-white { background-position: -36px -200px; }

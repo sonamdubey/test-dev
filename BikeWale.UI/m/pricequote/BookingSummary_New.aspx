@@ -1,5 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.PriceQuote.BookingSummary_New" %>
 
+<%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!doctype html>
 <html>
 <head>
@@ -92,7 +93,9 @@
                                     <div class="colour-dropdown">
                                         <div class="select-dropdown rounded-corner2">
                                             <div class="colour-selected-box">
-                                                <span class="leftfloat select-color-box rounded-corner2" data-bind="style:{'background-color':('#'+selectedColor().HexCode[0])}"></span>
+                                                <span class="leftfloat select-color-box rounded-corner2 " data-bind="foreach : selectedColor().HexCode , css : (selectedColor().HexCode.length >= 3)? 'color-count-three': (selectedColor().HexCode.length ==2)?'color-count-two':'color-count-one' ">
+                                                    <span data-bind="style: { 'background-color': '#' + $data }"></span>
+                                                </span>
                                                 <span class="leftfloat select-btn font14" data-bind="text:selectedColor().ColorName"></span>
                                                 <span class="clear"></span>
                                             </div>
@@ -101,7 +104,9 @@
                                         <div class="select-dropdown-list hide">
                                             <ul data-bind="foreach: versionColors">
                                                 <li class="text-light-grey" colorid="" data-bind="attr: { colorId: $data.Id},click: function() { $parent.getColor($data);$root.ActualSteps(1);}">
-                                                    <span class="select-color-box rounded-corner2" data-bind="style: { 'background-color': '#' + HexCode[0]}"></span>
+                                                    <span class="select-color-box rounded-corner2 " data-bind="foreach : HexCode , css : (HexCode.length >= 3)? 'color-count-three': (HexCode.length ==2)?'color-count-two':'color-count-one' ">
+                                                        <span data-bind="style: { 'background-color': '#' + $data }"></span>
+                                                    </span>
                                                     <p data-bind="text: ColorName"></p>
                                                 </li>
                                             </ul>
@@ -381,6 +386,23 @@
             <div class="lazy booking-how-it-works" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/howItWorks-mobile.png?<%= staticFileVersion %>"></div>
             <div class="clear"></div>
         </section>
+        <% if (ctrlUsersTestimonials.FetchedCount > 0)
+           { %>
+        <section>
+            <div id="testimonialWrapper" class="container margin-bottom10">
+                <h2 class="text-bold text-center margin-bottom20 font24">Testimonials</h2>
+                <div class="swiper-container text-center">
+                    <div class="swiper-wrapper margin-bottom10">
+                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <%
+           }          
+        %>
+
+
         <!-- Terms and condition Popup start -->
         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
             <h3>Terms and Conditions</h3>
@@ -401,7 +423,7 @@
                 <div class="lower-alpha-list">
                     <ol>
                         <li><strong>a. </strong>Cancellation must be requested <strong>within 15 calendar days of booking the vehicle.</strong></li>
-                        <li><strong>b. </strong>Please email your <strong>‘Booking Cancellation Request’</strong> to <a href="mailto:contact@bikewale.com" class="blue-text">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating the <strong>booking reference number, your mobile number and email address (that you used while booking).</strong></li>
+                        <li><strong>b. </strong>Cancellation & Refund PolicyYou can conveniently place your cancellation request at BikeWale <a href="/m/bikebooking/cancellation.aspx" target="_blank" >Cancellation Section</a> in 2 simple steps. You can also reach the cancellation section from the navigation menu on the top left corner.</li>
                         <li><strong>c. Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
                         <li><strong>d. </strong>If the dealer has initiated the procurement of the bike upon customer’s booking, cancellation will not be possible.</li>
                         <li><strong>e. </strong>For all valid requests, we will process the refund of full booking amount to customer’s account within 7 working days.</li>
@@ -411,7 +433,7 @@
         </div>
         <!--Cancellation & refund policy popup ends here-->
         <section>
-            <div class="container margin-top10 margin-bottom30">
+            <div class="container margin-bottom30">
                 <div id="faqSlug">
                     <div class="faq-slug-container content-box-shadow content-inner-block-20">
                         <div class="question-icon-container text-center leftfloat">
@@ -423,8 +445,10 @@
                         </div>
                         <div class="question-text-container leftfloat padding-left15">
                             <p class="question-title font16 text-bold text-black">Questions?</p>
-                            <p class="question-subtitle text-light-grey font14">We’re here to help.<br />
-                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a></p>
+                            <p class="question-subtitle text-light-grey font14">
+                                We’re here to help.<br />
+                                Read our <a href="/m/faq.aspx" target="_blank">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-dark-grey">1800 120 8300</a>
+                            </p>
                         </div>
                         <div class="clear"></div>
                     </div>

@@ -11,6 +11,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using System.Linq;
 
 namespace Bikewale.Service.Controllers.PriceQuote.City
 {
@@ -18,14 +19,17 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
     /// Price Quote City Controller
     /// Author : Sumit Kate
     /// Created On : 20 Aug 2015
+    /// Modified by :   Sumit Kate on 25 Jan 2016
+    /// Description :   Get the PQ Cities from Cache Repository
     /// </summary>
     public class PQCityListController : ApiController
     {
         private readonly ICity _cityRepository = null;
-
-        public PQCityListController(ICity cityRepository)
+        private readonly ICityCacheRepository _cityCache = null;
+        public PQCityListController(ICity cityRepository, ICityCacheRepository cityCache)
         {
             _cityRepository = cityRepository;
+            _cityCache = cityCache;
         }
         /// <summary>
         /// Returns the Price Quote City List by Model Id
@@ -35,19 +39,18 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
         [ResponseType(typeof(PQCityList))]
         public IHttpActionResult Get(uint modelId)
         {
-            List<CityEntityBase> objCityList = null;
+            IEnumerable<CityEntityBase> objCityList = null;
             PQCityList objDTOCityList = null;
             try
             {
-                objCityList = _cityRepository.GetPriceQuoteCities(modelId);
+                objCityList = _cityCache.GetPriceQuoteCities(modelId);
 
-                if (objCityList != null && objCityList.Count > 0)
+                if (objCityList != null && objCityList.Count() > 0)
                 {
                     // Auto map the properties
                     objDTOCityList = new PQCityList();
                     objDTOCityList.Cities = PQCityListMapper.Convert(objCityList);
-
-                    objCityList.Clear();
+                    
                     objCityList = null;
 
                     return Ok(objDTOCityList);

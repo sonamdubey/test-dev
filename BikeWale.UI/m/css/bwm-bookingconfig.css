@@ -1,7 +1,7 @@
 ﻿@charset "utf-8";
 /* CSS Document */
 /* booking sprite */
-.booking-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?v=22122015) no-repeat; display: inline-block; }
+.booking-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?v=27012016v1) no-repeat; display: inline-block; }
 .booking-sprite, .booking-sprite + span.iconTtl{display:inline-block; vertical-align:middle;}
 .booking-tick-blue, .personalInfo-icon-grey, .customize-icon-grey, .confirmation-icon-grey,.finance-icon-grey { width:42px; height:42px; }
 .booking-tick-blue { background-position: -86px 0;}
@@ -41,7 +41,9 @@
 /* customizeBike */
 /* select-version-container */
 #customizeBike .select-version-container li,
-#customizeBike .select-color-container li { display:block; vertical-align:top; width:100%; height:32px; margin:0 0 10px; }
+#customizeBike .select-color-container li { display:block; vertical-align:top; width:100%; margin:0 0 10px; }
+#customizeBike .select-version-container li { height:32px; }
+#customizeBike .select-color-container li { height:56px; }
 #customizeBike .version-featureUL li { float:left; position:relative; width:50%; margin:10px 0; height:auto; max-width: 160px; vertical-align:middle;}
 #customizeBike ul.select-versionUL span,
 #financeDetails ul.select-financeUL span { display: inline-block; vertical-align: middle; font-size:14px; line-height:30px; }
@@ -51,13 +53,14 @@
 #customizeBike ul.select-versionUL li,
 #customizeBike ul.select-colorUL li,
 #financeDetails ul.select-financeUL li { cursor: pointer; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
-#customizeBike ul.select-colorUL li { padding:5px; }
+#customizeBike ul.select-colorUL li { padding:10px; }
 #customizeBike ul.select-colorUL span { display: inline-block; vertical-align: top; font-size:14px; }
-#customizeBike ul.select-colorUL span.color-title-box { height:22px; padding-left:10px; overflow:hidden; }
-#customizeBike ul.select-colorUL span.color-box { width:22px; height:22px; background:#ccc; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
-
+#customizeBike ul.select-colorUL span.color-title-box { height:20px; padding-left:10px; overflow:hidden; position: relative; top: -3px; }
+#customizeBike ul.select-colorUL span.color-box { width:34px; height:34px; background:#ccc; border: 1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; }
+#customizeBike ul.select-colorUL span.color-availability-box { position:relative; left:48px; top:-16px; }
+#customizeBike ul.select-colorUL span.color-availability-box span { font-size:12px;  }
 #customizeBike ul.select-colorUL li.selected-color span.color-box { width: 100%; transition: width 0.3s; }
-#customizeBike ul.select-colorUL li.selected-color span.color-title-box { width:100%; position:relative; left:0; top:-22px; text-align:center; padding-left:0; transition:display; overflow:hidden; white-space:nowrap; text-overflow: ellipsis; opacity:0.8;}
+#customizeBike ul.select-colorUL li.selected-color span.color-title-box { width:100%; position:relative; left:0; top:-27px; text-align:center; padding-left:0; transition:display; overflow:hidden; white-space:nowrap; text-overflow: ellipsis; opacity:0.8;}
 
 .viewBreakupText { cursor: pointer; color: #0288d1; margin-left:5px; }
 .radio-btn-checked, .radio-btn-unchecked { width: 18px; height: 18px; }
@@ -67,10 +70,10 @@
 .pos-top3 { top:3px;}
 
 /*sample code*/
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(1) span.color-box { background-color:#e34f4f; }
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(2) span.color-box { background-color:#4f9fe3; }
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(3) span.color-box { background-color:#080808; }
-#customizeBike .select-color-container ul.select-colorUL li:nth-child(4) span.color-box { background-color:#6e6e6e; }
+#customizeBike .select-color-container ul.select-colorUL li:nth-child(1) span.color-box { background-color:#eee; }
+#customizeBike .select-color-container ul.select-colorUL li:nth-child(2) span.color-box { background-color:#eee; }
+#customizeBike .select-color-container ul.select-colorUL li:nth-child(3) span.color-box { background-color:#eee; }
+#customizeBike .select-color-container ul.select-colorUL li:nth-child(4) span.color-box { background-color:#eee; }
 
 /* finance-details */
 #financeDetails ul.select-financeUL li { height:32px; margin:15px 0 8px 0; }
@@ -93,7 +96,7 @@
 .ui-slider .ui-slider-range { border: none; display: block; font-size: 0.7em; position: absolute; z-index: 1; border-radius: 0px; }
 .ui-widget-header { background: #565a5c; height: 6px; }
 .ui-slider { position: relative; text-align: left; }
-.ui-slider .ui-slider-handle { background: url(http://img1.aeplcdn.com/bikewaleimg/m/images/slider-sprite.png?v=22122015) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
+.ui-slider .ui-slider-handle { background: url(http://img1.aeplcdn.com/bikewaleimg/m/images/slider-sprite.png?v=27012016v1) no-repeat; cursor:pointer; height:20px; width:20px; display:block; margin-left: -9px; position: absolute; outline:none; top: -7px; z-index: 2; background-position:0 0; }
 
 .emi-slider-box-right-section { text-align:right; }
 
@@ -108,7 +111,7 @@
 .slider-range-points ul li { float:left; position:relative; }
 .slider-range-points ul.range-pointsUL li { width:14%; }
 .slider-range-points ul.range-pointsUL.month-range li { width:10%;}
-.range-points-bar { background: url(http://img1.aeplcdn.com/bikewaleimg/m/images/slider-sprite.png?v=22122015) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
+.range-points-bar { background: url(http://img1.aeplcdn.com/bikewaleimg/m/images/slider-sprite.png?v=27012016v1) no-repeat; height:5px; width:2px; display:block; z-index: 1; background-position:-30px 0px; }
 .range-points-bar span { position:absolute; top:5px; left:-20px; font-size:11px; }
 .range-points-bar:first-child span { left:0; }
 .tenure-rate-interest .range-points-bar span { left:0px; }
@@ -130,7 +133,7 @@
 
 /* version icons */
 .versionIcon, .versionIcon + span { display:inline-block; vertical-align:middle;}
-.versionIcon { width:34px; height:34px; background:url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?v=22122015) no-repeat;}
+.versionIcon { width:34px; height:34px; background:url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?v=27012016v1) no-repeat;}
 .versionIcon.alloy-wheel { background-position:-131px 0}
 .versionIcon.disc-brake { background-position:-131px -44px}
 .versionIcon.elect-start { background-position:-131px -90px}
@@ -168,3 +171,14 @@
 
 /*li.offertxt span { display:none }  
 li.offertxt:hover span {display:inline}*/
+
+#testimonialWrapper .swiper-slide { height:215px; padding:20px 15px; margin-right:0 !important; }
+#testimonialWrapper .testimonial-image-container { width:60px; height:60px; background:#fff; margin:0 auto; border:1px solid #ccc; }
+#testimonialWrapper .testimonial-user-image { width:54px; height:54px; overflow:hidden; margin:2px auto; border:1px solid #666; }
+#testimonialWrapper li .testimonial-user-image img { width:100%; }
+#testimonialWrapper li .testimonial-user-stmt { height:66px; overflow:hidden; }
+.color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; } 
+.color-box.color-count-two span { width:100%; height:40%; display:block !important; background:#e34f4f; }
+.color-box.color-count-two span:first-child { width:100%; height:60%; background:#545454; } 
+.color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }  
+#customizeBike ul.select-colorUL li.selected-color span.color-box.color-count-two + span.color-title-box { top:-32px; }

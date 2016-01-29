@@ -20,9 +20,14 @@ using System.Web.UI.HtmlControls;
 using Bikewale.Entities.PriceQuote;
 using Bikewale.Utility;
 using Newtonsoft.Json;
+using Bikewale.Controls;
 
 namespace Bikewale.BikeBooking
 {
+    /// <summary>
+    /// Modified by :   Sumit Kate on 19 Jan 2016
+    /// Description :   Added Users Testimonial Control
+    /// </summary>
     public class BookingSummary_New : System.Web.UI.Page
     {
         protected uint dealerId = 0, versionId = 0, cityId = 0, pqId = 0, areaId = 0, versionPrice = 0, bookingAmount = 0, insuranceAmount = 0;
@@ -36,7 +41,7 @@ namespace Bikewale.BikeBooking
         protected BookingPageDetailsEntity objBooking = null;
         protected PQCustomerDetail objCustomer = null;
         protected PQ_DealerDetailEntity dealerDetailEntity = null;
-
+        protected UsersTestimonials ctrlUsersTestimonials;
         protected override void OnInit(EventArgs e)
         {
             this.Load += new EventHandler(Page_Load);
@@ -49,7 +54,7 @@ namespace Bikewale.BikeBooking
         {
             ProcessCookie();
             BindBookingDetails();
-
+            ctrlUsersTestimonials.TopCount = 6;
         }
 
         void btnMakePayment_click(object Sender, EventArgs e)
@@ -347,9 +352,16 @@ namespace Bikewale.BikeBooking
                     PlatformId = 1,  //Desktop
                     ApplicationId = 2, //Carwale
                     RequestToPGUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/RedirectToBillDesk.aspx",
-                    ReturnUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/billdeskresponse.aspx?sourceId=1&" + "MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString)
+                    ReturnUrl = "http://" + HttpContext.Current.Request.ServerVariables["HTTP_HOST"].ToString() + "/bikebooking/billdeskresponse.aspx?sourceId=1&"
+                        + "MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.QueryString)
                 };
                 //PGCookie.PGAmount = transaction.Amount.ToString();
+
+                //Modified By : Sadhana Upadhyay on 22 Jan 2016 
+                //Added Logic to save Bike Booking Cookie 
+                BikeBookingCookie.SaveBBCookie(PriceQuoteQueryString.CityId, PriceQuoteQueryString.PQId, PriceQuoteQueryString.AreaId, 
+                    PriceQuoteQueryString.VersionId, PriceQuoteQueryString.DealerId);
+
                 PGCookie.PGCarId = transaction.PGId.ToString();
 
                 IUnityContainer container = new UnityContainer();
@@ -395,17 +407,27 @@ namespace Bikewale.BikeBooking
         /// </summary>
         private void ProcessCookie()
         {
-            if (PriceQuoteQueryString.IsPQQueryStringExists())
-            {
-                if (UInt32.TryParse(PriceQuoteQueryString.PQId, out pqId) && UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId))
-                {
-                    cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
-                    areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
 
-                    if (dealerId > 0)
+            try
+            {
+                if (PriceQuoteQueryString.IsPQQueryStringExists())
+                {
+                    if (UInt32.TryParse(PriceQuoteQueryString.PQId, out pqId) && UInt32.TryParse(PriceQuoteQueryString.DealerId, out dealerId) && UInt32.TryParse(PriceQuoteQueryString.VersionId, out versionId))
                     {
-                        clientIP = Bikewale.Common.CommonOpn.GetClientIP();
-                        pageUrl = Request.ServerVariables["URL"];
+                        cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
+                        areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
+
+                        if (dealerId > 0)
+                        {
+                            clientIP = Bikewale.Common.CommonOpn.GetClientIP();
+                            pageUrl = Request.ServerVariables["URL"];
+                        }
+                        else
+                        {
+                            Response.Redirect("/", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
                     }
                     else
                     {
@@ -421,11 +443,9 @@ namespace Bikewale.BikeBooking
                     this.Page.Visible = false;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                Response.Redirect("/", false);
-                HttpContext.Current.ApplicationInstance.CompleteRequest();
-                this.Page.Visible = false;
+                ErrorClass err = new ErrorClass(ex, "BookingSummary_New.ProcessCookie : " + Request.Url.PathAndQuery);
             }
         }
         #endregion

@@ -170,6 +170,7 @@ var colorsul = $("#customizeBike ul.select-colorUL");
 
 var BookingPageViewModel = function () {
     var self = this;
+    self.IsMapLoaded = false;
     self.Bike = ko.observable(new BikeDetails);
     self.Dealer = ko.observable(new BikeDealerDetails);
     self.Customer = ko.observable(new BikeCustomer);
@@ -309,8 +310,6 @@ var BookingPageViewModel = function () {
                         if (obj.isUpdated) {
                             isSuccess = true;
                             var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + self.Dealer().PQId() + "&VersionId=" + self.Bike().selectedVersionId() + "&DealerId=" + self.Dealer().DealerId();
-                            //SetCookie("_MPQ", cookieValue);
-                            //window.location.href = '/pricequote/bookingSummary_new.aspx?MPQ=' + Base64.encode(cookieValue);
                             history.replaceState(null, null, "?MPQ="+ Base64.encode(cookieValue));
                             isSuccess = true;
                         }
@@ -447,7 +446,6 @@ var BikeDetails = function () {
                 discount += self.discountList()[i].Price;
             }
         }
-        console.log(discount);
         return discount;
     }, this);
 
@@ -518,9 +516,11 @@ var BikeDetails = function () {
                 self.selectedColor(value.BikeModelColors[0]);
                 self.versionSpecs(value.MinSpec);
                 self.versionPriceBreakUp(value.PriceList);
-                self.waitingPeriod(value.NoOfWaitingDays);
                 self.bookingAmount(value.BookingAmount);
                 $("#selectedVersionId").val(self.selectedVersionId());
+                if (self.selectedColor().NoOfDays != -1)
+                    self.waitingPeriod(self.selectedColor().NoOfDays);
+                else self.waitingPeriod(self.selectedVersion().NoOfWaitingDays);
             }
         });
     };
@@ -528,7 +528,9 @@ var BikeDetails = function () {
     self.getColor = function (data, event) {
         self.selectedColorId(data.ColorId);
         self.selectedColor(data);
-        self.waitingPeriod(data.NoOfDays);
+        if (data.NoOfDays != -1)
+            self.waitingPeriod(data.NoOfDays);
+        else self.waitingPeriod(self.selectedVersion().NoOfWaitingDays);
     };
 
     self.getVersion(self.selectedVersionId());
@@ -536,20 +538,27 @@ var BikeDetails = function () {
 }
 
 ko.bindingHandlers.googlemap = {
-    init: function (element, valueAccessor) {
-        var
-          value = valueAccessor(),
+    update: function (element, valueAccessor) {
+        if (!viewModel.IsMapLoaded && viewModel.CurrentStep() > 1) {
+            value = valueAccessor(),
           latLng = new google.maps.LatLng(value.latitude, value.longitude),
           mapOptions = {
-              zoom: 10,
+              zoom: 13,
               center: latLng,
               mapTypeId: google.maps.MapTypeId.ROADMAP
           },
           map = new google.maps.Map(element, mapOptions),
           marker = new google.maps.Marker({
+              title: "Dealer's Location",
               position: latLng,
-              map: map
+              map: map,
+              animation: google.maps.Animation.DROP
           });
+
+            google.maps.event.addListenerOnce(map, 'idle', function () {                viewModel.IsMapLoaded = true;
+            });
+
+        }
     }
 };
 

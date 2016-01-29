@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Compare
 {
+    [Serializable]
     public class BikeFeature
     {
         public uint VersionId { get; set; }
@@ -30,7 +31,6 @@ namespace Bikewale.Entities.Compare
         public bool? SteppedSeat { get; set; }
         public bool? AntilockBrakingSystem { get; set; }
         public bool? Killswitch { get; set; }
-        public bool? Clock { get; set; }
-        public string Colors { get; set; }
+        public bool? Clock { get; set; }        
     }
 }

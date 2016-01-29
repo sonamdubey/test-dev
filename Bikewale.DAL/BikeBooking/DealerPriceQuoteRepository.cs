@@ -626,7 +626,7 @@ namespace Bikewale.DAL.BikeBooking
             {
                 using (SqlCommand cmd = new SqlCommand())
                 {
-                    cmd.CommandText = "UpdatePQTransactionalDetail";
+                    cmd.CommandText = "UpdatePQTransactionalDetail_22012016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@PqId", SqlDbType.BigInt).Value = pqId;
@@ -1236,5 +1236,6 @@ namespace Bikewale.DAL.BikeBooking
 
             return colors;
         }
+
     }   //End of class
 }   //End of namespace

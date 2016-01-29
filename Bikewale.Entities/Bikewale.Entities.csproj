@@ -50,6 +50,7 @@
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
     <Compile Include="BikeBooking\BikeBooking.cs" />
+    <Compile Include="BikeBooking\BikeCancellationEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntityBase.cs" />
     <Compile Include="BikeBooking\BookingResults.cs" />
@@ -94,6 +95,7 @@
     <Compile Include="BikeData\MinSpecs.cs" />
     <Compile Include="BikeData\ModelMaskingResponse.cs" />
     <Compile Include="BikeData\MostPopularBikesBase.cs" />
+    <Compile Include="BikeData\NewBikeModelColor.cs" />
     <Compile Include="BikeData\NewLaunchedBikeEntity.cs" />
     <Compile Include="BikeData\Overview.cs" />
     <Compile Include="BikeData\SimilarBikeEntity.cs" />
@@ -103,6 +105,7 @@
     <Compile Include="BikeData\UpcomingBikeEntity.cs" />
     <Compile Include="BikeData\UpcomingBikesListInputEntity.cs" />
     <Compile Include="BikeData\VersionColor.cs" />
+    <Compile Include="BikeBooking\FeedBackEntity.cs" />
     <Compile Include="CMS\Articles\ArticleBase.cs" />
     <Compile Include="CMS\Articles\ArticleDetails.cs" />
     <Compile Include="CMS\Articles\ArticlePageDetails.cs" />
@@ -129,7 +132,14 @@
     <Compile Include="Compare\BikeEntityBase.cs" />
     <Compile Include="Compare\BikeFeature.cs" />
     <Compile Include="Compare\BikeSpecification.cs" />
+    <Compile Include="Compare\CompareBikeColor.cs" />
+    <Compile Include="Compare\CompareBikeColorCategory.cs" />
+    <Compile Include="Compare\CompareBikeData.cs" />
+    <Compile Include="Compare\CompareSubMainCategory.cs" />
+    <Compile Include="Compare\CompareSubCategory.cs" />
+    <Compile Include="Compare\CompareSpecificationEntity.cs" />
     <Compile Include="Compare\TopBikeCompareBase.cs" />
+    <Compile Include="Customer\CancelledBikeCustomer.cs" />
     <Compile Include="Customer\CustomerEntity.cs" />
     <Compile Include="Customer\CustomerEntityBase.cs" />
     <Compile Include="Dealer\CityWiseDealersCountEntity.cs" />
@@ -199,6 +209,7 @@
     <Compile Include="UserReviews\ReviewRatingEntityBase.cs" />
     <Compile Include="UserReviews\ReviewsListEntity.cs" />
     <Compile Include="UserReviews\ReviewTaggedBikeEntity.cs" />
+    <Compile Include="UsersTestimonial\UsersTestimonial.cs" />
     <Compile Include="Videos\BikeVideoEntity.cs" />
     <Compile Include="Videos\EnumVideosCategory.cs" />
   </ItemGroup>

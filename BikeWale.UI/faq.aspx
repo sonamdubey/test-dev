@@ -16,7 +16,7 @@
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <style type="text/css">
-    .faq-top-banner { background:#57605e url(http://img.aeplcdn.com/bikewaleimg/images/insurance-banner.jpg) no-repeat center top; background-size: cover; height: 285px; padding-top: 1px; }
+    .faq-top-banner { background:#57605e url(http://img.aeplcdn.com/bikewaleimg/images/d_faqs_banner.jpg) no-repeat center top; background-size: cover; height: 285px; padding-top: 1px; }
     .faq-content h3 { margin-bottom:15px; padding:0 20px 15px; border-bottom:1px solid #ccc; }
     .faq-content p, .faq-content ol { font-size:14px; line-height:1.5; }
     .faq-content p { padding:0 20px; }
@@ -93,10 +93,12 @@
                 
                     <div class="faq-content content-box-shadow content-inner-block-20 margin-bottom20">
                 	    <h3>I want to cancel the booking. How can I do that? What happens to the refund?</h3>
-                        <p>BikeWale strongly recommends you to carefully select your bike before booking. However, you still have the option to cancel a booking in case you change your mind. For all valid cancellation requests, full booking amount will be refunded back to you. If you choose to cancel a booking, you can email us the <strong>‘Booking Cancellation Request’</strong> on <a href="mailto:contact@bikewale.com">contact@bikewale.com</a> with a valid reason for cancellation, clearly stating the booking reference number, your mobile number, email address (that you used while booking). Please note the following conditions to request cancellation and avail refund.<br><br>
+                        <p>BikeWale strongly recommends you to carefully select your bike before booking. However, you still have the option to cancel a booking in case you change your mind. For all valid cancellation requests, full booking amount will be refunded back to you. 
+                            You can conveniently place your cancellation request at BikeWale <a href="/bikebooking/cancellation.aspx">cancellation section</a> in 2 simple steps. You can also reach the <a href="/bikebooking/cancellation.aspx">cancellation section</a> from the navigation menu on the top left corner.
+                            Please note the following conditions to request cancellation and avail refund.<br><br>
                         <strong>The important conditions for cancellation</strong> are following:</p>
                         <ol>
-                    	    <li>Cancellation must be requested within <strong>7 calendar days of booking the vehicle.</strong></li>
+                    	    <li>Cancellation must be requested within <strong>15 calendar days of booking the vehicle.</strong></li>
                             <li><strong>Cancellation will not be possible if you and dealership have proceeded further with purchase of the vehicle.</strong> These conditions include payment of additional amount directly to the dealership, submitting any documents, procurement of vehicle by the dealership etc.</li>
                             <li>If the dealer has initiated the procurement of the bike upon your booking, cancellation will not be possible.</li>
                         </ol>
@@ -104,12 +106,12 @@
                 
                     <div class="faq-content content-box-shadow content-inner-block-20 margin-bottom20">
                 	    <h3>When will I get my money refunded, once I request cancellation?</h3>
-                        <p>Upon requesting a cancellation, our team will verify with the dealership. Post successful verification, we will confirm your cancellation request and initiate the refund. The booking amount should be credited back to your account within 7 working days.</p>
+                        <p>Upon requesting a cancellation, our team will verify with the dealership. Post successful verification, we will confirm your cancellation request and initiate the refund. The booking amount should be credited back to your account within 15 working days.</p>
                     </div>
                 
                     <div class="faq-content content-box-shadow content-inner-block-20 margin-bottom20">
                 	    <h3>Will I be charged any fee for cancellation?</h3>
-                        <p>No, there is no fee for cancellation. Full booking amount will be refunded to your account within 7 working days.</p>
+                        <p>No, there is no fee for cancellation. Full booking amount will be refunded to your account within 15 working days.</p>
                     </div>
                 
                     <div class="faq-content content-box-shadow content-inner-block-20 margin-bottom20">

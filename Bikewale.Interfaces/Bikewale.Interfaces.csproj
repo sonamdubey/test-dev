@@ -52,6 +52,7 @@
     <Compile Include="App\IAppVersion.cs" />
     <Compile Include="AutoComplete\IAutoSuggest.cs" />
     <Compile Include="BikeBooking\IBikeBooking.cs" />
+    <Compile Include="BikeBooking\IBookingCancellation.cs" />
     <Compile Include="BikeBooking\IDealerPriceQuote.cs" />
     <Compile Include="BikeData\IBikeMakes.cs" />
     <Compile Include="BikeData\IBikeModelMaskingCacheRepository.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="BikeData\IBikeModelsRepository.cs" />
     <Compile Include="BikeData\IBikeSeries.cs" />
     <Compile Include="BikeData\IBikeVersions.cs" />
+    <Compile Include="BikeBooking\IFeedBacks.cs" />
     <Compile Include="CMS\ICMSContentRepository.cs" />
     <Compile Include="Compare\IBikeCompare.cs" />
     <Compile Include="Compare\IBikeCompareCacheRepository.cs" />
@@ -72,7 +74,9 @@
     <Compile Include="Insurance\IInsuranceRepository.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Location\IArea.cs" />
+    <Compile Include="Location\IAreaCacheRepository.cs" />
     <Compile Include="Location\ICity.cs" />
+    <Compile Include="Location\ICityCacheRepository.cs" />
     <Compile Include="Location\IState.cs" />
     <Compile Include="MobileVerification\IMobileVerification.cs" />
     <Compile Include="MobileVerification\IMobileVerificationRepository.cs" />
@@ -86,6 +90,7 @@
     <Compile Include="UsedBikes\IUsedBikes.cs" />
     <Compile Include="UsedBikes\IPopularUsedBikesCacheRepository.cs" />
     <Compile Include="UserReviews\IUserReviews.cs" />
+    <Compile Include="UsersTestimonial\IUsersTestimonial.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

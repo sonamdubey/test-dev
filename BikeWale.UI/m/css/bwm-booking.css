@@ -60,7 +60,7 @@
 .border-dark { border:1px solid #222; }
 
 /* booking sprite */
-.booking-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?21122015v4) no-repeat; display: inline-block; }
+.booking-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/booking-sprite.png?27012016v1) no-repeat; display: inline-block; }
 .booking-sprite, .booking-sprite + span.iconTtl{display:inline-block; vertical-align:middle;}
 .personalInfo-icon-selected, .customize-icon-selected, .confirmation-icon-selected { width:42px; height:42px; }
 .personalInfo-icon-selected { background-position: 0 0; }

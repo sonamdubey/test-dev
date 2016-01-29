@@ -1,6 +1,6 @@
 ﻿<meta charset="utf-8">
 <script language="c#" runat="server">
-    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", canonical = "", TargetedModel = "", TargetedMakes = "", TargetedModels = "";
+    private string title = "", description = "", keywords = "", AdId = "", AdPath = "", alternate = "", canonical = "", TargetedModel = "", TargetedMakes = "", TargetedModels = "", TargetedCity = "";
     private ushort feedbackTypeId = 0;
     string staticUrl = System.Configuration.ConfigurationManager.AppSettings["staticUrl"];
     string staticFileVersion = System.Configuration.ConfigurationManager.AppSettings["staticFileVersion"];
@@ -56,6 +56,7 @@
         <% if (!String.IsNullOrEmpty(TargetedModel)) { %>googletag.pubads().setTargeting("Model", "<%= TargetedModel %>");<% } %>
         <% if (!String.IsNullOrEmpty(TargetedMakes)){ %>googletag.pubads().setTargeting("Make", "<%= TargetedMakes %>");<% } %>
         <% if (!String.IsNullOrEmpty(TargetedModels)){ %>googletag.pubads().setTargeting("CompareBike-M", "<%= TargetedModels %>");<% } %>
+        <% if (!String.IsNullOrEmpty(TargetedCity)){%>googletag.pubads().setTargeting("City", "<%= TargetedCity %>");<%}%>
         googletag.pubads().enableSingleRequest();
         googletag.pubads().collapseEmptyDivs();
         googletag.enableServices();
