@@ -21,8 +21,10 @@
 </style>
 <div class="padding5">
         <div id="br-cr">
-            <a href="/m/" class="normal">Home</a> &rsaquo; 
-            <a href="/m/features/" class="normal">Features</a> &rsaquo;
+            <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/" class="normal" itemprop="url"><span itemprop="title">Home</span></a></span> &rsaquo; 
+                <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/features/" class="normal" itemprop="url"><span itemprop="title">Features</span></a></span> &rsaquo;
             <span class="lightgray"><%= pageTitle %></span>
         </div>
     

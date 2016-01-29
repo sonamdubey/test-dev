@@ -12,8 +12,8 @@
 <!-- #include file="/includes/headermobile.aspx" -->
 <script type="text/javascript" src="http://st2.aeplcdn.com/bikewale/src/BikeWaleCommon.js?v=3.2"></script>
     <div class="padding5">
-        <div id="br-cr">
-            <a href="/m/new/" class="normal">New Bikes</a> &rsaquo; 
+        <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; 
             <span class="lightgray">New Bike Dealers / Showrooms in India</span>
         </div>
         <h1>New Bike Dealers / Showrooms in India</h1>

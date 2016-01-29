@@ -146,8 +146,12 @@
     <div class="grid_12">
         <ul class="breadcrumb">
             <li>You are here: </li>
-            <li><a href="/">Home</a></li>
-            <li>&rsaquo; <a title="Indian Bike News" href="/road-tests/">Road Tests</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="/" itemprop="url"><span itemprop="title">Home</span></a>
+            </li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">&rsaquo; 
+                <a title="Indian Bike News" itemprop="url" href="/road-tests/"><span itemprop="title">Road Tests</span></a>
+            </li>
             <li class="current">&rsaquo; <strong><%= articleTitle%></strong></li>
         </ul>
         <div class="clear"></div>

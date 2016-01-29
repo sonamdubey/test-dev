@@ -75,10 +75,8 @@
                                 <a href="/<%= modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/" itemprop="url">
                                     <span itemprop="title"><%= modelPage.ModelDetails.MakeBase.MakeName %></span>
                                 </a></li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span>
-                                <a href="/<%= modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>" itemprop="url">
-                                    <span itemprop="title"><%= modelPage.ModelDetails.ModelName %></span>
-                                </a>
+                            <li ><span class="fa fa-angle-right margin-right10"></span>
+                                <span><%= modelPage.ModelDetails.ModelName %></span>
                             </li>
                         </ul>
                         <div class="clear"></div>

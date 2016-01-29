@@ -20,8 +20,8 @@
 
 <div class="padding10">
     <div id="br-cr">
-        <a href="/m/" class="normal">Home</a> &rsaquo; 
-        <a href="/m/news/" class="normal">News</a> &rsaquo; 
+        <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" ><a href="/m/" class="normal"  itemprop="url"><span itemprop="title">Home</span></a></span> &rsaquo; 
+        <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb" ><a href="/m/news/" class="normal" itemprop="url"><span itemprop="title">News</span></a></span> &rsaquo; 
         <span class="lightgray"><%= newsTitle %></span>
     </div>
     <div class="pgsubhead"><%= newsTitle %></div>
