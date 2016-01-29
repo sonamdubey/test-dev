@@ -142,7 +142,23 @@
 						</div>
 						<div class="grid-7 model-details-wrapper omega">
 							<div class="model-name-review-container">
+                                <% if(isBookingAvailable){ %>
+                                <div>
+                                   <p class="font24 text-black text-bold leftfloat model-with-booking"><%= bikeName %></p>
+                                   <div class="booking-badge-container rightfloat position-rel">
+                                       <!---->
+                                       <span class="bwsprite booking-available-icon"></span>
+                                       <div class="booking-badge rounded-corner2 text-bold">
+                                           <p class="booking-badge-title">Booking</p>
+                                           <p class="booking-badge-subtitle">Available</p>
+                                       </div>
+                                       <!---->
+                                   </div>
+                                   <div class="clear"></div>
+                               </div>
+                                <%} else{ %>
 								<p class="font24 text-black text-bold"><%= bikeName %></p>
+                                <%} %>
 								<% if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
 								   { %>
 								<!-- Review & ratings -->

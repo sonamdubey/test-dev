@@ -805,3 +805,5 @@ li.offertxt:hover span {display:inline}
 .ae-car-icon {background-position: 0 4px; width: 36px;}
 .ae-new-label-icon{background-position: -156px 1px; height: 24px; top: -10px; left: 5px; width: 39px; }
 /* AutoExpo classes end */
+.strike{text-decoration: line-through; color:#82888b}
+.red-font{ color: #FF0000;}

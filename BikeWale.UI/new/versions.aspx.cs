@@ -193,6 +193,7 @@ namespace Bikewale.New
 
             Trace.Warn("Trace 5 : CheckCityCookie Start");
             CheckCityCookie();
+            SetFlags();
             Trace.Warn("Trace 6 : CheckCityCookie End");
 
             //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue) && ddlVariant.SelectedValue != "0")
@@ -234,7 +235,6 @@ namespace Bikewale.New
                 }
             }
             ctrlUsersTestimonials.TopCount = 6;
-            SetFlags();
             Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
             BindAlternativeBikeControl();
             Trace.Warn("Trace 19 : BindAlternativeBikeControl End");
