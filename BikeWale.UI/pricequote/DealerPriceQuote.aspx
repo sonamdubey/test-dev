@@ -233,9 +233,23 @@
                     <div class="breadcrumb margin-bottom15">
                         <!-- breadcrumb code starts here -->
                         <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><a href="/new/">New</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><a href="/pricequote/">On-Road Price Quote</a></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <a href="/" itemprop="url">
+                                    <span itemprop="title">Home</span>
+                                </a>
+                            </li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="fa fa-angle-right margin-right10"></span>
+                                <a href="/new/" itemprop="url">
+                                    <span itemprop="title">New</span>
+                                </a>
+                            </li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                                <span class="fa fa-angle-right margin-right10"></span>
+                                <a href="/pricequote/" itemprop="url">
+                                    <span itemprop="title">On-Road Price Quote</span>
+                                </a>
+                            </li>
                             <li><span class="fa fa-angle-right margin-right10"></span>Dealer Price Quote</li>
                         </ul>
                         <div class="clear"></div>
