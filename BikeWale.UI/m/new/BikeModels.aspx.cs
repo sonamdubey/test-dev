@@ -602,8 +602,7 @@ namespace Bikewale.Mobile.New
                                         rptDiscount.DataSource = pqOnRoad.discountedPriceList;
                                         rptDiscount.DataBind();
                                     }
-                                    if (pqOnRoad.discountedPriceList != null)
-                                        totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
+                                    totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
 
                                     // String operation
                                     viewbreakUpText = "(";

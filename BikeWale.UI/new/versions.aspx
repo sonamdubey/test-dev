@@ -179,7 +179,6 @@
 											</span>Reviews
 										</a>
 									</span>
-
 									<% }
 									   else
 									   { %>
@@ -309,9 +308,12 @@
 									else
 									{ %>
 								<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
-                                    <%if (totalDiscountedPrice != 0){ %>
-									<span id="new-bike-price1" class="font20" itemprop="onRoadPrice" content="<%=onRoadPrice %>"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></span>
-                                    <span id="new-bike-price2" class="font20" itemprop="totalDiscountedPrice" content="<%=totalDiscountedPrice %>"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalDiscountedPrice)) %></span>
+                                    <%if (totalDiscountedPrice != 0)
+                                      { %>
+                                    <p class="font16">
+                                        <span class="fa fa-rupee padding-top10"></span><span class="strike padding-right5"> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></span>
+                                        (<span class="red-font padding-right5"> <span class="fa fa-rupee"></span> <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalDiscountedPrice)) %> Off</span> )
+                                    </p>
                                     <%} %>
                                     <span itemprop="priceCurrency" content="INR">
 										<span class="font28"><span class="fa fa-rupee"></span></span>
@@ -571,7 +573,7 @@
 								<%--<% if (pqOnRoad.InsuranceAmount > 0)
 								   {
 								%>--%>
-								<td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - TotalDiscountedPrice())) %></td>
+								<td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - totalDiscountedPrice)) %></td>
 								<%--<% }
 								   else
 								   { %>

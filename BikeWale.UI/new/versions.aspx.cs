@@ -289,7 +289,7 @@ namespace Bikewale.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        var totalDiscount = TotalDiscountedPrice();
+                        var totalDiscount = totalDiscountedPrice;
                         //if ((isCitySelected && !isAreaAvailable))
                         if (isOnRoadPrice)
                             lblExOn.Text = "On-road price";
@@ -694,7 +694,7 @@ namespace Bikewale.New
                                         rptDiscount.DataBind();
                                     }
 
-                                    totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
+                                        totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
                                     // String operation
                                     viewbreakUpText = "(";
                                     foreach (var text in selectedVariant.PriceList)
@@ -714,7 +714,7 @@ namespace Bikewale.New
 
                                 if (pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
-                                    price = Convert.ToString(onRoadPrice - TotalDiscountedPrice());
+                                    price = Convert.ToString(onRoadPrice - totalDiscountedPrice);
                                 }
                             }
                             #endregion
@@ -1247,36 +1247,6 @@ namespace Bikewale.New
             }
             return Bikewale.Utility.Format.FormatPrice(Convert.ToString(price));
         }
-
-
-        /// <summary>
-        /// Creted By : Lucky Rathore
-        /// Created on : 08 January 2016
-        /// </summary>
-        /// <returns>Total dicount on specific Version.</returns>
-        protected UInt32 TotalDiscountedPrice()
-        {
-            UInt32 totalPrice = 0;
-
-            if (pqOnRoad != null && pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
-            {
-                foreach (var priceListObj in pqOnRoad.discountedPriceList)
-                {
-                    totalPrice += priceListObj.Price;
-                }
-            }
-
-            return totalPrice;
-        }
         #endregion
-    }
-
-    class MultToneColors
-    {
-        public uint Id { get; set; }
-        public uint ModelId { get; set; }
-        public string ColorName { get; set; }
-        public IEnumerable<string> HexCode { get; set; }
-        public UInt16 NoOfDays { get; set; }
     }
 }

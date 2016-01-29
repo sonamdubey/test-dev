@@ -214,7 +214,7 @@
                                 </span>
                                 (<span class="offertxt red-font text-bold font14"><span class="fa fa-rupee"></span>
                                     <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalDiscountedPrice)) %>
-                                     off</span>)
+                                     Off</span>)
                             </p>
                              <% } %>
                             <span itemprop="name" class="hide"><%= bikeName %></span>
