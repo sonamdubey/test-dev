@@ -206,6 +206,17 @@
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
                             </p>
                             <% } %>
+                            <% if (totalDiscountedPrice != 0)
+                               { %>
+                            <p>
+                                <span class="offertxt strike padding-right10 font14"><span class="fa fa-rupee margin-right5"></span>
+                                    <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %>
+                                </span>
+                                (<span class="offertxt red-font text-bold font14"><span class="fa fa-rupee"></span>
+                                    <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalDiscountedPrice)) %>
+                                     Off</span>)
+                            </p>
+                             <% } %>
                             <span itemprop="name" class="hide"><%= bikeName %></span>
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                 <p class="leftfloat">
@@ -257,7 +268,7 @@
                                 <%if (isBookingAvailable && bookingAmt > 0)
                                   { %>
                                 <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite offers-icon"></span>
-                                    Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike and get:
+                                    Pay <span class="fa fa-rupee"></span> <%=bookingAmt %> to book your bike and get:
                                 </h4>
                                 <%    } %>
                                 <% if (isOfferAvailable)
@@ -268,15 +279,15 @@
                                             <li class="offertxt float-left">
                                                 <span style='display: inline;' class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
                                                 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span  class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
-                                                <% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
+                                                <%--<% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
                                                    { %>
                                                 <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
-                                                <% } %>
+                                                <% } %>--%>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
-                                <ul class="moreOffersList hide" style="list-style: none">
+                                <%--<ul class="moreOffersList hide" style="list-style: none">
                                     <asp:Repeater ID="rptMoreOffers" runat="server">
                                         <ItemTemplate>
                                             <li class="offertxt float-left">
@@ -285,7 +296,7 @@
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
-                                </ul>
+                                </ul>--%>
                                 <% } %>
 
                                 <%= (isOfferAvailable)?"<div class=\"border-top1 margin-top10 margin-bottom10\"></div>":string.Empty %>
@@ -1235,7 +1246,7 @@
                                {
                             %>
                             <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
-                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - TotalDiscountedPrice())) %>
+                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice -totalDiscountedPrice)) %>
 
                             </td>
                             <% }
@@ -1491,10 +1502,10 @@
             var getCityArea = GetGlobalCityArea();
             $(document).ready(function (e) {
                 if ($('#getMoreDetailsBtn').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
                 }
                 if ($('#btnGetOnRoadPrice').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
                 }
             });
 
