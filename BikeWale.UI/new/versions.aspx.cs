@@ -1,30 +1,30 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.BikeBooking;
+using Bikewale.BAL.BikeData;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Location;
+using Bikewale.DTO.Version;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Web.UI.WebControls;
-using Bikewale.Controls;
-using Bikewale.DTO.Version;
 using System.Reflection;
-using Bikewale.Utility;
-using Bikewale.BAL.BikeBooking;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Entities.Location;
-using Bikewale.Interfaces.Location;
-using Bikewale.DAL.Location;
-using Bikewale.BAL.BikeData;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.BikeBooking;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
@@ -44,7 +44,7 @@ namespace Bikewale.New
         protected string modelId = string.Empty;
         protected int variantId = 0;
         protected int versionId = 0;
-        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptMoreOffers, rptCategory, rptVariants, rptDiscount;
+        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, /*rptMoreOffers,*/ rptCategory, rptVariants, rptDiscount;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
         protected int cityId = 0;
@@ -670,15 +670,15 @@ namespace Bikewale.New
                                 price = onRoadPrice.ToString();
                                 if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                 {
-                                    IEnumerable<OfferEntity> moreOffers = null;
-                                    rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers.Take<OfferEntity>(2);
+                                    //IEnumerable<OfferEntity> moreOffers = null;
+                                    rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers;//.Take<OfferEntity>(2);
                                     rptOffers.DataBind();
-                                    if (pqOnRoad.DPQOutput.objOffers.Count > 2)
-                                    {
-                                        moreOffers = pqOnRoad.DPQOutput.objOffers.Skip(2).Take<OfferEntity>(pqOnRoad.DPQOutput.objOffers.Count - 2);
-                                        rptMoreOffers.DataSource = moreOffers;
-                                        rptMoreOffers.DataBind();
-                                    }
+                                    //if (pqOnRoad.DPQOutput.objOffers.Count > 2)
+                                    //{
+                                    //    moreOffers = pqOnRoad.DPQOutput.objOffers.Skip(2).Take<OfferEntity>(pqOnRoad.DPQOutput.objOffers.Count - 2);
+                                    //    rptMoreOffers.DataSource = moreOffers;
+                                    //    rptMoreOffers.DataBind();
+                                    //}
                                     isOfferAvailable = true;
                                 }
                                 if (selectedVariant.PriceList != null)
