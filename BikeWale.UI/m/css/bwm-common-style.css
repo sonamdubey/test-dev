@@ -782,4 +782,6 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .ae-car-icon, .ae-new-label-icon { height: 25px; position: relative;top: 5px; } 
 .ae-car-icon {background-position: 0 4px; width: 36px;}
 .ae-new-label-icon{background-position: -156px 1px; height: 24px; top: -10px; left: 5px; width: 39px; }
+.strike{text-decoration: line-through; color:#82888b}
+.red-font{ color: #FF0000;}
 /* AutoExpo classes end */

@@ -36,13 +36,13 @@
       <HintPath>..\Libs\BookingSMS\Consumer.dll</HintPath>
     </Reference>
     <Reference Include="Elasticsearch.Net">
-      <HintPath>..\..\..\..\Work\carwaleweb\libs\Elasticsearch.Net.dll</HintPath>
+      <HintPath>..\Libs\Elasticsearch.Net.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\Libs\BookingSMS\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Nest">
-      <HintPath>..\..\..\..\Work\carwaleweb\libs\Nest.dll</HintPath>
+      <HintPath>..\Libs\Nest.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

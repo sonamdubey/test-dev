@@ -117,6 +117,7 @@
     <Compile Include="Model\Specifications.cs" />
     <Compile Include="Model\Specs.cs" />
     <Compile Include="Model\SpecsCategory.cs" />
+    <Compile Include="Model\v2\ModelPage.cs" />
     <Compile Include="NewBikeSearch\Pager.cs" />
     <Compile Include="NewBikeSearch\SearchOutput.cs" />
     <Compile Include="NewBikeSearch\SearchOutputBase.cs" />

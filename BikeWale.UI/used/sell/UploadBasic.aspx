@@ -14,9 +14,17 @@
     <div class="grid_12">
         <ul class="breadcrumb">
             <li>You are here: </li>
-            <li><a href="/">Home</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="/" itemprop="url">
+                    <span itemprop="title">Home</span>
+                </a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/used/">Used Bikes</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="/used/" itemprop="url">
+                    <span itemprop="title">Used Bikes</span>
+                </a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>Upload Photos</strong></li>
         </ul><div class="clear"></div>

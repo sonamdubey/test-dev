@@ -390,7 +390,7 @@
            { %>
         <section>
             <div id="testimonialWrapper" class="container margin-bottom10">
-                <h2 class="text-bold text-center margin-bottom20 font24">Testimonials</h2>
+                <h2 class="text-bold text-center margin-bottom20 font24">What do our customers say</h2>
                 <div class="swiper-container text-center">
                     <div class="swiper-wrapper margin-bottom10">
                         <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>

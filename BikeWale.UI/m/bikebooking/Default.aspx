@@ -13,7 +13,10 @@
 
 
     <div class="padding5">
-        <div id="br-cr"><a href="/m/new/" class="normal">New Bikes</a> &rsaquo; <span class="lightgray">Book Your Bike</span></div>
+        <div id="br-cr">
+            <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/new/" itemprop="url" class="normal"><span itemprop="title">New Bikes</span></a> </span>
+            &rsaquo; <span class="lightgray">Book Your Bike</span></div>
         <h1> Book Your Bike </h1>
         <div id="divBookingDetails" class="box1 new-line5">
             <div>
