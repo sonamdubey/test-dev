@@ -84,6 +84,8 @@ namespace Bikewale.New
         protected string pqId = string.Empty;
         protected string mpqQueryString = String.Empty;
         protected UsersTestimonials ctrlUsersTestimonials;
+        protected bool isDealerAssitance = false;
+
         #endregion
 
         public enum Overviews
@@ -655,6 +657,11 @@ namespace Bikewale.New
                         if (pqOnRoad.PriceQuote != null)
                         {
                             dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
+                            if (!String.IsNullOrEmpty(dealerId))
+                            {
+                                DealerAssistance dealerAssisteance = new DealerAssistance();
+                                isDealerAssitance = dealerAssisteance.IsDealerAssistance(dealerId);
+                            }
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
                         }
                         //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);                                                
