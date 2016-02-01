@@ -5,7 +5,7 @@ using System.Web;
 using AjaxPro;
 using BikeWaleOpr.Common;
 using BikewaleOpr.Entities;
-namespace BikewaleOpr.Common.Ajax
+namespace BikewaleOpr.Common
 {
     /// <summary>
     /// Created by  :   Sumit Kate on 01 Feb 2016
@@ -28,7 +28,7 @@ namespace BikewaleOpr.Common.Ajax
         /// <param name="dealerId">Dealer Id</param>
         /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public string GetManufacturerCampaigns(uint dealerId)
+        public string GetManufacturerCampaigns(int dealerId)
         {
             string json = String.Empty;
             IEnumerable<ManufacturerCampaignEntity> manufacturerCampaigns = null;
@@ -60,7 +60,7 @@ namespace BikewaleOpr.Common.Ajax
         /// <param name="description">campaign description</param>
         /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public bool SaveManufacturerCampaign(uint dealerId, string modelIds, string description)
+        public bool SaveManufacturerCampaign(int dealerId, string modelIds, string description)
         {
             bool isSuccess = false;
             try
@@ -83,7 +83,7 @@ namespace BikewaleOpr.Common.Ajax
         /// <param name="campaignIds">Campaign Ids(Comma seperated value)</param>
         /// <returns></returns>
         [AjaxPro.AjaxMethod()]
-        public bool SetManufacturerCampaignInActive(uint dealerId, string campaignIds)
+        public bool SetManufacturerCampaignInActive(int dealerId, string campaignIds)
         {
             bool isSuccess = false;
             try

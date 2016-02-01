@@ -21,7 +21,7 @@ namespace BikewaleOpr.Common
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public IEnumerable<ManufacturerCampaignEntity> GetManufacturerCampaigns(uint dealerId)
+        public IEnumerable<ManufacturerCampaignEntity> GetManufacturerCampaigns(int dealerId)
         {
             IList<ManufacturerCampaignEntity> lstManufacturerCampaign = null;
             Database db = null;
@@ -77,7 +77,7 @@ namespace BikewaleOpr.Common
         /// <param name="modelIds">Model Ids (comma seperated value)</param>
         /// <param name="description">Campaign Description</param>
         /// <returns></returns>
-        public bool SaveManufacturerCampaign(uint dealerId, string modelIds,string description)
+        public bool SaveManufacturerCampaign(int dealerId, string modelIds,string description)
         {
             bool success = false;
             Database db = null;
@@ -114,7 +114,7 @@ namespace BikewaleOpr.Common
         /// <param name="dealerId">Manufacturer Id(Dealer Id)</param>
         /// <param name="campaignIds">campaign Ids (comma seperated value)</param>
         /// <returns></returns>
-        public bool SetManufacturerCampaignInActive(uint dealerId, string campaignIds)
+        public bool SetManufacturerCampaignInActive(int dealerId, string campaignIds)
         {
             bool success = false;
             Database db = null;
