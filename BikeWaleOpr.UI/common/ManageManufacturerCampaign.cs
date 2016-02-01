@@ -16,6 +16,7 @@ namespace BikewaleOpr.Common
     public class ManageManufacturerCampaign
     {
         /// <summary>
+        /// Created by  :   Sumit Kate on 29 Jan 2016
         /// To get the Manufacture's active campaigns
         /// </summary>
         /// <param name="dealerId"></param>
@@ -66,6 +67,80 @@ namespace BikewaleOpr.Common
                 db = null;
             }
             return lstManufacturerCampaign;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Feb 2016
+        /// Save the manufacturer Campaigns
+        /// </summary>
+        /// <param name="dealerId">Manufacturer Id(Dealer Id)</param>
+        /// <param name="modelIds">Model Ids (comma seperated value)</param>
+        /// <param name="description">Campaign Description</param>
+        /// <returns></returns>
+        public bool SaveManufacturerCampaign(uint dealerId, string modelIds,string description)
+        {
+            bool success = false;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("SaveManufacturerCampaign"))
+                {
+                    db = new Database();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@DealerId", dealerId);
+                    cmd.Parameters.AddWithValue("@ModelIds", modelIds);
+                    cmd.Parameters.AddWithValue("@Description", description);
+                    success = db.InsertQry(cmd);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.SaveManufacturerCampaign");
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (db != null)
+                    db.CloseConnection();
+                db = null;
+            }
+            return success;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 01 Feb 2016
+        /// Sets the manufacturer Campaigns as inactive
+        /// </summary>
+        /// <param name="dealerId">Manufacturer Id(Dealer Id)</param>
+        /// <param name="campaignIds">campaign Ids (comma seperated value)</param>
+        /// <returns></returns>
+        public bool SetManufacturerCampaignInActive(uint dealerId, string campaignIds)
+        {
+            bool success = false;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("SetMfgCampaignInactive"))
+                {
+                    db = new Database();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@DealerId", dealerId);
+                    cmd.Parameters.AddWithValue("@CampaignIds", campaignIds);
+                    success = db.InsertQry(cmd);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.SetManufacturerCampaignInActive");
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (db != null)
+                    db.CloseConnection();
+                db = null;
+            }
+            return success;
         }
     }
 }
