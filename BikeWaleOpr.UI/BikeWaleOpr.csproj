@@ -470,6 +470,7 @@
     <Compile Include="Entities\MakeEntity.cs" />
     <Compile Include="Entities\MakeEntityBase.cs" />
     <Compile Include="Entities\ManufacturerCampaignEntity.cs" />
+    <Compile Include="Entities\ManufacturerEntity.cs" />
     <Compile Include="Entities\ModelColorBase.cs" />
     <Compile Include="Entities\ModelEntity.cs" />
     <Compile Include="Entities\ModelEntityBase.cs" />

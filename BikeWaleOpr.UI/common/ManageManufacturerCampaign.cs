@@ -21,7 +21,7 @@ namespace BikewaleOpr.Common
         /// </summary>
         /// <param name="dealerId"></param>
         /// <returns></returns>
-        public IEnumerable<ManufacturerCampaignEntity> GetManufacturerCampaigns(uint dealerId)
+        public IEnumerable<ManufacturerCampaignEntity> GetManufacturerCampaigns(int dealerId)
         {
             IList<ManufacturerCampaignEntity> lstManufacturerCampaign = null;
             Database db = null;
@@ -77,7 +77,7 @@ namespace BikewaleOpr.Common
         /// <param name="modelIds">Model Ids (comma seperated value)</param>
         /// <param name="description">Campaign Description</param>
         /// <returns></returns>
-        public bool SaveManufacturerCampaign(uint dealerId, string modelIds,string description)
+        public bool SaveManufacturerCampaign(int dealerId, string modelIds,string description)
         {
             bool success = false;
             Database db = null;
@@ -114,7 +114,7 @@ namespace BikewaleOpr.Common
         /// <param name="dealerId">Manufacturer Id(Dealer Id)</param>
         /// <param name="campaignIds">campaign Ids (comma seperated value)</param>
         /// <returns></returns>
-        public bool SetManufacturerCampaignInActive(uint dealerId, string campaignIds)
+        public bool SetManufacturerCampaignInActive(int dealerId, string campaignIds)
         {
             bool success = false;
             Database db = null;
@@ -141,6 +141,55 @@ namespace BikewaleOpr.Common
                 db = null;
             }
             return success;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kateon 01 Feb 2016
+        /// Returns the Manufacturers list.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ManufacturerEntity> GetDealerAsManuFacturer()
+        {
+            IList<ManufacturerEntity> manufacturers = null;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("GetDealerAsManuFacturer"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    db = new Database();
+                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    {
+                        if (reader != null && reader.HasRows)
+                        {
+                            manufacturers = new List<ManufacturerEntity>();
+                            while (reader.Read())
+                            {
+                                manufacturers.Add(
+                                    new ManufacturerEntity()
+                                    {
+                                        Id = Convert.ToInt32(reader["Id"]),
+                                        Name = Convert.ToString(reader["Name"]),
+                                        Organization = Convert.ToString(reader["Organization"])
+                                    }
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.GetDealerAsManuFacturer");
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (db != null)
+                    db.CloseConnection();
+                db = null;
+            }
+            return manufacturers;
         }
     }
 }
