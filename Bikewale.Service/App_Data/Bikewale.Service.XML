@@ -513,6 +513,27 @@
             Get list of all dealers with details for a given make and city
             </summary>
         </member>
+        <member name="T:Bikewale.Service.Controllers.AppNotifications.AppAlertController">
+            <summary>
+            Author : Sangran Nandkhile
+            Created On : 6th Jan 2016
+            Api url to Test: http://localhost:9011/api/AppAlert
+            Raw body: {"imei":"111111111","gcmId":"22222222","osType":"0","subsMasterId":"1"}
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.AppNotifications.AppAlertController.#ctor(Bikewale.Interfaces.AppAlert.IAppAlert)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="appAlert"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.AppNotifications.AppAlertController.Post(Bikewale.DTO.App.AppAlert.AppImeiDetailsInput)">
+            <summary>
+            Verified the resend mobile verification code
+            </summary>
+            <param name="input">entity</param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.App.AppVersionCheckController">
             <summary>
             Author      :   Sumit Kate
@@ -874,6 +895,11 @@
             <param name="clientId"></param>
             <returns>List of dealers of paticular make in city</returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.Dealer.TermsController">
+            <summary>
+            summary
+            </summary>
+        </member>
         <member name="T:Bikewale.Service.Controllers.Insurance.InsuranceLeadController">
             <summary>
             Created BY : Lucky Rathore
@@ -939,9 +965,11 @@
             <param name="objIPQ"></param>
             <param name="dealer"></param>
         </member>
-        <member name="M:Bikewale.Service.Controllers.LeadsGeneration.ManufacturerLeadController.Get(System.UInt32,System.UInt32,System.String,System.String,System.String,System.String)">
+        <member name="M:Bikewale.Service.Controllers.LeadsGeneration.ManufacturerLeadController.Get(System.UInt32,System.UInt32,System.String,System.String,System.String,System.String,System.Nullable{System.UInt16},System.Nullable{System.UInt16},System.String)">
             <summary>
             To genearate manufacturer Lead
+            Modified By : Sadhana Upadhyay on 29 Dec 2015
+            Summary : added utmz, utma, device Id etc
             </summary>
             <param name="name"></param>
             <param name="email"></param>
@@ -991,6 +1019,21 @@
             </summary>
             <param name="makeId">make id</param>
             <param name="totalBikeCount">total popular bike count</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.MobileAppAlerts.PushMobileAppAlertController">
+            <summary>
+            Created By : Sushil Kumar 
+            Created On : 5th Deccember 2015 
+            To push mobile alerts for the app for various featured articles
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.MobileAppAlerts.PushMobileAppAlertController.POST">
+            <summary>
+            Created By : Sushil Kumar
+            Created On : 5th December 2015
+            Description : To push mobile notification to rabbitmq for processing queue
+            </summary>
             <returns></returns>
         </member>
         <member name="M:Bikewale.Service.Controllers.Model.ModelDescriptionController.#ctor(Bikewale.Interfaces.BikeData.IBikeModelsRepository{Bikewale.Entities.BikeData.BikeModelEntity,System.Int32})">
@@ -1226,18 +1269,22 @@
             <param name="objPriceQuote"></param>
             <param name="modelsRepository"></param>
         </member>
-        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.Get(System.UInt32,System.UInt32,System.String,Bikewale.DTO.PriceQuote.PQSources,System.Nullable{System.UInt32})">
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.OnRoadPriceController.Get(System.UInt32,System.UInt32,System.String,Bikewale.DTO.PriceQuote.PQSources,System.String,System.Nullable{System.UInt32},System.Nullable{System.UInt16})">
             <summary>
             Gets the On Road Price Quote
             Includes the Bike Wale price quote and Dealer price quote
             Modified By : Sushil kumar  on  2nd Dec 2015
             Description : Added bike details to response (for android)
+            Modified By : Sadhana Upadhyay on 29 Dec 2015
+            Summary : To capture device id, utma, utmz, Pq lead id etc.
             </summary>
-            <param name="cityId">city id</param>
-            <param name="modelId">model id</param>
-            <param name="clientIP">client ip</param>
-            <param name="sourceType">source type</param>
-            <param name="areaId">area id(optional)</param>
+            <param name="cityId"></param>
+            <param name="modelId"></param>
+            <param name="clientIP"></param>
+            <param name="sourceType"></param>
+            <param name="deviceId"></param>
+            <param name="areaId"></param>
+            <param name="pqLeadId"></param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.PQBikeColorController">
@@ -1269,6 +1316,8 @@
             Description :   Save the State of the Booking Journey as Described in Task# 107795062 
             Modified By :   Sumit Kate on 08 Dec 2015
             Description :   Update the Bike Version. Fixed the APP functionality.
+            Modified By : Sadhana Upadhyay on 29 Dec 2015
+            Summary : To capture device id, utma, utmz, Pq lead id etc.
             </summary>
             <param name="input">Customer details with price quote details</param>
             <returns></returns>
@@ -1296,6 +1345,8 @@
         <member name="M:Bikewale.Service.Controllers.PriceQuote.PriceQuoteController.Post(Bikewale.DTO.PriceQuote.PQInput)">
             <summary>
             Bikewale Price Quote and Dealer Price Quote
+            Modified By : Sadhana Upadhyay on 29 Dec 2015
+            Summary : To capture device id, utma, utmz, Pq lead id etc.
             </summary>
             <param name="input">Entity contains the required details to get the price quote details</param>
             <returns></returns>
@@ -1332,7 +1383,8 @@
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.UpdatePQCustomerDetailsController.#ctor(Bikewale.Interfaces.Customer.ICustomerAuthentication{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.Customer.ICustomer{Bikewale.Entities.Customer.CustomerEntity,System.UInt32},Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.MobileVerification.IMobileVerificationRepository,Bikewale.Interfaces.MobileVerification.IMobileVerification,Bikewale.Interfaces.Dealer.IDealer,Bikewale.Interfaces.PriceQuote.IPriceQuote)">
             <summary>
-            
+            Modified By : Sadhana Upadhyay on 29 Dec 2015
+            Summary : To capture device id, utma, utmz, Pq lead id etc.
             </summary>
             <param name="objAuthCustomer"></param>
             <param name="objCustomer"></param>
@@ -2025,6 +2077,19 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Utilities.CMSShareUrl">
+            <summary>
+            a class to hold create share url manipuation logic
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Utilities.CMSShareUrl.GetShareUrl(Bikewale.DTO.CMS.Articles.CMSContent)">
+            <summary>
+            This function is used to create shareUrl for all the CMS article
+            </summary>
+            <param name="objCMSFArticles"></param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Bikewale.Service.Utilities.CMSShareUrl.GetShareUrl(System.Collections.Generic.List{Bikewale.DTO.CMS.Articles.CMSArticleSummary})" -->
         <member name="T:Bikewale.Service.Controllers.CMS.CMSController">
             <summary>
             Edit CMS Controller :  All Edit CMS related Operations 
