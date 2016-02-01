@@ -86,20 +86,38 @@
 .available-colors .color-box {width:60px; height:60px; margin:0 auto 15px; border-radius:3px; background:#eee; border:1px solid #ccc;}
 .varient-desc-container { min-height:72px; }
 /* model sprite classes */
-.model-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/images/model-sprite.png?v=22122015) no-repeat; display:inline-block;}
+.model-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/images/model-sprite.png?v=01022016) no-repeat; display:inline-block;}
 .bw-summary-ico { background-position:0 0; width:23px; height:23px; margin-right:26px; position:relative; top:3px; left:5px;}
-.bw-engine-ico { background-position:0 -32px; width:30px; height:22px; margin-right:20px; position:relative; top:3px;}
-.bw-brakeswheels-ico { background-position:0 -63px; width:26px; height:26px; margin-right:26px; position:relative; top:3px; left:3px;}
-.bw-dimensions-ico { background-position:0 -99px; width:33px; height:22px; margin-right:20px; position:relative; top:3px;}
-.bw-performance-ico { background-position:0 -131px; width:11px; height:22px; margin-right:41px; position:relative; top:3px; left:7px;}
-.bw-upcoming-bike-ico { background-position:0 -165px; width:135px; height:28px; left: -20px; }
-.bw-discontinued-bike-ico { background-position:0 -202px; width:160px; height:28px; left: -20px; }
+.bw-engine-ico { background-position:-33px 0; width:30px; height:22px; margin-right:20px; position:relative; top:3px;}
+.bw-brakeswheels-ico { background-position:-73px 0; width:26px; height:26px; margin-right:26px; position:relative; top:3px; left:3px;}
+.bw-dimensions-ico { background-position:-109px 0; width:33px; height:22px; margin-right:20px; position:relative; top:3px;}
+.bw-performance-ico { background-position:-152px 0; width:11px; height:22px; margin-right:41px; position:relative; top:3px; left:7px;}
+.bw-upcoming-bike-ico { background-position:0 -76px; width:135px; height:28px; left: -20px; }
+.bw-discontinued-bike-ico { background-position:0 -113px; width:160px; height:28px; left: -20px; }
+.benefit-offers-ico { background-position:0 -36px; width:25px; height:28px; }
+.benefit-dealer-visits-ico { background-position:-35px -36px; width:34px; height:22px; }
+.benefit-assistance-ico { background-position:-79px -36px; width:27px; height:30px; }
+.benefit-cancellation-ico { background-position:-116px -36px; width:23px; height:30px; }
+.loc-change-blue-icon { width:12px; height:16px; background-position:-205px -35px; cursor:pointer; }
+
+/*benefits*/
+#benefitsOfBookingContainer { padding:0 20px; }
+.booking-online-city-list { position:relative; top:3px; left:5px; cursor:pointer; }
+#benefitsOfBookingContainer ul { margin:20px 0; overflow:hidden; }
+#benefitsOfBookingContainer li { width:180px; height:35px; float:left; margin-left:58px; }
+#benefitsOfBookingContainer li:first-child { margin-left:0; }
+#benefitsOfBookingContainer li .benefits-item { display:inline-block; vertical-align:top; }
+#benefitsOfBookingContainer li.benefits-dealer-visits .benefits-item { display:inline-block; vertical-align:middle; }
+#benefitsOfBookingContainer .benefits-item h2 { color:#4d5057; line-height:16px; margin-bottom:5px; }
 
 /**/
 .offers-icon, .disclaimer-icon, .edit-blue-icon { width:16px; height:16px; }
 .offers-icon { background-position:-115px -146px; }
 .disclaimer-icon { background-position:-115px -175px; }
 .edit-blue-icon { background-position:-115px -249px; cursor:pointer; }
+.margin-top35 { margin-top:35px; }
+.text-blue { color:#0288d1; }
+.border-light-bottom { border-bottom:1px solid #e2e2e2; }
 
 /*news-videos tabs*/
 .newBikes-latest-updates-container .home-tabs { background:#ccc;}
