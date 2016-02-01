@@ -1156,15 +1156,18 @@ namespace Bikewale.New
             List<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (CommonOpn.CheckId(modelId))
                 {
-                    container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-                    areaList = objDealer.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
-                    if (areaList != null && areaList.Count > 0)
-                        isAreaAvailable = true;
-                    return areaList;
-                }
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
+                        IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
+                        areaList = objDealer.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
+                        if (areaList != null && areaList.Count > 0)
+                            isAreaAvailable = true;
+                        return areaList;
+                    }
+                }                
             }
             catch (Exception ex)
             {
