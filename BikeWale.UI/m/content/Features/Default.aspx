@@ -16,7 +16,10 @@
 <!-- #include file="/includes/headermobile.aspx" -->
 
 <div class="padding5">
-        <div id="br-cr"><a href="/m/" class="normal">Home</a> &rsaquo; <span class="lightgray">Features</span></div>
+        <div id="br-cr">
+            <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/" class="normal" itemprop="url"><span itemprop="title">Home</span></a> </span>
+            &rsaquo; <span class="lightgray">Features</span></div>
         <h1>Latest Bike Features</h1>
         <div id="divListing">  
             <asp:Repeater id="rptFeatures" runat="server">

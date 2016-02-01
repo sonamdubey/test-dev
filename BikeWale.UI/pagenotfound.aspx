@@ -38,7 +38,9 @@
         }
 
         string userAgent = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"];											//gets the user agent
-        //HttpContext.Current.Response.Write("<br/><b>User Agent : </b><br/> " + userAgent);
+        if (!String.IsNullOrEmpty(userAgent))
+        {
+            //HttpContext.Current.Response.Write("<br/><b>User Agent : </b><br/> " + userAgent);
         if (!String.IsNullOrEmpty(userAgent))
         {
             IDevice device = wurflManager.GetDeviceForRequest(userAgent);																//gets a device for that user agent

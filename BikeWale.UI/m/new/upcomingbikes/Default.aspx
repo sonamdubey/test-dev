@@ -19,8 +19,8 @@
     }
 </style>--%>
 <div class="padding5">
-    <div id="br-cr">
-        <a href="/m/" class="normal">Home</a> &rsaquo; 
+    <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+        <a href="/m/" class="normal" itemprop="url"><span itemprop="title">Home</span></a> &rsaquo; 
         <!--<a href="/m/new/" class="normal">New Bikes</a> &rsaquo; -->
         <span class="lightgray">Upcoming Bikes</span>
     </div>

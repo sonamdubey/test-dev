@@ -18,8 +18,12 @@
         	<div class="grid-12">
                 <div class="breadcrumb margin-bottom15">
                     <!-- breadcrumb code starts here -->
-                    <ul>
-                        <li><a href="/">Home</a></li>
+                    <ul >
+                        <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                            <a href="/" itemprop="url">
+                                <span itemprop="title">Home</span>
+                            </a>
+                        </li>
                         <li><span class="fa fa-angle-right margin-right10"></span>New Bikes</li>
                     </ul>
                     <div class="clear"></div>

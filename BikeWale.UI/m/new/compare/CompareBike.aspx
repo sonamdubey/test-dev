@@ -25,8 +25,8 @@
 
 
     <div class="padding5">
-        <div id="br-cr">
-            <a href="/m/new/" class="normal">New Bikes</a> &rsaquo; 
+        <div id="br-cr"  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; 
             <span class="lightgray">Compare Bikes</span>
         </div>
         <div style="position:relative;">

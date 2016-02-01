@@ -15,9 +15,9 @@
     .hide {display:none;}
 </style>
     <div class="padding5">
-        <div id="br-cr">
-            <a href="/m/new/" class="normal">New Bikes</a> &rsaquo; 
-            <a href="/m/new/locate-dealers/" class="normal">Locate Dealers</a> &rsaquo; 
+        <div id="br-cr" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; 
+            <a href="/m/new/locate-dealers/" class="normal" itemprop="url"><span itemprop="title">Locate Dealers</span></a> &rsaquo; 
             <span class="lightgray"><%=make %> Dealers in <%=city %> </span>
         </div>
         <h1><%=make %> Bikes Dealers/Showrooms in <%=city %></h1>

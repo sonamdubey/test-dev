@@ -184,11 +184,11 @@
                         <% else
                                if (!isCitySelected)
                                {%>
-                        <p class="font14 fillPopupData">
+                        <p class="font14 fillPopupData margin-top10">
                             Ex-showroom price in <span href="javascript:void(0)" class="text-light-grey clear">
                                 <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span>
                             <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity">
-                                <span class="bwmsprite edit-blue-icon"></span>
+                                <span class="bwmsprite loc-change-blue-icon"></span>
                             </a>
                             <% } %>
                             <% else
@@ -196,16 +196,27 @@
                                    {%>
                             <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
                                 Ex-showroom price in <span class="font14 text-grey"><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
                             <% else
                                    {%>
                             <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
                                 On-road price in <span class="font14 text-grey "><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
+                            <% if (totalDiscountedPrice != 0)
+                               { %>
+                            <p>
+                                <span class="offertxt strike padding-right10 font14"><span class="fa fa-rupee margin-right5"></span>
+                                    <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %>
+                                </span>
+                                (<span class="offertxt red-font text-bold font14"><span class="fa fa-rupee"></span>
+                                    <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalDiscountedPrice)) %>
+                                     Off</span>)
+                            </p>
+                             <% } %>
                             <span itemprop="name" class="hide"><%= bikeName %></span>
                             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                 <p class="leftfloat">
@@ -248,8 +259,58 @@
                             <% } %>
                     </div>
 
+                    <% if (toShowOnRoadPriceButton)
+                       {%>
+                        <div class="clear"></div>
+                        <div id="benefitsOfBookingContainer" class="padding-top10 padding-bottom10">
+                            <div class="padding-bottom20 border-light-bottom">
+                                <p class="font18 text-bold">Benefits of booking online</p>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData font14">Available in Mumbai, Pune & Bangalore</a>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-offers-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2>Exclusive</h2>
+                                        <span>Offers</span>
+                                    </div>
+                                </li>
+                                <li class="benefits-dealer-visits">
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-dealer-visits-ico margin-right10"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2>Save on</h2>
+                                        <span>Dealer visits</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-assistance-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2>Complete</h2>
+                                        <span>Buying assistance</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="bwmsprite cancel-policy-lg-icon margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2>Easy</h2>
+                                        <span>Cancellation</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    <%} %>
+                    
                     <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
                        {%>
+                    
                     <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
 
                         <div class="available-offers-container content-inner-block-10">
@@ -257,7 +318,7 @@
                                 <%if (isBookingAvailable && bookingAmt > 0)
                                   { %>
                                 <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite offers-icon"></span>
-                                    Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike and get:
+                                    Pay <span class="fa fa-rupee"></span> <%=bookingAmt %> to book your bike and get:
                                 </h4>
                                 <%    } %>
                                 <% if (isOfferAvailable)
@@ -268,15 +329,15 @@
                                             <li class="offertxt float-left">
                                                 <span style='display: inline;' class="show"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %></span>
                                                 <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span  class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
-                                                <% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
+                                                <%--<% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
                                                    { %>
                                                 <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
-                                                <% } %>
+                                                <% } %>--%>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
-                                <ul class="moreOffersList hide" style="list-style: none">
+                                <%--<ul class="moreOffersList hide" style="list-style: none">
                                     <asp:Repeater ID="rptMoreOffers" runat="server">
                                         <ItemTemplate>
                                             <li class="offertxt float-left">
@@ -285,7 +346,7 @@
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
-                                </ul>
+                                </ul>--%>
                                 <% } %>
 
                                 <%= (isOfferAvailable)?"<div class=\"border-top1 margin-top10 margin-bottom10\"></div>":string.Empty %>
@@ -313,6 +374,12 @@
                         </div>
                     </div>
                     <% } %>
+                    <% if (bookingAmt > 0 && isDealerAssitance)
+                           { %>
+                            <div class="grid-12 alpha omega margin-bottom20">
+                                <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
+                            </div>
+                        <%} %>
                 </div>
                 <% } %>
                 <% if (!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
@@ -375,17 +442,24 @@
                     <div class="show padding-top10">
                         <% if (modelPage.ModelDetails.New)
                            {   %>
-                        <% if (bookingAmt > 0)
+                        <% if (bookingAmt > 0 && !isDealerAssitance)
                            { %>
-                        <div class="grid-5 omega">
-                            <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
-                        </div>
+                            <div class="grid-5 omega">
+                                <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
+                            </div>
                         <%} %>
 
                         <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
                            { %>
-                        <div class="grid-<%=btMoreDtlsSize %>">
-                            <input type="button" value="Get more details" class="btn btn-orange btn-full-width btn-sm margin-right10 leftfloat" id="getMoreDetailsBtn" />
+                        <div class="grid-<%=btMoreDtlsSize %> ">
+                            <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat <%= (isDealerAssitance && bookingAmt > 0) ? "btn-grey" : "btn-orange"   %>" id="getMoreDetailsBtn" />
+                        </div>
+                        <%} %>
+
+                        <% if (bookingAmt > 0 && isDealerAssitance)
+                           { %>
+                        <div class="grid-5 alpha omega">
+                            <a class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="fa fa-phone margin-right5"></span>Call dealer</a>
                         </div>
                         <%} %>
 
@@ -1087,7 +1161,7 @@
            { %>
         <section>
             <div id="testimonialWrapper" class="container margin-bottom10">
-                <h2 class="text-bold text-center margin-top30 margin-bottom20 font24">Testimonials</h2>
+                <h2 class="text-bold text-center margin-top30 margin-bottom20 font24">What do our customers say</h2>
                 <div class="swiper-container text-center">
                     <div class="swiper-wrapper margin-bottom10">
                         <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
@@ -1235,7 +1309,7 @@
                                {
                             %>
                             <td align="right" class="padding-bottom10 font20 text-bold text-right"><span class="fa fa-rupee margin-right5"></span>
-                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - TotalDiscountedPrice())) %>
+                                <%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice -totalDiscountedPrice)) %>
 
                             </td>
                             <% }
@@ -1491,10 +1565,10 @@
             var getCityArea = GetGlobalCityArea();
             $(document).ready(function (e) {
                 if ($('#getMoreDetailsBtn').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': myBikeName + '_' + getBikeVersion() + '_' + getCityArea });
                 }
                 if ($('#btnGetOnRoadPrice').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
+                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
                 }
             });
 

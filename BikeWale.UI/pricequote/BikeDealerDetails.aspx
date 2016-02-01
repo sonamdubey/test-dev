@@ -25,8 +25,8 @@
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><%= makeUrl %></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span><%= modelUrl %></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><%= makeUrl %></li>
+                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span><%= modelUrl %></li>
                             <li><span class="fa fa-angle-right margin-right10"></span><span data-bind="text : $root.Bike().selectedVersion().MinSpec.VersionName"></span></li>
                             <li><span class="fa fa-angle-right margin-right10"></span>Dealer Details</li>
                         </ul>
@@ -451,7 +451,7 @@
         <section>
             <div id="testimonialWrapper" class="container margin-bottom30">
                 <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">Testimonials</h2>
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">What do our customers say</h2>
                     <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
                 </div>
                 <div class="clear"></div>

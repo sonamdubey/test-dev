@@ -5,9 +5,17 @@
     <div class="grid_12">
         <ul class="breadcrumb">
             <li>You are here: </li>
-            <li><a href="/">Home</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="/" itemprop="url">
+                    <span itemprop="title">Home</span>
+                </a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/mybikewale/">My BikeWale</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="/mybikewale/" itemprop="url">
+                    <span  itemprop="title">My BikeWale</span>
+                </a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>Edit Contact Details</strong></li>
         </ul><div class="clear"></div>
