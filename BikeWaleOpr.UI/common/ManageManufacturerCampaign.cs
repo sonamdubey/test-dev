@@ -45,9 +45,11 @@ namespace BikewaleOpr.Common
                                         CampaignId = Convert.ToUInt32(reader["Id"]),
                                         DealerId = Convert.ToUInt32(reader["DealerId"]),
                                         Description = Convert.ToString(reader["Description"]),
-                                        EntryDate = Convert.ToDateTime(reader["EntryDate"]),
+                                        EntryDate = Convert.ToDateTime(reader["EntryDate"]).ToString("d/M/yyyy"),
                                         IsActive = Convert.ToBoolean(reader["IsActive"]),
-                                        ModelId = Convert.ToUInt32(reader["ModelId"])
+                                        ModelId = Convert.ToUInt32(reader["ModelId"]),
+                                        ModelName = Convert.ToString(reader["ModelName"]),
+                                        MakeName = Convert.ToString(reader["MakeName"])
                                     }
                                     );
                             }

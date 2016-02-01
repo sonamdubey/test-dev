@@ -513,6 +513,10 @@
       <DependentUpon>ManageDealerAreaMapping.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="newbikebooking\ManageDealerCampaigns.aspx.cs">
+      <DependentUpon>ManageDealerCampaigns.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="newbikebooking\ManageDealerDisclaimer.aspx.cs">
       <DependentUpon>ManageDealerDisclaimer.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1936,6 +1940,7 @@
     <Content Include="newbikebooking\ManageBikeAvailabilityByColorAndCost.aspx" />
     <Content Include="newbikebooking\ManageBookingAmount.aspx" />
     <Content Include="newbikebooking\ManageDealerAreaMapping.aspx" />
+    <Content Include="newbikebooking\ManageDealerCampaigns.aspx" />
     <Content Include="newbikebooking\ManageDealerDisclaimer.aspx" />
     <Content Include="newbikebooking\ManageDealerFacilities.aspx" />
     <Content Include="newbikebooking\ManageDealerLoanAmounts.aspx" />
