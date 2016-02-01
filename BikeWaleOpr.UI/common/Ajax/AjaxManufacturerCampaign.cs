@@ -64,7 +64,7 @@ namespace BikewaleOpr.Common
         {
             bool isSuccess = false;
             try
-            {                
+            {
                 isSuccess = objDAL.SaveManufacturerCampaign(dealerId, modelIds, description);
             }
             catch (Exception ex)
@@ -96,6 +96,32 @@ namespace BikewaleOpr.Common
                 objErr.SendMail();
             }
             return isSuccess;
+        }
+
+        /// <summary>
+        /// Created by  :   Sumit Kateon 01 Feb 2016
+        /// Returns the Manufacturers list.
+        /// </summary>
+        /// <returns></returns>
+        [AjaxPro.AjaxMethod()]
+        public string GetDealerAsManuFacturer()
+        {
+            string json = String.Empty;
+            IEnumerable<ManufacturerEntity> manufacturers = null;
+            try
+            {
+                manufacturers = objDAL.GetDealerAsManuFacturer();
+                if (manufacturers != null && manufacturers.Count() > 0)
+                {
+                    json = JavaScriptSerializer.Serialize(manufacturers);
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+            return json;
         }
     }
 }

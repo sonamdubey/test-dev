@@ -142,5 +142,54 @@ namespace BikewaleOpr.Common
             }
             return success;
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kateon 01 Feb 2016
+        /// Returns the Manufacturers list.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<ManufacturerEntity> GetDealerAsManuFacturer()
+        {
+            IList<ManufacturerEntity> manufacturers = null;
+            Database db = null;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("GetDealerAsManuFacturer"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    db = new Database();
+                    using (SqlDataReader reader = db.SelectQry(cmd))
+                    {
+                        if (reader != null && reader.HasRows)
+                        {
+                            manufacturers = new List<ManufacturerEntity>();
+                            while (reader.Read())
+                            {
+                                manufacturers.Add(
+                                    new ManufacturerEntity()
+                                    {
+                                        Id = Convert.ToInt32(reader["Id"]),
+                                        Name = Convert.ToString(reader["Name"]),
+                                        Organization = Convert.ToString(reader["Organization"])
+                                    }
+                                    );
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "ManageManufacturerCampaign.GetDealerAsManuFacturer");
+                objErr.SendMail();
+            }
+            finally
+            {
+                if (db != null)
+                    db.CloseConnection();
+                db = null;
+            }
+            return manufacturers;
+        }
     }
 }
