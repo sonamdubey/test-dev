@@ -195,6 +195,7 @@
     <Compile Include="common\AjaxEditCms.cs" />
     <Compile Include="common\AjaxFunctions.cs" />
     <Compile Include="common\Ajax\AjaxCommon.cs" />
+    <Compile Include="common\Ajax\AjaxManufacturerCampaign.cs" />
     <Compile Include="common\Ajax\ImageReplication.cs" />
     <Compile Include="common\BikeWaleAuthentication.cs" />
     <Compile Include="common\BindControls.cs" />
