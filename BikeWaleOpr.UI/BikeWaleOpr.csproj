@@ -191,11 +191,17 @@
       <DependentUpon>VerifyCustomerListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="common\AjaxAppVersion.cs" />
     <Compile Include="common\AjaxCompareFeaturedBike.cs" />
     <Compile Include="common\AjaxEditCms.cs" />
     <Compile Include="common\AjaxFunctions.cs" />
     <Compile Include="common\Ajax\AjaxCommon.cs" />
     <Compile Include="common\Ajax\ImageReplication.cs" />
+    <Compile Include="content\frmManageAppVersions.aspx.cs">
+      <DependentUpon>frmManageAppVersions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Entities\AppEnum.cs" />
     <Compile Include="common\BikeWaleAuthentication.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWHttpClient.cs" />
@@ -215,6 +221,7 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="common\MakeModelVersion.cs" />
+    <Compile Include="common\ManageAppVersion.cs" />
     <Compile Include="common\ManageArea.cs" />
     <Compile Include="common\ManageBikeAvailbilityByColor.cs" />
     <Compile Include="common\ManageBikeSeries.cs" />
@@ -454,6 +461,7 @@
     <Compile Include="editcms\Code\ViewImage.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Entities\AppVersionEntity.cs" />
     <Compile Include="Entities\AreaEntityBase.cs" />
     <Compile Include="Entities\BookingAmountEntity.cs" />
     <Compile Include="Entities\BookingAmountEntityBase.cs" />
@@ -1368,6 +1376,7 @@
     <Content Include="content\ExpectedLanuches.aspx" />
     <Content Include="content\FeaturedBikes.aspx" />
     <Content Include="content\FeaturedListing.aspx" />
+    <Content Include="content\frmManageAppVersions.aspx" />
     <Content Include="content\MakeSynopsis.aspx" />
     <Content Include="content\ManageNewModelColor.aspx" />
     <Content Include="content\ManageUserReviews.aspx" />
@@ -1975,7 +1984,7 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
-          <AutoAssignPort>false</AutoAssignPort>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>51984</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9010</IISUrl>
