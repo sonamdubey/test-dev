@@ -287,15 +287,15 @@
 								<% } %>
 								<% else if (!isCitySelected)
 								   {%>
-								<p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
+								<p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 								<% } %>
 								<% else if (!isOnRoadPrice)
 								   {%>
-								<p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
+								<p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 								<% } %>
 								<% else
 								   {%>
-								<p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
+								<p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
 								<% } %>
 								<span itemprop="name" class="hide"><%= bikeName %></span>
@@ -394,7 +394,53 @@
 						<div class="clear"></div>
 						<%if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
 						  { %>
-						<div id="modelDetailsOffersContainer" class="grid-12 margin-top20">
+                        <div id="benefitsOfBookingContainer" class="margin-top35">
+                            <div class="padding-bottom20 border-light-bottom">
+                                <h3 class="leftfloat">Benefits of booking online</h3>
+                                <p class="leftfloat font14 position-rel booking-online-city-list">(<span class="text-blue">Available in Mumbai, Pune and Bangalore</span>)</p>
+                                <div class="clear"></div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-offers-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Exclusive</h2>
+                                        <span>Offers</span>
+                                    </div>
+                                </li>
+                                <li class="benefits-dealer-visits">
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-dealer-visits-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Save on</h2>
+                                        <span>Dealer visits</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-assistance-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Complete</h2>
+                                        <span>Buying assistance</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-cancellation-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Easy</h2>
+                                        <span>Cancellation</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        
+						<div id="modelDetailsOffersContainer" class="hide grid-12 margin-top20">
 							<div class="grid-<%=grid1_size %> modelGetDetails padding-right20">
 								<h3 class="padding-bottom10"><span class="bwsprite disclaimer-icon margin-right5"></span>Get following details on this bike:</h3>
 								<ul>
