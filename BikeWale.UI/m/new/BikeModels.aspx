@@ -188,7 +188,7 @@
                             Ex-showroom price in <span href="javascript:void(0)" class="text-light-grey clear">
                                 <%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span>
                             <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity">
-                                <span class="bwmsprite edit-blue-icon"></span>
+                                <span class="bwmsprite loc-change-blue-icon"></span>
                             </a>
                             <% } %>
                             <% else
@@ -196,14 +196,14 @@
                                    {%>
                             <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
                                 Ex-showroom price in <span class="font14 text-grey"><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
                             <% else
                                    {%>
                             <p class="margin-top20 margin-bottom10 font14 text-light-grey clear">
                                 On-road price in <span class="font14 text-grey "><%= areaName %> <%= cityName %></span>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite edit-blue-icon"></span></a>
+                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData margin-left5 changeCity"><span class="bwmsprite loc-change-blue-icon"></span></a>
                             </p>
                             <% } %>
                             <% if (totalDiscountedPrice != 0)
@@ -261,7 +261,51 @@
 
                     <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
                        {%>
-                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
+                    <div id="benefitsOfBookingContainer">
+                        <div class="padding-bottom20 border-light-bottom">
+                            <p class="font18 text-bold">Benefits of booking online</p>
+                            <p class="font14 text-blue">Available in Mumbai, Pune & Bangalore</p>
+                        </div>
+                        <ul>
+                            <li>
+                                <div class="benefits-item">
+                                    <span class="model-sprite benefit-offers-ico margin-right15"></span>
+                                </div>
+                                <div class="benefits-item text-uppercase">
+                                    <h2>Exclusive</h2>
+                                    <span>Offers</span>
+                                </div>
+                            </li>
+                            <li class="benefits-dealer-visits">
+                                <div class="benefits-item">
+                                    <span class="model-sprite benefit-dealer-visits-ico margin-right10"></span>
+                                </div>
+                                <div class="benefits-item text-uppercase">
+                                    <h2>Save on</h2>
+                                    <span>Dealer visits</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="benefits-item">
+                                    <span class="model-sprite benefit-assistance-ico margin-right15"></span>
+                                </div>
+                                <div class="benefits-item text-uppercase">
+                                    <h2>Complete</h2>
+                                    <span>Buying assistance</span>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="benefits-item">
+                                    <span class="bwmsprite cancel-policy-lg-icon margin-right15"></span>
+                                </div>
+                                <div class="benefits-item text-uppercase">
+                                    <h2>Easy</h2>
+                                    <span>Cancellation</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="offersBlock" class="hide city-unveil-offer-container position-rel margin-top20 margin-bottom20">
 
                         <div class="available-offers-container content-inner-block-10">
                             <div class="offer-list-container" id="dvAvailableOffer">
