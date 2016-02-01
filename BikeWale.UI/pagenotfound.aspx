@@ -38,22 +38,25 @@
         }
 
         string userAgent = HttpContext.Current.Request.ServerVariables["HTTP_USER_AGENT"];											//gets the user agent
-        //HttpContext.Current.Response.Write("<br/><b>User Agent : </b><br/> " + userAgent);
-        IDevice device = wurflManager.GetDeviceForRequest(userAgent);																//gets a device for that user agent
-
-        string is_wireless_device = device.GetCapability("is_wireless_device");														//gets the capability of device
-        //HttpContext.Current.Response.Write("<br/>is_wireless_device : " + is_wireless_device);
-        string ajax_support_javascript = device.GetCapability("ajax_support_javascript").ToString().Trim();
-        //HttpContext.Current.Response.Write("<br/>ajax_support_javascript : " + ajax_support_javascript);
-        string is_tablet = device.GetCapability("is_tablet").ToString().Trim();
-        //HttpContext.Current.Response.Write("<br/>is_tablet : " + is_tablet);
-
-        if (is_wireless_device == "true" && ajax_support_javascript == "true" && is_tablet == "false")
+        if (!String.IsNullOrEmpty(userAgent))
         {
-            //Redirect to mobile website
-            //Response.Write("<br/>Redirect to mobile website");
-            //HttpContext.Current.Response.Redirect("/m/pagenotfound.aspx",false);            
-            Server.TransferRequest("/m/pagenotfound.aspx");            
+            //HttpContext.Current.Response.Write("<br/><b>User Agent : </b><br/> " + userAgent);
+            IDevice device = wurflManager.GetDeviceForRequest(userAgent);																//gets a device for that user agent
+
+            string is_wireless_device = device.GetCapability("is_wireless_device");														//gets the capability of device
+            //HttpContext.Current.Response.Write("<br/>is_wireless_device : " + is_wireless_device);
+            string ajax_support_javascript = device.GetCapability("ajax_support_javascript").ToString().Trim();
+            //HttpContext.Current.Response.Write("<br/>ajax_support_javascript : " + ajax_support_javascript);
+            string is_tablet = device.GetCapability("is_tablet").ToString().Trim();
+            //HttpContext.Current.Response.Write("<br/>is_tablet : " + is_tablet);
+
+            if (is_wireless_device == "true" && ajax_support_javascript == "true" && is_tablet == "false")
+            {
+                //Redirect to mobile website
+                //Response.Write("<br/>Redirect to mobile website");
+                //HttpContext.Current.Response.Redirect("/m/pagenotfound.aspx",false);            
+                Server.TransferRequest("/m/pagenotfound.aspx");
+            } 
         }
     }
 </script>
