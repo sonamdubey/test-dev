@@ -438,17 +438,17 @@ namespace Bikewale.New
         {
             ModelMaskingResponse objResponse = null;
             string modelQuerystring = Request.QueryString["model"];
-            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);
-            if (modelQuerystring.Contains("/"))
-            {
-                modelQuerystring = modelQuerystring.Split('/')[0];
-            }
-
-            Trace.Warn("modelQuerystring 2 : ", modelQuerystring);
+            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);            
             try
             {
                 if (!string.IsNullOrEmpty(modelQuerystring))
                 {
+                    if (modelQuerystring.Contains("/"))
+                    {
+                        modelQuerystring = modelQuerystring.Split('/')[0];
+                    }
+
+                    Trace.Warn("modelQuerystring 2 : ", modelQuerystring);
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
