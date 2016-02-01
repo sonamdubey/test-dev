@@ -102,7 +102,7 @@
 .color-box.blue {background:#3749a4;}
 
 /* model sprite classes */
-.model-sprite { background:url(../images/model-sprite.png?v=27012016v1) no-repeat; display:inline-block;}
+.model-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/m/images/model-sprite.png?v=27012016v1) no-repeat; display:inline-block;}
 .benefit-offers-ico { background-position:0 0; width:25px; height:28px; }
 .benefit-dealer-visits-ico { background-position:0 -38px; width:34px; height:22px; }
 .benefit-assistance-ico { background-position:0 -70px; width:27px; height:30px; }

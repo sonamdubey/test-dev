@@ -392,12 +392,12 @@
 							<% } %>
 						</div>
 						<div class="clear"></div>
-						<%if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
-						  { %>
-                        <div id="benefitsOfBookingContainer" class="margin-top35">
+                        <%if (toShowOnRoadPriceButton)
+                          { %>
+                         <div id="benefitsOfBookingContainer" class="margin-top35">
                             <div class="padding-bottom20 border-light-bottom">
                                 <h3 class="leftfloat">Benefits of booking online</h3>
-                                <p class="leftfloat font14 position-rel booking-online-city-list">(<span class="text-blue">Available in Mumbai, Pune and Bangalore</span>)</p>
+                                <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="leftfloat font14 booking-online-city-list fillPopupData">(Available in Mumbai, Pune and Bangalore)</a>
                                 <div class="clear"></div>
                             </div>
                             <ul>
@@ -439,8 +439,10 @@
                                 </li>
                             </ul>
                         </div>
-                        
-						<div id="modelDetailsOffersContainer" class="hide grid-12 margin-top20">
+                        <%} %>
+						<%if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
+						  { %>
+						<div id="modelDetailsOffersContainer" class=" grid-12 margin-top20">
 							<div class="grid-<%=grid1_size %> modelGetDetails padding-right20">
 								<h3 class="padding-bottom10"><span class="bwsprite disclaimer-icon margin-right5"></span>Get following details on this bike:</h3>
 								<ul>
