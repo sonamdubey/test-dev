@@ -220,6 +220,7 @@
     <Compile Include="common\ManageBikeSeries.cs" />
     <Compile Include="common\ManageCities.cs" />
     <Compile Include="common\ManageFeaturedBike.cs" />
+    <Compile Include="common\ManageManufacturerCampaign.cs" />
     <Compile Include="common\ManageModelColor.cs" />
     <Compile Include="common\ManageStates.cs" />
     <Compile Include="common\ManageVideos.cs" />
@@ -467,6 +468,7 @@
     <Compile Include="Entities\FacilityEntity.cs" />
     <Compile Include="Entities\MakeEntity.cs" />
     <Compile Include="Entities\MakeEntityBase.cs" />
+    <Compile Include="Entities\ManufacturerCampaignEntity.cs" />
     <Compile Include="Entities\ModelColorBase.cs" />
     <Compile Include="Entities\ModelEntity.cs" />
     <Compile Include="Entities\ModelEntityBase.cs" />
@@ -1975,7 +1977,7 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
-          <AutoAssignPort>false</AutoAssignPort>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>51984</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9010</IISUrl>
