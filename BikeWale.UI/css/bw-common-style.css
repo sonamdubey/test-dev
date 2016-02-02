@@ -372,6 +372,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .newsletter-icon { background-position: -183px -225px; }
 .cancellation-icon { background-position: -187px -118px; }
 
+.fixed-close-btn-wrapper { position:relative; width:98%; text-align:right; }
+.fixed-close-btn { position:fixed; background-color:#fff; }
+
 .cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey, .popup-close-btn { width: 16px; height: 16px; }
 .cross-lg-white { background-position: -36px -200px; }
 .cross-lg-lgt-grey { background-position: -36px -226px; }

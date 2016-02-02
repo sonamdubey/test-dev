@@ -561,39 +561,6 @@ navigationVideosLI.click(function () {
     videoiFrame.setAttribute("src", newSrc);
 });
 
-
-function LoadTerms(offerId) {
-
-    $(".termsPopUpContainer").css('height', '150')
-    $('#termspinner').show();
-    $('#terms').empty();
-    $("div#termsPopUpContainer").show();
-    $(".blackOut-window").show();
-
-    var url = abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId;
-    if (offerId != '' && offerId != null) {
-        $.ajax({
-            type: "GET",
-            url: abHostUrl + "/api/DealerPriceQuote/GetOfferTerms?offerMaskingName=&offerId=" + offerId,
-            dataType: 'json',
-            success: function (response) {
-                $(".termsPopUpContainer").css('height', '500')
-                $('#termspinner').hide();
-                if (response.html != null)
-                    $('#terms').html(response.html);
-            },
-            error: function (request, status, error) {
-                $("div#termsPopUpContainer").hide();
-                $(".blackOut-window").hide();
-            }
-        });
-    }
-    else {
-        setTimeout(LoadTerms, 2000); // check again in a second
-    }
-}
-
-
 $("#btnShowOffers").on("click", function () {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_Offers_Clicked', 'lab': myBikeName });
 });
@@ -690,20 +657,16 @@ $('.changeCity').on('click', function (e) {
 });
 
 function LoadTerms(offerId) {
-    //$(".termsPopUpContainer").css('height', '150')
-    $('#termspinner').show();
-    $('#terms').empty();
     $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
-
-    if (offerId != '' && offerId != null) {
+    if (offerId != 0 && offerId != null) {
+        $('#termspinner').show();
+        $('#terms').empty();
         $.ajax({
             type: "GET",
             url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
             dataType: 'json',
             success: function (response) {
-                //$(".termsPopUpContainer").css('height', '500')
-                $('#termspinner').hide();
                 if (response != null)
                     $('#terms').html(response);
             },
@@ -714,6 +677,7 @@ function LoadTerms(offerId) {
         });
     }
     else {
-        setTimeout(LoadTerms, 2000); // check again in a second
+        $('#terms').html($("#orig-terms").html());
     }
+    $('#termspinner').hide();
 }
