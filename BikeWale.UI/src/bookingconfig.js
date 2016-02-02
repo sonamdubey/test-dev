@@ -499,20 +499,17 @@ $('.tnc').on('click', function (e) {
 });
 
 function LoadTerms(offerId) {
-
-    $(".termsPopUpContainer").css('height', '150')
-    $('#termspinner').show();
-    $('#terms').empty();
-    $("#termsPopUpContainer").show();
+    $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
-
-    if (offerId != '' && offerId != null) {
+    if (offerId != 0 && offerId != null) {
+        $(".termsPopUpContainer").css('height', '150')
+        $('#termspinner').show();
+        $('#terms').empty();
         $.ajax({
             type: "GET",
             url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
             dataType: 'json',
             success: function (response) {
-                $(".termsPopUpContainer").css('height', '500')
                 $('#termspinner').hide();
                 if (response != null)
                     $('#terms').html(response);
@@ -524,8 +521,9 @@ function LoadTerms(offerId) {
         });
     }
     else {
-        setTimeout(LoadTerms, 2000); // check again in a second
+        $('#terms').html($("#orig-terms").html());
     }
+    $(".termsPopUpContainer").css('height', '500');
 }
 $(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
     $("div#termsPopUpContainer").hide();

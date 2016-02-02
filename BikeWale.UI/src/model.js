@@ -876,7 +876,7 @@ $('.changeCity').on('click', function (e) {
 function LoadTerms(offerId) {
     $("div#termsPopUpContainer").show();
     $(".blackOut-window").show();
-    if (offerId != '' && offerId != null) {
+    if (offerId != 0 && offerId != null) {
         $(".termsPopUpContainer").css('height', '150')
         $('#termspinner').show();
         $('#terms').empty();
@@ -885,7 +885,6 @@ function LoadTerms(offerId) {
             url: "/api/Terms/?offerMaskingName=&offerId=" + offerId,
             dataType: 'json',
             success: function (response) {
-                $(".termsPopUpContainer").css('height', '500')
                 $('#termspinner').hide();
                 if (response != null)
                     $('#terms').html(response);
@@ -895,8 +894,8 @@ function LoadTerms(offerId) {
                 $(".blackOut-window").hide();
             }
         });
+    } else {
+        $('#terms').html($("#orig-terms").html());
     }
-    else {
-        setTimeout(LoadTerms, 2000); // check again in a second
-    }
+    $(".termsPopUpContainer").css('height', '500');
 }
