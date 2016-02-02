@@ -38,7 +38,7 @@
         var bikeVersionLocation = '';
         var bikeVersion = '';
         var isBikeWalePq = "<%= isBikeWalePQ%>";
-        var isDealerPriceAvailable = "<%= pqOnRoad.IsDealerPriceAvailable%>";
+        var isDealerPriceAvailable = "<%= pqOnRoad != null ? pqOnRoad.IsDealerPriceAvailable : false%>";
         var campaignId = "<%= campaignId%>";
         var manufacturerId = "<%= manufacturerId%>";
 
@@ -312,8 +312,8 @@
                         </div>
                     <%} %>
                     
-                    <% if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0)){%>
-                    
+                    <% if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0) && !toShowOnRoadPriceButton)
+                       {%>                    
 
                     <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
                         <div class="available-offers-container content-inner-block-10">                                                       
@@ -354,7 +354,14 @@
                                 <% } %>
 
                                 <%= (isOfferAvailable && campaignId == 0)?"<div class=\"border-top1 margin-top10 margin-bottom10\"></div>":string.Empty %>
-                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite disclaimer-icon margin-right5"></span>Get following details on the bike</h4>
+                                <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite disclaimer-icon margin-right5"></span>
+                                    <%if (pqOnRoad.IsDealerPriceAvailable) {%>
+                                        Get following details on this bike:
+                                    <%}
+                                      else if (campaignId > 0) {%>
+                                        Get following details from <%=bikeName.Split(' ')[0] %>:
+                                    <%} %>
+                                </h4>
                                 <ul class="bike-details-list-ul">
 
                                     <li>
@@ -451,7 +458,7 @@
                             </div>
                         <%} %>
 
-                        <% if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0))
+                        <% if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0) && !toShowOnRoadPriceButton)
                            { %>
                         <div class="grid-<%=btMoreDtlsSize %> ">
                             <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat <%= (isDealerAssitance && bookingAmt > 0 && campaignId == 0) ? "btn-grey" : "btn-orange"   %>" id="getMoreDetailsBtn" />

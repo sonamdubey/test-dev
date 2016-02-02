@@ -444,11 +444,18 @@
                             </ul>
                         </div>
                         <%} %>
-<%if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0))
+                        <%if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0) && !toShowOnRoadPriceButton)
 						  { %>
 						<div id="modelDetailsOffersContainer" class=" grid-12 margin-top20">
 							<div class="grid-<%=grid1_size %> modelGetDetails padding-right20">
-								<h3 class="padding-bottom10"><span class="bwsprite disclaimer-icon margin-right5"></span>Get following details on this bike:</h3>
+								<h3 class="padding-bottom10"><span class="bwsprite disclaimer-icon margin-right5"></span>
+                                    <%if (pqOnRoad.IsDealerPriceAvailable) {%>
+                                        Get following details on this bike:
+                                    <%}
+                                      else if (campaignId > 0) {%>
+                                        Get following details from <%=bikeName.Split(' ')[0] %>:
+                                    <%} %>
+								</h3>
 								<ul>
 									<li>Offers from the nearest dealers</li>
 									<li>Waiting period on this bike at the dealership</li>
