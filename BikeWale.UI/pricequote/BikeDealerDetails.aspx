@@ -304,7 +304,7 @@
                                     <% if (isOfferAvailable)
                                        { %>
                                     <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() < 1"><span class="bwsprite offers-icon margin-right5"></span>Available Offers </h3>
-                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span><span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span>to book your bike and get:</h3>
+                                    <h3 class="padding-left5 padding-bottom10 margin-left10 border-light-bottom" data-bind="visible : $root.Bike().bookingAmount() > 0"><span class="bwsprite offers-icon margin-right5"></span>Pay <span class="fa fa-rupee" style="font-size: 15px"></span> <span class="font16" data-bind="    text : $root.Bike().bookingAmount()"></span> to book your bike and get:</h3>
 
                                     <ul>
                                         <asp:Repeater ID="rptDealerOffers" runat="server">
@@ -430,11 +430,13 @@
         </div>
         <!-- Terms and condition Popup start -->
         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
-            <h3>Terms and Conditions</h3>
+                <div class="fixed-close-btn-wrapper">
+                    <div class="termsPopUpCloseBtn fixed-close-btn bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                </div>
+				<h3>Terms and Conditions</h3>
             <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
                 <img src="/images/search-loading.gif" />
             </div>
-            <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
             <div id="terms" class="breakup-text-container padding-bottom10 font14">
             </div>
             <div id='orig-terms' class='hide'>

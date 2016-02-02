@@ -452,7 +452,6 @@
 									<li>Finance options on this bike</li>
 								</ul>
 							</div>
-
 							<div class="grid-7 modelGetDetails offersList <%= offerDivHide %>">
 								<%if (isBookingAvailable)
 								  { %>

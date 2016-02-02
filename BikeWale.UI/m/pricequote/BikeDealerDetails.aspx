@@ -461,12 +461,14 @@
                         </div>
                         <!-- Terms and condition Popup start -->
                         <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                            <div class="fixed-close-btn-wrapper">
+                                <div class="termsPopUpCloseBtn bwmsprite fixed-close-btn cross-lg-lgt-grey cur-pointer"></div>
+                            </div>
                             <h3>Terms and Conditions</h3>
                             <div  class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
                                 <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
                                 <img src="/images/search-loading.gif" />
                             </div>
-                            <div class="termsPopUpCloseBtn position-abt pos-top10 pos-right10 bwmsprite  cross-lg-lgt-grey cur-pointer"></div>
                             <div id="terms" class="breakup-text-container padding-bottom10 font14">
                             </div>
                             <div id='orig-terms' class='hide'>

@@ -586,12 +586,13 @@
 
          <!-- Terms and condition Popup start -->
             <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
-                <h3>Terms and Conditions</h3>
+                <div class="fixed-close-btn-wrapper">
+                    <div class="termsPopUpCloseBtn fixed-close-btn bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                </div>
+				<h3>Terms and Conditions</h3>
                 <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
-                    <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
                     <img src="/images/search-loading.gif" />
                 </div>
-                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                 <div id="terms" class="breakup-text-container padding-bottom10 font14">
                 </div>
                 <div id='orig-terms' class='hide'>

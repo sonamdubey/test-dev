@@ -386,6 +386,7 @@ $(".breakupCloseBtn,.blackOut-window").on('mouseup click', function (e) {
 $(document).on('keydown', function (e) {
     if (e.keyCode === 27) {
         $("div.breakupCloseBtn").click();
+        $("div.termsPopUpCloseBtn").click();
     }
 });
 
