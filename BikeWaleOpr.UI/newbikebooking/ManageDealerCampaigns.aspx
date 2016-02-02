@@ -148,6 +148,8 @@
                 else if (self.selectedAction() == "2") {
                     $("#ddlModel").hide();
                     $("#ddlMake").hide();
+                    self.ManufacturerCamps([]);
+                    self.Camp().ErrorMsg = "";
                     self.viewAllCampaign();
                     self.ActionState(2);
                 }
@@ -174,6 +176,8 @@
                             $("#addStatus").text("Campaign Sucessfully Added");
                             self.ActionState(2);
                             self.selectedAction("2");
+                            $("#ddlModel").hide();
+                            $("#ddlMake").hide();
                             self.viewAllCampaign();
                             
                         }else{
