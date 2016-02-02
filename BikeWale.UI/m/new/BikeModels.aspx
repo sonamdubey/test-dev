@@ -38,6 +38,10 @@
         var bikeVersionLocation = '';
         var bikeVersion = '';
         var isBikeWalePq = "<%= isBikeWalePQ%>";
+        var isDealerPriceAvailable = "<%= pqOnRoad.IsDealerPriceAvailable%>";
+        var campaignId = "<%= campaignId%>";
+        var manufacturerId = "<%= manufacturerId%>";
+
 
     </script>
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
@@ -259,19 +263,19 @@
                             <% } %>
                     </div>
 
-                    <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
+                    <% if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0))
                        {%>
-                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
 
-                        <div class="available-offers-container content-inner-block-10">
+                    <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
+                        <div class="available-offers-container content-inner-block-10">                                                       
                             <div class="offer-list-container" id="dvAvailableOffer">
-                                <%if (isBookingAvailable && bookingAmt > 0)
+                                <%if (isBookingAvailable && bookingAmt > 0 && campaignId == 0)
                                   { %>
                                 <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite offers-icon"></span>
                                     Pay <span class="fa fa-rupee"></span> <%=bookingAmt %> to book your bike and get:
                                 </h4>
                                 <%    } %>
-                                <% if (isOfferAvailable)
+                                <% if (isOfferAvailable && campaignId == 0)
                                    { %>
                                 <ul class="offersList" style="list-style: none">
                                     <asp:Repeater ID="rptOffers" runat="server">
@@ -299,12 +303,11 @@
                                 </ul>--%>
                                 <% } %>
 
-                                <%= (isOfferAvailable)?"<div class=\"border-top1 margin-top10 margin-bottom10\"></div>":string.Empty %>
+                                <%= (isOfferAvailable && campaignId == 0)?"<div class=\"border-top1 margin-top10 margin-bottom10\"></div>":string.Empty %>
                                 <h4 class="border-solid-bottom padding-bottom5 margin-bottom10"><span class="bwmsprite disclaimer-icon margin-right5"></span>Get following details on the bike</h4>
                                 <ul class="bike-details-list-ul">
 
                                     <li>
-
                                         <span class="show">Offers from the nearest dealers</span>
                                     </li>
                                     <li>
@@ -316,7 +319,6 @@
                                         <span class="show">Nearest dealership from your place</span>
                                     </li>
                                     <li>
-
                                         <span class="show">Finance options on this bike</span>
                                     </li>
                                 </ul>
@@ -399,10 +401,10 @@
                             </div>
                         <%} %>
 
-                        <% if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
+                        <% if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0))
                            { %>
                         <div class="grid-<%=btMoreDtlsSize %> ">
-                            <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat <%= (isDealerAssitance && bookingAmt > 0) ? "btn-grey" : "btn-orange"   %>" id="getMoreDetailsBtn" />
+                            <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat <%= (isDealerAssitance && bookingAmt > 0 && campaignId == 0) ? "btn-grey" : "btn-orange"   %>" id="getMoreDetailsBtn" />
                         </div>
                         <%} %>
 
@@ -1314,6 +1316,13 @@
                     <input type="button" class="btn btn-full-width btn-orange hide" value="Submit" onclick="validateDetails();" class="rounded-corner5" data-role="none" id="btnSubmit" />
                 </div>
                 <!-- Contact details Popup ends here -->
+                 <!-- thank you message starts here -->
+                <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+                        <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+                        <p class="font16 margin-bottom40"><%=bikeName.Split(' ')[0]%> Company would get back to you shortly with additional information on <%=bikeName %>.</p>
+                        <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
+                </div>
+				<!-- thank you message ends here -->
                 <div id="otpPopup">
                     <p class="font18 margin-bottom5">Verify your mobile number</p>
                     <p class="text-light-grey margin-bottom5">We have sent OTP on your mobile. Please enter that OTP in the box provided below:</p>
@@ -1399,7 +1408,7 @@
             var leadPopupClose = function () {
                 leadCapturePopup.hide();
                 $("#contactDetailsPopup").show();
-                $("#otpPopup").hide();
+                $("#otpPopup,#notify-response").hide();
                 $('body').removeClass('lock-browser-scroll');
                 $(".blackOut-window").hide();
             };
@@ -1425,7 +1434,7 @@
                 $(".blackOut-window").show();
                 appendHash("viewBreakup");
             });
-            $(".breakupCloseBtn,.blackOut-window").on('click', function (e) {
+            $(".breakupCloseBtn,.blackOut-window, #notifyOkayBtn").on('click', function (e) {
                 viewBreakUpClosePopup();
                 window.history.back();
             });
@@ -1433,8 +1442,7 @@
             var viewBreakUpClosePopup = function () {
                 $("div#breakupPopUpContainer").hide();
                 $(".blackOut-window").hide();
-                $("#contactDetailsPopup").show();
-                $("#otpPopup").hide();
+                $("#contactDetailsPopup").show();                
                 leadPopupClose();
             };
 
