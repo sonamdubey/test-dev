@@ -110,7 +110,7 @@
 .loc-change-blue-icon { width:12px; height:16px; background-position:-86px -278px; position:relative; top:3px; }
 
 /*benefits*/
-#benefitsOfBookingContainer { margin:20px 20px 10px; }
+#benefitsOfBookingContainer { padding:20px 20px 10px; background:#f5f5f5; }
 #benefitsOfBookingContainer ul { overflow:hidden; }
 #benefitsOfBookingContainer li { padding:20px 5px 16px; border-top:1px solid #e2e2e2; }
 #benefitsOfBookingContainer li:first-child { border-top:none; }
