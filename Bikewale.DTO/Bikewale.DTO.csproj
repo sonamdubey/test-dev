@@ -50,6 +50,9 @@
     <Compile Include="AutoComplete\BikeList.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionList.cs" />
+    <Compile Include="Compare\BikeColorDTO.cs" />
+    <Compile Include="BikeBooking\BikeCancellationCustomer.cs" />
+    <Compile Include="Compare\BikeCompareDTO.cs" />
     <Compile Include="BikeData\BikeDiscription.cs" />
     <Compile Include="Area\AreaBase.cs" />
     <Compile Include="Area\AreaList.cs" />
@@ -70,6 +73,16 @@
     <Compile Include="CMS\Articles\HtmlContent.cs" />
     <Compile Include="CMS\Articles\HtmlItem.cs" />
     <Compile Include="CMS\Photos\CMSModelImageBase.cs" />
+    <Compile Include="Compare\BikeDTOBase.cs" />
+    <Compile Include="Compare\BikeFeatureDTO.cs" />
+    <Compile Include="Compare\BikeSpecificationDTO.cs" />
+    <Compile Include="Compare\CompareBikeColorCategoryDTO.cs" />
+    <Compile Include="Compare\CompareBikeColorDTO.cs" />
+    <Compile Include="Compare\CompareBikeDataDTO.cs" />
+    <Compile Include="Compare\CompareMainCategoryDTO.cs" />
+    <Compile Include="Compare\CompareSubCategoryDTO.cs" />
+    <Compile Include="Compare\CompareSubMainCategoryDTO.cs" />
+    <Compile Include="Compare\TopBikeCompareDTO.cs" />
     <Compile Include="Customer\AuthenticatedCustomer.cs" />
     <Compile Include="Customer\Customer.cs" />
     <Compile Include="Customer\CustomerBase.cs" />
@@ -99,6 +112,7 @@
     <Compile Include="Model\Features.cs" />
     <Compile Include="Model\ModelColor.cs" />
     <Compile Include="Model\ModelDetail.cs" />
+    <Compile Include="Model\NewModelColor.cs" />
     <Compile Include="Model\Overview.cs" />
     <Compile Include="Model\Specifications.cs" />
     <Compile Include="Model\Specs.cs" />

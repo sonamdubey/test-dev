@@ -480,7 +480,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .google-play-logo  { background-position: 2px -340px; width: 120px; height: 45px; }
 
 /* nav classes */
-.home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .reviews-icon, .insurance-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
+.home-icon, .newBikes-icon, .usedBikes-icon, .sellBikes-icon, .cancellation-icon, .reviews-icon, .insurance-icon, .forum-icon, .myBikeWale-icon { width: 26px; height: 26px; margin-right: 10px; top:5px; position: relative; }
 .home-icon { background-position: 0 -58px; }
 .newBikes-icon { background-position: 0 -93px; top: 9px; }
 .usedBikes-icon { background-position: 0 -127px; top: 7px; }
@@ -489,6 +489,7 @@ button, a[data-role="button"]:not([data-icon]):focus, input[type="button"]:focus
 .insurance-icon { background-position: 0 -212px; }
 .forum-icon { background-position: 0 -243px; }
 .myBikeWale-icon { background-position: 0 -277px; top: 6px; }
+.cancellation-icon { background-position: -52px -395px; top:10px; }
 
 .cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey { width: 16px; height: 16px; }
 .cross-lg-white { background-position: -36px -200px; }
@@ -584,6 +585,8 @@ footer .border-solid-top {
 .ui-menu .ui-menu-item { padding: 10px; background:#fff; font-size:14px; cursor:pointer; }
 .ui-menu .ui-menu-item:hover, .ui-menu .ui-menu-item.ui-state-focus { background:#eee; }
 .ui-menu .ui-menu-item a { color: #333;font-weight:normal; }
+.ui-menu .ui-menu-item a.target-popup-link { display:block; float:right; color:#0288d1; }
+.ui-menu .ui-menu-item span.upcoming-link { float:right; color:#4d5057; }
 
 /* common properties */
 .leftfloat{float:left;}

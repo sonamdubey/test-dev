@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Compare
 {
+    [Serializable]
     public class BikeSpecification
     {
         public uint VersionId { get; set; }

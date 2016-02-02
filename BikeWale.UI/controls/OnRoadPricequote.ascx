@@ -20,7 +20,7 @@
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
-            <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" value="Get On-road Price" data-bind="event: { click: getPriceQuoteOnRoad }">Get On-road Price</button>
+            <button id="btnDealerPriceOnRoad" tabindex="4" class="btn btn-orange margin-bottom20" type="button" value="Get on-road price" data-bind="event: { click: getPriceQuoteOnRoad }">Get on-road price</button>
             <p class="margin-bottom5">Its private, no need to share your number and email</p>    
         </div>             
         <!-- Onroad price quote ends here-->            

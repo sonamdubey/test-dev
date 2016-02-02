@@ -41,7 +41,9 @@ namespace Bikewale.Notifications
         BikeBookedSMSToDealer = 24,
         RSAFreeHelmetSMS = 25,
         LimitedBikeBookedOffer = 26,
-        ClaimedOffer = 27
+        ClaimedOffer = 27,
+        BookingCancellationOTP = 28,
+        BookingCancellationToCustomer=29
     }
 
     public class SMSCommon
@@ -150,6 +152,7 @@ namespace Bikewale.Notifications
                 publish.PublishToQueue(BWConfiguration.Instance.BWSmsQueue, nvc);
             }
         }
+
 
         /// <summary>
         /// Method to update the database with the details of the SMS data sent.

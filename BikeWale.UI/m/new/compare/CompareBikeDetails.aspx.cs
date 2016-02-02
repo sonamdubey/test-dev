@@ -15,6 +15,7 @@ using Bikewale.Interfaces.Cache.Core;
 using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.DAL.BikeData;
+using System.Text;
 
 namespace Bikewale.Mobile.New
 {
@@ -186,23 +187,26 @@ namespace Bikewale.Mobile.New
         /// <returns></returns>
         protected string GetModelColors(string versionId)
         {
-            string colorString = String.Empty;
+            StringBuilder cs = new StringBuilder();
 
-            DataView dv = ds.DefaultViewManager.CreateDataView(ds.Tables[3]);
-            dv.Sort = "BikeVersionId";
-            DataRowView[] drv = dv.FindRows(versionId);
+            var colorData = from r in (ds.Tables[3]).AsEnumerable()
+                            where r.Field<int>("BikeVersionId") == Convert.ToInt32(versionId)
+                            group r by r.Field<int>("ColorId") into g
+                            select g;
 
-            if (drv.Length > 0)
+            cs.Append("<div style='width:100; text-align:center;padding:5px;'>");
+            foreach (var color in colorData)
             {
-                Trace.Warn("drv data .............", drv.Length.ToString());
-
-                for (int jTmp = 0; jTmp < drv.Length; jTmp++)
+                cs.AppendFormat("<div class='color-box {0}'>", ((color.Count() >= 3) ? "color-count-three" : (color.Count() == 2) ? "color-count-two" : "color-count-one"));
+                IList<string> HexCodeList = new List<string>();
+                foreach (var colorList in color)
                 {
-                    colorString += "<div class='colorBox' style='border: 1px solid #e9e9e9;padding-top:5px;background-color:#" + drv[jTmp].Row["HexCode"].ToString() + "'></div>"
-                                + "<div class='new-line margin-bottom10'>" + drv[jTmp].Row["Color"].ToString() + "</div>";
+                    cs.AppendFormat("<span style='background-color:#{0}'></span>", colorList.ItemArray[5]);   //5 is for hexcode
                 }
+                cs.AppendFormat("</div><div style='padding-top:3px;'>{0}</div></div>", color.FirstOrDefault().ItemArray[3]);    //3 is for colorName
             }
-            return colorString;
+
+            return cs.ToString();
         }
 
         protected string ShowFormatedData(string value)

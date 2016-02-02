@@ -8,17 +8,26 @@ namespace Bikewale.Utility
 {
     public static class FormatMinSpecs
     {
+        /// <summary>
+        /// Modified By : Lucky Rathore
+        /// Dated : 20 January 2016
+        /// Description : IsNullOrEmpty validation added. 
+        /// </summary>
+        /// <param name="displacement"></param>
+        /// <param name="fuelEffecient"></param>
+        /// <param name="maxpower"></param>
+        /// <returns></returns>
         public static string GetMinSpecs(string displacement, string fuelEffecient, string maxpower)
         {
             string str=String.Empty;
-            if (displacement != "0")
-                str += "<span><span>"+ displacement +"</span><span class='text-light-grey'> CC</span>, </span>";
+            if (!string.IsNullOrEmpty(displacement) && displacement != "0")
+                str += "<span><span>"+ displacement +"</span><span class='text-light-grey'> CC</span></span>";
 
-            if (fuelEffecient != "0")
-                str += "<span><span>" + fuelEffecient + "</span><span class='text-light-grey'> Kmpl</span>, </span>";
+            if (!string.IsNullOrEmpty(fuelEffecient) && fuelEffecient != "0")
+                str += "<span>, <span>" + fuelEffecient + "</span><span class='text-light-grey'> Kmpl</span></span>";
 
-            if (maxpower != "0")
-                str += "<span><span>" + maxpower + "</span><span class='text-light-grey'> bhp</span></span>";
+            if (!string.IsNullOrEmpty(maxpower) && maxpower != "0")
+                str += "<span>, <span>" + maxpower + "</span><span class='text-light-grey'> bhp</span></span>";
 
             if (str != "")
                 return str;

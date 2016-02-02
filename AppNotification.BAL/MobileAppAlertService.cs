@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AppNotification.Notifications;
 using System.Configuration;
+//using Consumer;
 
 namespace AppNotification.BAL
 {
@@ -38,7 +39,7 @@ namespace AppNotification.BAL
                     // Infolog.Info("processe object arrived 2");
                     int alertBatchSize = Int32.Parse(ConfigurationManager.AppSettings["MobileAlertBatchSize"]);
                     int totalNumCount = _mobileAppAlertRepo.GetTotalNumberOfSubs(t.alertTypeId);
-
+                    //Logs.WriteInfoLog(String.Format("user COunt",totalNumCount));
                     // Infolog.Info("processe object arrived 3 alertbatchsize" + alertBatchSize +":totalnumcount:"+ totalNumCount);
 
                     int loopCount = totalNumCount / alertBatchSize;
@@ -47,8 +48,8 @@ namespace AppNotification.BAL
                     {
                         for (int i = 1; i <= loopCount + 1; i++)
                         {
-                            int startIndex = (i - 1) * 1000 + 1;
-                            int endIndex = 1000 * i;
+                            int startIndex = (i - 1) * alertBatchSize + 1;
+                            int endIndex = alertBatchSize * i;
                             regKeyList = _mobileAppAlertRepo.GetRegistrationIds(t.alertTypeId, startIndex, endIndex);
                             t.GCMList = new List<string>();
                             t.ApnsList = new List<string>();
@@ -77,6 +78,7 @@ namespace AppNotification.BAL
                             t.GCMList.Clear();
                             t.ApnsList.Clear();
                         }
+                        _mobileAppAlertRepo.CompleteNotificationProcess(t.alertTypeId);
                     }
                 }
             }

@@ -30,6 +30,7 @@ var BookingConfigViewModel = function () {
     self.Dealer = ko.observable(new BikeDealerDetails);
     self.EMI = ko.observable(new BikeEMI);
     self.CurrentStep = ko.observable(1);
+    self.IsMapLoaded = false;
     self.SelectedVersion = ko.observable();
     self.UserOptions = ko.observable();
     self.selectedColorId = ko.observable(0);
@@ -228,19 +229,33 @@ var BikeDetails = function () {
                 $("#selectedVersionId").val(self.selectedVersionId());
             }
         });
+        if ((self.bookingAmount() != undefined) && (self.bookingAmount() > 0)) {
+            $('#testimonialWrapper').show();
+        }
+        else {
+            $('#testimonialWrapper').hide();
+        }
     };
 
     self.getColor = function (data, event) {
         self.selectedColorId(data.ColorId);
-        self.waitingPeriod(data.NoOfDays);
+        if (data.NoOfDays != -1)
+            self.waitingPeriod(data.NoOfDays);
+        else self.waitingPeriod(self.selectedVersion().NoOfWaitingDays);
         var ele = colorsul.find("li[colorId=" + self.selectedColorId() + "]");
         colorsul.find("li").removeClass("selected-color text-bold text-white border-dark-grey").addClass("text-light-grey border-light-grey");
         colorsul.find("li").find('span.color-title-box').removeClass().addClass('color-title-box');
+        colorsul.find("li").find('span.color-availability-box').show();
         ele.removeClass("text-light-grey border-light-grey").addClass("selected-color text-bold  border-dark-grey");
         $("#customizeBike").find("h4.select-colorh4").removeClass("text-red");
-        bgcolor = ele.find('span.color-box').css('background-color');
+        if (data.HexCode.length > 2) {
+            bgcolor = ele.find('span.color-box span').first().next().css('background-color');
+        }
+        else {
+            bgcolor = ele.find('span.color-box span').first().css('background-color');
+        }
         ele.find('span.color-title-box').addClass(getContrastYIQ(bgcolor));
-
+        ele.find('span.color-availability-box').hide();
         // }
     };
     self.getVersion(self.selectedVersionId());
@@ -251,11 +266,11 @@ var BikeEMI = function () {
     self.exshowroomprice = ko.observable();
     self.loan = ko.observable();
     self.tenure = ko.observable(36);
-    self.rateofinterest = ko.observable(10);
+    self.rateofinterest = ko.observable(14);
     self.downPayment = ko.pureComputed({
         read: function () {
             if (self.loan() == undefined || isNaN(self.loan()) || self.loan() == null)
-                self.loan($.LoanAmount(self.exshowroomprice(), 50));
+                self.loan($.LoanAmount(self.exshowroomprice(), 70));
             return (($.LoanAmount(self.exshowroomprice(), 100)) - self.loan());
         },
         write: function (value) {
@@ -273,20 +288,27 @@ var BikeEMI = function () {
 }
 
 ko.bindingHandlers.googlemap = {
-    init: function (element, valueAccessor) {
-        var
-          value = valueAccessor(),
+    update: function (element, valueAccessor) {
+        if (!viewModel.IsMapLoaded && viewModel.CurrentStep() > 2) {
+            value = valueAccessor(),
           latLng = new google.maps.LatLng(value.latitude, value.longitude),
           mapOptions = {
-              zoom: 10,
+              zoom: 13,
               center: latLng,
               mapTypeId: google.maps.MapTypeId.ROADMAP
           },
           map = new google.maps.Map(element, mapOptions),
           marker = new google.maps.Marker({
+              title: "Dealer's Location",
               position: latLng,
-              map: map
+              map: map,
+              animation: google.maps.Animation.DROP
           });
+
+            google.maps.event.addListenerOnce(map, 'idle', function () {                viewModel.IsMapLoaded = true;
+            });
+
+        }
     }
 };
 
@@ -314,6 +336,33 @@ ko.bindingHandlers.slider = {
         var value = ko.utils.unwrapObservable(valueAccessor());
         if (isNaN(value)) value = 0;
         $("#" + element.id).slider("value", value);
+    }
+};
+
+ko.bindingHandlers.BikeAvailability = {
+    init: function (element, valueAccessor) {
+        availText = "";
+        period = ko.unwrap(valueAccessor()) !== null ? valueAccessor().Days : -1;
+
+        if (period < 0)
+            period = viewModel.Bike().waitingPeriod();
+
+        if (period >= 0) {
+            if (period == 1) {
+                availText = "<span class='text-light-grey'>" + valueAccessor().CustomText + period + "  day </span>";
+            }
+            else if (period > 1) {
+                availText = "<span class='text-light-grey'>" + valueAccessor().CustomText + period + " days </span>";
+            }
+            else {
+                availText = "<span class='text-green text-bold'>Now available</span>";
+            }
+        }
+        else {
+            availText = "<span class='text-red text-bold'>Not available</span>";
+        }
+
+        $(element).html(availText);
     }
 };
 
@@ -478,4 +527,10 @@ function LoadTerms(offerId) {
 $(".termsPopUpCloseBtn").on('mouseup click', function (e) {
     $("div#termsPopUpContainer").hide();
     $(".blackOut-window").hide();
+});
+
+var swiper = new Swiper('.swiper-container', {
+    autoplay: 2000,
+    autoplayDisableOnInteraction: true,
+    loop: true
 });

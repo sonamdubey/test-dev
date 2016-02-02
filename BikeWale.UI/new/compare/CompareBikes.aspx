@@ -1,6 +1,5 @@
 ﻿<%@ Page Language="C#" Inherits="Bikewale.New.comparebikes" AutoEventWireUp="false" Trace="false" %>
 <%@ Register TagPrefix="AddBike" TagName="AddBike" Src="~/controls/AddBikeToCompare.ascx" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 <%@ Import namespace="Bikewale.Utility.StringExtention" %>
 <%
     title = "Compare " + pageTitle + "- BikeWale";
@@ -64,6 +63,10 @@
     .info-popup { display:none; background-color: #fff; position: absolute; top: 45px; left:100px; box-shadow: 0px 0px 15px #ccc; width: 225px; min-height: 40px; border: 1px solid #e0e0e0; padding: 10px; z-index:2;}
     .Specs .repeater-1 td.info-td, .Features .repeater-1 td.info-td { cursor:pointer; } 
     .Specs .repeater-1 td.info-td:hover .info-popup, .Features .repeater-1 td.info-td:hover .info-popup {display:block;}
+    div.color-box { width:50px; height:50px; margin:auto;background:#ccc; border:1px solid #e2e2e2; -moz-border-radius: 2px; -webkit-border-radius: 2px; -o-border-radius: 2px; -ms-border-radius: 2px; border-radius: 2px; margin-top:10px}
+    .color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; }
+    .color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#eee; }
+    .color-box.color-count-three span { width:100%; height:33.33%; display:block !important; }
 </style>
 
          <div class="container_12">
@@ -435,7 +438,7 @@
                                                     <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"AntilockBrakingSystem").ToString())%></td></tr>
                                                     <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"Killswitch").ToString())%></td></tr>
                                                     <tr><td><%# ShowFeature(DataBinder.Eval(Container.DataItem,"Clock").ToString())%></td></tr>
-                                                    <tr><%--<td class="info-td"><span class="info-shrt-data"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Colors").ToString())%></span><span class="info-popup"><%# ShowFormatedData(DataBinder.Eval(Container.DataItem,"Colors").ToString())%></span></td>--%>
+                                                    <tr>
                                                          <%# (!String.IsNullOrEmpty(Convert.ToString(DataBinder.Eval(Container.DataItem, "Colors"))) && (Convert.ToString(DataBinder.Eval(Container.DataItem, "Colors")).Length > trSize) )
                                                         ?  String.Format("<td class='info-td'><span class='info-shrt-data'>{0}...</span><span class='info-popup'>{1}</span></td>",ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Colors")).Truncate(trSize)),ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Colors"))))                                                            
                                                         : String.Format("<td>{0}</td>",ShowFormatedData(Convert.ToString(DataBinder.Eval(Container.DataItem, "Colors"))))
@@ -512,9 +515,7 @@
         </div><!--    Left Container ends here -->
               </div>
     <div id="back-to-top" class="back-to-top"><a><span></span></a></div>
-    <!-- Popup Widget goes here -->
-    <PW:PopupWidget runat="server" ID="PopupWidget" />
-    <!-- Popup Widget ends here -->
+    
 <script type="text/javascript">
     $(document).ready(function () {
         var speed = 300;

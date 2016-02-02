@@ -5,7 +5,6 @@
 <%@ Register Src="~/controls/VideosControl.ascx" TagName="Videos" TagPrefix="BW" %>
 <%@ Register Src="~/controls/UpcomingBikes_new.ascx" TagName="UpcomingBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/MostPopularBikes_new.ascx" TagName="MostPopularBikes" TagPrefix="BW" %>
-<%@ Register TagPrefix="PW" TagName="PopupWidget" Src="/controls/PopupWidget.ascx" %>
 
 <!Doctype html>
 <html>
@@ -113,7 +112,7 @@
                                                 </div>
 
                                                 <div class="clear"></div>
-                                                <a href="Javascript:void(0)" pagecatid="1" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey margin-top10 fillPopupData">Get on road price</a>
+                                                <a href="Javascript:void(0)" pagecatid="1" pqSourceId="<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_MakePage %>" makename="<%# DataBinder.Eval(Container.DataItem,"objMake.MakeName").ToString() %>" modelname="<%# DataBinder.Eval(Container.DataItem,"objModel.ModelName").ToString() %>" modelid="<%# DataBinder.Eval(Container.DataItem, "objModel.ModelId").ToString() %>" class="btn btn-grey margin-top10 fillPopupData">Get on-road price</a>
                                             </div>
                                         </div>
                                     </li>
@@ -224,11 +223,6 @@
             </div>
         </section>
 
-        <section>
-            <!-- Popup Section goes here-->
-            <PW:PopupWidget runat="server" ID="PopupWidget" />
-            <!-- Popup Section Ends here-->
-        </section>
         <script>
             $("a.read-more-btn").click(function () {
                 $("span.brand-about-main").toggleClass('hide');

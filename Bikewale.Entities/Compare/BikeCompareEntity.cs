@@ -6,12 +6,19 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Compare
 {
+    /// <summary>
+    /// Created By  :   Sumit Kate on 22 Jan 2016
+    /// Description :   Bike Compare Entity
+    /// </summary>
+    [Serializable]
     public class BikeCompareEntity
-    {
-        //IEnumerable<BikeDetails> Bikes { get; set; }
+    {        
         public IEnumerable<BikeEntityBase> BasicInfo { get; set; }
         public IEnumerable<BikeSpecification> Specifications { get; set; }
         public IEnumerable<BikeFeature> Features { get; set; }        
-        public IEnumerable<BikeColor> Color { get; set; }
+        public List<BikeColor> Color { get; set; }
+        public CompareMainCategory CompareSpecifications { get; set; }
+        public CompareMainCategory CompareFeatures { get; set; }
+        public CompareBikeColorCategory CompareColors { get; set; }
     }
 }

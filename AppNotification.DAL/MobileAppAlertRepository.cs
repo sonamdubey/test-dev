@@ -102,5 +102,34 @@ namespace AppNotification.DAL
 
             return isComplete;
         }
+
+        /// <summary>
+        /// Added By : Sadhana Upadhyay
+        /// </summary>
+        /// <param name="alertTypeId"></param>
+        /// <returns></returns>
+        public bool CompleteNotificationProcess(int alertTypeId)
+        {
+            bool isNotificationComplete = false;
+
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("[Mobile].[ResetSubscriptionMaster_IsProcessing]"))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@OBJ_TYPE_ID", SqlDbType.Int).Value = alertTypeId;
+
+                    var db = new Database();
+                    isNotificationComplete = db.UpdateQry(cmd);
+                }
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler objErr = new ExceptionHandler(ex, "IMobileAppAlertRepositoryCompleteNotificationProcess(int alertTypeId)");
+                objErr.LogException();
+            }
+
+            return isNotificationComplete;
+        }
     }
 }

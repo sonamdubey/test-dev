@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Bikewale.Entities.Compare
 {
+    /// <summary>
+    /// Created by  :   Sumit Kate on 22 Jan 2016
+    /// Description :   
+    /// </summary>
+    [Serializable]
     public class BikeEntityBase
     {
         public uint VersionId { get; set; }

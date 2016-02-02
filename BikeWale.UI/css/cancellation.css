@@ -1,0 +1,56 @@
+﻿.booking-cancellation-banner { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/images/insurance-banner.jpg) no-repeat center top; height: 285px; padding-top: 1px; }
+
+#processResponse { display:none; }
+#cancellationStepsWrapper ul li { width:309px; height:85px; display:inline-block; vertical-align:top; text-align:center; font-size:18px; color:#82888b; }
+#cancellationStepsWrapper ul li .text-bold { color:#4d5057 }
+#cancellationStepsWrapper .booking-cancel-step { width:190px; display:inline-block; cursor:pointer; }
+#cancellationStepsWrapper .cancellation-tabs-image { width:100px; height:45px; margin:10px auto 0; position: relative; }
+.cancellation-tabs-image span { margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0; }
+
+/* booking flow sprite */
+.cancellation-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/cancel-booking-sprite.png) no-repeat; display: inline-block; }
+.user-details-icon-selected, .cancellation-icon-selected, .confirmation-icon-selected { width:42px; height:42px; }
+.user-details-icon-selected { background-position: 0 0; }
+.cancellation-icon-selected { background-position: 0 -52px; }
+.confirmation-icon-selected { background-position: 0 -103px; }
+.cancellation-tick-blue, .cancellation-icon-grey, .confirmation-icon-grey { width:28px; height:28px; }
+.cancellation-tick-blue { background-position: -52px 0; }
+.cancellation-icon-grey { background-position: -52px -37px; }
+.confirmation-icon-grey { background-position: -52px -73px; }
+
+.horizontal-line { width:730px; height:1px; background:#ccc; top:59px; }
+.border-light-grey { border:1px solid #e2e2e2; }
+.border-dark-grey { border:1px solid #4d5057; }
+.border-light-left { border-left:1px solid #e2e2e2; }
+.border-light-bottom { border-bottom:1px solid #e2e2e2; }
+.disabled-tab { cursor: not-allowed !important;}
+.text-default { color:#4d5057; }
+.text-blue { text-decoration:none; color:#0288d1; }
+textarea { width:660px; height:100px; resize: none; border-color:#e2e2e2; padding:20px; font-size:14px; color:#82888b; font-family:inherit; border:1px solid #e2e2e2; }
+
+#userBikeDetails { margin:0 auto; width:440px; text-align:center; }
+#userBikeDetails .errorIcon, #userBikeDetails .errorText { display:none; }
+.mobile-prefix { position: absolute; top:0; left:0; padding: 9px 13px 13px; color: #999; }
+
+#userBikeDetailsBtn.btn{ padding:8px 54px; }
+#feedbackBtn.btn{ padding:8px 60px; }
+
+.cancellation-policy-content { font-size:14px; }
+.cancellation-policy-content ul { margin-left: 22px; list-style:disc; color:#82888b; }
+.cancellation-policy-content ul li { padding-top:15px; }
+
+.call-icon { width:16px; height:16px; background-position:-115px -201px;}
+.cancel-policy-sm-icon { width:12px; height:16px; background-position:-182px -305px; }
+.cancel-policy-lg-icon { width:30px; height:40px; background-position:-182px -257px; }
+
+/* otp */
+#otpPopup { display:none; width:450px; min-height:495px; background:#fff; margin:0 auto; padding:30px 40px; position:fixed; top:10%; left:5%; right:5%; z-index:10; }
+.otpPopup-close-btn.cross-lg-lgt-grey:hover { background-position: -36px -252px; }
+#otpPopup .otp-box, #otpPopup .update-mobile-box { width:280px; margin:15px auto; }
+#otpPopup .update-mobile-box .form-control-box { margin-top:25px; margin-bottom:50px; }
+#otpPopup .otp-box p.resend-otp-btn { color:#0288d1; cursor:pointer; font-size:14px; float:right; }
+#otpPopup .update-mobile-box { display:none; }
+#otpPopup .edit-mobile-btn { cursor:pointer; }
+.otp-notify-text { display:none; }
+#otpPopup .edit-mobile-btn { cursor: pointer; }
+.edit-blue-icon { width:16px; height:16px; background-position: -115px -250px; }
