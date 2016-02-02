@@ -312,8 +312,7 @@
                         </div>
                     <%} %>
                     
-<% if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0))
-                       {%>
+                    <% if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0)){%>
                     
 
                     <div id="offersBlock" class="city-unveil-offer-container position-rel margin-top20 margin-bottom20">
