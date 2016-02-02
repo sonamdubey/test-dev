@@ -959,5 +959,6 @@ function LoadTerms(offerId) {
     } else {
         $('#terms').html($("#orig-terms").html());
     }
+
     $(".termsPopUpContainer").css('height', '500');
 }
