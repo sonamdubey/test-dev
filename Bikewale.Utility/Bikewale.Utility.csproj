@@ -65,6 +65,7 @@
     <Compile Include="CommonValidators.cs" />
     <Compile Include="CommonApiOpn.cs" />
     <Compile Include="CurrentUser.cs" />
+    <Compile Include="DealerAssistance.cs" />
     <Compile Include="DealerOfferHelper.cs" />
     <Compile Include="Description.cs" />
     <Compile Include="Distance.cs" />

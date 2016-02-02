@@ -287,15 +287,15 @@
 								<% } %>
 								<% else if (!isCitySelected)
 								   {%>
-								<p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
+								<p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 								<% } %>
 								<% else if (!isOnRoadPrice)
 								   {%>
-								<p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
+								<p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 								<% } %>
 								<% else
 								   {%>
-								<p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
+								<p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
 
 								<% } %>
 								<span itemprop="name" class="hide"><%= bikeName %></span>
@@ -305,7 +305,7 @@
 								<%  }
 									else
 									{ %>
-								<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                <div class="leftfloat margin-right15 <%= (isBookingAvailable && isDealerAssitance) ? "model-price-book-now-wrapper" : string.Empty %> " itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                                     <%if (totalDiscountedPrice != 0)
                                       { %>
                                     <p class="font16">
@@ -333,6 +333,10 @@
 								</div>
 								<%  } %>
 
+                                <%if (isBookingAvailable && isDealerAssitance) { %>
+            	                    <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat margin-top20" id="bookNowBtn">Book now </a>
+                                <%}%>
+                                <div class="clear"></div>
 								<% if (isDiscontinued)
 								   { %>
 								<p class="default-showroom-text font14 text-light-grey margin-top5"><%= bikeName %> is now discontinued in India.</p>
@@ -388,9 +392,57 @@
 							<% } %>
 						</div>
 						<div class="clear"></div>
+                        <%if (toShowOnRoadPriceButton)
+                          { %>
+                         <div id="benefitsOfBookingContainer" class="margin-top35">
+                            <div class="padding-bottom20 border-light-bottom">
+                                <h3 class="leftfloat">Benefits of booking online</h3>
+                                <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="leftfloat font14 booking-online-city-list fillPopupData">(Available in Mumbai, Pune and Bangalore)</a>
+                                <div class="clear"></div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-offers-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Exclusive</h2>
+                                        <span>Offers</span>
+                                    </div>
+                                </li>
+                                <li class="benefits-dealer-visits">
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-dealer-visits-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Save on</h2>
+                                        <span>Dealer visits</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-assistance-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Complete</h2>
+                                        <span>Buying assistance</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-cancellation-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Easy</h2>
+                                        <span>Cancellation</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <%} %>
 						<%if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
 						  { %>
-						<div id="modelDetailsOffersContainer" class="grid-12 margin-top20">
+						<div id="modelDetailsOffersContainer" class=" grid-12 margin-top20">
 							<div class="grid-<%=grid1_size %> modelGetDetails padding-right20">
 								<h3 class="padding-bottom10"><span class="bwsprite disclaimer-icon margin-right5"></span>Get following details on this bike:</h3>
 								<ul>
@@ -436,22 +488,38 @@
 								</ul>--%>
 							</div>
 							<div class="grid-<%= grid2_size %> rightfloat moreDetailsBookBtns <%=cssOffers %> margin-top20">
-								<input type="button" value="Get more details" class="btn btn-orange margin-right20" id="getMoreDetailsBtn">
-								<%if (isBookingAvailable && isOfferAvailable)
-								  { %>
-								<a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey" id="bookNowBtn">Book now </a>
+                                <input type="button" value="Get more details" class="btn btn-orange margin-right20 leftfloat" id="getMoreDetailsBtn">
+                                <%if (isBookingAvailable && isOfferAvailable) { %>
+                                    <%if ( isDealerAssitance ) { %>
+                                        <div class="leftfloat margin-top5">
+                                            <span class="bwsprite call-icon inline-block margin-right5"></span>
+                                            <span class="font14">Get assistance on</span>
+                                            <span class="text-bold font18">9167969266</span>
+                                        </div>
+                                    <%} %>
+                                    <%else { %>
+                                        <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat" id="bookNowBtn">Book now </a>
+                                    <%} %>
 								<%} %>
 							</div>
 							<div class="clear"></div>
-							<% if (isBookingAvailable && !isOfferAvailable)
-							   {%>
+                            <% if (isBookingAvailable && !isOfferAvailable) {%>
 							<div id="noOfferBookBtn" class="grid-12 padding-top10 alpha">
-								<div class="grid-9 omega">
-                                    <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike</h3>
+                                <div class="omega <%= (!isDealerAssitance) ? "grid-9" : "grid-8" %>">
+                                    <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike:</h3>
 								</div>
-								<div class="grid-3 alpha no-offer-book-btn">
-									<a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey" id="bookNowBtn">Book now </a>
-								</div>
+                                <% if (!isDealerAssitance) { %>
+                                    <div class="grid-3 alpha no-offer-book-btn">
+                                        <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey" id="bookNowBtn">Book now </a>
+                                    </div>
+                                <% } %>
+                                <%else { %>
+                                    <div class="grid-4">
+                                        <span class="bwsprite call-icon inline-block margin-right5"></span>
+                                        <span class="font14">Get assistance on</span>
+                                        <span class="text-bold font18">9167969266</span>
+                                    </div>
+                                <% } %>
 							</div>
 							<% } %>
 						</div>

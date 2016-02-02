@@ -254,6 +254,10 @@
     <Compile Include="BikeBooking\Common\DealerPriceQuoteCookie.cs" />
     <Compile Include="BikeBooking\Common\SendEmailSMSToDealerCustomer.cs" />
     <Compile Include="BikeBooking\Common\TCApi_Inquiry.cs" />
+    <Compile Include="BikeBooking\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="BikeBooking\RedirectToBillDesk.aspx.cs">
       <DependentUpon>RedirectToBillDesk.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1256,6 +1260,7 @@
     <Content Include="AdvertiseWithUs.aspx" />
     <Content Include="BikeBooking\BillDeskResponse.aspx" />
     <Content Include="BikeBooking\cancellation.aspx" />
+    <Content Include="BikeBooking\Default.aspx" />
     <Content Include="BikeBooking\RedirectToBillDesk.aspx" />
     <Content Include="bikewaleimg\used\S146\146_20120918020514962_300x225.jpg" />
     <Content Include="bikewaleimg\used\S146\146_20120918020514962_640x428.jpg" />

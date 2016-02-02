@@ -86,6 +86,8 @@ namespace Bikewale.New
         protected string pqId = string.Empty;
         protected string mpqQueryString = String.Empty;
         protected UsersTestimonials ctrlUsersTestimonials;
+        protected bool isDealerAssitance = false;
+
         #endregion
 
         public enum Overviews
@@ -440,17 +442,17 @@ namespace Bikewale.New
         {
             ModelMaskingResponse objResponse = null;
             string modelQuerystring = Request.QueryString["model"];
-            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);
-            if (modelQuerystring.Contains("/"))
-            {
-                modelQuerystring = modelQuerystring.Split('/')[0];
-            }
-
-            Trace.Warn("modelQuerystring 2 : ", modelQuerystring);
+            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);            
             try
             {
                 if (!string.IsNullOrEmpty(modelQuerystring))
                 {
+                    if (modelQuerystring.Contains("/"))
+                    {
+                        modelQuerystring = modelQuerystring.Split('/')[0];
+                    }
+
+                    Trace.Warn("modelQuerystring 2 : ", modelQuerystring);
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()
@@ -657,6 +659,11 @@ namespace Bikewale.New
                         if (pqOnRoad.PriceQuote != null)
                         {
                             dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
+                            if (!String.IsNullOrEmpty(dealerId))
+                            {
+                                DealerAssistance dealerAssisteance = new DealerAssistance();
+                                isDealerAssitance = dealerAssisteance.IsDealerAssistance(dealerId);
+                            }
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
                         }
                         //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);                                                
@@ -1160,15 +1167,18 @@ namespace Bikewale.New
             List<Bikewale.Entities.Location.AreaEntityBase> areaList = null;
             try
             {
-                using (IUnityContainer container = new UnityContainer())
+                if (CommonOpn.CheckId(modelId))
                 {
-                    container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
-                    IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
-                    areaList = objDealer.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
-                    if (areaList != null && areaList.Count > 0)
-                        isAreaAvailable = true;
-                    return areaList;
-                }
+                    using (IUnityContainer container = new UnityContainer())
+                    {
+                        container.RegisterType<IDealerPriceQuote, DealerPriceQuote>();
+                        IDealerPriceQuote objDealer = container.Resolve<IDealerPriceQuote>();
+                        areaList = objDealer.GetAreaList(Convert.ToUInt32(modelId), Convert.ToUInt32(cityId));
+                        if (areaList != null && areaList.Count > 0)
+                            isAreaAvailable = true;
+                        return areaList;
+                    }
+                }                
             }
             catch (Exception ex)
             {
