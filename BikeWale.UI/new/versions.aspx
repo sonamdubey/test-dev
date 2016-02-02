@@ -467,7 +467,8 @@
 										<ItemTemplate>
 											<li class="offertxt">
 												<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText"))%>
-												<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+                                                <%# "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>"  %>
+												<%--<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>--%>
 												<%--<% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
 												   { %>
 												<%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
@@ -769,12 +770,15 @@
 			<!-- Terms and condition Popup start -->
 			<div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
 				<h3>Terms and Conditions</h3>
-				<div style="vertical-align: middle; text-align: center;" id="termspinner">
+				<div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
 					<%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
 					<img src="/images/search-loading.gif" />
 				</div>
 				<div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
-                <div id="terms" class="breakup-text-container padding-bottom10 font14"><h1>Offers and Gifts Promotion Terms and Conditions</h1>
+                <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                </div>
+                <div id='orig-terms' class='hide'>
+					<h1>Special Offers and Gifts Promotion Terms and Conditions</h1>
                     <p><strong>Definitions:</strong></p>
                     <p>"BikeWale" refers to Automotive Exchange Private Limited, a private limited company having its head office at 12<sup>th</sup> Floor, Vishwaroop IT Park, Sector 30A, Vashi, Navi Mumbai 400705, India, who owns and operates www.bikewale.com, one of India's leading automotive web portals.</p>
                     <p>"Bike Manufacturer" or "manufacturer" refers to the company that manufactures and / or markets and sells bikes in India through authorised dealers.</p>
@@ -843,9 +847,8 @@
                     <p>40. In any case of any dispute, inconvenience or loss, the buyer agrees to indemnify BikeWale, its representing agencies and contracted third parties without any limitation whatsoever.</p>
                     <p>41. The total joint or individual liability of BikeWale, its representing agencies and contracted third parties, along with Bike manufacturers and dealers, will under no circumstances exceed the value of the free gift the buyer may be eligible for.</p>
                     <p>42. BikeWale reserves the right to modify any and all of the terms and conditions mentioned herein at its own sole discretion, including terminating this promotion, without any notice and without assigning any reason whatsoever, and the buyers agree not to raise any claim due to such modifications and / or termination.</p>
-                    <p>By participating in this promotion, the buyer / user agrees to the terms and conditions above in toto.</p></div>
-                <%--<div id="terms" class="breakup-text-container padding-bottom10 font14">
-                </div>--%>
+                    <p>By participating in this promotion, the buyer / user agrees to the terms and conditions above in toto.</p>
+					</div>
 			</div>
 			<!-- Terms and condition Popup Ends -->
 		</section>
