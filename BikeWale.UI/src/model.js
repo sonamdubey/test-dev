@@ -151,7 +151,10 @@ function CustomerModel() {
     };
 
     self.submitLead = function () {
-        if (ValidateUserDetail()) {
+
+        var isValidCustomer = ValidateUserDetail();
+
+        if (isValidCustomer && isDealerPriceAvailable == "True" && campaignId == 0) {
             self.verifyCustomer();
             if (self.IsValid()) {                             
                 $("#personalInfo").hide();
@@ -173,8 +176,67 @@ function CustomerModel() {
             }
             setPQUserCookie();
             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Lead_Submitted', 'lab': bikeVersionLocation });
-        }       
-    };                
+        }
+
+        else if (isValidCustomer && isDealerPriceAvailable == "False" && campaignId > 0)
+        {            
+            self.submitCampaignLead();
+
+            setPQUserCookie();
+            dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Lead_Submitted', 'lab': bikeVersionLocation });
+        }
+    };
+
+    self.submitCampaignLead = function () {
+
+        $('#processing').show();
+        var objCust = {
+            "dealerId": manufacturerId,
+            "pqId": pqId,
+            "name": self.fullName(),
+            "mobile": self.mobileNo(),
+            "email": self.emailId(),
+            //"clientIP": clientIP,
+            //"pageUrl": pageUrl,
+            "versionId": versionId,
+            "cityId": cityId,
+            "leadSourceId": 3,
+            "deviceId": getCookie('BWC')
+        }
+        $.ajax({
+            type: "POST",
+            url: "/api/ManufacturerLead/",
+            data: ko.toJSON(objCust),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('utma', getCookie('__utma'));
+                xhr.setRequestHeader('utmz', getCookie('__utmz'));
+            },
+            async: false,
+            contentType: "application/json",
+            success: function (response) {
+                //var obj = ko.toJS(response);
+                $("#personalInfo,#otpPopup").hide();
+                $('#processing').hide();
+
+                //validationSuccess($(".get-lead-mobile"));
+                $("#contactDetailsPopup").hide();
+                $('#notify-response .notify-leadUser').text(self.fullName());
+                $('#notify-response').show();
+
+                //$("#leadCapturePopup .leadCapture-close-btn").click();
+
+                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + manufacturerId;
+                //window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                $('#processing').hide();
+                $("#contactDetailsPopup,#otpPopup").hide();                
+                var leadMobileVal = mobile.val();                               
+                nameValTrue();
+                hideError(self.mobileNo());
+            }
+        });
+    };
 
     otpBtn.click(function () {
         $('#processing').show();
@@ -761,19 +823,19 @@ $("input[name*='btnVariant']").on("click", function () {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Version_Change', 'lab': bikeVersionLocation });
 });
 
-$("#getMoreDetailsBtn").on("click", function () {
+$("#getMoreDetailsBtn, #getMoreDetailsBtnCampaign").on("click", function () {
     $("#leadCapturePopup").show();
     $('body').addClass('lock-browser-scroll');
     $(".blackOut-window-model").show();
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeVersionLocation });
 });
 
-$(".leadCapture-close-btn, .blackOut-window-model").on("click", function () {
+$(".leadCapture-close-btn, .blackOut-window-model, #notifyOkayBtn").on("click", function () {
     leadCapturePopup.hide();
     $('body').removeClass('lock-browser-scroll');
     $(".blackOut-window-model").hide();
     $("#contactDetailsPopup").show();
-    $("#otpPopup").hide();
+    $("#otpPopup,#notify-response").hide();   
 });
 
 $("#viewBreakupText").on('click', function (e) {

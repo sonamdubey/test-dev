@@ -40,7 +40,11 @@
 		var bikeVersionLocation = '';
 		var bikeVersion = '';
 		var isBikeWalePq = "<%= isBikeWalePQ%>";
-		var areaId = "<%= areaId %>";
+	    var areaId = "<%= areaId %>";
+	    var isDealerPriceAvailable = "<%= pqOnRoad.IsDealerPriceAvailable%>";
+	    var campaignId = "<%= campaignId%>";
+	    var manufacturerId = "<%= manufacturerId%>";
+
 	</script>
 	<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
 	<style>
@@ -440,7 +444,7 @@
                             </ul>
                         </div>
                         <%} %>
-						<%if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
+<%if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0))
 						  { %>
 						<div id="modelDetailsOffersContainer" class=" grid-12 margin-top20">
 							<div class="grid-<%=grid1_size %> modelGetDetails padding-right20">
@@ -453,6 +457,7 @@
 								</ul>
 							</div>
 
+                            <%if (pqOnRoad.IsDealerPriceAvailable) {%>
 							<div class="grid-7 modelGetDetails offersList <%= offerDivHide %>">
 								<%if (isBookingAvailable)
 								  { %>
@@ -486,7 +491,7 @@
 										</ItemTemplate>
 									</asp:Repeater>
 								</ul>--%>
-							</div>
+							</div>                         
 							<div class="grid-<%= grid2_size %> rightfloat moreDetailsBookBtns <%=cssOffers %> margin-top20">
                                 <input type="button" value="Get more details" class="btn btn-orange margin-right20 leftfloat" id="getMoreDetailsBtn">
                                 <%if (isBookingAvailable && isOfferAvailable) { %>
@@ -522,6 +527,13 @@
                                 <% } %>
 							</div>
 							<% } %>
+                          <%}
+                              else if (!pqOnRoad.IsDealerPriceAvailable && campaignId > 0)
+                              { %>
+                            <div class="grid-<%= grid2_size %> rightfloat moreDetailsBookBtns <%=cssOffers %> margin-top20">
+                                <input type="button" value="Get more details" class="btn btn-orange margin-right20 leftfloat" id="getMoreDetailsBtnCampaign">
+							</div>
+                            <%} %>
 						</div>
 						<div class="clear"></div>
 						<% } %>
@@ -693,8 +705,8 @@
 							<div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
 						</div>
 						<div class="clear"></div>
-						<a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-					</div>
+						<a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>                         
+					</div>                   
 					<!--
 					<div class="mobile-verification-container hide">
 						<div class="input-border-bottom"></div>
@@ -720,6 +732,14 @@
 					-->
 				</div>
 				<!-- contact details ends here -->
+                <!-- thank you message starts here -->
+                <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+                        <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+                        <p class="font16 margin-bottom40"><%=bikeName.Split(' ')[0]%> Company would get back to you shortly with additional information on <%=bikeName %>.</p>
+                        <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
+                </div>
+				<!-- thank you message ends here -->
+
 				<!-- otp starts here -->
 				<div id="otpPopup">
 					<div class="icon-outer-container rounded-corner50">
@@ -1583,7 +1603,8 @@
 
 			var myBikeName = "<%= this.bikeName %>";
 			var clientIP = "<%= clientIP%>";
-			var pageUrl = "<%= canonical %>"
+		    var pageUrl = "<%= canonical %>"		   
+
 			function applyLazyLoad() {
 				$("img.lazy").lazyload({
 					event: "imgLazyLoad",
