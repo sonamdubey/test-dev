@@ -262,7 +262,7 @@
                     <% if (toShowOnRoadPriceButton)
                        {%>
                         <div class="clear"></div>
-                        <div id="benefitsOfBookingContainer" class="padding-top10 padding-bottom10">
+                        <div id="benefitsOfBookingContainer" class=" grey padding-top10 padding-bottom10">
                             <div class="padding-bottom20 border-light-bottom">
                                 <p class="font18 text-bold">Benefits of booking online</p>
                                 <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData font14">Available in Mumbai, Pune & Bangalore</a>

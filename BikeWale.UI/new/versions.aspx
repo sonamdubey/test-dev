@@ -394,7 +394,7 @@
 						<div class="clear"></div>
                         <%if (toShowOnRoadPriceButton)
                           { %>
-                         <div id="benefitsOfBookingContainer" class="margin-top35">
+                         <div id="benefitsOfBookingContainer" class="margin-top15">
                             <div class="padding-bottom20 border-light-bottom">
                                 <h3 class="leftfloat">Benefits of booking online</h3>
                                 <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="leftfloat font14 booking-online-city-list fillPopupData">(Available in Mumbai, Pune and Bangalore)</a>
