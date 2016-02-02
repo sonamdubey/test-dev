@@ -41,7 +41,7 @@
 		var bikeVersion = '';
 		var isBikeWalePq = "<%= isBikeWalePQ%>";
 	    var areaId = "<%= areaId %>";
-	    var isDealerPriceAvailable = "<%= pqOnRoad.IsDealerPriceAvailable%>";
+	    var isDealerPriceAvailable = "<%= pqOnRoad != null ? pqOnRoad.IsDealerPriceAvailable : false%>";
 	    var campaignId = "<%= campaignId%>";
 	    var manufacturerId = "<%= manufacturerId%>";
 
