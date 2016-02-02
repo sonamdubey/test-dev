@@ -476,7 +476,7 @@
             <div id="terms" class="breakup-text-container padding-bottom10 font14">
             </div>
             <div id='orig-terms' class='hide'>
-					<h1>Special Offers and Gifts Promotion Terms and Conditions</h1>
+					<h1>Offers and Gifts Promotion Terms and Conditions</h1>
                     <p><strong>Definitions:</strong></p>
                     <p>"BikeWale" refers to Automotive Exchange Private Limited, a private limited company having its head office at 12<sup>th</sup> Floor, Vishwaroop IT Park, Sector 30A, Vashi, Navi Mumbai 400705, India, who owns and operates www.bikewale.com, one of India's leading automotive web portals.</p>
                     <p>"Bike Manufacturer" or "manufacturer" refers to the company that manufactures and / or markets and sells bikes in India through authorised dealers.</p>
