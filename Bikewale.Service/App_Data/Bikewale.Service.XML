@@ -499,6 +499,19 @@
             Description :   Automapper config for AppVersion Entity to DTO
             </summary>
         </member>
+        <member name="T:Bikewale.Service.AutoMappers.Compare.BikeCompareEntityMapper">
+            <summary>
+            Created By  :   Sumit Kate on 22 Jan 2016
+            Description :   Bike Compare Entity Mapper
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Compare.BikeCompareEntityMapper.Convert(Bikewale.Entities.Compare.BikeCompareEntity)">
+            <summary>
+            Converts Entity to DTO
+            </summary>
+            <param name="compareEntity"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.AutoMappers.Dealer.DealerListMapper">
             <summary>
             Created By : Sushil Kumar
@@ -599,6 +612,42 @@
             <param name="cityId">city id</param>
             <param name="versionId">version id</param>
             <param name="dealerId">dealer id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.BikeBooking.BookingCancellationController">
+            <summary>
+            Process Booking Cancellation request 
+            Author  :   Sangram Nandkhile
+            Created On  :   21st Jan 2016
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BookingCancellationController.#ctor(Bikewale.Interfaces.BikeBooking.IBookingCancellation)">
+            <summary>
+            Constructor 
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BookingCancellationController.Post(Bikewale.Entities.BikeBooking.BikeCancellationEntity)">
+            <summary>
+            Verify Booking Cancellation request 
+            </summary>
+            <param name="request">Bike Cancellation Entity</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BookingCancellationController.IsValidOtp(Bikewale.Entities.BikeBooking.BikeCancellationEntity)">
+            <summary>
+            Created By : Lucky Rathore
+            Created On : 22 Jan 2016
+            Description : verify if Booking Cancellation OTP is correct ror not.
+            </summary>
+            <param name="request"></param>
+            <returns>Deatil of the customer who wants to cancel booking.</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BookingCancellationController.CancelBooking(System.UInt32)">
+            <summary>
+            Created By : Sadhana Upadhyay on 25 Jan 2016
+            Summary : To cancel Bike booking 
+            </summary>
+            <param name="pqId">Price Quote Id</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.BikeBooking.City.BBCityListController">
@@ -812,6 +861,13 @@
             Author  :   Sumit Kate
             Created On  :   26 Aug 2015
             </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Compare.BikeCompareController.#ctor(Bikewale.Interfaces.Compare.IBikeCompare,Bikewale.Interfaces.Compare.IBikeCompareCacheRepository)">
+            <summary>
+            Constructor to initialize the members
+            </summary>
+            <param name="bikeCompare"></param>
+            <param name="cache"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.Compare.BikeCompareController.Get(System.String)">
             <summary>
@@ -1100,7 +1156,17 @@
             Price Quote Area List Controller
             Author : Sumit Kate
             Created : 20 Aug 2015
+            Modified by :   Sumit Kate on 25 Jan 2016
+            Description :   Added AreaCache repository interface
             </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController.#ctor(Bikewale.Interfaces.BikeBooking.IDealerPriceQuote,Bikewale.Interfaces.Location.IAreaCacheRepository)">
+            <summary>
+            Modified by :   Sumit Kate on 25 Jan 2016
+            Description :   Initialize the Area Cache Repository with Parameterized Constructor
+            </summary>
+            <param name="dealerRepository"></param>
+            <param name="areaCache"></param>
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController.Get(System.UInt32,System.UInt32)">
             <summary>
@@ -1129,6 +1195,8 @@
             Price Quote City Controller
             Author : Sumit Kate
             Created On : 20 Aug 2015
+            Modified by :   Sumit Kate on 25 Jan 2016
+            Description :   Get the PQ Cities from Cache Repository
             </summary>
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.City.PQCityListController.Get(System.UInt32)">
