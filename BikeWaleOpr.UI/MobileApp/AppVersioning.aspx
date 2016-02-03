@@ -6,7 +6,7 @@
             <h2>Save/Edit Version</h2>
             <p><input type="checkbox" data-bind="checked: isLatest"/> Latest</p>
             <p><input type="checkbox" data-bind="checked: isSupported"/> Supported</p>
-            <p>Version : <input type="text" data-bind="value: versionId" /></p>
+            <p>Version <span style="color: red" >&#42;</span> : <input type="text" data-bind="value: versionId" /></p>
             <p>Description : <input type="text" data-bind="value: description" /></p>
             <p><button id="btnUpdate" data-bind="click: saveAppVersion, text:updateText"></button></p>
             
@@ -22,27 +22,24 @@
                         <th>Latest Version</th>
                         <th>Description</th>
                         <th>App Type</th>
+                        <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody data-bind="foreach: appVersions">
                     <tr>
-                        <%--<td><input type="text" data-bind="value: Id" disabled></td>
-                        <td><input type="text" data-bind="value: IsSupported" disabled></td>
-                        <td><input type="text" data-bind="value: IsLatest" disabled></td>
-                        <td><input type="text" data-bind="value: Description" disabled></td>
-                        <td><input type="text" data-bind="value: AppType" disabled></td>
-                        <td class="update" style="text-align: center"><a>Edit</a></td>--%>
-
-                        <td data-bind="text: Id"></td>
-                        <td data-bind="text: IsSupported"></td>
-                        <td data-bind="text: IsLatest"></td>
-                        <td data-bind="text: Description"></td>
-                        <td data-bind="text: AppType"></td>
-                        <td><a href="#" data-bind="click: $parent.onEdit">Edit</a></td>
-                        
+                        <td style="text-align: center;" data-bind="text: Id"></td>
+                        <td style="text-align: center;" data-bind="text: IsSupported"></td>
+                        <td style="text-align: center;" data-bind="text: IsLatest"></td>
+                        <td style="text-align: center;" data-bind="text: Description"></td>
+                        <td style="text-align: center;" data-bind="text: AppType"></td>
+                        <td style="text-align: center;" ><a href="#" data-bind="click: $parent.onEdit">Edit</a></td>
                     </tr>
                 </tbody>
             </table>
+        </div>
+
+        <div style="margin:10px">
+            <span>Note : Default App Type is Android. </span>
         </div>
     <script type="text/javascript">
         var vmAppVersion = function() {
@@ -73,7 +70,6 @@
             }
 
             self.onEdit = function () {
-                //toDO : below should be as entity
                 self.appType(this.AppType);
                 self.isLatest(this.IsLatest);
                 self.isSupported(this.IsSupported);
@@ -82,9 +78,9 @@
             }
 
             self.saveAppVersion = function () {
-                if (!(/^\+?(0|[1-9]\d*)$/.test(self.versionId())))
+                if (!(/^\+?(0|[1-9]\d*)$/.test(self.versionId())) || self.versionId() == "" || self.versionId() == undefined)
                 {
-                    alert("Verstion Must be an integer");
+                    alert("Version Must be an integer and not Null");
                     return;
                 }
 
@@ -102,7 +98,6 @@
                             var resObj = eval('(' + responseJSON.value + ')');
                             self.appVersions(ko.toJS(resObj));
                             self.resetSaveDiv();
-                            //ToDo: Should be by ko.computed.
                         }
                     });
                 }
