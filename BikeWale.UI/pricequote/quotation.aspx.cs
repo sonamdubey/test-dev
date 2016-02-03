@@ -1,25 +1,21 @@
-﻿using System;
+﻿using Bikewale.BAL.BikeData;
+using Bikewale.Common;
+using Bikewale.controls;
+using Bikewale.Controls;
+using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
-using System.Data;
-using System.Data.SqlClient;
-using Bikewale.Common;
-using Bikewale.Controls;
-using Bikewale.Mobile.PriceQuote;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.PriceQuote;
-using Microsoft.Practices.Unity;
-using System.Collections.Generic;
-using System.Configuration;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.BAL.BikeData;
-using Bikewale.Entities.BikeBooking;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.controls;
-using Bikewale.Utility;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.PriceQuote
 {
@@ -39,7 +35,8 @@ namespace Bikewale.PriceQuote
         protected AlternativeBikes ctrlAlternativeBikes;
         protected HtmlGenericControl divAllVersions, div_ShowPQ, divUserReviews;
 
-        protected string cityId = string.Empty, city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty;
+        protected string city = string.Empty, priceQuoteId = string.Empty, make = string.Empty, imgPath = String.Empty, dealerId = string.Empty;
+        protected uint cityId = 0, areaId = 0;
         protected MakeModelVersion mmv = null;
         protected BikeQuotationEntity objQuotation = null;
         protected List<BikeVersionsListEntity> versionList = null;
@@ -158,7 +155,8 @@ namespace Bikewale.PriceQuote
         {
             PQOutputEntity objPQOutput = null;
             uint selectedVersionId = default(uint);
-            uint cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId), areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);            
+            cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
+            areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
             try
             {
                 selectedVersionId = Convert.ToUInt32(ddlVersion.SelectedValue);
@@ -167,7 +165,7 @@ namespace Bikewale.PriceQuote
                     // save price quote
                     container.RegisterType<IDealerPriceQuote, BAL.BikeBooking.DealerPriceQuote>();
                     IDealerPriceQuote objIPQ = container.Resolve<IDealerPriceQuote>();
-                    
+
                     PriceQuoteParametersEntity objPQEntity = new PriceQuoteParametersEntity();
                     if (cityId > 0)
                     {
@@ -191,7 +189,7 @@ namespace Bikewale.PriceQuote
             }
             finally
             {
-                if (objPQOutput.PQId > 0 && objPQOutput.DealerId>0)
+                if (objPQOutput.PQId > 0 && objPQOutput.DealerId > 0)
                 {
                     // Save pq cookie
                     //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), objPQOutput.DealerId.ToString());                    
@@ -199,7 +197,7 @@ namespace Bikewale.PriceQuote
                     HttpContext.Current.ApplicationInstance.CompleteRequest();
                     this.Page.Visible = false;
                 }
-                else if(objPQOutput.PQId>0)
+                else if (objPQOutput.PQId > 0)
                 {
                     //PriceQuoteCookie.SavePQCookie(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), string.Empty);                    
                     Response.Redirect("/pricequote/quotation.aspx?MPQ=" + EncodingDecodingHelper.EncodeTo64(PriceQuoteQueryString.FormQueryString(cityId.ToString(), objPQOutput.PQId.ToString(), areaId.ToString(), selectedVersionId.ToString(), string.Empty)), false);
@@ -247,12 +245,12 @@ namespace Bikewale.PriceQuote
                 {
                     priceQuoteId = PriceQuoteQueryString.PQId;
 
-                    Trace.Warn("pq id : " + priceQuoteId);                   
+                    Trace.Warn("pq id : " + priceQuoteId);
                     if (priceQuoteId != "0")
                     {
 
                         versionId = Convert.ToUInt32(PriceQuoteQueryString.VersionId);
-                        ShowPriceQuote();                         
+                        ShowPriceQuote();
                     }
                     else
                     {

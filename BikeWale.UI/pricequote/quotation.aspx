@@ -127,6 +127,19 @@
         left: 20px;
     }
 </style>
+<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+
+    var pqId = '<%= objQuotation.PriceQuoteId%>';
+    var versionId = '<%= objQuotation.VersionId%>';
+    var cityId = '<%= cityId%>';      
+    var bikeVersionLocation = '';
+    var campaignId = "<%= objQuotation.CampaignId%>";
+    var manufacturerId = "<%= objQuotation.ManufacturerId%>";
+    var versionName = "<%= objQuotation.VersionName%>";
+    var myBikeName = "<%=mmv.BikeName%>";
+
+</script>
 </head>
 <body class="bg-light-grey header-fixed-inner">
 <form runat="server">
@@ -238,11 +251,83 @@
                     </div>
                 </div>
                 <div class="grid-4 omega padding-left20 border-solid-left">
+                    <%if (objQuotation.CampaignId == 0){ %>
                     <LD:LocateDealer ID="ucLocateDealer" runat="server" />
+                    <%}
+                      else if ((objQuotation.CampaignId > 0)){ %>
+                    <div class="grid-10 modelGetDetails padding-right20">
+						<h3 class="padding-bottom10">                                                   
+                                Get following details from <%=objQuotation.MakeName %>:                     
+						</h3>
+						<ul>
+							<li>Offers from the nearest dealers</li>
+							<li>Waiting period on this bike at the dealership</li>
+							<li>Nearest dealership from your place</li>
+							<li>Finance options on this bike</li>
+						</ul>
+					</div>
+                    <div class="grid-3 leftfloat noOffers margin-top20">
+                        <input type="button" value="Get more details" class="btn btn-orange margin-right20 leftfloat" id="getMoreDetailsBtnCampaign">
+					</div>
+                    <div class="blackOut-window"></div>
+                    <%} %>
+
                 </div>
                 <div class="clear"></div>
             </div>
         </div>
+        <div class="clear"></div>
+        <!-- lead capture popup start-->    
+		<div id="leadCapturePopup" class="text-center rounded-corner2">
+			<div class="leadCapture-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
+			<!-- contact details starts here -->
+			<div id="contactDetailsPopup">
+				<div class="icon-outer-container rounded-corner50">
+					<div class="icon-inner-container rounded-corner50">
+						<span class="bwsprite user-contact-details-icon margin-top25"></span>
+					</div>
+				</div>
+				<p class="font20 margin-top25 margin-bottom10">Get more details on this bike</p>
+				<p class="text-light-grey margin-bottom20">Please provide contact info to see more details</p>
+				<div class="personal-info-form-container">
+					<div class="form-control-box personal-info-list">
+						<input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
+							id="getFullName" data-bind="value: fullName">
+						<span class="bwsprite error-icon errorIcon"></span>
+						<div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+					</div>
+					<div class="form-control-box personal-info-list">
+						<input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
+							id="getEmailID" data-bind="value: emailId">
+						<span class="bwsprite error-icon errorIcon"></span>
+						<div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+					</div>
+					<div class="form-control-box personal-info-list">
+						<p class="mobile-prefix">+91</p>
+						<input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
+							id="getMobile" maxlength="10" data-bind="value: mobileNo">
+						<span class="bwsprite error-icon errorIcon"></span>
+						<div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+					</div>
+					<div class="clear"></div>
+					<a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitCampaignLead }">Submit</a>                         
+				</div>                   				
+			</div>
+			<!-- contact details ends here -->
+            <!-- thank you message starts here -->
+            <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+                    <div class="icon-outer-container rounded-corner50">
+					    <div class="icon-inner-container rounded-corner50">
+						    <span class="bwsprite user-contact-details-icon margin-top25"></span>
+					    </div>
+				    </div>
+                    <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+                    <p class="font16 margin-bottom40"><%=objQuotation.MakeName%> Company would get back to you shortly with additional information.</p>
+                    <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
+            </div>
+			<!-- thank you message ends here -->			
+		</div>
+			<!-- lead capture popup End-->
         <div class="clear"></div>
     </section>
 
@@ -297,6 +382,213 @@
         dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Make_Page', 'act': 'Get_On_Road_Price_Click', 'lab': selectedModel });--%>
     });
 
+    var fullName = $("#getFullName");
+    var emailid = $("#getEmailID");
+    var mobile = $("#getMobile");
+
+    $("#getMoreDetailsBtnCampaign").on("click", function () {
+        $("#leadCapturePopup").show();
+        $('body').addClass('lock-browser-scroll');
+        $(".blackOut-window").show();
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Clicked', 'lab': bikeVersionLocation });
+    });
+
+    $(".leadCapture-close-btn, .blackOut-window").on("click mouseup", function () {
+        $("#leadCapturePopup").hide();
+        $('body').removeClass('lock-browser-scroll');
+        $(".blackOut-window").hide();
+    });
+
+    $(".leadCapture-close-btn, .blackOut-window-model, #notifyOkayBtn").on("click", function () {
+        $("#leadCapturePopup").hide();
+        $('body').removeClass('lock-browser-scroll');
+        $(".blackOut-window").hide();
+        $("#contactDetailsPopup").show();
+        $("#notify-response").hide();
+    });
+
+    if (bikeVersionLocation == '') {
+        bikeVersionLocation = getBikeVersionLocation();
+    }
+
+    function getBikeVersionLocation() {        
+        var loctn = GetGlobalCityArea();
+        if (loctn != null) {
+            if (loctn != '')
+                loctn = '_' + loctn;
+        }
+        else {
+            loctn = '';
+        }
+        var bikeVersionLocation = myBikeName + '_' + versionName + loctn;
+        return bikeVersionLocation;
+    }
+
+    function setuserDetails() {
+        var cookieName = "_PQUser";
+        if (isCookieExists(cookieName)) {
+            var arr = getCookie(cookieName).split("&");
+            return arr;
+        }
+    }
+
+    function setPQUserCookie() {
+        var val = fullName.val() + '&' + emailid.val() + '&' + mobile.val();
+        SetCookie("_PQUser", val);
+    }
+
+    function hideError(ele) {
+        ele.removeClass("border-red");
+        ele.siblings("span, div").hide();
+    }
+
+
+    function nameValTrue() {
+        hideError(fullName)
+        fullName.siblings("div").text('');
+    };
+
+    function ValidateUserDetail() {
+        var isValid = true;
+        isValid = validateEmail();
+        isValid &= validateMobile();
+        isValid &= validateName();
+        return isValid;
+    };
+
+
+    /* Email validation */
+    function validateEmail() {
+        var isValid = true;
+        var emailID = emailid.val();
+        var reEmail = /^[A-z0-9._+-]+@[A-z0-9.-]+\.[A-z]{2,6}$/;
+
+        if (emailID == "") {
+            setError(emailid, 'Please enter email address');
+            isValid = false;
+        }
+        else if (!reEmail.test(emailID)) {
+            setError(emailid, 'Invalid Email');
+            isValid = false;
+        }
+        return isValid;
+    }
+
+    function validateMobile() {
+        var isValid = true;
+        var reMobile = /^[0-9]{10}$/;
+        var mobileNo = mobile.val();
+        if (mobileNo == "") {
+            isValid = false;
+            setError(mobile, "Please enter your Mobile Number");
+        }
+        else if (!reMobile.test(mobileNo) && isValid) {
+            isValid = false;
+            setError(mobile, "Mobile Number should be 10 digits");
+        }
+        else {
+            hideError(mobile)
+        }
+        return isValid;
+    }
+
+    function validateName() {
+        var isValid = true;
+        var a = fullName.val().length;
+        if ((/&/).test(fullName.val())) {
+            isValid = false;
+            setError(fullName, 'Invalid name');
+        }
+        else
+            if (a == 0) {
+                isValid = false;
+                setError(fullName, 'Please enter your first name');
+            }
+            else if (a >= 1) {
+                isValid = true;
+                nameValTrue()
+            }
+        return isValid;
+    }
+
+    function setError(ele, msg) {
+        ele.addClass("border-red");
+        ele.siblings("span, div").show();
+        ele.siblings("div").text(msg);
+    }
+
+    var customerViewModel = new CustomerModel();
+
+    
+    ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
+
+    function CustomerModel() {
+        var arr = setuserDetails();
+        var self = this;
+        if (arr != null && arr.length > 0) {
+            self.fullName = ko.observable(arr[0]);
+            self.emailId = ko.observable(arr[1]);
+            self.mobileNo = ko.observable(arr[2]);
+        }
+        else {
+            self.fullName = ko.observable();
+            self.emailId = ko.observable();
+            self.mobileNo = ko.observable();
+        }
+
+
+        self.submitCampaignLead = function () {
+
+            var isValidCustomer = ValidateUserDetail();
+
+            if (isValidCustomer && campaignId > 0) {
+
+                $('#processing').show();
+                var objCust = {
+                    "dealerId": manufacturerId,
+                    "pqId": pqId,
+                    "name": self.fullName(),
+                    "mobile": self.mobileNo(),
+                    "email": self.emailId(),
+                    "versionId": versionId,
+                    "cityId": cityId,
+                    "leadSourceId": 3,
+                    "deviceId": getCookie('BWC')
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/api/ManufacturerLead/",
+                    data: ko.toJSON(objCust),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('utma', getCookie('__utma'));
+                        xhr.setRequestHeader('utmz', getCookie('__utmz'));
+                    },
+                    async: false,
+                    contentType: "application/json",
+                    success: function (response) {
+                        //var obj = ko.toJS(response);
+                        $("#personalInfo,#otpPopup").hide();
+                        $('#processing').hide();
+
+                        //validationSuccess($(".get-lead-mobile"));
+                        $("#contactDetailsPopup").hide();
+                        $('#notify-response .notify-leadUser').text(self.fullName());
+                        $('#notify-response').show();
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $('#processing').hide();
+                        $("#contactDetailsPopup, #otpPopup").hide();
+                        var leadMobileVal = mobile.val();
+                        nameValTrue();
+                        hideError(self.mobileNo());
+                    }
+                });
+
+                setPQUserCookie();
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Lead_Submitted', 'lab': bikeVersionLocation });
+            }
+        };
+    }
 </script>
 </form>
 </body>

@@ -176,7 +176,7 @@ function CustomerModel() {
             //"pageUrl": pageUrl,
             "versionId": versionId,
             "cityId": cityId,
-            "leadSourceId": 3,
+            "leadSourceId": 6,
             "deviceId": getCookie('BWC')
         }
         $.ajax({
@@ -200,7 +200,7 @@ function CustomerModel() {
 
                 //$("#leadCapturePopup .leadCapture-close-btn").click();
 
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + manufacturerId;
+                //var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + manufacturerId;
                 //window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
             },
             error: function (xhr, ajaxOptions, thrownError) {

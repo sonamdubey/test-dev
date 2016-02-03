@@ -741,8 +741,13 @@
 				<!-- contact details ends here -->
                 <!-- thank you message starts here -->
                 <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+                    <div class="icon-outer-container rounded-corner50">
+					    <div class="icon-inner-container rounded-corner50">
+						    <span class="bwsprite user-contact-details-icon margin-top25"></span>
+					    </div>
+				    </div>
                         <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
-                        <p class="font16 margin-bottom40"><%=bikeName.Split(' ')[0]%> Company would get back to you shortly with additional information on <%=bikeName %>.</p>
+                        <p class="font16 margin-bottom40"><%=bikeName.Split(' ')[0]%> Company would get back to you shortly with additional information.</p>
                         <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
                 </div>
 				<!-- thank you message ends here -->
