@@ -231,6 +231,7 @@
     <Compile Include="Controllers\Customer\LoginInputParameters.cs" />
     <Compile Include="Controllers\Customer\RegisterInputParameters.cs" />
     <Compile Include="Controllers\Dealer\DealersListController.cs" />
+    <Compile Include="Controllers\Dealer\OffersController.cs" />
     <Compile Include="Controllers\Dealer\TermsController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceLeadController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceModelsController.cs" />
