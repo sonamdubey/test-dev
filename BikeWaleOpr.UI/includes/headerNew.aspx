@@ -42,6 +42,7 @@
                     <li><a href="/newbikebooking/default.aspx" accesskey="e">Manage Dealers</a></li>
                     <li><a href="/newbikebooking/DealerDetailedPriceQuote.aspx" accesskey="e">Dealer Detail</a></li>
                     <li><a href="/MobileApp/AppVersioning.aspx" accesskey="e">Manage App Version</a></li>
+                    <li><a href="/newbikebooking/ManageDealerCampaigns.aspx" accesskey="e">Manage Dealer Campaigns</a></li>
                 </ul>
 			</div>
 	

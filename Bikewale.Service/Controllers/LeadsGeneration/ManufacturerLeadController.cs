@@ -1,22 +1,11 @@
-﻿using Bikewale.DTO.PriceQuote;
-using Bikewale.DTO.PriceQuote.BikeQuotation;
-using Bikewale.DTO.PriceQuote.DealerPriceQuote;
-using Bikewale.Entities.BikeBooking;
+﻿using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.Dealer;
-using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Dealer;
-using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Notifications;
-using Bikewale.Service.AutoMappers.PriceQuote;
 using Bikewale.Service.TCAPI;
-using Bikewale.Utility;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -54,28 +43,31 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
         /// <param name="cityId"></param>
         /// <param name="versionId"></param>
         /// <returns></returns>
+        /// 
+
+        //uint cityId, uint versionId, string name, string email, string mobile, string pqId, UInt16? platformId, UInt16? leadSourceId, string deviceId = null
         [ResponseType(typeof(bool))]
-        public IHttpActionResult Get(uint cityId, uint versionId, string name, string email, string mobile, string pqId, UInt16? platformId, UInt16? leadSourceId, string deviceId = null)
+        public IHttpActionResult Post([FromBody]ManufacturerLeadEntity objLead)
         {
-            string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
-            ManufacturerLeadEntity objLead = null;
+            //string abHostUrl = ConfigurationManager.AppSettings["ABApiHostUrl"];
+            // ManufacturerLeadEntity objLead = null;
             bool status = false;
 
             try
             {
 
-                if (cityId > 0 && versionId > 0 && !String.IsNullOrEmpty(pqId) && !String.IsNullOrEmpty(name) && !String.IsNullOrEmpty(email) && !String.IsNullOrEmpty(mobile))
+                if (objLead.CityId > 0 && objLead.VersionId > 0 && objLead.PQId != 0 && !String.IsNullOrEmpty(objLead.Name) && !String.IsNullOrEmpty(objLead.Email) && !String.IsNullOrEmpty(objLead.Mobile) && objLead.DealerId != 0)
                 {
-                    objLead = new ManufacturerLeadEntity();
-                    objLead.Name = name;
-                    objLead.Mobile = mobile;
-                    objLead.Email = email;
-                    objLead.CityId = cityId;
-                    objLead.VersionId = versionId;
-                    objLead.PQId = Convert.ToUInt32(pqId);
+                    //objLead = new ManufacturerLeadEntity();
+                    //objLead.Name = objMfgLead.Name;
+                    //objLead.Mobile = mobile;
+                    //objLead.Email = email;
+                    //objLead.CityId = cityId;
+                    //objLead.VersionId = versionId;
+                    //objLead.PQId = Convert.ToUInt32(pqId);
 
                     //dealer Id for TVS manufacturer 
-                    objLead.DealerId = Convert.ToUInt32(ConfigurationManager.AppSettings["TVSManufacturerId"]);
+                    //objLead.DealerId = Convert.ToUInt32(ConfigurationManager.AppSettings["TVSManufacturerId"]);
 
                     if (objLead != null && objLead.PQId > 0 && objLead.DealerId > 0)
                     {
@@ -96,8 +88,8 @@ namespace Bikewale.Service.Controllers.LeadsGeneration
                                 ColorId = null,
                                 UTMA = Request.Headers.Contains("utma") ? Request.Headers.GetValues("utma").FirstOrDefault() : String.Empty,
                                 UTMZ = Request.Headers.Contains("utmz") ? Request.Headers.GetValues("utmz").FirstOrDefault() : String.Empty,
-                                DeviceId = deviceId,
-                                LeadSourceId = leadSourceId
+                                DeviceId = objLead.DeviceId,
+                                LeadSourceId = objLead.LeadSourceId
                             };
                             if (_objIPQ.SaveCustomerDetail(entity))
                             {

@@ -196,6 +196,7 @@
     <Compile Include="common\AjaxEditCms.cs" />
     <Compile Include="common\AjaxFunctions.cs" />
     <Compile Include="common\Ajax\AjaxCommon.cs" />
+    <Compile Include="common\Ajax\AjaxManufacturerCampaign.cs" />
     <Compile Include="common\Ajax\ImageReplication.cs" />
     <Compile Include="content\frmManageAppVersions.aspx.cs">
       <DependentUpon>frmManageAppVersions.aspx</DependentUpon>
@@ -227,6 +228,7 @@
     <Compile Include="common\ManageBikeSeries.cs" />
     <Compile Include="common\ManageCities.cs" />
     <Compile Include="common\ManageFeaturedBike.cs" />
+    <Compile Include="common\ManageManufacturerCampaign.cs" />
     <Compile Include="common\ManageModelColor.cs" />
     <Compile Include="common\ManageStates.cs" />
     <Compile Include="common\ManageVideos.cs" />
@@ -475,6 +477,8 @@
     <Compile Include="Entities\FacilityEntity.cs" />
     <Compile Include="Entities\MakeEntity.cs" />
     <Compile Include="Entities\MakeEntityBase.cs" />
+    <Compile Include="Entities\ManufacturerCampaignEntity.cs" />
+    <Compile Include="Entities\ManufacturerEntity.cs" />
     <Compile Include="Entities\ModelColorBase.cs" />
     <Compile Include="Entities\ModelEntity.cs" />
     <Compile Include="Entities\ModelEntityBase.cs" />
@@ -519,6 +523,10 @@
     </Compile>
     <Compile Include="newbikebooking\ManageDealerAreaMapping.aspx.cs">
       <DependentUpon>ManageDealerAreaMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="newbikebooking\ManageDealerCampaigns.aspx.cs">
+      <DependentUpon>ManageDealerCampaigns.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="newbikebooking\ManageDealerDisclaimer.aspx.cs">
@@ -1946,6 +1954,7 @@
     <Content Include="newbikebooking\ManageBikeAvailabilityByColorAndCost.aspx" />
     <Content Include="newbikebooking\ManageBookingAmount.aspx" />
     <Content Include="newbikebooking\ManageDealerAreaMapping.aspx" />
+    <Content Include="newbikebooking\ManageDealerCampaigns.aspx" />
     <Content Include="newbikebooking\ManageDealerDisclaimer.aspx" />
     <Content Include="newbikebooking\ManageDealerFacilities.aspx" />
     <Content Include="newbikebooking\ManageDealerLoanAmounts.aspx" />

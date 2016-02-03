@@ -91,6 +91,8 @@ namespace Bikewale.Mobile.New
         protected string mpqQueryString = String.Empty;
         protected UsersTestimonials ctrlUsersTestimonials;
         protected bool isDealerAssitance = false;
+        protected uint campaignId, manufacturerId;
+
         #region Events
         protected override void OnInit(EventArgs e)
         {
@@ -561,7 +563,7 @@ namespace Bikewale.Mobile.New
                     pqOnRoad = GetOnRoadPrice();
                     // Set Pricequote Cookie
                     if (pqOnRoad != null)
-                    {  
+                    {
                         variantId = Convert.ToInt32(pqOnRoad.PriceQuote.VersionId);
                         if (pqOnRoad.PriceQuote != null)
                         {
@@ -655,6 +657,9 @@ namespace Bikewale.Mobile.New
                                     price = Convert.ToString(objSelectedVariant.OnRoadPrice);
                                 }
                                 isBikeWalePQ = true;
+
+                                campaignId = pqOnRoad.BPQOutput.CampaignId;
+                                manufacturerId = pqOnRoad.BPQOutput.ManufacturerId;
                             }
                             #endregion
                         }

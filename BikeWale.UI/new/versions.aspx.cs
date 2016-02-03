@@ -87,6 +87,8 @@ namespace Bikewale.New
         protected string mpqQueryString = String.Empty;
         protected UsersTestimonials ctrlUsersTestimonials;
         protected bool isDealerAssitance = false;
+        protected uint campaignId;
+        protected uint manufacturerId;
 
         #endregion
 
@@ -442,7 +444,7 @@ namespace Bikewale.New
         {
             ModelMaskingResponse objResponse = null;
             string modelQuerystring = Request.QueryString["model"];
-            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);            
+            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);
             try
             {
                 if (!string.IsNullOrEmpty(modelQuerystring))
@@ -701,7 +703,7 @@ namespace Bikewale.New
                                         rptDiscount.DataBind();
                                     }
 
-                                        totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
+                                    totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
                                     // String operation
                                     viewbreakUpText = "(";
                                     foreach (var text in selectedVariant.PriceList)
@@ -746,6 +748,10 @@ namespace Bikewale.New
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
                                     price = Convert.ToString(objSelectedVariant.OnRoadPrice);
                                 }
+
+                                campaignId = pqOnRoad.BPQOutput.CampaignId;
+                                manufacturerId = pqOnRoad.BPQOutput.ManufacturerId;
+
                                 isBikeWalePQ = true;
                                 #endregion
                             }
@@ -926,6 +932,7 @@ namespace Bikewale.New
         }
 
         static readonly string formatMaxPower = "<div class=\"text-bold\">{0} bhp @ {1} rpm</div>";
+
         protected string FormatMaxPower(object bhp, object rpm)
         {
 
@@ -1178,7 +1185,7 @@ namespace Bikewale.New
                             isAreaAvailable = true;
                         return areaList;
                     }
-                }                
+                }
             }
             catch (Exception ex)
             {

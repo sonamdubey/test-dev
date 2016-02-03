@@ -36,7 +36,7 @@ namespace Bikewale.Utility
                         dealerIds = nvc.AllKeys;
                         if (dealerIds.Contains(dealerId))
                         {
-                            if ((int)DateTime.Now.DayOfWeek != 0 && DateTime.Now.Hour >= 10 && DateTime.Now.Hour <= 19) return true;
+                            if ((int)DateTime.Now.DayOfWeek != 0 && DateTime.Now.Hour >= 10 && DateTime.Now.Hour <= 18) return true;
                         }
                     }
 

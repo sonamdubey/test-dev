@@ -385,6 +385,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .myBikeWale-icon { background-position: 0 -277px; top: 6px; }
 .cancellation-icon { background-position: -52px -395px; top:10px; }
 
+.fixed-close-btn-wrapper { position:relative; width:98%; text-align:right; }
+.fixed-close-btn { position:fixed; background-color:#fff; }
+
 .cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey { width: 16px; height: 16px; }
 .cross-lg-white { background-position: -36px -200px; }
 .cross-lg-lgt-grey { background-position: -36px -226px; }
