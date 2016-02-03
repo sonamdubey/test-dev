@@ -263,6 +263,14 @@
                                         <span class="brand-type-title">MV Agusta</span>
                                     </a>
                                 </li>
+                                <li>
+                                     <a href="/m/um-bikes/">
+                                         <span class="brand-type">
+                                              <span class="lazy brandlogosprite brand-um" data-original="http://img.aeplcdn.com/bikewaleimg/m/images/brand-type-sprite.png?<%= staticFileVersion %>"></span>
+                                         </span>
+                                         <span class="brand-type-title">UM</span>
+                                     </a>
+                                 </li>
                             </ul>
                         </div>
                         <div class="view-brandType text-center padding-top10 clear">
