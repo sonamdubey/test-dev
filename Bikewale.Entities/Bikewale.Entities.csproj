@@ -149,6 +149,7 @@
     <Compile Include="Dealer\NewBikeDealerEntityBase.cs" />
     <Compile Include="Dealer\NewBikeDealersListEntity.cs" />
     <Compile Include="Dealer\NewBikeDealersMakeEntity.cs" />
+    <Compile Include="Dealer\Offer.cs" />
     <Compile Include="EditCMS\Articles\ArticleBase.cs" />
     <Compile Include="EditCMS\Articles\ArticleDetails.cs" />
     <Compile Include="EditCMS\Articles\ArticlePageDetails.cs" />
