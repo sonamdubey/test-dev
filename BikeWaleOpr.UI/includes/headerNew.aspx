@@ -41,7 +41,7 @@
                     <li><a href="/classified/default.aspx" accesskey="e">Classified</a></li>
                     <li><a href="/newbikebooking/default.aspx" accesskey="e">Manage Dealers</a></li>
                     <li><a href="/newbikebooking/DealerDetailedPriceQuote.aspx" accesskey="e">Dealer Detail</a></li>
-                    <li><a href="/content/frmManageAppVersions.aspx" accesskey="e">Manage App Version</a></li>
+                    <li><a href="/MobileApp/AppVersioning.aspx" accesskey="e">Manage App Version</a></li>
                 </ul>
 			</div>
 	

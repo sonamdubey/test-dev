@@ -489,6 +489,10 @@
     <Compile Include="Entities\VersionColorWithAvailability.cs" />
     <Compile Include="Entities\VersionEntity.cs" />
     <Compile Include="Entities\VersionEntityBase.cs" />
+    <Compile Include="MobileApp\AppVersioning.aspx.cs">
+      <DependentUpon>AppVersioning.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
       <DependentUpon>DealerDetailedPriceQuote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1934,6 +1938,7 @@
     <Content Include="includes\footerNew.aspx" />
     <Content Include="includes\headerNew.aspx" />
     <Content Include="includes\HeaderUser.aspx" />
+    <Content Include="MobileApp\AppVersioning.aspx" />
     <Content Include="newbikebooking\DealerDetailedPriceQuote.aspx" />
     <Content Include="newbikebooking\DealerShowroomPrices.aspx" />
     <Content Include="newbikebooking\Default.aspx" />
@@ -1983,7 +1988,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>51984</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
