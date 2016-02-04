@@ -225,7 +225,7 @@ function CustomerModel() {
 
                 //$("#leadCapturePopup .leadCapture-close-btn").click();
 
-                var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + manufacturerId;
+                //var cookieValue = "CityId=" + cityId + "&AreaId=" + areaId + "&PQId=" + pqId + "&VersionId=" + versionId + "&DealerId=" + manufacturerId;
                 //window.location.href = "/pricequote/BikeDealerDetails.aspx?MPQ=" + Base64.encode(cookieValue);
             },
             error: function (xhr, ajaxOptions, thrownError) {
@@ -864,10 +864,6 @@ $("#submit-btn").on("click", function () {
     $("#otpPopup").show();
 });
 
-function setPQUserCookie() {
-    var val = fullName.val() + '&' + emailid.val() + '&' + mobile.val();
-    SetCookie("_PQUser", val);
-}
 
 $('#insuranceLink').on('click', function (e) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Insurance_Clicked_Model', 'lab': myBikeName + "_" + icityArea });
