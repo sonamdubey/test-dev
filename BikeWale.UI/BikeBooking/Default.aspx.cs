@@ -61,7 +61,7 @@ namespace Bikewale.BikeBooking
                         bookingCitiesList.DataTextField = "CityName";
                         bookingCitiesList.DataValueField = "CityId";
                         bookingCitiesList.DataBind();
-                        bookingCitiesList.Items.Insert(0, "----Select City----");
+                        bookingCitiesList.Items.Insert(0, " Select City ");
 
                         if (cityId > 0 && bookingCities.Any(p => p.CityId == cityId))
                             GetDealerAreas();
@@ -102,7 +102,7 @@ namespace Bikewale.BikeBooking
                         bookingAreasList.DataTextField = "AreaName";
                         bookingAreasList.DataValueField = "AreaId";
                         bookingAreasList.DataBind();
-                        bookingAreasList.Items.Insert(0, "----Select Area----");
+                        bookingAreasList.Items.Insert(0, " Select Area ");
 
                         if (areaId > 0 && bookingAreas.Any(p => p.AreaId == areaId))
                             bookingAreasList.Items.FindByValue(Convert.ToString(areaId)).Selected = true;
