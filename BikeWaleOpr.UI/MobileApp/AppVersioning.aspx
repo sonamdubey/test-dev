@@ -9,9 +9,7 @@
             <p>Version <span style="color: red" >&#42;</span> : <input type="text" data-bind="value: versionId" /></p>
             <p>Description : <input type="text" data-bind="value: description" /></p>
             <p><button id="btnUpdate" data-bind="click: saveAppVersion, text:updateText"></button></p>
-            
         </div>
-    
         <div style="margin:10px">
             <h2>Version Detail: </h2>
             <table border="1" style="border-collapse: collapse;" cellpadding="5" >
@@ -37,10 +35,10 @@
                 </tbody>
             </table>
         </div>
-
         <div style="margin:10px">
             <span>Note : Default App Type is Android. </span>
         </div>
+
     <script type="text/javascript">
         var vmAppVersion = function() {
             var self = this;
@@ -78,10 +76,20 @@
             }
 
             self.saveAppVersion = function () {
+
                 if (!(/^\+?(0|[1-9]\d*)$/.test(self.versionId())) || self.versionId() == "" || self.versionId() == undefined)
                 {
                     alert("Version Must be an integer and not Null");
                     return;
+                }
+
+                if ($.grep(self.appVersions(), function (e) { return e.versionId == self.versionId(); })) //Test
+                {
+                    var updateValidation = confirm("Do you want to Update Existing VersionID");
+                    if (updateValidation == false)
+                    {
+                        return;
+                    } 
                 }
 
                 if (self.selectedAppType() != undefined && self.selectedAppType() > 0) {
@@ -109,6 +117,8 @@
                 self.description('');
                 self.versionId('');
             }
+
+
         }
         var viewModel = new vmAppVersion();
         ko.applyBindings(viewModel);
