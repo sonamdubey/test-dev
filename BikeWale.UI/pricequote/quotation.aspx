@@ -134,6 +134,11 @@
     .personal-info-form-container { margin: 10px auto; width: 300px; min-height: 100px; }
     .personal-info-form-container .personal-info-list { margin:0 auto; width:280px; float:left; margin-bottom:20px; border-radius:0; }
     .personal-info-list .errorIcon, .personal-info-list .errorText { display:none; }
+    .user-contact-details-icon { width:36px; height:44px; background-position: 0 -391px; }
+    .mobile-prefix { position: absolute; padding: 10px 13px 13px; color: #999; }
+     #leadCapturePopup .error-icon, #leadCapturePopup .bw-blackbg-tooltip {display:none} 
+
+ 
 </style>
 
 <script type="text/javascript">
@@ -393,6 +398,8 @@
     var fullName = $("#getFullName");
     var emailid = $("#getEmailID");
     var mobile = $("#getMobile");
+    var prevEmail = "";
+    var prevMobile = "";
 
     $("#getMoreDetailsBtnCampaign").on("click", function () {
         $("#leadCapturePopup").show();
@@ -525,9 +532,42 @@
         ele.siblings("div").text(msg);
     }
 
-    var customerViewModel = new CustomerModel();
 
-    
+    fullName.on("focus", function () {
+        hideError(fullName);
+    });
+
+    emailid.on("focus", function () {
+        hideError(emailid);
+        prevEmail = emailid.val().trim();
+    });
+
+    mobile.on("focus", function () {
+        hideError(mobile)
+        prevMobile = mobile.val().trim();
+
+    });
+
+    emailid.on("blur", function () {
+        if (prevEmail != emailid.val().trim()) {
+            if (validateEmail()) {               
+                hideError(emailid);
+            }
+        }
+    });
+
+    mobile.on("blur", function () {
+        if (mobile.val().length < 10) {
+            $("#user-details-submit-btn").show();            
+        }
+        if (prevMobile != mobile.val().trim()) {
+            if (validateMobile()) {
+                hideError(mobile);
+            }
+        }
+    });
+
+    var customerViewModel = new CustomerModel();    
     ko.applyBindings(customerViewModel, $('#leadCapturePopup')[0]);
 
     function CustomerModel() {

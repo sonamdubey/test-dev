@@ -237,6 +237,9 @@ namespace Bikewale.PriceQuote
                 objPriceQuote = container.Resolve<IPriceQuote>();
             }
 
+            cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
+            areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
+
             // Validate price quote cookie and process pricequote.
             //if (PriceQuoteCookie.IsPQCoockieExist())
             if (PriceQuoteQueryString.IsPQQueryStringExists())
@@ -258,9 +261,6 @@ namespace Bikewale.PriceQuote
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
-
-                    cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
-                    areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
                 }
             }
             else
