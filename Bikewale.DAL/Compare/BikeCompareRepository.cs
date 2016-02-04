@@ -211,7 +211,7 @@ namespace Bikewale.DAL.Compare
                             _color => _color.HexCodes = 
                                 (from hexCode in hexCodes
                                 where hexCode.ModelColorId == _color.ColorId                                
-                                select hexCode.HexCode).Distinct()
+                                select hexCode.HexCode)
                             );
                     }
                 }
