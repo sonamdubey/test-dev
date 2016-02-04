@@ -1,0 +1,32 @@
+﻿.booking-landing-banner { background:#161209 url(/m/images/m-booking-landing-banner.jpg) no-repeat center top; background-size:cover; height: 300px; padding-top: 1px; }
+
+.booking-landing-search-container { margin-bottom:20px; width:100%; }
+.booking-landing-search-container .form-control { padding:8px; }
+.booking-search-city, .booking-search-area { width:50%; height: 40px; float:left;}
+.booking-search-city select, .booking-search-area select { width: 100%; height: 38px; color: #555; border: none;}
+.booking-search-area select { border:1px solid #ccc }
+.booking-landing-search-btn { width:44%; }
+.booking-landing-search-btn.btn-lg { padding:8px 42px; }
+.swiper-container { width:200px; height: 205px; }
+.swiper-slide { width:100%; }
+.benefit-icon-outer-container { width:90px; height:90px; margin:0 auto; background:#fff; border:1px solid #ccc; }
+.benefit-icon-inner-container { width:80px; height:80px; margin:4px auto; background:#fff; border:1px solid #666; }
+
+.booking-landing-sprite { background: url(/m/images/m-booking-landing-sprite.png) no-repeat; display: inline-block; }
+.benefit-offers-icon { width:35px; height:37px; background-position:0 0; }
+.benefit-dealer-icon { width:45px; height:30px; background-position:-45px 0; }
+.benefit-assistance-icon { width:37px; height:43px; background-position:-100px 0; }
+.benefit-cancellation-icon { width:29px; height:38px; background-position:-147px 0; }
+.offer-insurance-icon { width:38px; height:40px; background-position:-185px 0; }
+.offer-voucher-icon { width:40px; height:32px; background-position:-233px 0; }
+.offer-doorstep-icon { width:30px; height:36px; background-position:-283px 0; }
+.work-payment-icon, .work-document-icon, .work-delivery-icon { height:36px; }
+.work-payment-icon { width:62px; background-position:-323px 0; }
+.work-document-icon { width:32px; background-position:-395px 0; }
+.work-delivery-icon { width:22px; background-position:-437px 0; }
+.work-arrow-icon { width:13px; height:8px; background-position:-469px 0; }
+
+.avail-offers-container ul { margin-left:30px; margin-right:30px; }
+.avail-offers-container ul li { display:table;  padding-bottom:30px; }
+.booking-icon-container, .booking-text-container { display:table-cell; vertical-align:middle; }
+.booking-icon-container { width:60px; height:40px; }

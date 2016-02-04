@@ -1,252 +1,112 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.bikebooking.Default" %>
 
-<%
-    title = "Book Your Bike";
-    description = "Know On-Road Price of any new bike in India. On-road price of a bike includes ex-showroom price of the bike in your city, insurance charges. road-tax, registration charges, handling charges etc. Finance option is also provided so that you can get a fair idea of EMI and down-payment.";
-    keywords = "bike price, new bike price, bike prices, bike prices India, new bike price quote, on-road price, on-road prices, on-road prices India, on-road price India";
-    //canonical = "http://www.bikewale.com/pricequote/";
-    AdPath = "/1017752/Bikewale_Mobile_OnRoadPrice";
-    AdId = "1398839030772";
-    menu = "13";
-%>
-<!-- #include file="/includes/headermobile.aspx" -->
+<!DOCTYPE html>
 
+<html>
+<head>
+    <title></title>
+    <!-- #include file="/includes/headscript_mobile.aspx" -->
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking-landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
+</head>
+<body class="bg-light-grey">
+    <form id="form1" runat="server">
+        <!-- #include file="/includes/headBW_Mobile.aspx" -->
+        <section>
+            <div class="container booking-landing-banner content-inner-block-10 text-center text-white">
+                <h1 class="text-uppercase text-white padding-top40 padding-bottom15">Book your dream bike</h1>
+                <p class="font14">Online booking is now available in</p>
+                <p class="font16 text-bold margin-bottom20">Mumbai, Pune and Bengaluru</p>
+                <div class="booking-landing-search-container">
+                    <div class="booking-search-city form-control-box">
+                        <asp:DropDownList ID="bookingCitiesList" class="form-control rounded-corner-no-right no-border" runat="server" />
+                    </div>
+                    <div class="booking-search-area form-control-box">
+                        <asp:DropDownList ID="bookingAreasList" class="form-control rounded-corner-no-left no-border" runat="server" />
+                    </div>
+                    <input type="button" class="btn btn-orange btn-lg font16 booking-landing-search-btn margin-top20" value="Search" />
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="container text-center">
+                <h2 class="margin-top25 margin-bottom20">Comforts of booking online</h2>                <div class="swiper-container font18">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="benefit-icon-outer-container rounded-corner50percent">
+                                <div class="benefit-icon-inner-container rounded-corner50percent">
+                                    <span class="benefits-icon-span booking-landing-sprite benefit-offers-icon margin-top20"></span>
+                                </div>
+                            </div>
+                            <div class="margin-top20">Exclusive<br />offers</div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="benefit-icon-outer-container rounded-corner50percent">
+                                <div class="benefit-icon-inner-container rounded-corner50percent">
+                                    <span class="benefits-icon-span booking-landing-sprite benefit-dealer-icon margin-top25"></span>
+                            </div>
+                        </div>
+                        <div class="margin-top20">Save on<br />dealer visits</div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="benefit-icon-outer-container rounded-corner50percent">
+                                <div class="benefit-icon-inner-container rounded-corner50percent">
+                                    <span class="benefits-icon-span booking-landing-sprite benefit-assistance-icon margin-top15"></span>
+                                </div>
+                            </div>
+                            <div class="margin-top20">Complete<br />buying assistance</div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="benefit-icon-outer-container rounded-corner50percent">
+                                <div class="benefit-icon-inner-container rounded-corner50percent">
+                                    <span class="benefits-icon-span booking-landing-sprite benefit-cancellation-icon margin-top20"></span>
+                                </div>
+                            </div>
+                            <div class="margin-top20">Easy<br />cancellation</div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </section>
 
-    <div class="padding5">
-        <div id="br-cr">
-            <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
-            <a href="/m/new/" itemprop="url" class="normal"><span itemprop="title">New Bikes</span></a> </span>
-            &rsaquo; <span class="lightgray">Book Your Bike</span></div>
-        <h1> Book Your Bike </h1>
-        <div id="divBookingDetails" class="box1 new-line5">
-            <div>
-            <select id="ddlCities" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId',optionsCaption: 'Select City', event: { change: cityChangedBooking }"></select>
-        </div>
-        <div>
-            <select id="ddlArea" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'Text', optionsValue: 'Value', optionsCaption: 'Select Area', event: { change: areaChangedBooking }"></select>
-        </div>
-        <div>
-            <select id="ddlMake" data-bind="options: bookingMakes, value: selectedMake, optionsText: 'MakeName', optionsValue: 'MakeId', optionsCaption: 'Select Make', event: { change: makeChangedBooking }"></select>
-        </div>
-        <div>
-            <select id="ddlModel" data-bind="options: bookingModels, value: selectedModel, optionsText: 'Text', optionsValue: 'Value', optionsCaption: 'Select Model', event: { change: modelChangedBooking }"></select>
-        </div>
-        <div class="new-line15">
-		    <div><input type="checkbox" style="margin-top:3px;" id="userAgreement" checked="checked" /></div>
-		    <div style="margin-left:35px; !important;"> 
-			    I agree with BikeWale <a href="/visitoragreement.aspx" target="_blank">Visitor Agreement</a> and <a href="/privacypolicy.aspx" target="_blank">Privacy Policy</a>.
-		    </div>
-	    </div>
-        <div>
-            <p class="lightgray f-12 new-line10">
-                We respect your privacy and will never publicly display, share or use your contact details without your authorization.  By providing your contact details to us you agree that 
-				        we (and/or any of our partners including dealers, bike manufacturers,banks like ICICI bank etc) may call you on the phone number mentioned, in order to provide information or assist you in any transactions, 
-				        and that we may share your details with these partners.
-            </p>
-        </div>
-        <div class="margin-top-10">                    
-            <a id="btnDealerPrice" href="#" class="bwm-btn ui-link">Show Final Price and Book</a>
-        </div>
-        </div>
-    </div>
-    <div data-role="popup" id="popupDialog" data-overlay-theme="a" data-theme="c" data-dismissible="false"  class="ui-corner-all">
-        <div data-role="header" data-theme="a" class="ui-corner-top" style="background-color:#000">
-            <h2 style="color:#fff;">Error !!</h2>
-        </div>
-        <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content" style="background-color:#fff;">
-            <span id="spnError" style="font-size:14px;line-height:20px;" class="error"></span>
-            <a href="#" data-role="button" data-rel="back" data-theme="c" data-mini="true">OK</a>
-        </div>
-    </div>        
-<script type="text/javascript">
-
-    // knockout data binding
-    var viewModelBikeBooking = {
-        selectedCity: ko.observable(),
-        bookingCities: ko.observableArray(),
-        selectedArea: ko.observable(),
-        bookingAreas: ko.observableArray(),
-        selectedMake: ko.observable(),
-        bookingMakes: ko.observableArray(),
-        selectedModel: ko.observable(),
-        bookingModels: ko.observableArray()
-    };
-
-    var preSelectedCityId = 0;
-    var preSelectedCityName = "";
-
-    //bind cities
-    function bindBookingCities() {
-        $.ajax({
-            type: 'GET',
-            url: abHostUrl + "/api/DealerPriceQuote/getBikeBookingCities/",
-            dataType: 'json',
-            success: function (json) {
-                //for insite bikebooking
-                viewModelBikeBooking.bookingCities(json);
-            }
-        });
-    }
-
-    function areaChangedBooking() {
-        dataLayer.push({ 'event': 'product_bw_gtm', 'cat': 'mSite_Bkg_Menu', 'act': 'mSiteBkg_Area selected' });
-    }
-
-    function modelChangedBooking()
-    {
-        dataLayer.push({ 'event': 'product_bw_gtm', 'cat': 'mSite_Bkg_Menu', 'act': 'mSiteBkg_Model selected' });
-    }
-
-    function cityChangedBooking() {
-        dataLayer.push({ 'event': 'product_bw_gtm', 'cat': 'mSite_Bkg_Menu', 'act': 'mSiteBkg_City selected' });
-        if (viewModelBikeBooking.selectedCity() != undefined) {
-            // bind areas
-            $.ajax({
-                type: 'POST',
-                url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
-                data: '{"cityId":"' + viewModelBikeBooking.selectedCity() + '"}',
-                dataType: 'json',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetAreas"); },
-                success: function (json) {
-                    var jsonObj = $.parseJSON(json.value);
-                    viewModelBikeBooking.bookingAreas(jsonObj.Table);
-                }
-            });
-
-            // bind makes
-            $.ajax({
-                type: 'GET',
-                url: abHostUrl + "/api/DealerPriceQuote/GetBikeMakesInCity/?cityId=" + viewModelBikeBooking.selectedCity(),
-                dataType: 'json',
-                success: function (json) {
-                    viewModelBikeBooking.bookingMakes(json);
-                }
-            });
-        }
-        else {
-            viewModelBikeBooking.bookingAreas([]);
-            viewModelBikeBooking.bookingMakes([]);
-        }
-    }
-
-    function makeChangedBooking() {
-        dataLayer.push({ 'event': 'product_bw_gtm', 'cat': 'mSite_Bkg_Menu', 'act': 'mSiteBkg_Make selected' });
-        if (viewModelBikeBooking.selectedMake() != undefined) {
-            // bind models
-            $.ajax({
-                type: 'POST',
-                url: "/ajaxpro/Bikewale.Ajax.AjaxCommon,Bikewale.ashx",
-                data: '{"requestType":"PRICEQUOTE", "makeId":"' + viewModelBikeBooking.selectedMake() + '"}',
-                dataType: 'json',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "GetModels"); },
-                success: function (json) {
-                    var jsonObj = $.parseJSON(json.value);
-                    viewModelBikeBooking.bookingModels(jsonObj.Table);
-                }
-            });
-        } else {
-            viewModelBikeBooking.bookingModels([]);
-        }
-    }
-
-    $("#btnDealerPrice").click(function () {        
-        var cityId = viewModelBikeBooking.selectedCity(), areaId = viewModelBikeBooking.selectedArea() ? viewModelBikeBooking.selectedArea() : 0;
-        if (isValidBookingInfo()) {
-            
-            //set global cookie
-            if (cityId > 0) {
-                cityName = $('#ddlCities').find("option[value=" + cityId + "]").text();
-                cookieValue = cityId + "_" + cityName;
-                SetCookieInDays("location", cookieValue, 365);
-            }
-
-            var pathName = window.location.pathname;
-            var objMsg = $('.bookbikeMsg');
-            $.ajax({
-                type: 'POST',
-                url: "/ajaxpro/Bikewale.Ajax.AjaxBikeBooking,Bikewale.ashx",
-                data: '{"cityId":"' + viewModelBikeBooking.selectedCity() + '", "areaId":"' + viewModelBikeBooking.selectedArea() + '", "modelId":"' + viewModelBikeBooking.selectedModel() + '", "isMobileSource":true}',
-                dataType: 'json',
-                beforeSend: function (xhr) { xhr.setRequestHeader("X-AjaxPro-Method", "ProcessPQ"); },
-                success: function (json) {
-                    var jsonObj = $.parseJSON(json.value);
-                    if (jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
-                        dataLayer.push({ 'event': 'product_bw_gtm', 'cat': 'mSite_Bkg_Menu', 'act': 'mSiteBkg_Successful submission - Dealer PQ', 'lab': 'Path :' + pathName + ', Make :' + viewModelBikeBooking.selectedMake() + ', Model :' + viewModelBikeBooking.selectedModel() + ", City :" + viewModelBikeBooking.selectedCity() + ", Area : " + viewModelBikeBooking.selectedArea() + "'" });
-                        window.location = "/m/pricequote/dealerpricequote.aspx";
-                    }
-                    else if (jsonObj.quoteId > 0) {
-                        dataLayer.push({ 'event': 'product_bw_gtm', 'cat': 'mSite_Bkg_Menu', 'act': 'mSiteBkg_Successful submission - BikeWale PQ', 'lab': 'Path :' + pathName + ', Make :' + viewModelBikeBooking.selectedMake() + ', Model :' + viewModelBikeBooking.selectedModel() + ", City :" + viewModelBikeBooking.selectedCity() + ", Area : " + viewModelBikeBooking.selectedArea() + "'" });
-                        objMsg.find(".msg1").show();
-                        objMsg.find(".msg2").hide();
-                        objMsg.show();
-                       
-                    } else {
-                        dataLayer.push({ 'event': 'product_bw_gtm', 'cat': 'mSite_Bkg_Menu', 'act': 'mSiteBkg_Error in submission' });
-                        objMsg.find(".msg1").hide();
-                        objMsg.find(".msg2").show();
-                        objMsg.show();
-                    }
-                },
-                error: function (e) {
-                    dataLayer.push({ 'event': 'product_bw_gtm', 'cat': 'mSite_Bkg_Menu', 'act': 'mSiteBkg_Error in submission' });
-                    objMsg.find(".msg1").hide();
-                    objMsg.find(".msg2").show();
-                    objMsg.show();
-                    alert(viewModelBikeBooking.selectedCity() + " " + viewModelBikeBooking.selectedMake() + " " + viewModelBikeBooking.selectedModel() + " " + viewModelBikeBooking.selectedArea());
-         
-                }
-            });
-        } else {
-            // Show error messages
-            //alert("Please select all the details");
-            return false;
-        }
-    });
-
-    function isValidBookingInfo() {
-        isValid = true;
-        var errMsg = "Missing fields:";        
-        if (viewModelBikeBooking.selectedCity() == undefined) {
-            errMsg += "City,";
-            isValid = false;
-        }
-
-        if (viewModelBikeBooking.selectedArea() == undefined) {
-            errMsg += "Area,";
-            isValid = false;
-        }
-
-        if (viewModelBikeBooking.selectedMake() == undefined) {
-            errMsg += "Make,";
-            isValid == false;
-        }
-
-        if (viewModelBikeBooking.selectedModel() == undefined) {
-            errMsg += "Model,"
-            isValid = false;
-        }
-
-        if (!$("input#userAgreement").is(":checked")) {
-            retVal = false;
-            errMsg += "<br>Visitor Agreement ";            
-        }
-
-        if (!isValid) {
-            errMsg = errMsg.substring(0, errMsg.length - 1);
-            dataLayer.push({ 'event': 'product_bw_gtm', 'cat': 'mSite_Bkg_Menu', 'act': 'mSiteBkg_Error in submission', 'lab': errMsg });
-
-            $("#spnError").html(errMsg);
-            $("#popupDialog").popup("open");
-        }
-        return isValid;
-    }    
-
-    $(function () {      
-        //apply ko bindings for the  data Binds
-        bindBookingCities();
-        ko.applyBindings(viewModelBikeBooking, document.getElementById("divBookingDetails"));
-    });
-    
-</script>
-
-<!-- #include file="/includes/footermobile.aspx" -->
+        <section>
+            <div class="avail-offers-container container bg-white">
+                <h2 class="padding-top25 text-center padding-bottom20">Offers you can avail</h2>
+                <ul>
+                    <li>
+                        <span class="booking-icon-container">
+                            <span class="booking-landing-sprite offer-insurance-icon"></span>
+                        </span>
+                        <span class="booking-text-container">
+                            <span class="font16 text-bold">Insurance</span><br />
+                            <span class="font14 text-light-grey">Get free comprehensive insurance worth Rs.1000</span>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="booking-icon-container">
+                            <span class="booking-landing-sprite offer-voucher-icon"></span>
+                        </span>
+                        <span class="booking-text-container">
+                            <span class="font16 text-bold">Gift Voucher</span><br />
+                            <span class="font14 text-light-grey">Get free Flipkart voucher worth Rs.1000</span>
+                        </span>
+                    </li>
+                    <li>
+                        <span class="booking-icon-container">
+                            <span class="booking-landing-sprite offer-doorstep-icon"></span>
+                        </span>
+                        <span class="booking-text-container">
+                            <span class="font16 text-bold">Doorstep service</span><br />
+                            <span class="font14 text-light-grey">Get free document collection & bike delivery</span>
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+    </form>
+</body>
+</html>
