@@ -234,7 +234,12 @@ namespace Bikewale.DAL.Compare
             return compare;
         }
 
-
+        /// <summary>
+        /// Modified by :   Sumit Kate on 29 Jan 2016
+        /// Description :   Populate Versions image related entity properties.
+        /// </summary>
+        /// <param name="topCount"></param>
+        /// <returns></returns>
         public IEnumerable<TopBikeCompareBase> CompareList(uint topCount)
         {
             Database db = null;
@@ -247,7 +252,7 @@ namespace Bikewale.DAL.Compare
                 {
                     using (command = new SqlCommand())
                     {
-                        command.CommandText = "GetBikeComparisonMin";
+                        command.CommandText = "GetBikeComparisonMin_29012016";
                         command.CommandType = System.Data.CommandType.StoredProcedure;
                         command.Connection = connection;
                         command.Parameters.Add("@TopCount", System.Data.SqlDbType.SmallInt).Value = topCount;
@@ -280,7 +285,11 @@ namespace Bikewale.DAL.Compare
                                         ReviewCount1 = GetUInt16(reader["ReviewCount1"]),
                                         ReviewCount2 = GetUInt16(reader["ReviewCount2"]),
                                         VersionId1 = GetUInt16(reader["VersionId1"]),
-                                        VersionId2 = GetUInt16(reader["VersionId2"])
+                                        VersionId2 = GetUInt16(reader["VersionId2"]),
+                                        VersionImgUrl1 = GetString(reader["VersionImgUrl1"]),
+                                        VersionImgUrl2 = GetString(reader["VersionImgUrl2"]),
+                                        HostUrl1 = GetString(reader["HostUrl1"]),
+                                        HostUrl2 = GetString(reader["HostUrl2"])
                                     });
                                 }
                             }
