@@ -140,7 +140,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="grid-12 float-button float-fixed clearfix">
+            <div class="grid-12 float-button float-fixed clearfix <%= (objQuotation.CampaignId > 0) ? "" : "hide" %>">
                 <input type="button" value="Get more details" class="btn btn-full-width btn-sm margin-right10 leftfloat btn-orange" id="getMoreDetailsBtnCampaign" />
             </div>
 
