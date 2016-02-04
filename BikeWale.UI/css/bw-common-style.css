@@ -511,6 +511,7 @@ a.action-btn:hover{text-decoration:none;}
 .text-bold { font-weight: bold; }
 .text-unbold { font-weight: normal; }
 .text-italic { font-style: italic; }
+.text-default { color:#4d5057; }
 .text-xt-light-grey { color: #a8afb3; }
 .text-light-grey { color: #82888b; }
 .text-medium-grey { color: #999; }
