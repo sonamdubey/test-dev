@@ -83,7 +83,7 @@
                     return;
                 }
 
-                if ($.grep(self.appVersions(), function (e) { return e.versionId == self.versionId(); })) //Test
+                if (self.isVersionExist()) //Test
                 {
                     var updateValidation = confirm("Do you want to Update Existing VersionID");
                     if (updateValidation == false)
@@ -118,8 +118,17 @@
                 self.versionId('');
             }
 
+            self.isVersionExist = function () {
+                if ($.grep(self.appVersions(), function (e) { return e.Id == self.versionId(); }).length > 0) {
+                    return true;
+                }
+                return false;
+            }
 
         }
+
+        
+
         var viewModel = new vmAppVersion();
         ko.applyBindings(viewModel);
         viewModel.selectedAppType(3);
