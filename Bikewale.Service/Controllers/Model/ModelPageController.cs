@@ -192,6 +192,117 @@ namespace Bikewale.Service.Controllers.Model
                 return InternalServerError();
             }
         }   // Get  Model Page
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 29 Jan 2016
+        /// Description :   This the new version of existing API.        
+        /// This returns the new dual tone colour with hexcodes(as list) 
+        /// along with complete Model Page with Specs,Features,description and Details
+        /// For the Specs and Features Default version selected is the one with maximum pricequotes
+        /// </summary>
+        /// <param name="modelId"></param>
+        /// <returns>Complete Model Page</returns>
+        [ResponseType(typeof(Bikewale.DTO.Model.v2.ModelPage)), Route("api/v2/model/details/")]
+        public IHttpActionResult GetV2(int modelId)
+        {
+            BikeModelPageEntity objModelPage = null;
+            Bikewale.DTO.Model.v2.ModelPage objDTOModelPage = null;
+            //List<EnumCMSContentType> categorList = null;
+
+            try
+            {
+                objModelPage = _cache.GetModelPageDetails(modelId);
+
+                if (objModelPage != null)
+                {
+                    // If android, IOS client sanitize the article content 
+                    string platformId = string.Empty;
+
+                    if (Request.Headers.Contains("platformId"))
+                    {
+                        platformId = Request.Headers.GetValues("platformId").First().ToString();
+                    }
+
+                    if (!string.IsNullOrEmpty(platformId) && (platformId == "3" || platformId == "4"))
+                    {
+                        objModelPage.ModelVersionSpecs = null;
+                    }
+                    else
+                    {
+                        //objModelPage.objFeatures = null;
+                        //objModelPage.objOverview = null;
+                        //objModelPage.objSpecs = null;
+                        if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
+                        {
+                            objModelPage.objFeatures.FeaturesList.Clear();
+                            objModelPage.objFeatures.FeaturesList = null;
+                            objModelPage.objFeatures = null;
+                        }
+                        if (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null)
+                        {
+                            objModelPage.objOverview.OverviewList.Clear();
+                            objModelPage.objOverview.OverviewList = null;
+                            objModelPage.objOverview = null;
+                        }
+                        if (objModelPage.objSpecs != null && objModelPage.objSpecs.SpecsCategory != null)
+                        {
+                            objModelPage.objSpecs.SpecsCategory.Clear();
+                            objModelPage.objSpecs.SpecsCategory = null;
+                            objModelPage.objSpecs = null;
+                        }
+                    }
+
+                    // Auto map the properties
+                    objDTOModelPage = new Bikewale.DTO.Model.v2.ModelPage();
+                    objDTOModelPage = ModelMapper.ConvertV2(objModelPage);
+
+                    if (objModelPage != null)
+                    {
+                        if (objModelPage.ModelColors != null)
+                        {
+                            objModelPage.ModelColors = null;
+                        }
+                        if (objModelPage.ModelVersions != null)
+                        {
+                            objModelPage.ModelVersions.Clear();
+                            objModelPage.ModelVersions = null;
+                        }
+                        if (objModelPage.objFeatures != null && objModelPage.objFeatures.FeaturesList != null)
+                        {
+                            objModelPage.objFeatures.FeaturesList.Clear();
+                            objModelPage.objFeatures.FeaturesList = null;
+                        }
+                        if (objModelPage.objOverview != null && objModelPage.objOverview.OverviewList != null)
+                        {
+                            objModelPage.objOverview.OverviewList.Clear();
+                            objModelPage.objOverview.OverviewList = null;
+                        }
+                        if (objModelPage.objSpecs != null && objModelPage.objSpecs.SpecsCategory != null)
+                        {
+                            objModelPage.objSpecs.SpecsCategory.Clear();
+                            objModelPage.objSpecs.SpecsCategory = null;
+                        }
+                        if (objModelPage.Photos != null)
+                        {
+                            objModelPage.Photos.Clear();
+                            objModelPage.Photos = null;
+                        }
+                    }
+                    
+                    return Ok(objDTOModelPage);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Model.ModelController");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }   // Get  Model Page
         #endregion
     }
 }

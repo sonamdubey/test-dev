@@ -373,7 +373,7 @@ namespace Bikewale.BAL.Compare
                 {
                     OverallLength.CompareSpec.Add(new CompareBikeData() { Value = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).OverallLength.Value), Text = Bikewale.Utility.FormatMinSpecs.ShowAvailable(compareEntity.Specifications.FirstOrDefault(m => m.VersionId == Convert.ToUInt32(version)).OverallLength.Value) });
                 }
-                dimensionsChassis.SpecCategory.Add(KerbWeight);
+                dimensionsChassis.SpecCategory.Add(OverallLength);
 
                 CompareSubCategory OverallWidth = new CompareSubCategory();
                 OverallWidth.Text = "Overall Width (mm)";

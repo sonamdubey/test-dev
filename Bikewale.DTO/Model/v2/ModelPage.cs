@@ -1,18 +1,19 @@
-﻿using Newtonsoft.Json;
+﻿using Bikewale.DTO.BikeData;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Bikewale.DTO.BikeData;
 
-namespace Bikewale.DTO.Model
+namespace Bikewale.DTO.Model.v2
 {
     /// <summary>
-    /// Modified by :   Sumit Kate on 29 Jan 2016
-    /// Description :   Send the single HexCode for Dual Tone model colours
+    /// Created by  :   Sumit Kate on 29 Jan 2016
+    /// Description :   This new DTO for Model Page API. 
+    /// New model multi-tone colors are replaced with old model colours.
     /// </summary>
-    public class ModelPage 
+    public class ModelPage
     {
         [JsonProperty("modelDesc")]
         public ModelDescription ModelDesc { get; set; }
@@ -30,7 +31,7 @@ namespace Bikewale.DTO.Model
         public List<Bikewale.DTO.CMS.Photos.CMSModelImageBase> Photos { get; set; }
         
         [JsonProperty("modelColors")]
-        public IEnumerable<ModelColor> ModelColors { get; set; }
+        public IEnumerable<NewModelColor> ModelColors { get; set; }
 
         [JsonProperty("upcomingBike")]
         public UpcomingBike UpcomingBike { get; set; }
