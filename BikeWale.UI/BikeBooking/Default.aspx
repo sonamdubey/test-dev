@@ -28,31 +28,97 @@
         </header>
 
         <section>
-            <div id="onlineBenefitsWrapper" class="container">
-                <div class="grid-12">
+            <div id="onlineBenefitsWrapper" class="container margin-bottom40">
+                <div class="grid-12 text-center font18">
                     <h2 class="text-bold text-center margin-top40 margin-bottom30 font28">Benefits of booking online</h2>
-                    <ul>
-                        <li>
-                            <div class="icon-outer-container rounded-corner50 margin-bottom20">
-                                <div class="icon-inner-container rounded-corner50">
-                                    <span class="bwsprite question-mark-icon"></span>
-                                </div>
+                    <div class="grid-3">
+                        <div class="benefit-icon-outer-container rounded-corner50">
+                            <div class="benefit-icon-inner-container rounded-corner50">
+                                <span class="benefits-icon-span booking-landing-sprite benefit-offers-icon margin-top25"></span>
                             </div>
-                            <div>Exclusive<br />offers</div>
-                        </li>
-                        <li>
-                            <span></span>
-                            <span>Save on<br />dealer visits</span>
-                        </li>
-                        <li>
-                            <span></span>
-                            <span>Complete<br />buying assistance</span>
-                        </li>
-                        <li>
-                            <span></span>
-                            <span>Easy<br />cancellation</span>
-                        </li>
-                    </ul>
+                        </div>
+                        <div class="margin-top20">Exclusive<br />offers</div>
+                    </div>
+                    <div class="grid-3">
+                        <div class="benefit-icon-outer-container rounded-corner50">
+                            <div class="benefit-icon-inner-container rounded-corner50">
+                                <span class="benefits-icon-span booking-landing-sprite benefit-dealer-icon margin-top30"></span>
+                            </div>
+                        </div>
+                        <div class="margin-top20">Save on<br />dealer visits</div>
+                    </div>
+                    <div class="grid-3">
+                        <div class="benefit-icon-outer-container rounded-corner50">
+                            <div class="benefit-icon-inner-container rounded-corner50">
+                                <span class="benefits-icon-span booking-landing-sprite benefit-assistance-icon margin-top25"></span>
+                            </div>
+                        </div>
+                        <div class="margin-top20">Complete<br />buying assistance</div>
+                    </div>
+                    <div class="grid-3">
+                        <div class="benefit-icon-outer-container rounded-corner50">
+                            <div class="benefit-icon-inner-container rounded-corner50">
+                                <span class="benefits-icon-span booking-landing-sprite benefit-cancellation-icon margin-top25"></span>
+                            </div>
+                        </div>
+                        <div class="margin-top20">Easy<br />cancellation</div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section class="bg-white">
+            <div class="container padding-bottom70">
+                <div class="grid-12">
+                    <h2 class="text-bold text-center margin-top40 margin-bottom50 font28">Offers you can avail</h2>
+                    <div class="grid-4">
+                        <div class="inline-block offers-icon-wrapper">
+                            <span class="booking-landing-sprite offer-insurance-icon"></span>
+                        </div>
+                        <div class="inline-block offers-desc-wrapper">
+                            <h2 class="text-default text-bold margin-bottom5">Insurance</h2>
+                            <p class="font14 text-light-grey">Get free comprehensive<br />insurance worth Rs.1000</p>
+                        </div>
+                    </div>
+                    <div class="grid-4">
+                        <div class="inline-block offers-icon-wrapper">
+                            <span class="booking-landing-sprite offer-voucher-icon"></span>
+                        </div>
+                        <div class="inline-block offers-desc-wrapper">
+                            <h2 class="text-default text-bold margin-bottom5">Gift Voucher</h2>
+                            <p class="font14 text-light-grey">Get free Flipkart voucher<br />worth Rs.1000</p>
+                        </div>
+                    </div>
+                    <div class="grid-4">
+                        <div class="inline-block offers-icon-wrapper">
+                            <span class="booking-landing-sprite offer-doorstep-icon"></span>
+                        </div>
+                        <div class="inline-block offers-desc-wrapper">
+                            <h2 class="text-default text-bold margin-bottom5">Doorstep service</h2>
+                            <p class="font14 text-light-grey">Get free document collection &<br />bike delivery</p>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section id="bookingWorksWrapper">
+            <div class="container">
+                <div class="grid-12">
+
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+
+        <section class="bg-white">
+            <div class="container">
+                <div class="grid-12">
+                    <h2 class="text-bold text-center margin-top40 margin-bottom50 font28">Offers you can avail</h2>
                 </div>
                 <div class="clear"></div>
             </div>
