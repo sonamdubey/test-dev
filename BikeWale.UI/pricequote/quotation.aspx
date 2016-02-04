@@ -126,8 +126,16 @@
         overflow: hidden;
         left: 20px;
     }
+    .modelGetDetails h3 { border-bottom:1px solid #ecedee; }
+    .modelGetDetails ul { list-style:disc; color:#82888b; margin-left:25px; font-size:14px; }
+    .modelGetDetails ul li { padding-top: 12px;padding-right: 12px; width:100% !important; float: left; }
+    /* lead capture popup */
+    #leadCapturePopup { display:none; width:450px; min-height:470px; background:#fff; margin:0 auto; position:fixed; top:10%; right:5%; left:5%; z-index:10; padding: 30px 40px; }
+    .personal-info-form-container { margin: 10px auto; width: 300px; min-height: 100px; }
+    .personal-info-form-container .personal-info-list { margin:0 auto; width:280px; float:left; margin-bottom:20px; border-radius:0; }
+    .personal-info-list .errorIcon, .personal-info-list .errorText { display:none; }
 </style>
-<link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
+
 <script type="text/javascript">
 
     var pqId = '<%= objQuotation.PriceQuoteId%>';
@@ -255,7 +263,7 @@
                     <LD:LocateDealer ID="ucLocateDealer" runat="server" />
                     <%}
                       else if ((objQuotation.CampaignId > 0)){ %>
-                    <div class="grid-10 modelGetDetails padding-right20">
+                    <div class="modelGetDetails padding-right20">
 						<h3 class="padding-bottom10">                                                   
                                 Get following details from <%=objQuotation.MakeName %>:                     
 						</h3>

@@ -94,6 +94,7 @@ namespace Bikewale.PriceQuote
             dd.DetectDevice();
 
             ProcessPriceQuoteData();
+
             if (PriceQuoteQueryString.PQId != null)
             {
                 priceQuoteId = PriceQuoteQueryString.PQId;
@@ -155,8 +156,7 @@ namespace Bikewale.PriceQuote
         {
             PQOutputEntity objPQOutput = null;
             uint selectedVersionId = default(uint);
-            cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
-            areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
+
             try
             {
                 selectedVersionId = Convert.ToUInt32(ddlVersion.SelectedValue);
@@ -258,6 +258,9 @@ namespace Bikewale.PriceQuote
                         HttpContext.Current.ApplicationInstance.CompleteRequest();
                         this.Page.Visible = false;
                     }
+
+                    cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
+                    areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
                 }
             }
             else
