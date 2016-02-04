@@ -137,32 +137,7 @@
             </div>
         </section>
 
-        <section>
-            <div id="faqsWraper" class="container margin-bottom30">
-                <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">FAQs</h2>
-                    <div class="grid-4 content-box-shadow content-inner-block-20">
-                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
-                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
-                    </div>
-                    <div class="grid-4 content-box-shadow content-inner-block-20 margin-left20 margin-right20">
-                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
-                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
-                    </div>
-                    <div class="grid-4 content-box-shadow content-inner-block-20">
-                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
-                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
-                    </div>
-                    <div class="clear"></div>
-                    <div class="margin-top20 font14 text-center">
-                        <p>We’re here to help. Read our <a href="" class="text-blue">FAQs</a>, <a href="mailto:">email</a> or call us on <span class="text-bold text-default">1800 120 8300</span></p>
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
-
-         <% if (ctrlUsersTestimonials.FetchedCount > 0)
+          <% if (ctrlUsersTestimonials.FetchedCount > 0)
            { %>
         <section>
             <div id="testimonialWrapper" class="container margin-bottom30">
@@ -188,6 +163,33 @@
         <%           
            }
         %>
+
+
+        <section>
+            <div id="faqsWraper" class="container margin-bottom30">
+                <div class="grid-12">
+                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">FAQs</h2>
+                    <div class="grid-4 content-box-shadow content-inner-block-20">
+                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
+                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
+                    </div>
+                    <div class="grid-4 content-box-shadow content-inner-block-20 margin-left20 margin-right20">
+                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
+                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
+                    </div>
+                    <div class="grid-4 content-box-shadow content-inner-block-20">
+                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
+                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="margin-top20 font14 text-center">
+                        <p>We’re here to help. Read our <a href="" class="text-blue">FAQs</a>, <a href="mailto:">email</a> or call us on <span class="text-bold text-default">1800 120 8300</span></p>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+       
 
 
         <!-- #include file="/includes/footerBW.aspx" -->
