@@ -50,6 +50,8 @@
     <Compile Include="AutoComplete\BikeList.cs" />
     <Compile Include="AutoComplete\Payload.cs" />
     <Compile Include="AutoComplete\SuggestionList.cs" />
+    <Compile Include="BikeBooking\BikeBookingListingDTO.cs" />
+    <Compile Include="BikeBooking\BookingListingFilterDTO.cs" />
     <Compile Include="Compare\BikeColorDTO.cs" />
     <Compile Include="BikeBooking\BikeCancellationCustomer.cs" />
     <Compile Include="Compare\BikeCompareDTO.cs" />
