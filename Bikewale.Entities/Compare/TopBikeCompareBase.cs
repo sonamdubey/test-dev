@@ -10,6 +10,8 @@ namespace Bikewale.Entities.Compare
     /// <summary>
     /// Modified By : Sadhna Upadhayay on 06 Nov. 2015.
     /// Description : Introduce [Serializable].
+    /// Modified By :   Sumit Kate on 29 Jan 2016
+    /// Description :   Added HostUrl1, HostUrl2, VersionImgUrl1, VersionImgUrl2 as string to Bikewale.Entities.Compare.TopBikeCompareBase entity.
     /// </summary>
     [Serializable]
     public class TopBikeCompareBase
@@ -33,5 +35,9 @@ namespace Bikewale.Entities.Compare
         public UInt16 ReviewCount2 { get; set; }
         public string HostURL { get; set; }
         public string OriginalImagePath { get; set; }
+        public string HostUrl1 { get; set; }
+        public string HostUrl2 { get; set; }
+        public string VersionImgUrl1 { get; set; }
+        public string VersionImgUrl2 { get; set; }
     }
 }
