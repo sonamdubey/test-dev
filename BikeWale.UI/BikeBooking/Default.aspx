@@ -1,5 +1,4 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Bikewale.BikeBooking.Default" %>
-
 <!DOCTYPE html>
 
 <html>
@@ -21,25 +20,18 @@
                     <p class="font20">Online booking is now available in</p>
                     <p class="font22 text-bold margin-bottom45">Mumbai, Pune and Bengaluru</p>
                     <div class="booking-landing-search-container">
-
+                        <div class="booking-search-city form-control-box">
+                            <asp:DropDownList ID="bookingCitiesList" class="form-control rounded-corner0 no-border" runat="server" />
+                        </div>
+                        <div class="booking-search-area form-control-box">
+                            <asp:DropDownList ID="bookingAreasList" class="form-control rounded-corner0 no-border" runat="server" />
+                        </div>
+                        <input type="button" class="btn btn-orange font16 btn-lg leftfloat booking-landing-search-btn rounded-corner-no-left" value="Search" />
+                        <div class="clear"></div>
                     </div>
                 </div>
             </div>
         </header>
-
-
-        <section>
-            <div class="container margin-bottom30 margin-top30">
-                <div class="grid-12">
-                    <div class="content-box-shadow content-inner-block-20">
-                        <asp:DropDownList ID="bookingCitiesList" class="form-control" runat="server" />
-                        <asp:DropDownList ID="bookingAreasList" class="form-control" runat="server" />
-                        <input type="button" class="btn btn-red" />
-                    </div>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </section>
 
         <section>
             <div id="onlineBenefitsWrapper" class="container margin-bottom40">
@@ -122,17 +114,48 @@
 
         <section id="bookingWorksWrapper">
             <div class="container">
-                <div class="grid-12">
-
+                <div class="grid-12 text-center text-white">
+                    <h2 class="text-white text-bold margin-top40 margin-bottom30 font28">How it works?</h2>
+                    <div class="grid-4">
+                        <span class="booking-landing-sprite work-payment-icon margin-bottom15"></span>
+                        <p class="font16">Book your bike by paying<br />booking amount</p>
+                        <span class="booking-landing-sprite work-arrow-icon"></span>
+                    </div>
+                    <div class="grid-4">
+                        <span class="booking-landing-sprite work-document-icon margin-bottom15"></span>
+                        <p class="font16">Provide documents and<br />payment at dealership</p>
+                        <span class="booking-landing-sprite work-arrow-icon"></span>
+                    </div>
+                    <div class="grid-4">
+                        <span class="booking-landing-sprite work-delivery-icon margin-bottom15"></span>
+                        <p class="font16">Get your bike delivered and<br />avail offers</p>
+                    </div>
+                    <div class="clear"></div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
 
-        <section class="bg-white">
-            <div class="container">
+        <section>
+            <div id="faqsWraper" class="container margin-bottom30">
                 <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top40 margin-bottom50 font28">Offers you can avail</h2>
+                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">FAQs</h2>
+                    <div class="grid-4 content-box-shadow content-inner-block-20">
+                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
+                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
+                    </div>
+                    <div class="grid-4 content-box-shadow content-inner-block-20 margin-left20 margin-right20">
+                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
+                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
+                    </div>
+                    <div class="grid-4 content-box-shadow content-inner-block-20">
+                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
+                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="margin-top20 font14 text-center">
+                        <p>We’re here to help. Read our <a href="" class="text-blue">FAQs</a>, <a href="mailto:">email</a> or call us on <span class="text-bold text-default">1800 120 8300</span></p>
+                    </div>
                 </div>
                 <div class="clear"></div>
             </div>

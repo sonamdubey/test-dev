@@ -1,6 +1,12 @@
 ﻿.booking-landing-banner { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/images/home-top-banner.jpg) no-repeat right top; height: 489px; padding-top: 1px; }
 
 .booking-landing-search-container { margin:0 auto; width:600px; }
+.booking-landing-search-container .form-control { padding:8px; }
+.booking-search-city, .booking-search-area { width:233px; height:40px; float:left;}
+.booking-search-city select, .booking-search-area select { width: 233px; height: 38px; color: #555; border: none;}
+.booking-search-area select { border:1px solid #ccc }
+.booking-landing-search-btn { width:133px; }
+.booking-landing-search-btn.btn-lg { padding:7px 20px; padding:8px 20px 7px\9; }
 .benefit-icon-outer-container { width:120px; height:120px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .benefit-icon-inner-container { width:110px; height:110px; margin:4px auto; background:#fff; border:1px solid #666; }
 
@@ -16,11 +22,16 @@
 .work-payment-icon { width:86px; background-position:-373px 0; }
 .work-document-icon { width:44px; background-position:-470px 0; }
 .work-delivery-icon { width:37px; background-position:-524px 0; }
-.work-arrow-icon { width:12px; height:20px; background-position:-570px 0; }
+.work-arrow-icon { width:12px; height:20px; background-position:-570px 0; position:absolute; top:45px; right:0; }
 
 .offers-icon-wrapper { width:15%; margin-left:20px; }
 .offers-desc-wrapper { width:70%; margin-left:10px }
 
 #bookingWorksWrapper { background:#666 url(/images/booking-works-banner.jpg) no-repeat center; height:278px; background-size:cover; }
+#faqsWraper .grid-4 { width:312px; }
 
 .margin-bottom45 { margin-bottom:45px; }
+
+@-moz-document url-prefix() {
+    .booking-landing-search-btn.btn-lg { padding:6px 20px; }
+}
