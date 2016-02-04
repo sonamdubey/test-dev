@@ -26,6 +26,8 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
         /// Created By : Sushil Kumar
         /// Created On : 5th December 2015
         /// Description : To push mobile notification to rabbitmq for processing queue
+        /// Modified by :   Sumit Kate on 04 Feb 2016
+        /// Description :   Send the alerts for all notification
         /// </summary>
         /// <returns></returns>
         [ResponseType(typeof(Boolean))]
@@ -37,11 +39,9 @@ namespace Bikewale.Service.Controllers.MobileAppAlerts
                 NameValueCollection nvc = HttpUtility.ParseQueryString(Request.RequestUri.Query);
                 nvc.Add("publishDate", DateTime.Now.ToString("yyyyMMdd"));
 
-                if (nvc["alertTypeId"] == "2")
-                {
-                    RabbitMqPublish publish = new RabbitMqPublish();
-                    publish.PublishToQueue(ConfigurationManager.AppSettings["MobileAlertQueuename"].ToString(), nvc);
-                }  
+
+                RabbitMqPublish publish = new RabbitMqPublish();
+                publish.PublishToQueue(ConfigurationManager.AppSettings["MobileAlertQueuename"].ToString(), nvc);
 
                 return Ok(true);
             }
