@@ -124,5 +124,32 @@ namespace Bikewale.BAL.Dealer
             status = dealerRepository.SaveManufacturerLead(lead);
             return status;
         }
+
+        /// <summary>
+        /// Created By : Sushil Kumar
+        /// Created On : 3rd Febrauary 2016
+        /// Summary : Method to get list of all cities in which dealers having booking is available
+        /// </summary>
+        /// <returns></returns>
+        public List<CityEntityBase> GetDealersBookingCitiesList()
+        {
+            string _apiUrl = "/api/DealerPriceQuote/getBikeBookingCities/";
+            List<CityEntityBase> lstCity = null;
+            try
+            {
+                using (Utility.BWHttpClient objClient = new Utility.BWHttpClient())
+                {
+                    lstCity = objClient.GetApiResponseSync<List<CityEntityBase>>(Utility.APIHost.AB, Utility.BWConfiguration.Instance.APIRequestTypeJSON, _apiUrl, lstCity);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Bikewale.Notifications.ErrorClass objErr = new Bikewale.Notifications.ErrorClass(ex, System.Web.HttpContext.Current.Request.ServerVariables["URL"]);
+                objErr.SendMail();
+            }
+
+            return lstCity;
+        }
     }
 }
