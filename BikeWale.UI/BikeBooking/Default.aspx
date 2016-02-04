@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Bikewale.BikeBooking.Default" %>
-
+<%@ Register Src="~/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 
 <html>
@@ -137,6 +137,34 @@
                 <div class="clear"></div>
             </div>
         </section>
+
+         <% if (ctrlUsersTestimonials.FetchedCount > 0)
+           { %>
+        <section>
+            <div id="testimonialWrapper" class="container margin-bottom30">
+                <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">What do our customers say</h2>
+                    <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%
+           }
+           else
+           {
+        %>
+        <section>
+            <div class="container margin-bottom30">
+                <div class="grid-12">
+                </div>
+                <div class="clear"></div>
+            </div>
+        </section>
+        <%           
+           }
+        %>
+
 
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->

@@ -1,5 +1,6 @@
 ﻿using Bikewale.BAL.Dealer;
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
 using Bikewale.Interfaces.BikeBooking;
@@ -21,6 +22,7 @@ namespace Bikewale.BikeBooking
         List<CityEntityBase> bookingCities = null;
         IEnumerable<AreaEntityBase> bookingAreas = null;
         protected uint cityId = 0, areaId = 0;
+        protected UsersTestimonials ctrlUsersTestimonials;
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -30,7 +32,8 @@ namespace Bikewale.BikeBooking
                 DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
                 dd.DetectDevice();
                 CheckLocationCookie();
-                GetDealerCities();                
+                GetDealerCities();
+                ctrlUsersTestimonials.TopCount = 6;
             }
         }
         

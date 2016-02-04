@@ -4,7 +4,7 @@
 .benefit-icon-outer-container { width:120px; height:120px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .benefit-icon-inner-container { width:110px; height:110px; margin:4px auto; background:#fff; border:1px solid #666; }
 
-.booking-landing-sprite { background: url(/images/booking-landing-sprite.png) no-repeat; display: inline-block; }
+.booking-landing-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/booking-landing-sprite.png) no-repeat; display: inline-block; }
 .benefit-offers-icon { width:46px; height:50px; background-position:0 0; }
 .benefit-dealer-icon { width:60px; height:40px; background-position:-56px 0; }
 .benefit-assistance-icon { width:50px; height:56px; background-position:-126px 0; }
