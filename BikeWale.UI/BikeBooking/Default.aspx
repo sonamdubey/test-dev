@@ -6,7 +6,7 @@
 <head>
     <title></title>
     <!-- #include file="/includes/headscript.aspx" -->
-    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/cancellation.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
+    <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookinglanding.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css"/>
     <%
         isAd970x90Shown = false;
     %>
@@ -14,11 +14,15 @@
 <body class="bg-light-grey">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
-        <header class="booking-cancellation-banner">
+        <header class="booking-landing-banner">    	
             <div class="container">
                 <div class="welcome-box">
-                    <h1 class="font30 text-uppercase margin-bottom10">Bike Booking</h1>
-                    <p class="font20">Book your Bike in quick steps</p>
+                    <h1 class="font30 text-uppercase margin-bottom30">Book your dream bike</h1>
+                    <p class="font20">Online booking is now available in</p>
+                    <p class="font22 text-bold margin-bottom45">Mumbai, Pune and Bengaluru</p>
+                    <div class="booking-landing-search-container">
+
+                    </div>
                 </div>
             </div>
         </header>
@@ -38,11 +42,31 @@
         </section>
 
         <section>
-            <div class="container margin-bottom30 margin-top30">
+            <div id="onlineBenefitsWrapper" class="container">
                 <div class="grid-12">
-                    <div class="content-box-shadow content-inner-block-20">
-                        <p class="font14 padding-left5"><span class="bwsprite call-icon inline-block margin-right10"></span>In case of any queries feel free to call us on <span class="text-bold font18">1800 120 8300</span></p>
-                    </div>
+                    <h2 class="text-bold text-center margin-top40 margin-bottom30 font28">Benefits of booking online</h2>
+                    <ul>
+                        <li>
+                            <div class="icon-outer-container rounded-corner50 margin-bottom20">
+                                <div class="icon-inner-container rounded-corner50">
+                                    <span class="bwsprite question-mark-icon"></span>
+                                </div>
+                            </div>
+                            <div>Exclusive<br />offers</div>
+                        </li>
+                        <li>
+                            <span></span>
+                            <span>Save on<br />dealer visits</span>
+                        </li>
+                        <li>
+                            <span></span>
+                            <span>Complete<br />buying assistance</span>
+                        </li>
+                        <li>
+                            <span></span>
+                            <span>Easy<br />cancellation</span>
+                        </li>
+                    </ul>
                 </div>
                 <div class="clear"></div>
             </div>
