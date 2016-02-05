@@ -54,6 +54,7 @@
     <Compile Include="BikeBooking\BikeCancellationEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntityBase.cs" />
+    <Compile Include="BikeBooking\BookingListingFilterEntity.cs" />
     <Compile Include="BikeBooking\BookingResults.cs" />
     <Compile Include="BikeBooking\CalculatedEMI.cs" />
     <Compile Include="BikeBooking\Consumers.cs" />
