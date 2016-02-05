@@ -231,7 +231,7 @@ footer ul li a:hover { text-decoration: underline; }
 .used-bike-carousel li {height:320px}
 .compareCarsHomePage li { width: 976px; }
 .jcarousel-pagination a { 
-	text-decoration: none; display: inline-block; height: 10px; width: 10px; line-height: 10px; background: #eeeff0; border: 1px solid #ebebea;
+	text-decoration: none; display: inline-block; height: 14px; width: 14px; line-height: 10px; background: #eeeff0; border: 1px solid #ebebea;
 	border-radius: 15px; text-indent: -9999px; margin: 5px 10px; cursor: pointer; }
 .jcarousel-pagination a:hover { background: #82888b;  }
 .jcarousel-pagination a.active { background: #82888b; cursor: default; border: 1px solid #cccccc; }
