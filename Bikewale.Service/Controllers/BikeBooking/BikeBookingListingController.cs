@@ -60,6 +60,7 @@ namespace Bikewale.Service.Controllers.BikeBooking
                     output.FetchedCount = fetchedCount;
                     output.TotalCount = totalCount;
                     output.PageUrl = PageUrlEntityMapper.Convert(PageUrlEntity);
+                    output.CurPageNo = filter.PageNo == 0 ? 1 : filter.PageNo;
                 }
                 catch (Exception ex)
                 {

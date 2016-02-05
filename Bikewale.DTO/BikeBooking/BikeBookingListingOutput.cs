@@ -21,5 +21,7 @@ namespace Bikewale.DTO.BikeBooking
         public int FetchedCount { get; set; }
         [JsonProperty("pageUrl")]
         public PagingUrl PageUrl { get; set; }
+        [JsonProperty("curPageNo")]
+        public int CurPageNo { get; set; }
     }
 }
