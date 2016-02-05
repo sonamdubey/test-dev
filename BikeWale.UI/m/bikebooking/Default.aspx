@@ -60,7 +60,8 @@
 
         <section>
             <div class="container text-center">
-                <h2 class="margin-top25 margin-bottom20">Comforts of booking online</h2>                <div class="swiper-container font18">
+                <h2 class="margin-top25 margin-bottom20">Comforts of booking online</h2>
+                <div class="swiper-container font18">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="benefit-icon-outer-container rounded-corner50percent">
@@ -144,6 +145,24 @@
             </div>
         </section>
 
+        
+         <% if (ctrlUsersTestimonials.FetchedCount > 0 )
+           { %>
+        <section class="bg-white">
+            <div id="testimonialWrapper" class="container margin-bottom10">
+                <h2 class="text-bold text-center padding-top30 margin-bottom20 font24">What do our customers say</h2>
+                <div class="swiper-container text-center">
+                    <div class="swiper-wrapper margin-bottom10">
+                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <%
+           }        
+        %>
+
+
         <section>
             <div id="faqsWraper" class="container margin-bottom30">
                 <h2 class="padding-top25 text-center padding-bottom20">FAQs</h2>
@@ -165,27 +184,8 @@
                 </div>
             </div>
         </section>
-
-         <% if (ctrlUsersTestimonials.FetchedCount > 0 )
-           { %>
-        <section>
-            <div id="testimonialWrapper" class="container margin-bottom10">
-                <h2 class="text-bold text-center margin-top30 margin-bottom20 font24">What do our customers say</h2>
-                <div class="swiper-container text-center">
-                    <div class="swiper-wrapper margin-bottom10">
-                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <%
-           }        
-        %>
-
         
-
-
-         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
 
         <script>
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList");

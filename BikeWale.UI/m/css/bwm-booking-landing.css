@@ -41,3 +41,7 @@
 #bookingWorksWrapper { background:#666 url(/m/images/m-booking-works-banner.jpg) no-repeat center; height:380px; background-size:cover; }
 #faqsWraper .swiper-container { width:100%; margin-left:10px; }
 #faqsWraper .swiper-slide { width:280px; height:165px; line-height:1.7; padding:20px; background:#fff; border:1px solid #ccc; }
+#testimonialWrapper .swiper-container { width:100%; padding:0 10px; height:auto; }
+#testimonialWrapper .testimonial-image-container { width:82px; height:82px; background:#fff; margin:0 auto; border:1px solid #ccc; }
+#testimonialWrapper .testimonial-user-image { width:76px; height:76px; overflow:hidden; margin:2px auto; border:1px solid #666; }
+#testimonialWrapper .testimonial-user-image img { width:100%; }
