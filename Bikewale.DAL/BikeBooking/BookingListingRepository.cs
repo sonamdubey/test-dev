@@ -310,12 +310,12 @@ namespace Bikewale.DAL.BikeBooking
                     if (filterInputs.PageNo == totalPageCount)
                         objPager.NextPageUrl = string.Empty;
                     else
-                        objPager.NextPageUrl = controllerurl + "PageNo=" + (Convert.ToInt32(filterInputs.PageNo) + 1) + apiUrlStr;
+                        objPager.NextPageUrl = controllerurl + "pageNo=" + (Convert.ToInt32(filterInputs.PageNo) + 1) + apiUrlStr;
 
-                    if (filterInputs.PageNo == 1)
+                    if (filterInputs.PageNo == 1 || filterInputs.PageNo == 0)
                         objPager.PrevPageUrl = string.Empty;
                     else
-                        objPager.PrevPageUrl = controllerurl + "PageNo=" + (Convert.ToInt32(filterInputs.PageNo) - 1) + apiUrlStr;
+                        objPager.PrevPageUrl = controllerurl + "pageNo=" + (Convert.ToInt32(filterInputs.PageNo) - 1) + apiUrlStr;
                 }
             }
             catch (Exception ex)
@@ -332,29 +332,29 @@ namespace Bikewale.DAL.BikeBooking
             try
             {
                 if (!String.IsNullOrEmpty(filterInputs.MakeIds))
-                    apiUrlstr += "&MakeIds=" + filterInputs.MakeIds.Replace(" ", "+");
+                    apiUrlstr += "&makeIds=" + filterInputs.MakeIds.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.BrakeType))
-                    apiUrlstr += "&BrakeType=" + filterInputs.BrakeType.Replace(" ", "+");
+                    apiUrlstr += "&brakeType=" + filterInputs.BrakeType.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.Budget))
-                    apiUrlstr += "&Budget=" + filterInputs.Budget.Replace(" ", "+");
+                    apiUrlstr += "&budget=" + filterInputs.Budget.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.Displacement))
-                    apiUrlstr += "&Displacement=" + filterInputs.Displacement.Replace(" ", "+");
+                    apiUrlstr += "&displacement=" + filterInputs.Displacement.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.Mileage))
-                    apiUrlstr += "&Mileage=" + filterInputs.Mileage.Replace(" ", "+");
+                    apiUrlstr += "&mileage=" + filterInputs.Mileage.Replace(" ", "+");
                 if (filterInputs.PageSize > 0)
-                    apiUrlstr += "&PageSize=" + filterInputs.PageSize;
+                    apiUrlstr += "&pageSize=" + filterInputs.PageSize;
                 if (!String.IsNullOrEmpty(filterInputs.RideStyle))
-                    apiUrlstr += "&RideStyle=" + filterInputs.RideStyle.Replace(" ", "+");
+                    apiUrlstr += "&rideStyle=" + filterInputs.RideStyle.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.sc))
                     apiUrlstr += "&sc=" + filterInputs.sc;
                 if (!String.IsNullOrEmpty(filterInputs.so))
                     apiUrlstr += "&so=" + filterInputs.so;
                 if (!String.IsNullOrEmpty(filterInputs.StartType))
-                    apiUrlstr += "&StartType=" + filterInputs.StartType.Replace(" ", "+");
+                    apiUrlstr += "&startType=" + filterInputs.StartType.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.AlloyWheel))
-                    apiUrlstr += "&AlloyWheel=" + filterInputs.AlloyWheel.Replace(" ", "+");
+                    apiUrlstr += "&alloyWheel=" + filterInputs.AlloyWheel.Replace(" ", "+");
                 if (!String.IsNullOrEmpty(filterInputs.AntiBreakingSystem))
-                    apiUrlstr += "&AntiBreakingSystem=" + filterInputs.AntiBreakingSystem.Replace(" ", "+");
+                    apiUrlstr += "&antiBreakingSystem=" + filterInputs.AntiBreakingSystem.Replace(" ", "+");
             }
             catch (Exception ex)
             {
