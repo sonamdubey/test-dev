@@ -191,11 +191,18 @@
       <DependentUpon>VerifyCustomerListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="common\AjaxAppVersion.cs" />
     <Compile Include="common\AjaxCompareFeaturedBike.cs" />
     <Compile Include="common\AjaxEditCms.cs" />
     <Compile Include="common\AjaxFunctions.cs" />
     <Compile Include="common\Ajax\AjaxCommon.cs" />
+    <Compile Include="common\Ajax\AjaxManufacturerCampaign.cs" />
     <Compile Include="common\Ajax\ImageReplication.cs" />
+    <Compile Include="content\frmManageAppVersions.aspx.cs">
+      <DependentUpon>frmManageAppVersions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Entities\AppEnum.cs" />
     <Compile Include="common\BikeWaleAuthentication.cs" />
     <Compile Include="common\BindControls.cs" />
     <Compile Include="common\BWHttpClient.cs" />
@@ -215,11 +222,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="common\MakeModelVersion.cs" />
+    <Compile Include="common\ManageAppVersion.cs" />
     <Compile Include="common\ManageArea.cs" />
     <Compile Include="common\ManageBikeAvailbilityByColor.cs" />
     <Compile Include="common\ManageBikeSeries.cs" />
     <Compile Include="common\ManageCities.cs" />
     <Compile Include="common\ManageFeaturedBike.cs" />
+    <Compile Include="common\ManageManufacturerCampaign.cs" />
     <Compile Include="common\ManageModelColor.cs" />
     <Compile Include="common\ManageStates.cs" />
     <Compile Include="common\ManageVideos.cs" />
@@ -454,6 +463,7 @@
     <Compile Include="editcms\Code\ViewImage.aspx.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Entities\AppVersionEntity.cs" />
     <Compile Include="Entities\AreaEntityBase.cs" />
     <Compile Include="Entities\BookingAmountEntity.cs" />
     <Compile Include="Entities\BookingAmountEntityBase.cs" />
@@ -467,6 +477,8 @@
     <Compile Include="Entities\FacilityEntity.cs" />
     <Compile Include="Entities\MakeEntity.cs" />
     <Compile Include="Entities\MakeEntityBase.cs" />
+    <Compile Include="Entities\ManufacturerCampaignEntity.cs" />
+    <Compile Include="Entities\ManufacturerEntity.cs" />
     <Compile Include="Entities\ModelColorBase.cs" />
     <Compile Include="Entities\ModelEntity.cs" />
     <Compile Include="Entities\ModelEntityBase.cs" />
@@ -481,6 +493,10 @@
     <Compile Include="Entities\VersionColorWithAvailability.cs" />
     <Compile Include="Entities\VersionEntity.cs" />
     <Compile Include="Entities\VersionEntityBase.cs" />
+    <Compile Include="MobileApp\AppVersioning.aspx.cs">
+      <DependentUpon>AppVersioning.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="newbikebooking\DealerDetailedPriceQuote.aspx.cs">
       <DependentUpon>DealerDetailedPriceQuote.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -507,6 +523,10 @@
     </Compile>
     <Compile Include="newbikebooking\ManageDealerAreaMapping.aspx.cs">
       <DependentUpon>ManageDealerAreaMapping.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="newbikebooking\ManageDealerCampaigns.aspx.cs">
+      <DependentUpon>ManageDealerCampaigns.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="newbikebooking\ManageDealerDisclaimer.aspx.cs">
@@ -1368,6 +1388,7 @@
     <Content Include="content\ExpectedLanuches.aspx" />
     <Content Include="content\FeaturedBikes.aspx" />
     <Content Include="content\FeaturedListing.aspx" />
+    <Content Include="content\frmManageAppVersions.aspx" />
     <Content Include="content\MakeSynopsis.aspx" />
     <Content Include="content\ManageNewModelColor.aspx" />
     <Content Include="content\ManageUserReviews.aspx" />
@@ -1925,6 +1946,7 @@
     <Content Include="includes\footerNew.aspx" />
     <Content Include="includes\headerNew.aspx" />
     <Content Include="includes\HeaderUser.aspx" />
+    <Content Include="MobileApp\AppVersioning.aspx" />
     <Content Include="newbikebooking\DealerDetailedPriceQuote.aspx" />
     <Content Include="newbikebooking\DealerShowroomPrices.aspx" />
     <Content Include="newbikebooking\Default.aspx" />
@@ -1932,6 +1954,7 @@
     <Content Include="newbikebooking\ManageBikeAvailabilityByColorAndCost.aspx" />
     <Content Include="newbikebooking\ManageBookingAmount.aspx" />
     <Content Include="newbikebooking\ManageDealerAreaMapping.aspx" />
+    <Content Include="newbikebooking\ManageDealerCampaigns.aspx" />
     <Content Include="newbikebooking\ManageDealerDisclaimer.aspx" />
     <Content Include="newbikebooking\ManageDealerFacilities.aspx" />
     <Content Include="newbikebooking\ManageDealerLoanAmounts.aspx" />
@@ -1974,8 +1997,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>false</AutoAssignPort>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>False</AutoAssignPort>
           <DevelopmentServerPort>51984</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:9010</IISUrl>

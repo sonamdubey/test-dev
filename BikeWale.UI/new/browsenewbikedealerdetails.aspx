@@ -18,13 +18,21 @@
     <div class="grid_12">
         <ul class="breadcrumb">
             <li>You are here: </li>
-            <li><a href="/">Home</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/new/">New Bikes</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a itemprop="url" href="/new/"><span itemprop="title">New Bikes</span></a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/new/locate-dealers/">New Bike Dealer</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a itemprop="url" href="/new/locate-dealers/"><span itemprop="title">New Bike Dealer</span></a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/new/<%=MakeMaskingName%>-dealers/"><%=makeName%> Dealers</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a itemprop="url" href="/new/<%=MakeMaskingName%>-dealers/"><span itemprop="title"><%=makeName%> Dealers</span></a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong><%=makeName%> Dealers in <%=strCity%></strong></li>
         </ul>

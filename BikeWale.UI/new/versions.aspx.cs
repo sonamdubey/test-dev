@@ -1,30 +1,31 @@
-﻿using Bikewale.Cache.BikeData;
+﻿using Bikewale.BAL.BikeBooking;
+using Bikewale.BAL.BikeData;
+using Bikewale.BindViewModels.Webforms;
+using Bikewale.Cache.BikeData;
 using Bikewale.Cache.Core;
 using Bikewale.Common;
+using Bikewale.Controls;
 using Bikewale.DAL.BikeData;
+using Bikewale.DAL.Location;
+using Bikewale.DTO.Version;
+using Bikewale.Entities.BikeBooking;
 using Bikewale.Entities.BikeData;
+using Bikewale.Entities.Location;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.BikeData;
 using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Location;
+using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Utility;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
-using System.Web.UI.WebControls;
-using Bikewale.Controls;
-using Bikewale.DTO.Version;
 using System.Reflection;
-using Bikewale.Utility;
-using Bikewale.BAL.BikeBooking;
-using Bikewale.Interfaces.BikeBooking;
-using Bikewale.Entities.Location;
-using Bikewale.Interfaces.Location;
-using Bikewale.DAL.Location;
-using Bikewale.BAL.BikeData;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Entities.BikeBooking;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
@@ -44,7 +45,7 @@ namespace Bikewale.New
         protected string modelId = string.Empty;
         protected int variantId = 0;
         protected int versionId = 0;
-        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, rptMoreOffers, rptCategory, rptVariants, rptDiscount;
+        protected Repeater rptModelPhotos, rptNavigationPhoto, rptVarients, rptColor, rptOffers, /*rptMoreOffers,*/ rptCategory, rptVariants, rptDiscount;
         protected String bikeName = String.Empty;
         protected String clientIP = string.Empty;
         protected int cityId = 0;
@@ -72,6 +73,7 @@ namespace Bikewale.New
         protected string price = string.Empty;
         protected string viewbreakUpText = string.Empty;
         protected UInt32 onRoadPrice = 0;
+        protected UInt32 totalDiscountedPrice = 0;
         protected List<CityEntityBase> objCityList = null;
         protected List<Bikewale.Entities.Location.AreaEntityBase> objAreaList = null;
         protected OtherVersionInfoEntity objSelectedVariant = null;
@@ -85,6 +87,9 @@ namespace Bikewale.New
         protected string mpqQueryString = String.Empty;
         protected UsersTestimonials ctrlUsersTestimonials;
         protected bool isDealerAssitance = false;
+        protected uint campaignId;
+        protected uint manufacturerId;
+
         #endregion
 
         public enum Overviews
@@ -194,6 +199,7 @@ namespace Bikewale.New
 
             Trace.Warn("Trace 5 : CheckCityCookie Start");
             CheckCityCookie();
+            SetFlags();
             Trace.Warn("Trace 6 : CheckCityCookie End");
 
             //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue) && ddlVariant.SelectedValue != "0")
@@ -235,7 +241,6 @@ namespace Bikewale.New
                 }
             }
             ctrlUsersTestimonials.TopCount = 6;
-            SetFlags();
             Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
             BindAlternativeBikeControl();
             Trace.Warn("Trace 19 : BindAlternativeBikeControl End");
@@ -288,7 +293,7 @@ namespace Bikewale.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
-                        var totalDiscount = TotalDiscountedPrice();
+                        var totalDiscount = totalDiscountedPrice;
                         //if ((isCitySelected && !isAreaAvailable))
                         if (isOnRoadPrice)
                             lblExOn.Text = "On-road price";
@@ -439,7 +444,7 @@ namespace Bikewale.New
         {
             ModelMaskingResponse objResponse = null;
             string modelQuerystring = Request.QueryString["model"];
-            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);            
+            Trace.Warn("modelQuerystring 1 : ", modelQuerystring);
             try
             {
                 if (!string.IsNullOrEmpty(modelQuerystring))
@@ -657,10 +662,10 @@ namespace Bikewale.New
                         {
                             dealerId = Convert.ToString(pqOnRoad.PriceQuote.DealerId);
                             if (!String.IsNullOrEmpty(dealerId))
-                             {
-                                 DealerAssistance dealerAssisteance = new DealerAssistance();
-                                 isDealerAssitance = dealerAssisteance.IsDealerAssistance(dealerId);
-                             }
+                            {
+                                DealerAssistance dealerAssisteance = new DealerAssistance();
+                                isDealerAssitance = dealerAssisteance.IsDealerAssistance(dealerId);
+                            }
                             pqId = Convert.ToString(pqOnRoad.PriceQuote.PQId);
                         }
                         //PriceQuoteCookie.SavePQCookie(cityId.ToString(), pqId, Convert.ToString(areaId), Convert.ToString(variantId), dealerId);                                                
@@ -676,15 +681,15 @@ namespace Bikewale.New
                                 price = onRoadPrice.ToString();
                                 if (pqOnRoad.DPQOutput.objOffers != null && pqOnRoad.DPQOutput.objOffers.Count > 0)
                                 {
-                                    IEnumerable<OfferEntity> moreOffers = null;
-                                    rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers.Take<OfferEntity>(2);
+                                    //IEnumerable<OfferEntity> moreOffers = null;
+                                    rptOffers.DataSource = pqOnRoad.DPQOutput.objOffers;//.Take<OfferEntity>(2);
                                     rptOffers.DataBind();
-                                    if (pqOnRoad.DPQOutput.objOffers.Count > 2)
-                                    {
-                                        moreOffers = pqOnRoad.DPQOutput.objOffers.Skip(2).Take<OfferEntity>(pqOnRoad.DPQOutput.objOffers.Count - 2);
-                                        rptMoreOffers.DataSource = moreOffers;
-                                        rptMoreOffers.DataBind();
-                                    }
+                                    //if (pqOnRoad.DPQOutput.objOffers.Count > 2)
+                                    //{
+                                    //    moreOffers = pqOnRoad.DPQOutput.objOffers.Skip(2).Take<OfferEntity>(pqOnRoad.DPQOutput.objOffers.Count - 2);
+                                    //    rptMoreOffers.DataSource = moreOffers;
+                                    //    rptMoreOffers.DataBind();
+                                    //}
                                     isOfferAvailable = true;
                                 }
                                 if (selectedVariant.PriceList != null)
@@ -697,6 +702,8 @@ namespace Bikewale.New
                                         rptDiscount.DataSource = pqOnRoad.discountedPriceList;
                                         rptDiscount.DataBind();
                                     }
+
+                                    totalDiscountedPrice = CommonModel.GetTotalDiscount(pqOnRoad.discountedPriceList);
                                     // String operation
                                     viewbreakUpText = "(";
                                     foreach (var text in selectedVariant.PriceList)
@@ -716,7 +723,7 @@ namespace Bikewale.New
 
                                 if (pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
                                 {
-                                    price = Convert.ToString(onRoadPrice - TotalDiscountedPrice());
+                                    price = Convert.ToString(onRoadPrice - totalDiscountedPrice);
                                 }
                             }
                             #endregion
@@ -741,6 +748,10 @@ namespace Bikewale.New
                                     objSelectedVariant = pqOnRoad.BPQOutput.Varients.FirstOrDefault();
                                     price = Convert.ToString(objSelectedVariant.OnRoadPrice);
                                 }
+
+                                campaignId = pqOnRoad.BPQOutput.CampaignId;
+                                manufacturerId = pqOnRoad.BPQOutput.ManufacturerId;
+
                                 isBikeWalePQ = true;
                                 #endregion
                             }
@@ -921,6 +932,7 @@ namespace Bikewale.New
         }
 
         static readonly string formatMaxPower = "<div class=\"text-bold\">{0} bhp @ {1} rpm</div>";
+
         protected string FormatMaxPower(object bhp, object rpm)
         {
 
@@ -1173,7 +1185,7 @@ namespace Bikewale.New
                             isAreaAvailable = true;
                         return areaList;
                     }
-                }                
+                }
             }
             catch (Exception ex)
             {
@@ -1252,36 +1264,6 @@ namespace Bikewale.New
             }
             return Bikewale.Utility.Format.FormatPrice(Convert.ToString(price));
         }
-
-
-        /// <summary>
-        /// Creted By : Lucky Rathore
-        /// Created on : 08 January 2016
-        /// </summary>
-        /// <returns>Total dicount on specific Version.</returns>
-        protected UInt32 TotalDiscountedPrice()
-        {
-            UInt32 totalPrice = 0;
-
-            if (pqOnRoad != null && pqOnRoad.discountedPriceList != null && pqOnRoad.discountedPriceList.Count > 0)
-            {
-                foreach (var priceListObj in pqOnRoad.discountedPriceList)
-                {
-                    totalPrice += priceListObj.Price;
-                }
-            }
-
-            return totalPrice;
-        }
         #endregion
-    }
-
-    class MultToneColors
-    {
-        public uint Id { get; set; }
-        public uint ModelId { get; set; }
-        public string ColorName { get; set; }
-        public IEnumerable<string> HexCode { get; set; }
-        public UInt16 NoOfDays { get; set; }
     }
 }

@@ -15,74 +15,34 @@
 <!-- #include file="/includes/headNew.aspx" -->
 
 <style type="text/css">
-    .dvShrink {
-        display: none;
-    }
-
-    .dvDisplay {
-        display: block;
-        padding-left: 10px;
-    }
-
-    .blue-imgblock {
-        padding: 5px;
-        border: 1px solid #DBDBDB;
-        cursor: pointer;
-    }
-
-    .insert-after {
-        width: 613px;
-        background-color: #fff;
-        border: 1px solid #DBDBDB;
-    }
-
-    .sel-state {
-        background-color: #fff;
-        z-index: 2;
-        position: relative;
-        height: 3px;
-        width: 209px;
-        top: 2px;
-        font-size: 0;
-    }
-
-    .unsel-state {
-        padding: 0;
-        margin: 0;
-    }
-
-    .state-tab {
-        float: left;
-        width: 201px;
-        padding: 0;
-        margin-top: 3px;
-        margin-right: 3px;
-        border: 1px solid #DBDBDB;
-        background-color: #f3f2f2;
-        margin-bottom: 0;
-    }
-
-        .state-tab .hd3 {
-            cursor: pointer;
-        }
-
-    .mar-bot {
-        margin-bottom: 5px;
-    }
-
-    .expnd-cont {
-        margin: 0;
-    }
+    .dvShrink {display: none;}
+    .dvDisplay {display: block;padding-left: 10px;}
+    .blue-imgblock {padding: 5px;border: 1px solid #DBDBDB;cursor: pointer;}
+    .insert-after {width: 613px;background-color: #fff;border: 1px solid #DBDBDB;}
+    .sel-state {background-color: #fff;z-index: 2;position: relative;height: 3px;width: 209px;top: 2px;font-size: 0;}
+    .unsel-state {padding: 0;margin: 0;}
+    .state-tab {float: left;width: 201px;padding: 0;margin-top: 3px;margin-right: 3px;border: 1px solid #DBDBDB;background-color: #f3f2f2;margin-bottom: 0;}
+    .state-tab .hd3 {cursor: pointer;}
+    .mar-bot {margin-bottom: 5px;}
+    .expnd-cont {margin: 0;}
 </style>
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
             <li>You are here: </li>
-            <li><a href="/">Home</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="/" itemprop="url">
+                    <span itemprop="title">Home</span>
+                </a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/new/">New Bikes</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="/new/" itemprop="url"><span itemprop="title">New Bikes</span></a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/new/locate-dealers/">New Bike Dealers</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a itemprop="url" href="/new/locate-dealers/"><span itemprop="title">New Bike Dealers</span></a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong><%=objMMV.Make%> Dealers/Showrooms</strong></li>
         </ul>

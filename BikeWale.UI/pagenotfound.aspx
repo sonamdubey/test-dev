@@ -41,6 +41,8 @@
         if (!String.IsNullOrEmpty(userAgent))
         {
             //HttpContext.Current.Response.Write("<br/><b>User Agent : </b><br/> " + userAgent);
+        if (!String.IsNullOrEmpty(userAgent))
+        {
             IDevice device = wurflManager.GetDeviceForRequest(userAgent);																//gets a device for that user agent
 
             string is_wireless_device = device.GetCapability("is_wireless_device");														//gets the capability of device

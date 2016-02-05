@@ -1,15 +1,12 @@
-﻿using System;
+﻿using Bikewale.CoreDAL;
+using Bikewale.Entities.PriceQuote;
+using Bikewale.Interfaces.PriceQuote;
+using Bikewale.Notifications;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using System.Web;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.CoreDAL;
-using Bikewale.Notifications;
 
 namespace Bikewale.DAL.PriceQuote
 {
@@ -128,7 +125,7 @@ namespace Bikewale.DAL.PriceQuote
                 {
                     using (SqlCommand cmd = new SqlCommand())
                     {
-                        cmd.CommandText = "GetPriceQuote_New";
+                        cmd.CommandText = "GetPriceQuote_New_01022016";
                         cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Connection = conn;
 
@@ -143,6 +140,8 @@ namespace Bikewale.DAL.PriceQuote
                         cmd.Parameters.Add("@City", SqlDbType.VarChar, 50).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@VersionId", SqlDbType.Int).Direction = ParameterDirection.Output;
                         cmd.Parameters.Add("@NumOfRows", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@CampaignId", SqlDbType.Int).Direction = ParameterDirection.Output;
+                        cmd.Parameters.Add("@ManufacturerId", SqlDbType.Int).Direction = ParameterDirection.Output;
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
@@ -159,6 +158,9 @@ namespace Bikewale.DAL.PriceQuote
                             objQuotation.VersionName = Convert.ToString(cmd.Parameters["@VersionName"].Value);
                             objQuotation.City = Convert.ToString(cmd.Parameters["@City"].Value);
                             objQuotation.VersionId = Convert.ToUInt32(cmd.Parameters["@VersionId"].Value);
+                            objQuotation.CampaignId = Convert.ToUInt32(cmd.Parameters["@CampaignId"].Value);
+                            objQuotation.ManufacturerId = Convert.ToUInt32(cmd.Parameters["@ManufacturerId"].Value);
+
                             objQuotation.PriceQuoteId = pqId;
                         }
                     }
@@ -383,7 +385,7 @@ namespace Bikewale.DAL.PriceQuote
                     using (SqlCommand cmd = new SqlCommand())
                     {
                         cmd.CommandText = "GetPriceQuoteData";
-                        cmd.CommandType = CommandType.StoredProcedure;                        
+                        cmd.CommandType = CommandType.StoredProcedure;
 
                         cmd.Parameters.Add("@QuoteId", SqlDbType.Int).Value = pqId;
                         using (SqlDataReader dr = db.SelectQry(cmd))
@@ -394,15 +396,15 @@ namespace Bikewale.DAL.PriceQuote
                                 objQuotation.AreaId = Convert.ToUInt32(dr["AreaId"]);
                                 objQuotation.CityId = Convert.ToUInt32(dr["cityid"]);
                                 objQuotation.VersionId = Convert.ToUInt32(dr["BikeVersionId"]);
-                                objQuotation.DealerId = Convert.ToUInt32(dr["DealerId"]);                                
+                                objQuotation.DealerId = Convert.ToUInt32(dr["DealerId"]);
                             }
                         }
-                        
+
                     }
                 }
             }
             catch (Exception ex)
-            {                
+            {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
             }
