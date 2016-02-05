@@ -305,7 +305,7 @@ namespace Bikewale.DAL.BikeBooking
 
                 if (totalPageCount > 0)
                 {
-                    string controllerurl = "/api/NewBikeSearch/?";
+                    string controllerurl = "/api/BikeBookingListing/?";
 
                     if (filterInputs.PageNo == totalPageCount)
                         objPager.NextPageUrl = string.Empty;
