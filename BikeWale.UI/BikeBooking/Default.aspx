@@ -1,5 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="Bikewale.BikeBooking.Default" %>
-
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.Default" %>  
 <%@ Register Src="~/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
 <!DOCTYPE html>
 
@@ -10,11 +9,13 @@
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/bookinglanding.css?<%= staticFileVersion%>" rel="stylesheet" type="text/css" />
     <%
         isAd970x90Shown = false;
+        isTransparentHeader = true;
     %>
 </head>
 <body class="bg-light-grey">
     <form id="form1" runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
+        <script type="text/javascript">document.getElementById("header").children[1].innerHTML = "";</script>
         <header class="booking-landing-banner">
             <div class="container">
                 <div class="welcome-box">
@@ -282,7 +283,8 @@
                                 
                 $ddlAreas.trigger('chosen:updated');
                 $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("No Areas available");
-            }
+            }
+
 
         </script>
 

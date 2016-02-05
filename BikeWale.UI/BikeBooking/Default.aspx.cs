@@ -3,15 +3,12 @@ using Bikewale.Common;
 using Bikewale.Controls;
 using Bikewale.DAL.Location;
 using Bikewale.Entities.Location;
-using Bikewale.Interfaces.BikeBooking;
 using Bikewale.Interfaces.Dealer;
 using Bikewale.Interfaces.Location;
 using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace Bikewale.BikeBooking
@@ -24,6 +21,10 @@ namespace Bikewale.BikeBooking
         protected uint cityId = 0, areaId = 0;
         protected UsersTestimonials ctrlUsersTestimonials;
 
+        protected override void OnInit(EventArgs e)
+        {
+            this.Load += new EventHandler(Page_Load);
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

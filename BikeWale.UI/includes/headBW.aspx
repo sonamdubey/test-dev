@@ -47,9 +47,6 @@
                     </li>
                 </ul>
             </div>
-            <div class="nav-bike-booking-target leftfloat margin-right30">
-                <a href="/bikebooking/default.aspx" class="text-white rounded-corner2">Book your bike</a>
-            </div>
             <div class="global-location">
                 <div class="gl-default-stage">
                 	<div id="globalCity-text">
@@ -58,6 +55,9 @@
                     </div>
                 </div>            
             </div>
+
+            <div class="login-box" >Book your bike</div>
+
             <BW:LoginStatus ID="ctrlLoginStatus" runat="server" />
             <div class="clear"></div>
         </div>
