@@ -55,6 +55,7 @@
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntityBase.cs" />
     <Compile Include="BikeBooking\BookingListingFilterEntity.cs" />
+    <Compile Include="BikeBooking\BookingOfferEntity.cs" />
     <Compile Include="BikeBooking\BookingResults.cs" />
     <Compile Include="BikeBooking\CalculatedEMI.cs" />
     <Compile Include="BikeBooking\Consumers.cs" />
@@ -64,6 +65,7 @@
     <Compile Include="BikeBooking\LeadSourceEnum.cs" />
     <Compile Include="BikeBooking\NewBikeDealers.cs" />
     <Compile Include="BikeBooking\OfferEntity.cs" />
+    <Compile Include="BikeBooking\PagingUrl.cs" />
     <Compile Include="BikeBooking\PQCustomerDetail.cs" />
     <Compile Include="BikeBooking\PQOutputEntity.cs" />
     <Compile Include="BikeBooking\PQParameterEntity.cs" />

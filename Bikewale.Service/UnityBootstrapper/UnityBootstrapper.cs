@@ -58,6 +58,8 @@ namespace Bikewale.Service.UnityConfiguration
         /// Description :   Register BikeCompareCacheRepository.
         /// Modified By :   Sumit Kate on 08 Dec 2015
         /// Description :   Register AppVersionRepository.
+        /// Modified By :   Sumit Kate on 05 Feb 2016
+        /// Description :   Register IBookingListing, BookingListingRepository
         /// </summary>
         /// <returns></returns>
         public static IUnityContainer Initialize()
@@ -98,6 +100,7 @@ namespace Bikewale.Service.UnityConfiguration
             container.RegisterType<ICityCacheRepository, CityCacheRepository>();
             container.RegisterType<IAreaCacheRepository, AreaCacheRepository>();           
             container.RegisterType<IBookingCancellation, Bikewale.BAL.BikeBooking.BookingCancellation>();
+            container.RegisterType<IBookingListing, BookingListingRepository>();
             return container;
         }
     }

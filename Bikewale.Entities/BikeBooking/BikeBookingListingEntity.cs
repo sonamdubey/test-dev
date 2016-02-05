@@ -29,7 +29,10 @@ namespace Bikewale.Entities.BikeBooking
         public uint Discount { get; set; }
         public uint BookingAmount { get; set; }
         public uint PopularityIndex { get; set; }
-        public uint OnRoadPrice { get; set; }
+        public int OnRoadPrice { get; set; }
         public float Displacement { get; set; }
+        public UInt16 OfferCount { get { if (lstOffer != null) { return Convert.ToUInt16(lstOffer.Count); } return 0; } }
+        public List<PQ_Price> PriceList { get; set; }
+        public List<OfferEntity> lstOffer { get; set; }
     }
 }

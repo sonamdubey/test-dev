@@ -1,0 +1,25 @@
+﻿using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Bikewale.DTO.BikeBooking
+{
+    /// <summary>
+    /// Created by  :   Sumit Kate on 05 Feb 2016
+    /// Description :   Bike Booking Listing Output
+    /// </summary>
+    public class BikeBookingListingOutput
+    {
+        [JsonProperty("bikes")]
+        public IEnumerable<BikeBookingListingDTO> Bikes { get; set; }
+        [JsonProperty("totalCount")]
+        public int TotalCount { get; set; }
+        [JsonProperty("fetchedCount")]
+        public int FetchedCount { get; set; }
+        [JsonProperty("pageUrl")]
+        public PagingUrl PageUrl { get; set; }
+    }
+}

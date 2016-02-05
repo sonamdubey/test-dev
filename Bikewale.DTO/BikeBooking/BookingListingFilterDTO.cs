@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Bikewale.DTO.BikeBooking
 {
+    /// <summary>
+    /// Created by  :   Sumit Kate on 05 Feb 2016
+    /// Description :   Booking Listing Filter DTO
+    /// </summary>
     public class BookingListingFilterDTO
     {
         [JsonProperty("makeIds")]
@@ -28,9 +32,9 @@ namespace Bikewale.DTO.BikeBooking
         [JsonProperty("startType")]
         public string StartType { get; set; }
         [JsonProperty("pageNo")]
-        public string PageNo { get; set; }
+        public int PageNo { get; set; }
         [JsonProperty("pageSize")]
-        public string PageSize { get; set; }
+        public int PageSize { get; set; }
         [JsonProperty("so")]
         public string so { get; set; }
         [JsonProperty("sc")]

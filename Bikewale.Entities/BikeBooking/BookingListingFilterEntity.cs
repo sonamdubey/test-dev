@@ -21,8 +21,8 @@ namespace Bikewale.Entities.BikeBooking
         public string BrakeType { get; set; }
         public string AlloyWheel { get; set; }
         public string StartType { get; set; }
-        public string PageNo { get; set; }
-        public string PageSize { get; set; }
+        public int PageNo { get; set; }
+        public int PageSize { get; set; }
         public string so { get; set; }
         public string sc { get; set; }
     }

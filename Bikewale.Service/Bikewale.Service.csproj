@@ -180,8 +180,11 @@
     <Compile Include="AutoMappers\App\AppVersionMapper.cs" />
     <Compile Include="AutoMappers\AutoComplete\SuggestionListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Area\BBAreaListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BikeBookingListingEntityMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BookingListingFilterDTOMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BookingPageDetailsEntityMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Model\BBModelListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\PageUrlEntityMapper.cs" />
     <Compile Include="AutoMappers\BikeData\FeaturedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\LaunchedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\MakeModelEntityMapper.cs" />

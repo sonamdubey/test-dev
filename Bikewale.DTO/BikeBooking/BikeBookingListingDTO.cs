@@ -53,5 +53,7 @@ namespace Bikewale.DTO.BikeBooking
         public uint OfferCount { get; set; }
         [JsonProperty("discountedPrice")]
         public uint DiscountedPrice { get { return OnRoadPrice - Discount;} }
+        [JsonProperty("offers")]
+        public List<BikeBookingOfferDTO> lstOffer { get; set; }
     }
 }

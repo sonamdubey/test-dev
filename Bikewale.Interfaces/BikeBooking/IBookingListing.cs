@@ -12,6 +12,6 @@ namespace Bikewale.Interfaces.BikeBooking
     /// </summary>
     public interface IBookingListing
     {
-        IEnumerable<BikeBookingListingEntity> FetchBookingList(uint areaId,BookingListingFilterEntity filter);
+        IEnumerable<BikeBookingListingEntity> FetchBookingList(int cityId, uint areaId, Entities.BikeBooking.BookingListingFilterEntity filter, out int totalCount, out int fetchedCount, out PagingUrl pageUrl);        
     }
 }
