@@ -9,6 +9,7 @@ var appendText = $(".filter-select-title"),
     sortListLI = $(".sort-selection-div ul li");
 var arr, a, p, minDataValue, maxDataValue;
 var count = 0, counter = 0;
+
 var searchUrl = "";
 arr = [
 	{ amount: "0", value: 0 },
@@ -42,6 +43,15 @@ $.lazyLoadingStatus = true;
 var $window = $(window),
     $menu = $('#filter-container'),
     menuTop = $menu.offset().top;
+
+
+ko.bindingHandlers.CurrencyText = {
+    update: function (element, valueAccessor) {
+        var amount = valueAccessor();
+        var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
+        $(element).text(formattedAmount);
+    }
+};
 
 var SearchViewModel = function (model) {
     ko.mapping.fromJS(model, {}, this);
@@ -169,22 +179,25 @@ $.bindSearchResult = function (json) {
 
     ko.cleanNode(element);
 
-    if (json.searchResult.length > 0)
+    if (json.bikes.length > 0)
         ko.applyBindings(new SearchViewModel(json), element);
     else
         $('#NoBikeResults').show();
 };
-
-$.hitAPI = function (searchUrl,filterName) {
+var d;
+$.hitAPI = function (searchUrl, filterName) {
+    var bookingSearchURL = 'http://172.16.1.254:9011/api/BikeBookingListing/?pageSize=3&' + searchUrl + '&cityId=' + selectedCityId + '&areaId=' + selectedAreaId;
     $.ajax({
         type: 'GET',
-        url: '/api/NewBikeSearch/?' + searchUrl,
+        url: bookingSearchURL ,
         dataType: 'json',
-        success: function (response) {
+        success: function (response) {             
+            console.log(bookingSearchURL);
             $.totalCount = response.totalCount;
             $.pageNo = response.curPageNo;
-            $.nextPageUrl = response.pageUrl.nextUrl;
+            $.nextPageUrl = response.pageUrl.nextPageUrl;
             $('#bikecount').text($.totalCount + ' Bikes');
+            
             if (!isNaN($.pageNo) && $.pageNo == 1) {
                 $.bindSearchResult(response);
             }
@@ -218,7 +231,7 @@ $.hitAPI = function (searchUrl,filterName) {
 
 $.bindLazyListings = function (searchResult) {
     var koHtml = '<div class="grid-12 alpha omega">'
-                        + '<ul id="divSearchResult' + $.pageNo + '" class="SRko" data-bind="template: { name: \'listingTemp\', foreach: searchResult }">'
+                        + '<ul id="divSearchResult' + $.pageNo + '" class="SRko" data-bind="template: { name: \'listingTemp\', foreach: bikes }">'
                         + '</ul>'
                     + '</div>';
     if (($.pageNo - 1) > 1)
@@ -1108,3 +1121,13 @@ var listingLocationPopupClose = function () {
     listingLocationPopup.hide();
     $(".blackOut-window").hide();
 };
+
+function formatPrice(price) {
+    price = price.toString();
+    var lastThree = price.substring(price.length - 3);
+    var otherNumbers = price.substring(0, price.length - 3);
+    if (otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return price;
+}
