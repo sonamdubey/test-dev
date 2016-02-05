@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Bikewale.Mobile.New
+namespace Bikewale.m.bikebooking
 {
 	public partial class BookingListing : System.Web.UI.Page
 	{

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.New.BookingListing" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.BikeBooking.BookingListing" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -421,7 +421,7 @@
 <!-- #include file="/includes/footerBW.aspx" -->
 <!-- #include file="/includes/footerscript.aspx" -->
 <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/common/chosen.jquery.min.js?<%= staticFileVersion %>"></script>
-<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/new/bookinglisting.js?<%= staticFileVersion %>"></script>
+<script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>"></script>
 <script type="text/javascript">
     var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_NewBikeSearch%>';
 </script>

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.Mobile.New.BookingListing" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.bikebooking.BookingListing" %>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!doctype html>
 <html>
@@ -409,7 +409,7 @@
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
         <!-- all other js plugins -->    
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/new/bookinglisting.js?<%= staticFileVersion %>" type="text/javascript"></script>
+        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>" type="text/javascript"></script>
         <div class="back-to-top" id="back-to-top"><a><span></span></a></div>       
     </body>
 </html>
