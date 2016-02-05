@@ -171,10 +171,10 @@
 
         <% if (ctrlUsersTestimonials.FetchedCount > 0)
            { %>
-        <section>
+        <section class="bg-white">
             <div id="testimonialWrapper" class="container margin-bottom30">
                 <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30 font28">What do our customers say</h2>
+                    <h2 class="text-bold text-center margin-top40 font28">What do our customers say</h2>
                     <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
                 </div>
                 <div class="clear"></div>
@@ -186,7 +186,7 @@
            {
         %>
         <section>
-            <div class="container margin-bottom30">
+            <div class="container">
                 <div class="grid-12">
                 </div>
                 <div class="clear"></div>
@@ -203,19 +203,19 @@
                     <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">FAQs</h2>
                     <div class="grid-4 content-box-shadow content-inner-block-20">
                         <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
-                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
+                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted...<a href="/faq.aspx#2">read more</a></p>
                     </div>
                     <div class="grid-4 content-box-shadow content-inner-block-20 margin-left20 margin-right20">
-                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
-                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
+                        <p class="font16 margin-bottom20">Where do I have to pay the balance amount? How much will it be?</p>
+                        <p class="font14 text-light-grey">You will pay the balance amount directly to the assigned dealership during your visit to the showroom. The...<a href="/faq.aspx#14">read more</a></p>
                     </div>
                     <div class="grid-4 content-box-shadow content-inner-block-20">
-                        <p class="font16 margin-bottom20">How can I book a bike on BikeWale?</p>
-                        <p class="font14 text-light-grey">To book a bike, you have to pay a fixed booking amount online mentioned against the vehicle of your interest. This amount will be adjusted in the total...<span>read more</span></p>
+                        <p class="font16 margin-bottom20">How will I get the benefits of the offers?</p>
+                        <p class="font14 text-light-grey">Depending upon the offer, you will get the benefit of some offers directly at the dealership, while taking...<a href="/faq.aspx#16">read more</a></p>
                     </div>
                     <div class="clear"></div>
                     <div class="margin-top20 font14 text-center">
-                        <p>We’re here to help. Read our <a href="" class="text-blue">FAQs</a>, <a href="mailto:">email</a> or call us on <span class="text-bold text-default">1800 120 8300</span></p>
+                        <p>We’re here to help. Read our <a href="/faq.aspx" class="text-blue">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <span class="text-bold text-default">1800 120 8300</span></p>
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -297,6 +297,7 @@
             $('.chosen-container').attr('style', 'width:100%;');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
             
+            var testimonialSlider = 1;
         </script>
         <!-- #include file="/includes/footerscript.aspx" -->
     </form>

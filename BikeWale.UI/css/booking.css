@@ -104,15 +104,19 @@ zoom: 1; vertical-align:middle; }
 li.offertxt span { display:none }  
 li.offertxt:hover span {display:inline}
 
+#testimonialWrapper { max-width:770px; margin:0 auto; }
+#testimonialWrapper .jcarousel-wrapper { width:770px; }
+#testimonialWrapper li { width:770px; padding:0 20px; height:auto; }
+/*
 #testimonialWrapper .jcarousel { width:934px; overflow:hidden; left:20px; padding:20px 0; }
 #testimonialWrapper .jcarousel li { width:298px; height:180px; margin-right: 20px; padding:0 10px; text-align:center; }
+*/
 #testimonialWrapper li .testimonial-image-container { width:60px; height:60px; background:#fff; margin:0 auto; border:1px solid #ccc; }
 #testimonialWrapper li .testimonial-user-image { width:54px; height:54px; overflow:hidden; margin:2px auto; border:1px solid #666; }
 #testimonialWrapper li .testimonial-user-image img { width:100%; }
 #testimonialWrapper li .testimonial-user-stmt { height:66px; overflow:hidden; }
 
 .select-color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; }
-
 .select-color-box.color-count-two span { width:100%; height:40%; display:block !important; background:#eee; }
 .select-color-box.color-count-two span:first-child { width:100%; height:60%; background:#545454; }
 

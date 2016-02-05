@@ -30,7 +30,16 @@
 .offers-desc-wrapper { width:70%; margin-left:10px }
 
 #bookingWorksWrapper { background:#666 url(/images/booking-works-banner.jpg) no-repeat center; height:278px; background-size:cover; }
+
+#testimonialWrapper { max-width:770px; margin:0 auto; }
+#testimonialWrapper .jcarousel-wrapper { width:770px; margin-top:10px; }
+#testimonialWrapper li { width:770px; padding:0 20px; height:auto; }
+#testimonialWrapper li .testimonial-image-container { width:82px; height:82px; background:#fff; margin:0 auto; border:1px solid #ccc; }
+#testimonialWrapper li .testimonial-user-image { width:76px; height:76px; overflow:hidden; margin:2px auto; border:1px solid #666; }
+#testimonialWrapper li .testimonial-user-image img { width:100%; }
+
 #faqsWraper .grid-4 { width:312px; }
+#faqsWraper p.font14 { line-height:1.7; }
 
 .margin-bottom45 { margin-bottom:45px; }
 
