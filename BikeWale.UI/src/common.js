@@ -377,7 +377,11 @@ $('#btnSearch').on('click', function (e) {
 }); 
 
 /* jCarousel custom methods */
+var _target = 3;
 $(function () {
+    if (typeof (testimonialSlider) != 'undefined') {
+        _target = 1
+    }
     var jcarousel = $('.jcarousel').jcarousel({
         vertical: false
     });
@@ -386,14 +390,14 @@ $(function () {
     }).on('jcarouselcontrol:inactive', function () {
         $(this).addClass('inactive');
     }).jcarouselControl({
-        target: '-=3'
+        target: '-=' + _target
     });
     $('.jcarousel-control-next').on('jcarouselcontrol:active', function () {
         $(this).removeClass('inactive');
     }).on('jcarouselcontrol:inactive', function () {
         $(this).addClass('inactive');
     }).jcarouselControl({
-        target: '+=3'
+        target: '+=' + _target
     });
     $('.jcarousel-pagination').on('jcarouselpagination:active', 'a', function () {
         $(this).addClass('active');
@@ -402,7 +406,6 @@ $(function () {
     }).on('click', function (e) {
         e.preventDefault();
     }).jcarouselPagination({
-        perPage: 3,
         item: function (page) {
             return '<a href="#' + page + '">' + page + '</a>';
         }

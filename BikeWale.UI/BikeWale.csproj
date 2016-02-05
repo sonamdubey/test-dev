@@ -1672,6 +1672,7 @@
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
     <Content Include="css\bookingconfig.css" />
+    <Content Include="css\bookinglanding.css" />
     <Content Include="css\brand.css" />
     <Content Include="css\booking.css" />
     <Content Include="css\bw-common-style.css" />
