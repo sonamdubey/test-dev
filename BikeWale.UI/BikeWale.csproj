@@ -888,6 +888,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\new\BookingListing.aspx.cs">
+      <DependentUpon>BookingListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\offerterms.aspx.cs">
       <DependentUpon>offerterms.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -965,6 +969,10 @@
     </Compile>
     <Compile Include="News\Sitemap.aspx.cs">
       <DependentUpon>Sitemap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new\BookingListing.aspx.cs">
+      <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\versions.aspx.cs">
@@ -1687,6 +1695,7 @@
     <Content Include="css\new\search.css" />
     <Content Include="css\pikaday.css" />
     <Content Include="css\rsa.css" />
+    <Content Include="css\new\bookinglisting.css" />
     <Content Include="css\search.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\style.css" />
@@ -2124,6 +2133,7 @@
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\new.css" />
+    <Content Include="m\css\new\bwm-bookinglisting.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
     <Content Include="m\css\zebra_datepicker.css" />
@@ -2169,6 +2179,7 @@
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
+    <Content Include="m\new\BookingListing.aspx" />
     <Content Include="m\offerterms.aspx" />
     <Content Include="m\new\Search.aspx" />
     <Content Include="m\new\upcomingbikes\Default.aspx" />
@@ -2203,9 +2214,11 @@
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
     <Content Include="m\src\new\bwm-search.js" />
+    <Content Include="m\src\new\bookinglisting.js" />
     <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
     <Content Include="m\src\zebra_datepicker.js" />
+    <Content Include="new\BookingListing.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
@@ -2291,6 +2304,7 @@
     <Content Include="src\new\bikemake.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
+    <Content Include="src\new\bookinglisting.js" />
     <Content Include="src\new\search.js" />
     <Content Include="src\pace.min.js" />
     <Content Include="src\picker.date.js" />
