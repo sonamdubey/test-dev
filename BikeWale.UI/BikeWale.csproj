@@ -1682,6 +1682,7 @@
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
     <Content Include="css\bookingconfig.css" />
+    <Content Include="css\bookinglanding.css" />
     <Content Include="css\brand.css" />
     <Content Include="css\booking.css" />
     <Content Include="css\bw-common-style.css" />
@@ -2139,6 +2140,7 @@
     <Content Include="m\controls\UsersTestimonials.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
+    <Content Include="m\css\bwm-booking-landing.css" />
     <Content Include="m\css\bwm-booking.css" />
     <Content Include="m\css\bwm-bookingconfig.css" />
     <Content Include="m\css\bwm-bookingflow.css" />
@@ -2508,7 +2510,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <SaveServerSettingsInUserFile>true</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
