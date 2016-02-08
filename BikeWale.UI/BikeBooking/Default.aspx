@@ -241,24 +241,24 @@
                 var selAreaId = '<%= (areaId > 0)?areaId:0%>';
 
                 $ddlCities.change(function () {
-                    selCityId = parseInt($ddlCities.val(), 16);
+                    selCityId = $ddlCities.val();
                     $ddlAreas.empty();
-                    if (selCityId > 0) {
+                    if (!isNaN(selCityId) && selCityId !="0") {
                         if (!checkCacheCityAreas(selCityId)) {
                             $.ajax({
                                 type: "GET",
                                 url: "/api/BBAreaList/?cityId=" + selCityId,
                                 contentType: "application/json",
                                 beforeSend: function () {
-
+                                    return;
                                 },
                                 success: function (data) {
-                                    lscache.set(key + selCityId.toString(), data.areas, 30);
+                                    lscache.set(key + selCityId, data.areas, 30);
                                     setOptions(data.areas);
                                 },
                                 complete: function (xhr) {
                                     if (xhr.status == 404 || xhr.status == 204) {
-                                        lscache.set(key + selCityId.toString(), null , 30);
+                                        lscache.set(key + selCityId, null, 30);
                                         setOptions(null);
                                     }
                                 }
@@ -273,7 +273,7 @@
                 });
 
                 $ddlAreas.change(function(){
-                    if(selCityId > 0)
+                    if (!isNaN(selCityId) && selCityId != "0")
                     {
                         selAreaId  = $ddlAreas.find("option:selected").val();
                     }
@@ -281,8 +281,8 @@
                 });
 
                 $("input[type='button'].booking-landing-search-btn").click(function () {
-                    if (!isNaN(selCityId) && selCityId > 0) {
-                        if (!isNaN(selAreaId) && selAreaId > 0) {
+                    if (!isNaN(selCityId) && selCityId !="0") {
+                        if (!isNaN(selAreaId) && selAreaId !="0") {
                             var CookieValue = selCityId + "_" + $ddlCities.find("option:selected").text() + '_' + selAreaId + "_" + $ddlAreas.find("option:selected").text();
                             SetCookieInDays("location", CookieValue, 365);
                             window.location.href = "/bikebooking/bookinglisting.aspx"
