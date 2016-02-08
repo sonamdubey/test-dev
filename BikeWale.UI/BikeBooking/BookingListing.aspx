@@ -430,6 +430,7 @@
                 $ddlCities.change(function () {
                     selCityId = $ddlCities.val();
                     $ddlAreas.empty();
+                    selAreaId = "0";
                     if (!isNaN(selCityId) && selCityId != "0") {
                         if (!checkCacheCityAreas(selCityId)) {
                             $.ajax({
