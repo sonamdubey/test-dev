@@ -336,7 +336,7 @@
 									<% } %>
 								</div>
 								<%  } %>
-                                <%if (isBookingAvailable && isDealerAssitance) { %>
+                                
                                 <%if (isBookingAvailable && isDealerAssitance) { %>
             	                    <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat margin-top20" id="bookNowBtn">Book now </a>
                                 <%}%>
