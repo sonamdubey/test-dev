@@ -24,7 +24,8 @@
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>New Bikes</li>
+                            <li><a href="/bikebooking/"><span class="fa fa-angle-right margin-right10"></span>Booking</a></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span>Bikes</li>
                         </ul>
                         <div class="clear"></div>
                     </div>

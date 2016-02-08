@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
+using System.Text;
 
 namespace Bikewale.Mobile.bikebooking
 {
@@ -24,7 +25,7 @@ namespace Bikewale.Mobile.bikebooking
         IEnumerable<AreaEntityBase> bookingAreas = null;
         protected uint cityId = 0, areaId = 0;
         protected UsersTestimonials ctrlUsersTestimonials;
-
+        protected StringBuilder cityListData = new System.Text.StringBuilder(), areaListData = new System.Text.StringBuilder();
 
         protected override void OnInit(EventArgs e)
         {
@@ -33,14 +34,11 @@ namespace Bikewale.Mobile.bikebooking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-                dd.DetectDevice();
-                CheckLocationCookie();
-                GetDealerCities();
-                ctrlUsersTestimonials.TopCount = 6;
-            }
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            dd.DetectDevice();
+            CheckLocationCookie();
+            GetDealerCities();
+            ctrlUsersTestimonials.TopCount = 6;
         }
 
 
@@ -71,6 +69,29 @@ namespace Bikewale.Mobile.bikebooking
 
                         if (cityId > 0 && bookingCities.Any(p => p.CityId == cityId))
                             GetDealerAreas();
+
+                        
+
+                    }
+
+                    if (bookingCities != null && bookingCities.Count > 0)
+                    {
+                        bool citySelected = false;
+                        foreach(var city in bookingCities)
+                        {
+                            if (cityId != city.CityId)
+                                cityListData.AppendFormat("<li cityId='{0}'>{1}</li>", city.CityId, city.CityName);
+                            else
+                            {
+                                cityListData.AppendFormat("<li class='activeCity' cityId='{0}'>{1}</li>", city.CityId, city.CityName);
+                                citySelected = true;
+                            }
+                        }
+
+                        if(citySelected)
+                        {
+                            GetDealerAreas();
+                        }
 
                     }
 
@@ -113,6 +134,20 @@ namespace Bikewale.Mobile.bikebooking
                         if (areaId > 0 && bookingAreas.Any(p => p.AreaId == areaId))
                             bookingAreasList.Items.FindByValue(Convert.ToString(areaId)).Selected = true;
                     }
+
+                    if (bookingAreas != null && bookingAreas.Count() > 0)
+                    {
+                        foreach (var area in bookingAreas)
+                        {
+                            if (areaId != area.AreaId)
+                                areaListData.AppendFormat("<li areaId='{0}'>{1}</li>", area.AreaId, area.AreaName);
+                            else
+                            {
+                                areaListData.AppendFormat("<li class='activeArea' areaId='{0}'>{1}</li>", area.AreaId, area.AreaName);
+                            }
+                        }
+
+                    }
                 }
             }
             catch (Exception err)
@@ -154,5 +189,6 @@ namespace Bikewale.Mobile.bikebooking
                 }
             }
         }
+
     }   // class
 }   // namespace

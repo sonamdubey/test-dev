@@ -186,7 +186,7 @@ $.bindSearchResult = function (json) {
 };
 var d;
 $.hitAPI = function (searchUrl, filterName) {
-    var bookingSearchURL = 'http://localhost:9011/api/BikeBookingListing/?pageSize=6&' + searchUrl + '&cityId=' + selectedCityId + '&areaId=' + selectedAreaId;
+    var bookingSearchURL = '/api/BikeBookingListing/?pageSize=6&' + searchUrl + '&cityId=' + selectedCityId + '&areaId=' + selectedAreaId;
     $.ajax({
         type: 'GET',
         url: bookingSearchURL ,
@@ -221,17 +221,7 @@ $.hitAPI = function (searchUrl, filterName) {
            
         },
         error: function (error) {
-            $.totalCount = 0;
-            var element = $('#divSearchResult');
-            element.html('');
-            ko.cleanNode(element);
-            $('#loading').hide();
-            $('#NoBikeResults').show();
-            $('#bikecount').text('No bikes found');
-            $.selectFiltersPresentInQS();
-            $.getSelectedQSFilterText();
-            //if (filterName != "" && filterName != undefined)
-            //    $.pushGTACode($.totalCount, filterName);
+            errorNoBikes();
         }
     });
 };
@@ -247,8 +237,6 @@ function errorNoBikes()
     $('#bikecount').text('No bikes found');
     $.selectFiltersPresentInQS();
     $.getSelectedQSFilterText();
-    //if (filterName != "" && filterName != undefined)
-    //    $.pushGTACode($.totalCount, filterName);
 }
 
 
