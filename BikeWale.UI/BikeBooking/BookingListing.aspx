@@ -9,7 +9,10 @@
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <script>ga_pg_id = '5';</script>
+    <script type="text/javascript">
+        ga_pg_id = '5';
+        var clientIP = '<%= clientIP %>';
+    </script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -377,13 +380,13 @@
                                                 </div>
 
                                                 <div class="text-default margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
-                                                    <span class="margin-right5" data-bind="text: offers().length"></span>offers available
+                                                <span class="margin-right5" data-bind="text: offers().length"></span> offers available
                                                 <span class="text-link view-offers-target">view offers</span>
                                                 </div>
                                                 
                                                 <p>Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee"></span><span data-bind="text: bookingAmount"></span></span></p>
                                                 </div>
-                                                <input type="button" class="btn btn-grey-orange btn-full-width margin-top15" value="Book Now" />
+                                                <input type="button" class="book-now btn btn-grey-orange btn-full-width margin-top15" value="Book Now" data-bind="click: function () { registerPQ($data); }" />
                                             </div>
                                             <div id="offersPopup" class="text-center rounded-corner2">
                                                 <div class="offers-popup-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>

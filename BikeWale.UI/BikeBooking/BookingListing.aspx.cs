@@ -20,6 +20,7 @@ namespace Bikewale.BikeBooking
         List<CityEntityBase> bookingCities = null;
         IEnumerable<AreaEntityBase> bookingAreas = null;
         protected uint cityId = 0, areaId = 0;
+        protected string clientIP = String.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -33,7 +34,9 @@ namespace Bikewale.BikeBooking
             dd.DetectDevice();
             CheckLocationCookie();
             GetDealerCities();
-        }
+        
+            clientIP = Bikewale.Common.CommonOpn.GetClientIP();
+            }
 
 
         /// <summary>
