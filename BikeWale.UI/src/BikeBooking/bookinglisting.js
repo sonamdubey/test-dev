@@ -9,7 +9,7 @@ var appendText = $(".filter-select-title"),
     sortListLI = $(".sort-selection-div ul li");
 var arr, a, p, minDataValue, maxDataValue;
 var count = 0, counter = 0;
-
+var pqSourceId = '39';
 var searchUrl = "";
 arr = [
 	{ amount: "0", value: 0 },
@@ -1153,4 +1153,46 @@ function formatPrice(price) {
         lastThree = ',' + lastThree;
     var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
     return price;
+}
+
+function registerPQ(myData) {
+    var obj = {
+        'CityId': selectedCityId,
+        'AreaId': selectedAreaId,
+        'ModelId': myData.modelEntity.modelId(),
+        'ClientIP': clientIP,
+        'SourceType': '1',
+        'VersionId': myData.versionEntity.versionId(),
+        'pQLeadId': pqSourceId,
+        'deviceId': getCookie('BWC'),
+        'dealerId': myData.dealerId()
+    };
+    $.ajax({
+        type: 'POST',
+        url: "/api/RegisterPQ/",
+        data: obj,
+        dataType: 'json',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('utma', getCookie('__utma'));
+            xhr.setRequestHeader('utmz', getCookie('__utmz'));
+        },
+        success: function (json) {
+            var jsonObj = json;
+            cookieValue = "CityId=" + selectedCityId + "&AreaId=" + selectedAreaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + myData.versionEntity.versionId() + "&DealerId=" + myData.dealerId();
+            //SetCookie("_MPQ", cookieValue);
+            if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+               // gtmCodeAppenderWidget(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                window.location = "/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(cookieValue);
+            }
+            else {
+               // gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+                //$("#errMsgOnRoad").text("Oops. We do not seem to have pricing for given details.").show();
+            }
+        },
+        error: function (e) {
+            alert('oops !')
+            //gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+           // $("#errMsg").text("Oops. Some error occured. Please try again.").show();
+        }
+    });
 }
