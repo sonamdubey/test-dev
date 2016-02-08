@@ -958,3 +958,4 @@ function LoadTerms(offerId) {
 
     $(".termsPopUpContainer").css('height', '500');
 }
+$('#testimonialWrapper .jcarousel').jcarousel({ wrap: 'circular' }).jcarouselAutoscroll({ interval: 7000, target: '+=1', autostart: true });

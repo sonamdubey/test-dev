@@ -225,12 +225,20 @@
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
 
         <script>
+            $(window).on("scroll", function () {
+                if ($(window).scrollTop() > 40)
+                    $('#header').removeClass("header-landing").addClass("header-fixed");
+                else
+                    $('#header').removeClass("header-fixed").addClass("header-landing");
+            });
+
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList");
             var key = "bCity_";
             lscache.setBucket('BLPage');
             $(function () {
 
-                var selCityId = 0;
+                var selCityId = '<%= (cityId > 0)?cityId:0%>';
+                var selAreaId = '<%= (areaId > 0)?areaId:0%>';
 
                 $ddlCities.change(function () {
                     selCityId = parseInt($ddlCities.val(), 16);
@@ -264,6 +272,30 @@
                     }
                 });
 
+                $ddlAreas.change(function(){
+                    if(selCityId > 0)
+                    {
+                        selAreaId  = $ddlAreas.find("option:selected").val();
+                    }
+
+                });
+
+                $("input[type='button'].cityAreaBtn").click(function () {
+                    if (!isNaN(selCityId) && selCityId > 0) {
+                        if (!isNaN(selAreaId) && selAreaId > 0) {
+                            var CookieValue = selCityId + "_" + $ddlCities.find("option:selected").text() + '_' + selAreaId + "_" + $ddlAreas.find("option:selected").text();
+                            SetCookieInDays("location", CookieValue, 365);
+                            window.location.href = "/bikebooking/bookinglisting.aspx"
+                        }
+                        else {
+                            alert("Please select area !");
+                        }
+                    }
+                    else {
+                        alert("Please Select City !")
+                    }
+                });
+
             });
 
             function checkCacheCityAreas(cityId) {
@@ -290,14 +322,17 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         
-        <script>
+        <script type="text/javascript">
 
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
             $ddlAreas.chosen({ no_results_text: "No matches found!!" });
             $('.chosen-container').attr('style', 'width:100%;');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
             
-            var testimonialSlider = 1;
+            $(document).ready(function(){
+                var testimonialSlider = 1;
+                $('.jcarousel').jcarousel({ wrap: 'circular' }).jcarouselAutoscroll({ interval: 7000, target: '+=1', autostart: true });
+            })
         </script>
         <!-- #include file="/includes/footerscript.aspx" -->
     </form>

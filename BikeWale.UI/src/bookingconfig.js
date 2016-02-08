@@ -531,6 +531,4 @@ $(".termsPopUpCloseBtn,.blackOut-window").on('mouseup click', function (e) {
     $(".blackOut-window").hide();
 });
 
-
-
-$('.jcarousel').jcarousel({wrap:'circular'}).jcarouselAutoscroll({interval:5000,target:'+=3',autostart:true});
+$('.jcarousel').jcarousel({wrap:'circular'}).jcarouselAutoscroll({interval:7000,target:'+=1',autostart:true});

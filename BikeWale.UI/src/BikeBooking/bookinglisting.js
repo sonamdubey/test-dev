@@ -230,8 +230,8 @@ $.hitAPI = function (searchUrl, filterName) {
             $('#bikecount').text('No bikes found');
             $.selectFiltersPresentInQS();
             $.getSelectedQSFilterText();
-            if (filterName != "" && filterName != undefined)
-                $.pushGTACode($.totalCount, filterName);
+            //if (filterName != "" && filterName != undefined)
+            //    $.pushGTACode($.totalCount, filterName);
         }
     });
 };
@@ -247,8 +247,8 @@ function errorNoBikes()
     $('#bikecount').text('No bikes found');
     $.selectFiltersPresentInQS();
     $.getSelectedQSFilterText();
-    if (filterName != "" && filterName != undefined)
-        $.pushGTACode($.totalCount, filterName);
+    //if (filterName != "" && filterName != undefined)
+    //    $.pushGTACode($.totalCount, filterName);
 }
 
 
