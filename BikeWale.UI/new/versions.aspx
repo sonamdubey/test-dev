@@ -1615,10 +1615,14 @@
 		<% if (ctrlUsersTestimonials.FetchedCount > 0 && isBookingAvailable)
 		   { %>
 		<section>
-			<div id="testimonialWrapper" class="container margin-bottom30">
+			<div class="container margin-bottom30">
 				<div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
                     <h2 class="text-bold text-center margin-top20 margin-bottom30 font28">What do our customers say</h2>
-					<BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
+					<div class="content-box-shadow padding-top20">
+                        <div id="testimonialWrapper">
+                        <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
+                        </div>
+                    </div>
 				</div>
 				<div class="clear"></div>
 			</div>

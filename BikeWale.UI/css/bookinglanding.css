@@ -1,5 +1,4 @@
-﻿.booking-landing-banner { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/images/home-top-banner.jpg) no-repeat right top; height: 489px; padding-top: 1px; }
-
+﻿.booking-landing-banner { background:#8d8c8a url(http://img.aeplcdn.com/bikewaleimg/images/booking-landing-banner.jpg) no-repeat left top; height: 489px; padding-top: 1px; }
 .booking-landing-search-container { margin:0 auto; width:600px; }
 .booking-landing-search-container .form-control { padding:8px; }
 .booking-search-city, .booking-search-area { width:233px; height:40px; float:left;}
@@ -28,21 +27,16 @@
 
 .offers-icon-wrapper { width:15%; margin-left:20px; }
 .offers-desc-wrapper { width:70%; margin-left:10px }
-
-#bookingWorksWrapper { background:#666 url(/images/booking-works-banner.jpg) no-repeat center; height:278px; background-size:cover; }
-
+#bookingWorksWrapper { background:#666 url(http://img.aeplcdn.com/bikewaleimg/images/booking-works-banner.jpg) no-repeat center; height:278px; background-size:cover; }
 #testimonialWrapper { max-width:770px; margin:0 auto; }
 #testimonialWrapper .jcarousel-wrapper { width:770px; margin-top:10px; }
 #testimonialWrapper li { width:770px; padding:0 20px; height:auto; }
 #testimonialWrapper li .testimonial-image-container { width:82px; height:82px; background:#fff; margin:0 auto; border:1px solid #ccc; }
 #testimonialWrapper li .testimonial-user-image { width:76px; height:76px; overflow:hidden; margin:2px auto; border:1px solid #666; }
 #testimonialWrapper li .testimonial-user-image img { width:100%; }
-
 #faqsWraper .grid-4 { width:312px; }
 #faqsWraper p.font14 { line-height:1.7; }
-
 .margin-bottom45 { margin-bottom:45px; }
-
 @-moz-document url-prefix() {
     .booking-landing-search-btn.btn-lg { padding:6px 20px; }
 }
