@@ -19,10 +19,10 @@
 .modelGetDetails ul li { padding-top: 12px;padding-right: 12px;width: 310px;float: left; }
 .modelGetDetails.offersList ul li {  background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png?v=22122015") no-repeat 0 3px; margin-top: 12px; padding:0 0 0 22px; width:485px; }
 .no-offer-book-btn .btn { padding:8px 53px; }
-#noOfferBookBtn .grid-9 h3, #noOfferBookBtn .grid-8 h3 { border-top: 1px solid #ecedee; padding-top:15px; }
-#noOfferBookBtn .grid-3, #noOfferBookBtn .grid-4 { border-top: 1px solid #ecedee; padding-top:10px; position:relative; left:-10px; }
-#noOfferBookBtn .grid-3 { padding-left: 9px; }
-#noOfferBookBtn .grid-4 { padding-left: 25px; }
+ #noOfferBookBtn .grid-9 h3, #noOfferBookBtn .grid-8 h3 { border-top: 1px solid #ecedee; padding-top:15px; }
+ #noOfferBookBtn .grid-3, #noOfferBookBtn .grid-4 { border-top: 1px solid #ecedee; padding-top:10px; position:relative; left:-10px; }
+ #noOfferBookBtn .grid-3 { padding-left: 9px; }
+ #noOfferBookBtn .grid-4 { padding-left: 25px; }}
 
 .city-area-select-container { width:100%; }
 .city-area-name { margin-left:2px; }

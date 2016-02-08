@@ -336,10 +336,10 @@
 									<% } %>
 								</div>
 								<%  } %>
-
                                 <%if (isBookingAvailable && isDealerAssitance) { %>
             	                    <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat margin-top20" id="bookNowBtn">Book now </a>
-                                <%}%>
+                                 <%}%>
+                                 <div class="clear"></div>
                                 <div class="clear"></div>
 								<% if (isDiscontinued)
 								   { %>
@@ -512,7 +512,7 @@
                                     <%else { %>
                                         <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat" id="bookNowBtn">Book now </a>
                                     <%} %>
-								<%} %>
+                                  <%} %>
 							</div>
 							<div class="clear"></div>
                             <% if (isBookingAvailable && !isOfferAvailable) {%>

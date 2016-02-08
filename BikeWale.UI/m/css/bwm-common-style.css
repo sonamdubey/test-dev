@@ -447,7 +447,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 /* Brand Sprite */
 .brandlogosprite { display: inline-block; }
-.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royal, .brand-guzzi, .brand-harley, .brand-hero-elec, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-agusta { height:30px; }
+.brand-aprilia, .brand-bajaj, .brand-benelli, .brand-bmw, .brand-ducati, .brand-royal, .brand-guzzi, .brand-harley, .brand-hero-elec, .brand-hero, .brand-honda, .brand-hyosung, .brand-indian, .brand-kawasaki, .brand-ktm, .brand-lml, .brand-mahindra, .brand-suzuki, .brand-triumph, .brand-tvs, .brand-vespa, .brand-yamaha, .brand-yo, .brand-agusta, .brand-um { height:30px; }
 
 .brand-aprilia { width: 52px; background-position: 0 0; }
 .brand-honda { width: 34px; background-position: -58px 0; }
@@ -473,6 +473,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .brand-guzzi { width: 49px; background-position: -1300px 0; }
 .brand-royal { width: 74px; background-position: -1354px 0;  }
 .brand-agusta { width: 40px; background-position: -1432px 0; }
+.brand-um { width: 38px; background-position: -1481px 0; }
 
 /* common properties */
 .leftfloat{float:left;}

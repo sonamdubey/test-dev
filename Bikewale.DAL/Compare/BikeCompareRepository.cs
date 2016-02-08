@@ -209,9 +209,9 @@ namespace Bikewale.DAL.Compare
 
                         compare.Color.ForEach(
                             _color => _color.HexCodes = 
-                                from hexCode in hexCodes
-                                where hexCode.ModelColorId == _color.ColorId
-                                select hexCode.HexCode
+                                (from hexCode in hexCodes
+                                where hexCode.ModelColorId == _color.ColorId                                
+                                select hexCode.HexCode)
                             );
                     }
                 }

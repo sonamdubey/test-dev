@@ -62,7 +62,7 @@
                         <h1 class="padding-top30 padding-left20 padding-right20"><%= bikeName %></h1>
                     </div>
                     <% } %>
-                    <% if (!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
+                    <% if(!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                        { %>
                     <div class="upcoming-text-label font16 position-abt pos-top10 text-white text-center">Discontinued</div>
                     <div class="bikeTitle">
@@ -391,7 +391,15 @@
                         <%} %>
                 </div>
                 <% } %>
-                <% if (!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
+                <% if (bookingAmt > 0 && isDealerAssitance)
+                            { %>
+                             <div class="grid-12 alpha omega margin-bottom20 margin-top20 padding-left10 padding-right10 ">
+                                 <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
+                             </div>
+                         <%} %>
+                  </div>
+                  <%--<% } %>--%>
+                <% if(!modelPage.ModelDetails.New && !modelPage.ModelDetails.Futuristic)
                    { %>
                 <div class="container clearfix box-shadow">
                     <%--                    <div class="bikeTitle">
@@ -451,7 +459,7 @@
                     <div class="show padding-top10">
                         <% if (modelPage.ModelDetails.New)
                            {   %>
-                        <% if (bookingAmt > 0 && !isDealerAssitance)
+                        <% if (bookingAmt > 0  && !isDealerAssitance)
                            { %>
                             <div class="grid-5 omega">
                                 <input type="button" value="Book now" class="btn btn-grey btn-full-width btn-sm rightfloat" id="bookNowBtn" />
@@ -469,9 +477,8 @@
                            { %>
                         <div class="grid-5 alpha omega">
                             <a class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="fa fa-phone margin-right5"></span>Call dealer</a>
-                        </div>
-                        <%} %>
-
+                          </div>
+                          <%} %>
                         <%} %>
                     </div>
                 </div>
