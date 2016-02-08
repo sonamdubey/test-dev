@@ -719,3 +719,5 @@ $('.white-close-btn').click(function () {
     $("#blackOut-window").hide();
     $('.rsa-popup').hide();
 });
+
+$('.jcarousel').jcarousel({ wrap: 'circular' }).jcarouselAutoscroll({ interval: 7000, target: '+=1', autostart: true });

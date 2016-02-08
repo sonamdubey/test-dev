@@ -135,13 +135,38 @@
                 </ul>
             </div>
         </section>
-
-
-
+        
         <section id="bookingWorksWrapper">
-            <div class="booking-work-container container text-white">
-                <h2 class="padding-top25 text-center text-white padding-bottom20">How it works?</h2>
-                
+            <div class="booking-work-container container text-white padding-left20 padding-right20">
+                <h2 class="padding-top25 text-center text-white padding-bottom25">How it works?</h2>
+                <ul>
+                    <li>
+                        <span class="booking-icon-container text-center">
+                            <span class="booking-landing-sprite work-payment-icon"></span>
+                        </span>
+                        <span class="booking-text-container padding-left10">
+                            <span class="font16 text-bold">Book your bike by paying booking amount</span>
+                        </span>
+                    </li>
+                    <li><span class="booking-landing-sprite work-arrow-icon"></span></li>
+                    <li>
+                        <span class="booking-icon-container text-center">
+                            <span class="booking-landing-sprite work-document-icon"></span>
+                        </span>
+                        <span class="booking-text-container padding-left10">
+                            <span class="font16 text-bold">Provide documents and payment at dealership</span>
+                        </span>
+                    </li>
+                    <li><span class="booking-landing-sprite work-arrow-icon"></span></li>
+                    <li>
+                        <span class="booking-icon-container text-center">
+                            <span class="booking-landing-sprite work-delivery-icon"></span>
+                        </span>
+                        <span class="booking-text-container padding-left10">
+                            <span class="font16 text-bold">Get your bike delivered & avail offers</span>
+                        </span>
+                    </li>
+                </ul>
             </div>
         </section>
 
@@ -149,12 +174,13 @@
          <% if (ctrlUsersTestimonials.FetchedCount > 0 )
            { %>
         <section class="bg-white">
-            <div id="testimonialWrapper" class="container margin-bottom10">
-                <h2 class="text-bold text-center padding-top30 margin-bottom20 font24">What do our customers say</h2>
+            <div id="testimonialWrapper" class="container padding-bottom20">
+                <h2 class="text-bold text-center padding-top30 margin-bottom15 font24">What do our customers say</h2>
                 <div class="swiper-container text-center">
-                    <div class="swiper-wrapper margin-bottom10">
+                    <div class="swiper-wrapper padding-bottom20">
                         <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
                     </div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>
@@ -166,7 +192,7 @@
         <section>
             <div id="faqsWraper" class="container margin-bottom30">
                 <h2 class="padding-top25 text-center padding-bottom20">FAQs</h2>
-                <div class="swiper-container">
+                <div class="swiper-container padding-left10 margin-bottom15">
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <p class="font16">How can I book a bike on BikeWale?</p>
@@ -182,6 +208,7 @@
                         </div>
                     </div>
                 </div>
+                <p class="padding-left10 padding-right10 font14 text-center">We’re here to help. Read our <a href="/faq.aspx">FAQs</a>, <a href="mailto:contact@bikewale.com">email</a> or call us on <a href="tel:18001208300" class="text-grey text-bold">1800 120 8300</a></p>
             </div>
         </section>
         
@@ -298,7 +325,6 @@
                     'left': '100%'
                 }, 500);
             };
-
         </script>
     </form>
 </body>

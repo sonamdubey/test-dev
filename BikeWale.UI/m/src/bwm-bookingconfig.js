@@ -524,9 +524,3 @@ $(".termsPopUpCloseBtn").on('mouseup click', function (e) {
     $("div#termsPopUpContainer").hide();
     $(".blackOut-window").hide();
 });
-
-var swiper = new Swiper('.swiper-container', {
-    autoplay: 2000,
-    autoplayDisableOnInteraction: true,
-    loop: true
-});

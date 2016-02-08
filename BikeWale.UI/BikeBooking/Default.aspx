@@ -225,6 +225,13 @@
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
 
         <script>
+            $(window).on("scroll", function () {
+                if ($(window).scrollTop() > 40)
+                    $('#header').removeClass("header-landing").addClass("header-fixed");
+                else
+                    $('#header').removeClass("header-fixed").addClass("header-landing");
+            });
+
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList");
             var key = "bCity_";
             lscache.setBucket('BLPage');
@@ -290,14 +297,17 @@
 
         <!-- #include file="/includes/footerBW.aspx" -->
         
-        <script>
+        <script type="text/javascript">
 
             $ddlCities.chosen({ no_results_text: "No matches found!!" });
             $ddlAreas.chosen({ no_results_text: "No matches found!!" });
             $('.chosen-container').attr('style', 'width:100%;');
             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
             
-            var testimonialSlider = 1;
+            $(document).ready(function(){
+                var testimonialSlider = 1;
+                $('.jcarousel').jcarousel({ wrap: 'circular' }).jcarouselAutoscroll({ interval: 7000, target: '+=1', autostart: true });
+            })
         </script>
         <!-- #include file="/includes/footerscript.aspx" -->
     </form>
