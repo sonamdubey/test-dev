@@ -50,6 +50,7 @@
     <Compile Include="AppAlert\AppAlertRepository.cs" />
     <Compile Include="App\AppVersionRepository.cs" />
     <Compile Include="BikeBooking\BookingCancellationRepository.cs" />
+    <Compile Include="BikeBooking\BookingListingRepository.cs" />
     <Compile Include="BikeBooking\DealerPriceQuoteRepository.cs" />
     <Compile Include="BikeBooking\ModelRepository.cs" />
     <Compile Include="BikeData\BikeMakesRespository.cs" />

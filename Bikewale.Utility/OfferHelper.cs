@@ -131,6 +131,64 @@ namespace Bikewale.Utility
                 return null;
             }
         }
+
+        /// <summary>
+        /// Created by  :   Sumit Kate on 05 Feb 2016
+        /// Description :   Returns Total Discount
+        /// </summary>
+        /// <param name="offers"></param>
+        /// <param name="priceList"></param>
+        /// <returns></returns>
+        public static uint GetTotalDiscount(List<OfferEntity> offers, List<PQ_Price> priceList)
+        {
+            uint discount = 0;
+            try
+            {
+                if (offers == null || priceList == null) return discount;
+                List<PQ_Price> discountedPriceList = new List<PQ_Price>();
+                foreach (var offer in offers)
+                {
+                    if (offer.IsPriceImpact)
+                    {
+                        string displayText = ContainsAny(offer.OfferText.ToLower());
+                        if (displayText != string.Empty)
+                        {
+                            var priceItem = new PQ_Price();
+                            priceItem.CategoryName = displayText;
+                            uint calcOfferVal = 0;
+                            if (offer.OfferValue == 0)
+                            {
+                                try
+                                {
+                                    var selected = priceList.Where(p => p.CategoryName.ToLower().Contains(displayText.ToLower()));
+                                    if (selected != null && selected.Count() > 0)
+                                    {
+                                        calcOfferVal = selected.First().Price;
+                                        priceItem.Price = calcOfferVal;
+                                    }
+                                }
+                                catch { }
+                            }
+                            else
+                            {
+                                priceItem.Price = offer.OfferValue;
+                            }
+                            discountedPriceList.Add(priceItem);
+                        }
+                    }
+                }
+
+                if (discountedPriceList != null && discountedPriceList.Count > 0)
+                {
+                    discount = discountedPriceList.Select(o => o.Price).Aggregate((x, y) => x + y);
+                }
+            }
+            catch (Exception)
+            {
+                return discount;
+            }
+            return discount;
+        }
         
         /// <summary>
         /// Check if string has bumper offer categories
