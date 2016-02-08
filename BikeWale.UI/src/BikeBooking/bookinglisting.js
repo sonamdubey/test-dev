@@ -193,7 +193,7 @@ $.hitAPI = function (searchUrl, filterName) {
         dataType: 'json',
         success: function (response) {             
             console.log(bookingSearchURL);
-            if (response.fetchedCount > 0)
+            if (response.totalCount > 0)
             {
                 $.totalCount = response.totalCount;
                 $.pageNo = response.curPageNo;
@@ -214,8 +214,6 @@ $.hitAPI = function (searchUrl, filterName) {
                 $.lazyLoadingStatus = true;
                 $('#NoBikeResults').hide();
                 $('#loading').hide();
-                if (filterName != "" && filterName != undefined)
-                    $.pushGTACode($.totalCount, filterName);
             }
             else {
                 errorNoBikes();
