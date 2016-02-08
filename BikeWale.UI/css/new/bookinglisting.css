@@ -4,8 +4,9 @@
 .search-bike-list ul li { float:left; width: 324px; min-height: 420px; margin:0; }
 .search-bike-list ul li .bikeDescWrapper { min-height: 260px; padding:0 20px; }
 .search-bike-list ul li .booking-list-item-details { min-height:155px; }
-.search-bike-list li:hover .btn-grey-orange { background: #df3828; color: #fff; text-decoration: none; border:1px solid #f04130; }
-.offers-tag-wrapper { width:112px; height:28px; background:#4d5057; color:#fff; font-size:14px; line-height:28px; padding:0 20px; }
+.search-bike-list ul li .bike-desc-details-wrapper { min-height:131px; }
+.search-bike-list li .bike-book-now-wrapper:hover .btn-grey-orange { background: #df3828; color: #fff; text-decoration: none; border:1px solid #f04130; }
+.offers-tag-wrapper { width:110px; height:28px; background:#4d5057; color:#fff; font-size:14px; line-height:28px; padding:0 20px; }
 .offers-left-tag { width: 0; height: 0; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-right: 10px solid #fff; position:relative; top:-5px; left:24px; font-size: 0; line-height: 0; z-index:1; }
 .header-not-fixed { background: rgba(51, 51, 51, 0.8); background: #0e405b\9; padding: 10px 20px; z-index: 3; }
 .stick { position: fixed; top: 0; width:976px; z-index: 3; }
@@ -46,7 +47,7 @@
 .sort-div { width:200px; height:40px; padding:9px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; }
 .sort-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:154px; }
 .sort-selection-div { width:200px; background:#fff; margin-top:10px; border:1px solid #ccc; position:absolute; z-index:2; }
-.sort-selection-div ul li { padding:2px 0 2px 8px; margin-bottom:5px; margin-top:5px; font-size:14px; }
+.sort-selection-div ul li { padding:5px 0 5px 8px;font-size:14px; }
 .sort-selection-div ul li:hover { cursor:pointer; background:#82888b; color:#fff; }
 .sort-selection-div ul li.selected { font-weight:bold; }
 .sort-list-items ul::before { border-bottom: 10px solid #cccccc; border-left: 10px solid transparent; border-right: 10px solid transparent; content: ""; left: 87px; position: absolute; top: -11px; z-index: 1; }
@@ -80,18 +81,8 @@
 .btn-grey-orange { background: #fff; color: #82888b; border:1px solid #82888b; }
 .btn-grey-orange:hover { background: #df3828; color: #fff; text-decoration: none; border:1px solid #f04130; }
 
-#offersPopup, #listingLocationPopup { display: none; width: 450px; min-height: 430px; background: #fff; margin: 0 auto; position: fixed; top: 12%; right: 5%; left: 5%; z-index: 10; padding: 30px; }
+#offersPopup, #listingLocationPopup { display: none; width: 450px; min-height: 400px; background: #fff; margin: 0 auto; position: fixed; top: 12%; right: 5%; left: 5%; z-index: 10; padding: 30px; }
 .offers-box-icon { width:44px; height:48px; background-position:0 -444px; }
 #offersPopup .offers-list-ul { text-align:left; }
-#offersPopup ul li { background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png?v=22122015") no-repeat 0 3px; margin-top: 12px; padding: 0 0 0 22px; width:100%; min-height:auto; }
-#offersPopup ul li:first-child { margin-top:0; }
+#offersPopup ul li { background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png?v=22122015") no-repeat 0 3px; padding-left:20px; width:100%; min-height:auto; padding-bottom:10px; }
 .inner-content-popup { margin:0 auto; width:350px; }
-/*
-desktop
-.loc-change-blue-icon { width:12px; height:16px; background-position:-205px -35px; }
-.cancel-nav-icon { width:17px; height:22px; background-position:-190px -121px; }
-
-mobile
-.loc-change-blue-icon { width:12px; height:16px; background-position:-86px -278px; }
-.cancel-nav-icon { width:17px; height:22px; background-position:-56px -396px; }
-*/
