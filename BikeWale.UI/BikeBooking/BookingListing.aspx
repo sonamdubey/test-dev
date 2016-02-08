@@ -466,7 +466,7 @@
 
                 });
 
-                $("input[type='button'].booking-landing-search-btn").click(function () {
+                $("input[type='button'].cityAreaBtn").click(function () {
                     if (!isNaN(selCityId) && selCityId != "0") {
                         if (!isNaN(selAreaId) && selAreaId != "0") {
                             var CookieValue = selCityId + "_" + $ddlCities.find("option:selected").text() + '_' + selAreaId + "_" + $ddlAreas.find("option:selected").text();
