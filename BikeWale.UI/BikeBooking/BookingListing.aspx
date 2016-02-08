@@ -375,7 +375,7 @@
                                             </div>
                                             <!-- ko if: true -->
                                             <div class="text-default margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
-                                                <span class="margin-right5" data-bind="text: offers().length"></span> offers available
+                                                <span class="margin-right5" data-bind="text: offers().length"></span>offers available
                                                 <span class="text-link view-offers-target">view offers</span>
                                             </div>
                                             <div id="offersPopup" class="text-center rounded-corner2">
