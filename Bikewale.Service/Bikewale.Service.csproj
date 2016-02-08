@@ -263,6 +263,7 @@
     <Compile Include="Controllers\PriceQuote\PQBikeColorController.cs" />
     <Compile Include="Controllers\PriceQuote\PQCustomerDetailController.cs" />
     <Compile Include="Controllers\PriceQuote\PriceQuoteController.cs" />
+    <Compile Include="Controllers\PriceQuote\RegisterPQController.cs" />
     <Compile Include="Controllers\PriceQuote\UpdatePQController.cs" />
     <Compile Include="Controllers\PriceQuote\UpdatePQCustomerDetailsController.cs" />
     <Compile Include="Controllers\PriceQuote\Version\PQVersionListController.cs" />

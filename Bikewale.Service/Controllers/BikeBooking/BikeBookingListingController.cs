@@ -43,8 +43,7 @@ namespace Bikewale.Service.Controllers.BikeBooking
             IEnumerable<BikeBookingListingEntity> lstEntity = null;
             IEnumerable<BikeBookingListingDTO> lstResult = null;
             BikeBookingListingOutput output = null;
-            Bikewale.Entities.BikeBooking.PagingUrl PageUrlEntity = null;
-            Bikewale.DTO.BikeBooking.PagingUrl PageUrlDTO = null;
+            Bikewale.Entities.BikeBooking.PagingUrl PageUrlEntity = null;            
             int fetchedCount = 0;
             int totalCount = 0;
                 
@@ -61,6 +60,10 @@ namespace Bikewale.Service.Controllers.BikeBooking
                     output.TotalCount = totalCount;
                     output.PageUrl = PageUrlEntityMapper.Convert(PageUrlEntity);
                     output.CurPageNo = filter.PageNo == 0 ? 1 : filter.PageNo;
+                    if (output.FetchedCount == 0)
+                    {
+                        return NotFound(); 
+                    }
                 }
                 catch (Exception ex)
                 {
