@@ -193,25 +193,34 @@ $.hitAPI = function (searchUrl, filterName) {
         dataType: 'json',
         success: function (response) {             
             console.log(bookingSearchURL);
-            $.totalCount = response.totalCount;
-            $.pageNo = response.curPageNo;
-            $.nextPageUrl = response.pageUrl.nextPageUrl;
-            $('#bikecount').text($.totalCount + ' Bikes');
-            
-            if (!isNaN($.pageNo) && $.pageNo == 1) {
-                $.bindSearchResult(response);
+            if (response.fetchedCount > 0)
+            {
+                $.totalCount = response.totalCount;
+                $.pageNo = response.curPageNo;
+                if (response.pageUrl != null)
+                    $.nextPageUrl = response.pageUrl.nextPageUrl;
+                else $.nextPageUrl = "";
+                $('#bikecount').text($.totalCount + ' Bikes');
+
+                if (!isNaN($.pageNo) && $.pageNo == 1) {
+                    $.bindSearchResult(response);
+                }
+                else {
+                    $.bindLazyListings(response);
+                }
+                $.selectFiltersPresentInQS();
+                $.getSelectedQSFilterText();
+
+                $.lazyLoadingStatus = true;
+                $('#NoBikeResults').hide();
+                $('#loading').hide();
+                if (filterName != "" && filterName != undefined)
+                    $.pushGTACode($.totalCount, filterName);
             }
             else {
-                $.bindLazyListings(response);
+                errorNoBikes();
             }
-            $.selectFiltersPresentInQS();
-            $.getSelectedQSFilterText();
-
-            $.lazyLoadingStatus = true;
-            $('#NoBikeResults').hide();
-            $('#loading').hide();
-            if (filterName != "" && filterName != undefined)
-                $.pushGTACode($.totalCount, filterName);
+           
         },
         error: function (error) {
             $.totalCount = 0;
@@ -228,6 +237,22 @@ $.hitAPI = function (searchUrl, filterName) {
         }
     });
 };
+
+function errorNoBikes()
+{
+    $.totalCount = 0;
+    var element = $('#divSearchResult');
+    element.html('');
+    ko.cleanNode(element);
+    $('#loading').hide();
+    $('#NoBikeResults').show();
+    $('#bikecount').text('No bikes found');
+    $.selectFiltersPresentInQS();
+    $.getSelectedQSFilterText();
+    if (filterName != "" && filterName != undefined)
+        $.pushGTACode($.totalCount, filterName);
+}
+
 
 $.bindLazyListings = function (searchResult) {
     var koHtml = '<div class="grid-12 alpha omega">'
@@ -1066,12 +1091,12 @@ $.formatPrice = function (price) {
 
 /* booking listing js */
 $("#searchBikeList").on("click", "span.view-offers-target", function () {
-    var offersDiv = $(this).parent().next("div#offersPopup");
+    var offersDiv = $(this).parents("div.bike-book-now-wrapper").next("div#offersPopup");
     offersPopupOpen(offersDiv);
 });
 
 $("#searchBikeList").on("click", "div.offers-popup-close-btn", function () {
-    var offersDiv = $(this).parent("div#offersPopup");
+    var offersDiv = $(this).parents("div#offersPopup");
     offersPopupClose(offersDiv);
 });
 
