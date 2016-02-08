@@ -193,7 +193,7 @@ $.hitAPI = function (searchUrl, filterName) {
         dataType: 'json',
         success: function (response) {             
             console.log(bookingSearchURL);
-            if (response.fetchedCount > 0)
+            if (response.totalCount > 0)
             {
                 $.totalCount = response.totalCount;
                 $.pageNo = response.curPageNo;
@@ -232,8 +232,8 @@ $.hitAPI = function (searchUrl, filterName) {
             $('#bikecount').text('No bikes found');
             $.selectFiltersPresentInQS();
             $.getSelectedQSFilterText();
-            if (filterName != "" && filterName != undefined)
-                $.pushGTACode($.totalCount, filterName);
+            //if (filterName != "" && filterName != undefined)
+            //    $.pushGTACode($.totalCount, filterName);
         }
     });
 };
@@ -249,8 +249,8 @@ function errorNoBikes()
     $('#bikecount').text('No bikes found');
     $.selectFiltersPresentInQS();
     $.getSelectedQSFilterText();
-    if (filterName != "" && filterName != undefined)
-        $.pushGTACode($.totalCount, filterName);
+    //if (filterName != "" && filterName != undefined)
+    //    $.pushGTACode($.totalCount, filterName);
 }
 
 

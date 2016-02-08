@@ -205,7 +205,7 @@
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
                                                     <li filterid="1" class="first" data-tabs="yes">Yes</li>
-                                                    <li filterid="2" data-tabs="no" class="second">No</li>
+                                                    <li filterid="0" data-tabs="no" class="second">No</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -221,7 +221,7 @@
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
-                                                    <li filterid="2" class="first" data-tabs="disc">Disc</li>
+                                                    <li filterid="0" class="first" data-tabs="disc">Disc</li>
                                                     <li filterid="1" data-tabs="drum" class="second">Drum</li>
                                                 </ul>
                                             </div>
@@ -238,8 +238,8 @@
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
-                                                    <li filterid="2" class="first" data-tabs="alloy">Alloy</li>
-                                                    <li filterid="1" data-tabs="spoke" class="second">Spoke</li>
+                                                    <li filterid="0" class="first" data-tabs="alloy">Alloy</li>
+                                                    <li filterid="2" data-tabs="spoke" class="second">Spoke</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -255,8 +255,8 @@
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
-                                                    <li filterid="1" class="first" data-tabs="electric">Electric</li>
-                                                    <li filterid="2" data-tabs="kick" class="second">Kick</li>
+                                                    <li filterid="0" class="first" data-tabs="electric">Electric</li>
+                                                    <li filterid="1" data-tabs="kick" class="second">Kick</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -318,7 +318,7 @@
                                         <span class="bwsprite error-icon hide"></span>
                                         <div class="bw-blackbg-tooltip hide">Please Select Area</div>
                                     </div>
-                                    <input class="btn btn-orange margin-top15" type="button" value="Show bikes">
+                                    <input class="btn btn-orange margin-top15 cityAreaBtn" type="button" value="Show bikes">
                                 </div>
                             </div>
                         </div>
@@ -414,13 +414,15 @@
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
         <script>
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList");
+            var selectedCityId = '<%= cityId %>', selectedAreaId = '<%= areaId %>';
             $("#Userlocation").text($ddlAreas.find("option:selected").text() + ", " + $ddlCities.find("option:selected").text());
-            var selectedCityId = <%= cityId %> ,selectedAreaId = <%= areaId %> ;
+            
             var key = "bCity_";
             lscache.setBucket('BLPage');
             $(function () {
 
-                var selCityId = 0;
+                var selCityId = '<%= (cityId > 0)?cityId:0%>';
+                var selAreaId = '<%= (areaId > 0)?areaId:0%>';
 
                 $ddlCities.change(function () {
                     selCityId = parseInt($ddlCities.val(), 16);
@@ -443,6 +445,7 @@
                                         lscache.set(key + selCityId.toString(), null, 30);
                                         setOptions(null);
                                     }
+                                    selAreaId = $ddlAreas.find("option:selected").val();
                                 }
                             });
                         }
@@ -451,6 +454,29 @@
                             setOptions(data);
                         }
 
+                    }
+                });
+
+                $ddlAreas.change(function () {
+                    if (selCityId > 0) {
+                        selAreaId = $ddlAreas.find("option:selected").val();
+                    }
+
+                });
+
+                $("input[type='button'].cityAreaBtn").click(function () {
+                    if (!isNaN(selCityId) && selCityId > 0) {
+                        if (!isNaN(selAreaId) && selAreaId > 0) {
+                            var CookieValue = selCityId + "_" + $ddlCities.find("option:selected").text() + '_' + selAreaId + "_" + $ddlAreas.find("option:selected").text();
+                            SetCookieInDays("location", CookieValue, 365);
+                            window.location.href = "/bikebooking/bookinglisting.aspx"
+                        }
+                        else {
+                            alert("Please select area !");
+                        }
+                    }
+                    else {
+                        alert("Please Select City !")
                     }
                 });
 

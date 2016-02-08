@@ -237,7 +237,8 @@
             lscache.setBucket('BLPage');
             $(function () {
 
-                var selCityId = 0;
+                var selCityId = '<%= (cityId > 0)?cityId:0%>';
+                var selAreaId = '<%= (areaId > 0)?areaId:0%>';
 
                 $ddlCities.change(function () {
                     selCityId = parseInt($ddlCities.val(), 16);
@@ -268,6 +269,30 @@
                             setOptions(data);
                         }
 
+                    }
+                });
+
+                $ddlAreas.change(function(){
+                    if(selCityId > 0)
+                    {
+                        selAreaId  = $ddlAreas.find("option:selected").val();
+                    }
+
+                });
+
+                $("input[type='button'].cityAreaBtn").click(function () {
+                    if (!isNaN(selCityId) && selCityId > 0) {
+                        if (!isNaN(selAreaId) && selAreaId > 0) {
+                            var CookieValue = selCityId + "_" + $ddlCities.find("option:selected").text() + '_' + selAreaId + "_" + $ddlAreas.find("option:selected").text();
+                            SetCookieInDays("location", CookieValue, 365);
+                            window.location.href = "/bikebooking/bookinglisting.aspx"
+                        }
+                        else {
+                            alert("Please select area !");
+                        }
+                    }
+                    else {
+                        alert("Please Select City !")
                     }
                 });
 

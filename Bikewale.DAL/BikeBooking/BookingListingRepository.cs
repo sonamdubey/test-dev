@@ -64,7 +64,7 @@ namespace Bikewale.DAL.BikeBooking
                             }
                             if (!String.IsNullOrEmpty(filter.Budget))
                             {
-                                cmd.Parameters.AddWithValue("@paramMinValBudget", filter.Budget.Split('-')[1]);
+                                cmd.Parameters.AddWithValue("@paramMaxValBudget", filter.Budget.Split('-')[1]);
                             }
                             if (!String.IsNullOrEmpty(filter.Mileage))
                             {
