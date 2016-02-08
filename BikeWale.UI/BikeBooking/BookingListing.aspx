@@ -9,7 +9,10 @@
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
-    <script>ga_pg_id = '5';</script>
+    <script type="text/javascript">
+        ga_pg_id = '5';
+        var clientIP = '<%= clientIP %>';
+    </script>
 </head>
 <body class="bg-light-grey">
     <form runat="server">
@@ -21,7 +24,8 @@
                         <!-- breadcrumb code starts here -->
                         <ul>
                             <li><a href="/">Home</a></li>
-                            <li><span class="fa fa-angle-right margin-right10"></span>New Bikes</li>
+                            <li><a href="/bikebooking/"><span class="fa fa-angle-right margin-right10"></span>Booking</a></li>
+                            <li><span class="fa fa-angle-right margin-right10"></span>Bikes</li>
                         </ul>
                         <div class="clear"></div>
                     </div>
@@ -378,6 +382,7 @@
                                                 <span class="margin-right5" data-bind="text: offers().length"></span> offers available
                                                 <span class="text-link view-offers-target">view offers</span>
                                             </div>
+                                                <input type="button" class="book-now btn btn-grey-orange btn-full-width margin-top15" value="Book Now" data-bind="click: function () { registerPQ($data); }" />
                                             <div id="offersPopup" class="text-center rounded-corner2">
                                                 <div class="offers-popup-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                                                 <div class="icon-outer-container rounded-corner50">
@@ -419,24 +424,25 @@
                 var selCityId = 0;
 
                 $ddlCities.change(function () {
-                    selCityId = parseInt($ddlCities.val(), 16);
+                    selCityId = $ddlCities.val();
                     $ddlAreas.empty();
-                    if (selCityId > 0) {
+                    selAreaId = "0";
+                    if (!isNaN(selCityId) && selCityId != "0") {
                         if (!checkCacheCityAreas(selCityId)) {
                             $.ajax({
                                 type: "GET",
                                 url: "/api/BBAreaList/?cityId=" + selCityId,
                                 contentType: "application/json",
                                 beforeSend: function () {
-
+                                    return;
                                 },
                                 success: function (data) {
-                                    lscache.set(key + selCityId.toString(), data.areas, 30);
+                                    lscache.set(key + selCityId, data.areas, 30);
                                     setOptions(data.areas);
                                 },
                                 complete: function (xhr) {
                                     if (xhr.status == 404 || xhr.status == 204) {
-                                        lscache.set(key + selCityId.toString(), null, 30);
+                                        lscache.set(key + selCityId, null, 30);
                                         setOptions(null);
                                     }
                                 }
@@ -450,6 +456,9 @@
                     }
                 });
 
+                    if (!isNaN(selCityId) && selCityId != "0") {
+                    if (!isNaN(selCityId) && selCityId != "0") {
+                        if (!isNaN(selAreaId) && selAreaId != "0") {
             });
 
             function checkCacheCityAreas(cityId) {

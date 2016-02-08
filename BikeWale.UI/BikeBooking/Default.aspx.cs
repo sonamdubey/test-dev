@@ -28,14 +28,11 @@ namespace Bikewale.BikeBooking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-                dd.DetectDevice();
-                CheckLocationCookie();
-                GetDealerCities();
-                ctrlUsersTestimonials.TopCount = 6;
-            }
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            dd.DetectDevice();
+            CheckLocationCookie();
+            GetDealerCities();
+            ctrlUsersTestimonials.TopCount = 6;
         }
         
 

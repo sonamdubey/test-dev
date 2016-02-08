@@ -28,7 +28,7 @@ namespace Bikewale.DAL.BikeBooking
         /// <param name="areaId"></param>
         /// <param name="filter"></param>
         /// <returns></returns>
-        public IEnumerable<Entities.BikeBooking.BikeBookingListingEntity> FetchBookingList(int cityId, uint areaId, Entities.BikeBooking.BookingListingFilterEntity filter, out int totalCount, out int fetchedCount,out PagingUrl pageUrl)
+        public IEnumerable<Entities.BikeBooking.BikeBookingListingEntity> FetchBookingList(int cityId, uint areaId, Entities.BikeBooking.BookingListingFilterEntity filter, out int totalCount, out int fetchedCount, out PagingUrl pageUrl)
         {
             IEnumerable<BikeBookingListingEntity> lstSearchResult = null;
             List<BikeBookingListingEntity> lstBikeBookingListingEntity = null;
@@ -293,7 +293,7 @@ namespace Bikewale.DAL.BikeBooking
             return lstOffer;
         }
 
-        private PagingUrl GetPrevNextUrl(BookingListingFilterEntity filterInputs,int totalRecordCount)
+        private PagingUrl GetPrevNextUrl(BookingListingFilterEntity filterInputs, int totalRecordCount)
         {
             PagingUrl objPager = null;
             int totalPageCount = 0;
@@ -310,7 +310,16 @@ namespace Bikewale.DAL.BikeBooking
                     if (filterInputs.PageNo == totalPageCount)
                         objPager.NextPageUrl = string.Empty;
                     else
-                        objPager.NextPageUrl = controllerurl + "pageNo=" + (Convert.ToInt32(filterInputs.PageNo) + 1) + apiUrlStr;
+                    {
+                        if ((totalPageCount >= totalRecordCount))
+                        {
+                            objPager.NextPageUrl = string.Empty;
+                        }
+                        else
+                        {
+                            objPager.NextPageUrl = controllerurl + "pageNo=" + (Convert.ToInt32(filterInputs.PageNo) + 1) + apiUrlStr;
+                        }
+                    }
 
                     if (filterInputs.PageNo == 1 || filterInputs.PageNo == 0)
                         objPager.PrevPageUrl = string.Empty;

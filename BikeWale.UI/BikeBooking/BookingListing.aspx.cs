@@ -20,6 +20,7 @@ namespace Bikewale.BikeBooking
         List<CityEntityBase> bookingCities = null;
         IEnumerable<AreaEntityBase> bookingAreas = null;
         protected uint cityId = 0, areaId = 0;
+        protected string clientIP = String.Empty;
 
         protected override void OnInit(EventArgs e)
         {
@@ -28,14 +29,14 @@ namespace Bikewale.BikeBooking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-                dd.DetectDevice();
-                CheckLocationCookie();
-                GetDealerCities();
+            
+            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+            dd.DetectDevice();
+            CheckLocationCookie();
+            GetDealerCities();
+        
+            clientIP = Bikewale.Common.CommonOpn.GetClientIP();
             }
-        }
 
 
         /// <summary>
@@ -64,7 +65,16 @@ namespace Bikewale.BikeBooking
                         bookingCitiesList.Items.Insert(0, " Select City ");
 
                         if (cityId > 0 && bookingCities.Any(p => p.CityId == cityId))
-                            GetDealerAreas();
+                        {
+                           GetDealerAreas();
+                        }
+                        else
+                        {
+                            Response.Redirect("/bikebooking/", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                            
 
                     }
 
@@ -105,7 +115,16 @@ namespace Bikewale.BikeBooking
                         bookingAreasList.Items.Insert(0, " Select Area ");
 
                         if (areaId > 0 && bookingAreas.Any(p => p.AreaId == areaId))
+                        {
                             bookingAreasList.Items.FindByValue(Convert.ToString(areaId)).Selected = true;
+                        }
+                        else
+                        {
+                            Response.Redirect("/bikebooking/", false);
+                            HttpContext.Current.ApplicationInstance.CompleteRequest();
+                            this.Page.Visible = false;
+                        }
+                            
                     }
                 }
             }
