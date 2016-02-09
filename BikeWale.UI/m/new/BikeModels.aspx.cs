@@ -72,6 +72,7 @@ namespace Bikewale.Mobile.New
         protected DropDownList ddlVariant;
         protected string variantText = string.Empty;
         protected uint bookingAmt = 0;
+        protected int urlVersionId = 0;
         protected int grid1_size = 9;
         protected int grid2_size = 3;
         protected int btMoreDtlsSize = 12;
@@ -112,7 +113,11 @@ namespace Bikewale.Mobile.New
             Trace.Warn("Trace 6 : CheckCityCookie End");
             if (hdnVariant.Value != "0")
                 variantId = Convert.ToInt32(hdnVariant.Value);
-
+            if (!IsPostBack)
+            {
+                Trace.Warn("Trace 6.1 : urlVersionId set using url");
+                variantId = urlVersionId;
+            }
             #endregion
             Trace.Warn("Trace 7 : FetchModelPageDetails Start");
             FetchModelPageDetails();
@@ -175,6 +180,11 @@ namespace Bikewale.Mobile.New
             if (modelPage != null && modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
             ToggleOfferDiv();
+
+            // Clear trailing query string -- added on 09-feb-2016 by Sangram
+            PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+            isreadonly.SetValue(this.Request.QueryString, false, null);
+            this.Request.QueryString.Clear();
 
         }
 
@@ -330,6 +340,12 @@ namespace Bikewale.Mobile.New
             {
                 if (!string.IsNullOrEmpty(Request.QueryString["model"]))
                 {
+                    string VersionIdStr = Request.QueryString["vid"];
+                    if (!string.IsNullOrEmpty(VersionIdStr))
+                    {
+                        Int32.TryParse(VersionIdStr, out urlVersionId);
+                    }
+
                     using (IUnityContainer container = new UnityContainer())
                     {
                         container.RegisterType<IBikeMaskingCacheRepository<BikeModelEntity, int>, BikeModelMaskingCache<BikeModelEntity, int>>()

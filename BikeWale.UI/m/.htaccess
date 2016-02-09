@@ -38,6 +38,7 @@ RewriteRule	^terms/(.*)	/m/offerterms.aspx?id=$1 [NC,L]
 
 RewriteRule  ^(.*)-bikes/(.*)/(.*)-specs-(.*).html	/m/($1)-bikes/($2)/ [R=301,NC,L]
 RewriteRule ^(.*)-bikes/(.*)-series/ /m/new/bikeseries.aspx?series=$2 [NC,L]
+RewriteRule	^(.*)-bikes/(.*)/(.*)/	/m/new/BikeModels.aspx?model=$2&vid=$3 [NC,L]
 RewriteRule	^(.*)-bikes/(.*)/	/m/new/BikeModels.aspx?model=$2 [NC,L]
 RewriteRule	^(.*)-bikes/$	/m/new/bikemakes.aspx?make=$1 [NC,L]
 
