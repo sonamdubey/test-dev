@@ -324,35 +324,45 @@ $.hitAPI = function (searchUrl) {
         url: bookingSearchURL,
         dataType: 'json',
         success: function (response) {
-            nobikediv.hide();
-            $.totalCount = response.totalCount;
-            $.pageNo = response.curPageNo;
-            $.nextPageUrl = response.pageUrl.nextUrl;
-            $.setCountTxt($.totalCount);
-            if (!isNaN($.pageNo) && $.pageNo == 1) {
-                $.bindSearchResult(response);
+            if (response.totalCount > 0) {
+                nobikediv.hide();
+                $.totalCount = response.totalCount;
+                $.pageNo = response.curPageNo;
+                $.nextPageUrl = response.pageUrl.nextPageUrl;
+                $.setCountTxt($.totalCount);
+                if (!isNaN($.pageNo) && $.pageNo == 1) {
+                    $.bindSearchResult(response);
+                }
+                else {
+                    $.bindLazyListings(response);
+                }
+                $.lazyLoadingStatus = true;
+                $('#hidePopup').click();
+                loading.hide();
+                $.pushGACode(searchUrl, $.totalCount);
             }
             else {
-                $.bindLazyListings(response);
+                errorNoBikes();
             }
-            $.lazyLoadingStatus = true;
-            $('#hidePopup').click();
-            loading.hide();
-            $.pushGACode(searchUrl, $.totalCount);
         },
         error: function (error) {
-            $.totalCount = 0;
-            var element = $('#divSearchResult');
-            element.html('');
-            ko.cleanNode(element);
-            nobikediv.show();
-            loading.hide();
-            $('#hidePopup').click();
-            $.setCountTxt($.totalCount);
-            $.pushGACode(searchUrl, $.totalCount);
+            errorNoBikes();
         }
     });
 };
+
+function errorNoBikes() {
+    $.totalCount = 0;
+    var element = $('#divSearchResult');
+    element.html('');
+    ko.cleanNode(element);
+    nobikediv.show();
+    loading.hide();
+    $('#hidePopup').click();
+    $.setCountTxt($.totalCount);
+    $.pushGACode(searchUrl, $.totalCount);
+}
+
 
 $.setCountTxt = function (totalCount) {
     var bikeCounttxt = '';
@@ -384,17 +394,17 @@ $.getSelectedQSFilterText = function () {
                 for (var j = 0; j < values.length; j++) {
                     node.find('li[filterid=' + values[j] + ']').addClass('active');
                     selText += node.find('li[filterid=' + values[j] + ']').text() + ', ';
-            }
+                }
                 count++;
-                node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length -2));
+                node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
             } else if (params[i] == 'budget') {
                 var values = $.getFilterFromQS(params[i]).split('-');
                 $.setMaxAmount(values[1]);
                 $.setMinAmount(values[0]);
                 count++;
+            }
         }
     }
-}
     $('.filter-counter').text(count);
 };
 
@@ -433,7 +443,7 @@ $.bindLazyListings = function (searchResult) {
 };
 
 var SearchViewModel = function (model) {
-    ko.mapping.fromJS(model, { }, this);
+    ko.mapping.fromJS(model, {}, this);
 };
 
 $.getNextPageData = function () {
@@ -448,7 +458,7 @@ $.getNextPageData = function () {
 $.getFilterFromQS = function (name) {
     var hash = location.href.split('?')[1];
     var result = {
-};
+    };
     var propval, value;
     var isFound = false;
     if (hash != undefined) {
@@ -460,9 +470,9 @@ $.getFilterFromQS = function (name) {
                 value = propval[1];
                 isFound = true;
                 break;
+            }
         }
     }
-}
     if (isFound && value.length > 0) {
         //if (value.indexOf('+') > 0)
         if ((/\+/).test(value))
@@ -485,13 +495,13 @@ $.loadNextPage = function () {
 
 $.pushState = function (qs) {
     loading.show();
-    history.pushState(null, null, '?' +qs);
+    history.pushState(null, null, '?' + qs);
     $.hitAPI(qs);
 };
 
 $.pushStateUrl = function (qs) {
     loading.show();
-    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' +qs;
+    var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + qs;
     window.history.pushState({ path: newurl }, '', newurl);
     $.hitAPI(qs);
 };
@@ -507,8 +517,8 @@ $.removeFilterFromQS = function (name) {
             //if ((/=/).test(pars[i])) {
             if ((new RegExp(prefix, 'gi')).test(pars[i])) {
                 pars.splice(i, 1);
+            }
         }
-    }
         url = pars.join('&');
         return url;
     }
@@ -526,9 +536,9 @@ $.getAllParamsFromQS = function () {
         if (tempParams.length > 0) {
             for (var i = 0; i < tempParams.length; i++) {
                 params.push(tempParams[i].split('=')[0]);
+            }
         }
     }
-}
     return params;
 };
 
@@ -543,22 +553,22 @@ $.removePageNoParam = function () {
         var completeQS = $.removeFilterFromQS('pageno');
         $.pageNo = 1;
 
-        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' +completeQS;
+        var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + completeQS;
         window.history.pushState({ path: newurl }, '', newurl);
-}
+    }
 };
 
 $.appendToQS = function (temp, name, value) {
     if (temp.length > 0)
-        temp += "&" + name + "=" +value;
+        temp += "&" + name + "=" + value;
     else
-        temp = name + "=" +value;
+        temp = name + "=" + value;
 
     return temp;
 };
 
 $.AddToQS = function (name, value) {
-    var temp = name + "=" +value;
+    var temp = name + "=" + value;
 
     return temp;
 };
@@ -578,15 +588,15 @@ $.fn.applyFilterOnButtonClick = function () {
         for (var i = 0; i < completeQSArr.length; i++) {
             if (completeQSArr[i].length > 1)
                 completeQS += completeQSArr[i] + '&';
-    }
+        }
 
         if (completeQS.length > 1)
-            completeQS = completeQS.substring(0, completeQS.length -1);
+            completeQS = completeQS.substring(0, completeQS.length - 1);
 
         if ($.sc.length > 0 && $.so.length > 0) {
             completeQS = $.appendToQS(completeQS, 'sc', $.sc);
             completeQS = $.appendToQS(completeQS, 'so', $.so);
-    }
+        }
 
         $.removeCompleteQSFromUrl();
         $.pushStateUrl(completeQS);
@@ -598,22 +608,22 @@ applyFilter.applyFilterOnButtonClick();
 $.addParameterToString = function (name, value, completeQS) {
     if (value.length > 0) {
         if (completeQS.length > 0)
-            completeQS += "&" + name + "=" +value;
+            completeQS += "&" + name + "=" + value;
         else
-            completeQS = name + "=" +value;
-}
+            completeQS = name + "=" + value;
+    }
     return completeQS;
 };
 
 var trueValues = [30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000, 150000, 200000, 250000, 300000, 350000, 500000, 750000, 1000000, 1250000, 1500000, 3000000, 6000000];
 var values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 $("#mSlider-range").slider({
-        range: true,
-        min: 1,
-        max: 20,
-        values: [1, 20],
-        step: 1,
-        slide: function (event, ui) {
+    range: true,
+    min: 1,
+    max: 20,
+    values: [1, 20],
+    step: 1,
+    slide: function (event, ui) {
         var includeLeft = event.keyCode != $.ui.keyCode.RIGHT;
         var includeRight = event.keyCode != $.ui.keyCode.LEFT;
         var value = $.findNearest(includeLeft, includeRight, ui.value);
@@ -630,9 +640,9 @@ $("#mSlider-range").slider({
         if (ui.values[0] == 0 && ui.values[1] == 20) {
             $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span> 0 -' + ' ' + '<span class="bw-m-sprite rupee"></span> Any value');
         } else {
-            $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span>' + ' ' + budgetminValue + ' ' + '-' + ' ' + '<span class="bw-m-sprite rupee"></span>' + ' ' +budgetmaxValue);
+            $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span>' + ' ' + budgetminValue + ' ' + '-' + ' ' + '<span class="bw-m-sprite rupee"></span>' + ' ' + budgetmaxValue);
         }
-}
+    }
 });
 
 $.setSliderRangeQS = function (element, start, end) {
@@ -656,11 +666,11 @@ $.applyToggelFilter = function () {
         }
         else {
             tempQS = $.removeFilterFromQS(name);
-    }
+        }
     });
 
     if (completeQS.length > 1)
-        completeQS = completeQS.substring(0, completeQS.length -1);
+        completeQS = completeQS.substring(0, completeQS.length - 1);
     return completeQS;
 }
 
@@ -675,10 +685,10 @@ $.applyMileageFilter = function () {
         if ($(this).hasClass(selected)) {
             var filterId = $(this).attr('filterid');
             value += filterId + '+';
-    }
+        }
     });
     if (value.length > 1) {
-        value = value.substring(0, value.length -1);
+        value = value.substring(0, value.length - 1);
         completeQS = $.AddToQS(name, value);
     }
     else
@@ -700,21 +710,21 @@ $.applyCheckBoxFilter = function () {
             if ($(this).hasClass(selected)) {
                 var filterId = $(this).attr('filterid');
                 value += filterId + '+';
-        }
+            }
         });
         if (value.length > 1) {
-            value = value.substring(0, value.length -1);
+            value = value.substring(0, value.length - 1);
             tempQS = $.AddToQS(name, value);
             tempArray.push(tempQS);
-    }
+        }
     });
 
     if (tempArray.length > 0) {
         for (var i = 0; i < tempArray.length; i++)
             completeQS += tempArray[i] + '&';
-}
+    }
     if (completeQS.length > 1)
-        completeQS = completeQS.substring(0, completeQS.length -1);
+        completeQS = completeQS.substring(0, completeQS.length - 1);
     return completeQS;
 };
 
@@ -722,7 +732,7 @@ $.applySliderFilter = function (element, name) {
     var minValue = $.getRealValue(element.slider('values', 0)) == '30000' ? 0 : $.getRealValue(element.slider('values', 0)),
         maxValue = $.getRealValue(element.slider('values', 1)),
         completeQS = '';
-    return name + "=" + minValue + '-' +maxValue;
+    return name + "=" + minValue + '-' + maxValue;
 };
 
 $.findNearest = function (includeLeft, includeRight, value) {
@@ -734,9 +744,9 @@ $.findNearest = function (includeLeft, includeRight, value) {
             if (diff == null || newDiff < diff) {
                 nearest = values[i];
                 diff = newDiff;
+            }
         }
     }
-}
     return nearest;
 }
 
@@ -750,8 +760,8 @@ $.getRealValue = function (sliderValue) {
     for (var i = 0; i < values.length; i++) {
         if (values[i] >= sliderValue) {
             return trueValues[i];
+        }
     }
-}
     return 0;
 }
 
@@ -795,9 +805,9 @@ $.resetFilterUI = function () {
                 node.each(function () {
                     $(this).find('span').removeClass('optionSelected');
                 });
+            }
         }
     }
-}
 };
 
 $.selectFiltersPresentInQS = function () {
@@ -813,7 +823,7 @@ $.selectFiltersPresentInQS = function () {
                     node.find('li[filterid=' + values[j] + ']').addClass('checked');
                     var title = node.find('li[filterid=' + values[j] + ']').text() + ',';
                     html += '<span data-title="' + title + '">' + title + '</span>';
-            }
+                }
 
                 node.prev().find('.hida').addClass('hide');
                 node.prev().find('.multiSel').html(html);
@@ -823,7 +833,7 @@ $.selectFiltersPresentInQS = function () {
 
                 for (var j = 0; j < values.length; j++) {
                     node.find('span[filterid=' + values[j] + ']').addClass('optionSelected');
-            }
+                }
             } else if (params[i] == 'budget') {
                 var values = $.getFilterFromQS(params[i]).split('-');
                 values[0] = (values[0] == '0' ? '30000' : values[0]);
@@ -838,29 +848,29 @@ $.selectFiltersPresentInQS = function () {
                 if (values[0] == 1 && values[1] == 20) {
                     $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span> 0 -' + ' ' + '<span class="bw-m-sprite rupee"></span> Any value');
                 } else {
-                    $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span>' + ' ' + budgetminValue + ' ' + '-' + ' ' + '<span class="bw-m-sprite rupee"></span>' + ' ' +budgetmaxValue);
-            }
+                    $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span>' + ' ' + budgetminValue + ' ' + '-' + ' ' + '<span class="bw-m-sprite rupee"></span>' + ' ' + budgetmaxValue);
+                }
             } else if (params[i] == 'mileage') {
                 var values = $.getFilterFromQS(params[i]).replace(/ /g, '+').split('+');
 
                 for (var j = 0; j < values.length; j++) {
                     node.find('span[filterid=' + values[j] + ']').addClass('optionSelected');
-            }
+                }
             } else if (params[i] == 'sc') {
                 $.sc = $.getFilterFromQS('sc');
                 $.so = $.getFilterFromQS('so');
+            }
         }
     }
-}
 }
 
 $.valueFormatter = function (num) {
     if (num >= 100000) {
         return (num / 100000).toFixed(1).replace(/\.0$/, '') + 'L';
-}
+    }
     if (num >= 1000) {
         return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-}
+    }
     return num;
 }
 
@@ -884,20 +894,20 @@ $.pushGACode = function (qs, noOfRecords) {
                     case '2':
                         filterName = 'Mileage :High to Low';
                         break;
-            }
+                }
                 $.pushGTACode(noOfRecords, filterName);
             } else if (params[i] == "budget") {
                 var budget = $.getFilterFromQS('budget').split('-');
                 if (!(budget[0] == '0' && budget[1] == '6000000'))
                     $.pushGTACode(noOfRecords, filterName);
-        }
+            }
 
+        }
     }
-}
 };
 
 $.pushGTACode = function (noOfRecords, filterName) {
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_' +noOfRecords, 'lab': filterName });
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_' + noOfRecords, 'lab': filterName });
 };
 
 $.ModelClickGaTrack = function (modelName, modelUrl) {
@@ -918,12 +928,12 @@ $.PricePopUpClickGA = function (makeName) {
         var updatebit = ko.observable(true).extend({ throttle: 50 });
 
         var handlers = {
-                img: updateImage
-    };
+            img: updateImage
+        };
 
         function flagForLoadCheck() {
             updatebit(!updatebit());
-    }
+        }
 
         $(window).on('scroll', flagForLoadCheck);
         $(window).on('resize', flagForLoadCheck);
@@ -934,54 +944,54 @@ $.PricePopUpClickGA = function (makeName) {
             return rect.bottom > 0 && rect.right > 0 &&
               rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
               rect.left < (window.innerWidth || document.documentElement.clientWidth);
-    }
+        }
 
         function updateImage(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var value = ko.unwrap(valueAccessor());
             if (isInViewport(element)) {
                 element.src = value;
                 $(element).data('kolazy', true);
+            }
         }
-    }
 
         function init(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var initArgs = arguments;
             updatebit.subscribe(function () {
                 update.apply(self, initArgs);
             });
-    }
+        }
 
         function update(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var $element = $(element);
 
             if ($element.is(':hidden') || $element.css('visibility') == 'hidden' || $element.data('kolazy')) {
                 return;
-        }
+            }
 
             var handlerName = element.tagName.toLowerCase();
             if (handlers.hasOwnProperty(handlerName)) {
                 return handlers[handlerName].apply(this, arguments);
             } else {
                 throw new Error('No lazy handler defined for "' + handlerName + '"');
+            }
         }
-    }
 
         return {
-                handlers: handlers,
-                init: init,
-                update: update
+            handlers: handlers,
+            init: init,
+            update: update
+        }
     }
-}
 
     ko.bindingHandlers.lazyload = new KoLazyLoad();
 
 })(jQuery, ko);
 
-    /* booking listing js */
-    $("#searchBikeList").on("click", "span.view-offers-target", function () {
+/* booking listing js */
+$("#searchBikeList").on("click", "span.view-offers-target", function () {
     var offersDiv = $(this).parent().next("div#offersPopup");
     offersPopupOpen(offersDiv);
-    });
+});
 
 $("#searchBikeList").on("click", "div.offers-popup-close-btn", function () {
     var offersDiv = $(this).parent("div#offersPopup");
@@ -989,6 +999,7 @@ $("#searchBikeList").on("click", "div.offers-popup-close-btn", function () {
 });
 
 var offersPopupOpen = function (offersDiv) {
+    $('#sort-by-div').hide();
     offersDiv.show();
 };
 
@@ -998,7 +1009,7 @@ var offersPopupClose = function (offersDiv) {
 
 $(".change-city-area-target").on("click", function () {
     listingLocationPopupOpen();
-    appendHash("listingPopup");
+    //appendHash("listingPopup");
 });
 
 $(".location-popup-close-btn").on("click", function () {
@@ -1011,9 +1022,9 @@ var listingLocationPopupOpen = function () {
     listingLocationPopup.show();
 };
 
-    /* city area listing popup */
-    var popupHeading = $("#listingPopupHeading")
-    popupContent = $("#listingPopupContent");
+/* city area listing popup */
+var popupHeading = $("#listingPopupHeading")
+popupContent = $("#listingPopupContent");
 
 $("#listingCitySelection").on("click", function () {
     $("#listingPopupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
@@ -1050,7 +1061,7 @@ var locationFilter = function (filterContent) {
         $(this).parent("div.user-input-box").siblings("ul").find("li").each(function () {
             $(this).show();
         });
-}
+    }
 };
 
 $("#listingPopupCityInput, #listingPopupAreaInput").on("keyup", function () {
@@ -1072,7 +1083,7 @@ $("#listingPopupCityList").on("click", "li", function () {
 $("#listingPopupAreaList").on("click", "li", function () {
     var userselection = getSelectedLocationLI($(this));
     $("#listingAreaSelection").text(userselection.trim());
-    selectedAreaId = $(this).attr('value');
+    selectedAreaId = $(this).attr('areaid');
     console.log(selectedAreaId);
 });
 
@@ -1089,35 +1100,42 @@ $("#btnBookingListingPopup").on("click", function () {
         cityName = $('#listingCitySelection');
     if (cityName.text().trim() == "Select City") {
         return;
-}
+    }
     if (areaName.text().trim() == "Select Area") {
+        setError($('#listingAreaSelection'), "Please select area !");
         return;
-}
-    listingLocationPopupClose();
-    $.hitAPI("");
-    $('#Userlocation').text(cityName.text().trim() + ', ' + areaName.text().trim());
+    }
+    else {
+        hideError(areaName);
+    }
 
+    listingLocationPopupClose();
+    var CookieValue = selectedCityId + "_" +cityName.text() + '_' + selectedAreaId + "_" +areaName.text();
+    SetCookieInDays("location", CookieValue, 365);
+    window.location.href = "/m/bikebooking/bookinglisting.aspx";
+    //    $('#Userlocation').text(cityName.text().trim() + ', ' + areaName.text().trim());
+    //$.hitAPI("");
 });
 
 ko.bindingHandlers.CurrencyText = {
-        update: function (element, valueAccessor) {
+    update: function (element, valueAccessor) {
         var amount = valueAccessor();
         var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
         $(element).text(formattedAmount);
-}
+    }
 };
 
-    function formatPrice(price) {
+function formatPrice(price) {
     price = price.toString();
-    var lastThree = price.substring(price.length -3);
-    var otherNumbers = price.substring(0, price.length -3);
+    var lastThree = price.substring(price.length - 3);
+    var otherNumbers = price.substring(0, price.length - 3);
     if (otherNumbers != '')
-        lastThree = ',' +lastThree;
-    var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") +lastThree;
+        lastThree = ',' + lastThree;
+    var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
     return price;
 }
 
-    function registerPQ(myData) {
+function registerPQ(myData) {
     var obj = {
         'CityId': selectedCityId,
         'AreaId': selectedAreaId,
@@ -1130,18 +1148,18 @@ ko.bindingHandlers.CurrencyText = {
         'dealerId': myData.dealerId()
     };
     $.ajax({
-            type: 'POST',
-            url: "/api/RegisterPQ/",
-            data: obj,
-            dataType: 'json',
-            beforeSend: function (xhr) {
+        type: 'POST',
+        url: "/api/RegisterPQ/",
+        data: obj,
+        dataType: 'json',
+        beforeSend: function (xhr) {
             xhr.setRequestHeader('utma', getCookie('__utma'));
             xhr.setRequestHeader('utmz', getCookie('__utmz'));
-    },
-            success: function (json) {
+        },
+        success: function (json) {
             var jsonObj = json;
             cookieValue = "CityId=" + selectedCityId + "&AreaId=" + selectedAreaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + myData.versionEntity.versionId() + "&DealerId=" + myData.dealerId();
-                //SetCookie("_MPQ", cookieValue);
+            //SetCookie("_MPQ", cookieValue);
             if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                 // gtmCodeAppenderWidget(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
                 window.location = "/m/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(cookieValue);
@@ -1150,47 +1168,54 @@ ko.bindingHandlers.CurrencyText = {
                 // gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
                 //$("#errMsgOnRoad").text("Oops. We do not seem to have pricing for given details.").show();
             }
-    },
-            error: function (e) {
-            alert('oops !')
-                //gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
-                // $("#errMsg").text("Oops. Some error occured. Please try again.").show();
-    }
+        },
+        error: function (e) {
+            //gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+            // $("#errMsg").text("Oops. Some error occured. Please try again.").show();
+        }
     });
 }
 
-    function onChangeCity(objCity) {
-    selectedCityId = parseInt(objCity.attr('cityId'), 16);
+function onChangeCity(objCity) {
+    selectedCityId = parseInt(objCity.attr('cityid'), 16);
     $('#listingPopupAreaList').empty();
     if (selectedCityId > 0) {
         if (!checkCacheCityAreas(selectedCityId)) {
             $('#listingAreaSelection .selected-area').text('Loading Areas ....');
             $.ajax({
-                    type: "GET",
-                    url: "/api/BBAreaList/?cityId=" +selectedCityId,
-                    contentType: "application/json",
-                    beforeSend: function () {
+                type: "GET",
+                url: "/api/BBAreaList/?cityId=" + selectedCityId,
+                contentType: "application/json",
+                beforeSend: function () {
 
-            },
-                    success: function (data) {
+                },
+                success: function (data) {
                     lscache.set(key + selectedCityId.toString(), data.areas, 30);
                     setOptions(data.areas);
                     $('#listingAreaSelection .selected-area').text('Select Area');
-            },
-                    complete: function (xhr) {
+                },
+                complete: function (xhr) {
                     if (xhr.status == 404 || xhr.status == 204) {
                         lscache.set(key + selectedCityId.toString(), null, 30);
                         setOptions(null);
                     }
-            }
+                }
             });
         }
         else {
             data = lscache.get(key + selectedCityId.toString());
             setOptions(data);
-    }
+        }
 
     }
 
 }
 
+var setError = function (element, msg) {
+    element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
+    element.siblings("div.errorText").text(msg);
+};
+
+var hideError = function (element) {
+    element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
+};

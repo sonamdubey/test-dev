@@ -92,11 +92,15 @@
                                 <div id="listingCitySelection" class="form-control text-left input-sm position-rel margin-bottom10">
                                     <div class="selected-city">Select City</div>
                                     <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
+                                    <span class="bwmsprite error-icon errorIcon"></span>
+                                    <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
 
                                 <div id="listingAreaSelection" class="form-control text-left input-sm position-rel margin-bottom10">
                                     <div class="selected-area">Select Area</div>
                                     <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
+                                    <span class="bwmsprite error-icon errorIcon"></span>
+                                    <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
                                 
                                 <div class="margin-top20 text-center">
@@ -116,7 +120,7 @@
                                     <ul id="listingPopupCityList" class="margin-top40" >
                                         <asp:Repeater ID="rptCities" runat="server">
                                             <ItemTemplate>
-                                                <li cityId="<%# DataBinder.Eval(Container.DataItem, "CityId") %>" ><%# DataBinder.Eval(Container.DataItem, "CityName")%></li>
+                                                <li cityid="<%# DataBinder.Eval(Container.DataItem, "CityId") %>" ><%# DataBinder.Eval(Container.DataItem, "CityName")%></li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
@@ -132,7 +136,7 @@
                                     <ul id="listingPopupAreaList" class="margin-top40">
                                         <asp:Repeater ID="rptAreas" runat="server">
                                             <ItemTemplate>
-                                                <li areaId="<%# DataBinder.Eval(Container.DataItem, "AreaId") %>"><%# DataBinder.Eval(Container.DataItem, "AreaName")%></li>
+                                                <li areaid="<%# DataBinder.Eval(Container.DataItem, "AreaId") %>"><%# DataBinder.Eval(Container.DataItem, "AreaName")%></li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
@@ -420,9 +424,8 @@
 
             function setOptions(optList) {
                 if (optList != null) {
-                    $("#listingPopupAreaList").append($('<li>').text(" Select Area ").attr({ 'cityId': "0" }));
                     $.each(optList, function (i, value) {
-                        $("#listingPopupAreaList").append($('<li>').text(value.areaName.toString().trim()).attr('value', value.areaId));
+                        $("#listingPopupAreaList").append($('<li>').text(value.areaName.toString().trim()).attr('areaid', value.areaId));
                     });
                 }
 
