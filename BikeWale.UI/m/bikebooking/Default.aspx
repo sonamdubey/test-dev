@@ -18,7 +18,7 @@
             <div class="container booking-landing-banner content-inner-block-10 text-center text-white">
                 <h1 class="text-uppercase text-white padding-top40 padding-bottom15">Book your dream bike</h1>
                 <p class="font14">Online booking is now available in</p>
-                <p class="font16 text-bold margin-bottom20">Mumbai, Pune and Bengaluru</p>
+                <p class="font16 text-bold margin-bottom20">Mumbai, Pune and Bangalore</p>
                 <div class="booking-landing-search-container">
                     <div class="booking-search-city form-control-box">
                         <div class="booking-search-city-form"><span>City</span></div>

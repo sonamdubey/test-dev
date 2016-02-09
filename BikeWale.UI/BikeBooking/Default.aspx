@@ -21,7 +21,7 @@
                 <div class="welcome-box">
                     <h1 class="font30 text-uppercase margin-bottom30">Book your dream bike</h1>
                     <p class="font20">Online booking is now available in</p>
-                    <p class="font22 text-bold margin-bottom45">Mumbai, Pune and Bengaluru</p>
+                    <p class="font22 text-bold margin-bottom45">Mumbai, Pune and Bangalore</p>
                     <div class="booking-landing-search-container">
                         <div class="booking-search-city form-control-box">
                             <asp:DropDownList ID="bookingCitiesList" class="form-control chosen-select" runat="server" />
