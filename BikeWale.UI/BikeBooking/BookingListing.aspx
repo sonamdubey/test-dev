@@ -400,7 +400,7 @@
                                                 <ul class="offers-list-ul" data-bind="foreach : offers()">
                                                     <li data-bind="text : offerText()"></li>
                                                 </ul>
-                                                <input type="button" class="btn btn-grey-orange btn-full-width margin-top15" value="Book Now" />
+                                                <input type="button" class="btn btn-orange margin-top15" value="Book Now" />
                                             </div>
                                         </div>
                                     </div>

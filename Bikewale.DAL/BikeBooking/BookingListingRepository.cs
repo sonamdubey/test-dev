@@ -223,7 +223,7 @@ namespace Bikewale.DAL.BikeBooking
 
                             totalCount = lstBikeBookingListingEntity.Count;
                             fetchedCount = lstSearchResult != null ? lstSearchResult.Count() : 0;
-                            pageUrl = GetPrevNextUrl(filter, totalCount);
+                            pageUrl = GetPrevNextUrl(filter, totalCount, fetchedCount);
                         }
                     }
                 }
@@ -293,10 +293,11 @@ namespace Bikewale.DAL.BikeBooking
             return lstOffer;
         }
 
-        private PagingUrl GetPrevNextUrl(BookingListingFilterEntity filterInputs, int totalRecordCount)
+        private PagingUrl GetPrevNextUrl(BookingListingFilterEntity filterInputs, int totalRecordCount, int fetchedCount)
         {
             PagingUrl objPager = null;
             int totalPageCount = 0;
+            int currentPageNo = 0;
             try
             {
                 objPager = new PagingUrl();
@@ -307,18 +308,12 @@ namespace Bikewale.DAL.BikeBooking
                 {
                     string controllerurl = "/api/BikeBookingListing/?";
 
-                    if (filterInputs.PageNo == totalPageCount)
+                    currentPageNo = (filterInputs.PageNo == 0) ? 1 : filterInputs.PageNo;
+                    if (currentPageNo == totalPageCount)
                         objPager.NextPageUrl = string.Empty;
                     else
                     {
-                        if ((totalPageCount >= totalRecordCount))
-                        {
-                            objPager.NextPageUrl = string.Empty;
-                        }
-                        else
-                        {
-                            objPager.NextPageUrl = controllerurl + "pageNo=" + (Convert.ToInt32(filterInputs.PageNo) + 1) + apiUrlStr;
-                        }
+                        objPager.NextPageUrl = controllerurl + "pageNo=" + (Convert.ToInt32(filterInputs.PageNo) + 1) + apiUrlStr;
                     }
 
                     if (filterInputs.PageNo == 1 || filterInputs.PageNo == 0)

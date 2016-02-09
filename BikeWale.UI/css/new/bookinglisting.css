@@ -83,6 +83,7 @@
 
 #offersPopup, #listingLocationPopup { display: none; width: 450px; min-height: 400px; background: #fff; margin: 0 auto; position: fixed; top: 12%; right: 5%; left: 5%; z-index: 10; padding: 30px; }
 .offers-box-icon { width:44px; height:48px; background-position:0 -444px; }
-#offersPopup .offers-list-ul { text-align:left; }
+#offersPopup .offers-list-ul { text-align:left; overflow:hidden; min-height:100px; }
+#offersPopup .btn { padding: 8px 60px }
 #offersPopup ul li { background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png?v=22122015") no-repeat 0 3px; padding-left:20px; width:100%; min-height:auto; padding-bottom:10px; }
 .inner-content-popup { margin:0 auto; width:350px; }
