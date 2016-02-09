@@ -7,6 +7,8 @@
     <title></title>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/css/bwm-booking-landing.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css"/>
+    <script>
+    </script>
 </head>
 <body class="bg-light-grey">
     <form id="form1" runat="server">
@@ -20,11 +22,13 @@
                 <div class="booking-landing-search-container">
                     <div class="booking-search-city form-control-box">
                         <div class="booking-search-city-form"><span>City</span></div>
-                        <asp:DropDownList ID="bookingCitiesList" class="form-control rounded-corner-no-right no-border" runat="server" />
+                        <span class="bwmsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText"></div>
                     </div>
                     <div class="booking-search-area form-control-box">
                         <div class="booking-search-area-form border-solid-left"><span>Area</span></div>
-                        <asp:DropDownList ID="bookingAreasList" class="form-control rounded-corner-no-left no-border" runat="server" />
+                        <span class="bwmsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText"></div>
                     </div>
                     <input type="button" class="btn btn-orange btn-lg font16 booking-landing-search-btn margin-top20" value="Search" />
                 </div>
@@ -33,27 +37,24 @@
 
         <div id="bookingSearchBar" class="bwm-fullscreen-popup">
             <div class="booking-city-slider-wrapper bwm-city-area-box form-control-box text-left">
-                <span class="back-arrow-box">
+                  
+        <div class="user-input-box">
+                 <span class="back-arrow-box">
                     <span class="bwmsprite back-long-arrow-left"></span>
                 </span>
                 <input class="form-control" type="text" id="bookingCityInput" placeholder="Select City" />
-                <ul class="sliderCityList">
-                    <li>City 1</li>
-                    <li>City 2</li>
-                    <li>City 3</li>
-                    <li>City 4</li>
+                   </div>
+                <ul id="sliderCityList" class="sliderCityList margin-top40">
+                   <%= cityListData %>
                 </ul>
             </div>
             <div class="booking-area-slider-wrapper bwm-city-area-box form-control-box text-left">
-                <span class="back-arrow-box">
+                <div class="user-input-box"> <span class="back-arrow-box">
                     <span class="bwmsprite back-long-arrow-left"></span>
                 </span>
                 <input class="form-control" type="text" id="bookingAreaInput" placeholder="Select Area" />
-                <ul class="sliderAreaList">
-                    <li>Area 1</li>
-                    <li>Area 2</li>
-                    <li>Area 3</li>
-                    <li>Area 4</li>
+               </div> <ul id="sliderAreaList" class="sliderAreaList margin-top40">
+                    <%= areaListData %>
                 </ul>
             </div>
         </div>
@@ -215,48 +216,114 @@
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
 
         <script>
-            var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList");
+            var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList"), $liCities = $("#sliderCityList"), $liAreas = $("#sliderAreaList");
             var key = "bCity_";
-            lscache.setBucket('BLPage');
+            lscache.setBucket('BLPage');  
+            var selCityId = '<%= (cityId > 0)?cityId:0%>';
+            var selAreaId = '<%= (areaId > 0)?areaId:0%>';
             $(function () {
 
-                var selCityId = 0;
-                if (!($ddlAreas.find("option")).length > 0)
-                    $ddlAreas.append($('<option>').text(" Please select city first ").attr({ 'value': "0" }));
+                if (($liCities.find("li.activeCity")).length > 0)
+                {
 
-                $ddlCities.change(function () {
-                    selCityId = parseInt($ddlCities.val(), 16);
-                    $ddlAreas.empty();
-                    if (selCityId > 0) {
-                        if (!checkCacheCityAreas(selCityId)) {
-                            $.ajax({
-                                type: "GET",
-                                url: "/api/BBAreaList/?cityId=" + selCityId,
-                                contentType: "application/json",
-                                beforeSend: function () {
+                    $("div.booking-search-city-form span").text($liCities.find("li.activeCity:first").text());
+                    if (($liAreas.find("li.activeArea")).length > 0) {
+                        $("div.booking-search-area-form span").text($liAreas.find("li.activeArea:first").text());
+                    }
+                    else {
+                        $("div.booking-search-area-form span").text("Select Area");
+                    }                   
+                   
+                }
+                else {
 
-                                },
-                                success: function (data) {
-                                    lscache.set(key + selCityId.toString(), data.areas, 30);
-                                    setOptions(data.areas);
-                                },
-                                complete: function (xhr) {
-                                    if (xhr.status == 404 || xhr.status == 204) {
-                                        lscache.set(key + selCityId.toString(), null , 30);
-                                        setOptions(null);
-                                    }
-                                }
-                            });
+                    $("div.booking-search-city-form span").text("Select City");
+                    $("div.booking-search-area-form span").text("Please select city first");
+                    
+                }
+
+
+               
+
+                $("#sliderCityList").on("click", "li", function () {
+                    var _self = $(this),
+                        selectedElement = _self.text();
+                    setSelectedElement(_self, selectedElement);
+                    _self.addClass('activeCity').siblings().removeClass('activeCity');
+                    $("div.booking-search-city-form").find("span").text(selectedElement);
+                    aid = _self.attr("cityId");
+                    selCityId = aid;
+                    $(".user-input-box").animate({ 'left': '100%' }, 500);
+                    getAreas(aid);
+                });
+
+                $("#sliderAreaList").on("click", "li", function () {                     
+                    var _self = $(this),
+                        selectedElement = _self.text();
+                    setSelectedElement(_self, selectedElement);
+                    _self.addClass('activeArea').siblings().removeClass('activeArea');
+                    if (!isNaN(selCityId) && selCityId != "0") {
+                        selAreaId =_self.attr("areaId");
+                    }
+                    $(".user-input-box").animate({ 'left': '100%' }, 500);
+                    $("div.booking-search-area-form").find("span").text(selectedElement);
+
+                });
+
+                $("input[type='button'].booking-landing-search-btn").click(function () {
+                    if (!isNaN(selCityId) && selCityId != "0") {
+                        if (!isNaN(selAreaId) && selAreaId != "0") {
+                            var CookieValue = selCityId + "_" + $liCities.find("li.activeCity").text() + '_' + selAreaId + "_" + $liAreas.find("li.activeArea").text();
+                            SetCookieInDays("location", CookieValue, 365);
+                            window.location.href = "/m/bikebooking/bookinglisting.aspx"
                         }
                         else {
-                            data = lscache.get(key + selCityId.toString());
-                            setOptions(data);
+                            setError($("div.booking-search-area-form"),"Please select area !");
                         }
-
+                    }
+                    else {
+                        setError($("div.booking-search-city-form"), "Please Select City !");
                     }
                 });
 
             });
+
+            function getAreas(cid)
+            {                
+                $liAreas.empty();
+                selAreaId = "0";
+                if (!isNaN(selCityId) && selCityId != "0") {
+                    if (!checkCacheCityAreas(cid)) {
+                        $.ajax({
+                            type: "GET",
+                            url: "/api/BBAreaList/?cityId=" + cid,
+                            contentType: "application/json",
+                            beforeSend: function () {
+                                $("div.booking-search-area-form span").text("Loading areas..");
+                            },
+                            success: function (data) {
+                                lscache.set(key + cid, data.areas, 30);
+                                $("div.booking-search-area-form span").text("Select an area");
+                                setOptions(data.areas);
+                            },
+                            complete: function (xhr) {
+                                if (xhr.status == 404 || xhr.status == 204) {
+                                    $("div.booking-search-area-form span").text("No areas available");
+                                    lscache.set(key + cid, null, 30);
+                                    setOptions(null);
+
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        $("div.booking-search-area-form span").text("Select an area")
+                        data = lscache.get(key + cid);
+                        setOptions(data);
+                    }
+
+                }
+            }
 
             function checkCacheCityAreas(cityId) {
                 bKey = key + cityId;
@@ -267,22 +334,27 @@
             function setOptions(optList) {
                 if (optList != null)
                 {
-                    $ddlAreas.append($('<option>').text(" Select Area ").attr({ 'value': "0" }));
+                   
                     $.each(optList, function (i, value) {
-                        $ddlAreas.append($('<option>').text(value.areaName).attr('value', value.areaId));
+                        $liAreas.append($('<li>').text(value.areaName).attr('areaId', value.areaId));
                     });
                 }
                 else {
-                    $ddlAreas.append($('<option>').text(" No areas available ").attr({ 'value': "0" }));
+                    $("div.booking-search-area-form span").text("No areas available");
                 }
             }
 
+            var setError = function (element, msg) {
+                element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
+                element.siblings("div.errorText").text(msg);
+            };
+
+            var hideError = function (element) {
+                element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
+            };
 
         </script>
-        
-        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
 
-        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript">
             var bookingSearchBar = $("#bookingSearchBar"),
                 searchCityDiv = $(".booking-search-city"),
@@ -293,30 +365,41 @@
                 bookingSearchBar.addClass('open').animate({
                     'left': '0px'
                 }, 500);
+                $(".user-input-box").animate({ 'left': '0px' }, 500);
+                $("#bookingCityInput").focus();
+                hideError(searchCityDiv.find("div.booking-search-city-form"));
+                appendHash("bookingsearch");
             });
             searchAreaDiv.on('click', function () {
-                $('.booking-city-slider-wrapper').hide();
-                $('.booking-area-slider-wrapper').show();
-                bookingSearchBar.addClass('open').animate({
-                    'left': '0px'
-                }, 500);
+                if ($liAreas.find("li").length > 0)
+                {
+                    $('.booking-city-slider-wrapper').hide();
+                    $('.booking-area-slider-wrapper').show();
+                    bookingSearchBar.addClass('open').animate({
+                        'left': '0px'
+                    }, 500);
+                    $(".user-input-box").animate({ 'left': '0px' }, 500);
+                    $("#bookingAreaInput").focus();
+                    hideError(searchAreaDiv.find("div.booking-search-area-form"));
+                    appendHash("bookingsearch");
+                }
+                else {
+                    setError($("div.booking-search-city-form"), "Please Select City!");
+                }
+                
 
             });
             $(".bwm-city-area-box .back-arrow-box").on("click", function () {
                 bookingSearchBar.removeClass("open").animate({ 'left': '100%' }, 500);
+                $(".user-input-box").animate({ 'left': '100%' }, 500);
             });
-            $(".sliderCityList").on("click", "li", function () {
-                var _self = $(this),
-                    selectedElement = _self.text();
-                setSelectedElement(_self, selectedElement)
-                $(".booking-landing-search-container .booking-search-city-form").find("span").text(selectedElement);
-            });
+           
+            function bookingSearchClose() {
+                $(".bwm-city-area-box .back-arrow-box").trigger("click");
+            }
 
-            $(".sliderAreaList").on("click", "li", function () {
-                var _self = $(this),
-                    selectedElement = _self.text();
-                setSelectedElement(_self, selectedElement)
-                $(".booking-landing-search-container .booking-search-area-form").find("span").text(selectedElement);
+            $("#bookingCityInput, #bookingAreaInput").on("keyup", function () {
+                locationFilter($(this));
             });
 
             function setSelectedElement(_self, selectedElement) {
@@ -326,6 +409,11 @@
                 }, 500);
             };
         </script>
+        
+        <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+
+        <!-- #include file="/includes/footerscript_Mobile.aspx" -->
+        
     </form>
 </body>
 </html>

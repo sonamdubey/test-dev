@@ -5,7 +5,8 @@ var $sortDiv = $("#sort-by-div"),
     multiSelect = $('.multiSelect'),
     nobikediv = $('#nobike'),
     loading = $('#loading'),
-    resetButton = $('#btnReset');
+    resetButton = $('#btnReset'),
+    filterName;
 
 var sortEnum = {};
 
@@ -39,7 +40,7 @@ $(document).ready(function () {
 });//-- document ready ends here 
 
 $.selectedValueSortTab = function () {
-    var node=$('#sort-by-div');
+    var node = $('#sort-by-div');
     $.so = $.getFilterFromQS('so');
     $.sc = $.getFilterFromQS('sc');
 
@@ -74,7 +75,7 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
     $.so = '0';
     var newurl = '';
     if ($(this).hasClass('price-sort')) {
-        var sortOrder=$(this).attr('so');
+        var sortOrder = $(this).attr('so');
         var sortedText = $('.price-sort').find('span');
 
         if (sortOrder == undefined || sortOrder == '0')
@@ -103,8 +104,7 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
 
     $.sc = $(this).parent().attr('sc');
 
-    if ($.sc != '1')
-    {
+    if ($.sc != '1') {
         $('.price-sort').find('span').text('');
     }
 
@@ -122,7 +122,7 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
         else
             completeQS += "so=" + $.so + "&sc=" + $.sc;
     }
-    
+
     $.pushStateUrl(completeQS);
     $.lazyLoadingStatus = false;
 });
@@ -154,35 +154,35 @@ function CloseWindow(thiswindow) {
     var popupWindow = thiswindow.attributes.popupname.value;
 
     if (popupWindow == "filterpopup") {
-//        setFilters();
+        //        setFilters();
         $("#back-btn").click();
     }
-   
+
     $('.popup-btn-submit').hide(); // for hiding the button submit when model selection pop up 
     $("#main-container").show();
-   // ucAllMod();
+    // ucAllMod();
 }
 
 var checkedLen, controlWidth, hidaWidth, remainSpace, multiselWidth;
 
-$(window).resize(function(){
-	$('.dropdown').each(function () { 
-  	  var $dropDown = $(this);
-	  controlWidth = $dropDown.find('.form-control').width();
-	  hidaWidth = $dropDown.find('.hida').width();
-	  remainSpace = controlWidth - hidaWidth - 10;
-	  multiselWidth = $dropDown.find('.multiSel').width();
-	  $dropDown.find('.multiSel').css('max-width',remainSpace+'px');
-	});
+$(window).resize(function () {
+    $('.dropdown').each(function () {
+        var $dropDown = $(this);
+        controlWidth = $dropDown.find('.form-control').width();
+        hidaWidth = $dropDown.find('.hida').width();
+        remainSpace = controlWidth - hidaWidth - 10;
+        multiselWidth = $dropDown.find('.multiSel').width();
+        $dropDown.find('.multiSel').css('max-width', remainSpace + 'px');
+    });
 });
 
 $window.scroll(function () {
     //if ($sortDiv.is(':visible')) {
-        if ($(window).scrollTop() > 50) {
-            $('#sort-by-div,header').addClass('fixed');
-        } else {
-            $('#sort-by-div,header').removeClass('fixed');
-        }
+    if ($(window).scrollTop() > 50) {
+        $('#sort-by-div,header').addClass('fixed');
+    } else {
+        $('#sort-by-div,header').removeClass('fixed');
+    }
     //}
 
     var winScroll = $window.scrollTop(),
@@ -202,72 +202,72 @@ $window.scroll(function () {
 });
 
 $(".dropdown .form-control").on('click', function () {
-	  var $ul = $(this).parent().find('ul');
-	  $(".dropdown ul").slideUp('fast');
-	  if($ul.is(':visible')){
-	  	$ul.slideUp('fast');
-	  }
-	  else{
-	  	$ul.slideDown('fast');
-	  }
-  });
+    var $ul = $(this).parent().find('ul');
+    $(".dropdown ul").slideUp('fast');
+    if ($ul.is(':visible')) {
+        $ul.slideUp('fast');
+    }
+    else {
+        $ul.slideDown('fast');
+    }
+});
 
-  $(document).bind('click', function (e) {
-	  var $clicked = $(e.target);
-	  if (!$clicked.parents().hasClass("dropdown")) $(".dropdown ul").hide();
-  });
+$(document).bind('click', function (e) {
+    var $clicked = $(e.target);
+    if (!$clicked.parents().hasClass("dropdown")) $(".dropdown ul").hide();
+});
 
-  CheckBoxFilter.on('click', function () {
-  	  var $dropDown = $(this).closest('.dropdown');
-	  $(this).toggleClass('checked');
-	  var title = $(this).closest('.multiSelect').find('span').text(),
-		  title = $.trim($(this).text()) + ",";
+CheckBoxFilter.on('click', function () {
+    var $dropDown = $(this).closest('.dropdown');
+    $(this).toggleClass('checked');
+    var title = $(this).closest('.multiSelect').find('span').text(),
+        title = $.trim($(this).text()) + ",";
 
-	  checkedLen = $dropDown.find('.multiSelect .unchecked.checked').length;
-	  controlWidth = $dropDown.find('.form-control').width();
-	  hidaWidth = $dropDown.find('.hida').width();
-	  remainSpace = controlWidth - hidaWidth - 10;
-	  multiselWidth;
-	  
-	  if ($(this).hasClass('checked')) {
-		  var html = '<span data-title="' + title + '">' + title + '</span>';
-		  
-		  $dropDown.find('.multiSel').append(html);
-		  $dropDown.find(".hida").addClass('hide');
-	  	  multiselWidth = $dropDown.find('.multiSel').width();
-		 if( checkedLen > 1 && multiselWidth > remainSpace ){
-			$dropDown.find('.multiSel').css('max+-width',remainSpace+'px');
-		 }
-	  } 
-	  else {
-		  $dropDown.find('span[data-title="' + title + '"]').remove();
-		  if(checkedLen < 1){
-		  	$dropDown.find(".hida").removeClass('hide');
-		  }
-		  multiselWidth = $dropDown.find('.multiSel').width();
-		  if(multiselWidth < remainSpace){
-			$dropDown.find('.multiSel').css('max-width','none');
-		  }
-	  }
-  });
-  
-  /* Mileage */
-  mileage.click(function(){
-	  $(this).toggleClass('optionSelected');
-  });
-  
-  $('.checkOption').click(function(){
-	  $(this).siblings().removeClass('optionSelected');
-	  $(this).toggleClass('optionSelected');
-  });
+    checkedLen = $dropDown.find('.multiSelect .unchecked.checked').length;
+    controlWidth = $dropDown.find('.form-control').width();
+    hidaWidth = $dropDown.find('.hida').width();
+    remainSpace = controlWidth - hidaWidth - 10;
+    multiselWidth;
 
-  $.scrollToTop = function () {
-      $('body,html').animate({
-          scrollTop: 0
-      }, 800);
-  };
-  
-  //back button function
+    if ($(this).hasClass('checked')) {
+        var html = '<span data-title="' + title + '">' + title + '</span>';
+
+        $dropDown.find('.multiSel').append(html);
+        $dropDown.find(".hida").addClass('hide');
+        multiselWidth = $dropDown.find('.multiSel').width();
+        if (checkedLen > 1 && multiselWidth > remainSpace) {
+            $dropDown.find('.multiSel').css('max+-width', remainSpace + 'px');
+        }
+    }
+    else {
+        $dropDown.find('span[data-title="' + title + '"]').remove();
+        if (checkedLen < 1) {
+            $dropDown.find(".hida").removeClass('hide');
+        }
+        multiselWidth = $dropDown.find('.multiSel').width();
+        if (multiselWidth < remainSpace) {
+            $dropDown.find('.multiSel').css('max-width', 'none');
+        }
+    }
+});
+
+/* Mileage */
+mileage.click(function () {
+    $(this).toggleClass('optionSelected');
+});
+
+$('.checkOption').click(function () {
+    $(this).siblings().removeClass('optionSelected');
+    $(this).toggleClass('optionSelected');
+});
+
+$.scrollToTop = function () {
+    $('body,html').animate({
+        scrollTop: 0
+    }, 800);
+};
+
+//back button function
 $(function () {
     var backFlag;
     var hash = location.hash.substring(1);
@@ -318,9 +318,10 @@ var AppendCertificationStar = function (abStars) {
 }
 
 $.hitAPI = function (searchUrl) {
+    var bookingSearchURL = '/api/BikeBookingListing/?pageSize=6&' + searchUrl + '&cityId=' + selectedCityId + '&areaId=' + selectedAreaId;
     $.ajax({
         type: 'GET',
-        url: '/api/NewBikeSearch/?' + searchUrl,
+        url: bookingSearchURL,
         dataType: 'json',
         success: function (response) {
             nobikediv.hide();
@@ -353,6 +354,40 @@ $.hitAPI = function (searchUrl) {
     });
 };
 
+$.getSelectedQSFilterText = function () {
+    var params = $.getAllParamsFromQS();
+    count = 0;
+    $('.bw-tabs').find('li').each(function () {
+        $(this).removeClass('active');
+    });
+    $('.filter-select-title .default-text').each(function () {
+        $(this).text($(this).prev().text());
+    });
+
+    for (var i = 0; i < params.length; i++) {
+        if (params[i].length > 0) {
+            var node = $('div[name=' + params[i] + ']');
+            if (params[i] != 'pageno' && params[i] != 'so' && params[i] != 'sc' && params[i] != 'budget') {
+                var values = $.getFilterFromQS(params[i]).replace(/ /g, '+').split('+'),
+                    selText = '';
+
+                for (var j = 0; j < values.length; j++) {
+                    node.find('li[filterid=' + values[j] + ']').addClass('active');
+                    selText += node.find('li[filterid=' + values[j] + ']').text() + ', ';
+                }
+                count++;
+                node.find('ul').parent().prev(".filter-div").find('.filter-select-title .default-text').text(selText.substring(0, selText.length - 2));
+            } else if (params[i] == 'budget') {
+                var values = $.getFilterFromQS(params[i]).split('-');
+                $.setMaxAmount(values[1]);
+                $.setMinAmount(values[0]);
+                count++;
+            }
+        }
+    }
+    $('.filter-counter').text(count);
+};
+
 $.getQSFromUrl = function () {
     var url = location.href.split('?')[1];
     if (url != undefined && url.length > 0)
@@ -370,14 +405,14 @@ $.bindSearchResult = function (json) {
 
     ko.cleanNode(element);
 
-    if (json.searchResult.length > 0)
+    if (json.bikes.length > 0)
         ko.applyBindings(new SearchViewModel(json), element);
     else
         $('#NoBikeResults').show();
 };
 
 $.bindLazyListings = function (searchResult) {
-    var koHtml = '<div id="divSearchResult' + $.pageNo + '" class="SRko" data-bind="template: { name: \'listingTemp\', foreach: searchResult }">'
+    var koHtml = '<div id="divSearchResult' + $.pageNo + '" class="SRko" data-bind="template: { name: \'listingTemp\', foreach: bikes }">'
                + '</div>';
     if (($.pageNo - 1) > 1)
         $('#divSearchResult' + ($.pageNo - 1)).after(koHtml);
@@ -403,7 +438,7 @@ $.getNextPageData = function () {
 $.getFilterFromQS = function (name) {
     var hash = location.href.split('?')[1];
     var result = {};
-    var propval, filterName, value;
+    var propval, value;
     var isFound = false;
     if (hash != undefined) {
         var params = hash.split('&');
@@ -459,7 +494,7 @@ $.removeFilterFromQS = function (name) {
         for (var i = pars.length; i-- > 0;) {
             //if (pars[i].indexOf(prefix) > -1) {
             //if ((/=/).test(pars[i])) {
-            if((new RegExp(prefix, 'gi')).test(pars[i])){
+            if ((new RegExp(prefix, 'gi')).test(pars[i])) {
                 pars.splice(i, 1);
             }
         }
@@ -522,15 +557,14 @@ $.fn.applyFilterOnButtonClick = function () {
         $.removePageNoParam();
         $.removeKnockouts();
         $.scrollToTop();
-        var completeQS='';
+        var completeQS = '';
         var completeQSArr = new Array();
         completeQSArr.push($.applyToggelFilter());
         completeQSArr.push($.applyMileageFilter());
         completeQSArr.push($.applyCheckBoxFilter());
         completeQSArr.push($.applySliderFilter($('#mSlider-range'), $('#mSlider-range').attr('name')));
 
-        for(var i=0;i<completeQSArr.length;i++)
-        {
+        for (var i = 0; i < completeQSArr.length; i++) {
             if (completeQSArr[i].length > 1)
                 completeQS += completeQSArr[i] + '&';
         }
@@ -584,9 +618,8 @@ $("#mSlider-range").slider({
 
         if (ui.values[0] == 0 && ui.values[1] == 20) {
             $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span> 0 -' + ' ' + '<span class="bw-m-sprite rupee"></span> Any value');
-        }else 
-        {
-            $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span>' + ' ' + budgetminValue +  ' ' + '-' + ' ' + '<span class="bw-m-sprite rupee"></span>' + ' ' + budgetmaxValue);
+        } else {
+            $("#rangeAmount").html('<span class="bw-m-sprite rupee"></span>' + ' ' + budgetminValue + ' ' + '-' + ' ' + '<span class="bw-m-sprite rupee"></span>' + ' ' + budgetmaxValue);
         }
     }
 });
@@ -653,21 +686,19 @@ $.applyCheckBoxFilter = function () {
             value = '';
 
         curCheckboxList.find('ul li').each(function () {
-            if ($(this).hasClass(selected))
-            {
+            if ($(this).hasClass(selected)) {
                 var filterId = $(this).attr('filterid');
                 value += filterId + '+';
             }
         });
         if (value.length > 1) {
             value = value.substring(0, value.length - 1);
-            tempQS = $.AddToQS( name, value);
+            tempQS = $.AddToQS(name, value);
             tempArray.push(tempQS);
         }
     });
 
-    if (tempArray.length > 0)
-    {
+    if (tempArray.length > 0) {
         for (var i = 0; i < tempArray.length; i++)
             completeQS += tempArray[i] + '&';
     }
@@ -676,7 +707,7 @@ $.applyCheckBoxFilter = function () {
     return completeQS;
 };
 
-$.applySliderFilter = function (element,name) {
+$.applySliderFilter = function (element, name) {
     var minValue = $.getRealValue(element.slider('values', 0)) == '30000' ? 0 : $.getRealValue(element.slider('values', 0)),
         maxValue = $.getRealValue(element.slider('values', 1)),
         completeQS = '';
@@ -698,8 +729,7 @@ $.findNearest = function (includeLeft, includeRight, value) {
     return nearest;
 }
 
-$.getSliderValue=function(budgetValue)
-{
+$.getSliderValue = function (budgetValue) {
     for (var i = 0; i < trueValues.length; i++)
         if (trueValues[i] == budgetValue)
             return values[i];
@@ -767,7 +797,7 @@ $.selectFiltersPresentInQS = function () {
             var node = $('div[name=' + params[i] + ']');
             if (params[i] == 'bike' || params[i] == 'displacement' || params[i] == 'ridestyle') {
                 var values = $.getFilterFromQS(params[i]).replace(/ /g, '+').split('+');
-                var html='';
+                var html = '';
                 for (var j = 0; j < values.length; j++) {
                     node.find('li[filterid=' + values[j] + ']').addClass('checked');
                     var title = node.find('li[filterid=' + values[j] + ']').text() + ',';
@@ -805,8 +835,7 @@ $.selectFiltersPresentInQS = function () {
                 for (var j = 0; j < values.length; j++) {
                     node.find('span[filterid=' + values[j] + ']').addClass('optionSelected');
                 }
-            }else if(params[i]=='sc')
-            {
+            } else if (params[i] == 'sc') {
                 $.sc = $.getFilterFromQS('sc');
                 $.so = $.getFilterFromQS('so');
             }
@@ -824,8 +853,7 @@ $.valueFormatter = function (num) {
     return num;
 }
 
-$.pushGACode = function (qs,noOfRecords)
-{
+$.pushGACode = function (qs, noOfRecords) {
     var params = $.getAllParamsFromQS();
     for (var i = 0; i < params.length; i++) {
         if (params[i].length > 0) {
@@ -834,7 +862,7 @@ $.pushGACode = function (qs,noOfRecords)
             } else if (params[i] == "sc") {
                 var sc = $.getFilterFromQS('sc'), so = $.getFilterFromQS('so');
 
-                var filterName = "";
+                filterName = "";
                 switch (sc) {
                     case '0':
                         filterName = "Popular";
@@ -846,7 +874,7 @@ $.pushGACode = function (qs,noOfRecords)
                         filterName = 'Mileage :High to Low';
                         break;
                 }
-                $.pushGTACode(noOfRecords,filterName);
+                $.pushGTACode(noOfRecords, filterName);
             } else if (params[i] == "budget") {
                 var budget = $.getFilterFromQS('budget').split('-');
                 if (!(budget[0] == '0' && budget[1] == '6000000'))
@@ -861,7 +889,7 @@ $.pushGTACode = function (noOfRecords, filterName) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_' + noOfRecords, 'lab': filterName });
 };
 
-$.ModelClickGaTrack = function (modelName,modelUrl) {
+$.ModelClickGaTrack = function (modelName, modelUrl) {
     dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelName });
     location.href = modelUrl;
 };
@@ -962,17 +990,13 @@ $(".change-city-area-target").on("click", function () {
 });
 
 $(".location-popup-close-btn").on("click", function () {
-    listingLocationPopupClose();
+    listingLocationPopup.hide();
 });
 
 var listingLocationPopup = $("#listingLocationPopup");
 
 var listingLocationPopupOpen = function () {
     listingLocationPopup.show();
-};
-
-var listingLocationPopupClose = function () {
-    listingLocationPopup.hide();
 };
 
 /* city area listing popup */
@@ -1020,15 +1044,22 @@ var locationFilter = function (filterContent) {
 $("#listingPopupCityInput, #listingPopupAreaInput").on("keyup", function () {
     locationFilter($(this));
 });
+var listingLocationPopupClose = function () {
+    listingLocationPopup.hide();
+};
 
 $("#listingPopupCityList").on("click", "li", function () {
     var userselection = getSelectedLocationLI($(this));
     $("#listingCitySelection .selected-city").text(userselection);
+    $("#listingAreaSelection .selected-area").text("Select Area");
+    $("#listingAreaSelection").empty();
+    onChangeCity($(this));
 });
 
 $("#listingPopupAreaList").on("click", "li", function () {
     var userselection = getSelectedLocationLI($(this));
     $("#listingAreaSelection .selected-area").text(userselection);
+    selectedAreaId = $(this).attr('value');
 });
 
 var getSelectedLocationLI = function (selection) {
@@ -1040,5 +1071,115 @@ var getSelectedLocationLI = function (selection) {
 };
 
 $("#btnBookingListingPopup").on("click", function () {
+    var areaName = $('#listingAreaSelection .selected-area'),
+        cityName = $('#listingCitySelection .selected-city');
+    if (cityName.text().trim() == "Select City" )
+    {
+        if (areaName.text().trim() == "Select Area")
+        {
+            areaName.text("Select Area");
+        }
+        return;
+    }
+
     listingLocationPopupClose();
+    $.hitAPI("");
+    $('#Userlocation').text( cityName.text().trim() + ', ' + areaName.text().trim());
+
 });
+
+ko.bindingHandlers.CurrencyText = {
+    update: function (element, valueAccessor) {
+        var amount = valueAccessor();
+        var formattedAmount = ko.unwrap(amount) !== null ? formatPrice(amount) : 0;
+        $(element).text(formattedAmount);
+    }
+};
+
+function formatPrice(price) {
+    price = price.toString();
+    var lastThree = price.substring(price.length - 3);
+    var otherNumbers = price.substring(0, price.length - 3);
+    if (otherNumbers != '')
+        lastThree = ',' + lastThree;
+    var price = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return price;
+}
+
+function registerPQ(myData) {
+    var obj = {
+        'CityId': selectedCityId,
+        'AreaId': selectedAreaId,
+        'ModelId': myData.modelEntity.modelId(),
+        'ClientIP': clientIP,
+        'SourceType': '1',
+        'VersionId': myData.versionEntity.versionId(),
+        'pQLeadId': pqSourceId,
+        'deviceId': getCookie('BWC'),
+        'dealerId': myData.dealerId()
+    };
+    $.ajax({
+        type: 'POST',
+        url: "/api/RegisterPQ/",
+        data: obj,
+        dataType: 'json',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader('utma', getCookie('__utma'));
+            xhr.setRequestHeader('utmz', getCookie('__utmz'));
+        },
+        success: function (json) {
+            var jsonObj = json;
+            cookieValue = "CityId=" + selectedCityId + "&AreaId=" + selectedAreaId + "&PQId=" + jsonObj.quoteId + "&VersionId=" + myData.versionEntity.versionId() + "&DealerId=" + myData.dealerId();
+            //SetCookie("_MPQ", cookieValue);
+            if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
+                // gtmCodeAppenderWidget(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                window.location = "/m/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(cookieValue);
+            }
+            else {
+                // gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+                //$("#errMsgOnRoad").text("Oops. We do not seem to have pricing for given details.").show();
+            }
+        },
+        error: function (e) {
+            alert('oops !')
+            //gtmCodeAppenderWidget(pageId, 'BW_PriceQuote_Error_Submit', gaLabel);
+            // $("#errMsg").text("Oops. Some error occured. Please try again.").show();
+        }
+    });
+}
+
+function onChangeCity(objCity) {
+    selectedCityId = parseInt(objCity.attr('cityId'), 16);
+    $('#listingPopupAreaList').empty();
+    if (selectedCityId > 0) {
+        if (!checkCacheCityAreas(selectedCityId)) {
+            $('#listingAreaSelection .selected-area').text('Loading Areas ....');
+            $.ajax({
+                type: "GET",
+                url: "/api/BBAreaList/?cityId=" + selectedCityId,
+                contentType: "application/json",
+                beforeSend: function () {
+
+                },
+                success: function (data) {
+                    lscache.set(key + selectedCityId.toString(), data.areas, 30);
+                    setOptions(data.areas);
+                    $('#listingAreaSelection .selected-area').text('Select Area');
+                },
+                complete: function (xhr) {
+                    if (xhr.status == 404 || xhr.status == 204) {
+                        lscache.set(key + selectedCityId.toString(), null, 30);
+                        setOptions(null);
+                    }
+                }
+            });
+        }
+        else {
+            data = lscache.get(key + selectedCityId.toString());
+            setOptions(data);
+        }
+
+    }
+
+}
+

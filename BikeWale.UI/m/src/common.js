@@ -1209,6 +1209,8 @@ var appendHash = function (state) {
         case "dpqPopup":
             window.location.hash = state;
             break;
+        case "bookingsearch":
+            window.location.hash = state;
         default:
             return true;
     }
@@ -1234,6 +1236,8 @@ var closePopUp = function (state) {
         case "dpqPopup":
             dpqLeadCaptureClosePopup();
             break;
+        case "bookingsearch":
+            bookingSearchClose();
         default:
             return true;
     }
