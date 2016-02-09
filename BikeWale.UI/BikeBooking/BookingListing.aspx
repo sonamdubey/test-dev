@@ -17,6 +17,7 @@
 <body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
+        <script type="text/javascript">document.getElementById("header").children[1].innerHTML = "";</script>
         <section class="bg-light-grey padding-top10">
             <div class="container">
                 <div class="grid-12">

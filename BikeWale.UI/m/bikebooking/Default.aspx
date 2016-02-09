@@ -223,20 +223,27 @@
             var selAreaId = '<%= (areaId > 0)?areaId:0%>';
             $(function () {
 
-                if (!$liCities.find("li.activeCity"))
+                if (($liCities.find("li.activeCity")).length > 0)
                 {
-                    $("div.booking-search-city-form span").text("Select City");
+
+                    $("div.booking-search-city-form span").text($liCities.find("li.activeCity:first").text());
+                    if (($liAreas.find("li.activeArea")).length > 0) {
+                        $("div.booking-search-area-form span").text($liAreas.find("li.activeArea:first").text());
+                    }
+                    else {
+                        $("div.booking-search-area-form span").text("Select Area");
+                    }                   
+                   
                 }
                 else {
 
-                    if (!$liCities.find("li.activeArea")) {
-                        $("div.booking-search-area-form span").text("Select Area");
-                    }
+                    $("div.booking-search-city-form span").text("Select City");
+                    $("div.booking-search-area-form span").text("Please select city first");
+                    
                 }
 
 
-                $("div.booking-search-city-form span").text($liCities.find("li.activeCity:first").text());
-                $("div.booking-search-area-form span").text($liAreas.find("li.activeArea:first").text());
+               
 
                 $("#sliderCityList").on("click", "li", function () {
                     var _self = $(this),
@@ -364,7 +371,7 @@
                 appendHash("bookingsearch");
             });
             searchAreaDiv.on('click', function () {
-                if ($liCities.find("li").length > 0)
+                if ($liAreas.find("li").length > 0)
                 {
                     $('.booking-city-slider-wrapper').hide();
                     $('.booking-area-slider-wrapper').show();
@@ -377,7 +384,7 @@
                     appendHash("bookingsearch");
                 }
                 else {
-                    alert("Please select city first")
+                    setError($("div.booking-search-city-form"), "Please Select City!");
                 }
                 
 
