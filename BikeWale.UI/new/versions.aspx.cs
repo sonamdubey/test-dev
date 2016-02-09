@@ -274,6 +274,10 @@ namespace Bikewale.New
             ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
             ToggleOfferDiv();
+            if (!IsPostBack && urlVersionId!=0)
+            {
+                FetchVariantDetails(urlVersionId);
+            }
             Trace.Warn("Trace 20 : Page Load ends");
             // Clear trailing query string -- added on 09-feb-2016 by Sangram
             PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
