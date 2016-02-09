@@ -492,7 +492,10 @@ namespace Bikewale.Mobile.New
                                 if (firstVer != null)
                                     defaultVariant.Text = firstVer.VersionName;
 
-                                hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
+                                if (urlVersionId == 0)
+                                    hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
+                                else
+                                    hdnVariant.Value = Convert.ToString(urlVersionId);
                             }
                             else if (modelPage.ModelVersions.Count > 1)
                             {
