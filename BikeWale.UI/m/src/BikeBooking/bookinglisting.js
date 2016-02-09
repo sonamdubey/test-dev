@@ -328,7 +328,7 @@ $.hitAPI = function (searchUrl) {
             $.totalCount = response.totalCount;
             $.pageNo = response.curPageNo;
             $.nextPageUrl = response.pageUrl.nextUrl;
-            $('#bikecount').text($.totalCount + ' Bikes');
+            $('#bikecount').text(($.totalCount > 1) ? $.totalCount + ' Bikes' : $.totalCount + ' Bike');
             if (!isNaN($.pageNo) && $.pageNo == 1) {
                 $.bindSearchResult(response);
             }
