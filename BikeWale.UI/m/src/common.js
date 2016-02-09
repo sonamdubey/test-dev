@@ -2,7 +2,6 @@ var focusedMakeModel = null, focusedCity = null;
 var objBikes = new Object();
 var objCity = new Object();
 var globalCityId = 0;
-var ga_pg_id = '0';
 var _makeName = '';
 var pqSourceId = "38";
 var IsPriceQuoteLinkClicked = false;
@@ -101,7 +100,7 @@ $(document).ready(function () {
         }
     } catch (e) { }
 
-    if (ga_pg_id != '1')
+    if (ga_pg_id != '1' && ga_pg_id != '5')
         $("#global-search").show();
 
     $(".lazy").lazyload({
@@ -1211,6 +1210,8 @@ var appendHash = function (state) {
             break;
         case "bookingsearch":
             window.location.hash = state;
+        case "listingPopup":
+            window.location.hash = state;
         default:
             return true;
     }
@@ -1238,6 +1239,8 @@ var closePopUp = function (state) {
             break;
         case "bookingsearch":
             bookingSearchClose();
+        case "listingPopup":
+            listingLocationPopupClose();
         default:
             return true;
     }
