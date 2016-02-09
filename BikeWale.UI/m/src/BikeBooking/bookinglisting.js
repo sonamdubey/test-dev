@@ -1083,7 +1083,7 @@ $("#listingPopupCityList").on("click", "li", function () {
 $("#listingPopupAreaList").on("click", "li", function () {
     var userselection = getSelectedLocationLI($(this));
     $("#listingAreaSelection").text(userselection.trim());
-    selectedAreaId = $(this).attr('value');
+    selectedAreaId = $(this).attr('areaid');
     console.log(selectedAreaId);
 });
 
@@ -1102,12 +1102,19 @@ $("#btnBookingListingPopup").on("click", function () {
         return;
     }
     if (areaName.text().trim() == "Select Area") {
+        setError($('#listingAreaSelection'), "Please select area !");
         return;
     }
-    listingLocationPopupClose();
-    $.hitAPI("");
-    $('#Userlocation').text(cityName.text().trim() + ', ' + areaName.text().trim());
+    else {
+        hideError(areaName);
+    }
 
+    listingLocationPopupClose();
+    var CookieValue = selectedCityId + "_" +cityName.text() + '_' + selectedAreaId + "_" +areaName.text();
+    SetCookieInDays("location", CookieValue, 365);
+    window.location.href = "/m/bikebooking/bookinglisting.aspx";
+    //    $('#Userlocation').text(cityName.text().trim() + ', ' + areaName.text().trim());
+    //$.hitAPI("");
 });
 
 ko.bindingHandlers.CurrencyText = {
@@ -1170,7 +1177,7 @@ function registerPQ(myData) {
 }
 
 function onChangeCity(objCity) {
-    selectedCityId = parseInt(objCity.attr('cityId'), 16);
+    selectedCityId = parseInt(objCity.attr('cityid'), 16);
     $('#listingPopupAreaList').empty();
     if (selectedCityId > 0) {
         if (!checkCacheCityAreas(selectedCityId)) {
@@ -1204,3 +1211,11 @@ function onChangeCity(objCity) {
 
 }
 
+var setError = function (element, msg) {
+    element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
+    element.siblings("div.errorText").text(msg);
+};
+
+var hideError = function (element) {
+    element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
+};
