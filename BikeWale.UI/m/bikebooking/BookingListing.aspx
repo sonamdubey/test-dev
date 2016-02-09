@@ -4,13 +4,10 @@
 <html>
     <head>
         <%
-            title = "New Bikes, Used Bikes, Bike Prices, Reviews & Photos in India";
-            keywords = "new bikes, used bikes, buy used bikes, sell your bike, bikes prices, reviews, photos, news, compare bikes, Instant Bike On-Road Price";
-            description = "BikeWale - India's favourite bike portal. Find new and used bikes, buy or sell your bikes, compare new bikes prices & values.";
-            canonical = "http://www.bikewale.com";
-            AdPath = "/1017752/Bikewale_Mobile_Homepage";
-            AdId = "1398766000399";
-         %>
+            title = "Book Bikes, Scooters in India and Avail Great Benefits - BikeWale";
+            keywords = "book bikes, book scooters, buy bikes, buy scooters, bikes prices, avail offers, avail discounts, instant bike on-road price";
+            description = "BikeWale - India's favourite bike portal. Book your bikes, scooters and avail exciting offers and benefits exclusively on BikeWale.";
+           %>
         <!-- #include file="/includes/headscript_mobile.aspx" -->
         <script>ga_pg_id = '5';</script>
     </head>
@@ -72,7 +69,7 @@
                                 	Price<span class="hide" so="0" class="sort-text"></span>
                                 </a>
                             </div>
-                            <div sc="" class="border-solid-left">
+                            <div sc="3" class="border-solid-left">
                                 <a data-title="sort" class="position-rel">
                                 	Popularity 
                                 </a>
@@ -114,13 +111,12 @@
                                             <span class="bwmsprite back-long-arrow-left"></span>
                                         </span>
                                         <input class="form-control" type="text" id="listingPopupCityInput" placeholder="Select City" />
+                                        
                                     </div>
                                     <ul id="listingPopupCityList" class="margin-top40" >
                                         <asp:Repeater ID="rptCities" runat="server">
                                             <ItemTemplate>
-                                                <li cityId="<%# DataBinder.Eval(Container.DataItem, "CityId") %>" >
-                                                    <%# DataBinder.Eval(Container.DataItem, "CityName") %>
-                                                </li>
+                                                <li cityId="<%# DataBinder.Eval(Container.DataItem, "CityId") %>" ><%# DataBinder.Eval(Container.DataItem, "CityName")%></li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
@@ -136,9 +132,7 @@
                                     <ul id="listingPopupAreaList" class="margin-top40">
                                         <asp:Repeater ID="rptAreas" runat="server">
                                             <ItemTemplate>
-                                                <li areaId="<%# DataBinder.Eval(Container.DataItem, "AreaId") %>">
-                                                    <%# DataBinder.Eval(Container.DataItem, "AreaName") %>
-                                                </li>
+                                                <li areaId="<%# DataBinder.Eval(Container.DataItem, "AreaId") %>"><%# DataBinder.Eval(Container.DataItem, "AreaName")%></li>
                                             </ItemTemplate>
                                         </asp:Repeater>
                                     </ul>
@@ -168,7 +162,7 @@
                                     <div class="imageWrapper margin-top10">
                                         
                                         <div data-bind="visible : offers().length > 0"  class="offers-tag-wrapper position-abt">
-                                            <span><span data-bind="text : offers().length"></span> offers available</span>
+                                            <span><span data-bind="text : offers().length==1?offers().length + ' offer':offers().length + ' offers'"></span></span>
                                             <span class="offers-left-tag"></span>
                                         </div>
                                         <a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/'+ versionEntity.versionId() + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
@@ -195,7 +189,7 @@
                                             <span class="font20" data-bind="CurrencyText: discountedPrice()"></span>
                                         </div>
                                         <div class="font14 margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
-                                            <span class="text-default margin-right5" data-bind="text: offers().length + ' offers available'"></span>
+                                            <span class="text-default margin-right5" data-bind="text: offers().length==1?offers().length + ' offer available':offers().length + ' offers available'"></span>
                                             <span class="text-link view-offers-target">view offers</span>
                                         </div>
                                         <div id="offersPopup" class="bwm-fullscreen-popup text-center">
@@ -428,7 +422,7 @@
                 if (optList != null) {
                     $("#listingPopupAreaList").append($('<li>').text(" Select Area ").attr({ 'cityId': "0" }));
                     $.each(optList, function (i, value) {
-                        $("#listingPopupAreaList").append($('<li>').text(value.areaName).attr('value', value.areaId));
+                        $("#listingPopupAreaList").append($('<li>').text(value.areaName.toString().trim()).attr('value', value.areaId));
                     });
                 }
 

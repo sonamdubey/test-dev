@@ -180,7 +180,10 @@ namespace Bikewale.Mobile.New
             if (modelPage != null && modelPage.ModelDetails != null)
                 bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
             ToggleOfferDiv();
-
+            if (!IsPostBack && urlVersionId != 0)
+            {
+                FetchVariantDetails(urlVersionId);
+            }
             // Clear trailing query string -- added on 09-feb-2016 by Sangram
             PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
             isreadonly.SetValue(this.Request.QueryString, false, null);
