@@ -386,7 +386,7 @@
                                                 <span class="text-link view-offers-target">view offers</span>
                                                 </div>
                                                 
-                                                <p>Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee"></span><span data-bind="text: bookingAmount"></span></span></p>
+                                                <p>Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee margin-right5"></span><span data-bind="text: bookingAmount"></span></span></p>
                                                 </div>
                                                 <input type="button" class="book-now btn btn-grey-orange btn-full-width margin-top15" value="Book Now" data-bind="click: function () { registerPQ($data); }" />
                                             </div>

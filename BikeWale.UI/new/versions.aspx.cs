@@ -66,6 +66,7 @@ namespace Bikewale.New
         protected DropDownList ddlVariant;
         protected string variantText = string.Empty;
         protected uint bookingAmt = 0;
+        protected int urlVersionId = 0;
         protected int grid1_size = 9;
         protected int grid2_size = 3;
         protected string cssOffers = "noOffers";
@@ -205,6 +206,11 @@ namespace Bikewale.New
             //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue) && ddlVariant.SelectedValue != "0")
             if (hdnVariant.Value != "0")
                 variantId = Convert.ToInt32(hdnVariant.Value);
+            if (!IsPostBack)
+            {
+                Trace.Warn("Trace 6.1 : urlVersionId set using url");
+                variantId = urlVersionId;
+            }
             #endregion
 
             Trace.Warn("Trace 7 : FetchModelPageDetails Start");
@@ -269,6 +275,10 @@ namespace Bikewale.New
 
             ToggleOfferDiv();
             Trace.Warn("Trace 20 : Page Load ends");
+            // Clear trailing query string -- added on 09-feb-2016 by Sangram
+            PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
+            isreadonly.SetValue(this.Request.QueryString, false, null);
+            this.Request.QueryString.Clear();
         }
 
         /// <summary>
@@ -444,6 +454,11 @@ namespace Bikewale.New
         {
             ModelMaskingResponse objResponse = null;
             string modelQuerystring = Request.QueryString["model"];
+            string VersionIdStr = Request.QueryString["vid"];
+            if (!string.IsNullOrEmpty(VersionIdStr))
+            {
+                Int32.TryParse(VersionIdStr, out urlVersionId);
+            }
             Trace.Warn("modelQuerystring 1 : ", modelQuerystring);
             try
             {
@@ -486,7 +501,7 @@ namespace Bikewale.New
                     {
                         Trace.Warn(" objResponse.StatusCode : ", objResponse.StatusCode.ToString());
                         Trace.Warn(" objResponse.ModelId : ", objResponse.ModelId.ToString());
-                        Trace.Warn(" objResponse.MaskingName : ", objResponse.MaskingName.ToString());
+                        //Trace.Warn(" objResponse.MaskingName : ", objResponse.MaskingName.ToString());
                         if (objResponse.StatusCode == 200)
                         {
                             modelId = objResponse.ModelId.ToString();
