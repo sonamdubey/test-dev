@@ -22,11 +22,13 @@
                 <div class="booking-landing-search-container">
                     <div class="booking-search-city form-control-box">
                         <div class="booking-search-city-form"><span>City</span></div>
-                       
+                        <span class="bwmsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText"></div>
                     </div>
                     <div class="booking-search-area form-control-box">
                         <div class="booking-search-area-form border-solid-left"><span>Area</span></div>
-                       
+                        <span class="bwmsprite error-icon errorIcon"></span>
+                        <div class="bw-blackbg-tooltip errorText"></div>
                     </div>
                     <input type="button" class="btn btn-orange btn-lg font16 booking-landing-search-btn margin-top20" value="Search" />
                 </div>
@@ -42,7 +44,7 @@
                 </span>
                 <input class="form-control" type="text" id="bookingCityInput" placeholder="Select City" />
                    </div>
-                <ul id="sliderCityList" class="sliderCityList">
+                <ul id="sliderCityList" class="sliderCityList margin-top40">
                    <%= cityListData %>
                 </ul>
             </div>
@@ -51,7 +53,7 @@
                     <span class="bwmsprite back-long-arrow-left"></span>
                 </span>
                 <input class="form-control" type="text" id="bookingAreaInput" placeholder="Select Area" />
-               </div> <ul id="sliderAreaList" class="sliderAreaList">
+               </div> <ul id="sliderAreaList" class="sliderAreaList margin-top40">
                     <%= areaListData %>
                 </ul>
             </div>
@@ -244,6 +246,7 @@
                     $("div.booking-search-city-form").find("span").text(selectedElement);
                     aid = _self.attr("cityId");
                     selCityId = aid;
+                    $(".user-input-box").animate({ 'left': '100%' }, 500);
                     getAreas(aid);
                 });
 
@@ -255,7 +258,7 @@
                     if (!isNaN(selCityId) && selCityId != "0") {
                         selAreaId =_self.attr("areaId");
                     }
-
+                    $(".user-input-box").animate({ 'left': '100%' }, 500);
                     $("div.booking-search-area-form").find("span").text(selectedElement);
 
                 });
@@ -268,11 +271,11 @@
                             window.location.href = "/m/bikebooking/bookinglisting.aspx"
                         }
                         else {
-                            alert("Please select area !");
+                            setError($("div.booking-search-area-form"),"Please select area !");
                         }
                     }
                     else {
-                        alert("Please Select City !")
+                        setError($("div.booking-search-city-form"), "Please Select City !");
                     }
                 });
 
@@ -334,6 +337,14 @@
                 }
             }
 
+            var setError = function (element, msg) {
+                element.addClass("border-red").siblings("span.errorIcon, div.errorText").show();
+                element.siblings("div.errorText").text(msg);
+            };
+
+            var hideError = function (element) {
+                element.removeClass("border-red").siblings("span.errorIcon, div.errorText").hide();
+            };
 
         </script>
 
@@ -347,6 +358,10 @@
                 bookingSearchBar.addClass('open').animate({
                     'left': '0px'
                 }, 500);
+                $(".user-input-box").animate({ 'left': '0px' }, 500);
+                $("#bookingCityInput").focus();
+                hideError(searchCityDiv.find("div.booking-search-city-form"));
+                appendHash("bookingsearch");
             });
             searchAreaDiv.on('click', function () {
                 if ($liCities.find("li").length > 0)
@@ -356,6 +371,10 @@
                     bookingSearchBar.addClass('open').animate({
                         'left': '0px'
                     }, 500);
+                    $(".user-input-box").animate({ 'left': '0px' }, 500);
+                    $("#bookingAreaInput").focus();
+                    hideError(searchAreaDiv.find("div.booking-search-area-form"));
+                    appendHash("bookingsearch");
                 }
                 else {
                     alert("Please select city first")
@@ -365,8 +384,12 @@
             });
             $(".bwm-city-area-box .back-arrow-box").on("click", function () {
                 bookingSearchBar.removeClass("open").animate({ 'left': '100%' }, 500);
+                $(".user-input-box").animate({ 'left': '100%' }, 500);
             });
            
+            function bookingSearchClose() {
+                $(".bwm-city-area-box .back-arrow-box").trigger("click");
+            }
 
             $("#bookingCityInput, #bookingAreaInput").on("keyup", function () {
                 locationFilter($(this));
