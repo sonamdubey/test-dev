@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.m.bikebooking.BookingListing" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="BookingListing.aspx.cs" Inherits="Bikewale.m.bikebooking.BookingListing" Trace="false"%>
 <%@ Register TagPrefix="BW" TagName="MPopupWidget" Src="/m/controls/MPopupWidget.ascx" %>
 <!doctype html>
 <html>
@@ -86,7 +86,7 @@
                     </div>
                     <div id="listingCountContainer" class="font14 padding-top20 padding-bottom20 text-center">
                         <span><span id="bikecount" class="font18"></span><span class="text-light-grey"> in</span></span><br />
-                        <span class="change-city-area-target"><span>Area, City</span><span class="margin-left5 bwmsprite loc-change-blue-icon icon-adjustment"></span></span>
+                        <span class="change-city-area-target"><span id="Userlocation"></span><span class="margin-left5 bwmsprite loc-change-blue-icon icon-adjustment"></span></span>
                         <div id="listingLocationPopup" class="font13 bwm-fullscreen-popup">
                             <div class="bwmsprite location-popup-close-btn close-btn position-abt pos-top10 pos-right10 cur-pointer"></div>
                             <div id="listingPopupHeading">
@@ -115,11 +115,14 @@
                                         </span>
                                         <input class="form-control" type="text" id="listingPopupCityInput" placeholder="Select City" />
                                     </div>
-                                    <ul id="listingPopupCityList" class="margin-top40">
-                                        <li>City 1</li>
-                                        <li>City 2</li>
-                                        <li>City 3</li>
-                                        <li>City 4</li>
+                                    <ul id="listingPopupCityList" class="margin-top40" >
+                                        <asp:Repeater ID="rptCities" runat="server">
+                                            <ItemTemplate>
+                                                <li cityId="<%# DataBinder.Eval(Container.DataItem, "CityId") %>" >
+                                                    <%# DataBinder.Eval(Container.DataItem, "CityName") %>
+                                                </li>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
                                     </ul>
                                 </div>
 
@@ -131,10 +134,13 @@
                                         <input class="form-control" type="text" id="listingPopupAreaInput" placeholder="Select Area" data-bind="attr: { value: (SelectedArea() != undefined) ? SelectedArea().areaName : '' }" />
                                     </div>
                                     <ul id="listingPopupAreaList" class="margin-top40">
-                                        <li>Area 1</li>
-                                        <li>Area 2</li>
-                                        <li>Area 3</li>
-                                        <li>Area 4</li>
+                                        <asp:Repeater ID="rptAreas" runat="server">
+                                            <ItemTemplate>
+                                                <li areaId="<%# DataBinder.Eval(Container.DataItem, "AreaId") %>">
+                                                    <%# DataBinder.Eval(Container.DataItem, "AreaName") %>
+                                                </li>
+                                            </ItemTemplate>
+                                        </asp:Repeater>
                                     </ul>
                                 </div>
                             </div>
@@ -142,7 +148,7 @@
                         </div>
                     </div>
                     <div id="searchBikeList" class="bike-search">
-                        <div id="divSearchResult" data-bind="template: { name: 'listingTemp', foreach: searchResult }" class="search-bike-container">
+                        <div id="divSearchResult" data-bind="template: { name: 'listingTemp', foreach: bikes }" class="search-bike-container">
 
                         </div>
                         <div style="text-align:center;">
@@ -160,40 +166,39 @@
                                 <div class="contentWrapper">
                                     <!--<div class="position-abt pos-right10 pos-top10 infoBtn bwmsprite alert-circle-icon"></div>-->
                                     <div class="imageWrapper margin-top10">
-                                        <!-- ko if: true -->
-                                        <div class="offers-tag-wrapper position-abt">
-                                            <span><span>3</span> Offers</span>
+                                        
+                                        <div data-bind="visible : offers().length > 0"  class="offers-tag-wrapper position-abt">
+                                            <span><span data-bind="text : offers().length"></span> offers available</span>
                                             <span class="offers-left-tag"></span>
                                         </div>
-                                        <!-- /ko -->
-                                        <a data-bind="click: function () { $.ModelClickGaTrack(bikemodel.modelName(),'/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/' ) }">
-                                            <img data-bind="attr: { title: bikeName, alt: bikeName, src: 'http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif' }, lazyload: bikemodel.hostUrl() + '/310X174/' + bikemodel.imagePath()">
+                                        <a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
+                                            <img class="lazy" data-bind="attr: { title: bikeName(), alt: bikeName(), src: '' }, lazyload: hostUrl() + '/310X174/' + originalImagePath() ">
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
                                         <div class="bikeTitle margin-bottom10">
-                                            <h3><a data-bind="attr: {title: bikeName }, text: bikeName, click: function () { $.ModelClickGaTrack(bikemodel.modelName(), '/m/' + bikemodel.makeBase.maskingName() + '-bikes/' + bikemodel.maskingName() + '/') }"></a></h3>
-                                        </div>
+                                                <h3><a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
+                                            </div>
                                         <p class="font14 text-light-grey">BikeWale on-road price</p>
                                         <!-- ko if: true -->
-                                        <div class="margin-top10 text-light-grey">
+                                        <div class="margin-top10 text-light-grey" data-bind="visible: discount() > 0">
                                             <span class="fa fa-rupee"></span>
-                                            <span class="font13 margin-right5 text-line-through" data-bind="text: price"></span>
+                                            <span class="font13 margin-right5 text-line-through" data-bind="CurrencyText: onRoadPrice()"></span>
                                             <span>
                                                 (<span class="text-red">
                                                     <span class="fa fa-rupee"></span>
-                                                    <span class="font13 margin-right5">5,000</span> Off
+                                                    <span class="font13 margin-right5" data-bind="CurrencyText: discount()"></span> Off
                                                 </span>)
                                             </span>
                                         </div>
                                         <!-- /ko -->
                                         <div class="font18 text-grey margin-bottom5">
                                             <span class="fa fa-rupee"></span>
-                                            <span class="font20" data-bind="text: price"></span>
+                                            <span class="font20" data-bind="CurrencyText: discountedPrice()"></span>
                                         </div>
                                         <!-- ko if: true -->
-                                        <div class="font14 margin-top5 margin-bottom5">
-                                            <span class="text-default margin-right5">3 offers available</span>
+                                        <div class="font14 margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
+                                            <span class="text-default margin-right5" data-bind="text: offers().length + ' offers available'"></span>
                                             <span class="text-link view-offers-target">view offers</span>
                                         </div>
                                         <div id="offersPopup" class="bwm-fullscreen-popup text-center">
@@ -204,16 +209,14 @@
                                                 </div>
                                             </div>
                                             <p class="font18 margin-top25 margin-bottom20 text-default">Available offers on this bike</p>
-                                            <ul class="offers-list-ul">
-                                                <li>Free Vega Cruiser Helmet worth Rs.1500 from BikeWale</li>
-                                                <li>Free Zero Dep Insurance worth Rs.1200 from Dealership</li>
-                                                <li>Get free helmet from the dealer</li>
+                                            <ul class="offers-list-ul" data-bind="foreach : offers()">
+                                                <li data-bind="text : offerText()"></li>
                                             </ul>
                                             <a class="book-now-popup-btn margin-top30 btn btn-orange font16">Book now</a>
                                         </div>
                                         <!-- /ko -->
-                                        <p class="font14 text-light-grey">Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee"></span> <span class="font15">1,000</span></span></p>
-                                        <a class="margin-top10 btn btn-orange btn-full-width margin-top10">Book now</a>
+                                        <p class="font14 text-light-grey">Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee"></span> <span class="font15" data-bind="text: bookingAmount"></span></span></p>
+                                        <a class="margin-top10 btn btn-orange btn-full-width margin-top10" data-bind="click: function () { registerPQ($data); }" >Book now</a>
                                     </div>
                                     </div>
                                 </div>
@@ -247,7 +250,7 @@
                               <div class="multiSel"></div>
                             </div>
                           
-                            <div name="bike" class="multiSelect">
+                            <div name="makeIds" class="multiSelect">
                                 <ul>
                                     <li class="unchecked" filterId="2"><span>Aprilia</span></li>
                                     <li class="unchecked" filterId="1"><span>Bajaj</span></li>
@@ -359,7 +362,7 @@
                                 </div>
                                 <div name="AntiBreakingSystem" class="grid-7 omega">
                             	    <span filterid="1" class="form-control grid-6 checkOption">Yes</span>
-                            	    <span filterid="2" class="form-control grid-6 checkOption">No</span>                                
+                            	    <span filterid="0" class="form-control grid-6 checkOption">No</span>                                
                                 </div>
                             </div>
                     
@@ -368,8 +371,8 @@
                             	    <h3>Brakes</h3>
                                 </div>
                                 <div name="braketype" class="grid-7 omega">
-                            	    <span filterid="2" class="form-control grid-6 checkOption">Disc</span>
-                            	    <span filterid="1" class="form-control grid-6 checkOption">Drum</span>                                
+                            	    <span filterid="1" class="form-control grid-6 checkOption">Disc</span>
+                            	    <span filterid="0" class="form-control grid-6 checkOption">Drum</span>                                
                                 </div>
                             </div>
                         
@@ -378,8 +381,8 @@
                             	    <h3>Wheels</h3>
                                 </div>
                                 <div name="alloywheel" class="grid-7 omega">
-                            	    <span filterid="2" class="form-control grid-6 checkOption">Alloy</span>
-                            	    <span filterid="1" class="form-control grid-6 checkOption">Spoke</span>                                
+                            	    <span filterid="1" class="form-control grid-6 checkOption">Alloy</span>
+                            	    <span filterid="0" class="form-control grid-6 checkOption">Spoke</span>                                
                                 </div>
                             </div>
                         
@@ -389,7 +392,7 @@
                                 </div>
                                 <div name="starttype" class="grid-7 omega">
                             	    <span filterid="1" class="form-control grid-6 checkOption">Electric</span>
-                            	    <span filterid="2" class="form-control grid-6 checkOption">Kick</span>                                
+                            	    <span filterid="0" class="form-control grid-6 checkOption">Kick</span>                                
                                 </div>
                             </div>
 
@@ -407,9 +410,53 @@
             </div>
             <!--Main container ends here-->
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
+        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
+        <script>
+            var selectedCityId = <%= cityId %> ,selectedAreaId = <%= areaId %> ;
+            var cityName = $("#listingPopupCityList li[cityid='" + selectedCityId + "']").text(),
+                areaName = $("#listingPopupAreaList li[areaid='" + selectedAreaId + "']").text()
+            $("#Userlocation").text(cityName + ', ' + areaName);
+            $("#listingCitySelection").text(cityName);
+            $("#listingAreaSelection").text(areaName);
+
+            var key = "bCity_";
+            lscache.setBucket('BLPage');
+
+            function checkCacheCityAreas(cityId) {
+                bKey = key + cityId;
+                if (lscache.get(bKey)) return true;
+                else return false;
+            }
+
+            function setOptions(optList) {
+                if (optList != null) {
+                    $("#listingPopupAreaList").append($('<li>').text(" Select Area ").attr({ 'cityId': "0" }));
+                    $.each(optList, function (i, value) {
+                        $("#listingPopupAreaList").append($('<li>').text(value.areaName).attr('value', value.areaId));
+                    });
+                }
+
+                //$ddlAreas.trigger('chosen:updated');
+                //$("#bookingAreasList_chosen .chosen-single.chosen-default span").text("No Areas available");
+            }
+
+
+        </script>
         <!-- all other js plugins -->    
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>" type="text/javascript"></script>
+        <script>
+            
+            //$("#listingPopupCityList").chosen({ no_results_text: "No matches found!!" });
+            //$("#listingPopupAreaList").chosen({ no_results_text: "No matches found!!" });
+            $('.chosen-container').attr('style', 'width:100%;');
+            $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
+        </script>
+
+        <script type="text/javascript">
+            var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_BookingListing%>';
+            var clientIP = '<%= clientIP %>';
+        </script>
         <div class="back-to-top" id="back-to-top"><a><span></span></a></div>       
     </body>
 </html>
