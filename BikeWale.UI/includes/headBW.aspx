@@ -56,7 +56,7 @@
                 </div>            
             </div>
 
-            <div class="login-box" >Book your bike</div>
+            <a href="/bikebooking/"><div class="login-box" >Book your bike</div></a> 
 
             <BW:LoginStatus ID="ctrlLoginStatus" runat="server" />
             <div class="clear"></div>

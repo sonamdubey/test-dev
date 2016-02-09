@@ -12,12 +12,13 @@
 #bookingSearchBar li { border-top: 1px solid #ccc; font-size: 14px; padding: 15px 10px; color: #333333; cursor: pointer;}
 #bookingSearchBar li:hover { background: #ededed; }
 .booking-area-slider-wrapper { display:none; }
+.booking-landing-search-container .errorIcon, .booking-landing-search-container .errorText { display:none; }
 .swiper-container { width:200px; height: 205px; }
 .swiper-slide { width:100%; }
 .benefit-icon-outer-container { width:90px; height:90px; margin:0 auto; background:#fff; border:1px solid #ccc; }
 .benefit-icon-inner-container { width:80px; height:80px; margin:4px auto; background:#fff; border:1px solid #666; }
 
-.booking-landing-sprite { background: url(/m/images/m-booking-landing-sprite.png) no-repeat; display: inline-block; }
+.booking-landing-sprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/m-booking-landing-sprite.png) no-repeat; display: inline-block; }
 .benefit-offers-icon { width:35px; height:37px; background-position:0 0; }
 .benefit-dealer-icon { width:45px; height:30px; background-position:-45px 0; }
 .benefit-assistance-icon { width:37px; height:43px; background-position:-100px 0; }

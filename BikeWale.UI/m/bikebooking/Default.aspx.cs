@@ -33,8 +33,6 @@ namespace Bikewale.Mobile.bikebooking
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-            dd.DetectDevice();
             CheckLocationCookie();
             GetDealerCities();
             ctrlUsersTestimonials.TopCount = 6;
@@ -61,7 +59,7 @@ namespace Bikewale.Mobile.bikebooking
                     if (bookingCities != null && bookingCities.Count > 0)
                     {
                         bool citySelected = false;
-                        foreach(var city in bookingCities)
+                        foreach (var city in bookingCities)
                         {
                             if (cityId != city.CityId)
                                 cityListData.AppendFormat("<li cityId='{0}'>{1}</li>", city.CityId, city.CityName);
@@ -72,7 +70,7 @@ namespace Bikewale.Mobile.bikebooking
                             }
                         }
 
-                        if(citySelected)
+                        if (citySelected)
                         {
                             GetDealerAreas();
                         }
