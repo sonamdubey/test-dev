@@ -353,14 +353,14 @@
                                             <span class="offers-left-tag"></span>
                                         </div>
 
-                                        <a data-bind="attr: { href: '/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
+                                        <a data-bind="attr: { href: '/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/' + versionEntity.versionId() + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
                                             <img class="lazy" data-bind="attr: { title: bikeName(), alt: bikeName(), src: '' }, lazyload: hostUrl() + '/310X174/' + originalImagePath() ">
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper font14 text-light-grey">
                                         <div class="booking-list-item-details">
                                             <div class="bikeTitle margin-bottom10">
-                                                <h3><a data-bind="attr: { href: '/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
+                                                <h3><a data-bind="attr: { href: '/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/'+ versionEntity.versionId() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
                                             </div>
                                             <div class="bike-book-now-wrapper">
                                                 <div class="bike-desc-details-wrapper">

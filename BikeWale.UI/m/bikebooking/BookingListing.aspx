@@ -171,13 +171,13 @@
                                             <span><span data-bind="text : offers().length"></span> offers available</span>
                                             <span class="offers-left-tag"></span>
                                         </div>
-                                        <a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
+                                        <a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/'+ versionEntity.versionId() + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
                                             <img class="lazy" data-bind="attr: { title: bikeName(), alt: bikeName(), src: '' }, lazyload: hostUrl() + '/310X174/' + originalImagePath() ">
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper">
                                         <div class="bikeTitle margin-bottom10">
-                                                <h3><a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
+                                                <h3><a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/'+ versionEntity.versionId() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
                                             </div>
                                         <p class="font14 text-light-grey">BikeWale on-road price</p>
                                         <!-- ko if: true -->
