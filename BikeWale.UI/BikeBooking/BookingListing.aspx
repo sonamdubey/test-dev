@@ -4,7 +4,11 @@
 <html>
 <head>
     <%
+        title = "Book Bikes, Scooters in India and Avail Great Benefits - BikeWale";
+        keywords = "book bikes, book scooters, buy bikes, buy scooters, bikes prices, avail offers, avail discounts, instant bike on-road price";
+        description = "BikeWale - India's favourite bike portal. Book your bikes, scooters and avail exciting offers and benefits exclusively on BikeWale.";
         isHeaderFix = false;
+        isAd970x90Shown = false;  
     %>
     <!-- #include file="/includes/headscript.aspx" -->
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
@@ -189,7 +193,7 @@
                                         </div>
                                         <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
                                     </div>
-                                    <div name="ridestyle" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
+                                    <div name="rideStyle" class="filter-selection-div more-filter-item-data ride-style-list list-items hide">
                                         <span class="top-arrow"></span>
                                         <ul class="content-inner-block-10">
                                             <li class="uncheck" filterid="1"><span>Cruisers</span></li>
@@ -205,7 +209,7 @@
                                     <div class="more-filter-item-title">
                                         <h3>ABS</h3>
                                     </div>
-                                    <div name="AntiBreakingSystem" class="more-filter-item-data margin-top10">
+                                    <div name="antiBreakingSystem" class="more-filter-item-data margin-top10">
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
@@ -222,12 +226,12 @@
                                     <div class="more-filter-item-title">
                                         <h3>Brakes</h3>
                                     </div>
-                                    <div name="braketype" class="more-filter-item-data margin-top10">
+                                    <div name="brakeType" class="more-filter-item-data margin-top10">
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
-                                                    <li filterid="0" class="first" data-tabs="disc">Disc</li>
-                                                    <li filterid="1" data-tabs="drum" class="second">Drum</li>
+                                                    <li filterid="1" class="first" data-tabs="disc">Disc</li>
+                                                    <li filterid="0" data-tabs="drum" class="second">Drum</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -239,12 +243,12 @@
                                     <div class="more-filter-item-title">
                                         <h3>Wheels</h3>
                                     </div>
-                                    <div name="alloywheel" class="more-filter-item-data margin-top10">
+                                    <div name="alloyWheel" class="more-filter-item-data margin-top10">
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
-                                                    <li filterid="0" class="first" data-tabs="alloy">Alloy</li>
-                                                    <li filterid="2" data-tabs="spoke" class="second">Spoke</li>
+                                                    <li filterid="1" class="first" data-tabs="alloy">Alloy</li>
+                                                    <li filterid="0" data-tabs="spoke" class="second">Spoke</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -256,12 +260,12 @@
                                     <div class="more-filter-item-title">
                                         <h3>Start type</h3>
                                     </div>
-                                    <div name="starttype" class="more-filter-item-data margin-top10">
+                                    <div name="startType" class="more-filter-item-data margin-top10">
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
-                                                    <li filterid="0" class="first" data-tabs="electric">Electric</li>
-                                                    <li filterid="1" data-tabs="kick" class="second">Kick</li>
+                                                    <li filterid="1" class="first" data-tabs="electric">Electric</li>
+                                                    <li filterid="0" data-tabs="kick" class="second">Kick</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -297,7 +301,7 @@
                                 </div>
                                 <div class="sort-selection-div sort-list-items hide">
                                     <ul>
-                                        <li so="" sc="" sortqs="">Popular</li>
+                                        <li so="1" sc="3" sortqs="so=1&sc=3">Popular</li>
                                         <li class="selected" so="0" sc="1" sortqs="so=0&sc=1">Price: Low to High</li>
                                         <li so="1" sc="1" sortqs="so=1&sc=1">Price: High to Low</li>
                                         <li so="0" sc="2" sortqs="so=0&sc=2">Mileage: High to Low</li>
@@ -349,18 +353,18 @@
                                     <div class="imageWrapper position-rel">
 
                                         <div data-bind="visible : offers().length > 0" class="offers-tag-wrapper position-abt">
-                                            <span><span data-bind="text : offers().length "></span> Offers</span>
+                                            <span><span  data-bind="text: offers().length.toString() + ((offers().length > 1) ? ' offers' : ' offer&nbsp;&nbsp;')"></span></span>
                                             <span class="offers-left-tag"></span>
                                         </div>
 
-                                        <a data-bind="attr: { href: '/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
+                                        <a data-bind="attr: { href: '/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/' + versionEntity.versionId() + '/' }, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName() }); return true; }">
                                             <img class="lazy" data-bind="attr: { title: bikeName(), alt: bikeName(), src: '' }, lazyload: hostUrl() + '/310X174/' + originalImagePath() ">
                                         </a>
                                     </div>
                                     <div class="bikeDescWrapper font14 text-light-grey">
                                         <div class="booking-list-item-details">
                                             <div class="bikeTitle margin-bottom10">
-                                                <h3><a data-bind="attr: { href: '/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
+                                                <h3><a data-bind="attr: { href: '/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/'+ versionEntity.versionId() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
                                             </div>
                                             <div class="bike-book-now-wrapper">
                                                 <div class="bike-desc-details-wrapper">
@@ -382,8 +386,8 @@
                                                 </div>
 
                                                 <div class="text-default margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
-                                                <span class="margin-right5" data-bind="text: offers().length"></span> offers available
-                                                <span class="text-link view-offers-target">view offers</span>
+                                                <span class="margin-right5" data-bind="text: offers().length.toString() + ((offers().length > 1) ? ' offers' : ' offer')"></span>available
+                                                <span class="text-link view-offers-target">view <span data-bind="text:(offers().length > 1) ? ' offers' : ' offer'"></span></span>
                                                 </div>
                                                 
                                                 <p>Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee margin-right5"></span><span data-bind="text: bookingAmount"></span></span></p>
@@ -397,7 +401,7 @@
                                                         <span class="bwsprite offers-box-icon margin-top20"></span>
                                                     </div>
                                                 </div>
-                                                <p class="font18 margin-top25 margin-bottom20 text-default">Available offers on this bike</p>
+                                                <p class="font18 margin-top25 margin-bottom20 text-default">Available <span data-bind="text: (offers().length > 1) ? ' offers' : ' offer'"></span> on this bike</p>
                                                 <ul class="offers-list-ul" data-bind="foreach : offers()">
                                                     <li data-bind="text : offerText()"></li>
                                                 </ul>

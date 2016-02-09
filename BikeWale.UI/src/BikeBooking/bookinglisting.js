@@ -192,7 +192,6 @@ $.hitAPI = function (searchUrl, filterName) {
         url: bookingSearchURL ,
         dataType: 'json',
         success: function (response) {             
-            console.log(bookingSearchURL);
             if (response.totalCount > 0)
             {
                 $.totalCount = response.totalCount;
@@ -200,7 +199,8 @@ $.hitAPI = function (searchUrl, filterName) {
                 if (response.pageUrl != null)
                     $.nextPageUrl = response.pageUrl.nextPageUrl;
                 else $.nextPageUrl = "";
-                $('#bikecount').text($.totalCount + ' Bikes');
+
+                $('#bikecount').text(($.totalCount > 1) ? $.totalCount + ' Bikes' : $.totalCount + ' Bike');
 
                 if (!isNaN($.pageNo) && $.pageNo == 1) {
                     $.bindSearchResult(response);
@@ -490,7 +490,7 @@ $.appendToQS = function (temp, name, value) {
 
 $.fn.resetAll = function () {
     return $(this).click(function () {
-        $(".selected").remove();
+        $("span.selected").remove();
         $(".filter-selection-div li").each(function () {
             $(this).removeClass("active").addClass("uncheck");
         });

@@ -321,6 +321,24 @@
                                         <span class="font28"><span class="fa fa-rupee"></span></span>
                                     </span>
                                     <span id="new-bike-price" class="font32" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
+                                    <%if (isOnRoadPrice)
+									  {%>
+                                    <span id="viewBreakupText" class="font14 text-light-grey viewBreakupText">View Breakup</span>
+                                    <br>
+                                    <%if (isBikeWalePQ && price != "")
+									  {%>
+                                    <span class="font12 text-xt-light-grey">(Ex-showroom + Insurance (comprehensive) + RTO)</span>
+                                    <%}
+									  else
+									  { %>
+                                    <span class="font12 text-xt-light-grey"><%=viewbreakUpText %></span>
+                                    <%} %>
+                                    <% } %>
+                                </div>
+                                <%  } %>
+                                <%if (isBookingAvailable && isDealerAssitance) { %>
+                                <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat margin-top20" id="bookNowBtn">Book now </a>
+                                <%}%>
                                 <div class="clear"></div>
                                 <% if (isDiscontinued)
 								   { %>
