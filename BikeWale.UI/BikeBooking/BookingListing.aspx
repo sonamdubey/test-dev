@@ -50,7 +50,7 @@
                                         </div>
                                         <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
                                     </div>
-                                    <div id="filter-select-brand" name="makeIds" class="filter-selection-div filter-brand-list list-items hide">
+                                    <div id="filter-select-brand" name="bike" class="filter-selection-div filter-brand-list list-items hide">
                                         <span class="top-arrow"></span>
                                         <ul class="content-inner-block-10">
                                             <li class="uncheck" filterid="7"><span>Honda</span></li>
@@ -209,7 +209,7 @@
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
                                                     <li filterid="1" class="first" data-tabs="yes">Yes</li>
-                                                    <li filterid="0" data-tabs="no" class="second">No</li>
+                                                    <li filterid="2" data-tabs="no" class="second">No</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -225,7 +225,7 @@
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
-                                                    <li filterid="0" class="first" data-tabs="disc">Disc</li>
+                                                    <li filterid="2" class="first" data-tabs="disc">Disc</li>
                                                     <li filterid="1" data-tabs="drum" class="second">Drum</li>
                                                 </ul>
                                             </div>
@@ -242,8 +242,8 @@
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
-                                                    <li filterid="0" class="first" data-tabs="alloy">Alloy</li>
-                                                    <li filterid="2" data-tabs="spoke" class="second">Spoke</li>
+                                                    <li filterid="2" class="first" data-tabs="alloy">Alloy</li>
+                                                    <li filterid="1" data-tabs="spoke" class="second">Spoke</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -259,8 +259,8 @@
                                         <div class="bw-tabs-panel">
                                             <div class="bw-tabs home-tabs">
                                                 <ul>
-                                                    <li filterid="0" class="first" data-tabs="electric">Electric</li>
-                                                    <li filterid="1" data-tabs="kick" class="second">Kick</li>
+                                                    <li filterid="1" class="first" data-tabs="electric">Electric</li>
+                                                    <li filterid="2" data-tabs="kick" class="second">Kick</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -284,20 +284,20 @@
                     <div class="search-result-container content-box-shadow rounded-corner2">
                         <div class="search-count-container border-solid-bottom padding-top10 padding-bottom10">
                             <div class="leftfloat grid-8 padding-left20 margin-top5">
-                                <h2 class="font18"><span id="bikecount"></span><span class="text-light-grey font16 margin-left5 ">in </span><span class="change-city-area-target cur-pointer"><span id="Userlocation"></span><span class="margin-left5 bwsprite loc-change-blue-icon"></span></span></h2>
+                                <h2 class="font18"><span id="bikecount"></span><span class="text-light-grey font16"> in </span><span class="change-city-area-target cur-pointer"><span id="Userlocation"></span><span class="margin-left5 bwsprite loc-change-blue-icon"></span></span></h2>
                             </div>
                             <div class="rightfloat padding-left25 grid-3">
                                 <div class="sort-div rounded-corner2">
                                     <div class="sort-by-title" id="sort-by-container">
-                                        <span class="leftfloat sort-select-btn">Price: Low to High</span>
+                                        <span class="leftfloat sort-select-btn">Popular</span>
                                         <span class="clear"></span>
                                     </div>
                                     <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
                                 </div>
                                 <div class="sort-selection-div sort-list-items hide">
                                     <ul>
-                                        <li so="" sc="" sortqs="">Popular</li>
-                                        <li class="selected" so="0" sc="1" sortqs="so=0&sc=1">Price: Low to High</li>
+                                        <li class="selected" so="" sc="" sortqs="">Popular</li>
+                                        <li so="0" sc="1" sortqs="so=0&sc=1">Price: Low to High</li>
                                         <li so="1" sc="1" sortqs="so=1&sc=1">Price: High to Low</li>
                                         <li so="0" sc="2" sortqs="so=0&sc=2">Mileage: High to Low</li>
                                     </ul>
@@ -322,7 +322,7 @@
                                         <span class="bwsprite error-icon hide"></span>
                                         <div class="bw-blackbg-tooltip hide">Please Select Area</div>
                                     </div>
-                                    <input class="btn btn-orange margin-top15 cityAreaBtn" type="button" value="Show bikes">
+                                    <input class="btn btn-orange margin-top15" type="button" value="Show bikes">
                                 </div>
                             </div>
                         </div>
@@ -347,7 +347,7 @@
                                 <div class="contentWrapper">
                                     <div class="imageWrapper position-rel">
 
-                                        <div data-bind="visible : offers().length > 0" class="offers-tag-wrapper position-abt">
+                                        <div data-bind="visible : offers().length > 0"  class="offers-tag-wrapper position-abt">
                                             <span><span data-bind="text : offers().length "></span> Offers</span>
                                             <span class="offers-left-tag"></span>
                                         </div>
@@ -361,34 +361,28 @@
                                             <div class="bikeTitle margin-bottom10">
                                                 <h3><a data-bind="attr: { href: '/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
                                             </div>
-                                            <div class="bike-book-now-wrapper">
-                                                <div class="bike-desc-details-wrapper">
-                                                <p>BikeWale on-road price</p>
-
-                                                <div class="margin-top10" data-bind="visible: discount() > 0">
+                                            <p>BikeWale on-road price</p>
+                                            <!-- ko if: true -->
+                                            <div class="margin-top10" data-bind="visible: discount() > 0">
+                                                <span class="fa fa-rupee"></span>
+                                                <span class="font13 margin-right5 text-line-through" data-bind="CurrencyText: onRoadPrice()"></span>
+                                                <span >(<span class="text-red">
                                                     <span class="fa fa-rupee"></span>
-                                                    <span class="font13 margin-right5 text-line-through" data-bind="CurrencyText: onRoadPrice()"></span>
-                                                    <span>(<span class="text-red">
-                                                        <span class="fa fa-rupee"></span>
-                                                        <span class="font13 margin-right5" data-bind="CurrencyText: discount()"></span>Off
-                                                    </span>)
-                                                    </span>
-                                                </div>
-
-                                                <div class="font20 text-default">
-                                                    <span class="fa fa-rupee"></span>
-                                                    <span class="font22" data-bind="CurrencyText: discountedPrice()"></span>
-                                                </div>
-
-                                                <div class="text-default margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
+                                                    <span class="font13 margin-right5" data-bind="CurrencyText: discount()"></span> Off
+                                                </span>)
+                                                </span>
+                                            </div>
+                                            <!-- /ko -->
+                                            <div class="font20 text-default">
+                                                <span class="fa fa-rupee"></span>
+                                                <span class="font22" data-bind="CurrencyText: discountedPrice()"></span>
+                                            </div>
+                                            <!-- ko if: true -->
+                                            <div class="text-default margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
                                                 <span class="margin-right5" data-bind="text: offers().length"></span> offers available
                                                 <span class="text-link view-offers-target">view offers</span>
-                                                </div>
-                                                
-                                                <p>Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee"></span><span data-bind="text: bookingAmount"></span></span></p>
-                                                </div>
-                                                <input type="button" class="book-now btn btn-grey-orange btn-full-width margin-top15" value="Book Now" data-bind="click: function () { registerPQ($data); }" />
                                             </div>
+                                                <input type="button" class="book-now btn btn-grey-orange btn-full-width margin-top15" value="Book Now" data-bind="click: function () { registerPQ($data); }" />
                                             <div id="offersPopup" class="text-center rounded-corner2">
                                                 <div class="offers-popup-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                                                 <div class="icon-outer-container rounded-corner50">
@@ -402,7 +396,10 @@
                                                 </ul>
                                                 <input type="button" class="btn btn-orange margin-top15" value="Book Now" />
                                             </div>
+                                            <!-- /ko -->
+                                            <p>Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee"></span> <span data-bind="text: bookingAmount"></span></span></p>
                                         </div>
+                                        <input type="button" class="btn btn-grey-orange btn-full-width margin-top15" value="Book Now" />
                                     </div>
                                 </div>
                             </li>
@@ -418,15 +415,13 @@
         <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
         <script>
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList");
-            var selectedCityId = '<%= cityId %>', selectedAreaId = '<%= areaId %>';
             $("#Userlocation").text($ddlAreas.find("option:selected").text() + ", " + $ddlCities.find("option:selected").text());
-            
+            var selectedCityId = <%= cityId %> ,selectedAreaId = <%= areaId %> ;
             var key = "bCity_";
             lscache.setBucket('BLPage');
             $(function () {
 
-                var selCityId = '<%= (cityId > 0)?cityId:0%>';
-                var selAreaId = '<%= (areaId > 0)?areaId:0%>';
+                var selCityId = 0;
 
                 $ddlCities.change(function () {
                     selCityId = $ddlCities.val();
@@ -461,29 +456,9 @@
                     }
                 });
 
-                $ddlAreas.change(function () {
                     if (!isNaN(selCityId) && selCityId != "0") {
-                        selAreaId = $ddlAreas.find("option:selected").val();
-                    }
-
-                });
-
-                $("input[type='button'].cityAreaBtn").click(function () {
                     if (!isNaN(selCityId) && selCityId != "0") {
                         if (!isNaN(selAreaId) && selAreaId != "0") {
-                            var CookieValue = selCityId + "_" + $ddlCities.find("option:selected").text() + '_' + selAreaId + "_" + $ddlAreas.find("option:selected").text();
-                            SetCookieInDays("location", CookieValue, 365);
-                            window.location.href = "/bikebooking/bookinglisting.aspx"
-                        }
-                        else {
-                            alert("Please select area !");
-                        }
-                    }
-                    else {
-                        alert("Please Select City !")
-                    }
-                });
-
             });
 
             function checkCacheCityAreas(cityId) {
@@ -509,12 +484,12 @@
 
         <!-- #include file="/includes/footerscript.aspx" -->
 
-        <script>
+         <script>
 
-            $ddlCities.chosen({ no_results_text: "No matches found!!" });
-            $ddlAreas.chosen({ no_results_text: "No matches found!!" });
-            $('.chosen-container').attr('style', 'width:100%;');
-            $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
+             $ddlCities.chosen({ no_results_text: "No matches found!!" });
+             $ddlAreas.chosen({ no_results_text: "No matches found!!" });
+             $('.chosen-container').attr('style', 'width:100%;');
+             $("#bookingAreasList_chosen .chosen-single.chosen-default span").text("Please Select City");
         </script>
 
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/BikeBooking/bookinglisting.js?<%= staticFileVersion %>"></script>
