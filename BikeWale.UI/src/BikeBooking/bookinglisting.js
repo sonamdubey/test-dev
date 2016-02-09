@@ -639,11 +639,11 @@ $.applyMinMaxFilter = function (name, value, node) {
 };
 
 $.pushGTACode = function (noOfRecords, filterName) {
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_'+ noOfRecords, 'lab': filterName });
+   // dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_'+ noOfRecords, 'lab': filterName });
 };
 
 $.PricePopUpClickGA = function (makeName) {
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Get_On_Road_Price_Click', 'lab': makeName });
+   // dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Get_On_Road_Price_Click', 'lab': makeName });
 };
 
 sortByDiv.click(function(){

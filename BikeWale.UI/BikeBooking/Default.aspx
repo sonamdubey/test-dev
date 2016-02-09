@@ -275,6 +275,9 @@
                         }
 
                     }
+                    else {
+                        setOptions(null);
+                    }
                 });
 
                 $ddlAreas.change(function(){

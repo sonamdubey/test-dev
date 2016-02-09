@@ -180,7 +180,6 @@
                                                 <h3><a data-bind="attr: { href: '/m/' + makeEntity.maskingName() + '-bikes/' + modelEntity.maskingName() + '/'+ versionEntity.versionId() + '/', title: bikeName }, text: bikeName, click: function () { dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelEntity.modelName }); return true; }"></a></h3>
                                             </div>
                                         <p class="font14 text-light-grey">BikeWale on-road price</p>
-                                        <!-- ko if: true -->
                                         <div class="margin-top10 text-light-grey" data-bind="visible: discount() > 0">
                                             <span class="fa fa-rupee"></span>
                                             <span class="font13 margin-right5 text-line-through" data-bind="CurrencyText: onRoadPrice()"></span>
@@ -191,12 +190,10 @@
                                                 </span>)
                                             </span>
                                         </div>
-                                        <!-- /ko -->
                                         <div class="font18 text-grey margin-bottom5">
                                             <span class="fa fa-rupee"></span>
                                             <span class="font20" data-bind="CurrencyText: discountedPrice()"></span>
                                         </div>
-                                        <!-- ko if: true -->
                                         <div class="font14 margin-top5 margin-bottom5" data-bind="visible: offers().length > 0">
                                             <span class="text-default margin-right5" data-bind="text: offers().length + ' offers available'"></span>
                                             <span class="text-link view-offers-target">view offers</span>
@@ -212,11 +209,10 @@
                                             <ul class="offers-list-ul" data-bind="foreach : offers()">
                                                 <li data-bind="text : offerText()"></li>
                                             </ul>
-                                            <a class="book-now-popup-btn margin-top30 btn btn-orange font16">Book now</a>
+                                            <input class="book-now-popup-btn margin-top30 btn btn-orange font16" data-bind="click: function () { registerPQ($data); }" value="Book now"/>
                                         </div>
-                                        <!-- /ko -->
                                         <p class="font14 text-light-grey">Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee"></span> <span class="font15" data-bind="text: bookingAmount"></span></span></p>
-                                        <a class="margin-top10 btn btn-orange btn-full-width margin-top10" data-bind="click: function () { registerPQ($data); }" >Book now</a>
+                                        <input class="margin-top10 btn btn-orange btn-full-width margin-top10" data-bind="click: function () { registerPQ($data); }" value="Book now" />
                                     </div>
                                     </div>
                                 </div>

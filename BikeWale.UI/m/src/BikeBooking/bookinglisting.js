@@ -72,7 +72,7 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
     $.removeKnockouts();
     $.scrollToTop();
 
-    $.so = '0';
+    $.so = ($.sc != "2")?'0':'1';
     var newurl = '';
     if ($(this).hasClass('price-sort')) {
         var sortOrder = $(this).attr('so');
@@ -253,7 +253,7 @@ CheckBoxFilter.on('click', function () {
 
 /* Mileage */
 mileage.click(function () {
-    $(this).toggleClass('optionSelected');
+    $(this).toggleClass('optionSelected');  
 });
 
 $('.checkOption').click(function () {

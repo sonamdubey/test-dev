@@ -304,7 +304,7 @@
                                         <li so="1" sc="3" sortqs="so=1&sc=3">Popular</li>
                                         <li class="selected" so="0" sc="1" sortqs="so=0&sc=1">Price: Low to High</li>
                                         <li so="1" sc="1" sortqs="so=1&sc=1">Price: High to Low</li>
-                                        <li so="0" sc="2" sortqs="so=0&sc=2">Mileage: High to Low</li>
+                                        <li so="0" sc="2" sortqs="so=1&sc=2">Mileage: High to Low</li>
                                     </ul>
                                 </div>
                             </div>
@@ -405,7 +405,7 @@
                                                 <ul class="offers-list-ul" data-bind="foreach : offers()">
                                                     <li data-bind="text : offerText()"></li>
                                                 </ul>
-                                                <input type="button" class="btn btn-orange margin-top15" value="Book Now" />
+                                                <input type="button" class="btn btn-orange margin-top15" value="Book Now" data-bind="click: function () { registerPQ($data); }" />
                                             </div>
                                         </div>
                                     </div>
@@ -462,7 +462,9 @@
                             data = lscache.get(key + selCityId.toString());
                             setOptions(data);
                         }
-
+                    }
+                    else {
+                        setOptions(null);
                     }
                 });
 
