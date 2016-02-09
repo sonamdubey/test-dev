@@ -20,7 +20,6 @@ namespace Bikewale.Mobile.bikebooking
     /// </summary>
     public class Default : System.Web.UI.Page
     {
-        protected DropDownList bookingCitiesList, bookingAreasList;
         List<CityEntityBase> bookingCities = null;
         IEnumerable<AreaEntityBase> bookingAreas = null;
         protected uint cityId = 0, areaId = 0;
@@ -61,21 +60,6 @@ namespace Bikewale.Mobile.bikebooking
 
                     if (bookingCities != null && bookingCities.Count > 0)
                     {
-                        bookingCitiesList.DataSource = bookingCities;
-                        bookingCitiesList.DataTextField = "CityName";
-                        bookingCitiesList.DataValueField = "CityId";
-                        bookingCitiesList.DataBind();
-                        bookingCitiesList.Items.Insert(0, " Select City ");
-
-                        if (cityId > 0 && bookingCities.Any(p => p.CityId == cityId))
-                            GetDealerAreas();
-
-                        
-
-                    }
-
-                    if (bookingCities != null && bookingCities.Count > 0)
-                    {
                         bool citySelected = false;
                         foreach(var city in bookingCities)
                         {
@@ -112,8 +96,6 @@ namespace Bikewale.Mobile.bikebooking
         /// </summary>
         private void GetDealerAreas()
         {
-            bookingCitiesList.Items.FindByValue(Convert.ToString(cityId)).Selected = true;
-
             try
             {
                 bookingAreas = new List<AreaEntityBase>();
@@ -122,18 +104,6 @@ namespace Bikewale.Mobile.bikebooking
                     container.RegisterType<IArea, AreaRepository>();
                     IArea _areaRepo = container.Resolve<IArea>();
                     bookingAreas = _areaRepo.GetAreasByCity(Convert.ToUInt16(cityId));
-
-                    if (bookingAreas != null && bookingAreas.Count() > 0)
-                    {
-                        bookingAreasList.DataSource = bookingAreas.ToList();
-                        bookingAreasList.DataTextField = "AreaName";
-                        bookingAreasList.DataValueField = "AreaId";
-                        bookingAreasList.DataBind();
-                        bookingAreasList.Items.Insert(0, " Select Area ");
-
-                        if (areaId > 0 && bookingAreas.Any(p => p.AreaId == areaId))
-                            bookingAreasList.Items.FindByValue(Convert.ToString(areaId)).Selected = true;
-                    }
 
                     if (bookingAreas != null && bookingAreas.Count() > 0)
                     {

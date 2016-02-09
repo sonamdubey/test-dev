@@ -45,3 +45,4 @@
 #testimonialWrapper .testimonial-image-container { width:82px; height:82px; background:#fff; margin:0 auto; border:1px solid #ccc; }
 #testimonialWrapper .testimonial-user-image { width:76px; height:76px; overflow:hidden; margin:2px auto; border:1px solid #666; }
 #testimonialWrapper .testimonial-user-image img { width:100%; }
+.activeCity,.activeArea{font-weight: bold; background-color: #ddd;}

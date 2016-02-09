@@ -22,11 +22,11 @@
                 <div class="booking-landing-search-container">
                     <div class="booking-search-city form-control-box">
                         <div class="booking-search-city-form"><span>City</span></div>
-                        <asp:DropDownList ID="bookingCitiesList" class="form-control rounded-corner-no-right no-border" runat="server" />
+                       
                     </div>
                     <div class="booking-search-area form-control-box">
                         <div class="booking-search-area-form border-solid-left"><span>Area</span></div>
-                        <asp:DropDownList ID="bookingAreasList" class="form-control rounded-corner-no-left no-border" runat="server" />
+                       
                     </div>
                     <input type="button" class="btn btn-orange btn-lg font16 booking-landing-search-btn margin-top20" value="Search" />
                 </div>
@@ -35,20 +35,23 @@
 
         <div id="bookingSearchBar" class="bwm-fullscreen-popup">
             <div class="booking-city-slider-wrapper bwm-city-area-box form-control-box text-left">
-                <span class="back-arrow-box">
+                  
+        <div class="user-input-box">
+                 <span class="back-arrow-box">
                     <span class="bwmsprite back-long-arrow-left"></span>
                 </span>
                 <input class="form-control" type="text" id="bookingCityInput" placeholder="Select City" />
+                   </div>
                 <ul id="sliderCityList" class="sliderCityList">
                    <%= cityListData %>
                 </ul>
             </div>
             <div class="booking-area-slider-wrapper bwm-city-area-box form-control-box text-left">
-                <span class="back-arrow-box">
+                <div class="user-input-box"> <span class="back-arrow-box">
                     <span class="bwmsprite back-long-arrow-left"></span>
                 </span>
                 <input class="form-control" type="text" id="bookingAreaInput" placeholder="Select Area" />
-                <ul id="sliderAreaList" class="sliderAreaList">
+               </div> <ul id="sliderAreaList" class="sliderAreaList">
                     <%= areaListData %>
                 </ul>
             </div>
@@ -214,11 +217,21 @@
             var $ddlCities = $("#bookingCitiesList"), $ddlAreas = $("#bookingAreasList"), $liCities = $("#sliderCityList"), $liAreas = $("#sliderAreaList");
             var key = "bCity_";
             lscache.setBucket('BLPage');  
-
+            var selCityId = '<%= (cityId > 0)?cityId:0%>';
+            var selAreaId = '<%= (areaId > 0)?areaId:0%>';
             $(function () {
 
-                var selCityId = '<%= (cityId > 0)?cityId:0%>';
-                var selAreaId = '<%= (areaId > 0)?areaId:0%>';
+                if (!$liCities.find("li.activeCity"))
+                {
+                    $("div.booking-search-city-form span").text("Select City");
+                }
+                else {
+
+                    if (!$liCities.find("li.activeArea")) {
+                        $("div.booking-search-area-form span").text("Select Area");
+                    }
+                }
+
 
                 $("div.booking-search-city-form span").text($liCities.find("li.activeCity:first").text());
                 $("div.booking-search-area-form span").text($liAreas.find("li.activeArea:first").text());
@@ -268,7 +281,8 @@
             function getAreas(cid)
             {                
                 $liAreas.empty();
-                if (cid > 0) {
+                selAreaId = "0";
+                if (!isNaN(selCityId) && selCityId != "0") {
                     if (!checkCacheCityAreas(cid)) {
                         $.ajax({
                             type: "GET",
@@ -310,13 +324,13 @@
             function setOptions(optList) {
                 if (optList != null)
                 {
-                    $liAreas.append($('<li>').text(" Select Area ").attr({ 'areaId': "0" }));
+                   
                     $.each(optList, function (i, value) {
                         $liAreas.append($('<li>').text(value.areaName).attr('areaId', value.areaId));
                     });
                 }
                 else {
-                    $liAreas.append($('<li>').text(" No areas available ").attr({ 'areaId': "0" }));
+                    $("div.booking-search-area-form span").text("No areas available");
                 }
             }
 
@@ -335,17 +349,28 @@
                 }, 500);
             });
             searchAreaDiv.on('click', function () {
-                $('.booking-city-slider-wrapper').hide();
-                $('.booking-area-slider-wrapper').show();
-                bookingSearchBar.addClass('open').animate({
-                    'left': '0px'
-                }, 500);
+                if ($liCities.find("li").length > 0)
+                {
+                    $('.booking-city-slider-wrapper').hide();
+                    $('.booking-area-slider-wrapper').show();
+                    bookingSearchBar.addClass('open').animate({
+                        'left': '0px'
+                    }, 500);
+                }
+                else {
+                    alert("Please select city first")
+                }
+                
 
             });
             $(".bwm-city-area-box .back-arrow-box").on("click", function () {
                 bookingSearchBar.removeClass("open").animate({ 'left': '100%' }, 500);
             });
            
+
+            $("#bookingCityInput, #bookingAreaInput").on("keyup", function () {
+                locationFilter($(this));
+            });
 
             function setSelectedElement(_self, selectedElement) {
                 _self.parent().prev("input[type='text']").val(selectedElement);
