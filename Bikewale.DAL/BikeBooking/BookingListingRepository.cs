@@ -80,19 +80,19 @@ namespace Bikewale.DAL.BikeBooking
                             }
                             if (!String.IsNullOrEmpty(filter.AntiBreakingSystem))
                             {
-                                cmd.Parameters.AddWithValue("@paramHasABS", Convert.ToBoolean(filter.AntiBreakingSystem));
+                                cmd.Parameters.AddWithValue("@paramHasABS", Convert.ToBoolean(Convert.ToInt32(filter.AntiBreakingSystem)));
                             }
                             if (!String.IsNullOrEmpty(filter.BrakeType))
                             {
-                                cmd.Parameters.AddWithValue("@paramDrumDisc", Convert.ToBoolean(filter.BrakeType));
+                                cmd.Parameters.AddWithValue("@paramDrumDisc", Convert.ToBoolean(Convert.ToInt32(filter.BrakeType)));
                             }
                             if (!String.IsNullOrEmpty(filter.AlloyWheel))
                             {
-                                cmd.Parameters.AddWithValue("@paramSpokeAlloy", filter.AlloyWheel);
+                                cmd.Parameters.AddWithValue("@paramSpokeAlloy", Convert.ToBoolean(Convert.ToInt32(filter.AlloyWheel)));
                             }
                             if (!String.IsNullOrEmpty(filter.StartType))
                             {
-                                cmd.Parameters.AddWithValue("@paramHasElectric", Convert.ToBoolean(filter.StartType));
+                                cmd.Parameters.AddWithValue("@paramHasElectric", Convert.ToBoolean(Convert.ToInt32(filter.StartType)));
                             }
                             if (!String.IsNullOrEmpty(filter.sc))
                             {
