@@ -1175,13 +1175,14 @@
 
         <% if (ctrlUsersTestimonials.FetchedCount > 0 && bookingAmt > 0)
            { %>
-        <section>
-            <div id="testimonialWrapper" class="container margin-bottom10">
-                <h2 class="text-bold text-center margin-top30 margin-bottom20 font24">What do our customers say</h2>
+        <section class="bg-white">
+            <div id="testimonialWrapper" class="content-box-shadow padding-top15 padding-bottom20 margin-bottom30">
+                <h2 class="text-bold text-center margin-bottom15 font24">What do our customers say</h2>
                 <div class="swiper-container text-center">
-                    <div class="swiper-wrapper margin-bottom10">
+                    <div class="swiper-wrapper padding-bottom20">
                         <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
                     </div>
+                    <div class="swiper-pagination"></div>
                 </div>
             </div>
         </section>

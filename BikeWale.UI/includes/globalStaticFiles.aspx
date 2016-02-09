@@ -5,7 +5,7 @@
 <link rel="SHORTCUT ICON" href="<%= staticUrlPath != "" ? "http://img2.aeplcdn.com/bikewaleimg" : "" %>/images/favicon.png?<%= staticFilesVersion%>"  type="image/png"/>
 <link type="text/css" href="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/css/style.css?<%= staticFilesVersion%>" rel="stylesheet"/>
 <link type="text/css" href="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/css/960.css?<%= staticFilesVersion%>" rel="stylesheet"/>
-<link href="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/css/bw-common-style.css" rel="stylesheet" />
+<link href="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/css/bw-common-style.css?<%= staticFilesVersion%>" rel="stylesheet" />
 <script type="text/javascript" src="http://st.carwale.com/jquery-1.7.2.min.js?v=1.0" ></script>
 <script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st2.aeplcdn.com" + staticUrlPath : "" %>/src/BikeWaleCommon.js?v=1.2"></script>
 <script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st.aeplcdn.com" + staticUrlPath : "" %>/src/common/bt.js?v1.1"></script>

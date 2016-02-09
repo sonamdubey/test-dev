@@ -362,7 +362,7 @@ namespace Bikewale.DAL.Dealer
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = "[GetDealerCities_New]";
+                    cmd.CommandText = "GetDealerCities_New";
 
                     objCityList = new List<CityEntityBase>();
 
@@ -460,6 +460,17 @@ namespace Bikewale.DAL.Dealer
 
             return status;
             
+        }
+
+        /// <summary>
+        /// Created By : Sushil Kumar
+        /// Created On : 7th October 2015 
+        /// Summary : Method to get list of all cities in which dealers are available
+        /// </summary>
+        /// <returns></returns>
+        public List<CityEntityBase> GetDealersBookingCitiesList()
+        {
+            throw new NotImplementedException();
         }
 
     }//End class
