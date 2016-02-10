@@ -14,7 +14,7 @@
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/new/bookinglisting.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/chosen.min.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css" />
     <script type="text/javascript">
-        ga_pg_id = '5';
+        ga_pg_id = '39';
         var clientIP = '<%= clientIP %>';
     </script>
 </head>

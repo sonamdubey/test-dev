@@ -3,7 +3,7 @@
 .booking-landing-search-container .form-control { padding:8px; }
 .booking-search-city, .booking-search-area { width:50%; height: 40px; float:left;}
 .booking-search-city select, .booking-search-area select, .booking-search-city-form, .booking-search-area-form { width: 100%; height: 38px; color: #555; background:#fff; }
-.booking-search-city-form, .booking-search-area-form { padding:8px; text-align:left; cursor:pointer; background: #fff url(http://img.aeplcdn.com/bikewaleimg/images/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; }
+.booking-search-city-form, .booking-search-area-form { padding:8px 25px 8px 8px; text-align:left; cursor:pointer; background: #fff url(http://img.aeplcdn.com/bikewaleimg/images/dropArrowBg.png?v1=19082015) no-repeat 96% 50%; text-align:left; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .booking-search-city select, .booking-search-area select { border: none; display:none; }
 .booking-search-area select { border:1px solid #ccc }
 .booking-landing-search-btn { width:44%; }

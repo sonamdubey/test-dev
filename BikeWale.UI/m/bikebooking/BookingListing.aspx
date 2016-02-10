@@ -9,7 +9,7 @@
             description = "BikeWale - India's favourite bike portal. Book your bikes, scooters and avail exciting offers and benefits exclusively on BikeWale.";
            %>
         <!-- #include file="/includes/headscript_mobile.aspx" -->
-        <script>ga_pg_id = '5';</script>
+        <script>ga_pg_id = '39';</script>
     </head>
     <body class="bg-light-grey">
         <!-- #include file="/includes/Navigation_Mobile.aspx" -->
@@ -89,19 +89,21 @@
                             <div id="listingPopupHeading">
                                 <p class="font18 margin-top10 margin-bottom5 text-capitalize">Please Tell Us Your Location</p>
                                 <p class="text-light-grey margin-bottom5">See Bikes Available for Booking in Your Area!</p>
-                                <div id="listingCitySelection" class="form-control text-left input-sm position-rel margin-bottom10">
-                                    <div class="selected-city">Select City</div>
+                                <div id="listingCitySelection" class="form-control text-left position-rel margin-bottom10">
+                                    <div class="selected-city input-sm">Select City</div>
                                     <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
                                     <span class="bwmsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
 
-                                <div id="listingAreaSelection" class="form-control text-left input-sm position-rel margin-bottom10">
-                                    <div class="selected-area">Select Area</div>
+                                <div id="listingAreaSelection" class="form-control text-left position-rel margin-bottom10">
+                                    <div class="selected-area input-sm">Select Area</div>
                                     <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
                                     <span class="bwmsprite error-icon errorIcon"></span>
                                     <div class="bw-blackbg-tooltip errorText"></div>
                                 </div>
+                                
+
                                 
                                 <div class="margin-top20 text-center">
                                     <a id="btnBookingListingPopup" class="btn btn-orange btn-full-width font18">Show bikes</a>
@@ -207,7 +209,7 @@
                                             <ul class="offers-list-ul" data-bind="foreach : offers()">
                                                 <li data-bind="text : offerText()"></li>
                                             </ul>
-                                            <input class="book-now-popup-btn margin-top30 btn btn-orange font16" data-bind="click: function () { registerPQ($data); }" value="Book now"/>
+                                            <input class="book-now-popup-btn margin-top30 btn btn-orange font16" data-bind="click: function () { window.history.back(); registerPQ($data); }" value="Book now"/>
                                         </div>
                                         <p class="font14 text-light-grey">Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee"></span> <span class="font15" data-bind="text: bookingAmount"></span></span></p>
                                         <input class="margin-top10 btn btn-orange btn-full-width margin-top10" data-bind="click: function () { registerPQ($data); }" value="Book now" />
@@ -410,8 +412,8 @@
             var cityName = $("#listingPopupCityList li[cityid='" + selectedCityId + "']").text(),
                 areaName = $("#listingPopupAreaList li[areaid='" + selectedAreaId + "']").text()
             $("#Userlocation").text(cityName + ', ' + areaName);
-            $("#listingCitySelection").text(cityName);
-            $("#listingAreaSelection").text(areaName);
+            $("#listingCitySelection .selected-city").text(cityName);
+            $("#listingAreaSelection .selected-area").text(areaName);
 
             var key = "bCity_";
             lscache.setBucket('BLPage');
