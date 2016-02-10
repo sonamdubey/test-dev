@@ -186,7 +186,7 @@ $.bindSearchResult = function (json) {
 };
 var d;
 $.hitAPI = function (searchUrl, filterName) {
-    var bookingSearchURL = '/api/BikeBookingListing/?pageSize=6&' + searchUrl + '&cityId=' + selectedCityId + '&areaId=' + selectedAreaId;
+    var bookingSearchURL = '/api/BikeBookingListing/?pageSize=6&cityId=' + selectedCityId + '&areaId=' + selectedAreaId + "&" + searchUrl;
     $.ajax({
         type: 'GET',
         url: bookingSearchURL ,

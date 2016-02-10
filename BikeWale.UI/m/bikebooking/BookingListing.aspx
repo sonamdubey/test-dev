@@ -209,10 +209,10 @@
                                             <ul class="offers-list-ul" data-bind="foreach : offers()">
                                                 <li data-bind="text : offerText()"></li>
                                             </ul>
-                                            <input class="book-now-popup-btn margin-top30 btn btn-orange font16" data-bind="click: function () { window.history.back(); registerPQ($data); }" value="Book now"/>
+                                            <input type="button" class="book-now-popup-btn margin-top30 btn btn-orange font16" data-bind="click: function () { window.history.back(); registerPQ($data); }" value="Book now"/>
                                         </div>
                                         <p class="font14 text-light-grey">Now book your bike online at <span class="text-default text-bold"><span class="margin-left5 fa fa-rupee"></span> <span class="font15" data-bind="text: bookingAmount"></span></span></p>
-                                        <input class="margin-top10 btn btn-orange btn-full-width margin-top10" data-bind="click: function () { registerPQ($data); }" value="Book now" />
+                                        <input type="button" class="margin-top10 btn btn-orange btn-full-width margin-top10" data-bind="click: function () { registerPQ($data); }" value="Book now" />
                                     </div>
                                     </div>
                                 </div>

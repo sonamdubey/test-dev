@@ -32,6 +32,7 @@ var ShowReviewCount = function (reviewCount) {
 
 $(document).ready(function () {
     var completeQs = location.href.split('?')[1];
+
     completeQs = $.removeFilterFromQS('pageno');
 
     $.selectedValueSortTab();
@@ -320,7 +321,7 @@ var AppendCertificationStar = function (abStars) {
 }
 
 $.hitAPI = function (searchUrl) {
-    var bookingSearchURL = '/api/BikeBookingListing/?pageSize=6&' + searchUrl + '&cityId=' + selectedCityId + '&areaId=' + selectedAreaId;
+    var bookingSearchURL = '/api/BikeBookingListing/?pageSize=6&cityId=' + selectedCityId + '&areaId=' + selectedAreaId + "&" + searchUrl;
     $.ajax({
         type: 'GET',
         url: bookingSearchURL,
@@ -497,7 +498,8 @@ $.loadNextPage = function () {
 
 $.pushState = function (qs) {
     loading.show();
-    history.pushState(null, null, '?' + qs);
+    if (qs!="")
+        history.pushState(null, null, '?' + qs);
     $.hitAPI(qs);
 };
 
@@ -532,7 +534,7 @@ $.getAllParamsFromQS = function () {
     var completeQS = window.location.href.split('?')[1];
     var params = [];
 
-    if (completeQS.length > 1) {
+    if (completeQS != undefined && completeQS.length > 1) {
         var tempParams = completeQS.substring(0, completeQS.length).split('&');
 
         if (tempParams.length > 0) {
