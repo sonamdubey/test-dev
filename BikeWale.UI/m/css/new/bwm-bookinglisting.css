@@ -15,6 +15,8 @@
 #offersPopup .offers-list-ul { text-align:left; }
 #offersPopup ul li { background: url("http://img.aeplcdn.com/bikewaleimg/images/star-icon.png?v=22122015") no-repeat 0 3px; margin-top: 12px; padding: 0 0 0 22px; width:100%; min-height:auto; font-size:14px; }
 #offersPopup ul li:first-child { margin-top:0; }
+#listingPopupHeading .form-control { padding:0; }
+#listingCitySelection .errorIcon, #listingCitySelection .errorText, #listingAreaSelection .errorIcon, #listingAreaSelection .errorText { display:none; }
 
 .search-img-holder { position: relative; }
 .search-img-holder img { width: 100%; vertical-align: middle; }

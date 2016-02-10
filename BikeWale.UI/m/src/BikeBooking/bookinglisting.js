@@ -911,16 +911,16 @@ $.pushGACode = function (qs, noOfRecords) {
 };
 
 $.pushGTACode = function (noOfRecords, filterName) {
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Filter_Select_' + noOfRecords, 'lab': filterName });
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Filter_Select_' + noOfRecords, 'lab': filterName });
 };
 
 $.ModelClickGaTrack = function (modelName, modelUrl) {
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Model_Click', 'lab': modelName });
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Model_Click', 'lab': modelName });
     location.href = modelUrl;
 };
 
 $.PricePopUpClickGA = function (makeName) {
-    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Search_Page', 'act': 'Get_On_Road_Price_Click', 'lab': makeName });
+    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'BookingListing_Page', 'act': 'Get_On_Road_Price_Click', 'lab': makeName });
 };
 
 (function ($, ko) {
@@ -995,11 +995,13 @@ $.PricePopUpClickGA = function (makeName) {
 $("#searchBikeList").on("click", "span.view-offers-target", function () {
     var offersDiv = $(this).parent().next("div#offersPopup");
     offersPopupOpen(offersDiv);
+    appendHash("offersPopup");
 });
 
 $("#searchBikeList").on("click", "div.offers-popup-close-btn", function () {
     var offersDiv = $(this).parent("div#offersPopup");
     offersPopupClose(offersDiv);
+    window.history.back();
 });
 
 var offersPopupOpen = function (offersDiv) {
@@ -1013,11 +1015,12 @@ var offersPopupClose = function (offersDiv) {
 
 $(".change-city-area-target").on("click", function () {
     listingLocationPopupOpen();
-    //appendHash("listingPopup");
+    appendHash("listingPopup");
 });
 
 $(".location-popup-close-btn").on("click", function () {
     listingLocationPopup.hide();
+    window.history.back();
 });
 
 var listingLocationPopup = $("#listingLocationPopup");
@@ -1077,18 +1080,19 @@ var listingLocationPopupClose = function () {
 
 $("#listingPopupCityList").on("click", "li", function () {
     var userselection = getSelectedLocationLI($(this));
-    $("#listingCitySelection").text(userselection.trim());
-    $("#listingAreaSelection").empty();
-    $("#listingAreaSelection").text("Select Area");
+    $("#listingCitySelection .selected-city").text(userselection.trim());
+    //$("#listingAreaSelection").empty();
+    
+    $("#listingAreaSelection .selected-area").text("Select Area");
     $('#listingPopupAreaInput').val('');
     onChangeCity($(this));
 });
 
 $("#listingPopupAreaList").on("click", "li", function () {
     var userselection = getSelectedLocationLI($(this));
-    $("#listingAreaSelection").text(userselection.trim());
+    $("#listingAreaSelection .selected-area").text(userselection.trim());
     selectedAreaId = $(this).attr('areaid');
-    console.log(selectedAreaId);
+    hideError($("#listingAreaSelection .selected-area"));
 });
 
 var getSelectedLocationLI = function (selection) {
@@ -1100,21 +1104,18 @@ var getSelectedLocationLI = function (selection) {
 };
 
 $("#btnBookingListingPopup").on("click", function () {
-    var areaName = $('#listingAreaSelection'),
-        cityName = $('#listingCitySelection');
+    var areaName = $('#listingAreaSelection .selected-area'),
+        cityName = $('#listingCitySelection .selected-city');
     if (cityName.text().trim() == "Select City") {
         return;
     }
     if (areaName.text().trim() == "Select Area") {
-        setError($('#listingAreaSelection'), "Please select area !");
+        setError($('.selected-area'), "Please select area !");
         return;
-    }
-    else {
-        hideError(areaName);
     }
 
     listingLocationPopupClose();
-    var CookieValue = selectedCityId + "_" +cityName.text() + '_' + selectedAreaId + "_" +areaName.text();
+    var CookieValue = selectedCityId + "_" +cityName.text().trim() + '_' + selectedAreaId + "_" +areaName.text().trim();
     SetCookieInDays("location", CookieValue, 365);
     window.location.href = "/m/bikebooking/bookinglisting.aspx";
     //    $('#Userlocation').text(cityName.text().trim() + ', ' + areaName.text().trim());
@@ -1166,6 +1167,7 @@ function registerPQ(myData) {
             //SetCookie("_MPQ", cookieValue);
             if (jsonObj != undefined && jsonObj.quoteId > 0 && jsonObj.dealerId > 0) {
                 // gtmCodeAppenderWidget(pageId, 'Dealer_PriceQuote_Success_Submit', gaLabel);
+                
                 window.location = "/m/pricequote/bookingsummary_new.aspx?MPQ=" + Base64.encode(cookieValue);
             }
             else {
@@ -1181,7 +1183,7 @@ function registerPQ(myData) {
 }
 
 function onChangeCity(objCity) {
-    selectedCityId = parseInt(objCity.attr('cityid'), 16);
+    selectedCityId = !isNaN(parseInt(objCity.attr('cityid')))?parseInt(objCity.attr('cityid')):0;
     $('#listingPopupAreaList').empty();
     if (selectedCityId > 0) {
         if (!checkCacheCityAreas(selectedCityId)) {
