@@ -10,7 +10,7 @@
             <p class="font18 text-bold margin-top15 margin-bottom15">Heading</p>
             <p class="testimonial-user-stmt font16 margin-bottom15"><%# DataBinder.Eval(Container.DataItem,"Content") %></p>
             <p class="font14"><%# DataBinder.Eval(Container.DataItem,"UserName") %></p>
-            <p class="font14 text-light-grey">City</p>
+            <p class="font14 text-light-grey hide">City</p>
         </div>
     </ItemTemplate>
 </asp:Repeater>
