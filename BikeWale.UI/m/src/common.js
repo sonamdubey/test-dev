@@ -100,7 +100,7 @@ $(document).ready(function () {
         }
     } catch (e) { }
 
-    if (ga_pg_id != '1' && ga_pg_id != '5')
+    if (ga_pg_id != '1' && ga_pg_id != '39' )
         $("#global-search").show();
 
     $(".lazy").lazyload({
@@ -1210,8 +1210,13 @@ var appendHash = function (state) {
             break;
         case "bookingsearch":
             window.location.hash = state;
+            break;
         case "listingPopup":
             window.location.hash = state;
+            break;
+        case "offersPopup":
+            window.location.hash = state;
+            break;
         default:
             return true;
     }
@@ -1239,8 +1244,14 @@ var closePopUp = function (state) {
             break;
         case "bookingsearch":
             bookingSearchClose();
+            break;
         case "listingPopup":
             listingLocationPopupClose();
+            break;
+        case "offersPopup":
+            //listingOfferPopupClose();
+            offersPopupClose($('div#offersPopup'));
+            break;
         default:
             return true;
     }
