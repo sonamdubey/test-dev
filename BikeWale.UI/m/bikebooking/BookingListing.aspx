@@ -216,7 +216,7 @@
                                     </div>
                                     </div>
                                 </div>
-                            <div class="border-top1 margin-left20 margin-right20 padding-top10 clear"></div>
+                            <div class="border-top1 margin-left20 margin-right20 padding-top10 clear"></div>  
                         </div>
                     </script>
                 </div>
