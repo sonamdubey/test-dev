@@ -53,6 +53,7 @@
     <Compile Include="AutoComplete\IAutoSuggest.cs" />
     <Compile Include="BikeBooking\IBikeBooking.cs" />
     <Compile Include="BikeBooking\IBookingCancellation.cs" />
+    <Compile Include="BikeBooking\IBookingListing.cs" />
     <Compile Include="BikeBooking\IDealerPriceQuote.cs" />
     <Compile Include="BikeData\IBikeMakes.cs" />
     <Compile Include="BikeData\IBikeModelMaskingCacheRepository.cs" />
@@ -69,6 +70,7 @@
     <Compile Include="Customer\ICustomerAuthentication.cs" />
     <Compile Include="Customer\ICustomerRepository.cs" />
     <Compile Include="Dealer\IDealer.cs" />
+    <Compile Include="Dealer\IOffer.cs" />
     <Compile Include="Feedback\IFeedback.cs" />
     <Compile Include="Insurance\IInsuranceDetail.cs" />
     <Compile Include="Insurance\IInsuranceRepository.cs" />

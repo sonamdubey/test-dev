@@ -277,8 +277,8 @@ namespace Bikewale.Pricequote
 
                 if (objBookingPageDetails.Varients.FirstOrDefault().Make != null && objBookingPageDetails.Varients.FirstOrDefault().Model != null)
                 {
-                    makeUrl = String.Format("<a href='/{0}-bikes/'>{1}</a>", objBookingPageDetails.Varients.FirstOrDefault().Make.MaskingName, objBookingPageDetails.Varients.FirstOrDefault().Make.MakeName);
-                    modelUrl = String.Format("<a href='/{0}-bikes/{1}/'>{2}</a>", objBookingPageDetails.Varients.FirstOrDefault().Make.MaskingName, objBookingPageDetails.Varients.FirstOrDefault().Model.MaskingName, objBookingPageDetails.Varients.FirstOrDefault().Model.ModelName);
+                    makeUrl = String.Format("<a href='/{0}-bikes/' itemprop='url'><span itemprop='title'>{1}</span></a>", objBookingPageDetails.Varients.FirstOrDefault().Make.MaskingName, objBookingPageDetails.Varients.FirstOrDefault().Make.MakeName);
+                    modelUrl = String.Format("<a href='/{0}-bikes/{1}/' itemprop='url'><span itemprop='title'>{2}</span></a>", objBookingPageDetails.Varients.FirstOrDefault().Make.MaskingName, objBookingPageDetails.Varients.FirstOrDefault().Model.MaskingName, objBookingPageDetails.Varients.FirstOrDefault().Model.ModelName);
 
                     bikeName = String.Format("{0} {1}", objBookingPageDetails.Varients.FirstOrDefault().Make.MakeName, objBookingPageDetails.Varients.FirstOrDefault().Model.ModelName);
                 }

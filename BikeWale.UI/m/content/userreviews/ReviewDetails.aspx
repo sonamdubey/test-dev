@@ -14,10 +14,14 @@
 </style>
     <div class="padding5">
        <div id="br-cr">
-            <a href="/m/new/" class="normal">New Bikes</a> &rsaquo;  
-            <a href="/m/<%=objReview.BikeEntity.MakeEntity.MaskingName %>-bikes/" class="normal"><%=objReview.BikeEntity.MakeEntity.MakeName %></a> &rsaquo; 
-            <a href="/m/<%=objReview.BikeEntity.MakeEntity.MaskingName %>-bikes/<%= objReview.BikeEntity.ModelEntity.MaskingName %>/" class="normal"><%= objReview.BikeEntity.ModelEntity.ModelName %></a> &rsaquo;
-            <a href="/m/<%=objReview.BikeEntity.MakeEntity.MaskingName %>-bikes/<%= objReview.BikeEntity.ModelEntity.MaskingName %>/user-reviews/" class="normal">User Reviews</a>  &rsaquo;
+           <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a></span> &rsaquo;
+               <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">  
+            <a href="/m/<%=objReview.BikeEntity.MakeEntity.MaskingName %>-bikes/" class="normal" itemprop="url"><span itemprop="title"><%=objReview.BikeEntity.MakeEntity.MakeName %></span></a></span> &rsaquo; 
+                   <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/<%=objReview.BikeEntity.MakeEntity.MaskingName %>-bikes/<%= objReview.BikeEntity.ModelEntity.MaskingName %>/" class="normal" itemprop="url"><span itemprop="title"><%= objReview.BikeEntity.ModelEntity.ModelName %></span></a></span> &rsaquo;
+                       <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/<%=objReview.BikeEntity.MakeEntity.MaskingName %>-bikes/<%= objReview.BikeEntity.ModelEntity.MaskingName %>/user-reviews/" class="normal" itemprop="url"><span itemprop="title">User Reviews</span></a></span>  &rsaquo;
             <span class="lightgray"><%= objReview.ReviewEntity.ReviewTitle %></span>
         </div>
         <h1><%= objReview.ReviewEntity.ReviewTitle %></h1>

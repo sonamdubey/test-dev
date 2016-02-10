@@ -121,9 +121,6 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .global-search { width: 420px; position: relative; float: left; margin-right: 30px; }
 .global-search span.search-icon-grey { position: absolute; right: 10px; top: 5px; cursor: pointer; }
 .global-search input[type="text"], #globalCity-input input[type="text"] { width: 100%; padding: 7px 5px; border: none; outline: none; }
-.global-location { position: relative; float: left; color: #fff; margin-right: 20px; }
-.gl-default-stage { border: 1px solid #acaba7; padding: 4px 10px; cursor: pointer; }
-.gl-default-stage span.cross-md-lgt-grey { position: relative; top: 2px; margin-left: 20px; }
 
 #errNewBikeSearch.ui-autocomplete { width:470px;position:absolute;top:40px;left:3px; color:#4d5057;text-align: left; }
 
@@ -134,6 +131,11 @@ select.form-control	{ -moz-appearance: none; -webkit-appearance:none; background
 .globalcity-input-box { width: 350px; margin: 0 auto; }
 .globalcity-close-btn.cross-lg-lgt-grey, .faqsCloseBtn.cross-lg-lgt-grey, .bw-popup .popup-close-btn { background-position: -36px -226px; }
 .globalcity-close-btn.cross-lg-lgt-grey:hover, .faqsCloseBtn.cross-lg-lgt-grey:hover, .bw-popup .popup-close-btn:hover { background-position: -36px -252px; }
+
+/*nav bike booking*/
+.nav-bike-booking-target { line-height:29px; }
+.nav-bike-booking-target a { border:1px solid #acaba7; padding:4px 10px; }
+.nav-bike-booking-target a:hover { text-decoration:none; }
 
 /* global-location classes */
 .global-location { position: relative; float: left; color: #fff; margin-right: 20px; }
@@ -229,7 +231,7 @@ footer ul li a:hover { text-decoration: underline; }
 .used-bike-carousel li {height:320px}
 .compareCarsHomePage li { width: 976px; }
 .jcarousel-pagination a { 
-	text-decoration: none; display: inline-block; height: 10px; width: 10px; line-height: 10px; background: #eeeff0; border: 1px solid #ebebea;
+	text-decoration: none; display: inline-block; height: 14px; width: 14px; line-height: 10px; background: #eeeff0; border: 1px solid #ebebea;
 	border-radius: 15px; text-indent: -9999px; margin: 5px 10px; cursor: pointer; }
 .jcarousel-pagination a:hover { background: #82888b;  }
 .jcarousel-pagination a.active { background: #82888b; cursor: default; border: 1px solid #cccccc; }
@@ -308,7 +310,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 
 
 /* sprite classes */
-.bwsprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/bwsprite.png?v1=27012016v1) no-repeat; display: inline-block; }
+.bwsprite { background: url(http://img.aeplcdn.com/bikewaleimg/images/bwsprite.png?v1=08022016v1) no-repeat; display: inline-block; }
 .bw-circle-icon { background: url(http://img.aeplcdn.com/bikewaleimg/images/bw-circle-icon.png) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 24px; height: 21px; cursor: pointer; position: relative; top: -1px; }
 .nav-icon:hover { background-position: 0 -29px; }
@@ -369,6 +371,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .inquiry-icon { background-position: -183px -191px;}
 .newsletter-icon { background-position: -183px -225px; }
 .cancellation-icon { background-position: -187px -118px; }
+
+.fixed-close-btn-wrapper { position:relative; width:98%; text-align:right; }
+.fixed-close-btn { position:fixed; background-color:#fff; }
 
 .cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey, .popup-close-btn { width: 16px; height: 16px; }
 .cross-lg-white { background-position: -36px -200px; }
@@ -507,6 +512,7 @@ a.action-btn:hover{text-decoration:none;}
 .text-bold { font-weight: bold; }
 .text-unbold { font-weight: normal; }
 .text-italic { font-style: italic; }
+.text-default { color:#4d5057; }
 .text-xt-light-grey { color: #a8afb3; }
 .text-light-grey { color: #82888b; }
 .text-medium-grey { color: #999; }
@@ -806,3 +812,5 @@ li.offertxt:hover span {display:inline}
 .ae-car-icon {background-position: 0 4px; width: 36px;}
 .ae-new-label-icon{background-position: -156px 1px; height: 24px; top: -10px; left: 5px; width: 39px; }
 /* AutoExpo classes end */
+.strike{text-decoration: line-through; color:#82888b}
+.red-font{ color: #FF0000;}

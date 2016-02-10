@@ -53,6 +53,10 @@ namespace Bikewale.Service.Controllers.CMS
                 {
                     apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.ComparisonTests;
                 }
+                else if (categoryId == EnumCMSContentType.News)
+                {
+                    apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
+                }
                 else
                 {
                     apiUrl += "&contenttypes=" + (short)categoryId;
@@ -132,6 +136,10 @@ namespace Bikewale.Service.Controllers.CMS
                 if (categoryId == EnumCMSContentType.RoadTest)
                 {
                     apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.ComparisonTests;
+                }
+                else if (categoryId == EnumCMSContentType.News)
+                {
+                    apiUrl += "&contenttypes=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
                 }
                 else
                 {
@@ -222,6 +230,10 @@ namespace Bikewale.Service.Controllers.CMS
                 {
                     apiUrl += "&categoryidlist=" + (int)categoryId + "," + (int)EnumCMSContentType.ComparisonTests;
                 }
+                else if (categoryId == EnumCMSContentType.News)
+                {
+                    apiUrl += "&categoryidlist=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
+                }
                 else
                 {
                     apiUrl += "&categoryidlist=" + (int)categoryId;
@@ -302,6 +314,10 @@ namespace Bikewale.Service.Controllers.CMS
                 if (categoryId == EnumCMSContentType.RoadTest)
                 {
                     apiUrl += "&categoryidlist=" + (int)categoryId + "," + (int)EnumCMSContentType.ComparisonTests;
+                }
+                else if (categoryId == EnumCMSContentType.News)
+                {
+                    apiUrl += "&categoryidlist=" + (short)categoryId + "," + (short)EnumCMSContentType.AutoExpo2016;
                 }
                 else
                 {

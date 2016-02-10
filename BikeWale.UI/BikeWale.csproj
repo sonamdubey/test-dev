@@ -41,6 +41,18 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
+  <Choose>
+    <When Condition=" '$(GO_SCM_CARWALEWEB_PR_BRANCH)'=='' ">
+      <PropertyGroup>
+        <DestFolder>C:/BWRelease/develop/</DestFolder>
+      </PropertyGroup>
+    </When>
+    <When Condition=" '$(GO_SCM_CARWALEWEB_PR_BRANCH)'!='' ">
+      <PropertyGroup>
+        <DestFolder>C:/BWRelease/$(GO_SCM_CARWALEWEB_PR_BRANCH)/</DestFolder>
+      </PropertyGroup>
+    </When>
+  </Choose>
   <ItemGroup>
     <Reference Include="Ajax, Version=5.7.22.2, Culture=neutral">
       <SpecificVersion>False</SpecificVersion>
@@ -96,15 +108,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\Libs\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <HintPath>..\Libs\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <HintPath>..\Libs\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
     <Reference Include="MSMQLibrary, Version=1.0.0.1, Culture=neutral, PublicKeyToken=14ca6d48bbc78a0c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -244,6 +256,7 @@
     </Compile>
     <Compile Include="BikeBooking\cancellation.aspx.cs">
       <DependentUpon>cancellation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="BikeBooking\cancellation.aspx.designer.cs">
       <DependentUpon>cancellation.aspx</DependentUpon>
@@ -254,6 +267,10 @@
     <Compile Include="BikeBooking\Common\DealerPriceQuoteCookie.cs" />
     <Compile Include="BikeBooking\Common\SendEmailSMSToDealerCustomer.cs" />
     <Compile Include="BikeBooking\Common\TCApi_Inquiry.cs" />
+    <Compile Include="BikeBooking\Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="BikeBooking\RedirectToBillDesk.aspx.cs">
       <DependentUpon>RedirectToBillDesk.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -271,6 +288,7 @@
     <Compile Include="BindViewModels\Controls\BindUserReviewControl.cs" />
     <Compile Include="BindViewModels\Controls\BindUsersTestimonialControl.cs" />
     <Compile Include="BindViewModels\Controls\BindVideosControl.cs" />
+    <Compile Include="BindViewModels\Webforms\CommonModel.cs" />
     <Compile Include="common\Ajax\AjaxBikeBooking.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedBuyer.cs" />
     <Compile Include="common\Ajax\AjaxClassifiedSearch.cs" />
@@ -716,6 +734,7 @@
     </Compile>
     <Compile Include="m\bikebooking\cancellation.aspx.cs">
       <DependentUpon>cancellation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="m\bikebooking\cancellation.aspx.designer.cs">
       <DependentUpon>cancellation.aspx</DependentUpon>
@@ -888,6 +907,10 @@
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="m\bikebooking\BookingListing.aspx.cs">
+      <DependentUpon>BookingListing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="m\offerterms.aspx.cs">
       <DependentUpon>offerterms.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -965,6 +988,10 @@
     </Compile>
     <Compile Include="News\Sitemap.aspx.cs">
       <DependentUpon>Sitemap.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BikeBooking\BookingListing.aspx.cs">
+      <DependentUpon>BookingListing.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="new\versions.aspx.cs">
@@ -1255,6 +1282,7 @@
     <Content Include="AdvertiseWithUs.aspx" />
     <Content Include="BikeBooking\BillDeskResponse.aspx" />
     <Content Include="BikeBooking\cancellation.aspx" />
+    <Content Include="BikeBooking\Default.aspx" />
     <Content Include="BikeBooking\RedirectToBillDesk.aspx" />
     <Content Include="bikewaleimg\used\S146\146_20120918020514962_300x225.jpg" />
     <Content Include="bikewaleimg\used\S146\146_20120918020514962_640x428.jpg" />
@@ -1548,7 +1576,7 @@
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_640x428.jpg" />
     <Content Include="bikewaleimg\used\S93\93_20120913123500720_80x60.jpg" />
     <Content Include="bin\Bikewale.dll" />
-    <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
+    <!--     <Content Include="bin\DotNetOpenAuth.AspNet.dll" />
     <Content Include="bin\DotNetOpenAuth.AspNet.xml" />
     <Content Include="bin\DotNetOpenAuth.Core.dll" />
     <Content Include="bin\DotNetOpenAuth.Core.xml" />
@@ -1559,9 +1587,9 @@
     <Content Include="bin\DotNetOpenAuth.OpenId.dll" />
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.dll" />
     <Content Include="bin\DotNetOpenAuth.OpenId.RelyingParty.xml" />
-    <Content Include="bin\DotNetOpenAuth.OpenId.xml" />
+    <Content Include="bin\DotNetOpenAuth.OpenId.xml" /> -->
     <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Newtonsoft.Json.xml" />
+    <!--     <Content Include="bin\Newtonsoft.Json.xml" /> -->
     <Content Include="contactus.aspx" />
     <Content Include="content\ComparisonTest\DefaultCT.aspx" />
     <Content Include="content\ComparisonTest\ViewCT.aspx" />
@@ -1654,6 +1682,7 @@
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
     <Content Include="css\bookingconfig.css" />
+    <Content Include="css\bookinglanding.css" />
     <Content Include="css\brand.css" />
     <Content Include="css\booking.css" />
     <Content Include="css\bw-common-style.css" />
@@ -1687,6 +1716,7 @@
     <Content Include="css\new\search.css" />
     <Content Include="css\pikaday.css" />
     <Content Include="css\rsa.css" />
+    <Content Include="css\new\bookinglisting.css" />
     <Content Include="css\search.css" />
     <Content Include="css\slideshow.css" />
     <Content Include="css\style.css" />
@@ -1976,7 +2006,7 @@
     <Content Include="images\arrow-right-test.png" />
     <Content Include="images\blue-tick.png" />
     <Content Include="images\blue_button.jpg" />
-    <Content Include="images\bmw-s1000r.jpg" />
+    <!-- <Content Include="images\bmw-s1000r.jpg" /> -->
     <Content Include="images\body-texture-bg.jpg" />
     <Content Include="images\booking-comforts-sprite.png" />
     <Content Include="images\booking-sprite.png" />
@@ -2002,7 +2032,7 @@
     <Content Include="images\icons-sheet.png" />
     <Content Include="images\inputChecked.png" />
     <Content Include="images\inputUnchecked.png" />
-    <Content Include="images\insurance-banner.jpg" />
+    <!-- <Content Include="images\insurance-banner.jpg" /> -->
     <Content Include="images\light-grey-bg.jpg" />
     <Content Include="images\light-sept.jpg" />
     <Content Include="images\nav-bg-org.jpg" />
@@ -2013,13 +2043,14 @@
     <Content Include="images\next-steps-thumb.jpg" />
     <Content Include="images\pattern-bg.jpg" />
     <Content Include="images\Pratikphoto.JPG" />
-    <Content Include="images\radio-btn.png" />
+    <!-- <Content Include="images\radio-btn.png" /> -->
     <Content Include="images\ratings\0.png" />
     <Content Include="images\ratings\1.png" />
     <Content Include="images\ratings\half.png" />
-    <Content Include="images\ratings\ratings\0.png" />
+    <!--     <Content Include="images\ratings\ratings\0.png" />
     <Content Include="images\ratings\ratings\1.png" />
     <Content Include="images\ratings\ratings\half.png" />
+ -->
     <Content Include="images\rsa-logo.png" />
     <Content Include="images\search-bg.jpg" />
     <Content Include="images\seperator-m.png" />
@@ -2109,6 +2140,7 @@
     <Content Include="m\controls\UsersTestimonials.ascx" />
     <Content Include="m\controls\VideosWidget.ascx" />
     <Content Include="m\css\bw-new-style.css" />
+    <Content Include="m\css\bwm-booking-landing.css" />
     <Content Include="m\css\bwm-booking.css" />
     <Content Include="m\css\bwm-bookingconfig.css" />
     <Content Include="m\css\bwm-bookingflow.css" />
@@ -2124,6 +2156,7 @@
     <Content Include="m\css\jquery.mobile-1.4.2.min.css" />
     <Content Include="m\css\mobile-rsa.css" />
     <Content Include="m\css\new.css" />
+    <Content Include="m\css\new\bwm-bookinglisting.css" />
     <Content Include="m\css\new\bwm-search.css" />
     <Content Include="m\css\style.css" />
     <Content Include="m\css\zebra_datepicker.css" />
@@ -2132,7 +2165,7 @@
     <Content Include="m\Default_old.aspx" />
     <Content Include="m\faq.aspx" />
     <Content Include="m\fonts\fontawesome-webfont.svg" />
-    <Content Include="m\fonts\WebRupee.V2.0.svg" />
+    <!-- <Content Include="m\fonts\WebRupee.V2.0.svg" /> -->
     <Content Include="m\images\bg-footer.jpg" />
     <Content Include="m\images\bike-01.jpg" />
     <Content Include="m\images\booking-comforts-sprite.png" />
@@ -2142,21 +2175,21 @@
     <Content Include="m\images\bwmsprite.png" />
     <Content Include="m\images\dropArrowBg.png" />
     <Content Include="m\images\Filter-icons-sprite.png" />
-    <Content Include="m\images\get-final-price-banner.jpg" />
+    <!-- <Content Include="m\images\get-final-price-banner.jpg" /> -->
     <Content Include="m\images\home-top-ad-banner.jpg" />
     <Content Include="m\images\home-top-banner.jpg" />
-    <Content Include="m\images\honda-vs-bajaj.jpg" />
+    <!-- <Content Include="m\images\honda-vs-bajaj.jpg" /> -->
     <Content Include="m\images\inputChecked.png" />
     <Content Include="m\images\inputUnchecked.png" />
     <Content Include="m\images\list-bullet.jpg" />
     <Content Include="m\images\newcars-sprite.png" />
-    <Content Include="m\images\pqlanding-top-banner.jpg" />
-    <Content Include="m\images\price-quote-banner.jpg" />
+    <!-- <Content Include="m\images\pqlanding-top-banner.jpg" /> -->
+    <!-- <Content Include="m\images\price-quote-banner.jpg" /> -->
     <Content Include="m\images\radio-checked.png" />
     <Content Include="m\images\radio-unchecked.png" />
     <Content Include="m\images\rightArrowBg.png" />
     <Content Include="m\images\style-type-sprite.png" />
-    <Content Include="m\images\valentino-rossi.jpg" />
+    <!-- <Content Include="m\images\valentino-rossi.jpg" /> -->
     <Content Include="m\Insurance\Default.aspx" />
     <Content Include="m\news\Default.aspx" />
     <Content Include="m\news\newsdetails.aspx" />
@@ -2169,6 +2202,7 @@
     <Content Include="m\new\newbikedealers\Default.aspx" />
     <Content Include="m\new\newbikedealers\NewBikeDealerList.aspx" />
     <Content Include="m\new\newbikelaunch\Default.aspx" />
+    <Content Include="m\bikebooking\BookingListing.aspx" />
     <Content Include="m\offerterms.aspx" />
     <Content Include="m\new\Search.aspx" />
     <Content Include="m\new\upcomingbikes\Default.aspx" />
@@ -2202,10 +2236,12 @@
     <Content Include="m\src\jquery-1.10.2.min.js" />
     <Content Include="m\src\jquery.mobile-1.4.2.min.js" />
     <Content Include="m\src\newbikes.js" />
-    <Content Include="m\src\new\bwm-search.js" />
+    <!-- <Content Include="m\src\new\bwm-search.js" /> -->
+    <Content Include="m\src\BikeBooking\bookinglisting.js" />
     <Content Include="m\src\new\search.js" />
     <Content Include="m\src\Plugins.js" />
     <Content Include="m\src\zebra_datepicker.js" />
+    <Content Include="BikeBooking\BookingListing.aspx" />
     <Content Include="new\versions.aspx" />
     <Content Include="new\Search.aspx" />
     <Content Include="offerterms.aspx" />
@@ -2219,6 +2255,7 @@
     <Content Include="src\cancellation.js" />
     <Content Include="src\chosen.jquery.min.js" />
     <Content Include="src\common.js" />
+    <Content Include="src\common\chosen.jquery.min.js" />
     <Content Include="src\frameworks.js" />
     <Content Include="src\framework\knockout.js" />
     <Content Include="m\src\loadPhotos.js" />
@@ -2284,13 +2321,14 @@
     <Content Include="src\html5.js" />
     <Content Include="src\insurance.js" />
     <Content Include="src\jquery-ui-1.10.4.custom.min.js" />
-    <Content Include="src\knockout.js" />
+    <!-- <Content Include="src\knockout.js" /> -->
     <Content Include="src\login\login.js" />
     <Content Include="src\model.js" />
     <Content Include="src\newbikes.js" />
     <Content Include="src\new\bikemake.js" />
     <Content Include="src\new\photogallery\image-gallery.js" />
     <Content Include="src\new\photogallery\jquery.ad-gallery.js" />
+    <Content Include="src\BikeBooking\bookinglisting.js" />
     <Content Include="src\new\search.js" />
     <Content Include="src\pace.min.js" />
     <Content Include="src\picker.date.js" />
@@ -2299,23 +2337,23 @@
     <Content Include="src\Plugins.js" />
     <Content Include="src\pq\MetroCities.js" />
     <Content Include="src\pq\price_quote.js" />
-    <Content Include="src\Research\photogallery\image-gallery.js" />
-    <Content Include="src\Research\photogallery\jquery.ad-gallery.js" />
+    <!--     <Content Include="src\Research\photogallery\image-gallery.js" />
+    <Content Include="src\Research\photogallery\jquery.ad-gallery.js" /> -->
     <Content Include="src\Research\write_reviews.js" />
     <Content Include="src\Used\search.js" />
     <Content Include="TermsConditions.aspx" />
     <Content Include="test.aspx" />
-    <Content Include="test\css\bw-new-style.css" />
+    <!--     <Content Include="test\css\bw-new-style.css" />
     <Content Include="test\css\design.css" />
     <Content Include="test\css\jquery.mobile-1.4.2.min.css" />
-    <Content Include="test\css\style.css" />
-    <Content Include="test\fonts\WebRupee.V2.0.svg" />
-    <Content Include="test\images\bike-01.jpg" />
+    <Content Include="test\css\style.css" /> -->
+    <!-- <Content Include="test\fonts\WebRupee.V2.0.svg" /> -->
+    <!--     <Content Include="test\images\bike-01.jpg" />
     <Content Include="test\images\bw-sprite.png" />
-    <Content Include="test\images\list-bullet.jpg" />
-    <Content Include="test\js\index.js" />
+    <Content Include="test\images\list-bullet.jpg" /> -->
+    <!--     <Content Include="test\js\index.js" />
     <Content Include="test\js\jquery-1.10.2.min.js" />
-    <Content Include="test\js\jquery.mobile-1.4.2.min.js" />
+    <Content Include="test\js\jquery.mobile-1.4.2.min.js" /> -->
     <Content Include="Thankyou.aspx" />
     <Content Include="url_mapping\map_cities.txt" />
     <Content Include="url_mapping\map_makes.txt" />
@@ -2355,7 +2393,7 @@
     <Content Include="wurfl\wurfl.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Forums\ISAPI\error.log" />
+    <!-- <Content Include="Forums\ISAPI\error.log" /> -->
     <Content Include="Forums\ISAPI\httpd.conf" />
     <Content Include="m\.htaccess" />
     <Content Include="m\fonts\Roboto-Regular.ttf" />
@@ -2367,15 +2405,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="test\fonts\WebRupee.V2.0.eot" />
+    <!--     <Content Include="test\fonts\WebRupee.V2.0.eot" />
     <Content Include="test\fonts\WebRupee.V2.0.ttf" />
-    <Content Include="test\fonts\WebRupee.V2.0.woff" />
+    <Content Include="test\fonts\WebRupee.V2.0.woff" /> -->
     <Content Include="fonts\WebRupee.V2.0.eot" />
     <Content Include="fonts\WebRupee.V2.0.ttf" />
     <Content Include="fonts\WebRupee.V2.0.woff" />
-    <Content Include="m\fonts\WebRupee.V2.0.woff" />
+    <!--     <Content Include="m\fonts\WebRupee.V2.0.woff" />
     <Content Include="m\fonts\WebRupee.V2.0.ttf" />
-    <Content Include="m\fonts\WebRupee.V2.0.eot" />
+    <Content Include="m\fonts\WebRupee.V2.0.eot" /> -->
     <Content Include="Absure Bike RSA.pdf" />
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
@@ -2386,8 +2424,9 @@
     <Content Include="m\fonts\fontawesome-webfont.woff" />
     <Content Include="m\fonts\FontAwesome.otf" />
     <Content Include="images\ratings\Thumbs.db" />
-    <Content Include="images\model-sprite_tmp5443" />
-    <Content Include="images\ratings\ratings\Thumbs.db" />
+    <Content Include="bin\*.*" />
+    <!-- <Content Include="images\model-sprite_tmp5443" /> -->
+    <!-- <Content Include="images\ratings\ratings\Thumbs.db" /> -->
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2471,16 +2510,8 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>False</AutoAssignPort>
-          <DevelopmentServerPort>57738</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
           <IISUrl>http://localhost:9011/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
@@ -2492,4 +2523,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+    <Copy SourceFiles="@(Content)" DestinationFiles="@(Content->'$(DestFolder)%(RelativeDir)%(Filename)%(Extension)')" />
+  </Target>
 </Project>

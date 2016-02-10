@@ -48,11 +48,23 @@
         <div class="grid_12">
             <ul class="breadcrumb">
                 <li>You are here: </li>
-                <li><a class="blue" href="/">Home</a></li>
+                <li  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a class="blue" href="/" itemprop="url">
+                        <span itemprop="title">Home</span>
+                    </a>
+                </li>
                 <li class="fwd-arrow">&rsaquo;</li>
-                <li><a class="blue" href="/new/">New</a></li>
+                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a class="blue" href="/new/" itemprop="url">
+                        <span itemprop="title">New</span>
+                    </a>
+                </li>
                 <li class="fwd-arrow">&rsaquo;</li>
-                <li><a class="blue" href="/pricequote/">On-Road Price Quote</a></li>
+                <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <a class="blue" href="/pricequote/" itemprop="url">
+                        <span itemprop="title">On-Road Price Quote</span>
+                    </a>
+                </li>
                 <li class="fwd-arrow">&rsaquo;</li>
                 <li class="current"><strong>Dealer Detailed Price Quote</strong></li>
             </ul>

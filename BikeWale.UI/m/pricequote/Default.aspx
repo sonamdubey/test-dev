@@ -26,7 +26,7 @@
     <asp:TextBox id="txtArea" runat="server" style="display:none;" Text="" data-role="none" />
     <asp:HiddenField ID="hdnmodel" runat="Server" Value="" />
     <div class="padding5" id="pq_car">
-        <div id="br-cr"><a href="/m/new/" class="normal">New Bikes</a> &rsaquo; <span class="lightgray">On-Road Price Quote</span></div>
+        <div id="br-cr" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/m/new/" class="normal" itemprop="url"><span itemprop="title">New Bikes</span></a> &rsaquo; <span class="lightgray">On-Road Price Quote</span></div>
         <h1><%=(modelName == "" ? "New Bike" : makeName + " " + modelName) %> On-Road Price</h1>
         <div class="box1 new-line5">  
           <%--  <%if(errMsg!=""){%>

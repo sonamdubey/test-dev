@@ -466,7 +466,7 @@ $.appendToQS = function (temp, name, value) {
 
 $.fn.resetAll = function () {
     return $(this).click(function () {
-        $(".selected").remove();
+        $("span.selected").remove();
         $(".filter-selection-div li").each(function () {
             $(this).removeClass("active").addClass("uncheck");
         });

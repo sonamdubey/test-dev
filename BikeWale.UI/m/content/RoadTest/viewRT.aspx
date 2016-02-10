@@ -20,8 +20,10 @@
 </style>
 <div class="padding5">
         <div id="br-cr">
-            <a href="/m/" class="normal">Home</a> &rsaquo; 
-            <a href="/m/road-tests/" class="normal">Road Tests</a> &rsaquo;
+            <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/" itemprop="url" class="normal"><span itemprop="title">Home</span></a></span> &rsaquo; 
+            <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+            <a href="/m/road-tests/" itemprop="url" class="normal"><span itemprop="title">Road Tests</span></a></span> &rsaquo;
             <span class="lightgray"><%= pageTitle %></span>
         </div>
     

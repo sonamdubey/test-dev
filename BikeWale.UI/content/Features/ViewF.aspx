@@ -14,140 +14,42 @@
 %>
 <!-- #include file="/includes/headNew.aspx" -->
 <style>
-    .block-spacing {
-        margin-top: 10px;
-    }
-
-        .block-spacing ul {
-            list-style: none;
-            width: 620px;
-            overflow: hidden;
-        }
-
-        .block-spacing li {
-            float: left;
-            padding: 5px 5px;
-            border-right: 1px solid #999;
-            background-color: #f3f2f2;
-        }
-
-            .block-spacing li a {
-                font-weight: bold;
-                text-decoration: none;
-                *position: relative;
-                *height: 25px;
-                *display: inline-block;
-                *top: -10px;
-                cursor: pointer;
-            }
-
-    .text-bold {
-        font-weight: bold;
-        font-size: 14px;
-        color: #000;
-    }
-    /* photo gallery classes */
-    #image-gallery {
-        white-space: nowrap;
-        overflow: hidden;
-    }
-
-        #image-gallery li {
-            display: inline-block;
-            margin-right: 10px;
-            vertical-align: top;
-            white-space: normal;
-        }
-
-            #image-gallery li .thumb {
-                height: 110px;
-                background: #f0f0f0;
-            }
-
-                #image-gallery li .thumb img {
-                    height: 110px;
-                }
-
-            #image-gallery li a:hover {
-                text-decoration: none;
-                color: #034FB6;
-            }
-
-            #image-gallery li:hover h4 {
-                color: #034FB6;
-            }
-
-    #gallery .jcarousel-skin-tango {
-        overflow: hidden;
-        height: 110px;
-    }
-
-        #gallery .jcarousel-skin-tango .jcarousel-container-horizontal {
-            width: 628px;
-            *width: 630px;
-            height: auto !important;
-        }
-
-        #gallery .jcarousel-skin-tango .jcarousel-clip {
-            overflow: hidden;
-        }
-
-        #gallery .jcarousel-skin-tango .jcarousel-clip-horizontal {
-            width: 630px;
-            height: auto !important;
-        }
-
-        #gallery .jcarousel-skin-tango .jcarousel-item {
-            width: 165px;
-            overflow: hidden;
-            background: #282626;
-            text-align: center;
-        }
-
-        #gallery .jcarousel-skin-tango .jcarousel-item-horizontal {
-            margin-left: 0;
-            margin-right: 10px;
-        }
-
-        #gallery .jcarousel-skin-tango .jcarousel-next-horizontal,
-        #gallery .jcarousel-skin-tango .jcarousel-prev-horizontal {
-            cursor: pointer;
-            height: 110px;
-            position: absolute;
-            top: 0px;
-            width: 15px;
-            opacity: .8;
-            filter: alpha(opacity=80);
-        }
-
-            #gallery .jcarousel-skin-tango .jcarousel-next-horizontal:hover,
-            #gallery .jcarousel-skin-tango .jcarousel-prev-horizontal:hover {
-                opacity: 1;
-                filter: alpha(opacity=100);
-            }
-
-        #gallery .jcarousel-skin-tango .jcarousel-next-horizontal {
-            background: #282626 url("http://img.aeplcdn.com/adgallery/ad_scroll_forward.png") no-repeat center center;
-            right: 10px;
-        }
-
-        #gallery .jcarousel-skin-tango .jcarousel-prev-horizontal {
-            background: #282626 url("http://img.aeplcdn.com/adgallery/ad_scroll_back.png") no-repeat center center;
-            left: 0px;
-        }
-
-    .article-content img {
-        width: 100%;
-    }
+.block-spacing {margin-top: 10px;}
+.block-spacing ul {list-style: none;width: 620px;overflow: hidden;}
+.block-spacing li {float: left;padding: 5px 5px;border-right: 1px solid #999;background-color: #f3f2f2;}
+.block-spacing li a {font-weight: bold;text-decoration: none;*position: relative;*height: 25px;*display: inline-block;*top: -10px;cursor: pointer;}
+.text-bold {font-weight: bold;font-size: 14px;color: #000;}
+/* photo gallery classes */
+#image-gallery {white-space: nowrap;overflow: hidden;}
+#image-gallery li {display: inline-block;margin-right: 10px;vertical-align: top;white-space: normal;}
+#image-gallery li .thumb {height: 110px;background: #f0f0f0;}
+#image-gallery li .thumb img {height: 110px;}
+#image-gallery li a:hover {text-decoration: none;color: #034FB6;}
+#image-gallery li:hover h4 {color: #034FB6;}
+#gallery .jcarousel-skin-tango {overflow: hidden;height: 110px;}
+#gallery .jcarousel-skin-tango .jcarousel-container-horizontal {width: 628px;*width: 630px;height: auto !important;}
+#gallery .jcarousel-skin-tango .jcarousel-clip {overflow: hidden;}
+#gallery .jcarousel-skin-tango .jcarousel-clip-horizontal {width: 630px;height: auto !important;}
+#gallery .jcarousel-skin-tango .jcarousel-item {width: 165px;overflow: hidden;background: #282626;text-align: center;}
+#gallery .jcarousel-skin-tango .jcarousel-item-horizontal {margin-left: 0;margin-right: 10px;}
+#gallery .jcarousel-skin-tango .jcarousel-next-horizontal,#gallery .jcarousel-skin-tango .jcarousel-prev-horizontal {cursor: pointer;height: 110px;position: absolute;top: 0px;width: 15px;opacity: .8;filter: alpha(opacity=80);}
+#gallery .jcarousel-skin-tango .jcarousel-next-horizontal:hover,#gallery .jcarousel-skin-tango .jcarousel-prev-horizontal:hover {opacity: 1;filter: alpha(opacity=100);}
+#gallery .jcarousel-skin-tango .jcarousel-next-horizontal {background: #282626 url("http://img.aeplcdn.com/adgallery/ad_scroll_forward.png") no-repeat center center;right: 10px;}
+#gallery .jcarousel-skin-tango .jcarousel-prev-horizontal {background: #282626 url("http://img.aeplcdn.com/adgallery/ad_scroll_back.png") no-repeat center center;left: 0px;}
+.article-content img {width: 100%;}
 </style>
 <script type="text/javascript" src="<%= staticUrlPath != "" ? "http://st1.aeplcdn.com" + staticUrlPath : "" %>/src/common/jquery.colorbox-min.js?v=1.0"></script>
 <div class="container_12">
     <div class="grid_12">
         <ul class="breadcrumb">
             <li>You are here: </li>
-            <li><a href="/">Home</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a itemprop="url" href="/"><span itemprop="title">Home</span></a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/features/">Features</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a itemprop="url" href="/features/"><span itemprop="title">Features</span></a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong><%= articleTitle%> Features</strong></li>
         </ul>
