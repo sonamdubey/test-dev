@@ -16,6 +16,19 @@
             <li>
                 <a href="javascript:void(0)">
                     <span class="bwmsprite newBikes-icon"></span>
+                    <span class="navbarTitle">Bike Booking</span>
+                    <span class="ae-sprite ae-new-label-icon"></span>
+                    <span class="nav-drop fa fa-angle-down"></span>
+                </a>
+                <ul class="nestedUL">
+                    <li><a  href="/m/bikebooking/">Book Your Bike</a></li>
+                    <li><a  href="/m/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
+                    <li><a href="/m/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="javascript:void(0)">
+                    <span class="bwmsprite newBikes-icon"></span>
                     <span class="navbarTitle">New Bikes</span>
                     <span class="nav-drop fa fa-angle-down"></span>
                 </a>
