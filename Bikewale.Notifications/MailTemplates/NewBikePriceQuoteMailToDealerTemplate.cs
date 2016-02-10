@@ -70,7 +70,7 @@ namespace Bikewale.Notifications.MailTemplates
                         + "<div style=\"margin:0 10px 20px; background:#fff;\">"
                             + "<div style=\"color:#2a2a2a; font-weight:bold; padding:18px 0; margin:0 10px 20px; border-bottom:1px solid #e2e2e2;\">{2}</div>"
                             + "<div style=\"margin:25px 0 0; text-align:center;\"> <!-- bike details starts here -->"
-                                + "<div style=\"display:inline-block; vertical-align:top; margin:0 30px 10px 10px;\">"
+                                + "<div style=\"display:inline-block; vertical-align:top; margin:0 30px 10px 10px;width:240px;\">"
                                     + "<div style=\"width:192px; height:107px; margin-bottom:20px;\">"
                                         + "<img src=\"{7}\" alt=\"{2}\" title=\"{2}\" width=\"100%\" border=\"0\"/>"
                                     + "</div>"
@@ -112,7 +112,7 @@ namespace Bikewale.Notifications.MailTemplates
                         }
                     }
                     sb.AppendFormat(
-                        "<div>"
+                        "<div style=\"padding-bottom:20px;\">"
                             + "<div style=\"width:70%; float:left; font-weight:bold;\">Total on road price</div>"
                             + "<div style=\"width:30%; float:left; text-align:right; font-weight:bold;\"><span><img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/rupee-large.png\" alt=\"Rupee\" title=\"Rupee\" border=\"0\" /></span>{0}</div>"
                             + "<div style=\"clear:both;\"></div>"
@@ -173,7 +173,7 @@ namespace Bikewale.Notifications.MailTemplates
                             + "<div style=\"margin-bottom:25px;\">Please feel free to call us at 8828305054 for any queries.</div>"
                             + "<div style=\"margin-bottom:25px;\">Regards,<br />Team BikeWale</div>"
                         + "</div>"
-                        + "<div style=\"margin-top:20px; margin-bottom:10px; max-width:670px;\">"
+                        + "<div style=\"margin-top:20px; margin-bottom:10px; max-width:692px;\">"
                             + "<a href=\"https://play.google.com/store/apps/details?id=com.bikewale.app&utm_source=&utm_medium=email&utm_campaign=\" target=\"_blank\">"
                             + "<img src=\"http://img1.carwale.com/bikewaleimg/images/bikebooking/mailer/bw-footer-banner.jpg\" style=\"border:0; width:100%\"></a>"
                         + "</div>"

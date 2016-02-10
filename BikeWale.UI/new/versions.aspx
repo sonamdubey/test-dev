@@ -11,20 +11,20 @@
 <html>
 <head>
     <%
-        var modDetails = modelPage.ModelDetails;
-        title = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
-        description = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India - Rs."
-                    + Bikewale.Utility.Format.FormatPrice(modDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modDetails.MaxPrice.ToString())
-                    + ". Check out " + modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
+		var modDetails = modelPage.ModelDetails;
+		title = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
+		description = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India - Rs."
+					+ Bikewale.Utility.Format.FormatPrice(modDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modDetails.MaxPrice.ToString())
+					+ ". Check out " + modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
 
-        canonical = "http://www.bikewale.com/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
-        AdId = "1017752";
-        AdPath = "/1017752/Bikewale_NewBike_";
-        TargetedModel = modDetails.ModelName;
-        fbTitle = title;
-        alternate = "http://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
-        isAd970x90Shown = true;
-        TargetedCity = cityName;
+		canonical = "http://www.bikewale.com/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
+		AdId = "1017752";
+		AdPath = "/1017752/Bikewale_NewBike_";
+		TargetedModel = modDetails.ModelName;
+		fbTitle = title;
+		alternate = "http://www.bikewale.com/m/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
+		isAd970x90Shown = true;
+		TargetedCity = cityName;
     %>
 
     <% isAd970x90BTFShown = true; %>
@@ -40,7 +40,11 @@
         var bikeVersionLocation = '';
         var bikeVersion = '';
         var isBikeWalePq = "<%= isBikeWalePQ%>";
-        var areaId = "<%= areaId %>";
+		var areaId = "<%= areaId %>";
+        var isDealerPriceAvailable = "<%= pqOnRoad != null ? pqOnRoad.IsDealerPriceAvailable : false%>";
+        var campaignId = "<%= campaignId%>";
+        var manufacturerId = "<%= manufacturerId%>";
+
     </script>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
@@ -75,10 +79,8 @@
                                 <a href="/<%= modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/" itemprop="url">
                                     <span itemprop="title"><%= modelPage.ModelDetails.MakeBase.MakeName %></span>
                                 </a></li>
-                            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><span class="fa fa-angle-right margin-right10"></span>
-                                <a href="/<%= modelPage.ModelDetails.MakeBase.MaskingName %>-bikes/<%= modelPage.ModelDetails.MaskingName %>" itemprop="url">
-                                    <span itemprop="title"><%= modelPage.ModelDetails.ModelName %></span>
-                                </a>
+                            <li><span class="fa fa-angle-right margin-right10"></span>
+                                <span><%= modelPage.ModelDetails.ModelName %></span>
                             </li>
                         </ul>
                         <div class="clear"></div>
@@ -142,13 +144,29 @@
                         </div>
                         <div class="grid-7 model-details-wrapper omega">
                             <div class="model-name-review-container">
+                                <% if(isBookingAvailable){ %>
+                                <div>
+                                    <p class="font24 text-black text-bold leftfloat model-with-booking"><%= bikeName %></p>
+                                    <div class="booking-badge-container rightfloat position-rel">
+                                        <!---->
+                                        <span class="bwsprite booking-available-icon"></span>
+                                        <div class="booking-badge rounded-corner2 text-bold">
+                                            <p class="booking-badge-title">Booking</p>
+                                            <p class="booking-badge-subtitle">Available</p>
+                                        </div>
+                                        <!---->
+                                    </div>
+                                    <div class="clear"></div>
+                                </div>
+                                <%} else{ %>
                                 <p class="font24 text-black text-bold"><%= bikeName %></p>
+                                <%} %>
                                 <% if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
-                                   { %>
+								   { %>
                                 <!-- Review & ratings -->
                                 <div id="modelRatingsContainer" class="margin-top5 padding-bottom10 <%= modelPage.ModelDetails.Futuristic ? "hide " : string.Empty %>">
                                     <% if (Convert.ToDouble(modelPage.ModelDetails.ReviewRate) > 0)
-                                       { %>
+									   { %>
                                     <p class="bikeModel-user-ratings leftfloat margin-right10">
                                         <%= Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(modelPage.ModelDetails.ReviewRate)) %>
                                     </p>
@@ -163,10 +181,9 @@
                                             </span>Reviews
                                         </a>
                                     </span>
-
                                     <% }
-                                       else
-                                       { %>
+									   else
+									   { %>
                                     <p class="leftfloat margin-right20 font14">Not rated yet</p>
                                     <% } %>
                                     <a href="<%= FormatWriteReviewLink() %>" class="hide border-solid-left leftfloat margin-right10 padding-left10 font14 write-review-text">Write a review</a>
@@ -181,7 +198,7 @@
                                     <p class="variantText text-light-grey margin-right10">Version: </p>
 
                                     <% if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 1)
-                                       { %>
+									   { %>
                                     <div class="form-control-box variantDropDown">
                                         <div class="sort-div rounded-corner2">
                                             <div class="sort-by-title" id="sort-by-container">
@@ -206,55 +223,55 @@
                                         </div>
                                     </div>
                                     <% }
-                                       else
-                                       { %>
+									   else
+									   { %>
                                     <p id='versText' class="variantText text-light-grey margin-right20 text-bold"><%= variantText %></p>
                                     <% } %>
                                     <div class="clear"></div>
                                 </div>
                                 <%--<div class="sort-div rounded-corner2">
-                                    <div class="sort-by-title" id="sort-by-container">
-                                        <span class="leftfloat sort-select-btn">Popular</span>
-                                        <span class="clear"></span>
-                                    </div>
-                                    <span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
-                                </div>
-                                <div class="sort-selection-div sort-list-items">
-                                    <ul id="sortbike1">
-                                        <li id="0" class="selected">Popular</li>
-                                        <li id="1">Price: Low to High</li>
-                                        <li id="2">Price: High to Low</li>
-                                        <li id="3">Mileage: High to Low</li>
-                                    </ul>
-                                </div>--%>
+									<div class="sort-by-title" id="sort-by-container">
+										<span class="leftfloat sort-select-btn">Popular</span>
+										<span class="clear"></span>
+									</div>
+									<span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
+								</div>
+								<div class="sort-selection-div sort-list-items">
+									<ul id="sortbike1">
+										<li id="0" class="selected">Popular</li>
+										<li id="1">Price: Low to High</li>
+										<li id="2">Price: High to Low</li>
+										<li id="3">Mileage: High to Low</li>
+									</ul>
+								</div>--%>
 
 
                                 <%if (modelPage.ModelVersionSpecs != null)
-                                  { %>
+								  { %>
                                 <ul class="variantList margin-top15">
                                     <%if (modelPage.ModelVersionSpecs.Displacement != 0)
-                                      { %>
+									  { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.Displacement) %></span>
                                         <span>cc</span>
                                     </li>
                                     <% } %>
                                     <%if (modelPage.ModelVersionSpecs.FuelEfficiencyOverall != 0)
-                                      { %>
+									  { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.FuelEfficiencyOverall) %></span>
                                         <span>kmpl</span>
                                     </li>
                                     <% } %>
                                     <%if (modelPage.ModelVersionSpecs.MaxPower != 0)
-                                      { %>
+									  { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.MaxPower) %></span>
                                         <span>bhp</span>
                                     </li>
                                     <%} %>
                                     <%if (modelPage.ModelVersionSpecs.KerbWeight != 0)
-                                      { %>
+									  { %>
                                     <li>
                                         <span><%= Bikewale.Utility.FormatMinSpecs.ShowAvailable(modelPage.ModelVersionSpecs.KerbWeight) %></span>
                                         <span>kg</span>
@@ -266,80 +283,88 @@
                             </div>
                             <!-- Variant div ends -->
                             <% if (!modelPage.ModelDetails.Futuristic)
-                               { %>
+							   { %>
                             <div id="modelPriceContainer" class="padding-top15">
                                 <% if (isDiscontinued)
-                                   { %>
+								   { %>
                                 <p class="font14 text-light-grey">Last known Ex-showroom price</p>
                                 <% } %>
                                 <% else if (!isCitySelected)
-                                   {%>
-                                <p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
+								   {%>
+                                <p class="font14">Ex-showroom price in <span class="font14 text-grey"><%= Bikewale.Utility.BWConfiguration.Instance.DefaultName %></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else if (!isOnRoadPrice)
-                                   {%>
-                                <p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
+								   {%>
+                                <p class="font14">Ex-showroom price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
                                 <% } %>
                                 <% else
-                                   {%>
-                                <p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite edit-blue-icon"></span></a></p>
+								   {%>
+                                <p class="font14">On-road price in <span><span class="font16 text-grey city-area-name"><%= areaName %> <%= cityName %></span></span><a ismodel="true" modelid="<%=modelId %>" class="margin-left5 fillPopupData changeCity"><span class="bwsprite loc-change-blue-icon"></span></a></p>
+
                                 <% } %>
                                 <span itemprop="name" class="hide"><%= bikeName %></span>
                                 <%  if (price == "" || price == "0")
-                                    { %>
+									{ %>
                                 <span class="font32">Price not available</span>
                                 <%  }
-                                    else
-                                    { %>
+									else
+									{ %>
                                 <div class="leftfloat margin-right15 <%= (isBookingAvailable && isDealerAssitance) ? "model-price-book-now-wrapper" : string.Empty %> " itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+                                    <%if (totalDiscountedPrice != 0)
+                                      { %>
+                                    <p class="font16">
+                                        <span class="fa fa-rupee padding-top10"></span><span class="strike padding-right5"><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></span>
+                                        (<span class="red-font padding-right5"> <span class="fa fa-rupee"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(totalDiscountedPrice)) %> Off</span> )
+                                    </p>
+                                    <%} %>
                                     <span itemprop="priceCurrency" content="INR">
                                         <span class="font28"><span class="fa fa-rupee"></span></span>
                                     </span>
                                     <span id="new-bike-price" class="font32" itemprop="price" content="<%=price %>"><%= Bikewale.Utility.Format.FormatPrice(price) %></span>
                                     <%if (isOnRoadPrice)
-                                      {%>
+									  {%>
                                     <span id="viewBreakupText" class="font14 text-light-grey viewBreakupText">View Breakup</span>
                                     <br>
                                     <%if (isBikeWalePQ && price != "")
-                                      {%>
+									  {%>
                                     <span class="font12 text-xt-light-grey">(Ex-showroom + Insurance (comprehensive) + RTO)</span>
                                     <%}
-                                      else
-                                      { %>
+									  else
+									  { %>
                                     <span class="font12 text-xt-light-grey"><%=viewbreakUpText %></span>
                                     <%} %>
                                     <% } %>
                                 </div>
                                 <%  } %>
                                 <%if (isBookingAvailable && isDealerAssitance) { %>
-            	                    <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat margin-top20" id="bookNowBtn">Book now </a>
-                                 <%}%>
-                                 <div class="clear"></div>
+                                <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat margin-top20" id="bookNowBtn">Book now </a>
+                                <%}%>
+                                <div class="clear"></div>
                                 <% if (isDiscontinued)
-                                   { %>
+								   { %>
                                 <p class="default-showroom-text font14 text-light-grey margin-top5"><%= bikeName %> is now discontinued in India.</p>
                                 <% } %>
                                 <% 
-                                   else
-                                       if (toShowOnRoadPriceButton)
-                                       { %>
+								   else
+									   if (toShowOnRoadPriceButton)
+									   { %>
                                 <a id="btnGetOnRoadPrice" href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="btn btn-orange margin-top10 fillPopupData">Get on road price</a>
                                 <% } %>
                             </div>
 
                             <% } %>
                             <% if (!toShowOnRoadPriceButton && isBikeWalePQ)
-                               { %>
+							   { %>
                             <div class="insurance-breakup-text text-bold padding-top10" style="position: relative; color: rgb(153, 153, 153); font-size: 14px; margin-top: 1px; text-decoration: solid">
                                 <a target="_blank" id="insuranceLink" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a>
                             </div>
                             <% } %>
                             <!-- upcoming -->
                             <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
-                               { %>
+							   { %>
                             <div id="upcoming">
                                 <% if (modelPage.UpcomingBike.EstimatedPriceMin != 0 && modelPage.UpcomingBike.EstimatedPriceMax != 0)
-                                   { %>
+								   { %>
                                 <div id="expectedPriceContainer" class="padding-top15">
                                     <p class="font14 default-showroom-text text-light-grey">Expected Price</p>
                                     <div class="modelExpectedPrice margin-bottom15">
@@ -353,12 +378,12 @@
                                     </div>
                                 </div>
                                 <%}
-                                   else
-                                   { %>
+								   else
+								   { %>
                                 <p class="font30 default-showroom-text text-light-grey margin-bottom5">Price Unavailable</p>
                                 <% } %>
                                 <% if (!string.IsNullOrEmpty(modelPage.UpcomingBike.ExpectedLaunchDate))
-                                   { %>
+								   { %>
                                 <div id="expectedDateContainer" class="padding-top15 font14">
                                     <p class="default-showroom-text text-light-grey margin-bottom10">Expected launch date</p>
                                     <p class="modelLaunchDate text-bold font18 margin-bottom10"><%= modelPage.UpcomingBike.ExpectedLaunchDate %></p>
@@ -370,11 +395,66 @@
                             <% } %>
                         </div>
                         <div class="clear"></div>
-                        <%if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
+                        <%if (toShowOnRoadPriceButton)
                           { %>
-                        <div id="modelDetailsOffersContainer" class="grid-12 margin-top20">
+                        <div id="benefitsOfBookingContainer" class="margin-top15">
+                            <div class="padding-bottom20 border-light-bottom">
+                                <h3 class="leftfloat">Benefits of booking online</h3>
+                                <a href="javascript:void(0)" ismodel="true" modelid="<%=modelId %>" class="leftfloat font14 booking-online-city-list fillPopupData">(Available in Mumbai, Pune and Bangalore)</a>
+                                <div class="clear"></div>
+                            </div>
+                            <ul>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-offers-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Exclusive</h2>
+                                        <span>Offers</span>
+                                    </div>
+                                </li>
+                                <li class="benefits-dealer-visits">
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-dealer-visits-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Save on</h2>
+                                        <span>Dealer visits</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-assistance-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Complete</h2>
+                                        <span>Buying assistance</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="benefits-item">
+                                        <span class="model-sprite benefit-cancellation-ico margin-right15"></span>
+                                    </div>
+                                    <div class="benefits-item text-uppercase">
+                                        <h2 class="text-bold">Easy</h2>
+                                        <span>Cancellation</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <%} %>
+                        <%if (pqOnRoad != null && (pqOnRoad.IsDealerPriceAvailable || campaignId > 0) && !toShowOnRoadPriceButton)
+						  { %>
+                        <div id="modelDetailsOffersContainer" class=" grid-12 margin-top20">
                             <div class="grid-<%=grid1_size %> modelGetDetails padding-right20">
-                                <h3 class="padding-bottom10"><span class="bwsprite disclaimer-icon margin-right5"></span>Get following details on this bike:</h3>
+                                <h3 class="padding-bottom10"><span class="bwsprite disclaimer-icon margin-right5"></span>
+                                    <%if (pqOnRoad.IsDealerPriceAvailable) {%>
+                                        Get following details on this bike:
+                                    <%}
+                                      else if (campaignId > 0) {%>
+                                        Get following details from <%=bikeName.Split(' ')[0] %>:
+                                    <%} %>
+                                </h3>
                                 <ul>
                                     <li>Offers from the nearest dealers</li>
                                     <li>Waiting period on this bike at the dealership</li>
@@ -382,14 +462,14 @@
                                     <li>Finance options on this bike</li>
                                 </ul>
                             </div>
-
+                            <%if (pqOnRoad.IsDealerPriceAvailable) {%>
                             <div class="grid-7 modelGetDetails offersList <%= offerDivHide %>">
                                 <%if (isBookingAvailable)
-                                  { %>
+								  { %>
                                 <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike and get:</h3>
                                 <%}
-                                  else
-                                  { %>
+								  else
+								  { %>
                                 <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Avail Offers</h3>
                                 <%} %>
                                 <ul>
@@ -397,62 +477,69 @@
                                         <ItemTemplate>
                                             <li class="offertxt">
                                                 <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText"))%>
-                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
-                                                <% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
-                                                   { %>
-                                                <%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
-                                                <%} %>
+                                                <%# "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>"  %>
+                                                <%--<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>--%>
+                                                <%--<% if (pqOnRoad.DPQOutput.objOffers.Count > 2)
+												   { %>
+												<%# Container.ItemIndex >  0 ? "<a class='viewMoreOffersBtn'>(view more)</a>" : "" %>
+												<%} %>--%>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
                                 </ul>
-                                <ul class="moreOffersList hide">
-                                    <asp:Repeater ID="rptMoreOffers" runat="server">
-                                        <ItemTemplate>
-                                            <li class="offertxt">
-                                                <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %>
-                                                <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
-                                            </li>
-                                        </ItemTemplate>
-                                    </asp:Repeater>
-                                </ul>
+                                <%--<ul class="moreOffersList hide">
+									<asp:Repeater ID="rptMoreOffers" runat="server">
+										<ItemTemplate>
+											<li class="offertxt">
+												<%# Convert.ToString(DataBinder.Eval(Container.DataItem, "offerText")) %>
+												<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem, "isOfferTerms")) ==  true ? "<span class='tnc' id='"+ DataBinder.Eval(Container.DataItem, "offerId") +"' ><a class='viewterms'>View terms</a></span>" : "" %>
+											</li>
+										</ItemTemplate>
+									</asp:Repeater>
+								</ul>--%>
                             </div>
                             <div class="grid-<%= grid2_size %> rightfloat moreDetailsBookBtns <%=cssOffers %> margin-top20">
                                 <input type="button" value="Get more details" class="btn btn-orange margin-right20 leftfloat" id="getMoreDetailsBtn">
-                                 <%if (isBookingAvailable && isOfferAvailable) { %>
-                                     <%if ( isDealerAssitance ) { %>
-                                         <div class="leftfloat margin-top5">
-                                             <span class="bwsprite call-icon inline-block margin-right5"></span>
-                                             <span class="font14">Get assistance on</span>
-                                             <span class="text-bold font18">9167969266</span>
-                                         </div>
-                                     <%} %>
-                                     <%else { %>
-                                         <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat" id="bookNowBtn">Book now </a>
-                                     <%} %>
+                                <%if (isBookingAvailable && isOfferAvailable) { %>
+                                <%if ( isDealerAssitance ) { %>
+                                <div class="leftfloat margin-top5">
+                                    <span class="bwsprite call-icon inline-block margin-right5"></span>
+                                    <span class="font14">Get assistance on</span>
+                                    <span class="text-bold font18">9167969266</span>
+                                </div>
+                                <%} %>
+                                <%else { %>
+                                <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat" id="bookNowBtn">Book now </a>
+                                <%} %>
                                   <%} %>
                             </div>
                             <div class="clear"></div>
-                            <% if (isBookingAvailable && !isOfferAvailable)
-                               {%>
+                            <% if (isBookingAvailable && !isOfferAvailable) {%>
                             <div id="noOfferBookBtn" class="grid-12 padding-top10 alpha">
                                 <div class="omega <%= (!isDealerAssitance) ? "grid-9" : "grid-8" %>">
-                                     <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike:</h3>
-                                  </div>
-                                 <% if (!isDealerAssitance) { %>
-                                     <div class="grid-3 alpha no-offer-book-btn">
-                                         <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey" id="bookNowBtn">Book now </a>
-                                     </div>
-                                 <% } %>
-                                 <%else { %>
-                                     <div class="grid-4">
-                                         <span class="bwsprite call-icon inline-block margin-right5"></span>
-                                         <span class="font14">Get assistance on</span>
-                                         <span class="text-bold font18">9167969266</span>
-                                     </div>
-                                 <% } %>
+                                    <h3 class="padding-bottom10"><span class="bwsprite offers-icon margin-left5 margin-right5"></span>Pay <span class="fa fa-rupee"></span><%=bookingAmt %> to book your bike:</h3>
+                                </div>
+                                <% if (!isDealerAssitance) { %>
+                                <div class="grid-3 alpha no-offer-book-btn">
+                                    <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey" id="bookNowBtn">Book now </a>
+                                </div>
+                                <% } %>
+                                <%else { %>
+                                <div class="grid-4">
+                                    <span class="bwsprite call-icon inline-block margin-right5"></span>
+                                    <span class="font14">Get assistance on</span>
+                                    <span class="text-bold font18">9167969266</span>
+                                </div>
+                                <% } %>
                             </div>
                             <% } %>
+                            <%}
+                              else if (!pqOnRoad.IsDealerPriceAvailable && campaignId > 0)
+                              { %>
+                            <div class="grid-<%= grid2_size %> rightfloat moreDetailsBookBtns <%=cssOffers %> margin-top20">
+                                <input type="button" value="Get more details" class="btn btn-orange margin-right20 leftfloat" id="getMoreDetailsBtnCampaign">
+                            </div>
+                            <%} %>
                         </div>
                         <div class="clear"></div>
                         <% } %>
@@ -466,7 +553,7 @@
                 <div class="breakup-text-container padding-bottom10">
                     <h3 class="breakup-header font26 margin-bottom20"><%= bikeName %> <span class="font14 text-light-grey ">(On road price breakup)</span></h3>
                     <% if (isBikeWalePQ)
-                       { %>
+					   { %>
                     <table class="font16">
                         <tbody>
                             <tr>
@@ -479,7 +566,7 @@
                             </tr>
                             <tr>
                                 <td class="padding-bottom10">Insurance (comprehensive)
-                                        <div class="insurance-breakup-text" style="position: relative; color: #999; font-size: 11px; margin-top: 1px;"><a target="_blank" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a> <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span></div>
+										<div class="insurance-breakup-text" style="position: relative; color: #999; font-size: 11px; margin-top: 1px;"><a target="_blank" href="/insurance/">Save up to 60% on insurance - PolicyBoss</a> <span style="margin-left: 8px; vertical-align: super; font-size: 9px;">Ad</span></div>
                                 </td>
                                 <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(objSelectedVariant.Insurance)) %>  </td>
                             </tr>
@@ -503,8 +590,8 @@
                         </tbody>
                     </table>
                     <% }
-                       else if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
-                       {%>
+					   else if (pqOnRoad != null && pqOnRoad.IsDealerPriceAvailable)
+					   {%>
                     <table class="font16">
                         <tbody>
                             <asp:Repeater ID="rptCategory" runat="server">
@@ -512,7 +599,7 @@
                                     <tr class="carwale">
                                         <td width="350" class="padding-bottom10"><%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")) %>
                                             <% if (!pqOnRoad.IsInsuranceFree)
-                                               { %>
+											   { %>
                                             <%# Convert.ToString(DataBinder.Eval(Container.DataItem, "CategoryName")).ToLower().StartsWith("insurance") ? "<a style='position: relative; font-size: 11px; margin-top: 1px;' target='_blank' href='/insurance/' >Up to 60% off - PolicyBoss </a>" : ""  %>
                                             <% } %>
                                         </td>
@@ -521,7 +608,7 @@
                                 </ItemTemplate>
                             </asp:Repeater>
                             <%if (pqOnRoad != null && pqOnRoad.IsDiscount)
-                              { %>
+							  { %>
                             <tr>
                                 <td colspan="2">
                                     <div class="border-solid-top padding-bottom10"></div>
@@ -541,22 +628,22 @@
                                 </ItemTemplate>
                             </asp:Repeater>
                             <%--<% if (pqOnRoad.IsInsuranceFree && pqOnRoad.InsuranceAmount > 0)
-                               {%>
-                            <tr>
-                                <td colspan="2">
-                                    <div class="border-solid-top padding-bottom10"></div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="padding-bottom10">Total on road price</td>
-                                <td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
-                            </tr>
+							   {%>
+							<tr>
+								<td colspan="2">
+									<div class="border-solid-top padding-bottom10"></div>
+								</td>
+							</tr>
+							<tr>
+								<td class="padding-bottom10">Total on road price</td>
+								<td align="right" class="padding-bottom10 text-bold" style="text-decoration: line-through;"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice)) %></td>
+							</tr>
 
-                            <tr>
-                                <td class="padding-bottom10">Minus insurance</td>
-                                <td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %></td>
-                            </tr>
-                            <% } %>--%>
+							<tr>
+								<td class="padding-bottom10">Minus insurance</td>
+								<td align="right" class="padding-bottom10 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(pqOnRoad.InsuranceAmount)) %></td>
+							</tr>
+							<% } %>--%>
                             <%} %>
                             <tr>
                                 <td colspan="2">
@@ -565,17 +652,17 @@
                             </tr>
                             <tr>
                                 <% if (pqOnRoad.DPQOutput.PriceList.Count > 0)
-                                   {%>
+								   {%>
                                 <td class="padding-bottom10 text-bold">Total on road price</td>
                                 <%--<% if (pqOnRoad.InsuranceAmount > 0)
-                                   {
-                                %>--%>
-                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - TotalDiscountedPrice())) %></td>
+								   {
+								%>--%>
+                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(Convert.ToString(onRoadPrice - totalDiscountedPrice)) %></td>
                                 <%--<% }
-                                   else
-                                   { %>
-                                <td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(price) %></td>
-                                <%} %>--%>
+								   else
+								   { %>
+								<td align="right" class="padding-bottom10 font20 text-bold"><span class="fa fa-rupee margin-right5"></span><%= Bikewale.Utility.Format.FormatPrice(price) %></td>
+								<%} %>--%>
                                 <%} %>
                             </tr>
                             <tr>
@@ -627,30 +714,43 @@
                         <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
                     </div>
                     <!--
-                    <div class="mobile-verification-container hide">
-                        <div class="input-border-bottom"></div>
-                        <div class="margin-top20">
-                            <p class="font14 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
-                            <div class="form-control-box">
-                                <input type="text" class="form-control get-otp-code rightfloat" maxlength="5" placeholder="Enter OTP" id="getOTP" data-bind="value: otpCode">
-                                <span class="bwsprite error-icon errorIcon hide"></span>
-                                <div class="bw-blackbg-tooltip errorText hide"></div>
-                            </div>
+					<div class="mobile-verification-container hide">
+						<div class="input-border-bottom"></div>
+						<div class="margin-top20">
+							<p class="font14 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
+							<div class="form-control-box">
+								<input type="text" class="form-control get-otp-code rightfloat" maxlength="5" placeholder="Enter OTP" id="getOTP" data-bind="value: otpCode">
+								<span class="bwsprite error-icon errorIcon hide"></span>
+								<div class="bw-blackbg-tooltip errorText hide"></div>
+							</div>
 
-                            <div class="clear"></div>
-                        </div>
-                        <a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
-                        <p class="otp-alert-text margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
-                            OTP has been already sent to your mobile
-                        </p>
-                        <div class="clear"></div>
-                        <br />
-                        <a class="btn btn-orange" id="otp-submit-btn">Confirm OTP</a>
-                        <div style="margin-right: 70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
-                    </div>
-                    -->
+							<div class="clear"></div>
+						</div>
+						<a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
+						<p class="otp-alert-text margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
+							OTP has been already sent to your mobile
+						</p>
+						<div class="clear"></div>
+						<br />
+						<a class="btn btn-orange" id="otp-submit-btn">Confirm OTP</a>
+						<div style="margin-right: 70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
+					</div>
+					-->
                 </div>
                 <!-- contact details ends here -->
+                <!-- thank you message starts here -->
+                <div id="notify-response" class="hide margin-top10 content-inner-block-20 text-center">
+                    <div class="icon-outer-container rounded-corner50">
+                        <div class="icon-inner-container rounded-corner50">
+                            <span class="bwsprite user-contact-details-icon margin-top25"></span>
+                        </div>
+                    </div>
+                    <p class="font18 text-bold margin-bottom20">Thank you <span class="notify-leadUser"></span></p>
+                    <p class="font16 margin-bottom40"><%=bikeName.Split(' ')[0]%> Company would get back to you shortly with additional information.</p>
+                    <input type="button" id="notifyOkayBtn" class="btn btn-orange" value="Okay" />
+                </div>
+                <!-- thank you message ends here -->
+
                 <!-- otp starts here -->
                 <div id="otpPopup">
                     <div class="icon-outer-container rounded-corner50">
@@ -699,13 +799,87 @@
 
             <!-- Terms and condition Popup start -->
             <div class="termsPopUpContainer content-inner-block-20 hide" id="termsPopUpContainer">
+                <div class="fixed-close-btn-wrapper">
+                    <div class="termsPopUpCloseBtn fixed-close-btn bwsprite cross-lg-lgt-grey cur-pointer"></div>
+                </div>
                 <h3>Terms and Conditions</h3>
-                <div style="vertical-align: middle; text-align: center;" id="termspinner">
+                <div class="hide" style="vertical-align: middle; text-align: center;" id="termspinner">
                     <%--<span class="fa fa-spinner fa-spin position-abt text-black bg-white" style="font-size: 50px"></span>--%>
                     <img src="/images/search-loading.gif" />
                 </div>
-                <div class="termsPopUpCloseBtn position-abt pos-top20 pos-right20 bwsprite cross-lg-lgt-grey cur-pointer"></div>
                 <div id="terms" class="breakup-text-container padding-bottom10 font14">
+                </div>
+                <div id='orig-terms' class='hide'>
+                    <h1>Offers and Gifts Promotion Terms and Conditions</h1>
+                    <p><strong>Definitions:</strong></p>
+                    <p>"BikeWale" refers to Automotive Exchange Private Limited, a private limited company having its head office at 12<sup>th</sup> Floor, Vishwaroop IT Park, Sector 30A, Vashi, Navi Mumbai 400705, India, who owns and operates www.bikewale.com, one of India's leading automotive web portals.</p>
+                    <p>"Bike Manufacturer" or "manufacturer" refers to the company that manufactures and / or markets and sells bikes in India through authorised dealers.</p>
+                    <p>"Dealership" or "dealer" refers to companies authorised by a Bike Manufacturer to sell their bikes. Each Bike Manufacturer many have more than one Dealership and / or Dealer.</p>
+                    <p>"Offer" refers to the promotions, discounts and gifts that are available as displayed on BikeWale.</p>
+                    <p>"Buyer" or "user" or "participant" refers to the individual who purchases a Bike and / or avails any of the offers.</p>
+                    <p><strong>Offers from Bike Manufacturers and Dealers</strong></p>
+                    <p>1. All offers are from Bike manufacturers and / or their dealers, and BikeWale makes no representation or warranty regarding the accuracy, truth, quality, suitability or reliability of such information.</p>
+                    <p>2. These terms and conditions are to be read in conjunction with the terms and conditions of the manufacturers / dealers. Please refer to the manufacturers and / or their dealers' websites for a detailed list of terms and conditions that apply to these offers.</p>
+                    <p>3. In the event of any discrepancy between the manufacturers / dealers' offer terms and conditions, and the terms and conditions mentioned herewith, the manufacturers / dealers' terms and conditions will apply.</p>
+                    <p>4. All questions, clarifications, complaints and any other communication pertaining to these offers should be addressed directly to the manufacturer and / or their dealers. BikeWale will not be able to entertain any communication in this regard.</p>
+                    <p>5. The offers may be modified and / or withdrawn by manufacturers and / or their dealers without notice, and buyers are strongly advised to check the availability and detailed terms and conditions of the offer before making a booking.</p>
+                    <p>6. Buyers are strongly advised to verify the offer details with the manufacturer and / or the nearest dealer before booking the bike.</p>
+                    <p>7. Any payments made towards purchase of the Bike are governed by the terms and conditions agreed between the buyer and the manufacturer and / or the dealer. BikeWale is in no way related to the purchase transaction and cannot be held liable for any refunds, financial loss or any other liability that may arise directly or indirectly out of participating in this promotion.</p>
+                    <p><strong>Gifts from BikeWale</strong></p>
+                    <p>8. In select cases, BikeWale may offer a limited number of free gifts to buyers, for a limited period only, over and above the offers from Bike manufacturers and / or their dealers. The quantity and availability period (also referred to as 'promotion period' hereafter) will be displayed prominently along with the offer and gift information on www.bikewale.com.</p>
+                    <p>9. These free gifts are being offered solely by BikeWale, and entirely at BikeWale's own discretion, without any additional charges or fees to the buyer.</p>
+                    <p>10. In order to qualify for the free gift, the buyer must fulfil the following:</p>
+                    <div class="margin-left20 margin-top10">
+                        <p>a. Be a legally recognised adult Indian resident, age eighteen (18) years or above as on 01 Dec 2014, and be purchasing the Bike in their individual capacity</p>
+                        <p>b. Visit www.bikewale.com and pay the booking amount online against purchase of selected vehicle from BikeWale’s assigned dealer.</p>
+                        <p>c. Complete all payment formalities and take delivery of the bike from the same dealership. </p>
+                        <p>d. Inform BikeWale through any of the means provided about the completion of the delivery of the bike.</p>
+
+                    </div>
+                    <p>11. By virtue of generating an offer code and / or providing BikeWale with Bike booking and / or delivery details, the buyer agrees that s/he is:</p>
+                    <div class="margin-left20 margin-top10">
+                        <p>a. Confirming his/her participation in this promotion; and</p>
+                        <p>b. Actively soliciting contact from BikeWale and / or Bike manufacturers and / or dealers; and</p>
+                        <p>c. Expressly consenting for BikeWale to share the information they have provided, in part or in entirety, with Bike manufacturers and / or dealers, for the purpose of being contacted by them to further assist in the Bike buying process; and</p>
+                        <p>d. Expressly consenting to receive promotional phone calls, emails and SMS messages from BikeWale, Bike manufacturers and / or dealers; and</p>
+                        <p>e. Expressly consenting for BikeWale to take photographs and record videos of the buyer and use their name, photographs, likeness, voice and comments for advertising, promotional or any other purposes on any media worldwide and in any way as per BikeWale's discretion throughout the world in perpetuity without any compensation to the buyer whatsoever; and</p>
+                        <p>f. Confirming that, on the request of BikeWale, s/he shall also make arrangements for BikeWale to have access to his / her residence, work place, favourite hangouts, pets etc. and obtain necessary permissions from his / her parents, siblings, friends, colleagues to be photographed, interviewed and to record or take their photographs, videos etc. and use this content in the same manner as described above; and</p>
+                        <p>g. Hereby agreeing to fully indemnify BikeWale against any claims for expenses, damages or any other payments of any kind, including but not limited to that arising from his / her actions or omissions or arising from any representations, misrepresentations or concealment of material facts; and</p>
+                        <p>h. Expressly consenting that BikeWale may contact the Bike manufacturer and / or dealer to verify the booking and / or delivery details provided by the buyer; and</p>
+                        <p>i. Waiving any right to raise disputes and question the process of allocation of gifts</p>
+                    </div>
+                    <p>12. Upon receiving complete booking and delivery details from the buyer, BikeWale may at its own sole discretion verify the details provided with the Bike manufacturer and / or dealer. The buyer will be eligible for the free gift only if the details can be verified as matching the records of the manufacturer and / or dealer.</p>
+                    <p>13. The gifts will be allocated in sequential order at the time of receiving confirmed booking details. Allocation of a gift merely indicates availability of that specific gift for the selected Bike at that specific time, and does not guarantee, assure or otherwise entitle the buyer in any way whatsoever to receive the gift. Allocation of gifts will be done entirely at BikeWale's own sole discretion. BikeWale may change the allocation of gifts at their own sole discretion without notice and without assigning a reason.</p>
+                    <p>14. The quantity of gifts available, along with the gift itself, varies by Bike and city. The availability of gifts displayed on www.bikewale.com is indicative in nature. Buyers are strongly advised to check availability of gifts by contacting BikeWale via phone before booking the bike.</p>
+                    <p>15. The gift will be despatched to buyers only after the dealer has confirmed delivery of the bike.</p>
+                    <p>16. Gifts will be delivered to addresses in India only. In the event that delivery is not possible at certain locations, BikeWale may at its own sole discretion, accept an alternate address for delivery, or arrange for the gift to be made at the nearest convenient location for the buyer to collect.</p>
+                    <p>17. Ensuring that the booking and / or delivery information reaches BikeWale in a complete and timely manner is entirely the responsibility of the buyer, and BikeWale, Bike manufacturers, dealers and their employees and contracted staff cannot be held liable for incompleteness of information and / or delays of any nature under any circumstances whatsoever.</p>
+                    <p>18. The buyer must retain the offer code, booking confirmation form, invoice of the bike, and delivery papers provided by the dealer, and provide any or all of the same on demand along with necessary identity documents and proof of age. BikeWale may at its own sole discretion declare a buyer ineligible for the free gift in the event the buyer is not able to provide / produce any or all of the documents as required.</p>
+                    <p>19. In the event of cancellation of a booking, or if the buyer fails to take delivery of the Bike for any reason, the buyer becomes ineligible for the gift.</p>
+                    <p>20. BikeWale's sole decision in all matters pertaining to the free gift, including the choice and value of product, is binding and non-contestable in all respects.</p>
+                    <p>21. The buyer accepts and agrees that BikeWale, Bike manufacturers, dealers and other associates of BikeWale, including agencies and third parties contracted by BikeWale, and / or their directors, employees, officers, affiliates or subsidiaries, cannot be held liable for any damage or loss, including but not limited to lost opportunity, lost profit, financial loss, bodily harm, injuries or even death, directly or indirectly, arising out of the use or misuse of the gift, or a defect of any nature in the gift, or out of participating in this promotion in any way whatsoever.</p>
+                    <p>22. The buyer specifically agrees not to file in person / through any family member and / or any third party any applications, criminal and/or civil proceedings in any courts or forum in India against BikeWale, Bike manufacturers, dealers and other associates of BikeWale, including agencies and third parties contracted by BikeWale, and/or their directors, employees, officers, affiliates or subsidiaries, and / or their directors, employees, officers, affiliates or subsidiaries to claim any damages or relief in connection with this promotion.</p>
+                    <p>23. All gifts mentioned, including the quantity available, are indicative only. Pictures are used for representation purposes only and may not accurately depict the actual gift.</p>
+                    <p>24. BikeWale reserves the right to substitute any gift with a suitable alternative or provide gift vouchers of an equivalent value to the buyer, without assigning a reason for the same. Equivalent value of the gift shall be determined solely by BikeWale, irrespective of the market / retail / advertised prices or Maximum Retail Price (MRP) of the product at the time of despatch of the gift. An indicative “gift value” table is provided below.</p>
+                    <p>25. Delivery of the product shall be arranged through a third party logistics partner and BikeWale is in no way or manner liable for any damage to the product during delivery.</p>
+                    <p>26. Warranty on the gift, if any, will be provided as per the gift manufacturer's terms and directly by the gift manufacturer.</p>
+                    <p>27. Gifts cannot be transferred or redeemed / exchanged for cash.</p>
+                    <p>28. Income tax, gift tax and / or any other statutory taxes, duties or levies as may be applicable from time to time, arising out of the free gifts, shall be payable entirely by the buyer on his/her own account.</p>
+                    <p>29. BikeWale makes no representation or warranties as to the quality, suitability or merchantability of any of the gifts whatsoever, and no claim or request, whatsoever, in this respect shall be entertained.</p>
+                    <p>30. Certain gifts may require the buyer to incur additional expenses such as installation expenses or subscription fees or purchasing additional services, etc. The buyer agrees to bear such expenses entirely on their own account.</p>
+                    <p>31. Availing of the free gift and offer is purely voluntary. The buyer may also purchase the Bike without availing the free gift and / or the offer.</p>
+                    <p>32. For the sake of clarity it is stated that the Bike manufacturer and / or dealer shall not be paid any consideration by BikeWale to display their offers and / or offer free gifts for purchasing bikes from them. Their only consideration will be the opportunity to sell a Bike to potential Bike buyers who may discover their offer on www.bikewale.com.</p>
+                    <p>33. Each buyer is eligible for only one free gift under this promotion, irrespective of the number of bikes they purchase.</p>
+                    <p>34. This promotion cannot be used in conjunction with any other offer, promotion, gift or discount scheme.</p>
+                    <p>35. In case of any dispute, BikeWale's decision will be final and binding and non-contestable. The existence of a dispute, if any, does not constitute a claim against BikeWale.</p>
+                    <p>36. This promotion shall be subject to jurisdiction of competent court/s at Mumbai alone.</p>
+                    <p>37. Employees of BikeWale and their associate / affiliate companies, and their immediate family members, are not eligible for any free gifts under this promotion.</p>
+                    <p>38. This promotion is subject to force majeure circumstances i.e. Act of God or any circumstances beyond the reasonable control of BikeWale.</p>
+                    <p>39. Any and all information of the buyers or available with BikeWale may be shared with the government if any authority calls upon BikeWale / manufacturers / dealers to do so, or as may be prescribed under applicable law.</p>
+                    <p>40. In any case of any dispute, inconvenience or loss, the buyer agrees to indemnify BikeWale, its representing agencies and contracted third parties without any limitation whatsoever.</p>
+                    <p>41. The total joint or individual liability of BikeWale, its representing agencies and contracted third parties, along with Bike manufacturers and dealers, will under no circumstances exceed the value of the free gift the buyer may be eligible for.</p>
+                    <p>42. BikeWale reserves the right to modify any and all of the terms and conditions mentioned herein at its own sole discretion, including terminating this promotion, without any notice and without assigning any reason whatsoever, and the buyers agree not to raise any claim due to such modifications and / or termination.</p>
+                    <p>By participating in this promotion, the buyer / user agrees to the terms and conditions above in toto.</p>
                 </div>
             </div>
             <!-- Terms and condition Popup Ends -->
@@ -717,7 +891,7 @@
         <section class="container <%= (modelPage.ModelDesc == null || string.IsNullOrEmpty(modelPage.ModelDesc.SmallDescription)) ? "hide" : string.Empty %>">
             <div id="SneakPeak" class="grid-12 margin-bottom20">
                 <% if (modelPage.ModelDetails.Futuristic && modelPage.UpcomingBike != null)
-                   { %>
+				   { %>
                 <h2 class="text-bold text-center margin-top30 margin-bottom30">Sneak-peek</h2>
                 <% } %>
                 <div class="content-box-shadow content-inner-block-20">
@@ -735,7 +909,7 @@
             <div class="clear"></div>
         </section>
         <% if (modelPage.ModelVersionSpecs != null)
-           { %>
+		   { %>
         <section class="container">
             <!--  Discover bikes section code starts here -->
             <div class="grid-12">
@@ -1301,12 +1475,12 @@
                                             </p>
                                             <p class="font12 text-light-grey" id="<%# "locprice_" + Convert.ToString(DataBinder.Eval(Container.DataItem, "VersionId")) %>">
                                                 <asp:Label ID="lblExOn" Text="Ex-showroom price" runat="server"></asp:Label>, 
-                                                <% if (cityId != 0)
-                                                   { %>
+												<% if (cityId != 0)
+												   { %>
                                                 <%= cityName %>
                                                 <% }
-                                                   else
-                                                   { %>
+												   else
+												   { %>
                                                 <%= Bikewale.Common.Configuration.GetDefaultCityName %>
                                                 <% } %>
                                             </p>
@@ -1345,39 +1519,39 @@
         </section>
         <% } %>
         <%            
-            if (ctrlUserReviews.FetchedRecordsCount > 0)
-            {
-                reviewTabsCnt++;
-                isUserReviewZero = false;
-                isUserReviewActive = true;
-            }
-            if (ctrlExpertReviews.FetchedRecordsCount > 0)
-            {
-                reviewTabsCnt++;
-                isExpertReviewZero = false;
-                if (!isUserReviewActive)
-                {
-                    isExpertReviewActive = true;
-                }
-            }
-            if (ctrlNews.FetchedRecordsCount > 0)
-            {
-                reviewTabsCnt++;
-                isNewsZero = false;
-                if (!isUserReviewActive && !isExpertReviewActive)
-                {
-                    isNewsActive = true;
-                }
-            }
-            if (ctrlVideos.FetchedRecordsCount > 0)
-            {
-                reviewTabsCnt++;
-                isVideoZero = false;
-                if (!isUserReviewActive && !isExpertReviewActive && !isNewsActive)
-                {
-                    isVideoActive = true;
-                }
-            } 
+			if (ctrlUserReviews.FetchedRecordsCount > 0)
+			{
+				reviewTabsCnt++;
+				isUserReviewZero = false;
+				isUserReviewActive = true;
+			}
+			if (ctrlExpertReviews.FetchedRecordsCount > 0)
+			{
+				reviewTabsCnt++;
+				isExpertReviewZero = false;
+				if (!isUserReviewActive)
+				{
+					isExpertReviewActive = true;
+				}
+			}
+			if (ctrlNews.FetchedRecordsCount > 0)
+			{
+				reviewTabsCnt++;
+				isNewsZero = false;
+				if (!isUserReviewActive && !isExpertReviewActive)
+				{
+					isNewsActive = true;
+				}
+			}
+			if (ctrlVideos.FetchedRecordsCount > 0)
+			{
+				reviewTabsCnt++;
+				isVideoZero = false;
+				if (!isUserReviewActive && !isExpertReviewActive && !isNewsActive)
+				{
+					isVideoActive = true;
+				}
+			} 
         %>
         <section class="container <%= reviewTabsCnt == 0 ? "hide" : string.Empty %>">
             <!--  News Bikes latest updates code starts here -->
@@ -1396,19 +1570,19 @@
                             </div>
                         </div>
                         <%if (!isUserReviewZero)
-                          { %>
+						  { %>
                         <BW:UserReviews runat="server" ID="ctrlUserReviews" />
                         <% } %>
                         <%if (!isExpertReviewZero)
-                          { %>
+						  { %>
                         <BW:ExpertReviews runat="server" ID="ctrlExpertReviews" />
                         <% } %>
                         <%if (!isNewsZero)
-                          { %>
+						  { %>
                         <BW:News runat="server" ID="ctrlNews" />
                         <% } %>
                         <%if (!isVideoZero)
-                          { %>
+						  { %>
                         <BW:Videos runat="server" ID="ctrlVideos" />
                         <% } %>
                     </div>
@@ -1438,22 +1612,26 @@
         </section>
 
         <% if (ctrlUsersTestimonials.FetchedCount > 0 && isBookingAvailable)
-           { %>
+		   { %>
         <section>
-            <div id="testimonialWrapper" class="container margin-bottom30">
+            <div class="container margin-bottom30">
                 <div class="grid-12 <%= ctrlUsersTestimonials.FetchedCount > 0 ? "" : "hide" %>">
                     <h2 class="text-bold text-center margin-top20 margin-bottom30 font28">What do our customers say</h2>
-                    <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
+                    <div class="content-box-shadow padding-top20">
+                        <div id="testimonialWrapper">
+                            <BW:UsersTestimonials ID="ctrlUsersTestimonials" runat="server"></BW:UsersTestimonials>
+                        </div>
+                    </div>
                 </div>
                 <div class="clear"></div>
             </div>
         </section>
         <%
-           }           
+		   }           
         %>
 
         <%if ((isBookingAvailable && isOfferAvailable) || (isBookingAvailable && !isOfferAvailable))
-          { %>
+		  { %>
         <section>
             <div class="container margin-bottom30">
                 <div class="grid-12">
@@ -1513,8 +1691,9 @@
             }
 
             var myBikeName = "<%= this.bikeName %>";
-            var clientIP = "<%= clientIP%>";
+			var clientIP = "<%= clientIP%>";
             var pageUrl = "<%= canonical %>"
+
             function applyLazyLoad() {
                 $("img.lazy").lazyload({
                     event: "imgLazyLoad",
@@ -1557,27 +1736,27 @@
                 });
                 // ends                                
 
-                <%--<% if (modelPage.ModelDetails.New)
-               { %>
-                var cityId = '<%= cityId%>';
-                InitVM(cityId);
-                <% } %>--%>
+			    <%--<% if (modelPage.ModelDetails.New)
+			   { %>
+				var cityId = '<%= cityId%>';
+				InitVM(cityId);
+				<% } %>--%>
 
-            });
+			});
             // Cache selectors outside callback for performance.
 
-            <% if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
-               { %>
+			<% if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
+			   { %>
             var $window = $(window),
-	        $menu = $('.bw-overall-rating'),
-	        menuTop = $menu.offset().top + 50;
+			$menu = $('.bw-overall-rating'),
+			menuTop = $menu.offset().top + 50;
 
             var sections = $('.discover-bike-tabs-container .bw-tabs-data.margin-bottom20'),
-                nav = $('div.bw-overall-rating'),
-                nav_height = nav.outerHeight(),
-                section_height = $(".discover-bike-tabs-container"),
-                sectionContainer_height = section_height.outerHeight() + menuTop - 250,
-                sectionStart = section_height.offset().top - 150;
+				nav = $('div.bw-overall-rating'),
+				nav_height = nav.outerHeight(),
+				section_height = $(".discover-bike-tabs-container"),
+				sectionContainer_height = section_height.outerHeight() + menuTop - 250,
+				sectionStart = section_height.offset().top - 150;
 
             section_height.bind('heightChangeBlock', function () {
                 $(".more-features").css("display", "block");
@@ -1604,7 +1783,7 @@
 
                 sections.each(function () {
                     var top = $(this).offset().top - 10 - nav_height,
-                    bottom = top + $(this).outerHeight();
+					bottom = top + $(this).outerHeight();
 
                     if (cur_pos >= top && cur_pos <= bottom) {
                         nav.find('a').removeClass('active');
@@ -1616,16 +1795,16 @@
                 });
             });
 
-            <% } %>
+			<% } %>
             ga_pg_id = '2';
-           <%-- var viewModel = null;
-            function InitVM(cityId) {
-                debugger;
-                viewModel = new pqViewModel('<%= modelId%>', cityId);
-                modelViewModel = viewModel;
-                ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
-                viewModel.LoadCity();
-            }--%>
+		   <%-- var viewModel = null;
+			function InitVM(cityId) {
+				debugger;
+				viewModel = new pqViewModel('<%= modelId%>', cityId);
+				modelViewModel = viewModel;
+				ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
+				viewModel.LoadCity();
+			}--%>
 
             if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");
@@ -1638,6 +1817,7 @@
             if (bikeVersion == '') {
                 bikeVersion = getBikeVersion();
             }
+
         </script>
     </form>
 </body>

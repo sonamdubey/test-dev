@@ -22,9 +22,17 @@
     <div class="grid_12">
         <ul class="breadcrumb">
             <li>You are here: </li>
-            <li><a href="/">Home</a></li>
+            <li  itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="/" itemprop="url">
+                    <span itemprop="title">Home</span>
+                </a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
-            <li><a href="/new/">New Bikes</a></li>
+            <li itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                <a href="/new/" itemprop="url">
+                    <span itemprop="title">New Bikes</span>
+                </a>
+            </li>
             <li class="fwd-arrow">&rsaquo;</li>
             <li class="current"><strong>New Bike Dealers / Showrooms in India</strong></li>
         </ul>

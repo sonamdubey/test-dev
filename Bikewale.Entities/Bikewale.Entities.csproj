@@ -50,9 +50,12 @@
     <Compile Include="AutoComplete\SuggestionOutput.cs" />
     <Compile Include="BikeBooking\AreaEntityBase.cs" />
     <Compile Include="BikeBooking\BikeBooking.cs" />
+    <Compile Include="BikeBooking\BikeBookingListingEntity.cs" />
     <Compile Include="BikeBooking\BikeCancellationEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntity.cs" />
     <Compile Include="BikeBooking\BookingAmountEntityBase.cs" />
+    <Compile Include="BikeBooking\BookingListingFilterEntity.cs" />
+    <Compile Include="BikeBooking\BookingOfferEntity.cs" />
     <Compile Include="BikeBooking\BookingResults.cs" />
     <Compile Include="BikeBooking\CalculatedEMI.cs" />
     <Compile Include="BikeBooking\Consumers.cs" />
@@ -62,6 +65,7 @@
     <Compile Include="BikeBooking\LeadSourceEnum.cs" />
     <Compile Include="BikeBooking\NewBikeDealers.cs" />
     <Compile Include="BikeBooking\OfferEntity.cs" />
+    <Compile Include="BikeBooking\PagingUrl.cs" />
     <Compile Include="BikeBooking\PQCustomerDetail.cs" />
     <Compile Include="BikeBooking\PQOutputEntity.cs" />
     <Compile Include="BikeBooking\PQParameterEntity.cs" />
@@ -149,6 +153,7 @@
     <Compile Include="Dealer\NewBikeDealerEntityBase.cs" />
     <Compile Include="Dealer\NewBikeDealersListEntity.cs" />
     <Compile Include="Dealer\NewBikeDealersMakeEntity.cs" />
+    <Compile Include="Dealer\Offer.cs" />
     <Compile Include="EditCMS\Articles\ArticleBase.cs" />
     <Compile Include="EditCMS\Articles\ArticleDetails.cs" />
     <Compile Include="EditCMS\Articles\ArticlePageDetails.cs" />

@@ -10,8 +10,21 @@
                 <a href="http://www.carwale.com/m/autoexpo2016/" target="_blank">
                     <span class="ae-sprite ae-car-icon"></span>
                     <span class="navbarTitle">Auto Expo 2016</span>
-                    <span class="ae-sprite ae-new-label-icon"></span>
+                    
                 </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">
+                    <span class="bwmsprite newBikes-icon"></span>
+                    <span class="navbarTitle">Bike Booking</span>
+                    <span class="ae-sprite ae-new-label-icon"></span>
+                    <span class="nav-drop fa fa-angle-down"></span>
+                </a>
+                <ul class="nestedUL">
+                    <li><a  href="/m/bikebooking/">Book Your Bike</a></li>
+                    <li><a  href="/m/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
+                    <li><a href="/m/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
+                </ul>
             </li>
             <li>
                 <a href="javascript:void(0)">
@@ -46,18 +59,6 @@
                     <span class="navbarTitle">Sell Your Bike</span>
                 </a>
             </li>--%>
-            <li>
-                <a href="/m/pricequote/rsaofferclaim.aspx">
-                    <span class="bwmsprite sellBikes-icon"></span>
-                    <span class="navbarTitle">Claim Your Offer</span>
-                </a>
-            </li>
-            <li>
-                <a href="/m/bikebooking/cancellation.aspx">
-                    <span class="bwmsprite cancellation-icon opacity60"></span>
-                    <span class="navbarTitle">Cancel Your Booking</span>
-                </a>
-            </li>
             <li>
                 <a href="javascript:void(0)">
                     <span class="bwmsprite reviews-icon"></span>

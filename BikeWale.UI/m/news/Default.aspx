@@ -13,7 +13,7 @@
 %>
 <!-- #include file="/includes/headermobile.aspx" -->
     <div class="padding5">
-        <div id="br-cr"><a href="/m/" class="normal">Home</a> &rsaquo; <span class="lightgray">News</span></div>
+        <div id="br-cr"><span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb"><a href="/m/" itemprop="url" class="normal"><span itemprop="title">Home</span></a></span> &rsaquo; <span class="lightgray">News</span></div>
         <h1>Latest Bike News</h1>
         <div id="divListing">
             <asp:Repeater id="rptNews" runat="server">

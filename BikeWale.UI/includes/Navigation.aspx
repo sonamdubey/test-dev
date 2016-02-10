@@ -10,8 +10,21 @@
                 <a href="http://www.carwale.com/autoexpo2016/" target="_blank">
                     <span class="ae-sprite ae-car-icon"></span>
                     <span class="navbarTitle">Auto Expo 2016</span>
-                    <span class="ae-sprite ae-new-label-icon"></span>
+                    
                 </a>
+            </li>
+            <li>
+                <a href="javascript:void(0)">
+                    <span class="bwsprite newBikes-icon"></span>
+                    <span class="navbarTitle">Bike Booking</span>
+                    <span class="ae-sprite ae-new-label-icon"></span>
+                    <span class="nav-drop fa fa-angle-down"></span>
+                </a>
+                <ul class="nestedUL">
+                    <li><a  href="/bikebooking/default.aspx">Book Your Bike</a></li>
+                    <li><a  href="/pricequote/rsaofferclaim.aspx">Claim Your Offer</a></li>
+                    <li><a href="/bikebooking/cancellation.aspx">Cancel Your Booking</a></li>
+                </ul>
             </li>
             <li>
                 <a href="javascript:void(0)">
@@ -27,7 +40,7 @@
                     <li><a href="/upcoming-bikes/">Upcoming Bikes</a></li>
                     <li><a href="/new-bikes-launches/">New Launches</a></li>
                 </ul>
-            </li>
+            </li>            
             <li>
                 <a href="javascript:void(0)">
                     <span class="bwsprite usedBikes-icon"></span>
@@ -44,19 +57,7 @@
                     <span class="bwsprite sellBikes-icon"></span>
                     <span class="navbarTitle">Sell Your Bike</span>
                 </a>
-            </li>
-            <li>
-                <a href="/pricequote/rsaofferclaim.aspx">
-                    <span class="bwsprite claim-offer-icon opacity60"></span>
-                    <span class="navbarTitle">Claim Your Offer</span>
-                </a>
-            </li>
-            <li>
-                <a href="/bikebooking/cancellation.aspx">
-                    <span class="bwsprite cancellation-icon opacity60"></span>
-                    <span class="navbarTitle">Cancel Your Booking</span>
-                </a>
-            </li>
+            </li>            
             <li>
                 <a href="javascript:void(0)">
                     <span class="bwsprite reviews-icon"></span>

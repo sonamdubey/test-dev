@@ -70,11 +70,11 @@
     </Reference>
     <Reference Include="RabbitMQ.Client, Version=3.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BikeWalePro\Libs\RabbitMQ.Client.dll</HintPath>
+      <HintPath>..\Libs\RabbitMQ.Client.dll</HintPath>
     </Reference>
     <Reference Include="RabbitMqPublishing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\BikeWalePro\Libs\RabbitMqPublishing.dll</HintPath>
+      <HintPath>..\Libs\RabbitMqPublishing.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -180,8 +180,11 @@
     <Compile Include="AutoMappers\App\AppVersionMapper.cs" />
     <Compile Include="AutoMappers\AutoComplete\SuggestionListMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Area\BBAreaListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BikeBookingListingEntityMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\BookingListingFilterDTOMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\BookingPageDetailsEntityMapper.cs" />
     <Compile Include="AutoMappers\Bikebooking\Model\BBModelListMapper.cs" />
+    <Compile Include="AutoMappers\Bikebooking\PageUrlEntityMapper.cs" />
     <Compile Include="AutoMappers\BikeData\FeaturedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\LaunchedBikeListMapper.cs" />
     <Compile Include="AutoMappers\BikeData\MakeModelEntityMapper.cs" />
@@ -213,6 +216,7 @@
     <Compile Include="Controllers\App\AppVersionCheckController.cs" />
     <Compile Include="Controllers\AutoComplete\AutoSuggestController.cs" />
     <Compile Include="Controllers\BikeBooking\Area\BBAreaListController.cs" />
+    <Compile Include="Controllers\BikeBooking\BikeBookingListingController.cs" />
     <Compile Include="Controllers\BikeBooking\BikeBookingPageController.cs" />
     <Compile Include="Controllers\BikeBooking\BookingCancellationController.cs" />
     <Compile Include="Controllers\BikeBooking\City\BBCityListController.cs" />
@@ -231,6 +235,7 @@
     <Compile Include="Controllers\Customer\LoginInputParameters.cs" />
     <Compile Include="Controllers\Customer\RegisterInputParameters.cs" />
     <Compile Include="Controllers\Dealer\DealersListController.cs" />
+    <Compile Include="Controllers\Dealer\OffersController.cs" />
     <Compile Include="Controllers\Dealer\TermsController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceLeadController.cs" />
     <Compile Include="Controllers\Insurance\InsuranceModelsController.cs" />
@@ -258,6 +263,7 @@
     <Compile Include="Controllers\PriceQuote\PQBikeColorController.cs" />
     <Compile Include="Controllers\PriceQuote\PQCustomerDetailController.cs" />
     <Compile Include="Controllers\PriceQuote\PriceQuoteController.cs" />
+    <Compile Include="Controllers\PriceQuote\RegisterPQController.cs" />
     <Compile Include="Controllers\PriceQuote\UpdatePQController.cs" />
     <Compile Include="Controllers\PriceQuote\UpdatePQCustomerDetailsController.cs" />
     <Compile Include="Controllers\PriceQuote\Version\PQVersionListController.cs" />

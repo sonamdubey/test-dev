@@ -45,6 +45,8 @@ namespace Bikewale.Entities.PriceQuote
         Desktop_DPQ_Quotation = 35,
         Mobile_DPQ_Quotation = 36,
         DeskTop_AutoSuggest = 37,
-        Mobile_AutoSuggest = 38
+        Mobile_AutoSuggest = 38,
+        Desktop_BookingListing = 39,
+        Mobile_BookingListing = 40
     }
 }

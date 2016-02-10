@@ -262,11 +262,11 @@ z-index: 1; }
 /* Pagination Styles */
 .swiper-pagination { position: absolute; text-align: center; -webkit-transition: 300ms; -moz-transition: 300ms; -o-transition: 300ms; transition: 300ms; -webkit-transform: translate3d(0, 0, 0); -ms-transform: translate3d(0, 0, 0); -o-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); z-index: 10; }
 .swiper-pagination.swiper-pagination-hidden { opacity: 0; }
-.swiper-pagination-bullet { width: 8px; height: 8px; display: inline-block; border-radius: 100%; background: #000; opacity: 0.2; }
+.swiper-pagination-bullet { width: 12px; height: 12px; display: inline-block; border-radius: 100%; background: #000; opacity: 0.1; }
 button.swiper-pagination-bullet { border: none; margin: 0; padding: 0; box-shadow: none; -moz-appearance: none; -ms-appearance: none; -webkit-appearance: none; appearance: none; }
 .swiper-pagination-clickable .swiper-pagination-bullet { cursor: pointer; }
 .swiper-pagination-white .swiper-pagination-bullet { background: #fff; }
-.swiper-pagination-bullet-active { opacity: 1; background: #007aff; }
+.swiper-pagination-bullet-active { opacity: 1; background: #82888b; }
 .swiper-pagination-white .swiper-pagination-bullet-active { background: #fff; }
 .swiper-pagination-black .swiper-pagination-bullet-active { background: #000; }
 .swiper-container-vertical > .swiper-pagination { right: 10px; top: 50%; -webkit-transform: translate3d(0px, -50%, 0); -moz-transform: translate3d(0px, -50%, 0); -o-transform: translate(0px, -50%); -ms-transform: translate3d(0px, -50%, 0); transform: translate3d(0px, -50%, 0); }
@@ -348,7 +348,7 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .newbikes-banner-div { background:#161209 url(http://img.aeplcdn.com/bikewaleimg/m/images/new-bike-banner.jpg) no-repeat left top; background-size: cover; height:130px;}
 
 /* sprite classes */
-.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v1=27012016v1) no-repeat; display: inline-block; }
+.bwmsprite { background: url(http://img.aeplcdn.com/bikewaleimg/m/images/bwmsprite.png?v1=10Feb2016V1) no-repeat; display: inline-block; }
 .nav-icon { background-position: 0 0; width: 27px; height: 20px; cursor: pointer; position: relative; top: 3px; }
 .nav-icon:hover { background-position: 0 -20px; }
 .headerTitle,.white-back-arrow {display:none;}
@@ -384,6 +384,9 @@ a.fbLoginBtn:hover, a.gplusLoginBtn:hover { text-decoration:none; }
 .forum-icon { background-position: 0 -243px; }
 .myBikeWale-icon { background-position: 0 -277px; top: 6px; }
 .cancellation-icon { background-position: -52px -395px; top:10px; }
+
+.fixed-close-btn-wrapper { position:relative; width:98%; text-align:right; }
+.fixed-close-btn { position:fixed; background-color:#fff; }
 
 .cross-lg-white, .cross-lg-lgt-grey, .cross-lg-dark-grey { width: 16px; height: 16px; }
 .cross-lg-white { background-position: -36px -200px; }
@@ -783,4 +786,6 @@ footer .border-solid-top { border-top: 1px solid rgba(183,183,183,0.2); }
 .ae-car-icon, .ae-new-label-icon { height: 25px; position: relative;top: 5px; } 
 .ae-car-icon {background-position: 0 4px; width: 36px;}
 .ae-new-label-icon{background-position: -156px 1px; height: 24px; top: -10px; left: 5px; width: 39px; }
+.strike{text-decoration: line-through; color:#82888b}
+.red-font{ color: #FF0000;}
 /* AutoExpo classes end */

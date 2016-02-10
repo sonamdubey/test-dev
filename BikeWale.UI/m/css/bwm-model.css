@@ -23,6 +23,8 @@
     color: #82888b;
     border: 1px solid #82888b;
 }
+.text-blue { color:#0288d1; }
+.border-light-bottom { border-bottom:1px solid #e2e2e2; }
 
 .sort-div { height:40px; padding:9px; border:1px solid #ccc; color:#555; position:relative; cursor:pointer; background:#fff; }
 .sort-by-title { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: left; width:100%; }
@@ -101,11 +103,21 @@
 
 /* model sprite classes */
 .model-sprite { background:url(http://img.aeplcdn.com/bikewaleimg/m/images/model-sprite.png?v=27012016v1) no-repeat; display:inline-block;}
-.bw-summary-ico { background-position:0 0; width:23px; height:23px; margin-right:26px; position:relative; top:3px; left:5px;}
-.bw-engine-ico { background-position:0 -32px; width:30px; height:22px; margin-right:20px; position:relative; top:3px;}
-.bw-brakeswheels-ico { background-position:0 -63px; width:26px; height:26px; margin-right:26px; position:relative; top:3px; left:3px;}
-.bw-dimensions-ico { background-position:0 -99px; width:33px; height:22px; margin-right:20px; position:relative; top:3px;}
-.bw-performance-ico { background-position:0 -131px; width:11px; height:22px; margin-right:41px; position:relative; top:3px; left:7px;}
+.benefit-offers-ico { background-position:0 0; width:25px; height:28px; }
+.benefit-dealer-visits-ico { background-position:0 -38px; width:34px; height:22px; }
+.benefit-assistance-ico { background-position:0 -70px; width:27px; height:30px; }
+.cancel-policy-lg-icon { width:24px; height:32px; background-position:0px -396px; }
+.loc-change-blue-icon { width:12px; height:16px; background-position:-86px -278px; position:relative; top:3px; }
+
+/*benefits*/
+#benefitsOfBookingContainer { padding:20px 20px 10px; background:#f5f5f5; }
+#benefitsOfBookingContainer ul { overflow:hidden; }
+#benefitsOfBookingContainer li { padding:20px 5px 16px; border-top:1px solid #e2e2e2; }
+#benefitsOfBookingContainer li:first-child { border-top:none; }
+#benefitsOfBookingContainer li .benefits-item { display:inline-block; vertical-align:top; }
+#benefitsOfBookingContainer li.benefits-dealer-visits { padding-left:0; padding-right:0; }
+#benefitsOfBookingContainer li.benefits-dealer-visits .benefits-item { display:inline-block; vertical-align:middle; }
+#benefitsOfBookingContainer .benefits-item h2 { color:#4d5057; line-height:16px; margin-bottom:5px; }
 
 /**************/
 /* or text classes */
@@ -222,11 +234,12 @@ li.offertxt:hover .tnc {display:inline}*/
 .question-text-container { width:68%; }
 .question-title { position:relative; top:-7px; margin-bottom:5px; }
 
-#testimonialWrapper .swiper-slide { width:280px; height:215px; padding:20px 15px; }
-#testimonialWrapper .testimonial-image-container { width:60px; height:60px; background:#fff; margin:0 auto; border:1px solid #ccc; }
-#testimonialWrapper .testimonial-user-image { width:54px; height:54px; overflow:hidden; margin:2px auto; border:1px solid #666; }
-#testimonialWrapper li .testimonial-user-image img { width:100%; }
-#testimonialWrapper li .testimonial-user-stmt { height:66px; overflow:hidden; }
+#testimonialWrapper .swiper-container { width:100%; padding:0 10px; height:auto; }
+#testimonialWrapper .swiper-slide { width: 100%; }
+#testimonialWrapper .swiper-container-horizontal > .swiper-pagination { bottom:0; }
+#testimonialWrapper .testimonial-image-container { width:82px; height:82px; background:#fff; margin:0 auto; border:1px solid #ccc; }
+#testimonialWrapper .testimonial-user-image { width:76px; height:76px; overflow:hidden; margin:2px auto; border:1px solid #666; }
+#testimonialWrapper .testimonial-user-image img { width:100%; }
 
 .color-box.color-count-one span { width:100%; height:100%; display:block !important; background:#eee; }  
 .color-box.color-count-two span { width:100%; height:50%; display:block !important; background:#e34f4f; }

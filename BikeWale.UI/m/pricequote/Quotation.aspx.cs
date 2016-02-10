@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using Microsoft.Practices.Unity;
-using Bikewale.Entities.PriceQuote;
-using Bikewale.Interfaces.PriceQuote;
-using Bikewale.BAL.PriceQuote;
+﻿using Bikewale.BAL.BikeData;
 using Bikewale.Common;
-using System.Web.UI.HtmlControls;
-using Bikewale.Interfaces.BikeData;
-using Bikewale.Entities.BikeData;
-using Bikewale.BAL.BikeData;
-using System.Data;
-using System.Configuration;
 using Bikewale.Entities.BikeBooking;
+using Bikewale.Entities.BikeData;
+using Bikewale.Entities.PriceQuote;
 using Bikewale.Interfaces.BikeBooking;
+using Bikewale.Interfaces.BikeData;
+using Bikewale.Interfaces.PriceQuote;
 using Bikewale.Mobile.controls;
 using Bikewale.Mobile.Controls;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 
 namespace Bikewale.Mobile.PriceQuote
@@ -37,6 +33,7 @@ namespace Bikewale.Mobile.PriceQuote
         protected DropDownList ddlVersion;
         ulong pqId = 0;
         uint versionId = 0;
+        protected uint cityId = 0;
         protected AlternativeBikes ctrlAlternateBikes;
         protected MUpcomingBikes ctrlUpcomingBikes;
         //protected Repeater rptAllVersions;
@@ -74,6 +71,7 @@ namespace Bikewale.Mobile.PriceQuote
             {
                 pqId = Convert.ToUInt64(PriceQuoteQueryString.PQId);
                 objVersionDetails = objVersion.GetById(Convert.ToInt32(PriceQuoteQueryString.VersionId));
+                cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
 
                 Trace.Warn("pq id : " + pqId.ToString());
 
@@ -84,16 +82,16 @@ namespace Bikewale.Mobile.PriceQuote
                         GetPriceQuoteById();
                         BindVersion(objVersionDetails.ModelBase.ModelId);
 
-                    //alternative bikes
-                     BindAlternativeBikeControl(Convert.ToString(objVersionDetails.VersionId));
+                        //alternative bikes
+                        BindAlternativeBikeControl(Convert.ToString(objVersionDetails.VersionId));
 
-                    //To get Upcoming Bike List Details 
-                    ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
-                    ctrlUpcomingBikes.pageSize = 6;
-                    ctrlUpcomingBikes.MakeId = Convert.ToInt32(objVersionDetails.MakeBase.MakeId);
+                        //To get Upcoming Bike List Details 
+                        ctrlUpcomingBikes.sortBy = (int)EnumUpcomingBikesFilter.Default;
+                        ctrlUpcomingBikes.pageSize = 6;
+                        ctrlUpcomingBikes.MakeId = Convert.ToInt32(objVersionDetails.MakeBase.MakeId);
 
-                    hasAlternateBikes = ctrlAlternateBikes.FetchedRecordsCount > 0;
-                    hasUpcomingBikes = ctrlUpcomingBikes.FetchedRecordsCount > 0;
+                        hasAlternateBikes = ctrlAlternateBikes.FetchedRecordsCount > 0;
+                        hasUpcomingBikes = ctrlUpcomingBikes.FetchedRecordsCount > 0;
                     }
                 }
                 else

@@ -138,7 +138,7 @@ namespace Bikewale.DAL.Location
             Database db = null;
             try
             {
-                using (SqlCommand cmd = new SqlCommand("GetPriceQuoteCities_12012016"))
+                using (SqlCommand cmd = new SqlCommand("GetPriceQuoteCities_05022016"))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@modelId", SqlDbType.BigInt).Value = modelId;
