@@ -72,7 +72,7 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
     $.removeKnockouts();
     $.scrollToTop();
 
-    $.so = ($.sc != "2")?'0':'1';
+    $.so = "0";
     var newurl = '';
     if ($(this).hasClass('price-sort')) {
         var sortOrder = $(this).attr('so');
@@ -103,6 +103,8 @@ $('#sort-by-div a[data-title="sort"]').click(function () {
     $(this).parent().removeClass('text-bold');
 
     $.sc = $(this).parent().attr('sc');
+
+    if ($.sc == "2") $.so = "1";
 
     if ($.sc != '1') {
         $('.price-sort').find('span').text('');
