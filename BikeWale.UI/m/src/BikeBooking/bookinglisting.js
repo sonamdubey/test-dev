@@ -534,7 +534,7 @@ $.getAllParamsFromQS = function () {
     var completeQS = window.location.href.split('?')[1];
     var params = [];
 
-    if (completeQS.length > 1) {
+    if (completeQS != undefined && completeQS.length > 1) {
         var tempParams = completeQS.substring(0, completeQS.length).split('&');
 
         if (tempParams.length > 0) {

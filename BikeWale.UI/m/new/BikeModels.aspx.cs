@@ -558,6 +558,11 @@ namespace Bikewale.Mobile.New
                                 {
                                     variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                 }
+                                // Check it versionId passed through url exists in current model's versions
+                                else if (!IsPostBack && !modelPage.ModelVersions.Exists(p => p.VersionId == urlVersionId))
+                                {
+                                    variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
+                                }
                             }
                             if (!modelPage.ModelDetails.New)
                                 isDiscontinued = true;
@@ -760,7 +765,7 @@ namespace Bikewale.Mobile.New
                 {
                     container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
                     IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                    modelPage.ModelVersionSpecs = objVersion.MVSpecsFeatures(Convert.ToInt16(variantId));
+                    modelPage.ModelVersionSpecs = objVersion.MVSpecsFeatures(Convert.ToInt32(variantId));
                 }
             }
             catch (Exception ex)
