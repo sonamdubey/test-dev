@@ -636,7 +636,6 @@ namespace Bikewale.New
                         modelPage = objCache.GetModelPageDetails(Convert.ToInt16(modelId));
                         if (modelPage != null)
                         {
-
                             if (modelPage != null)
                             {
                                 if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
@@ -646,10 +645,14 @@ namespace Bikewale.New
                                     {
                                         variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                     }
+                                        // Check it versionId passed through url exists in current model's versions
+                                    else if(!IsPostBack && !modelPage.ModelVersions.Exists(p=>p.VersionId == urlVersionId))
+                                    {
+                                        variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
+                                    }
                                 }
                                 if (!modelPage.ModelDetails.New)
                                     isDiscontinued = true;
-
                                 //string jsonModel = JsonConvert.SerializeObject(modelPage);
                                 //ViewState["modelPage"] = jsonModel;
                             }
@@ -1145,12 +1148,11 @@ namespace Bikewale.New
         {
             try
             {
-
                 using (IUnityContainer container = new UnityContainer())
                 {
                     container.RegisterType<IBikeModelsRepository<BikeModelEntity, int>, BikeModelsRepository<BikeModelEntity, int>>();
                     IBikeModelsRepository<BikeModelEntity, int> objVersion = container.Resolve<IBikeModelsRepository<BikeModelEntity, int>>();
-                    modelPage.ModelVersionSpecs = objVersion.MVSpecsFeatures(Convert.ToInt16(variantId));
+                    modelPage.ModelVersionSpecs = objVersion.MVSpecsFeatures(Convert.ToInt32(variantId));
                 }
             }
             catch (Exception ex)
