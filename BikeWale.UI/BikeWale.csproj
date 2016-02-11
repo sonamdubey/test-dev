@@ -42,14 +42,14 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <Choose>
-    <When Condition=" '$(GO_SCM_CARWALEWEB_PR_BRANCH)'=='' ">
+    <When Condition=" '$(GO_SCM_BIKEWALEWEB_PR_BRANCH)'=='' ">
       <PropertyGroup>
         <DestFolder>C:/BWRelease/develop/</DestFolder>
       </PropertyGroup>
     </When>
-    <When Condition=" '$(GO_SCM_CARWALEWEB_PR_BRANCH)'!='' ">
+    <When Condition=" '$(GO_SCM_BIKEWALEWEB_PR_BRANCH)'!='' ">
       <PropertyGroup>
-        <DestFolder>C:/BWRelease/$(GO_SCM_CARWALEWEB_PR_BRANCH)/</DestFolder>
+        <DestFolder>C:/BWRelease/$(GO_SCM_BIKEWALEWEB_PR_BRANCH)/</DestFolder>
       </PropertyGroup>
     </When>
   </Choose>
