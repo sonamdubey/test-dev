@@ -12,12 +12,9 @@
 <head>
     <%
 		var modDetails = modelPage.ModelDetails;
-		title = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
-		description = modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " Price in India - Rs."
-					+ Bikewale.Utility.Format.FormatPrice(modDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modDetails.MaxPrice.ToString())
-					+ ". Check out " + modDetails.MakeBase.MakeName + " " + modDetails.ModelName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
-
-		canonical = "http://www.bikewale.com/" + modDetails.MakeBase.MaskingName + "-bikes/" + modDetails.MaskingName + "/";
+        title = String.Format("{0} Price in India, Review, Mileage & Photos - Bikewale", bikeName);
+		description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price));
+        canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
 		AdId = "1017752";
 		AdPath = "/1017752/Bikewale_NewBike_";
 		TargetedModel = modDetails.ModelName;
@@ -159,7 +156,7 @@
                                     <div class="clear"></div>
                                 </div>
                                 <%} else{ %>
-                                <p class="font24 text-black text-bold"><%= bikeName %></p>
+                                <h1 class="font24 text-black text-bold"><%= bikeName %></h1>
                                 <%} %>
                                 <% if (!modelPage.ModelDetails.Futuristic || modelPage.ModelDetails.New)
 								   { %>
@@ -409,7 +406,7 @@
                                         <span class="model-sprite benefit-offers-ico margin-right15"></span>
                                     </div>
                                     <div class="benefits-item text-uppercase">
-                                        <h2 class="text-bold">Exclusive</h2>
+                                        <p class="text-bold">Exclusive</p>
                                         <span>Offers</span>
                                     </div>
                                 </li>
@@ -418,7 +415,7 @@
                                         <span class="model-sprite benefit-dealer-visits-ico margin-right15"></span>
                                     </div>
                                     <div class="benefits-item text-uppercase">
-                                        <h2 class="text-bold">Save on</h2>
+                                        <p class="text-bold">Save on</p>
                                         <span>Dealer visits</span>
                                     </div>
                                 </li>
@@ -427,7 +424,7 @@
                                         <span class="model-sprite benefit-assistance-ico margin-right15"></span>
                                     </div>
                                     <div class="benefits-item text-uppercase">
-                                        <h2 class="text-bold">Complete</h2>
+                                        <p class="text-bold">Complete</p>
                                         <span>Buying assistance</span>
                                     </div>
                                 </li>
@@ -436,7 +433,7 @@
                                         <span class="model-sprite benefit-cancellation-ico margin-right15"></span>
                                     </div>
                                     <div class="benefits-item text-uppercase">
-                                        <h2 class="text-bold">Easy</h2>
+                                        <p class="text-bold">Easy</p>
                                         <span>Cancellation</span>
                                     </div>
                                 </li>
@@ -810,7 +807,7 @@
                 <div id="terms" class="breakup-text-container padding-bottom10 font14">
                 </div>
                 <div id='orig-terms' class='hide'>
-                    <h1>Offers and Gifts Promotion Terms and Conditions</h1>
+                    <h3>Offers and Gifts Promotion Terms and Conditions</h3>
                     <p><strong>Definitions:</strong></p>
                     <p>"BikeWale" refers to Automotive Exchange Private Limited, a private limited company having its head office at 12<sup>th</sup> Floor, Vishwaroop IT Park, Sector 30A, Vashi, Navi Mumbai 400705, India, who owns and operates www.bikewale.com, one of India's leading automotive web portals.</p>
                     <p>"Bike Manufacturer" or "manufacturer" refers to the company that manufactures and / or markets and sells bikes in India through authorised dealers.</p>
@@ -960,14 +957,14 @@
                     <div class="bw-tabs-data margin-bottom20" id="specifications">
                         <h2 class="font24 margin-top10 margin-bottom20 text-center">Specifications</h2>
                         <div class="bw-tabs-panel margin-left10 margin-right10">
-                            <div class="leftfloat bw-horz-tabs">
+                            <div class="leftfloat bw-horz-tabs bw-model-specs">
                                 <div class="bw-tabs">
                                     <ul>
-                                        <li class="active" data-tabs="summary"><span class="model-sprite bw-summary-ico"></span>Summary</li>
-                                        <li data-tabs="engineTransmission"><span class="model-sprite bw-engine-ico"></span>Engine & Transmission </li>
-                                        <li data-tabs="brakeWheels"><span class="model-sprite bw-brakeswheels-ico"></span>Brakes, Wheels and Suspension</li>
-                                        <li data-tabs="dimensions"><span class="model-sprite bw-dimensions-ico"></span>Dimensions and Chassis</li>
-                                        <li data-tabs="fuelEffiency"><span class="model-sprite bw-performance-ico"></span>Fuel efficiency and Performance</li>
+                                        <li class="active" data-tabs="summary"><span class="model-sprite bw-summary-ico"></span><h3>Summary</h3></li>
+                                        <li data-tabs="engineTransmission"><span class="model-sprite bw-engine-ico"></span><h3>Engine & Transmission</h3></li>
+                                        <li data-tabs="brakeWheels"><span class="model-sprite bw-brakeswheels-ico"></span><h3>Brakes, Wheels and Suspension</h3></li>
+                                        <li data-tabs="dimensions"><span class="model-sprite bw-dimensions-ico"></span><h3>Dimensions and Chassis</h3></li>
+                                        <li data-tabs="fuelEffiency"><span class="model-sprite bw-performance-ico"></span><h3>Fuel efficiency and Performance</h3></li>
                                     </ul>
                                 </div>
                             </div>
@@ -1562,10 +1559,10 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? string.Empty : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
-                                    <li class="<%= isUserReviewActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlUserReviews">User Reviews</li>
-                                    <li class="<%= isExpertReviewActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
-                                    <li class="<%= isNewsActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlNews">News</li>
-                                    <li class="<%= isVideoActive ? "active" : String.Empty  %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlVideos">Videos</li>
+                                    <li class="<%= isUserReviewActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlUserReviews"><h3>User Reviews</h3></li>
+                                    <li class="<%= isExpertReviewActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlExpertReviews"><h3>Expert Reviews</h3></li>
+                                    <li class="<%= isNewsActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlNews"><h3>News</h3></li>
+                                    <li class="<%= isVideoActive ? "active" : String.Empty  %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlVideos"><h3>Videos</h3></li>
                                 </ul>
                             </div>
                         </div>
@@ -1594,7 +1591,7 @@
         <section class="margin-bottom30 <%= (ctrlAlternativeBikes.FetchedRecordsCount > 0) ? string.Empty : "hide" %>">
             <div class="container">
                 <div class="grid-12 alternative-section" id="alternative-bikes-section">
-                    <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternatives</h2>
+                    <h2 class="text-bold text-center margin-top50 margin-bottom30"><%= bikeName %> alternate Bikes</h2>
                     <div class="content-box-shadow">
                         <div class="jcarousel-wrapper alternatives-carousel margin-top20">
                             <div class="jcarousel">
