@@ -117,7 +117,7 @@
 #benefitsOfBookingContainer li .benefits-item { display:inline-block; vertical-align:top; }
 #benefitsOfBookingContainer li.benefits-dealer-visits { padding-left:0; padding-right:0; }
 #benefitsOfBookingContainer li.benefits-dealer-visits .benefits-item { display:inline-block; vertical-align:middle; }
-#benefitsOfBookingContainer .benefits-item h2 { color:#4d5057; line-height:16px; margin-bottom:5px; }
+#benefitsOfBookingContainer .benefits-item p { color:#4d5057; line-height:16px; margin-bottom:5px;font-weight:bold;font-size:18px }
 
 /**************/
 /* or text classes */
