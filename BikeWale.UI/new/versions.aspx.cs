@@ -273,15 +273,18 @@ namespace Bikewale.New
             ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
             ToggleOfferDiv();
-            if (!IsPostBack && urlVersionId!=0)
+            if (!IsPostBack && urlVersionId != 0)
             {
                 FetchVariantDetails(urlVersionId);
             }
             Trace.Warn("Trace 20 : Page Load ends");
             // Clear trailing query string -- added on 09-feb-2016 by Sangram
             PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-            isreadonly.SetValue(this.Request.QueryString, false, null);
-            this.Request.QueryString.Clear();
+            if (isreadonly != null)
+            {
+                isreadonly.SetValue(this.Request.QueryString, false, null);
+                this.Request.QueryString.Clear();
+            }
         }
 
         /// <summary>
@@ -644,8 +647,8 @@ namespace Bikewale.New
                                     {
                                         variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                     }
-                                        // Check it versionId passed through url exists in current model's versions
-                                    else if(!IsPostBack && !modelPage.ModelVersions.Exists(p=>p.VersionId == urlVersionId))
+                                    // Check it versionId passed through url exists in current model's versions
+                                    else if (!IsPostBack && !modelPage.ModelVersions.Exists(p => p.VersionId == urlVersionId))
                                     {
                                         variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                     }

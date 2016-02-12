@@ -123,7 +123,7 @@ namespace Bikewale.Mobile.New
             Trace.Warn("Trace 8 : FetchModelPageDetails End");
             if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
             {
-                    
+
                 Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
                 FetchOnRoadPrice();
                 Trace.Warn("Trace 10 : FetchOnRoadPrice End");
@@ -176,7 +176,7 @@ namespace Bikewale.Mobile.New
                     rptVarients.DataBind();
                 }
             }
-            ctrlUsersTestimonials.TopCount = 6;               
+            ctrlUsersTestimonials.TopCount = 6;
             ToggleOfferDiv();
             if (!IsPostBack && urlVersionId != 0)
             {
@@ -184,8 +184,11 @@ namespace Bikewale.Mobile.New
             }
             // Clear trailing query string -- added on 09-feb-2016 by Sangram
             PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-            isreadonly.SetValue(this.Request.QueryString, false, null);
-            this.Request.QueryString.Clear();
+            if (isreadonly != null)
+            {
+                isreadonly.SetValue(this.Request.QueryString, false, null);
+                this.Request.QueryString.Clear();
+            }
 
         }
 
@@ -560,17 +563,17 @@ namespace Bikewale.Mobile.New
                             if (!modelPage.ModelDetails.New)
                                 isDiscontinued = true;
 
-                            if(modelPage.ModelDetails!=null )
+                            if (modelPage.ModelDetails != null)
                             {
-                                bikeModelName = modelPage.ModelDetails.ModelName; 
-                                if(modelPage.ModelDetails.MakeBase!=null)
+                                bikeModelName = modelPage.ModelDetails.ModelName;
+                                if (modelPage.ModelDetails.MakeBase != null)
                                 {
                                     bikeMakeName = modelPage.ModelDetails.MakeBase.MakeName;
                                 }
                                 bikeName = bikeMakeName + " " + bikeModelName;
                             }
-                            
-                            
+
+
                         }
                     }
                 }
