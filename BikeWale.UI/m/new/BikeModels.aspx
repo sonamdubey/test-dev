@@ -260,7 +260,7 @@
                             <% } %>
                     </div>
 
-                    <% if (toShowOnRoadPriceButton)
+                    <% if (toShowOnRoadPriceButton && modelPage.ModelDetails.New)
                        {%>
                         <div class="clear"></div>
                         <div id="benefitsOfBookingContainer" class=" grey padding-top10 padding-bottom10 margin-top10 margin-bottom10">

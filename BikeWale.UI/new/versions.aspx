@@ -229,21 +229,6 @@
                                     <% } %>
                                     <div class="clear"></div>
                                 </div>
-                                <%--<div class="sort-div rounded-corner2">
-									<div class="sort-by-title" id="sort-by-container">
-										<span class="leftfloat sort-select-btn">Popular</span>
-										<span class="clear"></span>
-									</div>
-									<span id="upDownArrow" class="rightfloat fa fa-angle-down position-abt pos-top10 pos-right10"></span>
-								</div>
-								<div class="sort-selection-div sort-list-items">
-									<ul id="sortbike1">
-										<li id="0" class="selected">Popular</li>
-										<li id="1">Price: Low to High</li>
-										<li id="2">Price: High to Low</li>
-										<li id="3">Mileage: High to Low</li>
-									</ul>
-								</div>--%>
 
 
                                 <%if (modelPage.ModelVersionSpecs != null)
@@ -395,7 +380,7 @@
                             <% } %>
                         </div>
                         <div class="clear"></div>
-                        <%if (toShowOnRoadPriceButton)
+                        <%if (toShowOnRoadPriceButton && modelPage.ModelDetails.New)
                           { %>
                         <div id="benefitsOfBookingContainer" class="margin-top15">
                             <div class="padding-bottom20 border-light-bottom">
