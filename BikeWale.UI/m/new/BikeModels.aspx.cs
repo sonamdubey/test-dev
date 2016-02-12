@@ -56,8 +56,6 @@ namespace Bikewale.Mobile.New
         protected bool isCitySelected, isAreaSelected, isOnRoadPrice, toShowOnRoadPriceButton;
         protected bool isUserReviewZero = true, isExpertReviewZero = true, isNewsZero = true, isVideoZero = true;
 
-        protected static bool isManufacturer = false;
-
         // New Model Revamp
         protected bool isBookingAvailable, isOfferAvailable, isBikeWalePQ, isDiscontinued, isAreaAvailable;
         protected Repeater rptOffers, rptMoreOffers, rptCategory, rptVariants, rptDiscount;
@@ -78,7 +76,7 @@ namespace Bikewale.Mobile.New
         protected int btMoreDtlsSize = 12;
         protected string cssOffers = "noOffers";
         protected string offerDivHide = "hide";
-        protected string price = string.Empty;
+        protected string price = string.Empty, bikeMakeName = string.Empty, bikeModelName = string.Empty;
         protected string viewbreakUpText = string.Empty;
         protected UInt32 onRoadPrice = 0, totalDiscountedPrice = 0;
         protected List<CityEntityBase> objCityList = null;
@@ -93,6 +91,7 @@ namespace Bikewale.Mobile.New
         protected UsersTestimonials ctrlUsersTestimonials;
         protected bool isDealerAssitance = false;
         protected uint campaignId, manufacturerId;
+
 
         #region Events
         protected override void OnInit(EventArgs e)
@@ -124,6 +123,7 @@ namespace Bikewale.Mobile.New
             Trace.Warn("Trace 8 : FetchModelPageDetails End");
             if (modelPage != null && modelPage.ModelDetails != null && modelPage.ModelDetails.New)
             {
+                    
                 Trace.Warn("Trace 9 : FetchOnRoadPrice Start");
                 FetchOnRoadPrice();
                 Trace.Warn("Trace 10 : FetchOnRoadPrice End");
@@ -176,9 +176,7 @@ namespace Bikewale.Mobile.New
                     rptVarients.DataBind();
                 }
             }
-            ctrlUsersTestimonials.TopCount = 6;
-            if (modelPage != null && modelPage.ModelDetails != null)
-                bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
+            ctrlUsersTestimonials.TopCount = 6;               
             ToggleOfferDiv();
             if (!IsPostBack && urlVersionId != 0)
             {
@@ -257,7 +255,6 @@ namespace Bikewale.Mobile.New
 
         static NewBikeModels()
         {
-            isManufacturer = (ConfigurationManager.AppSettings["TVSManufacturerId"] != "0") ? true : false;
             _PageNotFoundPath = Bikewale.Common.CommonOpn.AppPath + "pageNotFound.aspx";
             _bwHostUrl = ConfigurationManager.AppSettings["bwHostUrl"];
         }
@@ -436,10 +433,6 @@ namespace Bikewale.Mobile.New
                             cityName = locArray[1];
                             isCitySelected = true;
                         }
-                        if (GetAreaForCityAndModel() != null)
-                        {
-                            // isAreaAvailable = true;
-                        }
                     }
                     if (locArray.Length > 3 && cityId != 0)
                     {
@@ -566,6 +559,18 @@ namespace Bikewale.Mobile.New
                             }
                             if (!modelPage.ModelDetails.New)
                                 isDiscontinued = true;
+
+                            if(modelPage.ModelDetails!=null )
+                            {
+                                bikeModelName = modelPage.ModelDetails.ModelName; 
+                                if(modelPage.ModelDetails.MakeBase!=null)
+                                {
+                                    bikeMakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                                }
+                                bikeName = bikeMakeName + " " + bikeModelName;
+                            }
+                            
+                            
                         }
                     }
                 }

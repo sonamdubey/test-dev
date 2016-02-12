@@ -23,7 +23,7 @@
                             <asp:Repeater ID="rptModelPhotos" runat="server">
                                 <ItemTemplate>
                                     <div class="swiper-slide">
-                                        <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" title="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
+                                        <img class="swiper-lazy" data-src="<%# Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem, "OriginalImgPath").ToString(),DataBinder.Eval(Container.DataItem, "HostUrl").ToString(),Bikewale.Utility.ImageSize._476x268) %>" alt="<%# DataBinder.Eval(Container.DataItem, "ImageCategory").ToString() %>" />
                                         <span class="swiper-lazy-preloader"></span>
                                     </div>
                                 </ItemTemplate>
