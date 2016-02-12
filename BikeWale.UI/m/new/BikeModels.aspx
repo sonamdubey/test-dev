@@ -7,23 +7,20 @@
 <%@ Register Src="/m/controls/UserReviewList.ascx" TagPrefix="BW" TagName="UserReviews" %>
 <%@ Register Src="~/m/controls/ModelGallery.ascx" TagPrefix="BW" TagName="ModelGallery" %>
 <%@ Register Src="~/m/controls/UsersTestimonials.ascx" TagPrefix="BW" TagName="UsersTestimonials" %>
-<!DOCTYPE html>
-
+<!DOCTYPE html> 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <%
-        title = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India, Review, Mileage & Photos - Bikewale";
-        description = modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " Price in India - Rs."
-                    + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MinPrice.ToString()) + " - " + Bikewale.Utility.Format.FormatPrice(modelPage.ModelDetails.MaxPrice.ToString())
-                    + ". Check out " + modelPage.ModelDetails.MakeBase.MakeName + " " + modelPage.ModelDetails.ModelName + " on road price, reviews, mileage, versions, news & photos at Bikewale.";
 
-        canonical = "http://www.bikewale.com/" + modelPage.ModelDetails.MakeBase.MaskingName + "-bikes/" + modelPage.ModelDetails.MaskingName + "/";
+        description = String.Format("{0} Price in India - Rs. {1}. Check out {0} on road price, reviews, mileage, versions, news & photos at Bikewale.com", bikeName, Bikewale.Utility.Format.FormatPrice(price));
+        title = String.Format("{0} Price in India, Review, Mileage & Photos - Bikewale", bikeName);
+        canonical = String.Format("http://www.bikewale.com/{0}-bikes/{1}/", modelPage.ModelDetails.MakeBase.MaskingName, modelPage.ModelDetails.MaskingName);
         AdPath = "/1017752/Bikewale_Mobile_Model";
         AdId = "1017752";
         Ad_320x50 = true;
         Ad_Bot_320x50 = true;
         Ad_300x250 = true;
-        TargetedModel = modelPage.ModelDetails.ModelName;
+        TargetedModel = bikeModelName;
         TargetedCity = cityName;
     %>
     <!-- #include file="/includes/headscript_mobile.aspx" -->
@@ -556,11 +553,11 @@
 
                         <div class="bw-tabs bw-tabs-flex">
                             <ul>
-                                <li class="active" data-tabs="summary">Summary</li>
-                                <li data-tabs="engineTransmission">Engine &amp; Transmission </li>
-                                <li data-tabs="brakeWheels">Brakes, Wheels and Suspension</li>
-                                <li data-tabs="dimensions">Dimensions and Chassis</li>
-                                <li data-tabs="fuelEffiency">Fuel efficiency and Performance</li>
+                                <li class="active" data-tabs="summary"><h3>Summary</h3></li>
+                                <li data-tabs="engineTransmission"><h3>Engine &amp; Transmission </h3></li>
+                                <li data-tabs="brakeWheels"><h3>Brakes, Wheels and Suspension</h3></li>
+                                <li data-tabs="dimensions"><h3>Dimensions and Chassis</h3></li>
+                                <li data-tabs="fuelEffiency"><h3>Fuel efficiency and Performance</h3></li>
                             </ul>
                         </div>
                         <div class="grid-12">
@@ -1120,10 +1117,10 @@
                         <div class="bw-tabs bw-tabs-flex margin-bottom15 <%= reviewTabsCnt == 1 ? "hide" : "" %>">
                             <ul>
 
-                                <li style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%=isUserReviewActive ? "active" : "hide" %>" data-tabs="ctrlUserReviews">User Reviews</li>
-                                <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%=isExpertReviewActive ? "active" : "hide" %>" data-tabs="ctrlExpertReviews">Expert Reviews</li>
-                                <li style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%= isNewsActive ? "active" : "hide" %>" data-tabs="ctrlNews">News</li>
-                                <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%= isVideoActive ? "active" : "hide" %>" data-tabs="ctrlVideos">Videos</li>
+                                <li style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%=isUserReviewActive ? "active" : "hide" %>" data-tabs="ctrlUserReviews"><h3>User Reviews</h3></li>
+                                <li style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%=isExpertReviewActive ? "active" : "hide" %>" data-tabs="ctrlExpertReviews"><h3>Expert Reviews</h3></li>
+                                <li style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%= isNewsActive ? "active" : "hide" %>" data-tabs="ctrlNews"><h3>News</h3></li>
+                                <li style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount)  > 0) ? "": "display:none;" %>" class="<%= isVideoActive ? "active" : "hide" %>" data-tabs="ctrlVideos"><h3>Videos</h3></li>
 
                             </ul>
                         </div>
@@ -1155,7 +1152,7 @@
             <div class="container margin-bottom10">
                 <div class="grid-12">
                     <!-- Most Popular Bikes Starts here-->
-                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> alternatives</h2>
+                    <h2 class="margin-top30px margin-bottom20 text-center padding-top20"><%= bikeName %> Alternate Bikes </h2>
 
                     <div class="swiper-container discover-bike-carousel alternatives-carousel padding-bottom60">
                         <div class="swiper-wrapper">
@@ -1438,7 +1435,7 @@
             <div id="terms" class="breakup-text-container padding-bottom10 font14">
             </div>
             <div id='orig-terms' class="hide">
-                <h1>Offers and Gifts Promotion Terms and Conditions</h1>
+                <h3>Offers and Gifts Promotion Terms and Conditions</h3>
                 <p><strong>Definitions:</strong></p>
                 <p>"BikeWale" refers to Automotive Exchange Private Limited, a private limited company having its head office at 12<sup>th</sup> Floor, Vishwaroop IT Park, Sector 30A, Vashi, Navi Mumbai 400705, India, who owns and operates www.bikewale.com, one of India's leading automotive web portals.</p>
                 <p>"Bike Manufacturer" or "manufacturer" refers to the company that manufactures and / or markets and sells bikes in India through authorised dealers.</p>

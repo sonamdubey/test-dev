@@ -14,7 +14,7 @@
                                                 <%# Bikewale.Utility.ReviewsRating.GetRateImage(Convert.ToDouble(Eval("OverAllRating.OverAllRating"))) %>
                                             </span>
                                         </div>
-                                        <span class="font16"><%#Eval("ReviewTitle").ToString() %> </span>
+                                        <h4 class="font16"><%#Eval("ReviewTitle").ToString() %> </h4>
                                     </div>
 
                                     <div class="font12 text-grey grid-12 margin-bottom15">on <%#Eval("ReviewDate", "{0:dd-MMM-yyyy}") %> by <%#Eval("WrittenBy").ToString() %></div>
