@@ -143,7 +143,7 @@
                             <div class="model-name-review-container">
                                 <% if(isBookingAvailable){ %>
                                 <div>
-                                    <p class="font24 text-black text-bold leftfloat model-with-booking"><%= bikeName %></p>
+                                    <h1 class="font24 text-black text-bold leftfloat model-with-booking"><%= bikeName %></h1>
                                     <div class="booking-badge-container rightfloat position-rel">
                                         <!---->
                                         <span class="bwsprite booking-available-icon"></span>
