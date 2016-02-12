@@ -71,6 +71,8 @@
 .bw-horz-tabs-data  {width:550px; min-height:396px; padding:20px; border:1px solid #ccc;}
 .bw-horz-tabs-data .bw-tabs-data li { display:block; float:left; margin-bottom:20px;}
 .bw-horz-tabs-data .bw-tabs-data li div {float:left; width:240px; padding-right:10px; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;}
+.bw-model-specs li span, .bw-model-specs li h3 { display:inline-block; vertical-align:middle; }
+.bw-model-specs li h3 { font-size:16px; font-weight:normal; }
 /* inner classes classes */
 .specification-box li { display:block; float:left;}
 .specification-box li div {float:left; width:205px; padding-right:10px;}

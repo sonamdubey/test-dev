@@ -90,6 +90,8 @@ namespace Bikewale.New
         protected bool isDealerAssitance = false;
         protected uint campaignId;
         protected uint manufacturerId;
+        protected string bikeModelName = string.Empty;
+        protected string bikeMakeName = string.Empty;
 
         #endregion
 
@@ -250,9 +252,6 @@ namespace Bikewale.New
             Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
             BindAlternativeBikeControl();
             Trace.Warn("Trace 19 : BindAlternativeBikeControl End");
-            // Set BikeName
-            if (modelPage != null && modelPage.ModelDetails != null)
-                bikeName = modelPage.ModelDetails.MakeBase.MakeName + ' ' + modelPage.ModelDetails.ModelName;
 
             int _modelId;
             Int32.TryParse(modelId, out _modelId);
@@ -653,6 +652,14 @@ namespace Bikewale.New
                                 }
                                 if (!modelPage.ModelDetails.New)
                                     isDiscontinued = true;
+                                if (modelPage.ModelDetails != null)
+                                {
+                                    if (modelPage.ModelDetails.ModelName != null)
+                                        bikeModelName = modelPage.ModelDetails.ModelName;
+                                    if (modelPage.ModelDetails.MakeBase != null)
+                                        bikeMakeName = modelPage.ModelDetails.MakeBase.MakeName;
+                                    bikeName = bikeMakeName + " " + bikeModelName;
+                                }
                                 //string jsonModel = JsonConvert.SerializeObject(modelPage);
                                 //ViewState["modelPage"] = jsonModel;
                             }
