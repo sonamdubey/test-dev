@@ -5,6 +5,7 @@ var globalCityId = 0;
 var _makeName = '';
 var pqSourceId = "38";
 var IsPriceQuoteLinkClicked = false;
+var ga_pg_id = '0';
 
 if (!Array.prototype.indexOf) {
     Array.prototype.indexOf = function (elt /*, from*/) {
