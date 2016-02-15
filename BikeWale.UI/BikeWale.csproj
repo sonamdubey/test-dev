@@ -1258,6 +1258,10 @@
       <DependentUpon>video.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Videos\VideoCategories_old.aspx.cs">
+      <DependentUpon>VideoCategories_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Videos\VideoCategories.aspx.cs">
       <DependentUpon>VideoCategories.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1722,6 +1726,7 @@
     <Content Include="css\style.css" />
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
+    <Content Include="css\videocategory.css" />
     <Content Include="Default_old.aspx" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2384,6 +2389,7 @@
     <Content Include="users\ResetCustomerPassword.aspx" />
     <Content Include="Videos\default.aspx" />
     <Content Include="Videos\video.aspx" />
+    <Content Include="Videos\VideoCategories_old.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="VisitorAgreement.aspx" />
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
@@ -2511,7 +2517,6 @@
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
           <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
-          <IISUrl>http://localhost:9011/</IISUrl>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
