@@ -298,6 +298,12 @@ namespace Bikewale.New
             FetchVariantDetails(variantId);
         }
 
+        /// <summary>
+        /// Modified by     :   Sumit Kate on 15 Feb 2016
+        /// Description     :   Replace First() with FirstOrDefault() for BPQOutput.Varient.Where function call
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void rptVarients_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             try
@@ -322,7 +328,7 @@ namespace Bikewale.New
                         }
                         else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                         {
-                            var selected = pqOnRoad.BPQOutput.Varients.Where(p => Convert.ToString(p.VersionId) == hdn.Value).First();
+                            var selected = pqOnRoad.BPQOutput.Varients.Where(p => Convert.ToString(p.VersionId) == hdn.Value).FirstOrDefault();
                             if (selected != null)
                                 currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.OnRoadPrice));
                         }
