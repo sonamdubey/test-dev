@@ -274,7 +274,7 @@
                                         <span class="model-sprite benefit-offers-ico margin-right15"></span>
                                     </div>
                                     <div class="benefits-item text-uppercase">
-                                        <h2>Exclusive</h2>
+                                        <p>Exclusive</p>
                                         <span>Offers</span>
                                     </div>
                                 </li>
@@ -283,7 +283,7 @@
                                         <span class="model-sprite benefit-dealer-visits-ico margin-right10"></span>
                                     </div>
                                     <div class="benefits-item text-uppercase">
-                                        <h2>Save on</h2>
+                                        <p>Save on</p>
                                         <span>Dealer visits</span>
                                     </div>
                                 </li>
@@ -292,7 +292,7 @@
                                         <span class="model-sprite benefit-assistance-ico margin-right15"></span>
                                     </div>
                                     <div class="benefits-item text-uppercase">
-                                        <h2>Complete</h2>
+                                        <p>Complete</p>
                                         <span>Buying assistance</span>
                                     </div>
                                 </li>
@@ -301,7 +301,7 @@
                                         <span class="bwmsprite cancel-policy-lg-icon margin-right15"></span>
                                     </div>
                                     <div class="benefits-item text-uppercase">
-                                        <h2>Easy</h2>
+                                        <p>Easy</p>
                                         <span>Cancellation</span>
                                     </div>
                                 </li>
