@@ -32,7 +32,7 @@ namespace Bikewale.Mobile.New
     /// <summary>
     /// Created By : Ashish G. Kamble on 9 Sept 2015    
     /// </summary>
-    public class NewBikeModels : System.Web.UI.Page
+    public class NewBikeModels : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
         // Register controls
         protected AlternativeBikes ctrlAlternateBikes;

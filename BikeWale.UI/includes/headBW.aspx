@@ -1,10 +1,11 @@
-﻿<%@ Register Src="~/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>
+﻿<%--<%@ Register Src="~/controls/LoginControlNew.ascx" TagPrefix="BW" TagName="Login" %>--%>
 <%@ Register Src="~/controls/LoginStatusNew.ascx" TagPrefix="BW" TagName="LoginStatus" %>
 <%@ Register Src="~/controls/PopupWidget.ascx" TagPrefix="BW" TagName="PopupWidget" %>
 
 	<div class="blackOut-window"></div>
     <!-- #include file="/includes/Navigation.aspx" -->
-    <BW:Login ID="ctrlLogin" runat="server" />    
+    <%--<BW:Login ID="ctrlLogin" runat="server" />--%>    
+    <%--<div id="divLoginControlLoad"></div>--%>
     <div class="globalcity-popup rounded-corner2 hide" id="globalcity-popup"><!-- global city pop up code starts here -->
     	<div class="globalcity-popup-data text-center">
         	<div class="globalcity-close-btn position-abt pos-top10 pos-right10 bwsprite cross-lg-lgt-grey cur-pointer"></div>

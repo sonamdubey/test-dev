@@ -29,7 +29,7 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
-    public class bikeModel : System.Web.UI.Page
+    public class bikeModel : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
         #region Global Variables
 
