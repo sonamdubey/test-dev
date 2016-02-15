@@ -25,12 +25,12 @@
         <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Get on-road prices by just sharing your location!</p>
         <div class="padding-top10" id="popupContent">
             <div>
-                <select data-placeholder="--Select City--" class="chosen-select" id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }"></select>
+                <select data-placeholder="--Select City--" class="chosen-select" id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: cityChangedPopup }"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select City</div>
             </div>
             <div data-bind="visible: bookingAreas().length > 0" style="margin-top: 10px">
-                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--' "></select>
+                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--' "></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide">Please Select Area</div>
             </div>
@@ -66,7 +66,7 @@
 
     function findCityById(vm, id) {
         return ko.utils.arrayFirst(vm.bookingCities(), function (child) {
-            return child.cityId === id;
+            return child.id === id;
         });
     }
 
@@ -74,7 +74,7 @@
         PQSourceId = pqSourceId;
         $.ajax({
             type: "GET",
-            url: "/api/PQCityList/?modelId=" + modelId,
+            url: "/api/v2/PQCityList/?modelId=" + modelId,
             success: function (response) {
                 selectedModel = modelId;
                 pageId = pageIdAttr;
@@ -87,7 +87,7 @@
                 var cities = response.cities;
                 var citySelected = null;
                 if (cities) {
-                    insertCitySeparator(cities);
+                    insertCitySeparatorNew(cities);
                     checkCookies();
                     viewModelPopup.bookingCities(cities);
                     if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
@@ -132,7 +132,7 @@
             if (viewModelPopup.hasAreas() != undefined && viewModelPopup.hasAreas()) {
                 $.ajax({
                     type: "GET",
-                    url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelPopup.selectedCity(),
+                    url: "/api/v2/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelPopup.selectedCity(),
                     dataType: 'json',
                     success: function (response) {
                         areas = response.areas;

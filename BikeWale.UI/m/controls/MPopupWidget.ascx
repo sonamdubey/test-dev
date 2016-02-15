@@ -13,21 +13,21 @@
             <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
             <!-- ko if: !oBrowser() -->
             <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
-                <div class="selected-city" data-bind="text: (SelectedCity() != undefined && SelectedCity().cityName != '') ? SelectedCity().cityName : 'Select City'"></div>
+                <div class="selected-city" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
 
             <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10" data-bind="visible: BookingAreas().length > 0">
-                <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().areaName != '') ? SelectedArea().areaName : 'Select Area'">Select Area</div>
+                <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
             <!-- /ko -->
             <!-- ko if: oBrowser() -->
             <div class="form-control-box margin-bottom10">
-                <select class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: selectCity }"></select>
+                <select class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: selectCity }"></select>
             </div>
             <div class="form-control-box" data-bind="visible: BookingAreas().length > 0">
-                <select class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--', event: { change: function (data, event) { selectArea(data, event); } }"></select>
+                <select class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (data, event) { selectArea(data, event); } }"></select>
             </div>
             <!-- /ko -->
             <div class="center-align margin-top20 text-center">
@@ -42,10 +42,10 @@
                     <span class="back-arrow-box">
                         <span class="bwmsprite back-long-arrow-left"></span>
                     </span>
-                    <input class="form-control" type="text" id="popupCityInput" placeholder="Select City" data-bind="attr: { value: (SelectedCity() != undefined) ? SelectedCity().cityName : '' }" />
+                    <input class="form-control" type="text" id="popupCityInput" placeholder="Select City" data-bind="attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }" />
                 </div>
                 <ul id="popupCityList" class="margin-top40" data-bind="foreach: BookingCities">
-                    <li data-bind="text: cityName, attr: { 'cityId': cityId }, css: (isPopular) ? 'isPopular' : '', click: function (data, event) { $parent.selectCity(data, event); }"></li>
+                    <li data-bind="text: name, attr: { 'cityId': id }, css: (isPopular) ? 'isPopular' : '', click: function (data, event) { $parent.selectCity(data, event); }"></li>
                 </ul>
                 <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="popupLoader"></span></div>
             </div>
@@ -55,10 +55,10 @@
                     <span class="back-arrow-box">
                         <span class="bwmsprite back-long-arrow-left"></span>
                     </span>
-                    <input class="form-control" type="text" id="popupAreaInput" placeholder="Select Area" data-bind="attr: { value: (SelectedArea() != undefined) ? SelectedArea().areaName : '' }" />
+                    <input class="form-control" type="text" id="popupAreaInput" placeholder="Select Area" data-bind="attr: { value: (SelectedArea() != undefined) ? SelectedArea().name : '' }" />
                 </div>
                 <ul id="popupAreaList" class="margin-top40" data-bind="foreach: BookingAreas, visible: BookingAreas().length > 0 ">
-                    <li data-bind="text: areaName, attr: { 'areaId': areaId }, click: function (data, event) { $parent.selectArea(data, event); }"></li>
+                    <li data-bind="text: name, attr: { 'areaId': id }, click: function (data, event) { $parent.selectArea(data, event); }"></li>
                 </ul>
                 <div class="margin-top30 font24 text-center margin-top60 "><span class="fa fa-spinner fa-spin text-black" style="display: none;"></span><span id="areaPopupLoader" style="display: none;">Loading Area..</span></div>
             </div>
@@ -103,6 +103,7 @@
 
     $('body').on("click", "a.fillPopupData", function (e) {
         e.stopPropagation();
+        
         $("#errMsgPopUp").empty();
         var str = $(this).attr('modelId');
         var pageIdAttr = $(this).attr('pagecatid');
@@ -145,7 +146,7 @@
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0) {
                 $.ajax({
                     type: "GET",
-                    url: "/api/PQCityList/?modelId=" + self.SelectedModelId(),
+                    url: "/api/v2/PQCityList/?modelId=" + self.SelectedModelId(),
                     beforeSend: function () {
                         $("#popupContent").show();
                         $("#citySelection div.selected-city").text("Loading Cities..");                        
@@ -172,7 +173,7 @@
 
                         checkCookies();
                         if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0) {
-                            MPopupViewModel.SelectedCity(ko.toJS({ 'cityId': onCookieObj.PQCitySelectedId, 'cityName': onCookieObj.PQCitySelectedName }));
+                            MPopupViewModel.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
                             MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
                             MPopupViewModel.hasAreas(findCityById(onCookieObj.PQCitySelectedId).hasAreas);
                             if (!self.oBrowser()) {
@@ -191,14 +192,14 @@
             $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
             if (!self.oBrowser()) {
                 self.SelectedCity(data);
-                self.SelectedCityId(data.cityId);
+                self.SelectedCityId(data.id);
             }
             else {
                 self.SelectedCity(findCityById(self.SelectedCityId()));
             }            
             
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0 && self.SelectedCity() != undefined) {
-                self.hasAreas(findCityById(self.SelectedCity().cityId).hasAreas);
+                self.hasAreas(findCityById(self.SelectedCity().id).hasAreas);
                 if (self.hasAreas()) {
                     self.BookingAreas([]);
                     self.SelectedArea(undefined);
@@ -209,7 +210,7 @@
 
                     $.ajax({
                         type: "GET",
-                        url: "/api/PQAreaList/?modelId=" + self.SelectedModelId() + "&cityId=" + self.SelectedCity().cityId,
+                        url: "/api/v2/PQAreaList/?modelId=" + self.SelectedModelId() + "&cityId=" + self.SelectedCity().id,
                         beforeSend: function () {
                             $("#areaSelection div.selected-area").text("Loading areas..");
                             $("#areaPopupLoader").text("Loading areas..").show().prev().show();
@@ -275,7 +276,7 @@
                         else {
                             actText = 'City_Selected_Doesnt_Have_Area';
                         }
-                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().cityName });
+                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': actText, 'lab': getBikeVersion() + '_' + self.SelectedCity().name });
                         cityClicked = true;
                     }
                 });
@@ -286,27 +287,27 @@
         self.selectArea = function (data, event) {
             if (!self.oBrowser()) {
                 self.SelectedArea(data);
-                self.SelectedAreaId(data.areaId);
+                self.SelectedAreaId(data.id);
                 $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
             }
             else {
                 self.SelectedArea(findAreaById(self.SelectedAreaId()));
             }
             if (ga_pg_id != null && ga_pg_id == 2 && areaClicked == false) {
-                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().cityName + '_' + self.SelectedArea().areaName });
+                dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Area_Selected', 'lab': myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + '_' + self.SelectedArea().name });
                 areaClicked = true;
             }
         };
 
         function findAreaById(id) {
             return ko.utils.arrayFirst(self.BookingAreas(), function (child) {
-                return child.areaId === id;
+                return child.id === id;
             });
         }
 
         function findCityById(id) {
             return ko.utils.arrayFirst(self.BookingCities(), function (child) {
-                return child.cityId === id;
+                return child.id === id;
             });
         }
 
@@ -333,9 +334,9 @@
             var cityId = self.SelectedCityId(), areaId = self.SelectedAreaId() ? self.SelectedAreaId() : 0;
             pageId = self.PageCatId;
 
-            cookieValue = self.SelectedCity().cityId + "_" + self.SelectedCity().cityName;
+            cookieValue = self.SelectedCity().id + "_" + self.SelectedCity().name;
             if (self.SelectedArea() != undefined) {
-                cookieValue += ("_" + self.SelectedArea().areaId + "_" + self.SelectedArea().areaName);
+                cookieValue += ("_" + self.SelectedArea().id + "_" + self.SelectedArea().name);
             }
             SetCookieInDays("location", cookieValue, 365);
 
@@ -344,9 +345,9 @@
                     try {
                         var selArea = '';
                         if (self.SelectedArea() != undefined) {
-                            selArea = '_' + self.SelectedArea().areaName;
+                            selArea = '_' + self.SelectedArea().name;
                         }
-                        bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().cityName + selArea;
+                        bikeVersionLocation = myBikeName + '_' + getBikeVersion() + '_' + self.SelectedCity().name + selArea;
                         if (bikeVersionLocation != null) {
                             dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Show_On_Road_Price_Selected', 'lab': bikeVersionLocation });
                         }
@@ -377,7 +378,7 @@
                         },
                         success: function (json) {
                             var jsonObj = ko.toJS(json);
-                            selectedCityName = self.SelectedCity().cityName;
+                            selectedCityName = self.SelectedCity().name;
 
                             if (self.MakeName != undefined || self.ModelName != undefined)
                                 gaLabel = self.MakeName + ',' + self.ModelName + ',';
@@ -385,7 +386,7 @@
                             gaLabel += selectedCityName;
 
                             if (self.SelectedArea() != undefined) {
-                                selectedAreaName = self.SelectedArea().areaName;
+                                selectedAreaName = self.SelectedArea().name;
                                 gaLabel += ',' + selectedAreaName;
                             }
 

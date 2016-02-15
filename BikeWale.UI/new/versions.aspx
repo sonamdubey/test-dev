@@ -1797,14 +1797,6 @@
 
 			<% } %>
             ga_pg_id = '2';
-		   <%-- var viewModel = null;
-			function InitVM(cityId) {
-				debugger;
-				viewModel = new pqViewModel('<%= modelId%>', cityId);
-				modelViewModel = viewModel;
-				ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
-				viewModel.LoadCity();
-			}--%>
 
             if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");

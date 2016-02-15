@@ -751,10 +751,10 @@ function setLocationCookie(cityEle, areaEle) {
 }
 
 //match cookie data to check city /area exists 
-function selectElementFromArray(dataArray, id) {
-    if (dataArray != null && (l = dataArray.length) > 0) {
+function selectElementFromArray(arr, id) {
+    if (arr != null && (l = arr.length) > 0) {
         for (var i = 0; i < l; i++) {
-            if (dataArray[i].cityId === id || dataArray[i].AreaId === id || dataArray[i].areaId === id || dataArray[i].CityId === id)
+            if (arr[i].cityId === id || arr[i].AreaId === id || arr[i].areaId === id || arr[i].CityId === id || arr[i].id === id)
                 return true;
         }
     }
@@ -777,6 +777,19 @@ function insertCitySeparator(response) {
             if (!response[i].IsPopular) {
                 if (i > 0)
                     response.splice(i, 0, { CityId: 0, CityName: "--------------------", CityMaskingName: "", IsPopular: false });
+                break;
+            }
+        }
+    }
+}
+
+function insertCitySeparatorNew(response) {
+    l = (response != null) ? response.length : 0;
+    if (l > 0) {
+        for (i = 0; i < l; i++) {
+            if (!response[i].IsPopular) {
+                if (i > 0)
+                    response.splice(i, 0, { Id: 0, Name: "--------------------", IsPopular: false,hasAreas :false });
                 break;
             }
         }
