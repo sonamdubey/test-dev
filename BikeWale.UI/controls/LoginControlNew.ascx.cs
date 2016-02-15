@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
-using Bikewale.Common;
-using Bikewale.Entities.Customer;
-using Bikewale.UI.Entities.Customer;
+﻿using Bikewale.Common;
 using Bikewale.Service.Controllers.Customer;
+using Bikewale.UI.Entities.Customer;
+using System;
+using System.Web;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
@@ -55,7 +49,7 @@ namespace Bikewale.Controls
 
                     if (objCust.IsAuthorized)
                     {
-                        CreateAuthenticationCookie(objCust.AuthenticationTicket, chkRemMe.Checked);                        
+                        CreateAuthenticationCookie(objCust.AuthenticationTicket, chkRemMe.Checked);
                     }
                 }
             }
@@ -83,7 +77,7 @@ namespace Bikewale.Controls
                 objReg.Password = txtRegPasswdSignup.Text.Trim();
                 objReg.Mobile = txtMobileSignup.Text.Trim();
                 objReg.ClientIP = CommonOpn.GetClientIP();
-                
+
                 // Register customer                
                 string _apiUrl = "/api/Customer/";
 
@@ -96,9 +90,9 @@ namespace Bikewale.Controls
                 if (objRegCustomer != null && objRegCustomer.IsNewCustomer)
                 {
                     // Authenticate the customer
-                    CreateAuthenticationCookie(objRegCustomer.AuthenticationTicket, false);    
-                }        
-                else if(objRegCustomer!=null && !objRegCustomer.IsNewCustomer)
+                    CreateAuthenticationCookie(objRegCustomer.AuthenticationTicket, false);
+                }
+                else if (objRegCustomer != null && !objRegCustomer.IsNewCustomer)
                 {
                     loginPopUpWrapper.Attributes.Add("style", "right:0px;");
                     divSignUp.Attributes.Add("style", "display:none;");
@@ -110,7 +104,7 @@ namespace Bikewale.Controls
             {
                 ErrorClass objErr = new ErrorClass(ex, HttpContext.Current.Request.ServerVariables["URL"]);
                 objErr.SendMail();
-            }            
+            }
         }
 
 
@@ -131,7 +125,7 @@ namespace Bikewale.Controls
             HttpContext.Current.Response.Cookies.Add(objCookie);
 
             // Redirect to the requested page.
-            Response.Redirect(Request.ServerVariables["HTTP_REFERER"], false);            
+            Response.Redirect(Request.ServerVariables["HTTP_REFERER"], false);
         }
 
     }

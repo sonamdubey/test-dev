@@ -10,12 +10,12 @@
                 <div class="form-control-box margin-bottom20">
                     <asp:TextBox id="txtLoginEmail" runat="server" class="form-control" name="email id" placeholder="Email" />
                     <span class="bwsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Invalid Email</div>
+                    <div class="bw-blackbg-tooltip hide"></div>
                 </div>
                 <div class="form-control-box margin-bottom20">
                     <asp:TextBox id="txtLoginPassword" runat="server" class="form-control" placeholder="Password" TextMode="Password" />
                     <span class="bwsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please Enter correct Password</div>
+                    <div class="bw-blackbg-tooltip hide"></div>
                 </div>
                 <div class="margin-bottom20 font12">
                     <asp:CheckBox id="chkRemMe" runat="server"/>
@@ -31,7 +31,7 @@
                         <div class="form-control-box margin-bottom20">
                             <input type="text" class="form-control" name="emailId" id="txtForgotPassEmail" placeholder="Enter your registered email">
                             <span class="bwsprite error-icon hide"></span>
-                            <div class="bw-blackbg-tooltip hide">Invalid Email</div>
+                            <div class="bw-blackbg-tooltip hide"></div>
                         </div>
                         <input type="button" id="btnForgetPass" class="btn btn-orange" value="Send">
                     </div>
@@ -60,23 +60,23 @@
                 <div class="form-control-box margin-bottom20">
                     <asp:TextBox class="form-control" name="name" placeholder="Name" id="txtNameSignup" runat="server" />
                     <span class="bwsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter your name</div>
+                    <div class="bw-blackbg-tooltip hide"></div>
                 </div>
                 <div class="form-control-box margin-bottom20">
                     <asp:TextBox class="form-control" name="emailId" id="txtEmailSignup" placeholder="Email Id" runat="server" />
                     <span class="bwsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter your email id</div>
+                    <div class="bw-blackbg-tooltip hide"></div>
                 </div>
                 <div class="form-control-box margin-bottom20">
                     <span class="form-mobile-prefix">+91</span>
                     <asp:TextBox class="form-control padding-left40" name="mobile" placeholder="Mobile no." id="txtMobileSignup" runat="server" />
                     <span class="bwsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter your mobile number</div>
+                    <div class="bw-blackbg-tooltip hide"></div>
                 </div>
                 <div class="form-control-box margin-bottom20">
                     <asp:TextBox type="password" class="form-control" name="password" TextMode="Password" placeholder="Password" id="txtRegPasswdSignup" runat="server" />
                     <span class="bwsprite error-icon hide"></span>
-                    <div class="bw-blackbg-tooltip hide">Please enter your password</div>
+                    <div class="bw-blackbg-tooltip hide"></div>
                 </div>                
                 <div class="margin-bottom30 font12">
                     <asp:CheckBox id="chkAgreeSignup" type="checkbox" runat="server" />

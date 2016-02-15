@@ -29,7 +29,7 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.New
 {
-    public class bikeModel : System.Web.UI.Page
+    public class bikeModel : PageBase //inherited page base class to move viewstate from top of the html page to the end
     {
         #region Global Variables
 
@@ -274,7 +274,7 @@ namespace Bikewale.New
             ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
             ToggleOfferDiv();
-            if (!IsPostBack && urlVersionId!=0)
+            if (!IsPostBack && urlVersionId != 0)
             {
                 FetchVariantDetails(urlVersionId);
             }
@@ -645,8 +645,8 @@ namespace Bikewale.New
                                     {
                                         variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                     }
-                                        // Check it versionId passed through url exists in current model's versions
-                                    else if(!IsPostBack && !modelPage.ModelVersions.Exists(p=>p.VersionId == urlVersionId))
+                                    // Check it versionId passed through url exists in current model's versions
+                                    else if (!IsPostBack && !modelPage.ModelVersions.Exists(p => p.VersionId == urlVersionId))
                                     {
                                         variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                     }
