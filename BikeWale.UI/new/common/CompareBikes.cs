@@ -252,6 +252,9 @@ namespace Bikewale.New
         /// <summary>
         /// Created By : Sadhana Upadhyay on 24 Sept 2014
         /// Summary : To get compare bike details by version id list
+        /// Modified By : Lucky Rathore
+        /// Modified On : 15 Feb 2016
+        /// Summary : SP name Changed.
         /// </summary>
         /// <param name="versionList"></param>
         /// <returns></returns>
@@ -263,7 +266,7 @@ namespace Bikewale.New
                 using (SqlCommand cmd = new SqlCommand())
                 {
                     Database db = null;
-                    cmd.CommandText = "GetComparisonDetails_27012016";
+                    cmd.CommandText = "GetComparisonDetails_12022016";
                     cmd.CommandType = CommandType.StoredProcedure;
 
                     cmd.Parameters.Add("@BikeVersions", SqlDbType.VarChar, 50).Value = versionList;

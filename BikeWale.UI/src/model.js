@@ -15,6 +15,64 @@ var prevEmail = "";
 var prevMobile = "";
 var customerViewModel =  new CustomerModel();
 
+function bindInsuranceText() {
+    icityArea = GetGlobalCityArea();
+    if (!viewModel.isDealerPQAvailable()) {
+        var d = $("#bw-insurance-text");
+        d.find("div.insurance-breakup-text").remove();
+        d.append(" <div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
+    }
+    else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
+        var e = $("table#model-view-breakup tr td:contains('Insurance')").first();
+        e.find("div.insurance-breakup-text").remove();
+        e.append("<div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
+    }
+}
+
+
+
+function applyLazyLoad() {
+    $("img.lazy").lazyload({
+        event: "imgLazyLoad",
+        effect: "fadeIn"
+    });
+}
+$(document).ready(function (e) {
+    applyLazyLoad();
+
+    $(".carousel-navigation ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
+    $(".carousel-stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
+    document.location.href.split('?')[0];
+    if ($('#getMoreDetailsBtn').length > 0) {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': bikeVersionLocation });
+    }
+    if ($('#btnGetOnRoadPrice').length > 0) {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
+    }
+});
+
+
+$(document).ready(function (e) {
+
+    if ($(".bw-overall-rating a").last().css("display") == "none") {
+        var a = $(this);
+        var b = $(this).attr("href");
+        console.log(a);
+        $(this).remove();
+        $(a + ".bw-tabs-data.margin-bottom20.hide").remove();
+    }
+
+    $('.bw-overall-rating a[href^="#"]').click(function () {
+        var target = $(this.hash);
+        if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
+        if (target.length == 0) target = $('html');
+        $('html, body').animate({ scrollTop: target.offset().top - 50 - $(".header-fixed").height() }, 1000);
+        return false;
+
+    });
+    // ends	
+});
+
 $(function () {              
     leadBtnBookNow.on('click', function () {
         leadCapturePopup.show();

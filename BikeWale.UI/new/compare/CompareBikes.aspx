@@ -119,10 +119,16 @@
                                                    <%--<tr><td><a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"HostURL").ToString()) ? Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/", DataBinder.Eval(Container.DataItem,"HostURL").ToString()) + DataBinder.Eval(Container.DataItem,"largePic") :  "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg" %>" border="0"/></a></td></tr>--%>
                                                    <tr><td><a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"HostURL").ToString()) ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._310x174) :  "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg" %>" border="0"/></a></td></tr>
                                                    <tr> <td><%#GetModelRatings( DataBinder.Eval(Container.DataItem,"BikeVersionId").ToString() ) %></td></tr>
-                                                   <tr>
-                                                       <td><strong>Price Rs. <%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></strong><br />
+                                                   <tr runat="server" visible="<%# Container.ItemIndex != featuredBikeIndex %>" >
+                                                       <td>
+                                                        <strong>Price Rs. <%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></strong><br />
                                                         <span class="<%#String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"Price").ToString())?"hide":"" %>">Ex-Showroom, <%= ConfigurationManager.AppSettings["defaultName"].ToString() %></span>
                                                         <%# DataBinder.Eval(Container.DataItem,"Price").ToString() == "" ? "" : "<div class='la' style='margin-top:5px;'><a pqSourceId='"+ (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Desktop_CompareBike +"' class='fillPopupData blue' modelId='"+ DataBinder.Eval(Container.DataItem,"ModelId") +"' href=\"/pricequote/default.aspx?version=" + DataBinder.Eval(Container.DataItem,"BikeVersionId") + "\">Check On-Road Price</a></div>"%>
+                                                       </td>
+                                                   </tr>
+                                                   <tr runat="server" visible="<%# Container.ItemIndex == featuredBikeIndex  && !string.IsNullOrEmpty(estimatePrice) %>">
+                                                       <td><strong>Price Rs. <%= estimatePrice %> onward (Excpected)</strong><br />
+                                                            <span style='margin-top:15px;'>Expected launch date <strong><%= estimateLaunchDate %></strong></span>
                                                        </td>
                                                    </tr>
                                                </table>

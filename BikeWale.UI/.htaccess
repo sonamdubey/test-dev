@@ -55,7 +55,8 @@ RewriteRule ^road-tests/            /content/roadtest/defaultrt.aspx [NC,L]
 RewriteRule  ^(.*)-bikes/(.*)/(.*)-specs-(.*).html	/($1)-bikes/($2)/ [R=301,NC,L]
 RewriteRule ^(.*)-bikes/(.*)-series/ /new/bikeseries.aspx?series=$2 [NC,L]
 
-RewriteRule	^(.*)-bikes/(.*)/(.*)/	/new/versions.aspx?model=$2&vid=$3 [NC,L]
+RewriteRule	^(.*)-bikes/(.*)/(.*)/	/new/versions.aspx?model=$2 [NC,L,R=404]
+RewriteRule	^(.*)-bikes/(.*)/	/new/versions.aspx?model=$2&vid=$3 [NC,L,QSA]
 RewriteRule	^(.*)-bikes/(.*)/	/new/versions.aspx?model=$2 [NC,L]
 
 RewriteRule	^(.*)-bikes/$	/new/models.aspx?make=$1 [NC,L]
