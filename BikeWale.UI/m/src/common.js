@@ -500,7 +500,8 @@ $(document).ready(function () {
         $(".swiper-slide-visible img,.swiper-slide-active img").each(function () {
             var src = $(this).attr("data-src");
             $(this).attr("src", src);
-            $(this).parent().find('.swiper-lazy-preloader').remove();
+            if (!$(this).error)
+                $(this).parent().find('.swiper-lazy-preloader').remove();
         });
 
     });
