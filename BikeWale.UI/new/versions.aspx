@@ -45,6 +45,10 @@
         var campaignId = "<%= campaignId%>";
         var manufacturerId = "<%= manufacturerId%>";
 
+        var myBikeName = "<%= this.bikeName %>";
+        var clientIP = "<%= clientIP%>";
+        var pageUrl = "<%= canonical %>"
+
     </script>
     <link href="<%= !string.IsNullOrEmpty(staticUrl) ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/css/model.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">
     <style>
@@ -1674,75 +1678,9 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>">"></script>
         <%--<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
+       
         <script type="text/javascript">
-
-            function bindInsuranceText() {
-                icityArea = GetGlobalCityArea();
-                if (!viewModel.isDealerPQAvailable()) {
-                    var d = $("#bw-insurance-text");
-                    d.find("div.insurance-breakup-text").remove();
-                    d.append(" <div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
-                }
-                else if (viewModel.isDealerPQAvailable() && !(viewModel.priceQuote().isInsuranceFree && viewModel.priceQuote().insuranceAmount > 0)) {
-                    var e = $("table#model-view-breakup tr td:contains('Insurance')").first();
-                    e.find("div.insurance-breakup-text").remove();
-                    e.append("<div class='insurance-breakup-text' style='position: relative; color: #999; font-size: 11px; margin-top: 1px;'>Save up to 60% on insurance - <a target='_blank' href='/insurance/' onclick=\"dataLayer.push({ event: 'Bikewale_all', cat: 'Model_Page', act: 'Insurance_Clicked',lab: '" + myBikeName + "_" + icityArea + "' });\">PolicyBoss</a> <span style='margin-left: 8px; vertical-align: super; font-size: 9px;'>Ad</span></div>");
-                }
-            }
-
-            var myBikeName = "<%= this.bikeName %>";
-			var clientIP = "<%= clientIP%>";
-            var pageUrl = "<%= canonical %>"
-
-            function applyLazyLoad() {
-                $("img.lazy").lazyload({
-                    event: "imgLazyLoad",
-                    effect: "fadeIn"
-                });
-            }
-            $(document).ready(function (e) {
-                applyLazyLoad();
-
-                $(".carousel-navigation ul li").slice(0, 5).find("img.lazy").trigger("imgLazyLoad");
-                $(".carousel-stage ul li").slice(0, 3).find("img.lazy").trigger("imgLazyLoad");
-                document.location.href.split('?')[0];
-                if ($('#getMoreDetailsBtn').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_More_Details_Shown', 'lab': bikeVersionLocation });
-                }
-                if ($('#btnGetOnRoadPrice').length > 0) {
-                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'Get_On_Road_Price_Button_Shown', 'lab': myBikeName + '_' + getBikeVersion() });
-                }
-            });
-        </script>
-        <script type="text/javascript">
-
-            $(document).ready(function (e) {
-
-                if ($(".bw-overall-rating a").last().css("display") == "none") {
-                    var a = $(this);
-                    var b = $(this).attr("href");
-                    console.log(a);
-                    $(this).remove();
-                    $(a + ".bw-tabs-data.margin-bottom20.hide").remove();
-                }
-
-                $('.bw-overall-rating a[href^="#"]').click(function () {
-                    var target = $(this.hash);
-                    if (target.length == 0) target = $('a[name="' + this.hash.substr(1) + '"]');
-                    if (target.length == 0) target = $('html');
-                    $('html, body').animate({ scrollTop: target.offset().top - 50 - $(".header-fixed").height() }, 1000);
-                    return false;
-
-                });
-                // ends                                
-
-			    <%--<% if (modelPage.ModelDetails.New)
-			   { %>
-				var cityId = '<%= cityId%>';
-				InitVM(cityId);
-				<% } %>--%>
-
-			});
+           
             // Cache selectors outside callback for performance.
 
 			<% if (!modelPage.ModelDetails.Futuristic && modelPage.ModelVersionSpecs != null)
@@ -1797,14 +1735,6 @@
 
 			<% } %>
             ga_pg_id = '2';
-		   <%-- var viewModel = null;
-			function InitVM(cityId) {
-				debugger;
-				viewModel = new pqViewModel('<%= modelId%>', cityId);
-				modelViewModel = viewModel;
-				ko.applyBindings(viewModel, $('#dvBikePrice')[0]);
-				viewModel.LoadCity();
-			}--%>
 
             if ('<%=isUserReviewActive%>' == 'False') $("#ctrlUserReviews").addClass("hide");
             if ('<%=isExpertReviewActive%>' == "False") $("#ctrlExpertReviews").addClass("hide");

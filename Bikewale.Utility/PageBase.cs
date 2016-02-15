@@ -32,7 +32,7 @@ namespace Bikewale.Utility
                 html = html.Remove(start, end - start);
 
                 // Find the end of the form and insert it there.
-                int formend = html.IndexOf(@"</form>") - 1;
+                int formend = html.IndexOf(@"</form>");
                 html = html.Insert(formend, strviewstate);
             }
 
