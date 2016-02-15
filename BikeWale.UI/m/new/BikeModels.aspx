@@ -1641,6 +1641,7 @@
         <!-- #include file="/includes/footerscript_Mobile.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/m/src/bwm-model.js?<%= staticFileVersion %>"></script>
         <script type="text/javascript">
+
             vmModelId = '<%= modelId%>';
             clientIP = '<%= clientIP%>';
             cityId = '<%= cityId%>';

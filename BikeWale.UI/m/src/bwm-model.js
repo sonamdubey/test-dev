@@ -16,7 +16,6 @@ var prevMobile = "";
 var getCityArea = GetGlobalCityArea();
 var customerViewModel = new CustomerModel();
 
-
 function CustomerModel() {
     var arr = setuserDetails();
     var self = this;
