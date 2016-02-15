@@ -6,7 +6,7 @@
         <div class="loginStage" id="divLogin" runat="server">
             <div class="loginWithCW margin-bottom40">
                 <p id="errorRegister" class="text-red margin-bottom10" runat="server">Already Registered. Please Login</p>
-                <h2 class="margin-bottom30">Log in to BikeWale</h2>
+                <p class="margin-bottom30 font20">Log in to BikeWale</p>
                 <div class="form-control-box margin-bottom20">
                     <asp:TextBox id="txtLoginEmail" runat="server" class="form-control" name="email id" placeholder="Email" />
                     <span class="bwsprite error-icon hide"></span>
@@ -56,7 +56,7 @@
         </div>
         <div class="signUpStage" id="divSignUp" runat="server">
             <div class="signUpWithBW">
-                <h2 class="margin-bottom30">Sign up to BikeWale</h2>
+                <p class="margin-bottom30 font20">Sign up to BikeWale</p>
                 <div class="form-control-box margin-bottom20">
                     <asp:TextBox class="form-control" name="name" placeholder="Name" id="txtNameSignup" runat="server" />
                     <span class="bwsprite error-icon hide"></span>

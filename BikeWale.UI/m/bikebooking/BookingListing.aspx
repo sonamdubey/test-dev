@@ -9,7 +9,7 @@
             description = "BikeWale - India's favourite bike portal. Book your bikes, scooters and avail exciting offers and benefits exclusively on BikeWale.";
            %>
         <!-- #include file="/includes/headscript_mobile.aspx" -->
-        <script>ga_pg_id = '39';</script>
+        
     </head>
     <body class="bg-light-grey">
         <!-- #include file="/includes/Navigation_Mobile.aspx" -->
@@ -451,6 +451,7 @@
         <script type="text/javascript">
             var PQSourceId = '<%= (int)Bikewale.Entities.PriceQuote.PQSourceEnum.Mobile_BookingListing%>';
             var clientIP = '<%= clientIP %>';
+            ga_pg_id = '39';
         </script>
         <div class="back-to-top" id="back-to-top"><a><span></span></a></div>       
     </body>
