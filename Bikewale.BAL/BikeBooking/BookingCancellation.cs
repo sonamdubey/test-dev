@@ -34,7 +34,6 @@ namespace Bikewale.BAL.BikeBooking
         /// <returns>request is valid or not</returns>
         public ValidBikeCancellationResponseEntity IsValidCancellation(string bwId, string mobile)
         {
-            int responseFlag = 0;
             ValidBikeCancellationResponseEntity response = default(ValidBikeCancellationResponseEntity);
             response = bookingCancelRepository.IsValidCancellation(bwId, mobile);
             switch (response.ResponseFlag)
@@ -54,7 +53,6 @@ namespace Bikewale.BAL.BikeBooking
                     response.Message = "This booking has been cancelled already";
                     break;
             }
-
             // Business Logic
             if (response.IsVerified)
             {
@@ -127,11 +125,9 @@ namespace Bikewale.BAL.BikeBooking
                     {
                         SMSTypes objSMS = new SMSTypes();
                         objSMS.BookingCancallationSMSToUser(objCancellation.CustomerMobile, objCancellation.CustomerName, "BikeBookingCancellation");
-
                         ComposeEmailBase objEmail = new BookingCancellationTemplate(objCancellation.BWId, objCancellation.TransactionId, objCancellation.CustomerName,
                             objCancellation.CustomerEmail, objCancellation.CustomerMobile, objCancellation.BookingDate, objCancellation.DealerName, 
                             objCancellation.BikeName, objCancellation.CityName);
-
                         objEmail.Send(Bikewale.Utility.BWConfiguration.Instance.LocalMail, "Booking Cancellation Request - " + objCancellation.BWId);
                     }
                 }

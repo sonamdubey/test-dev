@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="cancellation.aspx.cs" Inherits="Bikewale.BikeBooking.cancellation" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="cancellation.aspx.cs" Inherits="Bikewale.BikeBooking.Cancellation" %>
 
 <!DOCTYPE html>
 
@@ -141,7 +141,7 @@
                             <p class="margin-top10 margin-bottom20 font14 text-light-grey">We have initiated your cancellation process. You will be informed shortly on the status of your refund</p>
                             <textarea runat="server" id="FeedBackText" placeholder="Tell us about your experience and help us imporve."></textarea>
                             <div class="text-center margin-top20">
-                               <asp:button runat="server" ID="feedbackBtn" class="btn btn-orange margin-bottom10" OnClick="feedbackBtn_Click" Text="Done" />
+                               <asp:button runat="server" ID="feedbackBtn" class="btn btn-orange margin-bottom10" Text="Done" />
                             </div>
                         </div>
                     </div>
