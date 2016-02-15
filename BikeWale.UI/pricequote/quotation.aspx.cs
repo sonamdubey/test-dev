@@ -236,14 +236,14 @@ namespace Bikewale.PriceQuote
                 container.RegisterType<IPriceQuote, BAL.PriceQuote.PriceQuote>();
                 objPriceQuote = container.Resolve<IPriceQuote>();
             }
-
-            cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
-            areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
+            
 
             // Validate price quote cookie and process pricequote.
             //if (PriceQuoteCookie.IsPQCoockieExist())
             if (PriceQuoteQueryString.IsPQQueryStringExists())
             {
+                cityId = Convert.ToUInt32(PriceQuoteQueryString.CityId);
+                areaId = Convert.ToUInt32(PriceQuoteQueryString.AreaId);
                 if (!IsPostBack)
                 {
                     priceQuoteId = PriceQuoteQueryString.PQId;

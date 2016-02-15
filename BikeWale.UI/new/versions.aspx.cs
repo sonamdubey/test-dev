@@ -273,15 +273,18 @@ namespace Bikewale.New
             ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
             ToggleOfferDiv();
-            if (!IsPostBack && urlVersionId!=0)
+            if (!IsPostBack && urlVersionId != 0)
             {
                 FetchVariantDetails(urlVersionId);
             }
             Trace.Warn("Trace 20 : Page Load ends");
             // Clear trailing query string -- added on 09-feb-2016 by Sangram
             PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
-            isreadonly.SetValue(this.Request.QueryString, false, null);
-            this.Request.QueryString.Clear();
+            if (isreadonly != null)
+            {
+                isreadonly.SetValue(this.Request.QueryString, false, null);
+                this.Request.QueryString.Clear();
+            }
         }
 
         /// <summary>
@@ -295,6 +298,12 @@ namespace Bikewale.New
             FetchVariantDetails(variantId);
         }
 
+        /// <summary>
+        /// Modified by     :   Sumit Kate on 15 Feb 2016
+        /// Description     :   Replace First() with FirstOrDefault() for BPQOutput.Varient.Where function call
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void rptVarients_ItemDataBound(object sender, RepeaterItemEventArgs e)
         {
             try
@@ -319,7 +328,7 @@ namespace Bikewale.New
                         }
                         else if (pqOnRoad.BPQOutput != null && pqOnRoad.BPQOutput.Varients != null)
                         {
-                            var selected = pqOnRoad.BPQOutput.Varients.Where(p => Convert.ToString(p.VersionId) == hdn.Value).First();
+                            var selected = pqOnRoad.BPQOutput.Varients.Where(p => Convert.ToString(p.VersionId) == hdn.Value).FirstOrDefault();
                             if (selected != null)
                                 currentTextBox.Text = Bikewale.Utility.Format.FormatPrice(Convert.ToString(selected.OnRoadPrice));
                         }
@@ -644,8 +653,8 @@ namespace Bikewale.New
                                     {
                                         variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                     }
-                                        // Check it versionId passed through url exists in current model's versions
-                                    else if(!IsPostBack && !modelPage.ModelVersions.Exists(p=>p.VersionId == urlVersionId))
+                                    // Check it versionId passed through url exists in current model's versions
+                                    else if (!IsPostBack && !modelPage.ModelVersions.Exists(p => p.VersionId == urlVersionId))
                                     {
                                         variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                     }
