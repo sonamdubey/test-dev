@@ -123,8 +123,9 @@
                                                        </td>
                                                    </tr>
                                                    <tr runat="server" visible="<%# Container.ItemIndex == featuredBikeIndex  && !string.IsNullOrEmpty(estimatePrice) %>">
-                                                       <td><strong>Price Rs. <%= estimatePrice %> onward (Excpected)</strong><br />
-                                                            <span style='margin-top:15px;'>Expected launch date <strong><%= estimateLaunchDate %></strong></span>
+                                                       <td>
+                                                           <strong>Price Rs. <%= estimatePrice %> onwards </strong>(Expected)
+                                                           <p class="margin-top5"><strong><%= estimateLaunchDate %></strong></p><p>(Expected Launch)</p>
                                                        </td>
                                                    </tr>
                                                </table>
