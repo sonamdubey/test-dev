@@ -39,7 +39,7 @@ namespace BikeWaleOpr.Content
         void InitializeComponent()
         {
             base.Load += new EventHandler(Page_Load);
-            btnUpdate.ServerClick += new EventHandler(this.btnUpdate_Click);
+            btnUpdate.ServerClick += new EventHandler(this.btnUpdate_Click);            
         }
 
         void Page_Load(object Sender, EventArgs e)
@@ -204,7 +204,7 @@ namespace BikeWaleOpr.Content
                         cmd.Parameters.Add("@OriginalImagePath", SqlDbType.VarChar, 100).Value = originalImgPath;
 
                         prm = cmd.Parameters.Add("@HostUrl", SqlDbType.VarChar, 100);
-                        prm.Value = hostUrl;
+                        prm.Value = ConfigurationManager.AppSettings["imgHostURL"]; ;
 
                         if (!String.IsNullOrEmpty(filLarge.Value))
                         {
@@ -255,7 +255,7 @@ namespace BikeWaleOpr.Content
         public void SavePhoto(string modelId)
         {
             string imgPath = ImagingOperations.GetPathToSaveImages("\\bw\\upcoming\\");
-            string hostUrl = ConfigurationManager.AppSettings["RabbitImgHostURL"].ToString();
+            string hostUrl = ConfigurationManager.AppSettings["imgHostURL"].ToString();
             string imageUrl = ("http://" + hostUrl + "/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId).ToLower()+".jpg";
            string imageTargetPath=("/bw/upcoming/" + cName.Replace(" ", "") + "-" + modelId + ".jpg").ToLower();
             if (!Directory.Exists(imgPath))
