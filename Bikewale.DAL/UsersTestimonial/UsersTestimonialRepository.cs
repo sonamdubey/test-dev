@@ -52,7 +52,8 @@ namespace Bikewale.DAL.UsersTestimonial
                                         HostUrl = Convert.ToString(dr["HostUrl"]),
                                         UserImgUrl = Convert.ToString(dr["userImgUrl"]),
                                         EntryDate = Convert.ToDateTime(dr["EntryDate"]),
-                                        UserName = Convert.ToString(dr["UserName"])
+                                        UserName = Convert.ToString(dr["UserName"]),
+                                        City = Convert.ToString(dr["City"])
                                     });
                             }
                         }
