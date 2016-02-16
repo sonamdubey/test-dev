@@ -9,6 +9,7 @@
     var areaClicked = false;
 </script>
 <style type="text/css">
+.position-abs { position:absolute; } 
 .progress-bar { width:0; height:2px; background:#16A085;bottom: 0px;left: 0; border-radius: 2px; }
 .progress-bar-completed { display:none; width:100%; height:1px; background:#16A085;bottom: 0px;left: 0; border-radius: 2px; }
 .progress-bar.active { width:100%; transition:7s width;  }
@@ -127,8 +128,7 @@
     });
 
     $('body').on("click", "a.fillPopupData", function (e) {
-        e.stopPropagation();
-        MPopupViewModel.SelectedCityId(0);
+        e.stopPropagation();        
         $("#errMsgPopUp").empty();
         var str = $(this).attr('modelId');
         var pageIdAttr = $(this).attr('pagecatid');
@@ -170,6 +170,7 @@
             self.BookingCities([]);
             $("#areaSelection").hide();
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0) {
+                self.SelectedCityId(0);
                 modelCityKey = "mc_" + self.SelectedModelId();
                 $.ajax({
                     type: "GET",
@@ -204,7 +205,6 @@
                         }
                     },
                     complete: function (xhr) {
-                        lscache.set(modelCityKey, null,60);
                         completeCityOp(self);
                     }
                 });
@@ -268,7 +268,6 @@
 
                         },
                         complete: function (xhr) {
-                            lscache.set(cityAreaKey,null, 60);
                             completeAreaOp(self, xhr);
                         }
 
@@ -446,6 +445,31 @@
 
     }
 
+    function completeCityOp(self) {
+        $("#popupLoader").text("Loading cities..").hide().prev().hide();
+        if (self.BookingCities() != null && self.BookingCities().length > 0) {
+            $("#citySelection div.selected-city").text("Select City").next().hide();
+            $("#popupCityList li.isPopular").last().addClass("border-last-bottom");
+        } else {            
+            $("#citySelection div.selected-city").text("No cities Found").next().hide();
+            lscache.set(modelCityKey, null, 60);
+        }
+        stopLoading($("#citySelection"));
+        checkCookies();
+        if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0) {
+            MPopupViewModel.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
+            MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
+            MPopupViewModel.hasAreas(findCityById(onCookieObj.PQCitySelectedId).hasAreas);
+            if (!self.oBrowser()) {
+                $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
+            }
+            else {
+                self.selectCity(self, null);
+            }
+
+        }
+    }   
+
     function completeAreaOp(self,xhr)
     {
         $("#areaSelection div.selected-area").next().hide();
@@ -456,6 +480,7 @@
             self.SelectedArea(undefined);
             self.SelectedAreaId(0);
             $("#areaSelection div.selected-area").text("No areas Found");
+            lscache.set(cityAreaKey, null, 60);
 
         }
         else {
@@ -480,32 +505,8 @@
         }
 
 
-    }
-
-    function completeCityOp(self) {
-        $("#popupLoader").text("Loading cities..").hide().prev().hide();
-        if (self.BookingCities().length > 0) {
-            $("#citySelection div.selected-city").text("Select City").next().hide();
-            $("#popupCityList li.isPopular").last().addClass("border-last-bottom");
-        } else {
-            $("#citySelection div.selected-city").text("No cities Found").next().hide();
-        }
-        stopLoading($("#citySelection"));
-        checkCookies();
-        if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0) {
-            MPopupViewModel.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
-            MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
-            MPopupViewModel.hasAreas(findCityById(onCookieObj.PQCitySelectedId).hasAreas);
-            if (!self.oBrowser()) {
-               $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
-            }
-            else {
-                self.selectCity(self, null);
-            }
-
-        }
-    }
-
+    }  
+   
     function findAreaById(id) {
         return ko.utils.arrayFirst(MPopupViewModel.BookingAreas(), function (child) {
             return child.id === id;
@@ -531,6 +532,8 @@
             var _self = $(ele).find(".progress-bar");
             var _selfCompleted = $(ele).find(".progress-bar-completed");
             _self.hide(); _selfCompleted.show().fadeOut(2000);
+            //_self.stop(true, true);
+            //_self.css({ 'width': '0' });
         }
         catch (e) { return };
     }
