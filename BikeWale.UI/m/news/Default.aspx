@@ -24,8 +24,8 @@
             <asp:Repeater id="rptNews" runat="server">
                 <ItemTemplate>
                     <a class="normal" href='/m/news/<%# DataBinder.Eval(Container.DataItem,"BasicId") %>-<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>.html' >
-		                  <div class='box1 new-line15 sponsored-content <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsSticky")) ? "sponsored-content" : ""%>'>
-                           <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsSticky")) ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
+		                  <div class='box1 new-line15 sponsored-content <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "sponsored-content" : ""%>'>
+                           <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
                        
                             <table cellspacing="0" cellpadding="0" style="width:100%;overflow:visible;">
 				                <tr>
