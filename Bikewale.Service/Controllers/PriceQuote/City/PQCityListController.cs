@@ -67,5 +67,43 @@ namespace Bikewale.Service.Controllers.PriceQuote.City
                 return InternalServerError();
             }
         }
+
+
+        /// <summary>
+        /// Returns the Price Quote City List by Model Id
+        /// </summary>
+        /// <param name="modelId">Model Id. Should be Positive Integer</param>
+        /// <returns>List of Cities</returns>
+        [ResponseType(typeof(Bikewale.DTO.PriceQuote.City.v2.PQCityList)), Route("api/v2/PQCityList/")]
+        public IHttpActionResult GetV2(uint modelId)
+        {
+            IEnumerable<CityEntityBase> objCityList = null;
+            Bikewale.DTO.PriceQuote.City.v2.PQCityList objDTOCityList = null;
+            try
+            {
+                objCityList = _cityCache.GetPriceQuoteCities(modelId);
+
+                if (objCityList != null && objCityList.Count() > 0)
+                {
+                    // Auto map the properties
+                    objDTOCityList = new Bikewale.DTO.PriceQuote.City.v2.PQCityList();
+                    objDTOCityList.Cities = PQCityListMapper.ConvertV2(objCityList);
+
+                    objCityList = null;
+
+                    return Ok(objDTOCityList);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.City.PQCityListController.Get");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
     }
 }

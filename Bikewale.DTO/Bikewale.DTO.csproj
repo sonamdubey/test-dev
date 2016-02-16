@@ -133,6 +133,8 @@
     <Compile Include="Model\ModelDetails.cs" />
     <Compile Include="Model\ModelList.cs" />
     <Compile Include="Model\ModelPage.cs" />
+    <Compile Include="PriceQuote\Area\v2\PQAreaBase.cs" />
+    <Compile Include="PriceQuote\Area\v2\PQAreaList.cs" />
     <Compile Include="PriceQuote\BikeBooking\BookingPageOutput.cs" />
     <Compile Include="PriceQuote\BikeBooking\BikeDealerPriceDetailDTO.cs" />
     <Compile Include="PriceQuote\BikeBooking\BookingPage.cs" />
@@ -141,6 +143,8 @@
     <Compile Include="PriceQuote\BikeBooking\DealerOfferDTO.cs" />
     <Compile Include="PriceQuote\BikeBooking\DealerVersionPriceItemDTO.cs" />
     <Compile Include="PriceQuote\BikeQuotation\OtherVersionInfoDTO.cs" />
+    <Compile Include="PriceQuote\City\v2\PQCityBase.cs" />
+    <Compile Include="PriceQuote\City\v2\PQCityList.cs" />
     <Compile Include="PriceQuote\DealerPriceQuote\DPQ_BikeVarient.cs" />
     <Compile Include="PriceQuote\PQOnRoad.cs" />
     <Compile Include="PriceQuote\PQUpdateInput.cs" />

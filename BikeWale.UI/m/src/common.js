@@ -83,7 +83,7 @@ function navbarShow() {
         });
     }
     $('body').addClass('lock-browser-scroll');
-    $("#nav").addClass('open').animate({
+    $("#nav").addClass('open').stop().animate({
         'left': '0px'
     });
     $(".blackOut-window").show();
@@ -342,7 +342,7 @@ $(document).ready(function () {
     $(".blackOut-window").mouseup(function (e) {
         var nav = $("#nav");
         if (e.target.id !== nav.attr('id') && !nav.has(e.target).length) {
-            nav.animate({ 'left': '-300px' });
+            nav.stop().animate({ 'left': '-300px' });
             unlockPopup();
         }
     });
@@ -371,7 +371,7 @@ $(document).ready(function () {
 
     function navbarHide() {
         $('body').addClass('lock-browser-scroll');
-        $("#nav").removeClass('open').animate({ 'left': '-300px' });
+        $("#nav").removeClass('open').stop().animate({ 'left': '-300px' });
         $(".blackOut-window").hide();
     }
     // login code starts 
@@ -1126,7 +1126,7 @@ $(function () {
     });
 
     $('.back-to-top').click(function (event) {
-        $('html, body').animate({ scrollTop: 0 }, 600);
+        $('html, body').stop().animate({ scrollTop: 0 }, 600);
         event.preventDefault();
     });
 });
@@ -1279,20 +1279,20 @@ popupContent = $("#popupContent");
 
 $("#citySelection").on("click", function () {
     $("#popupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
-    popupContent.addClass("open").animate({ 'left': '0px' }, 500);
-    $(".user-input-box").animate({ 'left': '0px' }, 500);
+    popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
+    $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
 
 });
 
 $("#areaSelection").on("click", function () {
     $("#popupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
-    popupContent.addClass("open").animate({ 'left': '0px' }, 500);
-    $(".user-input-box").animate({ 'left': '0px' }, 500);
+    popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
+    $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
 });
 
 $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
-    popupContent.removeClass("open").animate({ 'left': '100%' }, 500);
-    $(".user-input-box").animate({ 'left': '100%' }, 500);
+    popupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
+    $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
 });
 
 var locationFilter = function (filterContent) {

@@ -75,5 +75,43 @@ namespace Bikewale.Service.Controllers.PriceQuote.Area
                 return InternalServerError();
             }
         }
+
+        /// <summary>
+        /// List of Price Quote Areas
+        /// Modified By : Sushil Kumar on 12th Feb 2016
+        /// Description : API versioning to send minimal area api data
+        /// </summary>
+        /// <param name="modelId">Model ID</param>
+        /// <param name="cityId">City Id</param>
+        /// <returns>Area List</returns>
+        [ResponseType(typeof(Bikewale.DTO.PriceQuote.Area.v2.PQAreaList)), Route("api/v2/PQAreaList/")]
+        public IHttpActionResult GetV2(uint modelId, uint cityId)
+        {
+            IEnumerable<AreaEntityBase> objAreaList = null;
+            Bikewale.DTO.PriceQuote.Area.v2.PQAreaList objDTOAreaList = null;
+            try
+            {
+                objAreaList = _areaCache.GetAreaList(modelId, cityId);
+                if (objAreaList != null && objAreaList.Count() > 0)
+                {
+                    // Auto map the properties
+                    objDTOAreaList = new  DTO.PriceQuote.Area.v2.PQAreaList();
+                    objDTOAreaList.Areas = PQAreaListMapper.ConvertV2(objAreaList);
+                    objAreaList = null;
+
+                    return Ok(objDTOAreaList);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorClass objErr = new ErrorClass(ex, "Exception : Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController.Get");
+                objErr.SendMail();
+                return InternalServerError();
+            }
+        }
     }
 }

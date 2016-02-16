@@ -8,72 +8,90 @@ namespace Bikewale.Utility
 {
     public static class ReviewsRating
     {
-      static readonly string ZeroRating = @"<img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+        static readonly string fullStar = "star-one-icon";
+        static readonly string halfStar = "star-half-icon";
+        static readonly string noStar = "star-zero-icon";
+//        #region ratingsStaticOld
+//        static readonly string ZeroRating = @"<img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
 
-      static readonly string HalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/half.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string HalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/half.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
 
-      static readonly string OneRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string OneRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
 
-      static readonly string OneHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                              <img src='http://img.aeplcdn.com/images/ratings/half.png'>
-                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string OneHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                              <img src='http://img.aeplcdn.com/images/ratings/half.png'>
+//                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
 
-      static readonly string TwoRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                          <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string TwoRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                          <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                          <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
 
-      static readonly string TwoHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                              <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                              <img src='http://img.aeplcdn.com/images/ratings/half.png'>
-                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string TwoHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                              <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                              <img src='http://img.aeplcdn.com/images/ratings/half.png'>
+//                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                              <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
 
 
-      static readonly string ThreeRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string ThreeRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
 
-      static readonly string ThreeHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                                <img src='http://img.aeplcdn.com/images/ratings/half.png'>
-                                                <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string ThreeHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                                <img src='http://img.aeplcdn.com/images/ratings/half.png'>
+//                                                <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
 
-      static readonly string FourRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
+//        static readonly string FourRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/0.png'>";
 
-      static readonly string FourHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                                <img src='http://img.aeplcdn.com/images/ratings/half.png'>";
+//        static readonly string FourHalfRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                                <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                                <img src='http://img.aeplcdn.com/images/ratings/half.png'>";
 
-      static readonly string FiveRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
-                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>";
+//        static readonly string FiveRating = @"<img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>
+//                                            <img src='http://img.aeplcdn.com/images/ratings/1.png'>"; 
+//        #endregion
+
+        static readonly string ZeroRating = String.Format("<span class='{0}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span>",noStar);
+        static readonly string HalfRating = String.Format("<span class='{1}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span>", noStar,halfStar);
+        static readonly string OneHalfRating = String.Format("<span class='{1}'></span><span class='{2}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span>", noStar, fullStar, halfStar);
+        static readonly string OneRating = String.Format("<span class='{1}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span>", noStar, fullStar);
+        static readonly string TwoRating = String.Format("<span class='{1}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span><span class='{0}'></span>", noStar, fullStar);
+        static readonly string TwoHalfRating = String.Format("<span class='{1}'></span><span class='{1}'></span><span class='{2}'></span><span class='{0}'></span><span class='{0}'></span>", noStar, fullStar, halfStar);
+        static readonly string ThreeRating = String.Format("<span class='{1}'></span><span class='{1}'></span><span class='{1}'></span><span class='{0}'></span><span class='{0}'></span>", noStar, fullStar);
+        static readonly string ThreeHalfRating = String.Format("<span class='{1}'></span><span class='{1}'></span><span class='{1}'></span><span class='{2}'></span><span class='{0}'></span>", noStar, fullStar, halfStar);
+        static readonly string FourRating = String.Format("<span class='{1}'></span><span class='{1}'></span><span class='{1}'></span><span class='{1}'></span><span class='{0}'></span>", noStar, fullStar);
+        static readonly string FourHalfRating = String.Format("<span class='{1}'></span><span class='{1}'></span><span class='{1}'></span><span class='{1}'></span><span class='{2}'></span>", noStar, fullStar, halfStar);
+        static readonly string FiveRating = String.Format("<span class='{1}'></span><span class='{1}'></span><span class='{1}'></span><span class='{1}'></span><span class='{1}'></span>", noStar, fullStar);
+
 
 
         public static string GetRateImage(double value)

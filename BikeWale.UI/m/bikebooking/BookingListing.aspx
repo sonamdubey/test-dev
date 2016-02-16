@@ -406,7 +406,6 @@
             </div>
             <!--Main container ends here-->
         <!-- #include file="/includes/footerBW_Mobile.aspx" -->
-        <script src="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/src/lscache.min.js?<%= staticFileVersion%>"></script>
         <script>
             var selectedCityId = '<%= cityId %>' ,selectedAreaId = '<%= areaId %>' ;
             var cityName = $("#listingPopupCityList li[cityid='" + selectedCityId + "']").text(),

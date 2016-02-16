@@ -5,18 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.DTO.BikeBooking.Area
+namespace Bikewale.DTO.PriceQuote.Area.v2
 {
     /// <summary>
-    /// Bikebooking Area
-    /// Author  :   Sumit Kate
-    /// Date    :   20 Aug 2015
+    /// Price Quote Area Base new version
+    /// Author  :   Sushil Kumar
+    /// Date    :   12th Feb 2016
     /// </summary>
-    public class BBAreaBase
+    public class PQAreaBase
     {
-        [JsonProperty("areaId")]
+        [JsonProperty("id")]
         public UInt32 AreaId { get; set; }
-        [JsonProperty("areaName")]
+        [JsonProperty("name")]
         public string AreaName { get; set; }
     }
 }
+

@@ -134,7 +134,6 @@ $('#bookNowBtn').on('click', function (e) {
     window.location.href = "/m/pricequote/bookingSummary_new.aspx?MPQ=" + Base64.encode(cookieValue);;
 });
 
-
 function CustomerModel() {
     var arr = setuserDetails();
     var self = this;

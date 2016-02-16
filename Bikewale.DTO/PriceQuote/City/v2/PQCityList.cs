@@ -5,18 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bikewale.DTO.BikeBooking.Area
+namespace Bikewale.DTO.PriceQuote.City.v2
 {
     /// <summary>
-    /// Bikebooking Area
+    /// Price Quote City list
     /// Author  :   Sumit Kate
     /// Date    :   20 Aug 2015
     /// </summary>
-    public class BBAreaBase
+    public class PQCityList
     {
-        [JsonProperty("areaId")]
-        public UInt32 AreaId { get; set; }
-        [JsonProperty("areaName")]
-        public string AreaName { get; set; }
+        [JsonProperty("cities")]
+        public IEnumerable<PQCityBase> Cities { get; set; }
     }
 }
