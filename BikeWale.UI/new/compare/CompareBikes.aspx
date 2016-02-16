@@ -118,7 +118,7 @@
                                                    </tr>
                                                    <%--<tr><td><a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"HostURL").ToString()) ? Bikewale.Common.ImagingFunctions.GetPathToShowImages("/bikewaleimg/models/", DataBinder.Eval(Container.DataItem,"HostURL").ToString()) + DataBinder.Eval(Container.DataItem,"largePic") :  "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg" %>" border="0"/></a></td></tr>--%>
                                                    <tr><td><a title='View complete details of <%# DataBinder.Eval(Container.DataItem,"Bike")%>' href='/<%# DataBinder.Eval(Container.DataItem,"MakeMaskingName")%>-bikes/<%#DataBinder.Eval(Container.DataItem,"ModelMaskingName") %>/'><img class="second-img" alt="<%#DataBinder.Eval(Container.DataItem,"Bike")%>" src="<%# !String.IsNullOrEmpty(DataBinder.Eval(Container.DataItem,"HostURL").ToString()) ? Bikewale.Utility.Image.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"OriginalImagePath").ToString(), DataBinder.Eval(Container.DataItem,"HostURL").ToString(),Bikewale.Utility.ImageSize._310x174) :  "http://img.aeplcdn.com/bikewaleimg/common/nobike.jpg" %>" border="0"/></a></td></tr>
-                                                   <tr> <td><%#GetModelRatings( DataBinder.Eval(Container.DataItem,"BikeVersionId").ToString() ) %></td></tr>
+                                                   <tr runat="server" visible="<%# Container.ItemIndex != featuredBikeIndex %>"> <td><%#GetModelRatings( DataBinder.Eval(Container.DataItem,"BikeVersionId").ToString() ) %></td></tr>
                                                    <tr runat="server" visible="<%# Container.ItemIndex != featuredBikeIndex %>" >
                                                        <td>
                                                         <strong>Price Rs. <%# Bikewale.Common.CommonOpn.FormatPrice(DataBinder.Eval(Container.DataItem,"Price").ToString()) %></strong><br />
@@ -128,7 +128,7 @@
                                                    </tr>
                                                    <tr runat="server" visible="<%# Container.ItemIndex == featuredBikeIndex  && !string.IsNullOrEmpty(estimatePrice) %>">
                                                        <td>
-                                                           <strong>Price Rs. <%= estimatePrice %> onwards </strong>(Expected)
+                                                           <p class="margin-top30"><strong>Price Rs. <%= estimatePrice %> onwards </strong>(Expected)</p>
                                                            <p class="margin-top5"><strong><%= estimateLaunchDate %></strong></p><p>(Expected Launch)</p>
                                                        </td>
                                                    </tr>
