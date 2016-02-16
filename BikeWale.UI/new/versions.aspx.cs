@@ -182,7 +182,12 @@ namespace Bikewale.New
         {
             Trace.Warn("Trace 1 : DeviceDetection Start");
             //device detection
-            DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"]);
+            // Modified By :Ashish Kamble on 5 Feb 2016
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
+
+            DeviceDetection dd = new DeviceDetection(originalUrl);
             dd.DetectDevice();
             Trace.Warn("Trace 2 : DeviceDetection End");
 

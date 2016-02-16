@@ -49,7 +49,7 @@ namespace Bikewale.Forums
                 */
 
                 // for time being its not required as per asish amboker (26/7/2012)
-                //DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+                //DeviceDetection dd = new DeviceDetection(Request.ServerVariables["HTTP_X_ORIGINAL_URL"].ToString());
                 //dd.DetectDevice();
                 /*	Code added by Ashish Ambokar ends here */
 

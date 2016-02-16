@@ -5,51 +5,51 @@ RewriteMap lowercase int:tolower
 RewriteMap map_makes txt:url_mapping/map_makes.txt
 RewriteMap map_cities txt:url_mapping/map_cities.txt
 
-RewriteRule ^(.*)-bikes/(.*)/user-reviews/(.*).html		/m/content/userreviews/reviewdetails.aspx?rid=$3 [NC,L]
-RewriteRule ^(.*)-bikes/(.*)/user-reviews-p(.*)/			/m/content/userreviews/listreviews.aspx?bikem=$2&pn=$3 [NC,L]
-RewriteRule ^(.*)-bikes/(.*)/user-reviews/				/m/content/userreviews/listreviews.aspx?bikem=$2 [NC,L]
-RewriteRule ^user-reviews/$            /m/content/userreviews/default.aspx [NC,L]
+RewriteRule ^m/(.*)-bikes/(.*)/user-reviews/(.*).html		/m/content/userreviews/reviewdetails.aspx?rid=$3 [NC,L]
+RewriteRule ^m/(.*)-bikes/(.*)/user-reviews-p(.*)/			/m/content/userreviews/listreviews.aspx?bikem=$2&pn=$3 [NC,L]
+RewriteRule ^m/(.*)-bikes/(.*)/user-reviews/				/m/content/userreviews/listreviews.aspx?bikem=$2 [NC,L]
+RewriteRule ^m/user-reviews/$            /m/content/userreviews/default.aspx [NC,L]
 
-RewriteRule ^news/([\d]+)-(.*).html                        /m/news/newsdetails.aspx?id=$1&t=$2 [NC,L]  
-RewriteRule ^news/page/(.*)/			/m/news/default.aspx?pn=$1 [NC,L]
+RewriteRule ^m/news/([\d]+)-(.*).html                        /m/news/newsdetails.aspx?id=$1&t=$2 [NC,L]  
+RewriteRule ^m/news/page/(.*)/			/m/news/default.aspx?pn=$1 [NC,L]
 
-RewriteRule ^upcoming-bikes/page/(.*)/			/m/new/upcomingbikes/default.aspx?pn=$1 [NC,L]
-RewriteRule ^upcoming-bikes/$			/m/new/upcomingbikes/default.aspx [NC,L]
+RewriteRule ^m/upcoming-bikes/page/(.*)/			/m/new/upcomingbikes/default.aspx?pn=$1 [NC,L]
+RewriteRule ^m/upcoming-bikes/$			/m/new/upcomingbikes/default.aspx [NC,L]
 
-#RewriteRule features/(.*)-([\d]+)/p([\d]+)/			/m/content/features/viewf.aspx?id=$2&pn=$3 [NC,L]
-RewriteRule features/(.*)-([\d]+)/p([\d]+)/			/m/features/($1)-($2)/ [R=301,NC,L]
-RewriteRule features/(.*)-([\d]+)/					/m/content/features/viewf.aspx?id=$2 [NC,L]
-RewriteRule ^features/page/(.*)/			/m/content/features/default.aspx?pn=$1 [NC,L]
-RewriteRule ^features/$			/m/content/features/default.aspx [NC,L]
+#RewriteRule m/features/(.*)-([\d]+)/p([\d]+)/			/m/content/features/viewf.aspx?id=$2&pn=$3 [NC,L]
+RewriteRule m/features/(.*)-([\d]+)/p([\d]+)/			/m/features/($1)-($2)/ [R=301,NC,L]
+RewriteRule m/features/(.*)-([\d]+)/					/m/content/features/viewf.aspx?id=$2 [NC,L]
+RewriteRule ^m/features/page/(.*)/			/m/content/features/default.aspx?pn=$1 [NC,L]
+RewriteRule ^m/features/$			/m/content/features/default.aspx [NC,L]
 
-RewriteRule ^road-tests/(.*)-([\d]+)/p([\d]+)/			/m/road-tests/($1)-($2).html [R=301,NC,L] 
-RewriteRule road-tests/(.*)-([\d]+).html   	 /m/content/roadtest/viewrt.aspx?id=$2 [NC,L]
-#RewriteRule road-tests/(.*)-([\d]+)/					/m/content/roadtest/viewrt.aspx?id=$2 [NC,L]
+RewriteRule ^m/road-tests/(.*)-([\d]+)/p([\d]+)/			/m/road-tests/($1)-($2).html [R=301,NC,L] 
+RewriteRule m/road-tests/(.*)-([\d]+).html   	 /m/content/roadtest/viewrt.aspx?id=$2 [NC,L]
+#RewriteRule m/road-tests/(.*)-([\d]+)/					/m/content/roadtest/viewrt.aspx?id=$2 [NC,L]
 
-RewriteRule ^(.*)-bikes/(.*)/road-tests/page/([\d]+)/			/m/content/roadtest/default.aspx?make=$1&model=$2&pn=$3 [NC,L]
-RewriteRule ^(.*)-bikes/(.*)/road-tests/			/m/content/roadtest/default.aspx?make=$1&model=$2 [NC,L]
-RewriteRule ^(.*)-bikes/road-tests/page/([\d]+)/				/m/content/roadtest/default.aspx?make=$1&pn=$2 [NC,L]
-RewriteRule ^(.*)-bikes/road-tests/						/m/content/roadtest/default.aspx?make=$1 [NC,L]
-RewriteRule ^road-tests/page/(.*)/			/m/content/roadtest/default.aspx?pn=$1 [NC,L]
-RewriteRule ^road-tests/			/m/content/roadtest/default.aspx [NC,L]
+RewriteRule ^m/(.*)-bikes/(.*)/road-tests/page/([\d]+)/			/m/content/roadtest/default.aspx?make=$1&model=$2&pn=$3 [NC,L]
+RewriteRule ^m/(.*)-bikes/(.*)/road-tests/			/m/content/roadtest/default.aspx?make=$1&model=$2 [NC,L]
+RewriteRule ^m/(.*)-bikes/road-tests/page/([\d]+)/				/m/content/roadtest/default.aspx?make=$1&pn=$2 [NC,L]
+RewriteRule ^m/(.*)-bikes/road-tests/						/m/content/roadtest/default.aspx?make=$1 [NC,L]
+RewriteRule ^m/road-tests/page/(.*)/			/m/content/roadtest/default.aspx?pn=$1 [NC,L]
+RewriteRule ^m/road-tests/			/m/content/roadtest/default.aspx [NC,L]
 
-RewriteRule	^terms/(.*)	/m/offerterms.aspx?id=$1 [NC,L]
+RewriteRule	^m/terms/(.*)	/m/offerterms.aspx?id=$1 [NC,L]
 
 
-RewriteRule  ^(.*)-bikes/(.*)/(.*)-specs-(.*).html	/m/($1)-bikes/($2)/ [R=301,NC,L]
-RewriteRule ^(.*)-bikes/(.*)-series/ /m/new/bikeseries.aspx?series=$2 [NC,L]
-RewriteRule	^(.*)-bikes/(.*)/	/m/new/BikeModels.aspx?model=$2 [NC,L]
-RewriteRule	^(.*)-bikes/$	/m/new/bikemakes.aspx?make=$1 [NC,L]
+RewriteRule  ^m/(.*)-bikes/(.*)/(.*)-specs-(.*).html	/m/($1)-bikes/($2)/ [R=301,NC,L]
+RewriteRule ^m/(.*)-bikes/(.*)-series/ /m/new/bikeseries.aspx?series=$2 [NC,L]
+RewriteRule	^m/(.*)-bikes/(.*)/	/m/new/BikeModels.aspx?model=$2 [NC,L]
+RewriteRule	^m/(.*)-bikes/$	/m/new/bikemakes.aspx?make=$1 [NC,L]
 
-RewriteRule ^new-bikes-launches/page/([\d]+)/				/m/new/newbikelaunch/Default.aspx?pn=$1 [NC,L]
-RewriteRule ^new-bikes-launches/							/m/new/newbikelaunch/Default.aspx [NC,L]
+RewriteRule ^m/new-bikes-launches/page/([\d]+)/				/m/new/newbikelaunch/Default.aspx?pn=$1 [NC,L]
+RewriteRule ^m/new-bikes-launches/							/m/new/newbikelaunch/Default.aspx [NC,L]
 
-RewriteRule ^new/(.*)-dealers/([0-9]+)-(.*).html	/m/new/NewBikeDealers/newbikedealerlist.aspx?make=$1&city=$2 [NC,L]
-RewriteRule ^new/locate-dealers/	/m/new/NewBikeDealers/default.aspx [NC,L]
+RewriteRule ^m/new/(.*)-dealers/([0-9]+)-(.*).html	/m/new/NewBikeDealers/newbikedealerlist.aspx?make=$1&city=$2 [NC,L]
+RewriteRule ^m/new/locate-dealers/	/m/new/NewBikeDealers/default.aspx [NC,L]
 
 # Rule For Compare Bike page
-RewriteRule ^comparebikes/([a-zA-Z0-9]*)-(.*)-vs-([a-zA-Z0-9]*)-(.*)/$         /m/new/compare/comparebikedetails.aspx?mo=$2,$4 [NC,L,QSA]
-RewriteRule ^comparebikes/$							/m/new/compare/comparebike.aspx	[NC,L]
+RewriteRule ^m/comparebikes/([a-zA-Z0-9]*)-(.*)-vs-([a-zA-Z0-9]*)-(.*)/$         /m/new/compare/comparebikedetails.aspx?mo=$2,$4 [NC,L,QSA]
+RewriteRule ^m/comparebikes/$							/m/new/compare/comparebike.aspx	[NC,L]
 
 
 

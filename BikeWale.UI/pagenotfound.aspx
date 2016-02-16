@@ -14,7 +14,7 @@
     /// <param name="e"></param>
     protected void Page_Load(object Sender, EventArgs e)
     {
-        //Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+        //Bikewale.Common.DeviceDetection dd = new Bikewale.Common.DeviceDetection(Request.ServerVariables["HTTP_X_ORIGINAL_URL"].ToString());
         //dd.DetectDevice();
         string WurflManagerCacheKey = "__WurflManager";																				//name of cache
 

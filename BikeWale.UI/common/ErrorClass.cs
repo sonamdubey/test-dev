@@ -120,7 +120,7 @@ namespace Bikewale.Common
                     sb.Append(HttpContext.Current.Request.ServerVariables["URL"].ToString());
 
                     sb.Append("\nREWRITE URL : ");
-                    sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+                    sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"]);
 
                     sb.Append("\nREFERRER : ");
                     if (HttpContext.Current.Request.ServerVariables["HTTP_REFERER"] != null)
@@ -290,7 +290,7 @@ namespace Bikewale.Common
                     sb.Append(HttpContext.Current.Request.ServerVariables["URL"].ToString());
 
                     sb.Append("\nREWRITE URL : ");
-                    sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
+                    sb.Append(HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"]);
 
                     sb.Append("\nREFERRER : ");
                     if (HttpContext.Current.Request.ServerVariables["HTTP_REFERER"] != null)

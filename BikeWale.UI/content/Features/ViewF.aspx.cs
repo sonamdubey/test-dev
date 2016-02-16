@@ -46,9 +46,13 @@ namespace Bikewale.Content
         private void Page_Load(object sender, EventArgs e)
         {
             //code for device detection added by Ashwini Todkar
-            DeviceDetection deviceDetection = new DeviceDetection(Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString());
-            deviceDetection.DetectDevice();
+            // Modified By :Ashish Kamble on 5 Feb 2016
+            string originalUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
+            if (String.IsNullOrEmpty(originalUrl))
+                originalUrl = Request.ServerVariables["URL"];
 
+            DeviceDetection dd = new DeviceDetection(originalUrl);
+            dd.DetectDevice();
 
             ProcessQS();
 
@@ -76,7 +80,7 @@ namespace Bikewale.Content
                 //if id exists then redirect url to new basic id url
                 if (!String.IsNullOrEmpty(_mappedBasicId))
                 {
-                    string _newUrl = Request.ServerVariables["HTTP_X_REWRITE_URL"];
+                    string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
                     var _titleStartIndex = _newUrl.IndexOf('/');
                     var _titleEndIndex = _newUrl.LastIndexOf('-');
                     string _newUrlTitle = _newUrl.Substring(_titleStartIndex, _titleEndIndex - _titleStartIndex + 1);
