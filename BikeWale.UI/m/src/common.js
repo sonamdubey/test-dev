@@ -1278,19 +1278,19 @@ popupContent = $("#popupContent");
 $("#citySelection").on("click", function () {
     $("#popupContent .bw-city-popup-box").show().siblings("div.bw-area-popup-box").hide();
     popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
-    $(".user-input-box").animate({ 'left': '0px' }, 500);
+    $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
 
 });
 
 $("#areaSelection").on("click", function () {
     $("#popupContent .bw-city-popup-box").hide().siblings("div.bw-area-popup-box").show();
     popupContent.addClass("open").stop().animate({ 'left': '0px' }, 500);
-    $(".user-input-box").animate({ 'left': '0px' }, 500);
+    $(".user-input-box").stop().animate({ 'left': '0px' }, 500);
 });
 
 $(".bwm-city-area-popup-wrapper .back-arrow-box").on("click", function () {
     popupContent.removeClass("open").stop().animate({ 'left': '100%' }, 500);
-    $(".user-input-box").animate({ 'left': '100%' }, 500);
+    $(".user-input-box").stop().animate({ 'left': '100%' }, 500);
 });
 
 var locationFilter = function (filterContent) {

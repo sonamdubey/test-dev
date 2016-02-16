@@ -8,14 +8,12 @@
     var cityClicked = false;
     var areaClicked = false;
 </script>
-<style>
-.position-abs { position:absolute; } 
+<style type="text/css">
 .progress-bar { width:0; height:2px; background:#16A085;bottom: 0px;left: 0; border-radius: 2px; }
 .progress-bar-completed { display:none; width:100%; height:1px; background:#16A085;bottom: 0px;left: 0; border-radius: 2px; }
 .progress-bar.active { width:100%; transition:7s width;  }
 .btn-loader {background-color:#822821;}
 .btnSpinner{right: 8px; top: 10px;z-index:9; display: none; background: rgb(255, 255, 255);}
-
 </style>
 <!--bw popup code starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
@@ -172,7 +170,6 @@
             self.BookingCities([]);
             $("#areaSelection").hide();
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0) {
-                debugger;
                 modelCityKey = "mc_" + self.SelectedModelId();
                 $.ajax({
                     type: "GET",
@@ -196,7 +193,7 @@
                         }
                     },
                     success: function (response) {
-                        lscache.set(modelCityKey, response.cities);
+                        lscache.set(modelCityKey, response.cities,60);
                         var cities = ko.toJS(response.cities);
                         var citySelected = null;
                         if (cities) {
@@ -207,19 +204,20 @@
                         }
                     },
                     complete: function (xhr) {
-                        completeOp(self);
+                        lscache.set(modelCityKey, null,60);
+                        completeCityOp(self);
                     }
                 });
             }
 
             if (isAborted) {
-                completeOp(self);
+                completeCityOp(self);
             }
 
         });
 
         self.selectCity = function (data, event) {
-            isAborted = false;
+            var isAborted = false;
             $(".bwm-city-area-popup-wrapper .back-arrow-box").click();
             if (!self.oBrowser()) {
                 self.SelectedCity(data);
@@ -261,7 +259,7 @@
                             }
                         },
                         success: function (response) {
-                            lscache.set(cityAreaKey, response.areas);
+                            lscache.set(cityAreaKey, response.areas,60);
                             var areas = ko.toJS(response.areas);
                             var areaSelected = null;
                             if (areas) {
@@ -270,6 +268,7 @@
 
                         },
                         complete: function (xhr) {
+                            lscache.set(cityAreaKey,null, 60);
                             completeAreaOp(self, xhr);
                         }
 
@@ -284,7 +283,9 @@
 
                 if(isAborted)
                 {
-                    completeAreaOp(self, ko.toJS({"status" :200}));
+                    if(self.BookingCities().length > 0)
+                        completeAreaOp(self, ko.toJS({ "status": 200 }));
+                    else completeAreaOp(self, ko.toJS({ "status": 404 }));
                 }
             }
 
@@ -481,7 +482,7 @@
 
     }
 
-    function completeOp(self) {
+    function completeCityOp(self) {
         $("#popupLoader").text("Loading cities..").hide().prev().hide();
         if (self.BookingCities().length > 0) {
             $("#citySelection div.selected-city").text("Select City").next().hide();
@@ -496,7 +497,7 @@
             MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
             MPopupViewModel.hasAreas(findCityById(onCookieObj.PQCitySelectedId).hasAreas);
             if (!self.oBrowser()) {
-                $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
+               $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
             }
             else {
                 self.selectCity(self, null);
