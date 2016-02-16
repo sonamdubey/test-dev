@@ -13,8 +13,12 @@
     Ad_320x50 = true;
     Ad_Bot_320x50 = true;
 %>
+<style type="text/css">
+    #divListing .sponsored-content { border:1px solid #4d5057; }
+    .sponsored-tag-wrapper {width: 120px;height: 28px;background: #4d5057;color: #fff;font-size: 14px;line-height: 28px;padding: 0 20px; top:0; left:-10px;margin-bottom:10px;}
+    .sponsored-left-tag {width: 0;height: 0;border-top: 15px solid transparent;border-bottom: 15px solid transparent;border-right: 10px solid #fff;position: relative;top: -14px;left: 90px;font-size: 0;line-height: 0;z-index: 1;}
+</style>
 <!-- #include file="/includes/headermobile.aspx" -->
-
 <div class="padding5">
         <div id="br-cr">
             <span itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
@@ -25,7 +29,8 @@
             <asp:Repeater id="rptFeatures" runat="server">
                 <ItemTemplate>
                     <a class="normal" href='/m/features/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>/' >
-		                <div class="box1 new-line15" >
+		                <div class='box1 new-line15 sponsored-content <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsSticky")) ? "sponsored-content" : ""%>'>
+                           <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsSticky")) ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
                             <table cellspacing="0" cellpadding="0" style="width:100%;overflow:visible;">
 				                <tr>
 					                <%--<td style="width:100px;vertical-align:top;"><img style="width:100%;max-width:100%;height:auto;" alt='<%# DataBinder.Eval(Container.DataItem,"Title") %>' title='<%# DataBinder.Eval(Container.DataItem,"Title") %>' src='<%# Bikewale.Common.ImagingFunctions.GetPathToShowImages(DataBinder.Eval(Container.DataItem,"LargePicUrl").ToString(), DataBinder.Eval(Container.DataItem, "HostUrl").ToString()) %>'></td>--%>
