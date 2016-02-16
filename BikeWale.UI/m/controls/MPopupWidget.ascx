@@ -9,12 +9,45 @@
     var areaClicked = false;
 </script>
 <style type="text/css">
-.position-abs { position:absolute; } 
-.progress-bar { width:0; height:2px; background:#16A085;bottom: 0px;left: 0; border-radius: 2px; }
-.progress-bar-completed { display:none; width:100%; height:1px; background:#16A085;bottom: 0px;left: 0; border-radius: 2px; }
-.progress-bar.active { width:100%; transition:7s width;  }
-.btn-loader {background-color:#822821;}
-.btnSpinner{right: 8px; top: 10px;z-index:9; display: none; background: rgb(255, 255, 255);}
+    .position-abs {
+        position: absolute;
+    }
+
+    .progress-bar {
+        width: 0;
+        height: 2px;
+        background: #16A085;
+        bottom: 0px;
+        left: 0;
+        border-radius: 2px;
+    }
+
+    .progress-bar-completed {
+        display: none;
+        width: 100%;
+        height: 1px;
+        background: #16A085;
+        bottom: 0px;
+        left: 0;
+        border-radius: 2px;
+    }
+
+    .progress-bar.active {
+        width: 100%;
+        transition: 7s width;
+    }
+
+    .btn-loader {
+        background-color: #822821;
+    }
+
+    .btnSpinner {
+        right: 8px;
+        top: 10px;
+        z-index: 9;
+        display: none;
+        background: rgb(255, 255, 255);
+    }
 </style>
 <!--bw popup code starts here-->
 <div class="bw-city-popup bwm-fullscreen-popup hide bw-popup-sm text-center" id="popupWrapper">
@@ -25,37 +58,37 @@
             <div class="text-light-grey margin-bottom5"><span class="red">*</span>Get on-road prices by just sharing your location!</div>
             <!-- ko if: !oBrowser() -->
             <div id="citySelection" class="form-control text-left input-sm position-rel margin-bottom10">
-                    <span class="position-abs progress-bar"></span>
-                    <span class="position-abs progress-bar-completed"></span> 
+                <span class="position-abs progress-bar"></span>
+                <span class="position-abs progress-bar-completed"></span>
                 <div class="selected-city" data-bind="text: (SelectedCity() != undefined && SelectedCity().name != '') ? SelectedCity().name : 'Select City'"></div>
-                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner" ></span>
+                <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
             </div>
 
             <div id="areaSelection" class="form-control text-left input-sm position-rel margin-bottom10 " data-bind="visible: BookingAreas().length > 0">
-                 <span class="position-abs progress-bar"></span>
-                    <span class="position-abs progress-bar-completed"></span>
+                <span class="position-abs progress-bar"></span>
+                <span class="position-abs progress-bar-completed"></span>
                 <div class="selected-area" data-bind="text: (SelectedArea() != undefined && SelectedArea().name != '') ? SelectedArea().name : 'Select Area'">Select Area</div>
                 <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
                 <span class="fa fa-angle-right position-abt pos-top10 pos-right10"></span>
-                
+
             </div>
             <!-- /ko -->
             <!-- ko if: oBrowser() -->
             <div class="form-control-box margin-bottom10 ">
                 <select class="form-control" tabindex="2" data-bind="options: BookingCities, value: SelectedCityId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: selectCity }"></select>
                 <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-                 </div>
+            </div>
             <div class="form-control-box" data-bind="visible: BookingAreas().length > 0">
                 <select class="form-control" data-bind="options: BookingAreas, value: SelectedAreaId, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--', event: { change: function (data, event) { selectArea(data, event); } }"></select>
                 <span class="fa fa-spinner fa-spin position-abt  text-black btnSpinner"></span>
-                 </div>
+            </div>
             <!-- /ko -->
-            <div  id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
+            <div id="btnPriceLoader" class="center-align margin-top20 text-center position-rel">
                 <div id="errMsgPopup" class="text-red margin-bottom10 hide"></div>
                 <!-- ko if:SelectedCityId() > 0 &&  (SelectedAreaId() > 0 || !hasAreas()) -->
                 <span class="position-abs progress-bar btn-loader"></span>
-                    <span class="position-abs progress-bar-completed btn-loader"></span>
+                <span class="position-abs progress-bar-completed btn-loader"></span>
                 <a id="btnDealerPricePopup" class="btn btn-orange btn-full-width font18" data-bind=" click: getPriceQuote ">Get on road price</a>
                 <!-- /ko -->
             </div>
@@ -67,7 +100,7 @@
                     <span class="back-arrow-box">
                         <span class="bwmsprite back-long-arrow-left"></span>
                     </span>
-                    <input class="form-control" type="text" id="popupCityInput" placeholder="Select City" data-bind="attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }" />
+                    <input class="form-control" type="text" id="popupCityInput" autocomplete="off" placeholder="Select City" data-bind="attr: { value: (SelectedCity() != undefined) ? SelectedCity().name : '' }" />
                 </div>
                 <ul id="popupCityList" class="margin-top40" data-bind="foreach: BookingCities">
                     <li data-bind="text: name, attr: { 'cityId': id }, css: (isPopular) ? 'isPopular' : '', click: function (data, event) { $parent.selectCity(data, event); }"></li>
@@ -80,7 +113,7 @@
                     <span class="back-arrow-box">
                         <span class="bwmsprite back-long-arrow-left"></span>
                     </span>
-                    <input class="form-control" type="text" id="popupAreaInput" placeholder="Select Area" data-bind="attr: { value: (SelectedArea() != undefined) ? SelectedArea().name : '' }" />
+                    <input class="form-control" type="text" id="popupAreaInput" autocomplete="off" placeholder="Select Area" data-bind="attr: { value: (SelectedArea() != undefined) ? SelectedArea().name : '' }" />
                 </div>
                 <ul id="popupAreaList" class="margin-top40" data-bind="foreach: BookingAreas, visible: BookingAreas().length > 0 ">
                     <li data-bind="text: name, attr: { 'areaId': id }, click: function (data, event) { $parent.selectArea(data, event); }"></li>
@@ -128,7 +161,7 @@
     });
 
     $('body').on("click", "a.fillPopupData", function (e) {
-        e.stopPropagation();        
+        e.stopPropagation();
         $("#errMsgPopUp").empty();
         var str = $(this).attr('modelId');
         var pageIdAttr = $(this).attr('pagecatid');
@@ -141,9 +174,10 @@
         MPopupViewModel.PageCatId = pageIdAttr;
         selectedModel = modelIdPopup;
         isModelPage = $(this).attr('ismodel');
-
-        MPopupViewModel.SelectedModelId(selectedModel);
-
+        if (MPopupViewModel.SelectedModelId() != selectedModel) {
+            MPopupViewModel.SelectedModelId(selectedModel);
+            MPopupViewModel.getCities();
+        }
         $('#popupWrapper').fadeIn(10);
         appendHash("onRoadPrice");
     });
@@ -163,7 +197,7 @@
         self.BookingAreas = ko.observableArray([]);
         self.oBrowser = ko.observable(opBrowser);
         self.hasAreas = ko.observable();
-        self.getCities = ko.computed(function (data, event) {
+        self.getCities = function () {
             var isAborted = false;
             $("#citySelection div.selected-city").text("Loading Cities..");
             $("#popupLoader").text("Loading cities..").show().prev().show();
@@ -194,7 +228,7 @@
                         }
                     },
                     success: function (response) {
-                        lscache.set(modelCityKey, response.cities,60);
+                        lscache.set(modelCityKey, response.cities, 60);
                         var cities = ko.toJS(response.cities);
                         var citySelected = null;
                         if (cities) {
@@ -213,8 +247,7 @@
             if (isAborted) {
                 completeCityOp(self);
             }
-
-        });
+        };
 
         self.selectCity = function (data, event) {
             var isAborted = false;
@@ -230,7 +263,7 @@
             if (self.SelectedModelId() != undefined && self.SelectedModelId() > 0 && self.SelectedCity() != undefined) {
                 self.hasAreas(findCityById(self.SelectedCity().id).hasAreas);
                 if (self.hasAreas()) {
-                    cityAreaKey = "ca_"+self.SelectedCityId().toString();
+                    cityAreaKey = "ca_" + self.SelectedCityId().toString();
                     self.BookingAreas([]);
                     self.SelectedArea(undefined);
                     self.SelectedAreaId(0);
@@ -259,7 +292,7 @@
                             }
                         },
                         success: function (response) {
-                            lscache.set(cityAreaKey, response.areas,60);
+                            lscache.set(cityAreaKey, response.areas, 60);
                             var areas = ko.toJS(response.areas);
                             var areaSelected = null;
                             if (areas) {
@@ -280,9 +313,8 @@
                     self.SelectedAreaId(0);
                 }
 
-                if(isAborted)
-                {
-                    if(self.BookingCities().length > 0)
+                if (isAborted) {
+                    if (self.BookingCities().length > 0)
                         completeAreaOp(self, ko.toJS({ "status": 200 }));
                     else completeAreaOp(self, ko.toJS({ "status": 404 }));
                 }
@@ -450,16 +482,16 @@
         if (self.BookingCities() != null && self.BookingCities().length > 0) {
             $("#citySelection div.selected-city").text("Select City").next().hide();
             $("#popupCityList li.isPopular").last().addClass("border-last-bottom");
-        } else {            
+        } else {
             $("#citySelection div.selected-city").text("No cities Found").next().hide();
             lscache.set(modelCityKey, null, 60);
         }
         stopLoading($("#citySelection"));
         checkCookies();
         if (!$.isEmptyObject(onCookieObj) && onCookieObj.PQCitySelectedId > 0) {
-            MPopupViewModel.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
-            MPopupViewModel.SelectedCityId(onCookieObj.PQCitySelectedId);
-            MPopupViewModel.hasAreas(findCityById(onCookieObj.PQCitySelectedId).hasAreas);
+            self.SelectedCity(ko.toJS({ 'id': onCookieObj.PQCitySelectedId, 'name': onCookieObj.PQCitySelectedName }));
+            self.SelectedCityId(onCookieObj.PQCitySelectedId);
+            self.hasAreas(findCityById(onCookieObj.PQCitySelectedId).hasAreas);
             if (!self.oBrowser()) {
                 $("ul#popupCityList li[cityId='" + onCookieObj.PQCitySelectedId + "']").click();
             }
@@ -468,10 +500,9 @@
             }
 
         }
-    }   
+    }
 
-    function completeAreaOp(self,xhr)
-    {
+    function completeAreaOp(self, xhr) {
         $("#areaSelection div.selected-area").next().hide();
         $("#areaPopupLoader").text("Loading areas..").hide().prev().hide();
         if (xhr.status == 404 || xhr.status == 204) {
@@ -505,8 +536,8 @@
         }
 
 
-    }  
-   
+    }
+
     function findAreaById(id) {
         return ko.utils.arrayFirst(MPopupViewModel.BookingAreas(), function (child) {
             return child.id === id;
@@ -532,8 +563,6 @@
             var _self = $(ele).find(".progress-bar");
             var _selfCompleted = $(ele).find(".progress-bar-completed");
             _self.hide(); _selfCompleted.show().fadeOut(2000);
-            //_self.stop(true, true);
-            //_self.css({ 'width': '0' });
         }
         catch (e) { return };
     }

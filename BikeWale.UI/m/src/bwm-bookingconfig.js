@@ -157,6 +157,10 @@ var BookingConfigViewModel = function () {
         }
     });
 
+    self.IsUserTestimonials = ko.computed(function (data, event) {
+        return (self.Bike().bookingAmount() > 0) ? true : false;
+    });
+
 }
 
 var BikeDetails = function () {
