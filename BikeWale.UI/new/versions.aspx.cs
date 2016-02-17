@@ -476,7 +476,7 @@ namespace Bikewale.New
             string VersionIdStr = Request.QueryString["vid"];
             if (!string.IsNullOrEmpty(VersionIdStr))
             {
-                Int32.TryParse(VersionIdStr, out urlVersionId);
+                Int32.TryParse(VersionIdStr, out variantId);
             }
             Trace.Warn("modelQuerystring 1 : ", modelQuerystring);
             try

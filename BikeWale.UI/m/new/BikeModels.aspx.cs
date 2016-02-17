@@ -337,7 +337,7 @@ namespace Bikewale.Mobile.New
                     string VersionIdStr = Request.QueryString["vid"];
                     if (!string.IsNullOrEmpty(VersionIdStr))
                     {
-                        Int32.TryParse(VersionIdStr, out urlVersionId);
+                        Int32.TryParse(VersionIdStr, out variantId);
                     }
 
                     using (IUnityContainer container = new UnityContainer())
