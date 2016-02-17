@@ -97,8 +97,9 @@
             rel: 'cboxElement'
         });
 
-        $(".sponsored-tag-wrapper").parents().prev(".sept-dashed ").remove();
     });
+
+    $(".sponsored-tag-wrapper").parents().prev(".sept-dashed ").remove();
 </script>
 <style type="text/css">
     #colorbox {
