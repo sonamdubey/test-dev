@@ -112,11 +112,7 @@ namespace Bikewale.Mobile.New
             Trace.Warn("Trace 6 : CheckCityCookie End");
             if (hdnVariant.Value != "0")
                 variantId = Convert.ToInt32(hdnVariant.Value);
-            if (!IsPostBack)
-            {
-                Trace.Warn("Trace 6.1 : urlVersionId set using url");
-                variantId = urlVersionId;
-            }
+
             #endregion
             Trace.Warn("Trace 7 : FetchModelPageDetails Start");
             FetchModelPageDetails();
@@ -128,59 +124,54 @@ namespace Bikewale.Mobile.New
                 FetchOnRoadPrice();
                 Trace.Warn("Trace 10 : FetchOnRoadPrice End");
             }
-            if (!IsPostBack)
+
+            Trace.Warn("Trace 11 : !IsPostBack");
+            #region Do not change the sequence of these functions
+            Trace.Warn("Trace 12 : BindRepeaters Start");
+            BindRepeaters();
+            Trace.Warn("Trace 13 : BindRepeaters End");
+            //BindModelGallery();
+            Trace.Warn("Trace 14 : BindAlternativeBikeControl Start");
+            BindAlternativeBikeControl();
+            Trace.Warn("Trace 15 : BindAlternativeBikeControl End");
+            Trace.Warn("Trace 16 : GetClientIP Start");
+            clientIP = CommonOpn.GetClientIP();
+            Trace.Warn("Trace 17 : GetClientIP End");
+            Trace.Warn("Trace 18 : LoadVariants Start");
+            LoadVariants();
+            Trace.Warn("Trace 19 : LoadVariants End");
+            #endregion
+
+            ////news,videos,revews, user reviews
+            ctrlNews.TotalRecords = 3;
+            ctrlNews.ModelId = Convert.ToInt32(modelId);
+
+            ctrlExpertReviews.TotalRecords = 3;
+            ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
+
+            ctrlVideos.TotalRecords = 3;
+            ctrlVideos.ModelId = Convert.ToInt32(modelId);
+
+            ctrlUserReviews.ReviewCount = 4;
+            ctrlUserReviews.PageNo = 1;
+            ctrlUserReviews.PageSize = 4;
+            ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
+            ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
+
+            ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
+            ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
+            Trace.Warn("Trace 20 : Page Load ends");
+
+            if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
             {
-                Trace.Warn("Trace 11 : !IsPostBack");
-                #region Do not change the sequence of these functions
-                Trace.Warn("Trace 12 : BindRepeaters Start");
-                BindRepeaters();
-                Trace.Warn("Trace 13 : BindRepeaters End");
-                //BindModelGallery();
-                Trace.Warn("Trace 14 : BindAlternativeBikeControl Start");
-                BindAlternativeBikeControl();
-                Trace.Warn("Trace 15 : BindAlternativeBikeControl End");
-                Trace.Warn("Trace 16 : GetClientIP Start");
-                clientIP = CommonOpn.GetClientIP();
-                Trace.Warn("Trace 17 : GetClientIP End");
-                Trace.Warn("Trace 18 : LoadVariants Start");
-                LoadVariants();
-                Trace.Warn("Trace 19 : LoadVariants End");
-                #endregion
-
-                ////news,videos,revews, user reviews
-                ctrlNews.TotalRecords = 3;
-                ctrlNews.ModelId = Convert.ToInt32(modelId);
-
-                ctrlExpertReviews.TotalRecords = 3;
-                ctrlExpertReviews.ModelId = Convert.ToInt32(modelId);
-
-                ctrlVideos.TotalRecords = 3;
-                ctrlVideos.ModelId = Convert.ToInt32(modelId);
-
-                ctrlUserReviews.ReviewCount = 4;
-                ctrlUserReviews.PageNo = 1;
-                ctrlUserReviews.PageSize = 4;
-                ctrlUserReviews.ModelId = Convert.ToInt32(modelId);
-                ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
-
-                ctrlExpertReviews.MakeMaskingName = modelPage.ModelDetails.MakeBase.MaskingName.Trim();
-                ctrlExpertReviews.ModelMaskingName = modelPage.ModelDetails.MaskingName.Trim();
-                Trace.Warn("Trace 20 : Page Load ends");
-
-            }
-            else
-            {
-                if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
-                {
-                    rptVarients.DataSource = modelPage.ModelVersions;
-                    rptVarients.DataBind();
-                }
+                rptVarients.DataSource = modelPage.ModelVersions;
+                rptVarients.DataBind();
             }
             ctrlUsersTestimonials.TopCount = 6;
             ToggleOfferDiv();
-            if (!IsPostBack && urlVersionId != 0)
+            if (variantId != 0)
             {
-                FetchVariantDetails(urlVersionId);
+                FetchVariantDetails(variantId);
             }
             // Clear trailing query string -- added on 09-feb-2016 by Sangram
             PropertyInfo isreadonly = typeof(System.Collections.Specialized.NameValueCollection).GetProperty("IsReadOnly", BindingFlags.Instance | BindingFlags.NonPublic);
@@ -346,7 +337,7 @@ namespace Bikewale.Mobile.New
                     string VersionIdStr = Request.QueryString["vid"];
                     if (!string.IsNullOrEmpty(VersionIdStr))
                     {
-                        Int32.TryParse(VersionIdStr, out urlVersionId);
+                        Int32.TryParse(VersionIdStr, out variantId);
                     }
 
                     using (IUnityContainer container = new UnityContainer())
@@ -493,10 +484,10 @@ namespace Bikewale.Mobile.New
                                 if (firstVer != null)
                                     defaultVariant.Text = firstVer.VersionName;
 
-                                if (urlVersionId == 0)
+                                if (variantId == 0)
                                     hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
                                 else
-                                    hdnVariant.Value = Convert.ToString(urlVersionId);
+                                    hdnVariant.Value = Convert.ToString(variantId);
                             }
                             else if (modelPage.ModelVersions.Count > 1)
                             {
@@ -557,7 +548,7 @@ namespace Bikewale.Mobile.New
                                     variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                 }
                                 // Check it versionId passed through url exists in current model's versions
-                                else if (!IsPostBack && !modelPage.ModelVersions.Exists(p => p.VersionId == urlVersionId))
+                                else if (!modelPage.ModelVersions.Exists(p => p.VersionId == variantId))
                                 {
                                     variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                 }

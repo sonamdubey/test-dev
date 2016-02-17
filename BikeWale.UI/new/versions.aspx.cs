@@ -208,11 +208,11 @@ namespace Bikewale.New
             //if (!string.IsNullOrEmpty(ddlVariant.SelectedValue) && ddlVariant.SelectedValue != "0")
             if (hdnVariant.Value != "0")
                 variantId = Convert.ToInt32(hdnVariant.Value);
-            if (!IsPostBack)
-            {
-                Trace.Warn("Trace 6.1 : urlVersionId set using url");
-                variantId = urlVersionId;
-            }
+            //if (!IsPostBack)
+            //{hdnVariant
+            //    Trace.Warn("Trace 6.1 : urlVersionId set using url");
+            //    variantId = urlVersionId;
+            //}
             #endregion
 
             Trace.Warn("Trace 7 : FetchModelPageDetails Start");
@@ -225,29 +225,32 @@ namespace Bikewale.New
                 FetchOnRoadPrice();
                 Trace.Warn("Trace 10 : FetchOnRoadPrice End");
             }
-            if (!IsPostBack)
-            {
-                Trace.Warn("Trace 11 : !IsPostBack");
-                #region Do not change the sequence
-                Trace.Warn("Trace 12 : BindPhotoRepeater Start");
-                BindPhotoRepeater();
-                Trace.Warn("Trace 13 : BindPhotoRepeater End");
-                Trace.Warn("Trace 14 : GetClientIP Start");
-                clientIP = CommonOpn.GetClientIP();
-                Trace.Warn("Trace 15 : GetClientIP End");
-                Trace.Warn("Trace 16 : LoadVariants Start");
-                LoadVariants();
-                Trace.Warn("Trace 17 : LoadVariants End");
-                #endregion
-            }
-            else
-            {
-                if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
-                {
-                    rptVarients.DataSource = modelPage.ModelVersions;
-                    rptVarients.DataBind();
-                }
-            }
+            BindPhotoRepeater();
+            clientIP = CommonOpn.GetClientIP();
+            LoadVariants();
+            //if (!IsPostBack)
+            //{
+            //    Trace.Warn("Trace 11 : !IsPostBack");
+            //    #region Do not change the sequence
+            //    Trace.Warn("Trace 12 : BindPhotoRepeater Start");
+            //    BindPhotoRepeater();
+            //    Trace.Warn("Trace 13 : BindPhotoRepeater End");
+            //    Trace.Warn("Trace 14 : GetClientIP Start");
+            //    clientIP = CommonOpn.GetClientIP();
+            //    Trace.Warn("Trace 15 : GetClientIP End");
+            //    Trace.Warn("Trace 16 : LoadVariants Start");
+            //    LoadVariants();
+            //    Trace.Warn("Trace 17 : LoadVariants End");
+            //    #endregion
+            //}
+            //else
+            //{
+            //    if (modelPage.ModelVersions != null && modelPage.ModelVersions.Count > 0)
+            //    {
+            //        rptVarients.DataSource = modelPage.ModelVersions;
+            //        rptVarients.DataBind();
+            //    }
+            //}
             ctrlUsersTestimonials.TopCount = 6;
             Trace.Warn("Trace 18 : BindAlternativeBikeControl Start");
             BindAlternativeBikeControl();
@@ -273,9 +276,9 @@ namespace Bikewale.New
             ctrlUserReviews.Filter = Entities.UserReviews.FilterBy.MostRecent;
 
             ToggleOfferDiv();
-            if (!IsPostBack && urlVersionId != 0)
+            if (variantId != 0)
             {
-                FetchVariantDetails(urlVersionId);
+                FetchVariantDetails(variantId);
             }
             Trace.Warn("Trace 20 : Page Load ends");
             // Clear trailing query string -- added on 09-feb-2016 by Sangram
@@ -295,7 +298,7 @@ namespace Bikewale.New
         public void ddlVariant_SelectedIndexChanged(object sender, EventArgs e)
         {
             variantId = Convert.ToInt32(ddlVariant.SelectedValue);
-            FetchVariantDetails(variantId);
+            FetchVariantDetails(variantId);            
         }
 
         /// <summary>
@@ -315,6 +318,7 @@ namespace Bikewale.New
                         Label currentTextBox = (Label)e.Item.FindControl("txtComment");
                         HiddenField hdn = (HiddenField)e.Item.FindControl("hdnVariant");
                         Label lblExOn = (Label)e.Item.FindControl("lblExOn");
+                        
                         var totalDiscount = totalDiscountedPrice;
                         //if ((isCitySelected && !isAreaAvailable))
                         if (isOnRoadPrice)
@@ -383,10 +387,10 @@ namespace Bikewale.New
                                 if (firstVer != null)
                                     defaultVariant.Text = firstVer.VersionName;
 
-                                if (urlVersionId == 0)
+                                if (variantId == 0)
                                     hdnVariant.Value = Convert.ToString(modelPage.ModelVersionSpecs.BikeVersionId);
                                 else
-                                    hdnVariant.Value = Convert.ToString(urlVersionId);
+                                    hdnVariant.Value = Convert.ToString(variantId);
                             }
                             else if (modelPage.ModelVersions.Count > 1)
                             {
@@ -395,7 +399,7 @@ namespace Bikewale.New
                                     defaultVariant.Text = firstVer.VersionName;
                             }
                             rptVariants.DataSource = modelPage.ModelVersions;
-                            rptVariants.DataBind();
+                            rptVariants.DataBind();                            
                         }
                         else if (modelPage.ModelVersions.Count == 1)
                         {
@@ -472,7 +476,7 @@ namespace Bikewale.New
             string VersionIdStr = Request.QueryString["vid"];
             if (!string.IsNullOrEmpty(VersionIdStr))
             {
-                Int32.TryParse(VersionIdStr, out urlVersionId);
+                Int32.TryParse(VersionIdStr, out variantId);
             }
             Trace.Warn("modelQuerystring 1 : ", modelQuerystring);
             try
@@ -656,7 +660,7 @@ namespace Bikewale.New
                                         variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                     }
                                     // Check it versionId passed through url exists in current model's versions
-                                    else if (!IsPostBack && !modelPage.ModelVersions.Exists(p => p.VersionId == urlVersionId))
+                                    else if (!modelPage.ModelVersions.Exists(p => p.VersionId == variantId))
                                     {
                                         variantId = Convert.ToInt32(modelPage.ModelVersionSpecs.BikeVersionId);
                                     }
