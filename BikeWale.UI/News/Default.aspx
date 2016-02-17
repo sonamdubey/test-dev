@@ -27,6 +27,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("a.cbBox").colorbox({ rel: "nofollow" });
+        $(".sponsored-tag-wrapper").parents().prev(".sept-dashed").remove();
     });
 </script>
 <div class="container_12">
@@ -47,7 +48,7 @@
         <h1 class="black-text">Bike News <span>Latest Indian Bikes News and Views</span></h1>
         <asp:repeater id="rptNews" runat="server">
 				<itemtemplate>
-					<div id='post-<%# Eval("BasicId") %>' class=" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "sponsored-content"  : "" %> margin-bottom15">
+					<div id='post-<%# Eval("BasicId") %>' class=" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "sponsored-content"  : "padding-left10" %> margin-bottom15">
                         <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
 						<div class="anchor-title">
                             <h2 class="font18"><a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html" rel="bookmark" title="Permanent Link to <%# Eval("Title") %>">									    
@@ -77,7 +78,7 @@
                             <div class="clear"></div>
                         </div>
 					</div>
-                    <div class="sept-dashed margin-bottom15"></div>
+                    <div class=" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? ""  : "sept-dashed margin-bottom15" %>"></div>
 				</itemtemplate>
 			</asp:repeater>
         <BikeWale:RepeaterPager ID="linkPager" runat="server" />
