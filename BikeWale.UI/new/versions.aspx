@@ -63,7 +63,7 @@
         }
     </style>
 </head>
-<body class="bg-light-grey"  bgcolor="#FFFFFF" ondragstart="return false" onselectstart="return false">
+<body class="bg-light-grey">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10" id="breadcrumb">
