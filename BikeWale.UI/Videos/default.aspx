@@ -1,9 +1,12 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" %>
+﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" EnableViewState="false" %>
 <%@ Register TagPrefix="BikeWale" TagName="video" Src="/controls/VideoCarousel.ascx" %>
+<%@ Register Src="~/controls/Videos.ascx" TagName="VideosLanding" TagPrefix="BW" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <%   
+    <%  
+        title = "Bike Videos, Expert Video Reviews with Road Test & Bike Comparison - BikeWale";
+        description ="Check latest bike and scooter videos, watch BikeWale expert's take on latest bikes and scooters - features, performance, price, fuel economy, handling and more."; 
         AdId = "1395986297721";
         AdPath = "/1017752/BikeWale_New_";
     %>
@@ -31,35 +34,7 @@
         <section>
             <div id="videoJumbotron" class="container">
                 <div class="grid-12">
-                    <div class="content-box-shadow">
-                        <div class="grid-8">
-                            <a href="" class="main-video-container">
-                                <img class="lazy" data-original="http://imgd7.aeplcdn.com//640x348//bikewaleimg/ec/15246/img/l/TVS-Wego-Front-three-quarter-47823.jpg?20151702124241" alt="" title="" src="" border="0" />
-                                <span>PowerDrift Specials : Rajini's Academy of Competitive Racing [RACR]</span>
-                            </a>
-                        </div>
-                        <div class="grid-4">
-                            <ul>
-                                <li>
-                                    <a href="" class="sidebar-video-image"><img class="lazy" data-original="http://imgd8.aeplcdn.com//144x81//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Front-three-quarter-50320.jpg?20151004170900" alt="" title="" src="" border="0" /></a>
-                                    <a href="" class="sidebar-video-title font14 text-light-grey">Yamaha R125 First ride | PowerDrift</a>
-                                </li>
-                                <li>
-                                    <a href="" class="sidebar-video-image"><img class="lazy" data-original="http://imgd5.aeplcdn.com//144x81//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Seat-50313.jpg?20151004170629" alt="" title="" src="" border="0" /></a>
-                                    <a href="" class="sidebar-video-title font14 text-light-grey">Triumph Daytona 675 R | Review | PowerDrift</a>
-                                </li>
-                                <li>
-                                    <a href="" class="sidebar-video-image"><img class="lazy" data-original="http://imgd6.aeplcdn.com//144x81//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Wheels-tyres-50302.jpg?20151004170427" alt="" title="" src="" border="0" /></a>
-                                    <a href="" class="sidebar-video-title font14 text-light-grey">Yamaha R125 First ride | PowerDriift</a>
-                                </li>
-                                <li>
-                                    <a href="" class="sidebar-video-image"><img class="lazy" data-original="http://imgd7.aeplcdn.com//144x81//bikewaleimg/ec/15504/img/l/Bajaj-Pulsar-RS200-Exterior-50295.jpg?20151004170318" alt="" title="" src="" border="0" /></a>
-                                    <a href="" class="sidebar-video-title font14 text-light-grey">Yamaha R125 First ride | PowerDriift</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
+                    <BW:VideosLanding runat="server" ID="ctrlVideosLanding" />
                 </div>
                 <div class="clear"></div>
             </div>
@@ -381,7 +356,8 @@
             </div>
         </section>
         <script type="text/javascript">
-            $(document).ready(function () { $("img.lazy").lazyload(); });        </script>
+            $(document).ready(function () { $("img.lazy").lazyload(); });
+        </script>
         <!-- #include file="/includes/footerBW.aspx" -->
         <!-- #include file="/includes/footerscript.aspx" -->
     </form>
