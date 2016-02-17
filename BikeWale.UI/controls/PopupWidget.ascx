@@ -24,17 +24,23 @@
         <p class="font20 margin-top15 text-capitalize text-center">Please Tell Us Your Location</p>
         <p class="text-light-grey margin-bottom15 margin-top15 text-capitalize text-center">Get on-road prices by just sharing your location!</p>
         <div class="padding-top10" id="popupContent">
-            <div>
+            <div id="divCityLoader" class="hide margin-top10 form-control-box">
+                <div class="form-control">Loading Cities..</div>
+            </div>  
+            <div data-bind="visible: bookingCities().length > 0">
                 <select data-placeholder="--Select City--" class="chosen-select" id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }"></select>
                 <span class="bwsprite error-icon hide"></span>
-                <div class="bw-blackbg-tooltip hide">Please Select City</div>
-            </div>
-            <div data-bind="visible: bookingAreas().length > 0" style="margin-top: 10px">
-                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--' "></select>
-                <span class="bwsprite error-icon hide"></span>
-                <div class="bw-blackbg-tooltip hide">Please Select Area</div>
-            </div>
-            <input id="btnDealerPricePopup" class="action-btn margin-top15" style="display: block; margin-right: auto; margin-left: auto;" type="button" value="Get on road price" data-bind="event: { click: getPriceQuotePopup }">
+                <div class="bw-blackbg-tooltip hide"></div>
+            </div>            
+            <div id="divAreaLoader" class="hide margin-top10 form-control-box">
+                <div class="form-control">Loading Areas..</div>        
+            </div>           
+            <div data-bind="visible: bookingAreas().length > 0" style="margin-top: 10px">                              
+                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--' "></select>                
+                <span class="bwsprite error-icon hide"></span>                
+                <div class="bw-blackbg-tooltip hide"></div>
+            </div>            
+            <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Get on road price" data-bind="click: getPriceQuotePopup, visible: (!hasAreas() && bookingCities().length > 0) || (hasAreas && selectedArea)">
             <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
         </div>
     </div>
@@ -70,60 +76,67 @@
         });
     }
 
+
     function FillCitiesPopup(modelId, makeName, modelName, pageIdAttr, pqSourceId) {        
         PQSourceId = pqSourceId;
-        $.ajax({
-            type: "GET",
-            url: "/api/PQCityList/?modelId=" + modelId,
-            success: function (response) {
-                selectedModel = modelId;
-                pageId = pageIdAttr;
-                if (makeName != undefined && makeName != '')
-                    selectedMakeName = makeName;
+        if (viewModelPopup.bookingCities().length < 1) {
+            $.ajax({
+                type: "GET",
+                url: "/api/PQCityList/?modelId=" + modelId,
+                beforeSend: function () {
+                    $("#divCityLoader").removeClass("hide");
+                },
+                success: function (response) {
+                    $("#divCityLoader").addClass("hide");
+                    selectedModel = modelId;
+                    pageId = pageIdAttr;
+                    if (makeName != undefined && makeName != '')
+                        selectedMakeName = makeName;
 
-                if (modelName != undefined && modelName != '')
-                    selectedModelName = modelName;
+                    if (modelName != undefined && modelName != '')
+                        selectedModelName = modelName;
 
-                var cities = response.cities;
-                var citySelected = null;
-                if (cities) {
-                    insertCitySeparator(cities);
-                    checkCookies();
-                    viewModelPopup.bookingCities(cities);
-                    if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
-                        viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
-                        viewModelPopup.hasAreas(findCityById(viewModelPopup, onCookieObj.PQCitySelectedId).hasAreas);
-                    }
-                    popupcity.find("option[value='0']").prop('disabled', true);
-                    popupcity.trigger('chosen:updated');
-                    cityChangedPopup();
-                }
-                else {
-                    viewModelPopup.bookingCities([]);
-                    $('#ddlCitiesPopup').trigger("chosen:updated");
-                }
-            },
-            complete: function () {
-                ev = $._data($('ul.chosen-results')[0], 'events');
-                if (!(ev && ev.click)) {
-
-                    $($('ul.chosen-results')[0]).on('click', 'li', function (e) {
-                        if (cityClicked == false) {
-                            if (ga_pg_id != null && ga_pg_id == 2) {
-                                var bkVersionLocn = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html();
-                                if (viewModelPopup.hasAreas()) {
-                                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected_Has_Area', 'lab': getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() });
-                                }
-                                else {
-                                    dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected_Doesnt_Have_Area', 'lab': bkVersionLocn });
-                                }
-                                cityClicked = true;
-                            }
+                    var cities = response.cities;
+                    var citySelected = null;
+                    if (cities) {
+                        insertCitySeparator(cities);
+                        checkCookies();
+                        viewModelPopup.bookingCities(cities);
+                        if (!isNaN(onCookieObj.PQCitySelectedId) && onCookieObj.PQCitySelectedId > 0 && viewModelPopup.bookingCities() && selectElementFromArray(viewModelPopup.bookingCities(), onCookieObj.PQCitySelectedId)) {
+                            viewModelPopup.selectedCity(onCookieObj.PQCitySelectedId);
+                            viewModelPopup.hasAreas(findCityById(viewModelPopup, onCookieObj.PQCitySelectedId).hasAreas);
                         }
-                    });
+                        popupcity.find("option[value='0']").prop('disabled', true);
+                        popupcity.trigger('chosen:updated');
+                        cityChangedPopup();
+                    }
+                    else {
+                        viewModelPopup.bookingCities([]);
+                        $('#ddlCitiesPopup').trigger("chosen:updated");
+                    }
+                },
+                complete: function () {
+                    ev = $._data($('ul.chosen-results')[0], 'events');
+                    if (!(ev && ev.click)) {
+
+                        $($('ul.chosen-results')[0]).on('click', 'li', function (e) {
+                            if (cityClicked == false) {
+                                if (ga_pg_id != null && ga_pg_id == 2) {
+                                    var bkVersionLocn = myBikeName + '_' + getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html();
+                                    if (viewModelPopup.hasAreas()) {
+                                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected_Has_Area', 'lab': getBikeVersion() + '_' + $('#ddlCitiesPopup option:selected').html() });
+                                    }
+                                    else {
+                                        dataLayer.push({ 'event': 'Bikewale_all', 'cat': 'Model_Page', 'act': 'City_Selected_Doesnt_Have_Area', 'lab': bkVersionLocn });
+                                    }
+                                    cityClicked = true;
+                                }
+                            }
+                        });
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     function cityChangedPopup() {
@@ -134,6 +147,9 @@
                     type: "GET",
                     url: "/api/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelPopup.selectedCity(),
                     dataType: 'json',
+                    beforeSend: function () {                    
+                        $("#divAreaLoader").removeClass("hide");
+                    },
                     success: function (response) {
                         areas = response.areas;
                         if (areas.length) {
@@ -142,21 +158,22 @@
                                 viewModelPopup.selectedArea(onCookieObj.PQAreaSelectedId);
                                 onCookieObj.PQAreaSelectedId = 0;
                             }
-                            $('#ddlAreaPopup').trigger("chosen:updated");
-                            
+                            $('#ddlAreaPopup').trigger("chosen:updated");                            
                         }
                         else {
                             viewModelPopup.selectedArea(0);
                             viewModelPopup.bookingAreas([]);
-                            $('#ddlAreaPopup').trigger("chosen:updated");
+                            $('#ddlAreaPopup').trigger("chosen:updated");                           
                         }
                     },
                     error: function (e) {
                         viewModelPopup.selectedArea(0);
                         viewModelPopup.bookingAreas([]);
                         $('#ddlAreaPopup').trigger("chosen:updated");
+                        $("#divAreaLoader").addClass("hide");
                     },
                     complete: function () {
+                        $("#divAreaLoader").addClass("hide");
                         ev = $._data($('ul.chosen-results')[1], 'events');
                         if (!(ev && ev.click)) {
                             $($('ul.chosen-results')[1]).on('click', 'li', function (e) {

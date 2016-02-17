@@ -63,7 +63,7 @@
         }
     </style>
 </head>
-<body class="bg-light-grey">
+<body class="bg-light-grey"  bgcolor="#FFFFFF" ondragstart="return false" onselectstart="return false">
     <form runat="server">
         <!-- #include file="/includes/headBW.aspx" -->
         <section class="bg-light-grey padding-top10" id="breadcrumb">
@@ -681,47 +681,24 @@
                             <input type="text" class="form-control get-first-name" placeholder="Full name (mandatory)"
                                 id="getFullName" data-bind="value: fullName">
                             <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText">Please enter your first name</div>
+                            <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="form-control-box personal-info-list">
                             <input type="text" class="form-control get-email-id" placeholder="Email address (mandatory)"
                                 id="getEmailID" data-bind="value: emailId">
                             <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText">Please enter email address</div>
+                            <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="form-control-box personal-info-list">
                             <p class="mobile-prefix">+91</p>
                             <input type="text" class="form-control padding-left40 get-mobile-no" placeholder="Mobile no. (mandatory)"
                                 id="getMobile" maxlength="10" data-bind="value: mobileNo">
                             <span class="bwsprite error-icon errorIcon"></span>
-                            <div class="bw-blackbg-tooltip errorText">Please enter mobile number</div>
+                            <div class="bw-blackbg-tooltip errorText"></div>
                         </div>
                         <div class="clear"></div>
                         <a class="btn btn-orange margin-top10" id="user-details-submit-btn" data-bind="event: { click: submitLead }">Submit</a>
-                    </div>
-                    <!--
-					<div class="mobile-verification-container hide">
-						<div class="input-border-bottom"></div>
-						<div class="margin-top20">
-							<p class="font14 confirm-otp-text leftfloat">Please confirm your contact details and enter the OTP for mobile verfication</p>
-							<div class="form-control-box">
-								<input type="text" class="form-control get-otp-code rightfloat" maxlength="5" placeholder="Enter OTP" id="getOTP" data-bind="value: otpCode">
-								<span class="bwsprite error-icon errorIcon hide"></span>
-								<div class="bw-blackbg-tooltip errorText hide"></div>
-							</div>
-
-							<div class="clear"></div>
-						</div>
-						<a class="margin-left10 blue rightfloat resend-otp-btn margin-top10" id="resendCwiCode" data-bind="visible: (NoOfAttempts() < 2), click: function () { regenerateOTP() }">Resend OTP</a>
-						<p class="otp-alert-text margin-left10 rightfloat otp-notify-text text-light-grey font12 margin-top10" data-bind="visible: (NoOfAttempts() >= 2)">
-							OTP has been already sent to your mobile
-						</p>
-						<div class="clear"></div>
-						<br />
-						<a class="btn btn-orange" id="otp-submit-btn">Confirm OTP</a>
-						<div style="margin-right: 70px;" id="processing" class="hide"><b>Processing Please wait...</b></div>
-					</div>
-					-->
+                    </div>                   
                 </div>
                 <!-- contact details ends here -->
                 <!-- thank you message starts here -->
