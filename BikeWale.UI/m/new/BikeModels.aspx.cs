@@ -437,11 +437,13 @@ namespace Bikewale.Mobile.New
                             isCitySelected = true;
                         }
                     }
+
+                    objAreaList = GetAreaForCityAndModel();
+
                     if (locArray.Length > 3 && cityId != 0)
                     {
                         //areaId = Convert.ToInt16(locArray[2]);
                         Int32.TryParse(locArray[2], out areaId);
-                        objAreaList = GetAreaForCityAndModel();
                         if (objAreaList != null)
                         {
                             //isAreaAvailable = true;

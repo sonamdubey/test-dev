@@ -593,11 +593,13 @@ namespace Bikewale.New
                         //    //isAreaAvailable = true;
                         //}
                     }
+
+                    objAreaList = GetAreaForCityAndModel();
+
                     if (locArray.Length > 3 && cityId != 0)
                     {
                         //areaId = Convert.ToInt32(locArray[2]);
                         Int32.TryParse(locArray[2], out areaId);
-                        objAreaList = GetAreaForCityAndModel();
                         if (objAreaList != null)
                         {
                             if (!objAreaList.Any(p => p.AreaId == areaId))

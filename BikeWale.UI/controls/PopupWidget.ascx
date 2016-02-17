@@ -40,7 +40,7 @@
                 <span class="bwsprite error-icon hide"></span>                
                 <div class="bw-blackbg-tooltip hide"></div>
             </div>            
-            <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Get on road price" data-bind="click: getPriceQuotePopup, visible: (!hasAreas() && selectedCity) || (hasAreas && selectedArea)">
+            <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Get on road price" data-bind="click: getPriceQuotePopup, enable: (!hasAreas() && selectedCity) || (hasAreas && selectedArea)">
             <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
         </div>
     </div>
