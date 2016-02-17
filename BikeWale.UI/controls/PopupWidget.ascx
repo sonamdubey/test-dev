@@ -40,7 +40,7 @@
                 <span class="bwsprite error-icon hide"></span>                
                 <div class="bw-blackbg-tooltip hide"></div>
             </div>            
-            <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Get on road price" data-bind="click: getPriceQuotePopup, enable: (!hasAreas() && selectedCity) || (hasAreas && selectedArea)">
+            <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Get on road price" data-bind="click: getPriceQuotePopup, enable: (!hasAreas() && selectedCity) || (hasAreas && bookingAreas().length > 0)">
             <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
         </div>
     </div>
@@ -147,7 +147,8 @@
                     type: "GET",
                     url: "/api/v2/PQAreaList/?modelId=" + selectedModel + "&cityId=" + viewModelPopup.selectedCity(),
                     dataType: 'json',
-                    beforeSend: function () {                    
+                    beforeSend: function () {
+                        viewModelPopup.bookingAreas(0);
                         $("#divAreaLoader").removeClass("hide");
                     },
                     success: function (response) {
