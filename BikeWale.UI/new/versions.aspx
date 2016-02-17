@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" Trace="false" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" CodeBehind="versions.aspx.cs" Inherits="Bikewale.New.bikeModel" EnableViewState="false" Trace="false" %>
 
 <%@ Register Src="~/controls/AlternativeBikes.ascx" TagName="AlternativeBikes" TagPrefix="BW" %>
 <%@ Register Src="~/controls/News_new.ascx" TagName="News" TagPrefix="BW" %>
@@ -215,7 +215,8 @@
                                                 <asp:Repeater ID="rptVariants" runat="server">
                                                     <ItemTemplate>
                                                         <li>
-                                                            <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>' OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button></li>
+                                                            <asp:Button Style="width: 100%; text-align: left" ID="btnVariant" ToolTip='<%#Eval("VersionId") %>'  OnCommand="btnVariant_Command" versionid='<%#Eval("VersionId") %>' CommandName='<%#Eval("VersionId") %>' CommandArgument='<%#Eval("VersionName") %>' runat="server" Text='<%#Eval("VersionName") %>'></asp:Button>                                                            
+                                                        </li>
                                                         <asp:HiddenField ID="hdn" Value='<%#Eval("VersionId") %>' runat="server" />
                                                     </ItemTemplate>
                                                 </asp:Repeater>
@@ -497,7 +498,7 @@
                                 <%else { %>
                                 <a href="/pricequote/bookingsummary_new.aspx?MPQ=<%= mpqQueryString %>" class="btn btn-grey leftfloat" id="bookNowBtn">Book now </a>
                                 <%} %>
-                                  <%} %>
+                                <%} %>
                             </div>
                             <div class="clear"></div>
                             <% if (isBookingAvailable && !isOfferAvailable) {%>
@@ -949,11 +950,21 @@
                             <div class="leftfloat bw-horz-tabs bw-model-specs">
                                 <div class="bw-tabs">
                                     <ul>
-                                        <li class="active" data-tabs="summary"><span class="model-sprite bw-summary-ico"></span><h3>Summary</h3></li>
-                                        <li data-tabs="engineTransmission"><span class="model-sprite bw-engine-ico"></span><h3>Engine & Transmission</h3></li>
-                                        <li data-tabs="brakeWheels"><span class="model-sprite bw-brakeswheels-ico"></span><h3>Brakes, Wheels and Suspension</h3></li>
-                                        <li data-tabs="dimensions"><span class="model-sprite bw-dimensions-ico"></span><h3>Dimensions and Chassis</h3></li>
-                                        <li data-tabs="fuelEffiency"><span class="model-sprite bw-performance-ico"></span><h3>Fuel efficiency and Performance</h3></li>
+                                        <li class="active" data-tabs="summary"><span class="model-sprite bw-summary-ico"></span>
+                                            <h3>Summary</h3>
+                                        </li>
+                                        <li data-tabs="engineTransmission"><span class="model-sprite bw-engine-ico"></span>
+                                            <h3>Engine & Transmission</h3>
+                                        </li>
+                                        <li data-tabs="brakeWheels"><span class="model-sprite bw-brakeswheels-ico"></span>
+                                            <h3>Brakes, Wheels and Suspension</h3>
+                                        </li>
+                                        <li data-tabs="dimensions"><span class="model-sprite bw-dimensions-ico"></span>
+                                            <h3>Dimensions and Chassis</h3>
+                                        </li>
+                                        <li data-tabs="fuelEffiency"><span class="model-sprite bw-performance-ico"></span>
+                                            <h3>Fuel efficiency and Performance</h3>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -1548,10 +1559,18 @@
                         <div class="text-center <%= reviewTabsCnt > 2 ? string.Empty : ( reviewTabsCnt > 1 ? "margin-top30 margin-bottom30" : "margin-top10") %>">
                             <div class="bw-tabs <%= reviewTabsCnt > 2 ? "bw-tabs-flex" : ( reviewTabsCnt > 1 ? "home-tabs" : "hide") %>" id="reviewCount">
                                 <ul>
-                                    <li class="<%= isUserReviewActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlUserReviews"><h3>User Reviews</h3></li>
-                                    <li class="<%= isExpertReviewActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlExpertReviews"><h3>Expert Reviews</h3></li>
-                                    <li class="<%= isNewsActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlNews"><h3>News</h3></li>
-                                    <li class="<%= isVideoActive ? "active" : String.Empty  %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlVideos"><h3>Videos</h3></li>
+                                    <li class="<%= isUserReviewActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlUserReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlUserReviews">
+                                        <h3>User Reviews</h3>
+                                    </li>
+                                    <li class="<%= isExpertReviewActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlExpertReviews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlExpertReviews">
+                                        <h3>Expert Reviews</h3>
+                                    </li>
+                                    <li class="<%= isNewsActive ? "active" : String.Empty %>" style="<%= (Convert.ToInt32(ctrlNews.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlNews">
+                                        <h3>News</h3>
+                                    </li>
+                                    <li class="<%= isVideoActive ? "active" : String.Empty  %>" style="<%= (Convert.ToInt32(ctrlVideos.FetchedRecordsCount) > 0) ? string.Empty: "display:none;" %>" data-tabs="ctrlVideos">
+                                        <h3>Videos</h3>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -1660,7 +1679,7 @@
         <!-- #include file="/includes/footerscript.aspx" -->
         <script type="text/javascript" src="<%= staticUrl != string.Empty ? "http://st2.aeplcdn.com" + staticUrl : string.Empty %>/src/model.js?<%= staticFileVersion %>">"></script>
         <%--<link href="<%= staticUrl != "" ? "http://st2.aeplcdn.com" + staticUrl : "" %>/css/brand.css?<%= staticFileVersion %>" rel="stylesheet" type="text/css">--%>
-       
+
         <script type="text/javascript">
            
             // Cache selectors outside callback for performance.
@@ -1729,7 +1748,6 @@
             if (bikeVersion == '') {
                 bikeVersion = getBikeVersion();
             }
-
         </script>
     </form>
 </body>
