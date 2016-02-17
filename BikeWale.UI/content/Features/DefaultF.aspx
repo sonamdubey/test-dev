@@ -22,6 +22,7 @@
     #content .sponsored-content { border:1px solid #4d5057; padding:10px; }
     .sponsored-tag-wrapper { width: 130px;height: 28px;background: #4d5057; color: #fff; font-size: 14px; line-height: 28px; padding: 0 20px; top:-10px; left:-10px; }
     .sponsored-left-tag {width: 0;height: 0;border-top: 13px solid transparent;border-bottom: 15px solid transparent;border-right: 10px solid #fff;position: relative;top: -6px;left: 30px;font-size: 0;line-height: 0;z-index: 1; }
+    .sept-dashed { margin:10px 0 15px; }
 </style>
 <!-- #include file="/includes/headNew.aspx" -->
 <div class="container_12">
@@ -37,33 +38,33 @@
     <div id="content" class="grid_8 margin-top10">
         <h1>Features &nbsp;&nbsp;&nbsp;</h1>
         <asp:repeater id="rptFeatures" runat="server">
-					<itemtemplate>
-                        <div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class=" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "sponsored-content"  : "post-content" %>  margin-bottom15">
-						    <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>                            
-                            <div class="anchor-title">
-							    <a href="/features/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>/" rel="bookmark" title="Permanent Link to <%# DataBinder.Eval(Container.DataItem,"Title") %>">
-								    <%# DataBinder.Eval(Container.DataItem,"Title") %>
-							    </a>
-						    </div>	
-                            <div class="grid_5 alpha">
-							    <abbr><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy") %></abbr> by 
-							    <%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
-						    </div><div class="clear"></div>
-                            <div class="margin-top10">
-							    <%--<%# DataBinder.Eval(Container.DataItem,"SmallPicUrl").ToString() != "" ? "<a class='cbBox' href='" + "http://" + DataBinder.Eval(Container.DataItem, "HostURL").ToString() + DataBinder.Eval(Container.DataItem,"LargePicUrl") + "'><img class='alignright size-thumbnail img-border-news' src='" + "http://" + DataBinder.Eval(Container.DataItem, "HostURL").ToString() + DataBinder.Eval(Container.DataItem,"SmallPicUrl") +"' align='right' border='0' /></a>" : "" %>--%>
-                                <%# DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString() != "" ? "<a class='cbBox cboxElement' href='" + Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval( Container.DataItem, "OriginalImgUrl" ).ToString(),DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() ,Bikewale.Utility.ImageSize._210x118) + "'><img class='alignright size-thumbnail img-border-news' src='" + Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval( Container.DataItem, "OriginalImgUrl" ).ToString(),DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() ,Bikewale.Utility.ImageSize._144x81) +"' align='right' border='0' /></a>" : "" %>
-							    <%# DataBinder.Eval(Container.DataItem,"Description") %>							
-						    </div><div class="clear"></div>
-                            <div class="margin-top10 item-footer">
-						        <div class="grid_5 alpha">
-                                    <a href="/features/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>/">Read full article &raquo;</a>
-						        </div>                                
-                                <div class="clear"></div>
-                            </div>                           						
-					    </div>
-                        <div class="sept-dashed margin-bottom15"></div>
-				    </itemtemplate>
-			    </asp:repeater>
+			<itemtemplate>
+                <div id='post-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>' class=" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "sponsored-content"  : "post-content padding-left10" %>  margin-bottom15">
+					<%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>                            
+                    <div class="anchor-title">
+						<a href="/features/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>/" rel="bookmark" title="Permanent Link to <%# DataBinder.Eval(Container.DataItem,"Title") %>">
+							<%# DataBinder.Eval(Container.DataItem,"Title") %>
+						</a>
+					</div>	
+                    <div class="grid_5 alpha">
+						<abbr><%# Bikewale.Utility.FormatDate.GetFormatDate(DataBinder.Eval(Container.DataItem,"DisplayDate").ToString(),"MMMM dd, yyyy") %></abbr> by 
+						<%# DataBinder.Eval(Container.DataItem,"AuthorName") %>
+					</div><div class="clear"></div>
+                    <div class="margin-top10">
+						<%--<%# DataBinder.Eval(Container.DataItem,"SmallPicUrl").ToString() != "" ? "<a class='cbBox' href='" + "http://" + DataBinder.Eval(Container.DataItem, "HostURL").ToString() + DataBinder.Eval(Container.DataItem,"LargePicUrl") + "'><img class='alignright size-thumbnail img-border-news' src='" + "http://" + DataBinder.Eval(Container.DataItem, "HostURL").ToString() + DataBinder.Eval(Container.DataItem,"SmallPicUrl") +"' align='right' border='0' /></a>" : "" %>--%>
+                        <%# DataBinder.Eval(Container.DataItem,"OriginalImgUrl").ToString() != "" ? "<a class='cbBox cboxElement' href='" + Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval( Container.DataItem, "OriginalImgUrl" ).ToString(),DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() ,Bikewale.Utility.ImageSize._210x118) + "'><img class='alignright size-thumbnail img-border-news' src='" + Bikewale.Utility.Image.GetPathToShowImages( DataBinder.Eval( Container.DataItem, "OriginalImgUrl" ).ToString(),DataBinder.Eval( Container.DataItem, "HostURL" ).ToString() ,Bikewale.Utility.ImageSize._144x81) +"' align='right' border='0' /></a>" : "" %>
+						<%# DataBinder.Eval(Container.DataItem,"Description") %>							
+					</div><div class="clear"></div>
+                    <div class="margin-top10 item-footer">
+						<div class="grid_5 alpha">
+                            <a href="/features/<%# DataBinder.Eval(Container.DataItem,"ArticleUrl") %>-<%# DataBinder.Eval(Container.DataItem,"BasicId") %>/">Read full article &raquo;</a>
+						</div>                                
+                        <div class="clear"></div>
+                    </div>  
+				</div>
+                <div class=" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? ""  : "sept-dashed" %>"></div>
+			</itemtemplate>
+		</asp:repeater>
         <BikeWale:RepeaterPager ID="linkPager" runat="server" />
     </div>
     <div class="grid_4">
@@ -95,6 +96,8 @@
         $(".cboxElement").colorbox({
             rel: 'cboxElement'
         });
+
+        $(".sponsored-tag-wrapper").parents().prev(".sept-dashed ").remove();
     });
 </script>
 <style type="text/css">
