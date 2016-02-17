@@ -588,10 +588,10 @@ namespace Bikewale.New
                             cityName = locArray[1];
                             isCitySelected = true;
                         }
-                        if (GetAreaForCityAndModel() != null)
-                        {
-                            //isAreaAvailable = true;
-                        }
+                        //if (GetAreaForCityAndModel() != null)
+                        //{
+                        //    //isAreaAvailable = true;
+                        //}
                     }
                     if (locArray.Length > 3 && cityId != 0)
                     {

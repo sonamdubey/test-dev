@@ -444,7 +444,7 @@ namespace Bikewale.Mobile.New
                         objAreaList = GetAreaForCityAndModel();
                         if (objAreaList != null)
                         {
-                            isAreaAvailable = true;
+                            //isAreaAvailable = true;
                             if (!objAreaList.Any(p => p.AreaId == areaId))
                             {
                                 areaId = 0;
