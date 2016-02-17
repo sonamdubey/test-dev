@@ -1280,7 +1280,8 @@ namespace Bikewale.New
                 }
             }
             // if city and area is not selected OR if city is selected & area is available but not selected
-            if ((!isCitySelected && !isAreaSelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
+            //if ((!isCitySelected && !isAreaSelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
+            if ((!isCitySelected) || (isCitySelected && isAreaAvailable && !isAreaSelected))
             {
                 toShowOnRoadPriceButton = true;
             }
