@@ -22,12 +22,12 @@
     #content .sponsored-content { border:1px solid #4d5057; padding:10px; }
     .sponsored-tag-wrapper { width: 130px;height: 28px;background: #4d5057; color: #fff; font-size: 14px; line-height: 28px; padding: 0 20px; top:-10px; left:-10px; }
     .sponsored-left-tag {width: 0;height: 0;border-top: 13px solid transparent;border-bottom: 15px solid transparent;border-right: 10px solid #fff;position: relative;top: -6px;left: 30px;font-size: 0;line-height: 0;z-index: 1; }
+    .sept-dashed { margin:10px 0 15px; }
 </style>
 <!-- #include file="/includes/headnews.aspx" -->
 <script type="text/javascript">
     $(document).ready(function () {
         $("a.cbBox").colorbox({ rel: "nofollow" });
-        $(".sponsored-tag-wrapper").parents().prev(".sept-dashed").remove();
     });
 </script>
 <div class="container_12">
@@ -48,7 +48,7 @@
         <h1 class="black-text">Bike News <span>Latest Indian Bikes News and Views</span></h1>
         <asp:repeater id="rptNews" runat="server">
 				<itemtemplate>
-					<div id='post-<%# Eval("BasicId") %>' class=" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "sponsored-content"  : "padding-left10" %> margin-bottom15">
+					<div id='post-<%# Eval("BasicId") %>' class=" <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "sponsored-content"  : "post-content padding-left10" %> margin-bottom15">
                         <%# Convert.ToBoolean(DataBinder.Eval(Container.DataItem,"IsFeatured")) ? "<div class=\"sponsored-tag-wrapper position-rel\"><span>Sponsored</span><span class=\"sponsored-left-tag\"></span></div>" : "" %>
 						<div class="anchor-title">
                             <h2 class="font18"><a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html" rel="bookmark" title="Permanent Link to <%# Eval("Title") %>">									    
@@ -66,15 +66,18 @@
                         </ul><div class="clear"></div>
                         <div style="border-top: 1px solid #f0f0f0;"></div>
                         <div class="margin-top10">
-						<div class="grid_5 alpha"><%# Eval("Description") %></div>
+						
               			<%--<div class="grid_3 omega"><%#"<a href='/news/" + Eval("BasicId") + "-" + Eval("ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Common.ImagingFunctions.GetPathToShowImages(Eval("SmallPicUrl").ToString(), Eval("HostUrl").ToString()) + "' align='right' border='0' /></a>" %></div>--%>
-                            <div class="grid_3 omega"><%#"<a href='/news/" + Eval("BasicId") + "-" + Eval("ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Utility.Image.GetPathToShowImages(Eval("OriginalImgUrl").ToString(), Eval("HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) + "' align='right' border='0' /></a>" %></div>
+                            <div class="">
+                                <%#"<a href='/news/" + Eval("BasicId") + "-" + Eval("ArticleUrl") + ".html'><img class='alignright size-thumbnail border-light' style='padding:2px;' src='" + Bikewale.Utility.Image.GetPathToShowImages(Eval("OriginalImgUrl").ToString(), Eval("HostUrl").ToString(),Bikewale.Utility.ImageSize._144x81) + "' align='right' border='0' /></a>" %>
+                            </div>
+                            <div class=""><%# Eval("Description") %></div>
                         </div><div class="clear"></div>
                         <div class="margin-top10">
-						    <div class="grid_7 alpha readmore">
-                                <a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html">Read the rest of this entry &raquo;</a>                            
-						    </div>                            
-						    <div class="grid_1 omega black-text font11"><%# Eval("Views") %> views</div>
+						    <div class="grid-10 alpha readmore">
+                                <a href="/news/<%# Eval("BasicId") %>-<%# Eval("ArticleUrl") %>.html">Read the rest of this entry &raquo;</a>
+						    </div>     
+                            <div class="grid-2 text-right omega black-text font11"><%# Eval("Views") %> views</div>                            
                             <div class="clear"></div>
                         </div>
 					</div>
@@ -102,6 +105,9 @@
 </div>
 <script language="javascript">
     //$("a[rel='slide']").colorbox({ width: "700px", height: "500px" });
+</script>
+<script type="text/javascript">
+    $(".sponsored-tag-wrapper").parents().prev(".sept-dashed").remove();
 </script>
 
 
