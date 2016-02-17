@@ -135,10 +135,10 @@ namespace Bikewale.Forums
             }
             else
             {
-                Response.Redirect("/forums/notauthorized.aspx?returnUrl=" + HttpUtility.UrlEncode(Request.ServerVariables["HTTP_X_REWRITE_URL"]));
+                Response.Redirect("/forums/notauthorized.aspx?returnUrl=" + HttpUtility.UrlEncode(Request.ServerVariables["HTTP_X_ORIGINAL_URL"]));
             }
 
-            //Trace.Warn(HttpUtility.UrlEncode("http://server/users/commonlogin.aspx?returnUrl=" + Request.ServerVariables["HTTP_X_REWRITE_URL"]));
+            //Trace.Warn(HttpUtility.UrlEncode("http://server/users/commonlogin.aspx?returnUrl=" + Request.ServerVariables["HTTP_X_ORIGINAL_URL"]));
 
             //also get the forumId
             if (Request["thread"] != null && Request.QueryString["thread"] != "")

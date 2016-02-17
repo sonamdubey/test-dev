@@ -1079,7 +1079,7 @@ namespace Bikewale.Forums
             }
             else
             {
-                Response.Redirect("/Forums/notauthorized.aspx?returnUrl=" + HttpUtility.UrlEncode(Request.ServerVariables["HTTP_X_REWRITE_URL"]));
+                Response.Redirect("/Forums/notauthorized.aspx?returnUrl=" + HttpUtility.UrlEncode(Request.ServerVariables["HTTP_X_ORIGINAL_URL"]));
             }
 
         }

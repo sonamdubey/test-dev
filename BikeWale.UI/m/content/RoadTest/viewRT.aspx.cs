@@ -73,10 +73,10 @@ namespace Bikewale.Content
                 string basicId = BasicIdMapping.GetCWBasicId(Request["id"]);
                 //Trace.Warn("basicid" + basicId);
                 //if id exists then redirect url to new basic id url
-                //Trace.Warn("news host : " + Request.ServerVariables["HTTP_X_REWRITE_URL"]);
+                //Trace.Warn("news host : " + Request.ServerVariables["HTTP_X_ORIGINAL_URL"]);
                 if (!String.IsNullOrEmpty(basicId))
                 {
-                    string _newUrl = Request.ServerVariables["HTTP_X_REWRITE_URL"];
+                    string _newUrl = Request.ServerVariables["HTTP_X_ORIGINAL_URL"];
                  
                     var _titleStartIndex = _newUrl.LastIndexOf('/') + 1;
                     var _titleEndIndex = _newUrl.LastIndexOf('-');

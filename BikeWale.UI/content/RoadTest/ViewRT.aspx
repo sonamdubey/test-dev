@@ -269,7 +269,7 @@
 
         $('#drpPages,#drpPages_footer').change(function () {
             //alert($(this).attr("id"));
-            var url = '<%= HttpContext.Current.Request.ServerVariables["HTTP_X_REWRITE_URL"] %>';
+            var url = '<%= HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"] %>';
             if (url.indexOf(".html") > 0) {
                 url = url.substring(0, url.indexOf('.html')) + "/p" + $(this).val() + "/";
             } else if (url.indexOf("/p") > 0) {

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.News.Default" Trace="false" EnableViewState="false" Async="true" %>
+﻿<%@ Page Language="C#" AutoEventWireup="false" Inherits="Bikewale.News.Default" Trace="true" EnableViewState="false" Async="true" %>
 
 <%@ Import Namespace="Bikewale.Common" %>
 <%@ Register TagPrefix="RP" TagName="RepeaterPager" Src="/News/RepeaterPagerNews.ascx" %>

@@ -551,11 +551,11 @@
                     var res = jsonString.value;			
                     var resArr = res.toString().split("|");
                     if (resArr[0] == "-1"){
-                        document.cookie = "postThankPath=<%=HttpContext.Current.Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString()%>";
+                        document.cookie = "postThankPath=<%=HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"].ToString()%>";
                         location.href = "/forums/notauthorized.aspx?returnUrl=<%=HttpUtility.UrlEncode("/forums/RedirectToThank.aspx?params=")%>" + postId + ",1";
                     }
                     else if (resArr[1] == "-1"){
-                        document.cookie = "postThankPath=<%=HttpContext.Current.Request.ServerVariables["HTTP_X_REWRITE_URL"].ToString()%>";
+                        document.cookie = "postThankPath=<%=HttpContext.Current.Request.ServerVariables["HTTP_X_ORIGINAL_URL"].ToString()%>";
                         location.href = "/users/EditUserHandle.aspx?returnUrl=<%=HttpUtility.UrlEncode("/forums/RedirectToThank.aspx?params=")%>" + postId + ",0";
                     }
                     else if (resArr[2] == "0"){
