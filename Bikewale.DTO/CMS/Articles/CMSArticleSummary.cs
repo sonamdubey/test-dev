@@ -23,5 +23,6 @@ namespace Bikewale.DTO.CMS.Articles
 
         public string FormattedDisplayDate { get; set; }
         public string ShareUrl { get; set; }
+        public bool IsFeatured { get; set; }
     }
 }

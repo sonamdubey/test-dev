@@ -23,5 +23,6 @@ namespace Bikewale.Entities.CMS.Articles
         public bool IsSticky { get; set; }
         public uint FacebookCommentCount { get; set; }
         public string OriginalImgUrl { get; set; }
+        public bool IsFeatured { get; set; }
     }
 }
