@@ -28,7 +28,7 @@
                 <div class="form-control">Loading Cities..</div>
             </div>  
             <div data-bind="visible: bookingCities().length > 0">
-                <select data-placeholder="--Select City--" class="chosen-select" id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'cityName', optionsValue: 'cityId', optionsCaption: '--Select City--', event: { change: cityChangedPopup }"></select>
+                <select data-placeholder="--Select City--" class="chosen-select" id="ddlCitiesPopup" tabindex="2" data-bind="options: bookingCities, value: selectedCity, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select City--', event: { change: cityChangedPopup }"></select>
                 <span class="bwsprite error-icon hide"></span>
                 <div class="bw-blackbg-tooltip hide"></div>
             </div>            
@@ -36,7 +36,7 @@
                 <div class="form-control">Loading Areas..</div>        
             </div>           
             <div data-bind="visible: bookingAreas().length > 0" style="margin-top: 10px">                              
-                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'areaName', optionsValue: 'areaId', optionsCaption: '--Select Area--' "></select>                
+                <select data-placeholder="--Select Area--" class="chosen-select" id="ddlAreaPopup" data-bind="options: bookingAreas, value: selectedArea, optionsText: 'name', optionsValue: 'id', optionsCaption: '--Select Area--' "></select>                
                 <span class="bwsprite error-icon hide"></span>                
                 <div class="bw-blackbg-tooltip hide"></div>
             </div>            
@@ -82,7 +82,7 @@
         if (viewModelPopup.bookingCities().length < 1) {
             $.ajax({
                 type: "GET",
-            url: "/api/v2/PQCityList/?modelId=" + modelId,
+                url: "/api/v2/PQCityList/?modelId=" + modelId,
                 beforeSend: function () {
                     $("#divCityLoader").removeClass("hide");
                 },
