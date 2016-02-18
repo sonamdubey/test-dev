@@ -40,7 +40,7 @@
                 <span class="bwsprite error-icon hide"></span>                
                 <div class="bw-blackbg-tooltip hide"></div>
             </div>            
-            <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Get on road price" data-bind="click: getPriceQuotePopup, enable: (!hasAreas() && selectedCity) || (hasAreas && bookingAreas().length > 0)">
+            <input id="btnDealerPricePopup" class="action-btn margin-top15 margin-left70" style="display: block;" type="button" value="Get on road price" data-bind="click: getPriceQuotePopup, enable: (!hasAreas() && bookingCities().length > 0) || (hasAreas && bookingAreas().length > 0)">
             <div id="errMsgPopup" class="text-orange margin-top10 hide"></div>
         </div>
     </div>
@@ -220,6 +220,7 @@
     function getPriceQuotePopup() {
         var cityId = viewModelPopup.selectedCity(), areaId = viewModelPopup.selectedArea() ? viewModelPopup.selectedArea() : 0;
         if (isValidInfoPopup()) {
+            $("#errMsgPopup").text("");
             setLocationCookie($('#ddlCitiesPopup option:selected'), $('#ddlAreaPopup option:selected'));
             if (ga_pg_id != null && ga_pg_id == 2 && sourceHref == '1') {
                 try {
