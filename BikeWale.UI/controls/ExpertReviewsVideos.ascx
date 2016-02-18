@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="videosbycategory.ascx.cs" Inherits="Bikewale.controls.videosbycategory" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ExpertReviewsVideos.ascx.cs" Inherits="Bikewale.controls.ExpertReviewVideos" %>
 
 
 <div class="container">

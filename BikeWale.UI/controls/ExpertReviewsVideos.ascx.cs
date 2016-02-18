@@ -3,7 +3,7 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.controls
 {
-    public partial class VideosByCategory : System.Web.UI.UserControl
+    public partial class ExpertReviewVideos : System.Web.UI.UserControl
     {
         protected Repeater rptCategoryVideos;
 
