@@ -1259,6 +1259,10 @@
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Videos\video_old.aspx.cs">
+      <DependentUpon>video_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Videos\video.aspx.cs">
       <DependentUpon>video.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2391,6 +2395,7 @@
     <Content Include="users\registrationConfirmation.aspx" />
     <Content Include="users\ResetCustomerPassword.aspx" />
     <Content Include="Videos\default.aspx" />
+    <Content Include="Videos\video_old.aspx" />
     <Content Include="Videos\video.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="VisitorAgreement.aspx" />
