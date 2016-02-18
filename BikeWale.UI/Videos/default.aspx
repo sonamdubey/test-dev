@@ -1,6 +1,8 @@
-﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" EnableViewState="false" %>
+﻿<%@ Page Language="C#" Inherits="Bikewale.Videos.Default" AutoEventWireup="false" EnableViewState="false" Trace="true" %>
 <%@ Register TagPrefix="BikeWale" TagName="video" Src="/controls/VideoCarousel.ascx" %>
 <%@ Register Src="~/controls/Videos.ascx" TagName="VideosLanding" TagPrefix="BW" %>
+<%@ Register Src="~/controls/ExpertReviewsVideos.ascx" TagName="ExpertReview" TagPrefix="ERV" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -183,50 +185,7 @@
 
         <section class="bg-white">
             <div class="container">
-                <div class="grid-12">
-                    <h2 class="text-bold text-center margin-top40 margin-bottom20 font28">Expert reviews</h2>
-                    <div class="grid-6 padding-left20">
-                        <div class="reviews-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//640x348//bw/ec/21109/Honda-CB-Hornet-160R-Front-threequarter-62325.jpg?wm=2" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="reviews-desc-wrapper">
-                            <a href="" class="text-default font14 text-bold">Bajaj Pulsar RS 200 vs Pulsar 220 DTSI - The New Fastest Indian | PowerDrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <p class="font14 text-light-grey margin-bottom15">The new Avenger's are here! Atleast briefly so! With time not being on our side, this was the time for some Civil war. Watch Varun...</p>
-                            <div class="grid-4 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-8 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                    <div class="grid-6">
-                        <div class="reviews-image-wrapper rounded-corner2">
-                            <a href="">
-                                <img class="lazy" data-original="http://imgd1.aeplcdn.com//640x348//bw/ec/21109/Honda-CB-Hornet-160R-Front-62323.jpg?wm=2" alt="" title="" src="" border="0"/>
-                            </a>
-                        </div>
-                        <div class="reviews-desc-wrapper">
-                            <a href="" class="text-default font14 text-bold">TVS Apache: One Make Racing: PowerDrift</a>
-                            <p class="font12 text-light-grey margin-top10 margin-bottom10">November 25, 2015</p>
-                            <p class="font14 text-light-grey margin-bottom15">The new Avenger's are here! Atleast briefly so! With time not being on our side, this was the time for some Civil war. Watch Varun...</p>
-                            <div class="grid-4 alpha omega border-light-right font14">
-                                <span class="bwsprite video-views-icon margin-right5"></span><span class="text-light-grey margin-right5">Views:</span><span class="text-default">29,800</span>
-                            </div>
-                            <div class="grid-8 omega padding-left20 font14">
-                                <span class="bwsprite video-likes-icon margin-right5"></span><span class="text-light-grey margin-right5">Likes:</span><span class="text-default">2,800</span>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
-                    </div>
-                    <div class="clear"></div>
-                    <a href="" class="font16 text-center padding-top15 more-videos-link">View more videos</a>
-                </div>
-                <div class="clear"></div>
+                <ERV:ExpertReview runat="server" ID="ctrlExpertReview" />
             </div>
         </section>
 

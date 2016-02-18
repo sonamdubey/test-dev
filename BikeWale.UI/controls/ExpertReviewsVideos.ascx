@@ -1,7 +1,5 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="videosbycategory.ascx.cs" Inherits="Bikewale.controls.videosbycategory" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ExpertReviewsVideos.ascx.cs" Inherits="Bikewale.Controls.ExpertReviewVideos" %>
 
-
-<div class="container">
     <asp:Repeater ID="rptCategoryVideos" runat="server">
     <HeaderTemplate>
         <div class="grid-12">
@@ -35,4 +33,3 @@
         <div class="clear"></div>
     </FooterTemplate>
 </asp:Repeater>
-</div>

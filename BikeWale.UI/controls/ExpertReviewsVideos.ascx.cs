@@ -5,14 +5,11 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Controls
 {
-    public class Videos : System.Web.UI.UserControl
+    public class ExpertReviewVideos : System.Web.UI.UserControl
     {
-        protected Repeater rptLandingVideos;
-
-        public uint TotalRecords { get; set; }
-        public int FetchedRecordsCount { get; set; }
+        protected Repeater rptCategoryVideos;
         public EnumVideosCategory CategoryId { get; set; }
-        protected BikeVideoEntity FirstVideoRecord { get; set; }
+        public uint TotalRecords { get; set; }
 
         protected override void OnInit(EventArgs e)
         {
@@ -21,25 +18,23 @@ namespace Bikewale.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindVideos();
+            BindVideosByCategory();
         }
 
-        protected void BindVideos()
+        public void BindVideosByCategory()
         {
             BindVideosLandingControl objVideo = new BindVideosLandingControl();
-            objVideo.TotalRecords = this.TotalRecords;
             objVideo.CategoryId = this.CategoryId;
-            objVideo.BindVideos(rptLandingVideos);
-            this.FirstVideoRecord = objVideo.FirstVideoRecord;
-            this.FetchedRecordsCount = objVideo.FetchedRecordsCount;
-        }
 
+            objVideo.BindVideos(rptCategoryVideos);
+        }
         public override void Dispose()
         {
-            rptLandingVideos.DataSource = null;
-            rptLandingVideos.Dispose();
+            rptCategoryVideos.DataSource = null;
+            rptCategoryVideos.Dispose();
 
             base.Dispose();
         }
+
     }
 }
