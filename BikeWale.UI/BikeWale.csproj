@@ -1263,8 +1263,16 @@
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Videos\video_old.aspx.cs">
+      <DependentUpon>video_old.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Videos\video.aspx.cs">
       <DependentUpon>video.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Videos\VideoCategories_old.aspx.cs">
+      <DependentUpon>VideoCategories_old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Videos\VideoCategories.aspx.cs">
@@ -1735,6 +1743,7 @@
     <Content Include="css\style_carousal.css" />
     <Content Include="css\used-cd.css" />
     <Content Include="css\video.css" />
+    <Content Include="css\videocategory.css" />
     <Content Include="Default_old.aspx" />
     <Content Include="default.aspx" />
     <Content Include="editor\css\content.css" />
@@ -2396,7 +2405,9 @@
     <Content Include="users\registrationConfirmation.aspx" />
     <Content Include="users\ResetCustomerPassword.aspx" />
     <Content Include="Videos\default.aspx" />
+    <Content Include="Videos\video_old.aspx" />
     <Content Include="Videos\video.aspx" />
+    <Content Include="Videos\VideoCategories_old.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
     <Content Include="VisitorAgreement.aspx" />
     <Content Include="wkhtmltopdf\bin\wkhtmltoimage.exe" />
