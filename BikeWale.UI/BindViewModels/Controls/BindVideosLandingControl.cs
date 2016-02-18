@@ -1,6 +1,12 @@
-﻿using Bikewale.Entities.Videos;
+﻿using Bikewale.Cache.Core;
+using Bikewale.Cache.Videos;
+using Bikewale.DAL.Videos;
+using Bikewale.Entities.Videos;
+using Bikewale.Interfaces.Cache.Core;
+using Bikewale.Interfaces.Videos;
 using Bikewale.Notifications;
 using Bikewale.Utility;
+using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -12,11 +18,11 @@ namespace Bikewale.BindViewModels.Controls
 {
     public class BindVideosLandingControl
     {
-        public int TotalRecords { get; set; }
-        public int? MakeId { get; set; }
-        public int? ModelId { get; set; }
+        public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public EnumVideosCategory CategoryId { get; set; }
         public BikeVideoEntity FirstVideoRecord { get; set; }
+
 
         static string _cwHostUrl;
         static string _requestType;
@@ -32,37 +38,34 @@ namespace Bikewale.BindViewModels.Controls
         public void BindVideos(Repeater rptr)
         {
             FetchedRecordsCount = 0;
-            List<BikeVideoEntity> objVideosList = null;
+            IEnumerable<BikeVideoEntity> objVideosList = null;
             uint pageNo = 1;
             try
             {
 
-                string _apiUrl = String.Format("/api/v1/videos/category/{0}/?appId=2&pageNo={1}&pageSize={2}", (int)EnumVideosCategory.FeaturedAndLatest, pageNo, TotalRecords);
-
-                //if (MakeId.HasValue && MakeId.Value > 0 || ModelId.HasValue && ModelId.Value > 0)
-                //{
-                //    if (ModelId.HasValue && ModelId.Value > 0)
-                //        _apiUrl = String.Format("/api/v1/videos/model/{0}/?appId=2&pageNo={1}&pageSize={2}", ModelId.Value, pageNo, TotalRecords);
-                //    else
-                //        _apiUrl = String.Format("/api/v1/videos/make/{0}/?appId=2&pageNo={1}&pageSize={2}", MakeId.Value, pageNo, TotalRecords);
-                //}
-
-                using (BWHttpClient objclient = new BWHttpClient())
+                using (IUnityContainer container = new UnityContainer())
                 {
-                    objVideosList = objclient.GetApiResponseSync<List<BikeVideoEntity>>(APIHost.CW, _requestType, _apiUrl, objVideosList);
-                }
+                    container.RegisterType<IVideosCacheRepository, VideosCacheRepository>()
+                             .RegisterType<IVideos, Bikewale.BAL.Videos.Videos>()
+                             .RegisterType<ICacheManager, MemcacheManager>();
 
-                if (objVideosList != null && objVideosList.Count() > 0)
-                {
-                    FetchedRecordsCount = objVideosList.Count();
+                    var objCache = container.Resolve<IVideosCacheRepository>();
+                    objVideosList = objCache.GetVideosByCategory(CategoryId, TotalRecords);
 
-                    if (FetchedRecordsCount > 0)
+                    if (objVideosList != null && objVideosList.Count() > 0)
                     {
-                        FirstVideoRecord = objVideosList.FirstOrDefault();
-                        rptr.DataSource = objVideosList.Skip(1);
-                        rptr.DataBind();
+                        FetchedRecordsCount = objVideosList.Count();
+
+                        if (FetchedRecordsCount > 0)
+                        {
+                            FirstVideoRecord = objVideosList.FirstOrDefault();
+                            rptr.DataSource = objVideosList.Skip(1);
+                            rptr.DataBind();
+                        }
                     }
+
                 }
+
             }
             catch (Exception ex)
             {

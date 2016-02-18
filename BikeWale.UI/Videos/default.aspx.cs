@@ -23,7 +23,7 @@ namespace Bikewale.Videos
             //device detection
             //DeviceDetection dd = new DeviceDetection();
             //dd.DetectDevice();
-
+            ctrlVideosLanding.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
             ctrlVideosLanding.TotalRecords = 5;
         }
     }

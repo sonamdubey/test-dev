@@ -96,6 +96,7 @@
     <Compile Include="PriceQuote\PriceQuote.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserReviews\UserReviews.cs" />
+    <Compile Include="Videos\Videos.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
