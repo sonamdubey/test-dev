@@ -669,6 +669,10 @@
       <DependentUpon>Videos.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="controls\videosbycategory.ascx.cs">
+      <DependentUpon>videosbycategory.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="controls\VideosControl.ascx.cs">
       <DependentUpon>VideosControl.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1250,10 +1254,6 @@
       <DependentUpon>ResetCustomerPassword.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Videos\default_old.aspx.cs">
-      <DependentUpon>default_old.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="Videos\default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1684,6 +1684,7 @@
     <Content Include="controls\UsersTestimonials.ascx" />
     <Content Include="controls\VideoCarousel.ascx" />
     <Content Include="controls\Videos.ascx" />
+    <Content Include="controls\videosbycategory.ascx" />
     <Content Include="controls\VideosControl.ascx" />
     <Content Include="css\960.css" />
     <Content Include="css\bookingconfig.css" />
@@ -2388,7 +2389,6 @@
     <Content Include="users\Register.aspx" />
     <Content Include="users\registrationConfirmation.aspx" />
     <Content Include="users\ResetCustomerPassword.aspx" />
-    <Content Include="Videos\default_old.aspx" />
     <Content Include="Videos\default.aspx" />
     <Content Include="Videos\video.aspx" />
     <Content Include="Videos\VideoCategories.aspx" />
