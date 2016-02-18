@@ -1,0 +1,34 @@
+﻿.video-jumbotron { width:100%; height:180px; display:table; background:#fff; }
+.video-jumbotron a { margin:0 auto; width:320px; height:180px; display:table-cell; position:relative; background:url('http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif') no-repeat center center; text-align:center; }
+.video-jumbotron img { width:320px; }
+.video-jumbotron span { width:100%; position: absolute; left:0; bottom:0; text-align:left; font-size: 14px; font-weight:bold; color: #fff; padding: 10px; background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(5,0,0,0.7)); }
+.video-jumbotron span:hover { text-decoration:underline; }
+.video-jumbotron-list { padding:20px; overflow:hidden; background:#fff; }
+.bottom-shadow { -webkit-box-shadow:0 2px 2px #ccc; -moz-box-shadow:0 2px 2px #ccc; box-shadow:0 2px 2px #ccc; }
+.powerdrift-banner { background:#222 url('http://img.aeplcdn.com/bikewaleimg/m/images/m-powerdrift-banner.jpg') no-repeat center; height:109px; }
+.powerdrift-banner.container { width:87%; }
+.powerdrift-subscribe { margin-left:5px; margin-right:5px; padding:5px 5px 0; }
+.margin-top3 { margin-top:3px; }
+.text-default { color:#4d5057; }
+.text-xlight-grey { color:#a8afb3; }
+.line-height17 { line-height: 1.7; }
+.video-jumbotron-list li { width:100%; display:table; border-top:1px solid #e2e2e2; margin-top:20px; padding-top:20px; }
+.video-jumbotron-list li:first-child { border-top:none; margin-top:0; padding-top:0; }
+.video-jumbotron-list a { display:table-cell; vertical-align:middle; }
+.video-jumbotron-list .jumbotron-list-image { width:100px; height:55px; background:url('http://img.aeplcdn.com/bikewaleimg/images/circleloader.gif') no-repeat center center; text-align:center; }
+.video-jumbotron-list .jumbotron-list-image img { width:100%; }
+.swiper-slide.video-carousel-content { width:270px; min-height:290px; background:#fff; border:1px solid #e2e2e2; }
+.swiper-slide img { width:100%; }
+.video-carousel-image { width:100%; height:157px; display: table; overflow: hidden; text-align: center; position:relative; }
+.video-carousel-image a { width:100%; display: table-cell; vertical-align: middle; }
+.video-carousel-desc { padding:10px; }
+.video-views-icon { width:17px; height:13px; background-position:-59px -303px; }
+.video-likes-icon { width:15px; height:15px; background-position:-63px -322px; position:relative; top:2px; }
+.border-light-right { border-right:1px solid #e2e2e2; }
+.more-videos-link { display:block; margin-top:15px; margin-bottom:15px; }
+.swiper-slide.reviews-carousel-content { width:240px; min-height:305px; background:#fff; }
+.swiper-slide.reviews-carousel-content .video-carousel-image { height:135px; }
+.reviews-carousel-content img { border: 1px solid #e2e2e2; }
+#expertReviewsWrapper .more-videos-link { margin-bottom:0; padding-bottom:20px; }
+#expertReviewsWrapper .swiper-wrapper { position:relative; left:20px; }
+#expertReviewsWrapper .swiper-slide { margin-right:20px !important; }
