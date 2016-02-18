@@ -8,6 +8,14 @@ var ga_pg_id = '0';
 var pqSourceId = "37";
 var IsPriceQuoteLinkClicked = false;
 
+function triggerGA(cat, act, lab) {
+    try {
+        dataLayer.push({ 'event': 'Bikewale_all', 'cat': cat, 'act': act, 'lab': lab });
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
 
 //fallback for indexOf for IE7
 if (!Array.prototype.indexOf) {

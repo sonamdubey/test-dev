@@ -266,7 +266,7 @@
                         <div id="benefitsOfBookingContainer" class=" grey padding-top10 padding-bottom10 margin-top10 margin-bottom10">
                             <div class="padding-bottom20 border-light-bottom">
                                 <p class="font18 text-bold">Benefits of booking online</p>
-                                <a href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData font14">Available in Mumbai, Pune & Bangalore</a>
+                                <a id="locslug" href="javascript:void(0)" ismodel="true" modelid='<%= modelId %>' class="fillPopupData font14">Available in Mumbai, Pune & Bangalore</a>
                             </div>
                             <ul>
                                 <li>
@@ -473,7 +473,7 @@
                         <% if (bookingAmt > 0 && isDealerAssitance)
                            { %>
                         <div class="grid-5 alpha omega">
-                            <a class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="fa fa-phone margin-right5"></span>Call dealer</a>
+                            <a id="calldealer" class="btn btn-orange btn-full-width btn-sm rightfloat" href="tel:+919167969266"><span class="fa fa-phone margin-right5"></span>Call dealer</a>
                           </div>
                           <%} %>
                         <%} %>
