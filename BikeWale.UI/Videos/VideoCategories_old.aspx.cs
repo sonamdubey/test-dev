@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace Bikewale.Videos
 {
-    public class VideoCategories : System.Web.UI.Page
+    public class VideoCategories_old : System.Web.UI.Page
     {
         protected LinkPagerControl repeaterPager;
 
@@ -26,10 +26,10 @@ namespace Bikewale.Videos
         protected void Page_Load(object sender, EventArgs e)
         {
             // for RepeaterPager
-            //PagerOutputEntity pagerOutput = new PagerOutputEntity();
-            //repeaterPager.PagerOutput = pagerOutput;
-            //repeaterPager.CurrentPageNo = 4;
-            //repeaterPager.TotalPages = 60;
+            PagerOutputEntity pagerOutput = new PagerOutputEntity();
+            repeaterPager.PagerOutput = pagerOutput;
+            repeaterPager.CurrentPageNo = 4;
+            repeaterPager.TotalPages = 60;
         }
     }
 }
