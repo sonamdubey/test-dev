@@ -13,10 +13,9 @@ namespace Bikewale.Controls
     {
         protected Repeater rptLandingVideos;
 
-        public int TotalRecords { get; set; }
-        //public int? MakeId { get; set; }
-        //public int? ModelId { get; set; }
+        public uint TotalRecords { get; set; }
         public int FetchedRecordsCount { get; set; }
+        public EnumVideosCategory CategoryId { get; set; }
         protected BikeVideoEntity FirstVideoRecord { get; set; }
 
         protected override void OnInit(EventArgs e)
@@ -33,9 +32,7 @@ namespace Bikewale.Controls
         {
             BindVideosLandingControl objVideo = new BindVideosLandingControl();
             objVideo.TotalRecords = this.TotalRecords;
-            //objVideo.MakeId = this.MakeId;
-            //objVideo.ModelId = this.ModelId;
-
+            objVideo.CategoryId = this.CategoryId;
             objVideo.BindVideos(rptLandingVideos);
             this.FirstVideoRecord = objVideo.FirstVideoRecord;
             this.FetchedRecordsCount = objVideo.FetchedRecordsCount;

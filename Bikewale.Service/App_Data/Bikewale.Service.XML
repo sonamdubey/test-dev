@@ -499,6 +499,46 @@
             Description :   Automapper config for AppVersion Entity to DTO
             </summary>
         </member>
+        <member name="T:Bikewale.Service.AutoMappers.Bikebooking.BikeBookingListingEntityMapper">
+            <summary>
+            Created by  :   Sumit Kate on 05 Feb 2016
+            Description :   BikeBookingListingEntity Mapper
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Bikebooking.BikeBookingListingEntityMapper.Convert(System.Collections.Generic.IEnumerable{Bikewale.Entities.BikeBooking.BikeBookingListingEntity})">
+            <summary>
+            Created by  :   Sumit Kate on 05 Feb 2016
+            Description :   Converts Entity to DTO
+            </summary>
+            <param name="lstEntity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.AutoMappers.Bikebooking.BookingListingFilterDTOMapper">
+            <summary>
+            Created by  :   Sumit Kate on 05 Feb 2016
+            Description :   BookingListingFilterDTO Mapper
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Bikebooking.BookingListingFilterDTOMapper.Convert(Bikewale.DTO.BikeBooking.BookingListingFilterDTO)">
+            <summary>
+            Created by  :   Sumit Kate on 05 Feb 2016
+            Description :   Converts DTO to entity
+            </summary>
+            <param name="filter"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.AutoMappers.Bikebooking.PageUrlEntityMapper">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Bikebooking.PageUrlEntityMapper.Convert(Bikewale.Entities.BikeBooking.PagingUrl)">
+            <summary>
+            
+            </summary>
+            <param name="PageUrlEntity"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.AutoMappers.Compare.BikeCompareEntityMapper">
             <summary>
             Created By  :   Sumit Kate on 22 Jan 2016
@@ -591,6 +631,28 @@
             Gets the list of Areas of a City
             </summary>
             <param name="cityId">City Id</param>
+            <returns></returns>
+        </member>
+        <member name="T:Bikewale.Service.Controllers.BikeBooking.BikeBookingListingController">
+            <summary>
+            Created by  :   Sumit Kate on 05 Feb 2016
+            Description :   BikeBookingListing Controller
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BikeBookingListingController.#ctor(Bikewale.Interfaces.BikeBooking.IBookingListing)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="objBookingListing"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.BikeBooking.BikeBookingListingController.Get(Bikewale.DTO.BikeBooking.BookingListingFilterDTO,System.Int32,System.Int32)">
+            <summary>
+            Created by  :   Sumit Kate on 05 Feb 2016
+            Description :
+            </summary>
+            <param name="filter">Booking filters</param>
+            <param name="cityId">City Id</param>
+            <param name="areaId">Area Id</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.BikeBooking.BikeBookingPageController">
@@ -951,6 +1013,25 @@
             <param name="clientId"></param>
             <returns>List of dealers of paticular make in city</returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.Dealer.OffersController">
+            <summary>
+            Crated by Sangram N. on 03-Feb-2015
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Dealer.OffersController.#ctor(Bikewale.Interfaces.Dealer.IOffer)">
+            <summary>
+            constructor 
+            </summary>
+            <param name="Offer">Object</param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Dealer.OffersController.Get(System.UInt32,System.UInt32)">
+            <summary>
+            Fetch offers based on DealerId and ModelId
+            </summary>
+            <param name="dealerId"></param>
+            <param name="modelId"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.Dealer.TermsController">
             <summary>
             summary
@@ -1021,7 +1102,7 @@
             <param name="objIPQ"></param>
             <param name="dealer"></param>
         </member>
-        <member name="M:Bikewale.Service.Controllers.LeadsGeneration.ManufacturerLeadController.Get(System.UInt32,System.UInt32,System.String,System.String,System.String,System.String,System.Nullable{System.UInt16},System.Nullable{System.UInt16},System.String)">
+        <member name="M:Bikewale.Service.Controllers.LeadsGeneration.ManufacturerLeadController.Post(Bikewale.Entities.Dealer.ManufacturerLeadEntity)">
             <summary>
             To genearate manufacturer Lead
             Modified By : Sadhana Upadhyay on 29 Dec 2015
@@ -1034,6 +1115,7 @@
             <param name="cityId"></param>
             <param name="versionId"></param>
             <returns></returns>
+            
         </member>
         <member name="T:Bikewale.Service.Controllers.Make.DealerMakesController">
             <summary>
@@ -1089,6 +1171,8 @@
             Created By : Sushil Kumar
             Created On : 5th December 2015
             Description : To push mobile notification to rabbitmq for processing queue
+            Modified by :   Sumit Kate on 04 Feb 2016
+            Description :   Send the alerts for all notification
             </summary>
             <returns></returns>
         </member>
@@ -1114,6 +1198,17 @@
         <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.Get(System.Int32)">
             <summary>
             To get complete Model Page with Specs,Features,description and Details
+            For the Specs and Features Default version selected is the one with maximum pricequotes
+            </summary>
+            <param name="modelId"></param>
+            <returns>Complete Model Page</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.Model.ModelPageController.GetV2(System.Int32)">
+            <summary>
+            Created by  :   Sumit Kate on 29 Jan 2016
+            Description :   This the new version of existing API.        
+            This returns the new dual tone colour with hexcodes(as list) 
+            along with complete Model Page with Specs,Features,description and Details
             For the Specs and Features Default version selected is the one with maximum pricequotes
             </summary>
             <param name="modelId"></param>
@@ -1176,6 +1271,16 @@
             <param name="cityId">City Id</param>
             <returns>Area List</returns>
         </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.Area.PQAreaListController.GetV2(System.UInt32,System.UInt32)">
+            <summary>
+            List of Price Quote Areas
+            Modified By : Sushil Kumar on 12th Feb 2016
+            Description : API versioning to send minimal area api data
+            </summary>
+            <param name="modelId">Model ID</param>
+            <param name="cityId">City Id</param>
+            <returns>Area List</returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.BikePQController">
             <summary>
             Bikewale Price Quote Controller
@@ -1200,6 +1305,13 @@
             </summary>
         </member>
         <member name="M:Bikewale.Service.Controllers.PriceQuote.City.PQCityListController.Get(System.UInt32)">
+            <summary>
+            Returns the Price Quote City List by Model Id
+            </summary>
+            <param name="modelId">Model Id. Should be Positive Integer</param>
+            <returns>List of Cities</returns>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.City.PQCityListController.GetV2(System.UInt32)">
             <summary>
             Returns the Price Quote City List by Model Id
             </summary>
@@ -1419,6 +1531,25 @@
             <param name="input">Entity contains the required details to get the price quote details</param>
             <returns></returns>
         </member>
+        <member name="T:Bikewale.Service.Controllers.PriceQuote.RegisterPQController">
+            <summary>
+            Created by  :   Sumit Kate on 08 Feb 2016
+            Description :   Register PQ
+            </summary>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.RegisterPQController.#ctor(Bikewale.Interfaces.PriceQuote.IPriceQuote)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="objIPQ"></param>
+        </member>
+        <member name="M:Bikewale.Service.Controllers.PriceQuote.RegisterPQController.Post(Bikewale.DTO.PriceQuote.PQInput)">
+            <summary>
+            Registers a new price quote
+            </summary>
+            <param name="input"></param>
+            <returns></returns>
+        </member>
         <member name="T:Bikewale.Service.Controllers.PriceQuote.UpdatePQController">
             <summary>
             Controller to update the PQ details
@@ -1484,6 +1615,14 @@
             </summary>
             <param name="modelId">model Id</param>
             <param name="cityId">city id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Bikewale.Service.AutoMappers.Model.ModelMapper.ConvertV2(Bikewale.Entities.BikeData.BikeModelPageEntity)">
+            <summary>
+            Created by  :   Sumit Kate on 29 Jan 2016
+            Description :   Converts the Model Page entity to Version 2 ModelPage DTO
+            </summary>
+            <param name="objModelPage">Mode Page Entity</param>
             <returns></returns>
         </member>
         <member name="T:Bikewale.Service.Controllers.Area.AreaListController">
@@ -2111,6 +2250,8 @@
             Description :   Register BikeCompareCacheRepository.
             Modified By :   Sumit Kate on 08 Dec 2015
             Description :   Register AppVersionRepository.
+            Modified By :   Sumit Kate on 05 Feb 2016
+            Description :   Register IBookingListing, BookingListingRepository
             </summary>
             <returns></returns>
         </member>

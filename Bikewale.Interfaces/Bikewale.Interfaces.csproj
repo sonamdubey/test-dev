@@ -93,6 +93,8 @@
     <Compile Include="UsedBikes\IPopularUsedBikesCacheRepository.cs" />
     <Compile Include="UserReviews\IUserReviews.cs" />
     <Compile Include="UsersTestimonial\IUsersTestimonial.cs" />
+    <Compile Include="Videos\IVideos.cs" />
+    <Compile Include="Videos\IVideosCacheRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

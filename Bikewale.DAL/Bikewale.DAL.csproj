@@ -81,6 +81,7 @@
     <Compile Include="UsedBikes\UsedBikesRepository.cs" />
     <Compile Include="UserReviews\UserReviewsRepository.cs" />
     <Compile Include="UsersTestimonial\UsersTestimonialRepository.cs" />
+    <Compile Include="Videos\VideosRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Bikewale.DAL.CoreDAL\Bikewale.DAL.CoreDAL.csproj">
