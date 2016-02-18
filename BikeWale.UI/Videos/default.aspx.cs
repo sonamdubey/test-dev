@@ -1,10 +1,4 @@
-﻿using Bikewale.Controls;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+﻿using System;
 
 namespace Bikewale.Videos
 {
@@ -13,6 +7,7 @@ namespace Bikewale.Videos
 
         protected Bikewale.Controls.Videos ctrlVideosLanding;
         protected Bikewale.Controls.VideoByCategory ctrlFirstRide, ctrlLaunchAlert;
+        protected Bikewale.Controls.ExpertReviewVideos ctrlExpertReview;
 
         protected override void OnInit(EventArgs e)
         {
@@ -29,6 +24,8 @@ namespace Bikewale.Videos
 
             ctrlFirstRide.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
             ctrlFirstRide.TotalRecords = 6;
+            ctrlExpertReview.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;
+            ctrlExpertReview.TotalRecords = 2;
             ctrlFirstRide.sectionTitle = "First Ride";
 
             ctrlLaunchAlert.CategoryId = Entities.Videos.EnumVideosCategory.FeaturedAndLatest;

@@ -14,6 +14,7 @@ namespace Bikewale.Interfaces.Videos
     public interface IVideos
     {
         IEnumerable<BikeVideoEntity> GetVideosByCategory(EnumVideosCategory categoryId, uint totalCount);
+        IEnumerable<BikeVideoEntity> GetSimilarVideos(uint videoBasicId, uint totalCount);
         //List<BikeVideoEntity> GetVideosByCategory(int startIndex, int endIndex, int makeId, int modelId, List<EnumCMSContentType> categoryIdList, out int recordCount);
     }
 }
